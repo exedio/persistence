@@ -94,4 +94,21 @@ final class Cluster_Jspm
 		<div>Ping sent.</div><%
 		}
 	}
+	
+	final static void writeBodyDisabled(final PrintStream out)
+	{
+		%>
+		<table>
+			<caption>Cluster Network</caption>
+			<tr>
+				<td class="text">
+					Cluster Network is not enabled for this model.
+					<br>
+					Use the cope property <tt>cluster</tt>
+					and the context property <tt>cluster.secret</tt>
+					to enable.
+				</td>
+			</td>
+		</table><%
+	}
 }%>

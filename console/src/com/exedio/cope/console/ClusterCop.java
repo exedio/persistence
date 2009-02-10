@@ -23,6 +23,7 @@ import java.io.PrintStream;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.util.ClusterListenerInfo;
 
 final class ClusterCop extends ConsoleCop
 {
@@ -62,6 +63,10 @@ final class ClusterCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		Cluster_Jspm.writeBody(this, out, model.getClusterListenerInfo(), donePing);
+		final ClusterListenerInfo listenerInfo = model.getClusterListenerInfo();
+		if(listenerInfo!=null)
+			Cluster_Jspm.writeBody(this, out, listenerInfo, donePing);
+		else
+			Cluster_Jspm.writeBodyDisabled(out);
 	}
 }
