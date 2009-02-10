@@ -44,7 +44,7 @@ public class ClusterTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties defaultProperties = new ConnectProperties();
+		final ConnectProperties defaultProperties = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 		final Properties.Source source = defaultProperties.getSourceObject();
 		Properties.Source context = null;
 		try
