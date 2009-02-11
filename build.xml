@@ -258,7 +258,11 @@
 	</target>
 
 	<target name="runtime.pattern.compile" depends="runtime.core.compile">
-		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes" />
+		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes">
+			<classpath>
+				<pathelement location="lib/exedio-cope-util.jar" />
+			</classpath>
+		</ljavac>
 	</target>
 	
 	<target name="runtime.servlet.jspm">
@@ -549,6 +553,7 @@
 		<ljavac srcdir="instrument/src" destdir="build/instrument/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 			</classpath>
@@ -578,6 +583,7 @@
 	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload.jar" />
@@ -603,6 +609,7 @@
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/instrument/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
