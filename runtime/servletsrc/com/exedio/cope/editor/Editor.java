@@ -83,6 +83,7 @@ public abstract class Editor implements Filter
 	
 	private FilterConfig config = null;
 	private boolean draftsEnabled = false;
+	private Target defaultTarget = TargetLive.INSTANCE;
 	private ConnectToken connectToken = null;
 	private final Object connectTokenLock = new Object();
 	
@@ -93,6 +94,7 @@ public abstract class Editor implements Filter
 			if(type==DraftItem.TYPE) // DraftItem implies Draft because of the parent field
 			{
 				draftsEnabled = true;
+				defaultTarget = TargetNewDraft.INSTANCE;
 				break;
 			}
 	}
@@ -410,9 +412,12 @@ public abstract class Editor implements Filter
 				: null;
 			final ArrayList<Target> targets = new ArrayList<Target>();
 			targets.add(TargetLive.INSTANCE);
-			for(final Draft draft : drafts)
-				targets.add(new TargetDraft(draft));
-			targets.add(TargetNewDraft.INSTANCE);
+			if(draftsEnabled)
+			{
+				for(final Draft draft : drafts)
+					targets.add(new TargetDraft(draft));
+				targets.add(TargetNewDraft.INSTANCE);
+			}
 			Preview_Jspm.writeOverview(
 					out,
 					request, response,
@@ -805,7 +810,7 @@ public abstract class Editor implements Filter
 				final Session session = login(user, password);
 				if(session!=null)
 				{
-					httpSession.setAttribute(ANCHOR, new Anchor(user, session, session.getName()));
+					httpSession.setAttribute(ANCHOR, new Anchor(defaultTarget, user, session, session.getName()));
 					redirectHome(request, response);
 				}
 				else
@@ -1117,15 +1122,15 @@ public abstract class Editor implements Filter
 			return;
 		
 		final HttpServletRequest request = tl.request;
-		final List<Draft> drafts =
-			tl.filter.draftsEnabled
-			? Draft.TYPE.search(null, Draft.date, true)
-			: null;
 		final ArrayList<Target> targets = new ArrayList<Target>();
 		targets.add(TargetLive.INSTANCE);
-		for(final Draft draft : drafts)
-			targets.add(new TargetDraft(draft));
-		targets.add(TargetNewDraft.INSTANCE);
+		if(tl.filter.draftsEnabled)
+		{
+			final List<Draft> drafts = Draft.TYPE.search(null, Draft.date, true);
+			for(final Draft draft : drafts)
+				targets.add(new TargetDraft(draft));
+			targets.add(TargetNewDraft.INSTANCE);
+		}
 		Bar_Jspm.write(out,
 				tl.anchor.getTarget(),
 				targets,

@@ -35,18 +35,22 @@ final class Anchor implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
+	private final Target defaultTarget;
 	final String user;
 	final Session session;
 	final String sessionName;
-	private Target target = TargetNewDraft.INSTANCE;
+	private Target target;
 	boolean borders = false;
 	final GetterSet<Modification> modifications = new GetterSet<Modification>();
 	
-	Anchor(final String user, final Session session, final String sessionName)
+	Anchor(final Target defaultTarget, final String user, final Session session, final String sessionName)
 	{
+		this.defaultTarget = defaultTarget;
 		this.user = user;
 		this.session = session;
 		this.sessionName = sessionName;
+		this.target = defaultTarget;
+		assert defaultTarget!=null;
 		assert user!=null;
 		assert session!=null;
 	}
@@ -54,7 +58,7 @@ final class Anchor implements Serializable // for session persistence
 	Target getTarget()
 	{
 		if(!target.exists())
-			target = TargetNewDraft.INSTANCE;
+			target = defaultTarget;
 		return target;
 	}
 	

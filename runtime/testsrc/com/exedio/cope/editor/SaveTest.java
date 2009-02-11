@@ -46,7 +46,7 @@ public class SaveTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new DraftedItem());
 		draft = deleteOnTearDown(new Draft("user", "name", "comment"));
 		item.setString("oldString1");
-		anchor = new Anchor("anchorUser", SESSION, "anchorSessionName");
+		anchor = new Anchor(TargetNewDraft.INSTANCE, "anchorUser", SESSION, "anchorSessionName");
 		anchor.modify("newString1", DraftedItem.string, item);
 	}
 	
