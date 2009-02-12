@@ -5,6 +5,6 @@
 	<import file="getlib/getlib-contrib.xml"/>
 
 	<!-- the project uses several mysql libraries directly -->
-	<target name="getlib" depends="hsqldb, trove, cojen, bsh-core, exedio-cope-util, exedio-cops, exedio-jspm" />
+	<target name="getlib" depends="hsqldb, trove, cojen, bsh-core, commons-io, commons-fileupload, exedio-cope-util, exedio-cops, exedio-jspm" />
 	
 </project>
