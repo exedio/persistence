@@ -4,5 +4,3 @@ TODO for cope instrument
 - use annotations instead of javadoc tags (such as @cope.initial)
 - localized generated comments
 - instrumentation for modified files only
-- add tag for features, that completely ignores that feature in instrumentor
-	* useful as a fast workaround for instrumentor bugs
