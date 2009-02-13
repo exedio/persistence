@@ -26,7 +26,7 @@ TODO for cope runtime
 - Editor:
 	* resolve conflicts when publishing modifications/drafts
 	* preview for thumbnails
-	* provide constants for urls/css classes etc
+	* provide constants for css classes etc
 	* let filter provide icons for editor bar
 	* let filter provide css/icons as external resources
 - Hash:
