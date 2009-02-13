@@ -43,7 +43,7 @@ final class EditedServlet_Jspm
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=EditedServlet.ENCODING%>">
 		<title>Live Edit Test</title><%
-		if(Editor.isLoggedIn())
+		if(Editor.isBordersEnabled())
 		{
 		%>
 		<style type="text/css">
