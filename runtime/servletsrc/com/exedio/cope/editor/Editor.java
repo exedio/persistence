@@ -160,7 +160,7 @@ public abstract class Editor implements Filter
 		
 		final HttpServletRequest request = (HttpServletRequest)servletRequest;
 		
-		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
+		if(LOGIN_PATH_INFO.equals(request.getPathInfo()))
 		{
 			servletRequest.setCharacterEncoding(UTF8);
 			final HttpServletResponse response = (HttpServletResponse)servletResponse;
@@ -787,7 +787,7 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String LOGIN_URL = "copeLiveEdit.html";
-	static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
+	static final String LOGIN_PATH_INFO = '/' + LOGIN_URL;
 	static final String LOGIN_SUBMIT   = "login.submit";
 	static final String LOGIN_USER     = "login.user";
 	static final String LOGIN_PASSWORD = "login.password";
@@ -1153,7 +1153,7 @@ public abstract class Editor implements Filter
 	
 	private static final String action(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		return response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO);
+		return response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_PATH_INFO);
 	}
 	
 	private static final String referer(final HttpServletRequest request)

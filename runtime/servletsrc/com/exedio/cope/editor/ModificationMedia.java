@@ -57,7 +57,7 @@ final class ModificationMedia extends Modification
 			request.getContextPath() +
 			request.getServletPath() +
 			response.encodeURL(
-					Editor.LOGIN_URL_PATH_INFO +
+					Editor.LOGIN_PATH_INFO +
 					'?' + Editor.MEDIA_FEATURE + '=' + getFeature().getID() +
 					'&' + Editor.MEDIA_ITEM + '=' + item.getCopeID());
 	}
