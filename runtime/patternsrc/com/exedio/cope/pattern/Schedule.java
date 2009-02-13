@@ -38,6 +38,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Schedule extends Pattern

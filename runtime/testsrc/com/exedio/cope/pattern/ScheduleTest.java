@@ -32,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
+import com.exedio.cope.util.Interrupter;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {

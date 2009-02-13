@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Dispatcher.Failure;
+import com.exedio.cope.util.Interrupter;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {

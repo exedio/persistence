@@ -27,6 +27,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
+import com.exedio.cope.util.Interrupter;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {

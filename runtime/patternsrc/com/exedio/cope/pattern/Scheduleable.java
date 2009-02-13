@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
+import com.exedio.cope.util.Interrupter;
+
 public interface Scheduleable
 {
 	public void run(Schedule schedule, Date from, Date until, Interrupter interrupter);
