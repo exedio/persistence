@@ -886,6 +886,12 @@ public abstract class Editor implements Filter
 		return tls.get()!=null;
 	}
 	
+	public static final boolean isBordersEnabled()
+	{
+		final TL tl = tls.get();
+		return tl!=null && tl.anchor.borders;
+	}
+	
 	public static final Session getSession()
 	{
 		final TL tl = tls.get();
