@@ -42,7 +42,6 @@ import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
-import com.exedio.cops.Resource;
 import com.exedio.dsmf.SQLRuntimeException;
 
 public class InitServlet extends CopsServlet
