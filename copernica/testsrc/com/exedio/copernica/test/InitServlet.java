@@ -49,9 +49,6 @@ public class InitServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	// For ResourceTest.
-	static final Resource stylesheet = new Resource("resource-test.txt");
-	
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
