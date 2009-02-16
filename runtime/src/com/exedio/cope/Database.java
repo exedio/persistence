@@ -648,9 +648,9 @@ final class Database
 					throw new NoSuchItemException(item);
 
 				int columnIndex = 1;
-				for(Type itype = type; itype!=null; itype = itype.supertype)
+				for(Type superType = type; superType!=null; superType = superType.supertype)
 				{
-					for(final Column column : itype.getTable().getColumns())
+					for(final Column column : superType.getTable().getColumns())
 					{
 						if(!(column instanceof BlobColumn))
 							column.load(resultSet, columnIndex++, row);
