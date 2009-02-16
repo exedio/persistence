@@ -100,11 +100,6 @@ final class Database
 		this.supportsSequences = driver.supportsSequences();
 	}
 	
-	Driver getDriver()
-	{
-		return driver;
-	}
-	
 	java.util.Properties getTableOptions()
 	{
 		return tableOptions;

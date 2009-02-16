@@ -172,6 +172,6 @@ public class NameTest extends AbstractRuntimeTest
 	
 	private final String p(final String name)
 	{
-		return model.getDatabase().getDriver().protectName(name);
+		return model.getDatabase().driver.protectName(name);
 	}
 }
