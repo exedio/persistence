@@ -583,7 +583,7 @@ final class Database
 		
 		final Type type = state.type;
 
-		listener.load(connection, state);
+		listener.load(connection, state.item);
 		
 		final Statement bf = createStatement(type.supertype!=null);
 		bf.append("select ");
@@ -1713,7 +1713,7 @@ final class Database
 	
 	private static final DatabaseListener noopListener = new DatabaseListener()
 	{
-		public void load(Connection connection, WrittenState state)
+		public void load(Connection connection, Item item)
 		{/* DOES NOTHING */}
 		
 		public void search(Connection connection, Query query, boolean totalOnly)

@@ -32,11 +32,11 @@ public class ExpectingDatabaseListener implements DatabaseListener
 {
 	private List<Call> expectedCalls = null;
 	
-	public void load(Connection connection, WrittenState state)
+	public void load(Connection connection, Item item)
 	{
 		if ( expectedCalls!=null )
 		{
-			nextExpectedCall().checkLoad( connection, state );
+			nextExpectedCall().checkLoad(connection, item);
 		}
 	}
 
@@ -110,9 +110,9 @@ public class ExpectingDatabaseListener implements DatabaseListener
 		
 		/**
 		 * @param connection used in subclasses
-		 * @param state used in subclasses
+		 * @param item used in subclasses
 		 */
-		void checkLoad(Connection connection, WrittenState state)
+		void checkLoad(Connection connection, Item item)
 		{
 			throw new RuntimeException( "load in "+toString() );
 		}
@@ -146,12 +146,12 @@ public class ExpectingDatabaseListener implements DatabaseListener
 		}
 		
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final WrittenState state)
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final Item item)
 		{
 			checkConnection( connection );
-			if ( !item.equals(state.item) )
+			if ( !this.item.equals(item) )
 			{
-				throw new RuntimeException( "item mismatch in "+toString()+" (got "+state.item.getCopeID()+")" );
+				throw new RuntimeException( "item mismatch in "+toString()+" (got "+item.getCopeID()+")" );
 			}
 		}
 		
