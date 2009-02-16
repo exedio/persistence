@@ -90,5 +90,22 @@ public class CachedViewTest extends AbstractRuntimeTest
 		assertEquals(null, item.locale.get());
 		assertEquals(4, item.locale.maps);
 		assertEquals(0, item2.locale.maps);
+		
+		final CachedViewItem items = reserialize(item, 110);
+		assertEquals(item, items);
+		assertNotSame(item, items);
+		assertEquals(4, item.locale.maps);
+		assertEquals(null, items.locale); // TODO
+		assertEquals(0, item2.locale.maps);
+
+		assertEquals(null, item.locale.get());
+		assertEquals(4, item.locale.maps);
+		assertEquals(null, items.locale); // TODO
+		assertEquals(0, item2.locale.maps);
+
+		assertEquals(null, item.locale.get());
+		assertEquals(4, item.locale.maps);
+		assertEquals(null, items.locale); // TODO
+		assertEquals(0, item2.locale.maps);
 	}
 }
