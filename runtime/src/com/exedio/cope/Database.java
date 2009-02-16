@@ -587,9 +587,9 @@ final class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type type = state.type; type!=null; type = type.supertype)
+		for(Type superType = state.type; superType!=null; superType = superType.supertype)
 		{
-			for(final Column column : type.getTable().getColumns())
+			for(final Column column : superType.getTable().getColumns())
 			{
 				if(!(column instanceof BlobColumn))
 				{
@@ -611,29 +611,29 @@ final class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type type = state.type; type!=null; type = type.supertype)
+		for(Type superType = state.type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(',');
 
-			bf.append(type.getTable().protectedID);
+			bf.append(superType.getTable().protectedID);
 		}
 			
 		bf.append(" where ");
 		first = true;
-		for(Type type = state.type; type!=null; type = type.supertype)
+		for(Type superType = state.type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(" and ");
 
-			bf.appendPK(type, (Join)null).
+			bf.appendPK(superType, (Join)null).
 				append('=').
 				appendParameter(state.pk).
-				appendTypeCheck(type.getTable(), state.type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
+				appendTypeCheck(superType.getTable(), state.type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 			
 		//System.out.println(bf.toString());
