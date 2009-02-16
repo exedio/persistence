@@ -52,14 +52,6 @@ abstract class Column
 	
 	abstract String getDatabaseType();
 	
-	final StringColumn getTypeColumn()
-	{
-		if(!primaryKey)
-			throw new RuntimeException(id);
-		
-		return table.typeColumn;
-	}
-
 	abstract String getCheckConstraintIfNotNull();
 	String getCheckConstraintIfNull()
 	{

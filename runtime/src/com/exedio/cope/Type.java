@@ -1066,7 +1066,7 @@ public final class Type<C extends Item>
 			assert column.primaryKey;
 			columnHolder.value = column;
 			
-			final StringColumn typeColumn = column.getTypeColumn();
+			final StringColumn typeColumn = column.table.typeColumn;
 			if(typeColumn!=null)
 			{
 				bf.append(',').
