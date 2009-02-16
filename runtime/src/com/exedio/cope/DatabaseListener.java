@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-public interface DatabaseListener
+interface DatabaseListener
 {
 	void load(Connection connection, Item item);
 	void search(Connection connection, Query query, boolean totalOnly);
