@@ -27,7 +27,6 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(CachedViewTest.class);
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
