@@ -54,9 +54,7 @@ final class Table
 		database.addTable(this);
 	}
 	
-	private ArrayList<Column> columnsModifiable = new ArrayList<Column>();
 	private List<Column> columns = null;
-	
 	private List<Column> allColumnsModifiable = new ArrayList<Column>();
 	private List<Column> allColumns = null;
 
@@ -110,10 +108,6 @@ final class Table
 
 	void addColumn(final Column column)
 	{
-		// TODO dont use TYPE_COLUMN_NAME
-		if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
-			columnsModifiable.add(column);
-		
 		allColumnsModifiable.add(column);
 	}
 	
@@ -168,9 +162,16 @@ final class Table
 	
 	final void finish()
 	{
-		columns = Collections.unmodifiableList(columnsModifiable);
+		final ArrayList<Column> columns = new ArrayList<Column>();
+		for(final Column column : allColumnsModifiable)
+		{
+			// TODO dont use TYPE_COLUMN_NAME
+			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
+				columns.add(column);
+		}
+		
+		this.columns = Collections.unmodifiableList(columns);
 		allColumns = Collections.unmodifiableList(allColumnsModifiable);
-		columnsModifiable = null;
 		allColumnsModifiable = null;
 	}
 	
