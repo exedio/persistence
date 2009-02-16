@@ -580,14 +580,16 @@ final class Database
 	void load(final Connection connection, final WrittenState state)
 	{
 		buildStage = false;
+		
+		final Type type = state.type;
 
 		listener.load(connection, state);
 		
-		final Statement bf = createStatement(state.type.supertype!=null);
+		final Statement bf = createStatement(type.supertype!=null);
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type superType = state.type; superType!=null; superType = superType.supertype)
+		for(Type superType = type; superType!=null; superType = superType.supertype)
 		{
 			for(final Column column : superType.getTable().getColumns())
 			{
@@ -606,12 +608,12 @@ final class Database
 		if(first)
 		{
 			// no columns in type
-			bf.appendPK(state.type, (Join)null);
+			bf.appendPK(type, (Join)null);
 		}
 
 		bf.append(" from ");
 		first = true;
-		for(Type superType = state.type; superType!=null; superType = superType.supertype)
+		for(Type superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
@@ -623,7 +625,7 @@ final class Database
 			
 		bf.append(" where ");
 		first = true;
-		for(Type superType = state.type; superType!=null; superType = superType.supertype)
+		for(Type superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
@@ -633,7 +635,7 @@ final class Database
 			bf.appendPK(superType, (Join)null).
 				append('=').
 				appendParameter(state.pk).
-				appendTypeCheck(superType.getTable(), state.type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
+				appendTypeCheck(superType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 			
 		//System.out.println(bf.toString());
