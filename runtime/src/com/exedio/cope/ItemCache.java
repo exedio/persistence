@@ -70,7 +70,7 @@ final class ItemCache
 		
 		if ( state==null )
 		{
-			state = new WrittenState(connectionSource.getConnection(), item);
+			state = item.type.getModel().getDatabase().load(connectionSource.getConnection(), item);
 
 			if(cachlet!=null)
 				cachlet.put(state);

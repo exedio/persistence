@@ -18,22 +18,18 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Map;
 
-final class WrittenState extends State implements Database.ResultSetHandler<Void>
+final class WrittenState extends State
 {
 	
 	private final Row row;
 	private long lastUsageMillis;
 	
-	WrittenState(final Connection connection, final Item item)
+	WrittenState(final Item item, final Row row)
 	{
 		super( item );
-		row = new Row();
-		type.getModel().getDatabase().load( connection, this );
+		this.row = row;
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
@@ -90,25 +86,6 @@ final class WrittenState extends State implements Database.ResultSetHandler<Void
 	boolean exists()
 	{
 		return true;
-	}
-	
-	// implementation of ResultSetHandler
-	public Void handle(final ResultSet resultSet) throws SQLException
-	{
-		if(!resultSet.next())
-			throw new NoSuchItemException(item);
-
-		int columnIndex = 1;
-		for(Type itype = type; itype!=null; itype = itype.supertype)
-		{
-			for(final Column column : itype.getTable().getColumns())
-			{
-				if(!(column instanceof BlobColumn))
-					column.load(resultSet, columnIndex++, row);
-			}
-		}
-		
-		return null;
 	}
 	
 	void notifyUsed()

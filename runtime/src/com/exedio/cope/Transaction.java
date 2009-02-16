@@ -132,7 +132,7 @@ public final class Transaction
 			{
 				if ( isInvalidated(item) )
 				{
-					state = new WrittenState(this.getConnection(), item);
+					state = item.type.getModel().getDatabase().load(this.getConnection(), item);
 				}
 				else
 				{

@@ -577,13 +577,13 @@ final class Database
 		return result;
 	}
 	
-	void load(final Connection connection, final WrittenState state)
+	WrittenState load(final Connection connection, final Item item)
 	{
 		buildStage = false;
 		
-		final Type type = state.type;
+		final Type type = item.type;
 
-		listener.load(connection, state.item);
+		listener.load(connection, item);
 		
 		final Statement bf = createStatement(type.supertype!=null);
 		bf.append("select ");
@@ -634,12 +634,34 @@ final class Database
 
 			bf.appendPK(superType, (Join)null).
 				append('=').
-				appendParameter(state.pk).
+				appendParameter(item.pk).
 				appendTypeCheck(superType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 			
 		//System.out.println(bf.toString());
-		executeSQLQuery(connection, bf, null, false, state);
+		final Row row = new Row();
+		executeSQLQuery(connection, bf, null, false, new Database.ResultSetHandler<Void>()
+		{
+			public Void handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new NoSuchItemException(item);
+
+				int columnIndex = 1;
+				for(Type itype = type; itype!=null; itype = itype.supertype)
+				{
+					for(final Column column : itype.getTable().getColumns())
+					{
+						if(!(column instanceof BlobColumn))
+							column.load(resultSet, columnIndex++, row);
+					}
+				}
+				
+				return null;
+			}
+		});
+		
+		return new WrittenState(item, row);
 	}
 
 	void store(
