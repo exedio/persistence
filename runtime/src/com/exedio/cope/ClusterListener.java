@@ -332,11 +332,7 @@ final class ClusterListener implements Runnable
 					address, port,
 					ping, toDate(pingLast),
 					pong, toDate(pongLast),
-					sequenceChecker.getCountInOrder(),
-					sequenceChecker.getCountOutOfOrder(),
-					sequenceChecker.getCountDuplicate(),
-					sequenceChecker.getCountLost(),
-					sequenceChecker.getCountLate());
+					sequenceChecker.getCounter());
 		}
 	}
 	

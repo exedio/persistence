@@ -24,6 +24,7 @@ import static com.exedio.cope.console.Format.format;
 import java.io.PrintStream;
 
 import com.exedio.cope.util.ClusterListenerInfo;
+import com.exedio.cope.util.SequenceChecker;
 
 final class Cluster_Jspm
 {
@@ -68,6 +69,7 @@ final class Cluster_Jspm
 			
 			for(final ClusterListenerInfo.Node node : listenerInfo.getNodes())
 			{
+				final SequenceChecker.Counter ic = node.getInvalidateCounter();
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
@@ -78,11 +80,11 @@ final class Cluster_Jspm
 				<td><%=format(node.getPingLast())%></td>
 				<td><%=format(node.getPong())%></td>
 				<td><%=format(node.getPongLast())%></td>
-				<td><%=format(node.getInvalidateInOrder())%></td>
-				<td><%=format(node.getInvalidateOutOfOrder())%></td>
-				<td><%=format(node.getInvalidateDuplicate())%></td>
-				<td><%=format(node.getInvalidateLost())%></td>
-				<td><%=format(node.getInvalidateLate())%></td>
+				<td><%=format(ic.getInOrder())%></td>
+				<td><%=format(ic.getOutOfOrder())%></td>
+				<td><%=format(ic.getDuplicate())%></td>
+				<td><%=format(ic.getLost())%></td>
+				<td><%=format(ic.getLate())%></td>
 			</tr><%
 			}
 			%>

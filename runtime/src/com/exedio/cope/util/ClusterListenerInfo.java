@@ -80,11 +80,7 @@ public final class ClusterListenerInfo
 		private final Date pingLast;
 		private final long pong;
 		private final Date pongLast;
-		private final int invalidateInOrder;
-		private final int invalidateOutOfOrder;
-		private final int invalidateDuplicate;
-		private final int invalidateLost;
-		private final int invalidateLate;
+		private final SequenceChecker.Counter invalidateCounter;
 		
 		public Node(
 				final int id,
@@ -95,11 +91,7 @@ public final class ClusterListenerInfo
 				final Date pingLast,
 				final long pong,
 				final Date pongLast,
-				final int invalidateInOrder,
-				final int invalidateOutOfOrder,
-				final int invalidateDuplicate,
-				final int invalidateLost,
-				final int invalidateLate)
+				final SequenceChecker.Counter invalidateCounter)
 		{
 			this.id = id;
 			this.firstEncounter = firstEncounter;
@@ -109,26 +101,14 @@ public final class ClusterListenerInfo
 			this.pingLast = pingLast;
 			this.pong = pong;
 			this.pongLast = pongLast;
-			this.invalidateInOrder    = invalidateInOrder;
-			this.invalidateOutOfOrder = invalidateOutOfOrder;
-			this.invalidateDuplicate  = invalidateDuplicate;
-			this.invalidateLost       = invalidateLost;
-			this.invalidateLate       = invalidateLate;
+			this.invalidateCounter = invalidateCounter;
 			
 			if(ping<0)
 				throw new IllegalArgumentException();
 			if(pong<0)
 				throw new IllegalArgumentException();
-			if(invalidateInOrder<0)
-				throw new IllegalArgumentException();
-			if(invalidateOutOfOrder<0)
-				throw new IllegalArgumentException();
-			if(invalidateDuplicate<0)
-				throw new IllegalArgumentException();
-			if(invalidateLost<0)
-				throw new IllegalArgumentException();
-			if(invalidateLate<0)
-				throw new IllegalArgumentException();
+			if(invalidateCounter==null)
+				throw new NullPointerException();
 		}
 		
 		public int getID()
@@ -171,35 +151,15 @@ public final class ClusterListenerInfo
 			return pongLast;
 		}
 		
-		public int getInvalidateInOrder()
+		public SequenceChecker.Counter getInvalidateCounter()
 		{
-			return invalidateInOrder;
-		}
-
-		public int getInvalidateOutOfOrder()
-		{
-			return invalidateOutOfOrder;
-		}
-
-		public int getInvalidateDuplicate()
-		{
-			return invalidateDuplicate;
-		}
-
-		public int getInvalidateLost()
-		{
-			return invalidateLost;
-		}
-
-		public int getInvalidateLate()
-		{
-			return invalidateLate;
+			return invalidateCounter;
 		}
 		
 		@Override
 		public String toString()
 		{
-			return String.valueOf(id) + '/' + ping + '/' + pong + '/' + invalidateInOrder + '/' + invalidateOutOfOrder;
+			return String.valueOf(id) + '/' + ping + '/' + pong;
 		}
 	}
 }
