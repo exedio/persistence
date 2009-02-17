@@ -154,14 +154,12 @@ final class ClusterListener implements Runnable
 				final int sequence = unmarshal(pos, buf);
 				pos += 4;
 				
-				final String m = ping ? "invalid ping" : "invalid pong";
-				
 				if(length!=config.packetSize)
-					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
+					throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
 				for(; pos<length; pos++)
 				{
 					if(config.pingPayload[pos]!=buf[pos])
-						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
+						throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
 				if(node(node, packet).pingPong(ping, sequence))
