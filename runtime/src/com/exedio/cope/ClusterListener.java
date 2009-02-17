@@ -297,11 +297,8 @@ final class ClusterListener implements Runnable
 		final long firstEncounter;
 		final InetAddress address;
 		final int port;
-		volatile long ping = 0;
-		volatile long pong = 0;
-		volatile long pingLast = Long.MIN_VALUE;
-		volatile long pongLast = Long.MIN_VALUE;
-		final SequenceChecker pingPongSequenceChecker;
+		final SequenceChecker pingSequenceChecker;
+		final SequenceChecker pongSequenceChecker;
 		final SequenceChecker invalidateSequenceChecker;
 		
 		Node(final int id, final DatagramPacket packet, final boolean log)
@@ -310,7 +307,8 @@ final class ClusterListener implements Runnable
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
-			this.pingPongSequenceChecker = new SequenceChecker(200);
+			this.pingSequenceChecker = new SequenceChecker(200);
+			this.pongSequenceChecker = new SequenceChecker(200);
 			this.invalidateSequenceChecker = new SequenceChecker(200);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
@@ -318,28 +316,12 @@ final class ClusterListener implements Runnable
 		
 		boolean pingPong(final boolean ping, final int sequence)
 		{
-			final long now = System.currentTimeMillis();
-			if(ping)
-			{
-				this.ping++;
-				this.pingLast = now;
-			}
-			else
-			{
-				this.pong++;
-				this.pongLast = now;
-			}
-			return pingPongSequenceChecker.check(sequence);
+			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
 		}
 		
 		boolean invalidate(final int sequence)
 		{
 			return invalidateSequenceChecker.check(sequence);
-		}
-		
-		private static final Date toDate(final long date)
-		{
-			return date!=Long.MIN_VALUE ? new Date(date) : null;
 		}
 		
 		ClusterListenerInfo.Node getInfo()
@@ -348,9 +330,8 @@ final class ClusterListener implements Runnable
 					id,
 					new Date(firstEncounter), 
 					address, port,
-					ping, toDate(pingLast),
-					pong, toDate(pongLast),
-					pingPongSequenceChecker.getCounter(),
+					pingSequenceChecker.getCounter(),
+					pongSequenceChecker.getCounter(),
 					invalidateSequenceChecker.getCounter());
 		}
 	}

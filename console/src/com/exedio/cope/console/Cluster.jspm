@@ -49,18 +49,14 @@ final class Cluster_Jspm
 				<th rowspan="2">ID</th>
 				<th rowspan="2">First<br>Encounter</th>
 				<th colspan="2">From</th>
-				<th colspan="2">Ping</th>
-				<th colspan="2">Pong</th>
-				<th colspan="5">Ping/Pong</th>
+				<th colspan="5">Ping</th>
+				<th colspan="5">Pong</th>
 				<th colspan="5">Invalidate</th>
 			</tr>
 			<tr>
 				<th>Address</th>
-				<th>Port</th>
-				<th>#</th>
-				<th>Last</th>
-				<th>#</th>
-				<th>Last</th><%
+				<th>Port</th><%
+				writeSequenceCheckerHead(out);
 				writeSequenceCheckerHead(out);
 				writeSequenceCheckerHead(out);
 				%>
@@ -73,12 +69,9 @@ final class Cluster_Jspm
 				<td><%=node.getID()%></td>
 				<td><%=format(node.getFirstEncounter())%></td>
 				<td><%=node.getAddress()%></td>
-				<td><%=node.getPort()%></td>
-				<td><%=format(node.getPing())%></td>
-				<td><%=format(node.getPingLast())%></td>
-				<td><%=format(node.getPong())%></td>
-				<td><%=format(node.getPongLast())%></td><%
-				write(out, node.getPingPongCounter());
+				<td><%=node.getPort()%></td><%
+				write(out, node.getPingCounter());
+				write(out, node.getPongCounter());
 				write(out, node.getInvalidateCounter());
 				%>
 			</tr><%

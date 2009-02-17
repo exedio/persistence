@@ -76,11 +76,8 @@ public final class ClusterListenerInfo
 		final Date firstEncounter;
 		private final InetAddress address;
 		private final int port;
-		private final long ping;
-		private final Date pingLast;
-		private final long pong;
-		private final Date pongLast;
-		private final SequenceChecker.Counter pingPongCounter;
+		private final SequenceChecker.Counter pingCounter;
+		private final SequenceChecker.Counter pongCounter;
 		private final SequenceChecker.Counter invalidateCounter;
 		
 		public Node(
@@ -88,29 +85,21 @@ public final class ClusterListenerInfo
 				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
-				final long ping,
-				final Date pingLast,
-				final long pong,
-				final Date pongLast,
-				final SequenceChecker.Counter pingPongCounter,
+				final SequenceChecker.Counter pingCounter,
+				final SequenceChecker.Counter pongCounter,
 				final SequenceChecker.Counter invalidateCounter)
 		{
 			this.id = id;
 			this.firstEncounter = firstEncounter;
 			this.address = address;
 			this.port = port;
-			this.ping = ping;
-			this.pingLast = pingLast;
-			this.pong = pong;
-			this.pongLast = pongLast;
-			this.pingPongCounter = pingPongCounter;
+			this.pingCounter = pingCounter;
+			this.pongCounter = pongCounter;
 			this.invalidateCounter = invalidateCounter;
 			
-			if(ping<0)
-				throw new IllegalArgumentException();
-			if(pong<0)
-				throw new IllegalArgumentException();
-			if(pingPongCounter==null)
+			if(pingCounter==null)
+				throw new NullPointerException();
+			if(pongCounter==null)
 				throw new NullPointerException();
 			if(invalidateCounter==null)
 				throw new NullPointerException();
@@ -136,29 +125,14 @@ public final class ClusterListenerInfo
 			return port;
 		}
 		
-		public long getPing()
+		public SequenceChecker.Counter getPingCounter()
 		{
-			return ping;
+			return pingCounter;
 		}
 		
-		public Date getPingLast()
+		public SequenceChecker.Counter getPongCounter()
 		{
-			return pingLast;
-		}
-		
-		public long getPong()
-		{
-			return pong;
-		}
-
-		public Date getPongLast()
-		{
-			return pongLast;
-		}
-		
-		public SequenceChecker.Counter getPingPongCounter()
-		{
-			return pingPongCounter;
+			return pongCounter;
 		}
 		
 		public SequenceChecker.Counter getInvalidateCounter()
@@ -169,7 +143,7 @@ public final class ClusterListenerInfo
 		@Override
 		public String toString()
 		{
-			return String.valueOf(id) + '/' + ping + '/' + pong;
+			return String.valueOf(id);
 		}
 	}
 }
