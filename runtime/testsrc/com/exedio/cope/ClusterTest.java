@@ -532,13 +532,13 @@ public class ClusterTest extends CopeAssert
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // sequence
-				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
-				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
-				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
-				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 24 fillup
+				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 28 fillup
+				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 32 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 36 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 		
 		assertEquals(
 				"PING",
@@ -645,13 +645,13 @@ public class ClusterTest extends CopeAssert
 					(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 					(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 					(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
-					count++,    (byte)0,    (byte)0,    (byte)0,        // sequence
-					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
-					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
-					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
-					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
-					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+					count++,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 24 fillup
+					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 28 fillup
+					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 32 fillup
+					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 36 fillup
+					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
+					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 		}
 		
 		sink.clear();
@@ -683,13 +683,13 @@ public class ClusterTest extends CopeAssert
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0x02, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=pong
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // sequence
-				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
-				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
-				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
-				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 24 fillup
+				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 28 fillup
+				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 32 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 36 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 		
 		assertEquals(
 				"PONG",
