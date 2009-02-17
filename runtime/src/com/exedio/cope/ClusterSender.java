@@ -37,8 +37,7 @@ final class ClusterSender
 	private static final int PROLOG_SIZE = 12;
 	private final byte[] prolog;
 	
-	private int sequenceCount = 0;
-	private final Object sequenceLock = new Object();
+	private Sequence invalidationSequence = new Sequence();
 	
 	ArrayList<byte[]> testSink = null;
 	
@@ -100,14 +99,6 @@ final class ClusterSender
 			send(config.packetSize, buf, new TIntHashSet[]{});
 	}
 	
-	private int nextSequence()
-	{
-		synchronized(sequenceLock)
-		{
-			return sequenceCount++;
-		}
-	}
-	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int length;
@@ -127,7 +118,7 @@ final class ClusterSender
 		{
 			int pos = PROLOG_SIZE;
 			
-			pos = marshal(pos, buf, nextSequence());
+			pos = marshal(pos, buf, invalidationSequence.next());
 			
 			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 			{
@@ -212,5 +203,24 @@ final class ClusterSender
 	void close()
 	{
 		socket.close();
+	}
+	
+	private static final class Sequence
+	{
+		private int count = 0;
+		private final Object lock = new Object();
+		
+		Sequence()
+		{
+			// just make constructor package private
+		}
+		
+		int next()
+		{
+			synchronized(lock)
+			{
+				return count++;
+			}
+		}
 	}
 }
