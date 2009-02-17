@@ -195,7 +195,29 @@ final class ClusterListener implements Runnable
 					break;
 				}
 			
-				final TIntHashSet[] invalidations = handleInvalidation(pos, buf, length);
+				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
+				outer: while(pos<length)
+				{
+					final int typeIdTransiently = unmarshal(pos, buf);
+					pos += 4;
+					
+					final TIntHashSet set = new TIntHashSet();
+					invalidations[typeIdTransiently] = set;
+					inner: while(true)
+					{
+						if(pos>=length)
+							break outer;
+						
+						final int pk = unmarshal(pos, buf);
+						pos += 4;
+						
+						if(pk==PK.NaPK)
+							break inner;
+						
+						set.add(pk);
+					}
+				}
+				
 				if(testSink!=null)
 				{
 					testSink.add(invalidations);
@@ -210,33 +232,6 @@ final class ClusterListener implements Runnable
 			default:
 				throw new RuntimeException("illegal kind: " + kind);
 		}
-	}
-	
-	private TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length)
-	{
-		final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
-		while(pos<length)
-		{
-			final int typeIdTransiently = unmarshal(pos, buf);
-			pos += 4;
-			
-			final TIntHashSet set = new TIntHashSet();
-			invalidations[typeIdTransiently] = set;
-			while(true)
-			{
-				if(pos>=length)
-					return invalidations;
-				
-				final int pk = unmarshal(pos, buf);
-				pos += 4;
-				
-				if(pk==PK.NaPK)
-					break;
-				
-				set.add(pk);
-			}
-		}
-		return invalidations;
 	}
 	
 	static int unmarshal(int pos, final byte[] buf)
