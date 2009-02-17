@@ -93,7 +93,10 @@ final class ClusterListener implements Runnable
 			catch(SocketException e)
 			{
 				if(threadRun)
+				{
+					exception++;
 					e.printStackTrace();
+				}
 				else
 				{
 					if(log)
