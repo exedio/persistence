@@ -214,18 +214,18 @@ final class ClusterListener implements Runnable
 	
 	private TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length)
 	{
-		final TIntHashSet[] result = new TIntHashSet[typeLength];
+		final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
 		while(pos<length)
 		{
 			final int typeIdTransiently = unmarshal(pos, buf);
 			pos += 4;
 			
 			final TIntHashSet set = new TIntHashSet();
-			result[typeIdTransiently] = set;
+			invalidations[typeIdTransiently] = set;
 			while(true)
 			{
 				if(pos>=length)
-					return result;
+					return invalidations;
 				
 				final int pk = unmarshal(pos, buf);
 				pos += 4;
@@ -236,7 +236,7 @@ final class ClusterListener implements Runnable
 				set.add(pk);
 			}
 		}
-		return result;
+		return invalidations;
 	}
 	
 	static int unmarshal(int pos, final byte[] buf)
