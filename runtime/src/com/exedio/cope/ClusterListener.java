@@ -212,7 +212,7 @@ final class ClusterListener implements Runnable
 		}
 	}
 	
-	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length)
+	private TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length)
 	{
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)
