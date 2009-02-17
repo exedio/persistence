@@ -125,6 +125,7 @@ final class ClusterSender
 	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
+		final int packetSize = config.packetSize;
 		final int length;
 		{
 			int pos = 0;
@@ -133,7 +134,7 @@ final class ClusterSender
 					pos += 2 + invalidation.size();
 			length = INVALIDATE_TEMPLATE_SIZE + 8 + (pos << 2);
 		}
-		final byte[] buf = new byte[Math.min(length, config.packetSize)];
+		final byte[] buf = new byte[Math.min(length, packetSize)];
 		System.arraycopy(invalidateTemplate, 0, buf, 0, INVALIDATE_TEMPLATE_SIZE);
 		
 		int typeIdTransiently = 0;
@@ -155,7 +156,7 @@ final class ClusterSender
 				final TIntHashSet invalidation = invalidations[typeIdTransiently];
 				if(invalidation!=null)
 				{
-					if(pos>=config.packetSize)
+					if(pos>=packetSize)
 					{
 						send(pos, buf);
 						continue packetLoop;
@@ -166,7 +167,7 @@ final class ClusterSender
 						i = invalidation.iterator();
 					while(i.hasNext())
 					{
-						if(pos>=config.packetSize)
+						if(pos>=packetSize)
 						{
 							send(pos, buf);
 							continue packetLoop;
@@ -174,7 +175,7 @@ final class ClusterSender
 						pos = marshal(pos, buf, i.next());
 					}
 					
-					if(pos>=config.packetSize)
+					if(pos>=packetSize)
 					{
 						send(pos, buf);
 						continue packetLoop;
