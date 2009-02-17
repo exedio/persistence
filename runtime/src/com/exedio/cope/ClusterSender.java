@@ -34,6 +34,8 @@ final class ClusterSender
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
+	private static final int KIND = 12;
+	private static final int SEQUENCE = 16;
 	private final byte[] pingPongTemplate;
 	
 	private static final int INVALIDATE_TEMPLATE_SIZE = 12;
@@ -68,7 +70,9 @@ final class ClusterSender
 			pos = marshal(pos, pingPongTemplate, config.secret);
 			pos = marshal(pos, pingPongTemplate, config.node);
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
+			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
+			assert pos==SEQUENCE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 				
 			for(; pos<config.packetSize; pos++)
@@ -86,6 +90,7 @@ final class ClusterSender
 			pos = marshal(pos, invalidateTemplate, config.secret);
 			pos = marshal(pos, invalidateTemplate, config.node);
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
+			assert pos==KIND;
 			this.invalidateTemplate = invalidateTemplate;
 		}
 	}
@@ -109,11 +114,11 @@ final class ClusterSender
 		
 		final byte[] buf = new byte[config.packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, config.packetSize);
-		marshal(INVALIDATE_TEMPLATE_SIZE, buf, kind);
+		marshal(KIND, buf, kind);
 		
 		for(int i = 0; i<count; i++)
 		{
-			marshal(INVALIDATE_TEMPLATE_SIZE+4, buf, pingPongSequence.next());
+			marshal(SEQUENCE, buf, pingPongSequence.next());
 			send(config.packetSize, buf, new TIntHashSet[]{});
 		}
 	}
