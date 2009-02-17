@@ -31,7 +31,7 @@ final class Cluster_Jspm
 			final ClusterCop cop,
 			final PrintStream out,
 			final ClusterListenerInfo listenerInfo,
-			final boolean donePing)
+			final int donePing)
 	{
 		%>
 		<table>
@@ -88,12 +88,13 @@ final class Cluster_Jspm
 			%>
 		</table>
 		<form action="<%=cop%>" method="POST">
+			<input type="text"   name="<%=cop.PING_COUNT%>" value="1" size="5">
 			<input type="submit" name="<%=cop.PING%>" value="ping">
 		</form><%
-		if(donePing)
+		if(donePing>0)
 		{
 		%>
-		<div>Ping sent.</div><%
+		<div><%=donePing%> ping packets sent.</div><%
 		}
 	}
 	

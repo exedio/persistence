@@ -27,6 +27,7 @@ import com.exedio.cope.util.ClusterListenerInfo;
 
 final class ClusterCop extends ConsoleCop
 {
+	static final String PING_COUNT = "ping.count";
 	static final String PING = "ping";
 	
 	ClusterCop(final Args args)
@@ -40,7 +41,7 @@ final class ClusterCop extends ConsoleCop
 		return new ClusterCop(args);
 	}
 	
-	private boolean donePing = false;
+	private int donePing = 0;
 	
 	@Override
 	void initialize(final HttpServletRequest request, final Model model)
@@ -50,8 +51,9 @@ final class ClusterCop extends ConsoleCop
 		{
 			if(request.getParameter(PING)!=null)
 			{
-				model.pingClusterNetwork();
-				donePing = true;
+				final int count = getIntParameter(request, PING_COUNT, 1);
+				model.pingClusterNetwork(count);
+				donePing = count;
 			}
 		}
 	}

@@ -1080,10 +1080,15 @@ public final class Model
 	
 	public void pingClusterNetwork()
 	{
+		pingClusterNetwork(1);
+	}
+	
+	public void pingClusterNetwork(final int count)
+	{
 		final ClusterSender clusterSender = this.clusterSender;
 		if(clusterSender==null)
 			throw new IllegalStateException("cluster network not enabled");
-		clusterSender.ping();
+		clusterSender.ping(count);
 	}
 	
 	private static final boolean skipIntern = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));

@@ -69,18 +69,21 @@ final class ClusterSender
 		this.prolog = prolog;
 	}
 	
-	void ping()
+	void ping(final int count)
 	{
-		pingPong(ClusterConfig.PING_AT_SEQUENCE);
+		pingPong(ClusterConfig.PING_AT_SEQUENCE, count);
 	}
 	
 	void pong()
 	{
-		pingPong(ClusterConfig.PONG_AT_SEQUENCE);
+		pingPong(ClusterConfig.PONG_AT_SEQUENCE, 1);
 	}
 	
-	private void pingPong(final int messageAtSequence)
+	private void pingPong(final int messageAtSequence, final int count)
 	{
+		if(count<=0)
+			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
+		
 		assert messageAtSequence<0 : messageAtSequence;
 		
 		final byte[] buf = new byte[config.packetSize];
@@ -93,7 +96,8 @@ final class ClusterSender
 			buf[pos] = config.pingPayload[pos];
 		assert pos==config.packetSize : pos;
 			
-		send(config.packetSize, buf, new TIntHashSet[]{});
+		for(int i = 0; i<count; i++)
+			send(config.packetSize, buf, new TIntHashSet[]{});
 	}
 	
 	private int nextSequence()
