@@ -72,9 +72,14 @@ final class ClusterSender
 		}
 		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];
-			System.arraycopy(prolog, 0, pingPongTemplate, 0, PROLOG_SIZE);
-		
-			int pos = PROLOG_SIZE;
+			pingPongTemplate[0] = ClusterConfig.MAGIC0;
+			pingPongTemplate[1] = ClusterConfig.MAGIC1;
+			pingPongTemplate[2] = ClusterConfig.MAGIC2;
+			pingPongTemplate[3] = ClusterConfig.MAGIC3;
+			int pos = 4;
+			pos = marshal(pos, pingPongTemplate, config.secret);
+			pos = marshal(pos, pingPongTemplate, config.node);
+			assert pos==PROLOG_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 				
