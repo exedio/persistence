@@ -203,7 +203,8 @@ final class ClusterSender
 		{
 			try
 			{
-				final DatagramPacket packet = new DatagramPacket(buf, length, config.group, destinationPort);
+				final DatagramPacket packet =
+					new DatagramPacket(buf, length, config.group, destinationPort);
 				socket.send(packet);
 	      }
 			catch(IOException e)
