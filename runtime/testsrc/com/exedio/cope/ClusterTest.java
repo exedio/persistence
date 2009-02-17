@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
 
 import java.net.DatagramPacket;
 import java.util.ArrayList;
@@ -908,5 +909,40 @@ public class ClusterTest extends CopeAssert
 			fail("node not found: " + Long.toHexString(id));
 		}
 		assertEquals(listenerNodes.length, listenerInfoNodes.size());
+	}
+	
+	static final String toString(final TIntHashSet[] invalidations)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append('[');
+		boolean first = true;
+		for(final TIntHashSet invalidation : invalidations)
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(", ");
+			
+			if(invalidation!=null)
+			{
+				bf.append('{');
+				boolean first2 = true;
+				for(final TIntIterator i = invalidation.iterator(); i.hasNext(); )
+				{
+					if(first2)
+						first2 = false;
+					else
+						bf.append(',');
+					
+					bf.append(i.next());
+				}
+				bf.append('}');
+			}
+			else
+				bf.append("null");
+		}
+		bf.append(']');
+		
+		return bf.toString();
 	}
 }

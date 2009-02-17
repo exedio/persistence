@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
@@ -71,40 +68,5 @@ final class ClusterConfig
 		}
 		if(log)
 			System.out.println("COPE Cluster Network node id: " + node);
-	}
-	
-	static final String toString(final TIntHashSet[] invalidations)
-	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append('[');
-		boolean first = true;
-		for(final TIntHashSet invalidation : invalidations)
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(", ");
-			
-			if(invalidation!=null)
-			{
-				bf.append('{');
-				boolean first2 = true;
-				for(final TIntIterator i = invalidation.iterator(); i.hasNext(); )
-				{
-					if(first2)
-						first2 = false;
-					else
-						bf.append(',');
-					
-					bf.append(i.next());
-				}
-				bf.append('}');
-			}
-			else
-				bf.append("null");
-		}
-		bf.append(']');
-		
-		return bf.toString();
 	}
 }
