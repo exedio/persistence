@@ -170,9 +170,6 @@ final class ClusterListener implements Runnable
 					break;
 				}
 				
-				if(log)
-					System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " from " + packet.getAddress());
-				
 				if(testSink!=null)
 				{
 					testSink.add(ping ? "PING" : "PONG");
