@@ -34,6 +34,8 @@ final class ClusterSender
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
+	private final byte[] pingPongTemplate;
+	
 	private static final int PROLOG_SIZE = 12;
 	private final byte[] prolog;
 	
@@ -56,17 +58,31 @@ final class ClusterSender
 		{
 			throw new RuntimeException(e);
 		}
+		{
+			final byte[] prolog = new byte[PROLOG_SIZE];
+			prolog[0] = ClusterConfig.MAGIC0;
+			prolog[1] = ClusterConfig.MAGIC1;
+			prolog[2] = ClusterConfig.MAGIC2;
+			prolog[3] = ClusterConfig.MAGIC3;
+			int pos = 4;
+			pos = marshal(pos, prolog, config.secret);
+			pos = marshal(pos, prolog, config.node);
+			assert pos==PROLOG_SIZE;
+			this.prolog = prolog;
+		}
+		{
+			final byte[] pingPongTemplate = new byte[config.packetSize];
+			System.arraycopy(prolog, 0, pingPongTemplate, 0, PROLOG_SIZE);
 		
-		final byte[] prolog = new byte[PROLOG_SIZE];
-		prolog[0] = ClusterConfig.MAGIC0;
-		prolog[1] = ClusterConfig.MAGIC1;
-		prolog[2] = ClusterConfig.MAGIC2;
-		prolog[3] = ClusterConfig.MAGIC3;
-		int pos = 4;
-		pos = marshal(pos, prolog, config.secret);
-		pos = marshal(pos, prolog, config.node);
-		assert pos==PROLOG_SIZE;
-		this.prolog = prolog;
+			int pos = PROLOG_SIZE;
+			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
+			pos = marshal(pos, pingPongTemplate, 0xdddddd);
+				
+			for(; pos<config.packetSize; pos++)
+				pingPongTemplate[pos] = config.pingPayload[pos];
+			assert pos==config.packetSize : pos;
+			this.pingPongTemplate = pingPongTemplate;
+		}
 	}
 	
 	void ping(final int count)
@@ -87,18 +103,12 @@ final class ClusterSender
 		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
 		
 		final byte[] buf = new byte[config.packetSize];
-		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
+		System.arraycopy(pingPongTemplate, 0, buf, 0, config.packetSize);
+		marshal(PROLOG_SIZE, buf, kind);
 		
 		for(int i = 0; i<count; i++)
 		{
-			int pos = PROLOG_SIZE;
-			pos = marshal(pos, buf, kind);
-			pos = marshal(pos, buf, pingPongSequence.next());
-				
-			for(; pos<config.packetSize; pos++)
-				buf[pos] = config.pingPayload[pos];
-			assert pos==config.packetSize : pos;
-			
+			marshal(PROLOG_SIZE+4, buf, pingPongSequence.next());
 			send(config.packetSize, buf, new TIntHashSet[]{});
 		}
 	}
