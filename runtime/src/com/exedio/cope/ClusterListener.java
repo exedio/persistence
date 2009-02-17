@@ -171,6 +171,9 @@ final class ClusterListener implements Runnable
 					break;
 				}
 				
+				if(log)
+					System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " from " + packet.getAddress());
+				
 				if(testSink!=null)
 				{
 					testSink.add(ping ? "PING" : "PONG");
@@ -180,13 +183,9 @@ final class ClusterListener implements Runnable
 					switch(kind)
 					{
 						case ClusterConfig.KIND_PING:
-							if(log)
-								System.out.println("COPE Cluster Listener PING from " + packet.getAddress());
 							sender.pong();
 							break;
 						case ClusterConfig.KIND_PONG:
-							if(log)
-								System.out.println("COPE Cluster Listener PONG from " + packet.getAddress());
 							break;
 						default:
 							throw new RuntimeException(String.valueOf(kind));
