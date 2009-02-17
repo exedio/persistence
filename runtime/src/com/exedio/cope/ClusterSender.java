@@ -38,7 +38,7 @@ final class ClusterSender
 	private static final int SEQUENCE = 16;
 	private final byte[] pingPongTemplate;
 	
-	private static final int INVALIDATE_TEMPLATE_SIZE = 12;
+	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
 	private final byte[] invalidateTemplate;
 	
 	private Sequence pingPongSequence = new Sequence();
@@ -69,10 +69,10 @@ final class ClusterSender
 			int pos = 4;
 			pos = marshal(pos, pingPongTemplate, config.secret);
 			pos = marshal(pos, pingPongTemplate, config.node);
-			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			assert pos==SEQUENCE;
+			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 				
 			for(; pos<config.packetSize; pos++)
@@ -89,8 +89,10 @@ final class ClusterSender
 			int pos = 4;
 			pos = marshal(pos, invalidateTemplate, config.secret);
 			pos = marshal(pos, invalidateTemplate, config.node);
-			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			assert pos==KIND;
+			pos = marshal(pos, invalidateTemplate, ClusterConfig.KIND_INVALIDATE);
+			assert pos==SEQUENCE;
+			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
 	}
@@ -142,7 +144,6 @@ final class ClusterSender
 		{
 			int pos = INVALIDATE_TEMPLATE_SIZE;
 			
-			pos = marshal(pos, buf, ClusterConfig.KIND_INVALIDATE);
 			pos = marshal(pos, buf, invalidationSequence.next());
 			
 			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
