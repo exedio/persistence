@@ -149,10 +149,12 @@ final class ClusterListener implements Runnable
 			case ClusterConfig.KIND_PING:
 			case ClusterConfig.KIND_PONG:
 			{
+				final boolean ping = (kind==ClusterConfig.KIND_PING);
+				
 				final int sequence = unmarshal(pos, buf);
 				pos += 4;
 				
-				final String m = (kind==ClusterConfig.KIND_PING) ? "invalid ping" : "invalid pong";
+				final String m = ping ? "invalid ping" : "invalid pong";
 				
 				if(length!=config.packetSize)
 					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
@@ -162,16 +164,16 @@ final class ClusterListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				if(node(node, packet).pingPong(kind==ClusterConfig.KIND_PING, sequence))
+				if(node(node, packet).pingPong(ping, sequence))
 				{
 					if(log)
-						System.out.println("COPE Cluster Listener ping/pong duplicate " + sequence + " from " + packet.getAddress());
+						System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
 					break;
 				}
 				
 				if(testSink!=null)
 				{
-					testSink.add((kind==ClusterConfig.KIND_PING) ? "PING" : "PONG");
+					testSink.add(ping ? "PING" : "PONG");
 				}
 				else
 				{
