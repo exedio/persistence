@@ -70,26 +70,26 @@ final class ClusterSender
 	
 	void ping(final int count)
 	{
-		pingPong(ClusterConfig.PING_AT_SEQUENCE, count);
+		pingPong(ClusterConfig.KIND_PING, count);
 	}
 	
 	void pong()
 	{
-		pingPong(ClusterConfig.PONG_AT_SEQUENCE, 1);
+		pingPong(ClusterConfig.KIND_PONG, 1);
 	}
 	
-	private void pingPong(final int messageAtSequence, final int count)
+	private void pingPong(final int kind, final int count)
 	{
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 		
-		assert messageAtSequence<0 : messageAtSequence;
+		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
 		
 		final byte[] buf = new byte[config.packetSize];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
 		
 		int pos = PROLOG_SIZE;
-		pos = marshal(pos, buf, messageAtSequence);
+		pos = marshal(pos, buf, kind);
 			
 		for(; pos<config.packetSize; pos++)
 			buf[pos] = config.pingPayload[pos];
@@ -107,7 +107,7 @@ final class ClusterSender
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
 					pos += 2 + invalidation.size();
-			length = PROLOG_SIZE + 4 + (pos << 2);
+			length = PROLOG_SIZE + 8 + (pos << 2);
 		}
 		final byte[] buf = new byte[Math.min(length, config.packetSize)];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
@@ -118,6 +118,7 @@ final class ClusterSender
 		{
 			int pos = PROLOG_SIZE;
 			
+			pos = marshal(pos, buf, ClusterConfig.KIND_INVALIDATE);
 			pos = marshal(pos, buf, invalidationSequence.next());
 			
 			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)

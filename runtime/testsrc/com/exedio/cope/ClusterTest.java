@@ -38,7 +38,7 @@ public class ClusterTest extends CopeAssert
 	private ClusterListener cl;
 	
 	private static final int SECRET = 0x88776655;
-	private static final int PACKET_SIZE = 40;
+	private static final int PACKET_SIZE = 44;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -61,7 +61,7 @@ public class ClusterTest extends CopeAssert
 					public String get(final String key)
 					{
 						if(key.equals("cluster.packetSize"))
-							return "43";
+							return "47";
 						else if(key.equals("cluster.log"))
 							return "false";
 						else
@@ -104,6 +104,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00, // kind=invalidation
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
 					(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
@@ -118,6 +119,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00, // kind=invalidation
 				(byte)0x01, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
 					(byte)0x46, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
@@ -161,7 +163,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitBeforeTypeSingle()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
@@ -169,6 +171,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
@@ -180,6 +183,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
@@ -211,7 +215,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitBeforeType()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
@@ -219,6 +223,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
@@ -230,6 +235,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
@@ -263,7 +269,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitAtType()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
@@ -271,6 +277,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
@@ -282,6 +289,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
@@ -312,7 +320,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitAfterType()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
@@ -320,6 +328,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
@@ -331,6 +340,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
@@ -361,7 +371,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitAfterAfterType()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
@@ -369,6 +379,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
@@ -380,6 +391,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
@@ -410,13 +422,14 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitAfterAfterAfterType()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
@@ -428,6 +441,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
 					(byte)12,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 12
@@ -458,7 +472,7 @@ public class ClusterTest extends CopeAssert
 	
 	public void testSplitAfterAfterAfterTypeCollapse()
 	{
-		assertEquals(40, csc.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertStats(0, 0, 0, new long[0][]);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
@@ -466,6 +480,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
 				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
 					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
@@ -477,6 +492,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
 				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 16 sequence
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
@@ -515,16 +531,17 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,     // 16 ping
+				(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
 		
 		assertEquals(
-				new Integer(ClusterConfig.PING_AT_SEQUENCE),
+				"PING",
 				umi(buf));
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 		
@@ -538,7 +555,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 40, but was 36", e.getMessage());
+				assertEquals("invalid ping, expected length 44, but was 40", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -553,7 +570,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 40, but was 39", e.getMessage());
+				assertEquals("invalid ping, expected length 44, but was 43", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -568,7 +585,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 40, but was 41", e.getMessage());
+				assertEquals("invalid ping, expected length 44, but was 45", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -583,7 +600,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 40, but was 44", e.getMessage());
+				assertEquals("invalid ping, expected length 44, but was 48", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -626,13 +643,14 @@ public class ClusterTest extends CopeAssert
 					(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 					(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 					(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-					(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,     // 16 ping
+					(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
 					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+					(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
+					(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
 		}
 		
 		sink.clear();
@@ -663,16 +681,17 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff,     // 16 pong
+				(byte)0x02, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=pong
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
 		
 		assertEquals(
-				new Integer(ClusterConfig.PONG_AT_SEQUENCE),
+				"PONG",
 				umi(buf));
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 		
@@ -686,7 +705,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 40, but was 36", e.getMessage());
+				assertEquals("invalid pong, expected length 44, but was 40", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -701,7 +720,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 40, but was 39", e.getMessage());
+				assertEquals("invalid pong, expected length 44, but was 43", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -716,7 +735,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 40, but was 41", e.getMessage());
+				assertEquals("invalid pong, expected length 44, but was 45", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -731,7 +750,7 @@ public class ClusterTest extends CopeAssert
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 40, but was 44", e.getMessage());
+				assertEquals("invalid pong, expected length 44, but was 48", e.getMessage());
 			}
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -821,9 +840,9 @@ public class ClusterTest extends CopeAssert
 		return (TIntHashSet[])umx(buf);
 	}
 	
-	private Integer umi(final byte[] buf)
+	private String umi(final byte[] buf)
 	{
-		return (Integer)umx(buf);
+		return (String)umx(buf);
 	}
 	
 	private Object umx(final byte[] buf)

@@ -141,14 +141,14 @@ final class ClusterListener implements Runnable
 		}
 		pos += 4;
 
-		// sequence
-		final int sequence = unmarshal(pos, buf);
+		// kind
+		final int kind = unmarshal(pos, buf);
 		pos += 4;
-		switch(sequence)
+		switch(kind)
 		{
-			case ClusterConfig.PING_AT_SEQUENCE:
-			case ClusterConfig.PONG_AT_SEQUENCE:
-				final String m = (sequence==ClusterConfig.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
+			case ClusterConfig.KIND_PING:
+			case ClusterConfig.KIND_PONG:
+				final String m = (kind==ClusterConfig.KIND_PING) ? "invalid ping" : "invalid pong";
 				
 				if(length!=config.packetSize)
 					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
@@ -158,32 +158,34 @@ final class ClusterListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				node(node, packet).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE);
+				node(node, packet).pingPong(kind==ClusterConfig.KIND_PING);
 				
 				if(testSink!=null)
 				{
-					testSink.add(sequence);
+					testSink.add((kind==ClusterConfig.KIND_PING) ? "PING" : "PONG");
 				}
 				else
 				{
-					switch(sequence)
+					switch(kind)
 					{
-						case ClusterConfig.PING_AT_SEQUENCE:
+						case ClusterConfig.KIND_PING:
 							if(log)
 								System.out.println("COPE Cluster Listener PING from " + packet.getAddress());
 							sender.pong();
 							break;
-						case ClusterConfig.PONG_AT_SEQUENCE:
+						case ClusterConfig.KIND_PONG:
 							if(log)
 								System.out.println("COPE Cluster Listener PONG from " + packet.getAddress());
 							break;
 						default:
-							throw new RuntimeException(String.valueOf(sequence));
+							throw new RuntimeException(String.valueOf(kind));
 					}
 				}
 				break;
 			
-			default:
+			case ClusterConfig.KIND_INVALIDATE:
+				final int sequence = unmarshal(pos, buf);
+				pos += 4;
 				if(node(node, packet).invalidate(sequence))
 				{
 					if(log)
@@ -204,6 +206,9 @@ final class ClusterListener implements Runnable
 					queryCache.invalidate(invalidations);
 				}
 				break;
+				
+			default:
+				throw new RuntimeException("illegal kind: " + kind);
 		}
 	}
 	

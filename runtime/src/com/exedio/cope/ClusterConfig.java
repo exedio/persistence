@@ -32,8 +32,9 @@ final class ClusterConfig
 	static final byte MAGIC2 = 0x11;
 	static final byte MAGIC3 = 0x11;
 	
-	static final int PING_AT_SEQUENCE = -1;
-	static final int PONG_AT_SEQUENCE = -2;
+	static final int KIND_PING = 0x00110001;
+	static final int KIND_PONG = 0x00110002;
+	static final int KIND_INVALIDATE = 0x00120001;
 	
 	final int secret;
 	final int node;
