@@ -111,15 +111,16 @@ final class ClusterSender
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 		
 		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
+		final int packetSize = config.packetSize;
 		
-		final byte[] buf = new byte[config.packetSize];
-		System.arraycopy(pingPongTemplate, 0, buf, 0, config.packetSize);
+		final byte[] buf = new byte[packetSize];
+		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
 		marshal(KIND, buf, kind);
 		
 		for(int i = 0; i<count; i++)
 		{
 			marshal(SEQUENCE, buf, pingPongSequence.next());
-			send(config.packetSize, buf);
+			send(packetSize, buf);
 		}
 	}
 	
