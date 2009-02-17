@@ -29,7 +29,6 @@ import java.util.ArrayList;
 final class ClusterSender
 {
 	private final ClusterConfig config;
-	private final boolean log;
 	private final int sourcePort;
 	private final int destinationPort;
 	private final DatagramSocket socket;
@@ -49,7 +48,6 @@ final class ClusterSender
 	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
-		this.log = config.log;
 		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
@@ -121,7 +119,7 @@ final class ClusterSender
 		for(int i = 0; i<count; i++)
 		{
 			marshal(SEQUENCE, buf, pingPongSequence.next());
-			send(config.packetSize, buf, new TIntHashSet[]{});
+			send(config.packetSize, buf);
 		}
 	}
 	
@@ -159,7 +157,7 @@ final class ClusterSender
 				{
 					if(pos>=config.packetSize)
 					{
-						send(pos, buf, invalidations);
+						send(pos, buf);
 						continue packetLoop;
 					}
 					pos = marshal(pos, buf, typeIdTransiently);
@@ -170,7 +168,7 @@ final class ClusterSender
 					{
 						if(pos>=config.packetSize)
 						{
-							send(pos, buf, invalidations);
+							send(pos, buf);
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, i.next());
@@ -178,7 +176,7 @@ final class ClusterSender
 					
 					if(pos>=config.packetSize)
 					{
-						send(pos, buf, invalidations);
+						send(pos, buf);
 						continue packetLoop;
 					}
 					pos = marshal(pos, buf, PK.NaPK);
@@ -187,13 +185,13 @@ final class ClusterSender
 				}
 			}
 			
-			send(pos, buf, invalidations);
+			send(pos, buf);
 			break;
 		}
 		while(true);
 	}
 	
-	private void send(final int length, final byte[] buf, final TIntHashSet[] invalidations)
+	private void send(final int length, final byte[] buf)
 	{
 		if(testSink!=null)
 		{
@@ -207,8 +205,6 @@ final class ClusterSender
 			{
 				final DatagramPacket packet = new DatagramPacket(buf, length, config.group, destinationPort);
 				socket.send(packet);
-				if(log)
-					System.out.println("COPE Cluster Sender sent (" + buf.length + "): " + ClusterConfig.toString(invalidations));
 	      }
 			catch(IOException e)
 			{

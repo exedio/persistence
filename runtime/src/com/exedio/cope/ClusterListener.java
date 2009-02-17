@@ -134,9 +134,6 @@ final class ClusterListener implements Runnable
 		if(config.node==node)
 		{
 			fromMyself++;
-			
-			if(testSink==null && log)
-				System.out.println("COPE Cluster Listener received from myself: " + packet.getAddress());
 			return;
 		}
 		pos += 4;
@@ -203,15 +200,13 @@ final class ClusterListener implements Runnable
 					break;
 				}
 			
-				final TIntHashSet[] invalidations = handleInvalidation(pos, buf, length, sequence);
+				final TIntHashSet[] invalidations = handleInvalidation(pos, buf, length);
 				if(testSink!=null)
 				{
 					testSink.add(invalidations);
 				}
 				else
 				{
-					if(log)
-						System.out.println("COPE Cluster Listener invalidate from " + packet.getAddress() + ": " + ClusterConfig.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
@@ -222,11 +217,8 @@ final class ClusterListener implements Runnable
 		}
 	}
 	
-	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length, final int sequence)
+	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length)
 	{
-		if(log)
-			System.out.println("COPE Cluster Listener sequence " + sequence);
-		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)
 		{
