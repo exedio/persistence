@@ -180,16 +180,8 @@ final class ClusterListener implements Runnable
 				}
 				else
 				{
-					switch(kind)
-					{
-						case ClusterConfig.KIND_PING:
-							sender.pong();
-							break;
-						case ClusterConfig.KIND_PONG:
-							break;
-						default:
-							throw new RuntimeException(String.valueOf(kind));
-					}
+					if(ping)
+						sender.pong();
 				}
 				break;
 			}
