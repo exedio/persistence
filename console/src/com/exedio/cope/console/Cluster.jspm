@@ -92,9 +92,9 @@ final class Cluster_Jspm
 	private final static void writeSequenceCheckerHead(final PrintStream out)
 	{
 				%>
-				<th>In Order</th>
-				<th>Out of Order</th>
-				<th>Duplicate</th>
+				<th title="In Order">io</th>
+				<th title="Out of Order">ooo</th>
+				<th title="Duplicate">dup</th>
 				<th>Lost</th>
 				<th>Late</th><%
 	}
