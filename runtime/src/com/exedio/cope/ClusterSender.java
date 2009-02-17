@@ -59,18 +59,6 @@ final class ClusterSender
 			throw new RuntimeException(e);
 		}
 		{
-			final byte[] prolog = new byte[PROLOG_SIZE];
-			prolog[0] = ClusterConfig.MAGIC0;
-			prolog[1] = ClusterConfig.MAGIC1;
-			prolog[2] = ClusterConfig.MAGIC2;
-			prolog[3] = ClusterConfig.MAGIC3;
-			int pos = 4;
-			pos = marshal(pos, prolog, config.secret);
-			pos = marshal(pos, prolog, config.node);
-			assert pos==PROLOG_SIZE;
-			this.prolog = prolog;
-		}
-		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];
 			pingPongTemplate[0] = ClusterConfig.MAGIC0;
 			pingPongTemplate[1] = ClusterConfig.MAGIC1;
@@ -87,6 +75,18 @@ final class ClusterSender
 				pingPongTemplate[pos] = config.pingPayload[pos];
 			assert pos==config.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
+		}
+		{
+			final byte[] prolog = new byte[PROLOG_SIZE];
+			prolog[0] = ClusterConfig.MAGIC0;
+			prolog[1] = ClusterConfig.MAGIC1;
+			prolog[2] = ClusterConfig.MAGIC2;
+			prolog[3] = ClusterConfig.MAGIC3;
+			int pos = 4;
+			pos = marshal(pos, prolog, config.secret);
+			pos = marshal(pos, prolog, config.node);
+			assert pos==PROLOG_SIZE;
+			this.prolog = prolog;
 		}
 	}
 	
