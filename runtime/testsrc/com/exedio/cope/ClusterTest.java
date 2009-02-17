@@ -171,23 +171,23 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
-					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
-					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 6
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 40 pk 1
+					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 44 pk 6
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 32 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -223,26 +223,26 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
-					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
-					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 6
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 40 pk 1
+					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 44 pk 6
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 28 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 32 type 1
-					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 36 pk 11
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 40 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 32 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 36 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 40 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 44 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -277,23 +277,23 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
-					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
-					(byte)3,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 3
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 40 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0);    // 44 pk 3
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
-					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 24 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 28 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 32 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -328,23 +328,23 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
-					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 4
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
-					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 3
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 40 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 40 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 44 NaPK for end
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
-					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 24 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 28 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 32 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -379,23 +379,23 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
-					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 3
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 40 type 1
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 40 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 44 type 1
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
-					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 24 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 28 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 32 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -429,23 +429,23 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 32 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 36 type 1
-					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 40 pk 11
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 40 type 1
+					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 44 pk 11
 		assertEqualsBytes(bufs[1],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
-					(byte)12,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 12
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 24 type 1
+					(byte)12,   (byte)0,    (byte)0,    (byte)0,     // 28 pk 12
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 32 NaPK for end
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
@@ -480,20 +480,20 @@ public class ClusterTest extends CopeAssert
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 32 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 36 type 1
-					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 40 pk 11
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 40 type 1
+					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 44 pk 11
 		assertEqualsBytes(bufs[1], // TODO should not be there
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 16 sequence
+				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
+				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 20 sequence
 		assertEquals(2, bufs.length);
 		assertStats(0, 0, 0, new long[0][]);
 
