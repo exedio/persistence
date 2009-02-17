@@ -36,8 +36,8 @@ final class ClusterSender
 	
 	private final byte[] pingPongTemplate;
 	
-	private static final int PROLOG_SIZE = 12;
-	private final byte[] prolog;
+	private static final int INVALIDATE_TEMPLATE_SIZE = 12;
+	private final byte[] invalidateTemplate;
 	
 	private Sequence pingPongSequence = new Sequence();
 	private Sequence invalidationSequence = new Sequence();
@@ -67,7 +67,7 @@ final class ClusterSender
 			int pos = 4;
 			pos = marshal(pos, pingPongTemplate, config.secret);
 			pos = marshal(pos, pingPongTemplate, config.node);
-			assert pos==PROLOG_SIZE;
+			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 				
@@ -77,16 +77,16 @@ final class ClusterSender
 			this.pingPongTemplate = pingPongTemplate;
 		}
 		{
-			final byte[] prolog = new byte[PROLOG_SIZE];
-			prolog[0] = ClusterConfig.MAGIC0;
-			prolog[1] = ClusterConfig.MAGIC1;
-			prolog[2] = ClusterConfig.MAGIC2;
-			prolog[3] = ClusterConfig.MAGIC3;
+			final byte[] invalidateTemplate = new byte[INVALIDATE_TEMPLATE_SIZE];
+			invalidateTemplate[0] = ClusterConfig.MAGIC0;
+			invalidateTemplate[1] = ClusterConfig.MAGIC1;
+			invalidateTemplate[2] = ClusterConfig.MAGIC2;
+			invalidateTemplate[3] = ClusterConfig.MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, prolog, config.secret);
-			pos = marshal(pos, prolog, config.node);
-			assert pos==PROLOG_SIZE;
-			this.prolog = prolog;
+			pos = marshal(pos, invalidateTemplate, config.secret);
+			pos = marshal(pos, invalidateTemplate, config.node);
+			assert pos==INVALIDATE_TEMPLATE_SIZE;
+			this.invalidateTemplate = invalidateTemplate;
 		}
 	}
 	
@@ -109,11 +109,11 @@ final class ClusterSender
 		
 		final byte[] buf = new byte[config.packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, config.packetSize);
-		marshal(PROLOG_SIZE, buf, kind);
+		marshal(INVALIDATE_TEMPLATE_SIZE, buf, kind);
 		
 		for(int i = 0; i<count; i++)
 		{
-			marshal(PROLOG_SIZE+4, buf, pingPongSequence.next());
+			marshal(INVALIDATE_TEMPLATE_SIZE+4, buf, pingPongSequence.next());
 			send(config.packetSize, buf, new TIntHashSet[]{});
 		}
 	}
@@ -126,16 +126,16 @@ final class ClusterSender
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
 					pos += 2 + invalidation.size();
-			length = PROLOG_SIZE + 8 + (pos << 2);
+			length = INVALIDATE_TEMPLATE_SIZE + 8 + (pos << 2);
 		}
 		final byte[] buf = new byte[Math.min(length, config.packetSize)];
-		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
+		System.arraycopy(invalidateTemplate, 0, buf, 0, INVALIDATE_TEMPLATE_SIZE);
 		
 		int typeIdTransiently = 0;
 		TIntIterator i = null;
 		packetLoop: do
 		{
-			int pos = PROLOG_SIZE;
+			int pos = INVALIDATE_TEMPLATE_SIZE;
 			
 			pos = marshal(pos, buf, ClusterConfig.KIND_INVALIDATE);
 			pos = marshal(pos, buf, invalidationSequence.next());
