@@ -302,7 +302,7 @@ final class ClusterListener implements Runnable
 		volatile long pingLast = Long.MIN_VALUE;
 		volatile long pongLast = Long.MIN_VALUE;
 		final SequenceChecker pingPongSequenceChecker;
-		final SequenceChecker sequenceChecker;
+		final SequenceChecker invalidateSequenceChecker;
 		
 		Node(final int id, final DatagramPacket packet, final boolean log)
 		{
@@ -311,7 +311,7 @@ final class ClusterListener implements Runnable
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
 			this.pingPongSequenceChecker = new SequenceChecker(200);
-			this.sequenceChecker = new SequenceChecker(200);
+			this.invalidateSequenceChecker = new SequenceChecker(200);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
@@ -334,7 +334,7 @@ final class ClusterListener implements Runnable
 		
 		boolean invalidate(final int sequence)
 		{
-			return sequenceChecker.check(sequence);
+			return invalidateSequenceChecker.check(sequence);
 		}
 		
 		private static final Date toDate(final long date)
@@ -351,7 +351,7 @@ final class ClusterListener implements Runnable
 					ping, toDate(pingLast),
 					pong, toDate(pongLast),
 					pingPongSequenceChecker.getCounter(),
-					sequenceChecker.getCounter());
+					invalidateSequenceChecker.getCounter());
 		}
 	}
 	
