@@ -59,17 +59,13 @@ final class Cluster_Jspm
 				<th>#</th>
 				<th>Last</th>
 				<th>#</th>
-				<th>Last</th>
-				<th>In Order</th>
-				<th>Out of Order</th>
-				<th>Duplicate</th>
-				<th>Lost</th>
-				<th>Late</th>
+				<th>Last</th><%
+				writeSequenceCheckerHead(out);
+				%>
 			</tr><%
 			
 			for(final ClusterListenerInfo.Node node : listenerInfo.getNodes())
 			{
-				final SequenceChecker.Counter ic = node.getInvalidateCounter();
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
@@ -79,12 +75,9 @@ final class Cluster_Jspm
 				<td><%=format(node.getPing())%></td>
 				<td><%=format(node.getPingLast())%></td>
 				<td><%=format(node.getPong())%></td>
-				<td><%=format(node.getPongLast())%></td>
-				<td><%=format(ic.getInOrder())%></td>
-				<td><%=format(ic.getOutOfOrder())%></td>
-				<td><%=format(ic.getDuplicate())%></td>
-				<td><%=format(ic.getLost())%></td>
-				<td><%=format(ic.getLate())%></td>
+				<td><%=format(node.getPongLast())%></td><%
+				write(out, node.getInvalidateCounter());
+				%>
 			</tr><%
 			}
 			%>
@@ -98,6 +91,26 @@ final class Cluster_Jspm
 		%>
 		<div><%=donePing%> ping packets sent.</div><%
 		}
+	}
+	
+	private final static void writeSequenceCheckerHead(final PrintStream out)
+	{
+				%>
+				<th>In Order</th>
+				<th>Out of Order</th>
+				<th>Duplicate</th>
+				<th>Lost</th>
+				<th>Late</th><%
+	}
+	
+	private final static void write(final PrintStream out, final SequenceChecker.Counter ic)
+	{
+				%>
+				<td><%=format(ic.getInOrder())%></td>
+				<td><%=format(ic.getOutOfOrder())%></td>
+				<td><%=format(ic.getDuplicate())%></td>
+				<td><%=format(ic.getLost())%></td>
+				<td><%=format(ic.getLate())%></td><%
 	}
 	
 	final static void writeBodyDisabled(final PrintStream out)
