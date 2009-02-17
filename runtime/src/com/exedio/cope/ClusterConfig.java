@@ -70,7 +70,7 @@ final class ClusterConfig
 			this.pingPayload = pingPayload;
 		}
 		if(log)
-			System.out.println("COPE Cluster Invalidation node id: " + node);
+			System.out.println("COPE Cluster Network node id: " + node);
 	}
 	
 	static final String toString(final TIntHashSet[] invalidations)
