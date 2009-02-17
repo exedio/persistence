@@ -51,6 +51,7 @@ final class Cluster_Jspm
 				<th colspan="2">From</th>
 				<th colspan="2">Ping</th>
 				<th colspan="2">Pong</th>
+				<th colspan="5">Ping/Pong</th>
 				<th colspan="5">Invalidate</th>
 			</tr>
 			<tr>
@@ -60,6 +61,7 @@ final class Cluster_Jspm
 				<th>Last</th>
 				<th>#</th>
 				<th>Last</th><%
+				writeSequenceCheckerHead(out);
 				writeSequenceCheckerHead(out);
 				%>
 			</tr><%
@@ -76,6 +78,7 @@ final class Cluster_Jspm
 				<td><%=format(node.getPingLast())%></td>
 				<td><%=format(node.getPong())%></td>
 				<td><%=format(node.getPongLast())%></td><%
+				write(out, node.getPingPongCounter());
 				write(out, node.getInvalidateCounter());
 				%>
 			</tr><%

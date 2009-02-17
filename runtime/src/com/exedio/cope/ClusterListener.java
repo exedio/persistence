@@ -148,6 +148,10 @@ final class ClusterListener implements Runnable
 		{
 			case ClusterConfig.KIND_PING:
 			case ClusterConfig.KIND_PONG:
+			{
+				final int sequence = unmarshal(pos, buf);
+				pos += 4;
+				
 				final String m = (kind==ClusterConfig.KIND_PING) ? "invalid ping" : "invalid pong";
 				
 				if(length!=config.packetSize)
@@ -158,7 +162,12 @@ final class ClusterListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				node(node, packet).pingPong(kind==ClusterConfig.KIND_PING);
+				if(node(node, packet).pingPong(kind==ClusterConfig.KIND_PING, sequence))
+				{
+					if(log)
+						System.out.println("COPE Cluster Listener ping/pong duplicate " + sequence + " from " + packet.getAddress());
+					break;
+				}
 				
 				if(testSink!=null)
 				{
@@ -182,14 +191,15 @@ final class ClusterListener implements Runnable
 					}
 				}
 				break;
-			
+			}
 			case ClusterConfig.KIND_INVALIDATE:
+			{
 				final int sequence = unmarshal(pos, buf);
 				pos += 4;
 				if(node(node, packet).invalidate(sequence))
 				{
 					if(log)
-						System.out.println("COPE Cluster Listener duplicate " + sequence + " from " + packet.getAddress());
+						System.out.println("COPE Cluster Listener invalidate duplicate " + sequence + " from " + packet.getAddress());
 					break;
 				}
 			
@@ -206,7 +216,7 @@ final class ClusterListener implements Runnable
 					queryCache.invalidate(invalidations);
 				}
 				break;
-				
+			}
 			default:
 				throw new RuntimeException("illegal kind: " + kind);
 		}
@@ -291,6 +301,7 @@ final class ClusterListener implements Runnable
 		volatile long pong = 0;
 		volatile long pingLast = Long.MIN_VALUE;
 		volatile long pongLast = Long.MIN_VALUE;
+		final SequenceChecker pingPongSequenceChecker;
 		final SequenceChecker sequenceChecker;
 		
 		Node(final int id, final DatagramPacket packet, final boolean log)
@@ -299,12 +310,13 @@ final class ClusterListener implements Runnable
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
+			this.pingPongSequenceChecker = new SequenceChecker(200);
 			this.sequenceChecker = new SequenceChecker(200);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
 		
-		void pingPong(final boolean ping)
+		boolean pingPong(final boolean ping, final int sequence)
 		{
 			final long now = System.currentTimeMillis();
 			if(ping)
@@ -317,6 +329,7 @@ final class ClusterListener implements Runnable
 				this.pong++;
 				this.pongLast = now;
 			}
+			return pingPongSequenceChecker.check(sequence);
 		}
 		
 		boolean invalidate(final int sequence)
@@ -337,6 +350,7 @@ final class ClusterListener implements Runnable
 					address, port,
 					ping, toDate(pingLast),
 					pong, toDate(pongLast),
+					pingPongSequenceChecker.getCounter(),
 					sequenceChecker.getCounter());
 		}
 	}

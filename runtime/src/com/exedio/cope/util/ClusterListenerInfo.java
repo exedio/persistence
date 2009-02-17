@@ -80,6 +80,7 @@ public final class ClusterListenerInfo
 		private final Date pingLast;
 		private final long pong;
 		private final Date pongLast;
+		private final SequenceChecker.Counter pingPongCounter;
 		private final SequenceChecker.Counter invalidateCounter;
 		
 		public Node(
@@ -91,6 +92,7 @@ public final class ClusterListenerInfo
 				final Date pingLast,
 				final long pong,
 				final Date pongLast,
+				final SequenceChecker.Counter pingPongCounter,
 				final SequenceChecker.Counter invalidateCounter)
 		{
 			this.id = id;
@@ -101,12 +103,15 @@ public final class ClusterListenerInfo
 			this.pingLast = pingLast;
 			this.pong = pong;
 			this.pongLast = pongLast;
+			this.pingPongCounter = pingPongCounter;
 			this.invalidateCounter = invalidateCounter;
 			
 			if(ping<0)
 				throw new IllegalArgumentException();
 			if(pong<0)
 				throw new IllegalArgumentException();
+			if(pingPongCounter==null)
+				throw new NullPointerException();
 			if(invalidateCounter==null)
 				throw new NullPointerException();
 		}
@@ -149,6 +154,11 @@ public final class ClusterListenerInfo
 		public Date getPongLast()
 		{
 			return pongLast;
+		}
+		
+		public SequenceChecker.Counter getPingPongCounter()
+		{
+			return pingPongCounter;
 		}
 		
 		public SequenceChecker.Counter getInvalidateCounter()

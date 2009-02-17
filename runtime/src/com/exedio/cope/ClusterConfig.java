@@ -65,7 +65,7 @@ final class ClusterConfig
 		{
 			final Random r = new Random(secret);
 			final byte[] pingPayload = new byte[packetSize];
-			for(int pos = 16; pos<pingPayload.length; pos++)
+			for(int pos = 20; pos<pingPayload.length; pos++)
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}

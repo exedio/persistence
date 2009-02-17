@@ -37,6 +37,7 @@ final class ClusterSender
 	private static final int PROLOG_SIZE = 12;
 	private final byte[] prolog;
 	
+	private Sequence pingPongSequence = new Sequence();
 	private Sequence invalidationSequence = new Sequence();
 	
 	ArrayList<byte[]> testSink = null;
@@ -88,15 +89,18 @@ final class ClusterSender
 		final byte[] buf = new byte[config.packetSize];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
 		
-		int pos = PROLOG_SIZE;
-		pos = marshal(pos, buf, kind);
-			
-		for(; pos<config.packetSize; pos++)
-			buf[pos] = config.pingPayload[pos];
-		assert pos==config.packetSize : pos;
-			
 		for(int i = 0; i<count; i++)
+		{
+			int pos = PROLOG_SIZE;
+			pos = marshal(pos, buf, kind);
+			pos = marshal(pos, buf, pingPongSequence.next());
+				
+			for(; pos<config.packetSize; pos++)
+				buf[pos] = config.pingPayload[pos];
+			assert pos==config.packetSize : pos;
+			
 			send(config.packetSize, buf, new TIntHashSet[]{});
+		}
 	}
 	
 	void invalidate(final TIntHashSet[] invalidations)

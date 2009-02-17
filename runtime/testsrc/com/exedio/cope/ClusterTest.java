@@ -532,13 +532,13 @@ public class ClusterTest extends CopeAssert
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // sequence
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
-				(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
 				"PING",
@@ -613,7 +613,7 @@ public class ClusterTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid ping, at position 36 expected 56, but was 35", e.getMessage());
+			assertEquals("invalid ping, at position 36 expected 47, but was 35", e.getMessage());
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 		
@@ -625,7 +625,7 @@ public class ClusterTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid ping, at position 28 expected 98, but was 29", e.getMessage());
+			assertEquals("invalid ping, at position 28 expected 40, but was 29", e.getMessage());
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 	}
@@ -637,6 +637,7 @@ public class ClusterTest extends CopeAssert
 		cs.ping(3);
 		cs.testSink = null;
 		assertEquals(3, sink.size());
+		byte count = 0;
 		for(final byte[] buf : sink)
 		{
 			assertEqualsBytes(buf,
@@ -644,13 +645,13 @@ public class ClusterTest extends CopeAssert
 					(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 					(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 					(byte)0x01, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=ping
+					count++,    (byte)0,    (byte)0,    (byte)0,        // sequence
 					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-					(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
-					(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
+					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		}
 		
 		sink.clear();
@@ -682,13 +683,13 @@ public class ClusterTest extends CopeAssert
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0x02, (byte)0x00, (byte)0x11, (byte)0x00,     // 16 kind=pong
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // sequence
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,       // 20 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,       // 24 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,      // 28 fillup
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 32 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 36 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126,      // 40 fillup
-				(byte)12,   (byte)-64,  (byte)-63,  (byte)68);      // 44 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
 				"PONG",
@@ -763,7 +764,7 @@ public class ClusterTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid pong, at position 36 expected 56, but was 35", e.getMessage());
+			assertEquals("invalid pong, at position 36 expected 47, but was 35", e.getMessage());
 		}
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 		
@@ -775,7 +776,7 @@ public class ClusterTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid pong, at position 28 expected 98, but was 29", e.getMessage());
+			assertEquals("invalid pong, at position 28 expected 40, but was 29", e.getMessage());
 		}
 	}
 	
