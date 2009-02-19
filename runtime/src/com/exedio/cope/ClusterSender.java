@@ -119,9 +119,10 @@ final class ClusterSender
 		
 		try
 		{
+			int sequenceStart = sequence.getAndAdd(count);
 			for(int i = 0; i<count; i++)
 			{
-				marshal(SEQUENCE, buf, sequence.getAndIncrement());
+				marshal(SEQUENCE, buf, sequenceStart++);
 				send(packetSize, buf);
 			}
 		}
