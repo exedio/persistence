@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -77,9 +78,8 @@ public final class Model
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
-	private long nextTransactionId = 0;
-	private long lastTransactionStartDate = Long.MIN_VALUE;
-	private final Object nextTransactionIdLock = new Object();
+	private final AtomicLong nextTransactionId = new AtomicLong();
+	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 	
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
@@ -870,11 +870,8 @@ public final class Model
 		
 		final long id;
 		final long startDate = System.currentTimeMillis();
-		synchronized(nextTransactionIdLock)
-		{
-			id = nextTransactionId++;
-			lastTransactionStartDate = startDate;
-		}
+		id = nextTransactionId.getAndIncrement();
+		lastTransactionStartDate = startDate;
 		
 		final Transaction result = new Transaction(this, concreteTypeCount, id, name, startDate);
 		setTransaction( result );
@@ -887,19 +884,12 @@ public final class Model
 	
 	public long getNextTransactionId()
 	{
-		synchronized(nextTransactionIdLock)
-		{
-			return nextTransactionId;
-		}
+		return nextTransactionId.get();
 	}
 	
 	public Date getLastTransactionStartDate()
 	{
-		final long lastTransactionStartDate;
-		synchronized(nextTransactionIdLock)
-		{
-			lastTransactionStartDate = this.lastTransactionStartDate;
-		}
+		final long lastTransactionStartDate = this.lastTransactionStartDate;
 		return lastTransactionStartDate!=Long.MIN_VALUE ? new Date(lastTransactionStartDate) : null;
 	}
 	
