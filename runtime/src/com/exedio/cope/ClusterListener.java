@@ -71,6 +71,7 @@ final class ClusterListener implements Runnable
 		this.itemCache = itemCache;
 		this.queryCache = queryCache;
 		thread = new Thread(this);
+		thread.setName("COPE Cluster Listener");
 		thread.start();
 	}
 	
