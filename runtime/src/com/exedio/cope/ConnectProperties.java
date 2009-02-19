@@ -66,6 +66,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final IntField     clusterSendSourcePort      = new IntField   ("cluster.sendSourcePort"     , 14445, 1);
 	final IntField     clusterSendDestinationPort = new IntField   ("cluster.sendDestinationPort", 14446, 1);
 	final IntField     clusterListenPort          = new IntField   ("cluster.listenPort",          14446, 1);
+	final BooleanField clusterListenPrioritySet   = new BooleanField("cluster.listenPrioritySet",  false);
+	final IntField     clusterListenPriority      = new IntField   ("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
 	final StringField  clusterGroup               = new StringField("cluster.group",               "230.0.0.1");
 	final IntField     clusterPacketSize          = new IntField   ("cluster.packetSize",          1400, 32);
 	
