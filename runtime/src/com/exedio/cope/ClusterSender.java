@@ -40,9 +40,9 @@ final class ClusterSender
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
 	private final byte[] invalidateTemplate;
 	
-	private final AtomicInteger pingSequence = new AtomicInteger(-1);
-	private final AtomicInteger pongSequence = new AtomicInteger(-1);
-	private final AtomicInteger invalidationSequence = new AtomicInteger(-1);
+	private final AtomicInteger pingSequence = new AtomicInteger();
+	private final AtomicInteger pongSequence = new AtomicInteger();
+	private final AtomicInteger invalidationSequence = new AtomicInteger();
 	
 	ArrayList<byte[]> testSink = null;
 	
@@ -121,7 +121,7 @@ final class ClusterSender
 		{
 			for(int i = 0; i<count; i++)
 			{
-				marshal(SEQUENCE, buf, sequence.incrementAndGet());
+				marshal(SEQUENCE, buf, sequence.getAndIncrement());
 				send(packetSize, buf);
 			}
 		}
@@ -153,7 +153,7 @@ final class ClusterSender
 			{
 				int pos = INVALIDATE_TEMPLATE_SIZE;
 				
-				pos = marshal(pos, buf, invalidationSequence.incrementAndGet());
+				pos = marshal(pos, buf, invalidationSequence.getAndIncrement());
 				
 				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
