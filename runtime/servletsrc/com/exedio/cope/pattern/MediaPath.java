@@ -198,8 +198,7 @@ public abstract class MediaPath extends Pattern
 	
 	public final static class Log
 	{
-		private int counter = 0;
-		private final Object lock = new Object();
+		private volatile int counter = 0;
 		final String name;
 		public final int responseStatus;
 		
@@ -223,18 +222,12 @@ public abstract class MediaPath extends Pattern
 		
 		void increment()
 		{
-			synchronized(lock)
-			{
-				counter++;
-			}
+			counter++; // may loose a few counts due to concurrency, but this is ok
 		}
 
 		public int get()
 		{
-			synchronized(lock)
-			{
-				return counter;
-			}
+			return counter;
 		}
 	}
 }
