@@ -116,10 +116,17 @@ final class ClusterSender
 		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
 		marshal(KIND, buf, kind);
 		
-		for(int i = 0; i<count; i++)
+		try
 		{
-			marshal(SEQUENCE, buf, sequence.next());
-			send(packetSize, buf);
+			for(int i = 0; i<count; i++)
+			{
+				marshal(SEQUENCE, buf, sequence.next());
+				send(packetSize, buf);
+			}
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -139,60 +146,67 @@ final class ClusterSender
 		
 		int typeIdTransiently = 0;
 		TIntIterator i = null;
-		packetLoop: do
+		try
 		{
-			int pos = INVALIDATE_TEMPLATE_SIZE;
-			
-			pos = marshal(pos, buf, invalidationSequence.next());
-			
-			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
+			packetLoop: do
 			{
-				if(i!=null && !i.hasNext())
-				{
-					i = null;
-					continue;
-				}
+				int pos = INVALIDATE_TEMPLATE_SIZE;
 				
-				final TIntHashSet invalidation = invalidations[typeIdTransiently];
-				if(invalidation!=null)
+				pos = marshal(pos, buf, invalidationSequence.next());
+				
+				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
-					if(pos>=packetSize)
+					if(i!=null && !i.hasNext())
 					{
-						send(pos, buf);
-						continue packetLoop;
+						i = null;
+						continue;
 					}
-					pos = marshal(pos, buf, typeIdTransiently);
 					
-					if(i==null)
-						i = invalidation.iterator();
-					while(i.hasNext())
+					final TIntHashSet invalidation = invalidations[typeIdTransiently];
+					if(invalidation!=null)
 					{
 						if(pos>=packetSize)
 						{
 							send(pos, buf);
 							continue packetLoop;
 						}
-						pos = marshal(pos, buf, i.next());
+						pos = marshal(pos, buf, typeIdTransiently);
+						
+						if(i==null)
+							i = invalidation.iterator();
+						while(i.hasNext())
+						{
+							if(pos>=packetSize)
+							{
+								send(pos, buf);
+								continue packetLoop;
+							}
+							pos = marshal(pos, buf, i.next());
+						}
+						
+						if(pos>=packetSize)
+						{
+							send(pos, buf);
+							continue packetLoop;
+						}
+						pos = marshal(pos, buf, PK.NaPK);
+						
+						i = null;
 					}
-					
-					if(pos>=packetSize)
-					{
-						send(pos, buf);
-						continue packetLoop;
-					}
-					pos = marshal(pos, buf, PK.NaPK);
-					
-					i = null;
 				}
+				
+				send(pos, buf);
+				break;
 			}
-			
-			send(pos, buf);
-			break;
+			while(true);
 		}
-		while(true);
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
-	private void send(final int length, final byte[] buf)
+	private void send(final int length, final byte[] buf) throws IOException
 	{
 		if(testSink!=null)
 		{
@@ -202,16 +216,9 @@ final class ClusterSender
 		}
 		else
 		{
-			try
-			{
-				final DatagramPacket packet =
-					new DatagramPacket(buf, length, config.group, destinationPort);
-				socket.send(packet);
-	      }
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
+			final DatagramPacket packet =
+				new DatagramPacket(buf, length, config.group, destinationPort);
+			socket.send(packet);
 		}
 	}
 	
