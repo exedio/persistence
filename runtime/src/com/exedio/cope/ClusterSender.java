@@ -29,7 +29,6 @@ import java.util.ArrayList;
 final class ClusterSender
 {
 	private final ClusterConfig config;
-	private final int sourcePort;
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
@@ -48,11 +47,10 @@ final class ClusterSender
 	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
-		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
 		{
-			this.socket = new DatagramSocket(sourcePort);
+			this.socket = new DatagramSocket(properties.clusterSendSourcePort.getIntValue());
 		}
 		catch(IOException e)
 		{
