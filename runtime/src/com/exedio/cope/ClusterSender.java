@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 final class ClusterSender
 {
@@ -39,9 +40,9 @@ final class ClusterSender
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
 	private final byte[] invalidateTemplate;
 	
-	private Sequence pingSequence = new Sequence();
-	private Sequence pongSequence = new Sequence();
-	private Sequence invalidationSequence = new Sequence();
+	private final AtomicInteger pingSequence = new AtomicInteger(-1);
+	private final AtomicInteger pongSequence = new AtomicInteger(-1);
+	private final AtomicInteger invalidationSequence = new AtomicInteger(-1);
 	
 	ArrayList<byte[]> testSink = null;
 	
@@ -104,7 +105,7 @@ final class ClusterSender
 		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
 	}
 	
-	private void pingPong(final int kind, final Sequence sequence, final int count)
+	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
 	{
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
@@ -120,7 +121,7 @@ final class ClusterSender
 		{
 			for(int i = 0; i<count; i++)
 			{
-				marshal(SEQUENCE, buf, sequence.next());
+				marshal(SEQUENCE, buf, sequence.incrementAndGet());
 				send(packetSize, buf);
 			}
 		}
@@ -152,7 +153,7 @@ final class ClusterSender
 			{
 				int pos = INVALIDATE_TEMPLATE_SIZE;
 				
-				pos = marshal(pos, buf, invalidationSequence.next());
+				pos = marshal(pos, buf, invalidationSequence.incrementAndGet());
 				
 				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
@@ -234,24 +235,5 @@ final class ClusterSender
 	void close()
 	{
 		socket.close();
-	}
-	
-	private static final class Sequence
-	{
-		private int count = 0;
-		private final Object lock = new Object();
-		
-		Sequence()
-		{
-			// just make constructor package private
-		}
-		
-		int next()
-		{
-			synchronized(lock)
-			{
-				return count++;
-			}
-		}
 	}
 }
