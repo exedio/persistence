@@ -72,6 +72,7 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource stylesheet = new Resource("console.css");
 	static final Resource schemaScript = new Resource("schema.js");
 	static final Resource logo = new Resource("logo.png");
+	static final Resource shortcutIcon = new Resource("shortcutIcon.png");
 	static final Resource checkFalse = new Resource("checkfalse.png");
 	static final Resource checkTrue  = new Resource("checktrue.png");
 	static final Resource nodeFalse = new Resource("nodefalse.png");
