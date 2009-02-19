@@ -63,11 +63,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	
 	final BooleanField cluster = new BooleanField("cluster", false);
 	final BooleanField clusterLog = new BooleanField("cluster.log", true);
-	final IntField    clusterSendSourcePort      = new IntField   ("cluster.sendSourcePort"     , 14445, 1);
-	final IntField    clusterSendDestinationPort = new IntField   ("cluster.sendDestinationPort", 14446, 1);
-	final IntField    clusterListenPort          = new IntField   ("cluster.listenPort",          14446, 1);
-	final StringField clusterGroup               = new StringField("cluster.group",               "230.0.0.1");
-	final IntField    clusterPacketSize          = new IntField   ("cluster.packetSize",          1400, 32);
+	final IntField     clusterSendSourcePort      = new IntField   ("cluster.sendSourcePort"     , 14445, 1);
+	final IntField     clusterSendDestinationPort = new IntField   ("cluster.sendDestinationPort", 14446, 1);
+	final IntField     clusterListenPort          = new IntField   ("cluster.listenPort",          14446, 1);
+	final StringField  clusterGroup               = new StringField("cluster.group",               "230.0.0.1");
+	final IntField     clusterPacketSize          = new IntField   ("cluster.packetSize",          1400, 32);
 	
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
