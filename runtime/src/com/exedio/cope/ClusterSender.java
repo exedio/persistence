@@ -39,7 +39,8 @@ final class ClusterSender
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
 	private final byte[] invalidateTemplate;
 	
-	private Sequence pingPongSequence = new Sequence();
+	private Sequence pingSequence = new Sequence();
+	private Sequence pongSequence = new Sequence();
 	private Sequence invalidationSequence = new Sequence();
 	
 	ArrayList<byte[]> testSink = null;
@@ -95,15 +96,15 @@ final class ClusterSender
 	
 	void ping(final int count)
 	{
-		pingPong(ClusterConfig.KIND_PING, count);
+		pingPong(ClusterConfig.KIND_PING, pingSequence, count);
 	}
 	
 	void pong()
 	{
-		pingPong(ClusterConfig.KIND_PONG, 1);
+		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
 	}
 	
-	private void pingPong(final int kind, final int count)
+	private void pingPong(final int kind, final Sequence sequence, final int count)
 	{
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
@@ -117,7 +118,7 @@ final class ClusterSender
 		
 		for(int i = 0; i<count; i++)
 		{
-			marshal(SEQUENCE, buf, pingPongSequence.next());
+			marshal(SEQUENCE, buf, sequence.next());
 			send(packetSize, buf);
 		}
 	}
