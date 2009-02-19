@@ -50,10 +50,8 @@ final class Pool<E>
 	private int idleCount, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
-	private int invalidFromIdle = 0;
-	private int invalidIntoIdle = 0;
-	private final Object invalidFromIdleLock = new Object();
-	private final Object invalidIntoIdleLock = new Object();
+	private volatile int invalidFromIdle = 0;
+	private volatile int invalidIntoIdle = 0;
 	
 	Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
@@ -114,10 +112,7 @@ final class Pool<E>
 			if(factory.isValidFromIdle(result))
 				break;
 			
-			synchronized(invalidFromIdleLock)
-			{
-				invalidFromIdle++;
-			}
+			invalidFromIdle++;
 			
 			result = null;
 		}
@@ -145,10 +140,7 @@ final class Pool<E>
 		// Do not let a closed connection be put back into the pool.
 		if(!factory.isValidIntoIdle(e))
 		{
-			synchronized(invalidIntoIdleLock)
-			{
-				invalidIntoIdle++;
-			}
+			invalidIntoIdle++;
 			throw new IllegalArgumentException("unexpected closed connection");
 		}
 			
