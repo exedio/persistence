@@ -51,9 +51,10 @@ public final class Revision
 		final String[] bodyCopy = new String[body.length];
 		for(int i = 0; i<body.length; i++)
 		{
-			if(body[i]==null)
+			final String b = body[i];
+			if(b==null)
 				throw new NullPointerException("body must not be null, but was at index " + i);
-			bodyCopy[i] = body[i];
+			bodyCopy[i] = b;
 		}
 
 		this.number = number;
