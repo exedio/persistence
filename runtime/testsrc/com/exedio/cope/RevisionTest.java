@@ -85,7 +85,7 @@ public class RevisionTest extends CopeAssert
 		assertEquals(123, m.getNumber());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
-		assertEquals("M123:test-comment", m.toString());
+		assertEquals("R123:test-comment", m.toString());
 	}
 		
 	public void testModel()

@@ -80,7 +80,7 @@ public final class Revision
 	@Override
 	public String toString()
 	{
-		return String.valueOf('M') + number + ':' + comment;
+		return String.valueOf('R') + number + ':' + comment;
 	}
 	
 	// logs
