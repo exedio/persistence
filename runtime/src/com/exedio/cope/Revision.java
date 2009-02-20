@@ -79,12 +79,12 @@ public final class Revision
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated Use {@link RevisionLog#parse(byte[])} instead
+	 * @deprecated Use {@link RevisionInfo#parse(byte[])} instead
 	 */
 	@Deprecated
 	public static final Properties parse(final byte[] info)
 	{
-		return RevisionLog.parse(info);
+		return RevisionInfo.parse(info);
 	}
 	
 	/**

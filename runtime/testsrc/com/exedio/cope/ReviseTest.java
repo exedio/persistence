@@ -343,7 +343,7 @@ public class ReviseTest extends CopeAssert
 	
 	private static final Properties parse(final byte[] log)
 	{
-		return RevisionLog.parse(log);
+		return RevisionInfo.parse(log);
 	}
 	
 	private static final void assertMinInt(final int expectedMinimum, final String actual)

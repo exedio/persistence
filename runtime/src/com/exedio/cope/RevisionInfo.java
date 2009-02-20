@@ -27,9 +27,9 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
 
-public final class RevisionLog
+public final class RevisionInfo
 {
-	private RevisionLog()
+	private RevisionInfo()
 	{
 		// prevent instantiation
 	}

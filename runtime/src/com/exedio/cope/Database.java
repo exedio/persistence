@@ -179,7 +179,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, RevisionLog.create(revisionNumber, getHostname(), dialectParameters));
+				insertRevision(con, revisionNumber, RevisionInfo.create(revisionNumber, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1599,7 +1599,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, RevisionLog.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, RevisionInfo.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1613,7 +1613,7 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final java.util.Properties info = RevisionLog.revise(number, date, hostname, dialectParameters, revision.comment);
+					final java.util.Properties info = RevisionInfo.revise(number, date, hostname, dialectParameters, revision.comment);
 					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
@@ -1629,9 +1629,9 @@ final class Database
 							System.out.println(
 									"Warning: slow cope revision " + number +
 									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
-						RevisionLog.reviseSql(info, bodyIndex, sql, rows, elapsed);
+						RevisionInfo.reviseSql(info, bodyIndex, sql, rows, elapsed);
 					}
-					insertRevision(con, number, RevisionLog.toBytes(info));
+					insertRevision(con, number, RevisionInfo.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();
