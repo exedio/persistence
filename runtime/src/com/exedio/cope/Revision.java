@@ -158,6 +158,12 @@ public final class Revision
 		info.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 	}
 	
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+	static
+	{
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+	
 	private static Properties newInfo(
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
@@ -167,8 +173,6 @@ public final class Revision
 		if(number>=0)
 			result.setProperty("revision", String.valueOf(number));
 
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 		result.setProperty("dateUTC", df.format(date));
 
 		if(hostname!=null)
