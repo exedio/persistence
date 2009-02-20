@@ -38,10 +38,44 @@ public final class EditedServlet extends HttpServlet
 	static final Revision[] revisions(final int length)
 	{
 		final Revision[] result = new Revision[length];
-		for(int i = 0; i<length; i++)
+		
+		int i = 0;
+		int revision = length;
+		result[i++] =
+			new Revision(revision--,
+					"not yet applied",
+					"drop table \"Item\"");
+		result[i++] =
+			new Revision(revision--,
+					"already applied together with its predecessor at the same time",
+					"create table Mail( " +
+					"this integer," +
+					"created bigint, " +
+					"body blob," +
+					"toSend integer, " +
+					"sentDate bigint," +
+					"failedDate bigint, " +
+					"exceptionStacktrace text character set utf8 binary, " +
+					"constraint Mail_Pk primary key(this), " +
+					"constraint Mail_this_CkPk check((this>=-2147483647) AND (this<=2147483647)), " +
+					"constraint Mail_created_Ck check((created IS NOT NULL) AND ((created>=-9223372036854775808) AND (created<=9223372036854775807))), " +
+					"constraint Mail_body_Ck check((LENGTH(body)<=100000) OR (body IS NULL)), " +
+					"constraint Mail_toSend_Ck check((toSend IS NOT NULL) AND (toSend IN (0,1))), " +
+					"constraint Mail_sentDate_Ck check(((sentDate>=-9223372036854775808) AND (sentDate<=9223372036854775807)) OR (sentDate IS NULL)), " +
+					"constraint Mail_failedDate_Ck check(((failedDate>=-9223372036854775808) AND (failedDate<=9223372036854775807)) OR (failedDate IS NULL)), " +
+					"constraint Mail_excepStack_Ck check((LENGTH(exceptionStacktrace)<=1500) OR (exceptionStacktrace IS NULL)))");
+		result[i++] =
+			new Revision(revision--, "with two sql statements",
+					"alter table Article add column imageContentType varchar(61) character set utf8 binary",
+					"update Article set imageContentType='image/jpeg' where image is not null");
+		result[i++] =
+			new Revision(revision--,
+					"before change of environment",
+					"drop table \"Item\"");
+		
+		for(; i<length; i++, revision--)
 		{
-			final int revision = length - i;
-			final String[] body = new String[(revision%4) + 1];
+			final String[] body = new String[(i%4) + 1];
 			for(int j = 0; j<body.length; j++)
 				body[j] = "sql " + revision + "/" + j;
 			result[i] = new Revision(revision, "comment " + revision, body);
