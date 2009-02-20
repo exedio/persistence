@@ -142,14 +142,14 @@ public class RevisionTest extends CopeAssert
 	
 	public static void testParse() throws UnsupportedEncodingException
 	{
-		assertEquals(map("key1", "value1", "key2", "value2"), Revision.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
-		assertEquals(null, Revision.parse("migrationlogv01".getBytes("latin1")));
-		assertEquals(null, Revision.parse("#migrationlogv0".getBytes("latin1")));
-		assertEquals(null, Revision.parse("x#migrationlogv01".getBytes("latin1")));
-		assertEquals(null, Revision.parse("".getBytes("latin1")));
+		assertEquals(map("key1", "value1", "key2", "value2"), RevisionLog.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
+		assertEquals(null, RevisionLog.parse("migrationlogv01".getBytes("latin1")));
+		assertEquals(null, RevisionLog.parse("#migrationlogv0".getBytes("latin1")));
+		assertEquals(null, RevisionLog.parse("x#migrationlogv01".getBytes("latin1")));
+		assertEquals(null, RevisionLog.parse("".getBytes("latin1")));
 		try
 		{
-			Revision.parse(null);
+			RevisionLog.parse(null);
 			fail();
 		}
 		catch(NullPointerException e)
