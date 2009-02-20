@@ -76,6 +76,8 @@ public final class Revision
 		return String.valueOf('R') + number + ':' + comment;
 	}
 	
+	// ------------------- deprecated stuff -------------------
+	
 	/**
 	 * @deprecated Use {@link RevisionLog#parse(byte[])} instead
 	 */
@@ -84,8 +86,6 @@ public final class Revision
 	{
 		return RevisionLog.parse(info);
 	}
-	
-	// ------------------- deprecated stuff -------------------
 	
 	/**
 	 * @deprecated Use {@link #getNumber()} instead
