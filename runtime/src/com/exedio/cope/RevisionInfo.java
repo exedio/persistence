@@ -34,11 +34,11 @@ public final class RevisionInfo
 		// prevent instantiation
 	}
 	
-	private static final String INFO_MAGIC = "migrationlogv01";
+	private static final String MAGIC = "migrationlogv01";
 	
 	public static final Properties parse(final byte[] info)
 	{
-		if(info.length<=INFO_MAGIC.length()+1)
+		if(info.length<=MAGIC.length()+1)
 			return null;
 
 		if(info[0]!='#')
@@ -47,7 +47,7 @@ public final class RevisionInfo
 		final byte[] magic;
 		try
 		{
-			magic = INFO_MAGIC.getBytes("latin1");
+			magic = MAGIC.getBytes("latin1");
 		}
 		catch(UnsupportedEncodingException e)
 		{
@@ -146,7 +146,7 @@ public final class RevisionInfo
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			info.store(baos, INFO_MAGIC);
+			info.store(baos, MAGIC);
 		}
 		catch(IOException e)
 		{
