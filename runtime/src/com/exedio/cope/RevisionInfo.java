@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -94,23 +95,23 @@ public abstract class RevisionInfo
 			final String hostname,
 			final DialectParameters dialectParameters)
 	{
-		final Properties store = new Properties();
+		final HashMap<String, String> store = new HashMap<String, String>();
 		
 		if(hostname!=null)
-			store.setProperty("hostname", hostname);
+			store.put("hostname", hostname);
 		
-		store.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
-		store.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
-		store.setProperty("database.name",    dialectParameters.databaseProductName);
-		store.setProperty("database.version", dialectParameters.databaseProductVersion);
-		store.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
-		store.setProperty("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
-		store.setProperty("driver.name",    dialectParameters.driverName);
-		store.setProperty("driver.version", dialectParameters.driverVersion);
-		store.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
-		store.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
+		store.put("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
+		store.put("jdbc.user", dialectParameters.properties.getDatabaseUser());
+		store.put("database.name",    dialectParameters.databaseProductName);
+		store.put("database.version", dialectParameters.databaseProductVersion);
+		store.put("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
+		store.put("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
+		store.put("driver.name",    dialectParameters.driverName);
+		store.put("driver.version", dialectParameters.driverVersion);
+		store.put("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
+		store.put("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
 		
-		return (Map<String, String>)((Map)store);
+		return store;
 	}
 	
 	final byte[] toBytes()
