@@ -1428,9 +1428,14 @@ final class Database
 	{
 		final HashMap<String, String> store = new HashMap<String, String>();
 		
-		final String hostname = getHostname();
-		if(hostname!=null)
-			store.put("hostname", hostname);
+		try
+		{
+			store.put("hostname", InetAddress.getLocalHost().getHostName());
+		}
+		catch(UnknownHostException e)
+		{
+			// do not put in hostname
+		}
 		
 		store.put("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
 		store.put("jdbc.user", dialectParameters.properties.getDatabaseUser());
@@ -1673,18 +1678,6 @@ final class Database
 				connectionPool.put(con);
 				con = null;
 			}
-		}
-	}
-	
-	private static final String getHostname()
-	{
-		try
-		{
-			return InetAddress.getLocalHost().getHostName();
-		}
-		catch(UnknownHostException e)
-		{
-			return null;
 		}
 	}
 
