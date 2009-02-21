@@ -135,12 +135,12 @@ public final class RevisionInfo
 		this.store = store;
 	}
 	
-	static byte[] toBytes(final RevisionInfo info)
+	byte[] toBytes()
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			info.store.store(baos, MAGIC);
+			store.store(baos, MAGIC);
 		}
 		catch(IOException e)
 		{

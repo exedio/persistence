@@ -1556,7 +1556,7 @@ final class Database
 			append(")values(").
 			appendParameter(number).
 			append(',').
-			appendParameterBlob(RevisionInfo.toBytes(info)).
+			appendParameterBlob(info.toBytes()).
 			append(')');
 		
 		executeSQLUpdate(connection, bf, true);
