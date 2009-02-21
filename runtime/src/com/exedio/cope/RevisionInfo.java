@@ -84,6 +84,9 @@ public abstract class RevisionInfo
 
 		store.setProperty("dateUTC", df.format(date));
 		
+		for(final Map.Entry<String, String> e : environment.entrySet())
+			store.setProperty(e.getKey(), e.getValue());
+		
 		this.store = store;
 	}
 	
