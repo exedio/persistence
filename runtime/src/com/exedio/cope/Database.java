@@ -179,7 +179,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, getHostname(), dialectParameters));
+				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, RevisionInfo.makeEnvironment(getHostname(), dialectParameters)));
 			}
 			catch(SQLException e)
 			{
@@ -1599,7 +1599,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, RevisionInfo.makeEnvironment(hostname, dialectParameters), expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1613,7 +1613,7 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, hostname, dialectParameters, revision.comment);
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, RevisionInfo.makeEnvironment(hostname, dialectParameters), revision.comment);
 					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{

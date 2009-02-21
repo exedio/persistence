@@ -19,15 +19,16 @@
 package com.exedio.cope;
 
 import java.util.Date;
+import java.util.Map;
 
 final class RevisionInfoRevise extends RevisionInfo
 {
 	RevisionInfoRevise(
 			final int number,
-			final Date date, final String hostname, final DialectParameters dialectParameters,
+			final Date date, final Map<String, String> environment,
 			final String comment)
 	{
-		super(number, date, hostname, dialectParameters);
+		super(number, date, environment);
 		store.setProperty("comment", comment);
 	}
 	

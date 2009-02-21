@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
@@ -74,7 +75,7 @@ public abstract class RevisionInfo
 	
 	RevisionInfo(
 			final int number,
-			final Date date, final String hostname, final DialectParameters dialectParameters)
+			final Date date, final Map<String, String> environment)
 	{
 		final Properties store = new Properties();
 
@@ -82,7 +83,16 @@ public abstract class RevisionInfo
 			store.setProperty("revision", String.valueOf(number));
 
 		store.setProperty("dateUTC", df.format(date));
-
+		
+		this.store = store;
+	}
+	
+	static Map<String, String> makeEnvironment(
+			final String hostname,
+			final DialectParameters dialectParameters)
+	{
+		final Properties store = new Properties();
+		
 		if(hostname!=null)
 			store.setProperty("hostname", hostname);
 		
@@ -97,7 +107,7 @@ public abstract class RevisionInfo
 		store.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
 		store.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
 		
-		this.store = store;
+		return (Map<String, String>)((Map)store);
 	}
 	
 	final byte[] toBytes()
