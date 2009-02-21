@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -89,29 +88,6 @@ public abstract class RevisionInfo
 			store.setProperty(e.getKey(), e.getValue());
 		
 		this.store = store;
-	}
-	
-	static Map<String, String> makeEnvironment(
-			final String hostname,
-			final DialectParameters dialectParameters)
-	{
-		final HashMap<String, String> store = new HashMap<String, String>();
-		
-		if(hostname!=null)
-			store.put("hostname", hostname);
-		
-		store.put("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
-		store.put("jdbc.user", dialectParameters.properties.getDatabaseUser());
-		store.put("database.name",    dialectParameters.databaseProductName);
-		store.put("database.version", dialectParameters.databaseProductVersion);
-		store.put("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
-		store.put("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
-		store.put("driver.name",    dialectParameters.driverName);
-		store.put("driver.version", dialectParameters.driverVersion);
-		store.put("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
-		store.put("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
-		
-		return store;
 	}
 	
 	final byte[] toBytes()

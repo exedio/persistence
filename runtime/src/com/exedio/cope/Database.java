@@ -179,7 +179,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, RevisionInfo.makeEnvironment(getHostname(), dialectParameters)));
+				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, makeEnvironment()));
 			}
 			catch(SQLException e)
 			{
@@ -1424,6 +1424,28 @@ final class Database
 	private static final String REVISION_COLUMN_INFO_NAME = "i";
 	private static final int REVISION_MUTEX_NUMBER = -1;
 	
+	private Map<String, String> makeEnvironment()
+	{
+		final HashMap<String, String> store = new HashMap<String, String>();
+		
+		final String hostname = getHostname();
+		if(hostname!=null)
+			store.put("hostname", hostname);
+		
+		store.put("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
+		store.put("jdbc.user", dialectParameters.properties.getDatabaseUser());
+		store.put("database.name",    dialectParameters.databaseProductName);
+		store.put("database.version", dialectParameters.databaseProductVersion);
+		store.put("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
+		store.put("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
+		store.put("driver.name",    dialectParameters.driverName);
+		store.put("driver.version", dialectParameters.driverVersion);
+		store.put("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
+		store.put("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
+		
+		return store;
+	}
+	
 	Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, new ConnectionProvider()
@@ -1596,10 +1618,9 @@ final class Database
 							", but declared revisions allow from " + (expectedRevision - revisions.length) + " only");
 				
 				final Date date = new Date();
-				final String hostname = getHostname();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, RevisionInfo.makeEnvironment(hostname, dialectParameters), expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, makeEnvironment(), expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1613,7 +1634,7 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, RevisionInfo.makeEnvironment(hostname, dialectParameters), revision.comment);
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, makeEnvironment(), revision.comment);
 					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
