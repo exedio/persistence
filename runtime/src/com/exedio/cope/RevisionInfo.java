@@ -30,7 +30,9 @@ import java.util.TimeZone;
 
 public abstract class RevisionInfo
 {
-	final Properties store;
+	private final int number;
+	private final Date date;
+	private final Map<String, String> environment;
 	
 	private static final String MAGIC = "migrationlogv01";
 	
@@ -77,6 +79,13 @@ public abstract class RevisionInfo
 			final int number,
 			final Date date, final Map<String, String> environment)
 	{
+		this.number = number;
+		this.date = date;
+		this.environment = environment;
+	}
+	
+	Properties getStore()
+	{
 		final Properties store = new Properties();
 
 		if(number>=0)
@@ -87,7 +96,7 @@ public abstract class RevisionInfo
 		for(final Map.Entry<String, String> e : environment.entrySet())
 			store.setProperty(e.getKey(), e.getValue());
 		
-		this.store = store;
+		return store;
 	}
 	
 	final byte[] toBytes()
@@ -95,7 +104,7 @@ public abstract class RevisionInfo
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			store.store(baos, MAGIC);
+			getStore().store(baos, MAGIC);
 		}
 		catch(IOException e)
 		{

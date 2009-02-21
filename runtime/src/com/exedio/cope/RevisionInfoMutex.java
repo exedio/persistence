@@ -20,16 +20,29 @@ package com.exedio.cope;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Properties;
 
 final class RevisionInfoMutex extends RevisionInfo
 {
+	private final int expectedNumber;
+	private final int actualNumber;
+	
 	RevisionInfoMutex(
 			final Date date, final Map<String, String> environment,
 			final int expectedNumber, final int actualNumber)
 	{
 		super(-1, date, environment);
+		this.expectedNumber = expectedNumber;
+		this.actualNumber = actualNumber;
+	}
+	
+	@Override
+	Properties getStore()
+	{
+		final Properties store = super.getStore();
 		store.setProperty("mutex", Boolean.TRUE.toString());
 		store.setProperty("mutex.expected", String.valueOf(expectedNumber));
 		store.setProperty("mutex.actual", String.valueOf(actualNumber));
+		return store;
 	}
 }

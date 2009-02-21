@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Properties;
 
 final class RevisionInfoCreate extends RevisionInfo
 {
@@ -28,6 +29,13 @@ final class RevisionInfoCreate extends RevisionInfo
 			final Map<String, String> environment)
 	{
 		super(number, new Date(), environment);
+	}
+	
+	@Override
+	Properties getStore()
+	{
+		final Properties store = super.getStore();
 		store.setProperty("create", Boolean.TRUE.toString());
+		return store;
 	}
 }

@@ -20,16 +20,31 @@ package com.exedio.cope;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 final class RevisionInfoRevise extends RevisionInfo
 {
+	private final String comment;
+	final Properties store = new Properties();
+	
 	RevisionInfoRevise(
 			final int number,
 			final Date date, final Map<String, String> environment,
 			final String comment)
 	{
 		super(number, date, environment);
+		this.comment = comment;
+	}
+	
+	@Override
+	Properties getStore()
+	{
+		final Properties store = super.getStore();
 		store.setProperty("comment", comment);
+		for(final String k : (Set<String>)(Set)this.store.keySet())
+			store.setProperty(k, this.store.getProperty(k));
+		return store;
 	}
 	
 	void reviseSql(final int index, final String sql, final int rows, final long elapsed)
