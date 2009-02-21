@@ -179,7 +179,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, RevisionInfo.create(revisionNumber, getHostname(), dialectParameters));
+				insertRevision(con, revisionNumber, new RevisionInfo(revisionNumber, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1542,7 +1542,7 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void insertRevision(final Connection connection, final int number, final byte[] info)
+	private void insertRevision(final Connection connection, final int number, final RevisionInfo info)
 	{
 		assert revisionEnabled;
 		
@@ -1556,7 +1556,7 @@ final class Database
 			append(")values(").
 			appendParameter(number).
 			append(',').
-			appendParameterBlob(info).
+			appendParameterBlob(RevisionInfo.toBytes(info)).
 			append(')');
 		
 		executeSQLUpdate(connection, bf, true);
@@ -1599,7 +1599,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, RevisionInfo.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfo(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1613,7 +1613,7 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final java.util.Properties info = RevisionInfo.revise(number, date, hostname, dialectParameters, revision.comment);
+					final RevisionInfo info = new RevisionInfo(number, date, hostname, dialectParameters, revision.comment);
 					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
@@ -1629,9 +1629,9 @@ final class Database
 							System.out.println(
 									"Warning: slow cope revision " + number +
 									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
-						RevisionInfo.reviseSql(info, bodyIndex, sql, rows, elapsed);
+						info.reviseSql(bodyIndex, sql, rows, elapsed);
 					}
-					insertRevision(con, number, RevisionInfo.toBytes(info));
+					insertRevision(con, number, info);
 				}
 				{
 					final Statement bf = createStatement();

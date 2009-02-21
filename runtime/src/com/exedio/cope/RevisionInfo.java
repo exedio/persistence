@@ -29,10 +29,8 @@ import java.util.TimeZone;
 
 public final class RevisionInfo
 {
-	private RevisionInfo()
-	{
-		// prevent instantiation
-	}
+	final Properties info;
+	final Properties result;
 	
 	private static final String MAGIC = "migrationlogv01";
 	
@@ -69,37 +67,34 @@ public final class RevisionInfo
 		return result;
 	}
 	
-	static byte[] mutex(
+	RevisionInfo( // mutex
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final int expectedNumber, final int actualNumber)
 	{
-		final Properties result = newInfo(-1, date, hostname, dialectParameters);
+		this(-1, date, hostname, dialectParameters);
 		result.setProperty("mutex", Boolean.TRUE.toString());
 		result.setProperty("mutex.expected", String.valueOf(expectedNumber));
 		result.setProperty("mutex.actual", String.valueOf(actualNumber));
-		return toBytes(result);
 	}
 	
-	static byte[] create(
+	RevisionInfo( // create
 			final int number,
 			final String hostname, final DialectParameters dialectParameters)
 	{
-		final Properties result = newInfo(number, new Date(), hostname, dialectParameters);
+		this(number, new Date(), hostname, dialectParameters);
 		result.setProperty("create", Boolean.TRUE.toString());
-		return toBytes(result);
 	}
 	
-	static Properties revise(
+	RevisionInfo( // revise
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final String comment)
 	{
-		final Properties result = newInfo(number, date, hostname, dialectParameters);
+		this(number, date, hostname, dialectParameters);
 		result.setProperty("comment", comment);
-		return result;
 	}
 	
-	static void reviseSql(final Properties info, final int index, final String sql, final int rows, final long elapsed)
+	void reviseSql(final int index, final String sql, final int rows, final long elapsed)
 	{
 		final String bodyPrefix = "body" + index + '.';
 		info.setProperty(bodyPrefix + "sql", sql);
@@ -113,7 +108,7 @@ public final class RevisionInfo
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 	
-	private static Properties newInfo(
+	private RevisionInfo(
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
@@ -138,15 +133,16 @@ public final class RevisionInfo
 		result.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
 		result.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
 		
-		return result;
+		this.info = result;
+		this.result = result;
 	}
 	
-	static byte[] toBytes(final java.util.Properties info)
+	static byte[] toBytes(final RevisionInfo info)
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			info.store(baos, MAGIC);
+			info.info.store(baos, MAGIC);
 		}
 		catch(IOException e)
 		{
