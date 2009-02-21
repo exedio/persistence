@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
 
-public final class RevisionInfo
+public abstract class RevisionInfo
 {
 	final Properties store;
 	
@@ -66,48 +66,13 @@ public final class RevisionInfo
 		return result;
 	}
 	
-	RevisionInfo( // mutex
-			final Date date, final String hostname, final DialectParameters dialectParameters,
-			final int expectedNumber, final int actualNumber)
-	{
-		this(-1, date, hostname, dialectParameters);
-		store.setProperty("mutex", Boolean.TRUE.toString());
-		store.setProperty("mutex.expected", String.valueOf(expectedNumber));
-		store.setProperty("mutex.actual", String.valueOf(actualNumber));
-	}
-	
-	RevisionInfo( // create
-			final int number,
-			final String hostname, final DialectParameters dialectParameters)
-	{
-		this(number, new Date(), hostname, dialectParameters);
-		store.setProperty("create", Boolean.TRUE.toString());
-	}
-	
-	RevisionInfo( // revise
-			final int number,
-			final Date date, final String hostname, final DialectParameters dialectParameters,
-			final String comment)
-	{
-		this(number, date, hostname, dialectParameters);
-		store.setProperty("comment", comment);
-	}
-	
-	void reviseSql(final int index, final String sql, final int rows, final long elapsed)
-	{
-		final String bodyPrefix = "body" + index + '.';
-		store.setProperty(bodyPrefix + "sql", sql);
-		store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
-		store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
-	}
-	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
 	{
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 	
-	private RevisionInfo(
+	RevisionInfo(
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
@@ -135,7 +100,7 @@ public final class RevisionInfo
 		this.store = store;
 	}
 	
-	byte[] toBytes()
+	final byte[] toBytes()
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
