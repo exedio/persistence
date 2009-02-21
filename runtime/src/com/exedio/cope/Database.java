@@ -179,7 +179,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, makeEnvironment()));
+				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, revisionEnvironment()));
 			}
 			catch(SQLException e)
 			{
@@ -1424,7 +1424,7 @@ final class Database
 	private static final String REVISION_COLUMN_INFO_NAME = "i";
 	private static final int REVISION_MUTEX_NUMBER = -1;
 	
-	private Map<String, String> makeEnvironment()
+	private Map<String, String> revisionEnvironment()
 	{
 		final HashMap<String, String> store = new HashMap<String, String>();
 		
@@ -1625,7 +1625,7 @@ final class Database
 				final Date date = new Date();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, makeEnvironment(), expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1639,7 +1639,7 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, makeEnvironment(), revision.comment);
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment(), revision.comment);
 					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
