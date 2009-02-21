@@ -29,8 +29,7 @@ import java.util.TimeZone;
 
 public final class RevisionInfo
 {
-	final Properties info;
-	final Properties result;
+	final Properties store;
 	
 	private static final String MAGIC = "migrationlogv01";
 	
@@ -72,9 +71,9 @@ public final class RevisionInfo
 			final int expectedNumber, final int actualNumber)
 	{
 		this(-1, date, hostname, dialectParameters);
-		result.setProperty("mutex", Boolean.TRUE.toString());
-		result.setProperty("mutex.expected", String.valueOf(expectedNumber));
-		result.setProperty("mutex.actual", String.valueOf(actualNumber));
+		store.setProperty("mutex", Boolean.TRUE.toString());
+		store.setProperty("mutex.expected", String.valueOf(expectedNumber));
+		store.setProperty("mutex.actual", String.valueOf(actualNumber));
 	}
 	
 	RevisionInfo( // create
@@ -82,7 +81,7 @@ public final class RevisionInfo
 			final String hostname, final DialectParameters dialectParameters)
 	{
 		this(number, new Date(), hostname, dialectParameters);
-		result.setProperty("create", Boolean.TRUE.toString());
+		store.setProperty("create", Boolean.TRUE.toString());
 	}
 	
 	RevisionInfo( // revise
@@ -91,15 +90,15 @@ public final class RevisionInfo
 			final String comment)
 	{
 		this(number, date, hostname, dialectParameters);
-		result.setProperty("comment", comment);
+		store.setProperty("comment", comment);
 	}
 	
 	void reviseSql(final int index, final String sql, final int rows, final long elapsed)
 	{
 		final String bodyPrefix = "body" + index + '.';
-		info.setProperty(bodyPrefix + "sql", sql);
-		info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
-		info.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
+		store.setProperty(bodyPrefix + "sql", sql);
+		store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
+		store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 	}
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
@@ -112,29 +111,28 @@ public final class RevisionInfo
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
-		final Properties result = new Properties();
+		final Properties store = new Properties();
 
 		if(number>=0)
-			result.setProperty("revision", String.valueOf(number));
+			store.setProperty("revision", String.valueOf(number));
 
-		result.setProperty("dateUTC", df.format(date));
+		store.setProperty("dateUTC", df.format(date));
 
 		if(hostname!=null)
-			result.setProperty("hostname", hostname);
+			store.setProperty("hostname", hostname);
 		
-		result.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
-		result.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
-		result.setProperty("database.name",    dialectParameters.databaseProductName);
-		result.setProperty("database.version", dialectParameters.databaseProductVersion);
-		result.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
-		result.setProperty("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
-		result.setProperty("driver.name",    dialectParameters.driverName);
-		result.setProperty("driver.version", dialectParameters.driverVersion);
-		result.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
-		result.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
+		store.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
+		store.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
+		store.setProperty("database.name",    dialectParameters.databaseProductName);
+		store.setProperty("database.version", dialectParameters.databaseProductVersion);
+		store.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
+		store.setProperty("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
+		store.setProperty("driver.name",    dialectParameters.driverName);
+		store.setProperty("driver.version", dialectParameters.driverVersion);
+		store.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
+		store.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
 		
-		this.info = result;
-		this.result = result;
+		this.store = store;
 	}
 	
 	static byte[] toBytes(final RevisionInfo info)
@@ -142,7 +140,7 @@ public final class RevisionInfo
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			info.info.store(baos, MAGIC);
+			info.store.store(baos, MAGIC);
 		}
 		catch(IOException e)
 		{
