@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.UnsupportedEncodingException;
-
 import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionTest extends CopeAssert
@@ -137,24 +135,6 @@ public class RevisionTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("inconsistent revision number at index 1, expected 7, but was 6", e.getMessage());
-		}
-	}
-	
-	public void testParse() throws UnsupportedEncodingException
-	{
-		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
-		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));
-		assertEquals(null, RevisionInfo.parse("#migrationlogv0".getBytes("latin1")));
-		assertEquals(null, RevisionInfo.parse("x#migrationlogv01".getBytes("latin1")));
-		assertEquals(null, RevisionInfo.parse("".getBytes("latin1")));
-		try
-		{
-			RevisionInfo.parse(null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
 		}
 	}
 }
