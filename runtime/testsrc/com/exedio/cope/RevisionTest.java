@@ -140,7 +140,7 @@ public class RevisionTest extends CopeAssert
 		}
 	}
 	
-	public static void testParse() throws UnsupportedEncodingException
+	public void testParse() throws UnsupportedEncodingException
 	{
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));
