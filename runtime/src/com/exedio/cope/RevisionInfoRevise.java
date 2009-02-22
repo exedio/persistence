@@ -21,20 +21,42 @@ package com.exedio.cope;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 final class RevisionInfoRevise extends RevisionInfo
 {
 	private final String comment;
-	final Properties store = new Properties();
+	private final Body[] body;
+	
+	static final class Body
+	{
+		private final String sql;
+		private final int rows;
+		private final long elapsed;
+		
+		Body(final String sql, final int rows, final long elapsed)
+		{
+			this.sql = sql;
+			this.rows = rows;
+			this.elapsed = elapsed;
+		}
+		
+		void fillStore(final int index, final Properties store)
+		{
+			final String bodyPrefix = "body" + index + '.';
+			store.setProperty(bodyPrefix + "sql", sql);
+			store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
+			store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
+		}
+	}
 	
 	RevisionInfoRevise(
 			final int number,
 			final Date date, final Map<String, String> environment,
-			final String comment)
+			final String comment, final Body... body)
 	{
 		super(number, date, environment);
 		this.comment = comment;
+		this.body = body;
 	}
 	
 	@Override
@@ -42,16 +64,8 @@ final class RevisionInfoRevise extends RevisionInfo
 	{
 		final Properties store = super.getStore();
 		store.setProperty("comment", comment);
-		for(final String k : (Set<String>)(Set)this.store.keySet())
-			store.setProperty(k, this.store.getProperty(k));
+		for(int i = 0; i<body.length; i++)
+			body[i].fillStore(i, store);
 		return store;
-	}
-	
-	void reviseSql(final int index, final String sql, final int rows, final long elapsed)
-	{
-		final String bodyPrefix = "body" + index + '.';
-		store.setProperty(bodyPrefix + "sql", sql);
-		store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
-		store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 	}
 }

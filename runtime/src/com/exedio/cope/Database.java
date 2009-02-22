@@ -1639,8 +1639,8 @@ final class Database
 					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment(), revision.comment);
 					final String[] body = revision.body;
+					final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
@@ -1655,8 +1655,9 @@ final class Database
 							System.out.println(
 									"Warning: slow cope revision " + number +
 									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
-						info.reviseSql(bodyIndex, sql, rows, elapsed);
+						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 					}
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment(), revision.comment, bodyInfo);
 					insertRevision(con, number, info);
 				}
 				{
