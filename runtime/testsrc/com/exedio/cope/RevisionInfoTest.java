@@ -149,6 +149,7 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			assertEquals("body must not be null, but was at index 0", e.getMessage());
 		}
+		new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
 	}
 	
 	public void testCreate()
@@ -170,7 +171,7 @@ public class RevisionInfoTest extends CopeAssert
 		
 		try
 		{
-			new RevisionInfoCreate(0, null, null);
+			new RevisionInfoCreate(-1, null, null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -179,13 +180,23 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoCreate(0, DATE, null);
+			new RevisionInfoCreate(-1, DATE, null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals("environment must not be null", e.getMessage());
 		}
+		try
+		{
+			new RevisionInfoCreate(-1, DATE, env);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("number must be greater or equal zero, but was -1", e.getMessage());
+		}
+		new RevisionInfoCreate(0, DATE, env);
 	}
 	
 	public void testMutex()

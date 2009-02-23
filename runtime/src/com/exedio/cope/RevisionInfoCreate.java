@@ -30,6 +30,9 @@ final class RevisionInfoCreate extends RevisionInfo
 			final Map<String, String> environment)
 	{
 		super(number, date, environment);
+		
+		if(number<0)
+			throw new IllegalArgumentException("number must be greater or equal zero, but was " + number);
 	}
 	
 	@Override
