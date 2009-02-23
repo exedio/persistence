@@ -36,6 +36,16 @@ final class RevisionInfoMutex extends RevisionInfo
 		this.actualNumber = actualNumber;
 	}
 	
+	int getExpectedNumber()
+	{
+		return expectedNumber;
+	}
+	
+	int getActualNumber()
+	{
+		return actualNumber;
+	}
+	
 	@Override
 	Properties getStore()
 	{

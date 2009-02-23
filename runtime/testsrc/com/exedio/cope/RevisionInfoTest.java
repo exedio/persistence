@@ -70,6 +70,18 @@ public class RevisionInfoTest extends CopeAssert
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 	}
 	
+	public void testMutex()
+	{
+		final HashMap<String, String> env = new HashMap<String, String>();
+		final RevisionInfoMutex i =
+			new RevisionInfoMutex(DATE, env, 72, 78);
+		assertEquals(-1, i.getNumber());
+		assertEquals(DATE, i.getDate());
+		assertEqualsUnmodifiable(env, i.getEnvironment());
+		assertEquals(72, i.getExpectedNumber());
+		assertEquals(78, i.getActualNumber());
+	}
+	
 	public void testParse() throws UnsupportedEncodingException
 	{
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
