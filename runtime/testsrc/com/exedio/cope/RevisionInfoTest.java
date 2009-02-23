@@ -94,6 +94,15 @@ public class RevisionInfoTest extends CopeAssert
 		assertEquals(5, i.getNumber());
 		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
+		
+		assertEquals(map(
+				"revision", "5",
+				"dateUTC", DATE_STRING,
+				"env1Key", "env1Value",
+				"env2Key", "env2Value",
+				"env3Key", "env3Value",
+				"create", "true"),
+				reparse(i));
 	}
 	
 	public void testMutex()
