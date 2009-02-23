@@ -35,7 +35,72 @@ public abstract class RevisionInfo
 	private final Date date;
 	private final Map<String, String> environment;
 	
+	RevisionInfo(
+			final int number,
+			final Date date, final Map<String, String> environment)
+	{
+		if(date==null)
+			throw new NullPointerException("date must not be null");
+		if(environment==null)
+			throw new NullPointerException("environment must not be null");
+		
+		this.number = number;
+		this.date = date;
+		this.environment = environment;
+	}
+	
+	int getNumber()
+	{
+		return number;
+	}
+	
+	Date getDate()
+	{
+		return date;
+	}
+	
+	Map<String, String> getEnvironment()
+	{
+		return Collections.unmodifiableMap(environment);
+	}
+	
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+	static
+	{
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+	
+	Properties getStore()
+	{
+		final Properties store = new Properties();
+
+		if(number>=0)
+			store.setProperty("revision", String.valueOf(number));
+
+		store.setProperty("dateUTC", df.format(date));
+		
+		for(final Map.Entry<String, String> e : environment.entrySet())
+			store.setProperty(e.getKey(), e.getValue());
+		
+		return store;
+	}
+	
 	private static final String MAGIC = "migrationlogv01";
+	
+	final byte[] toBytes()
+	{
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try
+		{
+			getStore().store(baos, MAGIC);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
+		}
+		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
+		return baos.toByteArray();
+	}
 	
 	public static final Properties parse(final byte[] info)
 	{
@@ -68,70 +133,5 @@ public abstract class RevisionInfo
 			throw new RuntimeException(e);
 		}
 		return result;
-	}
-	
-	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-	static
-	{
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-	}
-	
-	RevisionInfo(
-			final int number,
-			final Date date, final Map<String, String> environment)
-	{
-		if(date==null)
-			throw new NullPointerException("date must not be null");
-		if(environment==null)
-			throw new NullPointerException("environment must not be null");
-		
-		this.number = number;
-		this.date = date;
-		this.environment = environment;
-	}
-	
-	int getNumber()
-	{
-		return number;
-	}
-	
-	Date getDate()
-	{
-		return date;
-	}
-	
-	Map<String, String> getEnvironment()
-	{
-		return Collections.unmodifiableMap(environment);
-	}
-	
-	Properties getStore()
-	{
-		final Properties store = new Properties();
-
-		if(number>=0)
-			store.setProperty("revision", String.valueOf(number));
-
-		store.setProperty("dateUTC", df.format(date));
-		
-		for(final Map.Entry<String, String> e : environment.entrySet())
-			store.setProperty(e.getKey(), e.getValue());
-		
-		return store;
-	}
-	
-	final byte[] toBytes()
-	{
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try
-		{
-			getStore().store(baos, MAGIC);
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
-		}
-		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
-		return baos.toByteArray();
 	}
 }
