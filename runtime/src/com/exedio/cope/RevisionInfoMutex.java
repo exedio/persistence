@@ -32,6 +32,12 @@ final class RevisionInfoMutex extends RevisionInfo
 			final int expectedNumber, final int actualNumber)
 	{
 		super(-1, date, environment);
+		
+		if(expectedNumber<0)
+			throw new IllegalArgumentException("expectedNumber must be greater or equal zero, but was " + expectedNumber);
+		if(actualNumber>=expectedNumber)
+			throw new IllegalArgumentException("expectedNumber must be greater than " + actualNumber + ", but was " + expectedNumber);
+		
 		this.expectedNumber = expectedNumber;
 		this.actualNumber = actualNumber;
 	}

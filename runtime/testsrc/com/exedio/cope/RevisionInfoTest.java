@@ -202,12 +202,12 @@ public class RevisionInfoTest extends CopeAssert
 	public void testMutex()
 	{
 		final RevisionInfoMutex i =
-			new RevisionInfoMutex(DATE, env, 72, 78);
+			new RevisionInfoMutex(DATE, env, 78, 72);
 		assertEquals(-1, i.getNumber());
 		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
-		assertEquals(72, i.getExpectedNumber());
-		assertEquals(78, i.getActualNumber());
+		assertEquals(78, i.getExpectedNumber());
+		assertEquals(72, i.getActualNumber());
 		
 		assertEquals(map(
 				"dateUTC", DATE_STRING,
@@ -215,13 +215,13 @@ public class RevisionInfoTest extends CopeAssert
 				"env2Key", "env2Value",
 				"env3Key", "env3Value",
 				"mutex", "true",
-				"mutex.expected", "72",
-				"mutex.actual", "78"),
+				"mutex.expected", "78",
+				"mutex.actual", "72"),
 				reparse(i));
 		
 		try
 		{
-			new RevisionInfoMutex(null, null, 72, 78);
+			new RevisionInfoMutex(null, null, -1, -1);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -230,13 +230,32 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoMutex(DATE, null, 72, 78);
+			new RevisionInfoMutex(DATE, null, -1, -1);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals("environment must not be null", e.getMessage());
 		}
+		try
+		{
+			new RevisionInfoMutex(DATE, env, -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expectedNumber must be greater or equal zero, but was -1", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoMutex(DATE, env, 0, 0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expectedNumber must be greater than 0, but was 0", e.getMessage());
+		}
+		new RevisionInfoMutex(DATE, env, 1, 0);
 	}
 	
 	public void testParse() throws UnsupportedEncodingException
