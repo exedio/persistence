@@ -150,6 +150,44 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals("body must not be null, but was at index 0", e.getMessage());
 		}
 		new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
+		
+		try
+		{
+			new Body(null, -1, -1);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("sql must not be null", e.getMessage());
+		}
+		try
+		{
+			new Body("", -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("sql must not be empty", e.getMessage());
+		}
+		try
+		{
+			new Body("x", -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("rows must be greater or equal zero, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Body("x", 0, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("elapsed must be greater or equal zero, but was -1", e.getMessage());
+		}
+		new Body("x", 0, 0);
 	}
 	
 	public void testCreate()

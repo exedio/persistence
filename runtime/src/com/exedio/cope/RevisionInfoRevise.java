@@ -38,6 +38,15 @@ final class RevisionInfoRevise extends RevisionInfo
 		
 		Body(final String sql, final int rows, final long elapsed)
 		{
+			if(sql==null)
+				throw new NullPointerException("sql must not be null");
+			if(sql.length()==0)
+				throw new IllegalArgumentException("sql must not be empty");
+			if(rows<0)
+				throw new IllegalArgumentException("rows must be greater or equal zero, but was " + rows);
+			if(elapsed<0)
+				throw new IllegalArgumentException("elapsed must be greater or equal zero, but was " + elapsed);
+			
 			this.sql = sql;
 			this.rows = rows;
 			this.elapsed = elapsed;
