@@ -80,6 +80,11 @@ public abstract class RevisionInfo
 			final int number,
 			final Date date, final Map<String, String> environment)
 	{
+		if(date==null)
+			throw new NullPointerException("date must not be null");
+		if(environment==null)
+			throw new NullPointerException("environment must not be null");
+		
 		this.number = number;
 		this.date = date;
 		this.environment = environment;

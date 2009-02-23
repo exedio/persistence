@@ -85,6 +85,25 @@ public class RevisionInfoTest extends CopeAssert
 				"body1.rows", "56",
 				"body1.elapsed", "24"),
 				reparse(i));
+		
+		try
+		{
+			new RevisionInfoRevise(1, null, null, null, (Body)null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("date must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(1, DATE, null, null, (Body)null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("environment must not be null", e.getMessage());
+		}
 	}
 	
 	public void testCreate()
@@ -103,6 +122,25 @@ public class RevisionInfoTest extends CopeAssert
 				"env3Key", "env3Value",
 				"create", "true"),
 				reparse(i));
+		
+		try
+		{
+			new RevisionInfoCreate(0, null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("date must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoCreate(0, DATE, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("environment must not be null", e.getMessage());
+		}
 	}
 	
 	public void testMutex()
@@ -124,6 +162,25 @@ public class RevisionInfoTest extends CopeAssert
 				"mutex.expected", "72",
 				"mutex.actual", "78"),
 				reparse(i));
+		
+		try
+		{
+			new RevisionInfoMutex(null, null, 72, 78);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("date must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoMutex(DATE, null, 72, 78);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("environment must not be null", e.getMessage());
+		}
 	}
 	
 	public void testParse() throws UnsupportedEncodingException
