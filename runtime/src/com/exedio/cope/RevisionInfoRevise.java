@@ -73,8 +73,28 @@ final class RevisionInfoRevise extends RevisionInfo
 			final String comment, final Body... body)
 	{
 		super(number, date, environment);
+		
+		if(number<=0)
+			throw new IllegalArgumentException("number must be greater zero, but was " + number);
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
+		if(body==null)
+			throw new NullPointerException("body must not be null");
+		if(body.length==0)
+			throw new IllegalArgumentException("body must not be empty");
+		
+		// make a copy to avoid modifications afterwards
+		final Body[] bodyCopy = new Body[body.length];
+		for(int i = 0; i<body.length; i++)
+		{
+			final Body b = body[i];
+			if(b==null)
+				throw new NullPointerException("body must not be null, but was at index " + i);
+			bodyCopy[i] = b;
+		}
+		
 		this.comment = comment;
-		this.body = body;
+		this.body = bodyCopy;
 	}
 	
 	final String getComment()

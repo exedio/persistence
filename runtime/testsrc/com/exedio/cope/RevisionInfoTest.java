@@ -88,7 +88,7 @@ public class RevisionInfoTest extends CopeAssert
 		
 		try
 		{
-			new RevisionInfoRevise(1, null, null, null, (Body)null);
+			new RevisionInfoRevise(0, null, null, null, (Body[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -97,12 +97,57 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, null, null, (Body)null);
+			new RevisionInfoRevise(0, DATE, null, null, (Body[])null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals("environment must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(0, DATE, env, null, (Body[])null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("number must be greater zero, but was 0", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(1, DATE, env, null, (Body[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("comment must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(1, DATE, env, "comment", (Body[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("body must not be null", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("body must not be empty", e.getMessage());
+		}
+		try
+		{
+			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{null});
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("body must not be null, but was at index 0", e.getMessage());
 		}
 	}
 	
