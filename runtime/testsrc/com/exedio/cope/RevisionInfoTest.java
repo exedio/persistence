@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
+import java.util.TreeMap;
 
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.junit.CopeAssert;
@@ -29,6 +31,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class RevisionInfoTest extends CopeAssert
 {
 	private static final Date DATE = new Date(2874526134l);
+	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
 	
 	private HashMap<String, String> env = null;
 	
@@ -67,6 +70,21 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals(24, b.getElapsed());
 		}
 		assertFalse(it.hasNext());
+		
+		assertEquals(map(
+				"revision", "5",
+				"dateUTC", DATE_STRING,
+				"env1Key", "env1Value",
+				"env2Key", "env2Value",
+				"env3Key", "env3Value",
+				"comment", "comment5",
+				"body0.sql", "sql5.0",
+				"body0.rows", "55",
+				"body0.elapsed", "23",
+				"body1.sql", "sql5.1",
+				"body1.rows", "56",
+				"body1.elapsed", "24"),
+				reparse(i));
 	}
 	
 	public void testCreate()
@@ -107,5 +125,34 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+	}
+	
+	private static final TreeMap<String, String> reparse(final RevisionInfo info)
+	{
+		final byte[] bytes = info.toBytes();
+		String bytesString;
+		try
+		{
+			bytesString = new String(bytes, "latin1");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01\n"));
+		final Properties p = RevisionInfo.parse(bytes);
+		final TreeMap<String, String> result = new TreeMap<String, String>();
+		for(final Object key : p.keySet())
+			result.put((String)key, p.getProperty((String)key));
+		return result;
+	}
+	
+	public static final TreeMap<String, String> map(final String... s)
+	{
+		final TreeMap<String, String> result = new TreeMap<String, String>();
+		int i = 0;
+		while(i<s.length)
+			result.put(s[i++], s[i++]);
+		return result;
 	}
 }
