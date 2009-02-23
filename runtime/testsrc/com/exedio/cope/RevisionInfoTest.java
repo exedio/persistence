@@ -89,12 +89,10 @@ public class RevisionInfoTest extends CopeAssert
 	
 	public void testCreate()
 	{
-		final Date before = new Date();
 		final RevisionInfoCreate i =
-			new RevisionInfoCreate(5, env);
-		final Date after = new Date();
+			new RevisionInfoCreate(5, DATE, env);
 		assertEquals(5, i.getNumber());
-		assertWithin(before, after, i.getDate());
+		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 	}
 	

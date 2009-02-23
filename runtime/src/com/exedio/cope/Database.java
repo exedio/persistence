@@ -206,7 +206,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, revisionEnvironment()));
+				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment()));
 			}
 			catch(SQLException e)
 			{

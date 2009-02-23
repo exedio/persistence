@@ -26,9 +26,10 @@ final class RevisionInfoCreate extends RevisionInfo
 {
 	RevisionInfoCreate(
 			final int number,
+			final Date date,
 			final Map<String, String> environment)
 	{
-		super(number, new Date(), environment);
+		super(number, date, environment);
 	}
 	
 	@Override
