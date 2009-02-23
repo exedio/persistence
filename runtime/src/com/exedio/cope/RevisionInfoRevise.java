@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -40,6 +43,21 @@ final class RevisionInfoRevise extends RevisionInfo
 			this.elapsed = elapsed;
 		}
 		
+		String getSQL()
+		{
+			return sql;
+		}
+		
+		int getRows()
+		{
+			return rows;
+		}
+		
+		long getElapsed()
+		{
+			return elapsed;
+		}
+		
 		void fillStore(final int index, final Properties store)
 		{
 			final String bodyPrefix = "body" + index + '.';
@@ -57,6 +75,16 @@ final class RevisionInfoRevise extends RevisionInfo
 		super(number, date, environment);
 		this.comment = comment;
 		this.body = body;
+	}
+	
+	final String getComment()
+	{
+		return comment;
+	}
+	
+	final List<Body> getBody()
+	{
+		return Collections.unmodifiableList(Arrays.asList(body));
 	}
 	
 	@Override

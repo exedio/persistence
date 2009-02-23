@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -82,6 +83,21 @@ public abstract class RevisionInfo
 		this.number = number;
 		this.date = date;
 		this.environment = environment;
+	}
+	
+	int getNumber()
+	{
+		return number;
+	}
+	
+	Date getDate()
+	{
+		return date;
+	}
+	
+	Map<String, String> getEnvironment()
+	{
+		return Collections.unmodifiableMap(environment);
 	}
 	
 	Properties getStore()
