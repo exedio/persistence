@@ -114,6 +114,16 @@ public class RevisionInfoTest extends CopeAssert
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 		assertEquals(72, i.getExpectedNumber());
 		assertEquals(78, i.getActualNumber());
+		
+		assertEquals(map(
+				"dateUTC", DATE_STRING,
+				"env1Key", "env1Value",
+				"env2Key", "env2Value",
+				"env3Key", "env3Value",
+				"mutex", "true",
+				"mutex.expected", "72",
+				"mutex.actual", "78"),
+				reparse(i));
 	}
 	
 	public void testParse() throws UnsupportedEncodingException
