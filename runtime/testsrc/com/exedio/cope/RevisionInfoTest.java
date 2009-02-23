@@ -30,9 +30,20 @@ public class RevisionInfoTest extends CopeAssert
 {
 	private static final Date DATE = new Date(2874526134l);
 	
+	private HashMap<String, String> env = null;
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		env = new HashMap<String, String>();
+		env.put("env1Key", "env1Value");
+		env.put("env2Key", "env2Value");
+		env.put("env3Key", "env3Value");
+	}
+	
 	public void testRevise()
 	{
-		final HashMap<String, String> env = new HashMap<String, String>();
 		final RevisionInfoRevise i =
 			new RevisionInfoRevise(5, DATE, env, "comment5",
 					new Body("sql5.0", 55, 23),
@@ -60,7 +71,6 @@ public class RevisionInfoTest extends CopeAssert
 	
 	public void testCreate()
 	{
-		final HashMap<String, String> env = new HashMap<String, String>();
 		final Date before = new Date();
 		final RevisionInfoCreate i =
 			new RevisionInfoCreate(5, env);
@@ -72,7 +82,6 @@ public class RevisionInfoTest extends CopeAssert
 	
 	public void testMutex()
 	{
-		final HashMap<String, String> env = new HashMap<String, String>();
 		final RevisionInfoMutex i =
 			new RevisionInfoMutex(DATE, env, 72, 78);
 		assertEquals(-1, i.getNumber());
