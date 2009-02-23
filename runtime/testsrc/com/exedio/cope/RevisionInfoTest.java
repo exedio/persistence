@@ -58,6 +58,18 @@ public class RevisionInfoTest extends CopeAssert
 		assertFalse(it.hasNext());
 	}
 	
+	public void testCreate()
+	{
+		final HashMap<String, String> env = new HashMap<String, String>();
+		final Date before = new Date();
+		final RevisionInfoCreate i =
+			new RevisionInfoCreate(5, env);
+		final Date after = new Date();
+		assertEquals(5, i.getNumber());
+		assertWithin(before, after, i.getDate());
+		assertEqualsUnmodifiable(env, i.getEnvironment());
+	}
+	
 	public void testParse() throws UnsupportedEncodingException
 	{
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
