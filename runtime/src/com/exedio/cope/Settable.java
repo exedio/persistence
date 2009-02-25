@@ -39,7 +39,7 @@ public interface Settable<E>
 	 */
 	boolean isInitial();
 	
-	java.lang.reflect.Type getInitialType();
+	Class getInitialType();
 	
 	/**
 	 * Returns the exceptions possibly thrown,
