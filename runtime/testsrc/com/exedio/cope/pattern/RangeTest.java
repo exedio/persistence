@@ -22,7 +22,6 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 
