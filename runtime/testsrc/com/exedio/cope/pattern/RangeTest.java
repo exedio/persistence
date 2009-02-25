@@ -62,28 +62,28 @@ public class RangeTest extends AbstractRuntimeTest
 		
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
-		assertEquals(Range.Value.class, item.valid.getInitialType());
+		assertEquals(RangeField.Value.class, item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		
 		// test persistence
-		item = deleteOnTearDown(new RangeItem(new Range.Value<Integer>(3, 5)));
+		item = deleteOnTearDown(new RangeItem(new RangeField.Value<Integer>(3, 5)));
 		
-		assertEquals(new Range.Value<Integer>(3, 5), item.getValid());
+		assertEquals(new RangeField.Value<Integer>(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 		
 		item.setValidFrom(8);
-		assertEquals(new Range.Value<Integer>(8, 5), item.getValid());
+		assertEquals(new RangeField.Value<Integer>(8, 5), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 		
 		item.setValidTo(9);
-		assertEquals(new Range.Value<Integer>(8, 9), item.getValid());
+		assertEquals(new RangeField.Value<Integer>(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 		
-		final RangeItem item2 = deleteOnTearDown(new RangeItem(new Range.Value<Integer>(4, 4)));
-		assertEquals(new Range.Value<Integer>(4, 4), item2.getValid());
+		final RangeItem item2 = deleteOnTearDown(new RangeItem(new RangeField.Value<Integer>(4, 4)));
+		assertEquals(new RangeField.Value<Integer>(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
 	}

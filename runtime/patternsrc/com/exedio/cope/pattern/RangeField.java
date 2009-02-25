@@ -30,25 +30,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public final class Range<E> extends Pattern implements Settable<Range.Value<E>>
+public final class RangeField<E> extends Pattern implements Settable<RangeField.Value<E>>
 {
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
 	
-	private Range(final FunctionField<E> borderTemplate)
+	private RangeField(final FunctionField<E> borderTemplate)
 	{
 		addSource(from = borderTemplate.copy(), "From");
 		addSource(to   = borderTemplate.copy(), "To");
 	}
 	
-	public static final <E> Range<E> newRange(final FunctionField<E> borderTemplate)
+	public static final <E> RangeField<E> newRange(final FunctionField<E> borderTemplate)
 	{
 		if(!borderTemplate.isMandatory())
 			throw new IllegalArgumentException("optional borderTemplate not yet implemented");
 		if(borderTemplate.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
 		
-		return new Range<E>(borderTemplate);
+		return new RangeField<E>(borderTemplate);
 	}
 	
 	public FunctionField<E> getFrom()
@@ -152,10 +152,10 @@ public final class Range<E> extends Pattern implements Settable<Range.Value<E>>
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Range.Value))
+			if(!(other instanceof RangeField.Value))
 				return false;
 			
-			final Range.Value o = (Range.Value)other;
+			final RangeField.Value o = (RangeField.Value)other;
 			return from.equals(o.from) && to.equals(o.to);
 		}
 		
@@ -189,7 +189,7 @@ public final class Range<E> extends Pattern implements Settable<Range.Value<E>>
 	
 	public Class getInitialType()
 	{
-		return Range.Value.class;
+		return RangeField.Value.class;
 	}
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
