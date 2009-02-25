@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.Wrapper;
 
 public class RangeTest extends AbstractRuntimeTest
 {
@@ -62,7 +63,7 @@ public class RangeTest extends AbstractRuntimeTest
 		
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
-		assertEquals(Range.class, item.valid.getInitialType());
+		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		
 		// test persistence
