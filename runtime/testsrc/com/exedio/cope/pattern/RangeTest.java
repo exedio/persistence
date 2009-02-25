@@ -28,6 +28,9 @@ public class RangeTest extends CopeAssert
 		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(2, 3));
 		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(1, 4));
 		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(3, 1));
+
+		assertEquals(new Range<Integer>(5, 5), new Range<Integer>(5, 5));
+		assertNotEquals(new Range<Integer>(5, 5), new Range<Integer>(6, 6));
 	}
 	
 	private static void assertEquals(final Range c1, final Range c2)
