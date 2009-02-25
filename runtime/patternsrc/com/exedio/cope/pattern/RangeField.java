@@ -141,7 +141,9 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		//TODO test valid days
-		return new SetValue[]{from.map(value.from), to.map(value.to)};
+		return new SetValue[]{
+				from.map(value.from),
+				to  .map(value.to  )};
 	}
 	
 	public boolean isFinal()
