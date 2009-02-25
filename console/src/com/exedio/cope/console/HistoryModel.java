@@ -68,6 +68,11 @@ final class HistoryModel extends Item
 	static final IntegerField mediasNotModified = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
 	
+	static final LongField clusterListenerException    = new LongField().toFinal();
+	static final LongField clusterListenerMissingMagic = new LongField().toFinal();
+	static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
+	static final LongField clusterListenerFromMyself   = new LongField().toFinal();
+	
 	HistoryModel(final SetValue... setValues)
 	{
 		super(setValues);

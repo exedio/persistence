@@ -21,6 +21,7 @@ package com.exedio.cope.console;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Feature;
@@ -29,6 +30,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.Pool;
@@ -40,7 +42,8 @@ final class HistoryThread extends Thread
 		new Model(
 			HistoryModel.TYPE,
 			HistoryItemCache.TYPE,
-			HistoryMedia.TYPE);
+			HistoryMedia.TYPE,
+			HistoryClusterNode.TYPE);
 	
 	private static final String NAME = "COPE History";
 	
@@ -158,6 +161,7 @@ final class HistoryThread extends Thread
 			mediaValues[mediaValuesIndex][6] = path.delivered.get();
 			mediaValuesIndex++;
 		}
+		final ClusterListenerInfo clusterInfo = watchedModel.getClusterListenerInfo();
 		
 		// process data
 		long itemCacheHits = 0;
@@ -224,6 +228,37 @@ final class HistoryThread extends Thread
 			mediaSetValuesIndex++;
 		}
 		
+		final SetValue[][] clusterInfoSetValues;
+		if(clusterInfo!=null)
+		{
+			final List<ClusterListenerInfo.Node> nodes = clusterInfo.getNodes();
+			clusterInfoSetValues = new SetValue[nodes.size()][];
+			int nodesIndex = 0;
+			for(final ClusterListenerInfo.Node node : nodes)
+			{
+				clusterInfoSetValues[nodesIndex++] =
+					new SetValue[]{
+						null, // will be HistoryClusterNode.model
+						HistoryClusterNode.id.map(node.getID()),
+						HistoryClusterNode.date.map(date),
+						HistoryClusterNode.initializeDate.map(initializeDate),
+						HistoryClusterNode.connectDate.map(connectDate),
+						HistoryClusterNode.thread.map(thread),
+						HistoryClusterNode.running.map(running),
+						HistoryClusterNode.firstEncounter.map(node.getFirstEncounter()),
+						HistoryClusterNode.fromAddress.map(node.getAddress().toString()),
+						HistoryClusterNode.fromPort.map(node.getPort()),
+						HistoryClusterNode.ping      .map(new SequenceInfo(node.getPingInfo())),
+						HistoryClusterNode.pong      .map(new SequenceInfo(node.getPingInfo())),
+						HistoryClusterNode.invalidate.map(new SequenceInfo(node.getInvalidateInfo())),
+				};
+			}
+		}
+		else
+		{
+			clusterInfoSetValues = new SetValue[0][];
+		}
+		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
 				HistoryModel.initializeDate.map(initializeDate),
@@ -255,7 +290,11 @@ final class HistoryThread extends Thread
 				HistoryModel.mediasIsNull       .map(mediaTotal[3]),
 				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
 				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
-				HistoryModel.mediasDelivered    .map(mediaTotal[6])
+				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
+				HistoryModel.clusterListenerException   .map(clusterInfo!=null ? clusterInfo.getException()    : 0),
+				HistoryModel.clusterListenerMissingMagic.map(clusterInfo!=null ? clusterInfo.getMissingMagic() : 0),
+				HistoryModel.clusterListenerWrongSecret .map(clusterInfo!=null ? clusterInfo.getWrongSecret()  : 0),
+				HistoryModel.clusterListenerFromMyself  .map(clusterInfo!=null ? clusterInfo.getFromMyself()   : 0)
 		};
 
 		// save data
@@ -279,6 +318,15 @@ final class HistoryThread extends Thread
 					assert mediaSetValue[0]==null : mediaSetValue[0];
 					mediaSetValue[0] = modelSetValue;
 					new HistoryMedia(mediaSetValue);
+				}
+			}
+			{
+				final SetValue modelSetValue = HistoryClusterNode.model.map(model);
+				for(SetValue[] clusterInfoSetValue : clusterInfoSetValues)
+				{
+					assert clusterInfoSetValue[0]==null : clusterInfoSetValue[0];
+					clusterInfoSetValue[0] = modelSetValue;
+					new HistoryClusterNode(clusterInfoSetValue);
 				}
 			}
 			HISTORY_MODEL.commit();
