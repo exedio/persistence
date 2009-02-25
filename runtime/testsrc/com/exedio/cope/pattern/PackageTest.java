@@ -56,7 +56,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
 		suite.addTestSuite(ScheduleTest.class);
-		suite.addTestSuite(RangeTest.class);
+		suite.addTestSuite(RangeFieldTest.class);
 		return suite;
 	}
 }

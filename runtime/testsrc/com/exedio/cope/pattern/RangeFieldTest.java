@@ -26,16 +26,16 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.Wrapper;
 
-public class RangeTest extends AbstractRuntimeTest
+public class RangeFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(RangeItem.TYPE);
+	static final Model MODEL = new Model(RangeFieldItem.TYPE);
 	
-	public RangeTest()
+	public RangeFieldTest()
 	{
 		super(MODEL);
 	}
 	
-	RangeItem item;
+	RangeFieldItem item;
 	
 	public void testIt()
 	{
@@ -67,7 +67,7 @@ public class RangeTest extends AbstractRuntimeTest
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		
 		// test persistence
-		item = deleteOnTearDown(new RangeItem(new Range<Integer>(3, 5)));
+		item = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(3, 5)));
 		
 		assertEquals(new Range<Integer>(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
@@ -83,7 +83,7 @@ public class RangeTest extends AbstractRuntimeTest
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 		
-		final RangeItem item2 = deleteOnTearDown(new RangeItem(new Range<Integer>(4, 4)));
+		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(4, 4)));
 		assertEquals(new Range<Integer>(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
