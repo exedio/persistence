@@ -29,9 +29,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectToken;
-import com.exedio.cope.util.ConnectionPoolInfo;
+import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.QueryCacheInfo;
 
 final class HistoryThread extends Thread
@@ -140,7 +140,7 @@ final class HistoryThread extends Thread
 		final Date date = new Date();
 		final Date initializeDate = watchedModel.getInitializeDate();
 		final Date connectDate = watchedModel.getConnectDate();
-		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
+		final Pool.Info connectionPoolInfo = watchedModel.getConnectionPoolInfo();
 		final long nextTransactionId = watchedModel.getNextTransactionId();
 		final TransactionCounters transactionCounters = watchedModel.getTransactionCounters();
 		final ItemCacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();

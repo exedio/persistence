@@ -196,8 +196,51 @@ public final class Pool<E>
 		}
 	}
 	
-	public ConnectionPoolInfo getInfo()
+	public Info getInfo()
 	{
-		return new ConnectionPoolInfo(idleCount, invalidFromIdle, invalidIntoIdle, new PoolCounter(counter));
+		return new Info(idleCount, invalidFromIdle, invalidIntoIdle, new PoolCounter(counter));
+	}
+	
+	public static final class Info
+	{
+		private final int idleCount;
+		private final int invalidFromIdle;
+		private final int invalidIntoIdle;
+		private final PoolCounter counter;
+		
+		public Info(
+				final int idleCount,
+				final int invalidFromIdle,
+				final int invalidIntoIdle,
+				final PoolCounter counter)
+		{
+			if(counter==null)
+				throw new NullPointerException();
+			
+			this.idleCount = idleCount;
+			this.invalidFromIdle = invalidFromIdle;
+			this.invalidIntoIdle = invalidIntoIdle;
+			this.counter = counter;
+		}
+		
+		public int getIdleCounter()
+		{
+			return idleCount;
+		}
+		
+		public int getInvalidFromIdle()
+		{
+			return invalidFromIdle;
+		}
+		
+		public int getInvalidIntoIdle()
+		{
+			return invalidIntoIdle;
+		}
+		
+		public PoolCounter getCounter()
+		{
+			return counter;
+		}
 	}
 }

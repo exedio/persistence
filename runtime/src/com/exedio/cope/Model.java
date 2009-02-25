@@ -37,9 +37,9 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.util.ClusterListenerInfo;
-import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.QueryCacheInfo;
@@ -802,7 +802,7 @@ public final class Model
 		return getQueryCache().getHistogram();
 	}
 	
-	public ConnectionPoolInfo getConnectionPoolInfo()
+	public Pool.Info getConnectionPoolInfo()
 	{
 		return getDatabase().connectionPool.getInfo();
 	}

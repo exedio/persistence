@@ -23,14 +23,14 @@ import static com.exedio.cope.console.Format.format;
 
 import java.io.PrintStream;
 
-import com.exedio.cope.util.ConnectionPoolInfo;
+import com.exedio.cope.util.Pool.Info;
 import com.exedio.cope.util.PoolCounter;
 
 final class ConnectionPool_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final PrintStream out,
-			final ConnectionPoolInfo info)
+			final Info info)
 	{
 		final PoolCounter poolCounter = info.getCounter();
 		final String[] names = {
