@@ -31,7 +31,6 @@ public final class Pool<E>
 	}
 
 	// TODO: allow changing pool size
-	// TODO: gather pool effectivity statistics
 	// TODO: implement idle timout
 	//       ensure, that idle connections in the pool do
 	//       not stay idle for a indefinite time,
