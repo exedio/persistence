@@ -16,16 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.util;
 
 import java.util.ArrayList;
 
-import com.exedio.cope.util.ConnectionPoolInfo;
-import com.exedio.cope.util.PoolCounter;
-
-final class Pool<E>
+public final class Pool<E>
 {
-	interface Factory<E>
+	public interface Factory<E>
 	{
 		E create();
 		boolean isValidFromIdle(E e);
@@ -53,7 +50,7 @@ final class Pool<E>
 	private volatile int invalidFromIdle = 0;
 	private volatile int invalidIntoIdle = 0;
 	
-	Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
+	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
 		// TODO throw nice exceptions
 		assert factory!=null;
@@ -159,7 +156,7 @@ final class Pool<E>
 		factory.dispose(e);
 	}
 	
-	void flush()
+	public void flush()
 	{
 		if(idle!=null)
 		{
@@ -199,7 +196,7 @@ final class Pool<E>
 		}
 	}
 	
-	ConnectionPoolInfo getInfo()
+	public ConnectionPoolInfo getInfo()
 	{
 		return new ConnectionPoolInfo(idleCount, invalidFromIdle, invalidIntoIdle, new PoolCounter(counter));
 	}

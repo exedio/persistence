@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 

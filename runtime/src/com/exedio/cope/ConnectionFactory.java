@@ -23,6 +23,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionFactory implements Pool.Factory<Connection>

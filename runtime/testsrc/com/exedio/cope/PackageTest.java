@@ -48,7 +48,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
-		suite.addTestSuite( PoolTest.class );
 		
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
