@@ -35,7 +35,7 @@ public class RangeItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	RangeItem(
-				final com.exedio.cope.pattern.Range valid)
+				final com.exedio.cope.pattern.Range<? extends java.lang.Integer> valid)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

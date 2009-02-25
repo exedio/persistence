@@ -156,9 +156,9 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		return from.isInitial();
 	}
 	
-	public Class getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
-		return Range.class;
+		return Wrapper.genericExtends(Range.class, from.getValueClass());
 	}
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
