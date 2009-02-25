@@ -68,6 +68,14 @@ public final class Range<E> extends Pattern implements Settable<Range.Value<E>>
 		result.addAll(super.getWrappers());
 		
 		result.add(
+			new Wrapper("get").
+			setReturn(Wrapper.generic(Value.class, from.getValueClass())));
+		
+		result.add(
+			new Wrapper("set").
+			addParameter(Wrapper.genericExtends(Value.class, from.getValueClass())));
+			
+		result.add(
 			new Wrapper("getFrom").
 			setReturn(Wrapper.TypeVariable0.class));
 		
@@ -84,6 +92,18 @@ public final class Range<E> extends Pattern implements Settable<Range.Value<E>>
 			addParameter(Wrapper.TypeVariable0.class));
 		
 		return Collections.unmodifiableList(result);
+	}
+	
+	public Value<E> get(final Item item)
+	{
+		return new Value<E>(from.get(item), to.get(item));
+	}
+	
+	public void set(final Item item, final Value<? extends E> value)
+	{
+		item.set(
+				this.from.map(value.from),
+				this.to  .map(value.to  ));
 	}
 	
 	public E getFrom(final Item item)
