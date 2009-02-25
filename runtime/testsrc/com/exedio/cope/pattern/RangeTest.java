@@ -87,5 +87,14 @@ public class RangeTest extends AbstractRuntimeTest
 		assertEquals(new Range<Integer>(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
+		
+		assertContains(       item.TYPE.search(item.valid.contains(3)));
+		assertContains(item2, item.TYPE.search(item.valid.contains(4)));
+		assertContains(       item.TYPE.search(item.valid.contains(5)));
+		
+		assertContains(      item.TYPE.search(item.valid.contains(7)));
+		assertContains(item, item.TYPE.search(item.valid.contains(8)));
+		assertContains(item, item.TYPE.search(item.valid.contains(9)));
+		assertContains(      item.TYPE.search(item.valid.contains(10)));
 	}
 }
