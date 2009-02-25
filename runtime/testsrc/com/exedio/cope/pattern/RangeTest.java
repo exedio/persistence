@@ -79,5 +79,9 @@ public class RangeTest extends AbstractRuntimeTest
 		item.setValidTo(9);
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
+		
+		final RangeItem item2 = deleteOnTearDown(new RangeItem(new Range.Value<Integer>(4, 4)));
+		assertEquals(i4, item2.getValidFrom());
+		assertEquals(i4, item2.getValidTo());
 	}
 }
