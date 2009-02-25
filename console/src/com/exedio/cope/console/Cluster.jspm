@@ -70,9 +70,9 @@ final class Cluster_Jspm
 				<td><%=format(node.getFirstEncounter())%></td>
 				<td><%=node.getAddress()%></td>
 				<td><%=node.getPort()%></td><%
-				write(out, node.getPingCounter());
-				write(out, node.getPongCounter());
-				write(out, node.getInvalidateCounter());
+				write(out, node.getPingInfo());
+				write(out, node.getPongInfo());
+				write(out, node.getInvalidateInfo());
 				%>
 			</tr><%
 			}
@@ -99,7 +99,7 @@ final class Cluster_Jspm
 				<th>Late</th><%
 	}
 	
-	private final static void write(final PrintStream out, final SequenceChecker.Counter ic)
+	private final static void write(final PrintStream out, final SequenceChecker.Info ic)
 	{
 				%>
 				<td><%=format(ic.getInOrder())%></td>

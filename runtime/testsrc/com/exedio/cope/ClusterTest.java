@@ -891,18 +891,18 @@ public class ClusterTest extends CopeAssert
 					assertNotNull(infoNode.getFirstEncounter());
 					assertEquals(null, infoNode.getAddress());
 					assertEquals(967, infoNode.getPort());
-					assertEquals("ping", node[1], infoNode.getPingCounter().getInOrder());
-					assertEquals("pong", node[2], infoNode.getPongCounter().getInOrder());
+					assertEquals("ping", node[1], infoNode.getPingInfo().getInOrder());
+					assertEquals("pong", node[2], infoNode.getPongInfo().getInOrder());
 					
-					assertEquals(0, infoNode.getPingCounter().getOutOfOrder());
-					assertEquals(0, infoNode.getPongCounter().getOutOfOrder());
-					assertEquals(0, infoNode.getPingCounter().getDuplicate());
-					assertEquals(0, infoNode.getPongCounter().getDuplicate());
+					assertEquals(0, infoNode.getPingInfo().getOutOfOrder());
+					assertEquals(0, infoNode.getPongInfo().getOutOfOrder());
+					assertEquals(0, infoNode.getPingInfo().getDuplicate());
+					assertEquals(0, infoNode.getPongInfo().getDuplicate());
 					
-					assertEquals(0, infoNode.getPingCounter().getLost());
-					assertEquals(0, infoNode.getPongCounter().getLost());
-					assertEquals(0, infoNode.getPingCounter().getLate());
-					assertEquals(0, infoNode.getPongCounter().getLate());
+					assertEquals(0, infoNode.getPingInfo().getLost());
+					assertEquals(0, infoNode.getPongInfo().getLost());
+					assertEquals(0, infoNode.getPingInfo().getLate());
+					assertEquals(0, infoNode.getPongInfo().getLate());
 					break nodes;
 				}
 			}

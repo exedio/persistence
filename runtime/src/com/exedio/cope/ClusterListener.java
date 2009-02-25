@@ -313,9 +313,9 @@ final class ClusterListener implements Runnable
 					id,
 					new Date(firstEncounter), 
 					address, port,
-					pingSequenceChecker.getCounter(),
-					pongSequenceChecker.getCounter(),
-					invalidateSequenceChecker.getCounter());
+					pingSequenceChecker.getInfo(),
+					pongSequenceChecker.getInfo(),
+					invalidateSequenceChecker.getInfo());
 		}
 	}
 	

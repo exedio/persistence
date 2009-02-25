@@ -76,32 +76,32 @@ public final class ClusterListenerInfo
 		final Date firstEncounter;
 		private final InetAddress address;
 		private final int port;
-		private final SequenceChecker.Counter pingCounter;
-		private final SequenceChecker.Counter pongCounter;
-		private final SequenceChecker.Counter invalidateCounter;
+		private final SequenceChecker.Info pingInfo;
+		private final SequenceChecker.Info pongInfo;
+		private final SequenceChecker.Info invalidateInfo;
 		
 		public Node(
 				final int id,
 				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
-				final SequenceChecker.Counter pingCounter,
-				final SequenceChecker.Counter pongCounter,
-				final SequenceChecker.Counter invalidateCounter)
+				final SequenceChecker.Info pingInfo,
+				final SequenceChecker.Info pongInfo,
+				final SequenceChecker.Info invalidateInfo)
 		{
 			this.id = id;
 			this.firstEncounter = firstEncounter;
 			this.address = address;
 			this.port = port;
-			this.pingCounter = pingCounter;
-			this.pongCounter = pongCounter;
-			this.invalidateCounter = invalidateCounter;
+			this.pingInfo = pingInfo;
+			this.pongInfo = pongInfo;
+			this.invalidateInfo = invalidateInfo;
 			
-			if(pingCounter==null)
+			if(pingInfo==null)
 				throw new NullPointerException();
-			if(pongCounter==null)
+			if(pongInfo==null)
 				throw new NullPointerException();
-			if(invalidateCounter==null)
+			if(invalidateInfo==null)
 				throw new NullPointerException();
 		}
 		
@@ -125,19 +125,19 @@ public final class ClusterListenerInfo
 			return port;
 		}
 		
-		public SequenceChecker.Counter getPingCounter()
+		public SequenceChecker.Info getPingInfo()
 		{
-			return pingCounter;
+			return pingInfo;
 		}
 		
-		public SequenceChecker.Counter getPongCounter()
+		public SequenceChecker.Info getPongInfo()
 		{
-			return pongCounter;
+			return pongInfo;
 		}
 		
-		public SequenceChecker.Counter getInvalidateCounter()
+		public SequenceChecker.Info getInvalidateInfo()
 		{
-			return invalidateCounter;
+			return invalidateInfo;
 		}
 		
 		@Override
