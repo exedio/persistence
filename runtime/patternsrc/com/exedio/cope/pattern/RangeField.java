@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public final class RangeField<E> extends Pattern implements Settable<RangeField.Value<E>>
+public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
@@ -69,11 +69,11 @@ public final class RangeField<E> extends Pattern implements Settable<RangeField.
 		
 		result.add(
 			new Wrapper("get").
-			setReturn(Wrapper.generic(Value.class, from.getValueClass())));
+			setReturn(Wrapper.generic(Range.class, from.getValueClass())));
 		
 		result.add(
 			new Wrapper("set").
-			addParameter(Wrapper.genericExtends(Value.class, from.getValueClass())));
+			addParameter(Wrapper.genericExtends(Range.class, from.getValueClass())));
 			
 		result.add(
 			new Wrapper("getFrom").
@@ -94,12 +94,12 @@ public final class RangeField<E> extends Pattern implements Settable<RangeField.
 		return Collections.unmodifiableList(result);
 	}
 	
-	public Value<E> get(final Item item)
+	public Range<E> get(final Item item)
 	{
-		return new Value<E>(from.get(item), to.get(item));
+		return new Range<E>(from.get(item), to.get(item));
 	}
 	
-	public void set(final Item item, final Value<? extends E> value)
+	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
 				this.from.map(value.from),
@@ -133,45 +133,12 @@ public final class RangeField<E> extends Pattern implements Settable<RangeField.
 			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
 	}
 	
-	public static final class Value<E>
+	public SetValue<Range<E>> map(final Range<E> value)
 	{
-		final E from;
-		final E to;
-
-		public Value(E from, E to)
-		{
-			if(from==null)
-				throw new NullPointerException("optional from not yet implemented");
-			if(to==null)
-				throw new NullPointerException("optional to not yet implemented");
-			
-			this.from = from;
-			this.to = to;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			if(!(other instanceof RangeField.Value))
-				return false;
-			
-			final RangeField.Value o = (RangeField.Value)other;
-			return from.equals(o.from) && to.equals(o.to);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return from.hashCode() ^ (to.hashCode() << 2);
-		}
+		return new SetValue<Range<E>>(this, value);
 	}
 	
-	public SetValue map(final Value<E> value)
-	{
-		return new SetValue<Value<E>>(this, value);
-	}
-	
-	public SetValue[] execute(Value<E> value, Item exceptionItem)
+	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		//TODO test valid days
 		return new SetValue[]{from.map(value.from), to.map(value.to)};
@@ -189,7 +156,7 @@ public final class RangeField<E> extends Pattern implements Settable<RangeField.
 	
 	public Class getInitialType()
 	{
-		return RangeField.Value.class;
+		return Range.class;
 	}
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
