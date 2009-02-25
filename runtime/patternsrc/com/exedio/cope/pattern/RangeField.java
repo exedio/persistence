@@ -128,7 +128,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	
 	public Condition contains(final E value)
 	{
-		return from.isMandatory() 
+		return from.isMandatory()
 			? from.lessOrEqual(value).and(to.greaterOrEqual(value))
 			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
 	}
