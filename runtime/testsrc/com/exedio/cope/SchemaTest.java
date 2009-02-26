@@ -277,12 +277,15 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
 
+			String mediaContentTypeCharSet = null;
+			if(mysql)
+				mediaContentTypeCharSet = " AND (`someDataContentType` regexp '^[-,/,0-9,a-z]*$')";
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+p(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+l(AttributeItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "(("+p(AttributeItem.someBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someBoolean)+" IN (0,1))) OR ("+p(AttributeItem.someBoolean)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullBoolean)+" IN (0,1))");
 			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "(("+p(AttributeItem.someEnum)+" IS NOT NULL) AND ("+p(AttributeItem.someEnum)+" IN (10,20,30))) OR ("+p(AttributeItem.someEnum)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+p(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
-			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+p(AttributeItem.someData.getContentType())+" IS NOT NULL) AND (("+l(AttributeItem.someData.getContentType())+">=1) AND ("+l(AttributeItem.someData.getContentType())+"<=61))) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+p(AttributeItem.someData.getContentType())+" IS NOT NULL) AND (("+l(AttributeItem.someData.getContentType())+">=1) AND ("+l(AttributeItem.someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, getPrimaryKeyColumnName(AttributeItem.TYPE));
 
