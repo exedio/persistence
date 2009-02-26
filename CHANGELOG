@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* rename Media.contentTypeMajor to contentTypeSub
 * Media with default Content-Type or major Content-Type do restrict the
 	CharSet of the StringField storing the Content-Type. You may need to adjust
 	the persistent schema (adding new check constraints) and/or adjust your data.

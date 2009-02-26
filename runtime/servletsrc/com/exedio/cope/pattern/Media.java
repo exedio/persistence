@@ -150,7 +150,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	/**
 	 * Creates a new media, that must contain the a content type with the given major part only.
 	 */
-	public Media contentTypeMajor(final String majorContentType)
+	public Media contentTypeSub(final String majorContentType)
 	{
 		return new Media(optional, body.getMaximumLength(), new MajorContentType(majorContentType, optional));
 	}
@@ -932,7 +932,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #contentTypeMajor(String)} instead.
+	 * @deprecated use {@link #contentTypeSub(String)} instead.
 	 */
 	@Deprecated
 	public Media(final String fixedMimeMajor)
@@ -941,7 +941,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} and {@link #contentTypeMajor(String)} instead.
+	 * @deprecated use {@link #optional()} and {@link #contentTypeSub(String)} instead.
 	 */
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
@@ -962,5 +962,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
+	}
+	
+	/**
+	 * @deprecated Use {@link #contentTypeSub(String)} instead
+	 */
+	@Deprecated
+	public Media contentTypeMajor(final String majorContentType)
+	{
+		return contentTypeSub(majorContentType);
 	}
 }

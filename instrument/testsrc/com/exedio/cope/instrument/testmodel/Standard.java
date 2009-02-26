@@ -146,7 +146,7 @@ public class Standard extends Item
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
 	
 	public static final Media anyMedia = new Media().optional();
-	static final Media majorMedia = new Media().optional().contentTypeMajor("major");
+	static final Media majorMedia = new Media().optional().contentTypeSub("major");
 	protected static final Media minorMedia = new Media().optional().contentType("major/minor");
 	/**
 	 * @cope.set none
