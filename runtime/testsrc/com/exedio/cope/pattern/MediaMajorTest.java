@@ -85,9 +85,9 @@ public class MediaMajorTest extends AbstractRuntimeTest
 
 		assertNull();
 
-		item.setImage(stream(data4), "image/imageMinor");
+		item.setImage(stream(data4), "image/image-minor");
 		assertStreamClosed();
-		assertContent(data4, "image/imageMinor", "");
+		assertContent(data4, "image/image-minor", "");
 
 		item.setImage(stream(data6), "image/jpeg");
 		assertStreamClosed();

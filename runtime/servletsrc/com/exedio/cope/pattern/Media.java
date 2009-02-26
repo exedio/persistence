@@ -49,6 +49,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.CharSet;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {
@@ -645,9 +646,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			return field.map(set(contentType));
 		}
 		
-		protected static final StringField makeField(final int maxLength)
+		protected static final StringField makeField(final int maxLength, final CharSet charSet)
 		{
-			return new StringField().lengthRange(1, maxLength);
+			return new StringField().lengthRange(1, maxLength).charSet(charSet);
 		}
 	}
 
@@ -655,7 +656,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		DefaultContentType(final boolean optional)
 		{
-			super(makeField(61), optional, "ContentType");
+			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), optional, "ContentType");
 		}
 		
 		@Override
@@ -854,7 +855,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		
 		MajorContentType(final String major, final boolean optional)
 		{
-			super(makeField(30), optional, "Minor");
+			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), optional, "Minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();

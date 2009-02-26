@@ -38,7 +38,7 @@ public class FieldMediaTest extends FieldTest
 		assertEquals(null, item.getSomeDataContentType());
 
 		final byte[] bytes = {3,7,1,4};
-		item.setSomeData(stream(bytes), "someMimeMajor/someMimeMinor");
+		item.setSomeData(stream(bytes), "some-mime-major/some-mime-minor");
 		assertStreamClosed();
 
 		final String prefix =
@@ -49,18 +49,18 @@ public class FieldMediaTest extends FieldTest
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(bytes, item.getSomeDataBody());
-		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
+		assertEquals("some-mime-major/some-mime-minor", item.getSomeDataContentType());
 
 		restartTransaction();
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(bytes, item.getSomeDataBody());
-		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
+		assertEquals("some-mime-major/some-mime-minor", item.getSomeDataContentType());
 
 		assertDataMime(item, "image/jpeg", bytes, "jpg");
 		assertDataMime(item, "image/pjpeg", bytes, "jpg");
 		assertDataMime(item, "image/gif", bytes, "gif");
 		assertDataMime(item, "image/png", bytes, "png");
-		assertDataMime(item, "image/someMinor", bytes, null);
+		assertDataMime(item, "image/some-minor", bytes, null);
 
 		final byte[] manyBytes = new byte[49467];
 		for(int i = 0; i<manyBytes.length; i++)
@@ -68,7 +68,7 @@ public class FieldMediaTest extends FieldTest
 			manyBytes[i] = (byte)((121*i)%253);
 			//System.out.print(manyBytes[i]+", ");
 		}
-		item.setSomeData(stream(manyBytes),"someMimeMajor/someMimeMinor");
+		item.setSomeData(stream(manyBytes),"some-mime-major/some-mime-minor");
 		assertStreamClosed();
 		assertData(manyBytes, item.getSomeDataBody());
 
