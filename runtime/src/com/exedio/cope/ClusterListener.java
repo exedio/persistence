@@ -311,7 +311,7 @@ final class ClusterListener implements Runnable
 		{
 			return new ClusterListenerInfo.Node(
 					id,
-					new Date(firstEncounter), 
+					new Date(firstEncounter),
 					address, port,
 					pingSequenceChecker.getInfo(),
 					pongSequenceChecker.getInfo(),
