@@ -333,7 +333,7 @@
 	</target>
 	
 	<target name="runtime.test.compile"
-			depends="runtime.junit.compile">
+			depends="runtime.test.instrument, runtime.junit.compile">
 		<ljavac srcdir="runtime/testsrc" destdir="build/runtime/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
