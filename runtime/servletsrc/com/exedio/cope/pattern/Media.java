@@ -152,7 +152,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(optional, body.getMaximumLength(), new MajorContentType(majorContentType, optional));
+		return new Media(optional, body.getMaximumLength(), new SubContentType(majorContentType, optional));
 	}
 	
 	public final boolean isMandatory()
@@ -847,13 +847,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 	}
 
-	private static final class MajorContentType extends ContentType<String>
+	private static final class SubContentType extends ContentType<String>
 	{
 		private final String major;
 		private final String prefix;
 		private final int prefixLength;
 		
-		MajorContentType(final String major, final boolean optional)
+		SubContentType(final String major, final boolean optional)
 		{
 			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), optional, "Minor");
 			this.major = major;
@@ -865,15 +865,15 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
-		MajorContentType copy()
+		SubContentType copy()
 		{
-			return new MajorContentType(major, !field.isMandatory());
+			return new SubContentType(major, !field.isMandatory());
 		}
 		
 		@Override
-		MajorContentType optional()
+		SubContentType optional()
 		{
-			return new MajorContentType(major, true);
+			return new SubContentType(major, true);
 		}
 		
 		@Override
@@ -937,7 +937,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Deprecated
 	public Media(final String fixedMimeMajor)
 	{
-		this(false, DEFAULT_LENGTH, new MajorContentType(fixedMimeMajor, false));
+		this(false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false));
 	}
 	
 	/**
@@ -946,7 +946,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		this(option.optional, DEFAULT_LENGTH, new MajorContentType(fixedMimeMajor, option.optional));
+		this(option.optional, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, option.optional));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
