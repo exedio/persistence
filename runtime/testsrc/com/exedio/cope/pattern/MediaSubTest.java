@@ -26,9 +26,9 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
 
-public class MediaMajorTest extends AbstractRuntimeTest
+public class MediaSubTest extends AbstractRuntimeTest
 {
-	public MediaMajorTest()
+	public MediaSubTest()
 	{
 		super(MediaTest.MODEL);
 	}
