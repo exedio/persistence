@@ -34,7 +34,9 @@ TODO for cope runtime
 	* support blocking for a short time after a failed check
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
-- a pattern Range
+- pattern Range:
+	restrict to Comparable and define check contraint that from<=to,
+	once arbitrary check contraints are implemented.
 - a pattern Replicator
 - Global History / Undo facility for backoffice, that can undo deletes as well.
 - MySQL: warning, if row could exceed 8000 bytes limit
