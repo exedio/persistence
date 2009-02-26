@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.Wrapper;
@@ -96,5 +97,15 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.valid.contains(8)));
 		assertContains(item, item.TYPE.search(item.valid.contains(9)));
 		assertContains(      item.TYPE.search(item.valid.contains(10)));
+		
+		try
+		{
+			RangeField.newRange(new IntegerField().unique());
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("unique borderTemplate is not supported", e.getMessage());
+		}
 	}
 }
