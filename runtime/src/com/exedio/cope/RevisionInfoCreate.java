@@ -35,11 +35,13 @@ final class RevisionInfoCreate extends RevisionInfo
 			throw new IllegalArgumentException("number must be greater or equal zero, but was " + number);
 	}
 	
+	private static final String CREATE = "create";
+	
 	@Override
 	Properties getStore()
 	{
 		final Properties store = super.getStore();
-		store.setProperty("create", Boolean.TRUE.toString());
+		store.setProperty(CREATE, Boolean.TRUE.toString());
 		return store;
 	}
 }

@@ -52,13 +52,17 @@ final class RevisionInfoMutex extends RevisionInfo
 		return actualNumber;
 	}
 	
+	private static final String MUTEX    = "mutex";
+	private static final String EXPECTED = "mutex.expected";
+	private static final String ACTUAL   = "mutex.actual";
+	
 	@Override
 	Properties getStore()
 	{
 		final Properties store = super.getStore();
-		store.setProperty("mutex", Boolean.TRUE.toString());
-		store.setProperty("mutex.expected", String.valueOf(expectedNumber));
-		store.setProperty("mutex.actual", String.valueOf(actualNumber));
+		store.setProperty(MUTEX, Boolean.TRUE.toString());
+		store.setProperty(EXPECTED, String.valueOf(expectedNumber));
+		store.setProperty(ACTUAL,   String.valueOf(actualNumber));
 		return store;
 	}
 }

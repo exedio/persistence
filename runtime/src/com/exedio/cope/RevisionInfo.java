@@ -64,6 +64,8 @@ public abstract class RevisionInfo
 		return Collections.unmodifiableMap(environment);
 	}
 	
+	private static final String REVISION = "revision";
+	private static final String DATE = "dateUTC";
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
 	{
@@ -75,9 +77,9 @@ public abstract class RevisionInfo
 		final Properties store = new Properties();
 
 		if(number>=0)
-			store.setProperty("revision", String.valueOf(number));
+			store.setProperty(REVISION, String.valueOf(number));
 
-		store.setProperty("dateUTC", df.format(date));
+		store.setProperty(DATE, df.format(date));
 		
 		for(final Map.Entry<String, String> e : environment.entrySet())
 			store.setProperty(e.getKey(), e.getValue());

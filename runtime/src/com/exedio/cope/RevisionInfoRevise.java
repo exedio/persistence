@@ -116,11 +116,13 @@ final class RevisionInfoRevise extends RevisionInfo
 		return Collections.unmodifiableList(Arrays.asList(body));
 	}
 	
+	private static final String COMMENT = "comment";
+	
 	@Override
 	Properties getStore()
 	{
 		final Properties store = super.getStore();
-		store.setProperty("comment", comment);
+		store.setProperty(COMMENT, comment);
 		for(int i = 0; i<body.length; i++)
 			body[i].fillStore(i, store);
 		return store;
