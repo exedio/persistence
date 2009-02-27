@@ -51,7 +51,7 @@ public abstract class RevisionInfo
 		this.environment = environment;
 	}
 	
-	int getNumber()
+	public int getNumber()
 	{
 		return number;
 	}
@@ -138,7 +138,7 @@ public abstract class RevisionInfo
 	
 	private static final String MAGIC = "migrationlogv01";
 	
-	final byte[] toBytes()
+	public final byte[] toBytes()
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try

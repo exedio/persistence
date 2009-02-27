@@ -505,6 +505,7 @@
 		</copy>
 		<ljavac srcdir="runtime/servlettestsrc" destdir="runtime/servlettestweb/WEB-INF/classes">
 			<classpath>
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>

@@ -20,18 +20,31 @@ package com.exedio.cope.util;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
+import com.exedio.cope.RevisionInfo;
+import com.exedio.cope.RevisionInfoCreate;
+import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.cope.editor.Draft;
 import com.exedio.cope.editor.DraftItem;
 import com.exedio.cope.pattern.InitServlet;
 import com.exedio.cope.pattern.Media;
+import com.exedio.dsmf.SQLRuntimeException;
 
 public final class EditedServlet extends HttpServlet
 {
@@ -44,6 +57,10 @@ public final class EditedServlet extends HttpServlet
 		result[i++] =
 			new Revision(revision--,
 					"not yet applied",
+					"drop table \"Item\"");
+		result[i++] =
+			new Revision(revision--,
+					"not yet applied2",
 					"drop table \"Item\"");
 		result[i++] =
 			new Revision(revision--,
@@ -117,6 +134,7 @@ public final class EditedServlet extends HttpServlet
 		{
 			model.rollbackIfNotCommitted();
 		}
+		revisions();
 	}
 	
 	private static final EditedItem createItem(
@@ -183,5 +201,97 @@ public final class EditedServlet extends HttpServlet
 			final HttpServletResponse response) throws IOException
 	{
 		doGet(request, response);
+	}
+	
+	private static final void revisions()
+	{
+		final java.util.Properties dbinfo = model.getDatabaseInfo();
+		final HashMap<String, String> environment = new HashMap<String, String>();
+		for(final Object key : dbinfo.keySet())
+			environment.put((String)key, dbinfo.getProperty((String)key));
+		
+		final Iterator<Revision> revisions = model.getRevisions().iterator();
+		
+		final ConnectProperties p = model.getProperties();
+		Connection con = null;
+		PreparedStatement stat = null;
+		try
+		{
+			con = DriverManager.getConnection(p.getDatabaseUrl(), p.getDatabaseUser(), p.getDatabasePassword());
+			stat = con.prepareStatement("insert into \"while\" (\"v\",\"i\") values (?,?)");
+			
+			// skip first two revisions not yet applied
+			revisions.next();
+			revisions.next();
+			
+			for(int i = 0; i<5; i++)
+			{
+				final Revision revision = revisions.next();
+				final ArrayList<RevisionInfoRevise.Body> body = new ArrayList<RevisionInfoRevise.Body>();
+				int j = 0;
+				for(final String sql : revision.getBody())
+				{
+					body.add(new RevisionInfoRevise.Body(sql, (100*i)+j, (100*i)+(10*j)));
+					j++;
+				}
+				save(stat, new RevisionInfoRevise(
+						revision.getNumber(),
+						new Date(),
+						environment,
+						revision.getComment(),
+						body.toArray(new RevisionInfoRevise.Body[body.size()])));
+				
+				if("before change of environment".equals(revision.getComment()))
+				{
+					environment.put("database.name",    environment.get("database.name")    + " - Changed");
+					environment.put("database.version", environment.get("database.version") + " - Changed");
+				}
+			}
+			{
+				final Revision revision = revisions.next();
+				save(stat, new RevisionInfoCreate(
+						revision.getNumber(),
+						new Date(),
+						environment));
+			}
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "create");
+		}
+		finally
+		{
+			if(stat!=null)
+			{
+				try
+				{
+					stat.close();
+					stat = null;
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, "close");
+				}
+			}
+			if(con!=null)
+			{
+				try
+				{
+					con.close();
+					con = null;
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, "close");
+				}
+			}
+		}
+	}
+	
+	private static final void save(final PreparedStatement stat, final RevisionInfo info) throws SQLException
+	{
+		stat.setInt(1, info.getNumber());
+		stat.setBytes(2, info.toBytes());
+		stat.execute();
 	}
 }

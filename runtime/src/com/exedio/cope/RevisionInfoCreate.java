@@ -22,9 +22,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-final class RevisionInfoCreate extends RevisionInfo
+public final class RevisionInfoCreate extends RevisionInfo
 {
-	RevisionInfoCreate(
+	public RevisionInfoCreate(
 			final int number,
 			final Date date,
 			final Map<String, String> environment)

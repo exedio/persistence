@@ -26,18 +26,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-final class RevisionInfoRevise extends RevisionInfo
+public final class RevisionInfoRevise extends RevisionInfo
 {
 	private final String comment;
 	private final Body[] body;
 	
-	static final class Body
+	public static final class Body
 	{
 		private final String sql;
 		private final int rows;
 		private final long elapsed;
 		
-		Body(final String sql, final int rows, final long elapsed)
+		public Body(final String sql, final int rows, final long elapsed)
 		{
 			if(sql==null)
 				throw new NullPointerException("sql must not be null");
@@ -89,7 +89,7 @@ final class RevisionInfoRevise extends RevisionInfo
 		}
 	}
 	
-	RevisionInfoRevise(
+	public RevisionInfoRevise(
 			final int number,
 			final Date date, final Map<String, String> environment,
 			final String comment, final Body... body)
