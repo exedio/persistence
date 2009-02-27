@@ -115,65 +115,64 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			final HttpServletRequest request,
 			final History history)
 	{
-		if(model.isRevisionEnabled())
-		{
-			final TreeMap<Integer, Line> lines = new TreeMap<Integer, Line>();
-			
-			for(final Revision m : model.getRevisions())
-				register(lines, m.getNumber()).revision = m;
-			
-			Map<Integer, byte[]> logsRaw = null;
-			try
-			{
-				logsRaw = model.getRevisionLogs();
-			}
-			catch(SQLRuntimeException e)
-			{
-				e.printStackTrace(); // TODO show error in page together with declared revisions
-			}
-
-			if(logsRaw!=null)
-			{
-				try
-				{
-					for(final Integer revision : logsRaw.keySet())
-					{
-						final Line line = register(lines, revision);
-						line.logRaw = logsRaw.get(revision);
-						final byte[] infoBytes = logsRaw.get(revision);
-						line.logString = new String(infoBytes, "latin1");
-						final Properties infoProperties = RevisionInfo.parse(infoBytes);
-						if(infoProperties!=null)
-						{
-							final TreeMap<String, String> map = new TreeMap<String, String>();
-							for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
-								map.put((String)entry.getKey(), (String)entry.getValue());
-							line.logProperties = map;
-						}
-					}
-				}
-				catch(UnsupportedEncodingException e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-			
-			register(lines, model.getRevisionNumber()).current = true;
-			
-			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
-			Collections.reverse(lineList);
-			
-			final int offset = pager.getOffset();
-			final List<Line> lineListLimited =
-				lineList.subList(offset, Math.min(offset + pager.getLimit(), lineList.size()));
-			
-			pager.init(lineListLimited.size(), lineList.size());
-			
-			Revision_Jspm.writeBody(out, this, lineListLimited);
-		}
-		else
+		if(!model.isRevisionEnabled())
 		{
 			Revision_Jspm.writeBodyDisabled(out);
+			return;
 		}
+		
+		final TreeMap<Integer, Line> lines = new TreeMap<Integer, Line>();
+		
+		for(final Revision m : model.getRevisions())
+			register(lines, m.getNumber()).revision = m;
+		
+		Map<Integer, byte[]> logsRaw = null;
+		try
+		{
+			logsRaw = model.getRevisionLogs();
+		}
+		catch(SQLRuntimeException e)
+		{
+			e.printStackTrace(); // TODO show error in page together with declared revisions
+		}
+
+		if(logsRaw!=null)
+		{
+			try
+			{
+				for(final Integer revision : logsRaw.keySet())
+				{
+					final Line line = register(lines, revision);
+					line.logRaw = logsRaw.get(revision);
+					final byte[] infoBytes = logsRaw.get(revision);
+					line.logString = new String(infoBytes, "latin1");
+					final Properties infoProperties = RevisionInfo.parse(infoBytes);
+					if(infoProperties!=null)
+					{
+						final TreeMap<String, String> map = new TreeMap<String, String>();
+						for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
+							map.put((String)entry.getKey(), (String)entry.getValue());
+						line.logProperties = map;
+					}
+				}
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		
+		register(lines, model.getRevisionNumber()).current = true;
+		
+		final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
+		Collections.reverse(lineList);
+		
+		final int offset = pager.getOffset();
+		final List<Line> lineListLimited =
+			lineList.subList(offset, Math.min(offset + pager.getLimit(), lineList.size()));
+		
+		pager.init(lineListLimited.size(), lineList.size());
+		
+		Revision_Jspm.writeBody(out, this, lineListLimited);
 	}
 }
