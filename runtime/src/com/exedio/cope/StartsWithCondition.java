@@ -68,7 +68,7 @@ public final class StartsWithCondition extends Condition
 	@Override
 	public int hashCode()
 	{
-		return field.hashCode() ^ Arrays.hashCode() ^ 1872643;
+		return field.hashCode() ^ Arrays.hashCode(value) ^ 1872643;
 	}
 	
 	@Override
