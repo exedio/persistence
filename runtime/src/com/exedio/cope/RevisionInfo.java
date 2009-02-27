@@ -129,7 +129,7 @@ public abstract class RevisionInfo
 		}
 		{
 			final RevisionInfoMutex i =
-				RevisionInfoMutex.read(revision, date, environment, p);
+				RevisionInfoMutex.read(date, environment, p);
 			if(i!=null)
 				return i;
 		}

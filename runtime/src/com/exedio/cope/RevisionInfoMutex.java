@@ -67,7 +67,6 @@ final class RevisionInfoMutex extends RevisionInfo
 	}
 	
 	static final RevisionInfoMutex read(
-			final int number,
 			final Date date,
 			final Map<String, String> environment,
 			final Properties p)
