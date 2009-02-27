@@ -51,17 +51,17 @@ public abstract class RevisionInfo
 		this.environment = environment;
 	}
 	
-	public int getNumber()
+	public final int getNumber()
 	{
 		return number;
 	}
 	
-	Date getDate()
+	final Date getDate()
 	{
 		return date;
 	}
 	
-	Map<String, String> getEnvironment()
+	final Map<String, String> getEnvironment()
 	{
 		return Collections.unmodifiableMap(environment);
 	}
