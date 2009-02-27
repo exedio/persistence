@@ -188,13 +188,22 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
+		assertContains(item.TYPE.search(item.data.startsWith(data4)));
+		assertContains(item.TYPE.search(item.data.startsWith(data6)));
+		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
 
 		// set byte[]
 		item.setData(data4);
 		assertIt(data4);
+		assertContains(item, item.TYPE.search(item.data.startsWith(data4)));
+		assertContains(item.TYPE.search(item.data.startsWith(data6)));
+		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
 
 		item.setData(data6);
 		assertIt(data6);
+		assertContains(item.TYPE.search(item.data.startsWith(data4)));
+		assertContains(item, item.TYPE.search(item.data.startsWith(data6)));
+		assertContains(item, item.TYPE.search(item.data.startsWith(data6x4)));
 
 		item.setData(data0);
 		assertIt(data0);
@@ -258,6 +267,15 @@ public class DataTest extends AbstractRuntimeTest
 		catch(NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			item.data.startsWith(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("value must not be null", e.getMessage());
 		}
 		
 		final DataSubItem subItem = deleteOnTearDown(new DataSubItem());

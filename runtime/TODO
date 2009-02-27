@@ -20,7 +20,6 @@ TODO for cope runtime
 	* redundantly maintain width/height for images
 	* check contentType against body, available in console
 		needs before
-		- condition DataField.startsWith(byte[])
 		- condition Media.contentTypeEquals(String)
 	* store text/* gzipped and deliver as such to the browser
 - Editor:

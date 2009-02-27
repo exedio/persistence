@@ -88,6 +88,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final byte[] data0  = {};
 	protected static final byte[] data4  = {-86,122,-8,23};
 	protected static final byte[] data6  = {-97,35,-126,86,19,-8};
+	protected static final byte[] data6x4= {-97,35,-126,86};
 	protected static final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
 	protected static final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
 	protected static final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};

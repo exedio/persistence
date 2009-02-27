@@ -216,6 +216,17 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
+	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	{
+		bf.append("HEX(SUBSTRING(").
+			append(column, (Join)null).
+			append(",1,").
+			appendParameter(value.length).
+			append("))=").
+			appendParameter(hexUpper(value));
+	}
+	
+	@Override
 	protected String getClause(final String column, final CharSet set)
 	{
 		final StringBuilder bf = new StringBuilder();

@@ -665,4 +665,9 @@ public final class DataField extends Field<DataField.Value>
 			return "DataField.Value:" + file.toString();
 		}
 	}
+	
+	public StartsWithCondition startsWith(final byte[] value)
+	{
+		return new StartsWithCondition(this, value);
+	}
 }

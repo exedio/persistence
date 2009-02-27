@@ -173,6 +173,17 @@ final class OracleDialect extends Dialect
 	}
 	
 	@Override
+	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	{
+		bf.append("RAWTOHEX(DBMS_LOB.SUBSTR(").
+			append(column, (Join)null).
+			append(',').
+			appendParameter(value.length).
+			append(",1))=").
+			appendParameter(hexUpper(value));
+	}
+	
+	@Override
 	boolean supportsEmptyStrings()
 	{
 		return false;

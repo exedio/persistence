@@ -126,6 +126,17 @@ final class HsqldbDialect extends Dialect
 	}
 	
 	@Override
+	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	{
+		bf.append("substring(").
+			append(column, (Join)null).
+			append(",0,").
+			appendParameter(2*value.length).
+			append(")=").
+			appendParameter(hexLower(value));
+	}
+	
+	@Override
 	boolean fakesSupportReadCommitted()
 	{
 		return true;

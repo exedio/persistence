@@ -308,6 +308,11 @@ final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 
+	void appendStartsWith(final DataField field, final byte[] value)
+	{
+		database.dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
+	}
+
 	<E extends Number >void appendIntegerDivisionOperator(
 			final NumberFunction<E> dividend,
 			final NumberFunction<E> divisor,

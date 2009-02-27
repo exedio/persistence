@@ -160,4 +160,15 @@ final class PostgresqlDialect extends Dialect
 		// TODO check for full text indexes
 		appendMatchClauseByLike(bf, function, value);
 	}
+	
+	@Override
+	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	{
+		bf.append("encode(substring(").
+			append(column, (Join)null).
+			append(" from 1 for ").
+			appendParameter(value.length).
+			append("),'hex')=").
+			appendParameter(hexLower(value));
+	}
 }
