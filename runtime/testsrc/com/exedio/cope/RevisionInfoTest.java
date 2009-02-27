@@ -74,9 +74,9 @@ public class RevisionInfoTest extends CopeAssert
 		assertEquals(map(
 				"revision", "5",
 				"dateUTC", DATE_STRING,
-				"env1Key", "env1Value",
-				"env2Key", "env2Value",
-				"env3Key", "env3Value",
+				"env.env1Key", "env1Value",
+				"env.env2Key", "env2Value",
+				"env.env3Key", "env3Value",
 				"comment", "comment5",
 				"body0.sql", "sql5.0",
 				"body0.rows", "55",
@@ -201,9 +201,9 @@ public class RevisionInfoTest extends CopeAssert
 		assertEquals(map(
 				"revision", "5",
 				"dateUTC", DATE_STRING,
-				"env1Key", "env1Value",
-				"env2Key", "env2Value",
-				"env3Key", "env3Value",
+				"env.env1Key", "env1Value",
+				"env.env2Key", "env2Value",
+				"env.env3Key", "env3Value",
 				"create", "true"),
 				reparse(i));
 		
@@ -249,9 +249,9 @@ public class RevisionInfoTest extends CopeAssert
 		
 		assertEquals(map(
 				"dateUTC", DATE_STRING,
-				"env1Key", "env1Value",
-				"env2Key", "env2Value",
-				"env3Key", "env3Value",
+				"env.env1Key", "env1Value",
+				"env.env2Key", "env2Value",
+				"env.env3Key", "env3Value",
 				"mutex", "true",
 				"mutex.expected", "78",
 				"mutex.actual", "72"),

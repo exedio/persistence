@@ -332,13 +332,13 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(driverName);
 		assertNotNull(driverVersion);
 
-		assertEquals(hostname, p.getProperty("hostname"));
-		assertEquals(jdbcUrl, p.getProperty("jdbc.url"));
-		assertEquals(jdbcUser, p.getProperty("jdbc.user"));
-		assertEquals(databaseName, p.getProperty("database.name"));
-		assertEquals(databaseVersion, p.getProperty("database.version") + " (" + p.getProperty("database.version.major") + '.' + p.getProperty("database.version.minor") + ')');
-		assertEquals(driverName, p.getProperty("driver.name"));
-		assertEquals(driverVersion, p.getProperty("driver.version") + " (" + p.getProperty("driver.version.major") + '.' + p.getProperty("driver.version.minor") + ')');
+		assertEquals(hostname, p.getProperty("env.hostname"));
+		assertEquals(jdbcUrl, p.getProperty("env.jdbc.url"));
+		assertEquals(jdbcUser, p.getProperty("env.jdbc.user"));
+		assertEquals(databaseName, p.getProperty("env.database.name"));
+		assertEquals(databaseVersion, p.getProperty("env.database.version") + " (" + p.getProperty("env.database.version.major") + '.' + p.getProperty("env.database.version.minor") + ')');
+		assertEquals(driverName, p.getProperty("env.driver.name"));
+		assertEquals(driverVersion, p.getProperty("env.driver.version") + " (" + p.getProperty("env.driver.version.major") + '.' + p.getProperty("env.driver.version.minor") + ')');
 	}
 	
 	private static final Properties parse(final byte[] log)

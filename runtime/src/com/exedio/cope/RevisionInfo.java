@@ -66,6 +66,7 @@ public abstract class RevisionInfo
 	
 	private static final String REVISION = "revision";
 	private static final String DATE = "dateUTC";
+	private static final String ENVIRONMENT_PREFIX = "env.";
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
 	{
@@ -82,7 +83,7 @@ public abstract class RevisionInfo
 		store.setProperty(DATE, df.format(date));
 		
 		for(final Map.Entry<String, String> e : environment.entrySet())
-			store.setProperty(e.getKey(), e.getValue());
+			store.setProperty(ENVIRONMENT_PREFIX + e.getKey(), e.getValue());
 		
 		return store;
 	}
