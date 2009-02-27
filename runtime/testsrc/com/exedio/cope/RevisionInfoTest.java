@@ -86,6 +86,29 @@ public class RevisionInfoTest extends CopeAssert
 				"body1.elapsed", "24"),
 				reparse(i));
 		
+		{
+			final RevisionInfoRevise i2 = reread(i);
+			assertEquals(5, i2.getNumber());
+			assertEquals(DATE, i2.getDate());
+			assertEqualsUnmodifiable(env, i2.getEnvironment());
+			assertEquals("comment5", i2.getComment());
+			assertUnmodifiable(i2.getBody());
+			final Iterator<Body> it2 = i2.getBody().iterator();
+			{
+				final Body b = it2.next();
+				assertEquals("sql5.0", b.getSQL());
+				assertEquals(55, b.getRows());
+				assertEquals(23, b.getElapsed());
+			}
+			{
+				final Body b = it2.next();
+				assertEquals("sql5.1", b.getSQL());
+				assertEquals(56, b.getRows());
+				assertEquals(24, b.getElapsed());
+			}
+			assertFalse(it2.hasNext());
+		}
+		
 		try
 		{
 			new RevisionInfoRevise(0, null, null, null, (Body[])null);
@@ -207,6 +230,13 @@ public class RevisionInfoTest extends CopeAssert
 				"create", "true"),
 				reparse(i));
 		
+		{
+			final RevisionInfoCreate i2 = reread(i);
+			assertEquals(5, i2.getNumber());
+			assertEquals(DATE, i2.getDate());
+			assertEqualsUnmodifiable(env, i2.getEnvironment());
+		}
+		
 		try
 		{
 			new RevisionInfoCreate(-1, null, null);
@@ -256,6 +286,15 @@ public class RevisionInfoTest extends CopeAssert
 				"mutex.expected", "78",
 				"mutex.actual", "72"),
 				reparse(i));
+		
+		{
+			final RevisionInfoMutex i2 = reread(i);
+			assertEquals(-1, i2.getNumber());
+			assertEquals(DATE, i2.getDate());
+			assertEqualsUnmodifiable(env, i2.getEnvironment());
+			assertEquals(78, i2.getExpectedNumber());
+			assertEquals(72, i2.getActualNumber());
+		}
 		
 		try
 		{
@@ -332,6 +371,23 @@ public class RevisionInfoTest extends CopeAssert
 		for(final Object key : p.keySet())
 			result.put((String)key, p.getProperty((String)key));
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final <X extends RevisionInfo> X reread(final X info)
+	{
+		final byte[] bytes = info.toBytes();
+		String bytesString;
+		try
+		{
+			bytesString = new String(bytes, "latin1");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01\n"));
+		return (X)RevisionInfo.read(bytes);
 	}
 	
 	public static final TreeMap<String, String> map(final String... s)

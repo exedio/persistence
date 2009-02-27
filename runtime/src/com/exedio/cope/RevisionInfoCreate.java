@@ -44,4 +44,19 @@ final class RevisionInfoCreate extends RevisionInfo
 		store.setProperty(CREATE, Boolean.TRUE.toString());
 		return store;
 	}
+	
+	static final RevisionInfoCreate read(
+			final int number,
+			final Date date,
+			final Map<String, String> environment,
+			final Properties p)
+	{
+		if(p.getProperty(CREATE)==null)
+			return null;
+		
+		return new RevisionInfoCreate(
+				number,
+				date,
+				environment);
+	}
 }

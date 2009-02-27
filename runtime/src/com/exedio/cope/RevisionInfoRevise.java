@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -74,6 +75,18 @@ final class RevisionInfoRevise extends RevisionInfo
 			store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
 			store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 		}
+		
+		static final Body read(final int index, final Properties p)
+		{
+			final String bodyPrefix = "body" + index + '.';
+			final String sql = p.getProperty(bodyPrefix + "sql");
+			if(sql==null)
+				return null;
+			return new Body(
+					sql,
+					Integer.valueOf(p.getProperty(bodyPrefix + "rows")),
+					Long   .valueOf(p.getProperty(bodyPrefix + "elapsed")));
+		}
 	}
 	
 	RevisionInfoRevise(
@@ -126,5 +139,32 @@ final class RevisionInfoRevise extends RevisionInfo
 		for(int i = 0; i<body.length; i++)
 			body[i].fillStore(i, store);
 		return store;
+	}
+	
+	static final RevisionInfoRevise read(
+			final int number,
+			final Date date,
+			final Map<String, String> environment,
+			final Properties p)
+	{
+		final String comment = p.getProperty(COMMENT);
+		if(comment==null)
+			return null;
+		
+		final ArrayList<Body> body = new ArrayList<Body>();
+		for(int i = 0; ; i++)
+		{
+			final Body b = Body.read(i, p);
+			if(b==null)
+				break;
+			body.add(b);
+		}
+				
+		return new RevisionInfoRevise(
+				number,
+				date,
+				environment,
+				comment,
+				body.toArray(new Body[body.size()]));
 	}
 }

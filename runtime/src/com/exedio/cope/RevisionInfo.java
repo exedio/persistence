@@ -22,9 +22,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -86,6 +88,52 @@ public abstract class RevisionInfo
 			store.setProperty(ENVIRONMENT_PREFIX + e.getKey(), e.getValue());
 		
 		return store;
+	}
+	
+	static final RevisionInfo read(final byte[] bytes)
+	{
+		final Properties p = parse(bytes);
+		if(p==null)
+			return null;
+		
+		final String revisionString = p.getProperty(REVISION);
+		final int revision = revisionString!=null ? Integer.valueOf(revisionString) : -1;
+		final Date date;
+		try
+		{
+			date = df.parse(p.getProperty(DATE));
+		}
+		catch(ParseException e)
+		{
+			throw new RuntimeException(e);
+		}
+		final HashMap<String, String> environment = new HashMap<String, String>();
+		for(final Object keyObject : p.keySet())
+		{
+			final String key = (String)keyObject;
+			if(key.startsWith(ENVIRONMENT_PREFIX))
+				environment.put(key.substring(ENVIRONMENT_PREFIX.length()), p.getProperty(key));
+		}
+		
+		{
+			final RevisionInfoRevise i =
+				RevisionInfoRevise.read(revision, date, environment, p);
+			if(i!=null)
+				return i;
+		}
+		{
+			final RevisionInfoCreate i =
+				RevisionInfoCreate.read(revision, date, environment, p);
+			if(i!=null)
+				return i;
+		}
+		{
+			final RevisionInfoMutex i =
+				RevisionInfoMutex.read(revision, date, environment, p);
+			if(i!=null)
+				return i;
+		}
+		return null;
 	}
 	
 	private static final String MAGIC = "migrationlogv01";

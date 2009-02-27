@@ -65,4 +65,20 @@ final class RevisionInfoMutex extends RevisionInfo
 		store.setProperty(ACTUAL,   String.valueOf(actualNumber));
 		return store;
 	}
+	
+	static final RevisionInfoMutex read(
+			final int number,
+			final Date date,
+			final Map<String, String> environment,
+			final Properties p)
+	{
+		if(p.getProperty(MUTEX)==null)
+			return null;
+		
+		return new RevisionInfoMutex(
+				date,
+				environment,
+				Integer.valueOf(p.getProperty(EXPECTED)),
+				Integer.valueOf(p.getProperty(ACTUAL)));
+	}
 }
