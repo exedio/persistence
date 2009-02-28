@@ -82,32 +82,17 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		Revision_Jspm.writeHead(out);
 	}
 	
-	private Line register(final TreeMap<Integer, Line> lines, final int revision)
+	private RevisionLine register(final TreeMap<Integer, RevisionLine> lines, final int revision)
 	{
-		Line result = lines.get(revision);
+		RevisionLine result = lines.get(revision);
 		if(result==null)
 		{
-			result = new Line(revision);
+			result = new RevisionLine(revision);
 			lines.put(revision, result);
 		}
 		return result;
 	}
 	
-	static class Line
-	{
-		final int number;
-		Revision revision = null;
-		byte[] logRaw = null;
-		String logString = null;
-		TreeMap<String, String> logProperties = null;
-		boolean current = false;
-		
-		Line(final int number)
-		{
-			this.number = number;
-		}
-	}
-
 	@Override
 	final void writeBody(
 			final PrintStream out,
@@ -121,7 +106,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			return;
 		}
 		
-		final TreeMap<Integer, Line> lines = new TreeMap<Integer, Line>();
+		final TreeMap<Integer, RevisionLine> lines = new TreeMap<Integer, RevisionLine>();
 		
 		for(final Revision m : model.getRevisions())
 			register(lines, m.getNumber()).revision = m;
@@ -142,7 +127,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			{
 				for(final Integer revision : logsRaw.keySet())
 				{
-					final Line line = register(lines, revision);
+					final RevisionLine line = register(lines, revision);
 					line.logRaw = logsRaw.get(revision);
 					final byte[] infoBytes = logsRaw.get(revision);
 					line.logString = new String(infoBytes, "latin1");
@@ -164,11 +149,11 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		
 		register(lines, model.getRevisionNumber()).current = true;
 		
-		final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
+		final ArrayList<RevisionLine> lineList = new ArrayList<RevisionLine>(lines.values());
 		Collections.reverse(lineList);
 		
 		final int offset = pager.getOffset();
-		final List<Line> lineListLimited =
+		final List<RevisionLine> lineListLimited =
 			lineList.subList(offset, Math.min(offset + pager.getLimit(), lineList.size()));
 		
 		pager.init(lineListLimited.size(), lineList.size());
