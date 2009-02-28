@@ -109,7 +109,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		final TreeMap<Integer, RevisionLine> lines = new TreeMap<Integer, RevisionLine>();
 		
 		for(final Revision m : model.getRevisions())
-			register(lines, m.getNumber()).revision = m;
+			register(lines, m.getNumber()).setRevision(m);
 		
 		Map<Integer, byte[]> logsRaw = null;
 		try

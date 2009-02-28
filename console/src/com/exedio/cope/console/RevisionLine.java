@@ -25,7 +25,7 @@ import com.exedio.cope.Revision;
 final class RevisionLine
 {
 	final int number;
-	Revision revision = null;
+	private Revision revision = null;
 	byte[] logRaw = null;
 	String logString = null;
 	TreeMap<String, String> logProperties = null;
@@ -34,5 +34,17 @@ final class RevisionLine
 	RevisionLine(final int number)
 	{
 		this.number = number;
+	}
+	
+	Revision getRevision()
+	{
+		return revision;
+	}
+	
+	void setRevision(final Revision revision)
+	{
+		assert revision!=null;
+		assert this.revision==null;
+		this.revision = revision;
 	}
 }
