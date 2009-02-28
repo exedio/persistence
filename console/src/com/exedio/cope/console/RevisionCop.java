@@ -82,7 +82,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		Revision_Jspm.writeHead(out);
 	}
 	
-	private RevisionLine register(final TreeMap<Integer, RevisionLine> lines, final int revision)
+	private static RevisionLine register(final TreeMap<Integer, RevisionLine> lines, final int revision)
 	{
 		RevisionLine result = lines.get(revision);
 		if(result==null)
