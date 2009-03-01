@@ -24,14 +24,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
-import com.exedio.cope.RevisionInfo;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -128,17 +126,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 				for(final Integer revision : logsRaw.keySet())
 				{
 					final RevisionLine line = register(lines, revision);
-					line.logRaw = logsRaw.get(revision);
-					final byte[] infoBytes = logsRaw.get(revision);
-					line.logString = new String(infoBytes, "latin1");
-					final Properties infoProperties = RevisionInfo.parse(infoBytes);
-					if(infoProperties!=null)
-					{
-						final TreeMap<String, String> map = new TreeMap<String, String>();
-						for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
-							map.put((String)entry.getKey(), (String)entry.getValue());
-						line.logProperties = map;
-					}
+					line.setInfo(logsRaw.get(revision));
 				}
 			}
 			catch(UnsupportedEncodingException e)

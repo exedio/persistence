@@ -92,8 +92,8 @@ final class Revision_Jspm extends Console_Jspm
 				}
 				%></td>
 				<td class="text"><%
-				final String logString = line.logString;
-				final TreeMap<String, String> logProperty = line.logProperties;
+				final String logString = line.getLogString();
+				final TreeMap<String, String> logProperty = line.getLogProperties();
 				if(logProperty!=null)
 				{
 					for(final Map.Entry<String, String> entry : logProperty.entrySet())

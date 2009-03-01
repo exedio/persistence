@@ -18,17 +18,21 @@
 
 package com.exedio.cope.console;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import com.exedio.cope.Revision;
+import com.exedio.cope.RevisionInfo;
 
 final class RevisionLine
 {
 	final int number;
 	private Revision revision = null;
-	byte[] logRaw = null;
-	String logString = null;
-	TreeMap<String, String> logProperties = null;
+	
+	private String logString = null;
+	private TreeMap<String, String> logProperties = null;
 	boolean current = false;
 	
 	RevisionLine(final int number)
@@ -46,5 +50,32 @@ final class RevisionLine
 		assert revision!=null;
 		assert this.revision==null;
 		this.revision = revision;
+	}
+	
+	String getLogString()
+	{
+		return logString;
+	}
+	
+	TreeMap<String, String> getLogProperties()
+	{
+		return logProperties;
+	}
+	
+	void setInfo(final byte[] infoBytes) throws UnsupportedEncodingException
+	{
+		assert infoBytes!=null;
+		assert this.logString==null;
+		assert this.logProperties==null;
+		
+		this.logString = new String(infoBytes, "latin1");
+		final Properties infoProperties = RevisionInfo.parse(infoBytes);
+		if(infoProperties!=null)
+		{
+			final TreeMap<String, String> map = new TreeMap<String, String>();
+			for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
+				map.put((String)entry.getKey(), (String)entry.getValue());
+			this.logProperties = map;
+		}
 	}
 }
