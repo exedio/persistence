@@ -33,7 +33,7 @@ final class RevisionLine
 	
 	private String logString = null;
 	private TreeMap<String, String> logProperties = null;
-	boolean current = false;
+	private boolean current = false;
 	
 	RevisionLine(final int number)
 	{
@@ -84,5 +84,16 @@ final class RevisionLine
 				map.put((String)entry.getKey(), (String)entry.getValue());
 			this.logProperties = map;
 		}
+	}
+	
+	boolean isCurrent()
+	{
+		return current;
+	}
+	
+	void setCurrent()
+	{
+		assert !current;
+		current = true;
 	}
 }

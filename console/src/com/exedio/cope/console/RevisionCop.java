@@ -124,7 +124,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 				register(lines, number).setInfo(logsRaw.get(number));
 		}
 		
-		register(lines, model.getRevisionNumber()).current = true;
+		register(lines, model.getRevisionNumber()).setCurrent();
 		
 		final ArrayList<RevisionLine> lineList = new ArrayList<RevisionLine>(lines.values());
 		Collections.reverse(lineList);

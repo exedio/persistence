@@ -68,7 +68,7 @@ final class Revision_Jspm extends Console_Jspm
 				n++;
 			%>
 			<tr>
-				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=line.number%></td>
+				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td class="text"><%
 				final Revision revision = line.getRevision();
 				if(revision!=null)
