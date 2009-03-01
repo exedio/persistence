@@ -19,7 +19,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -121,15 +120,8 @@ final class RevisionCop extends ConsoleCop implements Pageable
 
 		if(logsRaw!=null)
 		{
-			try
-			{
-				for(final Integer number : logsRaw.keySet())
-					register(lines, number).setInfo(logsRaw.get(number));
-			}
-			catch(UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(e);
-			}
+			for(final Integer number : logsRaw.keySet())
+				register(lines, number).setInfo(logsRaw.get(number));
 		}
 		
 		register(lines, model.getRevisionNumber()).current = true;

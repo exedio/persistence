@@ -62,13 +62,20 @@ final class RevisionLine
 		return logProperties;
 	}
 	
-	void setInfo(final byte[] infoBytes) throws UnsupportedEncodingException
+	void setInfo(final byte[] infoBytes)
 	{
 		assert infoBytes!=null;
 		assert this.logString==null;
 		assert this.logProperties==null;
 		
-		this.logString = new String(infoBytes, "latin1");
+		try
+		{
+			this.logString = new String(infoBytes, "latin1");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
 		final Properties infoProperties = RevisionInfo.parse(infoBytes);
 		if(infoProperties!=null)
 		{
