@@ -125,8 +125,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			{
 				for(final Integer revision : logsRaw.keySet())
 				{
-					final RevisionLine line = register(lines, revision);
-					line.setInfo(logsRaw.get(revision));
+					register(lines, revision).setInfo(logsRaw.get(revision));
 				}
 			}
 			catch(UnsupportedEncodingException e)
