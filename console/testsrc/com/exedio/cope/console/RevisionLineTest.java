@@ -40,12 +40,14 @@ public class RevisionLineTest extends TestCase
 		assertSame(null, l.getRevision());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
+		assertEquals(null, l.getDate());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
 		assertSame(r, l.getRevision());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
+		assertEquals(null, l.getDate());
 		
 		l.setInfo("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1"));
 		assertEquals("#migrationlogv01\nkey1=value1\nkey2=value2", l.getLogString());
@@ -53,6 +55,7 @@ public class RevisionLineTest extends TestCase
 		map.put("key1", "value1");
 		map.put("key2", "value2");
 		assertEquals(map, l.getLogProperties());
+		assertEquals(null, l.getDate());
 	}
 	
 	public void testCreate()
@@ -62,12 +65,14 @@ public class RevisionLineTest extends TestCase
 		assertSame(null, l.getRevision());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
+		assertEquals(null, l.getDate());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
 		assertSame(r, l.getRevision());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
+		assertEquals(null, l.getDate());
 		
 		l.setInfo(new RevisionInfoCreate(55, DATE, Collections.<String, String>emptyMap()).toBytes());
 		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
@@ -76,5 +81,6 @@ public class RevisionLineTest extends TestCase
 		map.put("dateUTC", DATE_STRING);
 		map.put("revision", "55");
 		assertEquals(map, l.getLogProperties());
+		assertEquals(DATE, l.getDate());
 	}
 }

@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -33,6 +34,8 @@ final class RevisionLine
 	
 	private String logString = null;
 	private TreeMap<String, String> logProperties = null;
+	private Date date = null;
+	
 	private boolean current = false;
 	
 	RevisionLine(final int number)
@@ -62,11 +65,17 @@ final class RevisionLine
 		return logProperties;
 	}
 	
+	Date getDate()
+	{
+		return date;
+	}
+	
 	void setInfo(final byte[] infoBytes)
 	{
 		assert infoBytes!=null;
 		assert this.logString==null;
 		assert this.logProperties==null;
+		assert this.date==null;
 		
 		try
 		{
@@ -84,6 +93,17 @@ final class RevisionLine
 				map.put((String)entry.getKey(), (String)entry.getValue());
 			this.logProperties = map;
 		}
+		RevisionInfo info;
+		try
+		{
+			info = RevisionInfo.read(infoBytes);
+		}
+		catch(Exception e)
+		{
+			info = null;
+		}
+		if(info!=null)
+			date = info.getDate();
 	}
 	
 	boolean isCurrent()

@@ -56,7 +56,7 @@ public abstract class RevisionInfo
 		return number;
 	}
 	
-	final Date getDate()
+	public final Date getDate()
 	{
 		return date;
 	}
@@ -90,7 +90,7 @@ public abstract class RevisionInfo
 		return store;
 	}
 	
-	static final RevisionInfo read(final byte[] bytes)
+	public static final RevisionInfo read(final byte[] bytes)
 	{
 		final Properties p = parse(bytes);
 		if(p==null)

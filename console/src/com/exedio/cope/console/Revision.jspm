@@ -28,6 +28,7 @@ import com.exedio.cope.Revision;
 import com.exedio.cope.console.RevisionLine;
 
 import static com.exedio.cops.XMLEncoder.encode;
+import static com.exedio.cope.console.Format.formatAndHide;
 
 final class Revision_Jspm extends Console_Jspm
 {
@@ -63,6 +64,7 @@ final class Revision_Jspm extends Console_Jspm
 			<caption>Revisions<% cop.writePager(out, cop); %></caption>
 			<tr>
 				<th>no.</th>
+				<th>Date</th>
 				<th>declared</th>
 				<th>logged</th>
 			</tr><%
@@ -73,6 +75,7 @@ final class Revision_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
+				<td><%=formatAndHide(line.getDate())%></td>
 				<td class="text"><%
 				final Revision revision = line.getRevision();
 				if(revision!=null)
