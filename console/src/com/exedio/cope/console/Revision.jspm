@@ -61,7 +61,11 @@ final class Revision_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Revisions<% cop.writePager(out, cop); %></caption>
-			<tr><th>no.</th><th>declared</th><th>logged</th></tr><%
+			<tr>
+				<th>no.</th>
+				<th>declared</th>
+				<th>logged</th>
+			</tr><%
 			int n = 0;
 			for(final RevisionLine line : lines)
 			{
