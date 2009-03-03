@@ -96,7 +96,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 
 		item.setSheet(stream(data4), "application/pdf");
 		assertStreamClosed();
-		assertContent(data4, "application/pdf", 0, "");
+		assertContent(data4, "application/pdf", 0, ".pdf");
 
 		item.setSheet(stream(data6), "image/png");
 		assertStreamClosed();

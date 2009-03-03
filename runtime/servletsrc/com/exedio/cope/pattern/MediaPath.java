@@ -73,10 +73,12 @@ public abstract class MediaPath extends Pattern
 		contentTypeToExtension.put("image/png", ".png");
 		contentTypeToExtension.put("image/x-icon", ".ico");
 		contentTypeToExtension.put("image/icon", ".ico");
+		contentTypeToExtension.put("image/vnd.microsoft.icon", ".ico"); // http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 		contentTypeToExtension.put("text/html", ".html");
 		contentTypeToExtension.put("text/plain", ".txt");
 		contentTypeToExtension.put("text/css", ".css");
 		contentTypeToExtension.put("application/java-archive", ".jar");
+		contentTypeToExtension.put("application/pdf", ".pdf"); // http://en.wikipedia.org/wiki/PDF
 	}
 
 	@Override
