@@ -91,6 +91,12 @@ public class QueryTest extends AbstractRuntimeTest
 			model.getCurrentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
 			assertEquals("skipped search because condition==false", model.getCurrentTransaction().getQueryInfos().get(0).getText());
+			model.getCurrentTransaction().setQueryInfoEnabled(false);
+			
+			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			assertEquals(0, q.total());
+			assertEquals("skipped search because condition==false", model.getCurrentTransaction().getQueryInfos().get(0).getText());
+			model.getCurrentTransaction().setQueryInfoEnabled(false);
 			
 			q.setCondition(TRUE);
 			assertSame(null, q.getCondition());

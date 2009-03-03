@@ -335,8 +335,18 @@ public final class Query<R>
 	 */
 	public int total()
 	{
+		final Transaction transaction = model.getCurrentTransaction();
+		
+		if(condition==Condition.FALSE)
+		{
+			final List<QueryInfo> queryInfos = transaction.queryInfos;
+			if(queryInfos!=null)
+				queryInfos.add(new QueryInfo("skipped search because condition==false"));
+			return 0;
+		}
+		
 		final ArrayList<Object> result =
-			model.getCurrentTransaction().search(this, true);
+			transaction.search(this, true);
 		assert result.size()==1;
 		return ((Integer)result.iterator().next()).intValue();
 	}
