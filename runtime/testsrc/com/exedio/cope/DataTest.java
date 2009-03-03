@@ -185,6 +185,15 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}
+		try
+		{
+			item.data.startsWith(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("value must not be null", e.getMessage());
+		}
 
 		// test data
 		assertIt(null);
@@ -267,15 +276,6 @@ public class DataTest extends AbstractRuntimeTest
 		catch(NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			item.data.startsWith(null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("value must not be null", e.getMessage());
 		}
 		
 		final DataSubItem subItem = deleteOnTearDown(new DataSubItem());
