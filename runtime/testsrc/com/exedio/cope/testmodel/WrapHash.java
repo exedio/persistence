@@ -19,7 +19,6 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.Field.Option;
 import com.exedio.cope.pattern.Hash;
 
 /**
@@ -38,15 +37,6 @@ public class WrapHash extends Hash
 		super("Wrap");
 	}
 	
-	/**
-	 * @deprecated use {@link #optional()} instead.
-	 */
-	@Deprecated
-	public WrapHash(final Option storageOption)
-	{
-		super(storageOption, "Wrap");
-	}
-
 	@Override
 	public WrapHash optional()
 	{

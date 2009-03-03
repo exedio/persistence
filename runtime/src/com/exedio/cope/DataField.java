@@ -54,18 +54,6 @@ public final class DataField extends Field<DataField.Value>
 		this(false, false, DEFAULT_LENGTH);
 	}
 	
-	/**
-	 * @deprecated use {@link #toFinal()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public DataField(final Option option)
-	{
-		this(option.isFinal, option.optional, DEFAULT_LENGTH);
-
-		if(option.unique)
-			throw new RuntimeException("DataField cannot be unique");
-	}
-	
 	@Override
 	public DataField toFinal()
 	{

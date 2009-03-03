@@ -203,15 +203,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public EnumField(final Option option, final Class<E> valueClass)
-	{
-		this(option.isFinal, option.optional, option.unique, valueClass, null);
-	}
-	
-	/**
 	 * @deprecated Use {@link #as(Class)} instead
 	 */
 	@Deprecated

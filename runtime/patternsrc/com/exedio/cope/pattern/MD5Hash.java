@@ -22,7 +22,6 @@ import java.util.Set;
 
 import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.Field.Option;
 
 public final class MD5Hash extends JavaSecurityHash
 {
@@ -56,16 +55,5 @@ public final class MD5Hash extends JavaSecurityHash
 	public MD5Hash optional()
 	{
 		return new MD5Hash(true, getEncoding());
-	}
-	
-	// ------------------- deprecated stuff -------------------
-	
-	/**
-	 * @deprecated use {@link com.exedio.cope.Field#toFinal()}, {@link com.exedio.cope.FunctionField#unique()} and {@link com.exedio.cope.Field#optional()} instead.
-	 */
-	@Deprecated
-	public MD5Hash(final Option storageOption)
-	{
-		super(storageOption.optional, HASH);
 	}
 }

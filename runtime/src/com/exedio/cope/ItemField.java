@@ -356,33 +356,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public ItemField(final Option option, final Class<E> valueClass)
-	{
-		this(option, valueClass, Item.FORBID);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
-	}
-
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
-	{
-		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
-	}
-	
-	/**
 	 * @deprecated Use {@link #as(Class)} instead
 	 */
 	@Deprecated

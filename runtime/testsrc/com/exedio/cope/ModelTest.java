@@ -66,37 +66,6 @@ public class ModelTest extends TestmodelTest
 		assertSame(connectDate, model.getConnectDate());
 		assertEquals(!postgresql, model.supportsSequences());
 	}
-	
-	@Deprecated // OK: test deprecated api
-	public void testAttributeOption()
-	{
-		final AttributeItem item = null;
-		
-		assertEquals(false, item.MANDATORY.isFinal);
-		assertEquals(false, item.MANDATORY.unique);
-		assertEquals(false, item.MANDATORY.optional);
-		assertEquals(false, item.OPTIONAL.isFinal);
-		assertEquals(false, item.OPTIONAL.unique);
-		assertEquals(true,  item.OPTIONAL.optional);
-		assertEquals(false, item.UNIQUE.isFinal);
-		assertEquals(true,  item.UNIQUE.unique);
-		assertEquals(false, item.UNIQUE.optional);
-		assertEquals(false, item.UNIQUE_OPTIONAL.isFinal);
-		assertEquals(true,  item.UNIQUE_OPTIONAL.unique);
-		assertEquals(true,  item.UNIQUE_OPTIONAL.optional);
-		assertEquals(true,  item.FINAL.isFinal);
-		assertEquals(false, item.FINAL.unique);
-		assertEquals(false, item.FINAL.optional);
-		assertEquals(true,  item.FINAL_OPTIONAL.isFinal);
-		assertEquals(false, item.FINAL_OPTIONAL.unique);
-		assertEquals(true,  item.FINAL_OPTIONAL.optional);
-		assertEquals(true,  item.FINAL_UNIQUE.isFinal);
-		assertEquals(true,  item.FINAL_UNIQUE.unique);
-		assertEquals(false, item.FINAL_UNIQUE.optional);
-		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.isFinal);
-		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.unique);
-		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.optional);
-	}
 
 	public void testType() throws IOException
 	{

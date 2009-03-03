@@ -264,33 +264,6 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH, null);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthMin(int)} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option, final int minimumLength)
-	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH, null);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option, final int minimumLength, final int maximumLength)
-	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength, null);
-	}
 	
 	/**
 	 * @deprecated use {@link #lengthMax(int)}.

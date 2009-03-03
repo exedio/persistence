@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.CharSet;
@@ -1405,15 +1404,6 @@ public final class Type<C extends Item>
 	public List<Field> getAttributes()
 	{
 		return getFields();
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
-	{
-		return new ItemField<C>(option, this, policy);
 	}
 	
 	/**

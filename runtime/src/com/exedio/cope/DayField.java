@@ -131,15 +131,4 @@ public final class DayField extends FunctionField<Day>
 			throw new RuntimeException(e);
 		}
 	}
-	
-	// ------------------- deprecated stuff -------------------
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public DayField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null);
-	}
 }

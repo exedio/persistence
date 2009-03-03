@@ -222,15 +222,4 @@ public final class DoubleField extends NumberField<Double>
 			return super.notEqual(value);
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
-	
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public DoubleField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null, MIN, MAX);
-	}
 }

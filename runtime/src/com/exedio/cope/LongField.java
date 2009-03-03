@@ -32,15 +32,6 @@ public final class LongField extends NumberField<Long>
 		this(false, false, false, null);
 	}
 	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public LongField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null);
-	}
-	
 	@Override
 	public LongField copy()
 	{

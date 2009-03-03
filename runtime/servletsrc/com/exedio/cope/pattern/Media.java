@@ -48,7 +48,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Field.Option;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.CharSet;
 
@@ -995,18 +994,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		this(false, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
 	}
-
-	/**
-	 * @deprecated use {@link #optional()} and {@link #contentType(String)} instead.
-	 */
-	@Deprecated
-	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
-	{
-		this(option.optional, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
-
-		if(option.unique)
-			throw new RuntimeException("Media cannot be unique");
-	}
 	
 	/**
 	 * @deprecated use {@link #contentTypeSub(String)} instead.
@@ -1015,30 +1002,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public Media(final String fixedMimeMajor)
 	{
 		this(false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false));
-	}
-	
-	/**
-	 * @deprecated use {@link #optional()} and {@link #contentTypeSub(String)} instead.
-	 */
-	@Deprecated
-	public Media(final Option option, final String fixedMimeMajor)
-	{
-		this(option.optional, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, option.optional));
-
-		if(option.unique)
-			throw new RuntimeException("Media cannot be unique");
-	}
-	
-	/**
-	 * @deprecated use {@link #optional()} instead.
-	 */
-	@Deprecated
-	public Media(final Option option)
-	{
-		this(option.optional, DEFAULT_LENGTH, new DefaultContentType(option.optional));
-
-		if(option.unique)
-			throw new RuntimeException("Media cannot be unique");
 	}
 	
 	/**

@@ -31,7 +31,6 @@ import java.util.Set;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
-import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringLengthViolationException;
@@ -72,15 +71,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		addSource(source, "Data");
 	}
 	
-	/**
-	 * @deprecated use {@link #optional()} instead.
-	 */
-	@Deprecated
-	private Serializer(final Class<E> valueClass, final Field.Option option)
-	{
-		this(valueClass, new DataField(option));
-	}
-	
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<E>(valueClass, source);
@@ -89,15 +79,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
 	{
 		return new Serializer<E>(valueClass, new DataField());
-	}
-	
-	/**
-	 * @deprecated use {@link #optional()} instead.
-	 */
-	@Deprecated
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Field.Option option)
-	{
-		return new Serializer<E>(valueClass, option);
 	}
 	
 	public Serializer<E> optional()

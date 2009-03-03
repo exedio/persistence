@@ -34,15 +34,6 @@ public final class BooleanField extends FunctionField<Boolean>
 		this(false, false, false, null);
 	}
 	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public BooleanField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null);
-	}
-	
 	@Override
 	public BooleanField copy()
 	{

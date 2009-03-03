@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -525,102 +524,12 @@ public abstract class Item implements Serializable
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated Use default constructor instead.
-	 */
-	@Deprecated
-	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
-
-	/**
-	 * @deprecated Use {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
-
-	/**
-	 * @deprecated Use {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
-	
-	/**
-	 * @deprecated Use {@link Field#optional()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
-	
-	/**
-	 * @deprecated Use {@link Field#toFinal()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL = Field.Option.FINAL;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()}, {@link Field#optional()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
-
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY = FINAL;
-	
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_OPTIONAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
-	
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
-
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE_OPTIONAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
-
-	/**
 	 * @deprecated Renamed to {@link #newEnumField(Class)}.
 	 */
 	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Class<E> valueClass)
 	{
 		return newEnumField(valueClass);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newEnumField(com.exedio.cope.Field.Option, Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
-	{
-		return newEnumField(option, valueClass);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
-	{
-		return new EnumField<E>(option, valueClass);
 	}
 	
 	/**
@@ -633,47 +542,11 @@ public abstract class Item implements Serializable
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
-	{
-		return newItemField(option, valueClass);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
-	{
-		return new ItemField<E>(option, valueClass);
-	}
-	
-	/**
 	 * @deprecated Renamed to {@link #newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)}.
 	 */
 	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return newItemField(valueClass, policy);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return newItemField(option, valueClass, policy);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return new ItemField<E>(option, valueClass, policy);
 	}
 }

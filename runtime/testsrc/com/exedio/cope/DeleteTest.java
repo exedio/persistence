@@ -77,20 +77,6 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDelete(item);
 	}
 	
-	@Deprecated
-	public void testNullifyDeprecated()
-	{
-		try
-		{
-			Item.newItemField(Item.MANDATORY, DeleteItem.class, Item.NULLIFY);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("mandatory item field cannot have delete policy nullify", e.getMessage());
-		}
-	}
-	
 	public void testNullify()
 	{
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
