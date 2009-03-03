@@ -188,6 +188,7 @@ public class DataTest extends AbstractRuntimeTest
 		
 		// condition startsWith
 		assertEquals(item.data.startsWith(data4), item.data.startsWith(data4));
+		assertEquals(item.data.startsWith(data4).hashCode(), item.data.startsWith(data4).hashCode());
 		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6));
 		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6x4));
 		assertNotEquals(item.data.startsWith(data4), item.data10.startsWith(data4));
