@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public abstract class Condition
@@ -200,6 +201,8 @@ public abstract class Condition
 			return key ? ((Item)o).getCopeID() : o.toString();
 		else if(o instanceof Date)
 			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
+		else if(o instanceof byte[])
+			return Arrays.toString((byte[])o);
 		else
 			return o.toString();
 	}

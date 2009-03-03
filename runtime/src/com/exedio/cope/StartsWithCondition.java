@@ -75,8 +75,8 @@ public final class StartsWithCondition extends Condition
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		field.toString(bf, defaultType);
-		bf.append(" starts with '").
-			append(toStringForValue(value, key)).
-			append('\'');
+		bf.append(" startsWith ").
+			append(toStringForValue(value, key))
+			;
 	}
 }
