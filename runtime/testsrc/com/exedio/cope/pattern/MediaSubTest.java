@@ -91,6 +91,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("image"));
 		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),     item.image.contentTypeEqual(null));
+		assertNotNull(item.image.bodyMismatchesContentType());
 		
 		// test persistence
 		

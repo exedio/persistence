@@ -35,6 +35,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
@@ -594,6 +595,39 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			contentType!=null
 			? this.contentType.contentTypeEqual(contentType)
 			: this.lastModified.isNull();
+	}
+	
+	private Condition bodyMismatchesContentType(final byte[] magic, final String... contentTypes)
+	{
+		final Condition[] contentTypeConditions = new Condition[contentTypes.length];
+		for(int i = 0; i<contentTypes.length; i++)
+			contentTypeConditions[i] = contentTypeEqual(contentTypes[i]);
+		return Cope.or(contentTypeConditions).and(body.startsWith(magic).not());
+	}
+	
+	public Condition bodyMismatchesContentType()
+	{
+		return Cope.or(
+				bodyMismatchesContentType(
+						// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+						new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
+						"image/jpeg", "image/pjpeg"),
+				bodyMismatchesContentType(
+						// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+						new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
+						"image/gif"),
+				bodyMismatchesContentType(
+						// RFC 2083 section 3.1. PNG file signature
+						new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
+						"image/png"),
+				bodyMismatchesContentType(
+						// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
+						new byte[]{0, 0, 1, 0},
+						"image/icon", "image/x-icon", "image/vnd.microsoft.icon"),
+				bodyMismatchesContentType(
+						// http://en.wikipedia.org/wiki/PDF
+						new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
+						"application/pdf"));
 	}
 	
 	public static final class Value

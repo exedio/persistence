@@ -89,6 +89,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(contentType.equal(1),  item.sheet.contentTypeEqual("image/png"));
 		assertEquals(Condition.FALSE,       item.sheet.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), item.sheet.contentTypeEqual(null));
+		assertNotNull(item.sheet.bodyMismatchesContentType());
 		
 		// test persistence
 

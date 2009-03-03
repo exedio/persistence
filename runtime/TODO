@@ -18,7 +18,6 @@ TODO for cope runtime
 	* optionally maintain filename param in Content-Disposition header
 	* implement MediaAlias
 	* redundantly maintain width/height for images
-	* check contentType against body, available in console
 	* store text/* gzipped and deliver as such to the browser
 - Editor:
 	* resolve conflicts when publishing modifications/drafts

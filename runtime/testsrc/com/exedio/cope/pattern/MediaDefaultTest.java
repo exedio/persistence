@@ -99,6 +99,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		
 		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));
+		assertNotNull(item.file.bodyMismatchesContentType());
 		
 		// test persistence
 		
