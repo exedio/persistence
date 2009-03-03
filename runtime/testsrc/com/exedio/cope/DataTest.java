@@ -185,6 +185,30 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}
+		
+		// condition startsWith
+		assertEquals(item.data.startsWith(data4), item.data.startsWith(data4));
+		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6));
+		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6x4));
+		assertNotEquals(item.data.startsWith(data4), item.data10.startsWith(data4));
+		try
+		{
+			new StartsWithCondition(null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("field must not be null", e.getMessage());
+		}
+		try
+		{
+			new StartsWithCondition(item.data, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("value must not be null", e.getMessage());
+		}
 		try
 		{
 			item.data.startsWith(null);
