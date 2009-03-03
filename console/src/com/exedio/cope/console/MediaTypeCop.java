@@ -21,6 +21,7 @@ package com.exedio.cope.console;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -77,11 +78,12 @@ final class MediaTypeCop extends TestCop<Media>
 	@Override
 	String[] getValues(final Media media)
 	{
+		final Query q = query(media);
 		return new String[]{
 				media.getType().getID(),
 				media.getName(),
 				media.getContentTypeDescription().replaceAll(",", ", "),
-				query(media).toString()};
+				(q.getCondition()!=Condition.FALSE) ? q.toString() : ""};
 	}
 	
 	@Override
