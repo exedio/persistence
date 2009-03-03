@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 
@@ -43,6 +44,8 @@ public class MediaFixedTest extends AbstractRuntimeTest
 	
 	public void testIt() throws IOException
 	{
+		// test model
+		
 		assertEquals(false, item.photo.isInitial());
 		assertEquals(false, item.photo.isFinal());
 		assertEquals(false, item.photo.isMandatory());
@@ -73,6 +76,12 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		
+		assertEquals(Condition.TRUE,        item.photo.contentTypeEqual("image/jpeg"));
+		assertEquals(Condition.FALSE,       item.photo.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(), item.photo.contentTypeEqual(null));
+		
+		// test persistence
 
 		assertNull();
 

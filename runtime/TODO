@@ -19,8 +19,6 @@ TODO for cope runtime
 	* implement MediaAlias
 	* redundantly maintain width/height for images
 	* check contentType against body, available in console
-		needs before
-		- condition Media.contentTypeEquals(String)
 	* store text/* gzipped and deliver as such to the browser
 - Editor:
 	* resolve conflicts when publishing modifications/drafts

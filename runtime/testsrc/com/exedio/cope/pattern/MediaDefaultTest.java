@@ -53,6 +53,8 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			assertSame("zack",    Media.toValue(dataValue, "zack").getContentType());
 		}
 		
+		// test model
+		
 		assertEquals(false, item.file.isInitial());
 		assertEquals(false, item.file.isFinal());
 		assertEquals(false, item.file.isMandatory());
@@ -94,6 +96,11 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(lastModified.isNotNull(), item.file.isNotNull());
 		
 		assertEqualsUnmodifiable(list(body, contentType, lastModified), item.file.getSourceFields());
+		
+		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));
+		
+		// test persistence
 		
 		assertNull();
 		assertContains(item, item.TYPE.search(item.file.isNull()));

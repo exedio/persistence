@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
@@ -44,6 +45,8 @@ public class MediaSubTest extends AbstractRuntimeTest
 	
 	public void testIt() throws IOException
 	{
+		// test model
+		
 		assertEquals(false, item.image.isInitial());
 		assertEquals(false, item.image.isFinal());
 		assertEquals(false, item.image.isMandatory());
@@ -83,6 +86,14 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 
+		assertEquals(contentType.equal("png"),  item.image.contentTypeEqual("image/png"));
+		assertEquals(contentType.equal("jpeg"), item.image.contentTypeEqual("image/jpeg"));
+		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("image"));
+		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(),     item.image.contentTypeEqual(null));
+		
+		// test persistence
+		
 		assertNull();
 
 		item.setImage(stream(data4), "image/image-minor");

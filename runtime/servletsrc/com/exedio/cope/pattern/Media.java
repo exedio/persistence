@@ -588,6 +588,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return lastModified.isNotNull();
 	}
 	
+	public Condition contentTypeEqual(final String contentType)
+	{
+		return
+			contentType!=null
+			? this.contentType.contentTypeEqual(contentType)
+			: this.lastModified.isNull();
+	}
+	
 	public static final class Value
 	{
 		final DataField.Value body;
@@ -640,6 +648,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		abstract List<String> getAllowed();
 		abstract String get(Item item);
 		abstract B set(String contentType);
+		abstract Condition contentTypeEqual(String contentType);
 		
 		final SetValue<B> map(final String contentType)
 		{
@@ -699,6 +708,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		String set(final String contentType)
 		{
 			return contentType;
+		}
+		
+		@Override
+		Condition contentTypeEqual(final String contentType)
+		{
+			return field.equal(contentType);
 		}
 	}
 	
@@ -776,6 +791,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			assert result!=null;
 			return result;
 		}
+		
+		@Override
+		Condition contentTypeEqual(final String contentType)
+		{
+			final Integer number = typeSet.get(contentType);
+			return
+				number!=null
+				? field.equal(number)
+				: Condition.FALSE;
+		}
 	}
 	
 	private static final class FixedContentType extends ContentType<Void>
@@ -828,6 +853,15 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		Void set(final String contentType)
 		{
 			throw new RuntimeException();
+		}
+		
+		@Override
+		Condition contentTypeEqual(final String contentType)
+		{
+			return
+				full.equals(contentType)
+				? Condition.TRUE
+				: Condition.FALSE;
 		}
 		
 		// ------------------- deprecated stuff -------------------
@@ -905,6 +939,15 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		{
 			assert check(contentType);
 			return contentType.substring(prefixLength);
+		}
+		
+		@Override
+		Condition contentTypeEqual(final String contentType)
+		{
+			return
+				contentType.startsWith(prefix)
+				? field.equal(contentType.substring(prefixLength))
+				: Condition.FALSE;
 		}
 	}
 	
