@@ -76,7 +76,6 @@ public final class StartsWithCondition extends Condition
 	{
 		field.toString(bf, defaultType);
 		bf.append(" startsWith ").
-			append(toStringForValue(value, key))
-			;
+			append(toStringForValue(value, key));
 	}
 }
