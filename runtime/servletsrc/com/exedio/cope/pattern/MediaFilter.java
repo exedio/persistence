@@ -72,13 +72,13 @@ public abstract class MediaFilter extends CachedMedia
 	}
 
 	@Override
-	public Condition isNull()
+	public final Condition isNull()
 	{
 		return source.isNull(); // TODO check for getSupportedSourceContentTypes
 	}
 
 	@Override
-	public Condition isNotNull()
+	public final Condition isNotNull()
 	{
 		return source.isNotNull(); // TODO check for getSupportedSourceContentTypes
 	}
