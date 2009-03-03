@@ -114,7 +114,7 @@ public abstract class Condition
 		}
 	}
 	
-	public static final Literal TRUE  = new Literal(true, "TRUE");
+	public static final Literal TRUE  = new Literal(true , "TRUE" );
 	public static final Literal FALSE = new Literal(false, "FALSE");
 	
 	static class Literal extends Condition
