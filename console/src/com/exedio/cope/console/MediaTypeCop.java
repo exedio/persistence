@@ -94,6 +94,7 @@ final class MediaTypeCop extends TestCop<Media>
 		if(result>0)
 		{
 			q.setLimit(0, 100);
+			// TODO show this on console web page
 			System.out.println("* COPE Media Content Type mismatched on " + media.getID());
 			for(final Item item : q.search())
 				System.out.println(' ' + item.getCopeID() + ' ' + media.getContentType(item));
