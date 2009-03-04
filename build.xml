@@ -309,7 +309,7 @@
 			<zipfileset dir="${basedir}/dsmf/src"          ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/patternsrc"><include name="**/*.java"/></zipfileset>
-			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/></zipfileset>
+			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/><exclude name="**/*_Jspm.java" /></zipfileset>
 			<zipfileset dir="${basedir}/runtime/junitsrc"  ><include name="**/*.java"/></zipfileset>
 		</zip>
 	</target>
