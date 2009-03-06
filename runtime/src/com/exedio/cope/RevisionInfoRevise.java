@@ -119,12 +119,12 @@ public final class RevisionInfoRevise extends RevisionInfo
 		this.body = bodyCopy;
 	}
 	
-	final String getComment()
+	String getComment()
 	{
 		return comment;
 	}
 	
-	public final List<Body> getBody()
+	public List<Body> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));
 	}
