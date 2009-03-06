@@ -231,7 +231,7 @@ public final class EditedServlet extends HttpServlet
 				int j = 0;
 				for(final String sql : revision.getBody())
 				{
-					body.add(new RevisionInfoRevise.Body(sql, (100*i)+j, (100*i)+(10*j)));
+					body.add(new RevisionInfoRevise.Body(sql, (100*i)+j+1000, (100*i)+(10*j)+10000));
 					j++;
 				}
 				save(stat, new RevisionInfoRevise(
