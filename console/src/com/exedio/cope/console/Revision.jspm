@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.exedio.cope.Revision;
+import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.console.RevisionLine;
 
 import static com.exedio.cops.XMLEncoder.encode;
@@ -35,6 +36,14 @@ final class Revision_Jspm extends Console_Jspm
 	final static void writeHead(final PrintStream out)
 	{
 		%>
+		<style>
+			tr.sql td
+			{
+				border-color:#ddf;
+				background-color:#ddf;
+				color:#007;
+			}
+		</style>
 		<script>
 			function toggleSql(image,revision)
 			{
@@ -67,6 +76,8 @@ final class Revision_Jspm extends Console_Jspm
 				<th>Date</th>
 				<th>declared</th>
 				<th>logged</th>
+				<th>Rows</th>
+				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
 			int n = 0;
 			for(final RevisionLine line : lines)
@@ -117,7 +128,20 @@ final class Revision_Jspm extends Console_Jspm
 					%>-<%
 				}
 				%></td>
+				<td><%=formatAndHide(-1, line.getRows   ())%></td>
+				<td><%=formatAndHide(-1, line.getElapsed())%></td>
 			</tr><%
+			
+			for(final Body body : line.getBody())
+			{
+			%>
+			<tr class="sql">
+				<td></td>
+				<td class="text" colspan="3"><%=body.getSQL()%></td>
+				<td><%=body.getRows   ()%></td>
+				<td><%=body.getElapsed()%></td>
+			</tr><%
+			}
 			}
 			%>
 		</table><%

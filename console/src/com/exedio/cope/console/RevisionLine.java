@@ -19,13 +19,17 @@
 package com.exedio.cope.console;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
 import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfo;
+import com.exedio.cope.RevisionInfoRevise;
+import com.exedio.cope.RevisionInfoRevise.Body;
 
 final class RevisionLine
 {
@@ -35,6 +39,9 @@ final class RevisionLine
 	private String logString = null;
 	private TreeMap<String, String> logProperties = null;
 	private Date date = null;
+	private List<Body> body = Collections.<Body>emptyList();
+	private int  rows    = -1;
+	private long elapsed = -1;
 	
 	private boolean current = false;
 	
@@ -70,6 +77,21 @@ final class RevisionLine
 		return date;
 	}
 	
+	List<Body> getBody()
+	{
+		return body;
+	}
+	
+	int getRows()
+	{
+		return rows;
+	}
+	
+	long getElapsed()
+	{
+		return elapsed;
+	}
+	
 	void setInfo(final byte[] infoBytes)
 	{
 		assert infoBytes!=null;
@@ -103,7 +125,22 @@ final class RevisionLine
 			info = null;
 		}
 		if(info!=null)
+		{
 			date = info.getDate();
+			if(info instanceof RevisionInfoRevise)
+			{
+				this.body = ((RevisionInfoRevise)info).getBody();
+				int rows = 0;
+				long elapsed = 0;
+				for(final Body body : this.body)
+				{
+					rows += body.getRows();
+					elapsed += body.getElapsed();
+				}
+				this.rows = rows;
+				this.elapsed = elapsed;
+			}
+		}
 	}
 	
 	boolean isCurrent()

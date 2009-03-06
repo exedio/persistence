@@ -53,17 +53,17 @@ public final class RevisionInfoRevise extends RevisionInfo
 			this.elapsed = elapsed;
 		}
 		
-		String getSQL()
+		public String getSQL()
 		{
 			return sql;
 		}
 		
-		int getRows()
+		public int getRows()
 		{
 			return rows;
 		}
 		
-		long getElapsed()
+		public long getElapsed()
 		{
 			return elapsed;
 		}
@@ -124,7 +124,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		return comment;
 	}
 	
-	final List<Body> getBody()
+	public final List<Body> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));
 	}
