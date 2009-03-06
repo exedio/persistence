@@ -105,6 +105,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		
 		final TreeMap<Integer, RevisionLine> lines = new TreeMap<Integer, RevisionLine>();
 		
+		register(lines, model.getRevisionNumber()).setCurrent();
 		for(final Revision m : model.getRevisions())
 			register(lines, m.getNumber()).setRevision(m);
 		
@@ -123,8 +124,6 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			for(final Integer number : logsRaw.keySet())
 				register(lines, number).setInfo(logsRaw.get(number));
 		}
-		
-		register(lines, model.getRevisionNumber()).setCurrent();
 		
 		final ArrayList<RevisionLine> lineList = new ArrayList<RevisionLine>(lines.values());
 		Collections.reverse(lineList);
