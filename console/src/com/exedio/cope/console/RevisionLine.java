@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +61,10 @@ final class RevisionLine
 		assert revision!=null;
 		assert this.revision==null;
 		this.revision = revision;
+		final ArrayList<Body> body = new ArrayList<Body>();
+		for(final String sql : revision.getBody())
+			body.add(new Body(sql, 0, 0));
+		this.body = body;
 	}
 	
 	String getLogString()
