@@ -29,6 +29,7 @@ import java.util.TreeMap;
 
 import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfo;
+import com.exedio.cope.RevisionInfoCreate;
 import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.cope.RevisionInfoRevise.Body;
 
@@ -43,6 +44,7 @@ final class RevisionLine
 	private String logString = null;
 	private TreeMap<String, String> logProperties = null;
 	private Date date = null;
+	private String content;
 	private List<Body> body = Collections.<Body>emptyList();
 	private int  rows    = -1;
 	private long elapsed = -1;
@@ -63,9 +65,9 @@ final class RevisionLine
 		current = true;
 	}
 	
-	Revision getRevision()
+	String getContent()
 	{
-		return revision;
+		return content;
 	}
 	
 	void setRevision(final Revision revision)
@@ -73,6 +75,7 @@ final class RevisionLine
 		assert revision!=null;
 		assert this.revision==null;
 		this.revision = revision;
+		this.content = revision.getComment();
 		final ArrayList<Body> body = new ArrayList<Body>();
 		for(final String sql : revision.getBody())
 			body.add(new Body(sql, 0, 0));
@@ -151,6 +154,7 @@ final class RevisionLine
 			date = info.getDate();
 			if(info instanceof RevisionInfoRevise)
 			{
+				this.content = ((RevisionInfoRevise)info).getComment();
 				this.body = ((RevisionInfoRevise)info).getBody();
 				int rows = 0;
 				long elapsed = 0;
@@ -161,6 +165,13 @@ final class RevisionLine
 				}
 				this.rows = rows;
 				this.elapsed = elapsed;
+			}
+			else if(info instanceof RevisionInfoCreate)
+			{
+				if(content==null)
+					content = "Created Schema";
+				else
+					content = "Created Schema (" + content + ')';
 			}
 		}
 	}

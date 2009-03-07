@@ -88,10 +88,9 @@ final class Revision_Jspm extends Console_Jspm
 			<caption>Revisions<% cop.writePager(out, cop); %></caption>
 			<tr>
 				<th></th>
-				<th>no.</th>
+				<th title="Number">No.</th>
 				<th>Date</th>
-				<th>declared</th>
-				<th>logged</th>
+				<th>Content</th>
 				<th>Rows</th>
 				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
@@ -104,19 +103,6 @@ final class Revision_Jspm extends Console_Jspm
 				<td class="toggle"><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=line.getBodyCount()%>)"></td>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td><%=formatAndHide(line.getDate())%></td>
-				<td class="text"><%
-				final Revision revision = line.getRevision();
-				if(revision!=null)
-				{
-					%>
-					<%=encode(revision.getComment())%>
-				<%
-				}
-				else
-				{
-					%>-<%
-				}
-				%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
 				final TreeMap<String, String> logProperty = line.getLogProperties();
@@ -134,7 +120,8 @@ final class Revision_Jspm extends Console_Jspm
 				else
 				{
 				}
-				%>');"></td>
+				final String content = line.getContent();
+				%>');"><% if(content!=null){%><%=encode(content)%><%}else{%>-<%} %></td>
 				<td><%=formatAndHide(-1, line.getRows   ())%></td>
 				<td><%=formatAndHide(-1, line.getElapsed())%></td>
 			</tr><%
@@ -145,7 +132,7 @@ final class Revision_Jspm extends Console_Jspm
 			%>
 			<tr id="r<%=line.number%>b<%=(bodyCount++)%>" class="sql">
 				<td class="toggle" colspan="2"></td>
-				<td class="text" colspan="3"><%=body.getSQL()%></td>
+				<td class="text" colspan="2"><%=body.getSQL()%></td>
 				<td><%=body.getRows   ()%></td>
 				<td><%=body.getElapsed()%></td>
 			</tr><%

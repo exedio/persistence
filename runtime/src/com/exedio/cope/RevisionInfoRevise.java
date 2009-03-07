@@ -119,7 +119,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		this.body = bodyCopy;
 	}
 	
-	String getComment()
+	public String getComment()
 	{
 		return comment;
 	}

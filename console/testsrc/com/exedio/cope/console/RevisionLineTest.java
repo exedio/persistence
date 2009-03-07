@@ -37,14 +37,14 @@ public class RevisionLineTest extends TestCase
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
-		assertSame(null, l.getRevision());
+		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
-		assertSame(r, l.getRevision());
+		assertEquals("comment55", l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
@@ -62,14 +62,14 @@ public class RevisionLineTest extends TestCase
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
-		assertSame(null, l.getRevision());
+		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
-		assertSame(r, l.getRevision());
+		assertEquals("comment55", l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
