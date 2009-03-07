@@ -59,21 +59,6 @@ final class Revision_Jspm extends Console_Jspm
 			}
 		</style>
 		<script>
-			function toggleSql(image,revision)
-			{
-				var sqlElement = document.getElementById("sql" + revision);
-				var imageSrc = image.src;
-				if(imageSrc.substring(imageSrc.length-8)=="true.png")
-				{
-					sqlElement.style.display = "none";
-					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
-				}
-				else
-				{
-					sqlElement.style.display = "block";
-					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
-				}
-			}
 			function toggleRev(image,revision,bodies)
 			{
 				var imageSrc = image.src;
@@ -124,16 +109,7 @@ final class Revision_Jspm extends Console_Jspm
 				if(revision!=null)
 				{
 					%>
-					<img class="node" src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleSql(this,<%=n%>)">
 					<%=encode(revision.getComment())%>
-					<ul id="sql<%=n%>" class="expand"><%
-						for(final String sql : revision.getBody())
-						{
-						%>
-						<li><%=encode(sql)%></li><%
-						}
-					%>
-					</ul>
 				<%
 				}
 				else
