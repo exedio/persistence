@@ -35,6 +35,9 @@ import com.exedio.cope.RevisionInfoRevise.Body;
 final class RevisionLine
 {
 	final int number;
+	
+	private boolean current = false;
+	
 	private Revision revision = null;
 	
 	private String logString = null;
@@ -44,11 +47,20 @@ final class RevisionLine
 	private int  rows    = -1;
 	private long elapsed = -1;
 	
-	private boolean current = false;
-	
 	RevisionLine(final int number)
 	{
 		this.number = number;
+	}
+	
+	boolean isCurrent()
+	{
+		return current;
+	}
+	
+	void setCurrent()
+	{
+		assert !current;
+		current = true;
 	}
 	
 	Revision getRevision()
@@ -146,16 +158,5 @@ final class RevisionLine
 				this.elapsed = elapsed;
 			}
 		}
-	}
-	
-	boolean isCurrent()
-	{
-		return current;
-	}
-	
-	void setCurrent()
-	{
-		assert !current;
-		current = true;
 	}
 }
