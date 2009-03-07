@@ -117,14 +117,14 @@ final class Revision_Jspm extends Console_Jspm
 					%>-<%
 				}
 				%></td>
-				<td class="text"><%
+				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
 				final TreeMap<String, String> logProperty = line.getLogProperties();
 				if(logProperty!=null)
 				{
 					for(final Map.Entry<String, String> entry : logProperty.entrySet())
 					{
-						%><%=encode(entry.getKey())%>=<%=encode(entry.getValue())%><br><%
+						%><%=encode(entry.getKey())%>=<%=encode(entry.getValue().replace('\'', '|'))%>\n<%
 					}
 				}
 				else if(logString!=null)
@@ -133,9 +133,8 @@ final class Revision_Jspm extends Console_Jspm
 				}
 				else
 				{
-					%>-<%
 				}
-				%></td>
+				%>');"></td>
 				<td><%=formatAndHide(-1, line.getRows   ())%></td>
 				<td><%=formatAndHide(-1, line.getElapsed())%></td>
 			</tr><%
