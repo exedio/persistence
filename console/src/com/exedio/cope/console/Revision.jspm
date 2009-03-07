@@ -137,7 +137,8 @@ final class Revision_Jspm extends Console_Jspm
 			{
 			%>
 			<tr id="r<%=line.number%>b<%=bodyCount%>" class="sql">
-				<td class="toggle" colspan="2"></td>
+				<td class="toggle"></td>
+				<td><%=bodyCount%></td>
 				<td class="text" colspan="2"><%=body.getSQL()%></td>
 				<td><%=body.getRows   ()%></td>
 				<td><%=body.getElapsed()%></td>
