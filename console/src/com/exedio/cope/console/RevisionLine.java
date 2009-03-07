@@ -94,6 +94,11 @@ final class RevisionLine
 		return date;
 	}
 	
+	int getBodyCount()
+	{
+		return body!=null ? body.size() : 0;
+	}
+	
 	List<Body> getBody()
 	{
 		return body;
