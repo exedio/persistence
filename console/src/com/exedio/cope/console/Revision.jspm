@@ -87,8 +87,8 @@ final class Revision_Jspm extends Console_Jspm
 		<table>
 			<caption>Revisions<% cop.writePager(out, cop); %></caption>
 			<tr>
-				<th></th>
 				<th title="Number">No.</th>
+				<th>Sql</th>
 				<th>Date</th>
 				<th>Content</th>
 				<th>Rows</th>
@@ -100,8 +100,14 @@ final class Revision_Jspm extends Console_Jspm
 				n++;
 			%>
 			<tr>
-				<td class="toggle"><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=line.getBodyCount()%>)"></td>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
+				<td><%
+					final int count = line.getBodyCount();
+					if(count>0)
+					{
+						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=count%>)">&nbsp;<%
+					}
+					%><%=count%></td>
 				<td><%=formatAndHide(line.getDate())%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
