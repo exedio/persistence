@@ -92,8 +92,8 @@ final class Revision_Jspm extends Console_Jspm
 		<table>
 			<caption>Revisions<% cop.writePager(out, cop); %></caption>
 			<tr>
+				<th></th>
 				<th title="Number">No.</th>
-				<th>Sql</th>
 				<th>Date</th>
 				<th>Content</th>
 				<th>Rows</th>
@@ -110,7 +110,8 @@ final class Revision_Jspm extends Console_Jspm
 				{
 			%>
 			<tr>
-				<td colspan="6">
+				<td class="sql"></td>
+				<td colspan="5">
 					<table>
 						<caption>Change of Environment</caption><%
 						
@@ -135,7 +136,6 @@ final class Revision_Jspm extends Console_Jspm
 			
 			%>
 			<tr>
-				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td class="sql"><%
 					final int bodyCount = line.getBodyCount();
 					if(bodyCount>0)
@@ -143,6 +143,7 @@ final class Revision_Jspm extends Console_Jspm
 						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=bodyCount%>)">&nbsp;<%
 					}
 					%><%=bodyCount%></td>
+				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td><%=formatAndHide(line.getDate())%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
