@@ -137,18 +137,18 @@ final class Revision_Jspm extends Console_Jspm
 				<td><%=formatAndHide(-1, line.getElapsed())%></td>
 			</tr><%
 		{
-			int bodyCount = 0;
+			int currentBodyNumber = 0;
 			for(final Body body : line.getBody())
 			{
 			%>
-			<tr id="r<%=line.number%>b<%=bodyCount%>" class="sql">
+			<tr id="r<%=line.number%>b<%=currentBodyNumber%>" class="sql">
 				<td class="toggle"></td>
-				<td><%=bodyCount%></td>
+				<td><%=currentBodyNumber%></td>
 				<td class="text" colspan="2"><%=body.getSQL()%></td>
 				<td><%=body.getRows   ()%></td>
 				<td><%=body.getElapsed()%></td>
 			</tr><%
-				bodyCount++;
+				currentBodyNumber++;
 			}
 		}
 			}
