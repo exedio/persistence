@@ -137,6 +137,7 @@ final class Revision_Jspm extends Console_Jspm
 			
 			for(final RevisionLine line : lines)
 			{
+				final int number = line.number;
 				final Date date = line.getDate();
 				final Map<String, String> environment = line.getEnvironment();
 				
@@ -149,7 +150,7 @@ final class Revision_Jspm extends Console_Jspm
 					final int bodyCount = diff.size();
 					if(bodyCount>0)
 					{
-						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleEnv(this,<%=line.number%>,<%=bodyCount%>)">&nbsp;<%
+						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleEnv(this,<%=number%>,<%=bodyCount%>)">&nbsp;<%
 					}
 					%><%=bodyCount%></td>
 				<th colspan="3">Change of Environment</td>
@@ -161,12 +162,12 @@ final class Revision_Jspm extends Console_Jspm
 						final String before = lastEnvironment.get(key);
 						final String after  = environment.get(key);
 			%>
-			<tr id="e<%=line.number%>b<%=currentBodyNumber%>b" class="env">
+			<tr id="e<%=number%>b<%=currentBodyNumber%>b" class="env">
 				<td rowspan="2" class="sql"></td>
 				<th colspan="2" rowspan="2"><%=key%></th>
 				<td class="text" colspan="3"><% if(before!=null){%><%=before%><%}else{%>n/a<%} %></td>
 			</tr>
-			<tr id="e<%=line.number%>b<%=currentBodyNumber%>a" class="env">
+			<tr id="e<%=number%>b<%=currentBodyNumber%>a" class="env">
 				<td class="text" colspan="3"><% if(after !=null){%><%=after %><%}else{%>n/a<%} %></td>
 			</tr><%
 						currentBodyNumber++;
@@ -179,10 +180,10 @@ final class Revision_Jspm extends Console_Jspm
 					final int bodyCount = line.getBodyCount();
 					if(bodyCount>0)
 					{
-						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=bodyCount%>)">&nbsp;<%
+						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=number%>,<%=bodyCount%>)">&nbsp;<%
 					}
 					%><%=bodyCount%></td>
-				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
+				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=number%></td>
 				<td<% if(date!=null && date.equals(lastDate)){%> class="grey"<%} %>><%=formatAndHide(date)%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
@@ -211,7 +212,7 @@ final class Revision_Jspm extends Console_Jspm
 			for(final Body body : line.getBody())
 			{
 			%>
-			<tr id="r<%=line.number%>b<%=currentBodyNumber%>" class="sql">
+			<tr id="r<%=number%>b<%=currentBodyNumber%>" class="sql">
 				<td class="toggle"></td>
 				<td><%=currentBodyNumber%></td>
 				<td class="text" colspan="2"><%=body.getSQL()%></td>
