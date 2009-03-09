@@ -256,4 +256,18 @@ public class RevisionLineTest extends CopeAssert
 		assertEquals(-1, l.getRows());
 		assertEquals(-1, l.getElapsed());
 	}
+	
+	public void testDiff()
+	{
+		final HashMap<String, String> left = new HashMap<String, String>();
+		left.put("leftOnly", "true");
+		left.put("equal", "equalValue");
+		left.put("nonEqual", "left");
+		final HashMap<String, String> right = new HashMap<String, String>();
+		right.put("rightOnly", "true");
+		right.put("equal", "equalValue");
+		right.put("nonEqual", "right");
+		
+		assertContains("leftOnly", "rightOnly", "nonEqual", RevisionLine.diff(left, right));
+	}
 }

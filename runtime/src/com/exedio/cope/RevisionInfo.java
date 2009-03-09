@@ -61,7 +61,7 @@ public abstract class RevisionInfo
 		return date;
 	}
 	
-	final Map<String, String> getEnvironment()
+	public final Map<String, String> getEnvironment()
 	{
 		return Collections.unmodifiableMap(environment);
 	}

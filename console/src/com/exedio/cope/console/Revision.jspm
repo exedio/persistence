@@ -100,8 +100,39 @@ final class Revision_Jspm extends Console_Jspm
 				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
 			
+			Map<String, String> lastEnvironment = null;
+			
 			for(final RevisionLine line : lines)
 			{
+				final Map<String, String> environment = line.getEnvironment();
+				
+				if(lastEnvironment!=null && environment!=null && !environment.equals(lastEnvironment))
+				{
+			%>
+			<tr>
+				<td colspan="6">
+					<table>
+						<caption>Change of Environment</caption><%
+						
+					for(final String key : RevisionLine.diff(environment, lastEnvironment))
+					{
+						final String before = lastEnvironment.get(key);
+						final String after  = environment.get(key);
+						%>
+						<tr>
+							<th rowspan="2"><%=key%></th>
+							<td class="text"><% if(before!=null){%><%=before%><%}else{%>n/a<%} %></td>
+						</tr>
+						<tr>
+							<td class="text"><% if(after !=null){%><%=after %><%}else{%>n/a<%} %></td>
+						</tr><%
+					}
+					%>
+					</table>
+				</td>
+			</tr><%
+				}
+			
 			%>
 			<tr>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
@@ -150,6 +181,7 @@ final class Revision_Jspm extends Console_Jspm
 				currentBodyNumber++;
 			}
 		}
+				lastEnvironment = environment;
 			}
 			%>
 		</table><%

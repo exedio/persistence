@@ -25,7 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfo;
@@ -44,6 +46,7 @@ final class RevisionLine
 	private String logString = null;
 	private TreeMap<String, String> logProperties = null;
 	private Date date = null;
+	private Map<String, String> environment = null;
 	private String content;
 	private List<Body> body = Collections.<Body>emptyList();
 	private int  rows    = -1;
@@ -95,6 +98,11 @@ final class RevisionLine
 	Date getDate()
 	{
 		return date;
+	}
+	
+	Map<String, String> getEnvironment()
+	{
+		return environment;
 	}
 	
 	int getBodyCount()
@@ -152,6 +160,7 @@ final class RevisionLine
 		if(info!=null)
 		{
 			date = info.getDate();
+			environment = info.getEnvironment();
 			if(info instanceof RevisionInfoRevise)
 			{
 				this.content = ((RevisionInfoRevise)info).getComment();
@@ -174,5 +183,30 @@ final class RevisionLine
 					content = "Created Schema (" + content + ')';
 			}
 		}
+	}
+	
+	static final <K,V> Set<K> diff(final Map<K,V> left, final Map<K,V> right)
+	{
+		final TreeSet<K> result = new TreeSet<K>();
+		for(final K key : left.keySet())
+		{
+			if(!right.containsKey(key))
+			{
+				result.add(key);
+			}
+			else
+			{
+				final V l = left.get(key);
+				final V r = right.get(key);
+				if(r!=null ? !r.equals(l) : l!=null)
+					result.add(key);
+			}
+		}
+		for(final K key : right.keySet())
+		{
+			if(!left.containsKey(key))
+				result.add(key);
+		}
+		return result;
 	}
 }
