@@ -107,12 +107,12 @@ final class Revision_Jspm extends Console_Jspm
 			<tr>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td class="sql"><%
-					final int count = line.getBodyCount();
-					if(count>0)
+					final int bodyCount = line.getBodyCount();
+					if(bodyCount>0)
 					{
-						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=count%>)">&nbsp;<%
+						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleRev(this,<%=line.number%>,<%=bodyCount%>)">&nbsp;<%
 					}
-					%><%=count%></td>
+					%><%=bodyCount%></td>
 				<td><%=formatAndHide(line.getDate())%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
