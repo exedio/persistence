@@ -100,10 +100,9 @@ final class Revision_Jspm extends Console_Jspm
 				<th>Rows</th>
 				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
-			int n = 0;
+			
 			for(final RevisionLine line : lines)
 			{
-				n++;
 			%>
 			<tr>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
