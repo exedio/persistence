@@ -111,27 +111,23 @@ final class Revision_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td class="sql"></td>
-				<td colspan="5">
-					<table>
-						<caption>Change of Environment</caption><%
+				<td class="text" colspan="5">Change of Environment</td>
+			</tr><%
 						
 					for(final String key : RevisionLine.diff(environment, lastEnvironment))
 					{
 						final String before = lastEnvironment.get(key);
 						final String after  = environment.get(key);
-						%>
-						<tr>
-							<th rowspan="2"><%=key%></th>
-							<td class="text"><% if(before!=null){%><%=before%><%}else{%>n/a<%} %></td>
-						</tr>
-						<tr>
-							<td class="text"><% if(after !=null){%><%=after %><%}else{%>n/a<%} %></td>
-						</tr><%
-					}
-					%>
-					</table>
-				</td>
+			%>
+			<tr>
+				<td rowspan="2" class="sql"></td>
+				<th colspan="2" rowspan="2"><%=key%></th>
+				<td class="text" colspan="3"><% if(before!=null){%><%=before%><%}else{%>n/a<%} %></td>
+			</tr>
+			<tr>
+				<td class="text" colspan="3"><% if(after !=null){%><%=after %><%}else{%>n/a<%} %></td>
 			</tr><%
+					}
 				}
 			
 			%>
