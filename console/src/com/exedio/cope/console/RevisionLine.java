@@ -87,7 +87,7 @@ final class RevisionLine
 		return logString;
 	}
 	
-	TreeMap<String, String> getLogProperties()
+	Map<String, String> getLogProperties()
 	{
 		return logProperties;
 	}
