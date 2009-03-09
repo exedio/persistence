@@ -728,7 +728,7 @@ public final class DynamicModel<L> extends Pattern
 		
 		public final String getName(final Item item, final L locale)
 		{
-			final Item relationItem = uniqueConstraint.searchUnique(item, locale);
+			final Item relationItem = uniqueConstraint.search(item, locale);
 			if(relationItem!=null)
 				return value.get(relationItem);
 			else
@@ -737,7 +737,7 @@ public final class DynamicModel<L> extends Pattern
 		
 		public final void setName(final Item item, final L locale, final String value)
 		{
-			final Item relationItem = uniqueConstraint.searchUnique(item, locale);
+			final Item relationItem = uniqueConstraint.search(item, locale);
 			if(relationItem==null)
 			{
 				if(value!=null)

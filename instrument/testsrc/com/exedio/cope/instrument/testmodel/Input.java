@@ -107,7 +107,7 @@ public class Input extends Item
 	 */
 	public static final Input forUnique(final java.lang.String string,final int integer)
 	{
-		return Input.unique.searchUnique(Input.class,string,integer);
+		return Input.unique.search(Input.class,string,integer);
 	}/**
 
 	 **
@@ -121,7 +121,7 @@ public class Input extends Item
 	@Deprecated
 	public static final Input findByUnique(final java.lang.String string,final int integer)
 	{
-		return Input.unique.searchUnique(Input.class,string,integer);
+		return Input.unique.search(Input.class,string,integer);
 	}/**
 
 	 **

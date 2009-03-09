@@ -93,7 +93,7 @@ public final class DraftItem extends Item
 	
 	static DraftItem forParentFeatureAndItem(final Draft parent, final StringField feature, final Item item)
 	{
-		return parentFeatureAndItem.searchUnique(DraftItem.class, parent, feature.getID(), item.getCopeID());
+		return parentFeatureAndItem.search(DraftItem.class, parent, feature.getID(), item.getCopeID());
 	}
 	
 	String getOldValue()

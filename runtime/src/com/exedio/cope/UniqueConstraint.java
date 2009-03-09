@@ -145,10 +145,19 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	/**
+	 * @deprecated Use {@link #search(Object[])} instead
+	 */
+	@Deprecated
+	public Item searchUnique(final Object... values)
+	{
+		return search(values);
+	}
+	
+	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	public Item searchUnique(final Object... values)
+	public Item search(final Object... values)
 	{
 		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
@@ -168,12 +177,21 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	/**
+	 * @deprecated Use {@link #search(Class,Object[])} instead
+	 */
+	@Deprecated
+	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
+	{
+		return search(typeClass, values);
+	}
+	
+	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
+	public <P extends Item> P search(final Class<P> typeClass, final Object... values)
 	{
-		return Cope.verboseCast(typeClass, searchUnique(values));
+		return Cope.verboseCast(typeClass, search(values));
 	}
 	
 	void check(final Item item, final Map<? extends Field, ?> fieldValues)
@@ -194,7 +212,7 @@ public final class UniqueConstraint extends Feature
 					values[i++] = value;
 				}
 				
-				final Item collision = searchUnique(values);
+				final Item collision = search(values);
 				if(collision!=null && (item==null || !item.equals(collision)))
 					throw new UniqueViolationException(this, item);
 				

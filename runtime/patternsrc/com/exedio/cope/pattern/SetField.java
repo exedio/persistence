@@ -199,7 +199,7 @@ public final class SetField<E> extends Pattern
 	 */
 	public boolean remove(final Item item, final E element)
 	{
-		final Item row = uniqueConstraint.searchUnique(item, element);
+		final Item row = uniqueConstraint.search(item, element);
 		if(row==null)
 			return false;
 		else

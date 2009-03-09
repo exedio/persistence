@@ -107,7 +107,7 @@ public class DoubleUnique extends Item
 	 */
 	public static final DoubleUnique forUnique(final java.lang.String string,final SubTarget item)
 	{
-		return DoubleUnique.unique.searchUnique(DoubleUnique.class,string,item);
+		return DoubleUnique.unique.search(DoubleUnique.class,string,item);
 	}/**
 
 	 **
@@ -121,7 +121,7 @@ public class DoubleUnique extends Item
 	@Deprecated
 	public static final DoubleUnique findByUnique(final java.lang.String string,final SubTarget item)
 	{
-		return DoubleUnique.unique.searchUnique(DoubleUnique.class,string,item);
+		return DoubleUnique.unique.search(DoubleUnique.class,string,item);
 	}/**
 
 	 **

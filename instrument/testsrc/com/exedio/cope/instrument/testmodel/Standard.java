@@ -972,7 +972,7 @@ public class Standard extends Item
 	 */
 	public static final Standard forDoubleUnique(final java.lang.String doubleUnique1,final java.lang.Integer doubleUnique2)
 	{
-		return Standard.doubleUnique.searchUnique(Standard.class,doubleUnique1,doubleUnique2);
+		return Standard.doubleUnique.search(Standard.class,doubleUnique1,doubleUnique2);
 	}/**
 
 	 **
@@ -986,7 +986,7 @@ public class Standard extends Item
 	@Deprecated
 	public static final Standard findByDoubleUnique(final java.lang.String doubleUnique1,final java.lang.Integer doubleUnique2)
 	{
-		return Standard.doubleUnique.searchUnique(Standard.class,doubleUnique1,doubleUnique2);
+		return Standard.doubleUnique.search(Standard.class,doubleUnique1,doubleUnique2);
 	}/**
 
 	 **

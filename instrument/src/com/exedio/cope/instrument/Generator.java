@@ -728,7 +728,7 @@ final class Generator
 		o.write(attributes[0].parent.name);
 		o.write('.');
 		o.write(constraint.name);
-		o.write(".searchUnique(");
+		o.write(".search(");
 		o.write(className);
 		o.write(".class,");
 		o.write(attributes[0].name);

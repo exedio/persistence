@@ -199,7 +199,7 @@ public class NameSubItem extends NameLongItem
 	 */
 	static final NameSubItem forIntegers(final int integer,final NameSubItem item)
 	{
-		return NameSubItem.integers.searchUnique(NameSubItem.class,integer,item);
+		return NameSubItem.integers.search(NameSubItem.class,integer,item);
 	}/**
 
 	 **
@@ -213,7 +213,7 @@ public class NameSubItem extends NameLongItem
 	@Deprecated
 	static final NameSubItem findByIntegers(final int integer,final NameSubItem item)
 	{
-		return NameSubItem.integers.searchUnique(NameSubItem.class,integer,item);
+		return NameSubItem.integers.search(NameSubItem.class,integer,item);
 	}/**
 
 	 **
@@ -316,7 +316,7 @@ public class NameSubItem extends NameLongItem
 	 */
 	static final NameSubItem forIntegersX(final int integerX,final NameSubItem itemX)
 	{
-		return NameSubItem.integersX.searchUnique(NameSubItem.class,integerX,itemX);
+		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
 	}/**
 
 	 **
@@ -330,7 +330,7 @@ public class NameSubItem extends NameLongItem
 	@Deprecated
 	static final NameSubItem findByIntegersX(final int integerX,final NameSubItem itemX)
 	{
-		return NameSubItem.integersX.searchUnique(NameSubItem.class,integerX,itemX);
+		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
 	}/**
 
 	 **
