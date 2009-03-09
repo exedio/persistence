@@ -87,6 +87,12 @@ public final class RevisionInfoRevise extends RevisionInfo
 					Integer.valueOf(p.getProperty(bodyPrefix + "rows")),
 					Long   .valueOf(p.getProperty(bodyPrefix + "elapsed")));
 		}
+		
+		@Override
+		public String toString()
+		{
+			return sql + '(' + rows + '/' + elapsed + ')';
+		}
 	}
 	
 	public RevisionInfoRevise(

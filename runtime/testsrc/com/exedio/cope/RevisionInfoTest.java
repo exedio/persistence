@@ -62,12 +62,14 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals("sql5.0", b.getSQL());
 			assertEquals(55, b.getRows());
 			assertEquals(23, b.getElapsed());
+			assertEquals("sql5.0(55/23)", b.toString());
 		}
 		{
 			final Body b = it.next();
 			assertEquals("sql5.1", b.getSQL());
 			assertEquals(56, b.getRows());
 			assertEquals(24, b.getElapsed());
+			assertEquals("sql5.1(56/24)", b.toString());
 		}
 		assertFalse(it.hasNext());
 		
