@@ -187,4 +187,32 @@ public class RevisionLineTest extends CopeAssert
 		assertEquals(-1, l.getRows());
 		assertEquals(-1, l.getElapsed());
 	}
+	
+	public void testCreateRemoved()
+	{
+		final RevisionLine l = new RevisionLine(55);
+		assertEquals(55, l.number);
+		assertEquals(null, l.getContent());
+		assertEquals(null, l.getLogString());
+		assertEquals(null, l.getLogProperties());
+		assertEquals(null, l.getDate());
+		assertEquals(0, l.getBodyCount());
+		assertEquals(list(), l.getBody());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
+		
+		l.setInfo(new RevisionInfoCreate(55, DATE, Collections.<String, String>emptyMap()).toBytes());
+		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
+		final HashMap<String, String> map = new HashMap<String, String>();
+		map.put("create", "true");
+		map.put("dateUTC", DATE_STRING);
+		map.put("revision", "55");
+		assertEquals("Created Schema", l.getContent());
+		assertEquals(map, l.getLogProperties());
+		assertEquals(DATE, l.getDate());
+		assertEquals(0, l.getBodyCount());
+		assertEquals(list(), l.getBody());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
+	}
 }
