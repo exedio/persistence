@@ -23,12 +23,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
-
 import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfoCreate;
+import com.exedio.cope.junit.CopeAssert;
 
-public class RevisionLineTest extends TestCase
+public class RevisionLineTest extends CopeAssert
 {
 	private static final Date DATE = new Date(2874526134l);
 	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
@@ -41,6 +40,10 @@ public class RevisionLineTest extends TestCase
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
+		assertEquals(0, l.getBodyCount());
+		assertEquals(list(), l.getBody());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
@@ -48,14 +51,33 @@ public class RevisionLineTest extends TestCase
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
+		assertEquals(2, l.getBodyCount());
+		assertEquals("sql55.1", l.getBody().get(0).getSQL());
+		assertEquals(0, l.getBody().get(0).getRows());
+		assertEquals(0, l.getBody().get(0).getElapsed());
+		assertEquals("sql55.2", l.getBody().get(1).getSQL());
+		assertEquals(0, l.getBody().get(1).getRows());
+		assertEquals(0, l.getBody().get(1).getElapsed());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 		
 		l.setInfo("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1"));
 		assertEquals("#migrationlogv01\nkey1=value1\nkey2=value2", l.getLogString());
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("key1", "value1");
 		map.put("key2", "value2");
+		assertEquals("comment55", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(null, l.getDate());
+		assertEquals(2, l.getBodyCount());
+		assertEquals("sql55.1", l.getBody().get(0).getSQL());
+		assertEquals(0, l.getBody().get(0).getRows());
+		assertEquals(0, l.getBody().get(0).getElapsed());
+		assertEquals("sql55.2", l.getBody().get(1).getSQL());
+		assertEquals(0, l.getBody().get(1).getRows());
+		assertEquals(0, l.getBody().get(1).getElapsed());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 	}
 	
 	public void testCreate()
@@ -66,6 +88,10 @@ public class RevisionLineTest extends TestCase
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
+		assertEquals(0, l.getBodyCount());
+		assertEquals(list(), l.getBody());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
@@ -73,6 +99,15 @@ public class RevisionLineTest extends TestCase
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
 		assertEquals(null, l.getDate());
+		assertEquals(2, l.getBodyCount());
+		assertEquals("sql55.1", l.getBody().get(0).getSQL());
+		assertEquals(0, l.getBody().get(0).getRows());
+		assertEquals(0, l.getBody().get(0).getElapsed());
+		assertEquals("sql55.2", l.getBody().get(1).getSQL());
+		assertEquals(0, l.getBody().get(1).getRows());
+		assertEquals(0, l.getBody().get(1).getElapsed());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 		
 		l.setInfo(new RevisionInfoCreate(55, DATE, Collections.<String, String>emptyMap()).toBytes());
 		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
@@ -80,7 +115,17 @@ public class RevisionLineTest extends TestCase
 		map.put("create", "true");
 		map.put("dateUTC", DATE_STRING);
 		map.put("revision", "55");
+		assertEquals("Created Schema (comment55)", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(DATE, l.getDate());
+		assertEquals(2, l.getBodyCount());
+		assertEquals("sql55.1", l.getBody().get(0).getSQL());
+		assertEquals(0, l.getBody().get(0).getRows());
+		assertEquals(0, l.getBody().get(0).getElapsed());
+		assertEquals("sql55.2", l.getBody().get(1).getSQL());
+		assertEquals(0, l.getBody().get(1).getRows());
+		assertEquals(0, l.getBody().get(1).getElapsed());
+		assertEquals(-1, l.getRows());
+		assertEquals(-1, l.getElapsed());
 	}
 }
