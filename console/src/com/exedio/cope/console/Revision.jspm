@@ -20,6 +20,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,6 +63,10 @@ final class Revision_Jspm extends Console_Jspm
 				padding-top:8px;
 				text-align:left;
 				font-size:9px; /* size of node image */
+			}
+			td.grey
+			{
+				color:#ccc;
 			}
 			tr.env
 			{
@@ -127,10 +132,12 @@ final class Revision_Jspm extends Console_Jspm
 				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
 			
+			Date lastDate = null;
 			Map<String, String> lastEnvironment = null;
 			
 			for(final RevisionLine line : lines)
 			{
+				final Date date = line.getDate();
 				final Map<String, String> environment = line.getEnvironment();
 				
 				if(lastEnvironment!=null && environment!=null && !environment.equals(lastEnvironment))
@@ -176,7 +183,7 @@ final class Revision_Jspm extends Console_Jspm
 					}
 					%><%=bodyCount%></td>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
-				<td><%=formatAndHide(line.getDate())%></td>
+				<td<% if(date!=null && date.equals(lastDate)){%> class="grey"<%} %>><%=formatAndHide(date)%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
 				final Map<String, String> logProperty = line.getLogProperties();
@@ -214,6 +221,7 @@ final class Revision_Jspm extends Console_Jspm
 				currentBodyNumber++;
 			}
 		}
+				lastDate        = date;
 				lastEnvironment = environment;
 			}
 			%>
