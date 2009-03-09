@@ -22,6 +22,7 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.console.RevisionLine;
@@ -62,6 +63,10 @@ final class Revision_Jspm extends Console_Jspm
 				text-align:left;
 				font-size:9px; /* size of node image */
 			}
+			tr.env
+			{
+				display:none;
+			}
 		</style>
 		<script>
 			function toggleRev(image,revision,bodies)
@@ -78,6 +83,28 @@ final class Revision_Jspm extends Console_Jspm
 					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
 					for(body=0; body<bodies; body++)
 						document.getElementById("r"+revision+"b"+body).style.display = "table-row";
+				}
+			}
+			function toggleEnv(image,revision,bodies)
+			{
+				var imageSrc = image.src;
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+					for(body=0; body<bodies; body++)
+					{
+						document.getElementById("e"+revision+"b"+body+"b").style.display = "none";
+						document.getElementById("e"+revision+"b"+body+"a").style.display = "none";
+					}
+				}
+				else
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+					for(body=0; body<bodies; body++)
+					{
+						document.getElementById("e"+revision+"b"+body+"b").style.display = "table-row";
+						document.getElementById("e"+revision+"b"+body+"a").style.display = "table-row";
+					}
 				}
 			}
 		</script><%
@@ -110,23 +137,32 @@ final class Revision_Jspm extends Console_Jspm
 				{
 			%>
 			<tr>
-				<td class="sql"></td>
-				<td class="text" colspan="5">Change of Environment</td>
+				<td class="sql"><%
+					final Set<String> diff = RevisionLine.diff(environment, lastEnvironment);
+					final int bodyCount = diff.size();
+					if(bodyCount>0)
+					{
+						%><img src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleEnv(this,<%=line.number%>,<%=bodyCount%>)">&nbsp;<%
+					}
+					%><%=bodyCount%></td>
+				<th colspan="3">Change of Environment</td>
 			</tr><%
 						
-					for(final String key : RevisionLine.diff(environment, lastEnvironment))
+					int currentBodyNumber = 0;
+					for(final String key : diff)
 					{
 						final String before = lastEnvironment.get(key);
 						final String after  = environment.get(key);
 			%>
-			<tr>
+			<tr id="e<%=line.number%>b<%=currentBodyNumber%>b" class="env">
 				<td rowspan="2" class="sql"></td>
 				<th colspan="2" rowspan="2"><%=key%></th>
 				<td class="text" colspan="3"><% if(before!=null){%><%=before%><%}else{%>n/a<%} %></td>
 			</tr>
-			<tr>
+			<tr id="e<%=line.number%>b<%=currentBodyNumber%>a" class="env">
 				<td class="text" colspan="3"><% if(after !=null){%><%=after %><%}else{%>n/a<%} %></td>
 			</tr><%
+						currentBodyNumber++;
 					}
 				}
 			
