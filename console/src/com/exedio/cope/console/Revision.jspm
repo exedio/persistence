@@ -132,15 +132,26 @@ final class Revision_Jspm extends Console_Jspm
 				<th title="Elapsed Time (milliseconds)">Elpsd</th>
 			</tr><%
 			
+			boolean lastHasRevision = true;
 			Date lastDate = null;
 			Map<String, String> lastEnvironment = null;
 			
 			for(final RevisionLine line : lines)
 			{
 				final int number = line.number;
+				final boolean hasRevision = line.hasRevision();
 				final Date date = line.getDate();
 				final Map<String, String> environment = line.getEnvironment();
 				
+				if(lastHasRevision!=hasRevision)
+				{
+			%>
+			<tr>
+				<td class="sql"></td>
+				<th colspan="3">End of Revisions in Application</td>
+			</tr><%
+				}
+			
 				if(lastEnvironment!=null && environment!=null && !environment.equals(lastEnvironment))
 				{
 			%>
@@ -222,6 +233,7 @@ final class Revision_Jspm extends Console_Jspm
 				currentBodyNumber++;
 			}
 		}
+				lastHasRevision = hasRevision;
 				lastDate        = date;
 				lastEnvironment = environment;
 			}

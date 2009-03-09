@@ -68,6 +68,11 @@ final class RevisionLine
 		current = true;
 	}
 	
+	boolean hasRevision()
+	{
+		return revision!=null;
+	}
+	
 	String getContent()
 	{
 		return content;

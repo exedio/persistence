@@ -38,6 +38,7 @@ public class RevisionLineTest extends CopeAssert
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
+		assertEquals(false, l.hasRevision());
 		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -49,6 +50,7 @@ public class RevisionLineTest extends CopeAssert
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
+		assertEquals(true, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -68,6 +70,7 @@ public class RevisionLineTest extends CopeAssert
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("key1", "value1");
 		map.put("key2", "value2");
+		assertEquals(true, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(null, l.getDate());
@@ -86,6 +89,7 @@ public class RevisionLineTest extends CopeAssert
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
+		assertEquals(false, l.hasRevision());
 		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -97,6 +101,7 @@ public class RevisionLineTest extends CopeAssert
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
+		assertEquals(true, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -125,6 +130,7 @@ public class RevisionLineTest extends CopeAssert
 		map.put("body1.elapsed", "568");
 		map.put("body1.rows", "127");
 		map.put("body1.sql", "sql55.2");
+		assertEquals(true, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(DATE, l.getDate());
@@ -143,6 +149,7 @@ public class RevisionLineTest extends CopeAssert
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
+		assertEquals(false, l.hasRevision());
 		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -166,6 +173,7 @@ public class RevisionLineTest extends CopeAssert
 		map.put("body1.elapsed", "568");
 		map.put("body1.rows", "127");
 		map.put("body1.sql", "sql55.2");
+		assertEquals(false, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(DATE, l.getDate());
@@ -184,6 +192,7 @@ public class RevisionLineTest extends CopeAssert
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
+		assertEquals(false, l.hasRevision());
 		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -195,6 +204,7 @@ public class RevisionLineTest extends CopeAssert
 		
 		final Revision r = new Revision(55, "comment55", "sql55.1", "sql55.2");
 		l.setRevision(r);
+		assertEquals(true, l.hasRevision());
 		assertEquals("comment55", l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -215,6 +225,7 @@ public class RevisionLineTest extends CopeAssert
 		map.put("create", "true");
 		map.put("dateUTC", DATE_STRING);
 		map.put("revision", "55");
+		assertEquals(true, l.hasRevision());
 		assertEquals("Created Schema (comment55)", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(DATE, l.getDate());
@@ -233,6 +244,7 @@ public class RevisionLineTest extends CopeAssert
 	{
 		final RevisionLine l = new RevisionLine(55);
 		assertEquals(55, l.number);
+		assertEquals(false, l.hasRevision());
 		assertEquals(null, l.getContent());
 		assertEquals(null, l.getLogString());
 		assertEquals(null, l.getLogProperties());
@@ -248,6 +260,7 @@ public class RevisionLineTest extends CopeAssert
 		map.put("create", "true");
 		map.put("dateUTC", DATE_STRING);
 		map.put("revision", "55");
+		assertEquals(false, l.hasRevision());
 		assertEquals("Created Schema", l.getContent());
 		assertEquals(map, l.getLogProperties());
 		assertEquals(DATE, l.getDate());
