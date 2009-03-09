@@ -148,7 +148,7 @@ final class Revision_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td class="sql"></td>
-				<th colspan="3">End of Revisions in Application</td>
+				<th colspan="3"><% if(hasRevision){%>Start<%}else{%>End<%} %> of Revisions in Application</td>
 			</tr><%
 				}
 			
