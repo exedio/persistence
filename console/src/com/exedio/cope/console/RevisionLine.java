@@ -163,8 +163,9 @@ final class RevisionLine
 			environment = info.getEnvironment();
 			if(info instanceof RevisionInfoRevise)
 			{
-				this.content = ((RevisionInfoRevise)info).getComment();
-				this.body = ((RevisionInfoRevise)info).getBody();
+				final RevisionInfoRevise infoRevise = (RevisionInfoRevise)info;
+				this.content = infoRevise.getComment();
+				this.body = infoRevise.getBody();
 				int rows = 0;
 				long elapsed = 0;
 				for(final Body body : this.body)
