@@ -61,15 +61,6 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionField[]{field1, field2, field3, field4});
 	}
 	
-	/**
-	 * @deprecated Renamed to {@link #getFields()}.
-	 */
-	@Deprecated
-	public List<FunctionField<?>> getUniqueAttributes()
-	{
-		return getFields();
-	}
-	
 	public List<FunctionField<?>> getFields()
 	{
 		return fieldList;
@@ -145,15 +136,6 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	/**
-	 * @deprecated Use {@link #search(Object[])} instead
-	 */
-	@Deprecated
-	public Item searchUnique(final Object... values)
-	{
-		return search(values);
-	}
-	
-	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
@@ -174,15 +156,6 @@ public final class UniqueConstraint extends Feature
 			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
-	}
-	
-	/**
-	 * @deprecated Use {@link #search(Class,Object[])} instead
-	 */
-	@Deprecated
-	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
-	{
-		return search(typeClass, values);
 	}
 	
 	/**
@@ -219,5 +192,34 @@ public final class UniqueConstraint extends Feature
 				break field;
 			}
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Renamed to {@link #getFields()}.
+	 */
+	@Deprecated
+	public List<FunctionField<?>> getUniqueAttributes()
+	{
+		return getFields();
+	}
+	
+	/**
+	 * @deprecated Use {@link #search(Object[])} instead
+	 */
+	@Deprecated
+	public Item searchUnique(final Object... values)
+	{
+		return search(values);
+	}
+	
+	/**
+	 * @deprecated Use {@link #search(Class,Object[])} instead
+	 */
+	@Deprecated
+	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
+	{
+		return search(typeClass, values);
 	}
 }
