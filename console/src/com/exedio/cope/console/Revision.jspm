@@ -56,6 +56,13 @@ final class Revision_Jspm extends Console_Jspm
 				border-width:0px;
 				background-color:#fff;
 			}
+			td.sql
+			{
+				border-width:0px;
+				padding-top:8px;
+				text-align:left;
+				font-size:9px; /* size of node image */
+			}
 		</style>
 		<script>
 			function toggleRev(image,revision,bodies)
@@ -100,7 +107,7 @@ final class Revision_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=line.number%></td>
-				<td><%
+				<td class="sql"><%
 					final int count = line.getBodyCount();
 					if(count>0)
 					{
