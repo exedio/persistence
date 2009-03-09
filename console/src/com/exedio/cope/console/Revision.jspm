@@ -29,6 +29,7 @@ import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.console.RevisionLine;
 
 import static com.exedio.cops.XMLEncoder.encode;
+import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
 
 final class Revision_Jspm extends Console_Jspm
@@ -227,8 +228,8 @@ final class Revision_Jspm extends Console_Jspm
 				<td class="toggle"></td>
 				<td><%=currentBodyNumber%></td>
 				<td class="text" colspan="2"><%=body.getSQL()%></td>
-				<td><%=body.getRows   ()%></td>
-				<td><%=body.getElapsed()%></td>
+				<td><%=format(body.getRows   ())%></td>
+				<td><%=format(body.getElapsed())%></td>
 			</tr><%
 				currentBodyNumber++;
 			}
