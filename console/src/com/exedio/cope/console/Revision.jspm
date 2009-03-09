@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.console.RevisionLine;
 
