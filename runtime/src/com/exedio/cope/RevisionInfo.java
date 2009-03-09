@@ -90,6 +90,20 @@ public abstract class RevisionInfo
 		return store;
 	}
 	
+	private static final String[] DEPRECATED_ENVIRONMENT_KEYS = new String[]{
+				"database.name",
+				"database.version",
+				"database.version.major",
+				"database.version.minor",
+				"driver.name",
+				"driver.version",
+				"driver.version.major",
+				"driver.version.minor",
+				"hostname",
+				"jdbc.url",
+				"jdbc.user"		
+			};
+	
 	public static final RevisionInfo read(final byte[] bytes)
 	{
 		final Properties p = parse(bytes);
@@ -108,6 +122,12 @@ public abstract class RevisionInfo
 			throw new RuntimeException(e);
 		}
 		final HashMap<String, String> environment = new HashMap<String, String>();
+		for(final String key : DEPRECATED_ENVIRONMENT_KEYS)
+		{
+			final String value = p.getProperty(key);
+			if(value!=null)
+				environment.put(key, value);
+		}
 		for(final Object keyObject : p.keySet())
 		{
 			final String key = (String)keyObject;
