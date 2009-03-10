@@ -48,9 +48,28 @@ public class DistinctTest extends AbstractRuntimeTest
 			final Query<List> q = new Query<List>(new Function[]{item1.numB}, item1.TYPE, null);
 			assertContains(2, 3, 4, 4, 4, q.search());
 			assertEquals(5, q.total());
+			
 			q.setDistinct(true);
 			assertContains(2, 3, 4, q.search());
 			assertEquals(3, q.total());
+
+			item1.setNumB(null);
+			q.setDistinct(false);
+			assertContains(null, 3, 4, 4, 4, q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(null, 3, 4, q.search());
+			assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
+
+			item4.setNumB(null);
+			q.setDistinct(false);
+			assertContains(null, 3, 4, 4, null, q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(null, 3, 4, q.search());
+			assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
 		}
 	}
 	
@@ -66,6 +85,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(2, 4),
 				q.search());
 			assertEquals(5, q.total());
+			
 			q.setDistinct(true);
 			assertContains(
 					list(1, 2),
@@ -78,6 +98,133 @@ public class DistinctTest extends AbstractRuntimeTest
 				try
 				{
 					assertEquals(4, q.total());
+					assertTrue("statement above fails on all databases but mysql", mysql);
+				}
+				catch(SQLRuntimeException e)
+				{
+					assertFalse("statement above fails on all databases but mysql", mysql);
+					//e.printStackTrace();
+				}
+			}
+			
+			item1.setNumA(null);
+			q.setDistinct(false);
+			assertContains(
+					list(null, 2),
+					list(1, 3),
+					list(1, 4),
+					list(1, 4),
+					list(2, 4),
+				q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(
+					list(null, 2),
+					list(1, 3),
+					list(1, 4),
+					list(2, 4),
+				q.search());
+			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
+			{
+				try
+				{
+					assertEquals(3, q.total()); // TODO should be 4, does not correspond to search size
+					assertTrue("statement above fails on all databases but mysql", mysql);
+				}
+				catch(SQLRuntimeException e)
+				{
+					assertFalse("statement above fails on all databases but mysql", mysql);
+					//e.printStackTrace();
+				}
+			}
+			
+			item4.setNumA(null);
+			q.setDistinct(false);
+			assertContains(
+					list(null, 2),
+					list(1, 3),
+					list(1, 4),
+					list(1, 4),
+					list(null, 4),
+				q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(
+					list(null, 2),
+					list(1, 3),
+					list(1, 4),
+					list(null, 4),
+				q.search());
+			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
+			{
+				try
+				{
+					assertEquals(2, q.total()); // TODO should be 4, does not correspond to search size
+					assertTrue("statement above fails on all databases but mysql", mysql);
+				}
+				catch(SQLRuntimeException e)
+				{
+					assertFalse("statement above fails on all databases but mysql", mysql);
+					//e.printStackTrace();
+				}
+			}
+			
+			item1.setNumB(null);
+			q.setDistinct(false);
+			assertContains(
+					list(null, null),
+					list(1, 3),
+					list(1, 4),
+					list(1, 4),
+					list(null, 4),
+				q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(
+					list(null, null),
+					list(1, 3),
+					list(1, 4),
+					list(null, 4),
+				q.search());
+			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
+			{
+				try
+				{
+					assertEquals(2, q.total()); // TODO should be 4, does not correspond to search size
+					assertTrue("statement above fails on all databases but mysql", mysql);
+				}
+				catch(SQLRuntimeException e)
+				{
+					assertFalse("statement above fails on all databases but mysql", mysql);
+					//e.printStackTrace();
+				}
+			}
+			
+			item4.setNumB(null);
+			q.setDistinct(false);
+			assertContains(
+					list(null, null),
+					list(1, 3),
+					list(1, 4),
+					list(1, 4),
+					list(null, null),
+				q.search());
+			assertEquals(5, q.total());
+			
+			q.setDistinct(true);
+			assertContains(
+					list(null, null),
+					list(1, 3),
+					list(1, 4),
+				q.search());
+			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
+			{
+				try
+				{
+					assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
 					assertTrue("statement above fails on all databases but mysql", mysql);
 				}
 				catch(SQLRuntimeException e)
