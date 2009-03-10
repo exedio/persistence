@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
@@ -419,5 +420,30 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.getParentsOfStrings(blau));
 		assertContains(item.getParentsOfStrings(gelb));
 		assertContains(item, otherItem, item.getParentsOfStrings(null));
+	}
+	
+	public void testEmpty() throws Exception
+	{
+		final Query<SetFieldItem> q = item.TYPE.newQuery(item.strings.getElement().isNull());
+		q.joinOuterLeft(item.strings.getRelationType(), item.strings.getParent().equalTarget());
+		
+		assertContains(item, otherItem, q.search());
+		assertEquals(2, q.total());
+		
+		item.addToStrings("itemS1");
+		assertContains(otherItem, q.search());
+		assertEquals(1, q.total());
+		
+		item.addToStrings("itemS2");
+		assertContains(otherItem, q.search());
+		assertEquals(1, q.total());
+		
+		otherItem.addToStrings("oItemS1");
+		assertContains(q.search());
+		assertEquals(0, q.total());
+		
+		otherItem.addToStrings("oItemS2");
+		assertContains(q.search());
+		assertEquals(0, q.total());
 	}
 }
