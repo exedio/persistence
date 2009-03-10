@@ -42,7 +42,7 @@ public class DistinctTest extends AbstractRuntimeTest
 		item4 = deleteOnTearDown(new PlusIntegerItem(2, 4, 0));
 	}
 	
-	public void testDistinct()
+	public void testDistinctSingle()
 	{
 		{
 			final Query<List> q = new Query<List>(new Function[]{item1.numB}, item1.TYPE, null);
@@ -52,6 +52,10 @@ public class DistinctTest extends AbstractRuntimeTest
 			assertContains(2, 3, 4, q.search());
 			assertEquals(3, q.total());
 		}
+	}
+	
+	public void testDistinctMulti()
+	{
 		{
 			final Query<List> q = new Query<List>(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
 			assertContains(
