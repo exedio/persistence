@@ -18,6 +18,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.highlightSQL;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Date;
@@ -282,5 +284,20 @@ public class RevisionLineTest extends CopeAssert
 		right.put("nonEqual", "right");
 		
 		assertContains("leftOnly", "rightOnly", "nonEqual", RevisionLine.diff(left, right));
+	}
+	
+	public void testHighlightSQL()
+	{
+		assertEquals(
+				"<b>alter</b> <b>table</b> hallo " +
+				"<b>add</b> <b>column</b> zack integer, " +
+				"<b>drop</b> <b>column</b> zosch",
+				highlightSQL(
+						"alter table hallo " +
+						"add column zack integer, " +
+						"drop column zosch"));
+		assertEquals("<b>select</b> selected <b>from</b> fromage <b>where</b> x=1", highlightSQL("select selected from fromage where x=1"));
+		assertEquals("<b>insert</b> <b>into</b> bing <b>values</b> (a,b,c)", highlightSQL("insert into bing values (a,b,c)"));
+		assertEquals("<b>update</b> bong <b>set</b> bing = 1", highlightSQL("update bong set bing = 1"));
 	}
 }

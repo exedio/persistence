@@ -31,6 +31,7 @@ import com.exedio.cope.console.RevisionLine;
 import static com.exedio.cops.XMLEncoder.encode;
 import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
+import static com.exedio.cope.console.Format.highlightSQL;
 
 final class Revision_Jspm extends Console_Jspm
 {
@@ -227,7 +228,7 @@ final class Revision_Jspm extends Console_Jspm
 			<tr id="r<%=number%>b<%=currentBodyNumber%>" class="sql">
 				<td class="toggle"></td>
 				<td><%=currentBodyNumber%></td>
-				<td class="text" colspan="2"><%=body.getSQL()%></td>
+				<td class="text" colspan="2"><%=highlightSQL(encode(body.getSQL()))%></td>
 				<td><%=format(body.getRows   ())%></td>
 				<td><%=format(body.getElapsed())%></td>
 			</tr><%

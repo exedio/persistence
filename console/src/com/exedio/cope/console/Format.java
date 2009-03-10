@@ -94,4 +94,20 @@ final class Format
 		
 		return RATIO_FORMAT.format(Math.log10(((double)dividend) / ((double)divisor)));
 	}
+	
+	private static final String hs(String s, final String... keywords)
+	{
+		for(final String keyword : keywords)
+			s = s.replaceAll("\\b(" + keyword +")\\b", "<b>" + keyword +"</b>");
+		return s;
+	}
+	
+	static String highlightSQL(final String s)
+	{
+		return hs(s,
+				"alter", "create", "drop", "add",
+				"table", "column",
+				"select", "from", "where",
+				"insert", "into", "values", "update", "set");
+	}
 }

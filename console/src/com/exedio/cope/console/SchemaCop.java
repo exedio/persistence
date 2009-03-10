@@ -141,7 +141,7 @@ final class SchemaCop extends ConsoleCop
 			public boolean beforeExecute(final String statement)
 			{
 				out.print("\n\t\t<li>");
-				out.print(XMLEncoder.encode(statement));
+				out.print(Format.highlightSQL(XMLEncoder.encode(statement)));
 				out.print("</li>");
 				if(dryRun)
 				{
