@@ -36,7 +36,7 @@ final class HistoryClusterNode extends Item
 	static final IntegerField id = new IntegerField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint idAndDate = new UniqueConstraint(id, date);
+	static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();

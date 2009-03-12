@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* Console History puts date first in unique constraints
+	- makes purging faster
+	- affect persistent schema of the history
+		you have to drop the old constraints and create the new constraints
 * renamed UniqueConstraint.searchUnique to search
 	affects instrumented code
 * Console allows checking Media ContentType against body using magic numbers

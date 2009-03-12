@@ -36,7 +36,7 @@ final class HistoryItemCache extends Item
 	static final StringField type = new StringField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint typeAndDate = new UniqueConstraint(type, date);
+	static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();

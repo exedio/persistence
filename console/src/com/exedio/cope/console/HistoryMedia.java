@@ -35,7 +35,7 @@ final class HistoryMedia extends Item
 	static final StringField media = new StringField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint mediaAndDate = new UniqueConstraint(media, date);
+	static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
