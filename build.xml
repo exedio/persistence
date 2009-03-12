@@ -987,6 +987,10 @@
 			  compression="gzip">
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
+				<exclude name="getlib/**" />
+				<exclude name="getlib.xml" />
+				<exclude name="getlib.properties" />
+				<exclude name="log.xml" /><!-- created by cruise -->
 				<exclude name=".eclipse-output/**" />
 				<exclude name="build/**" />
 				<exclude name="tomcat/**" />
