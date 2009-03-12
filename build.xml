@@ -1000,7 +1000,7 @@
 				<exclude name="runtime/servlettestweb/WEB-INF/lib/**" />
 				<!-- oracle is not open source -->
 				<exclude name="oracle.dialect.properties" />
-				<exclude name="lib/ojdbc14*.jar" />
+				<exclude name="lib/jdbc/ojdbc*.jar" />
 			</tarfileset>
 			<tarfileset dir="${basedir}">
 				<include name="hsqldb*.test.cope.properties" />
