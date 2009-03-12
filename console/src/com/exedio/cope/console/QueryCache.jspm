@@ -21,6 +21,7 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
+import static com.exedio.cope.console.Format.highlightSQL;
 import static com.exedio.cope.console.Format.ratio;
 
 import java.io.PrintStream;
@@ -125,7 +126,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				ColoredTable_Jspm.writeData(out, data); %>
-				<td class="text"><%=encode(condense.query)%></td>
+				<td class="text"><%=highlightSQL(encode(condense.query))%></td>
 			</tr><%
 		}
 		
@@ -177,7 +178,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				ColoredTable_Jspm.writeData(out, data); %>
-				<td class="text"><%=encode(histogram.getQuery())%></td>
+				<td class="text"><%=highlightSQL(encode(histogram.getQuery()))%></td>
 			</tr><%
 		}
 		
