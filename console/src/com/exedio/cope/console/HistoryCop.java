@@ -47,7 +47,14 @@ final class HistoryCop extends ConsoleCop
 			final History history)
 	{
 		if(history.isAvailable())
-			History_Jspm.writeBody(this, out, args.historyModelShown, HistoryThread.HISTORY_MODEL, history.getThreadID(), history.isRunning(), (isPost(request) && request.getParameter(ANALYZE)!=null));
+			History_Jspm.writeBody(
+					this,
+					out,
+					args.historyModelShown,
+					HistoryThread.HISTORY_MODEL,
+					history.getThreadID(),
+					history.isRunning(),
+					(isPost(request) && request.getParameter(ANALYZE)!=null));
 		else
 			History_Jspm.writeBodyNotAvailable(out);
 	}
