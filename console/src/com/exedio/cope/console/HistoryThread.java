@@ -45,8 +45,8 @@ final class HistoryThread extends Thread
 		new Model(
 			HistoryModel.TYPE,
 			HistoryItemCache.TYPE,
-			HistoryMedia.TYPE,
-			HistoryClusterNode.TYPE);
+			HistoryClusterNode.TYPE,
+			HistoryMedia.TYPE);
 	
 	private static final String NAME = "COPE History";
 	
