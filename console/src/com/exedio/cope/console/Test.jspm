@@ -72,7 +72,14 @@ final class Test_Jspm
 		if(items.isEmpty())
 		{
 			%>
-			There are no <%=cop.name%> in this model.<%
+			<table>
+				<caption><%=caption%></caption>
+				<tr>
+					<td class="text">
+						There are no <%=cop.name%> in this model.
+					</td>
+				</td>
+			</table><%
 			return;
 		}
 		

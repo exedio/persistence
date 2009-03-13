@@ -102,6 +102,13 @@ final class History_Jspm
 	final static void writeBodyNotAvailable(final PrintStream out)
 	{
 		%>
-		History is not available for this model.<%
+		<table>
+			<caption>History</caption>
+			<tr>
+				<td class="text">
+					History is not available for this model.
+				</td>
+			</td>
+		</table><%
 	}
 }%>
