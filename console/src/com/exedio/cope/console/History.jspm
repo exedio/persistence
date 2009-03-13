@@ -69,7 +69,7 @@ final class History_Jspm
 				%>
 				<th>Count</th>
 				<th>From</th>
-				<th>To</th><%
+				<th>Until</th><%
 			}
 			%>
 			</tr><%
