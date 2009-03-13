@@ -19,7 +19,14 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+import static com.exedio.cope.console.Format.formatAndHide;
+
 import java.io.PrintStream;
+import java.util.Date;
+
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 
 final class History_Jspm
 {
@@ -27,8 +34,10 @@ final class History_Jspm
 			final HistoryCop cop,
 			final PrintStream out,
 			final boolean historyModelShown,
+			final Model historyModel,
 			final String threadId,
-			final boolean historyRunning)
+			final boolean historyRunning,
+			final boolean analyze)
 	{
 		%>
 		Showing model of COPE History:
@@ -45,7 +54,49 @@ final class History_Jspm
 		<form action="<%=cop%>" method="POST">
 			<input type="submit" name="<%=ConsoleServlet.HISTORY_START%>" value="Start">
 			<input type="submit" name="<%=ConsoleServlet.HISTORY_STOP %>" value="Stop">
-		</form><%
+		</form>
+		<hr>
+		<form action="<%=cop%>" method="POST">
+			<input type="submit" name="<%=cop.ANALYZE%>" value="Analyze">
+		</form>
+		<table>
+			<caption>History Amount</caption>
+			<tr>
+				<th>Type</th><%
+			
+			if(analyze)
+			{
+				%>
+				<th>Count</th>
+				<th>From</th>
+				<th>To</th><%
+			}
+			%>
+			</tr><%
+		
+		for(final Type<?> type : historyModel.getTypes())
+		{
+			%>
+			<tr>
+				<td><%=type.getID()%></td><%
+			
+			if(analyze)
+			{
+				%>
+				<td><%=format(HistoryThread.analyzeCount(type))%></th><%
+				out.flush();
+				
+				final Date[] dates = HistoryThread.analyzeDate(type);
+				%>
+				<td><%=formatAndHide(dates[0])%></td>
+				<td><%=formatAndHide(dates[1])%></td><%
+				out.flush();
+			}
+			%>
+			</tr><%
+		}
+		%>
+		</table><%
 	}
 	
 	final static void writeBodyNotAvailable(final PrintStream out)

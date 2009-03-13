@@ -24,8 +24,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
+import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
@@ -381,5 +384,41 @@ final class HistoryThread extends Thread
 	public String toString()
 	{
 		return name;
+	}
+	
+	static int analyzeCount(final Type type)
+	{
+		final int result;
+		try
+		{
+			HISTORY_MODEL.startTransaction("history analyze count");
+			result = type.newQuery().total();
+			HISTORY_MODEL.commit();
+		}
+		finally
+		{
+			HISTORY_MODEL.rollbackIfNotCommitted();
+		}
+		return result;
+	}
+	
+	static Date[] analyzeDate(final Type type)
+	{
+		final DateField date = (DateField)type.getFeature("date");
+		final List dates;
+		try
+		{
+			HISTORY_MODEL.startTransaction("history analyze dates");
+			dates = new Query<List>(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
+			HISTORY_MODEL.commit();
+		}
+		finally
+		{
+			HISTORY_MODEL.rollbackIfNotCommitted();
+		}
+		return new Date[] {
+				(Date)dates.get(0),
+				(Date)dates.get(1),
+			};
 	}
 }

@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import static com.exedio.cope.console.HistoryThread.HISTORY_MODEL;
+import static java.util.Arrays.asList;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -88,6 +89,14 @@ public class HistoryTest extends TestCase
 		assertEquals(0, HistoryItemCache.TYPE.search().size());
 		assertEquals(0, HistoryMedia.TYPE.search().size());
 		HISTORY_MODEL.commit();
+		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
 		
 		final Date before55 = new Date();
 		thread.store(55);
@@ -99,6 +108,7 @@ public class HistoryTest extends TestCase
 			model55 = assertIt(thread, before55, after55, 55, iter.next());
 			assertFalse(iter.hasNext());
 		}
+		final Date date55 = HistoryModel.date.get(model55);
 		final HistoryItemCache itemCache55;
 		{
 			final Iterator<HistoryItemCache> iter = HistoryItemCache.TYPE.search().iterator();
@@ -112,6 +122,14 @@ public class HistoryTest extends TestCase
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
+		assertEquals(1, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(1, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
 		
 		final Date before66 = new Date();
 		thread.store(66);
@@ -124,6 +142,7 @@ public class HistoryTest extends TestCase
 			model66 = assertIt(thread, before66, after66, 66, iter.next());
 			assertFalse(iter.hasNext());
 		}
+		final Date date66 = HistoryModel.date.get(model66);
 		{
 			final Iterator<HistoryItemCache> iter = iter(HistoryItemCache.TYPE);
 			assertEquals(itemCache55, iter.next());
@@ -137,6 +156,14 @@ public class HistoryTest extends TestCase
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
+		assertEquals(2, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(2, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(2, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
 	}
 	
 	private static final HistoryModel assertIt(
