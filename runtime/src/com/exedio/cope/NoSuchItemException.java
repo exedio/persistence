@@ -36,4 +36,10 @@ public class NoSuchItemException extends RuntimeException
 	{
 		return item;
 	}
+	
+	@Override
+	public String getMessage()
+	{
+		return item.getCopeID();
+	}
 }
