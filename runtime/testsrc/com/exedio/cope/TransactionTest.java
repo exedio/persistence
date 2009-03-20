@@ -78,6 +78,7 @@ public class TransactionTest extends TestmodelTest
 		catch(NoSuchItemException e)
 		{
 			assertSame(actualItem, e.getItem());
+			assertEquals(actualItem.getCopeID(), e.getMessage());
 		}
 		try
 		{
@@ -87,6 +88,7 @@ public class TransactionTest extends TestmodelTest
 		catch(NoSuchItemException e)
 		{
 			assertSame(actualItem, e.getItem());
+			assertEquals(actualItem.getCopeID(), e.getMessage());
 		}
 		try
 		{
@@ -96,6 +98,7 @@ public class TransactionTest extends TestmodelTest
 		catch(NoSuchItemException e)
 		{
 			assertSame(actualItem, e.getItem());
+			assertEquals(actualItem.getCopeID(), e.getMessage());
 		}
 		assertNotNull(actualItem.getCopeID());
 		assertTrue(actualItem.equals(actualItem));
