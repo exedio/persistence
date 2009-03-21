@@ -40,12 +40,12 @@ public final class Pool<E>
 	//       maybe then no ring buffer is needed.
 	
 	private final Factory<E> factory;
-	private final PoolCounter counter;
 
 	private final E[] idle;
 	private int idleCount, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
+	private final PoolCounter counter;
 	private volatile int invalidOnGet = 0;
 	private volatile int invalidOnPut = 0;
 	
@@ -62,9 +62,6 @@ public final class Pool<E>
 		
 		this.factory = factory;
 		
-		
-		this.counter = counter;
-
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
 		this.idleCount = idleInitial;
@@ -72,6 +69,8 @@ public final class Pool<E>
 		this.idleTo = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.create();
+		
+		this.counter = counter;
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic arrays
