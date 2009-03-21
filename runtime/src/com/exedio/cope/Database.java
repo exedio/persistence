@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.SequenceInfo;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
@@ -84,7 +85,7 @@ final class Database
 		this.connectionPool = new Pool<Connection>(
 				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
-				properties.getConnectionPoolIdleInitial());
+				properties.getConnectionPoolIdleInitial(), new PoolCounter());
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();

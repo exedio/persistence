@@ -49,7 +49,7 @@ public final class Pool<E>
 	private volatile int invalidOnGet = 0;
 	private volatile int invalidOnPut = 0;
 	
-	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
+	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
 		if(factory==null)
 			throw new NullPointerException("factory must not be null");
@@ -62,8 +62,8 @@ public final class Pool<E>
 		
 		this.factory = factory;
 		
-		// TODO: make this customizable and disableable
-		this.counter = new PoolCounter();
+		
+		this.counter = counter;
 
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
@@ -88,7 +88,8 @@ public final class Pool<E>
 	
 	public E get()
 	{
-		counter.incrementGet();
+		if(counter!=null)
+			counter.incrementGet();
 
 		E result = null;
 
@@ -133,7 +134,8 @@ public final class Pool<E>
 		if(e==null)
 			throw new NullPointerException();
 		
-		counter.incrementPut();
+		if(counter!=null)
+			counter.incrementPut();
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
@@ -200,7 +202,7 @@ public final class Pool<E>
 	
 	public Info getInfo()
 	{
-		return new Info(idleCount, invalidOnGet, invalidOnPut, new PoolCounter(counter));
+		return new Info(idleCount, invalidOnGet, invalidOnPut, counter!=null ? new PoolCounter(counter) : counter);
 	}
 	
 	public static final class Info
