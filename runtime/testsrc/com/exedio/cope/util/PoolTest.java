@@ -200,7 +200,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 	
-	public void testIsValidIntoIdle()
+	public void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -219,7 +219,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 		
 		// dont put into idle, because its closed
-		c1.isValidIntoIdle = false;
+		c1.isValidOnPut = false;
 		try
 		{
 			cp.put(c1);
@@ -227,7 +227,7 @@ public class PoolTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("unexpected closed connection", e.getMessage());
+			assertEquals("invalid on put", e.getMessage());
 		}
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
@@ -308,7 +308,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testValidFromIdle()
+	public void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -333,7 +333,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 
 		// create new because c1 timed out
-		c1.validFromIdle = false;
+		c1.validOnGet = false;
 		assertSame(c2, cp.get());
 		c1.assertV(1, 1, 0);
 		c2.assertV(0, 0, 0);
@@ -361,14 +361,14 @@ public class PoolTest extends CopeAssert
 			return connections.next();
 		}
 		
-		public boolean isValidFromIdle(final Pooled e)
+		public boolean isValidOnGet(final Pooled e)
 		{
-			return e.isValidFromIdle();
+			return e.isValidOnGet();
 		}
 		
-		public boolean isValidIntoIdle(final Pooled e)
+		public boolean isValidOnPut(final Pooled e)
 		{
-			return e.isValidIntoIdle();
+			return e.isValidOnPut();
 		}
 		
 		public void dispose(final Pooled e)
@@ -379,29 +379,29 @@ public class PoolTest extends CopeAssert
 	
 	static class Pooled
 	{
-		boolean validFromIdle = true;
-		int isValidFromIdleCount = 0;
-		boolean isValidIntoIdle = true;
-		int isValidIntoIdleCount = 0;
+		boolean validOnGet = true;
+		int isValidOnGetCount = 0;
+		boolean isValidOnPut = true;
+		int isValidOnPutCount = 0;
 		int disposeCount = 0;
 		
-		void assertV(final int isValidFromIdleCount, final int isValidIntoIdleCount, final int disposeCount)
+		void assertV(final int isValidOnGetCount, final int isValidOnPutCount, final int disposeCount)
 		{
-			assertEquals(isValidFromIdleCount, this.isValidFromIdleCount);
-			assertEquals(isValidIntoIdleCount, this.isValidIntoIdleCount);
+			assertEquals(isValidOnGetCount, this.isValidOnGetCount);
+			assertEquals(isValidOnPutCount, this.isValidOnPutCount);
 			assertEquals(disposeCount, this.disposeCount);
 		}
 		
-		boolean isValidFromIdle()
+		boolean isValidOnGet()
 		{
-			isValidFromIdleCount++;
-			return validFromIdle;
+			isValidOnGetCount++;
+			return validOnGet;
 		}
 
-		boolean isValidIntoIdle()
+		boolean isValidOnPut()
 		{
-			isValidIntoIdleCount++;
-			return isValidIntoIdle;
+			isValidOnPutCount++;
+			return isValidOnPut;
 		}
 
 		void dispose()

@@ -64,12 +64,12 @@ final class ConnectionPool_Jspm extends Console_Jspm
 				<td><%=format(poolCounter.getPutCounter())%></td>
 			</tr>
 			<tr>
-				<th>Invalid From Idle</th>
-				<td><%=format(info.getInvalidFromIdle())%></td>
+				<th>Invalid On Get</th>
+				<td><%=format(info.getInvalidOnGet())%></td>
 			</tr>
 			<tr>
-				<th>Invalid Into Idle</th>
-				<td><%=format(info.getInvalidIntoIdle())%></td>
+				<th>Invalid On Put</th>
+				<td><%=format(info.getInvalidOnPut())%></td>
 			</tr>
 		</table>
 		<hr>

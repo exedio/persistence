@@ -25,8 +25,8 @@ public final class Pool<E>
 	public interface Factory<E>
 	{
 		E create();
-		boolean isValidFromIdle(E e);
-		boolean isValidIntoIdle(E e);
+		boolean isValidOnGet(E e);
+		boolean isValidOnPut(E e);
 		void dispose(E e);
 	}
 
@@ -46,8 +46,8 @@ public final class Pool<E>
 	private int idleCount, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
-	private volatile int invalidFromIdle = 0;
-	private volatile int invalidIntoIdle = 0;
+	private volatile int invalidOnGet = 0;
+	private volatile int invalidOnPut = 0;
 	
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
@@ -105,10 +105,10 @@ public final class Pool<E>
 				break;
 			
 			// Important to do this outside the synchronized block!
-			if(factory.isValidFromIdle(result))
+			if(factory.isValidOnGet(result))
 				break;
 			
-			invalidFromIdle++;
+			invalidOnGet++;
 			
 			result = null;
 		}
@@ -134,10 +134,10 @@ public final class Pool<E>
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
-		if(!factory.isValidIntoIdle(e))
+		if(!factory.isValidOnPut(e))
 		{
-			invalidIntoIdle++;
-			throw new IllegalArgumentException("unexpected closed connection");
+			invalidOnPut++;
+			throw new IllegalArgumentException("invalid on put");
 		}
 			
 		synchronized(lock)
@@ -197,28 +197,28 @@ public final class Pool<E>
 	
 	public Info getInfo()
 	{
-		return new Info(idleCount, invalidFromIdle, invalidIntoIdle, new PoolCounter(counter));
+		return new Info(idleCount, invalidOnGet, invalidOnPut, new PoolCounter(counter));
 	}
 	
 	public static final class Info
 	{
 		private final int idleCount;
-		private final int invalidFromIdle;
-		private final int invalidIntoIdle;
+		private final int invalidOnGet;
+		private final int invalidOnPut;
 		private final PoolCounter counter;
 		
 		public Info(
 				final int idleCount,
-				final int invalidFromIdle,
-				final int invalidIntoIdle,
+				final int invalidOnGet,
+				final int invalidOnPut,
 				final PoolCounter counter)
 		{
 			if(counter==null)
 				throw new NullPointerException();
 			
 			this.idleCount = idleCount;
-			this.invalidFromIdle = invalidFromIdle;
-			this.invalidIntoIdle = invalidIntoIdle;
+			this.invalidOnGet = invalidOnGet;
+			this.invalidOnPut = invalidOnPut;
 			this.counter = counter;
 		}
 		
@@ -227,14 +227,14 @@ public final class Pool<E>
 			return idleCount;
 		}
 		
-		public int getInvalidFromIdle()
+		public int getInvalidOnGet()
 		{
-			return invalidFromIdle;
+			return invalidOnGet;
 		}
 		
-		public int getInvalidIntoIdle()
+		public int getInvalidOnPut()
 		{
-			return invalidIntoIdle;
+			return invalidOnPut;
 		}
 		
 		public PoolCounter getCounter()

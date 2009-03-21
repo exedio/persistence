@@ -53,7 +53,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 	}
 
-	public boolean isValidFromIdle(final Connection e)
+	public boolean isValidOnGet(final Connection e)
 	{
 		try
 		{
@@ -74,7 +74,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 	}
 
-	public boolean isValidIntoIdle(final Connection e)
+	public boolean isValidOnPut(final Connection e)
 	{
 		try
 		{
