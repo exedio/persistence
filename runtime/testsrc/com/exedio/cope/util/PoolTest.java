@@ -340,6 +340,48 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
+	public void testError()
+	{
+		try
+		{
+			new Pool<Pooled>((Factory)null, -1, -1);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("factory must not be null", e.getMessage());
+		}
+		final Factory f = new Factory(PoolTest.<Pooled>listg());
+		try
+		{
+			new Pool<Pooled>(f, -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("idleLimit must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Pool<Pooled>(f, 0, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("idleInitial must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Pool<Pooled>(f, 0, 1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
+		}
+		new Pool<Pooled>(f, 0, 0);
+	}
+	
 	static class Factory implements Pool.Factory<Pooled>
 	{
 		final Iterator<Pooled> connections;

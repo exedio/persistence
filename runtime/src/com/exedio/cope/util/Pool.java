@@ -51,11 +51,14 @@ public final class Pool<E>
 	
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
-		// TODO throw nice exceptions
-		assert factory!=null;
-		assert idleLimit>=0;
-		assert idleInitial>=0;
-		assert idleInitial<=idleLimit;
+		if(factory==null)
+			throw new NullPointerException("factory must not be null");
+		if(idleLimit<0)
+			throw new IllegalArgumentException("idleLimit must not be negative, but was " + idleLimit);
+		if(idleInitial<0)
+			throw new IllegalArgumentException("idleInitial must not be negative, but was " + idleInitial);
+		if(idleInitial>idleLimit)
+			throw new IllegalArgumentException("idleInitial must not be greater than idleLimit, but was " + idleInitial + " and " + idleLimit);
 		
 		this.factory = factory;
 		
