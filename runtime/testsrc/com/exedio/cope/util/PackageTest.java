@@ -28,7 +28,6 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(PoolTest.class);
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
 		suite.addTestSuite(TransactionSlicerTest.class);
