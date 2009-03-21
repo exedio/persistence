@@ -85,7 +85,8 @@ final class Database
 		this.connectionPool = new Pool<Connection>(
 				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
-				properties.getConnectionPoolIdleInitial(), new PoolCounter());
+				properties.getConnectionPoolIdleInitial(),
+				new PoolCounter());
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
