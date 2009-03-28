@@ -65,7 +65,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		this.valueClass = valueClass;
 		
 		if(valueClass==null)
-			throw new NullPointerException("valueClass must not be null");
+			throw new NullPointerException("valueClass");
 		if(!Value.class.isAssignableFrom(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + ": "+valueClass.getName());
 		if(Value.class.equals(valueClass))

@@ -48,7 +48,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("listener must not be null", e.getMessage());
+			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
@@ -60,7 +60,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("listener must not be null", e.getMessage());
+			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());

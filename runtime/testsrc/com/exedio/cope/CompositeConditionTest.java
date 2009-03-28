@@ -59,7 +59,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("operator must not be null", e.getMessage());
+			assertEquals("operator", e.getMessage());
 		}
 		try
 		{
@@ -68,7 +68,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("conditions must not be null", e.getMessage());
+			assertEquals("conditions", e.getMessage());
 		}
 		try
 		{
@@ -77,7 +77,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("conditions must not be null", e.getMessage());
+			assertEquals("conditions", e.getMessage());
 		}
 		try
 		{
@@ -86,7 +86,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("conditions must not be null", e.getMessage());
+			assertEquals("conditions", e.getMessage());
 		}
 		try
 		{
@@ -95,7 +95,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("conditions must not be null", e.getMessage());
+			assertEquals("conditions", e.getMessage());
 		}
 		assertSame(TRUE, Cope.and(new Condition[0]));
 		assertSame(TRUE, Cope.and(Collections.<Condition>emptyList()));
@@ -108,7 +108,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+			assertEquals("conditions must not be empty", e.getMessage());
 		}
 		try
 		{
@@ -117,7 +117,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+			assertEquals("conditions must not be empty", e.getMessage());
 		}
 		try
 		{
@@ -126,7 +126,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+			assertEquals("conditions must not be empty", e.getMessage());
 		}
 		try
 		{
@@ -135,7 +135,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+			assertEquals("conditions must not be empty", e.getMessage());
 		}
 		try
 		{
@@ -144,7 +144,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("condition 0 must not be null", e.getMessage());
+			assertEquals("conditions[0]", e.getMessage());
 		}
 		try
 		{
@@ -153,7 +153,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("condition 0 must not be null", e.getMessage());
+			assertEquals("conditions[0]", e.getMessage());
 		}
 		try
 		{
@@ -162,7 +162,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("condition 0 must not be null", e.getMessage());
+			assertEquals("conditions[0]", e.getMessage());
 		}
 		try
 		{
@@ -171,7 +171,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("condition 0 must not be null", e.getMessage());
+			assertEquals("conditions[0]", e.getMessage());
 		}
 		try
 		{
@@ -180,7 +180,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("condition 0 must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
 		try
 		{
@@ -189,7 +189,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("condition 0 must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
 		try
 		{
@@ -198,7 +198,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("condition 0 must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
 		try
 		{
@@ -207,7 +207,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("condition 0 must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
 
 		// test composites with a single subcondition
@@ -238,7 +238,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertNull(e.getMessage());
+			assertEquals("argument", e.getMessage());
 		}
 		try
 		{

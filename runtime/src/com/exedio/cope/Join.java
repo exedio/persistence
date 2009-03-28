@@ -47,9 +47,9 @@ public final class Join
 		this.condition = condition;
 
 		if(kind==null)
-			throw new NullPointerException("kind must not be null");
+			throw new NullPointerException("kind");
 		if(type==null)
-			throw new NullPointerException("type must not be null");
+			throw new NullPointerException("type");
 	}
 	
 	public void setCondition(final Condition condition)

@@ -28,9 +28,9 @@ public final class CopyConstraint extends Feature
 	public CopyConstraint(final ItemField target, final FunctionField copy)
 	{
 		if(target==null)
-			throw new NullPointerException("target must not be null");
+			throw new NullPointerException("target");
 		if(copy==null)
-			throw new NullPointerException("copy must not be null");
+			throw new NullPointerException("copy");
 		if(!target.isfinal)
 			throw new IllegalArgumentException("target must be final");
 		if(!copy.isfinal)

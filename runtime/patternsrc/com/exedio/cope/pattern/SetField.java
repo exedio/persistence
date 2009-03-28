@@ -51,7 +51,7 @@ public final class SetField<E> extends Pattern
 	{
 		this.element = element;
 		if(element==null)
-			throw new NullPointerException("element must not be null");
+			throw new NullPointerException("element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
 		if(element.getImplicitUniqueConstraint()!=null)

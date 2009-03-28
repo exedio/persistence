@@ -35,7 +35,7 @@ public abstract class MediaFilter extends CachedMedia
 	{
 		this.source = source;
 		if(source==null)
-			throw new NullPointerException("source must not be null");
+			throw new NullPointerException("source");
 	}
 
 	public final Media getSource()

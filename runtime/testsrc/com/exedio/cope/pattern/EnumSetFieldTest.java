@@ -152,7 +152,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("element must not be null", e.getMessage());
+			assertEquals("element", e.getMessage());
 		}
 		try
 		{
@@ -161,7 +161,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("element must not be null", e.getMessage());
+			assertEquals("element", e.getMessage());
 		}
 		try
 		{
@@ -170,7 +170,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("element must not be null", e.getMessage());
+			assertEquals("element", e.getMessage());
 		}
 		try
 		{
@@ -188,7 +188,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("element must not be null", e.getMessage());
+			assertEquals("element", e.getMessage());
 		}
 	}
 	

@@ -34,9 +34,9 @@ public final class DivideView<E extends Number> extends NumberView<E> implements
 		super(new NumberFunction[]{dividend, divisor}, "divide", dividend.getValueClass());
 		
 		if(dividend==null)
-			throw new NullPointerException("dividend function must not be null");
+			throw new NullPointerException("dividend");
 		if(divisor==null)
-			throw new NullPointerException("divisor function must not be null");
+			throw new NullPointerException("divisor");
 		
 		this.dividend = dividend;
 		this.divisor = divisor;

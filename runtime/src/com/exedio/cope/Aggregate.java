@@ -32,11 +32,11 @@ public abstract class Aggregate<E> implements Selectable<E>
 	public Aggregate(final Function<E> source, final String name, final String sqlName)
 	{
 		if(source==null)
-			throw new NullPointerException("source must not be null");
+			throw new NullPointerException("source");
 		if(name==null)
-			throw new NullPointerException("name must not be null");
+			throw new NullPointerException("name");
 		if(sqlName==null)
-			throw new NullPointerException("sqlName must not be null");
+			throw new NullPointerException("sqlName");
 		
 		this.source = source;
 		this.name = name;

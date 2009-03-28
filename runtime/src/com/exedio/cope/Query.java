@@ -83,7 +83,7 @@ public final class Query<R>
 			throw new IllegalArgumentException("must not be empty");
 		for(int i = 0; i<selects.length; i++)
 			if(selects[i]==null)
-				throw new NullPointerException("must not be null on position " + i);
+				throw new NullPointerException("selects" + '[' + i + ']');
 	}
 	
 	public boolean isDistinct()
@@ -193,7 +193,7 @@ public final class Query<R>
 	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
-			throw new NullPointerException("orderBy is null");
+			throw new NullPointerException("orderBy");
 		
 		this.orderBy = new Function[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
@@ -202,7 +202,7 @@ public final class Query<R>
 	public void setOrderByAndThis(final Function orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
-			throw new NullPointerException("orderBy is null");
+			throw new NullPointerException("orderBy");
 		
 		this.orderBy = new Function[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
@@ -220,7 +220,7 @@ public final class Query<R>
 					" and " + ascending.length);
 		for(int i = 0; i<orderBy.length; i++)
 			if(orderBy[i]==null)
-				throw new NullPointerException("orderBy contains null at index "+i);
+				throw new NullPointerException("orderBy" + '[' + i + ']');
 		
 		this.orderBy = orderBy;
 		this.orderAscending = ascending;

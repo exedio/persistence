@@ -185,13 +185,13 @@ public final class Type<C extends Item>
 			final LinkedHashMap<String, Feature> featureMap)
 	{
 		if(javaClass==null)
-			throw new NullPointerException("javaClass must not be null");
+			throw new NullPointerException("javaClass");
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		if(id==null)
-			throw new NullPointerException("id must not be null for type of " + javaClass);
+			throw new NullPointerException("id for " + javaClass);
 		{
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
@@ -199,7 +199,7 @@ public final class Type<C extends Item>
 					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >"+ id.charAt(i) + "< at position " + i);
 		}
 		if(featureMap==null)
-			throw new NullPointerException("featureMap must not be null for type " + id);
+			throw new NullPointerException("featureMap for " + id);
 		
 		this.javaClass = javaClass;
 		this.uniqueJavaClass = uniqueJavaClass;

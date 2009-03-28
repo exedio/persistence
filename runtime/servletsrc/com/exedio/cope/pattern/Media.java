@@ -908,9 +908,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			this(major + '/' + minor);
 			
 			if(major==null)
-				throw new NullPointerException("fixedMimeMajor must not be null");
+				throw new NullPointerException("fixedMimeMajor");
 			if(minor==null)
-				throw new NullPointerException("fixedMimeMinor must not be null");
+				throw new NullPointerException("fixedMimeMinor");
 		}
 	}
 
@@ -928,7 +928,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			this.prefixLength = this.prefix.length();
 			
 			if(major==null)
-				throw new NullPointerException("fixedMimeMajor must not be null");
+				throw new NullPointerException("fixedMimeMajor");
 		}
 		
 		@Override

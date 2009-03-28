@@ -63,7 +63,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	private Serializer(final Class<E> valueClass, final DataField source)
 	{
 		if(valueClass==null)
-			throw new NullPointerException("valueClass must not be null");
+			throw new NullPointerException("valueClass");
 		
 		this.valueClass = valueClass;
 		this.source = source;

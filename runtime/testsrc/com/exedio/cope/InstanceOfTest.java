@@ -188,7 +188,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("types must not be null", e.getMessage());
+			assertEquals("types", e.getMessage());
 		}
 		try
 		{

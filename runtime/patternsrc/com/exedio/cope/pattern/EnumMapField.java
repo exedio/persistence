@@ -95,7 +95,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	private void assertKey(final K key)
 	{
 		if(key==null)
-			throw new NullPointerException("key must not be null");
+			throw new NullPointerException("key");
 		if(keyClass!=key.getClass())
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}

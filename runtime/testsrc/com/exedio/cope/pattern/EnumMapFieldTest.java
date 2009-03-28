@@ -121,7 +121,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("key must not be null", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 		try
 		{
@@ -130,7 +130,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("key must not be null", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 	}
 	

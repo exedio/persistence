@@ -109,7 +109,7 @@ public final class Model
 	private static final Revision[] checkRevisions(final Revision[] revisions)
 	{
 		if(revisions==null)
-			throw new NullPointerException("revisions must not be null");
+			throw new NullPointerException("revisions");
 		if(revisions.length==0)
 			throw new IllegalArgumentException("revisions must not be empty");
 		
@@ -122,7 +122,7 @@ public final class Model
 		{
 			final Revision revision = result[i];
 			if(revision==null)
-				throw new NullPointerException("revision must not be null, but was at index " + i);
+				throw new NullPointerException("revisions" + '[' + i + ']');
 			
 			if(i==0)
 				base = revision.number;
@@ -161,7 +161,7 @@ public final class Model
 		this.revisions = revisions;
 		
 		if(types==null)
-			throw new NullPointerException("types must not be null");
+			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
 		
@@ -749,7 +749,7 @@ public final class Model
 	public void addModificationListener(final ModificationListener listener)
 	{
 		if(listener==null)
-			throw new NullPointerException("listener must not be null");
+			throw new NullPointerException("listener");
 		
 		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
 		synchronized(modificationListeners)
@@ -761,7 +761,7 @@ public final class Model
 	public void removeModificationListener(final ModificationListener listener)
 	{
 		if(listener==null)
-			throw new NullPointerException("listener must not be null");
+			throw new NullPointerException("listener");
 
 		synchronized(modificationListeners)
 		{

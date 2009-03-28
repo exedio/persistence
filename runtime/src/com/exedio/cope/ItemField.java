@@ -38,7 +38,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this.initialValueType = initialValueType;
 		this.policy = policy;
 		if(policy==null)
-			throw new NullPointerException("delete policy for item field must not be null");
+			throw new NullPointerException("policy");
 		if(policy==DeletePolicy.NULLIFY)
 		{
 			if(!optional)

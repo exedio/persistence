@@ -135,7 +135,7 @@ public class CompositeTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("valueClass must not be null", e.getMessage());
+			assertEquals("valueClass", e.getMessage());
 		}
 		try
 		{

@@ -65,7 +65,7 @@ public abstract class Cope
 	private static final Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
 	{
 		if(conditions==null)
-			throw new NullPointerException("conditions must not be null");
+			throw new NullPointerException("conditions");
 
 		switch(conditions.size())
 		{
@@ -81,7 +81,7 @@ public abstract class Cope
 	private static final Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
 	{
 		if(conditions==null)
-			throw new NullPointerException("conditions must not be null");
+			throw new NullPointerException("conditions");
 		
 		int filtered = 0;
 		
@@ -89,7 +89,7 @@ public abstract class Cope
 		{
 			final Condition c = conditions[i];
 			if(c==null)
-				throw new NullPointerException("condition " + i + " must not be null");
+				throw new NullPointerException("conditions" + '[' + i + ']');
 
 			if(c instanceof Condition.Literal)
 			{

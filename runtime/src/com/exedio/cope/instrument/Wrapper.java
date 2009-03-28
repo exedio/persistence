@@ -36,7 +36,7 @@ public final class Wrapper
 		this.name = name;
 		
 		if(name==null)
-			throw new NullPointerException("name must not be null");
+			throw new NullPointerException("name");
 	}
 
 	public String getName()
@@ -71,7 +71,7 @@ public final class Wrapper
 	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
 	{
 		if(type==null)
-			throw new NullPointerException("type must not be null");
+			throw new NullPointerException("type");
 		if(type==void.class)
 			throw new IllegalArgumentException("type must not be void");
 		if(this.returnType!=null)
@@ -143,9 +143,9 @@ public final class Wrapper
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
 	{
 		if(type==null)
-			throw new NullPointerException("type must not be null");
+			throw new NullPointerException("type");
 		if(name==null)
-			throw new NullPointerException("name must not be null");
+			throw new NullPointerException("name");
 		if(comment!=null)
 			assertComment(comment);
 		
@@ -183,7 +183,7 @@ public final class Wrapper
 	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
 	{
 		if(throwable==null)
-			throw new NullPointerException("throwable must not be null");
+			throw new NullPointerException("throwable");
 		if(comment!=null)
 			assertComment(comment);
 		
@@ -266,7 +266,7 @@ public final class Wrapper
 	private static final void assertComment(final String comment)
 	{
 		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+			throw new NullPointerException("comment");
 		if(comment.startsWith(" "))
 			throw new IllegalArgumentException("comment must not start with space, but was '" + comment + '\'');
 		if(comment.startsWith("@"))

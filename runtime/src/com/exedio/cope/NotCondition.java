@@ -32,7 +32,7 @@ public final class NotCondition extends Condition
 	public NotCondition(final Condition argument)
 	{
 		if(argument==null)
-			throw new NullPointerException();
+			throw new NullPointerException("argument");
 		if(argument instanceof Literal)
 			throw new IllegalArgumentException("argument must not be a literal");
 		

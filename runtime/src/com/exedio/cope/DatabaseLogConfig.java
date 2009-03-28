@@ -34,7 +34,7 @@ final class DatabaseLogConfig
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
 		if(out==null)
-			throw new NullPointerException("out must not be null");
+			throw new NullPointerException("out");
 		
 		this.threshold = threshold;
 		this.sql = sql;

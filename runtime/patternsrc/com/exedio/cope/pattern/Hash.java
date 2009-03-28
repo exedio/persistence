@@ -45,9 +45,9 @@ public abstract class Hash extends Pattern implements Settable<String>
 	public Hash(final StringField storage, final String algorithmName)
 	{
 		if(storage==null)
-			throw new NullPointerException("hash storage must not be null");
+			throw new NullPointerException("storage");
 		if(algorithmName==null)
-			throw new NullPointerException("algorithmName must not be null");
+			throw new NullPointerException("algorithmName");
 		if(algorithmName.length()==0)
 			throw new IllegalArgumentException("algorithmName must not be empty");
 

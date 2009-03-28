@@ -33,7 +33,7 @@ public final class IsNullCondition<E> extends Condition
 	public IsNullCondition(final Function<E> function, final boolean not)
 	{
 		if(function==null)
-			throw new NullPointerException("function must not be null");
+			throw new NullPointerException("function");
 
 		this.function = function;
 		this.not = not;

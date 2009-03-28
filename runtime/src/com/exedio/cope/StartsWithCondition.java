@@ -37,9 +37,9 @@ public final class StartsWithCondition extends Condition
 		this.value = value;
 
 		if(field==null)
-			throw new NullPointerException("field must not be null");
+			throw new NullPointerException("field");
 		if(value==null)
-			throw new NullPointerException("value must not be null");
+			throw new NullPointerException("value");
 	}
 	
 	@Override

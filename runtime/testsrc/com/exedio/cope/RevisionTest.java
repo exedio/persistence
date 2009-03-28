@@ -49,7 +49,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("comment must not be null", e.getMessage());
+			assertEquals("comment", e.getMessage());
 		}
 		try
 		{
@@ -58,7 +58,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("body must not be null", e.getMessage());
+			assertEquals("body", e.getMessage());
 		}
 		try
 		{
@@ -76,7 +76,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("body must not be null, but was at index 1", e.getMessage());
+			assertEquals("body[1]", e.getMessage());
 		}
 		
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
@@ -104,7 +104,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("revisions must not be null", e.getMessage());
+			assertEquals("revisions", e.getMessage());
 		}
 		try
 		{
@@ -122,7 +122,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("revision must not be null, but was at index 1", e.getMessage());
+			assertEquals("revisions[1]", e.getMessage());
 		}
 		try
 		{

@@ -85,7 +85,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("source must not be null", e.getMessage());
+			assertEquals("source", e.getMessage());
 		}
 		try
 		{

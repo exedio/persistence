@@ -40,7 +40,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		public Body(final String sql, final int rows, final long elapsed)
 		{
 			if(sql==null)
-				throw new NullPointerException("sql must not be null");
+				throw new NullPointerException("sql");
 			if(sql.length()==0)
 				throw new IllegalArgumentException("sql must not be empty");
 			if(rows<0)
@@ -105,9 +105,9 @@ public final class RevisionInfoRevise extends RevisionInfo
 		if(number<=0)
 			throw new IllegalArgumentException("number must be greater zero, but was " + number);
 		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+			throw new NullPointerException("comment");
 		if(body==null)
-			throw new NullPointerException("body must not be null");
+			throw new NullPointerException("body");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
 		
@@ -117,7 +117,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		{
 			final Body b = body[i];
 			if(b==null)
-				throw new NullPointerException("body must not be null, but was at index " + i);
+				throw new NullPointerException("body" + '[' + i + ']');
 			bodyCopy[i] = b;
 		}
 		

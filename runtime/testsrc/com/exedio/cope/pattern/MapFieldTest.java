@@ -114,7 +114,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("key must not be null", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 		try
 		{
@@ -132,7 +132,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("value must not be null", e.getMessage());
+			assertEquals("value", e.getMessage());
 		}
 		try
 		{

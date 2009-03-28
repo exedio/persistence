@@ -120,7 +120,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("out must not be null", e.getMessage());
+			assertEquals("out", e.getMessage());
 		}
 		assertFalse(model.isDatabaseLogEnabled());
 		assertEquals(0, model.getDatabaseLogThreshold());

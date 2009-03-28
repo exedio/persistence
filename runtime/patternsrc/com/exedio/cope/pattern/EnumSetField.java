@@ -108,7 +108,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	private void assertElement(final E element)
 	{
 		if(element==null)
-			throw new NullPointerException("element must not be null");
+			throw new NullPointerException("element");
 		if(elementClass!=element.getClass())
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}

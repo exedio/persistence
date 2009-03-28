@@ -34,9 +34,9 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E> imple
 		super(new Function[]{left}, "plus", left.getValueClass());
 		
 		if(left==null)
-			throw new NullPointerException("left function must not be null");
+			throw new NullPointerException("left");
 		if(right==null)
-			throw new NullPointerException("right literal must not be null");
+			throw new NullPointerException("right");
 		
 		this.left = left;
 		this.right = right;

@@ -55,7 +55,7 @@ public final class MediaRedirect extends MediaPath
 	public MediaRedirect(final MediaPath target)
 	{
 		if(target==null)
-			throw new NullPointerException("target must not be null");
+			throw new NullPointerException("target");
 
 		this.target = target;
 	}

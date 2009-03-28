@@ -100,7 +100,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("delete policy for item field must not be null", e.getMessage());
+			assertEquals("policy", e.getMessage());
 		}
 		assertEquals(false, Item.newItemField(DeleteItem.class, Item.NULLIFY).isMandatory());
 		try

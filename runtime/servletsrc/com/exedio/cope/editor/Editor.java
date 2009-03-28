@@ -76,7 +76,7 @@ public abstract class Editor implements Filter
 	protected Editor(final Model model)
 	{
 		if(model==null)
-			throw new NullPointerException("model was null in " + getClass().getName());
+			throw new NullPointerException("model");
 		
 		this.model = model;
 	}
@@ -1083,9 +1083,9 @@ public abstract class Editor implements Filter
 	private static final void checkEdit(final Feature feature, final Item item)
 	{
 		if(feature==null)
-			throw new NullPointerException("feature must not be null");
+			throw new NullPointerException("feature");
 		if(item==null)
-			throw new NullPointerException("item must not be null");
+			throw new NullPointerException("item");
 		if(!feature.getType().isAssignableFrom(item.getCopeType()))
 			throw new IllegalArgumentException("item " + item.getCopeID() + " does not belong to type of feature " + feature.getID());
 	}

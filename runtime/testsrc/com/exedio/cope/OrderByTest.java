@@ -148,7 +148,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(NullPointerException e)
 			{
-				assertEquals("orderBy contains null at index 1", e.getMessage());
+				assertEquals("orderBy[1]", e.getMessage());
 			}
 			try
 			{
@@ -157,7 +157,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(NullPointerException e)
 			{
-				assertEquals("orderBy is null", e.getMessage());
+				assertEquals("orderBy", e.getMessage());
 			}
 		}
 

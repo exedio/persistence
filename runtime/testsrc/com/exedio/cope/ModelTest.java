@@ -154,7 +154,7 @@ public class ModelTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("javaClass must not be null", e.getMessage());
+			assertEquals("javaClass", e.getMessage());
 		}
 		try
 		{
@@ -205,7 +205,7 @@ public class ModelTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("types must not be null", e.getMessage());
+			assertEquals("types", e.getMessage());
 		}
 		try
 		{

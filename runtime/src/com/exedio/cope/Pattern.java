@@ -64,9 +64,9 @@ public abstract class Pattern extends Feature
 	protected final void addSource(final Field field, final String postfix)
 	{
 		if(postfix==null)
-			throw new NullPointerException("postfix must not be null");
+			throw new NullPointerException("postfix");
 		if(field==null)
-			throw new NullPointerException("field must not be null for postfix '" + postfix + '\'');
+			throw new NullPointerException("field");
 		if(sourceFieldMapGather==null)
 			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
 		assert sourceFieldMap== null;

@@ -44,9 +44,9 @@ public final class MatchCondition extends Condition
 		this.value = value;
 
 		if(function==null)
-			throw new NullPointerException("function must not be null");
+			throw new NullPointerException("function");
 		if(value==null)
-			throw new NullPointerException("value must not be null");
+			throw new NullPointerException("value");
 	}
 	
 	@Override

@@ -43,9 +43,9 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
 	{
 		if(function==null)
-			throw new NullPointerException("function must not be null");
+			throw new NullPointerException("function");
 		if(types==null)
-			throw new NullPointerException("types must not be null");
+			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
 

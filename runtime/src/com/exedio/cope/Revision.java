@@ -34,9 +34,9 @@ public final class Revision
 		if(number<=0)
 			throw new IllegalArgumentException("number must be greater zero");
 		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+			throw new NullPointerException("comment");
 		if(body==null)
-			throw new NullPointerException("body must not be null");
+			throw new NullPointerException("body");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
 		
@@ -46,7 +46,7 @@ public final class Revision
 		{
 			final String b = body[i];
 			if(b==null)
-				throw new NullPointerException("body must not be null, but was at index " + i);
+				throw new NullPointerException("body" + '[' + i + ']');
 			bodyCopy[i] = b;
 		}
 

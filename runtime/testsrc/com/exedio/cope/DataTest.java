@@ -200,7 +200,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("field must not be null", e.getMessage());
+			assertEquals("field", e.getMessage());
 		}
 		try
 		{
@@ -209,7 +209,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("value must not be null", e.getMessage());
+			assertEquals("value", e.getMessage());
 		}
 		try
 		{
@@ -218,7 +218,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("value must not be null", e.getMessage());
+			assertEquals("value", e.getMessage());
 		}
 
 		// test data

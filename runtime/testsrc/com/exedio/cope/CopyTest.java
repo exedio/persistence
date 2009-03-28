@@ -132,7 +132,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("target must not be null", e.getMessage());
+			assertEquals("target", e.getMessage());
 		}
 		try
 		{
@@ -141,7 +141,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("copy must not be null", e.getMessage());
+			assertEquals("copy", e.getMessage());
 		}
 		try
 		{

@@ -91,7 +91,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("target must not be null", e.getMessage());
+			assertEquals("target", e.getMessage());
 		}
 		
 		assertEquals(null, item.getFotoContentType());

@@ -48,11 +48,11 @@ public final class MapField<K,V> extends Pattern
 		this.key = key;
 		this.value = value;
 		if(key==null)
-			throw new NullPointerException("key must not be null");
+			throw new NullPointerException("key");
 		if(key.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("key must not be unique");
 		if(value==null)
-			throw new NullPointerException("value must not be null");
+			throw new NullPointerException("value");
 		if(value.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("value must not be unique");
 	}

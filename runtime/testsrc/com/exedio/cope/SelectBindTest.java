@@ -122,7 +122,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			}
 			catch(NullPointerException e)
 			{
-				assertEquals("must not be null on position 0", e.getMessage());
+				assertEquals("selects[0]", e.getMessage());
 			}
 		}
 	}

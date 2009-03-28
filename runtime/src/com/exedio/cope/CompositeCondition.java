@@ -42,17 +42,17 @@ public final class CompositeCondition extends Condition
 	public CompositeCondition(final Operator operator, final Condition... conditions)
 	{
 		if(operator==null)
-			throw new NullPointerException("operator must not be null");
+			throw new NullPointerException("operator");
 		if(conditions==null)
-			throw new NullPointerException("conditions must not be null");
+			throw new NullPointerException("conditions");
 		if(conditions.length==0)
-			throw new IllegalArgumentException("composite condition must have at least one subcondition");
+			throw new IllegalArgumentException("conditions must not be empty");
 		for(int i = 0; i<conditions.length; i++)
 		{
 			if(conditions[i]==null)
-				throw new NullPointerException("condition " + i + " must not be null");
+				throw new NullPointerException("conditions" + '[' + i + ']');
 			if(conditions[i] instanceof Literal)
-				throw new IllegalArgumentException("condition " + i + " must not be a literal");
+				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal");
 		}
 				
 

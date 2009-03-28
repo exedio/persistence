@@ -118,7 +118,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("date must not be null", e.getMessage());
+			assertEquals("date", e.getMessage());
 		}
 		try
 		{
@@ -127,7 +127,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("environment must not be null", e.getMessage());
+			assertEquals("environment", e.getMessage());
 		}
 		try
 		{
@@ -145,7 +145,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("comment must not be null", e.getMessage());
+			assertEquals("comment", e.getMessage());
 		}
 		try
 		{
@@ -154,7 +154,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("body must not be null", e.getMessage());
+			assertEquals("body", e.getMessage());
 		}
 		try
 		{
@@ -172,7 +172,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("body must not be null, but was at index 0", e.getMessage());
+			assertEquals("body[0]", e.getMessage());
 		}
 		new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
 		
@@ -183,7 +183,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("sql must not be null", e.getMessage());
+			assertEquals("sql", e.getMessage());
 		}
 		try
 		{
@@ -246,7 +246,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("date must not be null", e.getMessage());
+			assertEquals("date", e.getMessage());
 		}
 		try
 		{
@@ -255,7 +255,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("environment must not be null", e.getMessage());
+			assertEquals("environment", e.getMessage());
 		}
 		try
 		{
@@ -305,7 +305,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("date must not be null", e.getMessage());
+			assertEquals("date", e.getMessage());
 		}
 		try
 		{
@@ -314,7 +314,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("environment must not be null", e.getMessage());
+			assertEquals("environment", e.getMessage());
 		}
 		try
 		{
