@@ -8,6 +8,7 @@ TODO for cope runtime
 - search API
 	- oracle statistics / mysql execution plan
 	- group by
+	- allow accessing features of subtypes of bound types
 - application triggered Save Points for partial transaction rollback
 - EnumField:
 	* allow modification of integers in DB via annotation
