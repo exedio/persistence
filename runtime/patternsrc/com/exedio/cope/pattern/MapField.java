@@ -50,11 +50,11 @@ public final class MapField<K,V> extends Pattern
 		if(key==null)
 			throw new NullPointerException("key must not be null");
 		if(key.getImplicitUniqueConstraint()!=null)
-			throw new NullPointerException("key must not be unique");
+			throw new IllegalArgumentException("key must not be unique");
 		if(value==null)
 			throw new NullPointerException("value must not be null");
 		if(value.getImplicitUniqueConstraint()!=null)
-			throw new NullPointerException("value must not be unique");
+			throw new IllegalArgumentException("value must not be unique");
 	}
 	
 	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)

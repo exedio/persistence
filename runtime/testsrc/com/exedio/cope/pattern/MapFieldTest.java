@@ -121,7 +121,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(new StringField().unique(), null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("key must not be unique", e.getMessage());
 		}
@@ -139,7 +139,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(new StringField(), new StringField().unique());
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("value must not be unique", e.getMessage());
 		}
