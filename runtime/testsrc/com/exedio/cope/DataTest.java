@@ -223,7 +223,6 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
-		assertContains(item.TYPE.search(item.data.startsWith(data0)));
 		assertContains(item.TYPE.search(item.data.startsWith(data4)));
 		assertContains(item.TYPE.search(item.data.startsWith(data6)));
 		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
@@ -231,14 +230,12 @@ public class DataTest extends AbstractRuntimeTest
 		// set byte[]
 		item.setData(data4);
 		assertIt(data4);
-		assertContains(item.TYPE.search(item.data.startsWith(data0)));
 		assertContains(item, item.TYPE.search(item.data.startsWith(data4)));
 		assertContains(item.TYPE.search(item.data.startsWith(data6)));
 		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
 
 		item.setData(data6);
 		assertIt(data6);
-		assertContains(item.TYPE.search(item.data.startsWith(data0)));
 		assertContains(item.TYPE.search(item.data.startsWith(data4)));
 		assertContains(item, item.TYPE.search(item.data.startsWith(data6)));
 		assertContains(item, item.TYPE.search(item.data.startsWith(data6x4)));
