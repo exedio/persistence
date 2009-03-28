@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import com.exedio.cope.StringField;
 import com.exedio.cope.ItemField.DeletePolicy;
 
 public class MapFieldTest extends AbstractRuntimeTest
@@ -105,6 +106,44 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem.name.parent"));
 		assertSame(item.name.getKey(), model.getFeature("MapFieldItem.name.key"));
 		assertSame(item.name.getValue(), model.getFeature("MapFieldItem.name.value"));
+		
+		try
+		{
+			MapField.newMap(null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("key must not be null", e.getMessage());
+		}
+		try
+		{
+			MapField.newMap(new StringField().unique(), null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("key must not be unique", e.getMessage());
+		}
+		try
+		{
+			MapField.newMap(new StringField(), null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("value must not be null", e.getMessage());
+		}
+		try
+		{
+			MapField.newMap(new StringField(), new StringField().unique());
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("value must not be unique", e.getMessage());
+		}
+		MapField.newMap(new StringField(), new StringField());
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
