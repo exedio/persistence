@@ -923,9 +923,7 @@ public final class Model
 	{
 		final Transaction result = getCurrentTransactionIfBound();
 		if(result==null)
-		{
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
-		}
 		assert result.assertBoundToCurrentThread();
 		return result;
 	}
@@ -957,9 +955,7 @@ public final class Model
 	{
 		final Transaction t = getCurrentTransactionIfBound();
 		if( t!=null )
-		{
 			rollback();
-		}
 	}
 	
 	public void commit()
