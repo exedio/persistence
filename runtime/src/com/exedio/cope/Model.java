@@ -855,7 +855,7 @@ public final class Model
 		if(logTransactions)
 			System.out.println("transaction start " + name);
 
-		final Transaction previousTransaction = getCurrentTransactionIfAvailable();
+		final Transaction previousTransaction = getCurrentTransactionIfBound();
 		if(previousTransaction!=null)
 		{
 			final String previousName = previousTransaction.name;
@@ -910,7 +910,7 @@ public final class Model
 	
 	public boolean hasCurrentTransaction()
 	{
-		return getCurrentTransactionIfAvailable()!=null;
+		return getCurrentTransactionIfBound()!=null;
 	}
 
 	/**
@@ -921,7 +921,7 @@ public final class Model
 	 */
 	public Transaction getCurrentTransaction()
 	{
-		final Transaction result = getCurrentTransactionIfAvailable();
+		final Transaction result = getCurrentTransactionIfBound();
 		if(result==null)
 		{
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
@@ -930,7 +930,7 @@ public final class Model
 		return result;
 	}
 	
-	private Transaction getCurrentTransactionIfAvailable()
+	private Transaction getCurrentTransactionIfBound()
 	{
 		final Transaction result = boundTransactions.get();
 		assert result==null || result.assertBoundToCurrentThread();
@@ -955,7 +955,7 @@ public final class Model
 	
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = getCurrentTransactionIfAvailable();
+		final Transaction t = getCurrentTransactionIfBound();
 		if( t!=null )
 		{
 			rollback();
