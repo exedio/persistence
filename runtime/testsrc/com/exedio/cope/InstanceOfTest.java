@@ -200,6 +200,68 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			assertEquals("types must not be empty", e.getMessage());
 		}
 	}
+	
+	public void testPolymorphicJoinCondition()
+	{
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.ref.equalTarget());
+			q.search();
+		}
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.refb2.equalTarget());
+			q.search();
+		}
+		
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equalTarget());
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals(
+						"InstanceOfB2Item.this does not belong to a type of the query: " +
+						"select this from InstanceOfRefItem join InstanceOfAItem i1 on refb2=InstanceOfB2Item.this",
+						e.getMessage());
+			}
+		}
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equalTarget());
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals(
+						"InstanceOfAItem.this does not belong to a type of the query: " +
+						"select this from InstanceOfRefItem join InstanceOfB2Item i1 on ref=InstanceOfAItem.this",
+						e.getMessage());
+			}
+		}
+	}
+	
+	@SuppressWarnings({"unchecked", "cast"})
+	public void testPolymorphicJoinConditionUnchecked()
+	{
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equal((Type.This<InstanceOfB2Item>)(Type.This)InstanceOfAItem.TYPE.getThis())); // TODO
+			q.search();
+		}
+		{
+			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal((Type.This<InstanceOfAItem>)(Type.This)InstanceOfB2Item.TYPE.getThis())); // TODO
+			q.search();
+		}
+	}
 
 	public void testSchemaInfo()
 	{
