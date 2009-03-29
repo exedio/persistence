@@ -206,12 +206,12 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.ref.equalTarget());
-			q.search();
+			assertContains(reffa, reffb1, reffb2, reffc1, q.search());
 		}
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.refb2.equalTarget());
-			q.search();
+			assertContains(q.search());
 		}
 		
 		{
@@ -254,12 +254,12 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equal((Type.This<InstanceOfB2Item>)(Type.This)InstanceOfAItem.TYPE.getThis())); // TODO
-			q.search();
+			assertContains(q.search());
 		}
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal((Type.This<InstanceOfAItem>)(Type.This)InstanceOfB2Item.TYPE.getThis())); // TODO
-			q.search();
+			assertContains(reffb2, q.search());
 		}
 	}
 
