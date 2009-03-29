@@ -40,6 +40,8 @@ public final class StartsWithCondition extends Condition
 			throw new NullPointerException("field");
 		if(value==null)
 			throw new NullPointerException("value");
+		if(value.length==0)
+			throw new IllegalArgumentException("value must not be empty");
 	}
 	
 	@Override

@@ -220,6 +220,16 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals("value", e.getMessage());
 		}
+		// TODO treat as to isNotNull
+		try
+		{
+			item.data.startsWith(data0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("value must not be empty", e.getMessage());
+		}
 
 		// test data
 		assertIt(null);

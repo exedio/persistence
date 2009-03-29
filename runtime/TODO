@@ -9,6 +9,7 @@ TODO for cope runtime
 	- oracle statistics / mysql execution plan
 	- group by
 	- allow accessing features of subtypes of bound types
+	- condition DataField.is[Not]Null
 - application triggered Save Points for partial transaction rollback
 - EnumField:
 	* allow modification of integers in DB via annotation
