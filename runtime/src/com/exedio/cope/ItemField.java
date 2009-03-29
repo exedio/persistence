@@ -128,9 +128,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return (ItemField<X>)this;
 	}
 	
-	/**
-	 * Returns the delete policy of this field.
-	 */
 	public DeletePolicy getDeletePolicy()
 	{
 		return policy;
