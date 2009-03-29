@@ -393,32 +393,32 @@ public abstract class FunctionField<E extends Object>
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 	
-	public final CompareFunctionCondition<E> equal(final Function<E> right)
+	public final CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
 	}
 	
-	public final CompareFunctionCondition<E> notEqual(final Function<E> right)
+	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
 	}
 	
-	public final CompareFunctionCondition<E> less(final Function<E> right)
+	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Less, this, right);
 	}
 	
-	public final CompareFunctionCondition<E> lessOrEqual(final Function<E> right)
+	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 	}
 	
-	public final CompareFunctionCondition<E> greater(final Function<E> right)
+	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 	}
 	
-	public final CompareFunctionCondition<E> greaterOrEqual(final Function<E> right)
+	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
 	}

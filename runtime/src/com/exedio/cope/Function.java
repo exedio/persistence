@@ -101,42 +101,42 @@ public interface Function<E> extends Selectable<E>
 	 * if and only if the value of this function for that item
 	 * is equal to the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> equal(Function<E> right);
+	CompareFunctionCondition<E> equal(Function<? extends E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not equal to the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> notEqual(Function<E> right);
+	CompareFunctionCondition<E> notEqual(Function<? extends E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is less than the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> less(Function<E> right);
+	CompareFunctionCondition<E> less(Function<? extends E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not greater than the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> lessOrEqual(Function<E> right);
+	CompareFunctionCondition<E> lessOrEqual(Function<? extends E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is greater than the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> greater(Function<E> right);
+	CompareFunctionCondition<E> greater(Function<? extends E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not less than the value of the <tt>right</tt> function.
 	 */
-	CompareFunctionCondition<E> greaterOrEqual(Function<E> right);
+	CompareFunctionCondition<E> greaterOrEqual(Function<? extends E> right);
 
 	ExtremumAggregate<E> min();
 	ExtremumAggregate<E> max();

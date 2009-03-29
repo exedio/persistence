@@ -256,9 +256,13 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equal((Type.This<InstanceOfB2Item>)(Type.This)InstanceOfAItem.TYPE.getThis())); // TODO
 			assertContains(q.search());
 		}
+	}
+	
+	public void testPolymorphicJoinCondition2()
+	{
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal((Type.This<InstanceOfAItem>)(Type.This)InstanceOfB2Item.TYPE.getThis())); // TODO
+			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal(InstanceOfB2Item.TYPE.getThis()));
 			assertContains(reffb2, q.search());
 		}
 	}
