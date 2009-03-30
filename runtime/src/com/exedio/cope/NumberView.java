@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
 public abstract class NumberView<E extends Number> extends View<E> implements NumberFunction<E>
@@ -104,6 +105,11 @@ public abstract class NumberView<E extends Number> extends View<E> implements Nu
 	public final SumAggregate<E> sum()
 	{
 		return new SumAggregate<E>(this);
+	}
+
+	public final AverageAggregate<E> average()
+	{
+		return new AverageAggregate<E>(this);
 	}
 	
 	// ------------------- deprecated stuff -------------------

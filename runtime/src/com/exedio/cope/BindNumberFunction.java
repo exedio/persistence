@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
 public final class BindNumberFunction<E extends Number> extends BindFunction<E> implements NumberFunction<E>
@@ -85,5 +86,10 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E> 
 	public final SumAggregate<E> sum()
 	{
 		return new SumAggregate<E>(this);
+	}
+
+	public final AverageAggregate<E> average()
+	{
+		return new AverageAggregate<E>(this);
 	}
 }

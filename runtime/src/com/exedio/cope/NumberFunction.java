@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
 public interface NumberFunction<E extends Number> extends Function<E>
@@ -33,6 +34,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	DivideView<E> divide(NumberFunction<E> other);
 
 	SumAggregate<E> sum();
+	AverageAggregate<E> average();
 	
 	// ------------------- deprecated stuff -------------------
 	
