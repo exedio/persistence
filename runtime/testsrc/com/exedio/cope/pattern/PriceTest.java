@@ -22,6 +22,8 @@ import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.pattern.Price.ZERO;
 
+import java.math.BigDecimal;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public final class PriceTest extends CopeAssert
@@ -120,6 +122,51 @@ public final class PriceTest extends CopeAssert
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
 		
+		// valueOf(BigDecimal)
+		assertEquals( 222, valueOf(bd( 222, 2)).store());
+		assertEquals(-222, valueOf(bd(-222, 2)).store());
+		assertEquals( 220, valueOf(bd( 22,  1)).store());
+		assertEquals(-220, valueOf(bd(-22,  1)).store());
+		assertEquals( 200, valueOf(bd( 2,   0)).store());
+		assertEquals(-200, valueOf(bd(-2,   0)).store());
+		assertEquals( 202, valueOf(bd( 202, 2)).store());
+		assertEquals(-202, valueOf(bd(-202, 2)).store());
+		assertEquals( 002, valueOf(bd(   2, 2)).store());
+		assertEquals(-002, valueOf(bd(-  2, 2)).store());
+		// from wikipedia
+		assertEquals( 302, valueOf(bd( 3016,   3)).store()); // because the next digit (6) is 6 or more)
+		assertEquals( 301, valueOf(bd( 3013,   3)).store()); // because the next digit (3) is 4 or less)
+		assertEquals( 302, valueOf(bd( 3015,   3)).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
+		assertEquals( 304, valueOf(bd( 3045,   3)).store()); // because the next digit is 5, and the hundredths digit (4) is even)
+		assertEquals( 305, valueOf(bd( 304501, 5)).store()); // because the next digit is 5, but it is followed by non-zero digits)
+		assertEquals(-302, valueOf(bd(-3016,   3)).store());
+		assertEquals(-301, valueOf(bd(-3013,   3)).store());
+		assertEquals(-302, valueOf(bd(-3015,   3)).store());
+		assertEquals(-304, valueOf(bd(-3045,   3)).store());
+		assertEquals(-305, valueOf(bd(-304501, 5)).store());
+		
+		assertEquals(Integer.MAX_VALUE-1, valueOf(bd(Integer.MAX_VALUE-1, 2)).store()); // TODO: the -1 is an error
+		assertEquals(Integer.MIN_VALUE  , valueOf(bd(Integer.MIN_VALUE  , 2)).store());
+		assertSame(ZERO, valueOf(bd(0, 0)));
+		try
+		{
+			valueOf(bd(Integer.MAX_VALUE, 2).add(bd(1, 2)));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("too big: 21474836.48", e.getMessage());
+		}
+		try
+		{
+			valueOf(bd(Integer.MIN_VALUE, 2).subtract(bd(1, 2)));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("too small: -21474836.49", e.getMessage());
+		}
+		
 		// doubleValue
 		assertEquals( 2.22, storeOf( 222).doubleValue());
 		assertEquals(-2.22, storeOf(-222).doubleValue());
@@ -169,5 +216,10 @@ public final class PriceTest extends CopeAssert
 		// serialization
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 100));
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 100));
+	}
+	
+	private static final BigDecimal bd(final long unscaledVal, final int scale)
+	{
+		return BigDecimal.valueOf(unscaledVal, scale);
 	}
 }
