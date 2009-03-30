@@ -264,6 +264,31 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals("select sum(" + item1.doublex.getName() + ") from " + item1.TYPE + " where " + item1.doublex.getName() + "<'2.4'", q.toString());
 			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
+		// average
+		{
+			final Query<Integer> q = new Query<Integer>(item1.intx.average());
+			assertEquals("select avg(" + item1.intx.getName() + ") from " + item1.TYPE, q.toString());
+			assertEquals(new Integer((1+2+3+4+5)/5), q.searchSingleton());
+			q.setCondition(item1.intx.less(4));
+			assertEquals("select avg(" + item1.intx.getName() + ") from " + item1.TYPE + " where " + item1.intx.getName() + "<'4'", q.toString());
+			assertEquals(new Integer((1+2+3)/3), q.searchSingleton());
+		}
+		{
+			final Query<Long> q = new Query<Long>(item1.longx.average());
+			assertEquals("select avg(" + item1.longx.getName() + ") from " + item1.TYPE, q.toString());
+			assertEquals(new Long((11+12+13+14+15)/5l), q.searchSingleton());
+			q.setCondition(item1.longx.less(14l));
+			assertEquals("select avg(" + item1.longx.getName() + ") from " + item1.TYPE + " where " + item1.longx.getName() + "<'14'", q.toString());
+			assertEquals(new Long((11+12+13)/3l), q.searchSingleton());
+		}
+		{
+			final Query<Double> q = new Query<Double>(item1.doublex.average());
+			assertEquals("select avg(" + item1.doublex.getName() + ") from " + item1.TYPE, q.toString());
+			assertEquals(new Double((2.1+2.2+2.3+2.4+2.5)/5.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+			q.setCondition(item1.doublex.less(2.4));
+			assertEquals("select avg(" + item1.doublex.getName() + ") from " + item1.TYPE + " where " + item1.doublex.getName() + "<'2.4'", q.toString());
+			assertEquals(new Double((2.1+2.2+2.3)/3.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+		}
 
 		model.checkUnsupportedConstraints();
 	}
