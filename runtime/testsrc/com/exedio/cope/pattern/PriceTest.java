@@ -47,7 +47,7 @@ public final class PriceTest extends CopeAssert
 		assertSame(ZERO, storeOf(new Integer(0)));
 		assertEquals(null, storeOf((Integer)null));
 		
-		// valueof(double)
+		// valueOf(double)
 		assertEquals( 222, valueOf( 2.22).store());
 		assertEquals(-222, valueOf(-2.22).store());
 		assertEquals( 220, valueOf( 2.2 ).store());
