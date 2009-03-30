@@ -145,8 +145,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-304, valueOf(bd(-3045,   3)).store());
 		assertEquals(-305, valueOf(bd(-304501, 5)).store());
 		
-		assertEquals(Integer.MAX_VALUE-1, valueOf(bd(Integer.MAX_VALUE-1, 2)).store()); // TODO: the -1 is an error
-		assertEquals(Integer.MIN_VALUE  , valueOf(bd(Integer.MIN_VALUE  , 2)).store());
+		assertEquals(Integer.MAX_VALUE, valueOf(bd(Integer.MAX_VALUE, 2)).store());
+		assertEquals(Integer.MIN_VALUE, valueOf(bd(Integer.MIN_VALUE, 2)).store());
 		assertSame(ZERO, valueOf(bd(0, 0)));
 		try
 		{
