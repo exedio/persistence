@@ -59,12 +59,21 @@ public final class Price implements Serializable
 			throw new IllegalArgumentException("NaN not allowed");
 		if(Double.isInfinite(value))
 			throw new IllegalArgumentException("Infinity not allowed");
-		if(value<MIN_VALUE_D)
+		return valueOf(new BigDecimal(value));
+	}
+	
+	public static Price valueOf(final BigDecimal value)
+	{
+		if(value.compareTo(new BigDecimal(MIN_VALUE_D)) < 0 )
+		{
 			throw new IllegalArgumentException("too small: " + value);
-		if(value>MAX_VALUE_D)
+		}
+		if(value.compareTo(new BigDecimal(MAX_VALUE_D)) > 0)
+		{
 			throw new IllegalArgumentException("too big: " + value);
+		}
 		
-		return storeOf(new BigDecimal(value).movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
+		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
 	}
 	
 	int store()
