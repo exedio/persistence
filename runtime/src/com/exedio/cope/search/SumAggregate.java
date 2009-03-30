@@ -23,6 +23,12 @@ import com.exedio.cope.Function;
 
 public final class SumAggregate<E extends Number> extends Aggregate<E>
 {
+	/**
+	 * Creates a new SumAggregate.
+	 * Instead of using this constructor directly,
+	 * you may want to use the convenience methods.
+	 * @see com.exedio.cope.NumberFunction#sum()
+	 */
 	public SumAggregate(final Function<E> source)
 	{
 		super(source, "sum", "sum");

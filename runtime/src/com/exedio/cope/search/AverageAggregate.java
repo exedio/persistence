@@ -23,6 +23,12 @@ import com.exedio.cope.Function;
 
 public final class AverageAggregate<E extends Number> extends Aggregate<E>
 {
+	/**
+	 * Creates a new AverageAggregate.
+	 * Instead of using this constructor directly,
+	 * you may want to use the convenience methods.
+	 * @see com.exedio.cope.NumberFunction#average()
+	 */
 	public AverageAggregate(final Function<E> source)
 	{
 		super(source, "avg", "avg");
