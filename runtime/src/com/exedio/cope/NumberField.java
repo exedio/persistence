@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
 public abstract class NumberField<E extends Number> extends FunctionField<E> implements NumberFunction<E>
@@ -63,6 +64,11 @@ public abstract class NumberField<E extends Number> extends FunctionField<E> imp
 	public final SumAggregate<E> sum()
 	{
 		return new SumAggregate<E>(this);
+	}
+
+	public final AverageAggregate<E> avg()
+	{
+		return new AverageAggregate<E>(this);
 	}
 
 	// ------------------- deprecated stuff -------------------
