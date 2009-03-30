@@ -66,7 +66,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E> imp
 		return new SumAggregate<E>(this);
 	}
 
-	public final AverageAggregate<E> avg()
+	public final AverageAggregate<E> average()
 	{
 		return new AverageAggregate<E>(this);
 	}
@@ -80,5 +80,14 @@ public abstract class NumberField<E extends Number> extends FunctionField<E> imp
 	public final PlusView<E> sum(final NumberFunction<E> other)
 	{
 		return plus(other);
+	}
+
+	/**
+	 * @deprecated Use {@link #average()} instead
+	 */
+	@Deprecated
+	public final AverageAggregate<E> avg()
+	{
+		return average();
 	}
 }
