@@ -90,7 +90,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("too small: -2147483648.0100002288818359375", e.getMessage());
+			assertEquals("too small: -21474836.490000002086162567138671875", e.getMessage());
 		}
 		try
 		{
