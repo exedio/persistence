@@ -72,13 +72,9 @@ public final class Price implements Serializable
 	public static Price valueOf(final BigDecimal value)
 	{
 		if(value.compareTo(MIN_VALUE_B)<0)
-		{
 			throw new IllegalArgumentException("too small: " + value);
-		}
 		if(value.compareTo(MAX_VALUE_B)>0)
-		{
 			throw new IllegalArgumentException("too big: " + value);
-		}
 		
 		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
 	}
