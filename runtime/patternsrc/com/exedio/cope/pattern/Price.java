@@ -89,6 +89,20 @@ public final class Price implements Serializable
 		return store / FACTOR_D;
 	}
 	
+	public BigDecimal bigValue()
+	{
+		if(store%10==0)
+		{
+			// create normalized BigDecimals
+			if(store%100==0)
+				return BigDecimal.valueOf(store/100, 0);
+			else
+				return BigDecimal.valueOf(store/10, 1);
+		}
+		else
+			return BigDecimal.valueOf(store, 2);
+	}
+	
 	public Price add(final Price other)
 	{
 		return storeOf(store + other.store);

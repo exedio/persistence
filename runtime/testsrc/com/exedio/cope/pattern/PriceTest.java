@@ -183,6 +183,15 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-2.2,  storeOf(-220).doubleValue());
 		assertEquals( 0.0,  storeOf(   0).doubleValue());
 		
+		// bigValue
+		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
+		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
+		assertEquals(bd( 22,  1), storeOf( 220).bigValue());
+		assertEquals(bd(-22,  1), storeOf(-220).bigValue());
+		assertEquals(bd( 2,   0), storeOf( 200).bigValue());
+		assertEquals(bd(-2,   0), storeOf(-200).bigValue());
+		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
+		
 		// add
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
