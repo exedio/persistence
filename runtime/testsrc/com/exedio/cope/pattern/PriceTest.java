@@ -166,6 +166,15 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals("too small: -21474836.49", e.getMessage());
 		}
+		try
+		{
+			valueOf((BigDecimal)null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 		
 		// doubleValue
 		assertEquals( 2.22, storeOf( 222).doubleValue());
