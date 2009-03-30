@@ -30,6 +30,8 @@ public final class Price implements Serializable
 	private static final int    FACTOR_I = 100;
 	private static final double MIN_VALUE_D = Integer.MIN_VALUE/FACTOR_D;
 	private static final double MAX_VALUE_D = Integer.MAX_VALUE/FACTOR_D;
+	private static final BigDecimal MIN_VALUE_B = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
+	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
 	
 	public static final Price ZERO = new Price(0);
 	
@@ -69,11 +71,11 @@ public final class Price implements Serializable
 	
 	public static Price valueOf(final BigDecimal value)
 	{
-		if(value.compareTo(BigDecimal.valueOf(Integer.MIN_VALUE, 2)) < 0 )
+		if(value.compareTo(MIN_VALUE_B)<0)
 		{
 			throw new IllegalArgumentException("too small: " + value);
 		}
-		if(value.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE, 2)) > 0)
+		if(value.compareTo(MAX_VALUE_B)>0)
 		{
 			throw new IllegalArgumentException("too big: " + value);
 		}
