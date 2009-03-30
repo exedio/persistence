@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+// TODO cache of common small values
 public final class Price implements Serializable
 {
 	private static final long serialVersionUID = 1l;
@@ -44,6 +45,7 @@ public final class Price implements Serializable
 	
 	public static Price storeOf(final int store)
 	{
+		// TODO reuse common small values
 		if(store==0)
 			return ZERO;
 		
@@ -57,6 +59,7 @@ public final class Price implements Serializable
 	
 	public static Price valueOf(final double value)
 	{
+		// TODO reuse common small values
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException("NaN not allowed");
 		if(Double.isInfinite(value))
@@ -71,6 +74,7 @@ public final class Price implements Serializable
 	
 	public static Price valueOf(final BigDecimal value)
 	{
+		// TODO reuse common small values
 		if(value.compareTo(MIN_VALUE_B)<0)
 			throw new IllegalArgumentException("too small: " + value);
 		if(value.compareTo(MAX_VALUE_B)>0)
@@ -105,11 +109,13 @@ public final class Price implements Serializable
 	
 	public Price add(final Price other)
 	{
+		// TODO shortcut for neutral element
 		return storeOf(store + other.store);
 	}
 	
 	public Price multiply(final int other)
 	{
+		// TODO shortcut for neutral element
 		return storeOf(store * other);
 	}
 	
