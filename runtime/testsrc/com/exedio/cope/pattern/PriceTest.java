@@ -83,7 +83,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("too big: 21474836.4800000004470348358154296875", e.getMessage());
+			assertEquals("too big: 2.147483648E7", e.getMessage());
 		}
 		try
 		{
@@ -92,7 +92,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("too small: -21474836.490000002086162567138671875", e.getMessage());
+			assertEquals("too small: -2.1474836490000002E7", e.getMessage());
 		}
 		try
 		{
