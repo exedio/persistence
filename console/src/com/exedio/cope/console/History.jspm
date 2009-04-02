@@ -59,8 +59,8 @@ final class History_Jspm
 		</form>
 		<hr>
 		<form action="<%=cop%>" method="POST">
-			<input type="submit" name="<%=cop.ANALYZE%>" value="Analyze">
-			<%
+			<input type="submit" name="<%=cop.ANALYZE%>" value="Analyze"><%
+			
 				final ConsoleServlet.Store<HashMap<Type<?>, Info>> analyzeStore = cop.getStore();
 				Console_Jspm.write(out, analyze, analyzeStore);
 				
