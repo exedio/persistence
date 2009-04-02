@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.console.ConsoleServlet.Store;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 
@@ -179,5 +180,28 @@ abstract class Console_Jspm
 	{
 				%>
 				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="<%=neutralClass%>"<%}%>><%=text%></a><%
+	}
+	
+	static final void write(
+			final PrintStream out,
+			final boolean runNow,
+			final Store store)
+	{
+		if(store==null)
+		{
+			%>
+			Not yet run.<%
+		}
+		else
+		{
+			%>
+			Last run on <%=Format.format(store.getDate())%>.<%
+		}
+		
+		if(runNow)
+		{
+			%>
+			<b>Running now.</b><%
+		}
 	}
 }%>

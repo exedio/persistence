@@ -24,9 +24,11 @@ import static com.exedio.cope.console.Format.formatAndHide;
 
 import java.io.PrintStream;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.console.HistoryCop.Info;
 
 final class History_Jspm
 {
@@ -58,13 +60,25 @@ final class History_Jspm
 		<hr>
 		<form action="<%=cop%>" method="POST">
 			<input type="submit" name="<%=cop.ANALYZE%>" value="Analyze">
+			<%
+				final ConsoleServlet.Store<HashMap<Type<?>, Info>> analyzeStore = cop.getStore();
+				Console_Jspm.write(out, analyze, analyzeStore);
+				
+				final HashMap<Type<?>, Info> infos;
+				if(analyze)
+					infos = new HashMap<Type<?>, Info>();
+				else if(analyzeStore!=null)
+					infos = analyzeStore.value;
+				else
+					infos = null;
+			%>
 		</form>
 		<table>
 			<caption>History Amount</caption>
 			<tr>
 				<th>Type</th><%
 			
-			if(analyze)
+			if(infos!=null)
 			{
 				%>
 				<th>Count</th>
@@ -82,8 +96,9 @@ final class History_Jspm
 			
 			if(analyze)
 			{
+				final int count = HistoryThread.analyzeCount(type);
 				%>
-				<td><%=format(HistoryThread.analyzeCount(type))%></th><%
+				<td><%=format(count)%></th><%
 				out.flush();
 				
 				final Date[] dates = HistoryThread.analyzeDate(type);
@@ -91,12 +106,25 @@ final class History_Jspm
 				<td><%=formatAndHide(dates[0])%></td>
 				<td><%=formatAndHide(dates[1])%></td><%
 				out.flush();
+				
+				infos.put(type, new Info(count, dates[0], dates[1]));
+			}
+			else if(analyzeStore!=null)
+			{
+				final Info info = infos.get(type);
+				%>
+				<td><%=format(info.count)%></th>
+				<td><%=formatAndHide(info.from)%></td>
+				<td><%=formatAndHide(info.until)%></td><%
 			}
 			%>
 			</tr><%
 		}
 		%>
 		</table><%
+		
+		if(analyze)
+			cop.putStore(infos);
 	}
 	
 	final static void writeBodyNotAvailable(final PrintStream out)

@@ -24,6 +24,8 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Principal;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,7 @@ public final class ConsoleServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
 	
+	private final HashMap<Class<? extends ConsoleCop>, Store> stores = new HashMap<Class<? extends ConsoleCop>, Store>();
 	private ConnectToken connectToken = null;
 	private Model model = null;
 	private History history;
@@ -100,6 +103,7 @@ public final class ConsoleServlet extends CopsServlet
 			return;
 		}
 		
+		stores.clear();
 		connectToken = ServletUtil.getConnectedModel(this);
 		model = connectToken.getModel();
 		history = new History(model);
@@ -112,6 +116,7 @@ public final class ConsoleServlet extends CopsServlet
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
+		stores.clear();
 		super.destroy();
 	}
 	
@@ -151,7 +156,7 @@ public final class ConsoleServlet extends CopsServlet
 				model = this.model;
 			}
 			
-			final ConsoleCop cop = ConsoleCop.getCop(model, request);
+			final ConsoleCop cop = ConsoleCop.getCop(this, model, request);
 			cop.initialize(request, model);
 			final Principal principal = request.getUserPrincipal();
 			final String authentication = principal!=null ? principal.getName() : null;
@@ -183,4 +188,38 @@ public final class ConsoleServlet extends CopsServlet
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
 	
+	
+	static class Store<S>
+	{
+		final S value;
+		private final long date;
+		
+		Store(final S value)
+		{
+			this.value = value;
+			this.date = System.currentTimeMillis();
+		}
+		
+		Date getDate()
+		{
+			return new Date(date);
+		}
+	}
+	
+	Store getStore(final Class<? extends ConsoleCop> clazz)
+	{
+		synchronized(stores)
+		{
+			return stores.get(clazz);
+		}
+	}
+	
+	void putStore(final Class<? extends ConsoleCop> clazz, final Object value)
+	{
+		final Store store = new Store<Object>(value);
+		synchronized(stores)
+		{
+			stores.put(clazz, store);
+		}
+	}
 }

@@ -19,12 +19,15 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 
-final class HistoryCop extends ConsoleCop
+final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>>
 {
 	static final String ANALYZE = "analyze";
 	
@@ -57,5 +60,19 @@ final class HistoryCop extends ConsoleCop
 					(isPost(request) && request.getParameter(ANALYZE)!=null));
 		else
 			History_Jspm.writeBodyNotAvailable(out);
+	}
+	
+	static class Info
+	{
+		final int count;
+		final Date from;
+		final Date until;
+		
+		Info(final int count, final Date from, final Date until)
+		{
+			this.count = count;
+			this.from  = from;
+			this.until = until;
+		}
 	}
 }

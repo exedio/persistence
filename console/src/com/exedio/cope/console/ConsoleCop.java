@@ -26,28 +26,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.console.ConsoleServlet.Store;
 import com.exedio.cops.Cop;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 
-abstract class ConsoleCop extends Cop
+abstract class ConsoleCop<S> extends Cop
 {
 	protected static class Args
 	{
 		static final String HISTORY_MODEL_SHOWN = "sh";
 		private static final String AUTO_REFRESH = "ar";
 		
+		final ConsoleServlet servlet;
 		final boolean historyModelShown;
 		final int autoRefresh;
 		
-		Args(final boolean historyModelShown, final int autoRefresh)
+		Args(final ConsoleServlet servlet, final boolean historyModelShown, final int autoRefresh)
 		{
+			this.servlet = servlet;
 			this.historyModelShown = historyModelShown;
 			this.autoRefresh = autoRefresh;
 		}
 		
-		Args(final HttpServletRequest request)
+		Args(final ConsoleServlet servlet, final HttpServletRequest request)
 		{
+			this.servlet = servlet;
 			this.historyModelShown = getBooleanParameter(request, HISTORY_MODEL_SHOWN);
 			this.autoRefresh = getIntParameter(request, AUTO_REFRESH, 0);
 		}
@@ -97,12 +101,12 @@ abstract class ConsoleCop extends Cop
 	
 	final ConsoleCop toHistoryModelShown(final boolean historyModelShown)
 	{
-		return newArgs(new Args(historyModelShown, args.autoRefresh));
+		return newArgs(new Args(args.servlet, historyModelShown, args.autoRefresh));
 	}
 	
 	final ConsoleCop toAutoRefresh(final int autoRefresh)
 	{
-		return newArgs(new Args(args.historyModelShown, autoRefresh));
+		return newArgs(new Args(args.servlet, args.historyModelShown, autoRefresh));
 	}
 	
 	int getResponseStatus()
@@ -184,9 +188,9 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_HIDDEN = "hidden";
 	static final String TAB_MODIFICATION_LISTENER = "modificationlistener";
 	
-	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
+	static final ConsoleCop getCop(final ConsoleServlet servlet, final Model model, final HttpServletRequest request)
 	{
-		final Args args = new Args(request);
+		final Args args = new Args(servlet, request);
 		final String pathInfo = request.getPathInfo();
 		
 		if("/".equals(pathInfo))
@@ -297,5 +301,16 @@ abstract class ConsoleCop extends Cop
 			out.print(pager.getTotal());
 			out.print("</span>");
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	Store<S> getStore()
+	{
+		return args.servlet.getStore(this.getClass());
+	}
+	
+	void putStore(final S value)
+	{
+		args.servlet.putStore(this.getClass(), value);
 	}
 }
