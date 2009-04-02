@@ -78,7 +78,7 @@ final class History_Jspm
 		{
 			%>
 			<tr>
-				<td><%=type.getID()%></td><%
+				<td class="text"><%=type.getID()%></td><%
 			
 			if(analyze)
 			{
