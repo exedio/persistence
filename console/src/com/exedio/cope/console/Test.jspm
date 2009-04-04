@@ -204,8 +204,8 @@ final class Test_Jspm
 	{
 		%>
 		<form action="<%=cop%>#overall" method="POST">
-			<input type="submit" name="<%=cop.TEST%>" value="test all" />
-			<%
+			<input type="submit" name="<%=cop.TEST%>" value="test all" /><%
+			
 			Console_Jspm.write(out, test, testStore);
 			%>
 		</form><%
