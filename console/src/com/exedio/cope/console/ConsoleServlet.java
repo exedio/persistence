@@ -67,7 +67,7 @@ public final class ConsoleServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final HashMap<Class<? extends ConsoleCop>, Store> stores = new HashMap<Class<? extends ConsoleCop>, Store>();
+	private HashMap<Class<? extends ConsoleCop>, Store> stores = null;
 	private ConnectToken connectToken = null;
 	private Model model = null;
 	private History history;
@@ -103,7 +103,7 @@ public final class ConsoleServlet extends CopsServlet
 			return;
 		}
 		
-		stores.clear();
+		stores = new HashMap<Class<? extends ConsoleCop>, Store>();
 		connectToken = ServletUtil.getConnectedModel(this);
 		model = connectToken.getModel();
 		history = new History(model);
@@ -116,7 +116,7 @@ public final class ConsoleServlet extends CopsServlet
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
-		stores.clear();
+		stores = null;
 		super.destroy();
 	}
 	
