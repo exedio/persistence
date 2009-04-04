@@ -22,7 +22,10 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.format;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
+
+import com.exedio.cope.console.TestCop.Info;
 
 final class Test_Jspm
 {
@@ -83,7 +86,17 @@ final class Test_Jspm
 			return;
 		}
 		
-		writeButton(cop, out);
+		final ConsoleServlet.Store<HashMap<Integer, Info>> testStore = cop.getStore();
+		
+		final HashMap<Integer, Info> infos;
+		if(test)
+			infos = new HashMap<Integer, Info>();
+		else if(testStore!=null)
+			infos = testStore.value;
+		else
+			infos = null;
+		
+		writeButton(cop, out, test, testStore);
 		int totalFailures = 0;
 		int totalElapsed = 0;
 		%>
@@ -96,7 +109,7 @@ final class Test_Jspm
 				%>
 				<th><%=heading%></th><%
 				}
-				if(test)
+				if(infos!=null)
 				{
 				%>
 				<th>Failures</th>
@@ -104,6 +117,8 @@ final class Test_Jspm
 				}
 				%>
 			</tr><%
+		
+		int itemNumber = 0;
 		for(final I item : items)
 		{
 			%>
@@ -114,12 +129,26 @@ final class Test_Jspm
 				%>
 				<td class="text"><%=value%></td><%
 			}
-			if(test)
+			if(infos!=null)
 			{
-				out.flush();
-				final long start = System.currentTimeMillis();
-				final int failures = cop.test(item);
-				final long elapsed = System.currentTimeMillis() - start;
+				final int failures;
+				final long elapsed;
+				
+				if(test)
+				{
+					out.flush();
+					final long start = System.currentTimeMillis();
+					failures = cop.test(item);
+					elapsed = System.currentTimeMillis() - start;
+					infos.put(itemNumber, new Info(failures, elapsed));
+				}
+				else
+				{
+					final Info info = infos.get(itemNumber);
+					failures = info.failures;
+					elapsed  = info.elapsed;
+				}
+				
 				totalFailures += failures;
 				totalElapsed += elapsed;
 				%>
@@ -138,8 +167,14 @@ final class Test_Jspm
 			}
 			%>
 			</tr><%
+			
+			itemNumber++;
 		}
+		
 		if(test)
+			cop.putStore(infos);
+		
+		if(infos!=null)
 		{
 			%>
 			<tr>
@@ -158,16 +193,21 @@ final class Test_Jspm
 		}
 		
 		if(items.size()>10)
-			writeButton(cop, out);
+			writeButton(cop, out, test, testStore);
 	}
 	
-	private final static void writeButton(
-			final TestCop cop,
-			final PrintStream out)
+	private final static <I> void writeButton(
+			final TestCop<I> cop,
+			final PrintStream out,
+			final boolean test,
+			final ConsoleServlet.Store<HashMap<Integer, Info>> testStore)
 	{
 		%>
 		<form action="<%=cop%>#overall" method="POST">
 			<input type="submit" name="<%=cop.TEST%>" value="test all" />
+			<%
+			Console_Jspm.write(out, test, testStore);
+			%>
 		</form><%
 	}
 }%>

@@ -19,13 +19,14 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 
-abstract class TestCop<I> extends ConsoleCop
+abstract class TestCop<I> extends ConsoleCop<HashMap<Integer, TestCop.Info>>
 {
 	final static String TEST = "TEST";
 
@@ -64,6 +65,18 @@ abstract class TestCop<I> extends ConsoleCop
 		}
 		else
 			Test_Jspm.writeBody(this, out, getCaption(), getHeadings(), items, false);
+	}
+	
+	static class Info
+	{
+		final int failures;
+		final long elapsed;
+		
+		Info(final int failures, final long elapsed)
+		{
+			this.failures = failures;
+			this.elapsed  = elapsed;
+		}
 	}
 	
 	abstract List<I> getItems(Model model);
