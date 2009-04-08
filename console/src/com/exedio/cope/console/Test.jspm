@@ -32,12 +32,6 @@ final class Test_Jspm
 	final static void writeHead(final PrintStream out)
 	{
 		%>
-		<style>
-			td.failure
-			{
-				background: #fbb;
-			}
-		</style>
 		<script>
 			function hide()
 			{
@@ -156,12 +150,9 @@ final class Test_Jspm
 				
 				if(failures!=0)
 				{
-					%><%=failures%><%
+					%><img class="check2" src="<%=ConsoleServlet.error2%>"><%
 				}
-				else
-				{
-					%>ok<%
-				}
+				%><%=failures%><%
 				%></td>
 				<td><%=format(elapsed)%></td><%
 			}
@@ -179,7 +170,7 @@ final class Test_Jspm
 			%>
 			<tr>
 				<th colspan="<%=headings.length%>"><a name="overall">T</a>otal</th>
-				<td<% if(totalFailures!=0){%> class="failure"<%} %>><% if(totalFailures!=0){%><%=totalFailures%><%}else{%>ok<%} %></td>
+				<td<% if(totalFailures!=0){%> class="failure"<%} %>><% if(totalFailures!=0){%><img class="check2" src="<%=ConsoleServlet.error2%>"><%} %><%=totalFailures%></td>
 				<td><%=format(totalElapsed)%></td>
 			</tr><%
 		}

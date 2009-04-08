@@ -191,6 +191,12 @@ abstract class Console_Jspm
 		{
 			%>
 			Not yet run.<%
+			
+			if(!runNow)
+			{
+			%>
+			<img class="check2" src="<%=ConsoleServlet.warning2%>"><%
+			}
 		}
 		else
 		{

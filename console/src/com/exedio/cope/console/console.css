@@ -166,6 +166,13 @@ img.check
 	height:13px;
 }
 
+img.check2
+{
+	vertical-align:top;
+	width:7px;
+	height:8px;
+}
+
 img.write
 {
 	width:8px;
