@@ -2,6 +2,7 @@
 
 <project name="cope" default="build" basedir=".">
 
+	<property file="local.properties" />
 	<property name="build.file.tag" value="unlabeled" />
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
@@ -160,10 +161,6 @@
 			</trycatch>
 		</sequential>
 	</macrodef>
-	
-	<target name="local.properties">
-		<property file="local.properties" />
-	</target>
 	
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-6.0.16" />
@@ -861,7 +858,7 @@
 	
 	<!-- home -->
 	
-	<target name="home.api" depends="local.properties">
+	<target name="home.api">
 
 		<property name="api.private" value="off" />
 		<property name="api.link.cops"  value="http://download.exedio.com/api/cops" />
