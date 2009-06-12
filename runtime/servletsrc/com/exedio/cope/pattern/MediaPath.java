@@ -100,13 +100,22 @@ public abstract class MediaPath extends Pattern
 		
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
 	public final String getURL(final Item item)
+	{
+		return getNamedURL(item, null);
+	}
+	/**
+	 * Returns a URL the content of this media path is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if there is no such content.
+	 */
+	public final String getNamedURL(final Item item, final String name)
 	{
 		final String contentType = getContentType(item);
 
@@ -118,12 +127,62 @@ public abstract class MediaPath extends Pattern
 		bf.append(getUrlPath()).
 			append(item.getCopeID());
 
+		if (name!=null && name.length()>0)
+		{
+			final String nameNatural = encodeNaturalLanguageSegment(name);
+			if (nameNatural.length()>0)
+			bf.append("/").append(nameNatural);
+		}
+
 		final String extension = contentTypeToExtension.get(contentType);
 		if(extension!=null)
 			bf.append(extension);
 		
 		return bf.toString();
 	}
+
+	private static final char NATURAL_PLACE_HOLDER = '-';
+
+	public static final String encodeNaturalLanguageSegment(final String s)
+	{
+		if(s==null)
+			return null;
+
+		final int l = s.length();
+		for(int i = 0; i<l; i++)
+		{
+			final char c = s.charAt(i);
+			if(!(('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')))
+			{
+				final StringBuilder bf = new StringBuilder(l);
+				if(i>0)
+					bf.append(s.substring(0, i));
+				boolean skipped = false;
+				for(; i<l; i++)
+				{
+					final char c2 = s.charAt(i);
+					if(('0'<=c2&&c2<='9')||('a'<=c2&&c2<='z')||('A'<=c2&&c2<='Z'))
+					{
+						if(skipped)
+						{
+							bf.append(NATURAL_PLACE_HOLDER);
+							skipped = false;
+						}
+						bf.append(c2);
+					}
+					else
+					{
+						skipped = true;
+					}
+				}
+				if(bf.length()==1 && bf.charAt(0)==NATURAL_PLACE_HOLDER)
+					return "";
+				return bf.toString();
+			}
+		}
+		return s;
+	}
+
 
 	public static final Log noSuchPath = new Log("no such path", HttpServletResponse.SC_NOT_FOUND);
 	public final Log exception = new Log("exception", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

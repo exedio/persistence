@@ -170,21 +170,40 @@ public final class MediaServlet extends HttpServlet
 		if(pathInfo==null)
 			return MediaPath.noSuchPath;
 
-		final int trailingSlash = pathInfo.lastIndexOf('/');
+		int trailingSlash = pathInfo.lastIndexOf('/');
 		if(trailingSlash<=0 && // null is leading slash, which is not allowed
 			trailingSlash>=pathInfo.length()-1)
 			return MediaPath.noSuchPath;
 
-		final String featureString = pathInfo.substring(0, trailingSlash+1);
+		String featureString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("featureString="+featureString);
 
-		final MediaPath path = pathes.get(featureString);
-		if(path==null)
-			return MediaPath.noSuchPath;
-		
+		MediaPath path = pathes.get(featureString);
+		if(path==null && featureString.length()>1)
+		{
+			featureString = featureString.substring(0, featureString.length()-1);
+			trailingSlash = featureString.lastIndexOf('/');
+			featureString = featureString.substring(0, trailingSlash+1);
+			if (trailingSlash>0)
+			{
+				featureString = pathInfo.substring(0, trailingSlash+1);
+				path = pathes.get(featureString);
+				if (path==null)
+				{
+					return MediaPath.noSuchPath;
+				}
+			}
+			else
+			{
+				return MediaPath.noSuchPath;
+			}
+		}
 		try
 		{
-			final String subPath = pathInfo.substring(trailingSlash+1);
+			String subPath = pathInfo.substring(trailingSlash+1);
+			trailingSlash = subPath.lastIndexOf('/');
+			if (trailingSlash>0)
+				subPath = subPath.substring(0,trailingSlash);
 			return path.doGet(request, response, subPath);
 		}
 		catch(RuntimeException e)

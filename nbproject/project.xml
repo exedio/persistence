@@ -33,6 +33,36 @@
                     <location>runtime/patternsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>runtime/testsrc</label>
+                    <type>java</type>
+                    <location>runtime/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime/servletsrc</label>
+                    <type>java</type>
+                    <location>runtime/servletsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime/servlettestsrc</label>
+                    <type>java</type>
+                    <location>runtime/servlettestsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime/servlettestweb</label>
+                    <type>java</type>
+                    <location>runtime/servlettestweb</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime/junitsrc</label>
+                    <type>java</type>
+                    <location>runtime/junitsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -66,13 +96,33 @@
                         <label>runtime/patternsrc</label>
                         <location>runtime/patternsrc</location>
                     </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/testsrc</label>
+                        <location>runtime/testsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/servletsrc</label>
+                        <location>runtime/servletsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/servlettestsrc</label>
+                        <location>runtime/servlettestsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/servlettestweb</label>
+                        <location>runtime/servlettestweb</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/junitsrc</label>
+                        <location>runtime/junitsrc</location>
+                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
-		    <source-file>
+                    <source-file>
                         <location>getlib.xml</location>
                     </source-file>
- 		    <source-file>
+                    <source-file>
                         <location>getlib.properties</location>
                     </source-file>
                 </items>
@@ -91,7 +141,12 @@
                 <package-root>instrument/src</package-root>
                 <package-root>runtime/src</package-root>
                 <package-root>runtime/patternsrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar</classpath>
+                <package-root>runtime/testsrc</package-root>
+                <package-root>runtime/servletsrc</package-root>
+                <package-root>runtime/servlettestsrc</package-root>
+                <package-root>runtime/servlettestweb</package-root>
+                <package-root>runtime/junitsrc</package-root>
+                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
