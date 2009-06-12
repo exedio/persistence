@@ -63,6 +63,18 @@
                     <location>runtime/junitsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>copernica/webtestsrc</label>
+                    <type>java</type>
+                    <location>copernica/webtestsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>copernica/testsrc</label>
+                    <type>java</type>
+                    <location>copernica/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -116,6 +128,14 @@
                         <label>runtime/junitsrc</label>
                         <location>runtime/junitsrc</location>
                     </source-folder>
+                    <source-folder style="packages">
+                        <label>copernica/webtestsrc</label>
+                        <location>copernica/webtestsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>copernica/testsrc</label>
+                        <location>copernica/testsrc</location>
+                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
@@ -146,6 +166,8 @@
                 <package-root>runtime/servlettestsrc</package-root>
                 <package-root>runtime/servlettestweb</package-root>
                 <package-root>runtime/junitsrc</package-root>
+                <package-root>copernica/webtestsrc</package-root>
+                <package-root>copernica/testsrc</package-root>
                 <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>

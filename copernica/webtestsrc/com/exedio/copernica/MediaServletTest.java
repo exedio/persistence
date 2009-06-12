@@ -107,6 +107,9 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem."), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20/dingens.jpg"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20/."), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20/"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1.jpg"), IS_NULL);
@@ -117,9 +120,15 @@ public class MediaServletTest extends TestCase
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5.txt"));
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5."));
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5"));
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/something.txt"));
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/."));
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/"));
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6.txt"), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6."), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/bla.txt"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/."), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/"), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20.txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20"), NO_SUCH_ITEM);
