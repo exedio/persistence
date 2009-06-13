@@ -132,7 +132,7 @@ public abstract class MediaPath extends Pattern
 		{
 			final String nameNatural = encodeNaturalLanguageSegment(name);
 			if (nameNatural.length()>0)
-			bf.append("/").append(nameNatural);
+				bf.append('/').append(nameNatural);
 		}
 
 		final String extension = contentTypeToExtension.get(contentType);
