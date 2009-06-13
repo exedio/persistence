@@ -159,6 +159,6 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageURL());
 		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + expectedExtension, item.getNamedImageURL(null));
 		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + expectedExtension, item.getNamedImageURL(""));
-		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + "/" + MediaPath.encodeNaturalLanguageSegment("test") + expectedExtension, item.getNamedImageURL("test"));
+		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + "/test" + expectedExtension, item.getNamedImageURL("test"));
 	}
 }

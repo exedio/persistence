@@ -143,7 +143,7 @@ public abstract class MediaPath extends Pattern
 
 	private static final char NATURAL_PLACE_HOLDER = '-';
 
-	public static final String encodeNaturalLanguageSegment(final String s)
+	private static final String encodeNaturalLanguageSegment(final String s)
 	{
 		if(s==null)
 			return null;
