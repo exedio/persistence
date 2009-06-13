@@ -115,6 +115,7 @@ public abstract class MediaPath extends Pattern
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
+	 * @param name a redundant file name (without extension) to be put into the url
 	 */
 	public final String getNamedURL(final Item item, final String name)
 	{
