@@ -100,7 +100,7 @@ public abstract class MediaPath extends Pattern
 		
 		return Collections.unmodifiableList(result);
 	}
-
+	
 	/**
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
@@ -110,6 +110,7 @@ public abstract class MediaPath extends Pattern
 	{
 		return getNamedURL(item, null);
 	}
+	
 	/**
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
