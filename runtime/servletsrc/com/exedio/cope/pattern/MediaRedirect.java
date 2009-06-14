@@ -60,7 +60,7 @@ public final class MediaRedirect extends MediaPath
 		this.target = target;
 	}
 	
-	public final MediaPath getTarget()
+	public MediaPath getTarget()
 	{
 		return target;
 	}
@@ -74,7 +74,7 @@ public final class MediaRedirect extends MediaPath
 	private static final String RESPONSE_LOCATION = "Location";
 	
 	@Override
-	public final Media.Log doGet(
+	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
 	{

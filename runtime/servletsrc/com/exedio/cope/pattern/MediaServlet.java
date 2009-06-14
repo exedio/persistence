@@ -68,7 +68,7 @@ public final class MediaServlet extends HttpServlet
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	
 	@Override
-	public final void init() throws ServletException
+	public void init() throws ServletException
 	{
 		super.init();
 
@@ -98,7 +98,7 @@ public final class MediaServlet extends HttpServlet
 	}
 
 	@Override
-	protected final void doGet(
+	protected void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws IOException
@@ -110,7 +110,7 @@ public final class MediaServlet extends HttpServlet
 		// TODO make 500 error page without stack trace
 	}
 		
-	private final void serveError(
+	private void serveError(
 			final HttpServletResponse response,
 			final Media.Log log)
 		throws IOException
@@ -160,7 +160,7 @@ public final class MediaServlet extends HttpServlet
 		out.close();
 	}
 	
-	private final Media.Log serveContent(
+	private Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws IOException
@@ -219,7 +219,7 @@ public final class MediaServlet extends HttpServlet
 		}
 	}
 	
-	private static final void printHeader(final HttpServletRequest request, final String name)
+	private static void printHeader(final HttpServletRequest request, final String name)
 	{
 		final String value = request.getHeader(name);
 		if(value!=null)
