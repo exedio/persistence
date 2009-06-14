@@ -52,7 +52,7 @@ final class MediaCustom extends MediaPath
 	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final Item item, final String extension)
+			final Item item)
 	{
 		throw new RuntimeException();
 	}

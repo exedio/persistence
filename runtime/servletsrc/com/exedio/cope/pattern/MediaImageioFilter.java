@@ -114,8 +114,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletResponse response,
-			final Item item,
-			final String extension)
+			final Item item)
 	throws IOException
 	{
 		final String contentType = source.getContentType(item);

@@ -545,7 +545,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public Media.Log doGetIfModified(
 			final HttpServletResponse response,
-			final Item item, final String extension)
+			final Item item)
 		throws IOException
 	{
 		final String contentType = getContentType(item);

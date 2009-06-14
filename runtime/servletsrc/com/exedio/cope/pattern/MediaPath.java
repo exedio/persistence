@@ -207,17 +207,10 @@ public abstract class MediaPath extends Pattern
 		//System.out.println("trailingDot="+trailingDot);
 
 		final String id;
-		final String extension;
 		if(dot>=0)
-		{
 			id = subPath.substring(0, dot);
-			extension = subPath.substring(dot);
-		}
 		else
-		{
 			id = subPath;
-			extension = "";
-		}
 		
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
@@ -227,7 +220,7 @@ public abstract class MediaPath extends Pattern
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
 			
-			final Media.Log result = doGet(request, response, item, extension);
+			final Media.Log result = doGet(request, response, item);
 			model.commit();
 			
 			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
@@ -245,7 +238,7 @@ public abstract class MediaPath extends Pattern
 
 	public abstract String getContentType(Item item);
 	
-	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
+	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
 		throws IOException;
 	
 	/**

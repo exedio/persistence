@@ -167,12 +167,11 @@ public class MediaImageMagickFilter extends MediaFilter
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletResponse response,
-			final Item item,
-			final String extension)
+			final Item item)
 	throws IOException
 	{
 		if(!isAvailable())
-			return fallback.doGetIfModified(response, item, extension);
+			return fallback.doGetIfModified(response, item);
 		
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
