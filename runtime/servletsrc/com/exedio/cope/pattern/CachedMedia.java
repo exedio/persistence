@@ -32,7 +32,7 @@ public abstract class CachedMedia extends MediaPath
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	
 	@Override
-	public Media.Log doGet(
+	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
 		throws IOException
