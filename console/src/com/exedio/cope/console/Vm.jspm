@@ -135,7 +135,7 @@ final class Vm_Jspm extends Console_Jspm
 			<tr>
 				<th colspan="3">
 					<% writeToggle(out, cop.toToggleDetailed(), cop.detailed); %> detailed
-					<% writeToggle(out, cop.toToggleAllPackages(), cop.allPackages); %> show none-cope
+					<% writeToggle(out, cop.toToggleAllPackages(), cop.allPackages); %> show packages not by exedio as well
 				</th>
 			</tr><%
 			
