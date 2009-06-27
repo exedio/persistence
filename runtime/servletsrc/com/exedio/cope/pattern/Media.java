@@ -592,7 +592,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		return
 			contentType!=null
-			? this.contentType.contentTypeEqual(contentType)
+			? this.contentType.equal(contentType)
 			: this.lastModified.isNull();
 	}
 	
@@ -681,7 +681,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		abstract List<String> getAllowed();
 		abstract String get(Item item);
 		abstract B set(String contentType);
-		abstract Condition contentTypeEqual(String contentType);
+		abstract Condition equal(String contentType);
 		
 		final SetValue<B> map(final String contentType)
 		{
@@ -744,7 +744,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
-		Condition contentTypeEqual(final String contentType)
+		Condition equal(final String contentType)
 		{
 			return field.equal(contentType);
 		}
@@ -826,7 +826,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
-		Condition contentTypeEqual(final String contentType)
+		Condition equal(final String contentType)
 		{
 			final Integer number = typeSet.get(contentType);
 			return
@@ -889,7 +889,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
-		Condition contentTypeEqual(final String contentType)
+		Condition equal(final String contentType)
 		{
 			return
 				full.equals(contentType)
@@ -975,7 +975,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
-		Condition contentTypeEqual(final String contentType)
+		Condition equal(final String contentType)
 		{
 			return
 				contentType.startsWith(prefix)
