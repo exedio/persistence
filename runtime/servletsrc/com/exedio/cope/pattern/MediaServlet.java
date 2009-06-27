@@ -82,7 +82,7 @@ public final class MediaServlet extends HttpServlet
 				if(feature instanceof MediaPath)
 				{
 					final MediaPath path = (MediaPath)feature;
-					pathes.put('/' + path.getUrlPath(), path);
+					pathes.put(path.getType().getID() + '/' + path.getName(), path);
 				}
 			}
 		}
@@ -167,44 +167,27 @@ public final class MediaServlet extends HttpServlet
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
-		if(pathInfo==null)
+		if(pathInfo==null || pathInfo.length()<6 || pathInfo.charAt(0)!='/')
 			return MediaPath.noSuchPath;
 
-		int trailingSlash = pathInfo.lastIndexOf('/');
-		if(trailingSlash<=0 && // null is leading slash, which is not allowed
-			trailingSlash>=pathInfo.length()-1)
+		final int slash1 = pathInfo.indexOf('/', 1);
+		if(slash1<0)
 			return MediaPath.noSuchPath;
 
-		String featureString = pathInfo.substring(0, trailingSlash+1);
+		final int slash2 = pathInfo.indexOf('/', slash1+1);
+		if(slash2<0)
+			return MediaPath.noSuchPath;
+
+		final String featureString = pathInfo.substring(1, slash2);
 		//System.out.println("featureString="+featureString);
 
-		MediaPath path = pathes.get(featureString);
-		if(path==null && featureString.length()>1)
-		{
-			featureString = featureString.substring(0, featureString.length()-1);
-			trailingSlash = featureString.lastIndexOf('/');
-			featureString = featureString.substring(0, trailingSlash+1);
-			if (trailingSlash>0)
-			{
-				featureString = pathInfo.substring(0, trailingSlash+1);
-				path = pathes.get(featureString);
-				if (path==null)
-				{
-					return MediaPath.noSuchPath;
-				}
-			}
-			else
-			{
-				return MediaPath.noSuchPath;
-			}
-		}
+		final MediaPath path = pathes.get(featureString);
+		if(path==null)
+			return MediaPath.noSuchPath;
+
 		try
 		{
-			String subPath = pathInfo.substring(trailingSlash+1);
-			trailingSlash = subPath.lastIndexOf('/');
-			if (trailingSlash>0)
-				subPath = subPath.substring(0,trailingSlash);
-			return path.doGet(request, response, subPath);
+			return path.doGet(request, response, pathInfo.substring(slash2 + 1));
 		}
 		catch(RuntimeException e)
 		{

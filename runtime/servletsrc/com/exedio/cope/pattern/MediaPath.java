@@ -202,15 +202,23 @@ public abstract class MediaPath extends Pattern
 	{
 		//final long start = System.currentTimeMillis();
 		
-		final int firstDot = subPath.indexOf('.');
-		final int dot = (firstDot>=0) ? subPath.indexOf('.', firstDot+1) : firstDot;
-		//System.out.println("trailingDot="+trailingDot);
-
+		final int slash = subPath.indexOf('/');
 		final String id;
-		if(dot>=0)
-			id = subPath.substring(0, dot);
+		if(slash<0)
+		{
+			final int firstDot = subPath.indexOf('.');
+			final int dot = (firstDot>=0) ? subPath.indexOf('.', firstDot+1) : firstDot;
+			//System.out.println("trailingDot="+trailingDot);
+
+			if(dot>=0)
+				id = subPath.substring(0, dot);
+			else
+				id = subPath;
+		}
 		else
-			id = subPath;
+		{
+			id = subPath.substring(0, slash);
+		}
 		
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();

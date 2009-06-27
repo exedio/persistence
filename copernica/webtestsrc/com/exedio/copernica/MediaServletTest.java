@@ -74,8 +74,8 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(app + "media/MediaServletItem/content"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/MediaServletItem/c"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/MediaServletItem/"), NO_SUCH_PATH);
-		assertInternalErrorUncaught(new URL(app + "media/MediaServletItem")); // TODO, should be NO_SUCH_PATH
-		assertInternalErrorUncaught(new URL(app + "media/M")); // TODO should be NO_SUCH_PATH
+		assertNotFound(new URL(app + "media/MediaServletItem"), NO_SUCH_PATH);
+		assertNotFound(new URL(app + "media/M"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "c"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/MediaServletItem/c"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/MediaServletItem/"), NO_SUCH_PATH);
@@ -84,6 +84,10 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(app + "media//"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media"), NO_SUCH_PATH);
+		assertNotFound(new URL(app + "media/dingdangdong/////"), NO_SUCH_PATH);
+		assertNotFound(new URL(app + "media/dingdangdong////"), NO_SUCH_PATH);
+		assertNotFound(new URL(app + "media/dingdangdong///"), NO_SUCH_PATH);
+		assertNotFound(new URL(app + "media/dingdangdong//"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.150.txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.150.zick"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.150."), NO_SUCH_ITEM);
@@ -316,24 +320,6 @@ public class MediaServletTest extends TestCase
 		assertEquals(null, is.readLine());
 		is.close();
 
-		final long date = conn.getDate();
-		final Date after = new Date();
-		//System.out.println("Date: "+new Date(date));
-		assertWithinHttpDate(before, after, new Date(date));
-	}
-
-	private void assertInternalErrorUncaught(final URL url) throws IOException // TODO remove
-	{
-		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-		conn.setFollowRedirects(false);
-		conn.connect();
-		if(conn.HTTP_INTERNAL_ERROR!=conn.getResponseCode())
-			print(conn, url);
-		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
-		assertEquals("Internal Server Error", conn.getResponseMessage());
-		assertEquals("text/html;charset=utf-8", conn.getContentType());
-		
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
