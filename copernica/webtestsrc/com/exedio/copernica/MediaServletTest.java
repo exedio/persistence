@@ -40,7 +40,7 @@ public class MediaServletTest extends TestCase
 	private static final String IS_NULL = "is null";
 	private static final String NOT_COMPUTABLE = "not computable";
 
-	public void testError() throws Exception
+	public void testIt() throws Exception
 	{
 		final String app = "http://localhost:8080/cope-runtime-servlet/";
 		final URL init = new URL(app + "init");
