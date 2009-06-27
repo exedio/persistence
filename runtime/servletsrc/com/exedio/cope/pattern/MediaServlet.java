@@ -187,7 +187,7 @@ public final class MediaServlet extends HttpServlet
 
 		try
 		{
-			return path.doGet(request, response, pathInfo.substring(slash2 + 1));
+			return path.doGet(request, response, pathInfo, slash2+1);
 		}
 		catch(RuntimeException e)
 		{

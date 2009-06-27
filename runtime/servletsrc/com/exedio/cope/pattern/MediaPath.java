@@ -197,27 +197,27 @@ public abstract class MediaPath extends Pattern
 
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String subPath)
+			final String pathInfo, final int fromIndex)
 		throws IOException
 	{
 		//final long start = System.currentTimeMillis();
 		
-		final int slash = subPath.indexOf('/');
+		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;
 		if(slash<0)
 		{
-			final int firstDot = subPath.indexOf('.');
-			final int dot = (firstDot>=0) ? subPath.indexOf('.', firstDot+1) : firstDot;
+			final int firstDot = pathInfo.indexOf('.', fromIndex);
+			final int dot = (firstDot>=0) ? pathInfo.indexOf('.', firstDot+1) : firstDot;
 			//System.out.println("trailingDot="+trailingDot);
 
 			if(dot>=0)
-				id = subPath.substring(0, dot);
+				id = pathInfo.substring(fromIndex, dot);
 			else
-				id = subPath;
+				id = pathInfo.substring(fromIndex);
 		}
 		else
 		{
-			id = subPath.substring(0, slash);
+			id = pathInfo.substring(fromIndex, slash);
 		}
 		
 		//System.out.println("ID="+id);
