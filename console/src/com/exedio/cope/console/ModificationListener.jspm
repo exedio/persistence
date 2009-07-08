@@ -74,8 +74,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 				%>
 				<tr>
 					<td><input type="checkbox" name="<%=cop.REMOVE_CHECKBOX%>" value="<%=cop.toID(listener)%>" /></td>
-					<td><%=format(number++)%></td><%
-					%>
+					<td><%=format(number++)%></td>
 					<td class="text"><%=listener.getClass().getName()%></td>
 					<td class="text"><%
 						try
