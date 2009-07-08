@@ -144,16 +144,16 @@ final class MediaStatsCop extends ConsoleCop
 			if(first)
 				first = false;
 			else
-				out.print(", ");
+				out.write(", ");
 			
 			if(prefix!=null && contentType.startsWith(prefix))
 			{
-				out.print('~');
-				out.print(contentType.substring(prefix.length()-1));
+				out.write('~');
+				out.write(contentType.substring(prefix.length()-1));
 			}
 			else
 			{
-				out.print(contentType);
+				out.write(contentType);
 				int pos = contentType.indexOf('/');
 				if(pos>1)
 					prefix = contentType.substring(0, pos+1);

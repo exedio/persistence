@@ -139,9 +139,9 @@ final class SchemaCop extends ConsoleCop
 			
 			public boolean beforeExecute(final String statement)
 			{
-				out.print("\n\t\t<li>");
-				out.print(Format.highlightSQL(XMLEncoder.encode(statement)));
-				out.print("</li>");
+				out.write("\n\t\t<li>");
+				out.write(Format.highlightSQL(XMLEncoder.encode(statement)));
+				out.write("</li>");
 				if(dryRun)
 				{
 					return false;
@@ -157,11 +157,11 @@ final class SchemaCop extends ConsoleCop
 			public void afterExecute(final String statement, final int rows)
 			{
 				final long time = System.currentTimeMillis()-beforeExecuteTime;
-				out.print("\n\t\t<li class=\"timelog\">");
-				out.print(time);
-				out.print("ms, ");
-				out.print(rows);
-				out.print(" rows</li>");
+				out.write("\n\t\t<li class=\"timelog\">");
+				out.write(time);
+				out.write("ms, ");
+				out.write(rows);
+				out.write(" rows</li>");
 			}
 		};
 		

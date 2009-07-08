@@ -36,42 +36,42 @@ final class Out
 		this.bf = bf;
 	}
 	
-	void print(final Resource resource)
+	void write(final Resource resource)
 	{
 		bf.print(resource); // TODO use getURL(HttpServletRequest)
 	}
 	
-	void print(final Cop cop)
+	void write(final Cop cop)
 	{
 		bf.print(XMLEncoder.encode(cop.toString())); // TODO use getURL(HttpServletRequest) and response.encodeURL
 	}
 	
-	void print(final String s)
+	void write(final String s)
 	{
 		bf.print(s);
 	}
 	
-	void print(final char c)
+	void write(final char c)
 	{
 		bf.print(c);
 	}
 	
-	void print(final int i)
+	void write(final int i)
 	{
 		bf.print(i);
 	}
 	
-	void print(final long i)
+	void write(final long i)
 	{
 		bf.print(i);
 	}
 	
-	void print(final InetAddress s)
+	void write(final InetAddress s)
 	{
 		bf.print(s);
 	}
 	
-	void print(final Date date)
+	void write(final Date date)
 	{
 		bf.print(Format.format(date));
 	}

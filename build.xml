@@ -641,7 +641,7 @@
 	<!-- console -->
 	
 	<target name="console.jspm">
-		<jspm method="print">
+		<jspm method="write">
 			<fileset dir="console/src" includes="**/*.jspm" />
 		</jspm>
 	</target>
