@@ -78,7 +78,7 @@ final class ModificationListenerCop extends ConsoleCop
 		{
 			private int count = debugNumber++;
 			
-			public void onModifyingCommit(final Collection<Item> modifiedItems)
+			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{
 				// do nothing
 			}
@@ -93,7 +93,7 @@ final class ModificationListenerCop extends ConsoleCop
 		{
 			private int count = debugNumber++;
 
-			public void onModifyingCommit(final Collection<Item> modifiedItems)
+			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{
 				// do nothing
 			}
