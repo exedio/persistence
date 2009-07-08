@@ -23,6 +23,7 @@ import java.net.InetAddress;
 
 import com.exedio.cops.Cop;
 import com.exedio.cops.Resource;
+import com.exedio.cops.XMLEncoder;
 
 final class Out
 {
@@ -36,12 +37,12 @@ final class Out
 	
 	void print(final Resource resource)
 	{
-		bf.print(resource);
+		bf.print(resource); // TODO use getURL(HttpServletRequest)
 	}
 	
 	void print(final Cop cop)
 	{
-		bf.print(cop);
+		bf.print(XMLEncoder.encode(cop.toString())); // TODO use getURL(HttpServletRequest) and response.encodeURL
 	}
 	
 	void print(final String s)
