@@ -59,11 +59,6 @@ final class Format
 			? todayDateFormat : fullDateFormat).format(date);
 	}
 	
-	static final String formatDate(final long date)
-	{
-		return format(new Date(date));
-	}
-	
 	static final String format(final long number)
 	{
 		if(number==Integer.MIN_VALUE)
