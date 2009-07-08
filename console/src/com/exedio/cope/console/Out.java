@@ -76,7 +76,7 @@ final class Out
 		bf.print(Format.format(date));
 	}
 	
-	void printStackTrace(final Throwable t)
+	void writeStackTrace(final Throwable t)
 	{
 		t.printStackTrace(bf);
 	}

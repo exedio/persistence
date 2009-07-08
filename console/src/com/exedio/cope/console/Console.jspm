@@ -117,7 +117,7 @@ abstract class Console_Jspm
 			%>
 			<div class="message">Exception while writing response !!!</div>
 			<pre><%
-			out.printStackTrace(t);
+			out.writeStackTrace(t);
 			%>
 			</pre><%
 		}

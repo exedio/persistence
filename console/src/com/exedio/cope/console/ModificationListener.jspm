@@ -115,7 +115,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 						}
 						catch(RuntimeException e)
 						{
-							out.printStackTrace(e);
+							out.writeStackTrace(e);
 						}
 					}
 					%></td>
