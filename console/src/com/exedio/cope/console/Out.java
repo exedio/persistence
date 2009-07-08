@@ -43,7 +43,9 @@ final class Out
 	
 	void write(final Cop cop)
 	{
-		bf.print(XMLEncoder.encode(cop.toString())); // TODO use getURL(HttpServletRequest) and response.encodeURL
+		// here we don't have to call HttpServletResponse.encodeURL
+		// since HttpSessions are not used at all
+		bf.print(XMLEncoder.encode(cop.toString())); // TODO use getURL(HttpServletRequest)
 	}
 	
 	void write(final String s)
