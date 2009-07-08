@@ -21,8 +21,6 @@ package com.exedio.cope.console;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
-import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,7 +32,7 @@ import com.exedio.cops.Pager;
 abstract class Console_Jspm
 {
 	static final void write(
-				final PrintStream out,
+				final Out out,
 				final HttpServletRequest request,
 				final HttpServletResponse response,
 				final Model model,
@@ -119,7 +117,7 @@ abstract class Console_Jspm
 			%>
 			<div class="message">Exception while writing response !!!</div>
 			<pre><%
-			t.printStackTrace(out);
+			out.printStackTrace(t);
 			%>
 			</pre><%
 		}
@@ -127,7 +125,7 @@ abstract class Console_Jspm
 	}
 	
 	private final static void writeMenu(
-			final PrintStream out,
+			final Out out,
 			final ConsoleCop cop)
 	{
 		%>
@@ -150,7 +148,7 @@ abstract class Console_Jspm
 		</div><%
 	}
 	
-	final static void writeNotFound(final PrintStream out, final String pathInfo)
+	final static void writeNotFound(final Out out, final String pathInfo)
 	{
 		%>
 		<div class="message">
@@ -163,7 +161,7 @@ abstract class Console_Jspm
 	}
 	
 	static final void writeToggle(
-			final PrintStream out,
+			final Out out,
 			final ConsoleCop cop,
 			final boolean value)
 	{
@@ -172,7 +170,7 @@ abstract class Console_Jspm
 	}
 	
 	static final void writePagerButton(
-			final PrintStream out,
+			final Out out,
 			final Pageable cop,
 			final Pager href,
 			final String text,
@@ -183,7 +181,7 @@ abstract class Console_Jspm
 	}
 	
 	static final void write(
-			final PrintStream out,
+			final Out out,
 			final boolean runNow,
 			final Store store)
 	{

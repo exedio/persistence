@@ -22,7 +22,6 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.format;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Properties_Jspm extends Console_Jspm
 {
-	final static void writeHead(final PrintStream out)
+	final static void writeHead(final Out out)
 	{
 	%>
 		<script>
@@ -68,7 +67,7 @@ final class Properties_Jspm extends Console_Jspm
 	}
 	
 	final static void writeBody(
-				final PrintStream out,
+				final Out out,
 				final PropertiesCop cop,
 				final ConnectProperties properties,
 				final Date initializeDate,

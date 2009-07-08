@@ -53,7 +53,7 @@ final class EnvironmentCop extends ConsoleCop
 
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)
@@ -152,7 +152,7 @@ final class EnvironmentCop extends ConsoleCop
 		{
 			out = new FileOutputStream(args[0]);
 			Environment_Jspm.writeTestBody(
-					new PrintStream(out, false, ConsoleServlet.UTF8),
+					new Out(new PrintStream(out, false, ConsoleServlet.UTF8)),
 					new java.util.Properties(),
 					makeTestedDatabases());
 		}

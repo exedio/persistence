@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,14 +35,14 @@ abstract class TestCop<I> extends ConsoleCop<HashMap<Integer, TestCop.Info>>
 	}
 
 	@Override
-	final void writeHead(PrintStream out)
+	final void writeHead(Out out)
 	{
 		Test_Jspm.writeHead(out);
 	}
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

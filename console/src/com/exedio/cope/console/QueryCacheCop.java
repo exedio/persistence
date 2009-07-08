@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -288,7 +287,7 @@ final class QueryCacheCop extends ConsoleCop
 		
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

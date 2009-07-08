@@ -19,7 +19,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -30,7 +29,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Vm_Jspm extends Console_Jspm
 {
-	private final static void write(final PrintStream out, final String key, final String title, final String version, final String vendor)
+	private final static void write(final Out out, final String key, final String title, final String version, final String vendor)
 	{
 		final LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
 		if(title!=null)
@@ -63,7 +62,7 @@ final class Vm_Jspm extends Console_Jspm
 		}
 	}
 
-	private final static void writeDetailed(final PrintStream out, final TreeSet<Package> jar)
+	private final static void writeDetailed(final Out out, final TreeSet<Package> jar)
 	{
 			final Package p = jar.iterator().next();
 			
@@ -100,7 +99,7 @@ final class Vm_Jspm extends Console_Jspm
 			</tr><%
 	}
 
-	private final static void writeShort(final PrintStream out, final TreeSet<Package> jar)
+	private final static void writeShort(final Out out, final TreeSet<Package> jar)
 	{
 			final Package p = jar.iterator().next();
 			final String spec = p.getSpecificationVersion();
@@ -127,7 +126,7 @@ final class Vm_Jspm extends Console_Jspm
 			</tr><%
 	}
 
-	final static void writeBody(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
+	final static void writeBody(final Out out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
 	{
 		%>
 		<table>

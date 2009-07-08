@@ -21,7 +21,6 @@ package com.exedio.cope.console;
 
 import static com.exedio.cops.Cop.isPost;
 
-import java.io.PrintStream;
 import java.util.EnumSet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +50,7 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final SchemaCop cop,
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request)
 	{

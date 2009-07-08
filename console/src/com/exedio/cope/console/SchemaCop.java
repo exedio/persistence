@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,14 +45,14 @@ final class SchemaCop extends ConsoleCop
 	}
 	
 	@Override
-	void writeHead(final PrintStream out)
+	void writeHead(final Out out)
 	{
 		Schema_Jspm.writeHead(out);
 	}
 
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)
@@ -130,7 +129,7 @@ final class SchemaCop extends ConsoleCop
 	static final String CREATE_COLUMN     = "CREATE_COLUMN";
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
 	
-	final static void writeApply(final PrintStream out,
+	final static void writeApply(final Out out,
 			final HttpServletRequest request, final Model model, final boolean dryRun)
 	{
 		final Schema schema = model.getVerifiedSchema();

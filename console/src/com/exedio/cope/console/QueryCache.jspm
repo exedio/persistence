@@ -24,8 +24,6 @@ import static com.exedio.cope.console.Format.formatAndHide;
 import static com.exedio.cope.console.Format.highlightSQL;
 import static com.exedio.cope.console.Format.ratio;
 
-import java.io.PrintStream;
-
 import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.QueryCacheInfo;
 
@@ -35,7 +33,7 @@ final class QueryCache_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final QueryCacheCop cop,
-			final PrintStream out,
+			final Out out,
 			final int limit,
 			final QueryCacheInfo info,
 			final QueryCacheCop.Content content)

@@ -1,4 +1,3 @@
-<%
 /*
  * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
  *
@@ -19,18 +18,69 @@
 
 package com.exedio.cope.console;
 
-final class Schema_Jspm extends Console_Jspm
+import java.io.PrintStream;
+import java.net.InetAddress;
+
+import com.exedio.cops.Cop;
+import com.exedio.cops.Resource;
+
+final class Out
 {
-	final static void writeHead(final Out out)
+	private final PrintStream bf;
+	
+	Out(final PrintStream bf)
 	{
-		%>
-		<script src="<%=ConsoleServlet.schemaScript%>" type="text/javascript"></script>
-		<style>
-			ul
-			{
-				list-style:none;
-			}
-		</style><%
+		assert bf!=null;
+		this.bf = bf;
+	}
+	
+	void print(final Resource resource)
+	{
+		bf.print(resource);
+	}
+	
+	void print(final Cop cop)
+	{
+		bf.print(cop);
+	}
+	
+	void print(final String s)
+	{
+		bf.print(s);
+	}
+	
+	void print(final char c)
+	{
+		bf.print(c);
+	}
+	
+	void print(final int i)
+	{
+		bf.print(i);
+	}
+	
+	void print(final long i)
+	{
+		bf.print(i);
+	}
+	
+	void print(final InetAddress s)
+	{
+		bf.print(s);
+	}
+	
+	void printStackTrace(final Throwable t)
+	{
+		t.printStackTrace(bf);
+	}
+	
+	void flush()
+	{
+		bf.flush();
+	}
+	
+	void close()
+	{
+		bf.close();
 	}
 }
-%>

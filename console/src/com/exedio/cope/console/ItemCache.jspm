@@ -22,7 +22,6 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.formatAndHide;
 import static com.exedio.cope.console.Format.ratio;
 
-import java.io.PrintStream;
 import java.util.Date;
 
 import com.exedio.cope.util.ItemCacheInfo;
@@ -30,7 +29,7 @@ import com.exedio.cope.util.ItemCacheInfo;
 final class ItemCache_Jspm extends Console_Jspm
 {
 	final static void writeBody(
-			final PrintStream out,
+			final Out out,
 			final int allLimit,
 			final int allLevel,
 			final long allHits,

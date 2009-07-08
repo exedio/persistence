@@ -19,7 +19,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -30,7 +29,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Environment_Jspm extends Console_Jspm
 {
-	final static void writeCurrent(final PrintStream out, final String dialect, final java.util.Properties properties)
+	final static void writeCurrent(final Out out, final String dialect, final java.util.Properties properties)
 	{
 		%>
 		<table>
@@ -66,7 +65,7 @@ final class Environment_Jspm extends Console_Jspm
 			"cope.properties",
 		};
 
-	final static void writeTest(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
+	final static void writeTest(final Out out, final java.util.Properties current, final HashMap[] properties)
 	{
 		%>
 		<hr>
@@ -100,7 +99,7 @@ final class Environment_Jspm extends Console_Jspm
 		</table><%
 	}
 
-	final static void writeTestBody(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
+	final static void writeTestBody(final Out out, final java.util.Properties current, final HashMap[] properties)
 	{
 			for(int i = 0; i<properties.length; i++)
 			{

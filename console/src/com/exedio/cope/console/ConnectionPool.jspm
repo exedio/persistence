@@ -21,15 +21,13 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 
-import java.io.PrintStream;
-
 import com.exedio.cope.util.Pool.Info;
 import com.exedio.cope.util.PoolCounter;
 
 final class ConnectionPool_Jspm extends Console_Jspm
 {
 	final static void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Info info)
 	{
 		final PoolCounter poolCounter = info.getCounter();

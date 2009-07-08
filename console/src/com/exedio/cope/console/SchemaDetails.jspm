@@ -22,8 +22,6 @@ package com.exedio.cope.console;
 import static com.exedio.cops.Cop.isPost;
 import static com.exedio.cops.XMLEncoder.encode;
 
-import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
@@ -55,7 +53,7 @@ final class SchemaDetails_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final SchemaCop cop,
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request)
 	{
@@ -264,7 +262,7 @@ final class SchemaDetails_Jspm extends Console_Jspm
 		}
 	}
 	
-	private final static void write(final Node.Color color, final PrintStream out)
+	private final static void write(final Node.Color color, final Out out)
 	{
 		switch(color)
 		{
@@ -283,7 +281,7 @@ final class SchemaDetails_Jspm extends Console_Jspm
 	
 	private final static void writeEdit(
 			final String text, final boolean editable, final String name,
-			final PrintStream out)
+			final Out out)
 	{
 		if(editable)
 		{

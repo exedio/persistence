@@ -23,7 +23,6 @@ import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatDate;
 import static com.exedio.cope.console.Format.ratio;
 
-import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Set;
 
@@ -44,7 +43,7 @@ final class Media_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final MediaStatsCop cop,
-			final PrintStream out,
+			final Out out,
 			final Collection<MediaPath> media,
 			final String[] names,
 			final String[] shortNames,
@@ -134,7 +133,7 @@ final class Media_Jspm extends Console_Jspm
 	}
 
 	final static void writeHead(
-				final PrintStream out)
+				final Out out)
 	{
 		%>
 		<style>
@@ -148,7 +147,7 @@ final class Media_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 				final MediaCop cop,
-				final PrintStream out,
+				final Out out,
 				final Query.Result<? extends Item> items)
 	{
 		final MediaPath media = cop.media;
@@ -214,7 +213,7 @@ final class Media_Jspm extends Console_Jspm
 		</table><%
 	}
 	
-	private static final void writeURL(final PrintStream out, final String url, final String contentType, final boolean inline)
+	private static final void writeURL(final Out out, final String url, final String contentType, final boolean inline)
 	{
 		if(url!=null)
 		{

@@ -22,7 +22,6 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.ratio;
 
-import java.io.PrintStream;
 import java.util.Date;
 
 import com.exedio.cope.Transaction;
@@ -32,7 +31,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Transaction_Jspm extends Console_Jspm
 {
-	final static void writeHead(final PrintStream out)
+	final static void writeHead(final Out out)
 	{
 	%>
 		<style>
@@ -65,7 +64,7 @@ final class Transaction_Jspm extends Console_Jspm
 	}
 	
 	final static void writeBody(
-			final PrintStream out,
+			final Out out,
 			final TransactionCop cop,
 			final long nextId,
 			final Date lastStartDate,
@@ -248,7 +247,7 @@ final class Transaction_Jspm extends Console_Jspm
 	}
 	
 	private static final void writeRecordingForm(
-					final PrintStream out,
+					final Out out,
 					final TransactionCop cop,
 					final boolean recordCommits)
 	{

@@ -21,7 +21,6 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,7 +28,7 @@ import com.exedio.cope.console.TestCop.Info;
 
 final class Test_Jspm
 {
-	final static void writeHead(final PrintStream out)
+	final static void writeHead(final Out out)
 	{
 		%>
 		<script>
@@ -60,7 +59,7 @@ final class Test_Jspm
 	
 	final static <I> void writeBody(
 			final TestCop<I> cop,
-			final PrintStream out,
+			final Out out,
 			final String caption,
 			final String[] headings,
 			final List<I> items,
@@ -189,7 +188,7 @@ final class Test_Jspm
 	
 	private final static <I> void writeButton(
 			final TestCop<I> cop,
-			final PrintStream out,
+			final Out out,
 			final boolean test,
 			final ConsoleServlet.Store<HashMap<Integer, Info>> testStore)
 	{

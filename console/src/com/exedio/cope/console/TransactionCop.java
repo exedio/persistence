@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -74,14 +73,14 @@ final class TransactionCop extends ConsoleCop
 	}
 	
 	@Override
-	void writeHead(final PrintStream out)
+	void writeHead(final Out out)
 	{
 		Transaction_Jspm.writeHead(out);
 	}
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

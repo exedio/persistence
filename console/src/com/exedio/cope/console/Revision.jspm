@@ -19,7 +19,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,7 @@ import static com.exedio.cope.console.Format.highlightSQL;
 
 final class Revision_Jspm extends Console_Jspm
 {
-	final static void writeHead(final PrintStream out)
+	final static void writeHead(final Out out)
 	{
 		%>
 		<style>
@@ -118,7 +117,7 @@ final class Revision_Jspm extends Console_Jspm
 	}
 	
 	final static void writeBody(
-			final PrintStream out,
+			final Out out,
 			final RevisionCop cop,
 			final List<RevisionLine> lines)
 	{
@@ -244,7 +243,7 @@ final class Revision_Jspm extends Console_Jspm
 		</table><%
 	}
 	
-	final static void writeBodyDisabled(final PrintStream out)
+	final static void writeBodyDisabled(final Out out)
 	{
 		%>
 		<table>

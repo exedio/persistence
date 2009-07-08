@@ -18,8 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
@@ -60,7 +58,7 @@ final class ClusterCop extends ConsoleCop
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

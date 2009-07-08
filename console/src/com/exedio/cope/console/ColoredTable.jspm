@@ -19,14 +19,13 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 
 abstract class ColoredTable_Jspm
 {
 	private static final int COLORS = 2;
 	
-	static final void writeHeader(final PrintStream out, final String[] names, final String[] shortNames)
+	static final void writeHeader(final Out out, final String[] names, final String[] shortNames)
 	{
 			if(names.length<=shortNames.length)
 				throw new RuntimeException(Arrays.toString(names) + Arrays.toString(shortNames));
@@ -81,7 +80,7 @@ abstract class ColoredTable_Jspm
 			</tr><%
 	}
 	
-	static final void writeData(final PrintStream out, final String[] data)
+	static final void writeData(final Out out, final String[] data)
 	{
 			for(int i = 0; i<data.length; i++)
 			{

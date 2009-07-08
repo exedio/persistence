@@ -21,8 +21,6 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 
-import java.io.PrintStream;
-
 import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.SequenceChecker;
 
@@ -30,7 +28,7 @@ final class Cluster_Jspm
 {
 	final static void writeBody(
 			final ClusterCop cop,
-			final PrintStream out,
+			final Out out,
 			final ClusterListenerInfo listenerInfo,
 			final int donePing)
 	{
@@ -89,7 +87,7 @@ final class Cluster_Jspm
 		}
 	}
 	
-	private final static void writeSequenceCheckerHead(final PrintStream out)
+	private final static void writeSequenceCheckerHead(final Out out)
 	{
 				%>
 				<th title="Pending">pnd</th>
@@ -100,7 +98,7 @@ final class Cluster_Jspm
 				<th>Late</th><%
 	}
 	
-	private final static void write(final PrintStream out, final SequenceChecker.Info ic)
+	private final static void write(final Out out, final SequenceChecker.Info ic)
 	{
 				%>
 				<td><%=format(ic.getPending())%></td>
@@ -111,7 +109,7 @@ final class Cluster_Jspm
 				<td><%=format(ic.getLate())%></td><%
 	}
 	
-	final static void writeBodyDisabled(final PrintStream out)
+	final static void writeBodyDisabled(final Out out)
 	{
 		%>
 		<table>

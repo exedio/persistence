@@ -19,13 +19,11 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
-
 final class DatabaseLog_Jspm
 {
 	final static void writeBody(
 			final DatabaseLogCop cop,
-			final PrintStream out,
+			final Out out,
 			final boolean enable,
 			final int threshold,
 			final String sql)

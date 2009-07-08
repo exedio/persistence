@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -160,12 +159,12 @@ abstract class ConsoleCop<S> extends Cop
 	/**
 	 * @param out used in subclasses
 	 */
-	void writeHead(PrintStream out)
+	void writeHead(Out out)
 	{
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, History history);
+	abstract void writeBody(Out out, Model model, HttpServletRequest request, History history);
 	
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
@@ -272,7 +271,7 @@ abstract class ConsoleCop<S> extends Cop
 
 		@Override
 		final void writeBody(
-				final PrintStream out,
+				final Out out,
 				final Model model,
 				final HttpServletRequest request,
 				final History history)
@@ -281,7 +280,7 @@ abstract class ConsoleCop<S> extends Cop
 		}
 	}
 	
-	static void writePager(final PrintStream out, final Pageable cop)
+	static void writePager(final Out out, final Pageable cop)
 	{
 		final Pager pager = cop.getPager();
 		if(pager.isNeeded())

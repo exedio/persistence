@@ -18,8 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Item;
@@ -119,7 +117,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 	}
 	
 	@Override
-	void writeHead(final PrintStream out)
+	void writeHead(final Out out)
 	{
 		if(mediaInline || otherInline)
 			Media_Jspm.writeHead(out);
@@ -127,7 +125,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

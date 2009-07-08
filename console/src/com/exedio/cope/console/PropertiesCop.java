@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,14 +44,14 @@ final class PropertiesCop extends ConsoleCop
 	}
 	
 	@Override
-	void writeHead(final PrintStream out)
+	void writeHead(final Out out)
 	{
 		Properties_Jspm.writeHead(out);
 	}
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)

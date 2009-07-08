@@ -21,7 +21,6 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 
-import java.io.PrintStream;
 import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
@@ -32,7 +31,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final ModificationListenerCop cop,
-			final PrintStream out,
+			final Out out,
 			final int clearedBefore,
 			final List<ModificationListener> listeners,
 			final int clearedAfter)
@@ -116,7 +115,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 						}
 						catch(RuntimeException e)
 						{
-							e.printStackTrace(out);
+							out.printStackTrace(e);
 						}
 					}
 					%></td>
@@ -133,7 +132,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 		</form><%
 	}
 	
-	private static final void writeButtons(final PrintStream out)
+	private static final void writeButtons(final Out out)
 	{
 			%>
 			<input type="submit" name="<%=ModificationListenerCop.ADD_INTROSPECTOR%>" value="add introspector" />

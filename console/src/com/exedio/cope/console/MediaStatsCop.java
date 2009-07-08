@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
@@ -50,7 +49,7 @@ final class MediaStatsCop extends ConsoleCop
 	
 	@Override
 	final void writeBody(
-			final PrintStream out,
+			final Out out,
 			final Model model,
 			final HttpServletRequest request,
 			final History history)
@@ -132,7 +131,7 @@ final class MediaStatsCop extends ConsoleCop
 		}
 	}
 	
-	static final void printContentTypes(final PrintStream out, final Collection<String> contentTypes)
+	static final void printContentTypes(final Out out, final Collection<String> contentTypes)
 	{
 		final TreeSet<String> sorted = new TreeSet<String>(contentTypes);
 		collapse(sorted, "image/[p]jpeg", "image/jpeg", "image/pjpeg");

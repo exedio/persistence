@@ -19,14 +19,13 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.Map;
 
 import com.exedio.cope.Feature;
 
 final class Hidden_Jspm
 {
-	final static void writeBody(final PrintStream out, final Map<Feature, Feature> hiddenFeatures)
+	final static void writeBody(final Out out, final Map<Feature, Feature> hiddenFeatures)
 	{
 		%>
 		<table>
