@@ -20,6 +20,7 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 import java.net.InetAddress;
+import java.util.Date;
 
 import com.exedio.cops.Cop;
 import com.exedio.cops.Resource;
@@ -68,6 +69,11 @@ final class Out
 	void print(final InetAddress s)
 	{
 		bf.print(s);
+	}
+	
+	void print(final Date date)
+	{
+		bf.print(Format.format(date));
 	}
 	
 	void printStackTrace(final Throwable t)

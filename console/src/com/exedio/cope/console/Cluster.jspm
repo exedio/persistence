@@ -65,7 +65,7 @@ final class Cluster_Jspm
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
-				<td><%=format(node.getFirstEncounter())%></td>
+				<td><%=node.getFirstEncounter()%></td>
 				<td><%=node.getAddress()%></td>
 				<td><%=node.getPort()%></td><%
 				write(out, node.getPingInfo());

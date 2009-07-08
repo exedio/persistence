@@ -81,7 +81,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 							(ModificationListenerCop.Introspector)listener;
 					%>
 					<td class="text" colspan="2">
-						added <%=format(introspector.getStart())%>,
+						added <%=introspector.getStart()%>,
 						session <%=encode(introspector.getSessionId())%><%
 						if(introspector.isSessionAttached())
 						{
@@ -96,7 +96,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 							{
 								final String name = commit.getTransactionName();
 							%>
-							<li><%=format(commit.transactionId)%> <%=format(commit.getTimeStamp())%> <%=format(commit.elapsedTime)%>ms <% if(name!=null){%> <u><%=encode(name)%></u><%} %> <%=commit.getModifiedItems()%></li><%
+							<li><%=format(commit.transactionId)%> <%=commit.getTimeStamp()%> <%=format(commit.elapsedTime)%>ms <% if(name!=null){%> <u><%=encode(name)%></u><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
 						</ul><%

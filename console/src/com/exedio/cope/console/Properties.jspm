@@ -80,11 +80,11 @@ final class Properties_Jspm extends Console_Jspm
 			<caption>Connect Properties</caption>
 			<tr>
 				<th>Initialized</th>
-				<td class="text"><%=format(initializeDate)%></td>
+				<td class="text"><%=initializeDate%></td>
 			</tr>
 			<tr>
 				<th>Connected</th>
-				<td class="text"><%=format(connectDate)%></td>
+				<td class="text"><%=connectDate%></td>
 			</tr>
 			<tr>
 				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse%>"> show unspecified</th>
@@ -163,7 +163,7 @@ final class Properties_Jspm extends Console_Jspm
 			<tr>
 				<td><%=format(number++)%></td>
 				<td><% if(token.didConnect()){%>&#187;&nbsp;<%} %><%=format(token.getID())%></td>
-				<td class="text"><%=format(token.getIssueDate())%></td>
+				<td class="text"><%=token.getIssueDate()%></td>
 				<td class="text"><% if(name!=null) { %><%=encode(name)%><% } %></td>
 			</tr><%
 			}

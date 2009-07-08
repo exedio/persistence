@@ -92,7 +92,7 @@ final class Transaction_Jspm extends Console_Jspm
 			<tr><th>Last Start Date</th><td><%
 				if(lastStartDate!=null)
 				{
-					%><%=format(lastStartDate)%><%
+					%><%=lastStartDate%><%
 				}
 				else
 				{
@@ -163,7 +163,7 @@ final class Transaction_Jspm extends Console_Jspm
 			<tr>
 				<td><%=format(n)%></td>
 				<td><%=format(t.getID())%></td>
-				<td><%=format(t.getStartDate())%></td>
+				<td><%=t.getStartDate()%></td>
 				<td class="text"><%=encode(t.getName())%></td>
 				<%
 				if(thread!=null)
@@ -232,7 +232,7 @@ final class Transaction_Jspm extends Console_Jspm
 			<tr>
 				<td><%=format(n)%></td>
 				<td><%=format(commit.id)%></td>
-				<td><%=format(commit.getStartDate())%></td>
+				<td><%=commit.getStartDate()%></td>
 				<td><%=format(commit.elapsed)%></td>
 				<td class="text"><%=encode(commit.name)%></td>
 				<td class="text"><%=encode(commit.modifiedItems)%></td>
