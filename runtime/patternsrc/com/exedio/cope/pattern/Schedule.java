@@ -192,6 +192,7 @@ public final class Schedule extends Pattern
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar();
+		System.out.println("new GregorianCalendar().getTimeZone() (1): "+cal.getTimeZone());
 		cal.setTime(now);
 		cal.set(GregorianCalendar.MILLISECOND, 0);
 		cal.set(GregorianCalendar.SECOND, 0);
@@ -203,6 +204,7 @@ public final class Schedule extends Pattern
 		cal.setTime(untilDaily);
 		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
 		final Date untilMonthly = cal.getTime();
+		System.out.println("new GregorianCalendar().getTimeZone() (2): "+cal.getTimeZone());
 		
 		
 		final List<P> toRun;
