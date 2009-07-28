@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
@@ -103,6 +104,17 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals("until",  report.getRunUntil() .getName());
 		assertEquals("run",    report.getRunRun()   .getName());
 		assertEquals("elapsed",report.getRunElapsed().getName());
+		
+		assertSame(Locale.GERMAN, report.getLocale());
+		try
+		{
+			new Schedule(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("locale", e.getMessage());
+		}
 		
 		// test persistence
 		assertEquals(Interval.DAILY, item.getReportInterval());

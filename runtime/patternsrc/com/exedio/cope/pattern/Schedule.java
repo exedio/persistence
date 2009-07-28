@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
@@ -50,6 +51,8 @@ public final class Schedule extends Pattern
 		MONTHLY;
 	}
 	
+	private final Locale locale;
+	
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
 	
@@ -61,10 +64,34 @@ public final class Schedule extends Pattern
 	final LongField runElapsed = new LongField().toFinal();
 	Type<Run> runType = null;
 	
+	/**
+	 * @deprecated Use {@link #Schedule(Locale)} instead.
+	 */
+	@Deprecated
 	public Schedule()
 	{
+		this(Locale.getDefault());
+	}
+	
+	/**
+	 * @param locale
+	 *        specifies the locale used for creating the {@link GregorianCalendar}
+	 *        that does all the date computations.
+	 *        Is important for specifying the first day of week (Monday vs. Sunday)
+	 */
+	public Schedule(final Locale locale)
+	{
+		if(locale==null)
+			throw new NullPointerException("locale");
+		
+		this.locale = locale;
 		addSource(enabled,  "Enabled");
 		addSource(interval, "Interval");
+	}
+	
+	public Locale getLocale()
+	{
+		return locale;
 	}
 	
 	@Override
@@ -191,7 +218,7 @@ public final class Schedule extends Pattern
 		final Type.This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
-		final GregorianCalendar cal = new GregorianCalendar();
+		final GregorianCalendar cal = new GregorianCalendar(locale);
 		System.out.println("new GregorianCalendar().getTimeZone() (1): "+cal.getTimeZone());
 		cal.setTime(now);
 		cal.set(GregorianCalendar.MILLISECOND, 0);
