@@ -321,7 +321,6 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	
 	private static final Date date(final String s)
 	{
-		System.out.println("new SimpleDateFormat().getTimeZone(): "+df.getTimeZone());
 		try
 		{
 			return df.parse(s);
