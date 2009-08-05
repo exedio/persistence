@@ -118,7 +118,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
-		suite.addTest( com.exedio.cope.editor.PackageTest.suite() );
 		
 		return suite;
 	}

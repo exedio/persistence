@@ -141,7 +141,7 @@
 							maxwait="40" maxwaitunit="second"
 							checkevery="5" checkeveryunit="second"
 							timeoutproperty="server.app.init.failed">
-						<http url="http://127.0.0.1:8080/cope-runtime-servlet/editedConsole" />
+						<http url="http://127.0.0.1:8080/copetest-hsqldb/console" />
 					</waitfor>
 					<echo message="tomcat (@{name}): ready ..." />
 					<fail if="server.app.init.failed" message="tomcat could not be started." />
@@ -262,13 +262,7 @@
 		</ljavac>
 	</target>
 	
-	<target name="runtime.servlet.jspm">
-		<jspm>
-			<fileset dir="runtime/servletsrc" includes="**/*.jspm" />
-		</jspm>
-	</target>
-	
-	<target name="runtime.servlet.compile" depends="runtime.core.compile, runtime.servlet.jspm">
+	<target name="runtime.servlet.compile" depends="runtime.core.compile">
 		<ljavac srcdir="runtime/servletsrc" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/servlet-api.jar" />
@@ -488,14 +482,8 @@
 		</instrument>
 	</target>
 
-	<target name="runtime.servlet.test.jspm">
-		<jspm method="print">
-			<fileset dir="runtime/servlettestsrc" includes="**/*.jspm" />
-		</jspm>
-	</target>
-
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, runtime.servlet.test.jspm, runtime.servlet.compile,
+			  depends="runtime.servlet.test.instrument, runtime.servlet.compile,
 			           console.compile">
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/runtime/classes" />
@@ -534,10 +522,10 @@
 	
 	<target name="runtime.clean">
 		<delete>
-			<fileset dir="runtime/servletsrc">
+			<fileset dir="runtime/servletsrc"><!-- is not created anymore -->
 				<include name="**/*_Jspm.java" />
 			</fileset>
-			<fileset dir="runtime/servlettestsrc">
+			<fileset dir="runtime/servlettestsrc"><!-- is not created anymore -->
 				<include name="**/*_Jspm.java" />
 			</fileset>
 		</delete>
@@ -810,7 +798,7 @@
 	
 	<!-- common -->
 	
-	<target name="jspm" depends="runtime.servlet.jspm, runtime.servlet.test.jspm, console.jspm, copernica.test.jspm" />
+	<target name="jspm" depends="console.jspm, copernica.test.jspm" />
 	
 	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	

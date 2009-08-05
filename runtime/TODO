@@ -21,12 +21,6 @@ TODO for cope runtime
 	* implement MediaAlias
 	* redundantly maintain width/height for images
 	* store text/* gzipped and deliver as such to the browser
-- Editor:
-	* resolve conflicts when publishing modifications/drafts
-	* preview for thumbnails
-	* provide constants for css classes etc
-	* let filter provide icons for editor bar
-	* let filter provide css/icons as external resources
 - Hash:
 	* support a maximum of failed checks
 	* support blocking for a short time after a failed check
@@ -80,5 +74,4 @@ TODO for cope runtime
 - support JMX for information displayed by ConsoleServlet
 - separate into own sub-projects:
 	* console
-	* editor
 	* homepage
