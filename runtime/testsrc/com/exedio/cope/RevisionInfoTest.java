@@ -33,12 +33,14 @@ public class RevisionInfoTest extends CopeAssert
 	private static final Date DATE = new Date(2874526134l);
 	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
 	
+	private String lb = null;
 	private HashMap<String, String> env = null;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		lb = System.getProperty("line.separator");
 		env = new HashMap<String, String>();
 		env.put("env1Key", "env1Value");
 		env.put("env2Key", "env2Value");
@@ -339,7 +341,7 @@ public class RevisionInfoTest extends CopeAssert
 	
 	public void testParse() throws UnsupportedEncodingException
 	{
-		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
+		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + lb + "key1=value1" + lb + "key2=value2").getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("#migrationlogv0".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("x#migrationlogv01".getBytes("latin1")));
@@ -355,7 +357,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 	}
 	
-	private static final TreeMap<String, String> reparse(final RevisionInfo info)
+	private TreeMap<String, String> reparse(final RevisionInfo info)
 	{
 		final byte[] bytes = info.toBytes();
 		String bytesString;
@@ -367,7 +369,7 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01\n"));
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lb));
 		final Properties p = RevisionInfo.parse(bytes);
 		final TreeMap<String, String> result = new TreeMap<String, String>();
 		for(final Object key : p.keySet())
@@ -376,7 +378,7 @@ public class RevisionInfoTest extends CopeAssert
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static final <X extends RevisionInfo> X reread(final X info)
+	private <X extends RevisionInfo> X reread(final X info)
 	{
 		final byte[] bytes = info.toBytes();
 		String bytesString;
@@ -388,7 +390,7 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01\n"));
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lb));
 		return (X)RevisionInfo.read(bytes);
 	}
 	
