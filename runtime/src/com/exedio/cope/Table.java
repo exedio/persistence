@@ -42,7 +42,7 @@ final class Table
 		this.database = database;
 		this.id = database.intern(database.makeName(id));
 		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
-		this.protectedID = database.intern(database.driver.protectName(this.idLower));
+		this.protectedID = database.intern(database.dsmfDialect.protectName(this.idLower));
 		this.primaryKey =
 			(supertype!=null)
 			? new ItemColumn(this, supertype)

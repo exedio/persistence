@@ -538,7 +538,7 @@ public final class Model
 	
 	public boolean supportsCheckConstraints()
 	{
-		return getDatabase().driver.supportsCheckConstraints();
+		return getDatabase().dsmfDialect.supportsCheckConstraints();
 	}
 	
 	public boolean supportsSequences()

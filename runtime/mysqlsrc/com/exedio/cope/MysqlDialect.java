@@ -292,7 +292,7 @@ final class MysqlDialect extends Dialect
 	{
 		final Statement bf = database.createStatement();
 		bf.append("INSERT INTO ").
-			append(driver.protectName(name)).
+			append(dsmfDialect.protectName(name)).
 			append(" () VALUES ()");
 		
 		return (int)(database.executeSQLInsert(connection, bf, new ResultSetHandler<Long>()
@@ -317,9 +317,9 @@ final class MysqlDialect extends Dialect
 	{
 		final Statement bf = database.createStatement();
 		bf.append("SELECT MAX(").
-			append(driver.protectName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
+			append(dsmfDialect.protectName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
 			append(") FROM ").
-			append(driver.protectName(name));
+			append(dsmfDialect.protectName(name));
 		
 		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{

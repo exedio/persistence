@@ -222,7 +222,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException(e);
 		}
 		
-		return new Database(dialect.driver, parameters, dialect, revisionEnabled);
+		return new Database(dialect.dsmfDialect, parameters, dialect, revisionEnabled);
 	}
 	
 	public String getDialect()

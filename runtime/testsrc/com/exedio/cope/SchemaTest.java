@@ -342,7 +342,7 @@ public class SchemaTest extends TestmodelTest
 	
 	private final String p(final String name)
 	{
-		return model.getDatabase().driver.protectName(name);
+		return model.getDatabase().dsmfDialect.protectName(name);
 	}
 	
 	private final String l(final FunctionField f)

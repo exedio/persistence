@@ -51,7 +51,7 @@ final class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 	private boolean buildStage = true;
-	final com.exedio.dsmf.Dialect driver;
+	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
 	private final boolean revisionEnabled;
@@ -70,10 +70,10 @@ final class Database
 	
 	final boolean oracle; // TODO remove
 	
-	Database(final com.exedio.dsmf.Dialect driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
+	Database(final com.exedio.dsmf.Dialect dsmfDialect, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
-		this.driver = driver;
+		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
 		this.revisionEnabled = revisionEnabled;
@@ -99,7 +99,7 @@ final class Database
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
-		this.supportsSequences = driver.supportsSequences();
+		this.supportsSequences = dsmfDialect.supportsSequences();
 	}
 	
 	private Map<String, String> revisionEnvironment()
@@ -1427,8 +1427,8 @@ final class Database
 		
 		final Table table = field.getType().getTable();
 		final Table valueTable = field.getValueType().getTable();
-		final String alias1 = driver.protectName(Table.SQL_ALIAS_1);
-		final String alias2 = driver.protectName(Table.SQL_ALIAS_2);
+		final String alias1 = dsmfDialect.protectName(Table.SQL_ALIAS_1);
+		final String alias2 = dsmfDialect.protectName(Table.SQL_ALIAS_2);
 		
 		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
@@ -1455,7 +1455,7 @@ final class Database
 	
 	Schema makeSchema()
 	{
-		final Schema result = new Schema(driver, new ConnectionProvider()
+		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
 			public Connection getConnection() throws SQLException
 			{
@@ -1477,7 +1477,7 @@ final class Database
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
+			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
@@ -1498,11 +1498,11 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(driver.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1539,13 +1539,13 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select ").
 			append(revision).
 			append(',').
-			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.protectName(REVISION_COLUMN_INFO_NAME)).
 			append(" from ").
-			append(driver.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1577,11 +1577,11 @@ final class Database
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
-			append(driver.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
 			append('(').
-			append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
+			append(dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME)).
 			append(',').
-			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.protectName(REVISION_COLUMN_INFO_NAME)).
 			append(")values(").
 			appendParameter(number).
 			append(',').
@@ -1665,9 +1665,9 @@ final class Database
 				{
 					final Statement bf = createStatement();
 					bf.append("delete from ").
-						append(driver.protectName(Table.REVISION_TABLE_NAME)).
+						append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
 						append(" where ").
-						append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
+						append(dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME)).
 						append('=').
 						appendParameter(REVISION_MUTEX_NUMBER);
 					executeSQLUpdate(con, bf, true);
