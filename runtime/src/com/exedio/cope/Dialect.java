@@ -27,7 +27,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.util.CharSet;
-import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 
 /**
@@ -43,10 +42,10 @@ abstract class Dialect
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
 	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 	
-	final Driver driver;
+	final com.exedio.dsmf.Dialect driver;
 	final String stringLength;
 	
-	protected Dialect(final Driver driver, final String stringLength)
+	protected Dialect(final com.exedio.dsmf.Dialect driver, final String stringLength)
 	{
 		this.driver = driver;
 		this.stringLength = stringLength;

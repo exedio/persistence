@@ -40,7 +40,6 @@ import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
@@ -52,7 +51,7 @@ final class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 	private boolean buildStage = true;
-	final Driver driver;
+	final com.exedio.dsmf.Dialect driver;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
 	private final boolean revisionEnabled;
@@ -71,7 +70,7 @@ final class Database
 	
 	final boolean oracle; // TODO remove
 	
-	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
+	Database(final com.exedio.dsmf.Dialect driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
 		this.driver = driver;

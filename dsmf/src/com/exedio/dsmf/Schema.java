@@ -33,7 +33,7 @@ public final class Schema extends Node
 	private final ArrayList<Sequence> sequenceList = new ArrayList<Sequence>();
 	private boolean verified = false;
 	
-	public Schema(final Driver driver, final ConnectionProvider connectionProvider)
+	public Schema(final Dialect driver, final ConnectionProvider connectionProvider)
 	{
 		super(driver, connectionProvider);
 	}

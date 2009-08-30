@@ -25,11 +25,11 @@ import java.util.StringTokenizer;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
 
-public final class MysqlDriver extends Driver
+public final class MysqlDialect extends Dialect
 {
 	final String primaryKeyColumnName;
 	
-	public MysqlDriver(final String primaryKeyColumnName)
+	public MysqlDialect(final String primaryKeyColumnName)
 	{
 		super(null, null);
 		this.primaryKeyColumnName = primaryKeyColumnName;
@@ -105,9 +105,9 @@ public final class MysqlDriver extends Driver
 		final int length = protectedName.length();
 		if(length<3)
 			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(0)!=MysqlDriver.PROTECTOR)
+		if(protectedName.charAt(0)!=MysqlDialect.PROTECTOR)
 			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(length-1)!=MysqlDriver.PROTECTOR)
+		if(protectedName.charAt(length-1)!=MysqlDialect.PROTECTOR)
 			throw new RuntimeException(protectedName);
 
 		return protectedName.substring(1, protectedName.length()-1);

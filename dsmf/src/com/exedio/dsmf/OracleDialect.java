@@ -27,11 +27,11 @@ import java.util.Iterator;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
 
-public final class OracleDriver extends Driver
+public final class OracleDialect extends Dialect
 {
 	private static final String SYSTEM_TABLE_PREFIX = "BIN$"; // for Oracle 10
 	
-	public OracleDriver(final String schema)
+	public OracleDialect(final String schema)
 	{
 		super(schema, SYSTEM_TABLE_PREFIX);
 	}

@@ -25,7 +25,6 @@ import java.sql.SQLException;
 
 import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
-import com.exedio.dsmf.MysqlDriver;
 import com.mysql.jdbc.Driver;
 
 /**
@@ -57,7 +56,7 @@ final class MysqlDialect extends Dialect
 	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(
-				new MysqlDriver(
+				new com.exedio.dsmf.MysqlDialect(
 						Table.PK_COLUMN_NAME),
 				"CHAR_LENGTH");
 		this.placeholdersInLimit = parameters.databaseMajorVersion>=5;
@@ -318,7 +317,7 @@ final class MysqlDialect extends Dialect
 	{
 		final Statement bf = database.createStatement();
 		bf.append("SELECT MAX(").
-			append(driver.protectName(MysqlDriver.SEQUENCE_COLUMN)).
+			append(driver.protectName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
 			append(") FROM ").
 			append(driver.protectName(name));
 		

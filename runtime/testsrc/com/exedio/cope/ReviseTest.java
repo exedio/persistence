@@ -30,7 +30,6 @@ import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -139,7 +138,7 @@ public class ReviseTest extends CopeAssert
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blob";
 		final Dialect dialect = model7.getDatabase().dialect;
-		final Driver driver = dialect.driver;
+		final com.exedio.dsmf.Dialect driver = dialect.driver;
 		// BEWARE:
 		// Never do this in real projects,
 		// always use plain string literals

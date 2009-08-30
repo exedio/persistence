@@ -54,14 +54,14 @@ public abstract class Node
 		}
 	}
 	
-	final Driver driver;
+	final Dialect driver;
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
 	Color particularColor = null;
 	Color cumulativeColor = null;
 	
-	Node(final Driver driver, final ConnectionProvider connectionProvider)
+	Node(final Dialect driver, final ConnectionProvider connectionProvider)
 	{
 		if(driver==null)
 			throw new NullPointerException("driver");

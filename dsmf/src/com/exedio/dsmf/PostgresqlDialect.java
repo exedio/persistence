@@ -24,9 +24,9 @@ import java.sql.Types;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
 
-public final class PostgresqlDriver extends Driver
+public final class PostgresqlDialect extends Dialect
 {
-	public PostgresqlDriver()
+	public PostgresqlDialect()
 	{
 		super(null, "pga_");
 	}

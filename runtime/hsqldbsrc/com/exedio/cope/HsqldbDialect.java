@@ -25,7 +25,6 @@ import java.sql.SQLException;
 import org.hsqldb.jdbcDriver;
 
 import com.exedio.cope.Database.ResultSetHandler;
-import com.exedio.dsmf.HsqldbDriver;
 
 final class HsqldbDialect extends Dialect
 {
@@ -47,7 +46,7 @@ final class HsqldbDialect extends Dialect
 	protected HsqldbDialect(final DialectParameters parameters)
 	{
 		super(
-				new HsqldbDriver(),
+				new com.exedio.dsmf.HsqldbDialect(),
 				"LENGTH");
 	}
 

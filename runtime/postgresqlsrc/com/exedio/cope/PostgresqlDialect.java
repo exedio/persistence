@@ -26,8 +26,6 @@ import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
-import com.exedio.dsmf.PostgresqlDriver;
-
 final class PostgresqlDialect extends Dialect
 {
 	static
@@ -45,7 +43,7 @@ final class PostgresqlDialect extends Dialect
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
-				new PostgresqlDriver(),
+				new com.exedio.dsmf.PostgresqlDialect(),
 				"LENGTH");
 		
 		// version 8 needed for savepoints

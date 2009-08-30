@@ -32,7 +32,6 @@ import java.util.Random;
 
 import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.OracleDriver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -59,7 +58,7 @@ final class OracleDialect extends Dialect
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
-				new OracleDriver(
+				new com.exedio.dsmf.OracleDialect(
 						parameters.properties.getDatabaseUser().toUpperCase()),
 				"LENGTH");
 		this.varchar = parameters.properties.getOracleVarchar();

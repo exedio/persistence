@@ -22,9 +22,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public final class HsqldbDriver extends Driver
+public final class HsqldbDialect extends Dialect
 {
-	public HsqldbDriver()
+	public HsqldbDialect()
 	{
 		super(null, null);
 	}

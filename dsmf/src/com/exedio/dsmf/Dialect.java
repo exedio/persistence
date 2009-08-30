@@ -22,12 +22,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public abstract class Driver
+public abstract class Dialect
 {
 	final String schema;
 	final String systemTableNamePrefix;
 
-	Driver(final String schema, final String systemTableNamePrefix)
+	Dialect(final String schema, final String systemTableNamePrefix)
 	{
 		this.schema = schema;
 		this.systemTableNamePrefix = systemTableNamePrefix;
