@@ -653,7 +653,6 @@ public final class Model
 
 	public Schema getVerifiedSchema()
 	{
-		// TODO: check data directories
 		return getDatabase().makeVerifiedSchema();
 	}
 
