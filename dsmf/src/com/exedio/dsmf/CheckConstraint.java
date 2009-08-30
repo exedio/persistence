@@ -47,7 +47,7 @@ public class CheckConstraint extends Constraint
 	@Override
 	public boolean isSupported()
 	{
-		return driver.supportsCheckConstraints();
+		return dialect.supportsCheckConstraints();
 	}
 
 	@Override

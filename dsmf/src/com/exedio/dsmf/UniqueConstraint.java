@@ -76,7 +76,7 @@ public class UniqueConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropUniqueConstraint(protectName(table.name), protectName(name)), listener);
+		executeSQL(dialect.dropUniqueConstraint(protectName(table.name), protectName(name)), listener);
 	}
 
 }

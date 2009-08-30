@@ -85,7 +85,7 @@ public class ForeignKeyConstraint extends Constraint
 			append(") references ").
 			append(protectName(targetTable));
 
-		if(driver.needsTargetColumnName())
+		if(dialect.needsTargetColumnName())
 		{
 			bf.append('(').
 				append(protectName(targetColumn)).
@@ -99,7 +99,7 @@ public class ForeignKeyConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropForeignKeyConstraint(protectName(table.name), protectName(name)), listener);
+		executeSQL(dialect.dropForeignKeyConstraint(protectName(table.name), protectName(name)), listener);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class ForeignKeyConstraint extends Constraint
 			append(") references ").
 			append(protectName(targetTable));
 	
-		if(driver.needsTargetColumnName())
+		if(dialect.needsTargetColumnName())
 		{
 			bf.append('(').
 				append(protectName(targetColumn)).

@@ -52,7 +52,7 @@ public final class Table extends Node
 	
 	Table(final Schema schema, final String name, final String options, final boolean required)
 	{
-		super(schema.driver, schema.connectionProvider);
+		super(schema.dialect, schema.connectionProvider);
 		
 		if(schema==null)
 			throw new RuntimeException();
@@ -266,7 +266,7 @@ public final class Table extends Node
 		bf.append(')');
 
 		// TODO: may be this should be done using this.options
-		driver.appendTableCreateStatement(bf);
+		dialect.appendTableCreateStatement(bf);
 
 		if(options!=null)
 		{
@@ -362,7 +362,7 @@ public final class Table extends Node
 	
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
-		executeSQL(driver.renameTable(protectName(name), protectName(newName)), listener);
+		executeSQL(dialect.renameTable(protectName(name), protectName(newName)), listener);
 	}
 	
 	public final void checkUnsupportedConstraints()

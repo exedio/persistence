@@ -100,7 +100,7 @@ public final class Schema extends Node
 			throw new RuntimeException("alread verified");
 		verified = true;
 		
-		driver.verify(this);
+		dialect.verify(this);
 		finish();
 	}
 

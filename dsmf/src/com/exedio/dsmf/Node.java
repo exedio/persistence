@@ -54,7 +54,7 @@ public abstract class Node
 		}
 	}
 	
-	final Dialect driver;
+	final Dialect dialect;
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
@@ -68,13 +68,13 @@ public abstract class Node
 		if(connectionProvider==null)
 			throw new NullPointerException("connectionProvider");
 		
-		this.driver = driver;
+		this.dialect = driver;
 		this.connectionProvider = connectionProvider;
 	}
 
 	final String protectName(final String name)
 	{
-		return driver.protectName(name);
+		return dialect.protectName(name);
 	}
 	
 	static final String GET_TABLES = "getTables";
@@ -97,11 +97,11 @@ public abstract class Node
 
 			if(GET_TABLES==statement)
 			{
-				resultSet = connection.getMetaData().getTables(null, driver.schema, null, new String[]{"TABLE"});
+				resultSet = connection.getMetaData().getTables(null, dialect.schema, null, new String[]{"TABLE"});
 			}
 			else if(GET_COLUMNS==statement)
 			{
-				resultSet = connection.getMetaData().getColumns(null, driver.schema, null, null);
+				resultSet = connection.getMetaData().getColumns(null, dialect.schema, null, null);
 			}
 			else
 			{

@@ -33,7 +33,7 @@ public final class Column extends Node
 
 	Column(final Table table, final String name, final String type, final boolean required)
 	{
-		super(table.driver, table.connectionProvider);
+		super(table.dialect, table.connectionProvider);
 
 		if(table==null)
 			throw new RuntimeException(name);
@@ -143,7 +143,7 @@ public final class Column extends Node
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
-			driver.createColumn(
+			dialect.createColumn(
 				protectName(table.name),
 				protectName(name),
 				getType()), listener);
@@ -158,7 +158,7 @@ public final class Column extends Node
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
-			driver.renameColumn(
+			dialect.renameColumn(
 				protectName(table.name),
 				protectName(name),
 				protectName(newName),
@@ -173,7 +173,7 @@ public final class Column extends Node
 	public final void modify(final String newType, final StatementListener listener)
 	{
 		executeSQL(
-			driver.modifyColumn(
+			dialect.modifyColumn(
 				protectName(table.name),
 				protectName(name),
 				newType), listener);

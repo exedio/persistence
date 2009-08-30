@@ -47,7 +47,7 @@ public abstract class Constraint extends Node
 			final boolean required,
 			final String condition)
 	{
-		super(table.driver, table.connectionProvider);
+		super(table.dialect, table.connectionProvider);
 		
 		if(table==null)
 			throw new RuntimeException(name);

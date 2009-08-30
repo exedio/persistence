@@ -32,13 +32,13 @@ public final class Sequence extends Node
 	
 	Sequence(final Schema schema, final String name, final int startWith, final boolean required)
 	{
-		super(schema.driver, schema.connectionProvider);
+		super(schema.dialect, schema.connectionProvider);
 		
 		if(schema==null)
 			throw new RuntimeException();
 		if(name==null)
 			throw new RuntimeException();
-		if(!schema.driver.supportsSequences())
+		if(!schema.dialect.supportsSequences())
 			throw new RuntimeException("database does not support sequences");
 
 		this.name = name;
@@ -110,7 +110,7 @@ public final class Sequence extends Node
 	
 	public void create(final StatementListener listener)
 	{
-		executeSQL(driver.createSequence(protectName(name), startWith), listener);
+		executeSQL(dialect.createSequence(protectName(name), startWith), listener);
 	}
 	
 	public void drop()
@@ -120,7 +120,7 @@ public final class Sequence extends Node
 	
 	public void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropSequence(protectName(name)), listener);
+		executeSQL(dialect.dropSequence(protectName(name)), listener);
 	}
 	
 	@Override
