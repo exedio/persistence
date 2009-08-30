@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.util.Properties;
 
 public class ClusterTest extends CopeAssert

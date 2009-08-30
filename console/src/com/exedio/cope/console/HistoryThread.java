@@ -33,11 +33,11 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.util.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.util.ConnectToken;
-import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.QueryCacheInfo;
+import com.exedio.cope.info.QueryCacheInfo;
 
 final class HistoryThread extends Thread
 {

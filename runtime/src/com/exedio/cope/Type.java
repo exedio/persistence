@@ -34,7 +34,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.SequenceInfo;
+import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>

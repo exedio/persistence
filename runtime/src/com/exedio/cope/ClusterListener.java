@@ -29,7 +29,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.exedio.cope.util.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.util.SequenceChecker;
 
 final class ClusterListener implements Runnable

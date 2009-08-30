@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-import com.exedio.cope.util.SequenceInfo;
+import com.exedio.cope.info.SequenceInfo;
 import com.exedio.dsmf.Schema;
 
 final class Sequence

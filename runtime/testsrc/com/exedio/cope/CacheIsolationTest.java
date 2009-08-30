@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.info.ItemCacheInfo;
 
 public class CacheIsolationTest extends AbstractRuntimeTest
 {

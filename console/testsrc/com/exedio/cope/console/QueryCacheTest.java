@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.util.QueryCacheHistogram;
+import com.exedio.cope.info.QueryCacheHistogram;
 
 public class QueryCacheTest extends TestCase
 {

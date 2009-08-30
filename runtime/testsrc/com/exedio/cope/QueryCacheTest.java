@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.exedio.cope.util.QueryCacheHistogram;
+import com.exedio.cope.info.QueryCacheHistogram;
 
 public class QueryCacheTest extends AbstractRuntimeTest
 {

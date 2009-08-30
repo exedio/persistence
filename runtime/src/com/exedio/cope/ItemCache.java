@@ -26,7 +26,7 @@ import gnu.trove.TIntObjectIterator;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCache
 {

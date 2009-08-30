@@ -23,7 +23,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCacheCop extends ConsoleCop
 {

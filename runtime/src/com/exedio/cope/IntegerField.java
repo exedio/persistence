@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.util.SequenceInfo;
+import com.exedio.cope.info.SequenceInfo;
 
 /**
  * Represents a field within a {@link Type type},

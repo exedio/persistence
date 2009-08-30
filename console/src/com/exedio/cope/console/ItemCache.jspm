@@ -24,7 +24,7 @@ import static com.exedio.cope.console.Format.ratio;
 
 import java.util.Date;
 
-import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCache_Jspm extends Console_Jspm
 {

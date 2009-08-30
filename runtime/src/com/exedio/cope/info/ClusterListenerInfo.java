@@ -16,12 +16,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.info;
 
 import java.net.InetAddress;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.exedio.cope.util.SequenceChecker;
 
 public final class ClusterListenerInfo
 {

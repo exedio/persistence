@@ -26,7 +26,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.util.SequenceInfo;
+import com.exedio.cope.info.SequenceInfo;
 
 final class SequenceCop extends TestCop<SequenceInfo>
 {
