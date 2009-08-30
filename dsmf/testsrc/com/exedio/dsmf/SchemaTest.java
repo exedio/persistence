@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 
 public abstract class SchemaTest extends TestCase
 {
-	private Dialect driver;
+	private Dialect dialect;
 	String stringType;
 	String intType;
 	String intType2;
@@ -74,7 +74,7 @@ public abstract class SchemaTest extends TestCase
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
-			driver = new HsqldbDialect();
+			dialect = new HsqldbDialect();
 			stringType = "varchar(8)";
 			intType = "integer";
 			intType2 = null;
@@ -83,7 +83,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			driver = new MysqlDialect("this");
+			dialect = new MysqlDialect("this");
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
@@ -92,7 +92,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:oracle:"))
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			driver = new OracleDialect(user.toUpperCase());
+			dialect = new OracleDialect(user.toUpperCase());
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
@@ -101,7 +101,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
 			Class.forName("org.postgresql.Driver");
-			driver = new PostgresqlDialect();
+			dialect = new PostgresqlDialect();
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = null;
@@ -110,7 +110,7 @@ public abstract class SchemaTest extends TestCase
 		else
 			throw new RuntimeException(url);
 		
-		supportsCheckConstraints = driver.supportsCheckConstraints();
+		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		connection1 = DriverManager.getConnection(url, user, password);
 		connection2 = DriverManager.getConnection(url, user, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
@@ -153,12 +153,12 @@ public abstract class SchemaTest extends TestCase
 	
 	protected final Schema newSchema()
 	{
-		return new Schema(driver, provider);
+		return new Schema(dialect, provider);
 	}
 	
 	protected final String p(final String name)
 	{
-		return driver.protectName(name);
+		return dialect.protectName(name);
 	}
 	
 }

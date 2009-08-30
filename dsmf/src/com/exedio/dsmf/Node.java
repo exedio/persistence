@@ -61,14 +61,14 @@ public abstract class Node
 	Color particularColor = null;
 	Color cumulativeColor = null;
 	
-	Node(final Dialect driver, final ConnectionProvider connectionProvider)
+	Node(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
-		if(driver==null)
-			throw new NullPointerException("driver");
+		if(dialect==null)
+			throw new NullPointerException("dialect");
 		if(connectionProvider==null)
 			throw new NullPointerException("connectionProvider");
 		
-		this.dialect = driver;
+		this.dialect = dialect;
 		this.connectionProvider = connectionProvider;
 	}
 
