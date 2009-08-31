@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -93,14 +92,15 @@ public final class Revisions
 					"attempt to revise from " + departureNumber + " to " + number +
 					", but declared revisions allow from " + (number - revisions.length) + " only");
 		
-		final ArrayList<Revision> result = new ArrayList<Revision>();
+		final Revision[] result = new Revision[number - departureNumber];
+		int resultIndex = 0;
 		for(int i = startIndex; i>=0; i--)
 		{
 			final Revision revision = revisions[i];
 			assert revision.number == (number - i);
-			result.add(revision);
+			result[resultIndex++] = revision;
 		}
 		
-		return Collections.unmodifiableList(result);
+		return Collections.unmodifiableList(Arrays.asList(result));
 	}
 }
