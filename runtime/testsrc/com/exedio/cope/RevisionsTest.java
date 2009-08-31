@@ -73,4 +73,104 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("inconsistent revision number at index 1, expected 7, but was 6", e.getMessage());
 		}
 	}
+	
+	public void testToRun()
+	{
+		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
+		final Revision r7 = new Revision(7, "revision7", "nonsensesql7");
+		final Revision r6 = new Revision(6, "revision6", "nonsensesql6");
+		final Revisions rs = new Revisions(r8, r7, r6);
+		assertEquals(8, rs.getNumber());
+		assertEquals(list(r8, r7, r6), rs.getList());
+		
+		try
+		{
+			rs.getListToRun(0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 0 to 8, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 1 to 8, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(3);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 3 to 8, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(4);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 4 to 8, but declared revisions allow from 5 only", e.getMessage());
+		}
+		assertEquals(list(r6, r7, r8), rs.getListToRun(5));
+		assertEquals(list(    r7, r8), rs.getListToRun(6));
+		assertEquals(list(        r8), rs.getListToRun(7));
+		assertEquals(list(          ), rs.getListToRun(8));
+		try
+		{
+			rs.getListToRun(9);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 8, but was 9", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(10);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 8, but was 10", e.getMessage());
+		}
+	}
+	
+	public void testToRunZero()
+	{
+		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
+		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
+		final Revisions rs = new Revisions(r2, r1);
+		assertEquals(2, rs.getNumber());
+		assertEquals(list(r2, r1), rs.getList());
+		
+		assertEquals(list(r1, r2), rs.getListToRun(0));
+		assertEquals(list(    r2), rs.getListToRun(1));
+		assertEquals(list(      ), rs.getListToRun(2));
+		try
+		{
+			rs.getListToRun(3);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 2, but was 3", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(4);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 2, but was 4", e.getMessage());
+		}
+	}
 }
