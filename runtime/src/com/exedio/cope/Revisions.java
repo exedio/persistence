@@ -36,6 +36,12 @@ final class Revisions
 		this.revisions = new Revision[0];
 	}
 	
+	public Revisions(final Revision[] revisions)
+	{
+		this.number = number(revisions);
+		this.revisions = checkRevisions(revisions);
+	}
+	
 	private static final Revision[] checkRevisions(final Revision[] revisions)
 	{
 		if(revisions==null)
@@ -75,12 +81,6 @@ final class Revisions
 			return 0;
 		else
 			return revisions[0].number;
-	}
-	
-	public Revisions(final Revision[] revisions)
-	{
-		this.number = number(revisions);
-		this.revisions = checkRevisions(revisions);
 	}
 
 	public int getNumber()
