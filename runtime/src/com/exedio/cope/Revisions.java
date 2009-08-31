@@ -27,16 +27,9 @@ final class Revisions
 	private final int number;
 	private final Revision[] revisions;
 	
-	private static final int checkNumber(final int number)
-	{
-		if(number<0)
-			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
-		return number;
-	}
-	
 	public Revisions(final int number)
 	{
-		this(checkNumber(number), new Revision[0]);
+		this(number, new Revision[0]);
 	}
 	
 	private static final Revision[] checkRevisions(final Revision[] revisions)
@@ -87,7 +80,9 @@ final class Revisions
 	
 	private Revisions(final int number, final Revision[] revisions)
 	{
-		assert (number>=0) && (revisions!=null);
+		if(number<0)
+			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
+		assert revisions!=null;
 		
 		this.number = number;
 		this.revisions = revisions;
