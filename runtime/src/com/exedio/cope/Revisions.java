@@ -79,17 +79,8 @@ final class Revisions
 	
 	public Revisions(final Revision[] revisions)
 	{
-		this(number(revisions), checkRevisions(revisions));
-	}
-	
-	private Revisions(final int number, final Revision[] revisions)
-	{
-		if(number<0)
-			throw new IllegalArgumentException();
-		assert revisions!=null;
-		
-		this.number = number;
-		this.revisions = revisions;
+		this.number = number(revisions);
+		this.revisions = checkRevisions(revisions);
 	}
 
 	public int getNumber()
