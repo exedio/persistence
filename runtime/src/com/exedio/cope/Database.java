@@ -1593,9 +1593,9 @@ final class Database
 	
 	void revise(final Revisions revisions)
 	{
-		final int expectedRevision = revisions.getNumber();
+		final int targetNumber = revisions.getNumber();
 		
-		assert expectedRevision>=0 : expectedRevision;
+		assert targetNumber>=0 : targetNumber;
 		assert revisionEnabled;
 
 		final Pool<Connection> connectionPool = this.connectionPool;
@@ -1620,7 +1620,7 @@ final class Database
 				final Date date = new Date();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), expectedRevision, departureNumber));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), targetNumber, departureNumber));
 				}
 				catch(SQLRuntimeException e)
 				{
