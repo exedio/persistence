@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
 public abstract class HierarchySuper extends Item
 {
 	public static final IntegerField superInt = new IntegerField().unique();

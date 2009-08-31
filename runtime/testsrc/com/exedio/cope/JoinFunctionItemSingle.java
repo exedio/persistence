@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
 public class JoinFunctionItemSingle extends Item
 {
 	/**

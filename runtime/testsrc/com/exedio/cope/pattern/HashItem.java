@@ -24,7 +24,6 @@ import com.exedio.cope.testmodel.WrapHash;
 
 /**
  * @cope.generic.constructor package
- * @author Ralf Wiebicke
  */
 public class HashItem extends Item
 {

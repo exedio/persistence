@@ -22,9 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
-/**
- * @author Ralf Wiebicke
- */
 public class PointerItem extends Item
 {
 

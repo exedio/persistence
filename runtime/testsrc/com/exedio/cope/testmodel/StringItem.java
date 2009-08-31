@@ -33,7 +33,6 @@ import com.exedio.cope.util.CharSet;
 
 /**
  * @cope.generic.constructor public
- * @author Ralf Wiebicke
  */
 @CopeSchemaName("STRINGITEMS")
 public class StringItem extends Item

@@ -27,7 +27,6 @@ import com.exedio.cope.StringField;
 
 /**
  * @cope.generic.constructor package
- * @author Ralf Wiebicke
  */
 public class LimitedListFieldItem extends Item
 {

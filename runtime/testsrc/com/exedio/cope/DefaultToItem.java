@@ -22,7 +22,6 @@ import java.util.Date;
 
 /**
  * @cope.generic.constructor package
- * @author Ralf Wiebicke
  */
 class DefaultToItem extends Item
 {

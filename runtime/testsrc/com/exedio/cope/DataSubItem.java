@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
 class DataSubItem extends DataItem
 {
 	

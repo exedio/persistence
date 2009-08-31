@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 
 /**
  * @cope.generic.constructor package
- * @author Ralf Wiebicke
  */
 public class SerializerItem extends Item
 {
