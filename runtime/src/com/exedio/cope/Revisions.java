@@ -79,17 +79,17 @@ final class Revisions
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
-	List<Revision> getRevisionsToRun(final int targetNumber)
+	List<Revision> getRevisionsToRun(final int departureNumber)
 	{
-		if(targetNumber==number)
+		if(departureNumber==number)
 			return Collections.emptyList();
-		if(targetNumber>number)
-			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + targetNumber);
+		if(departureNumber>number)
+			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + departureNumber);
 		
-		final int startIndex = number - targetNumber - 1;
+		final int startIndex = number - departureNumber - 1;
 		if(startIndex>=revisions.length)
 			throw new IllegalArgumentException(
-					"attempt to revise from " + targetNumber + " to " + number +
+					"attempt to revise from " + departureNumber + " to " + number +
 					", but declared revisions allow from " + (number - revisions.length) + " only");
 		
 		final ArrayList<Revision> result = new ArrayList<Revision>();
