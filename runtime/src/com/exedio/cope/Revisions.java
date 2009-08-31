@@ -81,10 +81,11 @@ final class Revisions
 	
 	List<Revision> getRevisionsToRun(final int targetNumber)
 	{
+		if(targetNumber==number)
+			return Collections.emptyList();
 		if(targetNumber>number)
 			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + targetNumber);
 		
-		if(targetNumber<number)
 		{
 			final ArrayList<Revision> result = new ArrayList<Revision>();
 			final int startRevisionIndex = number - targetNumber - 1;
@@ -102,7 +103,5 @@ final class Revisions
 			
 			return result;
 		}
-		else
-			return Collections.emptyList();
 	}
 }
