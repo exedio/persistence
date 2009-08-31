@@ -93,10 +93,10 @@ final class Revisions
 					"attempt to revise from " + targetNumber + " to " + number +
 					", but declared revisions allow from " + (number - revisions.length) + " only");
 		
-		for(int revisionIndex = startIndex; revisionIndex>=0; revisionIndex--)
+		for(int i = startIndex; i>=0; i--)
 		{
-			final Revision revision = revisions[revisionIndex];
-			assert revision.number == (number - revisionIndex);
+			final Revision revision = revisions[i];
+			assert revision.number == (number - i);
 			result.add(revision);
 		}
 		
