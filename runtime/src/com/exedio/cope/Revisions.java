@@ -64,15 +64,10 @@ final class Revisions
 			}
 		}
 		
-		this.number = number(revisions);
+		this.number = revisions[0].number;
 		this.revisions = revisions;
 	}
 	
-	private static final int number(final Revision[] revisions)
-	{
-		return revisions[0].number;
-	}
-
 	public int getNumber()
 	{
 		return number;
