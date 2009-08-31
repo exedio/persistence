@@ -49,7 +49,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private Revisions revisions;
+	private Revisions revisions; // TODO make final
 	private final Object reviseLock = new Object();
 	
 	private final Type<?>[] types;
