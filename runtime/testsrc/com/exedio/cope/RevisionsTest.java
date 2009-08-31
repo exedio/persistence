@@ -173,4 +173,16 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("cannot revise backwards, expected 2, but was 4", e.getMessage());
 		}
 	}
+	
+	public void testCopy()
+	{
+		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
+		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
+		final Revision[] ra = new Revision[]{r2, r1};
+		final Revisions rs = new Revisions(ra);
+		assertEquals(list(r2, r1), rs.getList());
+		
+		ra[0] = r1;
+		assertEquals(list(r2, r1), rs.getList());
+	}
 }

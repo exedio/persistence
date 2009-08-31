@@ -85,4 +85,14 @@ public class RevisionTest extends CopeAssert
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("R123:test-comment", m.toString());
 	}
+	
+	public void testCopy()
+	{
+		final String[] body = new String[]{"a", "b", "c"};
+		final Revision r = new Revision(5, "comment", body);
+		assertEquals(list("a", "b", "c"), r.getBody());
+		
+		body[0] = "x";
+		assertEquals(list("a", "b", "c"), r.getBody());
+	}
 }
