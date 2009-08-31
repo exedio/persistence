@@ -1594,7 +1594,6 @@ final class Database
 	void revise(final Revisions revisionsO)
 	{
 		final int expectedRevision = revisionsO.getNumber();
-		final Revision[] revisions = revisionsO.getRevisions().toArray(new Revision[0]); // TODO remove array conversion
 		
 		assert expectedRevision>=0 : expectedRevision;
 		assert revisionEnabled;
@@ -1614,19 +1613,10 @@ final class Database
 			}
 			
 			final int actualRevision = getActualRevisionNumber(con);
+			final List<Revision> revisionsToRun = revisionsO.getRevisionsToRun(actualRevision);
 			
-			if(actualRevision>expectedRevision)
+			if(!revisionsToRun.isEmpty())
 			{
-				throw new IllegalArgumentException("cannot revise backwards, expected " + expectedRevision + ", but was " + actualRevision);
-			}
-			else if(actualRevision<expectedRevision)
-			{
-				final int startRevisionIndex = expectedRevision - actualRevision - 1;
-				if(startRevisionIndex>=revisions.length)
-					throw new IllegalArgumentException(
-							"attempt to revise from " + actualRevision + " to " + expectedRevision +
-							", but declared revisions allow from " + (expectedRevision - revisions.length) + " only");
-				
 				final Date date = new Date();
 				try
 				{
@@ -1639,11 +1629,9 @@ final class Database
 							"Either a revision is currently underway, " +
 							"or a revision has failed unexpectedly.", e);
 				}
-				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
+				for(final Revision revision : revisionsToRun)
 				{
-					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
-					assert revision.number == (expectedRevision - revisionIndex);
 					final String[] body = revision.body;
 					final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -76,5 +77,35 @@ final class Revisions
 	public List<Revision> getRevisions()
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
+	}
+	
+	List<Revision> getRevisionsToRun(final int actualRevision)
+	{
+		final int expectedRevision = number;
+		
+		if(actualRevision>expectedRevision)
+		{
+			throw new IllegalArgumentException("cannot revise backwards, expected " + expectedRevision + ", but was " + actualRevision);
+		}
+		else if(actualRevision<expectedRevision)
+		{
+			final ArrayList<Revision> result = new ArrayList<Revision>();
+			final int startRevisionIndex = expectedRevision - actualRevision - 1;
+			if(startRevisionIndex>=revisions.length)
+				throw new IllegalArgumentException(
+						"attempt to revise from " + actualRevision + " to " + expectedRevision +
+						", but declared revisions allow from " + (expectedRevision - revisions.length) + " only");
+			
+			for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
+			{
+				final Revision revision = revisions[revisionIndex];
+				assert revision.number == (expectedRevision - revisionIndex);
+				result.add(revision);
+			}
+			
+			return result;
+		}
+		else
+			return Collections.emptyList();
 	}
 }
