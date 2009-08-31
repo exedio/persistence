@@ -86,13 +86,13 @@ final class Revisions
 		if(targetNumber>number)
 			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + targetNumber);
 		
-		final ArrayList<Revision> result = new ArrayList<Revision>();
 		final int startIndex = number - targetNumber - 1;
 		if(startIndex>=revisions.length)
 			throw new IllegalArgumentException(
 					"attempt to revise from " + targetNumber + " to " + number +
 					", but declared revisions allow from " + (number - revisions.length) + " only");
 		
+		final ArrayList<Revision> result = new ArrayList<Revision>();
 		for(int i = startIndex; i>=0; i--)
 		{
 			final Revision revision = revisions[i];
