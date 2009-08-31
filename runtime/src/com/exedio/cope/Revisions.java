@@ -45,13 +45,13 @@ public final class Revisions
 			throw new IllegalArgumentException("revisions must not be empty");
 		
 		// make a copy to avoid modifications afterwards
-		final Revision[] result = new Revision[revisions.length];
-		System.arraycopy(revisions, 0, result, 0, revisions.length);
+		final Revision[] revisionsCopy = new Revision[revisions.length];
+		System.arraycopy(revisions, 0, revisionsCopy, 0, revisions.length);
 		
 		int base = -1;
-		for(int i = 0; i<result.length; i++)
+		for(int i = 0; i<revisionsCopy.length; i++)
 		{
-			final Revision revision = result[i];
+			final Revision revision = revisionsCopy[i];
 			if(revision==null)
 				throw new NullPointerException("revisions" + '[' + i + ']');
 			
@@ -66,7 +66,7 @@ public final class Revisions
 		}
 		
 		this.number = revisions[0].number;
-		this.revisions = result;
+		this.revisions = revisionsCopy;
 	}
 	
 	public int getNumber()
