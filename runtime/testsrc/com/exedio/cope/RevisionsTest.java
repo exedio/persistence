@@ -20,69 +20,57 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class RevisionTest extends CopeAssert
+public class RevisionsTest extends CopeAssert
 {
-	public void testRevision()
+	public void testRevisions()
 	{
 		try
 		{
-			new Revision(-1, null, (String[])null);
+			new Revisions(-1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("number must be greater zero", e.getMessage());
+			assertEquals("revision number must not be negative, but was -1", e.getMessage());
 		}
 		try
 		{
-			new Revision(0, null, (String[])null);
+			new Revisions((Revision[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("revisions", e.getMessage());
+		}
+		try
+		{
+			new Revisions(new Revision[]{});
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("number must be greater zero", e.getMessage());
+			assertEquals("revisions must not be empty", e.getMessage());
 		}
 		try
 		{
-			new Revision(1, null, (String[])null);
+			new Revisions(new Revision(1, "revision1", "nonsensesql1"), null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("comment", e.getMessage());
+			assertEquals("revisions[1]", e.getMessage());
 		}
 		try
 		{
-			new Revision(1, "some comment", (String[])null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("body", e.getMessage());
-		}
-		try
-		{
-			new Revision(1, "some comment", new String[0]);
+			new Revisions(
+					new Revision(8, "revision8", "nonsensesql8"),
+					new Revision(6, "revision6", "nonsensesql6")
+					);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("body must not be empty", e.getMessage());
+			assertEquals("inconsistent revision number at index 1, expected 7, but was 6", e.getMessage());
 		}
-		try
-		{
-			new Revision(1, "some comment", "hallo", null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("body[1]", e.getMessage());
-		}
-		
-		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
-		assertEquals(123, m.getNumber());
-		assertEquals("test-comment", m.getComment());
-		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
-		assertEquals("R123:test-comment", m.toString());
 	}
 }
