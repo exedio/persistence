@@ -38,12 +38,6 @@ final class Revisions
 	
 	public Revisions(final Revision[] revisions)
 	{
-		this.number = number(revisions);
-		this.revisions = checkRevisions(revisions);
-	}
-	
-	private static final Revision[] checkRevisions(final Revision[] revisions)
-	{
 		if(revisions==null)
 			throw new NullPointerException("revisions");
 		if(revisions.length==0)
@@ -70,17 +64,13 @@ final class Revisions
 			}
 		}
 		
-		return result;
+		this.number = number(revisions);
+		this.revisions = revisions;
 	}
 	
 	private static final int number(final Revision[] revisions)
 	{
-		if(revisions==null)
-			return -1;
-		else if(revisions.length==0)
-			return 0;
-		else
-			return revisions[0].number;
+		return revisions[0].number;
 	}
 
 	public int getNumber()
