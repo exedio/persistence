@@ -1612,15 +1612,15 @@ final class Database
 				throw new SQLRuntimeException(e, "setAutoCommit");
 			}
 			
-			final int actualRevision = getActualRevisionNumber(con);
-			final List<Revision> revisionsToRun = revisions.getRevisionsToRun(actualRevision);
+			final int departureNumber = getActualRevisionNumber(con);
+			final List<Revision> revisionsToRun = revisions.getRevisionsToRun(departureNumber);
 			
 			if(!revisionsToRun.isEmpty())
 			{
 				final Date date = new Date();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), expectedRevision, departureNumber));
 				}
 				catch(SQLRuntimeException e)
 				{
