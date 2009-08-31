@@ -1591,9 +1591,9 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void revise(final Revisions revisionsO)
+	void revise(final Revisions revisions)
 	{
-		final int expectedRevision = revisionsO.getNumber();
+		final int expectedRevision = revisions.getNumber();
 		
 		assert expectedRevision>=0 : expectedRevision;
 		assert revisionEnabled;
@@ -1613,7 +1613,7 @@ final class Database
 			}
 			
 			final int actualRevision = getActualRevisionNumber(con);
-			final List<Revision> revisionsToRun = revisionsO.getRevisionsToRun(actualRevision);
+			final List<Revision> revisionsToRun = revisions.getRevisionsToRun(actualRevision);
 			
 			if(!revisionsToRun.isEmpty())
 			{
