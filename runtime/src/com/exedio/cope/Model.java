@@ -1205,7 +1205,7 @@ public final class Model
 	}
 	
 	/**
-	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[]))}.
+	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[])}.
 	 */
 	@Deprecated
 	public Model(final Revision[] revisions, final Type... types)
