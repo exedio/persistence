@@ -385,7 +385,7 @@ public final class Model
 		
 		synchronized(revisionLock)
 		{
-			getDatabase().revise(revisions.getNumber(), revisions.getRevisions().toArray(new Revision[0])); // TODO remove array conversion
+			getDatabase().revise(revisions);
 		}
 	}
 

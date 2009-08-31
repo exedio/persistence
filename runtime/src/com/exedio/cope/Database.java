@@ -1591,8 +1591,11 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void revise(final int expectedRevision, final Revision[] revisions)
+	void revise(final Revisions revisionsO)
 	{
+		final int expectedRevision = revisionsO.getNumber();
+		final Revision[] revisions = revisionsO.getRevisions().toArray(new Revision[0]); // TODO remove array conversion
+		
 		assert expectedRevision>=0 : expectedRevision;
 		assert revisionEnabled;
 
