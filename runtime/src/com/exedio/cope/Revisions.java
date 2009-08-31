@@ -95,11 +95,7 @@ public final class Revisions
 		final Revision[] result = new Revision[number - departureNumber];
 		int resultIndex = 0;
 		for(int i = startIndex; i>=0; i--)
-		{
-			final Revision revision = revisions[i];
-			assert revision.number == (number - i);
-			result[resultIndex++] = revision;
-		}
+			result[resultIndex++] = revisions[i];
 		
 		return Collections.unmodifiableList(Arrays.asList(result));
 	}
