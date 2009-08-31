@@ -100,6 +100,6 @@ public final class Revisions
 			result.add(revision);
 		}
 		
-		return result;
+		return Collections.unmodifiableList(result);
 	}
 }
