@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
+import com.exedio.cope.Revisions;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -96,7 +97,9 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			final HttpServletRequest request,
 			final History history)
 	{
-		if(!model.isRevisionEnabled())
+		final Revisions revisions = model.getRevisions();
+		
+		if(revisions==null)
 		{
 			Revision_Jspm.writeBodyDisabled(out);
 			return;
@@ -104,8 +107,8 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		
 		final TreeMap<Integer, RevisionLine> lines = new TreeMap<Integer, RevisionLine>();
 		
-		register(lines, model.getRevisionNumber()).setCurrent();
-		for(final Revision m : model.getRevisions())
+		register(lines, revisions.getNumber()).setCurrent();
+		for(final Revision m : revisions.getList())
 			register(lines, m.getNumber()).setRevision(m);
 		
 		Map<Integer, byte[]> logsRaw = null;

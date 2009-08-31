@@ -292,25 +292,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
 		
-		assertFalse(model.isRevisionEnabled());
-		try
-		{
-			model.getRevisionNumber();
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("revisions are not enabled", e.getMessage());
-		}
-		try
-		{
-			model.getRevisions();
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("revisions are not enabled", e.getMessage());
-		}
+		assertNull(model.getRevisions());
 		try
 		{
 			model.revise();

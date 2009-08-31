@@ -96,7 +96,7 @@ final class Revisions
 		for(final Object key : dbinfo.keySet())
 			environment.put((String)key, dbinfo.getProperty((String)key));
 		
-		final Iterator<Revision> revisions = model.getRevisions().iterator();
+		final Iterator<Revision> revisions = model.getRevisions().getList().iterator();
 		
 		final ConnectProperties p = model.getProperties();
 		Connection con = null;

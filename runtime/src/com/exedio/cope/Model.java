@@ -349,11 +349,6 @@ public final class Model
 	{
 		getDatabase().flushSequences();
 	}
-
-	public boolean isRevisionEnabled()
-	{
-		return revisions!=null;
-	}
 	
 	private final void assertRevisionEnabled()
 	{
@@ -361,16 +356,9 @@ public final class Model
 			throw new IllegalArgumentException("revisions are not enabled");
 	}
 
-	public int getRevisionNumber()
+	public Revisions getRevisions()
 	{
-		assertRevisionEnabled();
-		return revisions.getNumber();
-	}
-
-	public List<Revision> getRevisions()
-	{
-		assertRevisionEnabled();
-		return revisions.getList();
+		return revisions;
 	}
 	
 	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
@@ -1071,42 +1059,6 @@ public final class Model
 	public QueryCacheInfo getCacheQueryInfo()
 	{
 		return getQueryCacheInfo();
-	}
-	
-	/**
-	 * @deprecated Use {@link #getRevisionNumber()} instead
-	 */
-	@Deprecated
-	public int getMigrationVersion()
-	{
-		return getRevisionNumber();
-	}
-
-	/**
-	 * @deprecated Use {@link #getRevisionNumber()} instead
-	 */
-	@Deprecated
-	public int getMigrationRevision()
-	{
-		return getRevisionNumber();
-	}
-	
-	/**
-	 * @deprecated Use {@link #isRevisionEnabled()} instead
-	 */
-	@Deprecated
-	public boolean isMigrationSupported()
-	{
-		return isRevisionEnabled();
-	}
-	
-	/**
-	 * @deprecated Use {@link #getRevisions()} instead
-	 */
-	@Deprecated
-	public List<Revision> getMigrations()
-	{
-		return getRevisions();
 	}
 	
 	/**
