@@ -29,7 +29,11 @@ final class Revisions
 	
 	public Revisions(final int number)
 	{
-		this(number, new Revision[0]);
+		if(number<0)
+			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
+		
+		this.number = number;
+		this.revisions = new Revision[0];
 	}
 	
 	private static final Revision[] checkRevisions(final Revision[] revisions)
@@ -81,7 +85,7 @@ final class Revisions
 	private Revisions(final int number, final Revision[] revisions)
 	{
 		if(number<0)
-			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
+			throw new IllegalArgumentException();
 		assert revisions!=null;
 		
 		this.number = number;
