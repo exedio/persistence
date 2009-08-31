@@ -364,7 +364,7 @@ public final class Model
 	public int getRevisionNumber()
 	{
 		assertRevisionEnabled();
-		return revisions.getRevisionNumber();
+		return revisions.getNumber();
 	}
 
 	public List<Revision> getRevisions()
@@ -385,7 +385,7 @@ public final class Model
 		
 		synchronized(revisionLock)
 		{
-			getDatabase().revise(revisions.getRevisionNumber(), revisions.getRevisions().toArray(new Revision[0])); // TODO remove array conversion
+			getDatabase().revise(revisions.getNumber(), revisions.getRevisions().toArray(new Revision[0])); // TODO remove array conversion
 		}
 	}
 
@@ -544,7 +544,7 @@ public final class Model
 	
 	public void createSchema()
 	{
-		getDatabase().createSchema(revisions!=null ? revisions.getRevisionNumber() : -1);
+		getDatabase().createSchema(revisions!=null ? revisions.getNumber() : -1);
 		clearCache();
 	}
 

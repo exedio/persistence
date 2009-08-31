@@ -24,19 +24,19 @@ import java.util.List;
 
 final class Revisions
 {
-	private final int revisionNumber;
+	private final int number;
 	private final Revision[] revisions;
 	
-	private static final int checkRevisionNumber(final int revisionNumber)
+	private static final int checkNumber(final int number)
 	{
-		if(revisionNumber<0)
-			throw new IllegalArgumentException("revision number must not be negative, but was " + revisionNumber);
-		return revisionNumber;
+		if(number<0)
+			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
+		return number;
 	}
 	
-	public Revisions(final int revisionNumber)
+	public Revisions(final int number)
 	{
-		this(checkRevisionNumber(revisionNumber), new Revision[0]);
+		this(checkNumber(number), new Revision[0]);
 	}
 	
 	private static final Revision[] checkRevisions(final Revision[] revisions)
@@ -70,7 +70,7 @@ final class Revisions
 		return result;
 	}
 	
-	private static final int revisionNumber(final Revision[] revisions)
+	private static final int number(final Revision[] revisions)
 	{
 		if(revisions==null)
 			return -1;
@@ -82,20 +82,20 @@ final class Revisions
 	
 	public Revisions(final Revision[] revisions)
 	{
-		this(revisionNumber(revisions), checkRevisions(revisions));
+		this(number(revisions), checkRevisions(revisions));
 	}
 	
-	private Revisions(final int revisionNumber, final Revision[] revisions)
+	private Revisions(final int number, final Revision[] revisions)
 	{
-		assert (revisionNumber>=0) && (revisions!=null);
+		assert (number>=0) && (revisions!=null);
 		
-		this.revisionNumber = revisionNumber;
+		this.number = number;
 		this.revisions = revisions;
 	}
 
-	public int getRevisionNumber()
+	public int getNumber()
 	{
-		return revisionNumber;
+		return number;
 	}
 
 	public List<Revision> getRevisions()
