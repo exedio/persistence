@@ -37,7 +37,7 @@ public final class Revisions
 		this.revisions = new Revision[0];
 	}
 	
-	public Revisions(final Revision[] revisions)
+	public Revisions(final Revision... revisions)
 	{
 		if(revisions==null)
 			throw new NullPointerException("revisions");

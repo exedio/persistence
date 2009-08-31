@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* deprecated constructors of Model not using Revisions
 * replaced Model.isRevisionEnabled() and getRevisionNumber() by getRevisions()
 	this breaks backwards API compatibility, but is unlikely to affect normal projects
 * renamed dsmf driver to dialect

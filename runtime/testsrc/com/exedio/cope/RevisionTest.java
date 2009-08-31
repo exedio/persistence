@@ -86,11 +86,11 @@ public class RevisionTest extends CopeAssert
 		assertEquals("R123:test-comment", m.toString());
 	}
 		
-	public void testModel()
+	public void testRevisions()
 	{
 		try
 		{
-			new Model(-1, (Type[])null);
+			new Revisions(-1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -99,7 +99,7 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
-			new Model(null, (Type[])null);
+			new Revisions((Revision[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -108,7 +108,7 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Revision[]{}, (Type[])null);
+			new Revisions(new Revision[]{});
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -117,7 +117,7 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Revision[]{new Revision(1, "revision1", "nonsensesql1"), null}, (Type[])null);
+			new Revisions(new Revision(1, "revision1", "nonsensesql1"), null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -126,10 +126,10 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Revision[]{
+			new Revisions(
 					new Revision(8, "revision8", "nonsensesql8"),
-					new Revision(6, "revision6", "nonsensesql6"),
-					}, (Type[])null);
+					new Revision(6, "revision6", "nonsensesql6")
+					);
 			fail();
 		}
 		catch(IllegalArgumentException e)

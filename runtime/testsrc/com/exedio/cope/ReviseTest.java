@@ -36,16 +36,16 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final Revision[] revisions5 = new Revision[]{
-		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
-	};
+	private static final Revisions revisions5 = new Revisions(
+		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
+	);
 	
 	private static final Model model5 = new Model(revisions5, ReviseItem1.TYPE);
 	
 	
-	private static final Revision[] revisions7Missing = new Revision[]{
-			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
-		};
+	private static final Revisions revisions7Missing = new Revisions(
+			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
+		);
 	
 	private static final Model model7 = new Model(revisions7Missing, ReviseItem2.TYPE);
 	
@@ -80,7 +80,7 @@ public class ReviseTest extends CopeAssert
 		
 		assertNotNull(model5.getRevisions());
 		assertEquals(5, model5.getRevisions().getNumber());
-		assertEqualsUnmodifiable(Arrays.asList(revisions5), model5.getRevisions().getList());
+		assertEqualsUnmodifiable(revisions5.getList(), model5.getRevisions().getList());
 		
 		model5.connect(props);
 		model5.tearDownSchema();
@@ -106,7 +106,7 @@ public class ReviseTest extends CopeAssert
 		
 		assertNotNull(model7.getRevisions());
 		assertEquals(7, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(list(revisions7Missing[0]), model7.getRevisions().getList());
+		assertEqualsUnmodifiable(list(revisions7Missing.getList().get(0)), model7.getRevisions().getList());
 
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);

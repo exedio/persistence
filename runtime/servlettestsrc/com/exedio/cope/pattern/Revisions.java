@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class Revisions
 {
-	static final Revision[] revisions(final int length)
+	static final com.exedio.cope.Revisions revisions(final int length)
 	{
 		final Revision[] result = new Revision[length];
 		
@@ -86,7 +86,7 @@ final class Revisions
 				body[j] = "sql " + revision + "/" + j;
 			result[i] = new Revision(revision, "comment " + revision, body);
 		}
-		return result;
+		return new com.exedio.cope.Revisions(result);
 	}
 	
 	static final void revisions(final Model model)

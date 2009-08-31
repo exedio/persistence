@@ -92,17 +92,25 @@ public final class Model
 		this((Revisions)null, types);
 	}
 	
+	/**
+	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(int)}.
+	 */
+	@Deprecated
 	public Model(final int revisionNumber, final Type... types)
 	{
 		this(new Revisions(revisionNumber), types);
 	}
 	
+	/**
+	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[]))}.
+	 */
+	@Deprecated
 	public Model(final Revision[] revisions, final Type... types)
 	{
 		this(new Revisions(revisions), types);
 	}
 	
-	private Model(final Revisions revisions, final Type... types)
+	public Model(final Revisions revisions, final Type... types)
 	{
 		this.revisions = revisions;
 		
