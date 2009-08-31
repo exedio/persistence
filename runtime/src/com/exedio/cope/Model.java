@@ -370,7 +370,7 @@ public final class Model
 	public List<Revision> getRevisions()
 	{
 		assertRevisionEnabled();
-		return revisions.getRevisions();
+		return revisions.getList();
 	}
 	
 	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!

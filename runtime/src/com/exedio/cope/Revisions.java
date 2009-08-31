@@ -74,12 +74,12 @@ final class Revisions
 		return number;
 	}
 
-	public List<Revision> getRevisions()
+	public List<Revision> getList()
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
-	List<Revision> getRevisionsToRun(final int departureNumber)
+	List<Revision> getListToRun(final int departureNumber)
 	{
 		if(departureNumber==number)
 			return Collections.emptyList();

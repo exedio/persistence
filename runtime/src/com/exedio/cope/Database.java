@@ -1615,7 +1615,7 @@ final class Database
 			}
 			
 			final int departureNumber = getActualRevisionNumber(con);
-			final List<Revision> revisionsToRun = revisions.getRevisionsToRun(departureNumber);
+			final List<Revision> revisionsToRun = revisions.getListToRun(departureNumber);
 			
 			if(!revisionsToRun.isEmpty())
 			{
