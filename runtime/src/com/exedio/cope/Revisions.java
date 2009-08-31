@@ -46,12 +46,11 @@ public final class Revisions
 		
 		// make a copy to avoid modifications afterwards
 		final Revision[] revisionsCopy = new Revision[revisions.length];
-		System.arraycopy(revisions, 0, revisionsCopy, 0, revisions.length);
 		
 		int base = -1;
-		for(int i = 0; i<revisionsCopy.length; i++)
+		for(int i = 0; i<revisions.length; i++)
 		{
-			final Revision revision = revisionsCopy[i];
+			final Revision revision = revisions[i];
 			if(revision==null)
 				throw new NullPointerException("revisions" + '[' + i + ']');
 			
@@ -63,6 +62,8 @@ public final class Revisions
 				if(revision.number!=expectedNumber)
 					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
 			}
+			
+			revisionsCopy[i] = revision;
 		}
 		
 		this.number = revisions[0].number;
