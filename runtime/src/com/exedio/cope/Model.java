@@ -544,7 +544,7 @@ public final class Model
 	
 	public void createSchema()
 	{
-		getDatabase().createSchema(revisions!=null ? revisions.getNumber() : -1);
+		getDatabase().createSchema(revisions);
 		clearCache();
 	}
 

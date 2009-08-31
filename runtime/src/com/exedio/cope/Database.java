@@ -194,14 +194,16 @@ final class Database
 		return new Statement(this, query);
 	}
 	
-	void createSchema(final int revisionNumber)
+	void createSchema(final Revisions revisions)
 	{
+		assert revisionEnabled == (revisions!=null);
 		buildStage = false;
 		
 		makeSchema().create();
 		
 		if(revisionEnabled)
 		{
+			final int revisionNumber = revisions.getNumber();
 			final Pool<Connection> connectionPool = this.connectionPool;
 			Connection con = null;
 			try
