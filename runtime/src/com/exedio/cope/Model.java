@@ -50,7 +50,7 @@ import com.exedio.dsmf.Schema;
 public final class Model
 {
 	private Revisions revisions;
-	private final Object revisionLock = new Object();
+	private final Object reviseLock = new Object();
 	
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
@@ -383,7 +383,7 @@ public final class Model
 	{
 		assertRevisionEnabled();
 		
-		synchronized(revisionLock)
+		synchronized(reviseLock)
 		{
 			getDatabase().revise(revisions);
 		}
