@@ -24,8 +24,8 @@ import java.util.List;
 
 final class Revisions
 {
-	private int revisionNumber;
-	private Revision[] revisions;
+	private final int revisionNumber;
+	private final Revision[] revisions;
 	
 	private static final int checkRevisionNumber(final int revisionNumber)
 	{
