@@ -1,0 +1,105 @@
+/*
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+final class Revisions
+{
+	private int revisionNumber;
+	private Revision[] revisions;
+	
+	private static final int checkRevisionNumber(final int revisionNumber)
+	{
+		if(revisionNumber<0)
+			throw new IllegalArgumentException("revision number must not be negative, but was " + revisionNumber);
+		return revisionNumber;
+	}
+	
+	public Revisions(final int revisionNumber)
+	{
+		this(checkRevisionNumber(revisionNumber), new Revision[0]);
+	}
+	
+	private static final Revision[] checkRevisions(final Revision[] revisions)
+	{
+		if(revisions==null)
+			throw new NullPointerException("revisions");
+		if(revisions.length==0)
+			throw new IllegalArgumentException("revisions must not be empty");
+		
+		// make a copy to avoid modifications afterwards
+		final Revision[] result = new Revision[revisions.length];
+		System.arraycopy(revisions, 0, result, 0, revisions.length);
+		
+		int base = -1;
+		for(int i = 0; i<result.length; i++)
+		{
+			final Revision revision = result[i];
+			if(revision==null)
+				throw new NullPointerException("revisions" + '[' + i + ']');
+			
+			if(i==0)
+				base = revision.number;
+			else
+			{
+				final int expectedNumber = base-i;
+				if(revision.number!=expectedNumber)
+					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
+			}
+		}
+		
+		return result;
+	}
+	
+	private static final int revisionNumber(final Revision[] revisions)
+	{
+		if(revisions==null)
+			return -1;
+		else if(revisions.length==0)
+			return 0;
+		else
+			return revisions[0].number;
+	}
+	
+	public Revisions(final Revision[] revisions)
+	{
+		this(revisionNumber(revisions), checkRevisions(revisions));
+	}
+	
+	private Revisions(final int revisionNumber, final Revision[] revisions)
+	{
+		assert (revisionNumber>=0) && (revisions!=null);
+		
+		this.revisionNumber = revisionNumber;
+		this.revisions = revisions;
+	}
+
+	public int getRevisionNumber()
+	{
+		return revisionNumber;
+	}
+
+	public List<Revision> getRevisions()
+	{
+		return Collections.unmodifiableList(Arrays.asList(revisions));
+	}
+}

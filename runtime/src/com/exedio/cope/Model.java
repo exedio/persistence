@@ -49,9 +49,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final boolean revisionEnabled;
-	private int revisionNumber;
-	private Revision[] revisions;
+	private Revisions revisions;
 	private final Object revisionLock = new Object();
 	
 	private final Type<?>[] types;
@@ -91,73 +89,21 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
-		this(-1, null, types);
-	}
-	
-	private static final int checkRevisionNumber(final int revisionNumber)
-	{
-		if(revisionNumber<0)
-			throw new IllegalArgumentException("revision number must not be negative, but was " + revisionNumber);
-		return revisionNumber;
+		this((Revisions)null, types);
 	}
 	
 	public Model(final int revisionNumber, final Type... types)
 	{
-		this(checkRevisionNumber(revisionNumber), new Revision[0], types);
-	}
-	
-	private static final Revision[] checkRevisions(final Revision[] revisions)
-	{
-		if(revisions==null)
-			throw new NullPointerException("revisions");
-		if(revisions.length==0)
-			throw new IllegalArgumentException("revisions must not be empty");
-		
-		// make a copy to avoid modifications afterwards
-		final Revision[] result = new Revision[revisions.length];
-		System.arraycopy(revisions, 0, result, 0, revisions.length);
-		
-		int base = -1;
-		for(int i = 0; i<result.length; i++)
-		{
-			final Revision revision = result[i];
-			if(revision==null)
-				throw new NullPointerException("revisions" + '[' + i + ']');
-			
-			if(i==0)
-				base = revision.number;
-			else
-			{
-				final int expectedNumber = base-i;
-				if(revision.number!=expectedNumber)
-					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
-			}
-		}
-		
-		return result;
-	}
-	
-	private static final int revisionNumber(final Revision[] revisions)
-	{
-		if(revisions==null)
-			return -1;
-		else if(revisions.length==0)
-			return 0;
-		else
-			return revisions[0].number;
+		this(new Revisions(revisionNumber), types);
 	}
 	
 	public Model(final Revision[] revisions, final Type... types)
 	{
-		this(revisionNumber(revisions), checkRevisions(revisions), types);
+		this(new Revisions(revisions), types);
 	}
 	
-	private Model(final int revisionNumber, final Revision[] revisions, final Type... types)
+	private Model(final Revisions revisions, final Type... types)
 	{
-		assert (revisionNumber>=0) == (revisions!=null);
-		
-		this.revisionEnabled = (revisions!=null);
-		this.revisionNumber = revisionNumber;
 		this.revisions = revisions;
 		
 		if(types==null)
@@ -319,7 +265,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(revisionEnabled);
+				final Database db = properties.createDatabase(revisions!=null);
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
 				
@@ -406,32 +352,31 @@ public final class Model
 
 	public boolean isRevisionEnabled()
 	{
-		return revisionEnabled;
+		return revisions!=null;
 	}
 	
 	private final void assertRevisionEnabled()
 	{
-		if(!revisionEnabled)
+		if(revisions==null)
 			throw new IllegalArgumentException("revisions are not enabled");
 	}
 
 	public int getRevisionNumber()
 	{
 		assertRevisionEnabled();
-		return revisionNumber;
+		return revisions.getRevisionNumber();
 	}
 
 	public List<Revision> getRevisions()
 	{
 		assertRevisionEnabled();
-		return Collections.unmodifiableList(Arrays.asList(revisions));
+		return revisions.getRevisions();
 	}
 	
 	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
 	{
 		assertRevisionEnabled();
-		this.revisions = checkRevisions(revisions);
-		this.revisionNumber = revisionNumber(revisions);
+		this.revisions = new Revisions(revisions);
 	}
 
 	public void revise()
@@ -440,13 +385,13 @@ public final class Model
 		
 		synchronized(revisionLock)
 		{
-			getDatabase().revise(revisionNumber, revisions);
+			getDatabase().revise(revisions.getRevisionNumber(), revisions.getRevisions().toArray(new Revision[0])); // TODO remove array conversion
 		}
 	}
 
 	public void reviseIfSupported()
 	{
-		if(!revisionEnabled)
+		if(revisions==null)
 			return;
 		
 		revise();
@@ -599,7 +544,7 @@ public final class Model
 	
 	public void createSchema()
 	{
-		getDatabase().createSchema(revisionNumber);
+		getDatabase().createSchema(revisions!=null ? revisions.getRevisionNumber() : -1);
 		clearCache();
 	}
 
