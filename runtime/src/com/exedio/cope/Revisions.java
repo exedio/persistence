@@ -66,7 +66,7 @@ final class Revisions
 		}
 		
 		this.number = revisions[0].number;
-		this.revisions = revisions;
+		this.revisions = result;
 	}
 	
 	public int getNumber()
