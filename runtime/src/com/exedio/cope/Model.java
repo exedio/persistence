@@ -351,11 +351,11 @@ public final class Model
 		return revisions;
 	}
 	
-	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
+	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
 	{
 		assertRevisionEnabled();
 		getDatabase().setRevisions(revisions); // do this first to fail early if not yet connected
-		this.revisions = new Revisions(revisions);
+		this.revisions = revisions;
 	}
 
 	public void revise()

@@ -146,16 +146,16 @@ public class ReviseTest extends CopeAssert
 		final String body70 = dsmfDialect.createColumn(dsmfDialect.protectName(mysqlLower("ReviseItem")), dsmfDialect.protectName("field7"), dialect.getStringType(100));
 		final String body60 = dsmfDialect.createColumn(dsmfDialect.protectName(mysqlLower("ReviseItem")), dsmfDialect.protectName("field6"), dialect.getStringType(100));
 		final String body61 = dsmfDialect.createColumn(dsmfDialect.protectName(mysqlLower("ReviseItem")), dsmfDialect.protectName("field6b"), dialect.getStringType(100));
-		final Revision[] revisions7 = new Revision[]{
+		final Revisions revisions7 = new Revisions(
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),
 				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
-				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
-			};
+				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4")
+			);
 		model7.setRevisions(revisions7);
 		assertNotNull(model7.getRevisions());
 		assertEquals(7, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(Arrays.asList(revisions7), model7.getRevisions().getList());
+		assertEqualsUnmodifiable(revisions7.getList(), model7.getRevisions().getList());
 
 		final Date reviseBefore = new Date();
 		model7.reviseIfSupported();
@@ -165,8 +165,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			reviseDate = assertRevise(reviseBefore, reviseAfter, revisions7[1], logs, 6);
-			assertRevise(reviseDate, revisions7[0], logs, 7);
+			reviseDate = assertRevise(reviseBefore, reviseAfter, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -177,18 +177,18 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, revisions7[1], logs, 6);
-			assertRevise(reviseDate, revisions7[0], logs, 7);
+			assertRevise(reviseDate, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
-		final Revision[] revisions8 = new Revision[]{
-				new Revision(8, "nonsense8", "nonsense statement causing a test failure"),
-			};
+		final Revisions revisions8 = new Revisions(
+				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
+			);
 		model7.setRevisions(revisions8);
 		assertNotNull(model7.getRevisions());
 		assertEquals(8, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(Arrays.asList(revisions8), model7.getRevisions().getList());
+		assertEqualsUnmodifiable(revisions8.getList(), model7.getRevisions().getList());
 
 		try
 		{
@@ -202,8 +202,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, revisions7[1], logs, 6);
-			assertRevise(reviseDate, revisions7[0], logs, 7);
+			assertRevise(reviseDate, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -219,8 +219,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, revisions7[1], logs, 6);
-			assertRevise(reviseDate, revisions7[0], logs, 7);
+			assertRevise(reviseDate, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -295,8 +295,9 @@ public class ReviseTest extends CopeAssert
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 	
-	private final Date assertRevise(final Date before, final Date after, final Revision revision, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private final Date assertRevise(final Date before, final Date after, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
+		final Revision revision = revisions.getList().get(revisionsIndex);
 		final byte[] log = logs.get(number);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
@@ -316,9 +317,9 @@ public class ReviseTest extends CopeAssert
 		return date;
 	}
 	
-	private final void assertRevise(final Date date, final Revision revision, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private final void assertRevise(final Date date, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
-		assertEquals(date, assertRevise(date, date, revision, logs, number));
+		assertEquals(date, assertRevise(date, date, revisions, revisionsIndex, logs, number));
 	}
 	
 	private final void assertRevisionEnvironment(final Properties p)
