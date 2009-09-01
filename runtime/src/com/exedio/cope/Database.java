@@ -70,7 +70,11 @@ final class Database
 	
 	final boolean oracle; // TODO remove
 	
-	Database(final com.exedio.dsmf.Dialect dsmfDialect, final DialectParameters dialectParameters, final Dialect dialect, final Revisions revisions)
+	Database(
+			final com.exedio.dsmf.Dialect dsmfDialect,
+			final DialectParameters dialectParameters,
+			final Dialect dialect,
+			final Revisions revisions)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
