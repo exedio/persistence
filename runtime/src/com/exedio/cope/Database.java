@@ -54,7 +54,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private final boolean revisionEnabled;
+	private Revisions revisions; // TODO make final
 	final boolean prepare;
 	volatile DatabaseLogConfig log;
 	private final boolean logQueryInfo;
@@ -70,13 +70,13 @@ final class Database
 	
 	final boolean oracle; // TODO remove
 	
-	Database(final com.exedio.dsmf.Dialect dsmfDialect, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
+	Database(final com.exedio.dsmf.Dialect dsmfDialect, final DialectParameters dialectParameters, final Dialect dialect, final Revisions revisions)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
-		this.revisionEnabled = revisionEnabled;
+		this.revisions = revisions;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
 		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
@@ -194,14 +194,13 @@ final class Database
 		return new Statement(this, query);
 	}
 	
-	void createSchema(final Revisions revisions)
+	void createSchema()
 	{
-		assert revisionEnabled == (revisions!=null);
 		buildStage = false;
 		
 		makeSchema().create();
 		
-		if(revisionEnabled)
+		if(revisions!=null)
 		{
 			final int revisionNumber = revisions.getNumber();
 			final Pool<Connection> connectionPool = this.connectionPool;
@@ -1474,7 +1473,7 @@ final class Database
 		for(final Table t : tables)
 			t.makeSchema(result);
 		
-		if(revisionEnabled)
+		if(revisions!=null)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
@@ -1493,6 +1492,11 @@ final class Database
 		final Schema result = makeSchema();
 		result.verify();
 		return result;
+	}
+	
+	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
+	{
+		this.revisions = new Revisions(revisions);
 	}
 	
 	private int getActualRevisionNumber(final Connection connection)
@@ -1575,7 +1579,7 @@ final class Database
 	
 	private void insertRevision(final Connection connection, final int number, final RevisionInfo info)
 	{
-		assert revisionEnabled;
+		assert revisions!=null;
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
@@ -1593,12 +1597,11 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void revise(final Revisions revisions)
+	void revise()
 	{
 		final int targetNumber = revisions.getNumber();
 		
 		assert targetNumber>=0 : targetNumber;
-		assert revisionEnabled;
 
 		final Pool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;

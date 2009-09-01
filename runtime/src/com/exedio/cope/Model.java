@@ -255,7 +255,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(revisions!=null);
+				final Database db = properties.createDatabase(revisions);
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
 				
@@ -354,6 +354,7 @@ public final class Model
 	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
 	{
 		assertRevisionEnabled();
+		getDatabase().setRevisions(revisions); // do this first to fail early if not yet connected
 		this.revisions = new Revisions(revisions);
 	}
 
@@ -363,7 +364,7 @@ public final class Model
 		
 		synchronized(reviseLock)
 		{
-			getDatabase().revise(revisions);
+			getDatabase().revise();
 		}
 	}
 
@@ -522,7 +523,7 @@ public final class Model
 	
 	public void createSchema()
 	{
-		getDatabase().createSchema(revisions);
+		getDatabase().createSchema();
 		clearCache();
 	}
 
