@@ -77,9 +77,7 @@ public class ReviseTest extends CopeAssert
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();
 		
-		assertNotNull(model5.getRevisions());
-		assertEquals(5, model5.getRevisions().getNumber());
-		assertEqualsUnmodifiable(revisions5.getList(), model5.getRevisions().getList());
+		assertSame(revisions5, model5.getRevisions());
 		
 		model5.connect(props);
 		model5.tearDownSchema();
@@ -103,9 +101,7 @@ public class ReviseTest extends CopeAssert
 		}
 		model5.disconnect();
 		
-		assertNotNull(model7.getRevisions());
-		assertEquals(7, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(list(revisions7Missing.getList().get(0)), model7.getRevisions().getList());
+		assertSame(revisions7Missing, model7.getRevisions());
 
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
@@ -152,9 +148,7 @@ public class ReviseTest extends CopeAssert
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4")
 			);
 		model7.setRevisions(revisions7);
-		assertNotNull(model7.getRevisions());
-		assertEquals(7, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(revisions7.getList(), model7.getRevisions().getList());
+		assertSame(revisions7, model7.getRevisions());
 
 		final Date reviseBefore = new Date();
 		model7.reviseIfSupported();
@@ -185,9 +179,7 @@ public class ReviseTest extends CopeAssert
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
 		model7.setRevisions(revisions8);
-		assertNotNull(model7.getRevisions());
-		assertEquals(8, model7.getRevisions().getNumber());
-		assertEqualsUnmodifiable(revisions8.getList(), model7.getRevisions().getList());
+		assertSame(revisions8, model7.getRevisions());
 
 		try
 		{
