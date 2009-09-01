@@ -174,6 +174,96 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 	
+	public void testToRunNumber()
+	{
+		final Revisions rs = new Revisions(5);
+		assertEquals(5, rs.getNumber());
+		assertEqualsUnmodifiable(list(), rs.getList());
+		
+		try
+		{
+			rs.getListToRun(0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 0 to 5, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 1 to 5, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(3);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 3 to 5, but declared revisions allow from 5 only", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(4);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 4 to 5, but declared revisions allow from 5 only", e.getMessage());
+		}
+		assertEqualsUnmodifiable(list(), rs.getListToRun(5));
+		try
+		{
+			rs.getListToRun(6);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 5, but was 6", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(7);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 5, but was 7", e.getMessage());
+		}
+	}
+	
+	public void testToRunNumberZero()
+	{
+		final Revisions rs = new Revisions(0);
+		assertEquals(0, rs.getNumber());
+		assertEqualsUnmodifiable(list(), rs.getList());
+		
+		assertEqualsUnmodifiable(list(), rs.getListToRun(0));
+		try
+		{
+			rs.getListToRun(1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 0, but was 1", e.getMessage());
+		}
+		try
+		{
+			rs.getListToRun(2);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 0, but was 2", e.getMessage());
+		}
+	}
+	
 	public void testCopy()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
