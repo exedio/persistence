@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
