@@ -35,9 +35,6 @@ import com.exedio.cope.search.ExtremumAggregate;
  * fields of a {@link Type}.
  * The computation is available both in Java and SQL,
  * so you can use views in search conditions.
- * <p>
- * For an overview here is a
- * <a href="functions.png">UML diagram</a>.
  *
  * @author Ralf Wiebicke
  */

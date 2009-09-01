@@ -30,9 +30,6 @@ import java.util.Set;
  * stored field of a {@link Type}.
  * Subclasses specify the type of information to be stored
  * in the field.
- * <p>
- * For an overview here is a
- * <a href="attributes.png">UML diagram</a>.
  *
  * @author Ralf Wiebicke
  */
