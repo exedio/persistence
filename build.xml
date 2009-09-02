@@ -15,13 +15,6 @@
 			resource="com/exedio/jspm/ant.properties"
 			classpath="lib/exedio-jspm.jar" />
 	
-	<path id="emma.lib">
-		<pathelement location="lib/emma.jar" />
-		<pathelement location="lib/emma_ant.jar" />
-	</path>
-	
-	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
-	
 	<macrodef name="ljavac">
 		<attribute name="srcdir" />
 		<attribute name="destdir" />
@@ -392,40 +385,6 @@
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
 				</java>
-			</body>
-		</foreachEnvironment>
-	</target>
-
-	<target name="runtime.emma" depends="runtime.test.compile">
-		<!-- TODO does not yet work -->
-		
-		<delete file="metadata.emma" />
-		<emma>
-			<instr destdir="build/runtime/classes.emma" metadatafile="metadata.emma" merge="no">
-				<instrpath>
-					<fileset dir="build/runtime/classes" />
-				</instrpath>
-			</instr>
-		</emma>
-		
-		<foreachEnvironment skipSwitch="runtime.test">
-			<body>
-				<junit taskname="emma @{env}" fork="yes"
-						haltonerror="true" haltonfailure="true"
-						dir="${basedir}"
-						showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
-					<classpath>
-						<pathelement location="build/runtime/classes.emma" />
-						<pathelement location="build/runtime/testclasses" />
-						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
-						<pathelement location="lib/servlet-api.jar" />
-					</classpath>
-					<test name="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<assertions><enable/></assertions>
-				</junit>
 			</body>
 		</foreachEnvironment>
 	</target>
