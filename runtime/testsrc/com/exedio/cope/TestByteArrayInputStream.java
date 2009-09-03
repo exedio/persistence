@@ -77,13 +77,13 @@ class TestByteArrayInputStream extends InputStream
 	}
 
 	@Override
-	public void mark(int readAheadLimit)
+	public synchronized void mark(int readAheadLimit)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public void reset() throws IOException
+	public synchronized void reset() throws IOException
 	{
 		throw new IOException("mark/reset not supported");
 	}

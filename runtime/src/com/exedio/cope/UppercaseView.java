@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class UppercaseView extends StringView implements StringFunction
+public final class UppercaseView extends StringView
 {
 	private final StringFunction source;
 

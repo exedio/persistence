@@ -354,12 +354,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading value throws an IOException.
 	 */
 	public void set(final Item item, final Media.Value value)
 		throws DataLengthViolationException, IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		item.set(execute(value, item));
 	}
 	
@@ -402,8 +401,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public void getBody(final Item item, final OutputStream body) throws IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		this.body.get(item, body);
 	}
 
@@ -458,11 +455,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		set(item, DataField.toValue(body), contentType);
 	}
 	
+	/**
+	 * @throws IOException if reading data throws an IOException.
+	 */
 	private void set(final Item item, final DataField.Value body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		item.set(execute(toValue(body, contentType), item));
 	}
 	

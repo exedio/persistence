@@ -252,7 +252,6 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	
 	private static final class ValueType<X>
 	{
-		final Class<X> valueClass;
 		final Constructor<X> valueConstructor;
 		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
 		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
@@ -261,7 +260,6 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		ValueType(final Class<X> valueClass)
 		{
 			//System.out.println("---------------new ValueType(" + vc + ')');
-			this.valueClass = valueClass;
 			try
 			{
 				valueConstructor = valueClass.getDeclaredConstructor(SetValue[].class);
@@ -323,6 +321,8 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	
 	public static abstract class Value implements Serializable
 	{
+		private static final long serialVersionUID = 1l;
+		
 		private final Object[] values;
 
 		protected Value(final SetValue... setValues)

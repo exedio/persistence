@@ -235,8 +235,6 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public void get(final Item item, final OutputStream data) throws IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		if(data==null)
 			throw new NullPointerException();
 		
@@ -326,8 +324,6 @@ public final class DataField extends Field<DataField.Value>
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		set(item, toValue(data));
 	}
 	
@@ -343,8 +339,6 @@ public final class DataField extends Field<DataField.Value>
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		if(false)
-			throw new IOException(); // disables warning about throws clause, TODO
 		set(item, toValue(data));
 	}
 	

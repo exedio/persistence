@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class DivideView<E extends Number> extends NumberView<E> implements NumberFunction<E>
+public final class DivideView<E extends Number> extends NumberView<E>
 {
 	private final NumberFunction<E> dividend;
 	private final NumberFunction<E> divisor;

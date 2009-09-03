@@ -25,6 +25,8 @@ package com.exedio.cope;
  */
 public abstract class ConstraintViolationException extends RuntimeException
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Item item;
 
 	public ConstraintViolationException(final Item item, final Throwable cause)

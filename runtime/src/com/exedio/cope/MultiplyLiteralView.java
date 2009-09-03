@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class MultiplyLiteralView<E extends Number> extends NumberView<E> implements NumberFunction<E>
+public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
 	private final NumberFunction<E> left;
 	private final E right;

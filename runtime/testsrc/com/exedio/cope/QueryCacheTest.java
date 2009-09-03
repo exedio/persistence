@@ -130,6 +130,15 @@ public class QueryCacheTest extends AbstractRuntimeTest
 				query == o.query && // do not use equals !!!
 				totalOnly == o.totalOnly;
 		}
+		
+		@Override
+		public int hashCode()
+		{
+			// avoid warning:
+			// class should implement hashCode() since it overrides equals()
+			// but hashCode is not used here
+			throw new RuntimeException();
+		}
 
 		@Override
 		public String toString()
