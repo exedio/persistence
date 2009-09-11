@@ -164,11 +164,11 @@ static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a h
 			containing your sql command:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Revision[], com.exedio.cope.Type...)">Model</a>(
-   <b>new <a href="api/com/exedio/cope/Revision.html">Revision</a>[] {
+static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Revisions, com.exedio.cope.Type...)">Model</a>(
+   <b>new <a href="api/com/exedio/cope/Revisions.html#Revisions(com.exedio.cope.Revision...)">Revisions</a>(
       new <a href="api/com/exedio/cope/Revision.html#Revision(int, java.lang.String, java.lang.String...)">Revision</a>(1, "add flag blocked to customer",
          "alter table Customer add column blocked integer")
-   },</b>
+   ),</b>
    Customer.TYPE,
    Order.TYPE);
 </pre>
@@ -185,14 +185,14 @@ static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a h
 			Below the date of last modification is added to both types:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Revision[], com.exedio.cope.Type...)">Model</a>(
-   new <a href="api/com/exedio/cope/Revision.html">Revision</a>[] {
+static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Revisions, com.exedio.cope.Type...)">Model</a>(
+   new <a href="api/com/exedio/cope/Revisions.html#Revisions(com.exedio.cope.Revision...)">Revisions</a>(
       <b>new <a href="api/com/exedio/cope/Revision.html#Revision(int, java.lang.String, java.lang.String...)">Revision</a>(2, "log last modification",
          "alter table Customer add column lastModified date",
          "alter table Order add column lastModified date"),</b>
       new <a href="api/com/exedio/cope/Revision.html#Revision(int, java.lang.String, java.lang.String...)">Revision</a>(1, "add flag blocked to customer",
          "alter table Customer add column blocked integer")
-   },
+   ),
    Customer.TYPE,
    Order.TYPE);
 </pre>
