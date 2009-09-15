@@ -28,7 +28,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-final class PatternItem extends Item
+public final class PatternItem extends Item
 {
 	private static final long serialVersionUID = 1l;
 
