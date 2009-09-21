@@ -232,10 +232,11 @@ public final class Type<C extends Item>
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
 		
+		
 		this.supertype = supertype;
-		if (this.supertype != null)
+		if(supertype!=null)
 		{
-			this.supertype.registerSubType(this);			
+			supertype.registerSubType(this);			
 		}
 
 		// declared features
