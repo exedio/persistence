@@ -52,6 +52,13 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		final Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
 		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
 		
+		assertSame(PatternItem.class, abstractType.getJavaClass());
+		assertSame(PatternItem.class, subType.getJavaClass());
+		assertEquals(false, abstractType.hasUniqueJavaClass());
+		assertEquals(false, subType.hasUniqueJavaClass());
+		assertEquals(TypeInheritanceTestPatternItem.testPattern, abstractType.getPattern());
+		assertEquals(TypeInheritanceTestPatternItem.testPattern, subType.getPattern());
+		
 		assertEqualsUnmodifiable(
 				list(
 					abstractTypeString,
@@ -74,6 +81,10 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		assertEquals(null, abstractType.getSupertype());
 		assertEquals(abstractType, subType.getSupertype());
 		
+		assertEqualsUnmodifiable(list(subType), abstractType.getSubTypes());
+		assertEqualsUnmodifiable(list(), subType.getSubTypes());
+		assertEqualsUnmodifiable(list(abstractType, subType), abstractType.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(subType), subType.getSubTypesTransitively());
 		assertEqualsUnmodifiable(
 				list(
 					subType
