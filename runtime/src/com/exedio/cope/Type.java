@@ -144,6 +144,27 @@ public final class Type<C extends Item>
 			: javaClass.getSimpleName();
 	}
 	
+	private static final boolean isAbstract(final Class<?> javaClass)
+	{
+		if(javaClass==null)
+			return false;
+		
+		return (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
+	}
+	
+	private static final <X extends Item> Type<? super X> getSupertype(final Class<X> javaClass)
+	{
+		if(javaClass==null)
+			return null;
+		
+		final Class superClass = javaClass.getSuperclass();
+		
+		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
+			return null;
+		else
+			return forClass(castSuperType(superClass));
+	}
+	
 	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)
 	{
 		if(javaClass==null)
@@ -175,27 +196,6 @@ public final class Type<C extends Item>
 			throw new RuntimeException(e);
 		}
 		return result;
-	}
-	
-	private static final <X extends Item> Type<? super X> getSupertype(final Class<X> javaClass)
-	{
-		if(javaClass==null)
-			return null;
-		
-		final Class superClass = javaClass.getSuperclass();
-		
-		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
-			return null;
-		else
-			return forClass(castSuperType(superClass));
-	}
-	
-	private static final boolean isAbstract(final Class<?> javaClass)
-	{
-		if(javaClass==null)
-			return false;
-		
-		return (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 	}
 	
 	Type(
