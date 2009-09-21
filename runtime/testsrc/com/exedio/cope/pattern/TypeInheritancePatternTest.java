@@ -47,6 +47,10 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		final Type<?> abstractType = TypeInheritanceTestPatternItem.testPattern.getAbstractType();
 		final StringField abstractTypeString = (StringField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_STRING);
 		final BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_BOOLEAN);
+
+		//sub type
+		final Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
+		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
 		
 		assertEqualsUnmodifiable(
 				list(
@@ -56,10 +60,6 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 				abstractType.getFields() );
 		
 		assertTrue(abstractType.isAbstract());
-
-		//sub type
-		final Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
-		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
 		
 		assertEqualsUnmodifiable(
 				list(
