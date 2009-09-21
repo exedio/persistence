@@ -184,6 +184,18 @@ public final class Type<C extends Item>
 			final Pattern pattern,
 			final LinkedHashMap<String, Feature> featureMap)
 	{
+		this(javaClass, uniqueJavaClass, id, pattern, featureMap, null, null);
+	}
+
+	Type(
+			final Class<C> javaClass,
+			final boolean uniqueJavaClass,
+			final String id,
+			final Pattern pattern,
+			final LinkedHashMap<String, Feature> featureMap,
+			final Type<? super C> supertype,
+			final Boolean isAbstract)
+	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
 		if(!Item.class.isAssignableFrom(javaClass))
@@ -207,17 +219,37 @@ public final class Type<C extends Item>
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
 		this.pattern = pattern;
-		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
-		// supertype
-		final Class superClass = javaClass.getSuperclass();
-		
-		if(superClass.equals(Item.class))
-			supertype = null;
+		// is abstract
+		if (isAbstract != null)
+		{
+			this.isAbstract = isAbstract.booleanValue();
+		}
 		else
 		{
-			supertype = forClass(castSuperType(superClass));
-			supertype.registerSubType(this);
+			this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;			
+		}
+		
+		// super type
+		if (supertype != null)
+		{
+			this.supertype = supertype;
+		}
+		else
+		{
+			final Class superClass = javaClass.getSuperclass();
+			
+			if(superClass.equals(Item.class))
+				this.supertype = null;
+			else
+			{
+				this.supertype = forClass(castSuperType(superClass));
+			}			
+		}
+		
+		if (this.supertype != null)
+		{
+			this.supertype.registerSubType(this);			
 		}
 
 		// declared features
@@ -255,7 +287,7 @@ public final class Type<C extends Item>
 		}
 
 		// inherit features / fields / constraints
-		if(supertype==null)
+		if(this.supertype==null)
 		{
 			this.features          = this.declaredFeatures;
 			this.featuresByName    = this.declaredFeaturesByName;
@@ -268,23 +300,23 @@ public final class Type<C extends Item>
 			{
 				final ArrayList<Feature> features = new ArrayList<Feature>();
 				features.add(thisFunction);
-				final List<Feature> superFeatures = supertype.getFeatures();
+				final List<Feature> superFeatures = this.supertype.getFeatures();
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
 				features.addAll(this.declaredFeatures.subList(1, this.declaredFeatures.size()));
 				features.trimToSize();
 				this.features = Collections.unmodifiableList(features);
 			}
 			{
-				final HashMap<String, Feature> inherited = supertype.featuresByName;
+				final HashMap<String, Feature> inherited = this.supertype.featuresByName;
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
 				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 				for(final Feature f : declared.values())
 					result.put(f.getName(), f);
 				this.featuresByName = result;
 			}
-			this.fields            = inherit(supertype.fields,            this.declaredFields);
-			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
-			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
+			this.fields            = inherit(this.supertype.fields,            this.declaredFields);
+			this.uniqueConstraints = inherit(this.supertype.uniqueConstraints, this.declaredUniqueConstraints);
+			this.copyConstraints   = inherit(this.supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
@@ -295,8 +327,8 @@ public final class Type<C extends Item>
 		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
 
 		this.primaryKeySequence =
-			supertype!=null
-			? supertype.primaryKeySequence
+			this.supertype!=null
+			? this.supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 		
 		// register type at the end of the constructor, so the
@@ -716,7 +748,7 @@ public final class Type<C extends Item>
 		return
 			(uniqueJavaClass&&type.uniqueJavaClass)
 			? javaClass.isAssignableFrom(type.javaClass)
-			: (this==type);
+			: (this==type || this.getSubTypesTransitively().contains(type));
 	}
 	
 	void assertBelongs(final Field f)
