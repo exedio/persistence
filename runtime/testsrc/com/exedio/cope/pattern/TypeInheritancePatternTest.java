@@ -60,6 +60,7 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 				abstractType.getFields() );
 		
 		assertTrue(abstractType.isAbstract());
+		assertFalse(subType.isAbstract());
 		
 		assertEqualsUnmodifiable(
 				list(
@@ -70,6 +71,7 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 				subType.getFields() );
 		
 		//type hierarchy
+		assertEquals(null, abstractType.getSupertype());
 		assertEquals(abstractType, subType.getSupertype());
 		
 		assertEqualsUnmodifiable(
@@ -77,10 +79,18 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 					subType
 				),
 				abstractType.getTypesOfInstances() );
+		assertEqualsUnmodifiable(
+				list(
+					subType
+				),
+				subType.getTypesOfInstances() );
 		
 		
 		//assignable
 		assertTrue(abstractType.isAssignableFrom(subType));
+		assertTrue(subType.isAssignableFrom(subType));
+		assertTrue(abstractType.isAssignableFrom(abstractType));
+		assertFalse(subType.isAssignableFrom(abstractType));
 		
 		//creating instances
 		try
