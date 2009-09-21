@@ -79,6 +79,6 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		deleteOnTearDown(item);
 		
 		//casting
-		final Item item2 = abstractType.cast(item);
+		assertSame(item, abstractType.cast(item));
 	}
 }
