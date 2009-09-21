@@ -230,13 +230,9 @@ public final class Type<C extends Item>
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
 		this.pattern = pattern;
-		
-		// is abstract
 		this.isAbstract = isAbstract;
 		
-		// super type
 		this.supertype = supertype;
-		
 		if (this.supertype != null)
 		{
 			this.supertype.registerSubType(this);			
@@ -277,7 +273,7 @@ public final class Type<C extends Item>
 		}
 
 		// inherit features / fields / constraints
-		if(this.supertype==null)
+		if(supertype==null)
 		{
 			this.features          = this.declaredFeatures;
 			this.featuresByName    = this.declaredFeaturesByName;
