@@ -235,9 +235,7 @@ public final class Type<C extends Item>
 		
 		this.supertype = supertype;
 		if(supertype!=null)
-		{
 			supertype.registerSubType(this);
-		}
 
 		// declared features
 		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
