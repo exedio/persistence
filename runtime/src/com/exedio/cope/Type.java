@@ -236,7 +236,7 @@ public final class Type<C extends Item>
 		this.supertype = supertype;
 		if(supertype!=null)
 		{
-			supertype.registerSubType(this);			
+			supertype.registerSubType(this);
 		}
 
 		// declared features
