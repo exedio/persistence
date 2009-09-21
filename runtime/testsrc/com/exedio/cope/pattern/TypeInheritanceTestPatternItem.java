@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 public class TypeInheritanceTestPatternItem extends Item
 {
 	static final TypeInheritanceTestPattern testPattern = new TypeInheritanceTestPattern();
+	static final TypeInheritanceTestPattern testPattern2 = new TypeInheritanceTestPattern();
 /**
 
 	 **

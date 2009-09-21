@@ -92,6 +92,13 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		assertTrue(abstractType.isAssignableFrom(abstractType));
 		assertFalse(subType.isAssignableFrom(abstractType));
 		
+		final Type<?> abstractType2 = TypeInheritanceTestPatternItem.testPattern2.getAbstractType();
+		final Type<?> subType2 = TypeInheritanceTestPatternItem.testPattern2.getSubType();
+		assertFalse(abstractType.isAssignableFrom(subType2));
+		assertFalse(abstractType2.isAssignableFrom(subType));
+		assertFalse(abstractType.isAssignableFrom(abstractType2));
+		assertFalse(subType.isAssignableFrom(subType2));
+		
 		//creating instances
 		try
 		{
