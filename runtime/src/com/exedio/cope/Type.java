@@ -129,10 +129,10 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, true, getID(javaClass), null, isAbstract(javaClass), getSupertype(javaClass), getFeatureMap(javaClass));
+		this(javaClass, true, javaClassID(javaClass), null, javaClassAbstract(javaClass), javaClassSupertype(javaClass), javaClassFeatureMap(javaClass));
 	}
 	
-	private static final String getID(final Class<?> javaClass)
+	private static final String javaClassID(final Class<?> javaClass)
 	{
 		if(javaClass==null)
 			return null;
@@ -144,7 +144,7 @@ public final class Type<C extends Item>
 			: javaClass.getSimpleName();
 	}
 	
-	private static final boolean isAbstract(final Class<?> javaClass)
+	private static final boolean javaClassAbstract(final Class<?> javaClass)
 	{
 		if(javaClass==null)
 			return false;
@@ -152,7 +152,7 @@ public final class Type<C extends Item>
 		return (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 	}
 	
-	private static final <X extends Item> Type<? super X> getSupertype(final Class<X> javaClass)
+	private static final <X extends Item> Type<? super X> javaClassSupertype(final Class<X> javaClass)
 	{
 		if(javaClass==null)
 			return null;
@@ -165,7 +165,7 @@ public final class Type<C extends Item>
 			return forClass(castSuperType(superClass));
 	}
 	
-	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)
+	private static final LinkedHashMap<String, Feature> javaClassFeatureMap(final Class<?> javaClass)
 	{
 		if(javaClass==null)
 			return null;
