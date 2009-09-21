@@ -129,7 +129,7 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, true, getID(javaClass), null, getFeatureMap(javaClass));
+		this(javaClass, true, getID(javaClass), null, getFeatureMap(javaClass), getSupertype(javaClass), isAbstract(javaClass));
 	}
 	
 	private static final String getID(final Class<?> javaClass)
@@ -177,16 +177,27 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	Type(
-			final Class<C> javaClass,
-			final boolean uniqueJavaClass,
-			final String id,
-			final Pattern pattern,
-			final LinkedHashMap<String, Feature> featureMap)
+	private static final <X extends Item> Type<? super X> getSupertype(final Class<X> javaClass)
 	{
-		this(javaClass, uniqueJavaClass, id, pattern, featureMap, null, null);
+		if(javaClass==null)
+			return null;
+		
+		final Class superClass = javaClass.getSuperclass();
+		
+		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
+			return null;
+		else
+			return forClass(castSuperType(superClass));
 	}
-
+	
+	private static final boolean isAbstract(final Class<?> javaClass)
+	{
+		if(javaClass==null)
+			return false;
+		
+		return (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
+	}
+	
 	Type(
 			final Class<C> javaClass,
 			final boolean uniqueJavaClass,
@@ -194,7 +205,7 @@ public final class Type<C extends Item>
 			final Pattern pattern,
 			final LinkedHashMap<String, Feature> featureMap,
 			final Type<? super C> supertype,
-			final Boolean isAbstract)
+			final boolean isAbstract)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
@@ -221,31 +232,10 @@ public final class Type<C extends Item>
 		this.pattern = pattern;
 		
 		// is abstract
-		if (isAbstract != null)
-		{
-			this.isAbstract = isAbstract.booleanValue();
-		}
-		else
-		{
-			this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;			
-		}
+		this.isAbstract = isAbstract;
 		
 		// super type
-		if (supertype != null)
-		{
-			this.supertype = supertype;
-		}
-		else
-		{
-			final Class superClass = javaClass.getSuperclass();
-			
-			if(superClass.equals(Item.class))
-				this.supertype = null;
-			else
-			{
-				this.supertype = forClass(castSuperType(superClass));
-			}			
-		}
+		this.supertype = supertype;
 		
 		if (this.supertype != null)
 		{
