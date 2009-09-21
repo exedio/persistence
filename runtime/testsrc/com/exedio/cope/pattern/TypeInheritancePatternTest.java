@@ -70,7 +70,7 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 			abstractType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
-		catch (Exception e)
+		catch (ArrayIndexOutOfBoundsException e)
 		{
 			//ok
 		}
