@@ -129,7 +129,14 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, true, javaClassID(javaClass), null, javaClassAbstract(javaClass), javaClassSupertype(javaClass), javaClassFeatureMap(javaClass));
+		this(
+				javaClass,
+				true,
+				javaClassID(javaClass),
+				null, // pattern
+				javaClassAbstract(javaClass),
+				javaClassSupertype(javaClass),
+				javaClassFeatureMap(javaClass));
 	}
 	
 	private static final String javaClassID(final Class<?> javaClass)
