@@ -290,23 +290,23 @@ public final class Type<C extends Item>
 			{
 				final ArrayList<Feature> features = new ArrayList<Feature>();
 				features.add(thisFunction);
-				final List<Feature> superFeatures = this.supertype.getFeatures();
+				final List<Feature> superFeatures = supertype.getFeatures();
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
 				features.addAll(this.declaredFeatures.subList(1, this.declaredFeatures.size()));
 				features.trimToSize();
 				this.features = Collections.unmodifiableList(features);
 			}
 			{
-				final HashMap<String, Feature> inherited = this.supertype.featuresByName;
+				final HashMap<String, Feature> inherited = supertype.featuresByName;
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
 				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 				for(final Feature f : declared.values())
 					result.put(f.getName(), f);
 				this.featuresByName = result;
 			}
-			this.fields            = inherit(this.supertype.fields,            this.declaredFields);
-			this.uniqueConstraints = inherit(this.supertype.uniqueConstraints, this.declaredUniqueConstraints);
-			this.copyConstraints   = inherit(this.supertype.copyConstraints,   this.declaredCopyConstraints);
+			this.fields            = inherit(supertype.fields,            this.declaredFields);
+			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
+			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
@@ -317,8 +317,8 @@ public final class Type<C extends Item>
 		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
 
 		this.primaryKeySequence =
-			this.supertype!=null
-			? this.supertype.primaryKeySequence
+			supertype!=null
+			? supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 		
 		// register type at the end of the constructor, so the
