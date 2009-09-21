@@ -238,11 +238,7 @@ public final class Type<C extends Item>
 		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
-		
-		
 		this.supertype = supertype;
-		if(supertype!=null)
-			supertype.registerSubType(this);
 
 		// declared features
 		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
@@ -326,6 +322,8 @@ public final class Type<C extends Item>
 		// register type at the end of the constructor, so the
 		// type is not registered, if the constructor throws
 		// an exception
+		if(supertype!=null)
+			supertype.registerSubType(this);
 		if(uniqueJavaClass)
 			typesByClass.put(javaClass, this);
 	}
