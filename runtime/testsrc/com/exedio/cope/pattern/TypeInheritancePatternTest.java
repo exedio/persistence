@@ -3,6 +3,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -24,10 +25,10 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 	
 	public void testIt()
 	{
-		//test types
-		Type<?> abstractType = TypeInheritanceTestPatternItem.testPattern.getAbstractType();
-		StringField abstractTypeString = (StringField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_STRING);
-		BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_BOOLEAN);
+		//abstract type
+		final Type<?> abstractType = TypeInheritanceTestPatternItem.testPattern.getAbstractType();
+		final StringField abstractTypeString = (StringField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_STRING);
+		final BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_BOOLEAN);
 		
 		assertEqualsUnmodifiable(
 				list(
@@ -35,35 +36,35 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 					abstractTypeBoolean
 				),
 				abstractType.getFields() );
+		
 		assertTrue(abstractType.isAbstract());
 
-		Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
-		IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
-		
+		//sub type
+		final Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
+		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
 		
 		assertEqualsUnmodifiable(
 				list(
 					abstractTypeString,
 					abstractTypeBoolean,
 					subTypeInteger
-						
 				),
 				subType.getFields() );
 		
-		//test type hierarchy
+		//type hierarchy
 		assertEquals(abstractType, subType.getSupertype());
 		
 		assertEqualsUnmodifiable(
 				list(
-						subType
-					),
-					abstractType.getTypesOfInstances() );
+					subType
+				),
+				abstractType.getTypesOfInstances() );
 		
 		
-		//test assignable
+		//assignable
 		assertTrue(abstractType.isAssignableFrom(subType));
 		
-		//test creating instances
+		//creating instances
 		try
 		{
 			abstractType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)));			
@@ -74,6 +75,10 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 			//ok
 		}
 		
-		deleteOnTearDown(subType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1)));
+		final Item item = subType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));
+		deleteOnTearDown(item);
+		
+		//casting
+		final Item item2 = abstractType.cast(item);
 	}
 }
