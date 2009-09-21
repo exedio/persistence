@@ -99,6 +99,12 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		assertFalse(abstractType.isAssignableFrom(abstractType2));
 		assertFalse(subType.isAssignableFrom(subType2));
 		
+		//getID
+		assertEquals("TypeInheritanceTestPatternItem.testPatternAbstractType", abstractType.getID());
+		assertEquals("TypeInheritanceTestPatternItem.testPatternSubType", subType.getID());
+		assertEquals("TypeInheritanceTestPatternItem.testPattern2AbstractType", abstractType2.getID());
+		assertEquals("TypeInheritanceTestPatternItem.testPattern2SubType", subType2.getID());
+		
 		//creating instances
 		try
 		{
