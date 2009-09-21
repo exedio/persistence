@@ -129,7 +129,7 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, true, getID(javaClass), null, getFeatureMap(javaClass), getSupertype(javaClass), isAbstract(javaClass));
+		this(javaClass, true, getID(javaClass), null, isAbstract(javaClass), getSupertype(javaClass), getFeatureMap(javaClass));
 	}
 	
 	private static final String getID(final Class<?> javaClass)
@@ -203,9 +203,9 @@ public final class Type<C extends Item>
 			final boolean uniqueJavaClass,
 			final String id,
 			final Pattern pattern,
-			final LinkedHashMap<String, Feature> featureMap,
+			final boolean isAbstract,
 			final Type<? super C> supertype,
-			final boolean isAbstract)
+			final LinkedHashMap<String, Feature> featureMap)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");

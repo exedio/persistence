@@ -38,13 +38,13 @@ class TypeInheritanceTestPattern extends Pattern
 		features.put(ABSTRACTTYPE_STRING, this.superTypeString);
 		this.superTypeBoolean = new BooleanField();
 		features.put(ABSTRACTTYPE_BOOLEAN, this.superTypeBoolean);
-		this.abstractType = newSourceType(PatternItem.class, features, ABSTRACTTYPE_POSTFIX, null, Boolean.valueOf(true));
+		this.abstractType = newSourceType(PatternItem.class, true, null, features, ABSTRACTTYPE_POSTFIX);
 		
 		//Create sub type
 		features = new LinkedHashMap<String, Feature>();
 		this.subTypeInteger = new IntegerField();
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
-		this.subType = newSourceType(PatternItem.class, features, SUBTYPE_POSTFIX, abstractType, Boolean.valueOf(false));
+		this.subType = newSourceType(PatternItem.class, false, abstractType, features, SUBTYPE_POSTFIX);
 	}
 	
 	public Type<? extends Item> getAbstractType()

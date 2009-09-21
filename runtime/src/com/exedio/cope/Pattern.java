@@ -94,21 +94,21 @@ public abstract class Pattern extends Feature
 	
 	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
-		return newSourceType(javaClass, features, postfix, null, false);
+		return newSourceType(javaClass, false, null, features, postfix);
 	}
 
 	protected final <X extends Item> Type<X> newSourceType(
 			final Class<X> javaClass,
-			final LinkedHashMap<String, Feature> features,
-			final String postfix,
+			final boolean isAbstract,
 			final Type<? super X> supertype,
-			final boolean isAbstract)
+			final LinkedHashMap<String, Feature> features,
+			final String postfix)
 	{
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until initialize() is called, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
-		final Type<X> result = new Type<X>(javaClass, false, id, this, features, supertype, isAbstract);
+		final Type<X> result = new Type<X>(javaClass, false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}
