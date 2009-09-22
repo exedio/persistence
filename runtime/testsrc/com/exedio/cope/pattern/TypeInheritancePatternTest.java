@@ -54,8 +54,8 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		
 		assertSame(PatternItem.class, abstractType.getJavaClass());
 		assertSame(PatternItem.class, subType.getJavaClass());
-		assertEquals(false, abstractType.hasUniqueJavaClass());
-		assertEquals(false, subType.hasUniqueJavaClass());
+		assertEquals(false, abstractType.isJavaClassExclusive());
+		assertEquals(false, subType.isJavaClassExclusive());
 		assertEquals(TypeInheritanceTestPatternItem.testPattern, abstractType.getPattern());
 		assertEquals(TypeInheritanceTestPatternItem.testPattern, subType.getPattern());
 		

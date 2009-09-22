@@ -69,7 +69,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 				failureType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(true, item.TYPE.isJavaClassExclusive());
 		assertEquals(null, item.TYPE.getPattern());
 		
 		List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
@@ -105,7 +105,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		assertEquals("DispatcherItem.toTargetFailure", failureType.getID());
 		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
-		assertEquals(false, failureType.hasUniqueJavaClass());
+		assertEquals(false, failureType.isJavaClassExclusive());
 		assertSame(DispatcherItem.toTarget, failureType.getPattern());
 		assertEquals(null, failureType.getSupertype());
 		assertEqualsUnmodifiable(list(), failureType.getSubTypes());

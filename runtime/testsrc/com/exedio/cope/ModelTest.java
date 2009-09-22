@@ -72,7 +72,7 @@ public class ModelTest extends TestmodelTest
 		final AttributeItem item = null;
 		
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(true, item.TYPE.isJavaClassExclusive());
 		assertEquals(item.TYPE, Type.forClass(AttributeItem.class));
 		try
 		{

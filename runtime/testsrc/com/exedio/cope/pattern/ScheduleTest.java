@@ -61,7 +61,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(list(TYPE, report.getRunType()), model.getTypes());
 		assertEquals(ScheduleItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(true, item.TYPE.isJavaClassExclusive());
 		assertEquals(null, item.TYPE.getPattern());
 		
 		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getEnabled(), report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
@@ -82,7 +82,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		
 		assertEquals("ScheduleItem.reportRun", report.getRunType().getID());
 		assertEquals(Schedule.Run.class, report.getRunType().getJavaClass());
-		assertEquals(false, report.getRunType().hasUniqueJavaClass());
+		assertEquals(false, report.getRunType().isJavaClassExclusive());
 		assertSame(report, report.getRunType().getPattern());
 		assertEquals(null, report.getRunType().getSupertype());
 		assertEqualsUnmodifiable(list(), report.getRunType().getSubTypes());

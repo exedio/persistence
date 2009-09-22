@@ -41,7 +41,7 @@ public final class Type<C extends Item>
 	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
 	private final Class<C> javaClass;
-	private final boolean uniqueJavaClass;
+	private final boolean javaClassExclusive;
 	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	final String schemaId;
@@ -96,7 +96,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #hasUniqueJavaClass()
+	 * @see #isJavaClassExclusive()
 	 */
 	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
@@ -114,7 +114,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #hasUniqueJavaClass()
+	 * @see #isJavaClassExclusive()
 	 */
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
@@ -128,7 +128,7 @@ public final class Type<C extends Item>
 	
 	Type(
 			final Class<C> javaClass,
-			final boolean uniqueJavaClass,
+			final boolean javaClassExclusive,
 			final String id,
 			final Pattern pattern,
 			final boolean isAbstract,
@@ -153,7 +153,7 @@ public final class Type<C extends Item>
 			throw new NullPointerException("featureMap for " + id);
 		
 		this.javaClass = javaClass;
-		this.uniqueJavaClass = uniqueJavaClass;
+		this.javaClassExclusive = javaClassExclusive;
 		this.id = id;
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
@@ -245,7 +245,7 @@ public final class Type<C extends Item>
 		// an exception
 		if(supertype!=null)
 			supertype.registerSubType(this);
-		if(uniqueJavaClass)
+		if(javaClassExclusive)
 			typesByClass.put(javaClass, this);
 	}
 
@@ -282,7 +282,7 @@ public final class Type<C extends Item>
 	
 	private Constructor<C> getConstructor(final String name, Class... parameterTypes)
 	{
-		if(!uniqueJavaClass)
+		if(!javaClassExclusive)
 		{
 			final int l = parameterTypes.length;
 			final Class[] c = new Class[l + 1];
@@ -475,7 +475,7 @@ public final class Type<C extends Item>
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		return
-			uniqueJavaClass
+			javaClassExclusive
 			? javaClass.getAnnotation(annotationClass)
 			: null;
 	}
@@ -529,14 +529,14 @@ public final class Type<C extends Item>
 	
 	/**
 	 * Returns, whether this type has a java class
-	 * uniquely for this type.
+	 * exclusively for this type.
 	 * Only such types can be found by
 	 * {@link #forClass(Class)} and
 	 * {@link #forClassUnchecked(Class)}.
 	 */
-	public boolean hasUniqueJavaClass()
+	public boolean isJavaClassExclusive()
 	{
-		return uniqueJavaClass;
+		return javaClassExclusive;
 	}
 	
 	/**
@@ -651,7 +651,7 @@ public final class Type<C extends Item>
 	public boolean isAssignableFrom(final Type type)
 	{
 		return
-			(uniqueJavaClass&&type.uniqueJavaClass)
+			(javaClassExclusive&&type.javaClassExclusive)
 			? javaClass.isAssignableFrom(type.javaClass)
 			: (this==type || this.getSubTypesTransitively().contains(type));
 	}
@@ -794,7 +794,7 @@ public final class Type<C extends Item>
 		{
 			return
 				creationConstructor.newInstance(
-					uniqueJavaClass
+					javaClassExclusive
 					? new Object[]{ setValues }
 					: new Object[]{ setValues, this }
 				);
@@ -931,7 +931,7 @@ public final class Type<C extends Item>
 		{
 			return
 				reactivationConstructor.newInstance(
-					uniqueJavaClass
+					javaClassExclusive
 					? new Object[]{ REACTIVATION_DUMMY, pk }
 					: new Object[]{ REACTIVATION_DUMMY, pk, this }
 				);
@@ -1359,5 +1359,14 @@ public final class Type<C extends Item>
 	public <X extends Item> Type<X> castType(final Class<X> clazz)
 	{
 		return as(clazz);
+	}
+	
+	/**
+	 * @deprecated Use {@link #isJavaClassExclusive()} instead
+	 */
+	@Deprecated
+	public boolean hasUniqueJavaClass()
+	{
+		return isJavaClassExclusive();
 	}
 }
