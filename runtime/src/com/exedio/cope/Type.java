@@ -129,54 +129,29 @@ public final class Type<C extends Item>
 	
 	static <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
-		return new Type<C>(
-				javaClass,
-				true,
-				javaClassID(javaClass),
-				null, // pattern
-				javaClassAbstract(javaClass),
-				javaClassSupertype(javaClass),
-				javaClassFeatureMap(javaClass));
-	}
-	
-	private static final String javaClassID(final Class<?> javaClass)
-	{
 		if(javaClass==null)
-			return null;
+			throw new NullPointerException("javaClass");
 		
+		// id
 		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
-		return
+		final String id =
 			annotation!=null
 			? annotation.value()
 			: javaClass.getSimpleName();
-	}
-	
-	private static final boolean javaClassAbstract(final Class<?> javaClass)
-	{
-		if(javaClass==null)
-			return false;
 		
-		return (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
-	}
-	
-	private static final <X extends Item> Type<? super X> javaClassSupertype(final Class<X> javaClass)
-	{
-		if(javaClass==null)
-			return null;
+		// abstract
+		final boolean isAbstract = (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
+		// supertype
 		final Class superClass = javaClass.getSuperclass();
 		
+		final Type<? super C> supertype;
 		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
-			return null;
+			supertype = null;
 		else
-			return forClass(castSuperType(superClass));
-	}
-	
-	private static final LinkedHashMap<String, Feature> javaClassFeatureMap(final Class<?> javaClass)
-	{
-		if(javaClass==null)
-			return null;
+			supertype = forClass(castSuperType(superClass));
 		
+		// featureMap
 		final LinkedHashMap<String, Feature> result = new LinkedHashMap<String, Feature>();
 		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
@@ -202,7 +177,15 @@ public final class Type<C extends Item>
 		{
 			throw new RuntimeException(e);
 		}
-		return result;
+
+		return new Type<C>(
+				javaClass,
+				true,
+				id,
+				null, // pattern
+				isAbstract,
+				supertype,
+				result);
 	}
 	
 	Type(
