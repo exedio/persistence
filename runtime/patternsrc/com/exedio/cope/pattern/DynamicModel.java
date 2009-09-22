@@ -702,7 +702,7 @@ public final class DynamicModel<L> extends Pattern
 		return newSourceType(PatternItem.class, features, postfix);
 	}
 	
-	class Localization
+	private final class Localization
 	{
 		final ItemField<?> parent;
 		final FunctionField<L> locale;
