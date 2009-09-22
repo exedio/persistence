@@ -596,9 +596,9 @@ final class Generator
 		else if(Wrapper.TypeVariable1.class.equals(c))
 			return toStringType(feature, 1);
 		else if(Wrapper.DynamicModelType.class.equals(c))
-			return "com.exedio.cope.pattern.DynamicModel<" + toStringType(feature, 0) + ">.Type";
+			return "com.exedio.cope.pattern.DynamicModel.Type<" + toStringType(feature, 0) + ">";
 		else if(Wrapper.DynamicModelField.class.equals(c))
-			return "com.exedio.cope.pattern.DynamicModel<" + toStringType(feature, 0) + ">.Field";
+			return "com.exedio.cope.pattern.DynamicModel.Field<" + toStringType(feature, 0) + ">";
 		else
 			return c.getCanonicalName();
 	}

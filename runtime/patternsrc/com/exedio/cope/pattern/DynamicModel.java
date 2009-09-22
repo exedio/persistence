@@ -40,29 +40,30 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DynamicModel<L> extends Pattern
 {
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
-	com.exedio.cope.Type<?> typeType = null;
+	com.exedio.cope.Type<Type<L>> typeType = null;
 	Localization typeLocalization = null;
 	
-	ItemField<?> fieldParent = null;
+	ItemField<Type<L>> fieldParent = null;
 	final IntegerField fieldPosition = new IntegerField().toFinal();
 	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
-	com.exedio.cope.Type<?> fieldType = null;
+	com.exedio.cope.Type<Field<L>> fieldType = null;
 	Localization fieldLocalization = null;
 	
-	ItemField<?> enumParent = null;
+	ItemField<Field<L>> enumParent = null;
 	final IntegerField enumPosition = new IntegerField().toFinal();
 	final StringField enumCode = new StringField().toFinal();
-	com.exedio.cope.Type<?> enumType = null;
+	com.exedio.cope.Type<Enum<L>> enumType = null;
 	Localization enumLocalization = null;
 	
-	private ItemField<?> type = null;
+	private ItemField<Type<L>> type = null;
 	private final FunctionField<?>[] fields;
 
 	private final StringField [] strings;
@@ -141,12 +142,30 @@ public final class DynamicModel<L> extends Pattern
 					"but tried to allocate " + (positionPerValuetype+1));
 	}
 	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
+	{
+		return t;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
+	{
+		return t;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
+	{
+		return t;
+	}
+	
 	@Override
 	protected void initialize()
 	{
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);
-		typeType = newSourceType(PatternItem.class, features, "Type");
+		typeType = castType(newSourceType(Type.class, features, "Type"));
 		typeLocalization = new Localization(typeType, localeTemplate, "Type");
 		
 		features.clear();
@@ -159,7 +178,7 @@ public final class DynamicModel<L> extends Pattern
 		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
-		fieldType = newSourceType(PatternItem.class, features, "Field");
+		fieldType = castField(newSourceType(Field.class, features, "Field"));
 		fieldLocalization = new Localization(fieldType, localeTemplate, "Field");
 		
 		if(enums.length>0)
@@ -171,7 +190,7 @@ public final class DynamicModel<L> extends Pattern
 			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
 			features.put("code", enumCode);
 			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
-			enumType = newSourceType(PatternItem.class, features, "Enum");
+			enumType = castEnum(newSourceType(Enum.class, features, "Enum"));
 			enumLocalization = new Localization(enumType, localeTemplate, "Enum");
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
@@ -182,23 +201,19 @@ public final class DynamicModel<L> extends Pattern
 		addSource(type = typeType.newItemField(FORBID).optional(), "Type");
 	}
 	
-	public DynamicModel<L>.Type createType(final String code)
+	public DynamicModel.Type<L> createType(final String code)
 	{
-		return new Type(typeType.newItem(typeCode.map(code)));
+		return typeType.newItem(typeCode.map(code));
 	}
 	
-	public List<Type> getTypes()
+	public List<Type<L>> getTypes()
 	{
-		final List<? extends Item> backingItems = typeType.search();
-		final ArrayList<Type> result = new ArrayList<Type>(backingItems.size());
-		for(final Item backingItem : backingItems)
-			result.add(new Type(backingItem));
-		return Collections.unmodifiableList(result);
+		return typeType.search();
 	}
 	
 	public Type getType(final String code)
 	{
-		return toType(typeType.searchSingleton(typeCode.equal(code)));
+		return typeType.searchSingleton(typeCode.equal(code));
 	}
 	
 	@Override
@@ -232,9 +247,9 @@ public final class DynamicModel<L> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	public Type getType(final Item item)
+	public Type<L> getType(final Item item)
 	{
-		return toType(this.type.get(item));
+		return this.type.get(item);
 	}
 	
 	public com.exedio.cope.Type<?> getTypeType()
@@ -272,11 +287,6 @@ public final class DynamicModel<L> extends Pattern
 		return type;
 	}
 	
-	public void setTypeBacked(final Item item, final Item typeBackingItem)
-	{
-		setType(item, toType(typeBackingItem));
-	}
-	
 	public void setType(final Item item, final Type type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
@@ -285,7 +295,7 @@ public final class DynamicModel<L> extends Pattern
 					", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
-		values[0] = Cope.mapAndCast(this.type, type!=null ? type.getBackingItem() : null);
+		values[0] = Cope.mapAndCast(this.type, type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
 		item.set(values);
@@ -293,7 +303,7 @@ public final class DynamicModel<L> extends Pattern
 	
 	private void assertType(final Item item, final Field field)
 	{
-		final Item fieldType = fieldParent.get(field.getBackingItem());
+		final Item fieldType = fieldParent.get(field);
 		final Item itemType = type.get(item);
 		if(!fieldType.equals(itemType))
 			throw new IllegalArgumentException(
@@ -325,18 +335,13 @@ public final class DynamicModel<L> extends Pattern
 	public Object get(final Item item, final Field field)
 	{
 		assertType(item, field);
-		final Object backingValue = getField(field).get(item);
-		if(backingValue!=null && backingValue instanceof Item)
-			return new Enum((Item)backingValue);
-		else
-			return backingValue;
+		return getField(field).get(item);
 	}
 	
-	public void set(final Item item, final DynamicModel<L>.Field field, final Object value)
+	public void set(final Item item, final DynamicModel.Field<L> field, final Object value)
 	{
 		assertType(item, field);
 		
-		final Object backingValue;
 		if(value!=null &&
 			value instanceof DynamicModel.Enum &&
 			field.getValueType()==ValueType.ENUM)
@@ -345,19 +350,11 @@ public final class DynamicModel<L> extends Pattern
 			final Field enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
-			backingValue = enumValue.getBackingItem();
 		}
-		else
-			backingValue = value;
 		
-		Cope.setAndCast(getField(field), item, backingValue);
+		Cope.setAndCast(getField(field), item, value);
 	}
 	
-	private Type toType(final Item backingItem)
-	{
-		return backingItem!=null ? new Type(backingItem) : null;
-	}
-
 	public static enum ValueType
 	{
 		STRING (String.class),
@@ -379,106 +376,111 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
-	public final class Type extends BackedItem
+	public static final class Type<L> extends Item
 	{
-		Type(final Item backingItem)
+		private static final long serialVersionUID = 1l;
+		
+		Type(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==typeType;
+			super(setValues, type);
+			assert type!=null;
 		}
 		
-		public Field addField(final String code, final ValueType valueType)
+		Type(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
 		{
-			final List<Field> fields = getFields(); // TODO make more efficient
+			super(reactivationDummy, pk, type);
+		}
+		
+		@SuppressWarnings("unchecked")
+		public DynamicModel<L> getPattern()
+		{
+			return (DynamicModel<L>)getCopeType().getPattern();
+		}
+		
+		public Field<L> addField(final String code, final ValueType valueType)
+		{
+			final DynamicModel<L> p = getPattern();
+			final List<Field<L>> fields = getFields(); // TODO make more efficient
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
-			final List<Field> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
+			final List<Field<L>> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
-			DynamicModel.this.assertCapacity(valueType, positionPerValuetype);
-			return new Field(
-					fieldType.newItem(
-							Cope.mapAndCast(fieldParent, backingItem),
-							fieldPosition.map(position),
-							fieldCode.map(code),
-							fieldValueType.map(valueType),
-							fieldPositionPerValueType.map(positionPerValuetype)));
+			p.assertCapacity(valueType, positionPerValuetype);
+			return
+					p.fieldType.newItem(
+							p.fieldParent.map(this),
+							p.fieldPosition.map(position),
+							p.fieldCode.map(code),
+							p.fieldValueType.map(valueType),
+							p.fieldPositionPerValueType.map(positionPerValuetype));
 		}
 
-		public Field addStringField(final String code)
+		public Field<L> addStringField(final String code)
 		{
 			return addField(code, ValueType.STRING);
 		}
 
-		public Field addBooleanField(final String code)
+		public Field<L> addBooleanField(final String code)
 		{
 			return addField(code, ValueType.BOOLEAN);
 		}
 		
-		public Field addIntegerField(final String code)
+		public Field<L> addIntegerField(final String code)
 		{
 			return addField(code, ValueType.INTEGER);
 		}
 		
-		public Field addDoubleField(final String code)
+		public Field<L> addDoubleField(final String code)
 		{
 			return addField(code, ValueType.DOUBLE);
 		}
 		
-		public Field addEnumField(final String code)
+		public Field<L> addEnumField(final String code)
 		{
 			return addField(code, ValueType.ENUM);
 		}
 
-		public List<Field> getFields()
+		public List<Field<L>> getFields()
 		{
-			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem), fieldPosition, true);
-			final ArrayList<Field> result = new ArrayList<Field>(backingItems.size());
-			for(final Item backingItem : backingItems)
-				result.add(new Field(backingItem));
-			return Collections.unmodifiableList(result);
+			final DynamicModel<L> p = getPattern();
+			return p.fieldType.search(p.fieldParent.equal(this), p.fieldPosition, true);
 		}
 
-		public Field getField(final String code)
+		public Field<L> getField(final String code)
 		{
-			return toField(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
+			final DynamicModel<L> p = getPattern();
+			return p.fieldType.searchSingleton(p.fieldParent.equal(this).and(p.fieldCode.equal(code)));
 		}
 		
-		private List<Field> getFields(final ValueType valueType)
+		private List<Field<L>> getFields(final ValueType valueType)
 		{
-			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem).and(fieldValueType.equal(valueType)), fieldPositionPerValueType, true);
-			final ArrayList<Field> result = new ArrayList<Field>(backingItems.size());
-			for(final Item backingItem : backingItems)
-				result.add(new Field(backingItem));
-			return Collections.unmodifiableList(result);
+			final DynamicModel<L> p = getPattern();
+			return p.fieldType.search(Cope.equalAndCast(p.fieldParent, this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 		
 		public com.exedio.cope.Type getParentType()
 		{
-			return DynamicModel.this.getType();
+			return getPattern().getType();
 		}
 		
 		public DynamicModel getModel()
 		{
-			return DynamicModel.this;
+			return getPattern();
 		}
 		
 		public String getCode()
 		{
-			return typeCode.get(backingItem);
+			return getPattern().typeCode.get(this);
 		}
 		
-		private Field toField(final Item backingItem)
-		{
-			return backingItem!=null ? new Field(backingItem) : null;
-		}
 		
 		public String getName(final L locale)
 		{
-			return typeLocalization.getName(backingItem, locale);
+			return getPattern().typeLocalization.getName(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			typeLocalization.setName(backingItem, locale, value);
+			getPattern().typeLocalization.setName(this, locale, value);
 		}
 		
 		/**
@@ -539,7 +541,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getFields()} instead
 		 */
 		@Deprecated
-		public List<Field> getAttributes()
+		public List<Field<L>> getAttributes()
 		{
 			return getFields();
 		}
@@ -563,22 +565,35 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 	
-	public final class Field extends BackedItem
+	public static final class Field<L> extends Item
 	{
-		Field(final Item backingItem)
+		private static final long serialVersionUID = 1l;
+		
+		Field(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==fieldType;
+			super(setValues, type);
+			assert type!=null;
+		}
+		
+		Field(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
+		{
+			super(reactivationDummy, pk, type);
+		}
+		
+		@SuppressWarnings("unchecked")
+		public DynamicModel<L> getPattern()
+		{
+			return (DynamicModel)getCopeType().getPattern();
 		}
 		
 		public Object get(final Item item)
 		{
-			return DynamicModel.this.get(item, this);
+			return getPattern().get(item, this);
 		}
 		
 		public void set(final Item item, final Object value)
 		{
-			DynamicModel.this.set(item, this, value);
+			getPattern().set(item, this, value);
 		}
 		
 		private void assertEnum()
@@ -588,111 +603,119 @@ public final class DynamicModel<L> extends Pattern
 				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM fields only, but was " + vt);
 		}
 		
-		public List<Enum> getEnumValues()
+		public List<Enum<L>> getEnumValues()
 		{
 			assertEnum();
-			final List<? extends Item> backingItems = enumType.search(Cope.equalAndCast(enumParent, backingItem), enumPosition, true);
-			final ArrayList<Enum> result = new ArrayList<Enum>(backingItems.size());
-			for(final Item backingItem : backingItems)
-				result.add(new Enum(backingItem));
-			return Collections.unmodifiableList(result);
+			final DynamicModel<L> p = getPattern();
+			return p.enumType.search(p.enumParent.equal(this), p.enumPosition, true);
 		}
 		
 		public Enum getEnumValue(final String code)
 		{
+			final DynamicModel<L> p = getPattern();
 			assertEnum();
-			return toEnum(enumType.searchSingleton(Cope.equalAndCast(enumParent, backingItem).and(enumCode.equal(code))));
+			return p.enumType.searchSingleton(p.enumParent.equal(this).and(p.enumCode.equal(code)));
 		}
 		
-		public Enum addEnumValue(final String code)
+		public Enum<L> addEnumValue(final String code)
 		{
+			final DynamicModel<L> p = getPattern();
 			assertEnum();
-			final List<Enum> values = getEnumValues(); // TODO make more efficient
+			final List<Enum<L>> values = getEnumValues(); // TODO make more efficient
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
-			return new Enum(
-					enumType.newItem(
-							Cope.mapAndCast(enumParent, backingItem),
-							enumPosition.map(position),
-							enumCode.map(code)));
+			return
+					p.enumType.newItem(
+							p.enumParent.map(this),
+							p.enumPosition.map(position),
+							p.enumCode.map(code));
 		}
 		
 		public Type getParent()
 		{
-			return new Type(fieldParent.get(backingItem));
+			return getPattern().fieldParent.get(this);
 		}
 		
 		public int getPosition()
 		{
-			return fieldPosition.getMandatory(backingItem);
+			return getPattern().fieldPosition.getMandatory(this);
 		}
 		
 		public ValueType getValueType()
 		{
-			return fieldValueType.get(backingItem);
+			return getPattern().fieldValueType.get(this);
 		}
 		
 		int getPositionPerValueType()
 		{
-			return fieldPositionPerValueType.getMandatory(backingItem);
+			return getPattern().fieldPositionPerValueType.getMandatory(this);
 		}
 		
 		public String getCode()
 		{
-			return fieldCode.get(backingItem);
+			return getPattern().fieldCode.get(this);
 		}
 		
 		public FunctionField<?> getField()
 		{
-			return DynamicModel.this.getField(this);
+			return getPattern().getField(this);
 		}
 		
-		private Enum toEnum(final Item backingItem)
-		{
-			return backingItem!=null ? new Enum(backingItem) : null;
-		}
 		
 		public String getName(final L locale)
 		{
-			return fieldLocalization.getName(backingItem, locale);
+			return getPattern().fieldLocalization.getName(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			fieldLocalization.setName(backingItem, locale, value);
+			getPattern().fieldLocalization.setName(this, locale, value);
 		}
 	}
 
-	public final class Enum extends BackedItem
+	public static final class Enum<L> extends Item
 	{
-		Enum(final Item backingItem)
+		private static final long serialVersionUID = 1l;
+		
+		Enum(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==enumType;
+			super(setValues, type);
+			assert type!=null;
+		}
+		
+		Enum(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
+		{
+			super(reactivationDummy, pk, type);
+		}
+		
+		@SuppressWarnings("unchecked")
+		public DynamicModel<L> getPattern()
+		{
+			return (DynamicModel)getCopeType().getPattern();
 		}
 		
 		public Field getParent()
 		{
-			return new Field(enumParent.get(backingItem));
+			return getPattern().enumParent.get(this);
 		}
 		
 		public int getPosition()
 		{
-			return enumPosition.getMandatory(backingItem);
+			return getPattern().enumPosition.getMandatory(this);
 		}
 		
 		public String getCode()
 		{
-			return enumCode.get(backingItem);
+			return getPattern().enumCode.get(this);
 		}
 		
 		public String getName(final L locale)
 		{
-			return enumLocalization.getName(backingItem, locale);
+			return getPattern().enumLocalization.getName(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			enumLocalization.setName(backingItem, locale, value);
+			getPattern().enumLocalization.setName(this, locale, value);
 		}
 	}
 	

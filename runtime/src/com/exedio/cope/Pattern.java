@@ -170,45 +170,6 @@ public abstract class Pattern extends Feature
 		return super.getType();
 	}
 	
-	/**
-	 * Common super class for all wrapper classes backed by a real
-	 * item of a type created by {@link #newSourceType(Class, LinkedHashMap, String)};
-	 * TODO: remove, support custom classes for such types.
-	 */
-	public abstract class BackedItem
-	{
-		protected final Item backingItem;
-		
-		protected BackedItem(final Item backingItem)
-		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
-		}
-		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
-		@Override
-		public final boolean equals(final Object other)
-		{
-			return other instanceof BackedItem && backingItem.equals(((BackedItem)other).backingItem);
-		}
-		
-		@Override
-		public final int hashCode()
-		{
-			return backingItem.hashCode() ^ 765744;
-		}
-		
-		@Override
-		public final String toString()
-		{
-			return backingItem.toString();
-		}
-	}
-	
 	// ------------------- deprecated stuff -------------------
 
 	/**
