@@ -287,7 +287,7 @@ public final class DynamicModel<L> extends Pattern
 		return type;
 	}
 	
-	public void setType(final Item item, final Type type)
+	public void setType(final Item item, final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -295,7 +295,7 @@ public final class DynamicModel<L> extends Pattern
 					", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
-		values[0] = Cope.mapAndCast(this.type, type);
+		values[0] = this.type.map(type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
 		item.set(values);
@@ -454,7 +454,7 @@ public final class DynamicModel<L> extends Pattern
 		private List<Field<L>> getFields(final ValueType valueType)
 		{
 			final DynamicModel<L> p = getPattern();
-			return p.fieldType.search(Cope.equalAndCast(p.fieldParent, this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
+			return p.fieldType.search(p.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 		
 		public com.exedio.cope.Type getParentType()
