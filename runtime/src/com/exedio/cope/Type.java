@@ -127,9 +127,9 @@ public final class Type<C extends Item>
 	
 	private ArrayList<Feature> featuresWhileConstruction;
 	
-	Type(final Class<C> javaClass)
+	static <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
-		this(
+		return new Type<C>(
 				javaClass,
 				true,
 				javaClassID(javaClass),

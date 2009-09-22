@@ -443,7 +443,7 @@ public abstract class Item implements Serializable
 	
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
-		return new Type<C>(javaClass);
+		return Type.newType(javaClass);
 	}
 	
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
