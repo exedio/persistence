@@ -21,11 +21,13 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -443,7 +445,69 @@ public abstract class Item implements Serializable
 	
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
-		return Type.newType(javaClass);
+		if(javaClass==null)
+			throw new NullPointerException("javaClass");
+		
+		// id
+		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
+		final String id =
+			annotation!=null
+			? annotation.value()
+			: javaClass.getSimpleName();
+		
+		// abstract
+		final boolean isAbstract = (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
+		
+		// supertype
+		final Class superClass = javaClass.getSuperclass();
+		
+		final Type<? super C> supertype;
+		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
+			supertype = null;
+		else
+			supertype = Type.forClass(castSuperType(superClass));
+		
+		// featureMap
+		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
+		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
+		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
+		try
+		{
+			for(final java.lang.reflect.Field field : fields)
+			{
+				if((field.getModifiers()&expectedModifier)==expectedModifier)
+				{
+					if(Feature.class.isAssignableFrom(field.getType()))
+					{
+						field.setAccessible(true);
+						final Feature feature = (Feature)field.get(null);
+						if(feature==null)
+							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
+						featureMap.put(field.getName(), feature);
+						feature.setAnnotationField(field);
+					}
+				}
+			}
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		return new Type<C>(
+				javaClass,
+				true,
+				id,
+				null, // pattern
+				isAbstract,
+				supertype,
+				featureMap);
+	}
+	
+	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
+	private static final Class<Item> castSuperType(final Class o)
+	{
+		return o;
 	}
 	
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)

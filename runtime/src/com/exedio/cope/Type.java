@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,9 +31,9 @@ import java.util.Map;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -126,67 +125,6 @@ public final class Type<C extends Item>
 	}
 	
 	private ArrayList<Feature> featuresWhileConstruction;
-	
-	static <C extends Item> Type<C> newType(final Class<C> javaClass)
-	{
-		if(javaClass==null)
-			throw new NullPointerException("javaClass");
-		
-		// id
-		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
-		final String id =
-			annotation!=null
-			? annotation.value()
-			: javaClass.getSimpleName();
-		
-		// abstract
-		final boolean isAbstract = (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
-		
-		// supertype
-		final Class superClass = javaClass.getSuperclass();
-		
-		final Type<? super C> supertype;
-		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
-			supertype = null;
-		else
-			supertype = forClass(castSuperType(superClass));
-		
-		// featureMap
-		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
-		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
-		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
-		try
-		{
-			for(final java.lang.reflect.Field field : fields)
-			{
-				if((field.getModifiers()&expectedModifier)==expectedModifier)
-				{
-					if(Feature.class.isAssignableFrom(field.getType()))
-					{
-						field.setAccessible(true);
-						final Feature feature = (Feature)field.get(null);
-						if(feature==null)
-							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
-						featureMap.put(field.getName(), feature);
-						feature.setAnnotationField(field);
-					}
-				}
-			}
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-
-		return new Type<C>(
-				javaClass,
-				true,
-				id,
-				null, // pattern
-				isAbstract,
-				supertype,
-				featureMap);
-	}
 	
 	Type(
 			final Class<C> javaClass,
@@ -309,12 +247,6 @@ public final class Type<C extends Item>
 			supertype.registerSubType(this);
 		if(uniqueJavaClass)
 			typesByClass.put(javaClass, this);
-	}
-	
-	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
-	private static final Class<Item> castSuperType(final Class o)
-	{
-		return o;
 	}
 
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
