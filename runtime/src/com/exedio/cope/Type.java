@@ -152,7 +152,7 @@ public final class Type<C extends Item>
 			supertype = forClass(castSuperType(superClass));
 		
 		// featureMap
-		final LinkedHashMap<String, Feature> result = new LinkedHashMap<String, Feature>();
+		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
 		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
@@ -167,7 +167,7 @@ public final class Type<C extends Item>
 						final Feature feature = (Feature)field.get(null);
 						if(feature==null)
 							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
-						result.put(field.getName(), feature);
+						featureMap.put(field.getName(), feature);
 						feature.setAnnotationField(field);
 					}
 				}
@@ -185,7 +185,7 @@ public final class Type<C extends Item>
 				null, // pattern
 				isAbstract,
 				supertype,
-				result);
+				featureMap);
 	}
 	
 	Type(
