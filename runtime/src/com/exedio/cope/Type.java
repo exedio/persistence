@@ -149,7 +149,7 @@ public final class Type<C extends Item>
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
 			supertype = null;
 		else
-			supertype = forClass(castSuperType(superclass));
+			supertype = forClass(castSupertype(superclass));
 		
 		// featureMap
 		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
@@ -189,7 +189,7 @@ public final class Type<C extends Item>
 	}
 	
 	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
-	private static final Class<Item> castSuperType(final Class o)
+	private static final Class<Item> castSupertype(final Class o)
 	{
 		return o;
 	}
