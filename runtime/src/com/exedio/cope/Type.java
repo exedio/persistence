@@ -188,6 +188,12 @@ public final class Type<C extends Item>
 				featureMap);
 	}
 	
+	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
+	private static final Class<Item> castSuperType(final Class o)
+	{
+		return o;
+	}
+	
 	Type(
 			final Class<C> javaClass,
 			final boolean javaClassExclusive,
@@ -311,12 +317,6 @@ public final class Type<C extends Item>
 			typesByClass.put(javaClass, this);
 	}
 	
-	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
-	private static final Class<Item> castSuperType(final Class o)
-	{
-		return o;
-	}
-
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
 	{
 		assert inherited!=null;
