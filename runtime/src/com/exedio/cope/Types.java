@@ -29,13 +29,14 @@ final class Types
 		// prevent instantiation
 	}
 	
-	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
+	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass =
+		new HashMap<Class<? extends Item>, Type<? extends Item>>();
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #isJavaClassExclusive()
 	 */
-	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
+	static <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
 		return forClassUnchecked(javaClass).as(javaClass);
 	}
@@ -44,7 +45,7 @@ final class Types
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #isJavaClassExclusive()
 	 */
-	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
+	static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		final Type<? extends Item> result = typesByClass.get(javaClass);
 		if(result==null)
@@ -117,7 +118,7 @@ final class Types
 	}
 	
 	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
-	private static final Class<Item> castSupertype(final Class o)
+	private static Class<Item> castSupertype(final Class o)
 	{
 		return o;
 	}
