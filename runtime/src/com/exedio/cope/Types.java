@@ -66,7 +66,7 @@ final class Types
 			: javaClass.getSimpleName();
 		
 		// abstract
-		final boolean isAbstract = (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
+		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 		
 		// supertype
 		final Class superclass = javaClass.getSuperclass();
