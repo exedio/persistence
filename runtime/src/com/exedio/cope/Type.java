@@ -143,13 +143,13 @@ public final class Type<C extends Item>
 		final boolean isAbstract = (javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
 		// supertype
-		final Class superClass = javaClass.getSuperclass();
+		final Class superclass = javaClass.getSuperclass();
 		
 		final Type<? super C> supertype;
-		if(superClass.equals(Item.class) || !Item.class.isAssignableFrom(superClass))
+		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
 			supertype = null;
 		else
-			supertype = forClass(castSuperType(superClass));
+			supertype = forClass(castSuperType(superclass));
 		
 		// featureMap
 		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
