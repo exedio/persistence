@@ -253,7 +253,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	{
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equal((Type.This<InstanceOfB2Item>)(Type.This)InstanceOfAItem.TYPE.getThis())); // TODO
+			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equal((This<InstanceOfB2Item>)(This)InstanceOfAItem.TYPE.getThis())); // TODO
 			assertContains(q.search());
 		}
 	}

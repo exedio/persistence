@@ -25,6 +25,7 @@ import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
+import com.exedio.cope.This;
 import com.exedio.cope.Type;
 
 final class TypeColumnCop extends TestCop<ItemFunction>
@@ -47,7 +48,7 @@ final class TypeColumnCop extends TestCop<ItemFunction>
 		
 		for(final Type<?> t : model.getTypes())
 		{
-			final Type.This<?> tt = t.getThis();
+			final This<?> tt = t.getThis();
 			if(tt.needsCheckTypeColumn())
 				functions.add(tt);
 			

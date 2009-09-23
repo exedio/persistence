@@ -213,7 +213,7 @@ public final class Model
 			
 			for(final Feature f : t.getDeclaredFeatures())
 			{
-				if(f instanceof Type.This)
+				if(f instanceof This)
 					continue;
 				
 				final Feature hidden = st.getFeature(f.getName());

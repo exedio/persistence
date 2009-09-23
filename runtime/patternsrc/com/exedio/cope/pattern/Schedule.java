@@ -37,6 +37,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Interrupter;
@@ -215,7 +216,7 @@ public final class Schedule extends Pattern
 	<P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter, final Date now)
 	{
 		final Type<P> type = getType().as(parentClass);
-		final Type.This<P> typeThis = type.getThis();
+		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);

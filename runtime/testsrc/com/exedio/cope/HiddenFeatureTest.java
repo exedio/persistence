@@ -32,8 +32,8 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 	{
 		HiddenFeatureSuperItem sp = null;
 		HiddenFeatureSubItem sb = null;
-		final Type.This spt = sp.TYPE.getThis();
-		final Type.This sbt = sb.TYPE.getThis();
+		final This spt = sp.TYPE.getThis();
+		final This sbt = sb.TYPE.getThis();
 
 		// test model
 		assertNotSame(sp.hiddenSame,  sb.hiddenSame);

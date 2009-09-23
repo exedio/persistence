@@ -25,7 +25,7 @@ import java.util.List;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
+import com.exedio.cope.This;
 import com.exedio.cope.info.SequenceInfo;
 
 final class SequenceCop extends TestCop<SequenceInfo>
@@ -79,8 +79,8 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	int test(final SequenceInfo info)
 	{
 		final Feature feature = info.getFeature();
-		if(feature instanceof Type.This)
-			return ((Type.This)feature).getType().checkPrimaryKey();
+		if(feature instanceof This)
+			return ((This)feature).getType().checkPrimaryKey();
 		else if(feature instanceof IntegerField)
 			return ((IntegerField)feature).checkDefaultToNext();
 		else

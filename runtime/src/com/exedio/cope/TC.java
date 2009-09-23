@@ -92,7 +92,7 @@ final class TC
 		check(select, join, distinctAllTypes, ambiguousAllTypes);
 	}
 
-	void check(final Type.This select, final Join join)
+	void check(final This select, final Join join)
 	{
 		check(select, join, distinctThisTypes, ambiguousThisTypes);
 	}
@@ -145,8 +145,8 @@ final class TC
 		final Table table;
 		if(select instanceof FunctionField)
 			table = ((FunctionField)select).getColumn().table;
-		else if(select instanceof Type.This)
-			table = ((Type.This)select).getType().getTable();
+		else if(select instanceof This)
+			table = ((This)select).getType().getTable();
 		else
 			throw new RuntimeException(select.toString());
 

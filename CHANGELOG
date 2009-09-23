@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* make Type.This a top-level class
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
 * do not use BackingItem for DynamicModel anymore
 	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
 	affects instrumented code
