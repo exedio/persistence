@@ -149,7 +149,7 @@ public class ModelTest extends TestmodelTest
 		
 		try
 		{
-			Item.newType(null);
+			Type.newType(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -158,7 +158,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			Item.newType(Item.class);
+			Type.newType(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -167,7 +167,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			Item.newType(castItemClass(NoItem.class));
+			Type.newType(castItemClass(NoItem.class));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -176,7 +176,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			Item.newType(NoCreationConstructor.class);
+			Type.newType(NoCreationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -188,7 +188,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			Item.newType(NoReactivationConstructor.class);
+			Type.newType(NoReactivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
