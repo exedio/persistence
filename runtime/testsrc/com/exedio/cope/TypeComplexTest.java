@@ -101,12 +101,12 @@ public class TypeComplexTest extends CopeAssert
 		assertEquals("AnotherItem.this", typO.getThis().toString());
 		assertEquals("this", typO.getThis().getName());
 		
-		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField, AnotherItem.doubleField), typO.getFields());
-		assertEqualsUnmodifiable(list(AnotherItem.doubleField), typO.getDeclaredFields());
+		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField, AnotherItem.doubleField, AnotherItem.itemField), typO.getFields());
+		assertEqualsUnmodifiable(list(AnotherItem.doubleField, AnotherItem.itemField), typO.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), typO.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), typO.getDeclaredUniqueConstraints());
-		assertEqualsUnmodifiable(list(typO.getThis(), AnItem.intField, AnItem.boolField, AnotherItem.doubleField), typO.getFeatures());
-		assertEqualsUnmodifiable(list(typO.getThis(), AnotherItem.doubleField), typO.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(typO.getThis(), AnItem.intField, AnItem.boolField, AnotherItem.doubleField, AnotherItem.itemField), typO.getFeatures());
+		assertEqualsUnmodifiable(list(typO.getThis(), AnotherItem.doubleField, AnotherItem.itemField), typO.getDeclaredFeatures());
 		
 		assertSame(AnItem.intField, typO.getFeature("intField"));
 		assertSame(AnItem.boolField, typO.getFeature("boolField"));
@@ -114,6 +114,7 @@ public class TypeComplexTest extends CopeAssert
 		assertSame(null, typO.getDeclaredFeature("intField"));
 		assertSame(null, typO.getDeclaredFeature("boolField"));
 		assertSame(AnotherItem.doubleField, typO.getDeclaredFeature("doubleField"));
+		assertSame(AnotherItem.itemField, typO.getDeclaredFeature("itemField"));
 		
 		// error if not initialized
 		final String modelMessage =
@@ -222,9 +223,9 @@ public class TypeComplexTest extends CopeAssert
 		assertSame(typO, model.getType(typO.getID()));
 		assertSame(model, type.getModel());
 		assertSame(model, typO.getModel());
-		assertEqualsUnmodifiable(list(), type.getReferences());
-		assertEqualsUnmodifiable(list(), typO.getReferences());
-		assertEqualsUnmodifiable(list(), type.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(AnotherItem.itemField), type.getReferences());
+		assertEqualsUnmodifiable(list(AnotherItem.itemField), typO.getReferences());
+		assertEqualsUnmodifiable(list(AnotherItem.itemField), type.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), typO.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(typO), type.getSubTypes());
 		assertEqualsUnmodifiable(list(), typO.getSubTypes());
@@ -267,5 +268,6 @@ public class TypeComplexTest extends CopeAssert
 		}
 		
 		static final DoubleField doubleField = new DoubleField();
+		static final ItemField itemField = newItemField(AnItem.class);
 	}
 }
