@@ -69,6 +69,25 @@ public class TypeTest extends CopeAssert
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 	}
 	
+	static class AnItem extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		private AnItem(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+		
+		private AnItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
+		{
+			super(reactivationDummy, pk);
+		}
+		
+		static final IntegerField intField = new IntegerField();
+		static final BooleanField boolField = new BooleanField();
+	}
+	
+	
 	public void testErrors()
 	{
 		try
@@ -122,24 +141,6 @@ public class TypeTest extends CopeAssert
 					" does not have a reactivation constructor NoReactivationConstructor(" + ReactivationConstructorDummy.class.getName() + ",int)", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-	}
-	
-	static class AnItem extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final SetValue[] setValues)
-		{
-			super(setValues);
-		}
-		
-		private AnItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
-		{
-			super(reactivationDummy, pk);
-		}
-		
-		static final IntegerField intField = new IntegerField();
-		static final BooleanField boolField = new BooleanField();
 	}
 	
 	static class NoItem
