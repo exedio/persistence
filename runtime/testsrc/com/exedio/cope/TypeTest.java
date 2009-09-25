@@ -20,18 +20,18 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 
-import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public class TypeTest extends TestmodelTest
+public class TypeTest extends CopeAssert
 {
 	public void testType()
 	{
-		final AttributeItem item = null;
-		
-		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isJavaClassExclusive());
-		assertEquals(item.TYPE, Type.forClass(AttributeItem.class));
+		final Type<AnItem> TYPE = Item.newType(AnItem.class); // TODO rename to type
+		final Model model = new Model(TYPE);
+		assertEquals(AnItem.class, TYPE.getJavaClass());
+		assertEquals(true, TYPE.isJavaClassExclusive());
+		assertEquals(TYPE, Type.forClass(AnItem.class));
 		try
 		{
 			Type.forClass(Item.class);
@@ -41,69 +41,32 @@ public class TypeTest extends TestmodelTest
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
-		assertEquals(item.TYPE, model.getType(item.TYPE.getID()));
+		assertEquals(TYPE, model.getType(TYPE.getID()));
 
-		assertSame(item.TYPE, item.TYPE.getThis().getType());
-		assertEquals("AttributeItem.this", item.TYPE.getThis().getID());
-		assertEquals("AttributeItem.this", item.TYPE.getThis().toString());
-		assertEquals("this", item.TYPE.getThis().getName());
+		assertSame(TYPE, TYPE.getThis().getType());
+		assertEquals("AnItem.this", TYPE.getThis().getID());
+		assertEquals("AnItem.this", TYPE.getThis().toString());
+		assertEquals("this", TYPE.getThis().getName());
 		
 		final Field[] attributes = {
-			item.someString,
-			item.someNotNullString,
-			item.someInteger,
-			item.someNotNullInteger,
-			item.someLong,
-			item.someNotNullLong,
-			item.someDouble,
-			item.someNotNullDouble,
-			item.someDate,
-			item.day,
-			item.someBoolean,
-			item.someNotNullBoolean,
-			item.someItem,
-			item.someNotNullItem,
-			item.someEnum,
-			item.someNotNullEnum,
-			item.someData.getBody(),
-			item.someData.getContentType(),
-			item.someData.getLastModified(),
+			AnItem.intField,
+			AnItem.boolField,
 		};
-		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getFields());
-		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredFields());
-		assertEqualsUnmodifiable(list(), item.TYPE.getUniqueConstraints());
-		assertEqualsUnmodifiable(list(), item.TYPE.getDeclaredUniqueConstraints());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), TYPE.getFields());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), TYPE.getDeclaredFields());
+		assertEqualsUnmodifiable(list(), TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(), TYPE.getDeclaredUniqueConstraints());
 
 		final Feature[] features = {
-			item.TYPE.getThis(),
-			item.someString,
-			item.someStringUpperCase,
-			item.someStringLength,
-			item.someNotNullString,
-			item.someInteger,
-			item.someNotNullInteger,
-			item.someLong,
-			item.someNotNullLong,
-			item.someDouble,
-			item.someNotNullDouble,
-			item.someDate,
-			item.day,
-			item.someBoolean,
-			item.someNotNullBoolean,
-			item.someItem,
-			item.someNotNullItem,
-			item.someEnum,
-			item.someNotNullEnum,
-			item.someData,
-			item.someData.getBody(),
-			item.someData.getContentType(),
-			item.someData.getLastModified(),
+			TYPE.getThis(),
+			AnItem.intField,
+			AnItem.boolField,
 		};
-		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), TYPE.getFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), TYPE.getDeclaredFeatures());
 		
-		assertEquals(item.someString, item.TYPE.getDeclaredFeature("someString"));
-		assertEquals(item.someStringUpperCase, item.TYPE.getDeclaredFeature("someStringUpperCase"));
+		assertSame(AnItem.intField, TYPE.getDeclaredFeature("intField"));
+		assertSame(AnItem.boolField, TYPE.getDeclaredFeature("boolField"));
 		
 		try
 		{
@@ -156,6 +119,24 @@ public class TypeTest extends TestmodelTest
 					" does not have a reactivation constructor NoReactivationConstructor(" + ReactivationConstructorDummy.class.getName() + ",int)", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+	}
+	
+	static class AnItem extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		private AnItem(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+		
+		private AnItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
+		{
+			super(reactivationDummy, pk);
+		}
+		
+		static final IntegerField intField = new IntegerField();
+		static final BooleanField boolField = new BooleanField();
 	}
 	
 	static class NoItem
