@@ -262,6 +262,15 @@ public class HierarchyTest extends AbstractRuntimeTest
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
+		try
+		{
+			HierarchySuper.TYPE.newItem();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(InstantiationException.class, e.getCause().getClass());
+		}
 	}
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
