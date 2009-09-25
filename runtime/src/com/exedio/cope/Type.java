@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public final class Type<C extends Item>
 	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super C> supertype;
+	private final HashSet<Type<?>> supertypes;
 	
 	final This<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
@@ -153,6 +155,21 @@ public final class Type<C extends Item>
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
 		this.supertype = supertype;
+		
+		if(supertype==null)
+		{
+			this.supertypes = null;
+		}
+		else
+		{
+			final HashSet<Type<?>> superSupertypes = supertype.supertypes;
+			if(superSupertypes==null)
+				this.supertypes = new HashSet<Type<?>>();
+			else
+				this.supertypes = new HashSet<Type<?>>(superSupertypes);
+			
+			this.supertypes.add(supertype);
+		}
 
 		// declared features
 		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
@@ -639,9 +656,16 @@ public final class Type<C extends Item>
 		return Collections.unmodifiableList(subTypesTransitively);
 	}
 	
-	public boolean isAssignableFrom(final Type type)
+	public boolean isAssignableFrom(final Type<?> type)
 	{
-		return (this==type) || (this.getSubTypesTransitively().contains(type));
+		if(this==type)
+			return true;
+		
+		final HashSet<Type<?>> typeSupertypes = type.supertypes;
+		if(typeSupertypes==null)
+			return false;
+		
+		return typeSupertypes.contains(this);
 	}
 	
 	void assertBelongs(final Field f)

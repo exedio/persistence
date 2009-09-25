@@ -89,7 +89,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		final Type type = function.getValueType();
+		final Type<?> type = function.getValueType();
 		appendType(bf);
 		if(not)
 			bf.append(" not");
