@@ -98,6 +98,7 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		
 		
 		//assignable
+		assertFalse(abstractType.isAssignableFrom(null)); // TODO should throw NullPointerException
 		assertTrue(abstractType.isAssignableFrom(subType));
 		assertTrue(subType.isAssignableFrom(subType));
 		assertTrue(abstractType.isAssignableFrom(abstractType));

@@ -88,6 +88,18 @@ public class TypeTest extends CopeAssert
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 		
+		try
+		{
+			type.isAssignableFrom(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertTrue(type.isAssignableFrom(type));
+		
+		
 		// error if not initialized
 		final String modelMessage =
 			"model not set for type AnItem, " +

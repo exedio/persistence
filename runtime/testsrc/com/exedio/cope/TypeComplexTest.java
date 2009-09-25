@@ -88,6 +88,17 @@ public class TypeComplexTest extends CopeAssert
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 		
+		try
+		{
+			type.isAssignableFrom(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertTrue(type.isAssignableFrom(type));
+		
 		
 		final Type<AnotherItem> typO = Item.newType(AnotherItem.class);
 		assertSame(typO, Type.forClass(AnotherItem.class));
@@ -115,6 +126,20 @@ public class TypeComplexTest extends CopeAssert
 		assertSame(null, typO.getDeclaredFeature("boolField"));
 		assertSame(AnotherItem.doubleField, typO.getDeclaredFeature("doubleField"));
 		assertSame(AnotherItem.itemField, typO.getDeclaredFeature("itemField"));
+		
+		try
+		{
+			typO.isAssignableFrom(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertTrue(typO.isAssignableFrom(typO));
+		assertTrue(type.isAssignableFrom(typO));
+		assertFalse(typO.isAssignableFrom(type));
+		
 		
 		// error if not initialized
 		final String modelMessage =
