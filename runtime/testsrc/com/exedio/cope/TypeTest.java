@@ -78,15 +78,15 @@ public class TypeTest extends CopeAssert
 		assertEquals("AnItem.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
 		
-		final Field[] fields = { AnItem.intField, AnItem.boolField };
-		assertEqualsUnmodifiable(Arrays.asList(fields), type.getFields());
-		assertEqualsUnmodifiable(Arrays.asList(fields), type.getDeclaredFields());
+		
+		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getFields());
+		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), type.getDeclaredUniqueConstraints());
 
-		final Feature[] features = { type.getThis(), AnItem.intField, AnItem.boolField };
-		assertEqualsUnmodifiable(Arrays.asList(features), type.getFeatures());
-		assertEqualsUnmodifiable(Arrays.asList(features), type.getDeclaredFeatures());
+		
+		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getFeatures());
+		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getDeclaredFeatures());
 		
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
