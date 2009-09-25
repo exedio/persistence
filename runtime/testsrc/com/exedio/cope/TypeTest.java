@@ -67,7 +67,10 @@ public class TypeTest extends CopeAssert
 		
 		assertSame(AnItem.intField, TYPE.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, TYPE.getDeclaredFeature("boolField"));
-		
+	}
+	
+	public void testErrors()
+	{
 		try
 		{
 			Types.newType(null);
