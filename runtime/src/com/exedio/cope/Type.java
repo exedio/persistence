@@ -641,10 +641,7 @@ public final class Type<C extends Item>
 	
 	public boolean isAssignableFrom(final Type type)
 	{
-		return
-			(javaClassExclusive&&type.javaClassExclusive)
-			? javaClass.isAssignableFrom(type.javaClass)
-			: (this==type || this.getSubTypesTransitively().contains(type));
+		return (this==type) || (this.getSubTypesTransitively().contains(type));
 	}
 	
 	void assertBelongs(final Field f)
