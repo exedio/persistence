@@ -27,6 +27,17 @@ public class TypeTest extends CopeAssert
 {
 	public void testType()
 	{
+		try
+		{
+			Type.forClass(AnItem.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("there is no type for class com.exedio.cope.TypeTest$AnItem", e.getMessage());
+		}
+		
+		
 		final Type<AnItem> type = Item.newType(AnItem.class);
 		
 		assertEquals(AnItem.class, type.getJavaClass());
@@ -67,6 +78,7 @@ public class TypeTest extends CopeAssert
 		
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
+		
 		
 		final Model model = new Model(type);
 		assertSame(type, model.getType(type.getID()));
