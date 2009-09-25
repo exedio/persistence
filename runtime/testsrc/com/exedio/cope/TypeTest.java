@@ -27,11 +27,11 @@ public class TypeTest extends CopeAssert
 {
 	public void testType()
 	{
-		final Type<AnItem> TYPE = Item.newType(AnItem.class); // TODO rename to type
-		final Model model = new Model(TYPE);
-		assertEquals(AnItem.class, TYPE.getJavaClass());
-		assertEquals(true, TYPE.isJavaClassExclusive());
-		assertEquals(TYPE, Type.forClass(AnItem.class));
+		final Type<AnItem> type = Item.newType(AnItem.class);
+		final Model model = new Model(type);
+		assertEquals(AnItem.class, type.getJavaClass());
+		assertEquals(true, type.isJavaClassExclusive());
+		assertEquals(type, Type.forClass(AnItem.class));
 		try
 		{
 			Type.forClass(Item.class);
@@ -41,32 +41,32 @@ public class TypeTest extends CopeAssert
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
-		assertEquals(TYPE, model.getType(TYPE.getID()));
+		assertEquals(type, model.getType(type.getID()));
 
-		assertSame(TYPE, TYPE.getThis().getType());
-		assertEquals("AnItem.this", TYPE.getThis().getID());
-		assertEquals("AnItem.this", TYPE.getThis().toString());
-		assertEquals("this", TYPE.getThis().getName());
+		assertSame(type, type.getThis().getType());
+		assertEquals("AnItem.this", type.getThis().getID());
+		assertEquals("AnItem.this", type.getThis().toString());
+		assertEquals("this", type.getThis().getName());
 		
 		final Field[] attributes = {
 			AnItem.intField,
 			AnItem.boolField,
 		};
-		assertEqualsUnmodifiable(Arrays.asList(attributes), TYPE.getFields());
-		assertEqualsUnmodifiable(Arrays.asList(attributes), TYPE.getDeclaredFields());
-		assertEqualsUnmodifiable(list(), TYPE.getUniqueConstraints());
-		assertEqualsUnmodifiable(list(), TYPE.getDeclaredUniqueConstraints());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), type.getFields());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), type.getDeclaredFields());
+		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(), type.getDeclaredUniqueConstraints());
 
 		final Feature[] features = {
-			TYPE.getThis(),
+			type.getThis(),
 			AnItem.intField,
 			AnItem.boolField,
 		};
-		assertEqualsUnmodifiable(Arrays.asList(features), TYPE.getFeatures());
-		assertEqualsUnmodifiable(Arrays.asList(features), TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), type.getFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), type.getDeclaredFeatures());
 		
-		assertSame(AnItem.intField, TYPE.getDeclaredFeature("intField"));
-		assertSame(AnItem.boolField, TYPE.getDeclaredFeature("boolField"));
+		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
+		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 	}
 	
 	public void testErrors()
