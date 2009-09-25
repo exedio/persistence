@@ -61,7 +61,7 @@ public class TypeAnnotationTest extends CopeAssert
 		
 		assertEquals("intFieldAnn", AnItem.intField.getName());
 		assertEquals(null, type.getFeature("intField"));
-		assertSame("boolField", AnItem.boolField.getName());
+		assertEquals("boolField", AnItem.boolField.getName());
 		assertSame(AnItem.intField, type.getFeature("intFieldAnn"));
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intFieldAnn"));
