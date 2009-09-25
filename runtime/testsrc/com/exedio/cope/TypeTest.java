@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
