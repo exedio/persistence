@@ -42,7 +42,7 @@ public class TypeTest extends CopeAssert
 		
 		assertEquals(AnItem.class, type.getJavaClass());
 		assertEquals(true, type.isJavaClassExclusive());
-		assertEquals(type, Type.forClass(AnItem.class));
+		assertSame(type, Type.forClass(AnItem.class));
 		try
 		{
 			Type.forClass(Item.class);
