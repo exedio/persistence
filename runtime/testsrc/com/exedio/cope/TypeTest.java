@@ -36,6 +36,15 @@ public class TypeTest extends CopeAssert
 		{
 			assertEquals("there is no type for class com.exedio.cope.TypeTest$AnItem", e.getMessage());
 		}
+		try
+		{
+			Type.forClassUnchecked(AnItem.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("there is no type for class com.exedio.cope.TypeTest$AnItem", e.getMessage());
+		}
 		
 		
 		final Type<AnItem> type = Item.newType(AnItem.class);
@@ -43,9 +52,19 @@ public class TypeTest extends CopeAssert
 		assertEquals(AnItem.class, type.getJavaClass());
 		assertEquals(true, type.isJavaClassExclusive());
 		assertSame(type, Type.forClass(AnItem.class));
+		assertSame(type, Type.forClassUnchecked(AnItem.class));
 		try
 		{
 			Type.forClass(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
+		}
+		try
+		{
+			Type.forClassUnchecked(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
