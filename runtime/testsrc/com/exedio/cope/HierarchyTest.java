@@ -267,9 +267,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 			HierarchySuper.TYPE.newItem();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(InstantiationException.class, e.getCause().getClass());
+			assertEquals("cannot create item of abstract type HierarchySuper", e.getMessage());
 		}
 	}
 	

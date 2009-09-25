@@ -131,9 +131,9 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 			abstractType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException e)
+		catch(IllegalArgumentException e)
 		{
-			//ok
+			assertEquals("cannot create item of abstract type TypeInheritanceTestPatternItem.testPatternAbstractType", e.getMessage());
 		}
 		
 		final Item item = subType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));

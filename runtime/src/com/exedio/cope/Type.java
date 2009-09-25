@@ -802,6 +802,9 @@ public final class Type<C extends Item>
 	public C newItem(SetValue... setValues)
 		throws ConstraintViolationException
 	{
+		if(isAbstract)
+			throw new IllegalArgumentException("cannot create item of abstract type " + id);
+		
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
 		try
