@@ -28,7 +28,7 @@ public class TypeTest extends CopeAssert
 	public void testType()
 	{
 		final Type<AnItem> type = Item.newType(AnItem.class);
-		final Model model = new Model(type);
+		
 		assertEquals(AnItem.class, type.getJavaClass());
 		assertEquals(true, type.isJavaClassExclusive());
 		assertEquals(type, Type.forClass(AnItem.class));
@@ -41,7 +41,7 @@ public class TypeTest extends CopeAssert
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
-		assertEquals(type, model.getType(type.getID()));
+		assertEquals("AnItem", type.getID());
 
 		assertSame(type, type.getThis().getType());
 		assertEquals("AnItem.this", type.getThis().getID());
@@ -67,6 +67,9 @@ public class TypeTest extends CopeAssert
 		
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
+		
+		final Model model = new Model(type);
+		assertSame(type, model.getType(type.getID()));
 	}
 	
 	static class AnItem extends Item
