@@ -29,7 +29,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
-import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
@@ -173,8 +172,6 @@ public class SetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("element must not be unique", e.getMessage());
 		}
-		
-		assertEquals(null, stringsType.getAnnotation(TestAnnotation.class));
 		
 		// test persistence
 		

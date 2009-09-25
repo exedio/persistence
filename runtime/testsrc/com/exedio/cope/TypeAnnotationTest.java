@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.SetField;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class TypeAnnotationTest extends CopeAssert
@@ -71,6 +72,9 @@ public class TypeAnnotationTest extends CopeAssert
 		assertEquals(null,              AnItem.intField.getAnnotation(TestAnnotation2.class));
 		assertEquals(null,              AnItem.boolField.getAnnotation(TestAnnotation.class));
 		assertNotNull(                  AnItem.boolField.getAnnotation(TestAnnotation2.class));
+		assertEquals("setFieldAnnVal",  AnItem.setField.getAnnotation(TestAnnotation.class).value());
+		assertEquals(null, AnItem.setField.getRelationType().getAnnotation(TestAnnotation.class));
+		assertEquals(null, AnItem.setField.getElement().getAnnotation(TestAnnotation.class));
 	}
 	
 	@CopeID("AnItemAnn")
@@ -94,5 +98,8 @@ public class TypeAnnotationTest extends CopeAssert
 		
 		@TestAnnotation2
 		static final BooleanField boolField = new BooleanField();
+		
+		@TestAnnotation("setFieldAnnVal")
+		static final SetField<String> setField = SetField.newSet(new StringField());
 	}
 }
