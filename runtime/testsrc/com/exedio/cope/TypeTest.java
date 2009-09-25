@@ -180,9 +180,9 @@ public class TypeTest extends TestmodelTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		NoReactivationConstructor(final SetValue[] initialAttributes)
+		NoReactivationConstructor(final SetValue[] setValues)
 		{
-			super(initialAttributes);
+			super(setValues);
 		}
 	}
 	
