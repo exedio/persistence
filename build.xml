@@ -306,6 +306,7 @@
 				<exclude name="SchemaTest.java" /><!-- TODO remove -->
 				<exclude name="TypeTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypeComplexTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypeAnnotationTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypeErrorTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
