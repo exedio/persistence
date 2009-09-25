@@ -76,16 +76,15 @@ public class TypeTest extends CopeAssert
 		assertEquals("AnItem.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
 		
-		
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getFields());
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), type.getDeclaredUniqueConstraints());
-
-		
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getFeatures());
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getDeclaredFeatures());
 		
+		assertSame(AnItem.intField, type.getFeature("intField"));
+		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 		
