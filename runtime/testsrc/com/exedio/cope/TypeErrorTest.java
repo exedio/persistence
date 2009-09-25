@@ -27,7 +27,7 @@ public class TypeErrorTest extends CopeAssert
 	{
 		try
 		{
-			Types.newType(null);
+			TypesExclusive.newType(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -36,7 +36,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Types.newType(Item.class);
+			TypesExclusive.newType(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -45,7 +45,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Types.newType(castItemClass(NoItem.class));
+			TypesExclusive.newType(castItemClass(NoItem.class));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -54,7 +54,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Types.newType(NoCreationConstructor.class);
+			TypesExclusive.newType(NoCreationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -66,7 +66,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Types.newType(NoReactivationConstructor.class);
+			TypesExclusive.newType(NoReactivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)

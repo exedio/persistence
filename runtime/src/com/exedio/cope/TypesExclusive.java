@@ -22,9 +22,9 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-final class Types
+final class TypesExclusive
 {
-	private Types()
+	private TypesExclusive()
 	{
 		// prevent instantiation
 	}

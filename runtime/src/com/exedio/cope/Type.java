@@ -98,7 +98,7 @@ public final class Type<C extends Item>
 	 */
 	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
-		return Types.forClass(javaClass);
+		return TypesExclusive.forClass(javaClass);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
@@ -116,7 +116,7 @@ public final class Type<C extends Item>
 	 */
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
-		return Types.forClassUnchecked(javaClass);
+		return TypesExclusive.forClassUnchecked(javaClass);
 	}
 	
 	private ArrayList<Feature> featuresWhileConstruction;
