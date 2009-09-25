@@ -64,9 +64,17 @@ public class TypeAnnotationTest extends CopeAssert
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
+		
+		assertEquals("AnItemAnnVal", type.getAnnotation(TestAnnotation.class).value());
+		assertEquals(null,           type.getAnnotation(TestAnnotation2.class));
+		assertEquals("intFieldAnnVal",  AnItem.intField.getAnnotation(TestAnnotation.class).value());
+		assertEquals(null,              AnItem.intField.getAnnotation(TestAnnotation2.class));
+		assertEquals(null,              AnItem.boolField.getAnnotation(TestAnnotation.class));
+		assertNotNull(                  AnItem.boolField.getAnnotation(TestAnnotation2.class));
 	}
 	
 	@CopeID("AnItemAnn")
+	@TestAnnotation("AnItemAnnVal")
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -81,7 +89,10 @@ public class TypeAnnotationTest extends CopeAssert
 			super(reactivationDummy, pk);
 		}
 		
+		@TestAnnotation("intFieldAnnVal")
 		static final IntegerField intField = new IntegerField();
+		
+		@TestAnnotation2
 		static final BooleanField boolField = new BooleanField();
 	}
 }

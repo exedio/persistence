@@ -313,6 +313,7 @@
 				<exclude name="NameTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
+				<exclude name="TestAnnotation2.java" /><!-- TODO remove -->
 				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->

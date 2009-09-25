@@ -51,9 +51,6 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.day.getType());
 		assertEquals(Day.class, item.day.getValueClass());
-		
-		assertEquals("testannotationcontent", item.day.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, item.optionalDay.getAnnotation(TestAnnotation.class));
 
 		// test persistence
 		assertEquals(DEFAULT, item.getDay());

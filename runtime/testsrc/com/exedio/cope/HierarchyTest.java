@@ -126,9 +126,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
 		assertEquals(map(), model.getHiddenFeatures());
-
-		assertEquals("typetestannotationcontent", HierarchyFirstSub.TYPE.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, HierarchySuper.TYPE.getAnnotation(TestAnnotation.class));
 		
 		// test persistence
 		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));

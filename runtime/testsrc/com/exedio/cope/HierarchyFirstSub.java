@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-@TestAnnotation("typetestannotationcontent")
 public class HierarchyFirstSub extends HierarchySuper
 {
 
