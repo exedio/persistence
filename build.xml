@@ -304,7 +304,7 @@
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
 				<exclude name="SchemaTest.java" /><!-- TODO remove -->
-				<exclude name="ModelTest.java" /><!-- TODO remove -->
+				<exclude name="TypeTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
 				<exclude name="NameTest.java" /><!-- TODO remove -->
