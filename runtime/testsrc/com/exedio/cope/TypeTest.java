@@ -98,9 +98,50 @@ public class TypeTest extends CopeAssert
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 		
+		// error if not initialized
+		final String modelMessage =
+			"model not set for type AnItem, " +
+			"probably you forgot to put this type into the model.";
+		try
+		{
+			type.getModel();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(modelMessage, e.getMessage());
+		}
+		assertEquals(null, type.getReferences());
+		assertEquals(null, type.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), type.getSubTypes());
+		try
+		{
+			type.getSubTypesTransitively();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			type.getTypesOfInstances();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		
 		
 		final Model model = new Model(type);
 		assertSame(type, model.getType(type.getID()));
+		assertSame(model, type.getModel());
+		assertEqualsUnmodifiable(list(), type.getReferences());
+		assertEqualsUnmodifiable(list(), type.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), type.getSubTypes());
+		assertEqualsUnmodifiable(list(type), type.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(type), type.getTypesOfInstances());
 	}
 	
 	static class AnItem extends Item
