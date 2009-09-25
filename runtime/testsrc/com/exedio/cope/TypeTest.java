@@ -111,8 +111,24 @@ public class TypeTest extends CopeAssert
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
-		assertEquals(null, type.getReferences());
-		assertEquals(null, type.getDeclaredReferences());
+		try
+		{
+			type.getReferences();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			assertEquals(null, type.getDeclaredReferences());
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 		assertEqualsUnmodifiable(list(), type.getSubTypes());
 		try
 		{

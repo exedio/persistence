@@ -670,7 +670,8 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemField<C>> getDeclaredReferences()
 	{
-		assert declaredReferences!=null;
+		if(declaredReferences==null)
+			throw new IllegalStateException();
 		return declaredReferences;
 	}
 
@@ -682,7 +683,8 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemField> getReferences()
 	{
-		assert references!=null;
+		if(references==null)
+			throw new IllegalStateException();
 		return references;
 	}
 
