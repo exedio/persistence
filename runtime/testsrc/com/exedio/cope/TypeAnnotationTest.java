@@ -59,12 +59,13 @@ public class TypeAnnotationTest extends CopeAssert
 		assertEquals("AnItemAnn.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
 		
-		assertSame("intField", AnItem.intField.getName());
+		assertEquals("intFieldAnn", AnItem.intField.getName());
 		assertSame("boolField", AnItem.boolField.getName());
-		assertSame(AnItem.intField, type.getFeature("intField"));
+		assertSame(AnItem.intField, type.getFeature("intFieldAnn"));
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
-		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
+		assertSame(AnItem.intField, type.getDeclaredFeature("intFieldAnn"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
+		assertEquals(null, type.getFeature("intField"));
 		
 		assertEquals("AnItemAnnVal", type.getAnnotation(TestAnnotation.class).value());
 		assertEquals(null,           type.getAnnotation(TestAnnotation2.class));
@@ -93,6 +94,7 @@ public class TypeAnnotationTest extends CopeAssert
 			super(reactivationDummy, pk);
 		}
 		
+		@CopeID("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")
 		static final IntegerField intField = new IntegerField();
 		

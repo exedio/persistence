@@ -93,7 +93,12 @@ final class Types
 						final Feature feature = (Feature)field.get(null);
 						if(feature==null)
 							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
-						featureMap.put(field.getName(), feature);
+						final CopeID featureAnnotation = field.getAnnotation(CopeID.class);
+						final String featureName =
+							featureAnnotation!=null
+							? featureAnnotation.value()
+							: field.getName();
+						featureMap.put(featureName, feature);
 						feature.setAnnotationField(field);
 					}
 				}
