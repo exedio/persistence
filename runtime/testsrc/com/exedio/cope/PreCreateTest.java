@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class PreCreateTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(PreCreateItem.TYPE);
+	private static final Model MODEL = new Model(PreCreateSuperItem.TYPE, PreCreateItem.TYPE);
 	
 	public PreCreateTest()
 	{
@@ -30,12 +30,12 @@ public class PreCreateTest extends AbstractRuntimeTest
 	public void test()
 	{
 		final PreCreateItem normal = deleteOnTearDown(new PreCreateItem("normal"));
-		assertEquals("normal.preCreate", normal.getText());
+		assertEquals("normal.preCreate.preCreateSuper", normal.getText());
 		
-		final PreCreateItem generic = deleteOnTearDown(new PreCreateItem(PreCreateItem.text.map("generic")));
-		assertEquals("generic.preCreate", generic.getText());
+		final PreCreateItem generic = deleteOnTearDown(new PreCreateItem(PreCreateSuperItem.text.map("generic")));
+		assertEquals("generic.preCreate.preCreateSuper", generic.getText());
 		
-		final PreCreateItem type = deleteOnTearDown(PreCreateItem.TYPE.newItem(PreCreateItem.text.map("type")));
-		assertEquals("type.preCreate", type.getText());
+		final PreCreateItem type = deleteOnTearDown(PreCreateItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
+		assertEquals("type.preCreate.preCreateSuper", type.getText());
 	}
 }
