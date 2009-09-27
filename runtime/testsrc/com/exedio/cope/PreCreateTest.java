@@ -41,5 +41,18 @@ public class PreCreateTest extends AbstractRuntimeTest
 			final PreCreateItem item = deleteOnTearDown(PreCreateItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
 			assertEquals("type.preCreate.preCreateSuper", item.getText());
 		}
+		// super
+		{
+			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem("normal"));
+			assertEquals("normal.preCreateSuper", item.getText());
+		}
+		{
+			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem(PreCreateSuperItem.text.map("generic")));
+			assertEquals("generic.preCreateSuper", item.getText());
+		}
+		{
+			final PreCreateSuperItem item = deleteOnTearDown(PreCreateSuperItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
+			assertEquals("type.preCreateSuper", item.getText());
+		}
 	}
 }
