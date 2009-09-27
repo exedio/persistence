@@ -79,10 +79,9 @@ final class TypesExclusive
 		
 		// featureMap
 		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
-		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
 		try
 		{
-			for(final java.lang.reflect.Field field : fields)
+			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
 			{
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 					continue;
