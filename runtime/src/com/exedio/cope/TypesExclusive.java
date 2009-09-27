@@ -85,23 +85,22 @@ final class TypesExclusive
 		{
 			for(final java.lang.reflect.Field field : fields)
 			{
-				if((field.getModifiers()&expectedModifier)==expectedModifier)
-				{
-					if(Feature.class.isAssignableFrom(field.getType()))
-					{
-						field.setAccessible(true);
-						final Feature feature = (Feature)field.get(null);
-						if(feature==null)
-							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
-						final CopeID featureAnnotation = field.getAnnotation(CopeID.class);
-						final String featureName =
-							featureAnnotation!=null
-							? featureAnnotation.value()
-							: field.getName();
-						featureMap.put(featureName, feature);
-						feature.setAnnotationField(field);
-					}
-				}
+				if((field.getModifiers()&expectedModifier)!=expectedModifier)
+					continue;
+				if(!Feature.class.isAssignableFrom(field.getType()))
+					continue;
+				
+				field.setAccessible(true);
+				final Feature feature = (Feature)field.get(null);
+				if(feature==null)
+					throw new RuntimeException(javaClass.getName() + '-' + field.getName());
+				final CopeID featureAnnotation = field.getAnnotation(CopeID.class);
+				final String featureName =
+					featureAnnotation!=null
+					? featureAnnotation.value()
+					: field.getName();
+				featureMap.put(featureName, feature);
+				feature.setAnnotationField(field);
 			}
 		}
 		catch(IllegalAccessException e)
