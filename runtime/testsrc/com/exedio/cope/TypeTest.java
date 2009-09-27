@@ -182,6 +182,6 @@ public class TypeTest extends CopeAssert
 		// test, that these fields do not become features of the type
 		final BooleanField notStatic = new BooleanField();
 		static BooleanField notFinal = new BooleanField();
-		static final String noFeature = "noFuture";
+		static final Object noFeature = new BooleanField();
 	}
 }
