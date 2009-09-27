@@ -92,7 +92,7 @@ final class TypesExclusive
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
-					throw new RuntimeException(javaClass.getName() + '-' + field.getName());
+					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
 				final CopeID featureAnnotation = field.getAnnotation(CopeID.class);
 				final String featureName =
 					featureAnnotation!=null

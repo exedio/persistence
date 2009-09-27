@@ -81,9 +81,9 @@ public class TypeErrorTest extends CopeAssert
 			TypesExclusive.newType(NullFeature.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(NullPointerException e)
 		{
-			assertEquals(NullFeature.class.getName() + "-nullFeature", e.getMessage()); // TODO better exception
+			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
 	}
 	
