@@ -80,7 +80,6 @@ final class TypesExclusive
 		// featureMap
 		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
 		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
-		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
 			for(final java.lang.reflect.Field field : fields)
@@ -126,4 +125,6 @@ final class TypesExclusive
 	{
 		return o;
 	}
+	
+	private static final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 }
