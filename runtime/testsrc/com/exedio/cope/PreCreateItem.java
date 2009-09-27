@@ -39,6 +39,14 @@ class PreCreateItem extends PreCreateSuperItem
 		super(preCreate(setValues));
 	}
 	
+	@Override
+	protected void postCreate()
+	{
+		// do not call super.postCreate here for testing
+		// in a normal production environment you should definitely not forget this
+		setText(getText() + ".postCreate");
+	}
+	
 	/**
 
 	 **

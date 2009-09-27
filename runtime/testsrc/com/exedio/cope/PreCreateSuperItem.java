@@ -41,6 +41,12 @@ class PreCreateSuperItem extends Item
 		super(preCreate(setValues));
 	}
 	
+	@Override
+	protected void postCreate()
+	{
+		setText(getText() + ".postCreateSuper");
+	}
+	
 	/**
 
 	 **

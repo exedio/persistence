@@ -31,28 +31,28 @@ public class PreCreateTest extends AbstractRuntimeTest
 	{
 		{
 			final PreCreateItem item = deleteOnTearDown(new PreCreateItem("normal"));
-			assertEquals("normal.preCreate.preCreateSuper", item.getText());
+			assertEquals("normal.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
 			final PreCreateItem item = deleteOnTearDown(new PreCreateItem(PreCreateSuperItem.text.map("generic")));
-			assertEquals("generic.preCreate.preCreateSuper", item.getText());
+			assertEquals("generic.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
 			final PreCreateItem item = deleteOnTearDown(PreCreateItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
-			assertEquals("type.preCreate.preCreateSuper", item.getText());
+			assertEquals("type.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		// super
 		{
 			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem("normal"));
-			assertEquals("normal.preCreateSuper", item.getText());
+			assertEquals("normal.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
 			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem(PreCreateSuperItem.text.map("generic")));
-			assertEquals("generic.preCreateSuper", item.getText());
+			assertEquals("generic.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
 			final PreCreateSuperItem item = deleteOnTearDown(PreCreateSuperItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
-			assertEquals("type.preCreateSuper", item.getText());
+			assertEquals("type.preCreateSuper.postCreateSuper", item.getText());
 		}
 	}
 }
