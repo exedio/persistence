@@ -84,7 +84,7 @@ final class TypesExclusive
 		{
 			for(final java.lang.reflect.Field field : fields)
 			{
-				if((field.getModifiers()&expectedModifier)!=expectedModifier)
+				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 					continue;
 				if(!Feature.class.isAssignableFrom(field.getType()))
 					continue;
@@ -126,5 +126,5 @@ final class TypesExclusive
 		return o;
 	}
 	
-	private static final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
+	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 }
