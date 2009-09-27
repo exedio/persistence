@@ -76,6 +76,15 @@ public class TypeErrorTest extends CopeAssert
 					" does not have a reactivation constructor NoReactivationConstructor(" + ReactivationConstructorDummy.class.getName() + ",int)", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+		try
+		{
+			TypesExclusive.newType(NullFeature.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(NullFeature.class.getName() + "-nullFeature", e.getMessage()); // TODO better exception
+		}
 	}
 	
 	static class NoItem
@@ -104,6 +113,13 @@ public class TypeErrorTest extends CopeAssert
 		{
 			super(setValues);
 		}
+	}
+	
+	static class NullFeature extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		static final Feature nullFeature = null;
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage
