@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-public class PreCreateTest extends AbstractRuntimeTest
+public class CreateTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(PreCreateSuperItem.TYPE, PreCreateItem.TYPE);
+	private static final Model MODEL = new Model(CreateSuperItem.TYPE, CreateItem.TYPE);
 	
-	public PreCreateTest()
+	public CreateTest()
 	{
 		super(MODEL);
 	}
@@ -30,28 +30,28 @@ public class PreCreateTest extends AbstractRuntimeTest
 	public void test()
 	{
 		{
-			final PreCreateItem item = deleteOnTearDown(new PreCreateItem("normal"));
+			final CreateItem item = deleteOnTearDown(new CreateItem("normal"));
 			assertEquals("normal.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final PreCreateItem item = deleteOnTearDown(new PreCreateItem(PreCreateSuperItem.text.map("generic")));
+			final CreateItem item = deleteOnTearDown(new CreateItem(CreateSuperItem.text.map("generic")));
 			assertEquals("generic.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final PreCreateItem item = deleteOnTearDown(PreCreateItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
+			final CreateItem item = deleteOnTearDown(CreateItem.TYPE.newItem(CreateSuperItem.text.map("type")));
 			assertEquals("type.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		// super
 		{
-			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem("normal"));
+			final CreateSuperItem item = deleteOnTearDown(new CreateSuperItem("normal"));
 			assertEquals("normal.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final PreCreateSuperItem item = deleteOnTearDown(new PreCreateSuperItem(PreCreateSuperItem.text.map("generic")));
+			final CreateSuperItem item = deleteOnTearDown(new CreateSuperItem(CreateSuperItem.text.map("generic")));
 			assertEquals("generic.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final PreCreateSuperItem item = deleteOnTearDown(PreCreateSuperItem.TYPE.newItem(PreCreateSuperItem.text.map("type")));
+			final CreateSuperItem item = deleteOnTearDown(CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("type")));
 			assertEquals("type.preCreateSuper.postCreateSuper", item.getText());
 		}
 	}
