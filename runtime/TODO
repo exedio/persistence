@@ -4,7 +4,7 @@ TODO for cope runtime
 - constraints
 	- range (minimum/maximum) for LongField
 	- precision (number of fractional digits) for doubles (see PriceField)
-	- arbitrary check constraints
+	- arbitrary check constraints, and use them in Media and Composite
 - search API
 	- oracle statistics / mysql execution plan
 	- group by
@@ -75,3 +75,4 @@ TODO for cope runtime
 - separate into own sub-projects:
 	* console
 	* homepage
+	* instrumentor
