@@ -47,7 +47,7 @@ public final class DynamicModel<L> extends Pattern
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
 	com.exedio.cope.Type<Type<L>> typeType = null;
-	Localization typeLocalization = null;
+	MapField<L, String> typeLocalization = null;
 	
 	ItemField<Type<L>> fieldParent = null;
 	final IntegerField fieldPosition = new IntegerField().toFinal();
@@ -55,13 +55,13 @@ public final class DynamicModel<L> extends Pattern
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
 	com.exedio.cope.Type<Field<L>> fieldType = null;
-	Localization fieldLocalization = null;
+	MapField<L, String> fieldLocalization = null;
 	
 	ItemField<Field<L>> enumParent = null;
 	final IntegerField enumPosition = new IntegerField().toFinal();
 	final StringField enumCode = new StringField().toFinal();
 	com.exedio.cope.Type<Enum<L>> enumType = null;
-	Localization enumLocalization = null;
+	MapField<L, String> enumLocalization = null;
 	
 	private ItemField<Type<L>> type = null;
 	private final FunctionField<?>[] fields;
@@ -165,8 +165,8 @@ public final class DynamicModel<L> extends Pattern
 	{
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);
+		features.put("name", typeLocalization = newLocalization());
 		typeType = castType(newSourceType(Type.class, features, "Type"));
-		typeLocalization = new Localization(typeType, localeTemplate, "Type");
 		
 		features.clear();
 		fieldParent = typeType.newItemField(CASCADE).toFinal();
@@ -178,8 +178,8 @@ public final class DynamicModel<L> extends Pattern
 		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
+		features.put("name", fieldLocalization = newLocalization());
 		fieldType = castField(newSourceType(Field.class, features, "Field"));
-		fieldLocalization = new Localization(fieldType, localeTemplate, "Field");
 		
 		if(enums.length>0)
 		{
@@ -190,8 +190,8 @@ public final class DynamicModel<L> extends Pattern
 			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
 			features.put("code", enumCode);
 			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
+			features.put("name", enumLocalization = newLocalization());
 			enumType = castEnum(newSourceType(Enum.class, features, "Enum"));
-			enumLocalization = new Localization(enumType, localeTemplate, "Enum");
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
@@ -269,17 +269,17 @@ public final class DynamicModel<L> extends Pattern
 	
 	public com.exedio.cope.Type getTypeLocalizationType()
 	{
-		return typeLocalization.type;
+		return typeLocalization.getRelationType();
 	}
 	
 	public com.exedio.cope.Type getFieldLocalizationType()
 	{
-		return fieldLocalization.type;
+		return fieldLocalization.getRelationType();
 	}
 	
 	public com.exedio.cope.Type getEnumLocalizationType()
 	{
-		return enumLocalization.type;
+		return enumLocalization.getRelationType();
 	}
 	
 	public ItemField<?> getTypeField()
@@ -469,12 +469,12 @@ public final class DynamicModel<L> extends Pattern
 		
 		public String getName(final L locale)
 		{
-			return getPattern().typeLocalization.getName(this, locale);
+			return getPattern().typeLocalization.get(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			getPattern().typeLocalization.setName(this, locale, value);
+			getPattern().typeLocalization.set(this, locale, value);
 		}
 		
 		/**
@@ -651,12 +651,12 @@ public final class DynamicModel<L> extends Pattern
 		
 		public String getName(final L locale)
 		{
-			return getPattern().fieldLocalization.getName(this, locale);
+			return getPattern().fieldLocalization.get(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			getPattern().fieldLocalization.setName(this, locale, value);
+			getPattern().fieldLocalization.set(this, locale, value);
 		}
 	}
 
@@ -692,73 +692,17 @@ public final class DynamicModel<L> extends Pattern
 		
 		public String getName(final L locale)
 		{
-			return getPattern().enumLocalization.getName(this, locale);
+			return getPattern().enumLocalization.get(this, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			getPattern().enumLocalization.setName(this, locale, value);
+			getPattern().enumLocalization.set(this, locale, value);
 		}
 	}
 	
-	// just for making newType accessible
-	com.exedio.cope.Type newLocalizationType(final LinkedHashMap<String, com.exedio.cope.Feature> features, final String postfix)
+	private MapField<L, String> newLocalization()
 	{
-		return newSourceType(PatternItem.class, features, postfix);
-	}
-	
-	private final class Localization
-	{
-		final ItemField<?> parent;
-		final FunctionField<L> locale;
-		final StringField value;
-		final UniqueConstraint uniqueConstraint;
-		final com.exedio.cope.Type<?> type;
-		
-		Localization(final com.exedio.cope.Type<?> type, final FunctionField<L> localeTemplate, final String id)
-		{
-			assert type!=null;
-			
-			this.parent = type.newItemField(CASCADE).toFinal();
-			this.locale = localeTemplate.copy();
-			this.uniqueConstraint = new UniqueConstraint(parent, locale);
-			this.value = new StringField();
-			final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
-			features.put("parent", parent);
-			features.put("locale", locale);
-			features.put("uniqueConstraint", uniqueConstraint);
-			features.put("value", value);
-			this.type = newLocalizationType(features, id + "Loc");
-		}
-		
-		public final String getName(final Item item, final L locale)
-		{
-			final Item relationItem = uniqueConstraint.search(item, locale);
-			if(relationItem!=null)
-				return value.get(relationItem);
-			else
-				return null;
-		}
-		
-		public final void setName(final Item item, final L locale, final String value)
-		{
-			final Item relationItem = uniqueConstraint.search(item, locale);
-			if(relationItem==null)
-			{
-				if(value!=null)
-					uniqueConstraint.getType().newItem(
-							Cope.mapAndCast(this.parent, item),
-							this.locale.map(locale),
-							this.value.map(value)
-					);
-			}
-			else
-			{
-				if(value!=null)
-					this.value.set(relationItem, value);
-				else
-					relationItem.deleteCopeItem();
-			}
-		}
+		return MapField.newMap(localeTemplate.copy(), new StringField());
 	}
 }
