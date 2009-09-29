@@ -201,6 +201,11 @@ public final class DynamicModel<L> extends Pattern
 		addSource(type = typeType.newItemField(FORBID).optional(), "Type");
 	}
 	
+	private MapField<L, String> newLocalization()
+	{
+		return MapField.newMap(localeTemplate.copy(), new StringField());
+	}
+	
 	public DynamicModel.Type<L> createType(final String code)
 	{
 		return typeType.newItem(typeCode.map(code));
@@ -699,10 +704,5 @@ public final class DynamicModel<L> extends Pattern
 		{
 			getPattern().enumLocalization.set(this, locale, value);
 		}
-	}
-	
-	private MapField<L, String> newLocalization()
-	{
-		return MapField.newMap(localeTemplate.copy(), new StringField());
 	}
 }
