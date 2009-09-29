@@ -36,11 +36,11 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DynamicModel<L> extends Pattern
 {
@@ -380,15 +380,9 @@ public final class DynamicModel<L> extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 		
-		Type(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
+		Type(final ActivationParameters ap)
 		{
-			super(setValues, type);
-			assert type!=null;
-		}
-		
-		Type(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
-		{
-			super(reactivationDummy, pk, type);
+			super(ap);
 		}
 		
 		@SuppressWarnings("unchecked")
@@ -569,15 +563,9 @@ public final class DynamicModel<L> extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 		
-		Field(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
+		Field(final ActivationParameters ap)
 		{
-			super(setValues, type);
-			assert type!=null;
-		}
-		
-		Field(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
-		{
-			super(reactivationDummy, pk, type);
+			super(ap);
 		}
 		
 		@SuppressWarnings("unchecked")
@@ -676,15 +664,9 @@ public final class DynamicModel<L> extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 		
-		Enum(final SetValue[] setValues, final com.exedio.cope.Type<? extends Item> type)
+		Enum(final ActivationParameters ap)
 		{
-			super(setValues, type);
-			assert type!=null;
-		}
-		
-		Enum(final ReactivationConstructorDummy reactivationDummy, final int pk, final com.exedio.cope.Type<? extends Item> type)
-		{
-			super(reactivationDummy, pk, type);
+			super(ap);
 		}
 		
 		@SuppressWarnings("unchecked")

@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +35,6 @@ import java.util.Map;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.info.SequenceInfo;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
 {
@@ -62,8 +63,8 @@ public final class Type<C extends Item>
 	private final List<CopyConstraint> declaredCopyConstraints;
 	final List<CopyConstraint> copyConstraints;
 
-	private final Constructor<C> creationConstructor;
-	private final Constructor<C> reactivationConstructor;
+	private final Constructor<C> activationConstructor;
+	private final Method beforeNewItemMethod;
 	final Sequence primaryKeySequence;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
@@ -242,8 +243,8 @@ public final class Type<C extends Item>
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.creationConstructor = getConstructor("creation", SetValue[].class);
-		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
+		this.activationConstructor = getActivationConstructor();
+		this.beforeNewItemMethod = getBeforeNewItemMethod();
 
 		this.primaryKeySequence =
 			supertype!=null
@@ -288,30 +289,52 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getConstructor(final String name, Class... parameterTypes)
+	private Method getBeforeNewItemMethod()
 	{
-		if(!javaClassExclusive)
-		{
-			final int l = parameterTypes.length;
-			final Class[] c = new Class[l + 1];
-			System.arraycopy(parameterTypes, 0, c, 0, l);
-			c[l] = Type.class;
-			parameterTypes = c;
-		}
-		
+		final Method result;
 		try
 		{
-			final Constructor<C> result = javaClass.getDeclaredConstructor(parameterTypes);
-			result.setAccessible(true);
-			return result;
+			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new IllegalArgumentException(
-					javaClass.getName() + " does not have a " +
-					name + " constructor " +
-					javaClass.getSimpleName() + '(' + toString(parameterTypes) + ')', e);
+			return null;
 		}
+		
+		if(!Modifier.isStatic(result.getModifiers()))
+			throw new IllegalArgumentException(
+					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must be static");
+		if(!SetValue[].class.equals(result.getReturnType()))
+			throw new IllegalArgumentException(
+					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must return SetValue[], " +
+							"but returns " + result.getReturnType().getName());
+		
+		result.setAccessible(true);
+		return result;
+	}
+	
+	SetValue[] doBeforeNewItem(SetValue[] setValues)
+	{
+		if(beforeNewItemMethod!=null)
+		{
+			try
+			{
+				setValues = (SetValue[])beforeNewItemMethod.invoke(null, (Object)setValues);
+			}
+			catch(InvocationTargetException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		
+		if(supertype!=null)
+			setValues = supertype.doBeforeNewItem(setValues);
+		
+		return setValues;
 	}
 	
 	void registerInitialization(final Feature feature)
@@ -319,22 +342,6 @@ public final class Type<C extends Item>
 		featuresWhileConstruction.add(feature);
 	}
 	
-	private static final String toString(final Class... parameterTypes)
-	{
-		if(parameterTypes.length==1)
-			return parameterTypes[0].getCanonicalName();
-		else
-		{
-			final StringBuilder bf = new StringBuilder(parameterTypes[0].getCanonicalName());
-			for(int i = 1; i<parameterTypes.length; i++)
-			{
-				bf.append(',').
-					append(parameterTypes[i].getCanonicalName());
-			}
-			return bf.toString();
-		}
-	}
-
 	void registerSubType(final Type subType)
 	{
 		assert subType!=null : id;
@@ -807,31 +814,12 @@ public final class Type<C extends Item>
 		
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
-		try
-		{
-			return
-				creationConstructor.newInstance(
-					javaClassExclusive
-					? new Object[]{ setValues }
-					: new Object[]{ setValues, this }
-				);
-		}
-		catch(InstantiationException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(InvocationTargetException e)
-		{
-			final Throwable t = e.getCause();
-			if(t instanceof RuntimeException)
-				throw (RuntimeException)t;
-			else
-				throw new RuntimeException(e);
-		}
+		
+		final Map<Field, Object> fieldValues = Item.prepareCreate(setValues, this);
+		final int pk = primaryKeySequence.next(getModel().getCurrentTransaction().getConnection()); // TODO reuse code from Item creation constructor
+		final C result = createItemObject(pk);
+		result.doCreate(fieldValues);
+		return result;
 	}
 
 	public C cast(final Item item)
@@ -929,10 +917,7 @@ public final class Type<C extends Item>
 	{
 		return id;
 	}
-
 	
-	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
-
 	C getItemObject(final int pk)
 	{
 		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
@@ -947,10 +932,8 @@ public final class Type<C extends Item>
 		try
 		{
 			return
-				reactivationConstructor.newInstance(
-					javaClassExclusive
-					? new Object[]{ REACTIVATION_DUMMY, pk }
-					: new Object[]{ REACTIVATION_DUMMY, pk, this }
+				activationConstructor.newInstance(
+					new ActivationParameters(this, pk)
 				);
 		}
 		catch(InstantiationException e)
@@ -965,6 +948,24 @@ public final class Type<C extends Item>
 		{
 			throw new RuntimeException(id, e);
 		}
+	}
+	
+	private Constructor<C> getActivationConstructor()
+	{
+		final Constructor<C> result;
+		try
+		{
+			result = javaClass.getDeclaredConstructor(ActivationParameters.class);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new IllegalArgumentException(
+					javaClass.getName() + " does not have an activation constructor " +
+					javaClass.getSimpleName() + '(' + ActivationParameters.class.getName() + ')', e);
+		}
+		
+		result.setAccessible(true);
+		return result;
 	}
 	
 	// ------------------- deprecated stuff -------------------

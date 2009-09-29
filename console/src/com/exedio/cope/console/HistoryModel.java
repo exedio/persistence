@@ -23,9 +23,9 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class HistoryModel extends Item
 {
@@ -79,9 +79,9 @@ final class HistoryModel extends Item
 	}
 	
 	@SuppressWarnings("unused")
-	private HistoryModel(final ReactivationConstructorDummy d, final int pk)
+	private HistoryModel(final ActivationParameters ap)
 	{
-		super(d,pk);
+		super(ap);
 	}
 	
 	private static final long serialVersionUID = 1l;

@@ -23,11 +23,11 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class HistoryMedia extends Item
 {
@@ -61,9 +61,9 @@ final class HistoryMedia extends Item
 	}
 	
 	@SuppressWarnings("unused")
-	private HistoryMedia(final ReactivationConstructorDummy d, final int pk)
+	private HistoryMedia(final ActivationParameters ap)
 	{
-		super(d,pk);
+		super(ap);
 	}
 	
 	private static final long serialVersionUID = 1l;

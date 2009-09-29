@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class TypeTest extends CopeAssert
 {
@@ -165,15 +164,10 @@ public class TypeTest extends CopeAssert
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-
-		private AnItem(final SetValue[] setValues)
-		{
-			super(setValues);
-		}
 		
-		private AnItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
+		private AnItem(final ActivationParameters ap)
 		{
-			super(reactivationDummy, pk);
+			super(ap);
 		}
 		
 		static final IntegerField intField = new IntegerField();

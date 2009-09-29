@@ -29,7 +29,6 @@ import java.util.HashSet;
 import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
  * This is the super class for all classes,
@@ -145,20 +144,9 @@ public abstract class Item implements Serializable
 		return getEntity().getItem();
 	}
 
-	/**
-	 * @throws MandatoryViolationException
-	 *         if <tt>value</tt> is null and <tt>field</tt>
-	 *         is {@link Field#isMandatory() mandatory}.
-	 * @throws ClassCastException
-	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
-	 */
-	protected Item(final SetValue... setValues)
+	static final Map<Field, Object> prepareCreate(SetValue[] setValues, final Type<? extends Item> type)
 	{
-		this(setValues, null);
-	}
-
-	private static final Map<Field, Object> prepareCreate(final SetValue[] setValues, final Type<? extends Item> type)
-	{
+		setValues = type.doBeforeNewItem(setValues);
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
 		Date now = null;
 		for(final Field field : type.getFields())
@@ -203,11 +191,16 @@ public abstract class Item implements Serializable
 		return fieldValues;
 	}
 	
-	public Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
+	protected Item(final SetValue... setValues)
 	{
-		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
+		this.type = Type.forClass(getClass());
 		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
 		this.pk = type.primaryKeySequence.next(type.getModel().getCurrentTransaction().getConnection());
+		doCreate(fieldValues);
+	}
+	
+	void doCreate(final Map<Field, Object> fieldValues)
+	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
 		
@@ -215,7 +208,7 @@ public abstract class Item implements Serializable
 		entity.put(fieldValues);
 		entity.write(toBlobs(fieldValues, null));
 		
-		postCreate();
+		afterNewCopeItem();
 	}
 	
 	
@@ -224,31 +217,24 @@ public abstract class Item implements Serializable
 	 * Override this method when needed.
 	 * The default implementation does nothing.
 	 */
-	protected void postCreate()
+	protected void afterNewCopeItem()
 	{
 		// empty default implementation
 	}
 	
 	/**
-	 * Reactivation constructor.
+	 * Activation constructor.
 	 * Is used for internal purposes only.
 	 * Does not actually create a new item, but a passive item object for
 	 * an already existing item.
 	 */
-	protected Item(
-		final ReactivationConstructorDummy reactivationDummy,
-		final int pk)
+	protected Item(final ActivationParameters ap)
 	{
-		this(reactivationDummy, pk, null);
-	}
-
-	protected Item(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> typeWithoutJavaClass)
-	{
-		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
-			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
-		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
-		this.pk = pk;
-		//System.out.println("reactivate item:"+type+" "+pk);
+		if(ap==null)
+			throw new RuntimeException("activation constructor is for internal purposes only, don't use it in your application!");
+		this.type = ap.type;
+		this.pk = ap.pk;
+		//System.out.println("activate item:"+type+" "+pk);
 
 		assert PK.isValid(pk) : pk;
 	}

@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class TypeComplexTest extends CopeAssert
 {
@@ -263,15 +262,10 @@ public class TypeComplexTest extends CopeAssert
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-
-		protected AnItem(final SetValue[] setValues)
-		{
-			super(setValues);
-		}
 		
-		protected AnItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
+		protected AnItem(final ActivationParameters ap)
 		{
-			super(reactivationDummy, pk);
+			super(ap);
 		}
 		
 		static final IntegerField intField = new IntegerField();
@@ -281,15 +275,10 @@ public class TypeComplexTest extends CopeAssert
 	static class AnotherItem extends AnItem
 	{
 		private static final long serialVersionUID = 1l;
-
-		private AnotherItem(final SetValue[] setValues)
-		{
-			super(setValues);
-		}
 		
-		private AnotherItem(final ReactivationConstructorDummy reactivationDummy, final int pk)
+		private AnotherItem(final ActivationParameters ap)
 		{
-			super(reactivationDummy, pk);
+			super(ap);
 		}
 		
 		static final DoubleField doubleField = new DoubleField();

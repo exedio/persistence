@@ -41,17 +41,17 @@ import java.util.zip.CheckedOutputStream;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
-	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
+	private static final String ACTIVATION = ActivationParameters.class.getName();
 	
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -76,7 +76,7 @@ final class Generator
 																					Option.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment.";
-	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
+	private static final String CONSTRUCTOR_ACTIVATION = "Activation constructor. Used for internal purposes only.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
@@ -343,18 +343,18 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeReactivationConstructor(final CopeType type)
+	private void writeActivationConstructor(final CopeType type)
 	throws IOException
 	{
-		final Option option = type.reactivationConstructorOption;
+		final Option option = type.activationConstructorOption;
 		if(!option.exists)
 			return;
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(CONSTRUCTOR_REACTIVATION);
+		o.write(CONSTRUCTOR_ACTIVATION);
 		o.write(lineSeparator);
-		o.write("\t * @see " + ITEM + "#Item(" + REACTIVATION + ",int)");
+		o.write("\t * @see " + ITEM + "#Item(" + ACTIVATION + ")");
 		o.write(lineSeparator);
 		writeCommentFooter();
 		
@@ -366,13 +366,11 @@ final class Generator
 		o.write(type.name);
 		o.write('(');
 		o.write(finalArgPrefix);
-		o.write(REACTIVATION + " d,");
-		o.write(finalArgPrefix);
-		o.write("int pk)");
+		o.write(ACTIVATION + " ap)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\tsuper(d,pk);");
+		o.write("\t\tsuper(ap);");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
@@ -810,7 +808,7 @@ final class Generator
 		{
 			writeInitialConstructor(type);
 			writeGenericConstructor(type);
-			writeReactivationConstructor(type);
+			writeActivationConstructor(type);
 			
 			for(final CopeFeature feature : type.getFeatures())
 			{

@@ -7,6 +7,27 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* renamed method preCreate to beforeNewCopeItem
+	breaks backwards API compatibility
+	the compiler cannot help you here !!!
+* renamed Item.postCreate() to afterNewCopeItem()
+	breaks backwards API compatibility
+	the compiler will help you, if you have your @Override annotations in place
+* renamed instrumentor tag @cope.reactivation.constructor to @cope.activation.constructor
+* renamed ReactivationDummy to ActivationParameters
+	breaks backwards API compatibility
+* Type.newItem does not invoke creation constructor anymore,
+	breaks preCreate constructs
+* creation constructor for types without exclusive java class is protected now instead of public
+	breaks backwards API compatibility
+* reactivation constructor uses ReactivationDummy as single parameter,
+	even types with exclusive java class have to use the constructor with the type
+	heavily affects instrumented code !
+	breaks backwards API compatibility
+* remove reactivation constructor without type,
+	even types with exclusive java class have to use the constructor with the type
+	heavily affects instrumented code !
+	breaks backwards API compatibility
 * make Type.This a top-level class
 	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
 * do not use BackingItem for DynamicModel anymore

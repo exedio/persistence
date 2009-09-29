@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class TypeErrorTest extends CopeAssert
 {
@@ -54,26 +53,14 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(NoCreationConstructor.class);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals(
-					NoCreationConstructor.class.getName() +
-					" does not have a creation constructor NoCreationConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
-			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
-		}
-		try
-		{
-			TypesExclusive.newType(NoReactivationConstructor.class);
+			TypesExclusive.newType(NoActivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
-					NoReactivationConstructor.class.getName() +
-					" does not have a reactivation constructor NoReactivationConstructor(" + ReactivationConstructorDummy.class.getName() + ",int)", e.getMessage());
+					NoActivationConstructor.class.getName() +
+					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 		try
@@ -85,6 +72,32 @@ public class TypeErrorTest extends CopeAssert
 		{
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
+		try
+		{
+			TypesExclusive.newType(BeforeNewNotStatic.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(
+					"method beforeNewCopeItem(SetValue[]) " +
+					"in class " + BeforeNewNotStatic.class.getName() +
+					" must be static",
+					e.getMessage());
+		}
+		try
+		{
+			TypesExclusive.newType(BeforeNewWrongReturn.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(
+					"method beforeNewCopeItem(SetValue[]) " +
+					"in class " + BeforeNewWrongReturn.class.getName() +
+					" must return SetValue[], " +
+					"but returns java.lang.String", e.getMessage());
+		}
 	}
 	
 	static class NoItem
@@ -95,24 +108,9 @@ public class TypeErrorTest extends CopeAssert
 		}
 	}
 	
-	static class NoCreationConstructor extends Item
+	static class NoActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
-
-		NoCreationConstructor()
-		{
-			super(new SetValue[]{});
-		}
-	}
-
-	static class NoReactivationConstructor extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		NoReactivationConstructor(final SetValue[] setValues)
-		{
-			super(setValues);
-		}
 	}
 	
 	static class NullFeature extends Item
@@ -120,6 +118,38 @@ public class TypeErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 		
 		static final Feature nullFeature = null;
+	}
+	
+	static class BeforeNewNotStatic extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		@SuppressWarnings("unused")
+		private final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+		{
+			return setValues;
+		}
+		
+		public BeforeNewNotStatic(final ActivationParameters ap)
+		{
+			super(ap);
+		}
+	}
+	
+	static class BeforeNewWrongReturn extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		@SuppressWarnings("unused")
+		private static final String beforeNewCopeItem(final SetValue[] setValues)
+		{
+			return "";
+		}
+		
+		BeforeNewWrongReturn(final ActivationParameters ap)
+		{
+			super(ap);
+		}
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage

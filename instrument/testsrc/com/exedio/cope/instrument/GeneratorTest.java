@@ -35,6 +35,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
@@ -51,7 +52,6 @@ import com.exedio.cope.instrument.testmodel.Super;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class GeneratorTest extends InstrumentorTest
 {
@@ -67,7 +67,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class LENGTH_VIOLATION = StringLengthViolationException.class;
-	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
+	final static Class ACTIVATION = ActivationParameters.class;
 	
 	final static Class STANDARD = Standard.class;
 	final static Class TYPE_NONE = TypeNone.class;
@@ -100,7 +100,7 @@ public class GeneratorTest extends InstrumentorTest
 				LENGTH_VIOLATION,
 			});
 		assertConstructor(STANDARD, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(STANDARD, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(STANDARD, new Class[]{ACTIVATION}, PRIVATE);
 
 		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
@@ -278,7 +278,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
 		assertConstructor(TYPE_NONE, new Class[]{SET_VALUE_ARRAY}, PUBLIC|VARARGS); // @cope.generic.constructor public
-		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, 0); // @cope.reactivation.constructor package
+		assertConstructor(TYPE_NONE, new Class[]{ACTIVATION}, 0); // @cope.activation.constructor package
 		assertMethod(TYPE_NONE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertField(TYPE_NONE, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
@@ -286,7 +286,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
 		assertConstructor(TYPE_PRIVATE, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(TYPE_PRIVATE, new Class[]{ACTIVATION}, PRIVATE);
 		assertMethod(TYPE_PRIVATE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertField(TYPE_PRIVATE, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
@@ -312,7 +312,7 @@ public class GeneratorTest extends InstrumentorTest
 				LENGTH_VIOLATION,
 			});
 		assertConstructor(SUPER, new Class[]{SET_VALUE_ARRAY}, PROTECTED|VARARGS);
-		assertConstructor(SUPER, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
+		assertConstructor(SUPER, new Class[]{ACTIVATION}, PROTECTED);
 
 		assertConstructor(SUB, new Class[]{
 				STRING, // superMandatory
@@ -325,18 +325,18 @@ public class GeneratorTest extends InstrumentorTest
 				LENGTH_VIOLATION,
 			});
 		assertConstructor(SUB, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(SUB, new Class[]{ACTIVATION}, PRIVATE);
 
 		// test protected constructors on non-abstract types
 		assertConstructor(INPUT, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT, new Class[]{SET_VALUE_ARRAY}, PROTECTED|VARARGS);
-		assertConstructor(INPUT, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
+		assertConstructor(INPUT, new Class[]{ACTIVATION}, PROTECTED);
 		assertConstructor(INPUT_SUB, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT_SUB, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(INPUT_SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(INPUT_SUB, new Class[]{ACTIVATION}, PRIVATE);
 		assertConstructor(INPUT_SUB2, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT_SUB2, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(INPUT_SUB2, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(INPUT_SUB2, new Class[]{ACTIVATION}, PRIVATE);
 	}
 	
 	void assertField(

@@ -16,14 +16,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope;
 
 /**
- * A dummy class for reactivation constructors.
+ * A parameter class for activation constructors.
  *
  * @author Ralf Wiebicke
  */
-public final class ReactivationConstructorDummy
+public final class ActivationParameters
 {
-	// no features needed for this class
+	final Type<?> type;
+	final int pk;
+	
+	ActivationParameters(final Type type, final int pk)
+	{
+		this.type = type;
+		this.pk = pk;
+	}
 }

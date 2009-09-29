@@ -33,10 +33,10 @@ import com.exedio.cope.Item;
 final class CopeType
 {
 	private static final String TAG_PREFIX = CopeFeature.TAG_PREFIX;
-	static final String TAG_TYPE                     = TAG_PREFIX + "type";
-	static final String TAG_INITIAL_CONSTRUCTOR      = TAG_PREFIX + "constructor";
-	static final String TAG_GENERIC_CONSTRUCTOR      = TAG_PREFIX + "generic.constructor";
-	static final String TAG_REACTIVATION_CONSTRUCTOR = TAG_PREFIX + "reactivation.constructor";
+	static final String TAG_TYPE                   = TAG_PREFIX + "type";
+	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
+	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
+	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	
 	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
 	
@@ -54,7 +54,7 @@ final class CopeType
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
-	final Option reactivationConstructorOption;
+	final Option activationConstructorOption;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
@@ -68,10 +68,10 @@ final class CopeType
 		copeTypeByJavaClass.put(javaClass, this);
 		
 		final String docComment = javaClass.getDocComment();
-		this.typeOption                    = new Option(Injector.findDocTagLine(docComment, TAG_TYPE),                     false);
-		this.initialConstructorOption      = new Option(Injector.findDocTagLine(docComment, TAG_INITIAL_CONSTRUCTOR),      false);
-		this.genericConstructorOption      = new Option(Injector.findDocTagLine(docComment, TAG_GENERIC_CONSTRUCTOR),      false);
-		this.reactivationConstructorOption = new Option(Injector.findDocTagLine(docComment, TAG_REACTIVATION_CONSTRUCTOR), false);
+		this.typeOption                  = new Option(Injector.findDocTagLine(docComment, TAG_TYPE),                   false);
+		this.initialConstructorOption    = new Option(Injector.findDocTagLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
+		this.genericConstructorOption    = new Option(Injector.findDocTagLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
+		this.activationConstructorOption = new Option(Injector.findDocTagLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);

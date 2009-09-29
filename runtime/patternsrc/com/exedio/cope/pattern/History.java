@@ -32,12 +32,12 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class History extends Pattern
 {
@@ -229,15 +229,9 @@ public final class History extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
-		Event(final SetValue[] setValues, final Type<? extends Item> type)
+		Event(final ActivationParameters ap)
 		{
-			super(setValues, type);
-			assert type!=null;
-		}
-
-		Event(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
-		{
-			super(reactivationDummy, pk, type);
+			super(ap);
 		}
 		
 		public History getPattern()
@@ -324,15 +318,9 @@ public final class History extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
-		Feature(final SetValue[] setValues, final Type<? extends Item> type)
+		Feature(final ActivationParameters ap)
 		{
-			super(setValues, type);
-			assert type!=null;
-		}
-
-		Feature(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
-		{
-			super(reactivationDummy, pk, type);
+			super(ap);
 		}
 		
 		public History getPattern()

@@ -19,11 +19,11 @@
 package com.exedio.cope.console;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public class HistoryItem extends Item
 {
@@ -35,9 +35,9 @@ public class HistoryItem extends Item
 		super(values);
 	}
 	
-	HistoryItem(final ReactivationConstructorDummy d, final int pk)
+	HistoryItem(final ActivationParameters ap)
 	{
-		super(d, pk);
+		super(ap);
 	}
 	
 	private static final long serialVersionUID = 1l;
