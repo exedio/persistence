@@ -195,7 +195,7 @@ public abstract class Item implements Serializable
 	{
 		this.type = Type.forClass(getClass());
 		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
-		this.pk = type.primaryKeySequence.next(type.getModel().getCurrentTransaction().getConnection());
+		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
 	

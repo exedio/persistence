@@ -65,7 +65,7 @@ public final class Type<C extends Item>
 
 	private final Constructor<C> activationConstructor;
 	private final Method beforeNewItemMethod;
-	final Sequence primaryKeySequence;
+	private final Sequence primaryKeySequence;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
@@ -816,10 +816,24 @@ public final class Type<C extends Item>
 			setValues = EMPTY_SET_VALUES;
 		
 		final Map<Field, Object> fieldValues = Item.prepareCreate(setValues, this);
-		final int pk = primaryKeySequence.next(getModel().getCurrentTransaction().getConnection()); // TODO reuse code from Item creation constructor
+		final int pk = nextPrimaryKey();
 		final C result = createItemObject(pk);
 		result.doCreate(fieldValues);
 		return result;
+	}
+	
+	int nextPrimaryKey()
+	{
+		// TODO use a separate transaction to avoid dead locks
+		return primaryKeySequence.next(getModel().getCurrentTransaction().getConnection());
+	}
+	
+	/**
+	 * for test only
+	 */
+	void flushPrimaryKey()
+	{
+		primaryKeySequence.flush();
 	}
 
 	public C cast(final Item item)
