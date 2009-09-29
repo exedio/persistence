@@ -27,8 +27,8 @@ import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
-import com.exedio.cope.NumberFunction;
 import com.exedio.cope.LongField;
+import com.exedio.cope.NumberFunction;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.util.Day;
 

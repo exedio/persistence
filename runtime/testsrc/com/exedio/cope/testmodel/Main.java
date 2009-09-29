@@ -20,8 +20,8 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
-import com.exedio.cope.Revision;
 import com.exedio.cope.Model;
+import com.exedio.cope.Revision;
 import com.exedio.cope.Type;
 
 public class Main

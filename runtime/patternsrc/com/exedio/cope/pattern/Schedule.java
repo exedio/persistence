@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -36,7 +37,6 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;

@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleField;
@@ -36,7 +37,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;

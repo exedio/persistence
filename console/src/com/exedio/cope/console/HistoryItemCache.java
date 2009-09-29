@@ -18,13 +18,13 @@
 
 package com.exedio.cope.console;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;

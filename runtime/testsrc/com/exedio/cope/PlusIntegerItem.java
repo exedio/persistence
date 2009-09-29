@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Cope;
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
-import com.exedio.cope.PlusView;
-import com.exedio.cope.SetValue;
 
 public class PlusIntegerItem extends Item
 {

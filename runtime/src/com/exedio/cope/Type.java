@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.util.CharSet;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.util.CharSet;
 
 public final class Type<C extends Item>
 {

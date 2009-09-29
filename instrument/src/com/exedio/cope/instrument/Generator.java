@@ -38,10 +38,10 @@ import java.util.SortedSet;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Type;

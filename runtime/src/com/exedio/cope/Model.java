@@ -38,12 +38,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.info.ItemCacheInfo;
-import com.exedio.cope.util.ModificationListener;
-import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.info.QueryCacheHistogram;
 import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 

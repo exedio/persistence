@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.StringLengthViolationException;
 
 public class HashTest extends AbstractRuntimeTest
 {

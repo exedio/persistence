@@ -23,8 +23,8 @@ import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Item;
 
 final class PatternItem extends Item
 {

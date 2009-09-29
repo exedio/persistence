@@ -36,9 +36,9 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.DefaultTextInput;

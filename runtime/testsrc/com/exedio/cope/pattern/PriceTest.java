@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
-import static com.exedio.cope.pattern.Price.ZERO;
 
 import java.math.BigDecimal;
 

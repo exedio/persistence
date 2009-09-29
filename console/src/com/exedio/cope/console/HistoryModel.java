@@ -18,12 +18,12 @@
 
 package com.exedio.cope.console;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 

@@ -20,14 +20,14 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.PlusView;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UppercaseView;
 import com.exedio.cope.util.CharSet;
 

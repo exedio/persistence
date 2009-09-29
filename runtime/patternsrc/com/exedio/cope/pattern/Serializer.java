@@ -33,12 +33,12 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
 

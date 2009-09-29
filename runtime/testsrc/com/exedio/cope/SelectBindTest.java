@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
-import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.CompareConditionItem.intx;
+import static com.exedio.cope.CompareConditionItem.string;
 
 import java.util.Collection;
 import java.util.Iterator;

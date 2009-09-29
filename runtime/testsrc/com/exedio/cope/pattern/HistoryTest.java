@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.History.Feature;
-import java.util.List;
 
 public class HistoryTest extends AbstractRuntimeTest
 {

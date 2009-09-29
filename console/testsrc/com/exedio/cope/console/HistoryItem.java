@@ -18,8 +18,8 @@
 
 package com.exedio.cope.console;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;

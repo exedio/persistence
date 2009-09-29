@@ -27,9 +27,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.junit.CopeTest;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;

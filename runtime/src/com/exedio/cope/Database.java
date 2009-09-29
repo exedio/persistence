@@ -35,9 +35,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.cope.info.SequenceInfo;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;

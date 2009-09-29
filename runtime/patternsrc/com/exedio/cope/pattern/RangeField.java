@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -25,10 +30,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrapper;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
