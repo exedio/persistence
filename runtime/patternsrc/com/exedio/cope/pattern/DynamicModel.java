@@ -142,24 +142,6 @@ public final class DynamicModel<L> extends Pattern
 					"but tried to allocate " + (positionPerValuetype+1));
 	}
 	
-	@SuppressWarnings("unchecked")
-	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
-	{
-		return t;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
-	{
-		return t;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
-	{
-		return t;
-	}
-	
 	@Override
 	protected void initialize()
 	{
@@ -204,6 +186,24 @@ public final class DynamicModel<L> extends Pattern
 	private MapField<L, String> newLocalization()
 	{
 		return MapField.newMap(localeTemplate.copy(), new StringField());
+	}
+	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
+	{
+		return t;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
+	{
+		return t;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
+	{
+		return t;
 	}
 	
 	public DynamicModel.Type<L> createType(final String code)
