@@ -26,6 +26,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -58,10 +59,10 @@ public final class Type<C extends Item>
 	private final List<Field> fields;
 	
 	private final List<UniqueConstraint> declaredUniqueConstraints;
-	final List<UniqueConstraint> uniqueConstraints;
+	private final List<UniqueConstraint> uniqueConstraints;
 	
 	private final List<CopyConstraint> declaredCopyConstraints;
-	final List<CopyConstraint> copyConstraints;
+	private final List<CopyConstraint> copyConstraints;
 
 	private final Constructor<C> activationConstructor;
 	private final Method beforeNewItemMethod;
@@ -815,11 +816,64 @@ public final class Type<C extends Item>
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
 		
-		final Map<Field, Object> fieldValues = Item.prepareCreate(setValues, this);
+		final Map<Field, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
 		final C result = createItemObject(pk);
 		result.doCreate(fieldValues);
 		return result;
+	}
+	
+	Map<Field, Object> prepareCreate(SetValue[] setValues)
+	{
+		setValues = doBeforeNewItem(setValues);
+		final Map<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
+		Date now = null;
+		for(final Field field : fields)
+		{
+			if(field instanceof FunctionField && !fieldValues.containsKey(field))
+			{
+				final FunctionField ff = (FunctionField)field;
+				Object defaultValue = ff.defaultConstant;
+				if(defaultValue==null)
+				{
+					if(ff instanceof DateField && ((DateField)ff).defaultNow)
+					{
+						if(now==null)
+							now = new Date();
+						defaultValue = now;
+					}
+					else if(ff instanceof IntegerField)
+					{
+						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
+						if(sequence!=null)
+							defaultValue = sequence.next(getModel().getCurrentTransaction().getConnection());
+					}
+				}
+				if(defaultValue!=null)
+					fieldValues.put(field, defaultValue);
+			}
+		}
+		for(final Field field : fieldValues.keySet())
+		{
+			assertBelongs(field);
+		}
+		for(final Field field : fields)
+		{
+			field.check(fieldValues.get(field), null);
+		}
+		
+		checkUniqueConstraints(null, fieldValues);
+		
+		for(final CopyConstraint cc : copyConstraints)
+			cc.check(fieldValues);
+
+		return fieldValues;
+	}
+	
+	void checkUniqueConstraints(final Item item, final Map<? extends Field, ?> fieldValues)
+	{
+		for(final UniqueConstraint uc : uniqueConstraints)
+			uc.check(item, fieldValues);
 	}
 	
 	int nextPrimaryKey()

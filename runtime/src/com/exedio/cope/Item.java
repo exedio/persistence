@@ -23,7 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -143,58 +142,11 @@ public abstract class Item implements Serializable
 	{
 		return getEntity().getItem();
 	}
-
-	static final Map<Field, Object> prepareCreate(SetValue[] setValues, final Type<? extends Item> type)
-	{
-		setValues = type.doBeforeNewItem(setValues);
-		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
-		Date now = null;
-		for(final Field field : type.getFields())
-		{
-			if(field instanceof FunctionField && !fieldValues.containsKey(field))
-			{
-				final FunctionField ff = (FunctionField)field;
-				Object defaultValue = ff.defaultConstant;
-				if(defaultValue==null)
-				{
-					if(ff instanceof DateField && ((DateField)ff).defaultNow)
-					{
-						if(now==null)
-							now = new Date();
-						defaultValue = now;
-					}
-					else if(ff instanceof IntegerField)
-					{
-						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
-						if(sequence!=null)
-							defaultValue = sequence.next(type.getModel().getCurrentTransaction().getConnection());
-					}
-				}
-				if(defaultValue!=null)
-					fieldValues.put(field, defaultValue);
-			}
-		}
-		for(final Field field : fieldValues.keySet())
-		{
-			type.assertBelongs(field);
-		}
-		for(final Field field : type.getFields())
-		{
-			field.check(fieldValues.get(field), null);
-		}
-		
-		checkUniqueConstraints(type, null, fieldValues);
-		
-		for(final CopyConstraint cc : type.copyConstraints)
-			cc.check(fieldValues);
-
-		return fieldValues;
-	}
 	
 	protected Item(final SetValue... setValues)
 	{
 		this.type = Type.forClass(getClass());
-		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
+		final Map<Field, Object> fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
@@ -274,7 +226,7 @@ public abstract class Item implements Serializable
 
 		field.check(value, this);
 
-		checkUniqueConstraints(type, this, Collections.singletonMap(field, value));
+		type.checkUniqueConstraints(this, Collections.singletonMap(field, value));
 		
 		final Entity entity = getEntity();
 		entity.put(field, value);
@@ -308,19 +260,13 @@ public abstract class Item implements Serializable
 
 			field.check(fieldValues.get(field), this);
 		}
-		checkUniqueConstraints(type, this, fieldValues);
+		type.checkUniqueConstraints(this, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		entity.write(toBlobs(fieldValues, this));
 	}
 	
-	private static final void checkUniqueConstraints(final Type<?> type, final Item item, final Map<? extends Field, ?> fieldValues)
-	{
-		for(final UniqueConstraint uc : type.uniqueConstraints)
-			uc.check(item, fieldValues);
-	}
-
 	public final void deleteCopeItem() throws IntegrityViolationException
 	{
 		checkDeleteCopeItem(new HashSet<Item>());
@@ -464,7 +410,7 @@ public abstract class Item implements Serializable
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	private static final Map<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	static final Map<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final HashMap<Field, Object> result = new HashMap<Field, Object>();
 		for(final SetValue<?> source : sources)
