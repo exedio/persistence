@@ -47,7 +47,7 @@ public final class DynamicModel<L> extends Pattern
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
 	com.exedio.cope.Type<Type<L>> typeType = null;
-	MapField<L, String> typeLocalization = null;
+	final MapField<L, String> typeLocalization;
 	
 	ItemField<Type<L>> fieldParent = null;
 	final IntegerField fieldPosition = new IntegerField().toFinal();
@@ -55,13 +55,13 @@ public final class DynamicModel<L> extends Pattern
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
 	com.exedio.cope.Type<Field<L>> fieldType = null;
-	MapField<L, String> fieldLocalization = null;
+	final MapField<L, String> fieldLocalization;
 	
 	ItemField<Field<L>> enumParent = null;
 	final IntegerField enumPosition = new IntegerField().toFinal();
 	final StringField enumCode = new StringField().toFinal();
 	com.exedio.cope.Type<Enum<L>> enumType = null;
-	MapField<L, String> enumLocalization = null;
+	final MapField<L, String> enumLocalization;
 	
 	private ItemField<Type<L>> type = null;
 	private final FunctionField<?>[] fields;
@@ -81,6 +81,11 @@ public final class DynamicModel<L> extends Pattern
 			final int enumCapacity)
 	{
 		this.localeTemplate = locale;
+		
+		this.typeLocalization  = newLocalization();
+		this.fieldLocalization = newLocalization();
+		this.enumLocalization  = newLocalization();
+		
 		fieldPositionPerValueType = new IntegerField().toFinal().range(0,
 				max(max(max(max(stringCapacity, booleanCapacity), integerCapacity), doubleCapacity), enumCapacity));
 		strings  = new StringField [stringCapacity];
@@ -147,7 +152,7 @@ public final class DynamicModel<L> extends Pattern
 	{
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);
-		features.put("name", typeLocalization = newLocalization());
+		features.put("name", typeLocalization);
 		typeType = castType(newSourceType(Type.class, features, "Type"));
 		
 		features.clear();
@@ -160,7 +165,7 @@ public final class DynamicModel<L> extends Pattern
 		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
-		features.put("name", fieldLocalization = newLocalization());
+		features.put("name", fieldLocalization);
 		fieldType = castField(newSourceType(Field.class, features, "Field"));
 		
 		if(enums.length>0)
@@ -172,7 +177,7 @@ public final class DynamicModel<L> extends Pattern
 			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
 			features.put("code", enumCode);
 			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
-			features.put("name", enumLocalization = newLocalization());
+			features.put("name", enumLocalization);
 			enumType = castEnum(newSourceType(Enum.class, features, "Enum"));
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
