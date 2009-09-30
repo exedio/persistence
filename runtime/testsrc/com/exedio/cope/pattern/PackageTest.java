@@ -47,6 +47,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(CompositeTest.class);
+		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
