@@ -121,16 +121,19 @@ public class CompositeTest extends AbstractRuntimeTest
 		
 		assertEquals(true,  eins.isInitial());
 		assertEquals(false, eins.isFinal());
+		assertEquals(true,  eins.isMandatory());
 		assertEquals(true,  eins.of(aString).isInitial());
 		assertEquals(false, eins.of(aString).isFinal());
 		assertEquals(true,  eins.of(aString).isMandatory());
 		assertEquals(false, uno.isInitial());
 		assertEquals(false, uno.isFinal());
+		assertEquals(false, uno.isMandatory());
 		assertEquals(false, uno.of(aString).isInitial());
 		assertEquals(false, uno.of(aString).isFinal());
 		assertEquals(false, uno.of(aString).isMandatory());
 		assertEquals(true, first.isInitial());
 		assertEquals(true, first.isFinal());
+		assertEquals(true, first.isMandatory());
 		assertEquals(true, first.of(aString).isInitial());
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());

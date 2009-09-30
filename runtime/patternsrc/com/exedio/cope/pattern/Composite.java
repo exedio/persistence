@@ -245,6 +245,11 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		return isfinal || !optional;
 	}
 
+	public boolean isMandatory()
+	{
+		return !optional;
+	}
+
 	public SetValue map(E value)
 	{
 		return new SetValue<E>(this, value);
