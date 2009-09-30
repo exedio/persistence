@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.CompositeFinalItem.first;
 import static com.exedio.cope.pattern.CompositeFinalItem.second;
+import static com.exedio.cope.pattern.CompositeItem.eins;
+import static com.exedio.cope.pattern.CompositeItem.zwei;
 import static com.exedio.cope.pattern.CompositeOptionalItem.duo;
 import static com.exedio.cope.pattern.CompositeOptionalItem.uno;
 import static com.exedio.cope.pattern.CompositeValue.aString;
@@ -31,12 +33,13 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
 public class CompositeTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
+	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
 	
 	public CompositeTest()
 	{
@@ -45,6 +48,7 @@ public class CompositeTest extends AbstractRuntimeTest
 
 	CompositeOptionalItem target1;
 	CompositeOptionalItem target2;
+	CompositeItem item;
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
 	
@@ -59,6 +63,22 @@ public class CompositeTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
+				item.code,
+				eins,
+				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
+				zwei,
+				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
+			}), item.TYPE.getFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
+				item.code,
+				eins,
+				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
+				zwei,
+				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
+			}), item.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
@@ -99,6 +119,11 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEquals(uno, uno.of(aString).getPattern());
 		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFields());
 		
+		assertEquals(true,  eins.isInitial());
+		assertEquals(false, eins.isFinal());
+		assertEquals(true,  eins.of(aString).isInitial());
+		assertEquals(false, eins.of(aString).isFinal());
+		assertEquals(true,  eins.of(aString).isMandatory());
 		assertEquals(false, uno.isInitial());
 		assertEquals(false, uno.isFinal());
 		assertEquals(false, uno.of(aString).isInitial());
@@ -110,6 +135,12 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());
 		
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				eins.of(aString),
+				eins.of(anInt),
+				eins.of(anEnum),
+				eins.of(anItem),
+			}), eins.getComponents());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				uno.of(aString),
 				uno.of(anInt),
@@ -140,6 +171,7 @@ public class CompositeTest extends AbstractRuntimeTest
 		// test persistence
 		oItem = deleteOnTearDown(new CompositeOptionalItem("optional1"));
 		assertEquals("optional1", oItem.getCode());
+		// TODO getUno and getDuo should return null
 		assertEquals(null, oItem.getUno().getAString());
 		assertEquals(null, oItem.getUno().getAnInt());
 		assertEquals(null, oItem.getUno().getAnEnum());
@@ -164,6 +196,7 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEquals(target2, fItem.getSecond().getAnItem());
 		
 		oItem.setDuo(fItem.getFirst());
+		// TODO getUno should return null
 		assertEquals(null, oItem.getUno().getAString());
 		assertEquals(null, oItem.getUno().getAnInt());
 		assertEquals(null, oItem.getUno().getAnEnum());
@@ -172,6 +205,69 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEquals(new Integer(1), oItem.getDuo().getAnInt());
 		assertEquals(AnEnumClass.anEnumConstant1, oItem.getDuo().getAnEnum());
 		assertEquals(target1, oItem.getDuo().getAnItem());
+		
+		// TODO should not fail
+		try
+		{
+			oItem.setDuo(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		// TODO getUno and getDuo should return null
+		assertEquals(null, oItem.getUno().getAString());
+		assertEquals(null, oItem.getUno().getAnInt());
+		assertEquals(null, oItem.getUno().getAnEnum());
+		assertEquals(null, oItem.getUno().getAnItem());
+		assertEquals("firstString1", oItem.getDuo().getAString());
+		assertEquals(new Integer(1), oItem.getDuo().getAnInt());
+		assertEquals(AnEnumClass.anEnumConstant1, oItem.getDuo().getAnEnum());
+		assertEquals(target1, oItem.getDuo().getAnItem());
+		
+		item = deleteOnTearDown(
+				new CompositeItem("default",
+						new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1),
+						new CompositeValue("zweiString1", 2, AnEnumClass.anEnumConstant2, target2)));
+		try
+		{
+			item.setEins(null);
+			fail();
+		}
+		catch(NullPointerException e) // TODO should be MandatoryViolationException
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			new CompositeItem("defaultFailure",
+					new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1),
+					null);
+			fail();
+		}
+		catch(NullPointerException e) // TODO should be MandatoryViolationException
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			fItem.first.set(fItem, null);
+			fail();
+		}
+		catch(NullPointerException e) // TODO should be MandatoryViolationException or FinalViolationException
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			fItem.first.set(fItem, new CompositeValue("finalViolation", 1, AnEnumClass.anEnumConstant1, target1));
+			fail();
+		}
+		catch(FinalViolationException e)
+		{
+			assertEquals("final violation on CompositeFinalItem.0 for CompositeFinalItem.firstAString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+		}
 
 		// test value independence
 		final CompositeValue value = oItem.getDuo();
