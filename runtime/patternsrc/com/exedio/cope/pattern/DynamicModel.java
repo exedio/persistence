@@ -417,6 +417,12 @@ public final class DynamicModel<L> extends Pattern
 							p.fieldValueType.map(valueType),
 							p.fieldPositionPerValueType.map(positionPerValuetype));
 		}
+		
+		private List<Field<L>> getFields(final ValueType valueType)
+		{
+			final DynamicModel<L> p = getPattern();
+			return p.fieldType.search(p.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
+		}
 
 		public Field<L> addStringField(final String code)
 		{
@@ -453,12 +459,6 @@ public final class DynamicModel<L> extends Pattern
 		{
 			final DynamicModel<L> p = getPattern();
 			return p.fieldType.searchSingleton(p.fieldParent.equal(this).and(p.fieldCode.equal(code)));
-		}
-		
-		private List<Field<L>> getFields(final ValueType valueType)
-		{
-			final DynamicModel<L> p = getPattern();
-			return p.fieldType.search(p.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 		
 		public com.exedio.cope.Type getParentType()
