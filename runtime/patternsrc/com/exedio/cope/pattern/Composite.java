@@ -285,7 +285,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 							field.setAccessible(true);
 							final FunctionField template = (FunctionField)field.get(null);
 							if(template==null)
-								throw new RuntimeException(field.getName());
+								throw new NullPointerException(valueClass.getName() + '#' + field.getName());
 							templates.put(field.getName(), template);
 							templatePositions.put(template, position++);
 						}

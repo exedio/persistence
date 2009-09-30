@@ -58,9 +58,9 @@ public class CompositeErrorTest extends CopeAssert
 			Composite.newComposite(NullField.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(NullPointerException e)
 		{
-			assertEquals("nullField", e.getMessage());
+			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
 		}
 		try
 		{
