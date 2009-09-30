@@ -270,26 +270,22 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 				throw new IllegalArgumentException(valueClass.getName() + " does not have a constructor " + Arrays.toString(new Class[]{SetValue[].class}), e);
 			}
 			
-			final java.lang.reflect.Field[] fields = valueClass.getDeclaredFields();
-			final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 			try
 			{
 				int position = 0;
-				for(final java.lang.reflect.Field field : fields)
+				for(final java.lang.reflect.Field field : valueClass.getDeclaredFields())
 				{
-					if((field.getModifiers()&expectedModifier)==expectedModifier)
-					{
-						final Class fieldType = field.getType();
-						if(Field.class.isAssignableFrom(fieldType))
-						{
-							field.setAccessible(true);
-							final FunctionField template = (FunctionField)field.get(null);
-							if(template==null)
-								throw new NullPointerException(valueClass.getName() + '#' + field.getName());
-							templates.put(field.getName(), template);
-							templatePositions.put(template, position++);
-						}
-					}
+					if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+						continue;
+					if(!Field.class.isAssignableFrom(field.getType()))
+						continue;
+					
+					field.setAccessible(true);
+					final FunctionField template = (FunctionField)field.get(null);
+					if(template==null)
+						throw new NullPointerException(valueClass.getName() + '#' + field.getName());
+					templates.put(field.getName(), template);
+					templatePositions.put(template, position++);
 				}
 			}
 			catch(IllegalAccessException e)
@@ -299,6 +295,8 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			this.componentSize = templates.size();
 		}
 	}
+	
+	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	
 	static final HashMap<Class, ValueType> valueTypes = new HashMap<Class, ValueType>();
 
