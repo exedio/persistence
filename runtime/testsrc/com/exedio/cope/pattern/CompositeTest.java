@@ -269,7 +269,7 @@ public class CompositeTest extends AbstractRuntimeTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals("final violation on CompositeFinalItem.0 for CompositeFinalItem.firstAString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertTrue(e.getMessage().startsWith("final violation on CompositeFinalItem.0 for CompositeFinalItem.firstA")); // TODO feature should be CompositeFinalItem.first
 		}
 
 		// test value independence
