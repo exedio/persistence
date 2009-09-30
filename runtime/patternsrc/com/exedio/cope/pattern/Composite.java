@@ -263,12 +263,12 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			try
 			{
 				valueConstructor = valueClass.getDeclaredConstructor(SetValue[].class);
-				valueConstructor.setAccessible(true);
 			}
 			catch(NoSuchMethodException e)
 			{
 				throw new IllegalArgumentException(valueClass.getName() + " does not have a constructor " + Arrays.toString(new Class[]{SetValue[].class}), e);
 			}
+			valueConstructor.setAccessible(true);
 			
 			try
 			{
