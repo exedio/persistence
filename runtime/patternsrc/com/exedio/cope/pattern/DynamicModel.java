@@ -406,7 +406,7 @@ public final class DynamicModel<L> extends Pattern
 			final DynamicModel<L> p = getPattern();
 			final List<Field<L>> fields = getFields(); // TODO make more efficient
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
-			final List<Field<L>> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
+			final List<Field<L>> fieldsPerValuetype = getFields(p, valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
 			p.assertCapacity(valueType, positionPerValuetype);
 			return
@@ -418,9 +418,8 @@ public final class DynamicModel<L> extends Pattern
 							p.fieldPositionPerValueType.map(positionPerValuetype));
 		}
 		
-		private List<Field<L>> getFields(final ValueType valueType)
+		private List<Field<L>> getFields(final DynamicModel<L> p, final ValueType valueType)
 		{
-			final DynamicModel<L> p = getPattern();
 			return p.fieldType.search(p.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 
