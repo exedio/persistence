@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Field;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.junit.CopeAssert;
 
@@ -51,6 +52,15 @@ public class CompositeErrorTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("", e.getMessage());
+		}
+		try
+		{
+			Composite.newComposite(NullField.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("nullField", e.getMessage());
 		}
 		try
 		{
@@ -90,5 +100,17 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			super(setValues);
 		}
+	}
+	
+	static class NullField extends Composite.Value
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private NullField(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+		
+		static final Field nullField = null;
 	}
 }
