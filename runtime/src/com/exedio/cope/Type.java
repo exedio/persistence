@@ -372,7 +372,7 @@ public final class Type<C extends Item>
 		assert (idTransiently<0) == isAbstract;
 
 		if(this.model!=null)
-			throw new RuntimeException();
+			throw new IllegalStateException("type already initialized");
 		if(this.subTypesTransitively!=null)
 			throw new RuntimeException();
 		if(this.typesOfInstances!=null)

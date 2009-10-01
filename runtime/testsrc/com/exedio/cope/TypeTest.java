@@ -165,9 +165,9 @@ public class TypeTest extends CopeAssert
 			new Model(type);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO better exception
+			assertEquals("type already initialized", e.getMessage());
 		}
 	}
 	
