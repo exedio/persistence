@@ -348,7 +348,7 @@ public final class Transaction
 							modifiedItems = new ArrayList<Item>();
 						
 						for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-							modifiedItems.add(model.getConcreteType(typeTransiently).createItemObject(i.next()));
+							modifiedItems.add(model.types.getConcreteType(typeTransiently).createItemObject(i.next()));
 					}
 				}
 				

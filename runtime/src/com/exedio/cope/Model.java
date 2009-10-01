@@ -27,12 +27,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -52,15 +50,7 @@ public final class Model
 	private Revisions revisions; // TODO make final
 	private final Object reviseLock = new Object();
 	
-	private final Type<?>[] types;
-	private final Type<?>[] concreteTypes;
-	private final Type<?>[] typesSorted;
-	private final int concreteTypeCount;
-	private final List<Type<?>> typeList;
-	private final List<Type<?>> typeListSorted;
-	private final List<Type<?>> concreteTypeList;
-	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
-	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
+	final Types types;
 	private final Date initializeDate;
 	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
 	private int modificationListenersCleared = 0;
@@ -95,136 +85,13 @@ public final class Model
 	public Model(final Revisions revisions, final Type... types)
 	{
 		this.revisions = revisions;
-		
-		if(types==null)
-			throw new NullPointerException("types");
-		if(types.length==0)
-			throw new IllegalArgumentException("types must not be empty");
-		
-		final Type<?>[] explicitTypes = types;
-		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
-		assert types.length==explicitTypesSorted.length;
-
-		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
-		for(final Type<?> type : explicitTypes)
-			addTypeIncludingGenerated(type, typesL, 10);
-		
-		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
-		for(final Type<?> type : typesL)
-		{
-			final Type collisionType = typesByID.put(type.id, type);
-			if(collisionType!=null)
-				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
-			if(!type.isAbstract)
-				concreteTypes.add(type);
-			
-			for(final Feature feature : type.getDeclaredFeatures())
-				if(featuresByID.put(feature.getID(), feature)!=null)
-					throw new IllegalArgumentException("duplicate feature id \"" + feature.getID() + '"');
-		}
-		
-		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
-		for(final Type<?> type : explicitTypesSorted)
-			addTypeIncludingGenerated(type, typesSorted, 10);
-
-		int concreteTypeCount = 0;
-		int abstractTypeCount = -1;
-		for(final Type<?> type : typesSorted)
-			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
-		
-		for(final Type<?> type : typesSorted)
-			type.postInitialize();
-		
-		this.types = typesL.toArray(new Type[typesL.size()]);
-		this.typeList = Collections.unmodifiableList(typesL);
-		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
-		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
-		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
-		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
+		this.types = new Types(this, types);
 		this.initializeDate = new Date();
-		
-		assert this.concreteTypeCount==this.concreteTypes.length;
-		assert this.concreteTypeCount==this.concreteTypeList.size();
-	}
-	
-	private static final Type<?>[] sort(final Type<?>[] types)
-	{
-		final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
-		final HashSet<Type> done = new HashSet<Type>();
-		//System.out.println(">--------------------"+Arrays.asList(types));
-
-		final ArrayList<Type> result = new ArrayList<Type>();
-		for(int i = 0; i<types.length; i++)
-		{
-			final ArrayList<Type> stack = new ArrayList<Type>();
-
-			//System.out.println("------------------------------ "+types[i].getID());
-
-			for(Type type = types[i]; type!=null; type=type.supertype)
-			{
-				//System.out.println("-------------------------------> "+type.getID());
-				if(!typeSet.contains(type))
-					throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
-				stack.add(type);
-			}
-			
-			for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
-			{
-				final Type type = j.previous();
-				//System.out.println("-------------------------------) "+type.getID());
-
-				if(!done.contains(type))
-				{
-					//System.out.println("-------------------------------] "+type.getID());
-					result.add(type);
-					done.add(type);
-				}
-			}
-		}
-		if(!done.equals(typeSet))
-			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
-		
-		//System.out.println("<--------------------"+result);
-		return result.toArray(new Type[]{});
-	}
-	
-	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)
-	{
-		hopCount--;
-		if(hopCount<0)
-			throw new RuntimeException();
-		
-		result.add(type);
-		for(final Feature f : type.getDeclaredFeatures())
-			if(f instanceof Pattern)
-				for(final Type<?> generatedType : ((Pattern)f).getSourceTypes())
-					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
 	
 	public Map<Feature, Feature> getHiddenFeatures()
 	{
-		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
-		for(final Type<?> t : types)
-		{
-			final Type st = t.getSupertype();
-			if(st==null)
-				continue;
-			
-			for(final Feature f : t.getDeclaredFeatures())
-			{
-				if(f instanceof This)
-					continue;
-				
-				final Feature hidden = st.getFeature(f.getName());
-				if(hidden!=null)
-				{
-					final Feature previous = result.put(f, hidden);
-					assert previous==null;
-				}
-			}
-		}
-		return result;
+		return types.getHiddenFeatures();
 	}
 	
 	/**
@@ -259,10 +126,9 @@ public final class Model
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
 				
-				for(final Type type : typesSorted)
-					type.connect(db);
+				types.connect(db);
 				
-				this.itemCacheIfConnected = new ItemCache(concreteTypes, properties.getItemCacheLimit());
+				this.itemCacheIfConnected = new ItemCache(types.concreteTypes, properties.getItemCacheLimit());
 				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
 				
 				if(db.cluster)
@@ -283,7 +149,7 @@ public final class Model
 							}
 							final ClusterConfig config = new ClusterConfig(secret, properties);
 							this.clusterSender   = new ClusterSender  (config, properties);
-							this.clusterListener = new ClusterListener(config, properties, clusterSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+							this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
 				}
@@ -315,8 +181,7 @@ public final class Model
 				final Database db = this.databaseIfConnected;
 				this.databaseIfConnected = null;
 				
-				for(final Type type : typesSorted)
-					type.disconnect();
+				types.disconnect();
 				
 				this.itemCacheIfConnected = null;
 				this.queryCacheIfConnected = null;
@@ -421,17 +286,17 @@ public final class Model
 	
 	public List<Type<?>> getTypes()
 	{
-		return typeList;
+		return types.typeList;
 	}
 	
 	public List<Type<?>> getTypesSortedByHierarchy()
 	{
-		return typeListSorted;
+		return types.typeListSorted;
 	}
 	
 	public List<Type<?>> getConcreteTypes()
 	{
-		return concreteTypeList;
+		return types.concreteTypeList;
 	}
 
 	/**
@@ -439,7 +304,7 @@ public final class Model
 	 */
 	public Type getType(final String id)
 	{
-		return typesByID.get(id);
+		return types.getType(id);
 	}
 	
 	/**
@@ -447,12 +312,7 @@ public final class Model
 	 */
 	public Feature getFeature(final String id)
 	{
-		return featuresByID.get(id);
-	}
-	
-	Type getConcreteType(final int transientNumber)
-	{
-		return concreteTypes[transientNumber];
+		return types.getFeature(id);
 	}
 	
 	public Date getInitializeDate()
@@ -796,7 +656,7 @@ public final class Model
 		id = nextTransactionId.getAndIncrement();
 		lastTransactionStartDate = startDate;
 		
-		final Transaction result = new Transaction(this, concreteTypeCount, id, name, startDate);
+		final Transaction result = new Transaction(this, types.concreteTypeCount, id, name, startDate);
 		setTransaction( result );
 		synchronized(openTransactions)
 		{
