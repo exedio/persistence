@@ -76,7 +76,7 @@ public abstract class Feature
 	{
 		final Init init = this.init;
 		if(init==null)
-			throw new FeatureNotInitializedException();
+			throw new IllegalStateException("feature not initialized");
 		return init;
 	}
 	

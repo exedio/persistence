@@ -33,27 +33,27 @@ public class FeatureTest extends CopeAssert
 			f.getType();
 			fail();
 		}
-		catch(FeatureNotInitializedException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("feature not initialized", e.getMessage());
 		}
 		try
 		{
 			f.getName();
 			fail();
 		}
-		catch(FeatureNotInitializedException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("feature not initialized", e.getMessage());
 		}
 		try
 		{
 			f.getID();
 			fail();
 		}
-		catch(FeatureNotInitializedException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("feature not initialized", e.getMessage());
 		}
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));

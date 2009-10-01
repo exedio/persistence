@@ -53,16 +53,15 @@ public abstract class View<E> extends Feature implements Function<E>
 		this.name = name;
 		this.valueClass = valueClass;
 		
-		Type<? extends Item> sourceType;
-		try
+		if(sources[0] instanceof Feature)
 		{
-			sourceType = sources[0].getType();
+			final Feature f = (Feature)sources[0];
+			this.sourceType = f.isInitialized() ? f.getType() : null;
 		}
-		catch(FeatureNotInitializedException e)
+		else
 		{
-			sourceType = null;
+			this.sourceType = null;
 		}
-		this.sourceType = sourceType;
 	}
 	
 	public final List<Function<?>> getSources()
