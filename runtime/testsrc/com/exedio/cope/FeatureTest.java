@@ -69,6 +69,16 @@ public class FeatureTest extends CopeAssert
 		assertEquals("typeId.featureName", f.toString());
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
+		
+		try
+		{
+			new Type<AnItem>(AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("feature already initialized: typeId.featureName", e.getMessage());
+		}
 	}
 	
 	static class AnItem extends Item
