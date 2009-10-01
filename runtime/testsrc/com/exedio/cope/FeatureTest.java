@@ -55,6 +55,7 @@ public class FeatureTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 		
@@ -65,6 +66,7 @@ public class FeatureTest extends CopeAssert
 		assertSame(t, f.getType());
 		assertEquals("featureName", f.getName());
 		assertEquals("typeId.featureName", f.getID());
+		assertEquals("typeId.featureName", f.toString());
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 	}
