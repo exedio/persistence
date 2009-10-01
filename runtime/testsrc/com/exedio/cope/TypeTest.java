@@ -159,6 +159,16 @@ public class TypeTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), type.getSubTypes());
 		assertEqualsUnmodifiable(list(type), type.getSubTypesTransitively());
 		assertEqualsUnmodifiable(list(type), type.getTypesOfInstances());
+		
+		try
+		{
+			new Model(type);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage()); // TODO better exception
+		}
 	}
 	
 	static class AnItem extends Item
