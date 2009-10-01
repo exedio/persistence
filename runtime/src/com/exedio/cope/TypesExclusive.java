@@ -29,7 +29,7 @@ final class TypesExclusive
 		// prevent instantiation
 	}
 	
-	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass =
+	private static final HashMap<Class<? extends Item>, Type<? extends Item>> types =
 		new HashMap<Class<? extends Item>, Type<? extends Item>>();
 	
 	/**
@@ -47,7 +47,7 @@ final class TypesExclusive
 	 */
 	static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
-		final Type<? extends Item> result = typesByClass.get(javaClass);
+		final Type<? extends Item> result = types.get(javaClass);
 		if(result==null)
 			throw new IllegalArgumentException("there is no type for " + javaClass);
 		return result;
@@ -115,7 +115,7 @@ final class TypesExclusive
 				supertype,
 				featureMap);
 		
-		typesByClass.put(javaClass, result);
+		types.put(javaClass, result);
 		return result;
 	}
 	
