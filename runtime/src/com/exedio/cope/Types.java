@@ -39,7 +39,7 @@ final class Types
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
 	
-	public Types(final Model model, final Type[] types)
+	Types(final Model model, final Type[] types)
 	{
 		if(types==null)
 			throw new NullPointerException("types");
@@ -146,7 +146,7 @@ final class Types
 					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
 	
-	public Map<Feature, Feature> getHiddenFeatures()
+	Map<Feature, Feature> getHiddenFeatures()
 	{
 		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
 		for(final Type<?> t : types)
@@ -171,12 +171,12 @@ final class Types
 		return result;
 	}
 	
-	public Type getType(final String id)
+	Type getType(final String id)
 	{
 		return typesByID.get(id);
 	}
 	
-	public Feature getFeature(final String id)
+	Feature getFeature(final String id)
 	{
 		return featuresByID.get(id);
 	}
