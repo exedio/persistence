@@ -295,6 +295,7 @@ public class IntegerTest extends AbstractRuntimeTest
 					"must be at least 4.",
 					e.getMessage());
 		}
+		item.min4.check(4);
 		
 		// test conditions
 		assertEquals(item.any.equal(1), item.any.equal(1));

@@ -201,6 +201,7 @@ public class StringTest extends TestmodelTest
 					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
+		item.min4.check("1234");
 		
 		// any
 		item.setAny("1234");
