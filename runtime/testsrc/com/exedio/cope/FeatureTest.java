@@ -56,6 +56,7 @@ public class FeatureTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
+		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 		
@@ -67,6 +68,8 @@ public class FeatureTest extends CopeAssert
 		assertEquals("featureName", f.getName());
 		assertEquals("typeId.featureName", f.getID());
 		assertEquals("typeId.featureName", f.toString());
+		assertEquals("typeId.featureName", toString(f, null));
+		assertEquals("featureName", toString(f, t));
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 		
@@ -79,6 +82,13 @@ public class FeatureTest extends CopeAssert
 		{
 			assertEquals("feature already initialized: typeId.featureName", e.getMessage());
 		}
+	}
+	
+	private static final String toString(final Feature f, final Type defaultType)
+	{
+		final StringBuilder bf = new StringBuilder();
+		f.toString(bf, defaultType);
+		return bf.toString();
 	}
 	
 	static class AnItem extends Item
