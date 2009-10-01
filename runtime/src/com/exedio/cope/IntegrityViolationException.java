@@ -62,6 +62,14 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 		return feature;
 	}
 	
+	@Override
+	public String getMessage(final boolean withFeature)
+	{
+		return "integrity violation on deletion of " + getItemText() + (withFeature ? (" because of " + feature) : "");
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
@@ -69,11 +77,5 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	public ItemField getAttribute()
 	{
 		return feature;
-	}
-	
-	@Override
-	public String getMessage(final boolean withFeature)
-	{
-		return "integrity violation on deletion of " + getItemText() + (withFeature ? (" because of " + feature) : "");
 	}
 }

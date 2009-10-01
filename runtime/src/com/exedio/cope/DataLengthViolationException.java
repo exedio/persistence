@@ -64,15 +64,6 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public DataField getDataAttribute()
-	{
-		return feature;
-	}
-
-	/**
 	 * Returns the length of the data, that was attempted to be written.
 	 * Returns -1, if that length is unknown.
 	 * @see #isLengthExact()
@@ -101,5 +92,16 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			(lengthExact ? "" : "or more ") +
 			"is too long" +
 			(withFeature ? (" for " + feature) : "");
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
+	public DataField getDataAttribute()
+	{
+		return feature;
 	}
 }

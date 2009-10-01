@@ -56,7 +56,15 @@ public final class FinalViolationException extends ConstraintViolationException
 	{
 		return feature;
 	}
-
+	
+	@Override
+	public String getMessage(final boolean withFeature)
+	{
+		return "final violation on " + getItemText() + (withFeature ? (" for " + feature) : "");
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
@@ -64,11 +72,5 @@ public final class FinalViolationException extends ConstraintViolationException
 	public Field getFinalAttribute()
 	{
 		return feature;
-	}
-	
-	@Override
-	public String getMessage(final boolean withFeature)
-	{
-		return "final violation on " + getItemText() + (withFeature ? (" for " + feature) : "");
 	}
 }

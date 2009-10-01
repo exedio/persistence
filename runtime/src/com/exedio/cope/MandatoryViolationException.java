@@ -59,6 +59,14 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	{
 		return feature;
 	}
+
+	@Override
+	public String getMessage(final boolean withFeature)
+	{
+		return "mandatory violation on " + getItemText() + (withFeature ? (" for " + feature) : "");
+	}
+	
+	// ------------------- deprecated stuff -------------------
 	
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
@@ -67,11 +75,5 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	public Field getMandatoryAttribute()
 	{
 		return feature;
-	}
-
-	@Override
-	public String getMessage(final boolean withFeature)
-	{
-		return "mandatory violation on " + getItemText() + (withFeature ? (" for " + feature) : "");
 	}
 }

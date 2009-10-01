@@ -62,15 +62,6 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	{
 		return feature;
 	}
-	
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public StringField getStringAttribute()
-	{
-		return feature;
-	}
 
 	/**
 	 * Returns the value, that was attempted to be written.
@@ -96,5 +87,16 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 			", must be at " + (isTooShort?"least":"most") +
 			' ' + border + " characters, " +
 			"but was " + value.length() + '.';
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
+	public StringField getStringAttribute()
+	{
+		return feature;
 	}
 }
