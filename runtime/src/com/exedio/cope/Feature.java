@@ -27,11 +27,31 @@ import com.exedio.cope.util.CharSet;
 
 public abstract class Feature
 {
-	private Type<? extends Item> type;
 	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
-	private String name;
-	private String id;
+	private Init init = null;
 	private java.lang.reflect.Field annotationField = null;
+	
+	private static final class Init
+	{
+		final Type<? extends Item> type;
+		final String name;
+		final String id;
+		
+		Init(final Type<? extends Item> type, final String name)
+		{
+			assert type!=null;
+			assert name!=null;
+			
+			this.type = type;
+			this.name = Model.intern(name);
+			this.id =   Model.intern(type.id + '.' + name);
+		}
+		
+		void toString(final StringBuilder bf, final Type defaultType)
+		{
+			bf.append((defaultType==type) ? name : id);
+		}
+	}
 	
 	/**
 	 * Is called in the constructor of the containing type.
@@ -45,42 +65,34 @@ public abstract class Feature
 					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >"+ name.charAt(i) + "< at position " + i);
 		}
 		
-		if(this.type!=null)
-			throw new IllegalStateException("feature already initialized: " + id);
-		
-		assert type!=null;
-		assert name!=null;
-		assert this.type==null;
-		assert this.name==null;
-		assert this.id==null;
-
-		this.type = type;
-		this.name = Model.intern(name);
-		this.id =   Model.intern(type.id + '.' + name);
+		if(this.init!=null)
+			throw new IllegalStateException("feature already initialized: " + init.id);
+		this.init = new Init(type, name);
 		
 		type.registerInitialization(this);
 	}
 	
+	private final Init init()
+	{
+		final Init init = this.init;
+		if(init==null)
+			throw new FeatureNotInitializedException();
+		return init;
+	}
+	
 	final boolean isInitialized()
 	{
-		return type!=null;
+		return init!=null;
 	}
 	
 	public Type<? extends Item> getType()
 	{
-		if(this.type==null)
-			throw new FeatureNotInitializedException();
-
-		return type;
+		return init().type;
 	}
 	
 	public final String getName()
 	{
-		if(this.type==null)
-			throw new FeatureNotInitializedException();
-		assert name!=null;
-
-		return name;
+		return init().name;
 	}
 	
 	/**
@@ -88,11 +100,7 @@ public abstract class Feature
 	 */
 	public final String getID()
 	{
-		if(this.type==null)
-			throw new FeatureNotInitializedException();
-		assert id!=null;
-
-		return id;
+		return init().id;
 	}
 	
 	final void setAnnotationField(final java.lang.reflect.Field annotationField)
@@ -125,10 +133,10 @@ public abstract class Feature
 	@Override
 	public final String toString()
 	{
-		if(type!=null)
+		final Init init = this.init;
+		if(init!=null)
 		{
-			assert id!=null;
-			return id;
+			return init.id;
 		}
 		else
 		{
@@ -140,8 +148,9 @@ public abstract class Feature
 	
 	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
-		if(type!=null)
-			bf.append((defaultType==type) ? name : id);
+		final Init init = this.init;
+		if(init!=null)
+			init.toString(bf, defaultType);
 		else
 			toStringNonInitialized(bf);
 	}
