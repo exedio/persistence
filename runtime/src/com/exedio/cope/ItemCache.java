@@ -25,6 +25,7 @@ import gnu.trove.TIntObjectIterator;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.info.ItemCacheInfo;
 
@@ -35,15 +36,15 @@ final class ItemCache
 	 */
 	private final Cachlet[] cachlets;
 	
-	ItemCache(final Type[] types, final int limit)
+	ItemCache(final List<Type<?>> types, final int limit)
 	{
-		final int l = types.length;
+		final int l = types.size();
 		
 		final int[] weights = new int[l];
 		int weightSum = 0;
 		for(int i = 0; i<l; i++)
 		{
-			final Type<?> type = types[i];
+			final Type<?> type = types.get(i);
 			final CopeCacheWeight weightAnnotation = type.getAnnotation(CopeCacheWeight.class);
 			final int weight = weightAnnotation!=null ? weightAnnotation.value() : 100;
 			if(weight<0)
@@ -56,7 +57,7 @@ final class ItemCache
 		for(int i=0; i<l; i++)
 		{
 			final int iLimit = weights[i] * limit / weightSum;
-			cachlets[i] = (iLimit>0) ? new Cachlet(types[i], iLimit) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(types.get(i), iLimit) : null;
 		}
 	}
 	

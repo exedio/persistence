@@ -128,7 +128,7 @@ public final class Model
 				
 				types.connect(db);
 				
-				this.itemCacheIfConnected = new ItemCache(types.concreteTypes, properties.getItemCacheLimit());
+				this.itemCacheIfConnected = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
 				
 				if(db.cluster)

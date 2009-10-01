@@ -30,7 +30,7 @@ import java.util.Map;
 final class Types
 {
 	private final Type<?>[] types;
-	final Type<?>[] concreteTypes; // TODO make private
+	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
 	final int concreteTypeCount;
 	final List<Type<?>> typeList;
