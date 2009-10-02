@@ -86,7 +86,7 @@ final class Types
 		for(final Type<?> type : typesSorted)
 		{
 			final Collector c = collectors.get(type);
-			c.recurse(collectors, c);
+			c.recurse(collectors, c, 10);
 			for(final Field f : type.getDeclaredFields())
 				if(f instanceof ItemField)
 				{
@@ -201,12 +201,16 @@ final class Types
 				typesOfInstances.add(type);
 		}
 		
-		void recurse(final HashMap<Type, Collector> collectors, final Collector target)
+		void recurse(final HashMap<Type, Collector> collectors, final Collector target, int hopCount)
 		{
+			hopCount--;
+			if(hopCount<0)
+				throw new RuntimeException();
+			
 			target.addSubTypeTransitively(type);
 			if(subTypes!=null)
 				for(final Type type : subTypes)
-					collectors.get(type).recurse(collectors, target);
+					collectors.get(type).recurse(collectors, target, hopCount);
 		}
 		
 		void addReference(final ItemField reference)
