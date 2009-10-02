@@ -143,7 +143,7 @@ public final class Type<C extends Item>
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
 				if(!ID_CHAR_SET.contains(id.charAt(i)))
-					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >"+ id.charAt(i) + "< at position " + i);
+					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >" + id.charAt(i) + "< at position " + i);
 		}
 		if(featureMap==null)
 			throw new NullPointerException("featureMap for " + id);

@@ -62,7 +62,7 @@ public abstract class Feature
 			final int l = name.length();
 			for(int i = 0; i<l; i++)
 				if(!NAME_CHAR_SET.contains(name.charAt(i)))
-					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >"+ name.charAt(i) + "< at position " + i);
+					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 		
 		if(this.init!=null)
