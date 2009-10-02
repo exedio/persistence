@@ -130,7 +130,15 @@ public class TypeTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(), type.getSubTypes());
+		try
+		{
+			type.getSubTypes();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 		try
 		{
 			type.getSubTypesTransitively();

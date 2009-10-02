@@ -72,10 +72,25 @@ final class Types
 		for(final Type<?> type : explicitTypesSorted)
 			addTypeIncludingGenerated(type, typesSorted, 10);
 
+		final HashMap<Type, Collector> collectors = new HashMap<Type, Collector>();
+		for(final Type<?> type : typesSorted)
+			collectors.put(type, new Collector(type));
+		for(final Type<?> type : typesSorted)
+		{
+			final Type supertype = type.getSupertype();
+			if(supertype!=null)
+				collectors.get(supertype).addSubType(type);
+		}
+		for(final Type<?> type : typesSorted)
+		{
+			final Collector c = collectors.get(type);
+			c.recurse(collectors, c);
+		}
+		
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
-			type.initialize(model, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
+			type.initialize(model, collectors.get(type), type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
 		
 		for(final Type<?> type : typesSorted)
 			type.postInitialize();
@@ -144,6 +159,80 @@ final class Types
 			if(f instanceof Pattern)
 				for(final Type<?> generatedType : ((Pattern)f).getSourceTypes())
 					addTypeIncludingGenerated(generatedType, result, hopCount);
+	}
+	
+	static final class Collector
+	{
+		final Type type;
+		private ArrayList<Type> subTypes;
+		private ArrayList<Type> subTypesTransitively;
+		private ArrayList<Type> typesOfInstances;
+		
+		Collector(final Type type)
+		{
+			this.type = type;
+		}
+		
+		void addSubType(final Type type)
+		{
+			if(subTypes==null)
+				subTypes = new ArrayList<Type>();
+			subTypes.add(type);
+		}
+		
+		void addSubTypeTransitively(final Type type)
+		{
+			if(subTypesTransitively==null)
+			{
+				subTypesTransitively = new ArrayList<Type>();
+				typesOfInstances = new ArrayList<Type>();
+			}
+			subTypesTransitively.add(type);
+			if(!type.isAbstract)
+				typesOfInstances.add(type);
+		}
+		
+		void recurse(final HashMap<Type, Collector> collectors, final Collector target)
+		{
+			target.addSubTypeTransitively(type);
+			if(subTypes!=null)
+				for(final Type type : subTypes)
+					collectors.get(type).recurse(collectors, target);
+		}
+		
+		List<Type> getSubTypes()
+		{
+			return finish(subTypes);
+		}
+		
+		List<Type> getSubTypesTransitively()
+		{
+			return finish(subTypesTransitively);
+		}
+		
+		List<Type> getTypesOfInstances()
+		{
+			return finish(typesOfInstances);
+		}
+		
+		private static List<Type> finish(final ArrayList<Type> list)
+		{
+			if(list==null)
+				return Collections.<Type>emptyList();
+			else
+			{
+				switch(list.size())
+				{
+				case 0:
+					throw new RuntimeException();
+				case 1:
+					return Collections.singletonList(list.get(0));
+				default:
+					list.trimToSize();
+					return Collections.<Type>unmodifiableList(list);
+				}
+			}
+		}
 	}
 	
 	Map<Feature, Feature> getHiddenFeatures()

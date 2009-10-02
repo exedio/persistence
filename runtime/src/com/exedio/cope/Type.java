@@ -68,15 +68,15 @@ public final class Type<C extends Item>
 	private final Method beforeNewItemMethod;
 	private final Sequence primaryKeySequence;
 
-	private ArrayList<Type<? extends C>> subTypes = null;
+	private List<Type<? extends C>> subTypes = null;
 
 	private ArrayList<ItemField<C>> referencesWhileInitialization = new ArrayList<ItemField<C>>();
 	private List<ItemField<C>> declaredReferences = null;
 	private List<ItemField> references = null;
 	
 	private Model model;
-	private ArrayList<Type<? extends C>> subTypesTransitively;
-	private ArrayList<Type<? extends C>> typesOfInstances;
+	private List<Type<? extends C>> subTypesTransitively = null;
+	private List<Type<? extends C>> typesOfInstances = null;
 	private HashMap<String, Type<? extends C>> typesOfInstancesMap;
 	private Type<? extends C> onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
@@ -251,12 +251,6 @@ public final class Type<C extends Item>
 			supertype!=null
 			? supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
-		
-		// register type at the end of the constructor, so the
-		// type is not registered, if the constructor throws
-		// an exception
-		if(supertype!=null)
-			supertype.registerSubType(this);
 	}
 	
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
@@ -343,36 +337,22 @@ public final class Type<C extends Item>
 		featuresWhileConstruction.add(feature);
 	}
 	
-	void registerSubType(final Type subType)
-	{
-		assert subType!=null : id;
-		if(this.model!=null)
-			throw new RuntimeException(id+'-'+subType.id);
-
-		if(subTypes==null)
-			subTypes = new ArrayList<Type<? extends C>>();
-		subTypes.add(castTypeInstance(subType));
-	}
-	
-	@SuppressWarnings("unchecked")
-	private Type<? extends C> castTypeInstance(final Type t)
-	{
-		return t;
-	}
-	
 	void registerReference(final ItemField<C> reference)
 	{
 		referencesWhileInitialization.add(reference);
 	}
 	
-	void initialize(final Model model, final int idTransiently)
+	void initialize(final Model model, final Types.Collector collector, final int idTransiently)
 	{
 		if(model==null)
 			throw new RuntimeException();
+		assert this==collector.type;
 		assert (idTransiently<0) == isAbstract;
 
 		if(this.model!=null)
 			throw new IllegalStateException("type already initialized");
+		if(this.subTypes!=null)
+			throw new RuntimeException();
 		if(this.subTypesTransitively!=null)
 			throw new RuntimeException();
 		if(this.typesOfInstances!=null)
@@ -391,15 +371,16 @@ public final class Type<C extends Item>
 		this.model = model;
 		this.idTransiently = idTransiently;
 		
-		final ArrayList<Type> subTypesTransitively = new ArrayList<Type>();
-		final ArrayList<Type> typesOfInstances = new ArrayList<Type>();
-		collectSubTypes(subTypesTransitively, typesOfInstances, 15);
+		this.subTypes = castTypeInstanceList(collector.getSubTypes());
+		this.subTypesTransitively = castTypeInstanceList(collector.getSubTypesTransitively());
+		this.typesOfInstances = castTypeInstanceList(collector.getTypesOfInstances());
+		
 		switch(typesOfInstances.size())
 		{
 			case 0:
 				throw new RuntimeException("type " + id + " is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
-				onlyPossibleTypeOfInstances = castTypeInstance(typesOfInstances.iterator().next());
+				onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
 				break;
 			default:
 				final HashMap<String, Type> typesOfInstancesMap = new HashMap<String, Type>();
@@ -414,8 +395,6 @@ public final class Type<C extends Item>
 				this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
 				break;
 		}
-		this.subTypesTransitively = castTypeInstanceArrayList(subTypesTransitively);
-		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
 
 		for(final Field a : declaredFields)
 			if(a instanceof ItemField)
@@ -423,29 +402,15 @@ public final class Type<C extends Item>
 	}
 	
 	@SuppressWarnings("unchecked")
-	private ArrayList<Type<? extends C>> castTypeInstanceArrayList(final ArrayList l)
+	private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
 	{
-		return l;
+		return (List)l;
 	}
 	
 	@SuppressWarnings("unchecked")
 	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
 	{
 		return m;
-	}
-	
-	private void collectSubTypes(final ArrayList<Type> all, final ArrayList<Type> concrete, int levelLimit)
-	{
-		if(levelLimit<=0)
-			throw new RuntimeException(all.toString());
-		levelLimit--;
-		
-		all.add(this);
-		if(!isAbstract)
-			concrete.add(this);
-		
-		for(final Type<? extends C> t : getSubTypes())
-			t.collectSubTypes(all, concrete, levelLimit);
 	}
 	
 	void postInitialize()
@@ -584,7 +549,7 @@ public final class Type<C extends Item>
 		if(typesOfInstances==null)
 			throw new RuntimeException();
 
-		return Collections.unmodifiableList(typesOfInstances);
+		return typesOfInstances;
 	}
 	
 	Type<? extends C> getTypeOfInstance(final String id)
@@ -650,7 +615,10 @@ public final class Type<C extends Item>
 	 */
 	public List<Type<? extends C>> getSubTypes()
 	{
-		return subTypes==null ? Collections.<Type<? extends C>>emptyList() : Collections.unmodifiableList(subTypes);
+		if(subTypes==null)
+			throw new RuntimeException();
+		
+		return subTypes;
 	}
 	
 	/**
@@ -661,7 +629,7 @@ public final class Type<C extends Item>
 		if(subTypesTransitively==null)
 			throw new RuntimeException();
 
-		return Collections.unmodifiableList(subTypesTransitively);
+		return subTypesTransitively;
 	}
 	
 	public boolean isAssignableFrom(final Type<?> type)

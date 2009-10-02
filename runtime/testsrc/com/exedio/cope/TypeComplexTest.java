@@ -171,7 +171,15 @@ public class TypeComplexTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(typO), type.getSubTypes());
+		try
+		{
+			type.getSubTypes();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 		try
 		{
 			type.getSubTypesTransitively();
@@ -221,7 +229,15 @@ public class TypeComplexTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(), typO.getSubTypes());
+		try
+		{
+			typO.getSubTypes();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 		try
 		{
 			typO.getSubTypesTransitively();
