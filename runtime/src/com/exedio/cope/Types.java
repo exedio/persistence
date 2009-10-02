@@ -231,6 +231,7 @@ final class Types
 		{
 			return finish(typesOfInstances);
 		}
+		
 		List<ItemField> getReferences()
 		{
 			return finish(references);
