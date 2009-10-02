@@ -342,12 +342,11 @@ public final class Type<C extends Item>
 		referencesWhileInitialization.add(reference);
 	}
 	
-	void initialize(final Model model, final Types.Collector collector, final int idTransiently)
+	void initialize(final Model model, final Types.Collector collector)
 	{
 		if(model==null)
 			throw new RuntimeException();
 		assert this==collector.type;
-		assert (idTransiently<0) == isAbstract;
 
 		if(this.model!=null)
 			throw new IllegalStateException("type already initialized");
@@ -369,7 +368,7 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		
 		this.model = model;
-		this.idTransiently = idTransiently;
+		this.idTransiently = collector.idTransiently;
 		
 		this.subTypes = castTypeInstanceList(collector.getSubTypes());
 		this.subTypesTransitively = castTypeInstanceList(collector.getSubTypesTransitively());

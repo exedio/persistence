@@ -73,8 +73,10 @@ final class Types
 			addTypeIncludingGenerated(type, typesSorted, 10);
 
 		final HashMap<Type, Collector> collectors = new HashMap<Type, Collector>();
+		int concreteTypeCount = 0;
+		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
-			collectors.put(type, new Collector(type));
+			collectors.put(type, new Collector(type, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
 		for(final Type<?> type : typesSorted)
 		{
 			final Type supertype = type.getSupertype();
@@ -87,10 +89,8 @@ final class Types
 			c.recurse(collectors, c);
 		}
 		
-		int concreteTypeCount = 0;
-		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
-			type.initialize(model, collectors.get(type), type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
+			type.initialize(model, collectors.get(type));
 		
 		for(final Type<?> type : typesSorted)
 			type.postInitialize();
@@ -164,13 +164,16 @@ final class Types
 	static final class Collector
 	{
 		final Type type;
+		final int idTransiently;
 		private ArrayList<Type> subTypes;
 		private ArrayList<Type> subTypesTransitively;
 		private ArrayList<Type> typesOfInstances;
 		
-		Collector(final Type type)
+		Collector(final Type type, final int idTransiently)
 		{
 			this.type = type;
+			this.idTransiently = idTransiently;
+			assert (idTransiently<0) == type.isAbstract;
 		}
 		
 		void addSubType(final Type type)
