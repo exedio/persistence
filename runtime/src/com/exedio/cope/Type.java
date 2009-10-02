@@ -400,18 +400,6 @@ public final class Type<C extends Item>
 				((ItemField)a).postInitialize();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
-	{
-		return (List)l;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
-	{
-		return m;
-	}
-	
 	void postInitialize()
 	{
 		assert referencesWhileInitialization!=null;
@@ -441,6 +429,18 @@ public final class Type<C extends Item>
 		{
 			this.references = castReferences(declaredReferences);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
+	{
+		return (List)l;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
+	{
+		return m;
 	}
 	
 	@SuppressWarnings("unchecked")
