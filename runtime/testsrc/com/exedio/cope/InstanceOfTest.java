@@ -65,7 +65,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	
 	public void testIt()
 	{
-		// test ItemField#cast
+		// test ItemField#as
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
 		try
 		{
@@ -104,6 +104,22 @@ public class InstanceOfTest extends AbstractRuntimeTest
 					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
 				e.getMessage());
 		}
+		
+		// test Type.getSubTypes()
+		assertEquals(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubTypes());
+		assertEquals(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypes());
+		assertEquals(list(), InstanceOfB2Item.TYPE.getSubTypes());
+		assertEquals(list(), InstanceOfC1Item.TYPE.getSubTypes());
+		// test Type.getSubTypesTransitively()
+		assertEquals(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubTypesTransitively());
+		assertEquals(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypesTransitively());
+		assertEquals(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubTypesTransitively());
+		assertEquals(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubTypesTransitively());
+		// test Type.getTypesOfInstances()
+		assertEquals(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getTypesOfInstances());
+		assertEquals(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypesTransitively());
+		assertEquals(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubTypesTransitively());
+		assertEquals(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubTypesTransitively());
 		
 		
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
