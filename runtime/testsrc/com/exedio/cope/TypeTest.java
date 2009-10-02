@@ -123,7 +123,7 @@ public class TypeTest extends CopeAssert
 		}
 		try
 		{
-			assertEquals(null, type.getDeclaredReferences());
+			type.getDeclaredReferences();
 			fail();
 		}
 		catch(IllegalStateException e)

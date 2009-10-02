@@ -164,7 +164,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			assertEquals(null, type.getDeclaredReferences());
+			type.getDeclaredReferences();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -214,7 +214,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			assertEquals(null, typO.getDeclaredReferences());
+			typO.getDeclaredReferences();
 			fail();
 		}
 		catch(IllegalStateException e)
