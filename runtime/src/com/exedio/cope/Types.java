@@ -87,8 +87,6 @@ final class Types
 		{
 			final Collector c = collectors.get(type);
 			c.recurse(collectors, c);
-		}
-		for(final Type<?> type : typesSorted)
 			for(final Field f : type.getDeclaredFields())
 				if(f instanceof ItemField)
 				{
@@ -97,6 +95,7 @@ final class Types
 					final Type valueType = ff.getValueType();
 					collectors.get(valueType).addReference(ff);
 				}
+		}
 		
 		for(final Type<?> type : typesSorted)
 			type.initialize(model, collectors.get(type));
