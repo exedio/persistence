@@ -140,7 +140,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		
 		valueType = initialValueType!=null ? initialValueType : Type.forClass(valueClass);
 		assert valueClass.equals(valueType.getJavaClass());
-		valueType.registerReference(this);
 	}
 	
 	@Override

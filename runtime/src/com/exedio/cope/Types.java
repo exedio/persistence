@@ -88,12 +88,18 @@ final class Types
 			final Collector c = collectors.get(type);
 			c.recurse(collectors, c);
 		}
+		for(final Type<?> type : typesSorted)
+			for(final Field f : type.getDeclaredFields())
+				if(f instanceof ItemField)
+				{
+					final ItemField ff = (ItemField)f;
+					ff.postInitialize();
+					final Type valueType = ff.getValueType();
+					collectors.get(valueType).addReference(ff);
+				}
 		
 		for(final Type<?> type : typesSorted)
 			type.initialize(model, collectors.get(type));
-		
-		for(final Type<?> type : typesSorted)
-			type.postInitialize();
 		
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
@@ -168,6 +174,7 @@ final class Types
 		private ArrayList<Type> subTypes;
 		private ArrayList<Type> subTypesTransitively;
 		private ArrayList<Type> typesOfInstances;
+		private ArrayList<ItemField> references;
 		
 		Collector(final Type type, final int idTransiently)
 		{
@@ -203,6 +210,13 @@ final class Types
 					collectors.get(type).recurse(collectors, target);
 		}
 		
+		void addReference(final ItemField reference)
+		{
+			if(references==null)
+				references = new ArrayList<ItemField>();
+			references.add(reference);
+		}
+		
 		List<Type> getSubTypes()
 		{
 			return finish(subTypes);
@@ -217,11 +231,15 @@ final class Types
 		{
 			return finish(typesOfInstances);
 		}
+		List<ItemField> getReferences()
+		{
+			return finish(references);
+		}
 		
-		private static List<Type> finish(final ArrayList<Type> list)
+		private static <X> List<X> finish(final ArrayList<X> list)
 		{
 			if(list==null)
-				return Collections.<Type>emptyList();
+				return Collections.<X>emptyList();
 			else
 			{
 				switch(list.size())
@@ -232,7 +250,7 @@ final class Types
 					return Collections.singletonList(list.get(0));
 				default:
 					list.trimToSize();
-					return Collections.<Type>unmodifiableList(list);
+					return Collections.<X>unmodifiableList(list);
 				}
 			}
 		}

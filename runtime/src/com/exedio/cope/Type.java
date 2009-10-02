@@ -70,7 +70,6 @@ public final class Type<C extends Item>
 
 	private List<Type<? extends C>> subTypes = null;
 
-	private ArrayList<ItemField<C>> referencesWhileInitialization = new ArrayList<ItemField<C>>();
 	private List<ItemField<C>> declaredReferences = null;
 	private List<ItemField> references = null;
 	
@@ -337,11 +336,6 @@ public final class Type<C extends Item>
 		featuresWhileConstruction.add(feature);
 	}
 	
-	void registerReference(final ItemField<C> reference)
-	{
-		referencesWhileInitialization.add(reference);
-	}
-	
 	void initialize(final Model model, final Types.Collector collector)
 	{
 		if(model==null)
@@ -394,21 +388,11 @@ public final class Type<C extends Item>
 				this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
 				break;
 		}
-
-		for(final Field a : declaredFields)
-			if(a instanceof ItemField)
-				((ItemField)a).postInitialize();
-	}
-	
-	void postInitialize()
-	{
-		assert referencesWhileInitialization!=null;
+		
 		assert declaredReferences==null;
 		assert references==null;
 		
-		referencesWhileInitialization.trimToSize();
-		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
-		this.referencesWhileInitialization = null;
+		this.declaredReferences = castDeclaredReferences(collector.getReferences());
 		if(supertype!=null)
 		{
 			final List<ItemField> inherited = supertype.getReferences();
@@ -441,6 +425,12 @@ public final class Type<C extends Item>
 	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
 	{
 		return m;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<ItemField<C>> castDeclaredReferences(final List<ItemField> l)
+	{
+		return (List)l;
 	}
 	
 	@SuppressWarnings("unchecked")
