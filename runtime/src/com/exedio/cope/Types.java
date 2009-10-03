@@ -72,33 +72,33 @@ final class Types
 		for(final Type<?> type : explicitTypesSorted)
 			addTypeIncludingGenerated(type, typesSorted, 10);
 
-		final HashMap<Type, Collector> collectors = new HashMap<Type, Collector>();
+		final HashMap<Type, MountParameters> parametersMap = new HashMap<Type, MountParameters>();
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
-			collectors.put(type, new Collector(type, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
+			parametersMap.put(type, new MountParameters(type, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
 		for(final Type<?> type : typesSorted)
 		{
 			final Type supertype = type.getSupertype();
 			if(supertype!=null)
-				collectors.get(supertype).addSubType(type);
+				parametersMap.get(supertype).addSubType(type);
 		}
 		for(final Type<?> type : typesSorted)
 		{
-			final Collector c = collectors.get(type);
-			c.recurse(collectors, c, 10);
+			final MountParameters c = parametersMap.get(type);
+			c.recurse(parametersMap, c, 10);
 			for(final Field f : type.getDeclaredFields())
 				if(f instanceof ItemField)
 				{
 					final ItemField ff = (ItemField)f;
 					ff.postInitialize();
 					final Type valueType = ff.getValueType();
-					collectors.get(valueType).addReference(ff);
+					parametersMap.get(valueType).addReference(ff);
 				}
 		}
 		
 		for(final Type<?> type : typesSorted)
-			type.initialize(model, collectors.get(type));
+			type.mount(model, parametersMap.get(type));
 		
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
@@ -166,7 +166,7 @@ final class Types
 					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
 	
-	static final class Collector
+	static final class MountParameters
 	{
 		final Type type;
 		final int idTransiently;
@@ -175,7 +175,7 @@ final class Types
 		private ArrayList<Type> typesOfInstances;
 		private ArrayList<ItemField> references;
 		
-		Collector(final Type type, final int idTransiently)
+		MountParameters(final Type type, final int idTransiently)
 		{
 			this.type = type;
 			this.idTransiently = idTransiently;
@@ -201,7 +201,7 @@ final class Types
 				typesOfInstances.add(type);
 		}
 		
-		void recurse(final HashMap<Type, Collector> collectors, final Collector target, int hopCount)
+		void recurse(final HashMap<Type, MountParameters> parametersMap, final MountParameters target, int hopCount)
 		{
 			hopCount--;
 			if(hopCount<0)
@@ -210,7 +210,7 @@ final class Types
 			target.addSubTypeTransitively(type);
 			if(subTypes!=null)
 				for(final Type type : subTypes)
-					collectors.get(type).recurse(collectors, target, hopCount);
+					parametersMap.get(type).recurse(parametersMap, target, hopCount);
 		}
 		
 		void addReference(final ItemField reference)

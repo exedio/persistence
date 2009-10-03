@@ -99,7 +99,7 @@ public class TypeTest extends CopeAssert
 		assertTrue(type.isAssignableFrom(type));
 		
 		
-		// error if not initialized
+		// error if not mounted
 		final String modelMessage =
 			"model not set for type AnItem, " +
 			"probably you forgot to put this type into the model.";
@@ -175,7 +175,7 @@ public class TypeTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("type already initialized", e.getMessage());
+			assertEquals("type already mounted", e.getMessage());
 		}
 	}
 	

@@ -179,7 +179,7 @@ public final class Type<C extends Item>
 			entry.getValue().mount(this, entry.getKey());
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
-		// make sure, method registerInitialization fails from now on
+		// make sure, method registerMounted fails from now on
 		this.featuresWhileConstruction = null;
 
 		// declared fields / unique constraints
@@ -336,14 +336,14 @@ public final class Type<C extends Item>
 		featuresWhileConstruction.add(feature);
 	}
 	
-	void initialize(final Model model, final Types.Collector collector)
+	void mount(final Model model, final Types.MountParameters parameters)
 	{
 		if(model==null)
 			throw new RuntimeException();
-		assert this==collector.type;
+		assert this==parameters.type;
 
 		if(this.model!=null)
-			throw new IllegalStateException("type already initialized");
+			throw new IllegalStateException("type already mounted");
 		if(this.subTypes!=null)
 			throw new RuntimeException();
 		if(this.subTypesTransitively!=null)
@@ -362,11 +362,11 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		
 		this.model = model;
-		this.idTransiently = collector.idTransiently;
+		this.idTransiently = parameters.idTransiently;
 		
-		this.subTypes = castTypeInstanceList(collector.getSubTypes());
-		this.subTypesTransitively = castTypeInstanceList(collector.getSubTypesTransitively());
-		this.typesOfInstances = castTypeInstanceList(collector.getTypesOfInstances());
+		this.subTypes = castTypeInstanceList(parameters.getSubTypes());
+		this.subTypesTransitively = castTypeInstanceList(parameters.getSubTypesTransitively());
+		this.typesOfInstances = castTypeInstanceList(parameters.getTypesOfInstances());
 		
 		switch(typesOfInstances.size())
 		{
@@ -392,7 +392,7 @@ public final class Type<C extends Item>
 		assert declaredReferences==null;
 		assert references==null;
 		
-		this.declaredReferences = castDeclaredReferences(collector.getReferences());
+		this.declaredReferences = castDeclaredReferences(parameters.getReferences());
 		if(supertype!=null)
 		{
 			final List<ItemField> inherited = supertype.getReferences();
