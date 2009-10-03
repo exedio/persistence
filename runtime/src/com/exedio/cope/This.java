@@ -36,9 +36,9 @@ public final class This<E extends Item> extends Feature implements Function<E>, 
 	}
 	
 	@Override
-	void initialize(final Type<? extends Item> type, final String name)
+	void mount(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name);
+		super.mount(type, name);
 		assert this.type == type;
 		assert NAME.equals(name);
 	}

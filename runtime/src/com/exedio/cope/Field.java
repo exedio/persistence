@@ -194,7 +194,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	
 	final void registerPattern(final Pattern pattern)
 	{
-		if(isInitialized())
+		if(isMounted())
 			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
 		if(pattern==null)
 			throw new NullPointerException();
@@ -210,7 +210,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 */
 	public final Pattern getPattern()
 	{
-		if(!isInitialized())
+		if(!isMounted())
 			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
 		if(patternWhileTypeInitialization!=null)
 			throw new RuntimeException();
@@ -223,9 +223,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	private Column column;
 	
 	@Override
-	void initialize(final Type<? extends Item> type, final String name)
+	void mount(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name);
+		super.mount(type, name);
 		
 		this.pattern = this.patternWhileTypeInitialization;
 		this.patternWhileTypeInitialization = null;

@@ -35,7 +35,7 @@ public class FeatureTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("feature not initialized", e.getMessage());
+			assertEquals("feature not mounted", e.getMessage());
 		}
 		try
 		{
@@ -44,7 +44,7 @@ public class FeatureTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("feature not initialized", e.getMessage());
+			assertEquals("feature not mounted", e.getMessage());
 		}
 		try
 		{
@@ -53,7 +53,7 @@ public class FeatureTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("feature not initialized", e.getMessage());
+			assertEquals("feature not mounted", e.getMessage());
 		}
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
@@ -80,7 +80,7 @@ public class FeatureTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("feature already initialized: typeId.featureName", e.getMessage());
+			assertEquals("feature already mounted: typeId.featureName", e.getMessage());
 		}
 	}
 	

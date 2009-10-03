@@ -28,16 +28,16 @@ import com.exedio.cope.util.CharSet;
 public abstract class Feature
 {
 	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
-	private Init init = null;
+	private Mount mount = null;
 	private java.lang.reflect.Field annotationField = null;
 	
-	private static final class Init
+	private static final class Mount
 	{
 		final Type<? extends Item> type;
 		final String name;
 		final String id;
 		
-		Init(final Type<? extends Item> type, final String name)
+		Mount(final Type<? extends Item> type, final String name)
 		{
 			assert type!=null;
 			assert name!=null;
@@ -56,7 +56,7 @@ public abstract class Feature
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void initialize(final Type<? extends Item> type, final String name)
+	void mount(final Type<? extends Item> type, final String name)
 	{
 		{
 			final int l = name.length();
@@ -65,34 +65,34 @@ public abstract class Feature
 					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 		
-		if(this.init!=null)
-			throw new IllegalStateException("feature already initialized: " + init.id);
-		this.init = new Init(type, name);
+		if(this.mount!=null)
+			throw new IllegalStateException("feature already mounted: " + mount.id);
+		this.mount = new Mount(type, name);
 		
-		type.registerInitialization(this);
+		type.registerMounted(this);
 	}
 	
-	private final Init init()
+	private final Mount mount()
 	{
-		final Init init = this.init;
-		if(init==null)
-			throw new IllegalStateException("feature not initialized");
-		return init;
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 	
-	final boolean isInitialized()
+	final boolean isMounted()
 	{
-		return init!=null;
+		return mount!=null;
 	}
 	
 	public Type<? extends Item> getType()
 	{
-		return init().type;
+		return mount().type;
 	}
 	
 	public final String getName()
 	{
-		return init().name;
+		return mount().name;
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public abstract class Feature
 	 */
 	public final String getID()
 	{
-		return init().id;
+		return mount().id;
 	}
 	
 	final void setAnnotationField(final java.lang.reflect.Field annotationField)
@@ -125,7 +125,7 @@ public abstract class Feature
 		return Collections.<Wrapper>emptyList();
 	}
 	
-	void toStringNonInitialized(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf)
 	{
 		bf.append(super.toString());
 	}
@@ -133,25 +133,25 @@ public abstract class Feature
 	@Override
 	public final String toString()
 	{
-		final Init init = this.init;
-		if(init!=null)
+		final Mount mount = this.mount;
+		if(mount!=null)
 		{
-			return init.id;
+			return mount.id;
 		}
 		else
 		{
 			final StringBuilder bf = new StringBuilder();
-			toStringNonInitialized(bf);
+			toStringNotMounted(bf);
 			return bf.toString();
 		}
 	}
 	
 	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
-		final Init init = this.init;
-		if(init!=null)
-			init.toString(bf, defaultType);
+		final Mount mount = this.mount;
+		if(mount!=null)
+			mount.toString(bf, defaultType);
 		else
-			toStringNonInitialized(bf);
+			toStringNotMounted(bf);
 	}
 }

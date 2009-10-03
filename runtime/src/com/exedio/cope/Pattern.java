@@ -82,7 +82,7 @@ public abstract class Pattern extends Feature
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
 	 * for the first time.
 	 */
-	protected void initialize()
+	protected void initialize() // TODO rename to mount
 	{
 		// empty default implementation
 	}
@@ -114,15 +114,15 @@ public abstract class Pattern extends Feature
 	}
 	
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name)
+	final void mount(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name);
+		super.mount(type, name);
 		initialize();
 
 		for(final Field<?> source : sourceFieldMapGather.keySet())
 		{
-			if(!source.isInitialized())
-				source.initialize(type, name + sourceFieldMapGather.get(source));
+			if(!source.isMounted())
+				source.mount(type, name + sourceFieldMapGather.get(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))

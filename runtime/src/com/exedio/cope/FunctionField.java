@@ -90,12 +90,12 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name)
+	final void mount(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name);
+		super.mount(type, name);
 		
 		if(unique)
-			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
+			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
 	}
 	
 	final void checkValueClass(final Class<? extends Object> superClass)

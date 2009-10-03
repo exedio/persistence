@@ -174,9 +174,9 @@ public final class Type<C extends Item>
 
 		// declared features
 		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
-		thisFunction.initialize(this, This.NAME);
+		thisFunction.mount(this, This.NAME);
 		for(final Map.Entry<String, Feature> entry : featureMap.entrySet())
-			entry.getValue().initialize(this, entry.getKey());
+			entry.getValue().mount(this, entry.getKey());
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerInitialization fails from now on
@@ -331,7 +331,7 @@ public final class Type<C extends Item>
 		return setValues;
 	}
 	
-	void registerInitialization(final Feature feature)
+	void registerMounted(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
 	}

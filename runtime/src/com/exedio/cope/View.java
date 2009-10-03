@@ -56,7 +56,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		if(sources[0] instanceof Feature)
 		{
 			final Feature f = (Feature)sources[0];
-			this.sourceType = f.isInitialized() ? f.getType() : null;
+			this.sourceType = f.isMounted() ? f.getType() : null;
 		}
 		else
 		{
@@ -145,7 +145,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	}
 	
 	@Override
-	final void toStringNonInitialized(final StringBuilder bf)
+	final void toStringNotMounted(final StringBuilder bf)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -193,12 +193,12 @@ public abstract class View<E> extends Feature implements Function<E>
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name)
+	final void mount(final Type<? extends Item> type, final String name)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
 			
-		super.initialize(type, name);
+		super.mount(type, name);
 	}
 	
 	@Override
