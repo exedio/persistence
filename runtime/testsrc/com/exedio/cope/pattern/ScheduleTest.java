@@ -85,7 +85,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(false, report.getRunType().isJavaClassExclusive());
 		assertSame(report, report.getRunType().getPattern());
 		assertEquals(null, report.getRunType().getSupertype());
-		assertEqualsUnmodifiable(list(), report.getRunType().getSubTypes());
+		assertEqualsUnmodifiable(list(), report.getRunType().getSubtypes());
 		assertEquals(false, report.getRunType().isAbstract());
 		assertEquals(Item.class, report.getRunType().getThis().getValueClass().getSuperclass());
 		assertEquals(report.getRunType(), report.getRunType().getThis().getValueType());

@@ -330,7 +330,7 @@ final class Generator
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		
 		o.write('\t');
-		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(type.allowSubtypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(finalArgPrefix);
@@ -358,11 +358,11 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 		
-		final boolean allowSubTypes = type.allowSubTypes();
+		final boolean allowSubtypes = type.allowSubtypes();
 		o.write('\t');
-		if(!allowSubTypes)
+		if(!allowSubtypes)
 			o.write("@SuppressWarnings(\"unused\") ");
-		writeModifier(option.getModifier(allowSubTypes ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(allowSubtypes ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(finalArgPrefix);

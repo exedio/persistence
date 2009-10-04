@@ -81,7 +81,7 @@ final class Types
 		{
 			final Type supertype = type.getSupertype();
 			if(supertype!=null)
-				parametersMap.get(supertype).addSubType(type);
+				parametersMap.get(supertype).addSubtype(type);
 		}
 		for(final Type<?> type : typesSorted)
 		{
@@ -170,8 +170,8 @@ final class Types
 	{
 		final Type type;
 		final int idTransiently;
-		private ArrayList<Type> subTypes;
-		private ArrayList<Type> subTypesTransitively;
+		private ArrayList<Type> subtypes;
+		private ArrayList<Type> subtypesTransitively;
 		private ArrayList<Type> typesOfInstances;
 		private ArrayList<ItemField> references;
 		
@@ -182,21 +182,21 @@ final class Types
 			assert (idTransiently<0) == type.isAbstract;
 		}
 		
-		void addSubType(final Type type)
+		void addSubtype(final Type type)
 		{
-			if(subTypes==null)
-				subTypes = new ArrayList<Type>();
-			subTypes.add(type);
+			if(subtypes==null)
+				subtypes = new ArrayList<Type>();
+			subtypes.add(type);
 		}
 		
-		void addSubTypeTransitively(final Type type)
+		void addSubtypeTransitively(final Type type)
 		{
-			if(subTypesTransitively==null)
+			if(subtypesTransitively==null)
 			{
-				subTypesTransitively = new ArrayList<Type>();
+				subtypesTransitively = new ArrayList<Type>();
 				typesOfInstances = new ArrayList<Type>();
 			}
-			subTypesTransitively.add(type);
+			subtypesTransitively.add(type);
 			if(!type.isAbstract)
 				typesOfInstances.add(type);
 		}
@@ -207,9 +207,9 @@ final class Types
 			if(hopCount<0)
 				throw new RuntimeException();
 			
-			target.addSubTypeTransitively(type);
-			if(subTypes!=null)
-				for(final Type type : subTypes)
+			target.addSubtypeTransitively(type);
+			if(subtypes!=null)
+				for(final Type type : subtypes)
 					parametersMap.get(type).recurse(parametersMap, target, hopCount);
 		}
 		
@@ -220,14 +220,14 @@ final class Types
 			references.add(reference);
 		}
 		
-		List<Type> getSubTypes()
+		List<Type> getSubtypes()
 		{
-			return finish(subTypes);
+			return finish(subtypes);
 		}
 		
-		List<Type> getSubTypesTransitively()
+		List<Type> getSubtypesTransitively()
 		{
-			return finish(subTypesTransitively);
+			return finish(subtypesTransitively);
 		}
 		
 		List<Type> getTypesOfInstances()

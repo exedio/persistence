@@ -99,7 +99,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(false, eventType.isJavaClassExclusive());
 		assertSame(HistoryItem.audit, eventType.getPattern());
 		assertEquals(null, eventType.getSupertype());
-		assertEqualsUnmodifiable(list(), eventType.getSubTypes());
+		assertEqualsUnmodifiable(list(), eventType.getSubtypes());
 		assertEquals(false, eventType.isAbstract());
 		assertEquals(Item.class, eventType.getThis().getValueClass().getSuperclass());
 		assertEquals(eventType, eventType.getThis().getValueType());
@@ -110,7 +110,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(false, featureType.isJavaClassExclusive());
 		assertSame(HistoryItem.audit, featureType.getPattern());
 		assertEquals(null, featureType.getSupertype());
-		assertEqualsUnmodifiable(list(), featureType.getSubTypes());
+		assertEqualsUnmodifiable(list(), featureType.getSubtypes());
 		assertEquals(false, featureType.isAbstract());
 		assertEquals(Item.class, featureType.getThis().getValueClass().getSuperclass());
 		assertEquals(featureType, featureType.getThis().getValueType());

@@ -105,21 +105,21 @@ public class InstanceOfTest extends AbstractRuntimeTest
 				e.getMessage());
 		}
 		
-		// test Type.getSubTypes()
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(), InstanceOfB2Item.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(), InstanceOfC1Item.TYPE.getSubTypes());
-		// test Type.getSubTypesTransitively()
-		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubTypesTransitively());
+		// test Type.getSubtypes()
+		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(), InstanceOfB2Item.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(), InstanceOfC1Item.TYPE.getSubtypes());
+		// test Type.getSubtypesTransitively()
+		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
 		// test Type.getTypesOfInstances()
 		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getTypesOfInstances());
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
 		
 		
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));

@@ -81,10 +81,10 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		assertEquals(null, abstractType.getSupertype());
 		assertEquals(abstractType, subType.getSupertype());
 		
-		assertEqualsUnmodifiable(list(subType), abstractType.getSubTypes());
-		assertEqualsUnmodifiable(list(), subType.getSubTypes());
-		assertEqualsUnmodifiable(list(abstractType, subType), abstractType.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(subType), subType.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(subType), abstractType.getSubtypes());
+		assertEqualsUnmodifiable(list(), subType.getSubtypes());
+		assertEqualsUnmodifiable(list(abstractType, subType), abstractType.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(subType), subType.getSubtypesTransitively());
 		assertEqualsUnmodifiable(
 				list(
 					subType

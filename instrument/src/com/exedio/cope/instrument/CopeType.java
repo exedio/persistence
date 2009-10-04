@@ -138,7 +138,7 @@ final class CopeType
 		return subtypes;
 	}
 	
-	boolean allowSubTypes()
+	boolean allowSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 

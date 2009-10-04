@@ -173,7 +173,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			type.getSubTypes();
+			type.getSubtypes();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -182,7 +182,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			type.getSubTypesTransitively();
+			type.getSubtypesTransitively();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -231,7 +231,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			typO.getSubTypes();
+			typO.getSubtypes();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -240,7 +240,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			typO.getSubTypesTransitively();
+			typO.getSubtypesTransitively();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -267,10 +267,10 @@ public class TypeComplexTest extends CopeAssert
 		assertEqualsUnmodifiable(list(AnotherItem.itemField), typO.getReferences());
 		assertEqualsUnmodifiable(list(AnotherItem.itemField), type.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), typO.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(typO), type.getSubTypes());
-		assertEqualsUnmodifiable(list(), typO.getSubTypes());
-		assertEqualsUnmodifiable(list(type, typO), type.getSubTypesTransitively());
-		assertEqualsUnmodifiable(list(typO), typO.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(typO), type.getSubtypes());
+		assertEqualsUnmodifiable(list(), typO.getSubtypes());
+		assertEqualsUnmodifiable(list(type, typO), type.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(typO), typO.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(type, typO), type.getTypesOfInstances());
 		assertEqualsUnmodifiable(list(typO), typO.getTypesOfInstances());
 	}

@@ -355,8 +355,8 @@ public final class Type<C extends Item>
 	{
 		final Model model;
 		
-		final List<Type<? extends C>> subTypes;
-		final List<Type<? extends C>> subTypesTransitively;
+		final List<Type<? extends C>> subtypes;
+		final List<Type<? extends C>> subtypesTransitively;
 		final List<Type<? extends C>> typesOfInstances;
 		
 		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
@@ -370,8 +370,8 @@ public final class Type<C extends Item>
 		{
 			this.model = model;
 			
-			this.subTypes = castTypeInstanceList(parameters.getSubTypes());
-			this.subTypesTransitively = castTypeInstanceList(parameters.getSubTypesTransitively());
+			this.subtypes = castTypeInstanceList(parameters.getSubtypes());
+			this.subtypesTransitively = castTypeInstanceList(parameters.getSubtypesTransitively());
 			this.typesOfInstances = castTypeInstanceList(parameters.getTypesOfInstances());
 			
 			switch(typesOfInstances.size())
@@ -598,19 +598,19 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @see #getSubTypesTransitively()
+	 * @see #getSubtypesTransitively()
 	 */
-	public List<Type<? extends C>> getSubTypes()
+	public List<Type<? extends C>> getSubtypes()
 	{
-		return mount().subTypes;
+		return mount().subtypes;
 	}
 	
 	/**
-	 * @see #getSubTypes()
+	 * @see #getSubtypes()
 	 */
-	public List<Type<? extends C>> getSubTypesTransitively()
+	public List<Type<? extends C>> getSubtypesTransitively()
 	{
-		return mount().subTypesTransitively;
+		return mount().subtypesTransitively;
 	}
 	
 	public boolean isAssignableFrom(final Type<?> type)
@@ -1071,5 +1071,23 @@ public final class Type<C extends Item>
 	public boolean hasUniqueJavaClass()
 	{
 		return isJavaClassExclusive();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSubtypes()} instead
+	 */
+	@Deprecated
+	public List<Type<? extends C>> getSubTypes()
+	{
+		return getSubtypes();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSubtypesTransitively()} instead
+	 */
+	@Deprecated
+	public List<Type<? extends C>> getSubTypesTransitively()
+	{
+		return getSubtypesTransitively();
 	}
 }

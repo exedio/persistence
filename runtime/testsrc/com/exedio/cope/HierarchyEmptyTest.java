@@ -39,8 +39,8 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	{
 		// model HierarchyEmptySuper
 		assertEquals(null, HierarchyEmptySuper.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getTypesOfInstances());
 		assertTrue(HierarchyEmptySuper.TYPE.isAssignableFrom(HierarchyEmptySuper.TYPE));
 		assertTrue(HierarchyEmptySuper.TYPE.isAssignableFrom(HierarchyEmptySuper.TYPE));
@@ -71,8 +71,8 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		
 		// model HierarchyEmptySub
 		assertEquals(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE), HierarchyEmptySub.TYPE.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE), HierarchyEmptySub.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE), HierarchyEmptySub.TYPE.getTypesOfInstances());
 		assertFalse(HierarchyEmptySub.TYPE.isAssignableFrom(HierarchyEmptySuper.TYPE));
 		assertTrue(HierarchyEmptySub.TYPE.isAssignableFrom(HierarchyEmptySub.TYPE));

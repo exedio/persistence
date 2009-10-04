@@ -132,7 +132,7 @@ public class TypeTest extends CopeAssert
 		}
 		try
 		{
-			type.getSubTypes();
+			type.getSubtypes();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -141,7 +141,7 @@ public class TypeTest extends CopeAssert
 		}
 		try
 		{
-			type.getSubTypesTransitively();
+			type.getSubtypesTransitively();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -164,8 +164,8 @@ public class TypeTest extends CopeAssert
 		assertSame(model, type.getModel());
 		assertEqualsUnmodifiable(list(), type.getReferences());
 		assertEqualsUnmodifiable(list(), type.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(), type.getSubTypes());
-		assertEqualsUnmodifiable(list(type), type.getSubTypesTransitively());
+		assertEqualsUnmodifiable(list(), type.getSubtypes());
+		assertEqualsUnmodifiable(list(type), type.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(type), type.getTypesOfInstances());
 		
 		try

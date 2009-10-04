@@ -101,7 +101,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, stringsType.isJavaClassExclusive());
 		assertSame(SetFieldItem.strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
-		assertEqualsUnmodifiable(list(), stringsType.getSubTypes());
+		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
 		assertEquals(false, stringsType.isAbstract());
 		assertEquals(Item.class, stringsType.getThis().getValueClass().getSuperclass());
 		assertEquals(stringsType, stringsType.getThis().getValueType());
@@ -112,7 +112,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, datesType.isJavaClassExclusive());
 		assertSame(SetFieldItem.dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
-		assertEqualsUnmodifiable(list(), datesType.getSubTypes());
+		assertEqualsUnmodifiable(list(), datesType.getSubtypes());
 		assertEquals(false, datesType.isAbstract());
 		assertEquals(Item.class, datesType.getThis().getValueClass().getSuperclass());
 		assertEquals(datesType, datesType.getThis().getValueType());

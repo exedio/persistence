@@ -108,7 +108,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(false, failureType.isJavaClassExclusive());
 		assertSame(DispatcherItem.toTarget, failureType.getPattern());
 		assertEquals(null, failureType.getSupertype());
-		assertEqualsUnmodifiable(list(), failureType.getSubTypes());
+		assertEqualsUnmodifiable(list(), failureType.getSubtypes());
 		assertEquals(false, failureType.isAbstract());
 		assertEquals(Item.class, failureType.getThis().getValueClass().getSuperclass());
 		assertEquals(failureType, failureType.getThis().getValueType());

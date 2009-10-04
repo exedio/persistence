@@ -85,7 +85,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(false, item.name.getRelationType().isJavaClassExclusive());
 		assertSame(item.name, item.name.getRelationType().getPattern());
 		assertEquals(null, item.name.getRelationType().getSupertype());
-		assertEquals(list(), item.name.getRelationType().getSubTypes());
+		assertEquals(list(), item.name.getRelationType().getSubtypes());
 		assertEqualsUnmodifiable(
 				list(
 						item.name.getRelationType().getThis(),
