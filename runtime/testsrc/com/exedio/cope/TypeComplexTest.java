@@ -149,7 +149,7 @@ public class TypeComplexTest extends CopeAssert
 			type.getModel();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -160,7 +160,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
@@ -169,34 +169,34 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getSubTypes();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getSubTypesTransitively();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getTypesOfInstances();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		// AnotherItem
 		final String modelMessageO =
@@ -207,7 +207,7 @@ public class TypeComplexTest extends CopeAssert
 			typO.getModel();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -218,7 +218,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessageO, e.getMessage());
 		}
 		try
 		{
@@ -227,34 +227,34 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessageO, e.getMessage());
 		}
 		try
 		{
 			typO.getSubTypes();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessageO, e.getMessage());
 		}
 		try
 		{
 			typO.getSubTypesTransitively();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessageO, e.getMessage());
 		}
 		try
 		{
 			typO.getTypesOfInstances();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessageO, e.getMessage());
 		}
 		
 		

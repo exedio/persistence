@@ -108,7 +108,7 @@ public class TypeTest extends CopeAssert
 			type.getModel();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -119,7 +119,7 @@ public class TypeTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
@@ -128,34 +128,34 @@ public class TypeTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getSubTypes();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getSubTypesTransitively();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		try
 		{
 			type.getTypesOfInstances();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(modelMessage, e.getMessage());
 		}
 		
 		

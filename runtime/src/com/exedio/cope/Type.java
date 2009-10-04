@@ -67,18 +67,8 @@ public final class Type<C extends Item>
 	private final Constructor<C> activationConstructor;
 	private final Method beforeNewItemMethod;
 	private final Sequence primaryKeySequence;
-
-	private List<Type<? extends C>> subTypes = null;
-
-	private List<ItemField<C>> declaredReferences = null;
-	private List<ItemField> references = null;
 	
-	private Model model;
-	private List<Type<? extends C>> subTypesTransitively = null;
-	private List<Type<? extends C>> typesOfInstances = null;
-	private HashMap<String, Type<? extends C>> typesOfInstancesMap;
-	private Type<? extends C> onlyPossibleTypeOfInstances;
-	private String[] typesOfInstancesColumnValues;
+	private Mount<C> mount = null;
 	
 	/**
 	 * This id uniquely identifies a type within its model.
@@ -342,101 +332,119 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		assert this==parameters.type;
 
-		if(this.model!=null)
+		if(this.mount!=null)
 			throw new IllegalStateException("type already mounted");
-		if(this.subTypes!=null)
-			throw new RuntimeException();
-		if(this.subTypesTransitively!=null)
-			throw new RuntimeException();
-		if(this.typesOfInstances!=null)
-			throw new RuntimeException();
-		if(this.typesOfInstancesMap!=null)
-			throw new RuntimeException();
-		if(this.onlyPossibleTypeOfInstances!=null)
-			throw new RuntimeException();
-		if(this.typesOfInstancesColumnValues!=null)
-			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.idTransiently>=0)
 			throw new RuntimeException();
 		
-		this.model = model;
+		this.mount = new Mount<C>(model, parameters);
 		this.idTransiently = parameters.idTransiently;
+	}
+	
+	private Mount<C> mount()
+	{
+		if(mount==null)
+			throw new IllegalStateException("model not set for type " + id + ", probably you forgot to put this type into the model.");
+
+		return mount;
+	}
+	
+	private static final class Mount<C extends Item>
+	{
+		final Model model;
 		
-		this.subTypes = castTypeInstanceList(parameters.getSubTypes());
-		this.subTypesTransitively = castTypeInstanceList(parameters.getSubTypesTransitively());
-		this.typesOfInstances = castTypeInstanceList(parameters.getTypesOfInstances());
+		final List<Type<? extends C>> subTypes;
+		final List<Type<? extends C>> subTypesTransitively;
+		final List<Type<? extends C>> typesOfInstances;
 		
-		switch(typesOfInstances.size())
+		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
+		final Type<? extends C> onlyPossibleTypeOfInstances;
+		final String[] typesOfInstancesColumnValues;
+		
+		final List<ItemField<C>> declaredReferences;
+		final List<ItemField> references;
+		
+		Mount(final Model model, final Types.MountParameters parameters)
 		{
-			case 0:
-				throw new RuntimeException("type " + id + " is abstract and has no non-abstract (even indirect) subtypes");
-			case 1:
-				onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
-				break;
-			default:
-				final HashMap<String, Type> typesOfInstancesMap = new HashMap<String, Type>();
-				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
-				int i = 0;
-				for(final Type t : typesOfInstances)
+			this.model = model;
+			
+			this.subTypes = castTypeInstanceList(parameters.getSubTypes());
+			this.subTypesTransitively = castTypeInstanceList(parameters.getSubTypesTransitively());
+			this.typesOfInstances = castTypeInstanceList(parameters.getTypesOfInstances());
+			
+			switch(typesOfInstances.size())
+			{
+				case 0:
+					throw new RuntimeException("type " + parameters.type.id + " is abstract and has no non-abstract (even indirect) subtypes");
+				case 1:
+					this.typesOfInstancesMap = null;
+					this.onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
+					this.typesOfInstancesColumnValues = null;
+					break;
+				default:
+					final HashMap<String, Type> typesOfInstancesMap = new HashMap<String, Type>();
+					this.typesOfInstancesColumnValues = new String[typesOfInstances.size()];
+					int i = 0;
+					for(final Type t : typesOfInstances)
+					{
+						if(typesOfInstancesMap.put(t.id, t)!=null)
+							throw new RuntimeException(t.id);
+						typesOfInstancesColumnValues[i++] = t.id;
+					}
+					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
+					this.onlyPossibleTypeOfInstances = null;
+					break;
+			}
+			
+			this.declaredReferences = castDeclaredReferences(parameters.getReferences());
+			final Type<?> supertype = parameters.type.supertype;
+			if(supertype!=null)
+			{
+				final List<ItemField> inherited = supertype.getReferences();
+				final List<ItemField<C>> declared = declaredReferences;
+				if(declared.isEmpty())
+					this.references = inherited;
+				else if(inherited.isEmpty())
+					this.references = castReferences(declared);
+				else
 				{
-					if(typesOfInstancesMap.put(t.id, t)!=null)
-						throw new RuntimeException(t.id);
-					typesOfInstancesColumnValues[i++] = t.id;
+					final ArrayList<ItemField> result = new ArrayList<ItemField>(inherited);
+					result.addAll(declared);
+					result.trimToSize();
+					this.references = Collections.unmodifiableList(result);
 				}
-				this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
-				break;
-		}
-		
-		assert declaredReferences==null;
-		assert references==null;
-		
-		this.declaredReferences = castDeclaredReferences(parameters.getReferences());
-		if(supertype!=null)
-		{
-			final List<ItemField> inherited = supertype.getReferences();
-			final List<ItemField<C>> declared = declaredReferences;
-			if(declared.isEmpty())
-				this.references = inherited;
-			else if(inherited.isEmpty())
-				this.references = castReferences(declared);
+			}
 			else
 			{
-				final ArrayList<ItemField> result = new ArrayList<ItemField>(inherited);
-				result.addAll(declared);
-				result.trimToSize();
-				this.references = Collections.unmodifiableList(result);
+				this.references = castReferences(declaredReferences);
 			}
 		}
-		else
+		
+		@SuppressWarnings("unchecked")
+		private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
 		{
-			this.references = castReferences(declaredReferences);
+			return (List)l;
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
-	{
-		return (List)l;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
-	{
-		return m;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private List<ItemField<C>> castDeclaredReferences(final List<ItemField> l)
-	{
-		return (List)l;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private List<ItemField> castReferences(final List l)
-	{
-		return l;
+		
+		@SuppressWarnings("unchecked")
+		private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
+		{
+			return m;
+		}
+		
+		@SuppressWarnings("unchecked")
+		private List<ItemField<C>> castDeclaredReferences(final List<ItemField> l)
+		{
+			return (List)l;
+		}
+		
+		@SuppressWarnings("unchecked")
+		private List<ItemField> castReferences(final List l)
+		{
+			return l;
+		}
 	}
 	
 	/**
@@ -455,12 +463,12 @@ public final class Type<C extends Item>
 		if(database==null)
 			throw new RuntimeException();
 
-		if(this.model==null)
+		if(this.mount==null)
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		
-		this.table = new Table(database, schemaId, supertype, typesOfInstancesColumnValues);
+		this.table = new Table(database, schemaId, supertype, mount().typesOfInstancesColumnValues);
 		if(supertype==null)
 		{
 			primaryKeySequence.connect(database, table.primaryKey);
@@ -477,7 +485,7 @@ public final class Type<C extends Item>
 	
 	void disconnect()
 	{
-		if(this.model==null)
+		if(this.mount==null)
 			throw new RuntimeException();
 		if(this.table==null)
 			throw new RuntimeException();
@@ -519,10 +527,7 @@ public final class Type<C extends Item>
 	
 	public Model getModel()
 	{
-		if(model==null)
-			throw new RuntimeException("model not set for type " + id + ", probably you forgot to put this type into the model.");
-
-		return model;
+		return mount().model;
 	}
 	
 	/**
@@ -535,29 +540,22 @@ public final class Type<C extends Item>
 	 */
 	public List<Type<? extends C>> getTypesOfInstances()
 	{
-		if(typesOfInstances==null)
-			throw new RuntimeException();
-
-		return typesOfInstances;
+		return mount().typesOfInstances;
 	}
 	
 	Type<? extends C> getTypeOfInstance(final String id)
 	{
-		return typesOfInstancesMap.get(id);
+		return mount().typesOfInstancesMap.get(id);
 	}
 	
 	Type<? extends C> getOnlyPossibleTypeOfInstances()
 	{
-		if(typesOfInstances==null)
-			throw new RuntimeException();
-
-		return onlyPossibleTypeOfInstances;
+		return mount().onlyPossibleTypeOfInstances;
 	}
 	
 	String[] getTypesOfInstancesColumnValues()
 	{
-		if(typesOfInstances==null)
-			throw new RuntimeException();
+		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;
 		
 		if(typesOfInstancesColumnValues==null)
 			return null;
@@ -571,7 +569,7 @@ public final class Type<C extends Item>
 	
 	Table getTable()
 	{
-		if(model==null)
+		if(table==null)
 			throw new RuntimeException();
 
 		return table;
@@ -604,10 +602,7 @@ public final class Type<C extends Item>
 	 */
 	public List<Type<? extends C>> getSubTypes()
 	{
-		if(subTypes==null)
-			throw new RuntimeException();
-		
-		return subTypes;
+		return mount().subTypes;
 	}
 	
 	/**
@@ -615,10 +610,7 @@ public final class Type<C extends Item>
 	 */
 	public List<Type<? extends C>> getSubTypesTransitively()
 	{
-		if(subTypesTransitively==null)
-			throw new RuntimeException();
-
-		return subTypesTransitively;
+		return mount().subTypesTransitively;
 	}
 	
 	public boolean isAssignableFrom(final Type<?> type)
@@ -656,9 +648,7 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemField<C>> getDeclaredReferences()
 	{
-		if(declaredReferences==null)
-			throw new IllegalStateException();
-		return declaredReferences;
+		return mount().declaredReferences;
 	}
 
 	/**
@@ -669,9 +659,7 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemField> getReferences()
 	{
-		if(references==null)
-			throw new IllegalStateException();
-		return references;
+		return mount().references;
 	}
 
 	/**
