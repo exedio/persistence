@@ -18,21 +18,21 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
+import java.sql.Connection;
 
 import com.exedio.dsmf.Schema;
 
 interface SequenceImpl
 {
 	void makeSchema(Schema schema);
-	int next() throws SQLException;
+	int next(Connection connection);
 	
 	/**
-	 * Returns the same value as {@link #next()},
+	 * Returns the same value as {@link #next(Connection)},
 	 * but without incrementing the internal state.
-	 * Thus multiple calls to {@link #getNext()} do
+	 * Thus multiple calls to {@link #getNext(Connection)} do
 	 * return the same value again and again.
 	 */
-	int getNext() throws SQLException;
+	int getNext(Connection connection);
 	void flush();
 }

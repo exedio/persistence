@@ -143,7 +143,7 @@ final class Database
 		return
 			cluster
 			? new SequenceImplSequence(column, start, this)
-			: new SequenceImplMax(column, start, connectionPool);
+			: new SequenceImplMax(column, start);
 	}
 	
 	void addTable(final Table table)
