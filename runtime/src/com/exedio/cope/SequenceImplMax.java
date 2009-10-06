@@ -19,21 +19,26 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Schema;
 
 final class SequenceImplMax implements SequenceImpl
 {
 	private final IntegerColumn column;
 	private final int start;
+	private final Pool<Connection> connectionPool;
+	
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock = new Object();
 
-	SequenceImplMax(final IntegerColumn column, final int start)
+	SequenceImplMax(final IntegerColumn column, final int start, final Pool<Connection> connectionPool)
 	{
 		this.column = column;
 		this.start = start;
+		this.connectionPool = connectionPool;
 	}
 	
 	public void makeSchema(final Schema schema)
@@ -41,7 +46,7 @@ final class SequenceImplMax implements SequenceImpl
 		// empty
 	}
 	
-	public int next(final Connection connection)
+	public int next() throws SQLException
 	{
 		synchronized(lock)
 		{
@@ -52,9 +57,23 @@ final class SequenceImplMax implements SequenceImpl
 			}
 			else
 			{
-				final Integer current = column.table.database.max(connection, column);
-				result = current!=null ? (current.intValue() + 1) : start;
-				computed = true;
+				Connection connection = null;
+				try
+				{
+					connection = connectionPool.get();
+					connection.setAutoCommit(false);
+					
+					final Integer current = column.table.database.max(connection, column);
+					result = current!=null ? (current.intValue() + 1) : start;
+					computed = true;
+					
+					connection.commit();
+				}
+				finally
+				{
+					if(connection!=null)
+						connectionPool.put(connection);
+				}
 			}
 			
 			next = result + 1;
@@ -62,7 +81,7 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 	
-	public int getNext(final Connection connection)
+	public int getNext() throws SQLException
 	{
 		synchronized(lock)
 		{
@@ -73,8 +92,22 @@ final class SequenceImplMax implements SequenceImpl
 			}
 			else
 			{
-				final Integer current = column.table.database.max(connection, column);
-				result = current!=null ? (current.intValue() + 1) : start;
+				Connection connection = null;
+				try
+				{
+					connection = connectionPool.get();
+					connection.setAutoCommit(false);
+					
+					final Integer current = column.table.database.max(connection, column);
+					result = current!=null ? (current.intValue() + 1) : start;
+					
+					connection.commit();
+				}
+				finally
+				{
+					if(connection!=null)
+						connectionPool.put(connection);
+				}
 			}
 			
 			return result;

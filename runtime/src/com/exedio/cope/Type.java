@@ -802,7 +802,7 @@ public final class Type<C extends Item>
 					{
 						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
 						if(sequence!=null)
-							defaultValue = sequence.next(getModel().getCurrentTransaction().getConnection());
+							defaultValue = sequence.next();
 					}
 				}
 				if(defaultValue!=null)
@@ -834,8 +834,7 @@ public final class Type<C extends Item>
 	
 	int nextPrimaryKey()
 	{
-		// TODO use a separate transaction to avoid dead locks
-		return primaryKeySequence.next(getModel().getCurrentTransaction().getConnection());
+		return primaryKeySequence.next();
 	}
 	
 	/**

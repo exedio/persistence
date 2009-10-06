@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 
@@ -27,6 +29,7 @@ final class SequenceImplSequence implements SequenceImpl
 {
 	private final int start;
 	private final Database database;
+	private final Pool<Connection> connectionPool;
 	private final String name;
 
 	SequenceImplSequence(final IntegerColumn column, final int start, final Database database)
@@ -36,6 +39,7 @@ final class SequenceImplSequence implements SequenceImpl
 		
 		this.start = start;
 		this.database = database;
+		this.connectionPool = database.connectionPool;
 		this.name = database.makeName(column.table.id + '_' + column.id + "_Seq");
 	}
 	
@@ -44,14 +48,42 @@ final class SequenceImplSequence implements SequenceImpl
 		new Sequence(schema, name, start);
 	}
 
-	public int next(final Connection connection)
+	public int next() throws SQLException
 	{
-		return database.dialect.nextSequence(database, connection, name);
+		Connection connection = null;
+		try
+		{
+			connection = connectionPool.get();
+			connection.setAutoCommit(false);
+			final Integer result =
+				database.dialect.nextSequence(database, connection, name);
+			connection.commit();
+			return result;
+		}
+		finally
+		{
+			if(connection!=null)
+				connectionPool.put(connection);
+		}
 	}
 	
-	public int getNext(final Connection connection)
+	public int getNext() throws SQLException
 	{
-		return database.dialect.getNextSequence(database, connection, name);
+		Connection connection = null;
+		try
+		{
+			connection = connectionPool.get();
+			connection.setAutoCommit(false);
+			final Integer result =
+				database.dialect.getNextSequence(database, connection, name);
+			connection.commit();
+			return result;
+		}
+		finally
+		{
+			if(connection!=null)
+				connectionPool.put(connection);
+		}
 	}
 	
 	public void flush()
