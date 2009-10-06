@@ -65,7 +65,7 @@ public final class Type<C extends Item>
 	private final List<CopyConstraint> copyConstraints;
 
 	private final Constructor<C> activationConstructor;
-	private final Method beforeNewItemMethod;
+	private final Method[] beforeNewItemMethods;
 	private final Sequence primaryKeySequence;
 	
 	private Mount<C> mount = null;
@@ -234,7 +234,7 @@ public final class Type<C extends Item>
 		// because they are needed in the initialization phase
 		// only.
 		this.activationConstructor = getActivationConstructor();
-		this.beforeNewItemMethod = getBeforeNewItemMethod();
+		this.beforeNewItemMethods = getBeforeNewItemMethods(supertype);
 
 		this.primaryKeySequence =
 			supertype!=null
@@ -273,6 +273,23 @@ public final class Type<C extends Item>
 		}
 	}
 	
+	private Method[] getBeforeNewItemMethods(final Type supertype)
+	{
+		final Method declared = getBeforeNewItemMethod();
+		final Method[] inherited = supertype!=null ? supertype.beforeNewItemMethods : null;
+		if(declared==null)
+			return inherited;
+		else if(inherited==null)
+			return new Method[]{declared};
+		else
+		{
+			final Method[] result = new Method[inherited.length+1];
+			result[0] = declared;
+			System.arraycopy(inherited, 0, result, 1, inherited.length);
+			return result;
+		}
+	}
+	
 	private Method getBeforeNewItemMethod()
 	{
 		final Method result;
@@ -299,11 +316,12 @@ public final class Type<C extends Item>
 	
 	SetValue[] doBeforeNewItem(SetValue[] setValues)
 	{
-		if(beforeNewItemMethod!=null)
+		if(beforeNewItemMethods!=null)
 		{
 			try
 			{
-				setValues = (SetValue[])beforeNewItemMethod.invoke(null, (Object)setValues);
+				for(final Method m : beforeNewItemMethods)
+					setValues = (SetValue[])m.invoke(null, (Object)setValues);
 			}
 			catch(InvocationTargetException e)
 			{
@@ -314,9 +332,6 @@ public final class Type<C extends Item>
 				throw new RuntimeException(e);
 			}
 		}
-		
-		if(supertype!=null)
-			setValues = supertype.doBeforeNewItem(setValues);
 		
 		return setValues;
 	}
