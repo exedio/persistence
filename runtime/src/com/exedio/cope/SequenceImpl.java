@@ -30,7 +30,7 @@ interface SequenceImpl
 	/**
 	 * Returns the same value as {@link #next(Connection)},
 	 * but without incrementing the internal state.
-	 * This multiple calls to {@link #getNext(Connection)} do
+	 * Thus multiple calls to {@link #getNext(Connection)} do
 	 * return the same value again and again.
 	 */
 	int getNext(Connection connection);
