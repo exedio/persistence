@@ -233,8 +233,8 @@ public final class Type<C extends Item>
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.activationConstructor = getActivationConstructor();
-		this.beforeNewItemMethods = getBeforeNewItemMethods(supertype);
+		this.activationConstructor = getActivationConstructor(javaClass);
+		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
 
 		this.primaryKeySequence =
 			supertype!=null
@@ -273,9 +273,9 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Method[] getBeforeNewItemMethods(final Type supertype)
+	private static Method[] getBeforeNewItemMethods(final Class javaClass, final Type supertype)
 	{
-		final Method declared = getBeforeNewItemMethod();
+		final Method declared = getBeforeNewItemMethod(javaClass);
 		final Method[] inherited = supertype!=null ? supertype.beforeNewItemMethods : null;
 		if(declared==null)
 			return inherited;
@@ -290,7 +290,7 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Method getBeforeNewItemMethod()
+	private static Method getBeforeNewItemMethod(final Class<?> javaClass)
 	{
 		final Method result;
 		try
@@ -978,7 +978,7 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getActivationConstructor()
+	private static <C> Constructor<C> getActivationConstructor(final Class<C> javaClass)
 	{
 		final Constructor<C> result;
 		try
