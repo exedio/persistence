@@ -229,10 +229,6 @@ public final class Type<C extends Item>
 			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
 
-		// IMPLEMENTATION NOTE
-		// Here we don't precompute the constructor parameters
-		// because they are needed in the initialization phase
-		// only.
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
 
