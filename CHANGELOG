@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* fix instrumented javadoc after "Type.newItem does not invoke creation constructor anymore"
+	(see below), heavily affects instrumented code !
 * DynamicModel uses MapField for names
 	this affects names of columns and tables in database schema,
 	requires a revision

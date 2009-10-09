@@ -66,7 +66,6 @@ final class Generator
 																					"in the class comment and " +
 																					"<tt>@" + CopeFeature.TAG_INITIAL + "</tt> in the comment of fields.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
-	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE = "It can be customized with the tag " +
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + ' ' +
 																					Option.TEXT_VISIBILITY_PUBLIC + '|' +
@@ -323,9 +322,6 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC, type.name));
-		o.write(lineSeparator);
-		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + TYPE_NAME + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		
