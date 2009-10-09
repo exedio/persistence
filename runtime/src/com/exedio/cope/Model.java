@@ -196,7 +196,7 @@ public final class Model
 				db.close();
 			}
 			else
-				throw new IllegalStateException("model not yet connected, use connect(Properties)"); // TODO reorder code
+				throw new IllegalStateException("model not yet connected, use Model#connect"); // TODO reorder code
 		}
 	}
 	
@@ -250,7 +250,7 @@ public final class Model
 	public ConnectProperties getProperties()
 	{
 		if(propertiesIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use Model#connect");
 
 		return propertiesIfConnected;
 	}
@@ -258,7 +258,7 @@ public final class Model
 	Database getDatabase()
 	{
 		if(databaseIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use Model#connect");
 
 		return databaseIfConnected;
 	}
@@ -266,7 +266,7 @@ public final class Model
 	ItemCache getItemCache()
 	{
 		if(itemCacheIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use Model#connect");
 
 		return itemCacheIfConnected;
 	}
@@ -274,7 +274,7 @@ public final class Model
 	QueryCache getQueryCache()
 	{
 		if(queryCacheIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use Model#connect");
 
 		return queryCacheIfConnected;
 	}

@@ -131,7 +131,7 @@ public class ModelTest extends TestmodelTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
 
@@ -142,7 +142,7 @@ public class ModelTest extends TestmodelTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
 

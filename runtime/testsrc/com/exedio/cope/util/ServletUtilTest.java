@@ -157,7 +157,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
 	}
 	
