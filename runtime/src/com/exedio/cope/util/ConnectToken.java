@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +28,10 @@ import java.util.List;
 
 import com.exedio.cope.Model;
 
-public final class ConnectToken
+public final class ConnectToken implements Serializable
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Manciple manciple;
 	final Model model;
 	final int id;
