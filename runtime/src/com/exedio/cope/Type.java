@@ -992,6 +992,18 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
+	void testActivation()
+	{
+		if(isAbstract)
+			return;
+		
+		final C item = createItemObject(PK.MAX_VALUE);
+		if(item.type!=this)
+			throw new IllegalArgumentException(id);
+		if(item.pk!=PK.MAX_VALUE)
+			throw new IllegalArgumentException(id);
+	}
+	
 	// ------------------- deprecated stuff -------------------
 	
 	/**

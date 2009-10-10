@@ -63,6 +63,16 @@ public class TypeErrorTest extends CopeAssert
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+		final Type wrongActivationConstructor = TypesExclusive.newType(WrongActivationConstructor.class);
+		try
+		{
+			new Model(wrongActivationConstructor);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("WrongActivationConstructor", e.getMessage());
+		}
 		try
 		{
 			TypesExclusive.newType(NullFeature.class);
@@ -111,6 +121,16 @@ public class TypeErrorTest extends CopeAssert
 	static class NoActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
+	}
+	
+	static class WrongActivationConstructor extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		WrongActivationConstructor(final ActivationParameters ap)
+		{
+			super(new ActivationParameters(ap.type, ap.pk-1));
+		}
 	}
 	
 	static class NullFeature extends Item

@@ -110,6 +110,9 @@ final class Types
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
+		
+		for(final Type<?> type : typesSorted)
+			type.testActivation();
 	}
 	
 	private static final Type<?>[] sort(final Type<?>[] types)
