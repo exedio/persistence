@@ -39,6 +39,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		if(!valueClass.isEnum())
 			throw new RuntimeException("must be an enum: " + valueClass);
 
+		// TODO compute all this once for an Enum class, as in Composite.Type
 		final ArrayList<E> values = new ArrayList<E>();
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
 		
