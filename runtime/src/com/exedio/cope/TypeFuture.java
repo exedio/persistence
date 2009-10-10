@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public abstract class TypeFuture<C extends Item>
+abstract class TypeFuture<C extends Item>
 {
 	final Class<C> javaClass;
 	
