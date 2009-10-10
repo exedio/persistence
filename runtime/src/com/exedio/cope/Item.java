@@ -385,12 +385,12 @@ public abstract class Item implements Serializable
 	
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return new ItemField<E>(valueClass);
+		return TypesExclusive.newItemField(valueClass);
 	}
 	
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<E>(valueClass, policy);
+		return TypesExclusive.newItemField(valueClass, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------

@@ -48,14 +48,9 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		checkDefaultConstant();
 	}
 	
-	ItemField(final Class<E> valueClass)
+	ItemField(final TypeFuture<E> valueTypeFuture)
 	{
-		this(false, false, false, TypesExclusive.future(valueClass), Item.FORBID);
-	}
-	
-	ItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		this(false, policy==DeletePolicy.NULLIFY, false, TypesExclusive.future(valueClass), policy);
+		this(false, false, false, valueTypeFuture, Item.FORBID);
 	}
 
 	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)

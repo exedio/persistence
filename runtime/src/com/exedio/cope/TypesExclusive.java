@@ -22,6 +22,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.exedio.cope.ItemField.DeletePolicy;
+
 final class TypesExclusive
 {
 	private TypesExclusive()
@@ -127,9 +129,15 @@ final class TypesExclusive
 	
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	
-	static <X extends Item> TypeFuture<X> future(final Class<X> javaClass)
+	
+	static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return new Future<X>(javaClass);
+		return new ItemField<E>(new Future<E>(valueClass));
+	}
+	
+	static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return new ItemField<E>(new Future<E>(valueClass), policy);
 	}
 	
 	private static final class Future<C extends Item> extends TypeFuture<C>
