@@ -126,4 +126,23 @@ final class TypesExclusive
 	}
 	
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
+	
+	static <X extends Item> TypeFuture<X> future(final Class<X> javaClass)
+	{
+		return new Future<X>(javaClass);
+	}
+	
+	private static final class Future<C extends Item> extends TypeFuture<C>
+	{
+		Future(final Class<C> javaClass)
+		{
+			super(javaClass);
+		}
+		
+		@Override
+		Type<C> get()
+		{
+			return forClass(javaClass);
+		}
+	}
 }

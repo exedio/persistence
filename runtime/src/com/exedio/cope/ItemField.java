@@ -20,22 +20,21 @@ package com.exedio.cope;
 
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
-	private final Type<E> initialValueType;
+	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final Class<E> valueClass,
-			final Type<E> initialValueType,
+			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
-		this.initialValueType = initialValueType;
+		this.valueTypeFuture = valueTypeFuture;
 		this.policy = policy;
 		if(policy==null)
 			throw new NullPointerException("policy");
@@ -51,47 +50,47 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	
 	ItemField(final Class<E> valueClass)
 	{
-		this(false, false, false, valueClass, null, Item.FORBID);
+		this(false, false, false, TypesExclusive.future(valueClass), Item.FORBID);
 	}
 	
 	ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, valueClass, null, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, TypesExclusive.future(valueClass), policy);
 	}
 
-	ItemField(final Type<E> valueType, final DeletePolicy policy)
+	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, valueType.getJavaClass(), valueType, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, policy);
 	}
 	
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, valueClass, initialValueType, policy);
+		return new ItemField<E>(true, optional, unique, valueTypeFuture, policy);
 	}
 	
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, policy);
 	}
 	
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, true, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
 	}
 	
 	private Type<E> valueType = null;
@@ -138,7 +137,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(valueType!=null)
 			throw new RuntimeException();
 		
-		valueType = initialValueType!=null ? initialValueType : Type.forClass(valueClass);
+		valueType = valueTypeFuture.get();
 		assert valueClass.equals(valueType.getJavaClass());
 	}
 	

@@ -758,9 +758,26 @@ public final class Type<C extends Item>
 	
 	public ItemField<C> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<C>(this, policy);
+		return new ItemField<C>(new Future<C>(javaClass, this), policy);
 	}
 	
+	private static final class Future<C extends Item> extends TypeFuture<C>
+	{
+		private final Type<C> type;
+		
+		Future(final Class<C> javaClass, final Type<C> type)
+		{
+			super(javaClass);
+			this.type = type;
+		}
+		
+		@Override
+		Type<C> get()
+		{
+			return type;
+		}
+	}
+
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
 	public C newItem(SetValue... setValues)
