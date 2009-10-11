@@ -130,7 +130,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
-			throw new RuntimeException();
+			throw new IllegalStateException("valueType of " + this.toString() + " not yet resolved");
 
 		return valueType;
 	}
