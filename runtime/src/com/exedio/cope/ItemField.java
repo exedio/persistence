@@ -88,21 +88,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
 	}
 	
-	private Type<E> valueType = null;
-	private Type<? extends E> onlyPossibleValueType = null;
-	private StringColumn typeColumn = null;
-	
-	/**
-	 * Returns the type of items, this field accepts instances of.
-	 */
-	public Type<E> getValueType()
-	{
-		if(valueType==null)
-			throw new RuntimeException();
-
-		return valueType;
-	}
-	
 	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
@@ -127,6 +112,9 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return policy;
 	}
 	
+	
+	private Type<E> valueType = null;
+	
 	void resolveValueType()
 	{
 		if(valueType!=null)
@@ -135,6 +123,21 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		valueType = valueTypeFuture.get();
 		assert valueClass.equals(valueType.getJavaClass());
 	}
+	
+	/**
+	 * Returns the type of items, this field accepts instances of.
+	 */
+	public Type<E> getValueType()
+	{
+		if(valueType==null)
+			throw new RuntimeException();
+
+		return valueType;
+	}
+	
+	
+	private Type<? extends E> onlyPossibleValueType = null;
+	private StringColumn typeColumn = null;
 	
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
