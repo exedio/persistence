@@ -199,6 +199,15 @@ public class TypeComplexTest extends CopeAssert
 			assertEquals(modelMessage, e.getMessage());
 		}
 		// AnotherItem
+		try
+		{
+			AnotherItem.itemField.getValueType();
+			fail();
+		}
+		catch(RuntimeException e) // TODO better exception
+		{
+			assertEquals(null, e.getMessage());
+		}
 		final String modelMessageO =
 			"model not set for type AnotherItem, " +
 			"probably you forgot to put this type into the model.";
@@ -259,6 +268,7 @@ public class TypeComplexTest extends CopeAssert
 		
 		
 		final Model model = new Model(type, typO);
+		assertSame(type, AnotherItem.itemField.getValueType());
 		assertSame(type, model.getType(type.getID()));
 		assertSame(typO, model.getType(typO.getID()));
 		assertSame(model, type.getModel());
