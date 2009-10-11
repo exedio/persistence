@@ -776,6 +776,12 @@ public final class Type<C extends Item>
 		{
 			return type;
 		}
+		
+		@Override
+		public String toString()
+		{
+			return type.id;
+		}
 	}
 
 	private static final SetValue[] EMPTY_SET_VALUES = {};

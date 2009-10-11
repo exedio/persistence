@@ -152,5 +152,11 @@ final class TypesExclusive
 		{
 			return forClass(javaClass);
 		}
+		
+		@Override
+		public String toString()
+		{
+			return javaClass.getName();
+		}
 	}
 }

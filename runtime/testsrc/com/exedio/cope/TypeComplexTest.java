@@ -206,7 +206,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("valueType of AnotherItem.itemField not yet resolved", e.getMessage());
+			assertEquals("valueType of AnotherItem.itemField not yet resolved: " + AnItem.class.getName(), e.getMessage());
 		}
 		final String modelMessageO =
 			"model not set for type AnotherItem, " +

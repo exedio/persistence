@@ -29,4 +29,7 @@ abstract class TypeFuture<C extends Item>
 	}
 	
 	abstract Type<C> get();
+	
+	@Override
+	public abstract String toString(); // enforce implementation in subclasses
 }
