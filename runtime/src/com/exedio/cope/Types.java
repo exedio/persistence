@@ -91,7 +91,7 @@ final class Types
 				if(f instanceof ItemField)
 				{
 					final ItemField ff = (ItemField)f;
-					ff.postInitialize();
+					ff.resolveValueType();
 					final Type valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);
 				}

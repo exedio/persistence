@@ -127,7 +127,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return policy;
 	}
 	
-	void postInitialize()
+	void resolveValueType()
 	{
 		if(valueType!=null)
 			throw new RuntimeException();
