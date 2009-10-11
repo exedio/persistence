@@ -130,6 +130,8 @@ final class TypesExclusive
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	
 	
+	// ItemField
+	
 	static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(new Future<E>(valueClass));
