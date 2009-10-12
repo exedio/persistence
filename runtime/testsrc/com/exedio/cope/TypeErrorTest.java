@@ -82,6 +82,36 @@ public class TypeErrorTest extends CopeAssert
 		{
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
+		
+		try
+		{
+			NonResolvingItemField.itemField.getValueType();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+		}
+		final Type nonResolvingItemField = TypesExclusive.newType(NonResolvingItemField.class);
+		try
+		{
+			NonResolvingItemField.itemField.getValueType();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("valueType of NonResolvingItemField.itemField not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+		}
+		try
+		{
+			new Model(nonResolvingItemField);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
+		}
+		
 		try
 		{
 			TypesExclusive.newType(BeforeNewNotStatic.class);
@@ -138,6 +168,18 @@ public class TypeErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 		
 		static final Feature nullFeature = null;
+	}
+	
+	static class NonResolvingItemField extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		static final ItemField itemField = Item.newItemField(NullFeature.class);
+		
+		NonResolvingItemField(final ActivationParameters ap)
+		{
+			super(ap);
+		}
 	}
 	
 	static class BeforeNewNotStatic extends Item
