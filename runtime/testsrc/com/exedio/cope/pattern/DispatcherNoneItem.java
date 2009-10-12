@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 
 /**
  * @cope.type none
@@ -31,7 +32,7 @@ public class DispatcherNoneItem extends Item
 	@SuppressWarnings("unchecked") // because instrumentor fails on correct version
 	static final Type<?> newTypeAccessible(final Class javaClass)
 	{
-		return newType(javaClass);
+		return TypesBound.newType(javaClass);
 	}
 	
 	

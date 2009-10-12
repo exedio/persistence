@@ -55,7 +55,7 @@ public final class TypesBound
 		return result;
 	}
 	
-	static <C extends Item> Type<C> newType(final Class<C> javaClass)
+	public static <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");

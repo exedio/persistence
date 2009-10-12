@@ -45,12 +45,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
+	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
 	
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
@@ -767,7 +769,7 @@ final class Generator
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			o.write(TYPE_NAME + '<');
 			o.write(type.name);
-			o.write("> TYPE = newType(");
+			o.write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
 			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);

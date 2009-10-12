@@ -27,6 +27,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 
 final class HistoryMedia extends Item
@@ -68,5 +69,5 @@ final class HistoryMedia extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type<HistoryMedia> TYPE = newType(HistoryMedia.class);
+	static final Type<HistoryMedia> TYPE = TypesBound.newType(HistoryMedia.class);
 }

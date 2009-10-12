@@ -373,6 +373,10 @@ public abstract class Item implements Serializable
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 	
+	/**
+	 * @deprecated Use {@link TypesBound#newType(Class)} instead.
+	 */
+	@Deprecated
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
 		return TypesBound.newType(javaClass);

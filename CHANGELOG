@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* move Item.newType to class TypesBound
+	deprecated version is provided
 * move Type.forClass[Unchecked] to a new class TypesBound
 	deprecated version is provided
 * renamed Type#isJavaClassExclusive to isBound

@@ -44,7 +44,7 @@ public class TypeTest extends CopeAssert
 		}
 		
 		
-		final Type<AnItem> type = Item.newType(AnItem.class);
+		final Type<AnItem> type = TypesBound.newType(AnItem.class);
 		
 		assertSame(type, TypesBound.forClass(AnItem.class));
 		assertSame(type, TypesBound.forClassUnchecked(AnItem.class));

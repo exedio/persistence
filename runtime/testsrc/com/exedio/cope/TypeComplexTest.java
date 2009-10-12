@@ -44,7 +44,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		
 		
-		final Type<AnItem> type = Item.newType(AnItem.class);
+		final Type<AnItem> type = TypesBound.newType(AnItem.class);
 		
 		assertSame(type, TypesBound.forClass(AnItem.class));
 		assertSame(type, TypesBound.forClassUnchecked(AnItem.class));
@@ -99,7 +99,7 @@ public class TypeComplexTest extends CopeAssert
 		assertTrue(type.isAssignableFrom(type));
 		
 		
-		final Type<AnotherItem> typO = Item.newType(AnotherItem.class);
+		final Type<AnotherItem> typO = TypesBound.newType(AnotherItem.class);
 		assertSame(typO, TypesBound.forClass(AnotherItem.class));
 		assertSame(typO, TypesBound.forClassUnchecked(AnotherItem.class));
 		assertEquals("AnotherItem", typO.getID());

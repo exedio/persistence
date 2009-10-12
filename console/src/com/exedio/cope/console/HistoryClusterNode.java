@@ -27,6 +27,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
 
@@ -68,5 +69,5 @@ final class HistoryClusterNode extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type<HistoryClusterNode> TYPE = newType(HistoryClusterNode.class);
+	static final Type<HistoryClusterNode> TYPE = TypesBound.newType(HistoryClusterNode.class);
 }

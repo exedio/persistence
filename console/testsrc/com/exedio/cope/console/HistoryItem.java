@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Media;
 
 public class HistoryItem extends Item
@@ -42,5 +43,5 @@ public class HistoryItem extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type<HistoryItem> TYPE = newType(HistoryItem.class);
+	static final Type<HistoryItem> TYPE = TypesBound.newType(HistoryItem.class);
 }

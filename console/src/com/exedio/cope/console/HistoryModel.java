@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 
 final class HistoryModel extends Item
 {
@@ -86,5 +87,5 @@ final class HistoryModel extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type<HistoryModel> TYPE = newType(HistoryModel.class);
+	static final Type<HistoryModel> TYPE = TypesBound.newType(HistoryModel.class);
 }

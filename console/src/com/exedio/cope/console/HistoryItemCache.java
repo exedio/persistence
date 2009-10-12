@@ -28,6 +28,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 
 final class HistoryItemCache extends Item
@@ -74,5 +75,5 @@ final class HistoryItemCache extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type<HistoryItemCache> TYPE = newType(HistoryItemCache.class);
+	static final Type<HistoryItemCache> TYPE = TypesBound.newType(HistoryItemCache.class);
 }
