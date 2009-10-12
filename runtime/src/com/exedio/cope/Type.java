@@ -83,15 +83,6 @@ public final class Type<C extends Item>
 
 	Table table;
 	
-	/**
-	 * @deprecated Use {@link TypesBound#forClass(Class)} instead.
-	 */
-	@Deprecated
-	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
-	{
-		return TypesBound.forClass(javaClass);
-	}
-	
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
@@ -99,15 +90,6 @@ public final class Type<C extends Item>
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
 		
 		return (Type<X>)this;
-	}
-	
-	/**
-	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
-	 */
-	@Deprecated
-	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
-	{
-		return TypesBound.forClassUnchecked(javaClass);
 	}
 	
 	private ArrayList<Feature> featuresWhileConstruction;
@@ -1143,5 +1125,23 @@ public final class Type<C extends Item>
 	public boolean isJavaClassExclusive()
 	{
 		return isBound();
+	}
+	
+	/**
+	 * @deprecated Use {@link TypesBound#forClass(Class)} instead.
+	 */
+	@Deprecated
+	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
+	{
+		return TypesBound.forClass(javaClass);
+	}
+	
+	/**
+	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
+	 */
+	@Deprecated
+	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
+	{
+		return TypesBound.forClassUnchecked(javaClass);
 	}
 }
