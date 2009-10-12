@@ -375,7 +375,7 @@ public abstract class Item implements Serializable
 	
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
-		return TypesExclusive.newType(javaClass);
+		return TypesBound.newType(javaClass);
 	}
 	
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
@@ -385,12 +385,12 @@ public abstract class Item implements Serializable
 	
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return TypesExclusive.newItemField(valueClass);
+		return TypesBound.newItemField(valueClass);
 	}
 	
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return TypesExclusive.newItemField(valueClass, policy);
+		return TypesBound.newItemField(valueClass, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------

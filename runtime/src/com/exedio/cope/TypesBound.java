@@ -24,9 +24,9 @@ import java.util.LinkedHashMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
-final class TypesExclusive
+final class TypesBound
 {
-	private TypesExclusive()
+	private TypesBound()
 	{
 		// prevent instantiation
 	}

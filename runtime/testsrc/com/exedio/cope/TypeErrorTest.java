@@ -26,7 +26,7 @@ public class TypeErrorTest extends CopeAssert
 	{
 		try
 		{
-			TypesExclusive.newType(null);
+			TypesBound.newType(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -35,7 +35,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(Item.class);
+			TypesBound.newType(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -44,7 +44,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(castItemClass(NoItem.class));
+			TypesBound.newType(castItemClass(NoItem.class));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -53,7 +53,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(NoActivationConstructor.class);
+			TypesBound.newType(NoActivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -63,7 +63,7 @@ public class TypeErrorTest extends CopeAssert
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-		final Type wrongActivationConstructor = TypesExclusive.newType(WrongActivationConstructor.class);
+		final Type wrongActivationConstructor = TypesBound.newType(WrongActivationConstructor.class);
 		try
 		{
 			new Model(wrongActivationConstructor);
@@ -75,7 +75,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(WrongActivationConstructor.class);
+			TypesBound.newType(WrongActivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -84,7 +84,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(NullFeature.class);
+			TypesBound.newType(NullFeature.class);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -101,7 +101,7 @@ public class TypeErrorTest extends CopeAssert
 		{
 			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
 		}
-		final Type nonResolvingItemField = TypesExclusive.newType(NonResolvingItemField.class);
+		final Type nonResolvingItemField = TypesBound.newType(NonResolvingItemField.class);
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -123,7 +123,7 @@ public class TypeErrorTest extends CopeAssert
 		
 		try
 		{
-			TypesExclusive.newType(BeforeNewNotStatic.class);
+			TypesBound.newType(BeforeNewNotStatic.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -136,7 +136,7 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesExclusive.newType(BeforeNewWrongReturn.class);
+			TypesBound.newType(BeforeNewWrongReturn.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
