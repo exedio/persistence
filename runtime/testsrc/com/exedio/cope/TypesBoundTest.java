@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.TypesBound.forClass;
+import static com.exedio.cope.TypesBound.forClassUnchecked;
+import static com.exedio.cope.TypesBound.newType;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class TypesBoundTest extends CopeAssert
@@ -26,7 +30,7 @@ public class TypesBoundTest extends CopeAssert
 	{
 		try
 		{
-			TypesBound.forClass(AnItem.class);
+			forClass(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -35,7 +39,7 @@ public class TypesBoundTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.forClassUnchecked(AnItem.class);
+			forClassUnchecked(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -44,13 +48,13 @@ public class TypesBoundTest extends CopeAssert
 		}
 		
 		
-		final Type<AnItem> type = TypesBound.newType(AnItem.class);
+		final Type<AnItem> type = newType(AnItem.class);
 		
-		assertSame(type, TypesBound.forClass(AnItem.class));
-		assertSame(type, TypesBound.forClassUnchecked(AnItem.class));
+		assertSame(type, forClass(AnItem.class));
+		assertSame(type, forClassUnchecked(AnItem.class));
 		try
 		{
-			TypesBound.forClass(Item.class);
+			forClass(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -59,7 +63,7 @@ public class TypesBoundTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.forClassUnchecked(Item.class);
+			forClassUnchecked(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)

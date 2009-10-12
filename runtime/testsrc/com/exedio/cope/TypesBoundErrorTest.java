@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.TypesBound.newType;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class TypesBoundErrorTest extends CopeAssert
@@ -26,7 +28,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		try
 		{
-			TypesBound.newType(null);
+			newType(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -35,7 +37,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(Item.class);
+			newType(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -44,7 +46,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(castItemClass(NoItem.class));
+			newType(castItemClass(NoItem.class));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -53,7 +55,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(NoActivationConstructor.class);
+			newType(NoActivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -63,7 +65,7 @@ public class TypesBoundErrorTest extends CopeAssert
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-		final Type wrongActivationConstructor = TypesBound.newType(WrongActivationConstructor.class);
+		final Type wrongActivationConstructor = newType(WrongActivationConstructor.class);
 		try
 		{
 			new Model(wrongActivationConstructor);
@@ -75,7 +77,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(WrongActivationConstructor.class);
+			newType(WrongActivationConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -84,7 +86,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(NullFeature.class);
+			newType(NullFeature.class);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -101,7 +103,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		{
 			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
 		}
-		final Type nonResolvingItemField = TypesBound.newType(NonResolvingItemField.class);
+		final Type nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -123,7 +125,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		
 		try
 		{
-			TypesBound.newType(BeforeNewNotStatic.class);
+			newType(BeforeNewNotStatic.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -136,7 +138,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		try
 		{
-			TypesBound.newType(BeforeNewWrongReturn.class);
+			newType(BeforeNewWrongReturn.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
