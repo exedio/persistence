@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
-final class TypesBound
+public final class TypesBound
 {
 	private TypesBound()
 	{
@@ -38,7 +38,7 @@ final class TypesBound
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #isBound()
 	 */
-	static <X extends Item> Type<X> forClass(final Class<X> javaClass)
+	public static <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
 		return forClassUnchecked(javaClass).as(javaClass);
 	}
@@ -47,7 +47,7 @@ final class TypesBound
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #isBound()
 	 */
-	static Type<?> forClassUnchecked(final Class<?> javaClass)
+	public static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		final Type<? extends Item> result = types.get(javaClass);
 		if(result==null)
@@ -137,12 +137,12 @@ final class TypesBound
 	
 	// ItemField
 	
-	static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(new Future<E>(valueClass));
 	}
 	
-	static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(new Future<E>(valueClass), policy);
 	}

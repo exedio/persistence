@@ -145,7 +145,7 @@ public abstract class Item implements Serializable
 	
 	protected Item(final SetValue... setValues)
 	{
-		this.type = Type.forClass(getClass());
+		this.type = TypesBound.forClass(getClass());
 		final Map<Field, Object> fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
@@ -194,7 +194,7 @@ public abstract class Item implements Serializable
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
-		type = Type.forClass(getClass()); // TODO does not work for types without unique java class
+		type = TypesBound.forClass(getClass()); // TODO does not work for non-bound types
 	}
 	
 	public final <E> E get(final Function<E> function)

@@ -35,8 +35,8 @@ public class ItemTest extends TestmodelTest
 	public void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
-		assertEquals(EmptyItem.TYPE, Type.forClass(EmptyItem.class));
-		assertEquals(EmptyItem2.TYPE, Type.forClass(EmptyItem2.class));
+		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
+		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
 		

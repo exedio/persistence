@@ -84,9 +84,9 @@ public final class Type<C extends Item>
 	Table table;
 	
 	/**
-	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isBound()
+	 * @deprecated Use {@link TypesBound#forClass(Class)} instead.
 	 */
+	@Deprecated
 	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
 		return TypesBound.forClass(javaClass);
@@ -102,9 +102,9 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isBound()
+	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
 	 */
+	@Deprecated
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		return TypesBound.forClassUnchecked(javaClass);

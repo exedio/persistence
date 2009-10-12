@@ -26,7 +26,7 @@ public class TypeComplexTest extends CopeAssert
 	{
 		try
 		{
-			Type.forClass(AnItem.class);
+			TypesBound.forClass(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -35,7 +35,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			Type.forClassUnchecked(AnItem.class);
+			TypesBound.forClassUnchecked(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -46,11 +46,11 @@ public class TypeComplexTest extends CopeAssert
 		
 		final Type<AnItem> type = Item.newType(AnItem.class);
 		
-		assertSame(type, Type.forClass(AnItem.class));
-		assertSame(type, Type.forClassUnchecked(AnItem.class));
+		assertSame(type, TypesBound.forClass(AnItem.class));
+		assertSame(type, TypesBound.forClassUnchecked(AnItem.class));
 		try
 		{
-			Type.forClass(Item.class);
+			TypesBound.forClass(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -59,7 +59,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		try
 		{
-			Type.forClassUnchecked(Item.class);
+			TypesBound.forClassUnchecked(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -100,8 +100,8 @@ public class TypeComplexTest extends CopeAssert
 		
 		
 		final Type<AnotherItem> typO = Item.newType(AnotherItem.class);
-		assertSame(typO, Type.forClass(AnotherItem.class));
-		assertSame(typO, Type.forClassUnchecked(AnotherItem.class));
+		assertSame(typO, TypesBound.forClass(AnotherItem.class));
+		assertSame(typO, TypesBound.forClassUnchecked(AnotherItem.class));
 		assertEquals("AnotherItem", typO.getID());
 		assertEquals(AnotherItem.class, typO.getJavaClass());
 		assertEquals(true, typO.isBound());

@@ -26,7 +26,7 @@ public class TypeTest extends CopeAssert
 	{
 		try
 		{
-			Type.forClass(AnItem.class);
+			TypesBound.forClass(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -35,7 +35,7 @@ public class TypeTest extends CopeAssert
 		}
 		try
 		{
-			Type.forClassUnchecked(AnItem.class);
+			TypesBound.forClassUnchecked(AnItem.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -46,11 +46,11 @@ public class TypeTest extends CopeAssert
 		
 		final Type<AnItem> type = Item.newType(AnItem.class);
 		
-		assertSame(type, Type.forClass(AnItem.class));
-		assertSame(type, Type.forClassUnchecked(AnItem.class));
+		assertSame(type, TypesBound.forClass(AnItem.class));
+		assertSame(type, TypesBound.forClassUnchecked(AnItem.class));
 		try
 		{
-			Type.forClass(Item.class);
+			TypesBound.forClass(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -59,7 +59,7 @@ public class TypeTest extends CopeAssert
 		}
 		try
 		{
-			Type.forClassUnchecked(Item.class);
+			TypesBound.forClassUnchecked(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)

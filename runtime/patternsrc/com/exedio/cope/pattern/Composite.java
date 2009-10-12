@@ -42,6 +42,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.instrument.Wrapper;
 
@@ -378,6 +379,8 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			return getClass().hashCode() ^ Arrays.hashCode(values);
 		}
 		
+		// convenience for subclasses --------------------------------------------------
+		
 		public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 		{
 			return Item.newEnumField(valueClass);
@@ -385,12 +388,12 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		
 		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 		{
-			return Item.newItemField(valueClass);
+			return TypesBound.newItemField(valueClass);
 		}
 		
 		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 		{
-			return Item.newItemField(valueClass, policy);
+			return TypesBound.newItemField(valueClass, policy);
 		}
 	}
 
