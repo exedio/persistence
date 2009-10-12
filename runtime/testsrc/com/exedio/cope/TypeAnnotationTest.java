@@ -51,7 +51,7 @@ public class TypeAnnotationTest extends CopeAssert
 		assertSame(type, Type.forClassUnchecked(AnItem.class));
 		assertEquals("AnItemAnn", type.getID());
 		assertEquals(AnItem.class, type.getJavaClass());
-		assertEquals(true, type.isJavaClassExclusive());
+		assertEquals(true, type.isBound());
 
 		assertSame(type, type.getThis().getType());
 		assertEquals("AnItemAnn.this", type.getThis().getID());

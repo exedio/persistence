@@ -55,7 +55,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
 		assertEquals(MapFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isJavaClassExclusive());
+		assertEquals(true, item.TYPE.isBound());
 		assertEquals(null, item.TYPE.getPattern());
 
 		assertEquals(item.TYPE, item.nameParent().getValueType());
@@ -82,7 +82,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
 		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());
-		assertEquals(false, item.name.getRelationType().isJavaClassExclusive());
+		assertEquals(false, item.name.getRelationType().isBound());
 		assertSame(item.name, item.name.getRelationType().getPattern());
 		assertEquals(null, item.name.getRelationType().getSupertype());
 		assertEquals(list(), item.name.getRelationType().getSubtypes());

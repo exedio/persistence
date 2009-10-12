@@ -76,7 +76,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 				itemsType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(ListFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isJavaClassExclusive());
+		assertEquals(true, item.TYPE.isBound());
 		assertEquals(null, item.TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
@@ -116,7 +116,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		assertEquals("ListFieldItem.strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
-		assertEquals(false, stringsType.isJavaClassExclusive());
+		assertEquals(false, stringsType.isBound());
 		assertSame(ListFieldItem.strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
@@ -130,7 +130,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		assertEquals("ListFieldItem.dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
-		assertEquals(false, datesType.isJavaClassExclusive());
+		assertEquals(false, datesType.isBound());
 		assertSame(ListFieldItem.dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubtypes());
@@ -141,7 +141,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		assertEquals("ListFieldItem.items", itemsType.getID());
 		assertEquals(PatternItem.class, itemsType.getJavaClass());
-		assertEquals(false, itemsType.isJavaClassExclusive());
+		assertEquals(false, itemsType.isBound());
 		assertSame(ListFieldItem.items, itemsType.getPattern());
 		assertEquals(null, itemsType.getSupertype());
 		assertEqualsUnmodifiable(list(), itemsType.getSubtypes());

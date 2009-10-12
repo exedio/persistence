@@ -68,7 +68,7 @@ public class TypeTest extends CopeAssert
 		}
 		assertEquals("AnItem", type.getID());
 		assertEquals(AnItem.class, type.getJavaClass());
-		assertEquals(true, type.isJavaClassExclusive());
+		assertEquals(true, type.isBound());
 
 		assertSame(type, type.getThis().getType());
 		assertEquals("AnItem.this", type.getThis().getID());

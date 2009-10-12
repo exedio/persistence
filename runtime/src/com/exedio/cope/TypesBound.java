@@ -36,7 +36,7 @@ final class TypesBound
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isJavaClassExclusive()
+	 * @see #isBound()
 	 */
 	static <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
@@ -45,7 +45,7 @@ final class TypesBound
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isJavaClassExclusive()
+	 * @see #isBound()
 	 */
 	static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{

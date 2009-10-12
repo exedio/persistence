@@ -70,7 +70,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 				datesType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(SetFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isJavaClassExclusive());
+		assertEquals(true, item.TYPE.isBound());
 		assertEquals(null, item.TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
@@ -98,7 +98,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		assertEquals("SetFieldItem.strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
-		assertEquals(false, stringsType.isJavaClassExclusive());
+		assertEquals(false, stringsType.isBound());
 		assertSame(SetFieldItem.strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
@@ -109,7 +109,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		assertEquals("SetFieldItem.dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
-		assertEquals(false, datesType.isJavaClassExclusive());
+		assertEquals(false, datesType.isBound());
 		assertSame(SetFieldItem.dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubtypes());

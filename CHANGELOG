@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* renamed Type#isJavaClassExclusive to isBound
+	deprecated version is provided
 * fix instrumented javadoc after "Type.newItem does not invoke creation constructor anymore"
 	(see below), heavily affects instrumented code !
 * DynamicModel uses MapField for names

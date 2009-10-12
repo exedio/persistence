@@ -40,7 +40,7 @@ import com.exedio.cope.util.CharSet;
 public final class Type<C extends Item>
 {
 	private final Class<C> javaClass;
-	private final boolean javaClassExclusive;
+	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	final String schemaId;
@@ -85,7 +85,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isJavaClassExclusive()
+	 * @see #isBound()
 	 */
 	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
@@ -103,7 +103,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
-	 * @see #isJavaClassExclusive()
+	 * @see #isBound()
 	 */
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
@@ -114,7 +114,7 @@ public final class Type<C extends Item>
 	
 	Type(
 			final Class<C> javaClass,
-			final boolean javaClassExclusive,
+			final boolean bound,
 			final String id,
 			final Pattern pattern,
 			final boolean isAbstract,
@@ -139,7 +139,7 @@ public final class Type<C extends Item>
 			throw new NullPointerException("featureMap for " + id);
 		
 		this.javaClass = javaClass;
-		this.javaClassExclusive = javaClassExclusive;
+		this.bound = bound;
 		this.id = id;
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
@@ -464,7 +464,7 @@ public final class Type<C extends Item>
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		return
-			javaClassExclusive
+			bound
 			? javaClass.getAnnotation(annotationClass)
 			: null;
 	}
@@ -517,15 +517,14 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * Returns, whether this type has a java class
-	 * exclusively for this type.
+	 * Returns, whether this type bound to it's java class.
 	 * Only such types can be found by
 	 * {@link #forClass(Class)} and
 	 * {@link #forClassUnchecked(Class)}.
 	 */
-	public boolean isJavaClassExclusive()
+	public boolean isBound()
 	{
-		return javaClassExclusive;
+		return bound;
 	}
 	
 	/**
@@ -1111,12 +1110,12 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @deprecated Use {@link #isJavaClassExclusive()} instead
+	 * @deprecated Use {@link #isBound()} instead
 	 */
 	@Deprecated
 	public boolean hasUniqueJavaClass()
 	{
-		return isJavaClassExclusive();
+		return isBound();
 	}
 	
 	/**
@@ -1135,5 +1134,14 @@ public final class Type<C extends Item>
 	public List<Type<? extends C>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();
+	}
+	
+	/**
+	 * @deprecated Use {@link #isBound()} instead
+	 */
+	@Deprecated
+	public boolean isJavaClassExclusive()
+	{
+		return isBound();
 	}
 }

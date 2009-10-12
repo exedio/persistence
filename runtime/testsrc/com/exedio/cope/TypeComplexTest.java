@@ -68,7 +68,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		assertEquals("AnItem", type.getID());
 		assertEquals(AnItem.class, type.getJavaClass());
-		assertEquals(true, type.isJavaClassExclusive());
+		assertEquals(true, type.isBound());
 
 		assertSame(type, type.getThis().getType());
 		assertEquals("AnItem.this", type.getThis().getID());
@@ -104,7 +104,7 @@ public class TypeComplexTest extends CopeAssert
 		assertSame(typO, Type.forClassUnchecked(AnotherItem.class));
 		assertEquals("AnotherItem", typO.getID());
 		assertEquals(AnotherItem.class, typO.getJavaClass());
-		assertEquals(true, typO.isJavaClassExclusive());
+		assertEquals(true, typO.isBound());
 		
 		assertSame(typO, typO.getThis().getType());
 		assertEquals("AnotherItem.this", typO.getThis().getID());
