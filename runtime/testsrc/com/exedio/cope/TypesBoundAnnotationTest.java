@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.SetField;
 
-public class TypeAnnotationTest extends CopeAssert
+public class TypesBoundAnnotationTest extends CopeAssert
 {
 	public void testType()
 	{
@@ -32,7 +32,7 @@ public class TypeAnnotationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("there is no type for class com.exedio.cope.TypeAnnotationTest$AnItem", e.getMessage());
+			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -41,7 +41,7 @@ public class TypeAnnotationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("there is no type for class com.exedio.cope.TypeAnnotationTest$AnItem", e.getMessage());
+			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
 		
 		

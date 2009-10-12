@@ -304,10 +304,10 @@
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
 				<exclude name="SchemaTest.java" /><!-- TODO remove -->
-				<exclude name="TypeTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeComplexTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeAnnotationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class TypeComplexTest extends CopeAssert
+public class TypesBoundComplexTest extends CopeAssert
 {
 	public void testType()
 	{
@@ -31,7 +31,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("there is no type for class com.exedio.cope.TypeComplexTest$AnItem", e.getMessage());
+			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -40,7 +40,7 @@ public class TypeComplexTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("there is no type for class com.exedio.cope.TypeComplexTest$AnItem", e.getMessage());
+			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
 		
 		

@@ -45,10 +45,10 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( ModelTest.class );
-		suite.addTestSuite( TypeTest.class );
-		suite.addTestSuite( TypeComplexTest.class );
-		suite.addTestSuite( TypeAnnotationTest.class );
-		suite.addTestSuite( TypeErrorTest.class );
+		suite.addTestSuite( TypesBoundTest.class );
+		suite.addTestSuite( TypesBoundComplexTest.class );
+		suite.addTestSuite( TypesBoundAnnotationTest.class );
+		suite.addTestSuite( TypesBoundErrorTest.class );
 		suite.addTestSuite( FeatureTest.class );
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );

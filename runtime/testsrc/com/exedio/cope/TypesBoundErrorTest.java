@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class TypeErrorTest extends CopeAssert
+public class TypesBoundErrorTest extends CopeAssert
 {
 	public void testErrors()
 	{
