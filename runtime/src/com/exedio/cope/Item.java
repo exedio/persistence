@@ -373,15 +373,6 @@ public abstract class Item implements Serializable
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 	
-	/**
-	 * @deprecated Use {@link TypesBound#newType(Class)} instead.
-	 */
-	@Deprecated
-	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
-	{
-		return TypesBound.newType(javaClass);
-	}
-	
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return new EnumField<E>(valueClass);
@@ -486,5 +477,14 @@ public abstract class Item implements Serializable
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return newItemField(valueClass, policy);
+	}
+	
+	/**
+	 * @deprecated Use {@link TypesBound#newType(Class)} instead.
+	 */
+	@Deprecated
+	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
+	{
+		return TypesBound.newType(javaClass);
 	}
 }
