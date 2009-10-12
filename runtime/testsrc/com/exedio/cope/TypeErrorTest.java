@@ -75,6 +75,15 @@ public class TypeErrorTest extends CopeAssert
 		}
 		try
 		{
+			TypesExclusive.newType(WrongActivationConstructor.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
+		}
+		try
+		{
 			TypesExclusive.newType(NullFeature.class);
 			fail();
 		}

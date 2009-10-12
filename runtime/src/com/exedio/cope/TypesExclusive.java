@@ -59,6 +59,8 @@ final class TypesExclusive
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
+		if(types.containsKey(javaClass))
+			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 		
 		// id
 		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
@@ -117,7 +119,10 @@ final class TypesExclusive
 				supertype,
 				featureMap);
 		
-		types.put(javaClass, result);
+		final Type previous = types.put(javaClass, result);
+		if(previous!=null)
+			throw new RuntimeException(javaClass.getName());
+		
 		return result;
 	}
 	
