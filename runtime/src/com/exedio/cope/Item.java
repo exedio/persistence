@@ -366,27 +366,6 @@ public abstract class Item implements Serializable
 			return false;
 		}
 	}
-
-	// convenience for subclasses --------------------------------------------------
-	
-	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
-	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
-	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
-	
-	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
-	{
-		return new EnumField<E>(valueClass);
-	}
-	
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
-	{
-		return TypesBound.newItemField(valueClass);
-	}
-	
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return TypesBound.newItemField(valueClass, policy);
-	}
 	
 	// activation/deactivation -----------------------------------------------------
 	
@@ -448,6 +427,27 @@ public abstract class Item implements Serializable
 			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
 		}
 		return result;
+	}
+	
+	// convenience for subclasses --------------------------------------------------
+	
+	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
+	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
+	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
+	
+	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
+	{
+		return new EnumField<E>(valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	{
+		return TypesBound.newItemField(valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return TypesBound.newItemField(valueClass, policy);
 	}
 	
 	// ------------------- deprecated stuff -------------------
