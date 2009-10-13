@@ -16,8 +16,8 @@
 			{
 				text-align:left;
 				vertical-align:top;
-				background:#eef;
-				border:solid 1px #eef;
+				background:#ccc;
+				border:solid 1px #ccc;
 				padding:1px 3px;
 				font-weight:normal;
 			}
@@ -34,27 +34,24 @@
 				border:solid 1px #ccc;
 				padding:1px 3px;
 			}
+			
+			address
+			{
+				width:100%;
+				font-size:8pt;
+				font-style:normal;
+				padding-top:5px;
+				border-top-width:1px;
+				border-top-style:solid;
+				margin-top:40px;
+				margin-bottom:40px;
+			}
 		</style>
 	</head>
 	<body>
-		<a href="http://www.exedio.com/">
-			<img src="exedio.png" class="exedio" alt="Exedio Logo" />
-		</a>
-		<h1><a href="index.html">COPE</a></h1>
-		<div>Cope with Object Persistence</div>
-		
 		<h2>Test Environments</h2>
-		<a href="http://sourceforge.net/projects/cope">
-			<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=152867&amp;type=12"
-				class="sf" alt="Get COPE at SourceForge.net." />
-		</a>
 		<div>
-			Each build of COPE is subject to extensive automated unit
-			testing on various environments.
-			An environment is the combination of the
-			Database Management System (DBMS), the JDBC driver and the COPE options.
-			The following table lists all environments,
-			the current build (@BUILD_TAG@) was tested on.
+			@BUILD_TAG@
 		</div>
 		<table>
 			<tr>
@@ -64,38 +61,16 @@
 				<th rowspan="2">COPE options</th>
 			</tr>
 			<tr>
-				<th><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDatabaseProductName()">Name</a></th>
-				<th><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDatabaseProductVersion()">Version</a> (<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDatabaseMajorVersion()">i</a>.<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDatabaseMinorVersion()">j</a>)</th>
-				<th><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDriverName()">Name</a></th>
-				<th><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDriverVersion()">Version</a> (<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDriverMajorVersion()">i</a>.<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DatabaseMetaData.html#getDriverMinorVersion()">j</a>)</th>
+				<th>Name</th>
+				<th>Version</th>
+				<th>Name</th>
+				<th>Version</th>
 			</tr>@TABLE@
 		</table>
-		<div>
-			The <i>COPE Console</i> shows your environment
-			along with the list of enviroments,
-			your version of COPE has been tested on.
-		</div>
-		<div>
-			You may want to try the tests on your own environment,
-			to make sure, that your project's combination of
-			DBMS, JDBC driver and COPE options works correctly.
-			For your convenience, the junit tests of cope are distributed in an extra jar:
-			<a href="lib/exedio-cope-test.jar">exedio-cope-test.jar</a>.
-			This jar contains a test suite
-			<tt>com.exedio.cope.CopeTest</tt>,
-			that you may execute to verify your environment.
-			Please note, that the demoshop already has an ant target
-			<tt>copetest</tt> for this purpose.
-		</div>
 		<address>
-			<a href="http://validator.w3.org/check?uri=referer">
-				<img src="valid-html401.png" class="validhtml" alt="Valid HTML 4.01 Transitional" />
-			</a>
 			Copyright &copy; 2004-2008
 			<a href="http://www.exedio.com/" target="_top">exedio</a>
 			Gesellschaft f&uuml;r Softwareentwicklung mbH.
-			<br>
-			@BUILD_TAG@
 		</address>
 	</body>
 </html>
