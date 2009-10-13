@@ -39,7 +39,7 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	/**
-	 * Is not public, because one should use {@link Item#UNIQUE} etc.
+	 * Is not public, because one should use {@link FunctionField#unique()} etc.
 	 */
 	UniqueConstraint(final FunctionField field)
 	{

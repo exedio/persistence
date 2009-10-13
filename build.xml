@@ -802,29 +802,21 @@
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
 		<delete dir="tomcat" />
-		<delete dir="home/lib" />
-		<delete dir="home/testprotocol.html" />
 	</target>
 	
 	<!-- home -->
 	
 	<target name="home.api">
 
-		<property name="api.private" value="off" />
-		<property name="api.link.cops"  value="http://download.exedio.com/api/cops" />
-		<property name="api.link.jdk"   value="http://java.sun.com/j2se/1.5.0/docs/api" />
-		<property name="api.link.j2ee"  value="http://java.sun.com/j2ee/1.4/docs/api" />
-		<property name="api.link.junit" value="http://junit.sourceforge.net/javadoc" />
-		<property name="api.link.ant"   value="http://www.dpml.net/api/ant/1.6.5" />
 
-		<delete dir="home/api" />
-		<mkdir  dir="home/api" />
+		<delete dir="build/api" />
+		<mkdir  dir="build/api" />
 
 		<javadoc
-				destdir="home/api"
+				destdir="build/api"
 				maxmemory="60m"
 				source="1.5"
-				private="${api.private}"
+				private="on"
 				author="on"
 				use="on"
 				version="on"
@@ -832,15 +824,6 @@
 				splitindex="on"
 				failonerror="true"
 			>
-			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
-			<header><![CDATA[<a href="http://cope.sourceforge.net/" target="_top">exedio cope</a>]]></header>
-			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
-			<bottom><![CDATA[<a href="http://sourceforge.net/" target="_top"><img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1" width="88" height="31" border="0" align="right" alt="SourceForge.net&nbsp;Logo" /></a><small>Copyright &copy; 2004-2008 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
-			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
-			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
-			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
-			<link href="${api.link.ant}"   packagelistLoc="package-list/ant"   offline="true" />
-			<link href="${api.link.cops}"  packagelistLoc="package-list/cops"  offline="true" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="runtime/src/com" includes="**/*.java" />
 			<fileset file="runtime/patternsrc/com" includes="**/*.java" />
@@ -859,28 +842,11 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
-			<group title="Cope Runtime Library" packages="com.exedio.cope:com.exedio.cope.*" />
-			<group title="Cope Instrumentor" packages="com.exedio.cope.instrument" />
-			<group title="Database Schema Management Facility" packages="com.exedio.dsmf" />
 		</javadoc>
 	</target>
 	
 	<target name="api" depends="home.api" />
 	
-	<target name="home.lib" depends="runtime.jar, runtime.test.jar, instrument.jar">
-		<copy todir="home/lib">
-			<fileset dir="build">
-				<include name="exedio-cope.jar" />
-				<include name="exedio-cope-test.jar" />
-				<include name="exedio-cope-instrument.jar" />
-			</fileset>
-			<fileset dir="lib">
-				<include name="trove.jar" />
-				<include name="bsh-core.jar" />
-			</fileset>
-		</copy>
-	</target>
-
 	<target name="home.testprotocol" depends="runtime.test, console.compile">
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
 				fork="yes" failonerror="yes">
@@ -895,8 +861,8 @@
 			<assertions><enable/></assertions>
 		</java>
 		<LoadFile srcFile="build/runtime/testprotocol.html" property="testprotocol.html" />
-		<copy file="home/testprotocol-template.html"
-				tofile="home/testprotocol.html"
+		<copy file="runtime/testprotocol-template.html"
+				tofile="build/testprotocol.html"
 				overwrite="true">
 			<filterset>
 				<filter token="BUILD_TAG" value="${build.tag}" />
@@ -905,15 +871,7 @@
 		</copy>
 	</target>
 	
-	<target name="home.zip" depends="home.api, home.lib, home.testprotocol">
-		<mkdir dir="build/runtime" />
-		<tar destfile="build/exedio-cope-home.tar.bz2"
-			  compression="bzip2">
-			<tarfileset dir="${basedir}/home" />
-		</tar>
-	</target>
-	
-	<target name="home" depends="home.zip" />
+	<target name="home" depends="home.testprotocol" />
 	
 	<target name="build"
 			depends="compile, test, jar, home,
@@ -934,8 +892,6 @@
 				<exclude name=".eclipse-output/**" />
 				<exclude name="build/**" />
 				<exclude name="tomcat/**" />
-				<exclude name="home/api/**" />
-				<exclude name="home/lib/**" />
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
 				<exclude name="*.test.cope.properties" />
@@ -974,8 +930,7 @@
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
-			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
-			<fileset file="${basedir}/home/testprotocol.html" />
+			<fileset file="${basedir}/build/testprotocol.html" />
 		</copy>
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
 	</target>

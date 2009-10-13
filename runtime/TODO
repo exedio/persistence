@@ -74,5 +74,4 @@ TODO for cope runtime
 - support JMX for information displayed by ConsoleServlet
 - separate into own sub-projects:
 	* console
-	* homepage
 	* instrumentor
