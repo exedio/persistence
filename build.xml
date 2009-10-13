@@ -806,7 +806,7 @@
 	
 	<!-- home -->
 	
-	<target name="home.api">
+	<target name="api">
 
 
 		<delete dir="build/api" />
@@ -844,8 +844,6 @@
 			</classpath>
 		</javadoc>
 	</target>
-	
-	<target name="api" depends="home.api" />
 	
 	<target name="home.testprotocol" depends="runtime.test, console.compile">
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
