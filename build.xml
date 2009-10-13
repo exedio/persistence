@@ -804,8 +804,6 @@
 		<delete dir="tomcat" />
 	</target>
 	
-	<!-- home -->
-	
 	<target name="api">
 
 
@@ -845,7 +843,7 @@
 		</javadoc>
 	</target>
 	
-	<target name="home.testprotocol" depends="runtime.test, console.compile">
+	<target name="testprotocol" depends="runtime.test, console.compile">
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
 				fork="yes" failonerror="yes">
 			<classpath>
@@ -869,10 +867,8 @@
 		</copy>
 	</target>
 	
-	<target name="home" depends="home.testprotocol" />
-	
 	<target name="build"
-			depends="compile, test, jar, home,
+			depends="compile, test, jar, testprotocol,
 						tomcat, index,
 						webtest" />
 	
