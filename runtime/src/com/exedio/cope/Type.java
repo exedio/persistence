@@ -198,13 +198,7 @@ public final class Type<C extends Item>
 				features.trimToSize();
 				this.features = Collections.unmodifiableList(features);
 			}
-			{
-				final HashMap<String, Feature> inherited = supertype.featuresByName;
-				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
-				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
-				result.putAll(declared);
-				this.featuresByName = result;
-			}
+			this.featuresByName    = inherit(supertype.featuresByName,    this.declaredFeaturesByName);
 			this.fields            = inherit(supertype.fields,            this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
 			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
@@ -234,6 +228,13 @@ public final class Type<C extends Item>
 			result.trimToSize();
 			return Collections.<F>unmodifiableList(result);
 		}
+	}
+	
+	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
+	{
+		final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
+		result.putAll(declared);
+		return result;
 	}
 	
 	private static final <F extends Feature> List<F> finish(final ArrayList<F> list)
