@@ -202,8 +202,7 @@ public final class Type<C extends Item>
 				final HashMap<String, Feature> inherited = supertype.featuresByName;
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
 				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
-				for(final Feature f : declared.values())
-					result.put(f.getName(), f);
+				result.putAll(declared);
 				this.featuresByName = result;
 			}
 			this.fields            = inherit(supertype.fields,            this.declaredFields);
