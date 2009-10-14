@@ -908,7 +908,7 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, runtime.jar.src, dist" />
+	<target name="all" depends="build, runtime.jar.src, api, dist" />
 
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">
