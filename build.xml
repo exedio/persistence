@@ -805,11 +805,7 @@
 	</target>
 	
 	<target name="api">
-
-
 		<delete dir="build/api" />
-		<mkdir  dir="build/api" />
-
 		<javadoc
 				destdir="build/api"
 				maxmemory="60m"
@@ -820,8 +816,7 @@
 				version="off"
 				notree="true"
 				noindex="true"
-				failonerror="true"
-			>
+				failonerror="true">
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="runtime/src/com" includes="**/*.java" />
 			<fileset file="runtime/patternsrc/com" includes="**/*.java" />
