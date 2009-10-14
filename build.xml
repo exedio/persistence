@@ -815,11 +815,11 @@
 				maxmemory="60m"
 				source="1.5"
 				private="on"
-				author="on"
-				use="on"
-				version="on"
-				windowtitle="exedio cope"
-				splitindex="on"
+				author="off"
+				use="off"
+				version="off"
+				notree="true"
+				noindex="true"
 				failonerror="true"
 			>
 			<fileset file="dsmf/src/com" includes="**/*.java" />
