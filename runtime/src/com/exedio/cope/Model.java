@@ -89,6 +89,11 @@ public final class Model
 		this.initializeDate = new Date();
 	}
 	
+	public boolean containsTypeSet(final Type... typeSet)
+	{
+		return types.containsTypeSet(typeSet);
+	}
+	
 	public Map<Feature, Feature> getHiddenFeatures()
 	{
 		return types.getHiddenFeatures();

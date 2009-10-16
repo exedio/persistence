@@ -263,6 +263,46 @@ final class Types
 		}
 	}
 	
+	boolean containsTypeSet(final Type... typeSet)
+	{
+		if(typeSet==null)
+			throw new NullPointerException("typeSet");
+		if(typeSet.length==0)
+			throw new IllegalArgumentException("typeSet is empty");
+		for(int i = 0; i<typeSet.length; i++)
+			if(typeSet[i]==null)
+				throw new NullPointerException("typeSet[" + i + ']');
+		
+		final HashSet<Type> typesAsSet = new HashSet<Type>(Arrays.asList(typesSorted));
+		if(typesAsSet.containsAll(Arrays.asList(typeSet)))
+			return true;
+		
+		for(final Type t : typeSet)
+			if(typesAsSet.contains(t))
+			{
+				final StringBuilder bf = new StringBuilder("inconsistent type set: ");
+				boolean first = true;
+				for(final Type tx : typeSet)
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(", ");
+					
+					final boolean n = typesAsSet.contains(tx);
+					if(n)
+						bf.append('[');
+					bf.append(tx.id);
+					if(n)
+						bf.append(']');
+				}
+
+				throw new IllegalArgumentException(bf.toString());
+			}
+		
+		return false;
+	}
+	
 	Map<Feature, Feature> getHiddenFeatures()
 	{
 		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
