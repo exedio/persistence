@@ -308,6 +308,7 @@
 				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
