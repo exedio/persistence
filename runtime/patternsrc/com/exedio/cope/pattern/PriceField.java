@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -33,6 +34,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class PriceField extends Pattern implements Settable<Price>
 {
 	private final IntegerField integer;
+	private final boolean isfinal;
 	
 	public PriceField()
 	{
@@ -43,6 +45,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	{
 		this.integer = integer;
 		addSource(integer, "Int");
+		this.isfinal = integer.isFinal();
 	}
 	
 	public PriceField toFinal()
@@ -72,7 +75,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	
 	public boolean isFinal()
 	{
-		return integer.isFinal();
+		return isfinal;
 	}
 	
 	public Class getInitialType()
@@ -115,6 +118,9 @@ public final class PriceField extends Pattern implements Settable<Price>
 	
 	public void set(final Item item, final Price value)
 	{
+		if(isfinal)
+			throw new FinalViolationException(this, this, item);
+		
 		integer.set(item, value!=null ? value.store : null);
 	}
 	

@@ -31,17 +31,19 @@ public final class FinalViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final Field feature;
+	private final Feature feature;
 	
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	public FinalViolationException(final Field feature, final Item item)
+	public FinalViolationException(final Feature feature, final Settable settable, final Item item)
 	{
 		super(item, null);
 		
+		if(feature!=settable)
+			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
 		if(item==null)
 			throw new NullPointerException();
 		
@@ -49,10 +51,10 @@ public final class FinalViolationException extends ConstraintViolationException
 	}
 	
 	/**
-	 * Returns the field, that was attempted to be written.
+	 * Returns the feature, that was attempted to be written.
 	 */
 	@Override
-	public Field getFeature()
+	public Feature getFeature()
 	{
 		return feature;
 	}
@@ -69,7 +71,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
 	@Deprecated
-	public Field getFinalAttribute()
+	public Feature getFinalAttribute()
 	{
 		return feature;
 	}

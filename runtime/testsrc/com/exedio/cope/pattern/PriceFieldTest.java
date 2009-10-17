@@ -172,7 +172,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals(item2.finalPrice.getInt(), e.getFeature());
+			assertEquals(item2.finalPrice, e.getFeature());
 			assertEquals(item2, e.getItem());
 		}
 	}

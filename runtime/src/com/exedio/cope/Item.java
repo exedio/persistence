@@ -222,7 +222,7 @@ public abstract class Item implements Serializable
 		type.assertBelongs(field);
 		
 		if(field.isfinal)
-			throw new FinalViolationException(field, this);
+			throw new FinalViolationException(field, field, this);
 
 		field.check(value, this);
 
@@ -256,7 +256,7 @@ public abstract class Item implements Serializable
 			type.assertBelongs(field);
 			
 			if(field.isfinal)
-				throw new FinalViolationException(field, this);
+				throw new FinalViolationException(field, field, this);
 
 			field.check(fieldValues.get(field), this);
 		}
