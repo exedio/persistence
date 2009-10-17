@@ -164,5 +164,16 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());
 		assertEquals(storeOf(5001), item2.getBigPrice());
+		
+		try
+		{
+			item2.finalPrice.set(item2, null);
+			fail();
+		}
+		catch(FinalViolationException e)
+		{
+			assertEquals(item2.finalPrice.getInt(), e.getFeature());
+			assertEquals(item2, e.getItem());
+		}
 	}
 }
