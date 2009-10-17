@@ -156,7 +156,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		if(value == null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, exceptionItem);
+				throw new MandatoryViolationException(this, this, exceptionItem);
 		}
 		else
 		{

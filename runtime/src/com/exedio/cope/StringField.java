@@ -185,7 +185,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 			StringLengthViolationException, StringCharSetViolationException
 	{
 		if(convertEmptyStrings && value.length()==0 && !optional)
-			throw new MandatoryViolationException(this, exceptionItem);
+			throw new MandatoryViolationException(this, this, exceptionItem);
 		
 		final int length = value.length();
 		if(length<minimumLength)

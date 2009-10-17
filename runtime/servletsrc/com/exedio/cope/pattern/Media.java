@@ -359,6 +359,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public void set(final Item item, final Media.Value value)
 		throws DataLengthViolationException, IOException
 	{
+		if(value==null && !optional)
+			throw new MandatoryViolationException(this, this, item);
+		
 		item.set(execute(value, item));
 	}
 	
@@ -382,6 +385,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public void set(final Item item, final byte[] body, final String contentType)
 		throws DataLengthViolationException
 	{
+		if((body==null||contentType==null) && !optional)
+			throw new MandatoryViolationException(this, this, item);
+		
 		try
 		{
 			set(item, DataField.toValue(body), contentType);
@@ -417,6 +423,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public void set(final Item item, final InputStream body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		if((body==null||contentType==null) && !optional)
+			throw new MandatoryViolationException(this, this, item);
+		
 		try
 		{
 			set(item, DataField.toValue(body), contentType);
@@ -452,6 +461,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public void set(final Item item, final File body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		if((body==null||contentType==null) && !optional)
+			throw new MandatoryViolationException(this, this, item);
+		
 		set(item, DataField.toValue(body), contentType);
 	}
 	
@@ -461,6 +473,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private void set(final Item item, final DataField.Value body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		assert !((body==null||contentType==null) && !optional) : getID();
+		
 		item.set(execute(toValue(body, contentType), item));
 	}
 	
@@ -517,6 +531,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		else
 		{
+			if(!optional)
+				throw new MandatoryViolationException(this, this, exceptionItem);
+			
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)

@@ -288,7 +288,7 @@ public final class DataField extends Field<DataField.Value>
 		if(data==null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, item);
+				throw new MandatoryViolationException(this, this, item);
 		}
 		else
 		{

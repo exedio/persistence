@@ -38,24 +38,26 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final Field feature;
+	private final Feature feature;
 	
 	/**
 	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	MandatoryViolationException(final Field feature, final Item item)
+	public MandatoryViolationException(final Feature feature, final Settable settable, final Item item)
 	{
 		super(item, null);
+		if(feature!=settable)
+			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
 		this.feature = feature;
 	}
 	
 	/**
-	 * Returns the field, that was attempted to be written.
+	 * Returns the feature, that was attempted to be written.
 	 */
 	@Override
-	public Field getFeature()
+	public Feature getFeature()
 	{
 		return feature;
 	}
@@ -72,7 +74,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
 	@Deprecated
-	public Field getMandatoryAttribute()
+	public Feature getMandatoryAttribute()
 	{
 		return feature;
 	}
