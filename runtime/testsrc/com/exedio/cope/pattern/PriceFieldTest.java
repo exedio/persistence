@@ -156,6 +156,19 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(5000), item.getBigPrice());
+		try
+		{
+			new PriceFieldItem(new SetValue[]{
+					item.finalPrice.map(storeOf(567)),
+					item.bigPrice.map(null),
+			});
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.bigPrice.getInt(), e.getFeature());
+			assertEquals(null, e.getItem());
+		}
 		
 		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue[]{
 				item.finalPrice.map(storeOf(567)),
