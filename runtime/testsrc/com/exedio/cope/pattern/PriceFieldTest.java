@@ -150,7 +150,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.bigPrice.getInt(), e.getFeature());
+			assertEquals(item.bigPrice, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertEquals(storeOf(555), item.getFinalPrice());
@@ -166,7 +166,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.bigPrice.getInt(), e.getFeature());
+			assertEquals(item.bigPrice, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		

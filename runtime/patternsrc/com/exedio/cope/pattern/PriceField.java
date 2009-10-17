@@ -26,6 +26,7 @@ import java.util.Set;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -35,6 +36,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 {
 	private final IntegerField integer;
 	private final boolean isfinal;
+	private final boolean optional;
 	
 	public PriceField()
 	{
@@ -46,6 +48,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.integer = integer;
 		addSource(integer, "Int");
 		this.isfinal = integer.isFinal();
+		this.optional = !integer.isMandatory();
 	}
 	
 	public PriceField toFinal()
@@ -120,6 +123,8 @@ public final class PriceField extends Pattern implements Settable<Price>
 	{
 		if(isfinal)
 			throw new FinalViolationException(this, this, item);
+		if(value==null && !optional)
+			throw new MandatoryViolationException(this, this, item);
 		
 		integer.set(item, value!=null ? value.store : null);
 	}
@@ -131,6 +136,9 @@ public final class PriceField extends Pattern implements Settable<Price>
 	
 	public SetValue[] execute(final Price value, final Item exceptionItem)
 	{
+		if(value==null && !optional)
+			throw new MandatoryViolationException(this, this, exceptionItem);
+		
 		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
 	}
 }
