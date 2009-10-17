@@ -99,7 +99,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 			addComment("Returns the value of {0}.").
 			setReturn(Price.class));
 		
-		if(!isFinal())
+		if(!isfinal)
 		{
 			result.add(
 				new Wrapper("set").
