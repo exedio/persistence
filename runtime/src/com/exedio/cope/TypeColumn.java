@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class TypeColumn extends StringColumn
+final class TypeColumn extends StringColumn
 {
 	private final String itemColumnProtectedID;
 	
