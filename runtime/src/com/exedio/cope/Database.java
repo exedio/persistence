@@ -506,8 +506,8 @@ final class Database
 			bf.append(" ) as cope_total_distinct");
 		}
 		
-		// System.out.println(bf.toString());
-		
+		//System.out.println(bf.toString());
+
 		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
