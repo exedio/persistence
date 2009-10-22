@@ -400,7 +400,7 @@ final class Database
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
-		if(totalOnly && !distinct)
+		if(!distinct&&totalOnly)
 		{
 			bf.append("count(*)");
 		}
@@ -423,7 +423,7 @@ final class Database
 				selectTypes  [i] = selectType  .value;
 			}
 		}
-		
+
 		bf.append(" from ").
 			appendTypeDefinition((Join)null, query.type);
 
