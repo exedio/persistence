@@ -381,6 +381,11 @@ final class Database
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
+		if (totalOnly && distinct)
+		{
+			bf.append("select count(*) from ( ");
+		}
+		
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
 		
@@ -395,14 +400,12 @@ final class Database
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
-		if(!distinct&&totalOnly)
+		if(totalOnly && !distinct)
 		{
 			bf.append("count(*)");
 		}
 		else
 		{
-			if(totalOnly)
-				bf.append("count(");
 			if(distinct)
 				bf.append("distinct ");
 			
@@ -419,9 +422,6 @@ final class Database
 				selectColumns[i] = selectColumn.value;
 				selectTypes  [i] = selectType  .value;
 			}
-			
-			if(totalOnly)
-				bf.append(')');
 		}
 
 		bf.append(" from ").
@@ -500,8 +500,14 @@ final class Database
 		
 		final Model model = query.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
-		//System.out.println(bf.toString());
-
+		
+		if(totalOnly && distinct)
+		{
+			bf.append(" )");
+		}
+		
+		// System.out.println(bf.toString());
+		
 		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException

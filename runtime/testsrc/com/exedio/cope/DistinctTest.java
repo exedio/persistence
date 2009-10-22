@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.dsmf.SQLRuntimeException;
-
 public class DistinctTest extends AbstractRuntimeTest
 {
 	public DistinctTest()
@@ -60,7 +58,7 @@ public class DistinctTest extends AbstractRuntimeTest
 			
 			q.setDistinct(true);
 			assertContains(null, 3, 4, q.search());
-			assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
+			assertEquals(3, q.total());
 
 			item4.setNumB(null);
 			q.setDistinct(false);
@@ -69,7 +67,7 @@ public class DistinctTest extends AbstractRuntimeTest
 			
 			q.setDistinct(true);
 			assertContains(null, 3, 4, q.search());
-			assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
+			assertEquals(3, q.total());
 		}
 	}
 	
@@ -95,16 +93,7 @@ public class DistinctTest extends AbstractRuntimeTest
 				q.search());
 			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
-				try
-				{
-					assertEquals(4, q.total());
-					assertTrue("statement above fails on all databases but mysql", mysql);
-				}
-				catch(SQLRuntimeException e)
-				{
-					assertFalse("statement above fails on all databases but mysql", mysql);
-					//e.printStackTrace();
-				}
+				assertEquals(4, q.total());
 			}
 			
 			item1.setNumA(null);
@@ -127,16 +116,7 @@ public class DistinctTest extends AbstractRuntimeTest
 				q.search());
 			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
-				try
-				{
-					assertEquals(3, q.total()); // TODO should be 4, does not correspond to search size
-					assertTrue("statement above fails on all databases but mysql", mysql);
-				}
-				catch(SQLRuntimeException e)
-				{
-					assertFalse("statement above fails on all databases but mysql", mysql);
-					//e.printStackTrace();
-				}
+				assertEquals(4, q.total());
 			}
 			
 			item4.setNumA(null);
@@ -159,16 +139,7 @@ public class DistinctTest extends AbstractRuntimeTest
 				q.search());
 			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
-				try
-				{
-					assertEquals(2, q.total()); // TODO should be 4, does not correspond to search size
-					assertTrue("statement above fails on all databases but mysql", mysql);
-				}
-				catch(SQLRuntimeException e)
-				{
-					assertFalse("statement above fails on all databases but mysql", mysql);
-					//e.printStackTrace();
-				}
+				assertEquals(4, q.total());
 			}
 			
 			item1.setNumB(null);
@@ -191,16 +162,7 @@ public class DistinctTest extends AbstractRuntimeTest
 				q.search());
 			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
-				try
-				{
-					assertEquals(2, q.total()); // TODO should be 4, does not correspond to search size
-					assertTrue("statement above fails on all databases but mysql", mysql);
-				}
-				catch(SQLRuntimeException e)
-				{
-					assertFalse("statement above fails on all databases but mysql", mysql);
-					//e.printStackTrace();
-				}
+				assertEquals(4, q.total());
 			}
 			
 			item4.setNumB(null);
@@ -222,16 +184,7 @@ public class DistinctTest extends AbstractRuntimeTest
 				q.search());
 			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
-				try
-				{
-					assertEquals(2, q.total()); // TODO should be 3, does not correspond to search size
-					assertTrue("statement above fails on all databases but mysql", mysql);
-				}
-				catch(SQLRuntimeException e)
-				{
-					assertFalse("statement above fails on all databases but mysql", mysql);
-					//e.printStackTrace();
-				}
+				assertEquals(3, q.total());
 			}
 		}
 	}
