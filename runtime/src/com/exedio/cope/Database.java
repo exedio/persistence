@@ -383,7 +383,7 @@ final class Database
 		
 		if (totalOnly && distinct)
 		{
-			bf.append("select count(*) from ( ");
+			bf.append("select count(*) as cope_outer_statement_vor_distinct_and_total from ( ");
 		}
 		
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
