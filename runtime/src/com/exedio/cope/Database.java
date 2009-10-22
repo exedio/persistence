@@ -424,6 +424,11 @@ final class Database
 			}
 		}
 
+		if(totalOnly && distinct)
+		{
+			bf.append(" as cope_inner_statement_vor_distinct_and_total");
+		}
+		
 		bf.append(" from ").
 			appendTypeDefinition((Join)null, query.type);
 
