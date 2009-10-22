@@ -383,7 +383,7 @@ final class Database
 		
 		if (totalOnly && distinct)
 		{
-			bf.append("select count(*) as cope_outer_statement_vor_distinct_and_total from ( ");
+			bf.append("select count(*) from ( ");
 		}
 		
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
@@ -422,11 +422,6 @@ final class Database
 				selectColumns[i] = selectColumn.value;
 				selectTypes  [i] = selectType  .value;
 			}
-		}
-
-		if(totalOnly && distinct)
-		{
-			bf.append(" as cope_inner_statement_vor_distinct_and_total");
 		}
 		
 		bf.append(" from ").
@@ -508,7 +503,7 @@ final class Database
 		
 		if(totalOnly && distinct)
 		{
-			bf.append(" )");
+			bf.append(" ) as cope_total_distinct");
 		}
 		
 		// System.out.println(bf.toString());
