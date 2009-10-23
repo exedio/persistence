@@ -150,6 +150,18 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 
 		try
 		{
+			new MediaMandatoryItem();
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.file.getBody(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(null, e.getItem());
+		}
+		assertEquals(list(item), item.TYPE.search());
+
+		try
+		{
 			new MediaMandatoryItem(data20, null);
 			fail();
 		}
