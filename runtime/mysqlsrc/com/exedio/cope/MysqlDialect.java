@@ -336,7 +336,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	boolean mustHaveOwnAliasForDerivedTable() {
+	boolean subqueryRequiresAlias() {
 		return true;
 	}
 }

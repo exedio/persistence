@@ -169,4 +169,9 @@ final class PostgresqlDialect extends Dialect
 			append("),'hex')=").
 			appendParameter(hexLower(value));
 	}
+	
+	@Override
+	boolean subqueryRequiresAlias() {
+		return true;
+	}
 }

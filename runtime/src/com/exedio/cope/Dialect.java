@@ -119,7 +119,7 @@ abstract class Dialect
 		return false;
 	}
 	
-	boolean mustHaveOwnAliasForDerivedTable()
+	boolean subqueryRequiresAlias()
 	{
 		return false;
 	}

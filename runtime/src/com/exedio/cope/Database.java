@@ -504,7 +504,7 @@ final class Database
 		if(totalOnly && distinct)
 		{
 			bf.append(" )");
-			if (dialect.mustHaveOwnAliasForDerivedTable())
+			if (dialect.subqueryRequiresAlias())
 			{
 				bf.append(" as cope_total_distinct");
 			}
