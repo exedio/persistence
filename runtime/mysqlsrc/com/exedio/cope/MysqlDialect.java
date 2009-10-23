@@ -334,4 +334,9 @@ final class MysqlDialect extends Dialect
 			}
 		});
 	}
+	
+	@Override
+	boolean mustHaveOwnAliasForDerivedTable() {
+		return true;
+	}
 }

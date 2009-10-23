@@ -118,6 +118,11 @@ abstract class Dialect
 	{
 		return false;
 	}
+	
+	boolean mustHaveOwnAliasForDerivedTable()
+	{
+		return false;
+	}
 
 	/**
 	 * Specifies the factor,

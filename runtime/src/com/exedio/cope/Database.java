@@ -503,7 +503,11 @@ final class Database
 		
 		if(totalOnly && distinct)
 		{
-			bf.append(" ) as cope_total_distinct");
+			bf.append(" )");
+			if (dialect.mustHaveOwnAliasForDerivedTable())
+			{
+				bf.append(" as cope_total_distinct");
+			}
 		}
 		
 		//System.out.println(bf.toString());
