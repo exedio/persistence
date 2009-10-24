@@ -37,7 +37,6 @@ import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -134,15 +133,11 @@ public final class Model
 				
 				if(db.cluster)
 				{
-					final Properties.Source context = properties.getContext();
+					final ClusterConfig config = ClusterConfig.get(properties);
+					if(config!=null)
 					{
-						final String secretS = context.get("cluster.secret");
-						if(secretS!=null)
-						{
-							final ClusterConfig config = new ClusterConfig(secretS, properties);
-							this.clusterSender   = new ClusterSender  (config, properties);
-							this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
-						}
+						this.clusterSender   = new ClusterSender  (config, properties);
+						this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 					}
 				}
 				

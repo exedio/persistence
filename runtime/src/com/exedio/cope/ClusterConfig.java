@@ -22,6 +22,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
+import com.exedio.cope.util.Properties;
+
 final class ClusterConfig
 {
 	static final byte MAGIC0 = (byte)0xc0;
@@ -40,7 +42,19 @@ final class ClusterConfig
 	final InetAddress group;
 	final byte[] pingPayload;
 	
-	ClusterConfig(final String secret, final ConnectProperties properties)
+	static ClusterConfig get(final ConnectProperties properties)
+	{
+		final Properties.Source context = properties.getContext();
+		{
+			final String secretS = context.get("cluster.secret");
+			if(secretS!=null)
+				return new ClusterConfig(secretS, properties);
+			else
+				return null;
+		}
+	}
+	
+	private ClusterConfig(final String secret, final ConnectProperties properties)
 	{
 		this(parseSecret(secret), new Random().nextInt(), properties);
 	}
