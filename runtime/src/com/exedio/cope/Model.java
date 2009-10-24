@@ -468,26 +468,26 @@ public final class Model
 		
 		final String idString = id.substring(pos+1);
 
-		final long idNumber;
+		final long pkLong;
 		try
 		{
-			idNumber = Long.parseLong(idString);
+			pkLong = Long.parseLong(idString);
 		}
 		catch(NumberFormatException e)
 		{
 			throw new NoSuchIDException(id, e, idString);
 		}
 
-		if(idNumber<0)
+		if(pkLong<0)
 			throw new NoSuchIDException(id, true, "must be positive");
-		if(idNumber>=2147483648l)
+		if(pkLong>=2147483648l)
 			throw new NoSuchIDException(id, true, "does not fit in 31 bit");
-		final int pk = (int)idNumber;
+		final int pk = (int)pkLong;
 		
 		final Item result = type.getItemObject(pk);
 		if ( ! result.existsCopeItem() )
 		{
-			throw new NoSuchIDException(id, false, "item <"+idNumber+"> does not exist");
+			throw new NoSuchIDException(id, false, "item <"+pkLong+"> does not exist");
 		}
 		return result;
 	}
