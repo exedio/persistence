@@ -60,13 +60,8 @@ final class ClusterConfig
 				throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 			}
 			
-			return new ClusterConfig(secret, properties);
+			return new ClusterConfig(secret, new Random().nextInt(), properties);
 		}
-	}
-	
-	private ClusterConfig(final int secret, final ConnectProperties properties)
-	{
-		this(secret, new Random().nextInt(), properties);
 	}
 	
 	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
