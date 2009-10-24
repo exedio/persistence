@@ -29,21 +29,21 @@ import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
-	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
-	private int modificationListenersCleared = 0;
+	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
+	private int cleared = 0;
 	
 	List<ModificationListener> get()
 	{
-		synchronized(modificationListeners)
+		synchronized(list)
 		{
-			final int size = modificationListeners.size();
+			final int size = list.size();
 			if(size==0)
 				return Collections.<ModificationListener>emptyList();
 			
 			// make a copy to avoid ConcurrentModificationViolations
 			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
 			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
+			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ModificationListener listener = i.next().get();
 				if(listener==null)
@@ -56,7 +56,7 @@ final class ModificationListeners
 			}
 			
 			if(cleared>0)
-				this.modificationListenersCleared += cleared;
+				this.cleared += cleared;
 			
 			return Collections.unmodifiableList(result);
 		}
@@ -64,9 +64,9 @@ final class ModificationListeners
 
 	int getCleared()
 	{
-		synchronized(modificationListeners)
+		synchronized(list)
 		{
-			return modificationListenersCleared;
+			return cleared;
 		}
 	}
 	
@@ -76,9 +76,9 @@ final class ModificationListeners
 			throw new NullPointerException("listener");
 		
 		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
-		synchronized(modificationListeners)
+		synchronized(list)
 		{
-			modificationListeners.add(ref);
+			list.add(ref);
 		}
 	}
 	
@@ -87,10 +87,10 @@ final class ModificationListeners
 		if(listener==null)
 			throw new NullPointerException("listener");
 
-		synchronized(modificationListeners)
+		synchronized(list)
 		{
 			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
+			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ModificationListener l = i.next().get();
 				if(l==null)
@@ -102,7 +102,7 @@ final class ModificationListeners
 					i.remove();
 			}
 			if(cleared>0)
-				this.modificationListenersCleared += cleared;
+				this.cleared += cleared;
 		}
 	}
 }
