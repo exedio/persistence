@@ -48,18 +48,18 @@ final class ClusterConfig
 	{
 		final Properties.Source context = properties.getContext();
 		{
-			final String secretS = context.get(SECRET_NAME);
-			if(secretS==null)
+			final String secretString = context.get(SECRET_NAME);
+			if(secretString==null)
 				return null;
 			
 			final int secret;
 			try
 			{
-				secret = Integer.valueOf(secretS);
+				secret = Integer.valueOf(secretString);
 			}
 			catch(NumberFormatException e)
 			{
-				throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretS + '<', e);
+				throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
 			}
 			
 			return new ClusterConfig(secret, new Random().nextInt(), properties);
