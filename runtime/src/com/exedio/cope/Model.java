@@ -466,16 +466,16 @@ public final class Model
 		if(type.isAbstract)
 			throw new NoSuchIDException(id, true, "type is abstract");
 		
-		final String idString = id.substring(pos+1);
+		final String pkString = id.substring(pos+1);
 
 		final long pkLong;
 		try
 		{
-			pkLong = Long.parseLong(idString);
+			pkLong = Long.parseLong(pkString);
 		}
 		catch(NumberFormatException e)
 		{
-			throw new NoSuchIDException(id, e, idString);
+			throw new NoSuchIDException(id, e, pkString);
 		}
 
 		if(pkLong<0)
