@@ -25,17 +25,17 @@ final class Intern
 		// prevent instantiation
 	}
 	
-	private static final boolean skipIntern = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
+	private static final boolean skip = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
 	
 	static
 	{
-		if(skipIntern)
+		if(skip)
 			System.out.println("COPE: skipping String#intern()");
 	}
 	
 	static final String intern(final String s)
 	{
-		if(skipIntern)
+		if(skip)
 			return s;
 		
 		final String result = s.intern();
