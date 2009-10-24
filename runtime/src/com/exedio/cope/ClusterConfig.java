@@ -47,23 +47,21 @@ final class ClusterConfig
 	static ClusterConfig get(final ConnectProperties properties)
 	{
 		final Properties.Source context = properties.getContext();
+		final String secretString = context.get(SECRET_NAME);
+		if(secretString==null)
+			return null;
+		
+		final int secret;
+		try
 		{
-			final String secretString = context.get(SECRET_NAME);
-			if(secretString==null)
-				return null;
-			
-			final int secret;
-			try
-			{
-				secret = Integer.valueOf(secretString);
-			}
-			catch(NumberFormatException e)
-			{
-				throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
-			}
-			
-			return new ClusterConfig(secret, new Random().nextInt(), properties);
+			secret = Integer.valueOf(secretString);
 		}
+		catch(NumberFormatException e)
+		{
+			throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
+		}
+		
+		return new ClusterConfig(secret, new Random().nextInt(), properties);
 	}
 	
 	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
