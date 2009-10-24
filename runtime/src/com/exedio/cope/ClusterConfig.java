@@ -26,6 +26,8 @@ import com.exedio.cope.util.Properties;
 
 final class ClusterConfig
 {
+	private static final String SECRET_NAME = "cluster.secret";
+	
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;
 	static final byte MAGIC2 = 0x11;
@@ -46,7 +48,7 @@ final class ClusterConfig
 	{
 		final Properties.Source context = properties.getContext();
 		{
-			final String secretS = context.get("cluster.secret");
+			final String secretS = context.get(SECRET_NAME);
 			if(secretS==null)
 				return null;
 			
@@ -57,7 +59,7 @@ final class ClusterConfig
 			}
 			catch(NumberFormatException e)
 			{
-				throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
+				throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretS + '<', e);
 			}
 			
 			return new ClusterConfig(secret, new Random().nextInt(), properties);
