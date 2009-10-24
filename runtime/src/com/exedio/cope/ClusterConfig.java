@@ -50,25 +50,23 @@ final class ClusterConfig
 			if(secretS==null)
 				return null;
 			
-			return new ClusterConfig(secretS, properties);
+			final int secret;
+			try
+			{
+				secret = Integer.valueOf(secretS);
+			}
+			catch(NumberFormatException e)
+			{
+				throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
+			}
+			
+			return new ClusterConfig(secret, properties);
 		}
 	}
 	
-	private ClusterConfig(final String secret, final ConnectProperties properties)
+	private ClusterConfig(final int secret, final ConnectProperties properties)
 	{
-		this(parseSecret(secret), new Random().nextInt(), properties);
-	}
-	
-	private static final int parseSecret(final String s)
-	{
-		try
-		{
-			return Integer.valueOf(s);
-		}
-		catch(NumberFormatException e)
-		{
-			throw new RuntimeException("cluster.secret must be a valid integer, but was >" + s + '<', e);
-		}
+		this(secret, new Random().nextInt(), properties);
 	}
 	
 	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
