@@ -765,23 +765,7 @@ public final class Model
 	 */
 	public void checkTypeColumns()
 	{
-		for(final Type<?> t : getTypes())
-		{
-			checkTypeColumn(t.thisFunction);
-			for(final Field a : t.getDeclaredFields())
-				if(a instanceof ItemField)
-					checkTypeColumn((ItemField)a);
-		}
-	}
-	
-	private static final void checkTypeColumn(final ItemFunction f)
-	{
-		if(f.needsCheckTypeColumn())
-		{
-			final int count = f.checkTypeColumn();
-			if(count!=0)
-				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
-		}
+		types.checkTypeColumns();
 	}
 	
 	public void checkUnsupportedConstraints()

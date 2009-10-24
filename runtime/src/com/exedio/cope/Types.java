@@ -343,6 +343,27 @@ final class Types
 		return concreteTypes[transientNumber];
 	}
 	
+	void checkTypeColumns()
+	{
+		for(final Type<?> t : typesSorted)
+		{
+			checkTypeColumn(t.thisFunction);
+			for(final Field a : t.getDeclaredFields())
+				if(a instanceof ItemField)
+					checkTypeColumn((ItemField)a);
+		}
+	}
+	
+	private static final void checkTypeColumn(final ItemFunction f)
+	{
+		if(f.needsCheckTypeColumn())
+		{
+			final int count = f.checkTypeColumn();
+			if(count!=0)
+				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
+		}
+	}
+	
 	void connect(final Database db)
 	{
 		for(final Type type : typesSorted)
