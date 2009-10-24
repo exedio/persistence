@@ -343,6 +343,43 @@ final class Types
 		return concreteTypes[transientNumber];
 	}
 	
+	Item getItem(final String id) throws NoSuchIDException
+	{
+		final int pos = id.lastIndexOf(Item.ID_SEPARATOR);
+		if(pos<=0)
+			throw new NoSuchIDException(id, true, "no separator '" + Item.ID_SEPARATOR + "' in id");
+
+		final String typeID = id.substring(0, pos);
+		final Type type = getType(typeID);
+		if(type==null)
+			throw new NoSuchIDException(id, true, "type <" + typeID + "> does not exist");
+		if(type.isAbstract)
+			throw new NoSuchIDException(id, true, "type is abstract");
+		
+		final String pkString = id.substring(pos+1);
+
+		final long pkLong;
+		try
+		{
+			pkLong = Long.parseLong(pkString);
+		}
+		catch(NumberFormatException e)
+		{
+			throw new NoSuchIDException(id, e, pkString);
+		}
+
+		if(pkLong<0)
+			throw new NoSuchIDException(id, true, "must be positive");
+		if(pkLong>=2147483648l)
+			throw new NoSuchIDException(id, true, "does not fit in 31 bit");
+		final int pk = (int)pkLong;
+		
+		final Item result = type.getItemObject(pk);
+		if(!result.existsCopeItem())
+			throw new NoSuchIDException(id, false, "item <" + pkLong + "> does not exist");
+		return result;
+	}
+	
 	void checkTypeColumns()
 	{
 		for(final Type<?> t : typesSorted)
