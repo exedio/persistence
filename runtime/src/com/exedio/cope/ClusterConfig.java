@@ -47,10 +47,10 @@ final class ClusterConfig
 		final Properties.Source context = properties.getContext();
 		{
 			final String secretS = context.get("cluster.secret");
-			if(secretS!=null)
-				return new ClusterConfig(secretS, properties);
-			else
+			if(secretS==null)
 				return null;
+			
+			return new ClusterConfig(secretS, properties);
 		}
 	}
 	
