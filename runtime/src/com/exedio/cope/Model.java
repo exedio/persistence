@@ -494,22 +494,22 @@ public final class Model
 	
 	public List<ModificationListener> getModificationListeners()
 	{
-		return modificationListeners.getModificationListeners();
+		return modificationListeners.get();
 	}
 
 	public int getModificationListenersCleared()
 	{
-		return modificationListeners.getModificationListenersCleared();
+		return modificationListeners.getCleared();
 	}
 	
 	public void addModificationListener(final ModificationListener listener)
 	{
-		modificationListeners.addModificationListener(listener);
+		modificationListeners.add(listener);
 	}
 	
 	public void removeModificationListener(final ModificationListener listener)
 	{
-		modificationListeners.removeModificationListener(listener);
+		modificationListeners.remove(listener);
 	}
 	
 	public List<SequenceInfo> getSequenceInfo()

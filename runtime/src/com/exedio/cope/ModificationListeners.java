@@ -32,7 +32,7 @@ final class ModificationListeners
 	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
 	private int modificationListenersCleared = 0;
 	
-	List<ModificationListener> getModificationListeners()
+	List<ModificationListener> get()
 	{
 		synchronized(modificationListeners)
 		{
@@ -62,7 +62,7 @@ final class ModificationListeners
 		}
 	}
 
-	int getModificationListenersCleared()
+	int getCleared()
 	{
 		synchronized(modificationListeners)
 		{
@@ -70,7 +70,7 @@ final class ModificationListeners
 		}
 	}
 	
-	void addModificationListener(final ModificationListener listener)
+	void add(final ModificationListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener");
@@ -82,7 +82,7 @@ final class ModificationListeners
 		}
 	}
 	
-	void removeModificationListener(final ModificationListener listener)
+	void remove(final ModificationListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener");
