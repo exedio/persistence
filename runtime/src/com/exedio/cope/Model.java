@@ -19,17 +19,13 @@
 package com.exedio.cope;
 
 import java.io.PrintStream;
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -52,8 +48,8 @@ public final class Model
 	
 	final Types types;
 	private final Date initializeDate;
-	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
-	private int modificationListenersCleared = 0;
+	private final ModificationListeners modificationListeners = new ModificationListeners();
+	
 
 	// set by connect
 	private final Object connectLock = new Object();
@@ -498,76 +494,22 @@ public final class Model
 	
 	public List<ModificationListener> getModificationListeners()
 	{
-		synchronized(modificationListeners)
-		{
-			final int size = modificationListeners.size();
-			if(size==0)
-				return Collections.<ModificationListener>emptyList();
-			
-			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
-			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
-			{
-				final ModificationListener listener = i.next().get();
-				if(listener==null)
-				{
-					i.remove();
-					cleared++;
-				}
-				else
-					result.add(listener);
-			}
-			
-			if(cleared>0)
-				this.modificationListenersCleared += cleared;
-			
-			return Collections.unmodifiableList(result);
-		}
+		return modificationListeners.getModificationListeners();
 	}
 
 	public int getModificationListenersCleared()
 	{
-		synchronized(modificationListeners)
-		{
-			return modificationListenersCleared;
-		}
+		return modificationListeners.getModificationListenersCleared();
 	}
 	
 	public void addModificationListener(final ModificationListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
-		
-		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
-		synchronized(modificationListeners)
-		{
-			modificationListeners.add(ref);
-		}
+		modificationListeners.addModificationListener(listener);
 	}
 	
 	public void removeModificationListener(final ModificationListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
-
-		synchronized(modificationListeners)
-		{
-			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
-			{
-				final ModificationListener l = i.next().get();
-				if(l==null)
-				{
-					i.remove();
-					cleared++;
-				}
-				else if(l==listener)
-					i.remove();
-			}
-			if(cleared>0)
-				this.modificationListenersCleared += cleared;
-		}
+		modificationListeners.removeModificationListener(listener);
 	}
 	
 	public List<SequenceInfo> getSequenceInfo()
