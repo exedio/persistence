@@ -139,16 +139,7 @@ public final class Model
 						final String secretS = context.get("cluster.secret");
 						if(secretS!=null)
 						{
-							final int secret;
-							try
-							{
-								secret = Integer.valueOf(secretS);
-							}
-							catch(NumberFormatException e)
-							{
-								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
-							}
-							final ClusterConfig config = new ClusterConfig(secret, properties);
+							final ClusterConfig config = new ClusterConfig(secretS, properties);
 							this.clusterSender   = new ClusterSender  (config, properties);
 							this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}

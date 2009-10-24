@@ -40,9 +40,21 @@ final class ClusterConfig
 	final InetAddress group;
 	final byte[] pingPayload;
 	
-	ClusterConfig(final int secret, final ConnectProperties properties)
+	ClusterConfig(final String secret, final ConnectProperties properties)
 	{
-		this(secret, new Random().nextInt(), properties);
+		this(parseSecret(secret), new Random().nextInt(), properties);
+	}
+	
+	private static final int parseSecret(final String s)
+	{
+		try
+		{
+			return Integer.valueOf(s);
+		}
+		catch(NumberFormatException e)
+		{
+			throw new RuntimeException("cluster.secret must be a valid integer, but was >" + s + '<', e);
+		}
 	}
 	
 	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
