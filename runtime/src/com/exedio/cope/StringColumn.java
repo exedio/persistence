@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -63,9 +65,8 @@ class StringColumn extends Column
 
 		if(allowedValues.length<2)
 			throw new RuntimeException(id);
-		final Database database = table.database;
 		for(int i = 0; i<allowedValues.length; i++)
-			allowedValues[i] = database.intern(allowedValues[i]);
+			allowedValues[i] = intern(allowedValues[i]);
 		
 		assert minimumLength<=maximumLength;
 	}

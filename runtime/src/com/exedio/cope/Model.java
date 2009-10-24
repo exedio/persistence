@@ -807,24 +807,6 @@ public final class Model
 		clusterSender.ping(count);
 	}
 	
-	private static final boolean skipIntern = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
-	
-	static
-	{
-		if(skipIntern)
-			System.out.println("COPE: skipping String#intern()");
-	}
-	
-	static final String intern(final String s)
-	{
-		if(skipIntern)
-			return s;
-		
-		final String result = s.intern();
-		//System.out.println("Model.intern >" + s + "< " + (result!=s ? "NEW" : "OLD"));
-		return result;
-	}
-	
 	public static final boolean isLoggingEnabled()
 	{
 		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));

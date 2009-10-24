@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -86,7 +88,7 @@ public final class UniqueConstraint extends Feature
 			final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
 			databaseName = annotation!=null ? annotation.value() : getName();
 		}
-		this.databaseID = database.intern(database.makeName(table.id + '_' + databaseName + "_Unq"));
+		this.databaseID = intern(database.makeName(table.id + '_' + databaseName + "_Unq"));
 		database.addUniqueConstraint(databaseID, this);
 	}
 

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import com.exedio.dsmf.ForeignKeyConstraint;
 
 final class ItemColumn extends IntegerColumn
@@ -36,7 +38,7 @@ final class ItemColumn extends IntegerColumn
 		final Database database = table.database;
 		assert targetType!=null;
 		this.targetType = targetType;
-		this.integrityConstraintName = database.intern(database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ));
+		this.integrityConstraintName = intern(database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ));
 	}
 
 	/**

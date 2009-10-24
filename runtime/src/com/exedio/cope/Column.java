@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -43,8 +45,8 @@ abstract class Column
 		final Database database = table.database;
 		this.table = table;
 		this.field = field;
-		this.id = database.intern(database.makeName(id));
-		this.protectedID = database.intern(database.dsmfDialect.protectName(this.id));
+		this.id = intern(database.makeName(id));
+		this.protectedID = intern(database.dsmfDialect.protectName(this.id));
 		this.primaryKey = primaryKey;
 		this.optional = optional;
 		table.addColumn(this);

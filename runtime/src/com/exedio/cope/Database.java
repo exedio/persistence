@@ -178,11 +178,6 @@ final class Database
 		return Collections.unmodifiableList(result);
 	}
 	
-	final String intern(final String s)
-	{
-		return Model.intern(s);
-	}
-	
 	protected Statement createStatement()
 	{
 		return createStatement(true);

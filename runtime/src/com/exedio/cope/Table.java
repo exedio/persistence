@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,9 +42,9 @@ final class Table
 			final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
-		this.id = database.intern(database.makeName(id));
+		this.id = intern(database.makeName(id));
 		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
-		this.protectedID = database.intern(database.dsmfDialect.protectName(this.idLower));
+		this.protectedID = intern(database.dsmfDialect.protectName(this.idLower));
 		this.primaryKey =
 			(supertype!=null)
 			? new ItemColumn(this, supertype)

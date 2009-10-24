@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
@@ -43,8 +45,8 @@ public abstract class Feature
 			assert name!=null;
 			
 			this.type = type;
-			this.name = Model.intern(name);
-			this.id =   Model.intern(type.id + '.' + name);
+			this.name = intern(name);
+			this.id =   intern(type.id + '.' + name);
 		}
 		
 		void toString(final StringBuilder bf, final Type defaultType)
