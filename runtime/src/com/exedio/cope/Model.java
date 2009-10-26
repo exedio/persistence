@@ -207,7 +207,7 @@ public final class Model
 		final Connect connect = this.connect;
 		if(connect==null)
 			return null;
-		return connect.connectDate;
+		return connect.date;
 	}
 	
 	public List<Type<?>> getTypes()

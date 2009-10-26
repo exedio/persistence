@@ -28,7 +28,7 @@ final class Connect
 	final QueryCache queryCache;
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
-	final Date connectDate;
+	final Date date;
 	final boolean logTransactions;
 	
 	Connect(
@@ -65,7 +65,7 @@ final class Connect
 				}
 				
 				this.logTransactions = properties.getTransactionLog();
-				this.connectDate = new Date();
+				this.date = new Date();
 	}
 	
 	void close()
