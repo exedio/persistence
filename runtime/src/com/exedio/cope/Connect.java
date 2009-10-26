@@ -67,10 +67,10 @@ final class Connect
 	
 	void close()
 	{
-				if(this.clusterSender!=null)
-					this.clusterSender.close();
-				if(this.clusterListener!=null)
-					this.clusterListener.close();
+				if(clusterSender!=null)
+					clusterSender.close();
+				if(clusterListener!=null)
+					clusterListener.close();
 				
 				database.close();
 	}
