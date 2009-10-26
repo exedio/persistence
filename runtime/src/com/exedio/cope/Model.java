@@ -99,13 +99,11 @@ public final class Model
 
 		synchronized(connectLock)
 		{
-			if(this.connect==null)
-			{
-				this.connect = new Connect(types, revisions, properties);
-				types.connect(connect.database);
-			}
-			else
-				throw new IllegalStateException("model already been connected"); // TODO reorder code
+			if(this.connect!=null)
+				throw new IllegalStateException("model already been connected");
+			
+			this.connect = new Connect(types, revisions, properties);
+			types.connect(connect.database);
 		}
 	}
 	
@@ -113,17 +111,13 @@ public final class Model
 	{
 		synchronized(connectLock)
 		{
-			if(this.connect!=null)
-			{
-				final Connect connect = this.connect;
-				this.connect = null;
-				
-				types.disconnect();
-				
-				connect.close();
-			}
-			else
-				throw new IllegalStateException("model not yet connected, use Model#connect"); // TODO reorder code
+			if(this.connect==null)
+				throw new IllegalStateException("model not yet connected, use Model#connect");
+			
+			final Connect connect = this.connect;
+			this.connect = null;
+			types.disconnect();
+			connect.close();
 		}
 	}
 	
