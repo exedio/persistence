@@ -102,7 +102,7 @@ public final class Model
 	public void connect(final ConnectProperties properties)
 	{
 		if(properties==null)
-			throw new NullPointerException();
+			throw new NullPointerException("properties");
 
 		synchronized(connectLock)
 		{

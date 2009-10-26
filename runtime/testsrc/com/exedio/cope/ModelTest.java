@@ -60,6 +60,15 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals("model already been connected", e.getMessage());
 		}
+		try
+		{
+			model.connect(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
 		assertSame(connectDate, model.getConnectDate());
 		assertEquals(!postgresql, model.supportsSequences());
 	}
