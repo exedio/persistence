@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 public final class Transaction
 {
 	final Model model;
-	final Database database;
+	final Connect connect;
 	final long id;
 	final String name;
 	final long startDate;
@@ -55,7 +55,7 @@ public final class Transaction
 	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
 	{
 		this.model = model;
-		this.database = model.connect().database; // TODO reuse Connect instead of Database
+		this.connect = model.connect();
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
@@ -133,11 +133,11 @@ public final class Transaction
 			{
 				if ( isInvalidated(item) )
 				{
-					state = item.type.getModel().connect().database.load(this.getConnection(), item);
+					state = connect.database.load(this.getConnection(), item);
 				}
 				else
 				{
-					state = model.connect().itemCache.getState(this, item);
+					state = connect.itemCache.getState(this, item);
 				}
 			}
 			else
@@ -169,13 +169,13 @@ public final class Transaction
 	
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
-		if(!model.connect().queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
+		if(!connect.queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
 		{
 			return query.searchUncached(this, totalOnly);
 		}
 		else
 		{
-			return model.connect().queryCache.search(this, query, totalOnly);
+			return connect.queryCache.search(this, query, totalOnly);
 		}
 	}
 	
@@ -252,7 +252,7 @@ public final class Transaction
 		if(connectionPool!=null)
 			throw new RuntimeException();
 
-		connectionPool = database.connectionPool;
+		connectionPool = connect.database.connectionPool;
 		final Connection connection = connectionPool.get();
 		try
 		{
@@ -309,7 +309,7 @@ public final class Transaction
 		}
 
 		// notify global cache
-		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
+		if(!rollback || !connect.database.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
 		{
 			boolean modified = false;
 			for(final TIntHashSet invalidation : invalidations)
@@ -322,7 +322,7 @@ public final class Transaction
 			}
 			
 			if(modified)
-				model.connect().invalidate(invalidations);
+				connect.invalidate(invalidations);
 		}
 
 		// notify ModificationListeners
