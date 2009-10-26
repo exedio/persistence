@@ -52,14 +52,7 @@ public final class Model
 
 	// set by connect
 	private final Object connectLock = new Object();
-	private ConnectProperties propertiesIfConnected;
-	private Database databaseIfConnected;
-	private ItemCache itemCacheIfConnected;
-	private QueryCache queryCacheIfConnected;
-	ClusterSender clusterSender;
-	private ClusterListener clusterListener;
-	private Date connectDate = null;
-	private boolean logTransactions = false;
+	private Connect connect;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
@@ -106,43 +99,10 @@ public final class Model
 
 		synchronized(connectLock)
 		{
-			if(this.propertiesIfConnected==null)
+			if(this.connect==null)
 			{
-				if(this.databaseIfConnected!=null)
-					throw new RuntimeException();
-				if(this.itemCacheIfConnected!=null)
-					throw new RuntimeException();
-				if(this.queryCacheIfConnected!=null)
-					throw new RuntimeException();
-				if(this.clusterSender!=null)
-					throw new RuntimeException();
-				if(this.clusterListener!=null)
-					throw new RuntimeException();
-				if(this.connectDate!=null)
-					throw new RuntimeException();
-		
-				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(revisions);
-				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = db;
-				
-				types.connect(db);
-				
-				this.itemCacheIfConnected = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
-				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
-				
-				if(db.cluster)
-				{
-					final ClusterConfig config = ClusterConfig.get(properties);
-					if(config!=null)
-					{
-						this.clusterSender   = new ClusterSender  (config, properties);
-						this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
-					}
-				}
-				
-				this.logTransactions = properties.getTransactionLog();
-				this.connectDate = new Date();
+				this.connect = new Connect(types, revisions, properties);
+				types.connect(connect.databaseIfConnected);
 			}
 			else
 				throw new IllegalStateException("model already been connected"); // TODO reorder code
@@ -153,38 +113,26 @@ public final class Model
 	{
 		synchronized(connectLock)
 		{
-			if(this.propertiesIfConnected!=null)
+			if(this.connect!=null)
 			{
-				if(this.databaseIfConnected==null)
-					throw new RuntimeException();
-				if(this.itemCacheIfConnected==null)
-					throw new RuntimeException();
-				if(this.queryCacheIfConnected==null)
-					throw new RuntimeException();
-				if(this.connectDate==null)
-					throw new RuntimeException();
-		
-				this.propertiesIfConnected = null;
-				final Database db = this.databaseIfConnected;
-				this.databaseIfConnected = null;
+				final Connect connect = this.connect;
+				this.connect = null;
 				
 				types.disconnect();
 				
-				this.itemCacheIfConnected = null;
-				this.queryCacheIfConnected = null;
-				if(this.clusterSender!=null)
-					this.clusterSender.close();
-				this.clusterSender = null;
-				if(this.clusterListener!=null)
-					this.clusterListener.close();
-				this.clusterListener = null;
-				this.connectDate = null;
-				
-				db.close();
+				connect.close();
 			}
 			else
 				throw new IllegalStateException("model not yet connected, use Model#connect"); // TODO reorder code
 		}
+	}
+	
+	Connect connect()
+	{
+		final Connect connect = this.connect;
+		if(connect==null)
+			throw new IllegalStateException("model not yet connected, use Model#connect");
+		return connect;
 	}
 	
 	public void flushSequences()
@@ -236,39 +184,30 @@ public final class Model
 	
 	public ConnectProperties getProperties()
 	{
-		if(propertiesIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
-
-		return propertiesIfConnected;
+		return connect().propertiesIfConnected;
 	}
 	
 	Database getDatabase()
 	{
-		if(databaseIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
-
-		return databaseIfConnected;
+		return connect().databaseIfConnected;
 	}
 	
 	ItemCache getItemCache()
 	{
-		if(itemCacheIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
-
-		return itemCacheIfConnected;
+		return connect().itemCacheIfConnected;
 	}
 	
 	QueryCache getQueryCache()
 	{
-		if(queryCacheIfConnected==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
-
-		return queryCacheIfConnected;
+		return connect().queryCacheIfConnected;
 	}
 	
 	public Date getConnectDate()
 	{
-		return connectDate;
+		final Connect connect = this.connect;
+		if(connect==null)
+			return null;
+		return connect.connectDate;
 	}
 	
 	public List<Type<?>> getTypes()
@@ -502,7 +441,7 @@ public final class Model
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final ClusterListener clusterListener = this.clusterListener;
+		final ClusterListener clusterListener = connect().clusterListener;
 		if(clusterListener==null)
 			return null;
 		return clusterListener.getInfo();
@@ -534,7 +473,7 @@ public final class Model
 	{
 		getDatabase(); // ensure connected
 		
-		if(logTransactions)
+		if(connect().logTransactions)
 			System.out.println("transaction start " + name);
 
 		final Transaction previousTransaction = getCurrentTransactionIfBound();
@@ -649,7 +588,7 @@ public final class Model
 	{
 		final Transaction tx = getCurrentTransaction();
 		
-		if(logTransactions)
+		if(connect().logTransactions)
 			System.out.println("transaction " + (rollback?"rollback":"commit") + ' ' + tx);
 		
 		synchronized(openTransactions)
@@ -727,7 +666,7 @@ public final class Model
 	
 	public boolean isClusterNetworkEnabled()
 	{
-		return this.clusterSender!=null;
+		return connect().clusterSender!=null;
 	}
 	
 	public void pingClusterNetwork()
@@ -737,7 +676,7 @@ public final class Model
 	
 	public void pingClusterNetwork(final int count)
 	{
-		final ClusterSender clusterSender = this.clusterSender;
+		final ClusterSender clusterSender = connect().clusterSender;
 		if(clusterSender==null)
 			throw new IllegalStateException("cluster network not enabled");
 		clusterSender.ping(count);
