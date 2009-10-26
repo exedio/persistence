@@ -57,7 +57,7 @@ final class WrittenState extends State
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
-			type.getModel().getDatabase().store(transaction.getConnection(), this, true, blobs);
+			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
 		
 		return this;
 	}

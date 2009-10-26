@@ -624,7 +624,7 @@ public final class Query<R>
 	
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
 	{
-		return model.getDatabase().search(
+		return model.connect().database.search(
 				transaction.getConnection(),
 				this,
 				totalOnly,

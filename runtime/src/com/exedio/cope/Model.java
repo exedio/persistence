@@ -137,7 +137,7 @@ public final class Model
 	
 	public void flushSequences()
 	{
-		getDatabase().flushSequences();
+		connect().database.flushSequences();
 	}
 	
 	private final void assertRevisionEnabled()
@@ -154,7 +154,7 @@ public final class Model
 	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
 	{
 		assertRevisionEnabled();
-		getDatabase().setRevisions(revisions); // do this first to fail early if not yet connected
+		connect().database.setRevisions(revisions); // do this first to fail early if not yet connected
 		this.revisions = revisions;
 	}
 
@@ -164,7 +164,7 @@ public final class Model
 		
 		synchronized(reviseLock)
 		{
-			getDatabase().revise();
+			connect().database.revise();
 		}
 	}
 
@@ -179,27 +179,12 @@ public final class Model
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertRevisionEnabled();
-		return getDatabase().getRevisionLogs();
+		return connect().database.getRevisionLogs();
 	}
 	
 	public ConnectProperties getProperties()
 	{
 		return connect().properties;
-	}
-	
-	Database getDatabase()
-	{
-		return connect().database;
-	}
-	
-	ItemCache getItemCache()
-	{
-		return connect().itemCache;
-	}
-	
-	QueryCache getQueryCache()
-	{
-		return connect().queryCache;
 	}
 	
 	public Date getConnectDate()
@@ -248,12 +233,12 @@ public final class Model
 	
 	public boolean supportsCheckConstraints()
 	{
-		return getDatabase().dsmfDialect.supportsCheckConstraints();
+		return connect().database.dsmfDialect.supportsCheckConstraints();
 	}
 	
 	public boolean supportsSequences()
 	{
-		return getDatabase().supportsSequences;
+		return connect().database.supportsSequences;
 	}
 	
 	/**
@@ -271,12 +256,12 @@ public final class Model
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().dialect.supportsEmptyStrings();
+		return !getProperties().getDatabaseDontSupportEmptyStrings() && connect().database.dialect.supportsEmptyStrings();
 	}
 
 	public boolean isDatabaseLogEnabled()
 	{
-		return getDatabase().log!=null;
+		return connect().database.log!=null;
 	}
 	
 	/**
@@ -284,19 +269,19 @@ public final class Model
 	 */
 	public int getDatabaseLogThreshold()
 	{
-		final DatabaseLogConfig log = getDatabase().log;
+		final DatabaseLogConfig log = connect().database.log;
 		return log!=null ? log.threshold : 0;
 	}
 	
 	public String getDatabaseLogSQL()
 	{
-		final DatabaseLogConfig log = getDatabase().log;
+		final DatabaseLogConfig log = connect().database.log;
 		return log!=null ? log.sql : null;
 	}
 	
 	public void setDatabaseLog(final boolean enable, final int threshold, final String sql, final PrintStream out)
 	{
-		getDatabase().log = enable ? new DatabaseLogConfig(threshold, sql, out) : null;
+		connect().database.log = enable ? new DatabaseLogConfig(threshold, sql, out) : null;
 	}
 	
 	/**
@@ -304,18 +289,18 @@ public final class Model
 	 */
 	DatabaseListener setDatabaseListener(final DatabaseListener listener)
 	{
-		return getDatabase().setListener(listener);
+		return connect().database.setListener(listener);
 	}
 	
 	public void createSchema()
 	{
-		getDatabase().createSchema();
+		connect().database.createSchema();
 		clearCache();
 	}
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().createSchemaConstraints(types);
+		connect().database.createSchemaConstraints(types);
 	}
 
 	/**
@@ -331,44 +316,44 @@ public final class Model
 	 */
 	public void checkSchema()
 	{
-		getDatabase().checkSchema(getCurrentTransaction().getConnection());
+		connect().database.checkSchema(getCurrentTransaction().getConnection());
 	}
 
 	public void checkEmptySchema()
 	{
-		getDatabase().checkEmptySchema(getCurrentTransaction().getConnection());
+		connect().database.checkEmptySchema(getCurrentTransaction().getConnection());
 	}
 
 	public void dropSchema()
 	{
-		getDatabase().dropSchema();
+		connect().database.dropSchema();
 		clearCache();
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().dropSchemaConstraints(types);
+		connect().database.dropSchemaConstraints(types);
 	}
 
 	public void tearDownSchema()
 	{
-		getDatabase().tearDownSchema();
+		connect().database.tearDownSchema();
 		clearCache();
 	}
 	
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().tearDownSchemaConstraints(types);
+		connect().database.tearDownSchemaConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()
 	{
-		return getDatabase().makeVerifiedSchema();
+		return connect().database.makeVerifiedSchema();
 	}
 
 	public Schema getSchema()
 	{
-		return getDatabase().makeSchema();
+		return connect().database.makeSchema();
 	}
 
 	/**
@@ -405,32 +390,32 @@ public final class Model
 	
 	public List<SequenceInfo> getSequenceInfo()
 	{
-		return getDatabase().getSequenceInfo();
+		return connect().database.getSequenceInfo();
 	}
 	
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return getItemCache().getInfo();
+		return connect().itemCache.getInfo();
 	}
 	
 	public QueryCacheInfo getQueryCacheInfo()
 	{
-		return getQueryCache().getInfo();
+		return connect().queryCache.getInfo();
 	}
 	
 	public QueryCacheHistogram[] getQueryCacheHistogram()
 	{
-		return getQueryCache().getHistogram();
+		return connect().queryCache.getHistogram();
 	}
 	
 	public Pool.Info getConnectionPoolInfo()
 	{
-		return getDatabase().connectionPool.getInfo();
+		return connect().database.connectionPool.getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()
 	{
-		final DialectParameters db = getDatabase().dialectParameters;
+		final DialectParameters db = connect().database.dialectParameters;
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("database.name", db.databaseProductName);
 		result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
@@ -471,8 +456,6 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		getDatabase(); // ensure connected
-		
 		if(connect().logTransactions)
 			System.out.println("transaction start " + name);
 
@@ -615,7 +598,7 @@ public final class Model
 	 */
 	boolean supportsReadCommitted()
 	{
-		return getDatabase().supportsReadCommitted;
+		return connect().database.supportsReadCommitted;
 	}
 	
 	/**
@@ -647,8 +630,8 @@ public final class Model
 	
 	public void clearCache()
 	{
-		getItemCache().clear();
-		getQueryCache().clear();
+		connect().itemCache.clear();
+		connect().queryCache.clear();
 	}
 	
 	/**
@@ -661,7 +644,7 @@ public final class Model
 	
 	public void checkUnsupportedConstraints()
 	{
-		getDatabase().makeSchema().checkUnsupportedConstraints();
+		connect().database.makeSchema().checkUnsupportedConstraints();
 	}
 	
 	public boolean isClusterNetworkEnabled()

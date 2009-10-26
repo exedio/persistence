@@ -201,7 +201,7 @@ public class FieldDateTest extends FieldTest
 	
 	public void testDateColumnType()
 	{
-		assertEquals(dialect.dateTimestampType, model.getDatabase().dialect.getDateTimestampType());
+		assertEquals(dialect.dateTimestampType, model.connect().database.dialect.getDateTimestampType());
 	}
 	
 	public static String toString(final Date date)

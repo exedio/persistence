@@ -55,7 +55,7 @@ final class CreatedState extends State
 	{
 		try
 		{
-			type.getModel().getDatabase().store(transaction.getConnection(), this, false, blobs);
+			type.getModel().connect().database.store(transaction.getConnection(), this, false, blobs);
 			return new WrittenState(this);
 		}
 		catch ( RuntimeException e )

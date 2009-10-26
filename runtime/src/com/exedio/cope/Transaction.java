@@ -55,7 +55,7 @@ public final class Transaction
 	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
 	{
 		this.model = model;
-		this.database = model.getDatabase();
+		this.database = model.connect().database; // TODO reuse Connect instead of Database
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
@@ -133,11 +133,11 @@ public final class Transaction
 			{
 				if ( isInvalidated(item) )
 				{
-					state = item.type.getModel().getDatabase().load(this.getConnection(), item);
+					state = item.type.getModel().connect().database.load(this.getConnection(), item);
 				}
 				else
 				{
-					state = model.getItemCache().getState(this, item);
+					state = model.connect().itemCache.getState(this, item);
 				}
 			}
 			else
@@ -169,13 +169,13 @@ public final class Transaction
 	
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
-		if(!model.getQueryCache().isEnabled() || isInvalidated(query))
+		if(!model.connect().queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
 		{
 			return query.searchUncached(this, totalOnly);
 		}
 		else
 		{
-			return model.getQueryCache().search(this, query, totalOnly);
+			return model.connect().queryCache.search(this, query, totalOnly);
 		}
 	}
 	
@@ -323,8 +323,8 @@ public final class Transaction
 			
 			if(modified)
 			{
-				model.getItemCache().invalidate(invalidations);
-				model.getQueryCache().invalidate(invalidations);
+				model.connect().itemCache.invalidate(invalidations); // TODO move this code into Connect
+				model.connect().queryCache.invalidate(invalidations);
 				final ClusterSender clusterSender = model.connect().clusterSender;
 				if(clusterSender!=null)
 					clusterSender.invalidate(invalidations);

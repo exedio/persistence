@@ -138,7 +138,7 @@ public final class DateField extends FunctionField<Date>
 		final Model model = getType().getModel();
 		final boolean useLong =
 			model.getProperties().getDatabaseDontSupportNativeDate() ||
-			!(model.getDatabase().dialect.getDateTimestampType()!=null);
+			!(model.connect().database.dialect.getDateTimestampType()!=null);
 		
 		return
 				useLong

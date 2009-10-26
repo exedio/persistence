@@ -132,7 +132,7 @@ public class ReviseTest extends CopeAssert
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blob";
-		final Dialect dialect = model7.getDatabase().dialect;
+		final Dialect dialect = model7.connect().database.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
 		// BEWARE:
 		// Never do this in real projects,
