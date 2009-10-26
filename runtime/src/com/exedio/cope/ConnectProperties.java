@@ -170,12 +170,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 	
-	Database createDatabase(final Revisions revisions, final DialectParameters parameters)
+	Dialect createDialect(final DialectParameters parameters)
 	{
-		final Dialect dialect;
 		try
 		{
-			dialect = this.dialect.newInstance(parameters);
+			return this.dialect.newInstance(parameters);
 		}
 		catch(InstantiationException e)
 		{
@@ -189,8 +188,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			throw new RuntimeException(e);
 		}
-		
-		return new Database(dialect.dsmfDialect, parameters, dialect, revisions);
 	}
 	
 	public String getDialect()

@@ -31,6 +31,7 @@ final class Connect
 {
 	final Date date = new Date();
 	final ConnectProperties properties;
+	final Dialect dialect;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -75,7 +76,8 @@ final class Connect
 					}
 				}
 				
-				this.database = properties.createDatabase(revisions, dialectParameters);
+				this.dialect = properties.createDialect(dialectParameters);
+				this.database = new Database(dialect.dsmfDialect, dialectParameters, dialect, revisions);
 				
 				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 				this.queryCache = new QueryCache(properties.getQueryCacheLimit());
