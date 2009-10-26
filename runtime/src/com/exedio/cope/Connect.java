@@ -36,15 +36,13 @@ final class Connect
 			final Revisions revisions,
 			final ConnectProperties properties)
 	{
-				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(revisions);
 				this.properties = properties;
-				this.database = db;
+				this.database = properties.createDatabase(revisions);
 				
 				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 				this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 				
-				if(db.cluster)
+				if(database.cluster)
 				{
 					final ClusterConfig config = ClusterConfig.get(properties);
 					if(config!=null)
