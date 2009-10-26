@@ -22,10 +22,10 @@ import java.util.Date;
 
 final class Connect
 {
-	final ConnectProperties propertiesIfConnected;
-	final Database databaseIfConnected;
-	final ItemCache itemCacheIfConnected;
-	final QueryCache queryCacheIfConnected;
+	final ConnectProperties properties;
+	final Database database;
+	final ItemCache itemCache;
+	final QueryCache queryCache;
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
 	final Date connectDate;
@@ -38,11 +38,11 @@ final class Connect
 	{
 				// do this at first, to avoid half-connected model if probe connection fails
 				final Database db = properties.createDatabase(revisions);
-				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = db;
+				this.properties = properties;
+				this.database = db;
 				
-				this.itemCacheIfConnected = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
-				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
+				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
+				this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 				
 				if(db.cluster)
 				{
@@ -50,7 +50,7 @@ final class Connect
 					if(config!=null)
 					{
 						this.clusterSender   = new ClusterSender  (config, properties);
-						this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+						this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
 					}
 					else
 					{
@@ -70,7 +70,7 @@ final class Connect
 	
 	void close()
 	{
-				final Database db = this.databaseIfConnected;
+				final Database db = this.database;
 				
 				if(this.clusterSender!=null)
 					this.clusterSender.close();

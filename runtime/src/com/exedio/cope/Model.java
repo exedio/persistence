@@ -102,7 +102,7 @@ public final class Model
 			if(this.connect==null)
 			{
 				this.connect = new Connect(types, revisions, properties);
-				types.connect(connect.databaseIfConnected);
+				types.connect(connect.database);
 			}
 			else
 				throw new IllegalStateException("model already been connected"); // TODO reorder code
@@ -184,22 +184,22 @@ public final class Model
 	
 	public ConnectProperties getProperties()
 	{
-		return connect().propertiesIfConnected;
+		return connect().properties;
 	}
 	
 	Database getDatabase()
 	{
-		return connect().databaseIfConnected;
+		return connect().database;
 	}
 	
 	ItemCache getItemCache()
 	{
-		return connect().itemCacheIfConnected;
+		return connect().itemCache;
 	}
 	
 	QueryCache getQueryCache()
 	{
-		return connect().queryCacheIfConnected;
+		return connect().queryCache;
 	}
 	
 	public Date getConnectDate()
