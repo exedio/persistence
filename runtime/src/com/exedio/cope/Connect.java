@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+
 import java.util.Date;
 
 final class Connect
@@ -73,5 +75,13 @@ final class Connect
 					clusterListener.close();
 				
 				database.close();
+	}
+	
+	void invalidate(final TIntHashSet[] invalidations)
+	{
+		itemCache.invalidate(invalidations);
+		queryCache.invalidate(invalidations);
+		if(clusterSender!=null)
+			clusterSender.invalidate(invalidations);
 	}
 }

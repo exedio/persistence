@@ -322,13 +322,7 @@ public final class Transaction
 			}
 			
 			if(modified)
-			{
-				model.connect().itemCache.invalidate(invalidations); // TODO move this code into Connect
-				model.connect().queryCache.invalidate(invalidations);
-				final ClusterSender clusterSender = model.connect().clusterSender;
-				if(clusterSender!=null)
-					clusterSender.invalidate(invalidations);
-			}
+				model.connect().invalidate(invalidations);
 		}
 
 		// notify ModificationListeners
