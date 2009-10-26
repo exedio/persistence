@@ -49,8 +49,6 @@ public final class Model
 	private final Date initializeDate;
 	private final ModificationListeners modificationListeners = new ModificationListeners();
 	
-
-	// set by connect
 	private final Object connectLock = new Object();
 	private Connect connect;
 
