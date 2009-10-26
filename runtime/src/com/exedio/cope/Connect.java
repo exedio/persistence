@@ -20,7 +20,12 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
+
+import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
 {
@@ -39,7 +44,38 @@ final class Connect
 			final ConnectProperties properties)
 	{
 				this.properties = properties;
-				this.database = properties.createDatabase(revisions);
+				
+				final DialectParameters dialectParameters;
+				Connection probeConnection = null;
+				try
+				{
+					probeConnection = DriverManager.getConnection(
+							properties.getDatabaseUrl(),
+							properties.getDatabaseUser(),
+							properties.getDatabasePassword());
+					dialectParameters = new DialectParameters(properties, probeConnection);
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, "create");
+				}
+				finally
+				{
+					if(probeConnection!=null)
+					{
+						try
+						{
+							probeConnection.close();
+							probeConnection = null;
+						}
+						catch(SQLException e)
+						{
+							throw new SQLRuntimeException(e, "close");
+						}
+					}
+				}
+				
+				this.database = properties.createDatabase(revisions, dialectParameters);
 				
 				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 				this.queryCache = new QueryCache(properties.getQueryCacheLimit());

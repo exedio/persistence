@@ -21,11 +21,6 @@ package com.exedio.cope;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import com.exedio.dsmf.SQLRuntimeException;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
@@ -175,35 +170,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 	
-	Database createDatabase(final Revisions revisions)
+	Database createDatabase(final Revisions revisions, final DialectParameters parameters)
 	{
-		final DialectParameters parameters;
-		Connection probeConnection = null;
-		try
-		{
-			probeConnection = DriverManager.getConnection(getDatabaseUrl(), getDatabaseUser(), getDatabasePassword());
-			parameters = new DialectParameters(this, probeConnection);
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "create");
-		}
-		finally
-		{
-			if(probeConnection!=null)
-			{
-				try
-				{
-					probeConnection.close();
-					probeConnection = null;
-				}
-				catch(SQLException e)
-				{
-					throw new SQLRuntimeException(e, "close");
-				}
-			}
-		}
-
 		final Dialect dialect;
 		try
 		{
