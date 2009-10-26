@@ -22,13 +22,13 @@ import java.util.Date;
 
 final class Connect
 {
+	final Date date = new Date();
 	final ConnectProperties properties;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
-	final Date date;
 	final boolean logTransactions;
 	
 	Connect(
@@ -65,7 +65,6 @@ final class Connect
 				}
 				
 				this.logTransactions = properties.getTransactionLog();
-				this.date = new Date();
 	}
 	
 	void close()
