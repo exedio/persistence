@@ -409,13 +409,7 @@ public final class Model
 	
 	public java.util.Properties getDatabaseInfo()
 	{
-		final DialectParameters db = connect().database.dialectParameters;
-		final java.util.Properties result = new java.util.Properties();
-		result.setProperty("database.name", db.databaseProductName);
-		result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
-		result.setProperty("driver.name", db.driverName);
-		result.setProperty("driver.version", db.driverVersion + ' ' + '(' + db.driverMajorVersion + '.' + db.driverMinorVersion + ')');
-		return result;
+		return connect().database.dialectParameters.getInfo();
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()

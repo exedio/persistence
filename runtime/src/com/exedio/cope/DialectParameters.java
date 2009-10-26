@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
@@ -60,5 +61,15 @@ final class DialectParameters
 		{
 			throw new SQLRuntimeException(e, "getMetaData");
 		}
+	}
+	
+	Properties getInfo()
+	{
+		final Properties result = new Properties();
+		result.setProperty("database.name", databaseProductName);
+		result.setProperty("database.version", databaseProductVersion + ' ' + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
+		result.setProperty("driver.name", driverName);
+		result.setProperty("driver.version", driverVersion + ' ' + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
+		return result;
 	}
 }
