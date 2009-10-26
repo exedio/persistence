@@ -25,6 +25,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
 
+import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
@@ -32,6 +34,7 @@ final class Connect
 	final Date date = new Date();
 	final ConnectProperties properties;
 	final Dialect dialect;
+	final Pool<Connection> connectionPool;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -77,7 +80,17 @@ final class Connect
 				}
 				
 				this.dialect = properties.createDialect(dialectParameters);
-				this.database = new Database(dialect.dsmfDialect, dialectParameters, dialect, revisions);
+				this.connectionPool = new Pool<Connection>(
+						new ConnectionFactory(properties, dialect),
+						properties.getConnectionPoolIdleLimit(),
+						properties.getConnectionPoolIdleInitial(),
+						new PoolCounter());
+				this.database = new Database(
+						dialect.dsmfDialect,
+						dialectParameters,
+						dialect,
+						connectionPool,
+						revisions);
 				
 				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 				this.queryCache = new QueryCache(properties.getQueryCacheLimit());

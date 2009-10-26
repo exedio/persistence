@@ -404,7 +404,7 @@ public final class Model
 	
 	public Pool.Info getConnectionPoolInfo()
 	{
-		return connect().database.connectionPool.getInfo();
+		return connect().connectionPool.getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()

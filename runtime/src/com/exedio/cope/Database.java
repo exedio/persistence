@@ -37,7 +37,6 @@ import java.util.Map;
 
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -59,7 +58,7 @@ final class Database
 	volatile DatabaseLogConfig log;
 	private final boolean logQueryInfo;
 	private final boolean fulltextIndex;
-	final Pool<Connection> connectionPool;
+	private final Pool<Connection> connectionPool;
 	final boolean mysqlLowerCaseTableNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
@@ -74,6 +73,7 @@ final class Database
 			final com.exedio.dsmf.Dialect dsmfDialect,
 			final DialectParameters dialectParameters,
 			final Dialect dialect,
+			final Pool<Connection> connectionPool,
 			final Revisions revisions)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
@@ -85,11 +85,7 @@ final class Database
 		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
 		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
 		this.fulltextIndex = properties.getFulltextIndex();
-		this.connectionPool = new Pool<Connection>(
-				new ConnectionFactory(properties, dialect),
-				properties.getConnectionPoolIdleLimit(),
-				properties.getConnectionPoolIdleInitial(),
-				new PoolCounter());
+		this.connectionPool = connectionPool;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
@@ -1465,6 +1461,7 @@ final class Database
 	
 	Schema makeSchema()
 	{
+		final Pool<Connection> connectionPool = this.connectionPool;
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
 			public Connection getConnection() throws SQLException

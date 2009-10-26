@@ -252,7 +252,7 @@ public final class Transaction
 		if(connectionPool!=null)
 			throw new RuntimeException();
 
-		connectionPool = connect.database.connectionPool;
+		connectionPool = connect.connectionPool;
 		final Connection connection = connectionPool.get();
 		try
 		{
