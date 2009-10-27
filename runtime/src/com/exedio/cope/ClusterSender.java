@@ -27,6 +27,8 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.exedio.cope.info.ClusterSenderInfo;
+
 final class ClusterSender
 {
 	private final ClusterConfig config;
@@ -132,6 +134,9 @@ final class ClusterSender
 		}
 	}
 	
+	// info
+	private volatile long invalidationSplit = 0;
+	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int packetSize = config.packetSize;
@@ -150,8 +155,11 @@ final class ClusterSender
 		TIntIterator i = null;
 		try
 		{
+			int packetCount = 0;
 			packetLoop: do
 			{
+				packetCount++;
+				
 				int pos = INVALIDATE_TEMPLATE_SIZE;
 				
 				pos = marshal(pos, buf, invalidationSequence.getAndIncrement());
@@ -201,6 +209,9 @@ final class ClusterSender
 				break;
 			}
 			while(true);
+			
+			if(packetCount>1)
+				invalidationSplit += (packetCount-1);
 		}
 		catch(IOException e)
 		{
@@ -231,6 +242,11 @@ final class ClusterSender
 		buf[pos++] = (byte)((i>>>16) & 0xff);
 		buf[pos++] = (byte)((i>>>24) & 0xff);
 		return pos;
+	}
+	
+	ClusterSenderInfo getInfo()
+	{
+		return new ClusterSenderInfo(invalidationSplit);
 	}
 	
 	void close()
