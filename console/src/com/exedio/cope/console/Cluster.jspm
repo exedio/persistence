@@ -22,6 +22,7 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.format;
 
 import com.exedio.cope.info.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.util.SequenceChecker;
 
 final class Cluster_Jspm
@@ -29,12 +30,14 @@ final class Cluster_Jspm
 	final static void writeBody(
 			final ClusterCop cop,
 			final Out out,
+			final ClusterSenderInfo senderInfo,
 			final ClusterListenerInfo listenerInfo,
 			final int donePing)
 	{
 		%>
 		<table>
 			<caption>Cluster Network</caption>
+			<tr><th>Invalidation Split</th><td><%=format(senderInfo.getInvalidationSplit())%></td></tr>
 			<tr><th>Exception</th><td><%=format(listenerInfo.getException())%></td></tr>
 			<tr><th>Missing Magic</th><td><%=format(listenerInfo.getMissingMagic())%></td></tr>
 			<tr><th>Wrong Secret</th><td><%=format(listenerInfo.getWrongSecret())%></td></tr>

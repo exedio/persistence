@@ -65,7 +65,7 @@ final class ClusterCop extends ConsoleCop
 	{
 		final ClusterListenerInfo listenerInfo = model.getClusterListenerInfo();
 		if(listenerInfo!=null)
-			Cluster_Jspm.writeBody(this, out, listenerInfo, donePing);
+			Cluster_Jspm.writeBody(this, out, model.getClusterSenderInfo(), listenerInfo, donePing);
 		else
 			Cluster_Jspm.writeBodyDisabled(out);
 	}
