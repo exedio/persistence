@@ -166,7 +166,7 @@ final class HistoryThread extends Thread
 			mediaValuesIndex++;
 		}
 		final ClusterSenderInfo clusterSenderInfo = watchedModel.getClusterSenderInfo();
-		final ClusterListenerInfo clusterInfo = watchedModel.getClusterListenerInfo();
+		final ClusterListenerInfo clusterListenerInfo = watchedModel.getClusterListenerInfo();
 		
 		// process data
 		long itemCacheHits = 0;
@@ -234,9 +234,9 @@ final class HistoryThread extends Thread
 		}
 		
 		final SetValue[][] clusterInfoSetValues;
-		if(clusterInfo!=null)
+		if(clusterListenerInfo!=null)
 		{
-			final List<ClusterListenerInfo.Node> nodes = clusterInfo.getNodes();
+			final List<ClusterListenerInfo.Node> nodes = clusterListenerInfo.getNodes();
 			clusterInfoSetValues = new SetValue[nodes.size()][];
 			int nodesIndex = 0;
 			for(final ClusterListenerInfo.Node node : nodes)
@@ -297,10 +297,10 @@ final class HistoryThread extends Thread
 				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
 				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
 				HistoryModel.clusterSenderInvalidationSplit.map(clusterSenderInfo!=null ? clusterSenderInfo.getInvalidationSplit() : 0),
-				HistoryModel.clusterListenerException   .map(clusterInfo!=null ? clusterInfo.getException()    : 0),
-				HistoryModel.clusterListenerMissingMagic.map(clusterInfo!=null ? clusterInfo.getMissingMagic() : 0),
-				HistoryModel.clusterListenerWrongSecret .map(clusterInfo!=null ? clusterInfo.getWrongSecret()  : 0),
-				HistoryModel.clusterListenerFromMyself  .map(clusterInfo!=null ? clusterInfo.getFromMyself()   : 0)
+				HistoryModel.clusterListenerException   .map(clusterListenerInfo!=null ? clusterListenerInfo.getException()    : 0),
+				HistoryModel.clusterListenerMissingMagic.map(clusterListenerInfo!=null ? clusterListenerInfo.getMissingMagic() : 0),
+				HistoryModel.clusterListenerWrongSecret .map(clusterListenerInfo!=null ? clusterListenerInfo.getWrongSecret()  : 0),
+				HistoryModel.clusterListenerFromMyself  .map(clusterListenerInfo!=null ? clusterListenerInfo.getFromMyself()   : 0)
 		};
 
 		// save data
