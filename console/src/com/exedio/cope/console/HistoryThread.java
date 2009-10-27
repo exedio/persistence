@@ -33,6 +33,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.info.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.pattern.MediaPath;
@@ -164,6 +165,7 @@ final class HistoryThread extends Thread
 			mediaValues[mediaValuesIndex][6] = path.delivered.get();
 			mediaValuesIndex++;
 		}
+		final ClusterSenderInfo clusterSenderInfo = watchedModel.getClusterSenderInfo();
 		final ClusterListenerInfo clusterInfo = watchedModel.getClusterListenerInfo();
 		
 		// process data
@@ -294,6 +296,7 @@ final class HistoryThread extends Thread
 				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
 				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
 				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
+				HistoryModel.clusterSenderInvalidationSplit.map(clusterSenderInfo!=null ? clusterSenderInfo.getInvalidationSplit() : 0),
 				HistoryModel.clusterListenerException   .map(clusterInfo!=null ? clusterInfo.getException()    : 0),
 				HistoryModel.clusterListenerMissingMagic.map(clusterInfo!=null ? clusterInfo.getMissingMagic() : 0),
 				HistoryModel.clusterListenerWrongSecret .map(clusterInfo!=null ? clusterInfo.getWrongSecret()  : 0),

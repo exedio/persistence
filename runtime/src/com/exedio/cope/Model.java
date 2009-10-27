@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.info.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.QueryCacheHistogram;
 import com.exedio.cope.info.QueryCacheInfo;
@@ -408,6 +409,14 @@ public final class Model
 	public java.util.Properties getDatabaseInfo()
 	{
 		return connect().database.dialectParameters.getInfo();
+	}
+
+	public ClusterSenderInfo getClusterSenderInfo()
+	{
+		final ClusterSender clusterSender = connect().clusterSender;
+		if(clusterSender==null)
+			return null;
+		return clusterSender.getInfo();
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
