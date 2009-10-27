@@ -47,85 +47,85 @@ final class Connect
 			final Revisions revisions,
 			final ConnectProperties properties)
 	{
-				this.properties = properties;
-				
-				final DialectParameters dialectParameters;
-				Connection probeConnection = null;
+		this.properties = properties;
+		
+		final DialectParameters dialectParameters;
+		Connection probeConnection = null;
+		try
+		{
+			probeConnection = DriverManager.getConnection(
+					properties.getDatabaseUrl(),
+					properties.getDatabaseUser(),
+					properties.getDatabasePassword());
+			dialectParameters = new DialectParameters(properties, probeConnection);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "create");
+		}
+		finally
+		{
+			if(probeConnection!=null)
+			{
 				try
 				{
-					probeConnection = DriverManager.getConnection(
-							properties.getDatabaseUrl(),
-							properties.getDatabaseUser(),
-							properties.getDatabasePassword());
-					dialectParameters = new DialectParameters(properties, probeConnection);
+					probeConnection.close();
+					probeConnection = null;
 				}
 				catch(SQLException e)
 				{
-					throw new SQLRuntimeException(e, "create");
+					throw new SQLRuntimeException(e, "close");
 				}
-				finally
-				{
-					if(probeConnection!=null)
-					{
-						try
-						{
-							probeConnection.close();
-							probeConnection = null;
-						}
-						catch(SQLException e)
-						{
-							throw new SQLRuntimeException(e, "close");
-						}
-					}
-				}
-				
-				this.dialect = properties.createDialect(dialectParameters);
-				this.connectionPool = new Pool<Connection>(
-						new ConnectionFactory(properties, dialect),
-						properties.getConnectionPoolIdleLimit(),
-						properties.getConnectionPoolIdleInitial(),
-						new PoolCounter());
-				this.database = new Database(
-						dialect.dsmfDialect,
-						dialectParameters,
-						dialect,
-						connectionPool,
-						revisions);
-				
-				this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
-				this.queryCache = new QueryCache(properties.getQueryCacheLimit());
-				
-				if(database.cluster)
-				{
-					final ClusterConfig config = ClusterConfig.get(properties);
-					if(config!=null)
-					{
-						this.clusterSender   = new ClusterSender  (config, properties);
-						this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
-					}
-					else
-					{
-						this.clusterSender   = null;
-						this.clusterListener = null;
-					}
-				}
-				else
-				{
-					this.clusterSender   = null;
-					this.clusterListener = null;
-				}
-				
-				this.logTransactions = properties.getTransactionLog();
+			}
+		}
+		
+		this.dialect = properties.createDialect(dialectParameters);
+		this.connectionPool = new Pool<Connection>(
+				new ConnectionFactory(properties, dialect),
+				properties.getConnectionPoolIdleLimit(),
+				properties.getConnectionPoolIdleInitial(),
+				new PoolCounter());
+		this.database = new Database(
+				dialect.dsmfDialect,
+				dialectParameters,
+				dialect,
+				connectionPool,
+				revisions);
+		
+		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
+		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
+		
+		if(database.cluster)
+		{
+			final ClusterConfig config = ClusterConfig.get(properties);
+			if(config!=null)
+			{
+				this.clusterSender   = new ClusterSender  (config, properties);
+				this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
+			}
+			else
+			{
+				this.clusterSender   = null;
+				this.clusterListener = null;
+			}
+		}
+		else
+		{
+			this.clusterSender   = null;
+			this.clusterListener = null;
+		}
+		
+		this.logTransactions = properties.getTransactionLog();
 	}
 	
 	void close()
 	{
-				if(clusterSender!=null)
-					clusterSender.close();
-				if(clusterListener!=null)
-					clusterListener.close();
-				
-				database.close();
+		if(clusterSender!=null)
+			clusterSender.close();
+		if(clusterListener!=null)
+			clusterListener.close();
+		
+		database.close();
 	}
 	
 	void invalidate(final TIntHashSet[] invalidations)
