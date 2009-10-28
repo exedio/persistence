@@ -153,6 +153,7 @@ public final class Type<C extends Item>
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerMounted fails from now on
 		this.featuresWhileConstruction = null;
+		assert thisFunction==this.declaredFeatures.get(0) : this.declaredFeatures;
 
 		// declared fields / unique constraints
 		{
@@ -203,6 +204,8 @@ public final class Type<C extends Item>
 			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
 			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
+		assert thisFunction==this.features.get(0) : this.features;
+		assert thisFunction==this.featuresByName.get(This.NAME) : this.featuresByName;
 
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
