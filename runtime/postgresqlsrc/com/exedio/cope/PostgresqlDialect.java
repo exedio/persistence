@@ -171,7 +171,8 @@ final class PostgresqlDialect extends Dialect
 	}
 	
 	@Override
-	boolean subqueryRequiresAlias() {
+	boolean subqueryRequiresAlias()
+	{
 		return true;
 	}
 }
