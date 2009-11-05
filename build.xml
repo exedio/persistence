@@ -84,10 +84,10 @@
 		<sequential>
 			<for param="env.file">
 				<path>
-					<fileset dir="${basedir}" includes="*.test.cope.properties" />
+					<fileset dir="${basedir}/test-properties" includes="*.properties" />
 				</path>
 				<sequential>
-					<basename file="@{env.file}" property="@{env.file}.env" suffix=".test.cope.properties" />
+					<basename file="@{env.file}" property="@{env.file}.env" suffix=".properties" />
 					<!-- this is a dummy loop to create the attribute @{env} -->
 					<for param="env" list="${@{env.file}.env}">
 						<sequential>
