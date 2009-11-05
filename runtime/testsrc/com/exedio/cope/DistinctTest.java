@@ -91,10 +91,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(1, 4),
 					list(2, 4),
 				q.search());
-			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
-			{
-				assertEquals(4, q.total());
-			}
+			assertEquals(4, q.total());
 			
 			item1.setNumA(null);
 			q.setDistinct(false);
@@ -114,10 +111,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(1, 4),
 					list(2, 4),
 				q.search());
-			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
-			{
-				assertEquals(4, q.total());
-			}
+			assertEquals(4, q.total());
 			
 			item4.setNumA(null);
 			q.setDistinct(false);
@@ -137,10 +131,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(1, 4),
 					list(null, 4),
 				q.search());
-			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
-			{
-				assertEquals(4, q.total());
-			}
+			assertEquals(4, q.total());
 			
 			item1.setNumB(null);
 			q.setDistinct(false);
@@ -160,10 +151,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(1, 4),
 					list(null, 4),
 				q.search());
-			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
-			{
-				assertEquals(4, q.total());
-			}
+			assertEquals(4, q.total());
 			
 			item4.setNumB(null);
 			q.setDistinct(false);
@@ -182,10 +170,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(1, 3),
 					list(1, 4),
 				q.search());
-			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
-			{
-				assertEquals(3, q.total());
-			}
+			assertEquals(3, q.total());
 		}
 	}
 }
