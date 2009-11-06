@@ -76,18 +76,10 @@ public final class UniqueConstraint extends Feature
 			throw new RuntimeException();
 
 		final Database database = table.database;
-		final String databaseName;
-		if(fields.length==1)
-		{
-			final FunctionField field = fields[0];
-			final CopeSchemaName annotation = field.getAnnotation(CopeSchemaName.class);
-			databaseName = annotation!=null ? annotation.value() : field.getName();
-		}
-		else
-		{
-			final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
-			databaseName = annotation!=null ? annotation.value() : getName();
-		}
+		final String databaseName =
+			(fields.length==1)
+			? fields[0].getSchemaName()
+			: getSchemaName();
 		this.databaseID = intern(database.makeName(table.id + '_' + databaseName + "_Unq"));
 		database.addUniqueConstraint(databaseID, this);
 	}

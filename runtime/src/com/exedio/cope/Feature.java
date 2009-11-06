@@ -122,6 +122,16 @@ public abstract class Feature
 			: null;
 	}
 	
+	String getSchemaName()
+	{
+		final CopeSchemaName annotation =
+			getAnnotation(CopeSchemaName.class);
+		return
+			annotation!=null
+			? annotation.value()
+			: getName();
+	}
+	
 	public List<Wrapper> getWrappers()
 	{
 		return Collections.<Wrapper>emptyList();
