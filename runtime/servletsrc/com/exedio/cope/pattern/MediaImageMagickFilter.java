@@ -33,69 +33,31 @@ import com.exedio.cope.Item;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
-	private static String checkAvailable()
-	{
-		if(!"Linux".equals(System.getProperty("os.name")))
-			return "its not a Linux system.";
-
-		final ProcessBuilder processBuilder = new ProcessBuilder(COMMAND_BINARY, COMMAND_QUIET);
-		
-		final Process process;
-		try
-		{
-			process = processBuilder.start();
-		}
-		catch(IOException e)
-		{
-			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage();
-		}
-		
-		try
-		{
-			process.waitFor();
-		}
-		catch(InterruptedException e)
-		{
-			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage();
-		}
-		
-		final int exitValue = process.exitValue();
-		if(exitValue!=0)
-			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.';
-		
-		return null;
-	}
+	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
 	
-	private static volatile boolean availableChecked = false;
-	private static final Object availableLock = new Object();
-	private static volatile boolean available;
-	private static volatile String availabilityMessage = null;
+	private static final boolean enabled = Boolean.valueOf(System.getProperty(ENABLE_PROPERTY));
 	
+	/**
+	 * @deprecated Use {@link #isEnabled()} instead
+	 */
+	@Deprecated
 	public static boolean isAvailable()
 	{
-		if(availableChecked)
-			return available;
+		return isEnabled();
+	}
 
-		synchronized(availableLock)
-		{
-			// double checking
-			if(availableChecked)
-				return available;
-
-			final String reasonNotAvailable = checkAvailable();
-			available = reasonNotAvailable==null;
-			availableChecked = true;
-			
-			availabilityMessage = "MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available.");
-			System.out.println(availabilityMessage);
-			
-			return available;
-		}
+	public static boolean isEnabled()
+	{
+		return enabled;
 	}
 	
+	/**
+	 * @deprecated Is no longer supported and returns an empty string.
+	 */
+	@Deprecated
 	public static String getAvailabilityMessage()
 	{
-		return availabilityMessage;
+		return "";
 	}
 	
 	
@@ -170,7 +132,7 @@ public class MediaImageMagickFilter extends MediaFilter
 			final Item item)
 	throws IOException
 	{
-		if(!isAvailable())
+		if(!enabled)
 			return fallback.doGetIfModified(response, item);
 		
 		final String contentType = source.getContentType(item);
