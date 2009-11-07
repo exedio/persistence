@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* remove automatic detection of convert in MediaImageMagickFilter
+	now you need a java system property to enable:
+		com.exedio.cope.media.imagemagick=true
 * console history adds a column for ClusterSenderInfo.getInvalidationSplit()
 	requires modification of persistent schema
 * MandatoryViolation and FinalViolation for PriceField has PriceField itself as feature, not the source-Field of the PriceField
