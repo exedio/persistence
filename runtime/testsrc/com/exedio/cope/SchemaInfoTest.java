@@ -33,7 +33,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 	public void testSchemaInfo()
 	{
 		// with sub types
-		assertEquals(mysqlLower("InstanceOfAItem"), SchemaInfo.getTableName(InstanceOfAItem.TYPE));
+		assertEquals(mysqlLower("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals("class", getTypeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
