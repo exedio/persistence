@@ -105,12 +105,12 @@ public final class MysqlDialect extends Dialect
 		final int length = quotedName.length();
 		if(length<3)
 			throw new RuntimeException(quotedName);
-		if(quotedName.charAt(0)!=MysqlDialect.QUOTE_CHARACTER)
+		if(quotedName.charAt(0)!=QUOTE_CHARACTER)
 			throw new RuntimeException(quotedName);
-		if(quotedName.charAt(length-1)!=MysqlDialect.QUOTE_CHARACTER)
+		if(quotedName.charAt(length-1)!=QUOTE_CHARACTER)
 			throw new RuntimeException(quotedName);
 
-		return quotedName.substring(1, quotedName.length()-1);
+		return quotedName.substring(1, length-1);
 	}
 
 	@Override
