@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-
 public class InstanceOfTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -281,44 +276,6 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal(InstanceOfB2Item.TYPE.getThis()));
 			assertContains(reffb2, q.search());
 		}
-	}
-
-	public void testSchemaInfo()
-	{
-		// with sub types
-		assertEquals(mysqlLower("InstanceOfAItem"), SchemaInfo.getTableName(InstanceOfAItem.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
-		assertEquals("class", getTypeColumnName(InstanceOfAItem.TYPE));
-		assertEquals("code", getColumnName(InstanceOfAItem.code));
-		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
-		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
-
-		// without sub types
-		assertEquals(mysqlLower("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
-		try
-		{
-			getTypeColumnName(InstanceOfB2Item.TYPE);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("no type column for InstanceOfB2Item", e.getMessage());
-		}
-		assertEquals("textb2", getColumnName(InstanceOfB2Item.textb2));
-		assertEquals("refb2", getColumnName(InstanceOfRefItem.refb2));
-		try
-		{
-			getTypeColumnName(InstanceOfRefItem.refb2);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
-		}
-		assertCacheInfo(
-			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
-			new int []{62500, 12500, 12500, 12500});
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
