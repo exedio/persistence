@@ -33,6 +33,22 @@ package com.exedio.cope;
 public final class SchemaInfo
 {
 	/**
+	 * Quotes a database name.
+	 * This prevents the name from being interpreted as a SQL keyword.
+	 */
+	public static String quoteName(final Model model, final String name)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+		if(name==null)
+			throw new NullPointerException("name");
+		if(name.length()==0)
+			throw new IllegalArgumentException("name must not be empty");
+		
+		return model.connect().dialect.dsmfDialect.quoteName(name);
+	}
+	
+	/**
 	 * Returns the name of database table for the type.
 	 * If not configured otherwise
 	 * or trimmed to fit into name length restrictions,

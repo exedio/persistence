@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -32,6 +33,47 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 	
 	public void testSchemaInfo()
 	{
+		// quoteName
+		final char q = mysql ? '`' : '"';
+		assertEquals(q + "name" + q, quoteName(model, "name"));
+		assertEquals(q + "x" + q, quoteName(model, "x"));
+		try
+		{
+			quoteName(null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+		try
+		{
+			quoteName(model, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("name", e.getMessage());
+		}
+		try
+		{
+			quoteName(model, "");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("name must not be empty", e.getMessage());
+		}
+		try
+		{
+			quoteName(model, "\"`");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
+		}
+		
 		// with sub types
 		assertEquals(mysqlLower("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
