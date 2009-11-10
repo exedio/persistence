@@ -259,7 +259,7 @@ final class Database
 				else
 					bf.append(',');
 	
-				bf.append(table.protectedID);
+				bf.append(table.quotedID);
 			}
 			
 			bf.append(" where ");
@@ -655,7 +655,7 @@ final class Database
 			else
 				bf.append(',');
 
-			bf.append(superType.getTable().protectedID);
+			bf.append(superType.getTable().quotedID);
 		}
 			
 		bf.append(" where ");
@@ -730,7 +730,7 @@ final class Database
 		if(present)
 		{
 			bf.append("update ").
-				append(table.protectedID).
+				append(table.quotedID).
 				append(" set ");
 
 			boolean first = true;
@@ -743,7 +743,7 @@ final class Database
 					else
 						bf.append(',');
 					
-					bf.append(column.protectedID).
+					bf.append(column.quotedID).
 						append('=');
 					
 					if(column instanceof BlobColumn)
@@ -756,7 +756,7 @@ final class Database
 				return;
 			
 			bf.append(" where ").
-				append(table.primaryKey.protectedID).
+				append(table.primaryKey.quotedID).
 				append('=').
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
@@ -764,14 +764,14 @@ final class Database
 		else
 		{
 			bf.append("insert into ").
-				append(table.protectedID).
+				append(table.quotedID).
 				append("(").
-				append(table.primaryKey.protectedID);
+				append(table.primaryKey.quotedID);
 			
 			if(typeColumn!=null)
 			{
 				bf.append(',').
-					append(typeColumn.protectedID);
+					append(typeColumn.quotedID);
 			}
 
 			for(final Column column : columns)
@@ -779,7 +779,7 @@ final class Database
 				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 				{
 					bf.append(',').
-						append(column.protectedID);
+						append(column.quotedID);
 				}
 			}
 
@@ -826,9 +826,9 @@ final class Database
 			final Table currentTable = currentType.getTable();
 			final Statement bf = createStatement();
 			bf.append("delete from ").
-				append(currentTable.protectedID).
+				append(currentTable.quotedID).
 				append(" where ").
-				append(currentTable.primaryKey.protectedID).
+				append(currentTable.primaryKey.quotedID).
 				append('=').
 				appendParameter(pk);
 
@@ -846,11 +846,11 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select ").
-			append(column.protectedID).
+			append(column.quotedID).
 			append(" from ").
-			append(table.protectedID).
+			append(table.quotedID).
 			append(" where ").
-			append(table.primaryKey.protectedID).
+			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -874,11 +874,11 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select ").
-			append(column.protectedID).
+			append(column.quotedID).
 			append(" from ").
-			append(table.protectedID).
+			append(table.quotedID).
 			append(" where ").
-			append(table.primaryKey.protectedID).
+			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -904,11 +904,11 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select length(").
-			append(column.protectedID).
+			append(column.quotedID).
 			append(") from ").
-			append(table.protectedID).
+			append(table.quotedID).
 			append(" where ").
-			append(table.primaryKey.protectedID).
+			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -946,9 +946,9 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("update ").
-			append(table.protectedID).
+			append(table.quotedID).
 			append(" set ").
-			append(column.protectedID).
+			append(column.quotedID).
 			append('=');
 		
 		if(data!=null)
@@ -957,7 +957,7 @@ final class Database
 			bf.append("NULL");
 		
 		bf.append(" where ").
-			append(table.primaryKey.protectedID).
+			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -1354,7 +1354,7 @@ final class Database
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").
-			append(table.protectedID);
+			append(table.quotedID);
 
 		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
@@ -1374,9 +1374,9 @@ final class Database
 
 		final Statement bf = createStatement();
 		bf.append("select max(").
-			append(column.protectedID).
+			append(column.quotedID).
 			append(") from ").
-			append(column.table.protectedID);
+			append(column.table.quotedID);
 			
 		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
@@ -1433,8 +1433,8 @@ final class Database
 		
 		final Table table = field.getType().getTable();
 		final Table valueTable = field.getValueType().getTable();
-		final String alias1 = dsmfDialect.protectName(Table.SQL_ALIAS_1);
-		final String alias2 = dsmfDialect.protectName(Table.SQL_ALIAS_2);
+		final String alias1 = dsmfDialect.quoteName(Table.SQL_ALIAS_1);
+		final String alias2 = dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 		
 		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
@@ -1484,7 +1484,7 @@ final class Database
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
+			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
@@ -1510,11 +1510,11 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1551,13 +1551,13 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select ").
 			append(revision).
 			append(',').
-			append(dsmfDialect.protectName(REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1589,11 +1589,11 @@ final class Database
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
-			append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append('(').
-			append(dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME)).
+			append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
 			append(',').
-			append(dsmfDialect.protectName(REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
 			append(")values(").
 			appendParameter(number).
 			append(',').
@@ -1667,9 +1667,9 @@ final class Database
 				{
 					final Statement bf = createStatement();
 					bf.append("delete from ").
-						append(dsmfDialect.protectName(Table.REVISION_TABLE_NAME)).
+						append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 						append(" where ").
-						append(dsmfDialect.protectName(REVISION_COLUMN_NUMBER_NAME)).
+						append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
 						append('=').
 						appendParameter(REVISION_MUTEX_NUMBER);
 					executeSQLUpdate(con, bf, true);

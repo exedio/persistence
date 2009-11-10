@@ -31,7 +31,7 @@ final class Table
 	final Database database;
 	final String id;
 	final String idLower;
-	final String protectedID;
+	final String quotedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
@@ -44,7 +44,7 @@ final class Table
 		this.database = database;
 		this.id = intern(database.makeName(id));
 		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
-		this.protectedID = intern(database.dsmfDialect.protectName(this.idLower));
+		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
 		this.primaryKey =
 			(supertype!=null)
 			? new ItemColumn(this, supertype)

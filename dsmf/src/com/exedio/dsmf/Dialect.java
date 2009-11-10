@@ -34,11 +34,11 @@ public abstract class Dialect
 	}
 	
 	/**
-	 * Protects a database name from being interpreted as a SQL keyword.
-	 * This is usually done by enclosing the name with some (database specific) delimiters.
-	 * The default implementation uses double quotes as delimiter.
+	 * Quotes a database name. This prevents the name from being interpreted as a SQL keyword.
+	 * This is usually done by enclosing the name with some (database specific) quotation characters.
+	 * The default implementation uses double quotes as specified by ANSI SQL.
 	 */
-	public String protectName(final String name)
+	public String quoteName(final String name)
 	{
 		if(name.indexOf('"')>=0)
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);

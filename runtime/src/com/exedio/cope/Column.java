@@ -31,7 +31,7 @@ abstract class Column
 	final Table table;
 	private final Field field;
 	final String id;
-	final String protectedID;
+	final String quotedID;
 	final boolean primaryKey;
 	final boolean optional;
 	
@@ -46,7 +46,7 @@ abstract class Column
 		this.table = table;
 		this.field = field;
 		this.id = intern(database.makeName(id));
-		this.protectedID = intern(database.dsmfDialect.protectName(this.id));
+		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.primaryKey = primaryKey;
 		this.optional = optional;
 		table.addColumn(this);
@@ -120,14 +120,14 @@ abstract class Column
 				if(checkNotNull!=null)
 				{
 					if(checkNull!=null)
-						checkConstraint = "((" + protectedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR ((" + protectedID + " IS NULL) AND (" + checkNull + "))";
+						checkConstraint = "((" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR ((" + quotedID + " IS NULL) AND (" + checkNull + "))";
 					else
-						checkConstraint = "((" + protectedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR (" + protectedID + " IS NULL)";
+						checkConstraint = "((" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR (" + quotedID + " IS NULL)";
 				}
 				else
 				{
 					if(checkNull!=null)
-						checkConstraint = "(" + protectedID + " IS NOT NULL) OR ((" + protectedID + " IS NULL) AND (" + checkNull + "))";
+						checkConstraint = "(" + quotedID + " IS NOT NULL) OR ((" + quotedID + " IS NULL) AND (" + checkNull + "))";
 					else
 						checkConstraint = null;
 				}
@@ -135,9 +135,9 @@ abstract class Column
 			else
 			{
 				if(checkNotNull!=null)
-					checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + checkNotNull + ')';
+					checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
 				else
-					checkConstraint = protectedID + " IS NOT NULL";
+					checkConstraint = quotedID + " IS NOT NULL";
 			}
 
 			if(checkConstraint!=null)

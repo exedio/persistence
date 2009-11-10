@@ -147,7 +147,7 @@ final class HsqldbDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final String TEMP_TABLE = dsmfDialect.protectName("hsqldb_temp_table_for_sequences");
+		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
 		{
 			final Statement bf = database.createStatement();
 			bf.append("CREATE TEMPORARY TABLE ").
@@ -166,7 +166,7 @@ final class HsqldbDialect extends Dialect
 		{
 			final Statement bf = database.createStatement();
 			bf.append("SELECT NEXT VALUE FOR ").
-				append(dsmfDialect.protectName(name)).
+				append(dsmfDialect.quoteName(name)).
 				append(" FROM ").
 				append(TEMP_TABLE);
 				

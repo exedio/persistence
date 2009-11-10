@@ -158,7 +158,7 @@ public abstract class SchemaTest extends TestCase
 	
 	protected final String p(final String name)
 	{
-		return dialect.protectName(name);
+		return dialect.quoteName(name);
 	}
 	
 }

@@ -56,7 +56,7 @@ final class DoubleColumn extends Column
 		if(table.database.oracle)
 			return null;
 		
-		return '(' + protectedID + ">=" + minimum + ") AND (" + protectedID + "<=" + maximum + ')';
+		return '(' + quotedID + ">=" + minimum + ") AND (" + quotedID + "<=" + maximum + ')';
 	}
 
 	@Override

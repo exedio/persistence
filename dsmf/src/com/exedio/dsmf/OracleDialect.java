@@ -93,7 +93,7 @@ public final class OracleDialect extends Dialect
 			else
 				bf.append(',');
 			
-			bf.append(protectName((String)i.next()));
+			bf.append(quoteName((String)i.next()));
 		}
 		bf.append(')');
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());

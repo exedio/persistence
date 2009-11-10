@@ -72,9 +72,9 @@ public abstract class Node
 		this.connectionProvider = connectionProvider;
 	}
 
-	final String protectName(final String name)
+	final String quoteName(final String name)
 	{
-		return dialect.protectName(name);
+		return dialect.quoteName(name);
 	}
 	
 	static final String GET_TABLES = "getTables";

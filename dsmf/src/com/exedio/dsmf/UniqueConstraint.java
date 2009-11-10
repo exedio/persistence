@@ -54,7 +54,7 @@ public class UniqueConstraint extends Constraint
 	final void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" unique").
 			append(clause);
 	}
@@ -64,9 +64,9 @@ public class UniqueConstraint extends Constraint
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
-			append(protectName(table.name)).
+			append(quoteName(table.name)).
 			append(" add constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" unique").
 			append(clause);
 
@@ -76,7 +76,7 @@ public class UniqueConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropUniqueConstraint(protectName(table.name), protectName(name)), listener);
+		executeSQL(dialect.dropUniqueConstraint(quoteName(table.name), quoteName(name)), listener);
 	}
 
 }

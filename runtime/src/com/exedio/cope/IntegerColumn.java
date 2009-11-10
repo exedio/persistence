@@ -130,7 +130,7 @@ class IntegerColumn extends Column
 		if(allowedValues!=null)
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append(protectedID + " IN (");
+			bf.append(quotedID + " IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
@@ -143,7 +143,7 @@ class IntegerColumn extends Column
 		}
 		else
 		{
-			return '(' + protectedID + ">=" + minimum + ") AND (" + protectedID + "<=" + maximum + ')';
+			return '(' + quotedID + ">=" + minimum + ") AND (" + quotedID + "<=" + maximum + ')';
 		}
 	}
 	

@@ -110,7 +110,7 @@ public final class Sequence extends Node
 	
 	public void create(final StatementListener listener)
 	{
-		executeSQL(dialect.createSequence(protectName(name), startWith), listener);
+		executeSQL(dialect.createSequence(quoteName(name), startWith), listener);
 	}
 	
 	public void drop()
@@ -120,7 +120,7 @@ public final class Sequence extends Node
 	
 	public void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropSequence(protectName(name)), listener);
+		executeSQL(dialect.dropSequence(quoteName(name)), listener);
 	}
 	
 	@Override

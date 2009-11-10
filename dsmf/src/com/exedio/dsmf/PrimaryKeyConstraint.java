@@ -54,9 +54,9 @@ public class PrimaryKeyConstraint extends Constraint
 	final void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" primary key(").
-			append(protectName(primaryKeyColumn)).
+			append(quoteName(primaryKeyColumn)).
 			append(')');
 	}
 	
@@ -65,11 +65,11 @@ public class PrimaryKeyConstraint extends Constraint
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
-			append(protectName(table.name)).
+			append(quoteName(table.name)).
 			append(" add constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" primary key(").
-			append(protectName(primaryKeyColumn)).
+			append(quoteName(primaryKeyColumn)).
 			append(')');
 
 		executeSQL(bf.toString(), listener);
@@ -78,6 +78,6 @@ public class PrimaryKeyConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropPrimaryKeyConstraint(protectName(table.name), protectName(name)), listener);
+		executeSQL(dialect.dropPrimaryKeyConstraint(quoteName(table.name), quoteName(name)), listener);
 	}
 }

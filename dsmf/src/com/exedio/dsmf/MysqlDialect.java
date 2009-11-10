@@ -35,18 +35,18 @@ public final class MysqlDialect extends Dialect
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 	
-	private static final char PROTECTOR = '`';
+	private static final char QUOTE_CHARACTER = '`';
 
 	/**
-	 * Use backticks to protect name for mysql.
+	 * Use backticks to quote names for mysql.
 	 */
 	@Override
-	public String protectName(final String name)
+	public String quoteName(final String name)
 	{
-		if(name.indexOf(PROTECTOR)>=0)
+		if(name.indexOf(QUOTE_CHARACTER)>=0)
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
 
-		return PROTECTOR + name + PROTECTOR;
+		return QUOTE_CHARACTER + name + QUOTE_CHARACTER;
 	}
 
 	@Override
@@ -100,17 +100,17 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 	
-	final String unprotectName(final String protectedName)
+	final String unQuoteName(final String quotedName)
 	{
-		final int length = protectedName.length();
+		final int length = quotedName.length();
 		if(length<3)
-			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(0)!=MysqlDialect.PROTECTOR)
-			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(length-1)!=MysqlDialect.PROTECTOR)
-			throw new RuntimeException(protectedName);
+			throw new RuntimeException(quotedName);
+		if(quotedName.charAt(0)!=MysqlDialect.QUOTE_CHARACTER)
+			throw new RuntimeException(quotedName);
+		if(quotedName.charAt(length-1)!=MysqlDialect.QUOTE_CHARACTER)
+			throw new RuntimeException(quotedName);
 
-		return protectedName.substring(1, protectedName.length()-1);
+		return quotedName.substring(1, quotedName.length()-1);
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public final class MysqlDialect extends Dialect
 				{
 					final StringBuilder bf = new StringBuilder();
 					bf.append("show columns from ").
-						append(protectName(table.name));
+						append(quoteName(table.name));
 					
 					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 						{
@@ -161,7 +161,7 @@ public final class MysqlDialect extends Dialect
 				{
 					final StringBuilder bf = new StringBuilder();
 					bf.append("show create table ").
-						append(protectName(table.name));
+						append(quoteName(table.name));
 					
 					schema.querySQL(bf.toString(), new ResultSetHandler()
 						{
@@ -181,9 +181,9 @@ public final class MysqlDialect extends Dialect
 										{
 											if(!t.hasMoreTokens())
 												continue;
-											final String protectedName = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
-											final String name = unprotectName(protectedName);
+											final String quotedName = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------quotedName:"+quotedName);
+											final String name = unQuoteName(quotedName);
 											//System.out.println("----------"+tableName+"--------------------name:"+name);
 											if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
 												!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
@@ -212,9 +212,9 @@ public final class MysqlDialect extends Dialect
 											if(!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
 												!t.hasMoreTokens())
 												continue;
-											final String protectedName = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
-											final String name = unprotectName(protectedName);
+											final String quotedName = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------quotedName:"+quotedName);
+											final String name = unQuoteName(quotedName);
 											//System.out.println("----------"+tableName+"--------------------name:"+name);
 											if(!t.hasMoreTokens())
 												continue;

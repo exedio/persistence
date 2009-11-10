@@ -342,7 +342,7 @@ public class SchemaTest extends TestmodelTest
 	
 	private final String p(final String name)
 	{
-		return model.connect().database.dsmfDialect.protectName(name);
+		return model.connect().database.dsmfDialect.quoteName(name);
 	}
 	
 	private final String l(final FunctionField f)

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 final class TypeColumn extends StringColumn
 {
-	private final String itemColumnProtectedID;
+	private final String itemColumnQuotedID;
 	
 	TypeColumn(
 			final Table table,
@@ -29,7 +29,7 @@ final class TypeColumn extends StringColumn
 			final String[] allowedValues)
 	{
 		super(table, null, itemColumn.id + "Type"/* not equal to "name"! */, optional, allowedValues);
-		this.itemColumnProtectedID = itemColumn.protectedID;
+		this.itemColumnQuotedID = itemColumn.quotedID;
 	}
 	
 	@Override
@@ -40,7 +40,7 @@ final class TypeColumn extends StringColumn
 			return superResult;
 		
 		assert superResult!=null;
-		return "(" + superResult + ") AND (" + itemColumnProtectedID + " IS NOT NULL)";
+		return "(" + superResult + ") AND (" + itemColumnQuotedID + " IS NOT NULL)";
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ final class TypeColumn extends StringColumn
 		if(super.getCheckConstraintIfNull()!=null)
 			throw new RuntimeException(); // not implemented
 		
-		return itemColumnProtectedID + " IS NULL";
+		return itemColumnQuotedID + " IS NULL";
 	}
 	
 	/*@Override
@@ -62,9 +62,9 @@ final class TypeColumn extends StringColumn
 		assert superResult!=null;
 		return
 			"(" + superResult + ") AND (" +
-				"((" + protectedID + " IS NULL) AND ("     + itemColumnProtectedID + " IS NULL))" +
+				"((" + quotedID + " IS NULL) AND ("     + itemColumnQuotedID + " IS NULL))" +
 				" OR " +
-				"((" + protectedID + " IS NOT NULL) AND (" + itemColumnProtectedID + " IS NOT NULL))" +
+				"((" + quotedID + " IS NOT NULL) AND (" + itemColumnQuotedID + " IS NOT NULL))" +
 			")";
 	}*/
 }

@@ -398,7 +398,7 @@ final class OracleDialect extends Dialect
 	{
 		final Statement bf = database.createStatement();
 		bf.append("SELECT ").
-			append(dsmfDialect.protectName(name)).
+			append(dsmfDialect.quoteName(name)).
 			append(".nextval FROM DUAL");
 			
 		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
@@ -423,7 +423,7 @@ final class OracleDialect extends Dialect
 	{
 		final Statement bf = database.createStatement();
 		bf.append("SELECT ").
-			append(dsmfDialect.protectName(name)).
+			append(dsmfDialect.quoteName(name)).
 			append(".currval FROM DUAL");
 			
 		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()

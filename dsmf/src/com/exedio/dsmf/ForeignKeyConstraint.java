@@ -77,18 +77,18 @@ public class ForeignKeyConstraint extends Constraint
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
-			append(protectName(table.name)).
+			append(quoteName(table.name)).
 			append(" add constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" foreign key (").
-			append(protectName(foreignKeyColumn)).
+			append(quoteName(foreignKeyColumn)).
 			append(") references ").
-			append(protectName(targetTable));
+			append(quoteName(targetTable));
 
 		if(dialect.needsTargetColumnName())
 		{
 			bf.append('(').
-				append(protectName(targetColumn)).
+				append(quoteName(targetColumn)).
 				append(')');
 		}
 
@@ -99,23 +99,23 @@ public class ForeignKeyConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropForeignKeyConstraint(protectName(table.name), protectName(name)), listener);
+		executeSQL(dialect.dropForeignKeyConstraint(quoteName(table.name), quoteName(name)), listener);
 	}
 
 	@Override
 	final void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append(" foreign key (").
-			append(protectName(foreignKeyColumn)).
+			append(quoteName(foreignKeyColumn)).
 			append(") references ").
-			append(protectName(targetTable));
+			append(quoteName(targetTable));
 	
 		if(dialect.needsTargetColumnName())
 		{
 			bf.append('(').
-				append(protectName(targetColumn)).
+				append(quoteName(targetColumn)).
 				append(')');
 		}
 	}

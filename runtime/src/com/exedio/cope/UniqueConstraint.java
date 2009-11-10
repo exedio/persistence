@@ -109,7 +109,7 @@ public final class UniqueConstraint extends Feature
 			if(i>0)
 				bf.append(',');
 			final FunctionField<?> f = fields[i];
-			bf.append(f.getColumn().protectedID);
+			bf.append(f.getColumn().quotedID);
 		}
 		bf.append(')');
 

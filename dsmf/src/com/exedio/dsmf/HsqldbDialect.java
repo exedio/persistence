@@ -81,7 +81,7 @@ public final class HsqldbDialect extends Dialect
 						
 						if("CHECK".equals(constraintType))
 						{
-							final String tablePrefix = protectName(tableName)+'.';
+							final String tablePrefix = quoteName(tableName)+'.';
 							String checkClause = resultSet.getString(4);
 							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
 								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
@@ -116,7 +116,7 @@ public final class HsqldbDialect extends Dialect
 											else
 												clause.append(',');
 											final String columnName = resultSet.getString(1);
-											clause.append(protectName(columnName));
+											clause.append(quoteName(columnName));
 										}
 										clause.append(')');
 									}

@@ -47,7 +47,7 @@ final class BlobColumn extends Column
 	@Override
 	final String getCheckConstraintIfNotNull()
 	{
-		return "LENGTH(" + protectedID + ")<=" + (maximumLength*table.database.blobLengthFactor);
+		return "LENGTH(" + quotedID + ")<=" + (maximumLength*table.database.blobLengthFactor);
 	}
 	
 	@Override

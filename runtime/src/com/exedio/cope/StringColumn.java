@@ -98,7 +98,7 @@ class StringColumn extends Column
 
 		if(allowedValues!=null)
 		{
-			bf.append(protectedID + " IN (");
+			bf.append(quotedID + " IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
@@ -118,19 +118,19 @@ class StringColumn extends Column
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)
-					bf.append(length + '(' + protectedID + ")=" + minimumLength );
+					bf.append(length + '(' + quotedID + ")=" + minimumLength );
 				else
 					bf.append(
-							'(' + length + '(' + protectedID + ")>=" + minimumLength + ") AND " +
-							'(' + length + "(" + protectedID + ")<=" + maximumLength + ')');
+							'(' + length + '(' + quotedID + ")>=" + minimumLength + ") AND " +
+							'(' + length + "(" + quotedID + ")<=" + maximumLength + ')');
 			}
 			else
 			{
-				bf.append(length + '(' + protectedID + ")<=" + maximumLength);
+				bf.append(length + '(' + quotedID + ")<=" + maximumLength);
 			}
 			if(charSet!=null)
 			{
-				final String clause = table.database.dialect.getClause(protectedID, charSet);
+				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
 					bf.append(" AND (").
 						append(clause).

@@ -144,8 +144,8 @@ public final class Column extends Node
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
 			dialect.createColumn(
-				protectName(table.name),
-				protectName(name),
+				quoteName(table.name),
+				quoteName(name),
 				getType()), listener);
 	}
 
@@ -159,9 +159,9 @@ public final class Column extends Node
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
 			dialect.renameColumn(
-				protectName(table.name),
-				protectName(name),
-				protectName(newName),
+				quoteName(table.name),
+				quoteName(name),
+				quoteName(newName),
 				existingType), listener);
 	}
 	
@@ -174,8 +174,8 @@ public final class Column extends Node
 	{
 		executeSQL(
 			dialect.modifyColumn(
-				protectName(table.name),
-				protectName(name),
+				quoteName(table.name),
+				quoteName(name),
 				newType), listener);
 	}
 
@@ -188,9 +188,9 @@ public final class Column extends Node
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
-			append(protectName(table.name)).
+			append(quoteName(table.name)).
 			append(" drop column ").
-			append(protectName(name));
+			append(quoteName(name));
 
 		//System.out.println("dropColumn:"+bf);
 		executeSQL(bf.toString(), listener);

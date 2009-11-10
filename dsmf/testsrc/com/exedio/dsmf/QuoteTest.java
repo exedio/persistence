@@ -19,10 +19,10 @@
 package com.exedio.dsmf;
 
 /**
- * Test whether all names are protected with quotes,
+ * Test whether all names are quoted,
  * by using sql keyword for names.
  */
-public class ProtectionTest extends SchemaReadyTest
+public class QuoteTest extends SchemaReadyTest
 {
 	private static final String TABLE = "select";
 	private static final String PK_COLUMN = "from";

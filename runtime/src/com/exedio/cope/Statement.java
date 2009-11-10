@@ -160,7 +160,7 @@ final class Statement
 		
 	Statement append(final Table table)
 	{
-		this.text.append(table.protectedID);
+		this.text.append(table.quotedID);
 			
 		return this;
 	}
@@ -203,7 +203,7 @@ final class Statement
 				append('.');
 		}
 		this.text.
-			append(column.protectedID);
+			append(column.quotedID);
 			
 		return this;
 	}
@@ -404,7 +404,7 @@ final class Statement
 	
 	Statement appendTableDefinition(final Join join, final Table table)
 	{
-		append(table.protectedID);
+		append(table.quotedID);
 		final String alias = getAlias(join, table);
 		if(alias!=null)
 		{
@@ -475,7 +475,7 @@ final class Statement
 		{
 			if(ambiguousTables!=null && ambiguousTables.contains(table))
 				throw new IllegalArgumentException("feature " + exceptionColumn + " is ambiguous, use Function#bind (deprecated)"); // TODO replace by assertion, once BadQueryTest works
-			return table.protectedID;
+			return table.quotedID;
 		}
 	}
 	

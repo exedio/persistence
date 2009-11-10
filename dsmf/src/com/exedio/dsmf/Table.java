@@ -241,7 +241,7 @@ public final class Table extends Node
 		final StringBuilder bf = new StringBuilder();
 
 		bf.append("create table ").
-			append(protectName(name)).
+			append(quoteName(name)).
 			append('(');
 
 		boolean firstColumn = true;
@@ -252,7 +252,7 @@ public final class Table extends Node
 			else
 				bf.append(',');
 			
-			bf.append(protectName(column.name)).
+			bf.append(quoteName(column.name)).
 				append(' ').
 				append(column.getType());
 		}
@@ -300,7 +300,7 @@ public final class Table extends Node
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("drop table ").
-			append(protectName(name));
+			append(quoteName(name));
 
 		if(defensive)
 		{
@@ -362,7 +362,7 @@ public final class Table extends Node
 	
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
-		executeSQL(dialect.renameTable(protectName(name), protectName(newName)), listener);
+		executeSQL(dialect.renameTable(quoteName(name), quoteName(newName)), listener);
 	}
 	
 	public final void checkUnsupportedConstraints()
