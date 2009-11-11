@@ -276,8 +276,8 @@ final class HistoryThread extends Thread
 				HistoryModel.connectionPoolIdle.map(connectionPoolInfo.getIdleCounter()),
 				HistoryModel.connectionPoolGet.map(connectionPoolInfo.getCounter().getGetCounter()),
 				HistoryModel.connectionPoolPut.map(connectionPoolInfo.getCounter().getPutCounter()),
-				HistoryModel.connectionPoolInvalidFromIdle.map(connectionPoolInfo.getInvalidOnGet()), // TODO rename to connectionPoolInvalidOnGet
-				HistoryModel.connectionPoolInvalidIntoIdle.map(connectionPoolInfo.getInvalidOnPut()), // TODO rename to connectionPoolInvalidOnPut
+				HistoryModel.connectionPoolInvalidOnGet.map(connectionPoolInfo.getInvalidOnGet()),
+				HistoryModel.connectionPoolInvalidOnPut.map(connectionPoolInfo.getInvalidOnPut()),
 				HistoryModel.nextTransactionId.map(nextTransactionId),
 				HistoryModel.commitWithoutConnection.map(transactionCounters.getCommitWithoutConnection()),
 				HistoryModel.commitWithConnection.map(transactionCounters.getCommitWithConnection()),

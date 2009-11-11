@@ -39,8 +39,8 @@ final class HistoryModel extends Item
 	static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
 	static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
 	static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
-	static final IntegerField connectionPoolInvalidFromIdle = new IntegerField().toFinal().min(0);
-	static final IntegerField connectionPoolInvalidIntoIdle = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("connectionPoolInvalidFromIdle") static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("connectionPoolInvalidIntoIdle") static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 	
 	static final LongField nextTransactionId = new LongField().toFinal();
 	@CopeSchemaName("commitOutConnection")
