@@ -53,6 +53,7 @@ final class HistoryItemCache extends Item
 	static final IntegerField level = new IntegerField().toFinal().min(0);
 	static final LongField hits = new LongField().toFinal();
 	static final LongField misses = new LongField().toFinal();
+	static final LongField concurrentLoads = new LongField().toFinal();
 	static final IntegerField numberOfCleanups = new IntegerField().toFinal().min(0);
 	static final IntegerField itemsCleanedUp = new IntegerField().toFinal().min(0);
 	static final DateField lastCleanup = new DateField().toFinal().optional();

@@ -29,6 +29,7 @@ public final class ItemCacheInfo
 	private final int level;
 	private final long hits;
 	private final long misses;
+	private final long concurrentLoads;
 	private final int replacementRuns;
 	private final int replacements;
 	private final Date lastReplacementRun;
@@ -43,6 +44,7 @@ public final class ItemCacheInfo
 			final int limit,
 			final int level,
 			final long hits, final long misses,
+			final long concurrentLoads,
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone)
@@ -52,6 +54,7 @@ public final class ItemCacheInfo
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
+		this.concurrentLoads = concurrentLoads;
 		this.replacementRuns = replacementRuns;
 		this.replacements = replacements;
 		this.lastReplacementRun = lastReplacementRun;
@@ -91,6 +94,11 @@ public final class ItemCacheInfo
 	public long getMisses()
 	{
 		return misses;
+	}
+	
+	public long getConcurrentLoads()
+	{
+		return concurrentLoads;
 	}
 	
 	public int getReplacementRuns()

@@ -124,6 +124,7 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private volatile long hits = 0;
 		private volatile long misses = 0;
+		private long concurrentLoads = 0;
 		private int replacementRuns = 0;
 		private int replacements = 0;
 		private long lastReplacementRun = 0;
@@ -161,10 +162,10 @@ final class ItemCache
 		
 		void put(final WrittenState state)
 		{
-			final Object oldValue;
 			synchronized(map)
 			{
-				oldValue = map.put(state.pk, state);
+				if(map.put(state.pk, state)!=null)
+					concurrentLoads++;
 
 				// TODO use a LRU map instead
 				final int mapSize = map.size();
@@ -196,8 +197,6 @@ final class ItemCache
 				}
 			}
 			
-			if(oldValue!=null)
-				System.out.println("warning: duplicate computation of state " + type + '.' + state.pk);
 		}
 		
 		void invalidate(final TIntHashSet invalidatedPKs)
@@ -254,6 +253,7 @@ final class ItemCache
 				type,
 				limit, level,
 				hits, misses,
+				concurrentLoads,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
 				invalidationsOrdered, invalidationsDone);

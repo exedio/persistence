@@ -51,6 +51,7 @@ final class ItemCacheCop extends ConsoleCop
 		int allLevel = 0;
 		long allHits = 0;
 		long allMisses = 0;
+		long allConcurrentLoads = 0;
 		int allReplacementRuns = 0;
 		int allReplacements = 0;
 		Date allLastReplacementRun = null;
@@ -67,6 +68,7 @@ final class ItemCacheCop extends ConsoleCop
 			allLevel += info.getLevel();
 			allHits += info.getHits();
 			allMisses += info.getMisses();
+			allConcurrentLoads += info.getConcurrentLoads();
 			
 			allReplacementRuns += info.getReplacementRuns();
 			allReplacements += info.getReplacements();
@@ -97,6 +99,7 @@ final class ItemCacheCop extends ConsoleCop
 		ItemCache_Jspm.writeBody(out,
 				allLimit, allLevel,
 				allHits, allMisses,
+				allConcurrentLoads,
 				allReplacementRuns, allReplacements, allLastReplacementRun,
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
 				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
