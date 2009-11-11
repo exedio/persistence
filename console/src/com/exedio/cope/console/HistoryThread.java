@@ -172,8 +172,8 @@ final class HistoryThread extends Thread
 		long itemCacheHits = 0;
 		long itemCacheMisses = 0;
 		long itemCacheConcurrentLoads = 0;
-		int itemCacheNumberOfCleanups = 0;
-		int itemCacheItemsCleanedUp = 0;
+		int itemCacheReplacementRuns = 0;
+		int itemCacheReplacements = 0;
 		final SetValue[][] itemCacheSetValues = new SetValue[itemCacheInfos.length][];
 		int itemCacheSetValuesIndex = 0;
 		for(final ItemCacheInfo ci : itemCacheInfos)
@@ -181,8 +181,8 @@ final class HistoryThread extends Thread
 			itemCacheHits += ci.getHits();
 			itemCacheMisses += ci.getMisses();
 			itemCacheConcurrentLoads += ci.getConcurrentLoads();
-			itemCacheNumberOfCleanups += ci.getReplacementRuns();
-			itemCacheItemsCleanedUp += ci.getReplacements();
+			itemCacheReplacementRuns += ci.getReplacementRuns();
+			itemCacheReplacements += ci.getReplacements();
 			itemCacheSetValues[itemCacheSetValuesIndex] =
 				new SetValue[]{
 					null, // will be HistoryItemCache.model
@@ -286,8 +286,8 @@ final class HistoryThread extends Thread
 				HistoryModel.itemCacheHits.map(itemCacheHits),
 				HistoryModel.itemCacheMisses.map(itemCacheMisses),
 				HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads),
-				HistoryModel.itemCacheNumberOfCleanups.map(itemCacheNumberOfCleanups),
-				HistoryModel.itemCacheItemsCleanedUp.map(itemCacheItemsCleanedUp),
+				HistoryModel.itemCacheNumberOfCleanups.map(itemCacheReplacementRuns),
+				HistoryModel.itemCacheItemsCleanedUp.map(itemCacheReplacements),
 				HistoryModel.queryCacheHits  .map(queryCacheInfo.getHits()),
 				HistoryModel.queryCacheMisses.map(queryCacheInfo.getMisses()),
 				HistoryModel.queryCacheReplacements.map(queryCacheInfo.getReplacements()),
