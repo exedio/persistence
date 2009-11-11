@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -54,9 +55,9 @@ final class HistoryItemCache extends Item
 	static final LongField hits = new LongField().toFinal();
 	static final LongField misses = new LongField().toFinal();
 	static final LongField concurrentLoads = new LongField().toFinal();
-	static final IntegerField numberOfCleanups = new IntegerField().toFinal().min(0);
-	static final IntegerField itemsCleanedUp = new IntegerField().toFinal().min(0);
-	static final DateField lastCleanup = new DateField().toFinal().optional();
+	@CopeSchemaName("numberOfCleanups") static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("itemsCleanedUp") static final IntegerField replacements = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("lastCleanup") static final DateField lastReplacementRun = new DateField().toFinal().optional();
 	static final LongField ageAverageMillis = new LongField().toFinal();
 	static final LongField ageMinMillis = new LongField().toFinal();
 	static final LongField ageMaxMillis = new LongField().toFinal();
