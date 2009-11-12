@@ -910,7 +910,41 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, runtime.jar.src, api, dist" />
+	<target name="findbugs" depends="compile">
+		<untar
+				compression="gzip"
+				src="${basedir}/lib/findbugs-1.3.9.tar.gz"
+				dest="${basedir}/build/findbugs-home" />
+		<taskdef
+				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
+				classpath="build/findbugs-home/findbugs-1.3.9/lib/findbugs-ant.jar" />
+		<findbugs
+					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
+					output="html"
+					outputFile="${basedir}/build/findbugs.html"
+					effort="max"
+					reportlevel="low">
+			<class location="${basedir}/build/runtime/classes" />
+			<class location="${basedir}/build/runtime/testclasses" />
+			<class location="${basedir}/build/instrument/classes" />
+			<class location="${basedir}/build/console/classes" />
+			<class location="${basedir}/build/console/testclasses" />
+			<auxclasspath>
+				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
+				<pathelement location="${basedir}/lib/exedio-cops.jar" />
+				<pathelement location="${basedir}/lib/trove.jar" />
+				<pathelement location="${basedir}/lib/cojen.jar" />
+				<pathelement location="${basedir}/lib/bsh-core.jar" />
+				<pathelement location="${basedir}/lib/commons-io.jar" />
+				<pathelement location="${basedir}/lib/servlet-api.jar" />
+				<pathelement location="${basedir}/lib/junit.jar" />
+			</auxclasspath>
+			<sourcePath path="${basedir}/src" />
+			<sourcePath path="${basedir}/testsrc" />
+		</findbugs>
+	</target>
+	
+	<target name="all" depends="build, runtime.jar.src, api, dist, findbugs" />
 
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">
@@ -922,6 +956,7 @@
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
 			<fileset file="${basedir}/build/testprotocol.html" />
+			<fileset file="${basedir}/build/findbugs.html" />
 		</copy>
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
 	</target>
