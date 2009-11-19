@@ -23,6 +23,7 @@ import gnu.trove.TIntObjectHashMap;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 final class EnumFieldType<E extends Enum<E>>
@@ -119,5 +120,25 @@ final class EnumFieldType<E extends Enum<E>>
 					"expected " + valueClass.getName() +
 					", but was a " + value.getClass().getName());
 		return ordinalsToNumbers[value.ordinal()];
+	}
+	
+	
+	static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+
+	@SuppressWarnings("unchecked")
+	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
+	{
+		assert valueClass!=null;
+		
+		synchronized(types)
+		{
+			EnumFieldType result = types.get(valueClass);
+			if(result==null)
+			{
+				result = new EnumFieldType(valueClass);
+				types.put(valueClass, result);
+			}
+			return result;
+		}
 	}
 }

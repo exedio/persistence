@@ -36,7 +36,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 		checkValueClass(Enum.class);
 
-		this.valueType = new EnumFieldType<E>(valueClass);
+		this.valueType = EnumFieldType.get(valueClass);
 		this.values = valueType.values;
 		this.numbersToValues = valueType.numbersToValues;
 		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
