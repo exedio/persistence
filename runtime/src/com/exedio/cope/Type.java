@@ -969,15 +969,15 @@ public final class Type<C extends Item>
 		}
 		catch(InstantiationException e)
 		{
-			throw new RuntimeException(id, e);
+			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException(id, e);
+			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(id, e);
+			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
 	}
 	
@@ -1006,9 +1006,9 @@ public final class Type<C extends Item>
 		
 		final C item = createItemObject(PK.MAX_VALUE);
 		if(item.type!=this)
-			throw new IllegalArgumentException(id);
+			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=PK.MAX_VALUE)
-			throw new IllegalArgumentException(id);
+			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 	}
 	
 	// ------------------- deprecated stuff -------------------

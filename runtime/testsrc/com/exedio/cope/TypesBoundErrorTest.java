@@ -73,7 +73,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("WrongActivationConstructor", e.getMessage());
+			assertEquals("WrongActivationConstructor/" + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
 		try
 		{
