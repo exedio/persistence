@@ -72,4 +72,196 @@ public class EnumSchemaTest extends CopeAssert
 			assertEquals("expected " + Normal2.class.getName() + ", but was a " + Normal.class.getName(), e.getMessage());
 		}
 	}
+	
+	public void testAnnotatedBefore()
+	{
+		final EnumField<AnnotatedBefore> f = Item.newEnumField(AnnotatedBefore.class);
+		assertEquals(10, getColumnValue(f, AnnotatedBefore.Eins));
+		assertEquals(11, getColumnValue(f, AnnotatedBefore.Zwei));
+		assertEquals(20, getColumnValue(f, AnnotatedBefore.Drei));
+	}
+	
+	enum AnnotatedBefore
+	{
+		Eins,
+		@CopeSchemaValue(11) Zwei,
+		Drei;
+	}
+	
+	public void testAnnotatedAfter()
+	{
+		final EnumField<AnnotatedAfter> f = Item.newEnumField(AnnotatedAfter.class);
+		assertEquals(10, getColumnValue(f, AnnotatedAfter.Eins));
+		assertEquals(19, getColumnValue(f, AnnotatedAfter.Zwei));
+		assertEquals(20, getColumnValue(f, AnnotatedAfter.Drei));
+	}
+	
+	enum AnnotatedAfter
+	{
+		Eins,
+		@CopeSchemaValue(19) Zwei,
+		Drei;
+	}
+	
+	public void testAnnotatedStart()
+	{
+		final EnumField<AnnotatedStart> f = Item.newEnumField(AnnotatedStart.class);
+		assertEquals( 9, getColumnValue(f, AnnotatedStart.Eins));
+		assertEquals(10, getColumnValue(f, AnnotatedStart.Zwei));
+		assertEquals(20, getColumnValue(f, AnnotatedStart.Drei));
+	}
+	
+	enum AnnotatedStart
+	{
+		@CopeSchemaValue(9) Eins,
+		Zwei,
+		Drei;
+	}
+	
+	public void testAnnotatedEnd()
+	{
+		final EnumField<AnnotatedEnd> f = Item.newEnumField(AnnotatedEnd.class);
+		assertEquals(10, getColumnValue(f, AnnotatedEnd.Eins));
+		assertEquals(20, getColumnValue(f, AnnotatedEnd.Zwei));
+		assertEquals(21, getColumnValue(f, AnnotatedEnd.Drei));
+	}
+	
+	enum AnnotatedEnd
+	{
+		Eins,
+		Zwei,
+		@CopeSchemaValue(21) Drei;
+	}
+	
+	public void testAnnotatedError()
+	{
+		try
+		{
+			Item.newEnumField(CollisionBefore.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("duplicate number 10 for enum field on class " + CollisionBefore.class.getName(), e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(CollisionAfter.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("duplicate number 20 for enum field on class " + CollisionAfter.class.getName(), e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(CollisionStart.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("duplicate number 10 for enum field on class " + CollisionStart.class.getName(), e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(CollisionEnd.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("duplicate number 20 for enum field on class " + CollisionEnd.class.getName(), e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(OrderBefore.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(OrderAfter.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(OrderStart.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
+		}
+		try
+		{
+			Item.newEnumField(OrderEnd.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
+		}
+	}
+	
+	enum CollisionBefore
+	{
+		Eins,
+		@CopeSchemaValue(10) Zwei,
+		Drei;
+	}
+	
+	enum CollisionAfter
+	{
+		Eins,
+		@CopeSchemaValue(20) Zwei,
+		Drei;
+	}
+	
+	enum CollisionStart
+	{
+		@CopeSchemaValue(10) Eins,
+		Zwei,
+		Drei;
+	}
+	
+	enum CollisionEnd
+	{
+		Eins,
+		Zwei,
+		@CopeSchemaValue(20) Drei;
+	}
+	
+	enum OrderBefore
+	{
+		Eins,
+		@CopeSchemaValue(9) Zwei,
+		Drei;
+	}
+	
+	enum OrderAfter
+	{
+		Eins,
+		@CopeSchemaValue(21) Zwei,
+		Drei;
+	}
+	
+	enum OrderStart
+	{
+		@CopeSchemaValue(11) Eins,
+		Zwei,
+		Drei;
+	}
+	
+	enum OrderEnd
+	{
+		Eins,
+		Zwei,
+		@CopeSchemaValue(19) Drei;
+	}
 }
