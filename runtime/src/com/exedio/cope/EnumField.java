@@ -56,8 +56,8 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
 			values.add(e);
 
-			if(numbersToValues.put(number, e)!=null)
-				throw new RuntimeException("duplicate number " + number + " for enum field on " + valueClass);
+			numbersToValues.put(number, e);
+			
 			ordinalsToNumbers[e.ordinal()] = number;
 		}
 		final int l = ordinalsToNumbers.length-1;

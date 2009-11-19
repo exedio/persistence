@@ -140,36 +140,36 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(CollisionBefore.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals("duplicate number 10 for enum field on class " + CollisionBefore.class.getName(), e.getMessage());
+			assertEquals(CollisionBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.", e.getMessage());
 		}
 		try
 		{
 			Item.newEnumField(CollisionAfter.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals("duplicate number 20 for enum field on class " + CollisionAfter.class.getName(), e.getMessage());
+			assertEquals(CollisionAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.", e.getMessage());
 		}
 		try
 		{
 			Item.newEnumField(CollisionStart.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals("duplicate number 10 for enum field on class " + CollisionStart.class.getName(), e.getMessage());
+			assertEquals(CollisionStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 10.", e.getMessage());
 		}
 		try
 		{
 			Item.newEnumField(CollisionEnd.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals("duplicate number 20 for enum field on class " + CollisionEnd.class.getName(), e.getMessage());
+			assertEquals(CollisionEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 20.", e.getMessage());
 		}
 		try
 		{
