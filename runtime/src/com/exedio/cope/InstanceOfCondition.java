@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
 import java.util.TreeSet;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
@@ -106,7 +107,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		}
 		
 		if(typeIds.isEmpty())
-			throw new RuntimeException("no concrete type for " + types);
+			throw new RuntimeException("no concrete type for " + Arrays.toString(types));
 
 		boolean first = true;
 		for(final String id : typeIds)
