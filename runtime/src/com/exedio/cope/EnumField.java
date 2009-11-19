@@ -55,9 +55,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final CopeSchemaValue annotation = getAnnotation(e, CopeSchemaValue.class);
 			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
 			values.add(e);
-
 			numbersToValues.put(number, e);
-			
 			ordinalsToNumbers[e.ordinal()] = number;
 		}
 		final int l = ordinalsToNumbers.length-1;
