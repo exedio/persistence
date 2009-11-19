@@ -176,7 +176,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderBefore.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
 		}
@@ -185,7 +185,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderAfter.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
 		}
@@ -194,7 +194,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderStart.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
 		}
@@ -203,7 +203,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderEnd.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
 		}
