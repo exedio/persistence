@@ -920,6 +920,7 @@
 				classpath="build/findbugs-home/findbugs-1.3.9/lib/findbugs-ant.jar" />
 		<findbugs
 					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
+					jvmargs="-Xmx250M"
 					output="html"
 					outputFile="${basedir}/build/findbugs.html"
 					effort="max"
@@ -938,6 +939,7 @@
 				<pathelement location="${basedir}/lib/commons-io.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
+				<pathelement location="${ant.jar}" />
 			</auxclasspath>
 			<sourcePath path="${basedir}/src" />
 			<sourcePath path="${basedir}/testsrc" />
