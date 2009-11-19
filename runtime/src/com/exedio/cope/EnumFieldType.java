@@ -27,12 +27,14 @@ import java.util.List;
 
 final class EnumFieldType<E extends Enum<E>>
 {
+	private final Class<E> valueClass;
 	final List<E> values;
 	final TIntObjectHashMap<E> numbersToValues;
 	final int[] ordinalsToNumbers;
 	
 	EnumFieldType(final Class<E> valueClass)
 	{
+		this.valueClass = valueClass;
 		if(!valueClass.isEnum())
 			throw new RuntimeException("must be an enum: " + valueClass);
 
@@ -99,5 +101,23 @@ final class EnumFieldType<E extends Enum<E>>
 		{
 			throw new RuntimeException(ex);
 		}
+	}
+	
+	boolean isValid(final E value)
+	{
+		if(value==null)
+			return true;
+
+		final Class actualValueClass = value.getClass();
+      return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
+	}
+	
+	int columnValue(final E value)
+	{
+		if(!isValid(value))
+			throw new IllegalArgumentException(
+					"expected " + valueClass.getName() +
+					", but was a " + value.getClass().getName());
+		return ordinalsToNumbers[value.ordinal()];
 	}
 }

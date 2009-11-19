@@ -122,8 +122,19 @@ public final class SchemaInfo
 	 * Returns the value of database column for the field
 	 * and the given enum value.
 	 */
+	public static <E extends Enum<E>> int getColumnValue(final E value)
+	{
+		return new EnumFieldType<E>(value.getDeclaringClass()).columnValue(value);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getColumnValue(Enum)} instead. 
+	 */
+	@Deprecated
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)
 	{
-		return field.columnValue(value);
+		return field.valueType.columnValue(value);
 	}
 }

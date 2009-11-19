@@ -25,10 +25,10 @@ public class EnumSchemaTest extends CopeAssert
 {
 	public void testNormal()
 	{
-		final EnumField<Normal> normal = Item.newEnumField(Normal.class);
-		assertEquals(10, getColumnValue(normal, Normal.Eins));
-		assertEquals(20, getColumnValue(normal, Normal.Zwei));
-		assertEquals(30, getColumnValue(normal, Normal.Drei));
+		
+		assertEquals(10, getColumnValue(Normal.Eins));
+		assertEquals(20, getColumnValue(Normal.Zwei));
+		assertEquals(30, getColumnValue(Normal.Drei));
 	}
 	
 	enum Normal
@@ -38,13 +38,13 @@ public class EnumSchemaTest extends CopeAssert
 	
 	public void testNormal2()
 	{
-		final EnumField<Normal2> normal = Item.newEnumField(Normal2.class);
-		assertEquals(10, getColumnValue(normal, Normal2.Eins));
-		assertEquals(20, getColumnValue(normal, Normal2.Zwei));
+		
+		assertEquals(10, getColumnValue(Normal2.Eins));
+		assertEquals(20, getColumnValue(Normal2.Zwei));
 
 		try
 		{
-			getColumnValue(normal, null);
+			getColumnValue((Normal2)null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -59,6 +59,7 @@ public class EnumSchemaTest extends CopeAssert
 	}
 	
 	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
+	@Deprecated // OK: test deprecated api
 	public void testUnchecked()
 	{
 		final EnumField<Normal2> normal = Item.newEnumField(Normal2.class);
@@ -75,10 +76,10 @@ public class EnumSchemaTest extends CopeAssert
 	
 	public void testAnnotatedBefore()
 	{
-		final EnumField<AnnotatedBefore> f = Item.newEnumField(AnnotatedBefore.class);
-		assertEquals(10, getColumnValue(f, AnnotatedBefore.Eins));
-		assertEquals(11, getColumnValue(f, AnnotatedBefore.Zwei));
-		assertEquals(20, getColumnValue(f, AnnotatedBefore.Drei));
+		
+		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
+		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
+		assertEquals(20, getColumnValue(AnnotatedBefore.Drei));
 	}
 	
 	enum AnnotatedBefore
@@ -90,10 +91,10 @@ public class EnumSchemaTest extends CopeAssert
 	
 	public void testAnnotatedAfter()
 	{
-		final EnumField<AnnotatedAfter> f = Item.newEnumField(AnnotatedAfter.class);
-		assertEquals(10, getColumnValue(f, AnnotatedAfter.Eins));
-		assertEquals(19, getColumnValue(f, AnnotatedAfter.Zwei));
-		assertEquals(20, getColumnValue(f, AnnotatedAfter.Drei));
+		
+		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
+		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
+		assertEquals(20, getColumnValue(AnnotatedAfter.Drei));
 	}
 	
 	enum AnnotatedAfter
@@ -105,10 +106,10 @@ public class EnumSchemaTest extends CopeAssert
 	
 	public void testAnnotatedStart()
 	{
-		final EnumField<AnnotatedStart> f = Item.newEnumField(AnnotatedStart.class);
-		assertEquals( 9, getColumnValue(f, AnnotatedStart.Eins));
-		assertEquals(10, getColumnValue(f, AnnotatedStart.Zwei));
-		assertEquals(20, getColumnValue(f, AnnotatedStart.Drei));
+		
+		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
+		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
+		assertEquals(20, getColumnValue(AnnotatedStart.Drei));
 	}
 	
 	enum AnnotatedStart
@@ -120,10 +121,10 @@ public class EnumSchemaTest extends CopeAssert
 	
 	public void testAnnotatedEnd()
 	{
-		final EnumField<AnnotatedEnd> f = Item.newEnumField(AnnotatedEnd.class);
-		assertEquals(10, getColumnValue(f, AnnotatedEnd.Eins));
-		assertEquals(20, getColumnValue(f, AnnotatedEnd.Zwei));
-		assertEquals(21, getColumnValue(f, AnnotatedEnd.Drei));
+		
+		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
+		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
+		assertEquals(21, getColumnValue(AnnotatedEnd.Drei));
 	}
 	
 	enum AnnotatedEnd

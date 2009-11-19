@@ -26,6 +26,7 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
+	final EnumFieldType<E> valueType;
 	private final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
@@ -35,7 +36,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 		checkValueClass(Enum.class);
 
-		final EnumFieldType<E> valueType = new EnumFieldType<E>(valueClass);
+		this.valueType = new EnumFieldType<E>(valueClass);
 		this.values = valueType.values;
 		this.numbersToValues = valueType.numbersToValues;
 		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
@@ -80,7 +81,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
-		assert isValid(defaultConstant);
+		assert valueType.isValid(defaultConstant);
 		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
 	}
 	
@@ -105,7 +106,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	private int getNumber(final E value)
 	{
-		assert isValid(value);
+		assert valueType.isValid(value);
 		return ordinalsToNumbers[value.ordinal()];
 	}
 
@@ -156,26 +157,8 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	void set(final Row row, final E surface)
 	{
-		assert isValid(surface);
+		assert valueType.isValid(surface);
 		row.put(getColumn(), surface==null ? null : getNumber(surface));
-	}
-	
-	private boolean isValid(final E value)
-	{
-		if(value==null)
-			return true;
-
-		final Class actualValueClass = value.getClass();
-      return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
-	}
-	
-	int columnValue(final E value)
-	{
-		if(!isValid(value))
-			throw new IllegalArgumentException(
-					"expected " + valueClass.getName() +
-					", but was a " + value.getClass().getName());
-		return ordinalsToNumbers[value.ordinal()];
 	}
 	
 	// ------------------- deprecated stuff -------------------
