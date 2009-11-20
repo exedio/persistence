@@ -99,7 +99,6 @@ final class DoubleColumn extends Column
 	@Override
 	Object getCheckValue()
 	{
-		return new Double(2.2);
+		return Double.valueOf(2.2);
 	}
-	
 }
