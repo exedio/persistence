@@ -781,7 +781,7 @@ public final class Type<C extends Item>
 		
 		final Map<Field, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
-		final C result = createItemObject(pk);
+		final C result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
@@ -955,10 +955,10 @@ public final class Type<C extends Item>
 		if(entity!=null)
 			return cast(entity.getItem());
 		else
-			return createItemObject(pk);
+			return activate(pk);
 	}
 	
-	C createItemObject(final int pk)
+	C activate(final int pk)
 	{
 		try
 		{
@@ -1004,7 +1004,7 @@ public final class Type<C extends Item>
 		if(isAbstract)
 			return;
 		
-		final C item = createItemObject(PK.MAX_VALUE);
+		final C item = activate(PK.MAX_VALUE);
 		if(item.type!=this)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=PK.MAX_VALUE)
