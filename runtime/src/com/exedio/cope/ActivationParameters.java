@@ -33,4 +33,13 @@ public final class ActivationParameters
 		this.type = type;
 		this.pk = pk;
 	}
+	
+	/**
+	 * This method is equivalent to {@link Item#toString()}.
+	 */
+	@Override
+	public String toString()
+	{
+		return type.id + Item.ID_SEPARATOR + pk;
+	}
 }
