@@ -960,11 +960,10 @@ public final class Type<C extends Item>
 	
 	C activate(final int pk)
 	{
+		final ActivationParameters ap = new ActivationParameters(this, pk);
 		try
 		{
-			return
-				activationConstructor.newInstance(
-					new ActivationParameters(this, pk));
+			return activationConstructor.newInstance(ap);
 		}
 		catch(InstantiationException e)
 		{
