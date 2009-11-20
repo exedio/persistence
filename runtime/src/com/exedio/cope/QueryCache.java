@@ -185,7 +185,7 @@ final class QueryCache
 			}
 			catch(UnsupportedEncodingException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(CHARSET, e);
 			}
 			// TODO compress
 
@@ -213,7 +213,7 @@ final class QueryCache
 			}
 			catch(UnsupportedEncodingException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(CHARSET, e);
 			}
 		}
 		

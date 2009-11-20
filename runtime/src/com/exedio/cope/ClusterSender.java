@@ -58,7 +58,7 @@ final class ClusterSender
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.getIntValue()), e);
 		}
 		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];

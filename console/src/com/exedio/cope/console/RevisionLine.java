@@ -130,6 +130,8 @@ final class RevisionLine
 		return elapsed;
 	}
 	
+	private static final String CHARSET = "latin1";
+	
 	void setInfo(final byte[] infoBytes)
 	{
 		assert infoBytes!=null;
@@ -139,11 +141,11 @@ final class RevisionLine
 		
 		try
 		{
-			this.logString = new String(infoBytes, "latin1");
+			this.logString = new String(infoBytes, CHARSET);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(CHARSET, e);
 		}
 		final Properties infoProperties = RevisionInfo.parse(infoBytes);
 		if(infoProperties!=null)

@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.exedio.cope.Cope;
@@ -45,12 +46,12 @@ public final class Main
 		catch(IllegalParameterException e)
 		{
 			e.printStackTrace();
-			throw new RuntimeException(e);
+			throw new RuntimeException(Arrays.toString(args), e);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new RuntimeException(e);
+			throw new RuntimeException(Arrays.toString(args), e);
 		}
 	}
 	

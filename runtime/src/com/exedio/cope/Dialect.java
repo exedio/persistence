@@ -92,7 +92,7 @@ abstract class Dialect
 			}
 			catch(IOException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(field.toString(), e);
 			}
 			finally
 			{

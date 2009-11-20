@@ -306,11 +306,11 @@ public final class Type<C extends Item>
 			}
 			catch(InvocationTargetException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(id, e);
 			}
 			catch(IllegalAccessException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(id, e);
 			}
 		}
 		

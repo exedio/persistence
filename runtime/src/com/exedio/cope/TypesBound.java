@@ -107,7 +107,7 @@ public final class TypesBound
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(javaClass.getName(), e);
 		}
 
 		final Type<C> result = new Type<C>(

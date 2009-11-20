@@ -128,7 +128,7 @@ public final class DayField extends FunctionField<Day>
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 }

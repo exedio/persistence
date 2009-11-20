@@ -181,21 +181,17 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		{
 			return valueConstructor.newInstance(new Object[]{initargs});
 		}
-		catch(IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
 		catch(InstantiationException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 	
@@ -296,7 +292,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			}
 			catch(IllegalAccessException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(valueClass.getName(), e);
 			}
 			this.componentSize = templates.size();
 		}

@@ -76,7 +76,7 @@ final class ClusterConfig
 		}
 		catch(UnknownHostException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(properties.clusterGroup.getStringValue(), e);
 		}
 		{
 			final Random r = new Random(secret);

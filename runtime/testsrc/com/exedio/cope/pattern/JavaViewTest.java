@@ -81,7 +81,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals(InvocationTargetException.class.getName(), e.getMessage());
+			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(InvocationTargetException.class, cause.getClass());
 			final Throwable cause2 = cause.getCause();
@@ -116,7 +116,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals(InvocationTargetException.class.getName(), e.getMessage());
+			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(InvocationTargetException.class, cause.getClass());
 			final Throwable cause2 = cause.getCause();

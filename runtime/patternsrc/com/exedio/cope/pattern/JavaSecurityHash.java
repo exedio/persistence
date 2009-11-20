@@ -127,11 +127,11 @@ public class JavaSecurityHash extends Hash
 		}
 		catch(NoSuchAlgorithmException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(algorithm, e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(encoding, e);
 		}
 	}
 	

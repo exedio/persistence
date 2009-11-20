@@ -76,11 +76,11 @@ public final class JavaView extends Pattern
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 }

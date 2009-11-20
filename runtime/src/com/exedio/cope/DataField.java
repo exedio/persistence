@@ -568,7 +568,7 @@ public final class DataField extends Field<DataField.Value>
 			}
 			catch(IOException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(field.toString(), e);
 			}
 			finally
 			{

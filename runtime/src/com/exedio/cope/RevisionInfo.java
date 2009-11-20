@@ -173,6 +173,8 @@ public abstract class RevisionInfo
 		return baos.toByteArray();
 	}
 	
+	private static final String CHARSET = "latin1";
+	
 	public static final Properties parse(final byte[] info)
 	{
 		if(info.length<=MAGIC.length()+1)
@@ -184,11 +186,11 @@ public abstract class RevisionInfo
 		final byte[] magic;
 		try
 		{
-			magic = MAGIC.getBytes("latin1");
+			magic = MAGIC.getBytes(CHARSET);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(CHARSET, e);
 		}
 		for(int i = 0; i<magic.length; i++)
 			if(info[i+1]!=magic[i])

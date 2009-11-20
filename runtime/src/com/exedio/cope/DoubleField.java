@@ -188,7 +188,7 @@ public final class DoubleField extends NumberField<Double>
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 	

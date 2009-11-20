@@ -158,7 +158,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		
 		source.getBody(item, inFile);
 		final Process process = processBuilder.start();
-		try { process.waitFor(); } catch(InterruptedException e) { throw new RuntimeException(e); }
+		try { process.waitFor(); } catch(InterruptedException e) { throw new RuntimeException(toString(), e); }
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 			throw new RuntimeException(

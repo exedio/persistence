@@ -278,7 +278,7 @@ public final class Dispatcher extends Pattern
 						}
 						catch(UnsupportedEncodingException e)
 						{
-							throw new RuntimeException(e);
+							throw new RuntimeException(ENCODING, e);
 						}
 						cause.printStackTrace(out);
 						out.close();
@@ -368,7 +368,7 @@ public final class Dispatcher extends Pattern
 			}
 			catch(UnsupportedEncodingException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(ENCODING, e);
 			}
 		}
 	}

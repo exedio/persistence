@@ -157,11 +157,11 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		finally
 		{
@@ -173,7 +173,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 				}
 				catch(IOException e)
 				{
-					throw new RuntimeException(e);
+					throw new RuntimeException(toString(), e);
 				}
 			}
 		}
@@ -219,7 +219,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 		finally
 		{
@@ -231,7 +231,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 				}
 				catch(IOException e)
 				{
-					throw new RuntimeException(e);
+					throw new RuntimeException(toString(), e);
 				}
 			}
 		}

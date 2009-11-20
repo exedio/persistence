@@ -359,7 +359,7 @@ final class HistoryThread extends Thread
 			}
 			catch(InterruptedException e)
 			{
-				throw new RuntimeException(e);
+				throw new RuntimeException(name, e);
 			}
 			//System.out.println(topic + "run() slept    (" + (System.currentTimeMillis()-sleeping) + "ms)");
 		}
@@ -382,7 +382,7 @@ final class HistoryThread extends Thread
 		}
 		catch(InterruptedException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(name, e);
 		}
 		System.out.println(topic + "stopAndJoin() joined (" + (System.currentTimeMillis() - joining) + "ms)");
 	}

@@ -394,7 +394,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 	

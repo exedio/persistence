@@ -178,15 +178,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(InstantiationException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(dialect.toGenericString(), e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(dialect.toGenericString(), e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(dialect.toGenericString(), e);
 		}
 	}
 	

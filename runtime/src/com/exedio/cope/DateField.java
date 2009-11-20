@@ -174,7 +174,7 @@ public final class DateField extends FunctionField<Date>
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(toString(), e);
 		}
 	}
 }
