@@ -23,56 +23,71 @@ import java.lang.reflect.Method;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Type;
 
 public final class JavaView extends Pattern
 {
-	private Method getter;
-	private Class valueType;
-	private java.lang.reflect.Type valueGenericType;
+	private Mount mount;
+	
+	private static final class Mount
+	{
+		final Method getter;
+		final Class valueType;
+		final java.lang.reflect.Type valueGenericType;
+		
+		Mount(final Type<? extends Item> type, final String name)
+		{
+			final String nameUpper =
+				name.length()==1
+				? Character.toString(Character.toUpperCase(name.charAt(0)))
+				: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
+			
+			final Class<?> javaClass = type.getJavaClass();
+			final Method getter;
+			try
+			{
+				getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null);
+			}
+			catch(NoSuchMethodException e)
+			{
+				throw new RuntimeException("no suitable getter method found for java view "+name, e);
+			}
+
+			this.getter = getter;
+			this.valueType = getter.getReturnType();
+			this.valueGenericType = getter.getGenericReturnType();
+		}
+	}
 	
 	@Override
 	protected void initialize()
 	{
-		final String name = getName();
-		
-		final String nameUpper =
-			name.length()==1
-			? Character.toString(Character.toUpperCase(name.charAt(0)))
-			: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
-		
-		final Class<?> javaClass = getType().getJavaClass();
-		final Method getter;
-		try
-		{
-			getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null);
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new RuntimeException("no suitable getter method found for java view "+name, e);
-		}
-
-		this.getter = getter;
-		this.valueType = getter.getReturnType();
-		this.valueGenericType = getter.getGenericReturnType();
+		this.mount = new Mount(getType(), getName());
+	}
+	
+	private Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 	
 	public Class getValueType()
 	{
-		assert valueType!=null;
-		return valueType;
+		return mount().valueType;
 	}
 	
 	public java.lang.reflect.Type getValueGenericType()
 	{
-		assert valueGenericType!=null;
-		return valueGenericType;
+		return mount().valueGenericType;
 	}
 	
 	public Object get(final Item item)
 	{
 		try
 		{
-			return getter.invoke(item, (Object[])null);
+			return mount().getter.invoke(item, (Object[])null);
 		}
 		catch(IllegalAccessException e)
 		{
