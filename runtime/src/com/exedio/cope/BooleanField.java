@@ -126,6 +126,6 @@ public final class BooleanField extends FunctionField<Boolean>
 			UniqueViolationException,
 			FinalViolationException
 	{
-		set(item, new Boolean(value));
+		set(item, Boolean.valueOf(value));
 	}
 }

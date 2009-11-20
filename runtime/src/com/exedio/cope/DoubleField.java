@@ -184,7 +184,7 @@ public final class DoubleField extends NumberField<Double>
 	{
 		try
 		{
-			set(item, new Double(value));
+			set(item, Double.valueOf(value));
 		}
 		catch(MandatoryViolationException e)
 		{
