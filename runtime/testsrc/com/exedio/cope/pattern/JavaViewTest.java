@@ -136,11 +136,9 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.number.get(item2);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			final Throwable cause = e.getCause();
-			assertEquals(IllegalArgumentException.class, cause.getClass());
-			assertEquals("object is not an instance of declaring class", cause.getMessage());
+			assertEquals("object is not an instance of declaring class", e.getMessage());
 		}
 	}
 }

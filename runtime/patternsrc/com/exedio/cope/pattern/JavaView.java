@@ -74,10 +74,6 @@ public final class JavaView extends Pattern
 		{
 			return getter.invoke(item, (Object[])null);
 		}
-		catch(IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
 		catch(IllegalAccessException e)
 		{
 			throw new RuntimeException(e);
@@ -87,5 +83,4 @@ public final class JavaView extends Pattern
 			throw new RuntimeException(e);
 		}
 	}
-
 }
