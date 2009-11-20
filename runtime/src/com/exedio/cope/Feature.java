@@ -114,7 +114,7 @@ public abstract class Feature
 	/**
 	 * @see Class#getAnnotation(Class)
 	 */
-	public final <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+	public final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
 		return
 			annotationField!=null

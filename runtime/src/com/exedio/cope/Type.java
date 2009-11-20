@@ -446,7 +446,7 @@ public final class Type<C extends Item>
 	/**
 	 * @see Class#getAnnotation(Class)
 	 */
-	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+	public <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
 		return
 			bound
