@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -26,7 +27,7 @@ import com.exedio.cope.Model;
 
 public class JavaViewTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(JavaViewItem.TYPE);
+	private static final Model MODEL = new Model(JavaViewItem.TYPE, JavaViewItem2.TYPE);
 	private static final Double d2 = new Double(2.25d);
 	
 	public JavaViewTest()
@@ -35,12 +36,14 @@ public class JavaViewTest extends AbstractRuntimeTest
 	}
 	
 	JavaViewItem item;
+	JavaViewItem2 item2;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new JavaViewItem());
+		item2 = deleteOnTearDown(new JavaViewItem2());
 	}
 	
 	public void testNumber()
@@ -49,6 +52,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 				item.TYPE.getThis(),
 				item.numberString,
 				item.number,
+				item.numberPrimitive,
 			}), item.TYPE.getDeclaredFeatures());
 		assertEquals(item.TYPE.getDeclaredFeatures(), item.TYPE.getFeatures());
 
@@ -61,16 +65,82 @@ public class JavaViewTest extends AbstractRuntimeTest
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(item.number.get(item));
+		try
+		{
+			item.getNumberPrimitive();
+			fail();
+		}
+		catch(UnsupportedOperationException e)
+		{
+			assertEquals("numberPrimitive", e.getMessage());
+		}
+		try
+		{
+			item.numberPrimitive.get(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			final Throwable cause = e.getCause();
+			assertEquals(InvocationTargetException.class, cause.getClass());
+			final Throwable cause2 = cause.getCause();
+			assertEquals(UnsupportedOperationException.class, cause2.getClass());
+			assertEquals("numberPrimitive", cause2.getMessage());
+		}
 		
 		item.setNumberString("2.25");
 		assertEquals("2.25", item.getNumberString());
 		assertEquals(d2, item.getNumber());
 		assertEquals(d2, item.number.get(item));
+		assertEquals(2.25, item.getNumberPrimitive());
+		assertEquals(2.25, item.numberPrimitive.get(item));
 		
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(item.number.get(item));
+		try
+		{
+			item.getNumberPrimitive();
+			fail();
+		}
+		catch(UnsupportedOperationException e)
+		{
+			assertEquals("numberPrimitive", e.getMessage());
+		}
+		try
+		{
+			item.numberPrimitive.get(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			final Throwable cause = e.getCause();
+			assertEquals(InvocationTargetException.class, cause.getClass());
+			final Throwable cause2 = cause.getCause();
+			assertEquals(UnsupportedOperationException.class, cause2.getClass());
+			assertEquals("numberPrimitive", cause2.getMessage());
+		}
+		
+		try
+		{
+			item.number.get(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			item.number.get(item2);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			final Throwable cause = e.getCause();
+			assertEquals(IllegalArgumentException.class, cause.getClass());
+			assertEquals("object is not an instance of declaring class", cause.getMessage());
+		}
 	}
-	
 }
