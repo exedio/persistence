@@ -451,6 +451,9 @@ public final class Query<R>
 		@Override
 		public boolean equals(final Object other)
 		{
+			if(!(other instanceof Result))
+				return false;
+			
 			final Result o = (Result)other;
 
 			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);

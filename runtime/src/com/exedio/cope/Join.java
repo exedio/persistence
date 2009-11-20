@@ -70,6 +70,9 @@ public final class Join
 	@Override
 	public boolean equals(final Object other)
 	{
+		if(!(other instanceof Join))
+			return false;
+		
 		final Join o = (Join)other;
 		return
 			index==o.index &&
