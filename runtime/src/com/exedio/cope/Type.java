@@ -964,8 +964,7 @@ public final class Type<C extends Item>
 		{
 			return
 				activationConstructor.newInstance(
-					new ActivationParameters(this, pk)
-				);
+					new ActivationParameters(this, pk));
 		}
 		catch(InstantiationException e)
 		{
