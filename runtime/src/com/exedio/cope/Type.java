@@ -37,19 +37,19 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.CharSet;
 
-public final class Type<C extends Item>
+public final class Type<T extends Item>
 {
-	private final Class<C> javaClass;
+	private final Class<T> javaClass;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	final String schemaId;
 	private final Pattern pattern;
 	final boolean isAbstract;
-	final Type<? super C> supertype;
+	final Type<? super T> supertype;
 	private final HashSet<Type<?>> supertypes;
 	
-	final This<C> thisFunction = new This<C>(this);
+	final This<T> thisFunction = new This<T>(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
@@ -64,11 +64,11 @@ public final class Type<C extends Item>
 	private final List<CopyConstraint> declaredCopyConstraints;
 	private final List<CopyConstraint> copyConstraints;
 
-	private final Constructor<C> activationConstructor;
+	private final Constructor<T> activationConstructor;
 	private final Method[] beforeNewItemMethods;
 	private final Sequence primaryKeySequence;
 	
-	private Mount<C> mount = null;
+	private Mount<T> mount = null;
 	
 	/**
 	 * This id uniquely identifies a type within its model.
@@ -95,12 +95,12 @@ public final class Type<C extends Item>
 	private ArrayList<Feature> featuresWhileConstruction;
 	
 	Type(
-			final Class<C> javaClass,
+			final Class<T> javaClass,
 			final boolean bound,
 			final String id,
 			final Pattern pattern,
 			final boolean isAbstract,
-			final Type<? super C> supertype,
+			final Type<? super T> supertype,
 			final LinkedHashMap<String, Feature> featureMap)
 	{
 		if(javaClass==null)
@@ -335,11 +335,11 @@ public final class Type<C extends Item>
 		if(this.idTransiently>=0)
 			throw new RuntimeException();
 		
-		this.mount = new Mount<C>(model, parameters);
+		this.mount = new Mount<T>(model, parameters);
 		this.idTransiently = parameters.idTransiently;
 	}
 	
-	private Mount<C> mount()
+	private Mount<T> mount()
 	{
 		if(mount==null)
 			throw new IllegalStateException("model not set for type " + id + ", probably you forgot to put this type into the model.");
@@ -496,7 +496,7 @@ public final class Type<C extends Item>
 			uc.disconnect();
 	}
 	
-	public Class<C> getJavaClass()
+	public Class<T> getJavaClass()
 	{
 		return javaClass;
 	}
@@ -533,17 +533,17 @@ public final class Type<C extends Item>
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
-	public List<Type<? extends C>> getTypesOfInstances()
+	public List<Type<? extends T>> getTypesOfInstances()
 	{
 		return mount().typesOfInstances;
 	}
 	
-	Type<? extends C> getTypeOfInstance(final String id)
+	Type<? extends T> getTypeOfInstance(final String id)
 	{
 		return mount().typesOfInstancesMap.get(id);
 	}
 	
-	Type<? extends C> getOnlyPossibleTypeOfInstances()
+	Type<? extends T> getOnlyPossibleTypeOfInstances()
 	{
 		return mount().onlyPossibleTypeOfInstances;
 	}
@@ -587,7 +587,7 @@ public final class Type<C extends Item>
 	 * (i.e. the superclass of this type's java class is {@link Item}),
 	 * then null is returned.
 	 */
-	public Type<? super C> getSupertype()
+	public Type<? super T> getSupertype()
 	{
 		return supertype;
 	}
@@ -595,7 +595,7 @@ public final class Type<C extends Item>
 	/**
 	 * @see #getSubtypesTransitively()
 	 */
-	public List<Type<? extends C>> getSubtypes()
+	public List<Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
 	}
@@ -603,7 +603,7 @@ public final class Type<C extends Item>
 	/**
 	 * @see #getSubtypes()
 	 */
-	public List<Type<? extends C>> getSubtypesTransitively()
+	public List<Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
 	}
@@ -631,7 +631,7 @@ public final class Type<C extends Item>
 		return isAbstract;
 	}
 	
-	public This<C> getThis()
+	public This<T> getThis()
 	{
 		return thisFunction;
 	}
@@ -641,7 +641,7 @@ public final class Type<C extends Item>
 	 * which {@link ItemField#getValueType value type} equals this type.
 	 * @see #getReferences()
 	 */
-	public List<ItemField<C>> getDeclaredReferences()
+	public List<ItemField<T>> getDeclaredReferences()
 	{
 		return mount().declaredReferences;
 	}
@@ -740,9 +740,9 @@ public final class Type<C extends Item>
 		return pattern;
 	}
 	
-	public ItemField<C> newItemField(final DeletePolicy policy)
+	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<C>(new Future<C>(javaClass, this), policy);
+		return new ItemField<T>(new Future<T>(javaClass, this), policy);
 	}
 	
 	private static final class Future<C extends Item> extends TypeFuture<C>
@@ -770,7 +770,7 @@ public final class Type<C extends Item>
 
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
-	public C newItem(SetValue... setValues)
+	public T newItem(SetValue... setValues)
 		throws ConstraintViolationException
 	{
 		if(isAbstract)
@@ -781,7 +781,7 @@ public final class Type<C extends Item>
 		
 		final Map<Field, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
-		final C result = activate(pk);
+		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
@@ -853,7 +853,7 @@ public final class Type<C extends Item>
 		primaryKeySequence.flush();
 	}
 
-	public C cast(final Item item)
+	public T cast(final Item item)
 	{
 		return Cope.verboseCast(javaClass, item);
 	}
@@ -865,7 +865,7 @@ public final class Type<C extends Item>
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 */
-	public List<C> search()
+	public List<T> search()
 	{
 		return search(null);
 	}
@@ -879,7 +879,7 @@ public final class Type<C extends Item>
 	 *
 	 * @param condition the condition the searched items must match.
 	 */
-	public List<C> search(final Condition condition)
+	public List<T> search(final Condition condition)
 	{
 		return newQuery(condition).search();
 	}
@@ -895,9 +895,9 @@ public final class Type<C extends Item>
 	 * @param condition the condition the searched items must match.
 	 * @param ascending whether the result is sorted ascendingly (<tt>true</tt>) or descendingly (<tt>false</tt>).
 	 */
-	public List<C> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public List<T> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
-		final Query<C> query = newQuery(condition);
+		final Query<T> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
 		return query.search();
 	}
@@ -913,7 +913,7 @@ public final class Type<C extends Item>
 	 * @see Query#searchSingleton()
 	 * @see #searchSingletonStrict(Condition)
 	 */
-	public C searchSingleton(final Condition condition)
+	public T searchSingleton(final Condition condition)
 	{
 		return newQuery(condition).searchSingleton();
 	}
@@ -928,19 +928,19 @@ public final class Type<C extends Item>
 	 * @see Query#searchSingletonStrict()
 	 * @see #searchSingleton(Condition)
 	 */
-	public C searchSingletonStrict(final Condition condition)
+	public T searchSingletonStrict(final Condition condition)
 	{
 		return newQuery(condition).searchSingletonStrict();
 	}
 	
-	public Query<C> newQuery()
+	public Query<T> newQuery()
 	{
 		return newQuery(null);
 	}
 	
-	public Query<C> newQuery(final Condition condition)
+	public Query<T> newQuery(final Condition condition)
 	{
-		return new Query<C>(thisFunction, this, condition);
+		return new Query<T>(thisFunction, this, condition);
 	}
 	
 	@Override
@@ -949,7 +949,7 @@ public final class Type<C extends Item>
 		return id;
 	}
 	
-	C getItemObject(final int pk)
+	T getItemObject(final int pk)
 	{
 		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
@@ -958,7 +958,7 @@ public final class Type<C extends Item>
 			return activate(pk);
 	}
 	
-	C activate(final int pk)
+	T activate(final int pk)
 	{
 		final ActivationParameters ap = new ActivationParameters(this, pk);
 		try
@@ -1002,7 +1002,7 @@ public final class Type<C extends Item>
 		if(isAbstract)
 			return;
 		
-		final C item = activate(PK.MAX_VALUE);
+		final T item = activate(PK.MAX_VALUE);
 		if(item.type!=this)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=PK.MAX_VALUE)
@@ -1078,7 +1078,7 @@ public final class Type<C extends Item>
 	 * @deprecated renamed to {@link #searchSingleton(Condition)}.
 	 */
 	@Deprecated
-	public C searchUnique(final Condition condition)
+	public T searchUnique(final Condition condition)
 	{
 		return searchSingleton(condition);
 	}
@@ -1105,7 +1105,7 @@ public final class Type<C extends Item>
 	 * @deprecated Use {@link #getSubtypes()} instead
 	 */
 	@Deprecated
-	public List<Type<? extends C>> getSubTypes()
+	public List<Type<? extends T>> getSubTypes()
 	{
 		return getSubtypes();
 	}
@@ -1114,7 +1114,7 @@ public final class Type<C extends Item>
 	 * @deprecated Use {@link #getSubtypesTransitively()} instead
 	 */
 	@Deprecated
-	public List<Type<? extends C>> getSubTypesTransitively()
+	public List<Type<? extends T>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();
 	}
