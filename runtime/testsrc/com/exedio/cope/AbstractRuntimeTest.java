@@ -384,9 +384,9 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	protected final <X extends Constraint> X assertConstraint(
+	protected final <C extends Constraint> C assertConstraint(
 			final com.exedio.dsmf.Table table,
-			final Class<X> type,
+			final Class<C> type,
 			final String name,
 			final String condition)
 	{

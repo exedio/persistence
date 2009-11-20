@@ -87,20 +87,20 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
+	protected final <T extends Item> Type<T> newSourceType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features)
 	{
 		return newSourceType(javaClass, features, "");
 	}
 	
-	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
+	protected final <T extends Item> Type<T> newSourceType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		return newSourceType(javaClass, false, null, features, postfix);
 	}
 
-	protected final <X extends Item> Type<X> newSourceType(
-			final Class<X> javaClass,
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
 			final boolean isAbstract,
-			final Type<? super X> supertype,
+			final Type<? super T> supertype,
 			final LinkedHashMap<String, Feature> features,
 			final String postfix)
 	{
@@ -108,7 +108,7 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until initialize() is called, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
-		final Type<X> result = new Type<X>(javaClass, false, id, this, isAbstract, supertype, features);
+		final Type<T> result = new Type<T>(javaClass, false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}
@@ -203,7 +203,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap)} instead
 	 */
 	@Deprecated
-	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
+	protected final <T extends Item> Type<T> newType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features)
 	{
 		return newSourceType(javaClass, features);
 	}
@@ -212,7 +212,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap,String)} instead
 	 */
 	@Deprecated
-	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
+	protected final <T extends Item> Type<T> newType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		return newSourceType(javaClass, features, postfix);
 	}

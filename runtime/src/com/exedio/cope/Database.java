@@ -992,12 +992,12 @@ final class Database
 		return ((Number)sqlInteger).intValue();
 	}
 
-	protected <X> X executeSQLQuery(
+	protected <R> R executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
 		final ArrayList<QueryInfo> queryInfos,
 		final boolean explain,
-		final ResultSetHandler<X> resultSetHandler)
+		final ResultSetHandler<R> resultSetHandler)
 	{
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
@@ -1029,7 +1029,7 @@ final class Database
 				resultSet = prepared.executeQuery();
 			}
 			timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-			final X result = resultSetHandler.handle(resultSet);
+			final R result = resultSetHandler.handle(resultSet);
 			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
@@ -1156,10 +1156,10 @@ final class Database
 		}
 	}
 	
-	<X> X executeSQLInsert(
+	<R> R executeSQLInsert(
 			final Connection connection,
 			final Statement statement,
-			final ResultSetHandler<X> generatedKeysHandler)
+			final ResultSetHandler<R> generatedKeysHandler)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
