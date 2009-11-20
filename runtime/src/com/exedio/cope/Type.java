@@ -745,18 +745,18 @@ public final class Type<T extends Item>
 		return new ItemField<T>(new Future<T>(javaClass, this), policy);
 	}
 	
-	private static final class Future<C extends Item> extends TypeFuture<C>
+	private static final class Future<T extends Item> extends TypeFuture<T>
 	{
-		private final Type<C> type;
+		private final Type<T> type;
 		
-		Future(final Class<C> javaClass, final Type<C> type)
+		Future(final Class<T> javaClass, final Type<T> type)
 		{
 			super(javaClass);
 			this.type = type;
 		}
 		
 		@Override
-		Type<C> get()
+		Type<T> get()
 		{
 			return type;
 		}

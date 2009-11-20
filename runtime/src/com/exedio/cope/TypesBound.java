@@ -38,7 +38,7 @@ public final class TypesBound
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see Type#isBound()
 	 */
-	public static <X extends Item> Type<X> forClass(final Class<X> javaClass)
+	public static <T extends Item> Type<T> forClass(final Class<T> javaClass)
 	{
 		return forClassUnchecked(javaClass).as(javaClass);
 	}
@@ -55,7 +55,7 @@ public final class TypesBound
 		return result;
 	}
 	
-	public static <C extends Item> Type<C> newType(final Class<C> javaClass)
+	public static <T extends Item> Type<T> newType(final Class<T> javaClass)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
@@ -75,7 +75,7 @@ public final class TypesBound
 		// supertype
 		final Class superclass = javaClass.getSuperclass();
 		
-		final Type<? super C> supertype;
+		final Type<? super T> supertype;
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
 			supertype = null;
 		else
@@ -110,7 +110,7 @@ public final class TypesBound
 			throw new RuntimeException(javaClass.getName(), e);
 		}
 
-		final Type<C> result = new Type<C>(
+		final Type<T> result = new Type<T>(
 				javaClass,
 				true,
 				id,
@@ -147,15 +147,15 @@ public final class TypesBound
 		return new ItemField<E>(new Future<E>(valueClass), policy);
 	}
 	
-	private static final class Future<C extends Item> extends TypeFuture<C>
+	private static final class Future<T extends Item> extends TypeFuture<T>
 	{
-		Future(final Class<C> javaClass)
+		Future(final Class<T> javaClass)
 		{
 			super(javaClass);
 		}
 		
 		@Override
-		Type<C> get()
+		Type<T> get()
 		{
 			return forClass(javaClass);
 		}
