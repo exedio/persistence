@@ -43,7 +43,12 @@ public class FieldDateTest extends FieldTest
 		assertContains(item.TYPE.search(item.someDate.isNotNull()));
 
 		item.setSomeDate(date);
-		assertEquals(date, item.getSomeDate());
+		final Date date2 = item.getSomeDate();
+		assertEquals(date, date2);
+		
+		// important, since Date is not immutable
+		assertNotSame(date, date2);
+		assertNotSame(date2, item.getSomeDate());
 
 		assertContains(date, null, search(item.someDate));
 		assertContains(date, search(item.someDate, item.someDate.equal(date)));
