@@ -23,7 +23,6 @@ import gnu.trove.TIntHashSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Date;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
@@ -31,7 +30,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
 {
-	final Date date = new Date();
+	final long date = System.currentTimeMillis();
 	final ConnectProperties properties;
 	final Dialect dialect;
 	final Pool<Connection> connectionPool;

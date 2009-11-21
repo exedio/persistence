@@ -32,7 +32,7 @@ public final class ItemCacheInfo
 	private final long concurrentLoads;
 	private final int replacementRuns;
 	private final int replacements;
-	private final Date lastReplacementRun;
+	private final long lastReplacementRun;
 	private final long ageSum;
 	private final long ageMin;
 	private final long ageMax;
@@ -57,7 +57,7 @@ public final class ItemCacheInfo
 		this.concurrentLoads = concurrentLoads;
 		this.replacementRuns = replacementRuns;
 		this.replacements = replacements;
-		this.lastReplacementRun = lastReplacementRun;
+		this.lastReplacementRun = lastReplacementRun!=null ? lastReplacementRun.getTime() : 0l;
 		this.ageSum = ageSum;
 		this.ageMin = ageMin;
 		this.ageMax = ageMax;
@@ -113,7 +113,7 @@ public final class ItemCacheInfo
 	
 	public Date getLastReplacementRun()
 	{
-		return lastReplacementRun;
+		return lastReplacementRun!=0l ? new Date(lastReplacementRun) : null;
 	}
 	
 	public long getAgeAverageMillis()

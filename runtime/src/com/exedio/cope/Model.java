@@ -47,7 +47,7 @@ public final class Model
 	private final Object reviseLock = new Object();
 	
 	final Types types;
-	private final Date initializeDate;
+	private final long initializeDate;
 	private final ModificationListeners modificationListeners = new ModificationListeners();
 	
 	private final Object connectLock = new Object();
@@ -73,7 +73,7 @@ public final class Model
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, types);
-		this.initializeDate = new Date();
+		this.initializeDate = System.currentTimeMillis();
 	}
 	
 	public boolean containsTypeSet(final Type... typeSet)
@@ -185,7 +185,7 @@ public final class Model
 		final Connect connect = this.connect;
 		if(connect==null)
 			return null;
-		return connect.date;
+		return new Date(connect.date);
 	}
 	
 	public List<Type<?>> getTypes()
@@ -221,7 +221,7 @@ public final class Model
 	
 	public Date getInitializeDate()
 	{
-		return initializeDate;
+		return new Date(initializeDate);
 	}
 	
 	public boolean supportsCheckConstraints()

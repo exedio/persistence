@@ -75,7 +75,7 @@ public final class ClusterListenerInfo
 	public static final class Node
 	{
 		private final int id;
-		final Date firstEncounter;
+		final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
 		private final SequenceChecker.Info pingInfo;
@@ -92,7 +92,7 @@ public final class ClusterListenerInfo
 				final SequenceChecker.Info invalidateInfo)
 		{
 			this.id = id;
-			this.firstEncounter = firstEncounter;
+			this.firstEncounter = firstEncounter.getTime();
 			this.address = address;
 			this.port = port;
 			this.pingInfo = pingInfo;
@@ -114,7 +114,7 @@ public final class ClusterListenerInfo
 		
 		public Date getFirstEncounter()
 		{
-			return firstEncounter;
+			return new Date(firstEncounter);
 		}
 		
 		public InetAddress getAddress()

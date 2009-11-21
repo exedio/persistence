@@ -65,7 +65,7 @@ public class ConnectTokenTest extends CopeAssert
 				"token2Name");
 		final Date after2 = new Date();
 		assertSame(props, model.getProperties());
-		assertSame(connectDate, model.getConnectDate());
+		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
 		assertEquals(false, token1.isReturned());
 		assertSame(model, token2.getModel());
@@ -93,13 +93,13 @@ public class ConnectTokenTest extends CopeAssert
 						" but got zack.", e.getMessage());
 			}
 			assertSame(props, model.getProperties());
-			assertSame(connectDate, model.getConnectDate());
+			assertEquals(connectDate, model.getConnectDate());
 			assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
 		}
 
 		assertEquals(false, token1.returnIt());
 		assertSame(props, model.getProperties());
-		assertSame(connectDate, model.getConnectDate());
+		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token2), ConnectToken.getTokens(model));
 		assertEquals(true, token1.isReturned());
 		assertEquals(false, token2.isReturned());

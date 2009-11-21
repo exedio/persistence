@@ -34,7 +34,7 @@ import java.util.TimeZone;
 public abstract class RevisionInfo
 {
 	private final int number;
-	private final Date date;
+	private final long date;
 	private final Map<String, String> environment;
 	
 	RevisionInfo(
@@ -47,7 +47,7 @@ public abstract class RevisionInfo
 			throw new NullPointerException("environment");
 		
 		this.number = number;
-		this.date = date;
+		this.date = date.getTime();
 		this.environment = environment;
 	}
 	
@@ -58,7 +58,7 @@ public abstract class RevisionInfo
 	
 	public final Date getDate()
 	{
-		return date;
+		return new Date(date);
 	}
 	
 	public final Map<String, String> getEnvironment()

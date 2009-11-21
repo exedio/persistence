@@ -69,7 +69,7 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals("properties", e.getMessage());
 		}
-		assertSame(connectDate, model.getConnectDate());
+		assertNotSame(connectDate, model.getConnectDate());
 		assertEquals(!postgresql, model.supportsSequences());
 	}
 
