@@ -151,7 +151,8 @@ public class MediaImageMagickFilter extends MediaFilter
 					", left " + inFile.getAbsolutePath() +
 					" and " + outFile.getAbsolutePath());
 		
-		inFile.delete();
+		if(!inFile.delete())
+			throw new RuntimeException(inFile.toString());
 		
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -180,7 +181,8 @@ public class MediaImageMagickFilter extends MediaFilter
 				out.close();
 			if(body!=null)
 				body.close();
-			outFile.delete();
+			if(!outFile.delete())
+				throw new RuntimeException(outFile.toString());
 		}
 	}
 	
