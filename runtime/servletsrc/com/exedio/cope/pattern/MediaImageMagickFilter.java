@@ -36,28 +36,10 @@ public class MediaImageMagickFilter extends MediaFilter
 	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
 	
 	private static final boolean enabled = Boolean.valueOf(System.getProperty(ENABLE_PROPERTY));
-	
-	/**
-	 * @deprecated Use {@link #isEnabled()} instead
-	 */
-	@Deprecated
-	public static boolean isAvailable()
-	{
-		return isEnabled();
-	}
 
 	public static boolean isEnabled()
 	{
 		return enabled;
-	}
-	
-	/**
-	 * @deprecated Is no longer supported and returns an empty string.
-	 */
-	@Deprecated
-	public static String getAvailabilityMessage()
-	{
-		return "";
 	}
 	
 	
@@ -200,5 +182,25 @@ public class MediaImageMagickFilter extends MediaFilter
 				body.close();
 			outFile.delete();
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #isEnabled()} instead
+	 */
+	@Deprecated
+	public static boolean isAvailable()
+	{
+		return isEnabled();
+	}
+	
+	/**
+	 * @deprecated Is no longer supported and returns an empty string.
+	 */
+	@Deprecated
+	public static String getAvailabilityMessage()
+	{
+		return "";
 	}
 }
