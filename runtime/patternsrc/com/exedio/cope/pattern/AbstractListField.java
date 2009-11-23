@@ -28,6 +28,11 @@ import java.util.List;
 public abstract class AbstractListField<E> extends Pattern
 {
 	public abstract Class<E> getElementValueClass();
+	
+	public int getMaximumSize()
+	{
+		return Integer.MAX_VALUE;
+	}
 
 	public abstract List<E> get(Item item);
 	public abstract void set(Item item, Collection<? extends E> value);

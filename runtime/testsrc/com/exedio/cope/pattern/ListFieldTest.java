@@ -188,6 +188,10 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
 		
+		assertEquals(Integer.MAX_VALUE, item.strings.getMaximumSize());
+		assertEquals(Integer.MAX_VALUE, item.dates  .getMaximumSize());
+		assertEquals(Integer.MAX_VALUE, item.items  .getMaximumSize());
+		
 		try
 		{
 			ListField.newList(null);

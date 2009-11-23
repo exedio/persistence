@@ -121,6 +121,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		return sources[0].getValueClass();
 	}
+	
+	@Override
+	public int getMaximumSize()
+	{
+		return sources.length;
+	}
 
 	@Override
 	public List<Wrapper> getWrappers()
