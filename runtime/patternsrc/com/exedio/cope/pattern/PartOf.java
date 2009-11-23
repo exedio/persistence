@@ -23,12 +23,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Cast;
 
 public final class PartOf<C extends Item> extends Pattern
 {
@@ -77,7 +77,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public List<? extends Item> getPartsAndCast(final Item container)
 	{
-		return getParts(Cope.<C>verboseCast(this.container.getValueClass(), container));
+		return getParts(Cast.<C>verboseCast(this.container.getValueClass(), container));
 	}
 	
 	// static convenience methods ---------------------------------

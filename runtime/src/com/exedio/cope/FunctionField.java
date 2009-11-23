@@ -27,6 +27,7 @@ import java.util.Set;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
+import com.exedio.cope.util.Cast;
 
 public abstract class FunctionField<E extends Object>
 	extends Field<E>
@@ -205,7 +206,7 @@ public abstract class FunctionField<E extends Object>
 	{
 		item.type.assertBelongs(this);
 		
-		return Cope.verboseCast(valueClass, getEntity(item).get(this));
+		return Cast.verboseCast(valueClass, getEntity(item).get(this));
 	}
 	
 	@Override

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Cast.verboseCast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -170,12 +172,12 @@ public final class MapField<K,V> extends Pattern
 
 	public V getAndCast(final Item item, final Object key)
 	{
-		return get(item, Cope.verboseCast(this.key.getValueClass(), key));
+		return get(item, verboseCast(this.key.getValueClass(), key));
 	}
 
 	public void setAndCast(final Item item, final Object key, final Object value)
 	{
-		set(item, Cope.verboseCast(this.key.getValueClass(), key), Cope.verboseCast(this.value.getValueClass(), value));
+		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
 	}
 	
 	public Join join(final Query q, final K key)

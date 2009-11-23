@@ -35,6 +35,7 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 
 public final class Type<T extends Item>
@@ -855,7 +856,7 @@ public final class Type<T extends Item>
 
 	public T cast(final Item item)
 	{
-		return Cope.verboseCast(javaClass, item);
+		return Cast.verboseCast(javaClass, item);
 	}
 
 	/**

@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
@@ -41,6 +40,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Cast;
 
 /**
  * Stores a java object by serialization - use with care!
@@ -151,7 +151,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		{
 			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
 			ois = new ObjectInputStream(bis);
-			result = Cope.verboseCast(valueClass, ois.readObject());
+			result = Cast.verboseCast(valueClass, ois.readObject());
 			ois.close();
 			ois = null;
 		}

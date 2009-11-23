@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.util.Cast;
 
 /**
  * Utility class for creating conditions.
@@ -167,24 +168,17 @@ public abstract class Cope
 	}
 
 	/**
-	 * Does the same as {@link Class#cast(Object)},
-	 * but throws a ClassCastException
-	 * with a more verbose message.
+	 * @deprecated Use {@link Cast#verboseCast(Class, Object)} instead.
 	 */
+	@Deprecated
 	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
-		// NOTE:
-		// This code is redundant to the following call to Class#cast(Object),
-		// but creates an exception with a much more verbose message.
-		if(o!=null && !clazz.isInstance(o))
-			throw new ClassCastException("expected a " + clazz.getName() + ", but was a " + o.getClass().getName());
-		
-		return clazz.cast(o);
+		return Cast.verboseCast(clazz, o);
 	}
 	
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
-		return new SetValue<X>(a, Cope.verboseCast(a.getValueClass(), o));
+		return new SetValue<X>(a, Cast.verboseCast(a.getValueClass(), o));
 	}
 	
 	/**

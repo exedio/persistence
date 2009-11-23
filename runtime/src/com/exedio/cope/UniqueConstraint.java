@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.util.Cast;
+
 public final class UniqueConstraint extends Feature
 {
 	private final FunctionField<?>[] fields;
@@ -158,7 +160,7 @@ public final class UniqueConstraint extends Feature
 	 */
 	public <P extends Item> P search(final Class<P> typeClass, final Object... values)
 	{
-		return Cope.verboseCast(typeClass, search(values));
+		return Cast.verboseCast(typeClass, search(values));
 	}
 	
 	void check(final Item item, final Map<? extends Field, ?> fieldValues)
