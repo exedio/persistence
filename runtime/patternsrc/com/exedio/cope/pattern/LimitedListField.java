@@ -117,9 +117,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	@Override
-	public Class<E> getElementValueClass()
+	public FunctionField<E> getElement()
 	{
-		return sources[0].getValueClass();
+		return sources[0];
 	}
 	
 	@Override

@@ -23,12 +23,13 @@ import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 
 public abstract class AbstractListField<E> extends Pattern
 {
-	public abstract Class<E> getElementValueClass();
+	public abstract FunctionField<E> getElement();
 	
 	public int getMaximumSize()
 	{
@@ -48,7 +49,7 @@ public abstract class AbstractListField<E> extends Pattern
 		if(c==null)
 			return null;
 
-		final Class<E> castClass = getElementValueClass();
+		final Class<E> castClass = getElement().getValueClass();
 		final ArrayList<E> result = new ArrayList<E>(c.size());
 		for(final Object o : c)
 			result.add(Cope.verboseCast(castClass, o));

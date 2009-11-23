@@ -98,15 +98,10 @@ public final class ListField<E> extends AbstractListField<E>
 		return uniqueConstraint;
 	}
 	
+	@Override
 	public FunctionField<E> getElement()
 	{
 		return element;
-	}
-
-	@Override
-	public Class<E> getElementValueClass()
-	{
-		return element.getValueClass();
 	}
 
 	public Type<? extends Item> getRelationType()

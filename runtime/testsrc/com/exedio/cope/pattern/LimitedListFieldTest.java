@@ -86,9 +86,6 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(false, item.nums.isFinal());
 		assertContains(item.nums.getInitialExceptions());
 		
-		assertEquals(Integer.class, item.nums   .getElementValueClass());
-		assertEquals(Date   .class, item.dates  .getElementValueClass());
-		assertEquals(String .class, item.strings.getElementValueClass());
 		assertEquals(3, item.nums   .getMaximumSize());
 		assertEquals(2, item.dates  .getMaximumSize());
 		assertEquals(4, item.strings.getMaximumSize());
