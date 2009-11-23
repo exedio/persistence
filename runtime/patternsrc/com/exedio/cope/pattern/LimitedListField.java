@@ -141,6 +141,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		
 		final Set<Class<? extends Throwable>> exceptions = sources[0].getInitialExceptions();
 		exceptions.add(ClassCastException.class);
+		exceptions.add(ListSizeViolationException.class);
 		
 		result.add(
 			new Wrapper("set").
@@ -188,10 +189,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 	
-	private void assertValue(final Collection<?> value)
+	private void assertValue(final Collection<?> value, final Item exceptionItem)
 	{
 		if(value.size()>sources.length)
-			throw new IllegalArgumentException("value exceeds limit " + sources.length + " for " + toString() + ": " + value);
+			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
 	}
 	
 	@Override
@@ -203,7 +204,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			FinalViolationException,
 			ClassCastException
 	{
-		assertValue(value);
+		assertValue(value, item);
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
@@ -223,7 +224,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	
 	public SetValue[] execute(final Collection value, final Item exceptionItem)
 	{
-		assertValue(value);
+		assertValue(value, exceptionItem);
 		int i = 0;
 		final SetValue[] result = new SetValue[sources.length];
 

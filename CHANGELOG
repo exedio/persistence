@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* LimitedListField throws ListSizeViolationException instead of IllegalArgumentException
 * add AbstractListField.getMaximumSize()
 * replace SchemaInfo.getColumnValue(EnumField, Enum) by getColumnValue(Enum)
 	deprecated version is provided

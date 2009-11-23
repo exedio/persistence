@@ -166,7 +166,8 @@ public class LimitedListFieldItem extends Item
 	 */
 	final void setNums(final java.util.Collection<? extends Integer> nums)
 			throws
-				java.lang.ClassCastException
+				java.lang.ClassCastException,
+				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.nums.set(this,nums);
 	}/**
@@ -188,7 +189,8 @@ public class LimitedListFieldItem extends Item
 	 */
 	final void setDates(final java.util.Collection<? extends Date> dates)
 			throws
-				java.lang.ClassCastException
+				java.lang.ClassCastException,
+				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.dates.set(this,dates);
 	}/**
@@ -211,7 +213,8 @@ public class LimitedListFieldItem extends Item
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
-				java.lang.ClassCastException
+				java.lang.ClassCastException,
+				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.strings.set(this,strings);
 	}/**

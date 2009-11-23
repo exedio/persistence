@@ -163,9 +163,14 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.setNums(listg(i2, i1, i3, i1));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ListSizeViolationException e)
 		{
-			assertEquals("value exceeds limit 3 for " + item.nums + ": " + listg(i2, i1, i3, i1), e.getMessage());
+			assertSame(item.nums, e.getFeature());
+			assertEquals(4, e.getSize());
+			assertEquals(
+					"size violation on " + item.getCopeID() + ", " +
+					"value is too long for LimitedListFieldItem.nums, " +
+					"must be at most 3 elements, but was 4.", e.getMessage());
 		}
 		assertEquals(list(i2, i1), item.getNums());
 		assertEquals(i2, item.getNum1());
