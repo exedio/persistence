@@ -30,7 +30,7 @@ public abstract class AbstractListField<E> extends Pattern
 	public abstract Class<E> getElementValueClass();
 
 	public abstract List<E> get(Item item);
-	public abstract void set(Item item, final Collection<? extends E> value);
+	public abstract void set(Item item, Collection<? extends E> value);
 
 	public final void setAndCast(final Item item, final Collection<?> value)
 	{
@@ -42,9 +42,10 @@ public abstract class AbstractListField<E> extends Pattern
 		if(c==null)
 			return null;
 
+		final Class<E> castClass = getElementValueClass();
 		final ArrayList<E> result = new ArrayList<E>(c.size());
 		for(final Object o : c)
-			result.add(Cope.verboseCast(getElementValueClass(), o));
+			result.add(Cope.verboseCast(castClass, o));
 		return result;
 	}
 }
