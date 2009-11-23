@@ -32,13 +32,12 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 
-public final class ListField<E> extends Pattern
+public final class ListField<E> extends AbstractListField<E>
 {
 	private ItemField<?> parent = null;
 	private final IntegerField order;
@@ -102,6 +101,12 @@ public final class ListField<E> extends Pattern
 	public FunctionField<E> getElement()
 	{
 		return element;
+	}
+
+	@Override
+	public Class<E> getElementValueClass()
+	{
+		return element.getValueClass();
 	}
 
 	public Type<? extends Item> getRelationType()
@@ -220,10 +225,5 @@ public final class ListField<E> extends Pattern
 				this.element.set(tupel, expected.next());
 			}
 		}
-	}
-	
-	public void setAndCast(final Item item, final Collection<?> value)
-	{
-		set(item, element.castCollection(value));
 	}
 }
