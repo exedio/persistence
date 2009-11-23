@@ -45,7 +45,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	 * Creates a new ListSizeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
-	 * @param value initializes, what is returned by {@link #getValue()}.
+	 * @param size initializes, what is returned by {@link #getSize()}.
 	 */
 	public ListSizeViolationException(final AbstractListField feature, final Item item, final int size, final int border)
 	{
