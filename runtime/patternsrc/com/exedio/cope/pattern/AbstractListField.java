@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.Cope;
-import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import com.exedio.cope.Cope;
+import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
 
 public abstract class AbstractListField<E> extends Pattern
 {
