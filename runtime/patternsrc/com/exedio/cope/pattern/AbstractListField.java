@@ -18,14 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.util.Cast;
 
 public abstract class AbstractListField<E> extends Pattern
 {
@@ -41,18 +40,6 @@ public abstract class AbstractListField<E> extends Pattern
 
 	public final void setAndCast(final Item item, final Collection<?> value)
 	{
-		set(item, castCollection(value));
-	}
-
-	private final Collection<E> castCollection(final Collection<?> c)
-	{
-		if(c==null)
-			return null;
-
-		final Class<E> castClass = getElement().getValueClass();
-		final ArrayList<E> result = new ArrayList<E>(c.size());
-		for(final Object o : c)
-			result.add(Cope.verboseCast(castClass, o));
-		return result;
+		set(item, Cast.castElements(getElement().getValueClass(), value));
 	}
 }

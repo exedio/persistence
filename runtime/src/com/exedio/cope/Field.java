@@ -18,12 +18,13 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.exedio.cope.util.Cast;
 
 /**
  * An <tt>field</tt> represents a persistently
@@ -111,15 +112,13 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return valueClass;
 	}
 	
+	/**
+	 * @deprecated Use {@link Cast#castElements(Class, Collection) instead
+	 */
+	@Deprecated
 	public final Collection<E> castCollection(final Collection<?> c)
 	{
-		if(c==null)
-			return null;
-		
-		final ArrayList<E> result = new ArrayList<E>(c.size());
-		for(final Object o : c)
-			result.add(Cope.verboseCast(valueClass, o));
-		return result;
+		return Cast.castElements(valueClass, c);
 	}
 
 	public final SetValue<E> map(final E value)

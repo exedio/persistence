@@ -51,7 +51,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			<caption>Connection Pool Statistics</caption>
 			<tr>
 				<th>Idle</th>
-				<td><%=format(info.getIdleCounter())%></td>
+				<td><%=format(info.getIdleLevel())%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
