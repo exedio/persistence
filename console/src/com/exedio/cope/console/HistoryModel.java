@@ -18,6 +18,9 @@
 
 package com.exedio.cope.console;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
@@ -27,6 +30,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.util.Pool;
 
 final class HistoryModel extends Item
 {
@@ -41,6 +45,17 @@ final class HistoryModel extends Item
 	static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("connectionPoolInvalidFromIdle") static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("connectionPoolInvalidIntoIdle") static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
+	
+	static List<SetValue> mapConnectionPool(final Pool.Info info)
+	{
+		return Arrays.asList((SetValue)
+			connectionPoolIdle.map(info.getIdleLevel()),
+			connectionPoolGet.map(info.getCounter().getGetCounter()),
+			connectionPoolPut.map(info.getCounter().getPutCounter()),
+			connectionPoolInvalidOnGet.map(info.getInvalidOnGet()),
+			connectionPoolInvalidOnPut.map(info.getInvalidOnPut()));
+	}
+	
 	
 	static final LongField nextTransactionId = new LongField().toFinal();
 	@CopeSchemaName("commitOutConnection")

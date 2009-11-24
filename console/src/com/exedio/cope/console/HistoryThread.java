@@ -20,6 +20,7 @@ package com.exedio.cope.console;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -267,17 +268,12 @@ final class HistoryThread extends Thread
 			clusterInfoSetValues = new SetValue[0][];
 		}
 		
-		final SetValue[] setValues = new SetValue[]{
+		final SetValue[] setValuesArray = new SetValue[]{
 				HistoryModel.date.map(date),
 				HistoryModel.initializeDate.map(initializeDate),
 				HistoryModel.connectDate.map(connectDate),
 				HistoryModel.thread.map(thread),
 				HistoryModel.running.map(running),
-				HistoryModel.connectionPoolIdle.map(connectionPoolInfo.getIdleLevel()),
-				HistoryModel.connectionPoolGet.map(connectionPoolInfo.getCounter().getGetCounter()),
-				HistoryModel.connectionPoolPut.map(connectionPoolInfo.getCounter().getPutCounter()),
-				HistoryModel.connectionPoolInvalidOnGet.map(connectionPoolInfo.getInvalidOnGet()),
-				HistoryModel.connectionPoolInvalidOnPut.map(connectionPoolInfo.getInvalidOnPut()),
 				HistoryModel.nextTransactionId.map(nextTransactionId),
 				HistoryModel.commitWithoutConnection.map(transactionCounters.getCommitWithoutConnection()),
 				HistoryModel.commitWithConnection.map(transactionCounters.getCommitWithConnection()),
@@ -306,6 +302,9 @@ final class HistoryThread extends Thread
 				HistoryModel.clusterListenerWrongSecret .map(clusterListenerInfo!=null ? clusterListenerInfo.getWrongSecret()  : 0),
 				HistoryModel.clusterListenerFromMyself  .map(clusterListenerInfo!=null ? clusterListenerInfo.getFromMyself()   : 0)
 		};
+		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
+		setValueList.addAll(HistoryModel.mapConnectionPool(connectionPoolInfo));
+		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
 
 		// save data
 		try
