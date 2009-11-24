@@ -113,7 +113,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * @deprecated Use {@link Cast#castElements(Class, Collection) instead
+	 * @deprecated Use {@link Cast#castElements(Class, Collection)} instead
 	 */
 	@Deprecated
 	public final Collection<E> castCollection(final Collection<?> c)
