@@ -71,23 +71,23 @@ final class ItemCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				final String[] allData = {
-						formatAndHide(0, summary.allLimit),
-						formatAndHide(0, summary.allLevel),
-						formatAndHide(0, summary.allHits),
-						formatAndHide(0, summary.allMisses),
-						formatAndHide(0, summary.allConcurrentLoads),
-						formatAndHide(0, summary.allReplacementRuns),
-						formatAndHide(0, summary.allReplacements),
-						formatAndHide(summary.allLastReplacementRun),
-						formatAndHide(0, summary.allAgeMinMillis/1000l),
-						formatAndHide(0, summary.allAgeAverageMillis/1000l),
-						formatAndHide(0, summary.allAgeMaxMillis/1000l),
-						formatAndHide(0, summary.allInvalidationsOrdered),
-						formatAndHide(0, summary.allInvalidationsDone),
+						formatAndHide(0, summary.limit),
+						formatAndHide(0, summary.level),
+						formatAndHide(0, summary.hits),
+						formatAndHide(0, summary.misses),
+						formatAndHide(0, summary.concurrentLoads),
+						formatAndHide(0, summary.replacementRuns),
+						formatAndHide(0, summary.replacements),
+						formatAndHide(summary.lastReplacementRun),
+						formatAndHide(0, summary.ageMinMillis/1000l),
+						formatAndHide(0, summary.ageAverageMillis/1000l),
+						formatAndHide(0, summary.ageMaxMillis/1000l),
+						formatAndHide(0, summary.invalidationsOrdered),
+						formatAndHide(0, summary.invalidationsDone),
 					};
 				ColoredTable_Jspm.writeData(out, allData);
 				%>
-				<td class="color0"><%=ratio(summary.allHits, summary.allMisses)%></td>
+				<td class="color0"><%=ratio(summary.hits, summary.misses)%></td>
 				<th>All</th>
 			</tr><%
 			for(final ItemCacheInfo info : infos)

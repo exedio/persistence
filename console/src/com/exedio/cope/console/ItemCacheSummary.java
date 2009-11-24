@@ -24,19 +24,19 @@ import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCacheSummary
 {
-	final int allLimit;
-	final int allLevel;
-	final long allHits;
-	final long allMisses;
-	final long allConcurrentLoads;
-	final int allReplacementRuns;
-	final int allReplacements;
-	final Date allLastReplacementRun;
-	final long allAgeMinMillis;
-	final long allAgeAverageMillis;
-	final long allAgeMaxMillis;
-	final long allInvalidationsOrdered;
-	final long allInvalidationsDone;
+	final int limit;
+	final int level;
+	final long hits;
+	final long misses;
+	final long concurrentLoads;
+	final int replacementRuns;
+	final int replacements;
+	final Date lastReplacementRun;
+	final long ageMinMillis;
+	final long ageAverageMillis;
+	final long ageMaxMillis;
+	final long invalidationsOrdered;
+	final long invalidationsDone;
 	
 	ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
@@ -88,18 +88,18 @@ final class ItemCacheSummary
 			allInvalidationsOrdered += info.getInvalidationsOrdered();
 			allInvalidationsDone += info.getInvalidationsDone();
 		}
-		this.allLimit = allLimit;
-		this.allLevel = allLevel;
-		this.allHits = allHits;
-		this.allMisses = allMisses;
-		this.allConcurrentLoads = allConcurrentLoads;
-		this.allReplacementRuns = allReplacementRuns;
-		this.allReplacements = allReplacements;
-		this.allLastReplacementRun = allLastReplacementRun;
-		this.allAgeMinMillis = allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0;
-		this.allAgeAverageMillis = allNum>0 ? allSumAgeAverageMillis/allNum : 0;
-		this.allAgeMaxMillis = allAgeMaxMillis;
-		this.allInvalidationsOrdered = allInvalidationsOrdered;
-		this.allInvalidationsDone = allInvalidationsDone;
+		this.limit = allLimit;
+		this.level = allLevel;
+		this.hits = allHits;
+		this.misses = allMisses;
+		this.concurrentLoads = allConcurrentLoads;
+		this.replacementRuns = allReplacementRuns;
+		this.replacements = allReplacements;
+		this.lastReplacementRun = allLastReplacementRun;
+		this.ageMinMillis = allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0;
+		this.ageAverageMillis = allNum>0 ? allSumAgeAverageMillis/allNum : 0;
+		this.ageMaxMillis = allAgeMaxMillis;
+		this.invalidationsOrdered = allInvalidationsOrdered;
+		this.invalidationsDone = allInvalidationsDone;
 	}
 }
