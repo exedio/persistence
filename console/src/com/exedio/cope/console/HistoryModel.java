@@ -50,7 +50,7 @@ final class HistoryModel extends Item
 	@CopeSchemaName("connectionPoolInvalidFromIdle") static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("connectionPoolInvalidIntoIdle") static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 	
-	static List<SetValue> mapConnectionPool(final Pool.Info info)
+	static List<SetValue> map(final Pool.Info info)
 	{
 		return Arrays.asList((SetValue)
 			connectionPoolIdle.map(info.getIdleLevel()),
@@ -70,7 +70,7 @@ final class HistoryModel extends Item
 	static final LongField rollbackWithoutConnection = new LongField().toFinal();
 	static final LongField rollbackWithConnection = new LongField().toFinal();
 	
-	static List<SetValue> mapTransactionCounters(final TransactionCounters info)
+	static List<SetValue> map(final TransactionCounters info)
 	{
 		return Arrays.asList((SetValue)
 			commitWithoutConnection  .map(info.getCommitWithoutConnection()),
@@ -91,7 +91,7 @@ final class HistoryModel extends Item
 	static final LongField queryCacheReplacements = new LongField().toFinal();
 	static final LongField queryCacheInvalidations = new LongField().toFinal();
 	
-	static List<SetValue> mapQueryCache(final QueryCacheInfo info)
+	static List<SetValue> map(final QueryCacheInfo info)
 	{
 		return Arrays.asList((SetValue)
 			queryCacheHits         .map(info.getHits()),
@@ -112,7 +112,7 @@ final class HistoryModel extends Item
 	
 	static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
 	
-	static List<SetValue> mapClusterSender(final ClusterSenderInfo info)
+	static List<SetValue> map(final ClusterSenderInfo info)
 	{
 		return Arrays.asList((SetValue)
 			clusterSenderInvalidationSplit.map(info!=null ? info.getInvalidationSplit() : 0));
@@ -124,7 +124,7 @@ final class HistoryModel extends Item
 	static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
 	static final LongField clusterListenerFromMyself   = new LongField().toFinal();
 	
-	static List<SetValue> mapClusterListener(final ClusterListenerInfo info)
+	static List<SetValue> map(final ClusterListenerInfo info)
 	{
 		return Arrays.asList((SetValue)
 			clusterListenerException   .map(info!=null ? info.getException()    : 0),

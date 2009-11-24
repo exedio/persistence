@@ -290,11 +290,11 @@ final class HistoryThread extends Thread
 				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
 		};
 		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
-		setValueList.addAll(HistoryModel.mapTransactionCounters(transactionCounters));
-		setValueList.addAll(HistoryModel.mapConnectionPool(connectionPoolInfo));
-		setValueList.addAll(HistoryModel.mapQueryCache    (queryCacheInfo));
-		setValueList.addAll(HistoryModel.mapClusterSender (clusterSenderInfo));
-		setValueList.addAll(HistoryModel.mapClusterListener(clusterListenerInfo));
+		setValueList.addAll(HistoryModel.map(transactionCounters));
+		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
+		setValueList.addAll(HistoryModel.map(queryCacheInfo));
+		setValueList.addAll(HistoryModel.map(clusterSenderInfo));
+		setValueList.addAll(HistoryModel.map(clusterListenerInfo));
 		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
 
 		// save data
