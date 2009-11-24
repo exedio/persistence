@@ -28,6 +28,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.info.QueryCacheInfo;
@@ -59,12 +60,23 @@ final class HistoryModel extends Item
 	
 	
 	static final LongField nextTransactionId = new LongField().toFinal();
+	
 	@CopeSchemaName("commitOutConnection")
 	static final LongField commitWithoutConnection = new LongField().toFinal();
 	static final LongField commitWithConnection = new LongField().toFinal();
 	@CopeSchemaName("rollbackOutConnection")
 	static final LongField rollbackWithoutConnection = new LongField().toFinal();
 	static final LongField rollbackWithConnection = new LongField().toFinal();
+	
+	static List<SetValue> mapTransactionCounters(final TransactionCounters info)
+	{
+		return Arrays.asList((SetValue)
+			commitWithoutConnection  .map(info.getCommitWithoutConnection()),
+			commitWithConnection     .map(info.getCommitWithConnection()),
+			rollbackWithoutConnection.map(info.getRollbackWithoutConnection()),
+			rollbackWithConnection   .map(info.getRollbackWithConnection()));
+	}
+	
 	
 	static final LongField itemCacheHits = new LongField().toFinal();
 	static final LongField itemCacheMisses = new LongField().toFinal();

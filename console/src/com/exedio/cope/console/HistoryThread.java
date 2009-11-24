@@ -275,10 +275,6 @@ final class HistoryThread extends Thread
 				HistoryModel.thread.map(thread),
 				HistoryModel.running.map(running),
 				HistoryModel.nextTransactionId.map(nextTransactionId),
-				HistoryModel.commitWithoutConnection.map(transactionCounters.getCommitWithoutConnection()),
-				HistoryModel.commitWithConnection.map(transactionCounters.getCommitWithConnection()),
-				HistoryModel.rollbackWithoutConnection.map(transactionCounters.getRollbackWithoutConnection()),
-				HistoryModel.rollbackWithConnection.map(transactionCounters.getRollbackWithConnection()),
 				HistoryModel.itemCacheHits.map(itemCacheHits),
 				HistoryModel.itemCacheMisses.map(itemCacheMisses),
 				HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads),
@@ -299,6 +295,7 @@ final class HistoryThread extends Thread
 				HistoryModel.clusterListenerFromMyself  .map(clusterListenerInfo!=null ? clusterListenerInfo.getFromMyself()   : 0)
 		};
 		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
+		setValueList.addAll(HistoryModel.mapTransactionCounters(transactionCounters));
 		setValueList.addAll(HistoryModel.mapConnectionPool(connectionPoolInfo));
 		setValueList.addAll(HistoryModel.mapQueryCache    (queryCacheInfo));
 		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
