@@ -20,7 +20,6 @@ package com.exedio.cope.console;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -268,28 +267,28 @@ final class HistoryThread extends Thread
 			clusterInfoSetValues = new SetValue[0][];
 		}
 		
-		final SetValue[] setValuesArray = new SetValue[]{
-				HistoryModel.date.map(date),
-				HistoryModel.initializeDate.map(initializeDate),
-				HistoryModel.connectDate.map(connectDate),
-				HistoryModel.thread.map(thread),
-				HistoryModel.running.map(running),
-				HistoryModel.nextTransactionId.map(nextTransactionId),
-				HistoryModel.itemCacheHits.map(itemCacheHits),
-				HistoryModel.itemCacheMisses.map(itemCacheMisses),
-				HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads),
-				HistoryModel.itemCacheReplacementRuns.map(itemCacheReplacementRuns),
-				HistoryModel.itemCacheReplacements.map(itemCacheReplacements),
-				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
-				HistoryModel.mediasException    .map(mediaTotal[0]),
-				HistoryModel.mediasNotAnItem    .map(mediaTotal[1]),
-				HistoryModel.mediasNoSuchItem   .map(mediaTotal[2]),
-				HistoryModel.mediasIsNull       .map(mediaTotal[3]),
-				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
-				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
-				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
-		};
-		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
+		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>();
+		setValueList.add(HistoryModel.date.map(date));
+		setValueList.add(HistoryModel.initializeDate.map(initializeDate));
+		setValueList.add(HistoryModel.connectDate.map(connectDate));
+		setValueList.add(HistoryModel.thread.map(thread));
+		setValueList.add(HistoryModel.running.map(running));
+		setValueList.add(HistoryModel.nextTransactionId.map(nextTransactionId));
+		setValueList.add(HistoryModel.itemCacheHits.map(itemCacheHits));
+		setValueList.add(HistoryModel.itemCacheMisses.map(itemCacheMisses));
+		setValueList.add(HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads));
+		setValueList.add(HistoryModel.itemCacheReplacementRuns.map(itemCacheReplacementRuns));
+		setValueList.add(HistoryModel.itemCacheReplacements.map(itemCacheReplacements));
+		setValueList.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
+		setValueList.add(HistoryModel.mediasException    .map(mediaTotal[0]));
+		setValueList.add(HistoryModel.mediasNotAnItem    .map(mediaTotal[1]));
+		setValueList.add(HistoryModel.mediasNoSuchItem   .map(mediaTotal[2]));
+		setValueList.add(HistoryModel.mediasIsNull       .map(mediaTotal[3]));
+		setValueList.add(HistoryModel.mediasNotComputable.map(mediaTotal[4]));
+		setValueList.add(HistoryModel.mediasNotModified  .map(mediaTotal[5]));
+		setValueList.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
+		
+		
 		setValueList.addAll(HistoryModel.map(transactionCounters));
 		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
 		setValueList.addAll(HistoryModel.map(queryCacheInfo));
