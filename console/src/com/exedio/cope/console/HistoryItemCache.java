@@ -18,6 +18,9 @@
 
 package com.exedio.cope.console;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.CopyConstraint;
@@ -31,6 +34,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.info.ItemCacheInfo;
 
 final class HistoryItemCache extends Item
 {
@@ -63,6 +67,29 @@ final class HistoryItemCache extends Item
 	static final LongField ageMaxMillis = new LongField().toFinal();
 	static final LongField invalidationsOrdered = new LongField().toFinal();
 	static final LongField invalidationsDone = new LongField().toFinal();
+	
+	static List<SetValue> map(final ItemCacheInfo info)
+	{
+		return Arrays.asList((SetValue)
+			type  .map(info.getType().getID()),
+			limit .map(info.getLimit()),
+			level .map(info.getLevel()),
+			hits  .map(info.getHits()),
+			misses.map(info.getMisses()),
+			
+			concurrentLoads.map(info.getConcurrentLoads()),
+			
+			replacementRuns   .map(info.getReplacementRuns()),
+			replacements      .map(info.getReplacements()),
+			lastReplacementRun.map(info.getLastReplacementRun()),
+			
+			ageAverageMillis.map(info.getAgeAverageMillis()),
+			ageMinMillis    .map(info.getAgeMinMillis()),
+			ageMaxMillis    .map(info.getAgeMaxMillis()),
+			
+			invalidationsOrdered.map(info.getInvalidationsOrdered()),
+			invalidationsDone   .map(info.getInvalidationsDone()));
+	}
 	
 	HistoryItemCache(final SetValue... setValues)
 	{

@@ -183,29 +183,15 @@ final class HistoryThread extends Thread
 			itemCacheConcurrentLoads += ci.getConcurrentLoads();
 			itemCacheReplacementRuns += ci.getReplacementRuns();
 			itemCacheReplacements += ci.getReplacements();
-			itemCacheSetValues[itemCacheSetValuesIndex] =
-				new SetValue[]{
-					null, // will be HistoryItemCache.model
-					HistoryItemCache.type.map(ci.getType().getID()),
-					HistoryItemCache.date.map(date),
-					HistoryItemCache.initializeDate.map(initializeDate),
-					HistoryItemCache.connectDate.map(connectDate),
-					HistoryItemCache.thread.map(thread),
-					HistoryItemCache.running.map(running),
-					HistoryItemCache.limit.map(ci.getLimit()),
-					HistoryItemCache.level.map(ci.getLevel()),
-					HistoryItemCache.hits.map(ci.getHits()),
-					HistoryItemCache.misses.map(ci.getMisses()),
-					HistoryItemCache.concurrentLoads.map(ci.getConcurrentLoads()),
-					HistoryItemCache.replacementRuns.map(ci.getReplacementRuns()),
-					HistoryItemCache.replacements.map(ci.getReplacements()),
-					HistoryItemCache.lastReplacementRun.map(ci.getLastReplacementRun()),
-					HistoryItemCache.ageAverageMillis.map(ci.getAgeAverageMillis()),
-					HistoryItemCache.ageMinMillis.map(ci.getAgeMinMillis()),
-					HistoryItemCache.ageMaxMillis.map(ci.getAgeMaxMillis()),
-					HistoryItemCache.invalidationsOrdered.map(ci.getInvalidationsOrdered()),
-					HistoryItemCache.invalidationsDone.map(ci.getInvalidationsDone()),
-			};
+			final ArrayList<SetValue> list = new ArrayList<SetValue>();
+			list.add(null); // will be HistoryItemCache.model
+			list.add(HistoryItemCache.date.map(date));
+			list.add(HistoryItemCache.initializeDate.map(initializeDate));
+			list.add(HistoryItemCache.connectDate.map(connectDate));
+			list.add(HistoryItemCache.thread.map(thread));
+			list.add(HistoryItemCache.running.map(running));
+			list.addAll(HistoryItemCache.map(ci));
+			itemCacheSetValues[itemCacheSetValuesIndex] = list.toArray(new SetValue[list.size()]);
 			itemCacheSetValuesIndex++;
 		}
 		
