@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.BooleanField;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeErrorTest extends CopeAssert
@@ -28,7 +32,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			Composite.newComposite(null);
+			CompositeField.newComposite(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -37,16 +41,19 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Composite.newComposite(ValueWithoutConstructor.class);
+			CompositeField.newComposite(NoConstructor.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals(ValueWithoutConstructor.class.getName() + " does not have a constructor [class [Lcom.exedio.cope.SetValue;]", e.getMessage());
+			assertEquals(e.getMessage(),
+					NoConstructor.class.getName() +
+					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
+			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 		try
 		{
-			Composite.newComposite(ValueWithoutFields.class);
+			CompositeField.newComposite(NoFields.class);
 			//fail();
 		}
 		catch(IllegalArgumentException e)
@@ -55,7 +62,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Composite.newComposite(NullField.class);
+			CompositeField.newComposite(NullField.class);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -64,12 +71,30 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			Composite.newComposite(Composite.Value.class);
+			CompositeField.newComposite(PatternField.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Composite.Value.class.getName() + " but Composite.Value itself", e.getMessage());
+			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
+		}
+		try
+		{
+			CompositeField.newComposite(Composite.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Composite.class.getName() + " but Composite itself", e.getMessage());
+		}
+		try
+		{
+			CompositeField.newComposite(FinalField.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("final fields not supported: " + FinalField.class.getName() + "#finalField", e.getMessage());
 		}
 	}
 	
@@ -78,31 +103,31 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			Composite.newComposite((Class)CompositeTest.class);
+			CompositeField.newComposite((Class)CompositeErrorTest.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Composite.Value.class.getName() + ": " + CompositeTest.class.getName(), e.getMessage());
+			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
 	
-	static class ValueWithoutConstructor extends Composite.Value
+	static class NoConstructor extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 	}
 	
-	static class ValueWithoutFields extends Composite.Value
+	static class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 		
-		private ValueWithoutFields(final SetValue[] setValues)
+		private NoFields(final SetValue[] setValues)
 		{
 			super(setValues);
 		}
 	}
 	
-	static class NullField extends Composite.Value
+	static class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 		
@@ -112,5 +137,29 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		
 		static final Field nullField = null;
+	}
+	
+	static class PatternField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private PatternField(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+		
+		static final Feature patternField = MapField.newMap(new StringField(), new StringField());
+	}
+	
+	static class FinalField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private FinalField(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+		
+		static final BooleanField finalField = new BooleanField().toFinal();
 	}
 }

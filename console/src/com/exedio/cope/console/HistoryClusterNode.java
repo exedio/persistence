@@ -29,7 +29,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.Composite;
+import com.exedio.cope.pattern.CompositeField;
 
 final class HistoryClusterNode extends Item
 {
@@ -52,9 +52,9 @@ final class HistoryClusterNode extends Item
 	static final DateField firstEncounter = new DateField().toFinal();
 	static final StringField fromAddress = new StringField().toFinal();
 	static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
-	static final Composite<SequenceInfo> ping = Composite.newComposite(SequenceInfo.class);
-	static final Composite<SequenceInfo> pong = Composite.newComposite(SequenceInfo.class);
-	static final Composite<SequenceInfo> invalidate = Composite.newComposite(SequenceInfo.class);
+	static final CompositeField<SequenceInfo> ping = CompositeField.newComposite(SequenceInfo.class);
+	static final CompositeField<SequenceInfo> pong = CompositeField.newComposite(SequenceInfo.class);
+	static final CompositeField<SequenceInfo> invalidate = CompositeField.newComposite(SequenceInfo.class);
 	
 	HistoryClusterNode(final SetValue... setValues)
 	{

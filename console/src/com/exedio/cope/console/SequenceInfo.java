@@ -23,7 +23,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.util.SequenceChecker;
 
-final class SequenceInfo extends Composite.Value
+final class SequenceInfo extends Composite
 {
 	private static final long serialVersionUID = 1l;
 	

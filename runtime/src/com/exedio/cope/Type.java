@@ -780,17 +780,17 @@ public final class Type<T extends Item>
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
 		
-		final Map<Field, Object> fieldValues = prepareCreate(setValues);
+		final LinkedHashMap<Field, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
 	
-	Map<Field, Object> prepareCreate(SetValue[] setValues)
+	LinkedHashMap<Field, Object> prepareCreate(SetValue[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
-		final Map<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
+		final LinkedHashMap<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
 		Date now = null;
 		for(final Field field : fields)
 		{

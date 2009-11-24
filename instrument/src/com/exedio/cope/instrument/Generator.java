@@ -344,6 +344,9 @@ final class Generator
 	private void writeActivationConstructor(final CopeType type)
 	throws IOException
 	{
+		if(type.isComposite)
+			return;
+		
 		final Option option = type.activationConstructorOption;
 		if(!option.exists)
 			return;
@@ -528,6 +531,24 @@ final class Generator
 			o.write("\t\t");
 			if(!methodReturnType.equals(void.class))
 				o.write("return ");
+		if(feature.parent.isComposite)
+		{
+			o.write(methodName);
+			o.write('(');
+			{
+				o.write(feature.parent.name);
+				o.write('.');
+				o.write(feature.name);
+				for(final Wrapper.Parameter parameter : parameters)
+				{
+					o.write(',');
+					o.write(format(parameter.getName(), arguments));
+				}
+			}
+			o.write(')');
+		}
+		else
+		{
 			o.write(feature.parent.name);
 			o.write('.');
 			o.write(feature.name);
@@ -562,6 +583,7 @@ final class Generator
 				}
 			}
 			o.write(')');
+		}
 			o.write(';');
 			o.write(lineSeparator);
 			o.write("\t}");
@@ -756,6 +778,9 @@ final class Generator
 	private void writeType(final CopeType type)
 	throws IOException
 	{
+		if(type.isComposite)
+			return;
+		
 		final Option option = type.typeOption;
 		if(option.exists)
 		{

@@ -49,6 +49,7 @@ final class CopeType
 
 
 	final JavaClass javaClass;
+	final boolean isComposite;
 	final String name;
 	final Visibility visibility;
 	final Option typeOption;
@@ -59,10 +60,11 @@ final class CopeType
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
 	
-	public CopeType(final JavaClass javaClass)
+	public CopeType(final JavaClass javaClass, final boolean isComposite)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
+		this.isComposite = isComposite;
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
 		copeTypeByJavaClass.put(javaClass, this);
@@ -94,6 +96,9 @@ final class CopeType
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
+		
+		if(isComposite)
+			return;
 		
 		final String extname = javaClass.classExtends;
 		

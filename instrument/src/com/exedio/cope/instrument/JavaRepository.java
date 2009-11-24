@@ -95,9 +95,11 @@ final class JavaRepository
 			if(javaClass.isInterface())
 				continue;
 			
-			if(isItem(javaClass))
+			final boolean isItem = isItem(javaClass);
+			final boolean isComposite = isComposite(javaClass);
+			if(isItem||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass);
+				final CopeType type = new CopeType(javaClass, isComposite);
 
 				feature: for(final JavaAttribute javaAttribute : javaClass.getAttributes())
 				{
@@ -192,6 +194,19 @@ final class JavaRepository
 			return false;
 		}
 	}
+	
+	boolean isComposite(JavaClass javaClass)
+	{
+		final String classExtends = javaClass.classExtends;
+		if(classExtends==null)
+			return false;
+		
+		final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+		if(extendsClass!=null)
+			return Composite.class.isAssignableFrom(extendsClass);
+		
+		return false;
+	}
 
 	void add(final JavaFile file)
 	{
@@ -282,10 +297,10 @@ final class JavaRepository
 							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
 					return define(cf);
 				}
-				if("Composite.Value".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
 					final ClassFile cf =
-						new ClassFile(javaClass.getFullName(), Composite.Value.class);
+						new ClassFile(javaClass.getFullName(), Composite.class);
 					addDelegateConstructor(cf,
 							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
 					return define(cf);

@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -146,12 +146,12 @@ public abstract class Item implements Serializable
 	protected Item(final SetValue... setValues)
 	{
 		this.type = TypesBound.forClass(getClass());
-		final Map<Field, Object> fieldValues = type.prepareCreate(setValues);
+		final LinkedHashMap<Field, Object> fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
 	
-	void doCreate(final Map<Field, Object> fieldValues)
+	void doCreate(final LinkedHashMap<Field, Object> fieldValues)
 	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
@@ -250,7 +250,7 @@ public abstract class Item implements Serializable
 			FinalViolationException,
 			ClassCastException
 	{
-		final Map<Field, Object> fieldValues = executeSetValues(setValues, this);
+		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
 		for(final Field field : fieldValues.keySet())
 		{
 			type.assertBelongs(field);
@@ -384,9 +384,9 @@ public abstract class Item implements Serializable
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	static final Map<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
-		final HashMap<Field, Object> result = new HashMap<Field, Object>();
+		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
 		for(final SetValue<?> source : sources)
 		{
 			if(source.settable instanceof Field)
@@ -402,7 +402,7 @@ public abstract class Item implements Serializable
 		return result;
 	}
 	
-	private static final void putField(final HashMap<Field, Object> result, final SetValue<?> setValue)
+	private static final void putField(final LinkedHashMap<Field, Object> result, final SetValue<?> setValue)
 	{
 		if(result.put((Field)setValue.settable, setValue.value)!=null)
 			throw new RuntimeException("duplicate field " + setValue.settable.toString());
@@ -413,7 +413,7 @@ public abstract class Item implements Serializable
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
-	private static final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues, final Item exceptionItem)
+	private static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		

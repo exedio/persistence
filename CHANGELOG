@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* big overhauling of composites
+	this breaks backwards API compatibility in a subtle way, BEWARE!
+	- changed behaviour of optional composites,
+		setter accepts null now for optional Composites and
+		getter returns null.
+	- renamed Composite to CompositeField and Composite.Value to Composite,
+		making it a top-level class
+	- Composite checks its values for violation of field constraints,
+		such as mandatory, string length, integer range etc.
+	- final fields in Composite are not supported
+		and cause an exception to be thrown
+	- Composites do get instrumentation
 * replace AbstractListField.getElementValueClass() by getElement()
 	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
 * LimitedListField throws ListSizeViolationException instead of IllegalArgumentException

@@ -20,257 +20,47 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
+import com.exedio.cope.BooleanField;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Pattern;
+import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.instrument.Wrapper;
 
-public final class Composite<E extends Composite.Value> extends Pattern implements Settable<E>
+public abstract class Composite implements Serializable
 {
-	private final boolean isfinal;
-	private final boolean optional;
-	private final Class<E> valueClass;
-	
-	private final ValueType<E> valueType;
-	private final Constructor<E> valueConstructor;
-	private final LinkedHashMap<String, FunctionField> templates;
-	private final int componentSize;
-	
-	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
-	
-	private Composite(final boolean isfinal, final boolean optional, final Class<E> valueClass)
+	static final class Type<X>
 	{
-		this.isfinal = isfinal;
-		this.optional = optional;
-		this.valueClass = valueClass;
-		
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
-		if(!Value.class.isAssignableFrom(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + ": "+valueClass.getName());
-		if(Value.class.equals(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + " but Composite.Value itself");
-
-		this.valueType = getValueType(valueClass);
-		this.valueConstructor = valueType.valueConstructor;
-		this.templates = valueType.templates;
-		this.componentSize = valueType.componentSize;
-	}
-	
-	public static <E extends Composite.Value> Composite<E> newComposite(final Class<E> valueClass)
-	{
-		return new Composite<E>(false, false, valueClass);
-	}
-	
-	public Composite<E> toFinal()
-	{
-		return new Composite<E>(true, optional, valueClass);
-	}
-	
-	public Composite<E> optional()
-	{
-		return new Composite<E>(isfinal, true, valueClass);
-	}
-	
-	@Override
-	protected void initialize()
-	{
-		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
-			new LinkedHashMap<FunctionField, FunctionField>();
-		
-		for(Map.Entry<String, FunctionField> e : templates.entrySet())
-		{
-			final FunctionField template = e.getValue();
-			final FunctionField component = copy(template);
-			addSource(component, toCamelCase(e.getKey()));
-			templateToComponent.put(template, component);
-		}
-		this.templateToComponent = templateToComponent;
-	}
-	
-	private FunctionField copy(final FunctionField template)
-	{
-		if(isfinal)
-			if(optional)
-				return (FunctionField)template.toFinal().optional();
-			else
-				return (FunctionField)template.toFinal();
-		else
-			if(optional)
-				return (FunctionField)template.optional();
-			else
-				return template.copy();
-	}
-	
-	private static final String toCamelCase(final String name)
-	{
-		final char first = name.charAt(0);
-		if(Character.isUpperCase(first))
-			return name;
-		else
-			return Character.toUpperCase(first) + name.substring(1);
-	}
-
-	@SuppressWarnings("unchecked") public <X extends FunctionField> X of(final X template)
-	{
-		final X result = (X)templateToComponent.get(template);
-		if(result==null)
-			throw new IllegalArgumentException(template + " is not a template of " + toString());
-		return result;
-	}
-	
-	public List<FunctionField> getComponents()
-	{
-		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
-	}
-	
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(valueClass));
-		
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(valueClass));
-		}
-			
-		return Collections.unmodifiableList(result);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public E get(final Item item)
-	{
-		final SetValue[] initargs = new SetValue[componentSize];
-		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
-		{
-			initargs[i++] = e.getKey().map(e.getValue().get(item));
-		}
-		try
-		{
-			return valueConstructor.newInstance(new Object[]{initargs});
-		}
-		catch(InstantiationException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
-		catch(InvocationTargetException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public void set(final Item item, final E value)
-	{
-		final SetValue[] setValues = new SetValue[componentSize];
-		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
-			setValues[i++] = e.getValue().map(value.get(e.getKey()));
-		item.set(setValues);
-	}
-
-	@SuppressWarnings("unchecked")
-	public SetValue[] execute(E value, Item exceptionItem)
-	{
-		final SetValue[] result = new SetValue[componentSize];
-		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
-			result[i++] = e.getValue().map(value.get(e.getKey()));
-		return result;
-	}
-
-	public Set<Class<? extends Throwable>> getInitialExceptions()
-	{
-		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
-		for(final FunctionField<?> member : templates.values())
-			result.addAll(member.getInitialExceptions());
-		if(isfinal)
-			result.add(FinalViolationException.class);
-		if(!optional)
-			result.add(MandatoryViolationException.class);
-		return result;
-	}
-
-	public Class getInitialType()
-	{
-		return valueClass;
-	}
-
-	public boolean isFinal()
-	{
-		return isfinal;
-	}
-
-	public boolean isInitial()
-	{
-		return isfinal || !optional;
-	}
-
-	public boolean isMandatory()
-	{
-		return !optional;
-	}
-
-	public SetValue map(E value)
-	{
-		return new SetValue<E>(this, value);
-	}
-	
-	private static final class ValueType<X>
-	{
-		final Constructor<X> valueConstructor;
+		final Constructor<X> constructor;
 		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
 		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
 		final int componentSize;
 		
-		ValueType(final Class<X> valueClass)
+		Type(final Class<X> valueClass)
 		{
-			//System.out.println("---------------new ValueType(" + vc + ')');
+			//System.out.println("---------------new Composite.Type(" + vc + ')');
 			try
 			{
-				valueConstructor = valueClass.getDeclaredConstructor(SetValue[].class);
+				constructor = valueClass.getDeclaredConstructor(SetValue[].class);
 			}
 			catch(NoSuchMethodException e)
 			{
-				throw new IllegalArgumentException(valueClass.getName() + " does not have a constructor " + Arrays.toString(new Class[]{SetValue[].class}), e);
+				throw new IllegalArgumentException(
+						valueClass.getName() + " does not have a constructor " +
+						valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
 			}
-			valueConstructor.setAccessible(true);
+			constructor.setAccessible(true);
 			
 			try
 			{
@@ -279,13 +69,18 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 				{
 					if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 						continue;
-					if(!Field.class.isAssignableFrom(field.getType()))
+					if(!Feature.class.isAssignableFrom(field.getType()))
 						continue;
 					
 					field.setAccessible(true);
-					final FunctionField template = (FunctionField)field.get(null);
-					if(template==null)
+					final Feature feature = (Feature)field.get(null);
+					if(feature==null)
 						throw new NullPointerException(valueClass.getName() + '#' + field.getName());
+					if(!(feature instanceof FunctionField))
+						throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
+					final FunctionField template = (FunctionField)feature;
+					if(template.isFinal())
+						throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
 					templates.put(field.getName(), template);
 					templatePositions.put(template, position++);
 				}
@@ -300,107 +95,127 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	
-	static final HashMap<Class, ValueType> valueTypes = new HashMap<Class, ValueType>();
+	private static final HashMap<Class, Type> types = new HashMap<Class, Type>();
 
 	@SuppressWarnings("unchecked")
-	private static final <E> ValueType<E> getValueType(final Class valueClass)
+	static final <E> Type<E> getType(final Class valueClass)
 	{
 		assert valueClass!=null;
 		
-		synchronized(valueTypes)
+		synchronized(types)
 		{
-			ValueType<E> result = valueTypes.get(valueClass);
+			Type<E> result = types.get(valueClass);
 			if(result==null)
 			{
-				result = new ValueType(valueClass);
-				valueTypes.put(valueClass, result);
+				result = new Type(valueClass);
+				types.put(valueClass, result);
 			}
 			return result;
 		}
 	}
 	
-	public static abstract class Value implements Serializable
+	private static final long serialVersionUID = 1l;
+	
+	private final Object[] values;
+
+	protected Composite(final SetValue... setValues)
 	{
-		private static final long serialVersionUID = 1l;
-		
-		private final Object[] values;
-
-		protected Value(final SetValue... setValues)
-		{
-			final ValueType<?> valueType = valueType();
-			values = new Object[valueType.componentSize];
-			for(final SetValue v : setValues)
-				values[valueType.templatePositions.get(v.settable)] = v.value;
-		}
-
-		@SuppressWarnings("unchecked")
-		protected <X> X get(final FunctionField<X> member)
-		{
-			final ValueType<?> valueType = valueType();
-			return (X)values[valueType.templatePositions.get(member)];
-		}
-		
-		protected <X> void set(final FunctionField<X> member, final X value)
-		{
-			final ValueType<?> valueType = valueType();
-			values[valueType.templatePositions.get(member)] = value;
-		}
-		
-		private final ValueType<?> valueType()
-		{
-			final ValueType result;
-			synchronized(valueTypes)
-			{
-				result = valueTypes.get(getClass());
-			}
-			assert result!=null;
-			return result;
-		}
-
-		@Override
-		public final boolean equals(final Object other)
-		{
-			if(this==other)
-				return true;
-			
-			return
-				other!=null &&
-				getClass().equals(other.getClass()) &&
-				Arrays.equals(values, ((Value)other).values);
-		}
-		
-		@Override
-		public final int hashCode()
-		{
-			return getClass().hashCode() ^ Arrays.hashCode(values);
-		}
-		
-		// convenience for subclasses --------------------------------------------------
-		
-		public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
-		{
-			return Item.newEnumField(valueClass);
-		}
-		
-		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
-		{
-			return TypesBound.newItemField(valueClass);
-		}
-		
-		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-		{
-			return TypesBound.newItemField(valueClass, policy);
-		}
+		for(final SetValue<?> v : setValues)
+			check(v);
+		final Type<?> type = type();
+		values = new Object[type.componentSize];
+		for(final SetValue v : setValues)
+			values[type.templatePositions.get(v.settable)] = v.value;
 	}
 
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #of(FunctionField)} instead
-	 */
-	@Deprecated
-	public <X extends FunctionField> X getComponent(final X template)
+	private static final <E> void check(final SetValue<E> setValue)
 	{
-		return of(template);
+		((Field<E>)setValue.settable).check(setValue.value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected final <X> X get(final FunctionField<X> member)
+	{
+		final Type<?> type = type();
+		return (X)values[type.templatePositions.get(member)];
+	}
+	
+	protected final int getMandatory(final IntegerField member)
+	{
+		final Type<?> type = type();
+		return (Integer)values[type.templatePositions.get(member)];
+	}
+	
+	protected final long getMandatory(final LongField member)
+	{
+		final Type<?> type = type();
+		return (Long)values[type.templatePositions.get(member)];
+	}
+	
+	protected final double getMandatory(final DoubleField member)
+	{
+		final Type<?> type = type();
+		return (Double)values[type.templatePositions.get(member)];
+	}
+	
+	protected final boolean getMandatory(final BooleanField member)
+	{
+		final Type<?> type = type();
+		return (Boolean)values[type.templatePositions.get(member)];
+	}
+	
+	protected final <X> void set(final FunctionField<X> member, final X value)
+	{
+		member.check(value);
+		final Type<?> type = type();
+		values[type.templatePositions.get(member)] = value;
+	}
+	
+	
+	private transient Type<?> typeIfSet = null;
+	
+	private final Type<?> type()
+	{
+		Type<?> typeIfSet = this.typeIfSet;
+		if(typeIfSet!=null)
+			return typeIfSet;
+		typeIfSet = getType(getClass());
+		this.typeIfSet = typeIfSet;
+		return typeIfSet;
+	}
+
+	@Override
+	public final boolean equals(final Object other)
+	{
+		if(this==other)
+			return true;
+		
+		return
+			other!=null &&
+			getClass().equals(other.getClass()) &&
+			Arrays.equals(values, ((Composite)other).values);
+	}
+	
+	@Override
+	public final int hashCode()
+	{
+		return getClass().hashCode() ^ Arrays.hashCode(values);
+	}
+	
+	// convenience for subclasses --------------------------------------------------
+	
+	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
+	{
+		return Item.newEnumField(valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	{
+		return Item.newItemField(valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return Item.newItemField(valueClass, policy);
 	}
 }

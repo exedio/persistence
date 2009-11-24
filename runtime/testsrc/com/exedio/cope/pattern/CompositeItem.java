@@ -25,8 +25,8 @@ public final class CompositeItem extends Item
 {
 	public static final StringField code = new StringField().toFinal();
 
-	public static final Composite<CompositeValue> eins = Composite.newComposite(CompositeValue.class);
-	public static final Composite<CompositeValue> zwei = Composite.newComposite(CompositeValue.class);
+	public static final CompositeField<CompositeValue> eins = CompositeField.newComposite(CompositeValue.class);
+	public static final CompositeField<CompositeValue> zwei = CompositeField.newComposite(CompositeValue.class);
 	
 	
 	/**
