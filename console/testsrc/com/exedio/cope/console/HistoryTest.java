@@ -185,7 +185,7 @@ public class HistoryTest extends TestCase
 			final HistoryItemCache itemCache)
 	{
 		assertEquals(model, HistoryItemCache.model.get(itemCache));
-		assertEquals("HistoryItem", HistoryItemCache.type.get(itemCache));
+		assertEquals("HistoryItem", itemCache.getType());
 		assertEquals(HistoryModel.date.get(model), HistoryItemCache.date.get(itemCache));
 		assertEquals(MODEL.getInitializeDate(), HistoryItemCache.initializeDate.get(itemCache));
 		assertEquals(MODEL.getConnectDate(), HistoryItemCache.connectDate.get(itemCache));

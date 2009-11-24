@@ -39,34 +39,34 @@ import com.exedio.cope.info.ItemCacheInfo;
 final class HistoryItemCache extends Item
 {
 	static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
-	static final StringField type = new StringField().toFinal();
+	private static final StringField type = new StringField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
-	static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
-	static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	static final CopyConstraint threadCC = new CopyConstraint(model, thread);
-	static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
+	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
+	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
+	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
+	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 	
-	static final IntegerField limit = new IntegerField().toFinal().min(0);
-	static final IntegerField level = new IntegerField().toFinal().min(0);
-	static final LongField hits = new LongField().toFinal();
-	static final LongField misses = new LongField().toFinal();
-	static final LongField concurrentLoads = new LongField().toFinal();
-	@CopeSchemaName("numberOfCleanups") static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("itemsCleanedUp") static final IntegerField replacements = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("lastCleanup") static final DateField lastReplacementRun = new DateField().toFinal().optional();
-	static final LongField ageAverageMillis = new LongField().toFinal();
-	static final LongField ageMinMillis = new LongField().toFinal();
-	static final LongField ageMaxMillis = new LongField().toFinal();
-	static final LongField invalidationsOrdered = new LongField().toFinal();
-	static final LongField invalidationsDone = new LongField().toFinal();
+	private static final IntegerField limit = new IntegerField().toFinal().min(0);
+	private static final IntegerField level = new IntegerField().toFinal().min(0);
+	private static final LongField hits = new LongField().toFinal();
+	private static final LongField misses = new LongField().toFinal();
+	private static final LongField concurrentLoads = new LongField().toFinal();
+	@CopeSchemaName("numberOfCleanups") private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("itemsCleanedUp") private static final IntegerField replacements = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("lastCleanup") private static final DateField lastReplacementRun = new DateField().toFinal().optional();
+	private static final LongField ageAverageMillis = new LongField().toFinal();
+	private static final LongField ageMinMillis = new LongField().toFinal();
+	private static final LongField ageMaxMillis = new LongField().toFinal();
+	private static final LongField invalidationsOrdered = new LongField().toFinal();
+	private static final LongField invalidationsDone = new LongField().toFinal();
 	
 	static List<SetValue> map(final ItemCacheInfo info)
 	{
@@ -100,6 +100,11 @@ final class HistoryItemCache extends Item
 	private HistoryItemCache(final ActivationParameters ap)
 	{
 		super(ap);
+	}
+	
+	String getType()
+	{
+		return type.get(this);
 	}
 	
 	private static final long serialVersionUID = 1l;
