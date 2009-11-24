@@ -44,11 +44,11 @@ final class HistoryModel extends Item
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
-	static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
-	static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
-	static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("connectionPoolInvalidFromIdle") static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("connectionPoolInvalidIntoIdle") static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("connectionPoolInvalidFromIdle") private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("connectionPoolInvalidIntoIdle") private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final Pool.Info info)
 	{
@@ -64,11 +64,11 @@ final class HistoryModel extends Item
 	static final LongField nextTransactionId = new LongField().toFinal();
 	
 	@CopeSchemaName("commitOutConnection")
-	static final LongField commitWithoutConnection = new LongField().toFinal();
-	static final LongField commitWithConnection = new LongField().toFinal();
+	private static final LongField commitWithoutConnection = new LongField().toFinal();
+	private static final LongField commitWithConnection = new LongField().toFinal();
 	@CopeSchemaName("rollbackOutConnection")
-	static final LongField rollbackWithoutConnection = new LongField().toFinal();
-	static final LongField rollbackWithConnection = new LongField().toFinal();
+	private static final LongField rollbackWithoutConnection = new LongField().toFinal();
+	private static final LongField rollbackWithConnection = new LongField().toFinal();
 	
 	static List<SetValue> map(final TransactionCounters info)
 	{
@@ -86,10 +86,10 @@ final class HistoryModel extends Item
 	@CopeSchemaName("itemCacheNumberOfCleanups") static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("itemCacheItemsCleanedUp") static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
 	
-	static final LongField queryCacheHits = new LongField().toFinal();
-	static final LongField queryCacheMisses = new LongField().toFinal();
-	static final LongField queryCacheReplacements = new LongField().toFinal();
-	static final LongField queryCacheInvalidations = new LongField().toFinal();
+	private static final LongField queryCacheHits = new LongField().toFinal();
+	private static final LongField queryCacheMisses = new LongField().toFinal();
+	private static final LongField queryCacheReplacements = new LongField().toFinal();
+	private static final LongField queryCacheInvalidations = new LongField().toFinal();
 	
 	static List<SetValue> map(final QueryCacheInfo info)
 	{
@@ -110,7 +110,7 @@ final class HistoryModel extends Item
 	static final IntegerField mediasNotModified = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
 	
-	static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
+	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
 	
 	static List<SetValue> map(final ClusterSenderInfo info)
 	{
@@ -119,10 +119,10 @@ final class HistoryModel extends Item
 	}
 	
 	
-	static final LongField clusterListenerException    = new LongField().toFinal();
-	static final LongField clusterListenerMissingMagic = new LongField().toFinal();
-	static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
-	static final LongField clusterListenerFromMyself   = new LongField().toFinal();
+	private static final LongField clusterListenerException    = new LongField().toFinal();
+	private static final LongField clusterListenerMissingMagic = new LongField().toFinal();
+	private static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
+	private static final LongField clusterListenerFromMyself   = new LongField().toFinal();
 	
 	static List<SetValue> map(final ClusterListenerInfo info)
 	{
