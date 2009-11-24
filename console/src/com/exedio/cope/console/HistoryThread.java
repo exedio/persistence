@@ -243,8 +243,11 @@ final class HistoryThread extends Thread
 		setValueList.add(HistoryModel.connectDate.map(connectDate));
 		setValueList.add(HistoryModel.thread.map(thread));
 		setValueList.add(HistoryModel.running.map(running));
+		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
 		setValueList.add(HistoryModel.nextTransactionId.map(nextTransactionId));
+		setValueList.addAll(HistoryModel.map(transactionCounters));
 		setValueList.addAll(HistoryModel.map(itemCacheSummary));
+		setValueList.addAll(HistoryModel.map(queryCacheInfo));
 		setValueList.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
 		setValueList.add(HistoryModel.mediasException    .map(mediaTotal[0]));
 		setValueList.add(HistoryModel.mediasNotAnItem    .map(mediaTotal[1]));
@@ -253,9 +256,6 @@ final class HistoryThread extends Thread
 		setValueList.add(HistoryModel.mediasNotComputable.map(mediaTotal[4]));
 		setValueList.add(HistoryModel.mediasNotModified  .map(mediaTotal[5]));
 		setValueList.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
-		setValueList.addAll(HistoryModel.map(transactionCounters));
-		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
-		setValueList.addAll(HistoryModel.map(queryCacheInfo));
 		setValueList.addAll(HistoryModel.map(clusterSenderInfo));
 		setValueList.addAll(HistoryModel.map(clusterListenerInfo));
 		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
