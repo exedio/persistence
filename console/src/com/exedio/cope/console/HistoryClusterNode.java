@@ -18,6 +18,9 @@
 
 package com.exedio.cope.console;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
@@ -29,6 +32,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.pattern.CompositeField;
 
 final class HistoryClusterNode extends Item
@@ -55,6 +59,19 @@ final class HistoryClusterNode extends Item
 	static final CompositeField<SequenceInfo> ping = CompositeField.newComposite(SequenceInfo.class);
 	static final CompositeField<SequenceInfo> pong = CompositeField.newComposite(SequenceInfo.class);
 	static final CompositeField<SequenceInfo> invalidate = CompositeField.newComposite(SequenceInfo.class);
+	
+	static List<SetValue> map(final ClusterListenerInfo.Node node)
+	{
+		return Arrays.asList(
+				id            .map(node.getID()),
+				firstEncounter.map(node.getFirstEncounter()),
+				fromAddress   .map(node.getAddress().toString()),
+				fromPort      .map(node.getPort()),
+				
+				ping      .map(new SequenceInfo(node.getPingInfo())),
+				pong      .map(new SequenceInfo(node.getPingInfo())),
+				invalidate.map(new SequenceInfo(node.getInvalidateInfo())));
+	}
 	
 	HistoryClusterNode(final SetValue... setValues)
 	{

@@ -221,22 +221,15 @@ final class HistoryThread extends Thread
 			int nodesIndex = 0;
 			for(final ClusterListenerInfo.Node node : nodes)
 			{
-				clusterInfoSetValues[nodesIndex++] =
-					new SetValue[]{
-						null, // will be HistoryClusterNode.model
-						HistoryClusterNode.id.map(node.getID()),
-						HistoryClusterNode.date.map(date),
-						HistoryClusterNode.initializeDate.map(initializeDate),
-						HistoryClusterNode.connectDate.map(connectDate),
-						HistoryClusterNode.thread.map(thread),
-						HistoryClusterNode.running.map(running),
-						HistoryClusterNode.firstEncounter.map(node.getFirstEncounter()),
-						HistoryClusterNode.fromAddress.map(node.getAddress().toString()),
-						HistoryClusterNode.fromPort.map(node.getPort()),
-						HistoryClusterNode.ping      .map(new SequenceInfo(node.getPingInfo())),
-						HistoryClusterNode.pong      .map(new SequenceInfo(node.getPingInfo())),
-						HistoryClusterNode.invalidate.map(new SequenceInfo(node.getInvalidateInfo())),
-				};
+				final ArrayList<SetValue> list = new ArrayList<SetValue>();
+				list.add(null); // will be HistoryClusterNode.model
+				list.add(HistoryClusterNode.date.map(date));
+				list.add(HistoryClusterNode.initializeDate.map(initializeDate));
+				list.add(HistoryClusterNode.connectDate.map(connectDate));
+				list.add(HistoryClusterNode.thread.map(thread));
+				list.add(HistoryClusterNode.running.map(running));
+				HistoryClusterNode.map(node);
+				clusterInfoSetValues[nodesIndex++] = list.toArray(new SetValue[list.size()]);
 			}
 		}
 		else
