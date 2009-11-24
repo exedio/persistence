@@ -284,10 +284,6 @@ final class HistoryThread extends Thread
 				HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads),
 				HistoryModel.itemCacheReplacementRuns.map(itemCacheReplacementRuns),
 				HistoryModel.itemCacheReplacements.map(itemCacheReplacements),
-				HistoryModel.queryCacheHits  .map(queryCacheInfo.getHits()),
-				HistoryModel.queryCacheMisses.map(queryCacheInfo.getMisses()),
-				HistoryModel.queryCacheReplacements.map(queryCacheInfo.getReplacements()),
-				HistoryModel.queryCacheInvalidations.map(queryCacheInfo.getInvalidations()),
 				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
 				HistoryModel.mediasException    .map(mediaTotal[0]),
 				HistoryModel.mediasNotAnItem    .map(mediaTotal[1]),
@@ -304,6 +300,7 @@ final class HistoryThread extends Thread
 		};
 		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
 		setValueList.addAll(HistoryModel.mapConnectionPool(connectionPoolInfo));
+		setValueList.addAll(HistoryModel.mapQueryCache    (queryCacheInfo));
 		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
 
 		// save data

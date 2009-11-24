@@ -30,6 +30,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.util.Pool;
 
 final class HistoryModel extends Item
@@ -75,6 +76,16 @@ final class HistoryModel extends Item
 	static final LongField queryCacheMisses = new LongField().toFinal();
 	static final LongField queryCacheReplacements = new LongField().toFinal();
 	static final LongField queryCacheInvalidations = new LongField().toFinal();
+	
+	static List<SetValue> mapQueryCache(final QueryCacheInfo info)
+	{
+		return Arrays.asList((SetValue)
+			queryCacheHits         .map(info.getHits()),
+			queryCacheMisses       .map(info.getMisses()),
+			queryCacheReplacements .map(info.getReplacements()),
+			queryCacheInvalidations.map(info.getInvalidations()));
+	}
+	
 	
 	static final IntegerField mediasNoSuchPath = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasException = new IntegerField().toFinal().min(0);
