@@ -288,16 +288,13 @@ final class HistoryThread extends Thread
 				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
 				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
 				HistoryModel.mediasDelivered    .map(mediaTotal[6]),
-				HistoryModel.clusterSenderInvalidationSplit.map(clusterSenderInfo!=null ? clusterSenderInfo.getInvalidationSplit() : 0),
-				HistoryModel.clusterListenerException   .map(clusterListenerInfo!=null ? clusterListenerInfo.getException()    : 0),
-				HistoryModel.clusterListenerMissingMagic.map(clusterListenerInfo!=null ? clusterListenerInfo.getMissingMagic() : 0),
-				HistoryModel.clusterListenerWrongSecret .map(clusterListenerInfo!=null ? clusterListenerInfo.getWrongSecret()  : 0),
-				HistoryModel.clusterListenerFromMyself  .map(clusterListenerInfo!=null ? clusterListenerInfo.getFromMyself()   : 0)
 		};
 		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>(Arrays.asList(setValuesArray));
 		setValueList.addAll(HistoryModel.mapTransactionCounters(transactionCounters));
 		setValueList.addAll(HistoryModel.mapConnectionPool(connectionPoolInfo));
 		setValueList.addAll(HistoryModel.mapQueryCache    (queryCacheInfo));
+		setValueList.addAll(HistoryModel.mapClusterSender (clusterSenderInfo));
+		setValueList.addAll(HistoryModel.mapClusterListener(clusterListenerInfo));
 		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
 
 		// save data

@@ -31,6 +31,8 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.info.ClusterListenerInfo;
+import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.util.Pool;
 
@@ -109,10 +111,28 @@ final class HistoryModel extends Item
 	static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
 	
 	static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
+	
+	static List<SetValue> mapClusterSender(final ClusterSenderInfo info)
+	{
+		return Arrays.asList((SetValue)
+			clusterSenderInvalidationSplit.map(info!=null ? info.getInvalidationSplit() : 0));
+	}
+	
+	
 	static final LongField clusterListenerException    = new LongField().toFinal();
 	static final LongField clusterListenerMissingMagic = new LongField().toFinal();
 	static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
 	static final LongField clusterListenerFromMyself   = new LongField().toFinal();
+	
+	static List<SetValue> mapClusterListener(final ClusterListenerInfo info)
+	{
+		return Arrays.asList((SetValue)
+			clusterListenerException   .map(info!=null ? info.getException()    : 0),
+			clusterListenerMissingMagic.map(info!=null ? info.getMissingMagic() : 0),
+			clusterListenerWrongSecret .map(info!=null ? info.getWrongSecret()  : 0),
+			clusterListenerFromMyself  .map(info!=null ? info.getFromMyself()   : 0));
+	}
+	
 	
 	HistoryModel(final SetValue... setValues)
 	{
