@@ -169,20 +169,11 @@ final class HistoryThread extends Thread
 		final ClusterListenerInfo clusterListenerInfo = watchedModel.getClusterListenerInfo();
 		
 		// process data
-		long itemCacheHits = 0;
-		long itemCacheMisses = 0;
-		long itemCacheConcurrentLoads = 0;
-		int itemCacheReplacementRuns = 0;
-		int itemCacheReplacements = 0;
+		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		final SetValue[][] itemCacheSetValues = new SetValue[itemCacheInfos.length][];
 		int itemCacheSetValuesIndex = 0;
 		for(final ItemCacheInfo ci : itemCacheInfos)
 		{
-			itemCacheHits += ci.getHits();
-			itemCacheMisses += ci.getMisses();
-			itemCacheConcurrentLoads += ci.getConcurrentLoads();
-			itemCacheReplacementRuns += ci.getReplacementRuns();
-			itemCacheReplacements += ci.getReplacements();
 			final ArrayList<SetValue> list = new ArrayList<SetValue>();
 			list.add(null); // will be HistoryItemCache.model
 			list.add(HistoryItemCache.date.map(date));
@@ -260,11 +251,7 @@ final class HistoryThread extends Thread
 		setValueList.add(HistoryModel.thread.map(thread));
 		setValueList.add(HistoryModel.running.map(running));
 		setValueList.add(HistoryModel.nextTransactionId.map(nextTransactionId));
-		setValueList.add(HistoryModel.itemCacheHits.map(itemCacheHits));
-		setValueList.add(HistoryModel.itemCacheMisses.map(itemCacheMisses));
-		setValueList.add(HistoryModel.itemCacheConcurrentLoads.map(itemCacheConcurrentLoads));
-		setValueList.add(HistoryModel.itemCacheReplacementRuns.map(itemCacheReplacementRuns));
-		setValueList.add(HistoryModel.itemCacheReplacements.map(itemCacheReplacements));
+		setValueList.addAll(HistoryModel.map(itemCacheSummary));
 		setValueList.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
 		setValueList.add(HistoryModel.mediasException    .map(mediaTotal[0]));
 		setValueList.add(HistoryModel.mediasNotAnItem    .map(mediaTotal[1]));
