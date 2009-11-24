@@ -22,27 +22,13 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.formatAndHide;
 import static com.exedio.cope.console.Format.ratio;
 
-import java.util.Date;
-
 import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCache_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final Out out,
-			final int allLimit,
-			final int allLevel,
-			final long allHits,
-			final long allMisses,
-			final long allConcurrentLoads,
-			final int allReplacementRuns,
-			final int allReplacements,
-			final Date allLastReplacementRun,
-			final long allAgeMinMillis,
-			final long allAgeAverageMillis,
-			final long allAgeMaxMillis,
-			final long allInvalidationsOrdered,
-			final long allInvalidationsDone,
+			final ItemCacheSummary summary,
 			final ItemCacheInfo[] infos)
 	{
 		final String[] names = {
@@ -85,23 +71,23 @@ final class ItemCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				final String[] allData = {
-						formatAndHide(0, allLimit),
-						formatAndHide(0, allLevel),
-						formatAndHide(0, allHits),
-						formatAndHide(0, allMisses),
-						formatAndHide(0, allConcurrentLoads),
-						formatAndHide(0, allReplacementRuns),
-						formatAndHide(0, allReplacements),
-						formatAndHide(allLastReplacementRun),
-						formatAndHide(0, allAgeMinMillis/1000l),
-						formatAndHide(0, allAgeAverageMillis/1000l),
-						formatAndHide(0, allAgeMaxMillis/1000l),
-						formatAndHide(0, allInvalidationsOrdered),
-						formatAndHide(0, allInvalidationsDone),
+						formatAndHide(0, summary.allLimit),
+						formatAndHide(0, summary.allLevel),
+						formatAndHide(0, summary.allHits),
+						formatAndHide(0, summary.allMisses),
+						formatAndHide(0, summary.allConcurrentLoads),
+						formatAndHide(0, summary.allReplacementRuns),
+						formatAndHide(0, summary.allReplacements),
+						formatAndHide(summary.allLastReplacementRun),
+						formatAndHide(0, summary.allAgeMinMillis/1000l),
+						formatAndHide(0, summary.allAgeAverageMillis/1000l),
+						formatAndHide(0, summary.allAgeMaxMillis/1000l),
+						formatAndHide(0, summary.allInvalidationsOrdered),
+						formatAndHide(0, summary.allInvalidationsDone),
 					};
 				ColoredTable_Jspm.writeData(out, allData);
 				%>
-				<td class="color0"><%=ratio(allHits, allMisses)%></td>
+				<td class="color0"><%=ratio(summary.allHits, summary.allMisses)%></td>
 				<th>All</th>
 			</tr><%
 			for(final ItemCacheInfo info : infos)

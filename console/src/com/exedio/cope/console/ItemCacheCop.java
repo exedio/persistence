@@ -18,8 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
@@ -46,65 +44,7 @@ final class ItemCacheCop extends ConsoleCop
 			final History history)
 	{
 		final ItemCacheInfo[] infos = model.getItemCacheInfo();
-		
-		int allLimit = 0;
-		int allLevel = 0;
-		long allHits = 0;
-		long allMisses = 0;
-		long allConcurrentLoads = 0;
-		int allReplacementRuns = 0;
-		int allReplacements = 0;
-		Date allLastReplacementRun = null;
-		long allNum = 0;
-		long allAgeMinMillis = Long.MAX_VALUE;
-		long allSumAgeAverageMillis = 0l;
-		long allAgeMaxMillis = 0l;
-		long allInvalidationsOrdered = 0l;
-		long allInvalidationsDone = 0l;
-		
-		for(final ItemCacheInfo info : infos)
-		{
-			allLimit += info.getLimit();
-			allLevel += info.getLevel();
-			allHits += info.getHits();
-			allMisses += info.getMisses();
-			allConcurrentLoads += info.getConcurrentLoads();
-			
-			allReplacementRuns += info.getReplacementRuns();
-			allReplacements += info.getReplacements();
-			
-			final Date lastReplacementRun = info.getLastReplacementRun();
-			if(allLastReplacementRun==null || (lastReplacementRun!=null && allLastReplacementRun.before(lastReplacementRun)))
-				allLastReplacementRun = lastReplacementRun;
-
-			if(info.getLevel()>0)
-			{
-				allNum++;
-
-				final long minAge = info.getAgeMinMillis();
-				if(allAgeMinMillis>minAge)
-					allAgeMinMillis = minAge;
-				
-				allSumAgeAverageMillis += info.getAgeAverageMillis();
-	
-				final long maxAge = info.getAgeMaxMillis();
-				if(allAgeMaxMillis<maxAge)
-					allAgeMaxMillis = maxAge;
-			}
-			
-			allInvalidationsOrdered += info.getInvalidationsOrdered();
-			allInvalidationsDone += info.getInvalidationsDone();
-		}
-		
-		ItemCache_Jspm.writeBody(out,
-				allLimit, allLevel,
-				allHits, allMisses,
-				allConcurrentLoads,
-				allReplacementRuns, allReplacements, allLastReplacementRun,
-				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
-				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
-				allAgeMaxMillis,
-				allInvalidationsOrdered, allInvalidationsDone,
-				infos);
+		final ItemCacheSummary summary = new ItemCacheSummary(infos);
+		ItemCache_Jspm.writeBody(out, summary, infos);
 	}
 }
