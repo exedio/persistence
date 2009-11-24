@@ -36,17 +36,17 @@ final class HistoryMedia extends Item
 	static final StringField media = new StringField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
-	static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
-	static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	static final CopyConstraint threadCC = new CopyConstraint(model, thread);
-	static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
+	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
+	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
+	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
+	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 	
 	static final IntegerField exception = new IntegerField().toFinal().min(0);
 	static final IntegerField notAnItem = new IntegerField().toFinal().min(0);

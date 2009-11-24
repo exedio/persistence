@@ -38,27 +38,27 @@ import com.exedio.cope.pattern.CompositeField;
 final class HistoryClusterNode extends Item
 {
 	static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
-	static final IntegerField id = new IntegerField().toFinal();
+	private static final IntegerField id = new IntegerField().toFinal();
 	
 	static final DateField date = new DateField().toFinal();
-	static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
-	static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
-	static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	static final CopyConstraint threadCC = new CopyConstraint(model, thread);
-	static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
+	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
+	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
+	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
+	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 	
-	static final DateField firstEncounter = new DateField().toFinal();
-	static final StringField fromAddress = new StringField().toFinal();
-	static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
-	static final CompositeField<SequenceInfo> ping = CompositeField.newComposite(SequenceInfo.class);
-	static final CompositeField<SequenceInfo> pong = CompositeField.newComposite(SequenceInfo.class);
-	static final CompositeField<SequenceInfo> invalidate = CompositeField.newComposite(SequenceInfo.class);
+	private static final DateField firstEncounter = new DateField().toFinal();
+	private static final StringField fromAddress = new StringField().toFinal();
+	private static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
+	private static final CompositeField<SequenceInfo> ping = CompositeField.newComposite(SequenceInfo.class);
+	private static final CompositeField<SequenceInfo> pong = CompositeField.newComposite(SequenceInfo.class);
+	private static final CompositeField<SequenceInfo> invalidate = CompositeField.newComposite(SequenceInfo.class);
 	
 	static List<SetValue> map(final ClusterListenerInfo.Node node)
 	{

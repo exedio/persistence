@@ -80,11 +80,11 @@ final class HistoryModel extends Item
 	}
 	
 	
-	static final LongField itemCacheHits = new LongField().toFinal();
-	static final LongField itemCacheMisses = new LongField().toFinal();
-	static final LongField itemCacheConcurrentLoads = new LongField().toFinal();
-	@CopeSchemaName("itemCacheNumberOfCleanups") static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("itemCacheItemsCleanedUp") static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
+	private static final LongField itemCacheHits = new LongField().toFinal();
+	private static final LongField itemCacheMisses = new LongField().toFinal();
+	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal();
+	@CopeSchemaName("itemCacheNumberOfCleanups") private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("itemCacheItemsCleanedUp") private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final ItemCacheSummary info)
 	{
