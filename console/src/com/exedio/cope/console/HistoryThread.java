@@ -287,8 +287,6 @@ final class HistoryThread extends Thread
 		setValueList.add(HistoryModel.mediasNotComputable.map(mediaTotal[4]));
 		setValueList.add(HistoryModel.mediasNotModified  .map(mediaTotal[5]));
 		setValueList.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
-		
-		
 		setValueList.addAll(HistoryModel.map(transactionCounters));
 		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
 		setValueList.addAll(HistoryModel.map(queryCacheInfo));
