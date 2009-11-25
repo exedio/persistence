@@ -175,8 +175,8 @@ public class HistoryTest extends TestCase
 		assertWithin(before, after, HistoryModel.date.get(model));
 		assertEquals(MODEL.getInitializeDate(), HistoryModel.initializeDate.get(model));
 		assertEquals(MODEL.getConnectDate(), HistoryModel.connectDate.get(model));
-		assertEquals(System.identityHashCode(thread), HistoryModel.thread.get(model).intValue());
-		assertEquals(running, HistoryModel.running.get(model).intValue());
+		assertEquals(System.identityHashCode(thread), HistoryModel.thread.getMandatory(model));
+		assertEquals(running, HistoryModel.running.getMandatory(model));
 		return model;
 	}
 	private static final HistoryItemCache assertIt(
@@ -190,7 +190,7 @@ public class HistoryTest extends TestCase
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
 		assertEquals(System.identityHashCode(thread), itemCache.getThread());
-		assertEquals(HistoryModel.running.get(model).intValue(), itemCache.getRunning());
+		assertEquals(HistoryModel.running.getMandatory(model), itemCache.getRunning());
 		return itemCache;
 	}
 	
@@ -204,8 +204,8 @@ public class HistoryTest extends TestCase
 		assertEquals(HistoryModel.date.get(model), HistoryMedia.date.get(media));
 		assertEquals(MODEL.getInitializeDate(), HistoryMedia.initializeDate.get(media));
 		assertEquals(MODEL.getConnectDate(), HistoryMedia.connectDate.get(media));
-		assertEquals(System.identityHashCode(thread), HistoryMedia.thread.get(media).intValue());
-		assertEquals(HistoryModel.running.get(model).intValue(), HistoryMedia.running.get(media).intValue());
+		assertEquals(System.identityHashCode(thread), HistoryMedia.thread.getMandatory(media));
+		assertEquals(HistoryModel.running.getMandatory(model), HistoryMedia.running.getMandatory(media));
 		return media;
 	}
 	
