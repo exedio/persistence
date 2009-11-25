@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class BindItemFunction<E extends Item> extends BindFunction<E> implements ItemFunction<E>
 {
 	final ItemFunction<E> itemFunction;
