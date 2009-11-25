@@ -413,18 +413,18 @@ public final class Model
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
-		final ClusterSender clusterSender = connect().clusterSender;
-		if(clusterSender==null)
+		final ClusterSender c = connect().clusterSender;
+		if(c==null)
 			return null;
-		return clusterSender.getInfo();
+		return c.getInfo();
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final ClusterListener clusterListener = connect().clusterListener;
-		if(clusterListener==null)
+		final ClusterListener c = connect().clusterListener;
+		if(c==null)
 			return null;
-		return clusterListener.getInfo();
+		return c.getInfo();
 	}
 	
 	// ----------------------- transaction
