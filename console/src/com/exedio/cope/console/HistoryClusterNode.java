@@ -37,21 +37,33 @@ import com.exedio.cope.pattern.CompositeField;
 
 final class HistoryClusterNode extends Item
 {
-	static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
+	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
 	private static final IntegerField id = new IntegerField().toFinal();
 	
-	static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
-	static final DateField initializeDate = new DateField().toFinal();
-	static final DateField connectDate = new DateField().toFinal();
-	static final IntegerField thread = new IntegerField().toFinal();
-	static final IntegerField running = new IntegerField().toFinal().min(0);
+	private static final DateField initializeDate = new DateField().toFinal();
+	private static final DateField connectDate = new DateField().toFinal();
+	private static final IntegerField thread = new IntegerField().toFinal();
+	private static final IntegerField running = new IntegerField().toFinal().min(0);
 	
 	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
 	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
 	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
 	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	
+	static List<SetValue> map(final HistoryModel m)
+	{
+		return Arrays.asList((SetValue)
+			model         .map(m),
+			date          .map(HistoryModel.date.get(m)),
+			initializeDate.map(HistoryModel.initializeDate.get(m)),
+			connectDate   .map(HistoryModel.connectDate.get(m)),
+			thread        .map(HistoryModel.thread.get(m)),
+			running       .map(HistoryModel.running.get(m)));
+	}
+	
 	
 	private static final DateField firstEncounter = new DateField().toFinal();
 	private static final StringField fromAddress = new StringField().toFinal();

@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
@@ -38,21 +39,33 @@ import com.exedio.cope.info.ItemCacheInfo;
 
 final class HistoryItemCache extends Item
 {
-	static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
+	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
 	private static final StringField type = new StringField().toFinal();
 	
-	static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
-	static final DateField initializeDate = new DateField().toFinal();
-	static final DateField connectDate = new DateField().toFinal();
-	static final IntegerField thread = new IntegerField().toFinal();
-	static final IntegerField running = new IntegerField().toFinal().min(0);
+	private static final DateField initializeDate = new DateField().toFinal();
+	private static final DateField connectDate = new DateField().toFinal();
+	private static final IntegerField thread = new IntegerField().toFinal();
+	private static final IntegerField running = new IntegerField().toFinal().min(0);
 	
 	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
 	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
 	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
 	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	
+	static List<SetValue> map(final HistoryModel m)
+	{
+		return Arrays.asList((SetValue)
+			model         .map(m),
+			date          .map(HistoryModel.date.get(m)),
+			initializeDate.map(HistoryModel.initializeDate.get(m)),
+			connectDate   .map(HistoryModel.connectDate.get(m)),
+			thread        .map(HistoryModel.thread.get(m)),
+			running       .map(HistoryModel.running.get(m)));
+	}
+	
 	
 	private static final IntegerField limit = new IntegerField().toFinal().min(0);
 	private static final IntegerField level = new IntegerField().toFinal().min(0);
@@ -102,9 +115,39 @@ final class HistoryItemCache extends Item
 		super(ap);
 	}
 	
+	HistoryModel getModel()
+	{
+		return model.get(this);
+	}
+	
 	String getType()
 	{
 		return type.get(this);
+	}
+	
+	Date getDate()
+	{
+		return date.get(this);
+	}
+	
+	Date getInitalizeDate()
+	{
+		return initializeDate.get(this);
+	}
+	
+	Date getConnectDate()
+	{
+		return connectDate.get(this);
+	}
+	
+	int getThread()
+	{
+		return thread.getMandatory(this);
+	}
+	
+	int getRunning()
+	{
+		return running.getMandatory(this);
 	}
 	
 	private static final long serialVersionUID = 1l;

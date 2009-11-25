@@ -184,13 +184,13 @@ public class HistoryTest extends TestCase
 			final HistoryThread thread,
 			final HistoryItemCache itemCache)
 	{
-		assertEquals(model, HistoryItemCache.model.get(itemCache));
+		assertEquals(model, itemCache.getModel());
 		assertEquals("HistoryItem", itemCache.getType());
-		assertEquals(HistoryModel.date.get(model), HistoryItemCache.date.get(itemCache));
-		assertEquals(MODEL.getInitializeDate(), HistoryItemCache.initializeDate.get(itemCache));
-		assertEquals(MODEL.getConnectDate(), HistoryItemCache.connectDate.get(itemCache));
-		assertEquals(System.identityHashCode(thread), HistoryItemCache.thread.get(itemCache).intValue());
-		assertEquals(HistoryModel.running.get(model).intValue(), HistoryItemCache.running.get(itemCache).intValue());
+		assertEquals(HistoryModel.date.get(model), itemCache.getDate());
+		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
+		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
+		assertEquals(System.identityHashCode(thread), itemCache.getThread());
+		assertEquals(HistoryModel.running.get(model).intValue(), itemCache.getRunning());
 		return itemCache;
 	}
 	

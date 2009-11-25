@@ -208,16 +208,10 @@ final class HistoryThread extends Thread
 				model = new HistoryModel(toArray(sv));
 			}
 			{
-				final SetValue modelSetValue = HistoryItemCache.model.map(model);
 				for(final ItemCacheInfo info : itemCacheInfos)
 				{
 					final ArrayList<SetValue> sv = new ArrayList<SetValue>();
-					sv.add(modelSetValue);
-					sv.add(HistoryItemCache.date.map(date));
-					sv.add(HistoryItemCache.initializeDate.map(initializeDate));
-					sv.add(HistoryItemCache.connectDate.map(connectDate));
-					sv.add(HistoryItemCache.thread.map(thread));
-					sv.add(HistoryItemCache.running.map(running));
+					sv.addAll(HistoryItemCache.map(model));
 					sv.addAll(HistoryItemCache.map(info));
 					new HistoryItemCache(toArray(sv));
 				}
@@ -246,16 +240,10 @@ final class HistoryThread extends Thread
 			}
 			if(clusterListenerInfo!=null)
 			{
-				final SetValue modelSetValue = HistoryClusterNode.model.map(model);
 				for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
 				{
 					final ArrayList<SetValue> list = new ArrayList<SetValue>();
-					list.add(modelSetValue);
-					list.add(HistoryClusterNode.date.map(date));
-					list.add(HistoryClusterNode.initializeDate.map(initializeDate));
-					list.add(HistoryClusterNode.connectDate.map(connectDate));
-					list.add(HistoryClusterNode.thread.map(thread));
-					list.add(HistoryClusterNode.running.map(running));
+					HistoryClusterNode.map(model);
 					HistoryClusterNode.map(node);
 					new HistoryClusterNode(toArray(list));
 				}
