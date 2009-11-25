@@ -237,34 +237,35 @@ final class HistoryThread extends Thread
 			clusterInfoSetValues = new SetValue[0][];
 		}
 		
-		final ArrayList<SetValue> setValueList = new ArrayList<SetValue>();
-		setValueList.add(HistoryModel.date.map(date));
-		setValueList.add(HistoryModel.initializeDate.map(initializeDate));
-		setValueList.add(HistoryModel.connectDate.map(connectDate));
-		setValueList.add(HistoryModel.thread.map(thread));
-		setValueList.add(HistoryModel.running.map(running));
-		setValueList.addAll(HistoryModel.map(connectionPoolInfo));
-		setValueList.add(HistoryModel.nextTransactionId.map(nextTransactionId));
-		setValueList.addAll(HistoryModel.map(transactionCounters));
-		setValueList.addAll(HistoryModel.map(itemCacheSummary));
-		setValueList.addAll(HistoryModel.map(queryCacheInfo));
-		setValueList.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
-		setValueList.add(HistoryModel.mediasException    .map(mediaTotal[0]));
-		setValueList.add(HistoryModel.mediasNotAnItem    .map(mediaTotal[1]));
-		setValueList.add(HistoryModel.mediasNoSuchItem   .map(mediaTotal[2]));
-		setValueList.add(HistoryModel.mediasIsNull       .map(mediaTotal[3]));
-		setValueList.add(HistoryModel.mediasNotComputable.map(mediaTotal[4]));
-		setValueList.add(HistoryModel.mediasNotModified  .map(mediaTotal[5]));
-		setValueList.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
-		setValueList.addAll(HistoryModel.map(clusterSenderInfo));
-		setValueList.addAll(HistoryModel.map(clusterListenerInfo));
-		final SetValue[] setValues = setValueList.toArray(new SetValue[setValueList.size()]);
-
 		// save data
 		try
 		{
 			HISTORY_MODEL.startTransaction(topic + running);
-			final HistoryModel model = new HistoryModel(setValues);
+			final HistoryModel model;
+			{
+				final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+				sv.add(HistoryModel.date.map(date));
+				sv.add(HistoryModel.initializeDate.map(initializeDate));
+				sv.add(HistoryModel.connectDate.map(connectDate));
+				sv.add(HistoryModel.thread.map(thread));
+				sv.add(HistoryModel.running.map(running));
+				sv.addAll(HistoryModel.map(connectionPoolInfo));
+				sv.add(HistoryModel.nextTransactionId.map(nextTransactionId));
+				sv.addAll(HistoryModel.map(transactionCounters));
+				sv.addAll(HistoryModel.map(itemCacheSummary));
+				sv.addAll(HistoryModel.map(queryCacheInfo));
+				sv.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
+				sv.add(HistoryModel.mediasException    .map(mediaTotal[0]));
+				sv.add(HistoryModel.mediasNotAnItem    .map(mediaTotal[1]));
+				sv.add(HistoryModel.mediasNoSuchItem   .map(mediaTotal[2]));
+				sv.add(HistoryModel.mediasIsNull       .map(mediaTotal[3]));
+				sv.add(HistoryModel.mediasNotComputable.map(mediaTotal[4]));
+				sv.add(HistoryModel.mediasNotModified  .map(mediaTotal[5]));
+				sv.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
+				sv.addAll(HistoryModel.map(clusterSenderInfo));
+				sv.addAll(HistoryModel.map(clusterListenerInfo));
+				model = new HistoryModel(sv.toArray(new SetValue[sv.size()]));
+			}
 			{
 				final SetValue modelSetValue = HistoryItemCache.model.map(model);
 				for(final SetValue[] itemCacheSetValue : itemCacheSetValues)
