@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class BindStringFunction extends BindFunction<String> implements StringFunction
+public final class BindStringFunction extends BindFunction<String> implements StringFunction
 {
 
 	final StringFunction stringFunction;
