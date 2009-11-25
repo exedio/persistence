@@ -198,30 +198,6 @@ final class HistoryThread extends Thread
 			mediaSetValuesIndex++;
 		}
 		
-		final SetValue[][] clusterInfoSetValues;
-		if(clusterListenerInfo!=null)
-		{
-			final List<ClusterListenerInfo.Node> nodes = clusterListenerInfo.getNodes();
-			clusterInfoSetValues = new SetValue[nodes.size()][];
-			int nodesIndex = 0;
-			for(final ClusterListenerInfo.Node node : nodes)
-			{
-				final ArrayList<SetValue> list = new ArrayList<SetValue>();
-				list.add(null); // will be HistoryClusterNode.model
-				list.add(HistoryClusterNode.date.map(date));
-				list.add(HistoryClusterNode.initializeDate.map(initializeDate));
-				list.add(HistoryClusterNode.connectDate.map(connectDate));
-				list.add(HistoryClusterNode.thread.map(thread));
-				list.add(HistoryClusterNode.running.map(running));
-				HistoryClusterNode.map(node);
-				clusterInfoSetValues[nodesIndex++] = toArray(list);
-			}
-		}
-		else
-		{
-			clusterInfoSetValues = new SetValue[0][];
-		}
-		
 		// save data
 		try
 		{
@@ -275,13 +251,20 @@ final class HistoryThread extends Thread
 					new HistoryMedia(mediaSetValue);
 				}
 			}
+			if(clusterListenerInfo!=null)
 			{
 				final SetValue modelSetValue = HistoryClusterNode.model.map(model);
-				for(SetValue[] clusterInfoSetValue : clusterInfoSetValues)
+				for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
 				{
-					assert clusterInfoSetValue[0]==null : clusterInfoSetValue[0];
-					clusterInfoSetValue[0] = modelSetValue;
-					new HistoryClusterNode(clusterInfoSetValue);
+					final ArrayList<SetValue> list = new ArrayList<SetValue>();
+					list.add(modelSetValue);
+					list.add(HistoryClusterNode.date.map(date));
+					list.add(HistoryClusterNode.initializeDate.map(initializeDate));
+					list.add(HistoryClusterNode.connectDate.map(connectDate));
+					list.add(HistoryClusterNode.thread.map(thread));
+					list.add(HistoryClusterNode.running.map(running));
+					HistoryClusterNode.map(node);
+					new HistoryClusterNode(toArray(list));
 				}
 			}
 			HISTORY_MODEL.commit();
