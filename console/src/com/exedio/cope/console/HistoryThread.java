@@ -172,30 +172,10 @@ final class HistoryThread extends Thread
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		
 		final int[] mediaTotal = new int[MEDIAS_STAT_LENGTH];
-		final SetValue[][] mediaSetValues = new SetValue[medias.length][];
-		int mediaSetValuesIndex = 0;
 		for(int[] mediaValue : mediaValues)
 		{
 			for(int i = 0; i<MEDIAS_STAT_LENGTH; i++)
 				mediaTotal[i] += mediaValue[i];
-			mediaSetValues[mediaSetValuesIndex] =
-				new SetValue[]{
-					null, // will be HistoryMedia.model
-					HistoryMedia.media.map(medias[mediaSetValuesIndex].getID()),
-					HistoryMedia.date.map(date),
-					HistoryMedia.initializeDate.map(initializeDate),
-					HistoryMedia.connectDate.map(connectDate),
-					HistoryMedia.thread.map(thread),
-					HistoryMedia.running.map(running),
-					HistoryMedia.exception    .map(mediaValue[0]),
-					HistoryMedia.notAnItem    .map(mediaValue[1]),
-					HistoryMedia.noSuchItem   .map(mediaValue[2]),
-					HistoryMedia.isNull       .map(mediaValue[3]),
-					HistoryMedia.notComputable.map(mediaValue[4]),
-					HistoryMedia.notModified  .map(mediaValue[5]),
-					HistoryMedia.delivered    .map(mediaValue[6]),
-			};
-			mediaSetValuesIndex++;
 		}
 		
 		// save data
@@ -244,11 +224,24 @@ final class HistoryThread extends Thread
 			}
 			{
 				final SetValue modelSetValue = HistoryMedia.model.map(model);
-				for(SetValue[] mediaSetValue : mediaSetValues)
+				int mediaSetValuesIndex = 0;
+				for(int[] mediaValue : mediaValues)
 				{
-					assert mediaSetValue[0]==null : mediaSetValue[0];
-					mediaSetValue[0] = modelSetValue;
-					new HistoryMedia(mediaSetValue);
+					new HistoryMedia(
+							modelSetValue,
+							HistoryMedia.media.map(medias[mediaSetValuesIndex++].getID()),
+							HistoryMedia.date.map(date),
+							HistoryMedia.initializeDate.map(initializeDate),
+							HistoryMedia.connectDate.map(connectDate),
+							HistoryMedia.thread.map(thread),
+							HistoryMedia.running.map(running),
+							HistoryMedia.exception    .map(mediaValue[0]),
+							HistoryMedia.notAnItem    .map(mediaValue[1]),
+							HistoryMedia.noSuchItem   .map(mediaValue[2]),
+							HistoryMedia.isNull       .map(mediaValue[3]),
+							HistoryMedia.notComputable.map(mediaValue[4]),
+							HistoryMedia.notModified  .map(mediaValue[5]),
+							HistoryMedia.delivered    .map(mediaValue[6]));
 				}
 			}
 			if(clusterListenerInfo!=null)
