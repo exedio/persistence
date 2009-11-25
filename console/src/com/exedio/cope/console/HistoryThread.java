@@ -214,7 +214,7 @@ final class HistoryThread extends Thread
 				list.add(HistoryClusterNode.thread.map(thread));
 				list.add(HistoryClusterNode.running.map(running));
 				HistoryClusterNode.map(node);
-				clusterInfoSetValues[nodesIndex++] = list.toArray(new SetValue[list.size()]);
+				clusterInfoSetValues[nodesIndex++] = toArray(list);
 			}
 		}
 		else
@@ -249,7 +249,7 @@ final class HistoryThread extends Thread
 				sv.add(HistoryModel.mediasDelivered    .map(mediaTotal[6]));
 				sv.addAll(HistoryModel.map(clusterSenderInfo));
 				sv.addAll(HistoryModel.map(clusterListenerInfo));
-				model = new HistoryModel(sv.toArray(new SetValue[sv.size()]));
+				model = new HistoryModel(toArray(sv));
 			}
 			{
 				final SetValue modelSetValue = HistoryItemCache.model.map(model);
@@ -263,7 +263,7 @@ final class HistoryThread extends Thread
 					sv.add(HistoryItemCache.thread.map(thread));
 					sv.add(HistoryItemCache.running.map(running));
 					sv.addAll(HistoryItemCache.map(info));
-					new HistoryItemCache(sv.toArray(new SetValue[sv.size()]));
+					new HistoryItemCache(toArray(sv));
 				}
 			}
 			{
@@ -290,6 +290,11 @@ final class HistoryThread extends Thread
 		{
 			HISTORY_MODEL.rollbackIfNotCommitted();
 		}
+	}
+	
+	private static final SetValue[] toArray(final ArrayList<SetValue> sv)
+	{
+		return sv.toArray(new SetValue[sv.size()]);
 	}
 	
 	private void sleepByWait(final long millis)
