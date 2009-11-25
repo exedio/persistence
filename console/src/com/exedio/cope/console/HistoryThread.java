@@ -170,21 +170,6 @@ final class HistoryThread extends Thread
 		
 		// process data
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
-		final SetValue[][] itemCacheSetValues = new SetValue[itemCacheInfos.length][];
-		int itemCacheSetValuesIndex = 0;
-		for(final ItemCacheInfo ci : itemCacheInfos)
-		{
-			final ArrayList<SetValue> list = new ArrayList<SetValue>();
-			list.add(null); // will be HistoryItemCache.model
-			list.add(HistoryItemCache.date.map(date));
-			list.add(HistoryItemCache.initializeDate.map(initializeDate));
-			list.add(HistoryItemCache.connectDate.map(connectDate));
-			list.add(HistoryItemCache.thread.map(thread));
-			list.add(HistoryItemCache.running.map(running));
-			list.addAll(HistoryItemCache.map(ci));
-			itemCacheSetValues[itemCacheSetValuesIndex] = list.toArray(new SetValue[list.size()]);
-			itemCacheSetValuesIndex++;
-		}
 		
 		final int[] mediaTotal = new int[MEDIAS_STAT_LENGTH];
 		final SetValue[][] mediaSetValues = new SetValue[medias.length][];
@@ -268,11 +253,17 @@ final class HistoryThread extends Thread
 			}
 			{
 				final SetValue modelSetValue = HistoryItemCache.model.map(model);
-				for(final SetValue[] itemCacheSetValue : itemCacheSetValues)
+				for(final ItemCacheInfo info : itemCacheInfos)
 				{
-					assert itemCacheSetValue[0]==null : itemCacheSetValue[0];
-					itemCacheSetValue[0] = modelSetValue;
-					new HistoryItemCache(itemCacheSetValue);
+					final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+					sv.add(modelSetValue);
+					sv.add(HistoryItemCache.date.map(date));
+					sv.add(HistoryItemCache.initializeDate.map(initializeDate));
+					sv.add(HistoryItemCache.connectDate.map(connectDate));
+					sv.add(HistoryItemCache.thread.map(thread));
+					sv.add(HistoryItemCache.running.map(running));
+					sv.addAll(HistoryItemCache.map(info));
+					new HistoryItemCache(sv.toArray(new SetValue[sv.size()]));
 				}
 			}
 			{
