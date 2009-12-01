@@ -96,7 +96,7 @@ final class EnumFieldType<E extends Enum<E>>
 	{
 		try
 		{
-			return e.getDeclaringClass().getField(e.name()).getAnnotation(annotationClass);
+			return e.getDeclaringClass().getDeclaredField(e.name()).getAnnotation(annotationClass);
 		}
 		catch(NoSuchFieldException ex)
 		{
