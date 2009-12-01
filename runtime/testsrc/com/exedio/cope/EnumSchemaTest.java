@@ -265,4 +265,17 @@ public class EnumSchemaTest extends CopeAssert
 		Zwei,
 		@CopeSchemaValue(19) Drei;
 	}
+	
+	public void testSubclass()
+	{
+		assertEquals(1, getColumnValue(Subclass.Eins));
+		assertEquals(2, getColumnValue(Subclass.Zwei));
+	}
+	
+	enum Subclass
+	{
+		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },
+		@CopeSchemaValue(2) Zwei {@Override int zack(){ return 2; } };
+		abstract int zack();
+	}
 }
