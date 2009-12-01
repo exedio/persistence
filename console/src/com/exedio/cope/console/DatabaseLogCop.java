@@ -50,10 +50,12 @@ final class DatabaseLogCop extends ConsoleCop
 			final String threshold = request.getParameter(THRESHOLD).trim();
 			final String sql = request.getParameter(SQL).trim();
 			model.setDatabaseListener(
-					enable ? new DatabaseLogListener(
+					enable
+					? new DatabaseLogListener(
 							threshold.length()>0 ? Integer.parseInt(threshold) : 0,
 							sql.length()>0 ? sql : null,
-							System.out) : null);
+							System.out)
+					: null);
 		}
 	}
 	
