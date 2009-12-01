@@ -24,11 +24,13 @@ final class DatabaseLog_Jspm
 	final static void writeBody(
 			final DatabaseLogCop cop,
 			final Out out,
+			final Class listenerClass,
 			final boolean enable,
 			final int threshold,
 			final String sql)
 	{
 		%>
+		active: <%= listenerClass!=null ? listenerClass.getName() : "NONE" %>
 		<form action="<%=cop%>" method="POST">
 			<input type="checkbox" name="<%=cop.ENABLE%>"<%if(enable){%> checked="checked"<%}%>> enable
 			<br>

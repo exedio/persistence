@@ -18,8 +18,9 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.List;
+
+import com.exedio.cope.misc.DatabaseListener;
 
 public class DatabaseLogTest extends AbstractRuntimeTest
 {
@@ -36,99 +37,93 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MatchItem());
 	}
+
+	@Override
+	public void tearDown() throws Exception
+	{
+		model.setDatabaseListener(null);
+		super.tearDown();
+	}
 	
 	public void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
 		model.setTestDatabaseListener(l);
 		
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
+		assertEquals(null, model.getDatabaseListener());
 		
-		final ByteArrayOutputStream o1 = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 0, null, new PrintStream(o1));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		assertEquals(0, o1.size());
+		final DBL dbl = new DBL();
+		model.setDatabaseListener(dbl);
+		assertSame(dbl, model.getDatabaseListener());
 		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string1"));
 		l.verifyExpectations();
-		assertTrue(s(o1), s(o1).indexOf("select")>0);
+		dbl.assertSql("select");
 		item.setText("string1");
-		assertTrue(s(o1), s(o1).indexOf("update")>0);
-		assertTrue(s(o1), s(o1).indexOf("select")>0);
+		dbl.assertSql("update");
 		
-		final ByteArrayOutputStream o2 = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 5000, null, new PrintStream(o2));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(5000, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
+		final DBL dbl2 = new DBL();
+		model.setDatabaseListener(dbl2);
+		assertSame(dbl2, model.getDatabaseListener());
 		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
+		dbl2.assertSql("select");
 		item.setText("string2");
-		assertEquals(0, o2.size());
+		dbl2.assertSql("update");
+		dbl.assertSqlEmpty();
 		
-		final ByteArrayOutputStream o2a = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 0, "update", new PrintStream(o2a));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals("update", model.getDatabaseLogSQL());
+		final DBL dbl3 = new DBL();
+		model.setDatabaseListener(dbl3);
+		assertSame(dbl3, model.getDatabaseListener());
 		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
+		dbl3.assertSql("select");
 		item.setText("string2");
-		assertEquals(0, o2.size());
-		assertFalse(s(o2a), s(o2a).indexOf("select")>0);
-		assertTrue(s(o2a), s(o2a).indexOf("update")>0);
-		o2a.reset();
-		assertEquals(0, o2a.size());
+		dbl3.assertSql("update");
+		dbl2.assertSqlEmpty();
+		dbl.assertSqlEmpty();
 		
-		final ByteArrayOutputStream o3 = new ByteArrayOutputStream();
-		model.setDatabaseLog(false, 60, null, new PrintStream(o3));
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
+		model.setDatabaseListener(null);
+		assertNull(model.getDatabaseListener());
 		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string3"));
 		l.verifyExpectations();
 		item.setText("string3");
-		assertEquals(0, o2.size());
-		assertEquals(0, o2a.size());
-		assertEquals(0, o3.size());
+		dbl2.assertSqlEmpty();
+		dbl.assertSqlEmpty();
 		
 		model.setTestDatabaseListener(null);
-		
-		try
-		{
-			model.setDatabaseLog(true, -60, "hallo", null);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("threshold must not be negative, but was -60", e.getMessage());
-		}
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		
-		try
-		{
-			model.setDatabaseLog(true, 120, "bello", null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("out", e.getMessage());
-		}
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
 	}
 	
-	private static final String s(final ByteArrayOutputStream o)
+	static final class DBL implements DatabaseListener
 	{
-		return new String(o.toByteArray());
+		private String sql = null;
+		
+		public void onStatement(
+				String sql,
+				List<Object> parameters,
+				long durationPrepare,
+				long durationExecute,
+				long durationRead,
+				long durationClose)
+		{
+			assertNull(this.sql);
+			assertNotNull(sql);
+			this.sql = sql;
+		}
+		
+		void assertSql(final String sql)
+		{
+			assertNotNull(this.sql);
+			assertTrue(this.sql, this.sql.startsWith(sql));
+			this.sql = null;
+		}
+		
+		void assertSqlEmpty()
+		{
+			assertNull(this.sql);
+		}
 	}
 }

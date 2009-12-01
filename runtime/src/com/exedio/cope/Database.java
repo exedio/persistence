@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
@@ -55,8 +56,6 @@ final class Database
 	final Dialect dialect;
 	private Revisions revisions; // TODO make final
 	final boolean prepare;
-	volatile DatabaseLogConfig log;
-	private final boolean logQueryInfo;
 	private final boolean fulltextIndex;
 	private final Pool<Connection> connectionPool;
 	final boolean mysqlLowerCaseTableNames;
@@ -68,6 +67,8 @@ final class Database
 	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
+	
+	volatile DatabaseListener listener = null;
 	
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
@@ -82,8 +83,6 @@ final class Database
 		this.dialect = dialect;
 		this.revisions = revisions;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
-		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = connectionPool;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
@@ -1003,8 +1002,8 @@ final class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final DatabaseLogConfig log = this.log;
-			final boolean takeTimes = !explain && (log!=null || this.logQueryInfo || (queryInfos!=null));
+			final DatabaseListener listener = this.listener;
+			final boolean takeTimes = !explain && (listener!=null || (queryInfos!=null));
 			final String sqlText = statement.getText();
 			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long timePrepared;
@@ -1048,16 +1047,13 @@ final class Database
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(log!=null)
-				log.log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
+			if(listener!=null)
+				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timeExecuted-timePrepared, timeResultRead-timeExecuted, timeEnd-timeResultRead);
 			
 			final QueryInfo queryInfo =
-				(this.logQueryInfo || (queryInfos!=null))
+				(queryInfos!=null)
 				? makeQueryInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
 				: null;
-			
-			if(this.logQueryInfo)
-				queryInfo.print(System.out);
 			
 			if(queryInfos!=null)
 				queryInfos.add(queryInfo);
@@ -1104,15 +1100,15 @@ final class Database
 		try
 		{
 			final String sqlText = statement.getText();
-			final DatabaseLogConfig log = this.log;
-			final long timeStart = log!=null ? System.currentTimeMillis() : 0;
+			final DatabaseListener listener = this.listener;
+			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
 			final int rows;
 			
 			final long timePrepared;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
 				rows = sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -1122,14 +1118,14 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
 				rows = prepared.executeUpdate();
 			}
 			
-			final long timeEnd = log!=null ? System.currentTimeMillis() : 0;
+			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
 
-			if(log!=null)
-				log.log(statement, timeStart, timePrepared, timeEnd);
+			if(listener!=null)
+				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timePrepared-timeEnd, 0, 0);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(checkRows && rows!=1)
@@ -1167,14 +1163,14 @@ final class Database
 		try
 		{
 			final String sqlText = statement.getText();
-			final DatabaseLogConfig log = this.log;
-			final long timeStart = log!=null ? System.currentTimeMillis() : 0;
+			final DatabaseListener listener = this.listener;
+			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
 			
 			final long timePrepared;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
 				sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -1184,14 +1180,14 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
 				prepared.executeUpdate();
 			}
 			
-			final long timeEnd = log!=null ? System.currentTimeMillis() : 0;
+			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
 
-			if(log!=null)
-				log.log(statement, timeStart, timePrepared, timeEnd);
+			if(listener!=null)
+				listener.onStatement(sqlText, statement.getParameters(), timePrepared-timeStart, timeEnd-timePrepared, 0, 0);
 
 			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
 			return generatedKeysHandler.handle(generatedKeysResultSet);

@@ -21,6 +21,7 @@ package com.exedio.cope.console;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.DatabaseListener;
 
 final class DatabaseLogCop extends ConsoleCop
 {
@@ -48,11 +49,11 @@ final class DatabaseLogCop extends ConsoleCop
 			final boolean enable = request.getParameter(ENABLE)!=null;
 			final String threshold = request.getParameter(THRESHOLD).trim();
 			final String sql = request.getParameter(SQL).trim();
-			model.setDatabaseLog(
-					enable,
-					threshold.length()>0 ? Integer.parseInt(threshold) : 0,
-					sql.length()>0 ? sql : null,
-					System.out);
+			model.setDatabaseListener(
+					enable ? new DatabaseLogListener(
+							threshold.length()>0 ? Integer.parseInt(threshold) : 0,
+							sql.length()>0 ? sql : null,
+							System.out) : null);
 		}
 	}
 	
@@ -63,9 +64,12 @@ final class DatabaseLogCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
+		final DatabaseListener listener = model.getDatabaseListener();
+		final boolean enabled = (listener instanceof DatabaseLogListener);
 		DatabaseLog_Jspm.writeBody(this, out,
-				model.isDatabaseLogEnabled(),
-				model.getDatabaseLogThreshold(),
-				model.getDatabaseLogSQL());
+				listener!=null ? listener.getClass() : null,
+				enabled,
+				enabled ? ((DatabaseLogListener)listener).threshold : 0,
+				enabled ? ((DatabaseLogListener)listener).sql       : null);
 	}
 }

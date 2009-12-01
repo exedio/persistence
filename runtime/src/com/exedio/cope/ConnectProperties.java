@@ -29,9 +29,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
-	private final BooleanField databaseLog = new BooleanField("database.log", false);
-	private final IntField databaseLogThreshold = new IntField("database.log.threshold", 0, 0);
-	private final BooleanField databaseLogQueryInfo = new BooleanField("database.logStatementInfo", false); // TODO rename property
 	
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
@@ -210,21 +207,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return databasePassword.getStringValue();
 	}
 	
-	public boolean getDatabaseLog()
-	{
-		return databaseLog.getBooleanValue();
-	}
-	
-	public int getDatabaseLogThreshold()
-	{
-		return databaseLogThreshold.getIntValue();
-	}
-
-	public boolean getDatabaseLogQueryInfo()
-	{
-		return databaseLogQueryInfo.getBooleanValue();
-	}
-	
 	public boolean getDatabaseDontSupportPreparedStatements()
 	{
 		return databaseDontSupportPreparedStatements.getBooleanValue();
@@ -319,15 +301,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public String getDatabase()
 	{
 		return getDialect();
-	}
-	
-	/**
-	 * @deprecated Use {@link #getDatabaseLogQueryInfo()} instead
-	 */
-	@Deprecated
-	public boolean getDatabaseLogStatementInfo()
-	{
-		return getDatabaseLogQueryInfo();
 	}
 	
 	/**

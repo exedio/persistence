@@ -16,20 +16,22 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.console;
 
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-final class DatabaseLogConfig
+import com.exedio.cope.misc.DatabaseListener;
+
+final class DatabaseLogListener implements DatabaseListener
 {
 	final int threshold;
 	final String sql;
 	private final PrintStream out;
 	
-	DatabaseLogConfig(final int threshold, final String sql, final PrintStream out)
+	DatabaseLogListener(final int threshold, final String sql, final PrintStream out)
 	{
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
@@ -40,25 +42,32 @@ final class DatabaseLogConfig
 		this.sql = sql;
 		this.out = out;
 	}
-
-	void log(final Statement statement, final long... times)
+	
+	public void onStatement(
+			final String statement,
+			final List<Object> parameters,
+			final long durationPrepare,
+			final long durationExecute,
+			final long durationRead,
+			final long durationClose)
 	{
-		if((times[times.length-1]-times[0])>=threshold &&
-			(sql==null || statement.text.indexOf(sql)>=0))
+		if((durationPrepare+durationExecute+durationRead+durationClose)>=threshold &&
+			(sql==null || statement.indexOf(sql)>=0))
 		{
 			final StringBuilder bf = new StringBuilder(
-					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
-			
-			for(int i = 1; i<times.length; i++)
-			{
-				bf.append('|');
-				bf.append(times[i]-times[i-1]);
-			}
+					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date()));
 			
 			bf.append('|');
-			bf.append(statement.text.toString());
+			bf.append(durationPrepare);
+			bf.append('|');
+			bf.append(durationExecute);
+			bf.append('|');
+			bf.append(durationRead);
+			bf.append('|');
+			bf.append(durationClose);
+			bf.append('|');
+			bf.append(statement);
 			
-			final ArrayList<Object> parameters = statement.parameters;
 			if(parameters!=null)
 			{
 				bf.append('|');

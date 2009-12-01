@@ -19,9 +19,11 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 final class Statement
@@ -485,5 +487,13 @@ final class Statement
 			throw new IllegalArgumentException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");
 		else
 			return tc;
+	}
+	
+	List<Object> getParameters()
+	{
+		if(parameters==null)
+			return null;
+		
+		return Collections.unmodifiableList(parameters);
 	}
 }

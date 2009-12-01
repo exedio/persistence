@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -36,6 +35,7 @@ import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.QueryCacheHistogram;
 import com.exedio.cope.info.QueryCacheInfo;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Constraint;
@@ -251,30 +251,15 @@ public final class Model
 	{
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && connect().dialect.supportsEmptyStrings();
 	}
-
-	public boolean isDatabaseLogEnabled()
+	
+	public DatabaseListener getDatabaseListener()
 	{
-		return connect().database.log!=null;
+		return connect().database.listener;
 	}
 	
-	/**
-	 * Threshold time in milliseconds.
-	 */
-	public int getDatabaseLogThreshold()
+	public void setDatabaseListener(final DatabaseListener listener)
 	{
-		final DatabaseLogConfig log = connect().database.log;
-		return log!=null ? log.threshold : 0;
-	}
-	
-	public String getDatabaseLogSQL()
-	{
-		final DatabaseLogConfig log = connect().database.log;
-		return log!=null ? log.sql : null;
-	}
-	
-	public void setDatabaseLog(final boolean enable, final int threshold, final String sql, final PrintStream out)
-	{
-		connect().database.log = enable ? new DatabaseLogConfig(threshold, sql, out) : null;
+		connect().database.listener = listener;
 	}
 	
 	/**
