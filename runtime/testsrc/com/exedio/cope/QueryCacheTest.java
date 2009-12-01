@@ -56,7 +56,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		assertEquals(list(), qch());
 		
 		final DBL l = new DBL();
-		model.setDatabaseListener(l);
+		model.setTestDatabaseListener(l);
 		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
 		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
 		
@@ -93,7 +93,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		model.clearCache();
 		assertEquals(list(), qch());
 		
-		model.setDatabaseListener(null);
+		model.setTestDatabaseListener(null);
 	}
 	
 	private QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
@@ -147,7 +147,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		}
 	}
 	
-	private class DBL implements DatabaseListener
+	private class DBL implements TestDatabaseListener
 	{
 		final ArrayList<SC> scs = new ArrayList<SC>();
 		

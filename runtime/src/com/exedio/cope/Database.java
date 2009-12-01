@@ -360,7 +360,7 @@ final class Database
 	{
 		buildStage = false;
 
-		listener.search(connection, query, totalOnly);
+		testListener.search(connection, query, totalOnly);
 		
 		final int offset = query.offset;
 		final int limit = query.limit;
@@ -618,7 +618,7 @@ final class Database
 		
 		final Type type = item.type;
 
-		listener.load(connection, item);
+		testListener.load(connection, item);
 		
 		final Statement bf = createStatement(type.supertype!=null);
 		bf.append("select ");
@@ -1752,7 +1752,7 @@ final class Database
 	
 	// listeners ------------------
 	
-	private static final DatabaseListener noopListener = new DatabaseListener()
+	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
 	{
 		public void load(Connection connection, Item item)
 		{/* DOES NOTHING */}
@@ -1761,22 +1761,22 @@ final class Database
 		{/* DOES NOTHING */}
 	};
 
-	private DatabaseListener listener = noopListener;
-	private final Object listenerLock = new Object();
+	private TestDatabaseListener testListener = noopTestListener;
+	private final Object testListenerLock = new Object();
 	
-	DatabaseListener setListener(DatabaseListener listener)
+	TestDatabaseListener setTestListener(TestDatabaseListener testListener)
 	{
-		if(listener==null)
-			listener = noopListener;
-		DatabaseListener result;
+		if(testListener==null)
+			testListener = noopTestListener;
+		TestDatabaseListener result;
 
-		synchronized(listenerLock)
+		synchronized(testListenerLock)
 		{
-			result = this.listener;
-			this.listener = listener;
+			result = this.testListener;
+			this.testListener = testListener;
 		}
 		
-		if(result==noopListener)
+		if(result==noopTestListener)
 			result = null;
 		return result;
 	}

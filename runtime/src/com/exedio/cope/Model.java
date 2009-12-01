@@ -280,9 +280,9 @@ public final class Model
 	/**
 	 * @return the listener previously registered for this model
 	 */
-	DatabaseListener setDatabaseListener(final DatabaseListener listener)
+	TestDatabaseListener setTestDatabaseListener(final TestDatabaseListener listener)
 	{
-		return connect().database.setListener(listener);
+		return connect().database.setTestListener(listener);
 	}
 	
 	public void createSchema()

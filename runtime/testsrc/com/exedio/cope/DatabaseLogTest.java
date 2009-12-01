@@ -40,7 +40,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 	public void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
-		model.setDatabaseListener(l);
+		model.setTestDatabaseListener(l);
 		
 		assertFalse(model.isDatabaseLogEnabled());
 		assertEquals(0, model.getDatabaseLogThreshold());
@@ -98,7 +98,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		assertEquals(0, o2a.size());
 		assertEquals(0, o3.size());
 		
-		model.setDatabaseListener(null);
+		model.setTestDatabaseListener(null);
 		
 		try
 		{

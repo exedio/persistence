@@ -28,7 +28,7 @@ import java.util.List;
  * in unit tests, and to verify that all these and no other calls have been made
  * to the wrapped database.
  */
-public class ExpectingDatabaseListener implements DatabaseListener
+public class ExpectingDatabaseListener implements TestDatabaseListener
 {
 	private List<Call> expectedCalls = null;
 	

@@ -80,7 +80,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		}
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
-		assertNull(model.setDatabaseListener(listener));
+		assertNull(model.setTestDatabaseListener(listener));
 		listener.expectLoad( txChangeItem, item );
 		assertEquals( "collision", collisionItem.getName() );
 		assertEquals( "blub", item.getName() );
@@ -97,7 +97,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.commit();
 		assertInvalidations(3, 1);
 		model.startTransaction("just for tearDown");
-		assertSame(listener, model.setDatabaseListener(null));
+		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 	
 	public void testRollback() throws MandatoryViolationException
@@ -111,7 +111,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.clearCache();
 		final Transaction txLoadCache = model.startTransaction("loadcache");
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
-		assertNull(model.setDatabaseListener(listener));
+		assertNull(model.setTestDatabaseListener(listener));
 		listener.expectLoad( txLoadCache, item );
 		if ( model.supportsReadCommitted() )
 		{
@@ -138,7 +138,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		}
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
-		assertSame(listener, model.setDatabaseListener(null));
+		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
 	public void testSearch() throws MandatoryViolationException
@@ -152,7 +152,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
-		assertNull(model.setDatabaseListener(listener));
+		assertNull(model.setTestDatabaseListener(listener));
 		listener.expectSearch( txChange, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		listener.verifyExpectations();
@@ -173,7 +173,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.commit();
 		assertInvalidations(2, 0);
 		model.joinTransaction( txChange );
-		assertSame(listener, model.setDatabaseListener(null));
+		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 	
 	private final void assertInvalidations(final int ordered, final int done)

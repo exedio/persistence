@@ -162,10 +162,10 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			((File)i.next()).delete();
 		files.clear();
 
-		final DatabaseListener listener = model.setDatabaseListener(null);
+		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
 		
 		if(testCompletedSuccessfully())
-			assertNull("test didn't un-install ExpectingDatabase", listener);
+			assertNull("test didn't un-install TestDatabaseListener", testListener);
 		
 		super.tearDown();
 	}
