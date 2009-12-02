@@ -216,7 +216,7 @@ public class PatternTest extends AbstractRuntimeTest
 		assertEquals("superTypeStringAnn", PatternTestItem.testPattern.superTypeString.getAnnotation(TestAnnotation.class).value());
 		assertNull(PatternTestItem.testPattern.superTypeBoolean.getAnnotation(TestAnnotation.class));
 		assertEquals("subTypeIntegerAnn", PatternTestItem.testPattern.subTypeInteger.getAnnotation(TestAnnotation.class).value());
-		assertNull(superType.getAnnotation(TestAnnotation.class));
-		assertNull(subType.getAnnotation(TestAnnotation.class));
+		assertEquals("PatternTestTypeItemAnn", superType.getAnnotation(TestAnnotation.class).value());
+		assertEquals("PatternTestTypeItemAnn", subType  .getAnnotation(TestAnnotation.class).value());
 	}
 }

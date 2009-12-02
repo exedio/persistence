@@ -20,7 +20,9 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
+import com.exedio.cope.TestAnnotation;
 
+@TestAnnotation("PatternTestTypeItemAnn")
 final class PatternTestTypeItem extends Item
 {
 	private static final long serialVersionUID = 1l;

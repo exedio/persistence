@@ -449,10 +449,7 @@ public final class Type<T extends Item>
 	 */
 	public <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
-		return
-			bound
-			? javaClass.getAnnotation(annotationClass)
-			: null;
+		return javaClass.getAnnotation(annotationClass);
 	}
 	
 	void connect(final Database database)
