@@ -77,6 +77,27 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame(PatternTestItem.testPattern2, PatternTestItem.testPattern2.ownInt.getPattern());
 		assertSame(PatternTestItem.testPattern2, PatternTestItem.testPattern2.getOwnItem().getPattern());
 		
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern.ownString    .getType());
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern.ownInt       .getType());
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern.getOwnItem() .getType());
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern2.ownString   .getType());
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern2.ownInt      .getType());
+		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern2.getOwnItem().getType());
+		
+		assertSame("testPatternOwnString" , PatternTestItem.testPattern.ownString    .getName());
+		assertSame("testPatternOwnInt"    , PatternTestItem.testPattern.ownInt       .getName());
+		assertSame("testPatternOwnItem"   , PatternTestItem.testPattern.getOwnItem() .getName());
+		assertSame("testPattern2OwnString", PatternTestItem.testPattern2.ownString   .getName());
+		assertSame("testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getName());
+		assertSame("testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getName());
+		
+		assertSame("PatternTestItem.testPatternOwnString" , PatternTestItem.testPattern.ownString    .getID());
+		assertSame("PatternTestItem.testPatternOwnInt"    , PatternTestItem.testPattern.ownInt       .getID());
+		assertSame("PatternTestItem.testPatternOwnItem"   , PatternTestItem.testPattern.getOwnItem() .getID());
+		assertSame("PatternTestItem.testPattern2OwnString", PatternTestItem.testPattern2.ownString   .getID());
+		assertSame("PatternTestItem.testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getID());
+		assertSame("PatternTestItem.testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getID());
+		
 		// superType
 		final Type<?> superType = PatternTestItem.testPattern.getSuperType();
 		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
