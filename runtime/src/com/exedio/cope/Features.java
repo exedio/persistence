@@ -18,11 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 public final class Features
 {
@@ -74,16 +72,17 @@ public final class Features
 		return map.size();
 	}
 	
-	Set<Map.Entry<String, Feature>> entrySet()
-	{
-		return Collections.unmodifiableSet(map.entrySet());
-	}
-	
-	java.lang.reflect.Field getAnnotationSource(final Feature feature)
+	private java.lang.reflect.Field getAnnotationSource(final Feature feature)
 	{
 		if(annotationSources==null)
 			return null;
 		
 		return annotationSources.get(feature);
+	}
+	
+	void mount(final Type<?> type)
+	{
+		for(final Map.Entry<String, Feature> entry : map.entrySet())
+			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
 	}
 }
