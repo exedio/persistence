@@ -107,7 +107,11 @@ public abstract class Feature
 	
 	final void setAnnotationField(final java.lang.reflect.Field annotationField)
 	{
-		assert this.annotationField==null;
+		if(annotationField==null)
+			throw new NullPointerException("annotationField");
+		if(this.annotationField!=null)
+			throw new IllegalStateException("annotationField already set");
+		
 		this.annotationField = annotationField;
 	}
 	

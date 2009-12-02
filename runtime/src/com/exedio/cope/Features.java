@@ -50,6 +50,12 @@ public final class Features
 		map.put(name, feature);
 	}
 	
+	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationField)
+	{
+		put(name, feature);
+		feature.setAnnotationField(annotationField);
+	}
+	
 	public void clear()
 	{
 		map.clear();

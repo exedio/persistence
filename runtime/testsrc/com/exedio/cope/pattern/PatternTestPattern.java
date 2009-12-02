@@ -39,6 +39,7 @@ class PatternTestPattern extends Pattern
 	private Type<PatternItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
 
+	@TestAnnotation("superTypeStringAnn")
 	final StringField superTypeString = new StringField();
 	static final String SUPER_TYPE_STRING = "string";
 	
@@ -48,6 +49,7 @@ class PatternTestPattern extends Pattern
 	private Type<PatternItem> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
 	
+	@TestAnnotation("subTypeIntegerAnn")
 	final IntegerField subTypeInteger = new IntegerField();
 	static final String SUBTYPE_INTEGER= "integer";
 	
@@ -64,13 +66,13 @@ class PatternTestPattern extends Pattern
 		
 		//Create the super type.
 		final Features features = new Features(); 
-		features.put(SUPER_TYPE_STRING, this.superTypeString);
-		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean);
+		features.put(SUPER_TYPE_STRING, this.superTypeString, annotationField("superTypeString"));
+		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, annotationField("superTypeBoolean"));
 		this.superType = newSourceType(PatternItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 		
 		//Create sub type
 		features.clear();
-		features.put(SUBTYPE_INTEGER, subTypeInteger);
+		features.put(SUBTYPE_INTEGER, subTypeInteger, annotationField("subTypeInteger"));
 		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
 		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", annotationField("ownItem"));

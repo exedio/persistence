@@ -100,8 +100,7 @@ public final class TypesBound
 					featureAnnotation!=null
 					? featureAnnotation.value()
 					: field.getName();
-				features.put(featureName, feature);
-				feature.setAnnotationField(field);
+				features.put(featureName, feature, field);
 			}
 		}
 		catch(IllegalAccessException e)
