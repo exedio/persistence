@@ -41,6 +41,23 @@ public class PatternTest extends AbstractRuntimeTest
 	
 	public void testIt()
 	{
+		// type
+		assertEqualsUnmodifiable(
+				list(
+					PatternTestItem.TYPE.getThis(),
+					PatternTestItem.testPattern,
+					PatternTestItem.testPattern2
+				),
+				PatternTestItem.TYPE.getFeatures());
+		
+		assertSame(PatternTestItem.testPattern, PatternTestItem.TYPE.getFeature("testPattern"));
+		assertSame(PatternTestItem.testPattern2, PatternTestItem.TYPE.getFeature("testPattern2"));
+		
+		assertEqualsUnmodifiable(list(
+				), PatternTestItem.testPattern.getSourceFields());
+		assertEqualsUnmodifiable(list(
+				), PatternTestItem.testPattern2.getSourceFields());
+		
 		// superType
 		final Type<?> superType = PatternTestItem.testPattern.getSuperType();
 		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
@@ -59,21 +76,23 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(
 				list(
+					superType.getThis(),
 					PatternTestItem.testPattern.superTypeString,
 					PatternTestItem.testPattern.superTypeBoolean
 				),
-				superType.getFields() );
+				superType.getFeatures());
 		
 		assertTrue(superType.isAbstract());
 		assertFalse(subType.isAbstract());
 		
 		assertEqualsUnmodifiable(
 				list(
+					subType.getThis(),
 					PatternTestItem.testPattern.superTypeString,
 					PatternTestItem.testPattern.superTypeBoolean,
 					PatternTestItem.testPattern.subTypeInteger
 				),
-				subType.getFields() );
+				subType.getFeatures());
 		
 		//type hierarchy
 		assertEquals(null, superType.getSupertype());
