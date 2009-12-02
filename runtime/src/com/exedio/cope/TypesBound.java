@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
@@ -62,11 +63,7 @@ public final class TypesBound
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 		
 		// id
-		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
-		final String id =
-			annotation!=null
-			? annotation.value()
-			: javaClass.getSimpleName();
+		final String id = id(javaClass, javaClass.getSimpleName());
 		
 		// abstract
 		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
@@ -80,7 +77,7 @@ public final class TypesBound
 		else
 			supertype = forClass(castSupertype(superclass));
 		
-		// featureMap
+		// features
 		final Features features = new Features();
 		try
 		{
@@ -95,11 +92,7 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
-				final CopeID featureAnnotation = field.getAnnotation(CopeID.class);
-				final String featureName =
-					featureAnnotation!=null
-					? featureAnnotation.value()
-					: field.getName();
+				final String featureName = id(field, field.getName());
 				features.put(featureName, feature, field);
 			}
 		}
@@ -131,6 +124,16 @@ public final class TypesBound
 	}
 	
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
+	
+	private static final String id(final AnnotatedElement annotatedElement, final String fallback)
+	{
+		final CopeID featureAnnotation =
+			annotatedElement.getAnnotation(CopeID.class);
+		return
+			featureAnnotation!=null
+			? featureAnnotation.value()
+			: fallback;
+	}
 	
 	
 	// ItemField
