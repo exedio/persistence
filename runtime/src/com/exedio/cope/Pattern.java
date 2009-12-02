@@ -55,6 +55,7 @@ import java.util.List;
 public abstract class Pattern extends Feature
 {
 	private LinkedHashMap<Field, String> sourceFieldMapGather = new LinkedHashMap<Field, String>();
+	private LinkedHashMap<Field, java.lang.reflect.Field> sourceFieldAnnGather = new LinkedHashMap<Field, java.lang.reflect.Field>();
 	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
 	
@@ -79,8 +80,12 @@ public abstract class Pattern extends Feature
 	
 	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationField)
 	{
+		if(annotationField==null)
+			throw new NullPointerException("annotationField");
+		
 		addSource(field, postfix);
-		field.setAnnotationField(annotationField);
+		if(sourceFieldAnnGather.put(field, annotationField)!=null)
+			throw new RuntimeException();
 	}
 	
 	protected final java.lang.reflect.Field annotationField(final String name)
@@ -137,15 +142,15 @@ public abstract class Pattern extends Feature
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name)
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
 	{
-		super.mount(type, name);
+		super.mount(type, name, annotationField);
 		initialize();
 
 		for(final Field<?> source : sourceFieldMapGather.keySet())
 		{
 			if(!source.isMounted())
-				source.mount(type, name + sourceFieldMapGather.get(source));
+				source.mount(type, name + sourceFieldMapGather.get(source), sourceFieldAnnGather.get(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))

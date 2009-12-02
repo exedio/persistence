@@ -31,15 +31,15 @@ public abstract class Feature
 {
 	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mount = null;
-	private java.lang.reflect.Field annotationField = null;
 	
 	private static final class Mount
 	{
 		final Type<? extends Item> type;
 		final String name;
 		final String id;
+		private final java.lang.reflect.Field annotationField;
 		
-		Mount(final Type<? extends Item> type, final String name)
+		Mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
 		{
 			assert type!=null;
 			assert name!=null;
@@ -47,6 +47,15 @@ public abstract class Feature
 			this.type = type;
 			this.name = intern(name);
 			this.id =   intern(type.id + '.' + name);
+			this.annotationField = annotationField;
+		}
+		
+		final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
+		{
+			return
+				annotationField!=null
+				? annotationField.getAnnotation(annotationClass)
+				: null;
 		}
 		
 		void toString(final StringBuilder bf, final Type defaultType)
@@ -58,7 +67,7 @@ public abstract class Feature
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void mount(final Type<? extends Item> type, final String name)
+	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
 	{
 		{
 			final int l = name.length();
@@ -69,7 +78,7 @@ public abstract class Feature
 		
 		if(this.mount!=null)
 			throw new IllegalStateException("feature already mounted: " + mount.id);
-		this.mount = new Mount(type, name);
+		this.mount = new Mount(type, name, annotationField);
 		
 		type.registerMounted(this);
 	}
@@ -105,25 +114,12 @@ public abstract class Feature
 		return mount().id;
 	}
 	
-	final void setAnnotationField(final java.lang.reflect.Field annotationField)
-	{
-		if(annotationField==null)
-			throw new NullPointerException("annotationField");
-		if(this.annotationField!=null)
-			throw new IllegalStateException("annotationField already set");
-		
-		this.annotationField = annotationField;
-	}
-	
 	/**
 	 * @see Class#getAnnotation(Class)
 	 */
 	public final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
-		return
-			annotationField!=null
-			? annotationField.getAnnotation(annotationClass)
-			: null;
+		return mount().getAnnotation(annotationClass);
 	}
 	
 	String getSchemaName()

@@ -222,9 +222,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	private Column column;
 	
 	@Override
-	void mount(final Type<? extends Item> type, final String name)
+	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
 	{
-		super.mount(type, name);
+		super.mount(type, name, annotationField);
 		
 		this.pattern = this.patternWhileTypeInitialization;
 		this.patternWhileTypeInitialization = null;

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import java.util.Set;
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
+	private HashMap<Feature, java.lang.reflect.Field> annotationFields = null;
 	
 	public Features()
 	{
@@ -52,8 +54,14 @@ public final class Features
 	
 	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationField)
 	{
+		if(annotationField==null)
+			throw new NullPointerException("annotationField");
 		put(name, feature);
-		feature.setAnnotationField(annotationField);
+		
+		if(annotationFields==null)
+			annotationFields = new HashMap<Feature, java.lang.reflect.Field>();
+		if(annotationFields.put(feature, annotationField)!=null)
+			throw new RuntimeException();
 	}
 	
 	public void clear()
@@ -69,5 +77,13 @@ public final class Features
 	Set<Map.Entry<String, Feature>> entrySet()
 	{
 		return Collections.unmodifiableSet(map.entrySet());
+	}
+	
+	java.lang.reflect.Field getAnnotationField(final Feature feature)
+	{
+		if(annotationFields==null)
+			return null;
+		
+		return annotationFields.get(feature);
 	}
 }
