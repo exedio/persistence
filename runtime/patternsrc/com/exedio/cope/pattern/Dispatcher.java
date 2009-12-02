@@ -24,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
@@ -32,6 +31,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -90,7 +90,7 @@ public final class Dispatcher extends Pattern
 
 		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		failureFailures = PartOf.newPartOf(failureParent);
-		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
+		final Features features = new Features();
 		features.put("parent", failureParent);
 		features.put("failures", failureFailures);
 		features.put("date", failureDate);

@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +30,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -105,7 +105,7 @@ public final class Schedule extends Pattern
 		
 		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		runRuns = PartOf.newPartOf(runParent);
-		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
+		final Features features = new Features();
 		features.put("parent", runParent);
 		features.put("runs",  runRuns);
 		features.put("from",  runFrom);

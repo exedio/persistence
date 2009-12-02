@@ -24,7 +24,6 @@ import static java.lang.Math.max;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
@@ -32,6 +31,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -150,7 +150,7 @@ public final class DynamicModel<L> extends Pattern
 	@Override
 	protected void initialize()
 	{
-		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
+		final Features features = new Features();
 		features.put("code", typeCode);
 		features.put("name", typeLocalization);
 		typeType = castType(newSourceType(Type.class, features, "Type"));

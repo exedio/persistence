@@ -23,13 +23,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Feature;
+import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -71,7 +70,7 @@ public final class SetField<E> extends Pattern
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, element);
-		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
+		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueConstraint);

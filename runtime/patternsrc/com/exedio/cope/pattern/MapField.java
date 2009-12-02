@@ -22,11 +22,10 @@ import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Feature;
+import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -71,7 +70,7 @@ public final class MapField<K,V> extends Pattern
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, key);
-		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
+		final Features relationTypeFeatures = new Features();
 		relationTypeFeatures.put("parent", parent);
 		relationTypeFeatures.put("key", key);
 		relationTypeFeatures.put("uniqueConstraint", uniqueConstraint);

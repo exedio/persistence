@@ -22,12 +22,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Feature;
+import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -69,7 +68,7 @@ public final class ListField<E> extends AbstractListField<E>
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, order);
-		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
+		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
