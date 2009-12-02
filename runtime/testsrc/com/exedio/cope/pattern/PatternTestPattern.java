@@ -33,16 +33,16 @@ class PatternTestPattern extends Pattern
 	private Type<PatternItem> abstractType = null;
 	static final String ABSTRACTTYPE_POSTFIX = "AbstractType";
 
-	private StringField superTypeString = null;
+	private final StringField superTypeString = new StringField();
 	static final String ABSTRACTTYPE_STRING = "string";
 	
-	private BooleanField superTypeBoolean = null;
+	private final BooleanField superTypeBoolean = new BooleanField();
 	static final String ABSTRACTTYPE_BOOLEAN = "boolean";
 	
 	private Type<? extends Item> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
 	
-	private IntegerField subTypeInteger = null;
+	private final IntegerField subTypeInteger = new IntegerField();
 	static final String SUBTYPE_INTEGER= "integer";
 	
 	@Override
@@ -52,15 +52,12 @@ class PatternTestPattern extends Pattern
 		
 		//Create the super type.
 		LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>(); 
-		this.superTypeString = new StringField();
 		features.put(ABSTRACTTYPE_STRING, this.superTypeString);
-		this.superTypeBoolean = new BooleanField();
 		features.put(ABSTRACTTYPE_BOOLEAN, this.superTypeBoolean);
 		this.abstractType = newSourceType(PatternItem.class, true, null, features, ABSTRACTTYPE_POSTFIX);
 		
 		//Create sub type
 		features = new LinkedHashMap<String, Feature>();
-		this.subTypeInteger = new IntegerField();
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
 		this.subType = newSourceType(PatternItem.class, false, abstractType, features, SUBTYPE_POSTFIX);
 	}
