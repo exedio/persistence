@@ -320,6 +320,7 @@
 				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 			</fileset>
 		</instrument>
 	</target>

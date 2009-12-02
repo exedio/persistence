@@ -34,9 +34,9 @@ class PatternTestPattern extends Pattern
 	@TestAnnotation("ownIntAnn")
 	final IntegerField ownInt = new IntegerField();
 	@TestAnnotation("ownItemAnn")
-	private ItemField<PatternItem> ownItem;
+	private ItemField<PatternTestTypeItem> ownItem;
 	
-	private Type<PatternItem> superType = null;
+	private Type<PatternTestTypeItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
 
 	@TestAnnotation("superTypeStringAnn")
@@ -46,7 +46,7 @@ class PatternTestPattern extends Pattern
 	final BooleanField superTypeBoolean = new BooleanField();
 	static final String SUPER_TYPE_BOOLEAN = "boolean";
 	
-	private Type<PatternItem> subType = null;
+	private Type<PatternTestTypeItem> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
 	
 	@TestAnnotation("subTypeIntegerAnn")
@@ -68,27 +68,27 @@ class PatternTestPattern extends Pattern
 		final Features features = new Features(); 
 		features.put(SUPER_TYPE_STRING, this.superTypeString, annotationField("superTypeString"));
 		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, annotationField("superTypeBoolean"));
-		this.superType = newSourceType(PatternItem.class, true, null, features, SUPER_TYPE_POSTFIX);
+		this.superType = newSourceType(PatternTestTypeItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 		
 		//Create sub type
 		features.clear();
 		features.put(SUBTYPE_INTEGER, subTypeInteger, annotationField("subTypeInteger"));
-		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
+		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
 		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", annotationField("ownItem"));
 	}
 	
-	ItemField<PatternItem> getOwnItem()
+	ItemField<PatternTestTypeItem> getOwnItem()
 	{
 		return ownItem;
 	}
 	
-	public Type<PatternItem> getSuperType()
+	public Type<PatternTestTypeItem> getSuperType()
 	{
 		return superType;
 	}
 
-	public Type<PatternItem> getSubType()
+	public Type<PatternTestTypeItem> getSubType()
 	{
 		return subType;
 	}
