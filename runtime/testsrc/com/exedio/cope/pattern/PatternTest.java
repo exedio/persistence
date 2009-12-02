@@ -100,8 +100,8 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertNull(PatternTestItem.testPattern.ownString    .getAnnotation(TestAnnotation.class));
 		assertNull(PatternTestItem.testPattern2.ownString   .getAnnotation(TestAnnotation.class));
-		assertEquals("ownIntAnn",  PatternTestItem.testPattern.ownInt       .getAnnotation(TestAnnotation.class).value());
-		assertEquals("ownItemAnn", PatternTestItem.testPattern.getOwnItem() .getAnnotation(TestAnnotation.class).value());
+		assertEquals("ownIntAnn",  PatternTestItem.testPattern.ownInt        .getAnnotation(TestAnnotation.class).value());
+		assertEquals("ownItemAnn", PatternTestItem.testPattern.getOwnItem()  .getAnnotation(TestAnnotation.class).value());
 		assertEquals("ownIntAnn",  PatternTestItem.testPattern2.ownInt       .getAnnotation(TestAnnotation.class).value());
 		assertEquals("ownItemAnn", PatternTestItem.testPattern2.getOwnItem() .getAnnotation(TestAnnotation.class).value());
 		
