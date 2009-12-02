@@ -31,19 +31,19 @@ import com.exedio.cope.Type;
 class PatternTestPattern extends Pattern
 {
 	private Type<PatternItem> abstractType = null;
-	public static final String ABSTRACTTYPE_POSTFIX = "AbstractType";
+	static final String ABSTRACTTYPE_POSTFIX = "AbstractType";
 
 	private StringField superTypeString = null;
-	public static final String ABSTRACTTYPE_STRING = "string";
+	static final String ABSTRACTTYPE_STRING = "string";
 	
 	private BooleanField superTypeBoolean = null;
-	public static final String ABSTRACTTYPE_BOOLEAN = "boolean";
+	static final String ABSTRACTTYPE_BOOLEAN = "boolean";
 	
 	private Type<? extends Item> subType = null;
-	public static final String SUBTYPE_POSTFIX = "SubType";
+	static final String SUBTYPE_POSTFIX = "SubType";
 	
 	private IntegerField subTypeInteger = null;
-	public static final String SUBTYPE_INTEGER= "integer";
+	static final String SUBTYPE_INTEGER= "integer";
 	
 	@Override
 	protected void initialize()
