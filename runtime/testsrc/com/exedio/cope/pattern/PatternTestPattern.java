@@ -28,7 +28,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 
-class TypeInheritanceTestPattern extends Pattern
+class PatternTestPattern extends Pattern
 {
 	private Type<PatternItem> abstractType = null;
 	public static final String ABSTRACTTYPE_POSTFIX = "AbstractType";

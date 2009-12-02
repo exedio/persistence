@@ -26,11 +26,11 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 
-public class TypeInheritancePatternTest extends AbstractRuntimeTest
+public class PatternTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(TypeInheritanceTestPatternItem.TYPE);
+	public static final Model MODEL = new Model(PatternTestItem.TYPE);
 	
-	public TypeInheritancePatternTest()
+	public PatternTest()
 	{
 		super(MODEL);
 	}
@@ -44,20 +44,20 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		//abstract type
-		final Type<?> abstractType = TypeInheritanceTestPatternItem.testPattern.getAbstractType();
-		final StringField abstractTypeString = (StringField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_STRING);
-		final BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(TypeInheritanceTestPattern.ABSTRACTTYPE_BOOLEAN);
+		final Type<?> abstractType = PatternTestItem.testPattern.getAbstractType();
+		final StringField abstractTypeString = (StringField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING);
+		final BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN);
 
 		//sub type
-		final Type<?> subType = TypeInheritanceTestPatternItem.testPattern.getSubType();
-		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(TypeInheritanceTestPattern.SUBTYPE_INTEGER);
+		final Type<?> subType = PatternTestItem.testPattern.getSubType();
+		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER);
 		
 		assertSame(PatternItem.class, abstractType.getJavaClass());
 		assertSame(PatternItem.class, subType.getJavaClass());
 		assertEquals(false, abstractType.isBound());
 		assertEquals(false, subType.isBound());
-		assertEquals(TypeInheritanceTestPatternItem.testPattern, abstractType.getPattern());
-		assertEquals(TypeInheritanceTestPatternItem.testPattern, subType.getPattern());
+		assertEquals(PatternTestItem.testPattern, abstractType.getPattern());
+		assertEquals(PatternTestItem.testPattern, subType.getPattern());
 		
 		assertEqualsUnmodifiable(
 				list(
@@ -112,18 +112,18 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		assertTrue(abstractType.isAssignableFrom(abstractType));
 		assertFalse(subType.isAssignableFrom(abstractType));
 		
-		final Type<?> abstractType2 = TypeInheritanceTestPatternItem.testPattern2.getAbstractType();
-		final Type<?> subType2 = TypeInheritanceTestPatternItem.testPattern2.getSubType();
+		final Type<?> abstractType2 = PatternTestItem.testPattern2.getAbstractType();
+		final Type<?> subType2 = PatternTestItem.testPattern2.getSubType();
 		assertFalse(abstractType.isAssignableFrom(subType2));
 		assertFalse(abstractType2.isAssignableFrom(subType));
 		assertFalse(abstractType.isAssignableFrom(abstractType2));
 		assertFalse(subType.isAssignableFrom(subType2));
 		
 		//getID
-		assertEquals("TypeInheritanceTestPatternItem.testPatternAbstractType", abstractType.getID());
-		assertEquals("TypeInheritanceTestPatternItem.testPatternSubType", subType.getID());
-		assertEquals("TypeInheritanceTestPatternItem.testPattern2AbstractType", abstractType2.getID());
-		assertEquals("TypeInheritanceTestPatternItem.testPattern2SubType", subType2.getID());
+		assertEquals("PatternTestItem.testPatternAbstractType", abstractType.getID());
+		assertEquals("PatternTestItem.testPatternSubType", subType.getID());
+		assertEquals("PatternTestItem.testPattern2AbstractType", abstractType2.getID());
+		assertEquals("PatternTestItem.testPattern2SubType", subType2.getID());
 		
 		//creating instances
 		try
@@ -133,7 +133,7 @@ public class TypeInheritancePatternTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("cannot create item of abstract type TypeInheritanceTestPatternItem.testPatternAbstractType", e.getMessage());
+			assertEquals("cannot create item of abstract type PatternTestItem.testPatternAbstractType", e.getMessage());
 		}
 		
 		final Item item = subType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));

@@ -60,7 +60,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ScheduleTest.class);
 		suite.addTestSuite(RangeTest.class);
 		suite.addTestSuite(RangeFieldTest.class);
-		suite.addTestSuite(TypeInheritancePatternTest.class);
+		suite.addTestSuite(PatternTest.class);
 		return suite;
 	}
 }
