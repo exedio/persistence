@@ -105,12 +105,17 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final <T extends Item> Type<T> newSourceType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features)
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final LinkedHashMap<String, Feature> features)
 	{
 		return newSourceType(javaClass, features, "");
 	}
 	
-	protected final <T extends Item> Type<T> newSourceType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final LinkedHashMap<String, Feature> features,
+			final String postfix)
 	{
 		return newSourceType(javaClass, false, null, features, postfix);
 	}
