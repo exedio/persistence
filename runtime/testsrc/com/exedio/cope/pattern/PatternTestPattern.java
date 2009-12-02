@@ -27,13 +27,16 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
 import com.exedio.cope.ItemField.DeletePolicy;
 
 class PatternTestPattern extends Pattern
 {
 	final StringField ownString = new StringField();
+	@TestAnnotation("ownIntAnn")
 	final IntegerField ownInt = new IntegerField();
+	@TestAnnotation("ownItemAnn")
 	private ItemField<PatternItem> ownItem;
 	
 	private Type<PatternItem> superType = null;
@@ -53,8 +56,8 @@ class PatternTestPattern extends Pattern
 	
 	PatternTestPattern()
 	{
-		addSource(ownString, "OwnString");
-		addSource(ownInt, "OwnInt");
+		addSource(ownString, "OwnString", annotationField("ownString"));
+		addSource(ownInt, "OwnInt", annotationField("ownInt"));
 	}
 	
 	@Override
@@ -73,7 +76,7 @@ class PatternTestPattern extends Pattern
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
 		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
-		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem");
+		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", annotationField("ownItem"));
 	}
 	
 	ItemField<PatternItem> getOwnItem()

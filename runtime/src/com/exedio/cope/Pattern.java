@@ -77,6 +77,24 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("duplicate addSource " + field + '/' + collision);
 	}
 	
+	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationField)
+	{
+		addSource(field, postfix);
+		field.setAnnotationField(annotationField);
+	}
+	
+	protected final java.lang.reflect.Field annotationField(final String name)
+	{
+		try
+		{
+			return getClass().getDeclaredField(name);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
