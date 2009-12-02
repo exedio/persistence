@@ -45,8 +45,8 @@ public class PatternTest extends AbstractRuntimeTest
 	{
 		//abstract type
 		final Type<?> abstractType = PatternTestItem.testPattern.getAbstractType();
-		final StringField abstractTypeString = (StringField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING);
-		final BooleanField abstractTypeBoolean = (BooleanField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN);
+		final StringField superTypeString = (StringField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING);
+		final BooleanField superTypeBoolean = (BooleanField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN);
 
 		//sub type
 		final Type<?> subType = PatternTestItem.testPattern.getSubType();
@@ -61,8 +61,8 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(
 				list(
-					abstractTypeString,
-					abstractTypeBoolean
+					superTypeString,
+					superTypeBoolean
 				),
 				abstractType.getFields() );
 		
@@ -71,8 +71,8 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(
 				list(
-					abstractTypeString,
-					abstractTypeBoolean,
+					superTypeString,
+					superTypeBoolean,
 					subTypeInteger
 				),
 				subType.getFields() );
@@ -128,7 +128,7 @@ public class PatternTest extends AbstractRuntimeTest
 		//creating instances
 		try
 		{
-			abstractType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)));			
+			abstractType.newItem(superTypeString.map("string1"), superTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -136,7 +136,7 @@ public class PatternTest extends AbstractRuntimeTest
 			assertEquals("cannot create item of abstract type PatternTestItem.testPatternAbstractType", e.getMessage());
 		}
 		
-		final Item item = subType.newItem(abstractTypeString.map("string1"), abstractTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));
+		final Item item = subType.newItem(superTypeString.map("string1"), superTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));
 		deleteOnTearDown(item);
 		
 		//casting
