@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
 
 public class PatternTest extends AbstractRuntimeTest
@@ -143,5 +144,13 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		//casting
 		assertSame(item, abstractType.cast(item));
+		
+		// getAnnotation
+		assertNull(PatternTestItem.testPattern.getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern.superTypeString.getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern.superTypeBoolean.getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern.subTypeInteger.getAnnotation(TestAnnotation.class));
+		assertNull(abstractType.getAnnotation(TestAnnotation.class));
+		assertNull(subType.getAnnotation(TestAnnotation.class));
 	}
 }
