@@ -24,14 +24,17 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.ItemField.DeletePolicy;
 
 class PatternTestPattern extends Pattern
 {
 	final StringField ownString = new StringField();
 	final IntegerField ownInt = new IntegerField();
+	private ItemField<PatternItem> ownItem;
 	
 	private Type<PatternItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
@@ -42,7 +45,7 @@ class PatternTestPattern extends Pattern
 	final BooleanField superTypeBoolean = new BooleanField();
 	static final String SUPER_TYPE_BOOLEAN = "boolean";
 	
-	private Type<? extends Item> subType = null;
+	private Type<PatternItem> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
 	
 	final IntegerField subTypeInteger = new IntegerField();
@@ -69,6 +72,13 @@ class PatternTestPattern extends Pattern
 		features = new LinkedHashMap<String, Feature>();
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
 		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
+		
+		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "ownItem");
+	}
+	
+	ItemField<PatternItem> getOwnItem()
+	{
+		return ownItem;
 	}
 	
 	public Type<? extends Item> getSuperType()
