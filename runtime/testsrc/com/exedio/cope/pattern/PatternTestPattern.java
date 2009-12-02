@@ -30,14 +30,14 @@ import com.exedio.cope.Type;
 
 class PatternTestPattern extends Pattern
 {
-	private Type<PatternItem> abstractType = null;
-	static final String ABSTRACTTYPE_POSTFIX = "AbstractType";
+	private Type<PatternItem> superType = null;
+	static final String SUPER_TYPE_POSTFIX = "UperType";
 
 	final StringField superTypeString = new StringField();
-	static final String ABSTRACTTYPE_STRING = "string";
+	static final String SUPER_TYPE_STRING = "string";
 	
 	final BooleanField superTypeBoolean = new BooleanField();
-	static final String ABSTRACTTYPE_BOOLEAN = "boolean";
+	static final String SUPER_TYPE_BOOLEAN = "boolean";
 	
 	private Type<? extends Item> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
@@ -52,19 +52,19 @@ class PatternTestPattern extends Pattern
 		
 		//Create the super type.
 		LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>(); 
-		features.put(ABSTRACTTYPE_STRING, this.superTypeString);
-		features.put(ABSTRACTTYPE_BOOLEAN, this.superTypeBoolean);
-		this.abstractType = newSourceType(PatternItem.class, true, null, features, ABSTRACTTYPE_POSTFIX);
+		features.put(SUPER_TYPE_STRING, this.superTypeString);
+		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean);
+		this.superType = newSourceType(PatternItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 		
 		//Create sub type
 		features = new LinkedHashMap<String, Feature>();
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
-		this.subType = newSourceType(PatternItem.class, false, abstractType, features, SUBTYPE_POSTFIX);
+		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
 	}
 	
-	public Type<? extends Item> getAbstractType()
+	public Type<? extends Item> getSuperType()
 	{
-		return abstractType;
+		return superType;
 	}
 
 	public Type<? extends Item> getSubType()

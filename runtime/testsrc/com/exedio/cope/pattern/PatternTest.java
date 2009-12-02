@@ -41,20 +41,20 @@ public class PatternTest extends AbstractRuntimeTest
 	
 	public void testIt()
 	{
-		//abstract type
-		final Type<?> abstractType = PatternTestItem.testPattern.getAbstractType();
-		assertSame(PatternTestItem.testPattern.superTypeString, abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING));
-		assertSame(PatternTestItem.testPattern.superTypeBoolean, abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN));
+		// superType
+		final Type<?> superType = PatternTestItem.testPattern.getSuperType();
+		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
+		assertSame(PatternTestItem.testPattern.superTypeBoolean, superType.getFeature(PatternTestPattern.SUPER_TYPE_BOOLEAN));
 
-		//sub type
+		// subType
 		final Type<?> subType = PatternTestItem.testPattern.getSubType();
 		assertSame(PatternTestItem.testPattern.subTypeInteger, subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER));
 		
-		assertSame(PatternItem.class, abstractType.getJavaClass());
+		assertSame(PatternItem.class, superType.getJavaClass());
 		assertSame(PatternItem.class, subType.getJavaClass());
-		assertEquals(false, abstractType.isBound());
+		assertEquals(false, superType.isBound());
 		assertEquals(false, subType.isBound());
-		assertEquals(PatternTestItem.testPattern, abstractType.getPattern());
+		assertEquals(PatternTestItem.testPattern, superType.getPattern());
 		assertEquals(PatternTestItem.testPattern, subType.getPattern());
 		
 		assertEqualsUnmodifiable(
@@ -62,9 +62,9 @@ public class PatternTest extends AbstractRuntimeTest
 					PatternTestItem.testPattern.superTypeString,
 					PatternTestItem.testPattern.superTypeBoolean
 				),
-				abstractType.getFields() );
+				superType.getFields() );
 		
-		assertTrue(abstractType.isAbstract());
+		assertTrue(superType.isAbstract());
 		assertFalse(subType.isAbstract());
 		
 		assertEqualsUnmodifiable(
@@ -76,18 +76,18 @@ public class PatternTest extends AbstractRuntimeTest
 				subType.getFields() );
 		
 		//type hierarchy
-		assertEquals(null, abstractType.getSupertype());
-		assertEquals(abstractType, subType.getSupertype());
+		assertEquals(null, superType.getSupertype());
+		assertEquals(superType, subType.getSupertype());
 		
-		assertEqualsUnmodifiable(list(subType), abstractType.getSubtypes());
+		assertEqualsUnmodifiable(list(subType), superType.getSubtypes());
 		assertEqualsUnmodifiable(list(), subType.getSubtypes());
-		assertEqualsUnmodifiable(list(abstractType, subType), abstractType.getSubtypesTransitively());
+		assertEqualsUnmodifiable(list(superType, subType), superType.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(subType), subType.getSubtypesTransitively());
 		assertEqualsUnmodifiable(
 				list(
 					subType
 				),
-				abstractType.getTypesOfInstances() );
+				superType.getTypesOfInstances() );
 		assertEqualsUnmodifiable(
 				list(
 					subType
@@ -98,42 +98,42 @@ public class PatternTest extends AbstractRuntimeTest
 		//assignable
 		try
 		{
-			abstractType.isAssignableFrom(null);
+			superType.isAssignableFrom(null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
-		assertTrue(abstractType.isAssignableFrom(subType));
+		assertTrue(superType.isAssignableFrom(subType));
 		assertTrue(subType.isAssignableFrom(subType));
-		assertTrue(abstractType.isAssignableFrom(abstractType));
-		assertFalse(subType.isAssignableFrom(abstractType));
+		assertTrue(superType.isAssignableFrom(superType));
+		assertFalse(subType.isAssignableFrom(superType));
 		
-		final Type<?> abstractType2 = PatternTestItem.testPattern2.getAbstractType();
+		final Type<?> superType2 = PatternTestItem.testPattern2.getSuperType();
 		final Type<?> subType2 = PatternTestItem.testPattern2.getSubType();
-		assertFalse(abstractType.isAssignableFrom(subType2));
-		assertFalse(abstractType2.isAssignableFrom(subType));
-		assertFalse(abstractType.isAssignableFrom(abstractType2));
+		assertFalse(superType.isAssignableFrom(subType2));
+		assertFalse(superType2.isAssignableFrom(subType));
+		assertFalse(superType.isAssignableFrom(superType2));
 		assertFalse(subType.isAssignableFrom(subType2));
 		
 		//getID
-		assertEquals("PatternTestItem.testPatternAbstractType", abstractType.getID());
+		assertEquals("PatternTestItem.testPatternUperType", superType.getID());
 		assertEquals("PatternTestItem.testPatternSubType", subType.getID());
-		assertEquals("PatternTestItem.testPattern2AbstractType", abstractType2.getID());
+		assertEquals("PatternTestItem.testPattern2UperType", superType2.getID());
 		assertEquals("PatternTestItem.testPattern2SubType", subType2.getID());
 		
 		//creating instances
 		try
 		{
-			abstractType.newItem(
+			superType.newItem(
 					PatternTestItem.testPattern.superTypeString.map("string1"),
 					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("cannot create item of abstract type PatternTestItem.testPatternAbstractType", e.getMessage());
+			assertEquals("cannot create item of abstract type PatternTestItem.testPatternUperType", e.getMessage());
 		}
 		
 		final Item item = subType.newItem(
@@ -143,14 +143,14 @@ public class PatternTest extends AbstractRuntimeTest
 		deleteOnTearDown(item);
 		
 		//casting
-		assertSame(item, abstractType.cast(item));
+		assertSame(item, superType.cast(item));
 		
 		// getAnnotation
 		assertNull(PatternTestItem.testPattern.getAnnotation(TestAnnotation.class));
 		assertNull(PatternTestItem.testPattern.superTypeString.getAnnotation(TestAnnotation.class));
 		assertNull(PatternTestItem.testPattern.superTypeBoolean.getAnnotation(TestAnnotation.class));
 		assertNull(PatternTestItem.testPattern.subTypeInteger.getAnnotation(TestAnnotation.class));
-		assertNull(abstractType.getAnnotation(TestAnnotation.class));
+		assertNull(superType.getAnnotation(TestAnnotation.class));
 		assertNull(subType.getAnnotation(TestAnnotation.class));
 	}
 }
