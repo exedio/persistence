@@ -70,12 +70,12 @@ public final class MapField<K,V> extends Pattern
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, key);
-		final Features relationTypeFeatures = new Features();
-		relationTypeFeatures.put("parent", parent);
-		relationTypeFeatures.put("key", key);
-		relationTypeFeatures.put("uniqueConstraint", uniqueConstraint);
-		relationTypeFeatures.put("value", value);
-		this.relationType = newSourceType(PatternItem.class, relationTypeFeatures);
+		final Features features = new Features();
+		features.put("parent", parent);
+		features.put("key", key);
+		features.put("uniqueConstraint", uniqueConstraint);
+		features.put("value", value);
+		this.relationType = newSourceType(PatternItem.class, features);
 	}
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
