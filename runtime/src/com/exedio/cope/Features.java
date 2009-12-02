@@ -27,7 +27,7 @@ import java.util.Set;
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
-	private HashMap<Feature, java.lang.reflect.Field> annotationFields = null;
+	private HashMap<Feature, java.lang.reflect.Field> annotationSources = null;
 	
 	public Features()
 	{
@@ -52,15 +52,15 @@ public final class Features
 		map.put(name, feature);
 	}
 	
-	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationField)
+	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
 	{
-		if(annotationField==null)
-			throw new NullPointerException("annotationField");
+		if(annotationSource==null)
+			throw new NullPointerException("annotationSource");
 		put(name, feature);
 		
-		if(annotationFields==null)
-			annotationFields = new HashMap<Feature, java.lang.reflect.Field>();
-		if(annotationFields.put(feature, annotationField)!=null)
+		if(annotationSources==null)
+			annotationSources = new HashMap<Feature, java.lang.reflect.Field>();
+		if(annotationSources.put(feature, annotationSource)!=null)
 			throw new RuntimeException();
 	}
 	
@@ -79,11 +79,11 @@ public final class Features
 		return Collections.unmodifiableSet(map.entrySet());
 	}
 	
-	java.lang.reflect.Field getAnnotationField(final Feature feature)
+	java.lang.reflect.Field getAnnotationSource(final Feature feature)
 	{
-		if(annotationFields==null)
+		if(annotationSources==null)
 			return null;
 		
-		return annotationFields.get(feature);
+		return annotationSources.get(feature);
 	}
 }

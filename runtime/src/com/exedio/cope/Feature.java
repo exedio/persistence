@@ -37,9 +37,9 @@ public abstract class Feature
 		final Type<? extends Item> type;
 		final String name;
 		final String id;
-		private final java.lang.reflect.Field annotationField;
+		private final java.lang.reflect.Field annotationSource;
 		
-		Mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
+		Mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 		{
 			assert type!=null;
 			assert name!=null;
@@ -47,14 +47,14 @@ public abstract class Feature
 			this.type = type;
 			this.name = intern(name);
 			this.id =   intern(type.id + '.' + name);
-			this.annotationField = annotationField;
+			this.annotationSource = annotationSource;
 		}
 		
 		final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 		{
 			return
-				annotationField!=null
-				? annotationField.getAnnotation(annotationClass)
+				annotationSource!=null
+				? annotationSource.getAnnotation(annotationClass)
 				: null;
 		}
 		
@@ -67,7 +67,7 @@ public abstract class Feature
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
+	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		{
 			final int l = name.length();
@@ -78,7 +78,7 @@ public abstract class Feature
 		
 		if(this.mount!=null)
 			throw new IllegalStateException("feature already mounted: " + mount.id);
-		this.mount = new Mount(type, name, annotationField);
+		this.mount = new Mount(type, name, annotationSource);
 		
 		type.registerMounted(this);
 	}

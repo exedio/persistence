@@ -149,7 +149,7 @@ public final class Type<T extends Item>
 		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
 		thisFunction.mount(this, This.NAME, null);
 		for(final Map.Entry<String, Feature> entry : featureMap.entrySet())
-			entry.getValue().mount(this, entry.getKey(), featureMap.getAnnotationField(entry.getValue()));
+			entry.getValue().mount(this, entry.getKey(), featureMap.getAnnotationSource(entry.getValue()));
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerMounted fails from now on

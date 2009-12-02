@@ -193,12 +193,12 @@ public abstract class View<E> extends Feature implements Function<E>
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
 			
-		super.mount(type, name, annotationField);
+		super.mount(type, name, annotationSource);
 	}
 	
 	@Override

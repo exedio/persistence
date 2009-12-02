@@ -78,13 +78,13 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("duplicate addSource " + field + '/' + collision);
 	}
 	
-	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationField)
+	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
-		if(annotationField==null)
-			throw new NullPointerException("annotationField");
+		if(annotationSource==null)
+			throw new NullPointerException("annotationSource");
 		
 		addSource(field, postfix);
-		if(sourceFieldAnnGather.put(field, annotationField)!=null)
+		if(sourceFieldAnnGather.put(field, annotationSource)!=null)
 			throw new RuntimeException();
 	}
 	
@@ -142,9 +142,9 @@ public abstract class Pattern extends Feature
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationField)
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
-		super.mount(type, name, annotationField);
+		super.mount(type, name, annotationSource);
 		initialize();
 
 		for(final Field<?> source : sourceFieldMapGather.keySet())
