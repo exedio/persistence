@@ -65,13 +65,13 @@ class PatternTestPattern extends Pattern
 		super.initialize();
 		
 		//Create the super type.
-		LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>(); 
+		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>(); 
 		features.put(SUPER_TYPE_STRING, this.superTypeString);
 		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean);
 		this.superType = newSourceType(PatternItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 		
 		//Create sub type
-		features = new LinkedHashMap<String, Feature>();
+		features.clear();
 		features.put(SUBTYPE_INTEGER, subTypeInteger);
 		this.subType = newSourceType(PatternItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
