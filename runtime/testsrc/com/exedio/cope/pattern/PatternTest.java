@@ -98,6 +98,13 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame("PatternTestItem.testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getID());
 		assertSame("PatternTestItem.testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getID());
 		
+		assertNull(PatternTestItem.testPattern.ownString    .getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern.ownInt       .getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern.getOwnItem() .getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern2.ownString   .getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern2.ownInt      .getAnnotation(TestAnnotation.class));
+		assertNull(PatternTestItem.testPattern2.getOwnItem().getAnnotation(TestAnnotation.class));
+		
 		// superType
 		final Type<?> superType = PatternTestItem.testPattern.getSuperType();
 		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
