@@ -128,7 +128,9 @@ public class PatternTest extends AbstractRuntimeTest
 		//creating instances
 		try
 		{
-			abstractType.newItem(superTypeString.map("string1"), superTypeBoolean.map(Boolean.valueOf(true)));			
+			abstractType.newItem(
+					superTypeString.map("string1"),
+					superTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -136,7 +138,10 @@ public class PatternTest extends AbstractRuntimeTest
 			assertEquals("cannot create item of abstract type PatternTestItem.testPatternAbstractType", e.getMessage());
 		}
 		
-		final Item item = subType.newItem(superTypeString.map("string1"), superTypeBoolean.map(Boolean.valueOf(true)), subTypeInteger.map(1));
+		final Item item = subType.newItem(
+				superTypeString.map("string1"),
+				superTypeBoolean.map(Boolean.valueOf(true)),
+				subTypeInteger.map(1));
 		deleteOnTearDown(item);
 		
 		//casting
