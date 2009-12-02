@@ -46,7 +46,11 @@ public class PatternTest extends AbstractRuntimeTest
 				list(
 					PatternTestItem.TYPE.getThis(),
 					PatternTestItem.testPattern,
-					PatternTestItem.testPattern2
+					PatternTestItem.testPattern.ownString,
+					PatternTestItem.testPattern.ownInt,
+					PatternTestItem.testPattern2,
+					PatternTestItem.testPattern2.ownString,
+					PatternTestItem.testPattern2.ownInt
 				),
 				PatternTestItem.TYPE.getFeatures());
 		
@@ -54,9 +58,18 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame(PatternTestItem.testPattern2, PatternTestItem.TYPE.getFeature("testPattern2"));
 		
 		assertEqualsUnmodifiable(list(
+					PatternTestItem.testPattern.ownString,
+					PatternTestItem.testPattern.ownInt
 				), PatternTestItem.testPattern.getSourceFields());
 		assertEqualsUnmodifiable(list(
+					PatternTestItem.testPattern2.ownString,
+					PatternTestItem.testPattern2.ownInt
 				), PatternTestItem.testPattern2.getSourceFields());
+		
+		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownString.getPattern());
+		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownInt.getPattern());
+		assertSame(PatternTestItem.testPattern2, PatternTestItem.testPattern2.ownString.getPattern());
+		assertSame(PatternTestItem.testPattern2, PatternTestItem.testPattern2.ownInt.getPattern());
 		
 		// superType
 		final Type<?> superType = PatternTestItem.testPattern.getSuperType();

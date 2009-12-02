@@ -30,6 +30,9 @@ import com.exedio.cope.Type;
 
 class PatternTestPattern extends Pattern
 {
+	final StringField ownString = new StringField();
+	final IntegerField ownInt = new IntegerField();
+	
 	private Type<PatternItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
 
@@ -44,6 +47,12 @@ class PatternTestPattern extends Pattern
 	
 	final IntegerField subTypeInteger = new IntegerField();
 	static final String SUBTYPE_INTEGER= "integer";
+	
+	PatternTestPattern()
+	{
+		addSource(ownString, "ownString");
+		addSource(ownInt, "ownInt");
+	}
 	
 	@Override
 	protected void initialize()
