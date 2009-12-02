@@ -33,16 +33,16 @@ class PatternTestPattern extends Pattern
 	private Type<PatternItem> abstractType = null;
 	static final String ABSTRACTTYPE_POSTFIX = "AbstractType";
 
-	private final StringField superTypeString = new StringField();
+	final StringField superTypeString = new StringField();
 	static final String ABSTRACTTYPE_STRING = "string";
 	
-	private final BooleanField superTypeBoolean = new BooleanField();
+	final BooleanField superTypeBoolean = new BooleanField();
 	static final String ABSTRACTTYPE_BOOLEAN = "boolean";
 	
 	private Type<? extends Item> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
 	
-	private final IntegerField subTypeInteger = new IntegerField();
+	final IntegerField subTypeInteger = new IntegerField();
 	static final String SUBTYPE_INTEGER= "integer";
 	
 	@Override

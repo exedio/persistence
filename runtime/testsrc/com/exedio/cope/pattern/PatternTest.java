@@ -19,11 +19,8 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.BooleanField;
-import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 
 public class PatternTest extends AbstractRuntimeTest
@@ -45,12 +42,12 @@ public class PatternTest extends AbstractRuntimeTest
 	{
 		//abstract type
 		final Type<?> abstractType = PatternTestItem.testPattern.getAbstractType();
-		final StringField superTypeString = (StringField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING);
-		final BooleanField superTypeBoolean = (BooleanField)abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN);
+		assertSame(PatternTestItem.testPattern.superTypeString, abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_STRING));
+		assertSame(PatternTestItem.testPattern.superTypeBoolean, abstractType.getFeature(PatternTestPattern.ABSTRACTTYPE_BOOLEAN));
 
 		//sub type
 		final Type<?> subType = PatternTestItem.testPattern.getSubType();
-		final IntegerField subTypeInteger = (IntegerField)subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER);
+		assertSame(PatternTestItem.testPattern.subTypeInteger, subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER));
 		
 		assertSame(PatternItem.class, abstractType.getJavaClass());
 		assertSame(PatternItem.class, subType.getJavaClass());
@@ -61,8 +58,8 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(
 				list(
-					superTypeString,
-					superTypeBoolean
+					PatternTestItem.testPattern.superTypeString,
+					PatternTestItem.testPattern.superTypeBoolean
 				),
 				abstractType.getFields() );
 		
@@ -71,9 +68,9 @@ public class PatternTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(
 				list(
-					superTypeString,
-					superTypeBoolean,
-					subTypeInteger
+					PatternTestItem.testPattern.superTypeString,
+					PatternTestItem.testPattern.superTypeBoolean,
+					PatternTestItem.testPattern.subTypeInteger
 				),
 				subType.getFields() );
 		
@@ -129,8 +126,8 @@ public class PatternTest extends AbstractRuntimeTest
 		try
 		{
 			abstractType.newItem(
-					superTypeString.map("string1"),
-					superTypeBoolean.map(Boolean.valueOf(true)));			
+					PatternTestItem.testPattern.superTypeString.map("string1"),
+					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));			
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -139,9 +136,9 @@ public class PatternTest extends AbstractRuntimeTest
 		}
 		
 		final Item item = subType.newItem(
-				superTypeString.map("string1"),
-				superTypeBoolean.map(Boolean.valueOf(true)),
-				subTypeInteger.map(1));
+				PatternTestItem.testPattern.superTypeString.map("string1"),
+				PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)),
+				PatternTestItem.testPattern.subTypeInteger.map(1));
 		deleteOnTearDown(item);
 		
 		//casting
