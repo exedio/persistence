@@ -23,7 +23,6 @@ import java.util.LinkedHashMap;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
@@ -84,12 +83,12 @@ class PatternTestPattern extends Pattern
 		return ownItem;
 	}
 	
-	public Type<? extends Item> getSuperType()
+	public Type<PatternItem> getSuperType()
 	{
 		return superType;
 	}
 
-	public Type<? extends Item> getSubType()
+	public Type<PatternItem> getSubType()
 	{
 		return subType;
 	}
