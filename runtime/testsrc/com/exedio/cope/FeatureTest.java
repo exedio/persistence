@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.LinkedHashMap;
-
 import com.exedio.cope.junit.CopeAssert;
 
 public class FeatureTest extends CopeAssert
@@ -60,7 +58,7 @@ public class FeatureTest extends CopeAssert
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 		
-		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
+		final Features features = new Features();
 		features.put("featureName", f);
 		final Type<AnItem> t = new Type<AnItem>(AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
 		

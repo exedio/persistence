@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -82,7 +81,7 @@ public final class TypesBound
 			supertype = forClass(castSupertype(superclass));
 		
 		// featureMap
-		final LinkedHashMap<String, Feature> featureMap = new LinkedHashMap<String, Feature>();
+		final Features features = new Features();
 		try
 		{
 			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
@@ -101,7 +100,7 @@ public final class TypesBound
 					featureAnnotation!=null
 					? featureAnnotation.value()
 					: field.getName();
-				featureMap.put(featureName, feature);
+				features.put(featureName, feature);
 				feature.setAnnotationField(field);
 			}
 		}
@@ -117,7 +116,7 @@ public final class TypesBound
 				null, // pattern
 				isAbstract,
 				supertype,
-				featureMap);
+				features);
 		
 		final Type previous = types.put(javaClass, result);
 		if(previous!=null)

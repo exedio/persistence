@@ -18,10 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.LinkedHashMap;
-
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Feature;
+import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
@@ -65,7 +63,7 @@ class PatternTestPattern extends Pattern
 		super.initialize();
 		
 		//Create the super type.
-		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>(); 
+		final Features features = new Features(); 
 		features.put(SUPER_TYPE_STRING, this.superTypeString);
 		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean);
 		this.superType = newSourceType(PatternItem.class, true, null, features, SUPER_TYPE_POSTFIX);

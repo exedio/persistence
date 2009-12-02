@@ -107,14 +107,14 @@ public abstract class Pattern extends Feature
 	
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
-			final LinkedHashMap<String, Feature> features)
+			final Features features)
 	{
 		return newSourceType(javaClass, features, "");
 	}
 	
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
-			final LinkedHashMap<String, Feature> features,
+			final Features features,
 			final String postfix)
 	{
 		return newSourceType(javaClass, false, null, features, postfix);
@@ -124,7 +124,7 @@ public abstract class Pattern extends Feature
 			final Class<T> javaClass,
 			final boolean isAbstract,
 			final Type<? super T> supertype,
-			final LinkedHashMap<String, Feature> features,
+			final Features features,
 			final String postfix)
 	{
 		if(sourceTypesWhileGather==null)
@@ -238,5 +238,33 @@ public abstract class Pattern extends Feature
 	protected final <T extends Item> Type<T> newType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		return newSourceType(javaClass, features, postfix);
+	}
+	
+	@Deprecated
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final LinkedHashMap<String, Feature> features)
+	{
+		return newSourceType(javaClass, new Features(features));
+	}
+	
+	@Deprecated
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final LinkedHashMap<String, Feature> features,
+			final String postfix)
+	{
+		return newSourceType(javaClass, new Features(features), postfix);
+	}
+
+	@Deprecated
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final boolean isAbstract,
+			final Type<? super T> supertype,
+			final LinkedHashMap<String, Feature> features,
+			final String postfix)
+	{
+		return newSourceType(javaClass, isAbstract, supertype, new Features(features), postfix);
 	}
 }

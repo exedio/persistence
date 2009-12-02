@@ -102,7 +102,7 @@ public final class Type<T extends Item>
 			final Pattern pattern,
 			final boolean isAbstract,
 			final Type<? super T> supertype,
-			final LinkedHashMap<String, Feature> featureMap)
+			final Features featureMap) // TODO rename
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
