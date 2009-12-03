@@ -57,7 +57,7 @@ public final class Features
 		
 		map.put(name, feature);
 		set.add(feature);
-		if(annotationSource==null)
+		if(annotationSource!=null)
 		{
 			if(annotationSources==null)
 				annotationSources = new HashMap<Feature, java.lang.reflect.Field>();
