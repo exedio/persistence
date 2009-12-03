@@ -240,7 +240,7 @@ public final class Type<T extends Item>
 		return result;
 	}
 	
-	private static final <F extends Feature> List<F> finish(final ArrayList<F> list)
+	static final <F extends Feature> List<F> finish(final ArrayList<F> list)
 	{
 		switch(list.size())
 		{

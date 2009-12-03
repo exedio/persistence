@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class Features
@@ -98,9 +100,9 @@ public final class Features
 			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
 	}
 	
-	LinkedHashMap<Field, String> mountPattern(final Type<?> type, final String name)
+	List<Field> mountPattern(final Type<?> type, final String name)
 	{
-		final LinkedHashMap<Field, String> result = new LinkedHashMap<Field, String>();
+		final ArrayList<Field> result = new ArrayList<Field>();
 		
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
@@ -112,10 +114,9 @@ public final class Features
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
 				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
-			if(result.put(source, postfix)!=null)
-				throw new RuntimeException(postfix);
+			result.add(source);
 		}
-		
-		return result;
+
+		return Type.finish(result);
 	}
 }

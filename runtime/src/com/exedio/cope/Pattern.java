@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,7 +54,6 @@ import java.util.List;
 public abstract class Pattern extends Feature
 {
 	private Features sourceFieldsGather = new Features();
-	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
 	
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
@@ -69,7 +67,6 @@ public abstract class Pattern extends Feature
 			throw new NullPointerException("field");
 		if(sourceFieldsGather==null)
 			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
-		assert sourceFieldMap== null;
 		assert sourceFieldList==null;
 		field.registerPattern(this);
 		sourceFieldsGather.put(postfix, field, annotationSource);
@@ -139,12 +136,8 @@ public abstract class Pattern extends Feature
 		super.mount(type, name, annotationSource);
 		initialize();
 
-		this.sourceFieldMap = sourceFieldsGather.mountPattern(type, name);
+		this.sourceFieldList = sourceFieldsGather.mountPattern(type, name);
 		this.sourceFieldsGather = null;
-		this.sourceFieldList =
-			sourceFieldMap.isEmpty()
-			? Collections.<Field>emptyList()
-			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
 		
 		this.sourceTypesWhileGather.trimToSize();
 		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
@@ -156,9 +149,8 @@ public abstract class Pattern extends Feature
 	 */
 	public List<? extends Field> getSourceFields()
 	{
-		if(sourceFieldMap==null)
+		if(sourceFieldList==null)
 			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
-		assert sourceFieldList!=null;
 		assert sourceFieldsGather==null;
 		return sourceFieldList;
 	}
