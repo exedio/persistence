@@ -54,7 +54,7 @@ import java.util.List;
  */
 public abstract class Pattern extends Feature
 {
-	private Features featuresGather = new Features();
+	private Features sourceFieldsGather = new Features();
 	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
 	
@@ -67,12 +67,12 @@ public abstract class Pattern extends Feature
 			throw new NullPointerException("postfix");
 		if(field==null)
 			throw new NullPointerException("field");
-		if(featuresGather==null)
+		if(sourceFieldsGather==null)
 			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
 		assert sourceFieldMap== null;
 		assert sourceFieldList==null;
 		field.registerPattern(this);
-		featuresGather.put(postfix, field, annotationSource);
+		sourceFieldsGather.put(postfix, field, annotationSource);
 	}
 	
 	protected final void addSource(final Field field, final String postfix)
@@ -139,8 +139,8 @@ public abstract class Pattern extends Feature
 		super.mount(type, name, annotationSource);
 		initialize();
 
-		this.sourceFieldMap = featuresGather.mountPattern(type, name);
-		this.featuresGather = null;
+		this.sourceFieldMap = sourceFieldsGather.mountPattern(type, name);
+		this.sourceFieldsGather = null;
 		this.sourceFieldList =
 			sourceFieldMap.isEmpty()
 			? Collections.<Field>emptyList()
@@ -159,7 +159,7 @@ public abstract class Pattern extends Feature
 		if(sourceFieldMap==null)
 			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
 		assert sourceFieldList!=null;
-		assert featuresGather==null;
+		assert sourceFieldsGather==null;
 		return sourceFieldList;
 	}
 
