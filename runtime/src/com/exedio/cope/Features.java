@@ -19,23 +19,29 @@
 package com.exedio.cope;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
+	private final HashSet<Feature> set;
 	private HashMap<Feature, java.lang.reflect.Field> annotationSources = null;
 	
 	public Features()
 	{
 		map = new LinkedHashMap<String, Feature>();
+		set = new HashSet<Feature>();
 	}
 	
 	@Deprecated
 	Features(final LinkedHashMap<String, Feature> map)
 	{
 		this.map = map;
+		this.set = new HashSet<Feature>(map.values());
+		if(map.size()!=set.size())
+			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
 	}
 	
 	public void put(final String name, final Feature feature)
@@ -46,8 +52,11 @@ public final class Features
 			throw new NullPointerException("feature");
 		if(map.containsKey(name))
 			throw new IllegalArgumentException("already contains the name >" + name + '<');
+		if(set.contains(feature))
+			throw new IllegalArgumentException("already contains the feature >" + feature.toString() + '<');
 		
 		map.put(name, feature);
+		set.add(feature);
 	}
 	
 	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
@@ -65,6 +74,7 @@ public final class Features
 	public void clear()
 	{
 		map.clear();
+		set.clear();
 		if(annotationSources!=null)
 			annotationSources.clear();
 	}

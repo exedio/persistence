@@ -111,7 +111,15 @@ public class FeaturesTest extends TestCase
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
-		features.put("zack", zick); // TODO should throw an error
+		try
+		{
+			features.put("zack", zick);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
+		}
 	}
 	
 	public void testDuplicateFeatureWithAnnotation()
@@ -123,9 +131,9 @@ public class FeaturesTest extends TestCase
 			features.put("zack", zick, annotationSource);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
 		}
 		
 		features.clear();
