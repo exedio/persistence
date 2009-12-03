@@ -173,6 +173,11 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
+			
+			assertTrue(transaction.getID()>=0);
+			assertNotNull(transaction.getName());
+			assertNotNull(transaction.getStartDate());
+			assertNull(transaction.getBoundThread());
 			assertTrue(transaction.isClosed());
 			
 			assertTrue(this.modifiedItems==null);
