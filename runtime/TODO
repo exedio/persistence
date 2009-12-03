@@ -45,6 +45,7 @@ TODO for cope runtime
 	* persistent modification counters
 		- option for disable
 		- omit if all fields are final
+	* trigger ModificationListener for transaction on other nodes as well
 	* make migrations cluster aware
 	* test configuration of tomcat
 	* sequences for primary keys and IntegerField.defaultToNext
