@@ -97,4 +97,25 @@ public final class Features
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
 	}
+	
+	LinkedHashMap<Field, String> mountPattern(final Type<?> type, final String name)
+	{
+		final LinkedHashMap<Field, String> result = new LinkedHashMap<Field, String>();
+		
+		for(final Map.Entry<String, Feature> entry : map.entrySet())
+		{
+			final Field<?> source = (Field)entry.getValue();
+			final String postfix = entry.getKey();
+			if(!source.isMounted())
+				source.mount(type, name + postfix, getAnnotationSource(source));
+			final Type<? extends Item> sourceType = source.getType();
+			//System.out.println("----------check"+source);
+			if(!sourceType.equals(type))
+				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
+			if(result.put(source, postfix)!=null)
+				throw new RuntimeException(postfix);
+		}
+		
+		return result;
+	}
 }

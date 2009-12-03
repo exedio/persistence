@@ -54,38 +54,30 @@ import java.util.List;
  */
 public abstract class Pattern extends Feature
 {
-	private LinkedHashMap<Field, String> sourceFieldMapGather = new LinkedHashMap<Field, String>();
-	private LinkedHashMap<Field, java.lang.reflect.Field> sourceFieldAnnGather = new LinkedHashMap<Field, java.lang.reflect.Field>();
+	private Features featuresGather = new Features();
 	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
 	
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	protected final void addSource(final Field field, final String postfix)
+	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
 		if(field==null)
 			throw new NullPointerException("field");
-		if(sourceFieldMapGather==null)
+		if(featuresGather==null)
 			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
 		assert sourceFieldMap== null;
 		assert sourceFieldList==null;
 		field.registerPattern(this);
-		final String collision = sourceFieldMapGather.put(field, postfix);
-		if(collision!=null)
-			throw new IllegalStateException("duplicate addSource " + field + '/' + collision);
+		featuresGather.put(postfix, field, annotationSource);
 	}
 	
-	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationSource)
+	protected final void addSource(final Field field, final String postfix)
 	{
-		if(annotationSource==null)
-			throw new NullPointerException("annotationSource");
-		
-		addSource(field, postfix);
-		if(sourceFieldAnnGather.put(field, annotationSource)!=null)
-			throw new RuntimeException();
+		addSource(field, postfix, null);
 	}
 	
 	protected final java.lang.reflect.Field annotationField(final String name)
@@ -147,17 +139,8 @@ public abstract class Pattern extends Feature
 		super.mount(type, name, annotationSource);
 		initialize();
 
-		for(final Field<?> source : sourceFieldMapGather.keySet())
-		{
-			if(!source.isMounted())
-				source.mount(type, name + sourceFieldMapGather.get(source), sourceFieldAnnGather.get(source));
-			final Type<? extends Item> sourceType = source.getType();
-			//System.out.println("----------check"+source);
-			if(!sourceType.equals(type))
-				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
-		}
-		this.sourceFieldMap = sourceFieldMapGather;
-		this.sourceFieldMapGather = null;
+		this.sourceFieldMap = featuresGather.mountPattern(type, name);
+		this.featuresGather = null;
 		this.sourceFieldList =
 			sourceFieldMap.isEmpty()
 			? Collections.<Field>emptyList()
@@ -176,7 +159,7 @@ public abstract class Pattern extends Feature
 		if(sourceFieldMap==null)
 			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
 		assert sourceFieldList!=null;
-		assert sourceFieldMapGather==null;
+		assert featuresGather==null;
 		return sourceFieldList;
 	}
 
