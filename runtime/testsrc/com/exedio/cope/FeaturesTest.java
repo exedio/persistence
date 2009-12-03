@@ -49,6 +49,25 @@ public class FeaturesTest extends TestCase
 		features.put("zack", zack);
 		final BooleanField zock = new BooleanField();
 		features.put("zock", zock, annotationSource);
+		
+		try
+		{
+			features.put(null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("name", e.getMessage());
+		}
+		try
+		{
+			features.put("zick", null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("feature", e.getMessage());
+		}
 	}
 	
 	public void testAnnotation()
@@ -57,6 +76,16 @@ public class FeaturesTest extends TestCase
 		features.put("zick", zick, annotationSource);
 		final BooleanField zack = new BooleanField();
 		features.put("zack", zack, annotationSource);
+		
+		try
+		{
+			features.put("zick", zick, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("annotationSource", e.getMessage());
+		}
 	}
 	
 	public void testDuplicateName()
@@ -73,6 +102,9 @@ public class FeaturesTest extends TestCase
 		{
 			assertEquals("already contains the name >zick<", e.getMessage());
 		}
+		
+		features.clear();
+		features.put("zick", zack);
 	}
 	
 	public void testDuplicateFeature()
@@ -95,5 +127,8 @@ public class FeaturesTest extends TestCase
 		{
 			assertEquals(null, e.getMessage());
 		}
+		
+		features.clear();
+		features.put("zack", zick, annotationSource);
 	}
 }

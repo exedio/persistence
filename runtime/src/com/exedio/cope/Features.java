@@ -65,6 +65,8 @@ public final class Features
 	public void clear()
 	{
 		map.clear();
+		if(annotationSources!=null)
+			annotationSources.clear();
 	}
 	
 	int size()
