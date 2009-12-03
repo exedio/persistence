@@ -76,16 +76,8 @@ public class FeaturesTest extends TestCase
 		features.put("zick", zick, annotationSource);
 		final BooleanField zack = new BooleanField();
 		features.put("zack", zack, annotationSource);
-		
-		try
-		{
-			features.put("zick", zick, null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("annotationSource", e.getMessage());
-		}
+		final BooleanField zock = new BooleanField();
+		features.put("zock", zock, null);
 	}
 	
 	public void testDuplicateName()
