@@ -48,7 +48,7 @@ public final class Model
 	
 	final Types types;
 	private final long initializeDate;
-	private final ModificationListeners modificationListeners = new ModificationListeners();
+	final ModificationListeners modificationListeners;
 	
 	private final Object connectLock = new Object();
 	private Connect connect;
@@ -74,6 +74,7 @@ public final class Model
 		this.revisions = revisions;
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
+		this.modificationListeners = new ModificationListeners(this.types);
 	}
 	
 	public boolean containsTypeSet(final Type... typeSet)

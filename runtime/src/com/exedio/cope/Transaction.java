@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
 import gnu.trove.TIntObjectHashMap;
 
 import java.sql.Connection;
@@ -29,10 +28,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
-
 
 public final class Transaction
 {
@@ -327,45 +324,7 @@ public final class Transaction
 
 		// notify ModificationListeners
 		if(!rollback)
-		{
-			final List<ModificationListener> commitListeners = model.getModificationListeners();
-			if(!commitListeners.isEmpty())
-			{
-				ArrayList<Item> modifiedItems = null;
-				
-				for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
-				{
-					final TIntHashSet invalidationSet = invalidations[typeTransiently];
-					if(invalidationSet!=null)
-					{
-						if(modifiedItems==null)
-							modifiedItems = new ArrayList<Item>();
-						
-						for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-							modifiedItems.add(model.types.getConcreteType(typeTransiently).activate(i.next()));
-					}
-				}
-				
-				if(modifiedItems!=null && !modifiedItems.isEmpty())
-				{
-					final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-					for(final ModificationListener listener : commitListeners)
-					{
-						try
-						{
-							listener.onModifyingCommit(modifiedItemsUnmodifiable, this);
-						}
-						catch(RuntimeException e)
-						{
-							if(Model.isLoggingEnabled())
-								System.err.println(
-										"Suppressing exception from modification listener " + listener.getClass().getName() +
-										':' + e.getClass().getName() + ' ' + e.getMessage());
-						}
-					}
-				}
-			}
-		}
+			model.modificationListeners.invalidate(invalidations, this);
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup

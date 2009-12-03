@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,8 +32,14 @@ import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
+	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
 	private int cleared = 0;
+	
+	ModificationListeners(final Types types)
+	{
+		this.types = types;
+	}
 	
 	List<ModificationListener> get()
 	{
@@ -103,6 +112,47 @@ final class ModificationListeners
 			}
 			if(cleared>0)
 				this.cleared += cleared;
+		}
+	}
+	
+	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
+	{
+		final List<ModificationListener> commitListeners = get();
+		if(!commitListeners.isEmpty())
+		{
+			ArrayList<Item> modifiedItems = null;
+			
+			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+			{
+				final TIntHashSet invalidationSet = invalidations[typeTransiently];
+				if(invalidationSet!=null)
+				{
+					if(modifiedItems==null)
+						modifiedItems = new ArrayList<Item>();
+					
+					for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
+						modifiedItems.add(types.getConcreteType(typeTransiently).activate(i.next()));
+				}
+			}
+			
+			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			{
+				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
+				for(final ModificationListener listener : commitListeners)
+				{
+					try
+					{
+						listener.onModifyingCommit(modifiedItemsUnmodifiable, transaction);
+					}
+					catch(RuntimeException e)
+					{
+						if(Model.isLoggingEnabled())
+							System.err.println(
+									"Suppressing exception from modification listener " + listener.getClass().getName() +
+									':' + e.getClass().getName() + ' ' + e.getMessage());
+					}
+				}
+			}
 		}
 	}
 }
