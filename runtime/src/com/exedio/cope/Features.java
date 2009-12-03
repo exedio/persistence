@@ -45,7 +45,7 @@ public final class Features
 		if(feature==null)
 			throw new NullPointerException("feature");
 		if(map.containsKey(name))
-			throw new IllegalArgumentException("already contains the name " + name + '<');
+			throw new IllegalArgumentException("already contains the name >" + name + '<');
 		
 		map.put(name, feature);
 	}
