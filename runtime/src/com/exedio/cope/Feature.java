@@ -50,13 +50,13 @@ public abstract class Feature
 			this.annotationSource = annotationSource;
 		}
 		
-	   boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-	   {
+		boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
 			return
 				annotationSource!=null &&
 				annotationSource.isAnnotationPresent(annotationClass);
-	   }
-	   
+		}
+		
 		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 		{
 			return
@@ -124,10 +124,10 @@ public abstract class Feature
 	/**
 	 * @see Class#isAnnotationPresent(Class)
 	 */
-   public final boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-   {
+	public final boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+	{
 		return mount().isAnnotationPresent(annotationClass);
-   }
+	}
 	
 	/**
 	 * @see Class#getAnnotation(Class)
