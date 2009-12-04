@@ -103,9 +103,9 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(Price.class, item.bigPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
 		
-		assertNotNull(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
-		assertNotNull(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
-		assertNotNull(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
 		
 		// test persistence
 		assertEquals(storeOf(555), item.getFinalPrice());
