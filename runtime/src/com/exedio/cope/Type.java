@@ -444,6 +444,14 @@ public final class Type<T extends Item>
 	}
 	
 	/**
+	 * @see Class#isAnnotationPresent(Class)
+	 */
+   public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+   {
+		return javaClass.isAnnotationPresent(annotationClass);
+   }
+
+	/**
 	 * @see Class#getAnnotation(Class)
 	 */
 	public <A extends Annotation> A getAnnotation(final Class<A> annotationClass)

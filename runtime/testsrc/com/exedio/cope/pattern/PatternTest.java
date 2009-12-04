@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
 
 public class PatternTest extends AbstractRuntimeTest
@@ -98,12 +97,12 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame("PatternTestItem.testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getID());
 		assertSame("PatternTestItem.testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getID());
 		
-		assertNull(PatternTestItem.testPattern.ownString    .getAnnotation(TestAnnotation.class));
-		assertNull(PatternTestItem.testPattern2.ownString   .getAnnotation(TestAnnotation.class));
-		assertEquals("ownIntAnn",  PatternTestItem.testPattern.ownInt        .getAnnotation(TestAnnotation.class).value());
-		assertEquals("ownItemAnn", PatternTestItem.testPattern.getOwnItem()  .getAnnotation(TestAnnotation.class).value());
-		assertEquals("ownIntAnn",  PatternTestItem.testPattern2.ownInt       .getAnnotation(TestAnnotation.class).value());
-		assertEquals("ownItemAnn", PatternTestItem.testPattern2.getOwnItem() .getAnnotation(TestAnnotation.class).value());
+		assertTestAnnotationNull(PatternTestItem.testPattern.ownString);
+		assertTestAnnotationNull(PatternTestItem.testPattern2.ownString);
+		assertTestAnnotation("ownIntAnn",  PatternTestItem.testPattern.ownInt);
+		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern.getOwnItem());
+		assertTestAnnotation("ownIntAnn",  PatternTestItem.testPattern2.ownInt);
+		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
 		
 		// superType
 		final Type<PatternTestTypeItem> superType = PatternTestItem.testPattern.getSuperType();
@@ -212,11 +211,11 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame(item, superType.cast(item));
 		
 		// getAnnotation
-		assertNull(PatternTestItem.testPattern.getAnnotation(TestAnnotation.class));
-		assertEquals("superTypeStringAnn", PatternTestItem.testPattern.superTypeString.getAnnotation(TestAnnotation.class).value());
-		assertNull(PatternTestItem.testPattern.superTypeBoolean.getAnnotation(TestAnnotation.class));
-		assertEquals("subTypeIntegerAnn", PatternTestItem.testPattern.subTypeInteger.getAnnotation(TestAnnotation.class).value());
-		assertEquals("PatternTestTypeItemAnn", superType.getAnnotation(TestAnnotation.class).value());
-		assertEquals("PatternTestTypeItemAnn", subType  .getAnnotation(TestAnnotation.class).value());
+		assertTestAnnotationNull(PatternTestItem.testPattern);
+		assertTestAnnotation("superTypeStringAnn", PatternTestItem.testPattern.superTypeString);
+		assertTestAnnotationNull(PatternTestItem.testPattern.superTypeBoolean);
+		assertTestAnnotation("subTypeIntegerAnn", PatternTestItem.testPattern.subTypeInteger);
+		assertTestAnnotation("PatternTestTypeItemAnn", superType);
+		assertTestAnnotation("PatternTestTypeItemAnn", subType);
 	}
 }

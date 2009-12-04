@@ -491,4 +491,46 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			actualTypes.add(i.getFeature());
 		assertEquals(Arrays.asList(expected), actualTypes);
 	}
+	
+	public static void assertTestAnnotationNull(final Type<?> ae)
+	{
+		assertFalse(ae.isAnnotationPresent(TestAnnotation.class));
+		assertNull(ae.getAnnotation(TestAnnotation.class));
+	}
+	
+	public static void assertTestAnnotationNull(final Feature ae)
+	{
+		assertFalse(ae.isAnnotationPresent(TestAnnotation.class));
+		assertNull(ae.getAnnotation(TestAnnotation.class));
+	}
+	
+	public static void assertTestAnnotation2Null(final Type<?> ae)
+	{
+		assertFalse(ae.isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(null, ae.getAnnotation(TestAnnotation2.class));
+	}
+	
+	public static void assertTestAnnotation2Null(final Feature ae)
+	{
+		assertFalse(ae.isAnnotationPresent(TestAnnotation2.class));
+		assertNull(ae.getAnnotation(TestAnnotation2.class));
+	}
+	
+	public static void assertTestAnnotation(final String value, final Type<?> ae)
+	{
+		assertTrue(ae.isAnnotationPresent(TestAnnotation.class));
+		assertEquals(value, ae.getAnnotation(TestAnnotation.class).value());
+	}
+	
+	public static void assertTestAnnotation(final String value, final Feature ae)
+	{
+		assertTrue(ae.isAnnotationPresent(TestAnnotation.class));
+		assertEquals(value, ae.getAnnotation(TestAnnotation.class).value());
+	}
+	
+	public static void assertTestAnnotation2(final Feature ae)
+	{
+		assertTrue(ae.isAnnotationPresent(TestAnnotation2.class));
+		assertNotNull(ae.getAnnotation(TestAnnotation2.class));
+	}
 }

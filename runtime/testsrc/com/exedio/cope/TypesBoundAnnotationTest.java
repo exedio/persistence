@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation2;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation2Null;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
@@ -70,15 +74,15 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertSame(AnItem.intField, type.getDeclaredFeature("intFieldAnn"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
 		
-		assertEquals("AnItemAnnVal", type.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null,           type.getAnnotation(TestAnnotation2.class));
-		assertEquals("intFieldAnnVal",  AnItem.intField.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null,              AnItem.intField.getAnnotation(TestAnnotation2.class));
-		assertEquals(null,              AnItem.boolField.getAnnotation(TestAnnotation.class));
-		assertNotNull(                  AnItem.boolField.getAnnotation(TestAnnotation2.class));
-		assertEquals("setFieldAnnVal",  AnItem.setField.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, AnItem.setField.getRelationType().getAnnotation(TestAnnotation.class));
-		assertEquals(null, AnItem.setField.getElement().getAnnotation(TestAnnotation.class));
+		assertTestAnnotation("AnItemAnnVal", type);
+		assertTestAnnotation2Null(type);
+		assertTestAnnotation("intFieldAnnVal",  AnItem.intField);
+		assertTestAnnotation2Null(AnItem.intField);
+		assertTestAnnotationNull(AnItem.boolField);
+		assertTestAnnotation2(AnItem.boolField);
+		assertTestAnnotation("setFieldAnnVal",  AnItem.setField);
+		assertTestAnnotationNull(AnItem.setField.getRelationType());
+		assertTestAnnotationNull(AnItem.setField.getElement());
 	}
 	
 	@CopeID("AnItemAnn")
