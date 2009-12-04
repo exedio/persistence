@@ -26,6 +26,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.util.Interrupter;
 
@@ -79,6 +80,10 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(null, i.passwordRecovery.getExpires().getPattern());
 		
 		assertSame(i.password, i.passwordRecovery.getPassword());
+		
+		assertFalse(i.password                       .isAnnotationPresent(Computed.class));
+		assertFalse(i.passwordRecovery               .isAnnotationPresent(Computed.class));
+		assertTrue (i.passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
 		
 		try
 		{

@@ -29,6 +29,7 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.misc.Computed;
 
 public class PriceFieldTest extends AbstractRuntimeTest
 {
@@ -101,6 +102,10 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(false, item.bigPrice.isFinal());
 		assertEquals(Price.class, item.bigPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
+		
+		assertNotNull(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertNotNull(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertNotNull(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
 		
 		// test persistence
 		assertEquals(storeOf(555), item.getFinalPrice());

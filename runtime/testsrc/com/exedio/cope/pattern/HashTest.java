@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.misc.Computed;
 
 public class HashTest extends AbstractRuntimeTest
 {
@@ -64,6 +65,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(false, item.explicitExternalWrap.isInitial());
 		assertEquals(false, item.explicitExternalWrap.isFinal());
 		assertContains(StringLengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
+		assertFalse(item.explicitExternal.getStorage().isAnnotationPresent(Computed.class));
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
@@ -107,6 +109,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
 		assertContains(StringLengthViolationException.class, item.implicitExternal.getInitialExceptions());
+		assertTrue(item.implicitExternal.getStorage().isAnnotationPresent(Computed.class));
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
@@ -132,6 +135,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());
 		assertContains(StringLengthViolationException.class, item.internal.getInitialExceptions());
+		assertTrue(item.internal.getStorage().isAnnotationPresent(Computed.class));
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));

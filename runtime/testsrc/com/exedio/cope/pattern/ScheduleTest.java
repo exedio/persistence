@@ -31,6 +31,7 @@ import java.util.Locale;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.Interrupter;
@@ -115,6 +116,15 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		{
 			assertEquals("locale", e.getMessage());
 		}
+		
+		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getRunParent ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getRunFrom   ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getRunUntil  ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getRunRun    ().isAnnotationPresent(Computed.class));
+		assertFalse(report.getRunElapsed().isAnnotationPresent(Computed.class));
+		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
 		
 		// test persistence
 		assertEquals(Interval.DAILY, item.getReportInterval());

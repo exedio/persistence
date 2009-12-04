@@ -32,6 +32,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Computed;
 
 public class ListFieldTest extends AbstractRuntimeTest
 {
@@ -191,6 +192,10 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(Integer.MAX_VALUE, item.strings.getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, item.dates  .getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, item.items  .getMaximumSize());
+		
+		assertTrue(stringsType.isAnnotationPresent(Computed.class));
+		assertTrue(  datesType.isAnnotationPresent(Computed.class));
+		assertTrue(  itemsType.isAnnotationPresent(Computed.class));
 		
 		try
 		{

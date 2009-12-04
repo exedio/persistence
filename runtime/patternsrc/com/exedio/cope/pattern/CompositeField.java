@@ -36,6 +36,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.ComputedInstance;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
@@ -96,7 +97,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		{
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
-			addSource(component, toCamelCase(e.getKey()));
+			addSource(component, toCamelCase(e.getKey()), ComputedInstance.get());
 			templateToComponent.put(template, component);
 			if(optional && mandatoryComponent==null && template.isMandatory())
 				mandatoryComponent = component;

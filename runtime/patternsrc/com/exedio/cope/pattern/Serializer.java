@@ -40,6 +40,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.ComputedInstance;
 import com.exedio.cope.util.Cast;
 
 /**
@@ -68,7 +69,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.valueClass = valueClass;
 		this.source = source;
 
-		addSource(source, "Data");
+		addSource(source, "Data", ComputedInstance.get());
 	}
 	
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)

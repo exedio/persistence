@@ -26,6 +26,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.Computed;
 
 public class MapFieldTest extends AbstractRuntimeTest
 {
@@ -106,6 +107,11 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem.name.parent"));
 		assertSame(item.name.getKey(), model.getFeature("MapFieldItem.name.key"));
 		assertSame(item.name.getValue(), model.getFeature("MapFieldItem.name.value"));
+		
+		assertTrue(item.name      .getRelationType().isAnnotationPresent(Computed.class));
+		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));
+		assertTrue(item.string    .getRelationType().isAnnotationPresent(Computed.class));
+		assertTrue(item.integer   .getRelationType().isAnnotationPresent(Computed.class));
 		
 		try
 		{

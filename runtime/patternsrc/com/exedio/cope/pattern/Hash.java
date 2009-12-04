@@ -36,6 +36,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.ComputedInstance;
 
 public abstract class Hash extends Pattern implements Settable<String>
 {
@@ -51,7 +52,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		if(algorithmName.length()==0)
 			throw new IllegalArgumentException("algorithmName must not be empty");
 
-		addSource(this.storage = storage, this.algorithmName = algorithmName);
+		addSource(this.storage = storage, this.algorithmName = algorithmName, ComputedInstance.get());
 	}
 	
 	public Hash(final String algorithmName)

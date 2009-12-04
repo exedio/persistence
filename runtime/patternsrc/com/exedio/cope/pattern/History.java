@@ -38,6 +38,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.Computed;
 
 public final class History extends Pattern
 {
@@ -225,6 +226,7 @@ public final class History extends Pattern
 			);
 	}
 
+	@Computed
 	public static final class Event extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -314,6 +316,7 @@ public final class History extends Pattern
 		}
 	}
 
+	@Computed
 	public static final class Feature extends Item
 	{
 		private static final long serialVersionUID = 1l;

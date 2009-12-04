@@ -31,6 +31,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Computed;
 
 public class SetFieldTest extends AbstractRuntimeTest
 {
@@ -144,6 +145,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(list(), item.strings.getSourceFields());
 		assertEqualsUnmodifiable(list(), item.dates.getSourceFields());
+		
+		assertTrue(stringsType.isAnnotationPresent(Computed.class));
+		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 		
 		try
 		{

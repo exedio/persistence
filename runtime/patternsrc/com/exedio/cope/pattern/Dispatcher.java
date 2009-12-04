@@ -41,6 +41,8 @@ import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ComputedInstance;
 import com.exedio.cope.util.Interrupter;
 
 public final class Dispatcher extends Pattern
@@ -74,9 +76,9 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		addSource(pending, "Pending");
-		addSource(successDate, "SuccessDate");
-		addSource(successElapsed, "SuccessElapsed");
+		addSource(pending,        "Pending",        ComputedInstance.get());
+		addSource(successDate,    "SuccessDate",    ComputedInstance.get());
+		addSource(successElapsed, "SuccessElapsed", ComputedInstance.get());
 	}
 	
 	@Override
@@ -331,6 +333,7 @@ public final class Dispatcher extends Pattern
 		return failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
 	}
 
+	@Computed
 	public static final class Failure extends Item
 	{
 		private static final long serialVersionUID = 1l;

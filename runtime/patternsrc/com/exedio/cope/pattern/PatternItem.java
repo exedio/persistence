@@ -25,7 +25,9 @@ import java.io.ObjectOutputStream;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
+import com.exedio.cope.misc.Computed;
 
+@Computed
 final class PatternItem extends Item
 {
 	private static final long serialVersionUID = 1l;

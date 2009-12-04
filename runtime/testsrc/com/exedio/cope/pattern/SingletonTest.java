@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.Computed;
 
 public final class SingletonTest extends AbstractRuntimeTest
 {
@@ -62,6 +63,9 @@ public final class SingletonTest extends AbstractRuntimeTest
 		assertEquals("einzigartig",     item.einzigartig.getName());
 
 		assertEquals(item.einzigartig, item.einzigartig.getSource().getPattern());
+		
+		assertFalse(item.einzigartig.            isAnnotationPresent(Computed.class));
+		assertTrue (item.einzigartig.getSource().isAnnotationPresent(Computed.class));
 		
 		// test persistence
 		assertEquals(list(), item.TYPE.search());

@@ -36,6 +36,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
 public class CompositeFieldTest extends AbstractRuntimeTest
@@ -171,6 +172,26 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("CompositeOptionalItem.code is not a template of CompositeOptionalItem.uno", e.getMessage());
 		}
+		
+		try
+		{
+			aString.isAnnotationPresent(Computed.class);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("feature not mounted", e.getMessage());
+		}
+		
+		assertTrue(eins.of(aString).isAnnotationPresent(Computed.class));
+		assertTrue(eins.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertTrue(eins.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertTrue(eins.of(anItem ).isAnnotationPresent(Computed.class));
+		assertTrue(zwei.of(aString).isAnnotationPresent(Computed.class));
+		assertTrue(zwei.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertTrue(zwei.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertTrue(zwei.of(anItem ).isAnnotationPresent(Computed.class));
+
 
 		// test persistence
 		oItem = deleteOnTearDown(new CompositeOptionalItem("optional1"));

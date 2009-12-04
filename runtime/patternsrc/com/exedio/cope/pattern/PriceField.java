@@ -31,6 +31,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.ComputedInstance;
 
 public final class PriceField extends Pattern implements Settable<Price>
 {
@@ -46,7 +47,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	private PriceField(final IntegerField integer)
 	{
 		this.integer = integer;
-		addSource(integer, "Int");
+		addSource(integer, "Int", ComputedInstance.get());
 		this.isfinal = integer.isFinal();
 		this.optional = !integer.isMandatory();
 	}

@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
 
 public class HistoryTest extends AbstractRuntimeTest
@@ -149,6 +150,9 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSame(HistoryItem.TYPE, item.auditEventParent().getValueType());
 		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
 		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
+		
+		assertTrue(  eventType.isAnnotationPresent(Computed.class));
+		assertTrue(featureType.isAnnotationPresent(Computed.class));
 		
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));

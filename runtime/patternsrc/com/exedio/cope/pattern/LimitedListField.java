@@ -37,6 +37,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.ComputedInstance;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
@@ -53,7 +54,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		for(FunctionField<E> source : sources)
 		{
-			addSource(source, String.valueOf(i++));
+			addSource(source, String.valueOf(i++), ComputedInstance.get());
 			initial = initial || source.isInitial();
 			isFinal = isFinal || source.isFinal();
 		}

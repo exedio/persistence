@@ -40,6 +40,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
 
 public final class Schedule extends Pattern
@@ -315,6 +316,7 @@ public final class Schedule extends Pattern
 		}
 	};
 	
+	@Computed
 	public static final class Run extends Item
 	{
 		private static final long serialVersionUID = 1l;

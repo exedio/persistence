@@ -27,6 +27,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Failure;
 import com.exedio.cope.util.Interrupter;
 
@@ -124,6 +125,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		assertSame(DispatcherItem.class, item.toTargetFailureParent().getValueClass());
 		assertSame(DispatcherItem.TYPE, item.toTargetFailureParent().getValueType());
+		
+		assertTrue(item.toTarget.getPending()       .isAnnotationPresent(Computed.class));
+		assertTrue(item.toTarget.getSuccessDate()   .isAnnotationPresent(Computed.class));
+		assertTrue(item.toTarget.getSuccessElapsed().isAnnotationPresent(Computed.class));
+		assertTrue(item.toTarget.getFailureType()   .isAnnotationPresent(Computed.class));
 		
 		try
 		{

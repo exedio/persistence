@@ -25,6 +25,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.Computed;
 
 public final class MediaTest extends AbstractRuntimeTest
 {
@@ -111,6 +112,11 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertSame(item.name, item.custom.getSource());
 		assertEquals("text/plain", item.getCustomContentType());
 		assertEquals(mediaRootUrl + "MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomURL());
+		
+		assertFalse(item.file.isAnnotationPresent(Computed.class));
+		assertTrue(item.file.getBody        ().isAnnotationPresent(Computed.class));
+		assertTrue(item.file.getContentType ().isAnnotationPresent(Computed.class));
+		assertTrue(item.file.getLastModified().isAnnotationPresent(Computed.class));
 		
 
 		// logs -----------------------------------------------

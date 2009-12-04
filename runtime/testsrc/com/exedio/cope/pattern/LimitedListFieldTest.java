@@ -31,6 +31,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.misc.Computed;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
 {
@@ -129,7 +130,18 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date0, date1, string0, string1, string2, string3),
 				item.TYPE.getDeclaredFields());
+		
+		assertFalse(item.num1.isAnnotationPresent(Computed.class));
+		assertFalse(item.num2.isAnnotationPresent(Computed.class));
+		assertFalse(item.num3.isAnnotationPresent(Computed.class));
+		assertTrue (date0    .isAnnotationPresent(Computed.class));
+		assertTrue (date1    .isAnnotationPresent(Computed.class));
+		assertTrue (string0  .isAnnotationPresent(Computed.class));
+		assertTrue (string1  .isAnnotationPresent(Computed.class));
+		assertTrue (string2  .isAnnotationPresent(Computed.class));
+		assertTrue (string3  .isAnnotationPresent(Computed.class));
 
+		// test persistence
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
@@ -142,7 +154,6 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item.TYPE.search(item.nums.contains(null)));
 		
-		// test persistence
 		item.setNums(listg(i3, i2, i1));
 		assertEquals(list(i3, i2, i1), item.getNums());
 		assertEquals(i3, item.getNum1());
