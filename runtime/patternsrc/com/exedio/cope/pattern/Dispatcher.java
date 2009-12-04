@@ -58,7 +58,7 @@ public final class Dispatcher extends Pattern
 	ItemField<?> failureParent = null;
 	PartOf<?> failureFailures = null;
 	final DateField failureDate = new DateField().toFinal();
-	final LongField failureElapsed = new LongField();
+	final LongField failureElapsed = new LongField().toFinal();
 	final DataField failureCause = new DataField().toFinal();
 	Type<Failure> failureType = null;
 	
