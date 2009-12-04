@@ -57,7 +57,7 @@ public abstract class Feature
 				annotationSource.isAnnotationPresent(annotationClass);
 	   }
 	   
-		final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
+		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 		{
 			return
 				annotationSource!=null
