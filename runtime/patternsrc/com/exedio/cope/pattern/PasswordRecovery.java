@@ -100,7 +100,7 @@ public final class PasswordRecovery extends Pattern
 		return expires;
 	}
 	
-	public Type getTokenType()
+	public Type<?> getTokenType()
 	{
 		return tokenType;
 	}
