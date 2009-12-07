@@ -22,6 +22,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -50,6 +51,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final int componentSize;
 	
 	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
+	private HashMap<FunctionField, FunctionField> componentToTemplate = null;
 	private FunctionField mandatoryComponent = null;
 	
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
@@ -91,6 +93,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
+		final HashMap<FunctionField, FunctionField> componentToTemplate =
+			new HashMap<FunctionField, FunctionField>();
 		FunctionField mandatoryComponent = null;
 		
 		for(Map.Entry<String, FunctionField> e : templates.entrySet())
@@ -99,6 +103,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			final FunctionField component = copy(template);
 			addSource(component, toCamelCase(e.getKey()), ComputedInstance.get());
 			templateToComponent.put(template, component);
+			componentToTemplate.put(component, template);
 			if(optional && mandatoryComponent==null && template.isMandatory())
 				mandatoryComponent = component;
 		}
@@ -106,6 +111,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
 		
 		this.templateToComponent = templateToComponent;
+		this.componentToTemplate = componentToTemplate;
 		this.mandatoryComponent = mandatoryComponent;
 	}
 	
@@ -138,6 +144,15 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		final X result = (X)templateToComponent.get(template);
 		if(result==null)
 			throw new IllegalArgumentException(template + " is not a template of " + toString());
+		return result;
+	}
+	
+	public <X extends FunctionField> X getTemplate(final X component)
+	{
+		@SuppressWarnings("unchecked")
+		final X result = (X)componentToTemplate.get(component);
+		if(result==null)
+			throw new IllegalArgumentException(component + " is not a component of " + toString());
 		return result;
 	}
 	

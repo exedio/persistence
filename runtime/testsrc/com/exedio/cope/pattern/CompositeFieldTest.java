@@ -140,6 +140,10 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());
 		
+		assertSame(aString, eins.getTemplate(eins.of(aString)));
+		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
+		assertSame(anInt,   uno .getTemplate(uno .of(anInt)));
+		
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), eins  .getTemplates());
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), uno   .getTemplates());
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), second.getTemplates());
@@ -148,9 +152,11 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(uno   .of(aString), uno   .of(anInt), uno   .of(anEnum), uno   .of(anItem)), uno   .getComponents());
 		assertEqualsUnmodifiable(list(second.of(aString), second.of(anInt), second.of(anEnum), second.of(anItem)), second.getComponents());
 		
-		// test type safety of getComponent
+		// test type safety of template-component relation
 		second.of(aString).startsWith("zack");
 		second.of(anInt).plus(1);
+		second.getTemplate(second.of(aString)).startsWith("zack");
+		second.getTemplate(second.of(anInt)).plus(1);
 		
 		try
 		{
@@ -161,7 +167,24 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("CompositeOptionalItem.code is not a template of CompositeOptionalItem.uno", e.getMessage());
 		}
-		
+		try
+		{
+			uno.getTemplate(oItem.code);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("CompositeOptionalItem.code is not a component of CompositeOptionalItem.uno", e.getMessage());
+		}
+		try
+		{
+			uno.getTemplate(duo.of(aString));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("CompositeOptionalItem.duoAString is not a component of CompositeOptionalItem.uno", e.getMessage());
+		}
 		try
 		{
 			aString.isAnnotationPresent(Computed.class);
