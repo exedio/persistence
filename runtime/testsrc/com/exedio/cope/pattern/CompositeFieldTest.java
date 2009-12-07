@@ -140,24 +140,24 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());
 		
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(list(
 				eins.of(aString),
 				eins.of(anInt),
 				eins.of(anEnum),
-				eins.of(anItem),
-			}), eins.getComponents());
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				eins.of(anItem)
+			), eins.getComponents());
+		assertEqualsUnmodifiable(list(
 				uno.of(aString),
 				uno.of(anInt),
 				uno.of(anEnum),
-				uno.of(anItem),
-			}), uno.getComponents());
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				uno.of(anItem)
+			), uno.getComponents());
+		assertEqualsUnmodifiable(list(
 				second.of(aString),
 				second.of(anInt),
 				second.of(anEnum),
-				second.of(anItem),
-			}), second.getComponents());
+				second.of(anItem)
+			), second.getComponents());
 		
 		// test type safety of getComponent
 		second.of(aString).startsWith("zack");
