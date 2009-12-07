@@ -21,9 +21,12 @@ package com.exedio.cope.pattern;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleField;
@@ -45,6 +48,7 @@ public abstract class Composite implements Serializable
 		final Constructor<X> constructor;
 		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
 		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
+		final List<FunctionField> templateList;
 		final int componentSize;
 		
 		Type(final Class<X> valueClass)
@@ -89,6 +93,7 @@ public abstract class Composite implements Serializable
 			{
 				throw new RuntimeException(valueClass.getName(), e);
 			}
+			this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
 			this.componentSize = templates.size();
 		}
 	}

@@ -48,6 +48,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final Composite.Type<E> valueType;
 	private final Constructor<E> valueConstructor;
 	private final LinkedHashMap<String, FunctionField> templates;
+	private final List<FunctionField> templateList;
 	private final int componentSize;
 	
 	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
@@ -70,6 +71,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.valueType = Composite.getType(valueClass);
 		this.valueConstructor = valueType.constructor;
 		this.templates = valueType.templates;
+		this.templateList = valueType.templateList;
 		this.componentSize = valueType.componentSize;
 	}
 	
@@ -158,7 +160,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	
 	public List<FunctionField> getTemplates()
 	{
-		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.keySet()));
+		return templateList;
 	}
 	
 	public List<FunctionField> getComponents()
