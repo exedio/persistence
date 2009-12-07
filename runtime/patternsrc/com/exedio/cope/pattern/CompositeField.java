@@ -132,9 +132,9 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			return Character.toUpperCase(first) + name.substring(1);
 	}
 
-	@SuppressWarnings("unchecked")
 	public <X extends FunctionField> X of(final X template)
 	{
+		@SuppressWarnings("unchecked")
 		final X result = (X)templateToComponent.get(template);
 		if(result==null)
 			throw new IllegalArgumentException(template + " is not a template of " + toString());
