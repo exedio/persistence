@@ -141,6 +141,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 	
+	public List<FunctionField> getTemplates()
+	{
+		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.keySet()));
+	}
+	
 	public List<FunctionField> getComponents()
 	{
 		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
