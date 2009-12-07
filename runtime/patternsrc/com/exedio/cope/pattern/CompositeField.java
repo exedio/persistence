@@ -53,6 +53,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	
 	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
 	private HashMap<FunctionField, FunctionField> componentToTemplate = null;
+	private List<FunctionField> componentList = null;
 	private FunctionField mandatoryComponent = null;
 	
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
@@ -114,6 +115,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		
 		this.templateToComponent = templateToComponent;
 		this.componentToTemplate = componentToTemplate;
+		this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
 		this.mandatoryComponent = mandatoryComponent;
 	}
 	
@@ -165,7 +167,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	
 	public List<FunctionField> getComponents()
 	{
-		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
+		return componentList;
 	}
 	
 	@Override
