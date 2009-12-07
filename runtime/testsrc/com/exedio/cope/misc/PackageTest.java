@@ -16,30 +16,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
-import com.exedio.cope.Model;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-/**
- * @deprecated Use {@link com.exedio.cope.misc.TransactionSlicer} instead
- */
-@Deprecated
-public final class TransactionSlicer
+public class PackageTest extends TestCase
 {
-	private final com.exedio.cope.misc.TransactionSlicer ts;
-	
-	public TransactionSlicer(final Model model, final int bitesPerSlice)
+	public static Test suite()
 	{
-		this.ts = new com.exedio.cope.misc.TransactionSlicer(model, bitesPerSlice);
-	}
-	
-	public boolean biteOff()
-	{
-		return ts.biteOff();
-	}
-	
-	public int getSliceCount()
-	{
-		return ts.getSliceCount();
+		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(TransactionSlicerTest.class);
+		return suite;
 	}
 }

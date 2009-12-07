@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CacheIsolationTest;
@@ -29,7 +29,6 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		super(CacheIsolationTest.MODEL);
 	}
 	
-	@Deprecated
 	public void testIt()
 	{
 		final Transaction t1 = model.getCurrentTransaction();
@@ -80,7 +79,6 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		assertEquals(t1.getName() + " slice2", t3.getName());
 	}
 
-	@Deprecated
 	public void testEmpty()
 	{
 		final Transaction t1 = model.getCurrentTransaction();
@@ -128,7 +126,6 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Deprecated
 	public void testNoname()
 	{
 		model.commit();
