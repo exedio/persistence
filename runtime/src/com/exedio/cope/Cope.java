@@ -139,24 +139,6 @@ public abstract class Cope
 		return new PlusView<E>(new NumberFunction[]{addend1, addend2, addend3});
 	}
 
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
-	 */
-	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
-	{
-		return plus(addend1, addend2);
-	}
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
-	 */
-	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
-	{
-		return plus(addend1, addend2, addend3);
-	}
-
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
 	{
 		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2});
@@ -165,15 +147,6 @@ public abstract class Cope
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
 	{
 		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
-	}
-
-	/**
-	 * @deprecated Use {@link Cast#verboseCast(Class, Object)} instead.
-	 */
-	@Deprecated
-	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
-	{
-		return Cast.verboseCast(clazz, o);
 	}
 	
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
@@ -329,5 +302,34 @@ public abstract class Cope
 		else
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
 		model.disconnect();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
+	 */
+	@Deprecated
+	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
+	{
+		return plus(addend1, addend2);
+	}
+
+	/**
+	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
+	 */
+	@Deprecated
+	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
+	{
+		return plus(addend1, addend2, addend3);
+	}
+
+	/**
+	 * @deprecated Use {@link Cast#verboseCast(Class, Object)} instead.
+	 */
+	@Deprecated
+	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
+	{
+		return Cast.verboseCast(clazz, o);
 	}
 }
