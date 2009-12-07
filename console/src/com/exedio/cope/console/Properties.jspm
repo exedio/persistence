@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.util.ConnectToken;
+import com.exedio.cope.misc.ConnectToken;
 
 import static com.exedio.cops.XMLEncoder.encode;
 

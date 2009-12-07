@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.util.ConnectToken;
-import com.exedio.cope.util.ServletUtil;
+import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.misc.ServletUtil;
 
 /**
  * A servlet providing access to the contents of {@link MediaPath}

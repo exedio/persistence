@@ -18,9 +18,6 @@
 
 package com.exedio.cope.util;
 
-import java.io.File;
-import java.util.Collection;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
@@ -28,9 +25,12 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
+/**
+ * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
+ */
+@Deprecated
 public final class ServletUtil
 {
 	private ServletUtil()
@@ -38,177 +38,47 @@ public final class ServletUtil
 		// prevent instantiation
 	}
 	
-	private interface Config
-	{
-		String getInitParameter(String name);
-		String getName();
-		ServletContext getServletContext();
-		String getKind();
-	}
-
-	private static final Config wrap(final ServletConfig config)
-	{
-		return new Config()
-		{
-			public String getInitParameter(final String name)
-			{
-				return config.getInitParameter(name);
-			}
-			public String getName()
-			{
-				return config.getServletName();
-			}
-			public ServletContext getServletContext()
-			{
-				return config.getServletContext();
-			}
-			public String getKind()
-			{
-				return "servlet";
-			}
-		};
-	}
-	
-	private static final Config wrap(final FilterConfig config)
-	{
-		return new Config()
-		{
-			public String getInitParameter(final String name)
-			{
-				return config.getInitParameter(name);
-			}
-			public String getName()
-			{
-				return config.getFilterName();
-			}
-			public ServletContext getServletContext()
-			{
-				return config.getServletContext();
-			}
-			public String getKind()
-			{
-				return "filter";
-			}
-		};
-	}
-	
+	/**
+	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
+	 */
+	@Deprecated
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
 	throws ServletException
 	{
-		return getConnectedModel(
-				wrap(servlet.getServletConfig()),
-				servlet);
-	}
-	
-	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
-	throws ServletException
-	{
-		return getConnectedModel(
-				wrap(config),
-				filter);
-	}
-	
-	private static final ConnectToken getConnectedModel(
-					final Config config,
-					final Object nameObject)
-	throws ServletException
-	{
-		final String PARAMETER_MODEL = "model";
-		final String initParam = config.getInitParameter(PARAMETER_MODEL);
-		final String name = config.getName();
-		final ServletContext context = config.getServletContext();
-		
-		final String description =
-					config.getKind() + ' ' +
-					'"' + name + '"' + ' ' +
-					'(' + nameObject.getClass().getName() + '@' + System.identityHashCode(nameObject) + ')';
-		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
-		final String modelName;
-		final String modelNameSource;
-		if(initParam==null)
-		{
-			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
-			if(contextParam==null)
-				throw new ServletException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
-			modelName = contextParam;
-			modelNameSource = "context-param";
-		}
-		else
-		{
-			modelName = initParam;
-			modelNameSource = "init-param";
-		}
-		
-		final Model result;
-		try
-		{
-			result = Cope.getModel(modelName);
-		}
-		catch(IllegalArgumentException e)
-		{
-			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
-		}
-		return connect(result, config, description);
+		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(servlet));
 	}
 	
 	/**
-	 * Connects the model using the properties from
-	 * the file <tt>cope.properties</tt>
-	 * in the directory <tt>WEB-INF</tt>
-	 * of the web application.
-	 * @see Model#connect(com.exedio.cope.ConnectProperties)
-	 * @see ConnectToken#issue(Model,com.exedio.cope.ConnectProperties,String)
+	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
 	 */
+	@Deprecated
+	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
+	throws ServletException
+	{
+		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(filter, config));
+	}
+	
+	/**
+	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
+	 */
+	@Deprecated
 	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
 	{
-		return connect(model, wrap(config), name);
+		return new ConnectToken(com.exedio.cope.misc.ServletUtil.connect(model, config, name));
 	}
 	
+	/**
+	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
+	 */
+	@Deprecated
 	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
 	{
-		return connect(model, wrap(config), name);
-	}
-	
-	private static final ConnectToken connect(final Model model, final Config config, final String name)
-	{
-		final String propertiesInitParam = config.getInitParameter("cope.properties");
-		final String propertiesFile = propertiesInitParam!=null ? propertiesInitParam : "WEB-INF/cope.properties";
-		
-		final ServletContext context = config.getServletContext();
-		return ConnectToken.issue(model,
-			new com.exedio.cope.ConnectProperties(
-				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
+		return new ConnectToken(com.exedio.cope.misc.ServletUtil.connect(model, config, name));
 	}
 	
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		final String prefix =
-			context.getInitParameter("com.exedio.cope.contextPrefix");
-		return new Properties.Source(){
-					public String get(final String key)
-					{
-						return context.getInitParameter(prefix!=null ? (prefix+key) : key);
-					}
-					
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-
-					public String getDescription()
-					{
-						return toString();
-					}
-
-					@Override
-					public String toString()
-					{
-						return
-							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + context.getContextPath() + '\'' +
-							(prefix!=null ? (" with prefix '"+prefix+'\'') : "");
-					}
-				};
+		return com.exedio.cope.misc.ServletUtil.getPropertyContext(context);
 	}
 	
 	// ------------------- deprecated stuff -------------------

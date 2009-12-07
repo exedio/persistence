@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -28,10 +28,10 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 
 public class ServletUtilContextTest extends CopeAssert
 {
-	@Deprecated
 	public void testIt()
 	{
 		{

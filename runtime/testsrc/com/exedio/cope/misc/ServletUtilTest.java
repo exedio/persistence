@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -48,15 +48,15 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk"));
+		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.misc.ServletUtilTest#modelOk", "nameOk"));
 		assertSame(ModelOk.TYPE, modelOk.getType("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertIt(modelOk2, "nameOk2", new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2"));
+		assertIt(modelOk2, "nameOk2", new MockFilter(), new MockFilterConfig("com.exedio.cope.misc.ServletUtilTest#modelOk2", "nameOk2"));
 		assertSame(ModelOk2.TYPE, modelOk2.getType("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext")));
+		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.misc.ServletUtilTest#modelContext")));
 		assertSame(ModelContext.TYPE, modelContext.getType("ModelContext"));
 
 		assertFails(
@@ -72,15 +72,14 @@ public class ServletUtilTest extends CopeAssert
 				"nameZack", ", init-param model: does not contain '#', but was zack");
 
 		assertFails(
-				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"),
-				"nameNotExists", ", init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.");
+				new MockFilter(), new MockFilterConfig("com.exedio.cope.misc.ServletUtilTest#modelNotExists", "nameNotExists"),
+				"nameNotExists", ", init-param model: field modelNotExists in class com.exedio.cope.misc.ServletUtilTest does not exist or is not public.");
 
 		assertFails(
-				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"),
-				"nameNull", ", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
+				new MockFilter(), new MockFilterConfig("com.exedio.cope.misc.ServletUtilTest#modelNull", "nameNull"),
+				"nameNull", ", init-param model: field com.exedio.cope.misc.ServletUtilTest#modelNull is null.");
 	}
 	
-	@Deprecated
 	private static final void assertIt(
 			final Model model,
 			final String tokenName,
@@ -95,7 +94,6 @@ public class ServletUtilTest extends CopeAssert
 				token.getName());
 	}
 	
-	@Deprecated
 	private static final void assertIt(
 			final Model model,
 			final String tokenName,
@@ -111,7 +109,6 @@ public class ServletUtilTest extends CopeAssert
 				token.getName());
 	}
 	
-	@Deprecated
 	private static final void assertFails(
 			final MockServlet servlet,
 			final String name,
@@ -131,7 +128,6 @@ public class ServletUtilTest extends CopeAssert
 		}
 	}
 	
-	@Deprecated
 	private static final void assertFails(
 			final MockFilter filter,
 			final MockFilterConfig config,

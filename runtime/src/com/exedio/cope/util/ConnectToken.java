@@ -19,200 +19,89 @@
 package com.exedio.cope.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Model;
 
+/**
+ * @deprecated Use {@link com.exedio.cope.misc.ConnectToken} instead
+ */
+@Deprecated
 public final class ConnectToken
 {
-	private final Manciple manciple;
-	final Model model;
-	final int id;
-	private final long issueDate = System.currentTimeMillis();
-	final String name;
-	private final boolean didConnect;
-	private volatile boolean returned = false;
-	private final Object returnedLock = new Object();
+	private final com.exedio.cope.misc.ConnectToken ct;
 	
 	ConnectToken(
-			final Manciple manciple,
-			final Model model,
-			final int id,
-			final String name,
-			final boolean didConnect)
+			final com.exedio.cope.misc.ConnectToken ct)
 	{
-		assert manciple!=null;
-		assert model!=null;
-		assert id>=0;
-		
-		this.manciple = manciple;
-		this.model = model;
-		this.id = id;
-		this.name = name;
-		this.didConnect = didConnect;
+		this.ct = ct;
 	}
 
 	public Model getModel()
 	{
-		return model;
+		return ct.getModel();
 	}
 
 	public int getID()
 	{
-		return id;
+		return ct.getID();
 	}
 
 	public Date getIssueDate()
 	{
-		return new Date(issueDate);
+		return ct.getIssueDate();
 	}
 
 	public String getName()
 	{
-		return name;
+		return ct.getName();
 	}
 	
 	public boolean didConnect()
 	{
-		return didConnect;
+		return ct.didConnect();
 	}
 	
 	public boolean isReturned()
 	{
-		return returned;
+		return ct.isReturned();
 	}
 	
 	public boolean returnIt()
 	{
-		synchronized(returnedLock)
-		{
-			if(returned)
-				throw new IllegalStateException("connect token " + id + " already returned");
-			
-			returned = true;
-		}
-		
-		return manciple.returnIt(this);
-	}
-
-	private static final class Manciple
-	{
-		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();
-		private int nextId = 0;
-		private final Object lock = new Object();
-		
-		Manciple()
-		{
-			// make constructor non-private
-		}
-		
-		ConnectToken issue(
-				final Model model,
-				final com.exedio.cope.ConnectProperties properties,
-				final String tokenName)
-		{
-			synchronized(lock)
-			{
-				final boolean connect = tokens.isEmpty();
-				if(connect)
-					model.connect(properties);
-				else
-					model.getProperties().ensureEquality(properties);
-					
-				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
-				tokens.add(result);
-
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") +
-							(connect ? " CONNECT" : ""));
-				return result;
-			}
-		}
-		
-		boolean returnIt(final ConnectToken token)
-		{
-			synchronized(lock)
-			{
-				final boolean removed = tokens.remove(token);
-				assert removed;
-				final boolean disconnect = tokens.isEmpty();
-				if(disconnect)
-					token.model.disconnect();
-
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(token.model), Character.MAX_RADIX) +
-							": returned " + token.id + (token.name!=null ? (" (" + token.name + ')') : "") +
-							(disconnect ? " DISCONNECT" : ""));
-				return disconnect;
-			}
-		}
-
-		List<ConnectToken> getTokens()
-		{
-			final ConnectToken[] result;
-			synchronized(lock)
-			{
-				result = tokens.toArray(new ConnectToken[tokens.size()]);
-			}
-			return Collections.unmodifiableList(Arrays.asList(result));
-		}
+		return ct.returnIt();
 	}
 	
-	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
-	
-	private static final Manciple manciple(final Model model)
-	{
-		synchronized(manciples)
-		{
-			Manciple result = manciples.get(model);
-			if(result!=null)
-				return result;
-
-			result = new Manciple();
-			manciples.put(model, result);
-			return result;
-		}
-	}
-	
-	/**
-	 * Connects the model to the database described in the properties,
-	 * if the model is not already connected.
-	 * Can be called multiple times, but only the first time
-	 * takes effect.
-	 * Any subsequent calls must give properties equal to properties given
-	 * on the first call, otherwise a RuntimeException is thrown.
-	 * <p>
-	 * Usually you may want to use this method, if you want to connect this model
-	 * from different servlets with equal properties in an undefined order.
-	 *
-	 * @throws IllegalArgumentException if a subsequent call provides properties different
-	 * 									to the first call.
-	 */
 	public static final ConnectToken issue(
 			final Model model,
 			final com.exedio.cope.ConnectProperties properties,
 			final String tokenName)
 	{
-		return manciple(model).issue(model, properties, tokenName);
+		return new ConnectToken(com.exedio.cope.misc.ConnectToken.issue(model, properties, tokenName));
 	}
 
-	/**
-	 * Returns the collection of open {@link ConnectToken}s
-	 * on the model.
-	 * <p>
-	 * Returns an unmodifiable snapshot of the actual data,
-	 * so iterating over the collection on a live server cannot cause
-	 * {@link java.util.ConcurrentModificationException}s.
-	 */
 	public static final List<ConnectToken> getTokens(final Model model)
 	{
-		return manciple(model).getTokens();
+		final ArrayList<ConnectToken> result = new ArrayList<ConnectToken>();
+		for(final com.exedio.cope.misc.ConnectToken ct : com.exedio.cope.misc.ConnectToken.getTokens(model))
+			result.add(new ConnectToken(ct));
+		return Collections.unmodifiableList(result);
+	}
+	
+	@Override
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof ConnectToken))
+			return false;
+		
+		return this.ct == ((ConnectToken)other).ct;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return ct.hashCode();
 	}
 }

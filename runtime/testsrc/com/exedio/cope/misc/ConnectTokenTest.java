@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import java.io.File;
 import java.util.Date;
@@ -29,7 +29,6 @@ public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 
-	@Deprecated
 	public void testIt()
 	{
 		try
