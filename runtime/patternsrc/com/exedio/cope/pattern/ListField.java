@@ -62,7 +62,7 @@ public final class ListField<E> extends AbstractListField<E>
 	}
 	
 	@Override
-	protected void initialize()
+	protected void onMount()
 	{
 		final Type<?> type = getType();
 		

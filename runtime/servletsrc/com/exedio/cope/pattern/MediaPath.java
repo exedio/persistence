@@ -40,7 +40,7 @@ public abstract class MediaPath extends Pattern
 	private String mediaRootUrl = null;
 
 	@Override
-	protected final void initialize()
+	protected final void onMount()
 	{
 		final String name = getName();
 		

@@ -61,7 +61,7 @@ public final class PasswordRecovery extends Pattern
 	}
 	
 	@Override
-	protected void initialize()
+	protected void onMount()
 	{
 		final Type<?> type = getType();
 

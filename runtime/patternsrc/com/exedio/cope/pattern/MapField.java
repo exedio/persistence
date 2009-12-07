@@ -64,7 +64,7 @@ public final class MapField<K,V> extends Pattern
 	}
 	
 	@Override
-	protected void initialize()
+	protected void onMount()
 	{
 		final Type<?> type = getType();
 		

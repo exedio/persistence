@@ -94,7 +94,7 @@ public abstract class Pattern extends Feature
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
 	 * for the first time.
 	 */
-	protected void initialize() // TODO rename to mount
+	protected void onMount()
 	{
 		// empty default implementation
 	}
@@ -135,6 +135,7 @@ public abstract class Pattern extends Feature
 	{
 		super.mount(type, name, annotationSource);
 		initialize();
+		onMount();
 
 		this.sourceFieldList = sourceFieldsGather.mountPattern(type, name);
 		this.sourceFieldsGather = null;
@@ -246,5 +247,14 @@ public abstract class Pattern extends Feature
 			final String postfix)
 	{
 		return newSourceType(javaClass, isAbstract, supertype, new Features(features), postfix);
+	}
+	
+	/**
+	 * @deprecated Override {@link #onMount()} instead
+	 */
+	@Deprecated
+	protected void initialize()
+	{
+		// empty default implementation
 	}
 }

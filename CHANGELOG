@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* rename Pattern.initialize to onMount
+	deprecated version is provided
 * add @Computed
 * add [Type|Feature].isAnnotationPresent
 * allow annotations for types added by patterns

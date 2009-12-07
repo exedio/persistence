@@ -60,9 +60,9 @@ class PatternTestPattern extends Pattern
 	}
 	
 	@Override
-	protected void initialize()
+	protected void onMount()
 	{
-		super.initialize();
+		super.onMount();
 		
 		//Create the super type.
 		final Features features = new Features(); 

@@ -87,7 +87,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 	
 	@Override
-	protected void initialize()
+	protected void onMount()
 	{
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
