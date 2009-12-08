@@ -130,7 +130,13 @@ public abstract class Composite implements Serializable
 		final Type<?> type = type();
 		values = new Object[type.componentSize];
 		for(final SetValue v : setValues)
-			values[type.templatePositions.get(v.settable)] = v.value;
+		{
+			final Integer position = type.templatePositions.get(v.settable);
+			if(position==null)
+				throw new IllegalArgumentException("not a member");
+			
+			values[position.intValue()] = v.value;
+		}
 	}
 
 	private static final <E> void check(final SetValue<E> setValue)

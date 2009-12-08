@@ -208,8 +208,8 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				final Throwable cause = e.getCause();
 				assertTrue(cause instanceof InvocationTargetException);
 				final Throwable cause2 = cause.getCause();
-				assertTrue(cause2 instanceof NullPointerException);
-				assertEquals(null, cause2.getMessage());
+				assertTrue(cause2 instanceof IllegalArgumentException);
+				assertEquals("not a member", cause2.getMessage());
 			}
 		}
 		
