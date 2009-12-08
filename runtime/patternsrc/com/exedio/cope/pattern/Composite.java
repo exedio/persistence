@@ -141,12 +141,7 @@ public abstract class Composite implements Serializable
 	@SuppressWarnings("unchecked")
 	protected final <X> X get(final FunctionField<X> member)
 	{
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		return (X)values[position];
+		return (X)values[position(member)];
 	}
 	
 	protected final int getMandatory(final IntegerField member)
@@ -154,12 +149,7 @@ public abstract class Composite implements Serializable
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
 		
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		return (Integer)values[position];
+		return (Integer)values[position(member)];
 	}
 	
 	protected final long getMandatory(final LongField member)
@@ -167,12 +157,7 @@ public abstract class Composite implements Serializable
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
 		
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		return (Long)values[position];
+		return (Long)values[position(member)];
 	}
 	
 	protected final double getMandatory(final DoubleField member)
@@ -180,12 +165,7 @@ public abstract class Composite implements Serializable
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
 		
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		return (Double)values[position];
+		return (Double)values[position(member)];
 	}
 	
 	protected final boolean getMandatory(final BooleanField member)
@@ -193,24 +173,13 @@ public abstract class Composite implements Serializable
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
 		
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		return (Boolean)values[position];
+		return (Boolean)values[position(member)];
 	}
 	
 	protected final <X> void set(final FunctionField<X> member, final X value)
 	{
 		member.check(value);
-		
-		final Type<?> type = type();
-		final Integer position = type.templatePositions.get(member);
-		if(position==null)
-			throw new IllegalArgumentException("not a member");
-		
-		values[position] = value;
+		values[position(member)] = value;
 	}
 	
 	
@@ -224,6 +193,15 @@ public abstract class Composite implements Serializable
 		typeIfSet = getType(getClass());
 		this.typeIfSet = typeIfSet;
 		return typeIfSet;
+	}
+
+	private final int position(final FunctionField<?> member)
+	{
+		final Type<?> type = type();
+		final Integer result = type.templatePositions.get(member);
+		if(result==null)
+			throw new IllegalArgumentException("not a member");
+		return result.intValue();
 	}
 
 	@Override
