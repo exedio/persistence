@@ -19,19 +19,11 @@
 package com.exedio.cope.pattern;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -43,82 +35,6 @@ import com.exedio.cope.ItemField.DeletePolicy;
 
 public abstract class Composite implements Serializable
 {
-	static final class Type<X>
-	{
-		final Constructor<X> constructor;
-		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
-		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
-		final List<FunctionField> templateList;
-		final int componentSize;
-		
-		Type(final Class<X> valueClass)
-		{
-			//System.out.println("---------------new Composite.Type(" + vc + ')');
-			try
-			{
-				constructor = valueClass.getDeclaredConstructor(SetValue[].class);
-			}
-			catch(NoSuchMethodException e)
-			{
-				throw new IllegalArgumentException(
-						valueClass.getName() + " does not have a constructor " +
-						valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
-			}
-			constructor.setAccessible(true);
-			
-			try
-			{
-				int position = 0;
-				for(final java.lang.reflect.Field field : valueClass.getDeclaredFields())
-				{
-					if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-						continue;
-					if(!Feature.class.isAssignableFrom(field.getType()))
-						continue;
-					
-					field.setAccessible(true);
-					final Feature feature = (Feature)field.get(null);
-					if(feature==null)
-						throw new NullPointerException(valueClass.getName() + '#' + field.getName());
-					if(!(feature instanceof FunctionField))
-						throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
-					final FunctionField template = (FunctionField)feature;
-					if(template.isFinal())
-						throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
-					templates.put(field.getName(), template);
-					templatePositions.put(template, position++);
-				}
-			}
-			catch(IllegalAccessException e)
-			{
-				throw new RuntimeException(valueClass.getName(), e);
-			}
-			this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
-			this.componentSize = templates.size();
-		}
-	}
-	
-	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
-	
-	private static final HashMap<Class, Type> types = new HashMap<Class, Type>();
-
-	@SuppressWarnings("unchecked")
-	static final <E> Type<E> getType(final Class valueClass)
-	{
-		assert valueClass!=null;
-		
-		synchronized(types)
-		{
-			Type<E> result = types.get(valueClass);
-			if(result==null)
-			{
-				result = new Type(valueClass);
-				types.put(valueClass, result);
-			}
-			return result;
-		}
-	}
-	
 	private static final long serialVersionUID = 1l;
 	
 	private final Object[] values;
@@ -127,7 +43,7 @@ public abstract class Composite implements Serializable
 	{
 		for(final SetValue<?> v : setValues)
 			check(v);
-		final Type<?> type = type();
+		final CompositeType<?> type = type();
 		values = new Object[type.componentSize];
 		for(final SetValue v : setValues)
 		{
@@ -189,21 +105,21 @@ public abstract class Composite implements Serializable
 	}
 	
 	
-	private transient Type<?> typeIfSet = null;
+	private transient CompositeType<?> typeIfSet = null;
 	
-	private final Type<?> type()
+	private final CompositeType<?> type()
 	{
-		Type<?> typeIfSet = this.typeIfSet;
+		CompositeType<?> typeIfSet = this.typeIfSet;
 		if(typeIfSet!=null)
 			return typeIfSet;
-		typeIfSet = getType(getClass());
+		typeIfSet = CompositeType.getType(getClass());
 		this.typeIfSet = typeIfSet;
 		return typeIfSet;
 	}
 
 	private final int position(final FunctionField<?> member)
 	{
-		final Type<?> type = type();
+		final CompositeType<?> type = type();
 		final Integer result = type.templatePositions.get(member);
 		if(result==null)
 			throw new IllegalArgumentException("not a member");

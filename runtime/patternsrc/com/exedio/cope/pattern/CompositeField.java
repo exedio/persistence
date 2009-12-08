@@ -45,7 +45,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final boolean optional;
 	private final Class<E> valueClass;
 	
-	private final Composite.Type<E> valueType;
+	private final CompositeType<E> valueType;
 	private final Constructor<E> valueConstructor;
 	private final LinkedHashMap<String, FunctionField> templates;
 	private final List<FunctionField> templateList;
@@ -69,7 +69,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		if(Composite.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
 
-		this.valueType = Composite.getType(valueClass);
+		this.valueType = CompositeType.getType(valueClass);
 		this.valueConstructor = valueType.constructor;
 		this.templates = valueType.templates;
 		this.templateList = valueType.templateList;
