@@ -267,51 +267,51 @@ public class CompositeTest extends CopeAssert
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		
-		// TODO better exceptions
+		// get
 		try
 		{
 			value.get(ValueX.stringField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.get(ValueX.intField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.get(ValueX.longField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.get(ValueX.doubleField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.get(ValueX.booleanField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		
 		// getMandatory
@@ -320,36 +320,36 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(ValueX.intField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.getMandatory(ValueX.longField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.getMandatory(ValueX.doubleField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 		try
 		{
 			value.getMandatory(ValueX.booleanField);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("not a member", e.getMessage());
 		}
 	}
 	

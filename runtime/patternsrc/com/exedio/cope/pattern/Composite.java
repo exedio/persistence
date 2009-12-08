@@ -142,7 +142,11 @@ public abstract class Composite implements Serializable
 	protected final <X> X get(final FunctionField<X> member)
 	{
 		final Type<?> type = type();
-		return (X)values[type.templatePositions.get(member)];
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		return (X)values[position];
 	}
 	
 	protected final int getMandatory(final IntegerField member)
@@ -151,7 +155,11 @@ public abstract class Composite implements Serializable
 			throw new IllegalArgumentException("member is not mandatory");
 		
 		final Type<?> type = type();
-		return (Integer)values[type.templatePositions.get(member)];
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		return (Integer)values[position];
 	}
 	
 	protected final long getMandatory(final LongField member)
@@ -160,7 +168,11 @@ public abstract class Composite implements Serializable
 			throw new IllegalArgumentException("member is not mandatory");
 		
 		final Type<?> type = type();
-		return (Long)values[type.templatePositions.get(member)];
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		return (Long)values[position];
 	}
 	
 	protected final double getMandatory(final DoubleField member)
@@ -169,7 +181,11 @@ public abstract class Composite implements Serializable
 			throw new IllegalArgumentException("member is not mandatory");
 		
 		final Type<?> type = type();
-		return (Double)values[type.templatePositions.get(member)];
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		return (Double)values[position];
 	}
 	
 	protected final boolean getMandatory(final BooleanField member)
@@ -178,7 +194,11 @@ public abstract class Composite implements Serializable
 			throw new IllegalArgumentException("member is not mandatory");
 		
 		final Type<?> type = type();
-		return (Boolean)values[type.templatePositions.get(member)];
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		return (Boolean)values[position];
 	}
 	
 	protected final <X> void set(final FunctionField<X> member, final X value)
