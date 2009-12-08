@@ -29,6 +29,7 @@ import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -185,6 +186,33 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("CompositeOptionalItem.duoAString is not a component of CompositeOptionalItem.uno", e.getMessage());
 		}
+		
+		{
+			final CompositeValue v = second.x(
+					CompositeValue.aString.map("firstString1"),
+					CompositeValue.anInt.map(1),
+					CompositeValue.anEnum.map(AnEnumClass.anEnumConstant1),
+					CompositeValue.anItem.map(target1));
+			assertEquals("firstString1",              v.getAString());
+			assertEquals(1,                           v.getAnInt());
+			assertEquals(AnEnumClass.anEnumConstant1, v.getAnEnum());
+			assertEquals(target1,                     v.getAnItem());
+			
+			try
+			{
+				second.x(CompositeItem.code.map("firstString1"));
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				final Throwable cause = e.getCause();
+				assertTrue(cause instanceof InvocationTargetException);
+				final Throwable cause2 = cause.getCause();
+				assertTrue(cause2 instanceof NullPointerException);
+				assertEquals(null, cause2.getMessage());
+			}
+		}
+		
 		try
 		{
 			aString.isAnnotationPresent(Computed.class);

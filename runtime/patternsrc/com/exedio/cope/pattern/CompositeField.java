@@ -205,6 +205,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		{
 			initargs[i++] = e.getKey().map(e.getValue().get(item));
 		}
+		return x(initargs);
+	}
+	
+	E x(final SetValue... initargs)
+	{
 		try
 		{
 			return valueConstructor.newInstance(new Object[]{initargs});
