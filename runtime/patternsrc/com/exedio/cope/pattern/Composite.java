@@ -112,7 +112,7 @@ public abstract class Composite implements Serializable
 		CompositeType<?> typeIfSet = this.typeIfSet;
 		if(typeIfSet!=null)
 			return typeIfSet;
-		typeIfSet = CompositeType.getType(getClass());
+		typeIfSet = CompositeType.get(getClass());
 		this.typeIfSet = typeIfSet;
 		return typeIfSet;
 	}

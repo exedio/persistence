@@ -89,7 +89,7 @@ final class CompositeType<X>
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 
 	@SuppressWarnings("unchecked")
-	static final <E> CompositeType<E> getType(final Class valueClass)
+	static final <E> CompositeType<E> get(final Class valueClass)
 	{
 		assert valueClass!=null;
 		

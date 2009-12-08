@@ -69,7 +69,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		if(Composite.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
 
-		this.valueType = CompositeType.getType(valueClass);
+		this.valueType = CompositeType.get(valueClass);
 		this.valueConstructor = valueType.constructor;
 		this.templates = valueType.templates;
 		this.templateList = valueType.templateList;
