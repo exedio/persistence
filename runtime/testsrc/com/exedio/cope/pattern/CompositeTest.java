@@ -127,6 +127,34 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getBooleanOptional());
 	}
 	
+	public void testGetSet()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
+		assertEquals(null, value.getIntOptional());
+		assertEquals(null, value.getLongOptional());
+		assertEquals(null, value.getDoubleOptional());
+		assertEquals(null, value.getBooleanOptional());
+		
+		value.setIntOptional(Integer.valueOf(44));
+		value.setLongOptional(Long.valueOf(55));
+		value.setDoubleOptional(Double.valueOf(66));
+		value.setBooleanOptional(Boolean.TRUE);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
+		assertEquals(Integer.valueOf(44), value.getIntOptional());
+		assertEquals(Long.valueOf(55), value.getLongOptional());
+		assertEquals(Double.valueOf(66), value.getDoubleOptional());
+		assertEquals(Boolean.TRUE, value.getBooleanOptional());
+	}
+	
 	static final class Value extends Composite
 	{
 		public static final StringField string4 = new StringField().lengthMax(4);
