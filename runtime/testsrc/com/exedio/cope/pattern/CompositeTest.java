@@ -25,6 +25,7 @@ import static java.lang.Long.valueOf;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleField;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.LongField;
@@ -397,6 +398,25 @@ public class CompositeTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	public void testIt()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		try
+		{
+			value.set((FunctionField)Value.booleanOptional, "");
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(
+					"expected a java.lang.Boolean, " +
+					"but was a java.lang.String for " +
+					Value.booleanOptional.toString() + ".",
+				e.getMessage());
 		}
 	}
 	
