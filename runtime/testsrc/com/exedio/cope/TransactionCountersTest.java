@@ -32,8 +32,9 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 	private long rollbackWithConnectionStart;
 	
 	@Override
-	public void setUp()
+	public void setUp() throws Exception
 	{
+		super.setUp();
 		final TransactionCounters c = model.getTransactionCounters();
 		commitWithoutConnectionStart   = c.getCommitWithoutConnection();
 		commitWithConnectionStart      = c.getCommitWithConnection();
