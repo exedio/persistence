@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.Boolean.valueOf;
+import static java.lang.Double.valueOf;
+import static java.lang.Integer.valueOf;
+import static java.lang.Long.valueOf;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.IntegerField;
@@ -130,6 +135,7 @@ public class CompositeTest extends CopeAssert
 	public void testGetSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
@@ -140,10 +146,62 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 		
+		assertEquals("1234",         value.get(Value.string4));
+		assertEquals(valueOf(4),     value.get(Value.intMax4));
+		assertEquals(valueOf(5l),    value.get(Value.longField));
+		assertEquals(valueOf(6.6),   value.get(Value.doubleField));
+		assertEquals(valueOf(false), value.get(Value.booleanField));
+		assertEquals(4,     value.getMandatory(Value.intMax4));
+		assertEquals(5l,    value.getMandatory(Value.longField));
+		assertEquals(6.6,   value.getMandatory(Value.doubleField));
+		assertEquals(false, value.getMandatory(Value.booleanField));
+		assertEquals(null, value.get(Value.intOptional));
+		assertEquals(null, value.get(Value.longOptional));
+		assertEquals(null, value.get(Value.doubleOptional));
+		assertEquals(null, value.get(Value.booleanOptional));
+		try
+		{
+			value.getMandatory(Value.intOptional);
+			fail();
+		}
+		catch(NullPointerException e) // TODO better exception
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			value.getMandatory(Value.longOptional);
+			fail();
+		}
+		catch(NullPointerException e) // TODO better exception
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			value.getMandatory(Value.doubleOptional);
+			fail();
+		}
+		catch(NullPointerException e) // TODO better exception
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			value.getMandatory(Value.booleanOptional);
+			fail();
+		}
+		catch(NullPointerException e) // TODO better exception
+		{
+			assertEquals(null, e.getMessage());
+		}
+		
+		
 		value.setIntOptional(Integer.valueOf(44));
 		value.setLongOptional(Long.valueOf(55));
 		value.setDoubleOptional(Double.valueOf(66));
 		value.setBooleanOptional(Boolean.TRUE);
+		
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
@@ -153,6 +211,24 @@ public class CompositeTest extends CopeAssert
 		assertEquals(Long.valueOf(55), value.getLongOptional());
 		assertEquals(Double.valueOf(66), value.getDoubleOptional());
 		assertEquals(Boolean.TRUE, value.getBooleanOptional());
+
+		assertEquals("1234",         value.get(Value.string4));
+		assertEquals(valueOf(4),     value.get(Value.intMax4));
+		assertEquals(valueOf(5l),    value.get(Value.longField));
+		assertEquals(valueOf(6.6),   value.get(Value.doubleField));
+		assertEquals(valueOf(false), value.get(Value.booleanField));
+		assertEquals(4,     value.getMandatory(Value.intMax4));
+		assertEquals(5l,    value.getMandatory(Value.longField));
+		assertEquals(6.6,   value.getMandatory(Value.doubleField));
+		assertEquals(false, value.getMandatory(Value.booleanField));
+		assertEquals(valueOf(44),   value.get(Value.intOptional));
+		assertEquals(valueOf(55l),  value.get(Value.longOptional));
+		assertEquals(valueOf(66.0), value.get(Value.doubleOptional));
+		assertEquals(valueOf(true), value.get(Value.booleanOptional));
+		assertEquals(44,   value.getMandatory(Value.intOptional)); // TODO should throw exception
+		assertEquals(55l,  value.getMandatory(Value.longOptional)); // TODO should throw exception
+		assertEquals(66.0, value.getMandatory(Value.doubleOptional)); // TODO should throw exception
+		assertEquals(true, value.getMandatory(Value.booleanOptional)); // TODO should throw exception
 	}
 	
 	static final class Value extends Composite
