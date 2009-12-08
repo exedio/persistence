@@ -351,6 +351,53 @@ public class CompositeTest extends CopeAssert
 		{
 			assertEquals("not a member", e.getMessage());
 		}
+		
+		// set
+		try
+		{
+			value.set(ValueX.stringField, "77s");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not a member", e.getMessage());
+		}
+		try
+		{
+			value.set(ValueX.intField, valueOf(7));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not a member", e.getMessage());
+		}
+		try
+		{
+			value.set(ValueX.longField, valueOf(7l));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not a member", e.getMessage());
+		}
+		try
+		{
+			value.set(ValueX.doubleField, valueOf(7.7));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not a member", e.getMessage());
+		}
+		try
+		{
+			value.set(ValueX.booleanField, valueOf(true));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not a member", e.getMessage());
+		}
 	}
 	
 	static final class Value extends Composite

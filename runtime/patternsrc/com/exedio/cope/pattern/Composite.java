@@ -204,8 +204,13 @@ public abstract class Composite implements Serializable
 	protected final <X> void set(final FunctionField<X> member, final X value)
 	{
 		member.check(value);
+		
 		final Type<?> type = type();
-		values[type.templatePositions.get(member)] = value;
+		final Integer position = type.templatePositions.get(member);
+		if(position==null)
+			throw new IllegalArgumentException("not a member");
+		
+		values[position] = value;
 	}
 	
 	
