@@ -139,12 +139,12 @@ public abstract class Composite implements Serializable
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected final <X> X get(final FunctionField<X> member)
+	public final <X> X get(final FunctionField<X> member)
 	{
 		return (X)values[position(member)];
 	}
 	
-	protected final int getMandatory(final IntegerField member)
+	public final int getMandatory(final IntegerField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
@@ -152,7 +152,7 @@ public abstract class Composite implements Serializable
 		return (Integer)values[position(member)];
 	}
 	
-	protected final long getMandatory(final LongField member)
+	public final long getMandatory(final LongField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
@@ -160,7 +160,7 @@ public abstract class Composite implements Serializable
 		return (Long)values[position(member)];
 	}
 	
-	protected final double getMandatory(final DoubleField member)
+	public final double getMandatory(final DoubleField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
@@ -168,7 +168,7 @@ public abstract class Composite implements Serializable
 		return (Double)values[position(member)];
 	}
 	
-	protected final boolean getMandatory(final BooleanField member)
+	public final boolean getMandatory(final BooleanField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
@@ -176,7 +176,7 @@ public abstract class Composite implements Serializable
 		return (Boolean)values[position(member)];
 	}
 	
-	protected final <X> void set(final FunctionField<X> member, final X value)
+	public final <X> void set(final FunctionField<X> member, final X value)
 	{
 		member.check(value);
 		values[position(member)] = value;
