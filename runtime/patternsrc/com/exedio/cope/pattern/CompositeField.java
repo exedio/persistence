@@ -208,7 +208,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return newValue(initargs);
 	}
 	
-	E newValue(final SetValue... initargs)
+	public E newValue(final SetValue... initargs)
 	{
 		try
 		{
