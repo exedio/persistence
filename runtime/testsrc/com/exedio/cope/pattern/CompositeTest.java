@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.BooleanField;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
@@ -31,7 +34,7 @@ public class CompositeTest extends CopeAssert
 	{
 		try
 		{
-			new Value("12345", 5);
+			new Value("12345", 5, 0l, 0.0, false);
 			fail();
 		}
 		catch(StringLengthViolationException e)
@@ -43,7 +46,7 @@ public class CompositeTest extends CopeAssert
 		
 		try
 		{
-			new Value(null, 5);
+			new Value(null, 5, 0l, 0.0, false);
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -52,10 +55,16 @@ public class CompositeTest extends CopeAssert
 			assertSame(null, e.getItem());
 		}
 		
-		final Value value = new Value("1234", 4);
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
+		assertEquals(null, value.getLongOptional());
+		assertEquals(null, value.getDoubleOptional());
+		assertEquals(null, value.getBooleanOptional());
 		
 		try
 		{
@@ -68,6 +77,14 @@ public class CompositeTest extends CopeAssert
 			assertSame(null, e.getItem());
 		}
 		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
+		assertEquals(null, value.getIntOptional());
+		assertEquals(null, value.getLongOptional());
+		assertEquals(null, value.getDoubleOptional());
+		assertEquals(null, value.getBooleanOptional());
 		
 		try
 		{
@@ -80,6 +97,14 @@ public class CompositeTest extends CopeAssert
 			assertSame(null, e.getItem());
 		}
 		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
+		assertEquals(null, value.getIntOptional());
+		assertEquals(null, value.getLongOptional());
+		assertEquals(null, value.getDoubleOptional());
+		assertEquals(null, value.getBooleanOptional());
 		
 		try
 		{
@@ -91,14 +116,29 @@ public class CompositeTest extends CopeAssert
 			assertSame(Value.intMax4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
+		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEquals(6.6, value.getDoubleField());
+		assertEquals(false, value.getBooleanField());
+		assertEquals(null, value.getIntOptional());
+		assertEquals(null, value.getLongOptional());
+		assertEquals(null, value.getDoubleOptional());
+		assertEquals(null, value.getBooleanOptional());
 	}
 	
 	static final class Value extends Composite
 	{
 		public static final StringField string4 = new StringField().lengthMax(4);
 		public static final IntegerField intMax4 = new IntegerField().max(4);
+		public static final LongField longField = new LongField();
+		public static final DoubleField doubleField = new DoubleField();
+		public static final BooleanField booleanField = new BooleanField();
+		
 		public static final IntegerField intOptional = new IntegerField().optional();
+		public static final LongField longOptional = new LongField().optional();
+		public static final DoubleField doubleOptional = new DoubleField().optional();
+		public static final BooleanField booleanOptional = new BooleanField().optional();
 		
 	/**
 
@@ -106,6 +146,9 @@ public class CompositeTest extends CopeAssert
 	 * Creates a new Value with all the fields initially needed.
 	 * @param string4 the initial value for field {@link #string4}.
 	 * @param intMax4 the initial value for field {@link #intMax4}.
+	 * @param longField the initial value for field {@link #longField}.
+	 * @param doubleField the initial value for field {@link #doubleField}.
+	 * @param booleanField the initial value for field {@link #booleanField}.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if intMax4 violates its range constraint.
 	 * @throws com.exedio.cope.MandatoryViolationException if string4 is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if string4 violates its length constraint.
@@ -114,7 +157,10 @@ public class CompositeTest extends CopeAssert
 	 */
 	Value(
 				final java.lang.String string4,
-				final int intMax4)
+				final int intMax4,
+				final long longField,
+				final double doubleField,
+				final boolean booleanField)
 			throws
 				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
@@ -123,6 +169,9 @@ public class CompositeTest extends CopeAssert
 		this(new com.exedio.cope.SetValue[]{
 			Value.string4.map(string4),
 			Value.intMax4.map(intMax4),
+			Value.longField.map(longField),
+			Value.doubleField.map(doubleField),
+			Value.booleanField.map(booleanField),
 		});
 	}/**
 
@@ -182,6 +231,66 @@ public class CompositeTest extends CopeAssert
 	}/**
 
 	 **
+	 * Returns the value of {@link #longField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final long getLongField()
+	{
+		return getMandatory(Value.longField);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #longField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setLongField(final long longField)
+	{
+		set(Value.longField,longField);
+	}/**
+
+	 **
+	 * Returns the value of {@link #doubleField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final double getDoubleField()
+	{
+		return getMandatory(Value.doubleField);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #doubleField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setDoubleField(final double doubleField)
+	{
+		set(Value.doubleField,doubleField);
+	}/**
+
+	 **
+	 * Returns the value of {@link #booleanField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
+	 */
+	public final boolean getBooleanField()
+	{
+		return getMandatory(Value.booleanField);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #booleanField}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setBooleanField(final boolean booleanField)
+	{
+		set(Value.booleanField,booleanField);
+	}/**
+
+	 **
 	 * Returns the value of {@link #intOptional}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
@@ -199,6 +308,66 @@ public class CompositeTest extends CopeAssert
 	public final void setIntOptional(final java.lang.Integer intOptional)
 	{
 		set(Value.intOptional,intOptional);
+	}/**
+
+	 **
+	 * Returns the value of {@link #longOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final java.lang.Long getLongOptional()
+	{
+		return get(Value.longOptional);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #longOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setLongOptional(final java.lang.Long longOptional)
+	{
+		set(Value.longOptional,longOptional);
+	}/**
+
+	 **
+	 * Returns the value of {@link #doubleOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final java.lang.Double getDoubleOptional()
+	{
+		return get(Value.doubleOptional);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #doubleOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setDoubleOptional(final java.lang.Double doubleOptional)
+	{
+		set(Value.doubleOptional,doubleOptional);
+	}/**
+
+	 **
+	 * Returns the value of {@link #booleanOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
+	 */
+	public final java.lang.Boolean getBooleanOptional()
+	{
+		return get(Value.booleanOptional);
+	}/**
+
+	 **
+	 * Sets a new value for {@link #booleanOptional}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
+	 */
+	public final void setBooleanOptional(final java.lang.Boolean booleanOptional)
+	{
+		set(Value.booleanOptional,booleanOptional);
 	}/**
 
 	 **
