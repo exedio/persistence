@@ -137,10 +137,10 @@ public class CompositeTest extends CopeAssert
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		
 		assertEquals("1234", value.getString4());
-		assertEquals(4, value.getIntMax4());
-		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
-		assertEquals(false, value.getBooleanField());
+		assertEquals(4,      value.getIntMax4());
+		assertEquals(5l,     value.getLongField());
+		assertEquals(6.6,    value.getDoubleField());
+		assertEquals(false,  value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
 		assertEquals(null, value.getDoubleOptional());
@@ -197,20 +197,20 @@ public class CompositeTest extends CopeAssert
 		}
 		
 		
-		value.setIntOptional(Integer.valueOf(44));
-		value.setLongOptional(Long.valueOf(55));
-		value.setDoubleOptional(Double.valueOf(66));
-		value.setBooleanOptional(Boolean.TRUE);
+		value.setIntOptional    (valueOf(44));
+		value.setLongOptional   (valueOf(55l));
+		value.setDoubleOptional (valueOf(66.0));
+		value.setBooleanOptional(valueOf(true));
 		
 		assertEquals("1234", value.getString4());
-		assertEquals(4, value.getIntMax4());
-		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
-		assertEquals(false, value.getBooleanField());
-		assertEquals(Integer.valueOf(44), value.getIntOptional());
-		assertEquals(Long.valueOf(55), value.getLongOptional());
-		assertEquals(Double.valueOf(66), value.getDoubleOptional());
-		assertEquals(Boolean.TRUE, value.getBooleanOptional());
+		assertEquals(4,      value.getIntMax4());
+		assertEquals(5l,     value.getLongField());
+		assertEquals(6.6,    value.getDoubleField());
+		assertEquals(false,  value.getBooleanField());
+		assertEquals(valueOf(44),   value.getIntOptional());
+		assertEquals(valueOf(55l),  value.getLongOptional());
+		assertEquals(valueOf(66.0), value.getDoubleOptional());
+		assertEquals(valueOf(true), value.getBooleanOptional());
 
 		assertEquals("1234",         value.get(Value.string4));
 		assertEquals(valueOf(4),     value.get(Value.intMax4));
