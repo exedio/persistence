@@ -32,56 +32,56 @@ import com.exedio.cope.SetValue;
 
 final class CompositeType<X>
 {
-		final Constructor<X> constructor;
-		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
-		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
-		final List<FunctionField> templateList;
-		final int componentSize;
-		
-		CompositeType(final Class<X> valueClass)
+	final Constructor<X> constructor;
+	final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
+	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
+	final List<FunctionField> templateList;
+	final int componentSize;
+	
+	CompositeType(final Class<X> valueClass)
+	{
+		//System.out.println("---------------new Composite.Type(" + vc + ')');
+		try
 		{
-			//System.out.println("---------------new Composite.Type(" + vc + ')');
-			try
+			constructor = valueClass.getDeclaredConstructor(SetValue[].class);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new IllegalArgumentException(
+					valueClass.getName() + " does not have a constructor " +
+					valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
+		}
+		constructor.setAccessible(true);
+		
+		try
+		{
+			int position = 0;
+			for(final java.lang.reflect.Field field : valueClass.getDeclaredFields())
 			{
-				constructor = valueClass.getDeclaredConstructor(SetValue[].class);
+				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+					continue;
+				if(!Feature.class.isAssignableFrom(field.getType()))
+					continue;
+				
+				field.setAccessible(true);
+				final Feature feature = (Feature)field.get(null);
+				if(feature==null)
+					throw new NullPointerException(valueClass.getName() + '#' + field.getName());
+				if(!(feature instanceof FunctionField))
+					throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
+				final FunctionField template = (FunctionField)feature;
+				if(template.isFinal())
+					throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
+				templates.put(field.getName(), template);
+				templatePositions.put(template, position++);
 			}
-			catch(NoSuchMethodException e)
-			{
-				throw new IllegalArgumentException(
-						valueClass.getName() + " does not have a constructor " +
-						valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
-			}
-			constructor.setAccessible(true);
-			
-			try
-			{
-				int position = 0;
-				for(final java.lang.reflect.Field field : valueClass.getDeclaredFields())
-				{
-					if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-						continue;
-					if(!Feature.class.isAssignableFrom(field.getType()))
-						continue;
-					
-					field.setAccessible(true);
-					final Feature feature = (Feature)field.get(null);
-					if(feature==null)
-						throw new NullPointerException(valueClass.getName() + '#' + field.getName());
-					if(!(feature instanceof FunctionField))
-						throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
-					final FunctionField template = (FunctionField)feature;
-					if(template.isFinal())
-						throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
-					templates.put(field.getName(), template);
-					templatePositions.put(template, position++);
-				}
-			}
-			catch(IllegalAccessException e)
-			{
-				throw new RuntimeException(valueClass.getName(), e);
-			}
-			this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
-			this.componentSize = templates.size();
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new RuntimeException(valueClass.getName(), e);
+		}
+		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
+		this.componentSize = templates.size();
 	}
 	
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
