@@ -147,24 +147,36 @@ public abstract class Composite implements Serializable
 	
 	protected final int getMandatory(final IntegerField member)
 	{
+		if(!member.isMandatory())
+			throw new IllegalArgumentException("member is not mandatory");
+		
 		final Type<?> type = type();
 		return (Integer)values[type.templatePositions.get(member)];
 	}
 	
 	protected final long getMandatory(final LongField member)
 	{
+		if(!member.isMandatory())
+			throw new IllegalArgumentException("member is not mandatory");
+		
 		final Type<?> type = type();
 		return (Long)values[type.templatePositions.get(member)];
 	}
 	
 	protected final double getMandatory(final DoubleField member)
 	{
+		if(!member.isMandatory())
+			throw new IllegalArgumentException("member is not mandatory");
+		
 		final Type<?> type = type();
 		return (Double)values[type.templatePositions.get(member)];
 	}
 	
 	protected final boolean getMandatory(final BooleanField member)
 	{
+		if(!member.isMandatory())
+			throw new IllegalArgumentException("member is not mandatory");
+		
 		final Type<?> type = type();
 		return (Boolean)values[type.templatePositions.get(member)];
 	}

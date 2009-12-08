@@ -164,36 +164,36 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.intOptional);
 			fail();
 		}
-		catch(NullPointerException e) // TODO better exception
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
 		try
 		{
 			value.getMandatory(Value.longOptional);
 			fail();
 		}
-		catch(NullPointerException e) // TODO better exception
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
 		try
 		{
 			value.getMandatory(Value.doubleOptional);
 			fail();
 		}
-		catch(NullPointerException e) // TODO better exception
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
 		try
 		{
 			value.getMandatory(Value.booleanOptional);
 			fail();
 		}
-		catch(NullPointerException e) // TODO better exception
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
 		
 		
@@ -225,10 +225,42 @@ public class CompositeTest extends CopeAssert
 		assertEquals(valueOf(55l),  value.get(Value.longOptional));
 		assertEquals(valueOf(66.0), value.get(Value.doubleOptional));
 		assertEquals(valueOf(true), value.get(Value.booleanOptional));
-		assertEquals(44,   value.getMandatory(Value.intOptional)); // TODO should throw exception
-		assertEquals(55l,  value.getMandatory(Value.longOptional)); // TODO should throw exception
-		assertEquals(66.0, value.getMandatory(Value.doubleOptional)); // TODO should throw exception
-		assertEquals(true, value.getMandatory(Value.booleanOptional)); // TODO should throw exception
+		try
+		{
+			value.getMandatory(Value.intOptional);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
+		}
+		try
+		{
+			value.getMandatory(Value.longOptional);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
+		}
+		try
+		{
+			value.getMandatory(Value.doubleOptional);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
+		}
+		try
+		{
+			value.getMandatory(Value.booleanOptional);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
+		}
 	}
 	
 	static final class Value extends Composite
