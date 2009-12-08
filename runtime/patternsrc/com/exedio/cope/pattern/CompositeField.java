@@ -205,10 +205,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		{
 			initargs[i++] = e.getKey().map(e.getValue().get(item));
 		}
-		return x(initargs);
+		return newValue(initargs);
 	}
 	
-	E x(final SetValue... initargs)
+	E newValue(final SetValue... initargs)
 	{
 		try
 		{

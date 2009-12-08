@@ -188,7 +188,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		
 		{
-			final CompositeValue v = second.x(
+			final CompositeValue v = second.newValue(
 					CompositeValue.aString.map("firstString1"),
 					CompositeValue.anInt.map(1),
 					CompositeValue.anEnum.map(AnEnumClass.anEnumConstant1),
@@ -200,7 +200,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			
 			try
 			{
-				second.x(CompositeItem.code.map("firstString1"));
+				second.newValue(CompositeItem.code.map("firstString1"));
 				fail();
 			}
 			catch(RuntimeException e)
