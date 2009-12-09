@@ -141,6 +141,10 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());
 		
+		assertEquals(CompositeValue.class, eins .getValueClass());
+		assertEquals(CompositeValue.class, uno  .getValueClass());
+		assertEquals(CompositeValue.class, first.getValueClass());
+
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 		assertSame(anInt,   uno .getTemplate(uno .of(anInt)));

@@ -283,6 +283,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		return !optional;
 	}
+	
+	public Class<E> getValueClass()
+	{
+		return valueClass;
+	}
 
 	public SetValue map(E value)
 	{
