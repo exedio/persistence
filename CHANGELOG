@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* move com.exedio.cope.util.CopeFilter to package com.exedio.cope.misc
+	deprecated version is provided
 * added generic creator method "newValue(SetValue...)" for Composite on CompositeField
 * made generic getters and setter on Composite public
 * added CompositeField.getTemplate(FunctionField)

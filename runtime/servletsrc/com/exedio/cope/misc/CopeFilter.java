@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import java.io.IOException;
 
@@ -28,13 +28,31 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.misc.ServletUtil;
 
 /**
- * @deprecated Use {@link com.exedio.cope.misc.CopeFilter} instead
+ * A filter for starting/closing cope transactions.
+ *
+ * In order to use it, you have to deploy the filter in your <tt>web.xml</tt>,
+ * providing the name of the cope model via an init-parameter.
+ * Typically, your <tt>web.xml</tt> would contain a snippet like this:
+ * <pre>
+ * &lt;filter&gt;
+ *    &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
+ *    &lt;filter-class&gt;com.exedio.cope.util.CopeFilter&lt;/filter-class&gt;
+ *    &lt;init-param&gt;
+ *       &lt;param-name&gt;model&lt;/param-name&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.Model com.exedio.demoshop.Main#model}&lt;/param-value&gt;
+ *    &lt;/init-param&gt;
+ * &lt;/filter&gt;
+ * &lt;filter-mapping&gt;
+ *    &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
+ *    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+ *    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+ * &lt;/filter-mapping&gt;
+ * </pre>
+ *
+ * @author Stephan Frisch, exedio GmbH
  */
-@Deprecated
 public final class CopeFilter implements Filter
 {
 	private ConnectToken connectToken = null;
@@ -44,7 +62,6 @@ public final class CopeFilter implements Filter
 	{
 		connectToken = ServletUtil.getConnectedModel(this, config);
 		model = connectToken.getModel();
-		System.out.println("deprecation warning: com.exedio.cope.util.CopeFilter is deprecated, use com.exedio.cope.misc.CopeFilter instead");
 	}
 	
 	private volatile boolean revised = false;
