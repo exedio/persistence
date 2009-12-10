@@ -29,7 +29,6 @@ import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -208,26 +207,18 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				second.newValue(CompositeItem.code.map(null));
 				fail();
 			}
-			catch(RuntimeException e) // TODO should be MandatoryViolationException
+			catch(MandatoryViolationException e)
 			{
-				final Throwable cause = e.getCause();
-				assertTrue(cause instanceof InvocationTargetException);
-				final Throwable cause2 = cause.getCause();
-				assertTrue(cause2 instanceof MandatoryViolationException);
-				assertEquals("mandatory violation on a newly created item for CompositeItem.code", cause2.getMessage());
+				assertEquals("mandatory violation on a newly created item for CompositeItem.code", e.getMessage());
 			}
 			try
 			{
 				second.newValue(CompositeItem.code.map("firstString1"));
 				fail();
 			}
-			catch(RuntimeException e) // TODO should be IllegalArgumentException
+			catch(IllegalArgumentException e)
 			{
-				final Throwable cause = e.getCause();
-				assertTrue(cause instanceof InvocationTargetException);
-				final Throwable cause2 = cause.getCause();
-				assertTrue(cause2 instanceof IllegalArgumentException);
-				assertEquals("not a member", cause2.getMessage());
+				assertEquals("not a member", e.getMessage());
 			}
 		}
 		

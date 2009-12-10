@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -228,7 +229,13 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			final Throwable cause = e.getCause();
+			if(cause instanceof ConstraintViolationException)
+				throw (ConstraintViolationException)cause;
+			else if(cause instanceof IllegalArgumentException)
+				throw (IllegalArgumentException)cause;
+			else
+				throw new RuntimeException(e);
 		}
 	}
 	
