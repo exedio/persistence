@@ -24,7 +24,6 @@ import java.util.Arrays;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
-import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -41,8 +40,6 @@ public abstract class Composite implements Serializable
 
 	protected Composite(final SetValue... setValues)
 	{
-		for(final SetValue<?> v : setValues)
-			check(v);
 		final CompositeType<?> type = type();
 		values = new Object[type.componentSize];
 		for(final SetValue v : setValues)
@@ -53,11 +50,15 @@ public abstract class Composite implements Serializable
 			
 			values[position.intValue()] = v.value;
 		}
+		int i = 0;
+		for(final FunctionField ff : type.templateList)
+			check(ff, values[i++]);
 	}
 
-	private static final <E> void check(final SetValue<E> setValue)
+	@SuppressWarnings("unchecked")
+	private static final <E> void check(final FunctionField field, final Object value)
 	{
-		((Field<E>)setValue.settable).check(setValue.value);
+		field.check(value);
 	}
 	
 	@SuppressWarnings("unchecked")

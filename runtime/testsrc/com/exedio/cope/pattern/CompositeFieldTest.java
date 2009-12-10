@@ -201,7 +201,15 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			assertEquals(AnEnumClass.anEnumConstant1, v.getAnEnum());
 			assertEquals(target1,                     v.getAnItem());
 			
-			second.newValue(); // TODO should throw MandatoryViolation
+			try
+			{
+				second.newValue();
+				fail();
+			}
+			catch(MandatoryViolationException e)
+			{
+				assertEquals("mandatory violation on a newly created item for " + CompositeValue.aString.toString(), e.getMessage());
+			}
 			try
 			{
 				second.newValue(CompositeValue.aString.map(null));
