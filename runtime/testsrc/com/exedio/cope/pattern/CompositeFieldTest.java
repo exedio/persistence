@@ -204,12 +204,12 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			second.newValue(); // TODO should throw MandatoryViolation
 			try
 			{
-				second.newValue(CompositeItem.code.map(null));
+				second.newValue(CompositeValue.aString.map(null));
 				fail();
 			}
 			catch(MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation on a newly created item for CompositeItem.code", e.getMessage());
+				assertEquals("mandatory violation on a newly created item for " + CompositeValue.aString.toString(), e.getMessage());
 			}
 			try
 			{
