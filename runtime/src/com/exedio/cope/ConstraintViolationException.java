@@ -46,15 +46,6 @@ public abstract class ConstraintViolationException extends RuntimeException
 		return item;
 	}
 
-	/**
-	 * @deprecated Use {@link #getItemPhrase()} instead.
-	 */
-	@Deprecated
-	public final String getItemText()
-	{
-		return item!=null ? item.getCopeID() : "a newly created item";
-	}
-
 	protected final String getItemPhrase()
 	{
 		return item!=null ? (" on " + item.getCopeID()) : "";
@@ -82,5 +73,14 @@ public abstract class ConstraintViolationException extends RuntimeException
 	public final String getItemID()
 	{
 		return getItemText();
+	}
+
+	/**
+	 * @deprecated Use {@link #getItemPhrase()} instead.
+	 */
+	@Deprecated
+	public final String getItemText()
+	{
+		return item!=null ? item.getCopeID() : "a newly created item";
 	}
 }
