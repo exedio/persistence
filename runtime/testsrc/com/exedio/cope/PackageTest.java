@@ -35,6 +35,8 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		
+		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
+		
 		suite.addTestSuite( TrimTest.class );
 		suite.addTestSuite( ClusterIntTest.class );
 		suite.addTestSuite( ClusterTest.class );
