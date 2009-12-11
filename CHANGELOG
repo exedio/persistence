@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* rename CopeTest.getProperties() to getConnectProperties()
+	deprecated version is provided
 * added CompositeField.getValueClass()
 * move com.exedio.cope.util.CopeFilter to package com.exedio.cope.misc
 	deprecated version is provided

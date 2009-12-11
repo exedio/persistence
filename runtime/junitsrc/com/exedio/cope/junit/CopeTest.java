@@ -92,7 +92,7 @@ public abstract class CopeTest extends CopeAssert
 	{
 		if(exclusive)
 		{
-			model.connect(getProperties());
+			model.connect(getConnectProperties());
 			model.createSchema();
 		}
 		else
@@ -110,7 +110,7 @@ public abstract class CopeTest extends CopeAssert
 					}
 					
 					//System.out.println("---- create " + System.identityHashCode(model));
-					model.connect(getProperties());
+					model.connect(getConnectProperties());
 					model.createSchema();
 					createdSchema = model;
 					//if(!duplicateCreates.add(model))
@@ -184,7 +184,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
-	public final ConnectProperties getProperties()
+	public final ConnectProperties getConnectProperties()
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
@@ -302,5 +302,16 @@ public abstract class CopeTest extends CopeAssert
 		final String oldName = model.getCurrentTransaction().getName();
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getConnectProperties()} instead
+	 */
+	@Deprecated
+	public ConnectProperties getProperties()
+	{
+		return getConnectProperties();
 	}
 }

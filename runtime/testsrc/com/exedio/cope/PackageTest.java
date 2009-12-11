@@ -141,7 +141,7 @@ public class PackageTest extends TestCase
 			final com.exedio.cope.junit.CopeTest copeTest = (com.exedio.cope.junit.CopeTest)test;
 			final Model model = copeTest.model;
 			if(!models.containsKey(model))
-				models.put(model, copeTest.getProperties());
+				models.put(model, copeTest.getConnectProperties());
 		}
 		else if(test instanceof TestSuite)
 		{

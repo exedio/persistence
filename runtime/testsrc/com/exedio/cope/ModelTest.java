@@ -47,7 +47,7 @@ public class ModelTest extends TestmodelTest
 	
 	public void testConnect()
 	{
-		final ConnectProperties defaultProps = getProperties();
+		final ConnectProperties defaultProps = getConnectProperties();
 		// test duplicate call of connect
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
