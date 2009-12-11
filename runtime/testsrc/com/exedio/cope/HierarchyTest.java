@@ -374,4 +374,60 @@ public class HierarchyTest extends AbstractRuntimeTest
 		
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 	}
+	
+	@Deprecated // experimental api
+	public void testDeleteSchema()
+	{
+		model.checkEmptySchema();
+		
+		
+		final HierarchyFirstSub firstA = new HierarchyFirstSub(0);
+		final HierarchyFirstSub firstB = new HierarchyFirstSub(4);
+		new HierarchySecondSub(2);
+		new HierarchySecondSub(3);
+		final HierarchySingleSub singleA = new HierarchySingleSub();
+		final HierarchySingleSub singleB = new HierarchySingleSub(2, "a");
+		singleA.setHierarchySuper(firstA);
+		singleB.setHierarchySuper(firstB);
+		
+		try
+		{
+			model.checkEmptySchema();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("there are 4 items left for table HierarchySuper", e.getMessage());
+		}
+		assertTrue(firstA.existsCopeItem());
+		assertTrue(firstB.existsCopeItem());
+		assertTrue(singleA.existsCopeItem());
+		assertTrue(singleB.existsCopeItem());
+		
+		
+		try
+		{
+			model.deleteSchema();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+		}
+		assertTrue(firstA.existsCopeItem());
+		assertTrue(firstB.existsCopeItem());
+		assertTrue(singleA.existsCopeItem());
+		assertTrue(singleB.existsCopeItem());
+		
+		
+		model.commit();
+		assertEquals(mysql ? 12 : 0, model.deleteSchema());
+		model.startTransaction("testDeleteSchema");
+		model.checkEmptySchema();
+		
+		assertFalse(firstA.existsCopeItem());
+		assertFalse(firstB.existsCopeItem());
+		assertFalse(singleA.existsCopeItem());
+		assertFalse(singleB.existsCopeItem());
+	}
 }

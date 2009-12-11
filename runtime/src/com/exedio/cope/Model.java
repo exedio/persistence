@@ -303,6 +303,20 @@ public final class Model
 		connect().database.checkEmptySchema(getCurrentTransaction().getConnection());
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @deprecated Experimental API, may be removed in the future
+	 */
+	@Deprecated
+	public int deleteSchema()
+	{
+		final Transaction tx = getCurrentTransactionIfBound();
+		if(tx!=null)
+			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+		
+		return connect().deleteSchema();
+	}
+
 	public void dropSchema()
 	{
 		connect().database.dropSchema();

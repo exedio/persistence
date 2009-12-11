@@ -134,4 +134,24 @@ final class Connect
 		if(clusterSender!=null)
 			clusterSender.invalidate(invalidations);
 	}
+
+	@Deprecated // experimental api
+	int deleteSchema()
+	{
+		itemCache.clear();
+		queryCache.clear();
+		if(dialect.supportsDeleteSchema())
+		{
+			final long start = System.currentTimeMillis();
+			final int result = dialect.deleteSchema(connectionPool, database);
+			System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
+			return result;
+		}
+		else
+		{
+			database.dropSchema();
+			database.createSchema();
+			return 0;
+		}
+	}
 }
