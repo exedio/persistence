@@ -39,7 +39,6 @@ final class Connect
 	final QueryCache queryCache;
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
-	final boolean logTransactions;
 	
 	Connect(
 			final Types types,
@@ -113,8 +112,6 @@ final class Connect
 			this.clusterSender   = null;
 			this.clusterListener = null;
 		}
-		
-		this.logTransactions = properties.getTransactionLog();
 	}
 	
 	void close()

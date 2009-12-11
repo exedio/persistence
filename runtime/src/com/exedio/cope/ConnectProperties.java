@@ -45,8 +45,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
 	
-	private final BooleanField transactionLog = new BooleanField("transaction.log", false);
-
 	private final IntField itemCacheLimit = new IntField("cache.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.queryLimit", 10000, 0);
 
@@ -257,9 +255,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionPoolIdleLimit.getIntValue();
 	}
 	
+	/**
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns false.
+	 */
+	@Deprecated
 	public boolean getTransactionLog()
 	{
-		return transactionLog.getBooleanValue();
+		return false;
 	}
 	
 	public int getItemCacheLimit()

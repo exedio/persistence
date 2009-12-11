@@ -451,9 +451,6 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		if(connect().logTransactions)
-			System.out.println("transaction start " + name);
-
 		final Transaction previousTransaction = getCurrentTransactionIfBound();
 		if(previousTransaction!=null)
 		{
@@ -565,9 +562,6 @@ public final class Model
 	private void commitOrRollback(final boolean rollback)
 	{
 		final Transaction tx = getCurrentTransaction();
-		
-		if(connect().logTransactions)
-			System.out.println("transaction " + (rollback?"rollback":"commit") + ' ' + tx);
 		
 		synchronized(openTransactions)
 		{
