@@ -208,7 +208,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			}
 			catch(MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation on a newly created item for " + CompositeValue.aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
 			}
 			try
 			{
@@ -217,7 +217,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			}
 			catch(MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation on a newly created item for " + CompositeValue.aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
 			}
 			try
 			{
@@ -307,7 +307,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation on a newly created item for CompositeItem.zweiAString", e.getMessage()); // TODO feature should be CompositeItem.zwei
+			assertEquals("mandatory violation for CompositeItem.zweiAString", e.getMessage()); // TODO feature should be CompositeItem.zwei
 		}
 		try
 		{

@@ -194,7 +194,7 @@ public class FieldEnumTest extends FieldTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.someNotNullEnum, e.getMessage());
+			assertEquals("mandatory violation for " + item.someNotNullEnum, e.getMessage());
 		}
 	}
 }

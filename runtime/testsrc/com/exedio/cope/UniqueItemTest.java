@@ -163,7 +163,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
@@ -176,7 +176,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
@@ -189,7 +189,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
@@ -367,7 +367,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.uniqueNotNullString, e.getMessage());
+			assertEquals("mandatory violation for " + item.uniqueNotNullString, e.getMessage());
 		}
 		assertContains(item, item.TYPE.search(null));
 		try
@@ -379,7 +379,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.uniqueNotNullString, e.getMessage());
+			assertEquals("mandatory violation for " + item.uniqueNotNullString, e.getMessage());
 		}
 		assertContains(item, item.TYPE.search(null));
 
@@ -440,7 +440,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
+			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		try
@@ -455,7 +455,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
+			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		

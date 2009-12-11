@@ -80,7 +80,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"length violation on " + getItemText() +
+			"length violation" + getItemPhrase() +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
 			(withFeature ? (" for "+ feature) : "") +

@@ -85,7 +85,7 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 	protected String getMessage(final boolean withFeature)
 	{
 		return
-			"range violation on " + getItemText() +
+			"range violation" + getItemPhrase() +
 			", " + value + " is too " +
 			(isTooSmall?"small":"big") +
 			(withFeature ? (" for " + feature) : "") +

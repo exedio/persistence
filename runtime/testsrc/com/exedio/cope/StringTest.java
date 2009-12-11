@@ -170,7 +170,7 @@ public class StringTest extends TestmodelTest
 		{
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		try
 		{
@@ -182,7 +182,7 @@ public class StringTest extends TestmodelTest
 			assertTrue(!supports);
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		try
 		{
@@ -196,7 +196,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
-					"length violation on a newly created item, " +
+					"length violation, " +
 					"'123' is too short for " + item.min4 + ", " +
 					"must be at least 4 characters, but was 3.",
 					e.getMessage());
@@ -257,7 +257,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -272,7 +272,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -312,7 +312,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item3.mandatory, e.getFeature());
 			assertEquals(item3.mandatory, e.getFeature());
 			assertEquals(item3, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -380,7 +380,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
-					"length violation on a newly created item, " +
+					"length violation, " +
 					"'12345' is too long for " + item.max4 + ", " +
 					"must be at most 4 characters, but was 5.",
 					e.getMessage());
@@ -401,7 +401,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
-					"length violation on a newly created item, " +
+					"length violation, " +
 					"'12345' is too long for " + item.max4 + ", " +
 					"must be at most 4 characters, but was 5.",
 					e.getMessage());
@@ -527,7 +527,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
-					"length violation on a newly created item, " +
+					"length violation, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
 					"must be at most 6 characters, but was 7.",
 					e.getMessage());
@@ -549,7 +549,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
-					"length violation on a newly created item, " +
+					"length violation, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
 					"must be at most 6 characters, but was 7.",
 					e.getMessage());

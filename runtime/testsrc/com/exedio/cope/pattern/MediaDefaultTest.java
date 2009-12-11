@@ -214,7 +214,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertSame(null, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on a newly created item, 21 bytes is too long for " + body, e.getMessage());
+				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
 			
 			// file
@@ -245,7 +245,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertSame(null, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on a newly created item, 21 bytes is too long for " + body, e.getMessage());
+				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
 			
 			// stream
@@ -277,7 +277,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertSame(null, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(false, e.isLengthExact());
-				assertEquals("length violation on a newly created item, 21 bytes or more is too long for " + body, e.getMessage());
+				assertEquals("length violation, 21 bytes or more is too long for " + body, e.getMessage());
 			}
 			assertStreamClosed();
 		}

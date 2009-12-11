@@ -76,7 +76,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"size violation on " + getItemText() +
+			"size violation" + getItemPhrase() +
 			", value is too long" +
 			(withFeature ? (" for "+ feature) : "") +
 			", must be at most" +

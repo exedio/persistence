@@ -123,7 +123,7 @@ public class FieldItemTest extends FieldTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.someNotNullItem, e.getMessage());
+			assertEquals("mandatory violation for " + item.someNotNullItem, e.getMessage());
 		}
 	}
 	

@@ -450,7 +450,7 @@ public class DataTest extends AbstractRuntimeTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on a newly created item, 11 bytes is too long for " + item.data10, e.getMessage());
+			assertEquals("length violation, 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		item.set(
 				DataItem.data.mapNull(),

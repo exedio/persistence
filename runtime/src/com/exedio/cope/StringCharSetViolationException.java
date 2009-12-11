@@ -85,7 +85,7 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"character set violation on " + getItemText() +
+			"character set violation" + getItemPhrase() +
 			", '" + value + "'" +
 			(withFeature ? (" for "+ feature) : "") +
 			", contains forbidden character '" + character +

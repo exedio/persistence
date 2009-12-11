@@ -222,7 +222,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(
 					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
 					"caused a IntegerRangeViolationException: " +
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
 		}
@@ -255,7 +255,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(
 					"The default constant of the field does not comply to one of it's own constraints, " +
 					"caused a StringLengthViolationException: " +
-					"length violation on a newly created item, '1234' is too long, " +
+					"length violation, '1234' is too long, " +
 					"must be at most 3 characters, but was 4. " +
 					"Default constant was '1234'.",
 					e.getMessage());

@@ -276,7 +276,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		{
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		try
 		{
@@ -290,7 +290,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"3 is too small for " + item.min4 + ", " +
 					"must be at least 4.",
 					e.getMessage());
@@ -342,7 +342,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -357,7 +357,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -425,7 +425,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"5 is too big for " + item.max4 + ", " +
 					"must be at most 4.",
 					e.getMessage());
@@ -446,7 +446,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"5 is too big for " + item.max4 + ", " +
 					"must be at most 4.",
 					e.getMessage());

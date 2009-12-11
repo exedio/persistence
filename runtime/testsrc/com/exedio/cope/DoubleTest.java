@@ -317,7 +317,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -332,7 +332,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
@@ -400,7 +400,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals(4.1, e.getValue());
 			assertEquals(
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"4.1 is too big for " + item.max4 + ", " +
 					"must be at most 4.0.",
 					e.getMessage());
@@ -421,7 +421,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(item.max4, e.getFeature());
 			assertEquals(4.1, e.getValue());
 			assertEquals(
-					"range violation on a newly created item, " +
+					"range violation, " +
 					"4.1 is too big for " + item.max4 + ", " +
 					"must be at most 4.0.",
 					e.getMessage());
