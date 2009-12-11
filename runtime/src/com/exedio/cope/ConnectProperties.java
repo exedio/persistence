@@ -255,17 +255,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionPoolIdleLimit.getIntValue();
 	}
 	
-	/**
-	 * @deprecated
-	 * Not supported anymore.
-	 * This method always returns false.
-	 */
-	@Deprecated
-	public boolean getTransactionLog()
-	{
-		return false;
-	}
-	
 	public int getItemCacheLimit()
 	{
 		return itemCacheLimit.getIntValue();
@@ -323,5 +312,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getCacheQueryLimit()
 	{
 		return getQueryCacheLimit();
+	}
+	
+	/**
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns false.
+	 */
+	@Deprecated
+	public boolean getTransactionLog()
+	{
+		return false;
 	}
 }
