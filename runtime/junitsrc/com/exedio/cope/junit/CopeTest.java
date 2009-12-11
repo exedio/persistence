@@ -184,7 +184,11 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
-	public final ConnectProperties getConnectProperties()
+	/**
+	 * Override this method to provide your own connect properties
+	 * to method {@link #setUp()} for connecting.
+	 */
+	public ConnectProperties getConnectProperties()
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
