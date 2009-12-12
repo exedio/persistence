@@ -110,6 +110,8 @@ public final class Type<T extends Item>
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
+		if(!isAbstract && Modifier.isAbstract(javaClass.getModifiers()))
+			throw new IllegalArgumentException("Cannot make a non-abstract type for abstract " + javaClass + '.');
 		if(id==null)
 			throw new NullPointerException("id for " + javaClass);
 		{
