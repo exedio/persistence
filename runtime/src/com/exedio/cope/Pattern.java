@@ -66,7 +66,7 @@ public abstract class Pattern extends Feature
 		if(field==null)
 			throw new NullPointerException("field");
 		if(sourceFieldsGather==null)
-			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
+			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFieldList==null;
 		field.registerPattern(this);
 		sourceFieldsGather.put(postfix, field, annotationSource);
@@ -110,7 +110,7 @@ public abstract class Pattern extends Feature
 			final String postfix)
 	{
 		if(sourceTypesWhileGather==null)
-			throw new IllegalStateException("newSourceType can be called only until initialize() is called, not afterwards");
+			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<T> result = new Type<T>(javaClass, false, id, this, isAbstract, supertype, features);
@@ -139,7 +139,7 @@ public abstract class Pattern extends Feature
 	public List<? extends Field> getSourceFields()
 	{
 		if(sourceFieldList==null)
-			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
+			throw new IllegalStateException("getSourceFields can be called only after pattern is mounted, not before");
 		assert sourceFieldsGather==null;
 		return sourceFieldList;
 	}
@@ -150,7 +150,7 @@ public abstract class Pattern extends Feature
 	public List<Type<? extends Item>> getSourceTypes()
 	{
 		if(sourceTypes==null)
-			throw new IllegalStateException("getSourceTypes can be called only after initialize() is called");
+			throw new IllegalStateException("getSourceTypes can be called only after pattern is mounted, not before");
 		assert sourceTypesWhileGather==null;
 		return sourceTypes;
 	}
