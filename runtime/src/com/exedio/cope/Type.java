@@ -102,7 +102,7 @@ public final class Type<T extends Item>
 			final Pattern pattern,
 			final boolean isAbstract,
 			final Type<? super T> supertype,
-			final Features featureMap) // TODO rename
+			final Features featuresParameter)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("javaClass");
@@ -120,8 +120,8 @@ public final class Type<T extends Item>
 				if(!ID_CHAR_SET.contains(id.charAt(i)))
 					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >" + id.charAt(i) + "< at position " + i);
 		}
-		if(featureMap==null)
-			throw new NullPointerException("featureMap for " + id);
+		if(featuresParameter==null)
+			throw new NullPointerException("featuresParameter for " + id);
 		
 		this.javaClass = javaClass;
 		this.bound = bound;
@@ -148,9 +148,9 @@ public final class Type<T extends Item>
 		}
 
 		// declared features
-		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
+		this.featuresWhileConstruction = new ArrayList<Feature>(featuresParameter.size() + 1);
 		thisFunction.mount(this, This.NAME, null);
-		featureMap.mount(this);
+		featuresParameter.mount(this);
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerMounted fails from now on
