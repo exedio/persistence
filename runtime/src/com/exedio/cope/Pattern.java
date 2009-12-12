@@ -77,6 +77,10 @@ public abstract class Pattern extends Feature
 		addSource(field, postfix, null);
 	}
 	
+	/**
+	 * @deprecated Do not this method anymore.
+	 */
+	@Deprecated
 	protected final java.lang.reflect.Field annotationField(final String name)
 	{
 		try

@@ -55,8 +55,8 @@ class PatternTestPattern extends Pattern
 	
 	PatternTestPattern()
 	{
-		addSource(ownString, "OwnString", annotationField("ownString"));
-		addSource(ownInt, "OwnInt", annotationField("ownInt"));
+		addSource(ownString, "OwnString", af("ownString"));
+		addSource(ownInt, "OwnInt", af("ownInt"));
 	}
 	
 	@Override
@@ -66,16 +66,16 @@ class PatternTestPattern extends Pattern
 		
 		//Create the super type.
 		final Features features = new Features(); 
-		features.put(SUPER_TYPE_STRING, this.superTypeString, annotationField("superTypeString"));
-		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, annotationField("superTypeBoolean"));
+		features.put(SUPER_TYPE_STRING, this.superTypeString, af("superTypeString"));
+		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, af("superTypeBoolean"));
 		this.superType = newSourceType(PatternTestTypeItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 		
 		//Create sub type
 		features.clear();
-		features.put(SUBTYPE_INTEGER, subTypeInteger, annotationField("subTypeInteger"));
+		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
 		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
-		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", annotationField("ownItem"));
+		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", af("ownItem"));
 	}
 	
 	ItemField<PatternTestTypeItem> getOwnItem()
@@ -91,5 +91,11 @@ class PatternTestPattern extends Pattern
 	public Type<PatternTestTypeItem> getSubType()
 	{
 		return subType;
+	}
+	
+	@SuppressWarnings("deprecation") // OK test deprecated api
+	private java.lang.reflect.Field af(final String name)
+	{
+		return annotationField(name);
 	}
 }
