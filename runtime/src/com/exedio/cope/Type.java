@@ -105,23 +105,23 @@ public final class Type<T extends Item>
 			final Features featuresParameter)
 	{
 		if(javaClass==null)
-			throw new NullPointerException("javaClass");
+			throw new NullPointerException("javaClass"); // TODO test
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		if(!isAbstract && Modifier.isAbstract(javaClass.getModifiers()))
-			throw new IllegalArgumentException("Cannot make a non-abstract type for abstract " + javaClass + '.');
+			throw new IllegalArgumentException("Cannot make a non-abstract type for abstract " + javaClass + '.'); // TODO test
 		if(id==null)
-			throw new NullPointerException("id for " + javaClass);
+			throw new NullPointerException("id for " + javaClass); // TODO test
 		{
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
 				if(!ID_CHAR_SET.contains(id.charAt(i)))
-					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >" + id.charAt(i) + "< at position " + i);
+					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >" + id.charAt(i) + "< at position " + i); // TODO test
 		}
 		if(featuresParameter==null)
-			throw new NullPointerException("featuresParameter for " + id);
+			throw new NullPointerException("featuresParameter for " + id); // TODO test
 		
 		this.javaClass = javaClass;
 		this.bound = bound;
