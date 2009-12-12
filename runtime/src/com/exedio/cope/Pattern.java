@@ -78,22 +78,6 @@ public abstract class Pattern extends Feature
 	}
 	
 	/**
-	 * @deprecated Do not this method anymore.
-	 */
-	@Deprecated
-	protected final java.lang.reflect.Field annotationField(final String name)
-	{
-		try
-		{
-			return getClass().getDeclaredField(name);
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
 	 * for the first time.
@@ -260,5 +244,21 @@ public abstract class Pattern extends Feature
 	protected void initialize()
 	{
 		// empty default implementation
+	}
+	
+	/**
+	 * @deprecated Do not this method anymore.
+	 */
+	@Deprecated
+	protected final java.lang.reflect.Field annotationField(final String name)
+	{
+		try
+		{
+			return getClass().getDeclaredField(name);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
