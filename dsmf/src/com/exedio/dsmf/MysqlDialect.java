@@ -370,6 +370,14 @@ public final class MysqlDialect extends Dialect
 			bf.append("set FOREIGN_KEY_CHECKS=1");
 			rows += sqlStatement.executeUpdate(bf.toString());
 			
+			for(final Sequence sequence : schema.getSequences())
+			{
+				bf.setLength(0);
+				bf.append("truncate ").
+					append(quoteName(sequence.name));
+				rows += sqlStatement.executeUpdate(bf.toString());
+			}
+			
 			return rows;
 		}
 		catch(SQLException e)
