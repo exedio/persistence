@@ -47,6 +47,11 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals("JUnitTestItem.1", i2.getCopeID());
 		assertEquals("JUnitTestItem.2", i3.getCopeID());
 		assertEquals("JUnitTestItem.3", i4.getCopeID());
+		
+		assertEquals(1000, i1.getNext());
+		assertEquals(1001, i2.getNext());
+		assertEquals(1002, i3.getNext());
+		assertEquals(1003, i4.getNext());
 	}
 	
 	public void testFlushSequences()
@@ -55,6 +60,7 @@ public class CopeModelTestTest extends CopeModelTest
 		
 		final JUnitTestItem i1 = new JUnitTestItem(200);
 		assertEquals("JUnitTestItem.0", i1.getCopeID());
+		assertEquals(1000, i1.getNext());
 	}
 	
 	public void testNoTransaction()

@@ -376,6 +376,18 @@ public final class MysqlDialect extends Dialect
 				bf.append("truncate ").
 					append(quoteName(sequence.name));
 				rows += sqlStatement.executeUpdate(bf.toString());
+				
+				final int startWith = sequence.startWith;
+				if(startWith!=0)
+				{
+					bf.setLength(0);
+					bf.append("insert into ").
+						append(sequence.name).
+						append(" values(").
+						append(startWith).
+						append(')');
+					sqlStatement.executeUpdate(bf.toString());
+				}
 			}
 			
 			return rows;

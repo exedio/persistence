@@ -21,7 +21,7 @@ package com.exedio.dsmf;
 public final class Sequence extends Node
 {
 	final String name;
-	private final int startWith;
+	final int startWith;
 	private final boolean required;
 	private boolean exists;
 	
