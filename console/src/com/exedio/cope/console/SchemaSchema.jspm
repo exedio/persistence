@@ -32,6 +32,7 @@ final class SchemaSchema_Jspm extends Console_Jspm
 	private static final String TEARDOWN_AND_CREATE = "schema.teardown.create";
 	private static final String DROP = "schema.drop";
 	private static final String DROP_AND_CREATE = "schema.drop.create";
+	private static final String DELETE = "schema.delete";
 	
 	final static void writeBody(
 			final SchemaCop cop,
@@ -48,6 +49,8 @@ final class SchemaSchema_Jspm extends Console_Jspm
 			&nbsp;
 			<input type="submit" name="<%=TEARDOWN_AND_CREATE%>" value="tear down &amp; create" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
 			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" /><%
+			%>&nbsp;
+			<input type="submit" name="<%=DELETE%>" value="delete" onclick="return confirm('This operation will delete the contents of your database tables.\nDo you really want to do this?')" /><%
 			
 			if(isPost(request))
 			{
@@ -65,6 +68,15 @@ final class SchemaSchema_Jspm extends Console_Jspm
 				{
 					model.createSchema();
 					%><div class="message">Schema successfully created!</div><%
+				}
+				if(request.getParameter(DELETE)!=null)
+				{
+					final int rows = model.deleteSchema();
+					%>
+					<div class="message">
+						Schema successfully deleted!
+						 <%=rows%> rows affected.
+					</div><%
 				}
 			}
 		%>
