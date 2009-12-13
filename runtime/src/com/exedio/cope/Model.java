@@ -307,7 +307,7 @@ public final class Model
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 * @deprecated Experimental API, may be removed in the future
 	 */
-	@Deprecated
+	@Deprecated // experimental api
 	public int deleteSchema()
 	{
 		final Transaction tx = getCurrentTransactionIfBound();
