@@ -148,13 +148,6 @@ final class Database
 		tables.add(table);
 	}
 	
-	List<Table> getTables()
-	{
-		if(buildStage)
-			throw new RuntimeException();
-		return Collections.unmodifiableList(tables);
-	}
-	
 	void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
 	{
 		if(!buildStage)

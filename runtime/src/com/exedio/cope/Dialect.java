@@ -27,7 +27,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Schema;
 
 /**
@@ -271,18 +270,5 @@ abstract class Dialect
 			final String name)
 	{
 		throw new RuntimeException("sequences not implemented: " + name);
-	}
-	
-	@Deprecated // experimental api
-	boolean supportsDeleteSchema()
-	{
-		return false;
-	}
-	
-	@Deprecated // experimental api
-	@SuppressWarnings("unused")
-	int deleteSchema(final Pool<Connection> connectionPool, final Database database)
-	{
-		throw new RuntimeException(getClass().getName());
 	}
 }

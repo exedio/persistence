@@ -25,8 +25,6 @@ import java.sql.SQLException;
 
 import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Pool;
-import com.exedio.dsmf.SQLRuntimeException;
 import com.mysql.jdbc.Driver;
 
 /**
@@ -341,65 +339,5 @@ final class MysqlDialect extends Dialect
 	boolean subqueryRequiresAlias()
 	{
 		return true;
-	}
-	
-	@Deprecated // experimental api
-	@Override
-	boolean supportsDeleteSchema()
-	{
-		return true;
-	}
-	
-	@Deprecated // experimental api
-	@Override
-	int deleteSchema(final Pool<Connection> connectionPool, final Database database)
-	{
-		Connection connection = null;
-		try
-		{
-			connection = connectionPool.get();
-			try
-			{
-				connection.setAutoCommit(true);
-			}
-			catch(SQLException e)
-			{
-				throw new SQLRuntimeException(e, "setAutoCommit");
-			}
-			
-			{
-				final Statement bf = database.createStatement();
-				bf.append("set FOREIGN_KEY_CHECKS=0");
-				database.executeSQLUpdate(connection, bf, false);
-			}
-			
-			int rows = 0;
-			for(final Table table : database.getTables())
-			{
-				final Statement bf = database.createStatement();
-				bf.append("delete from ").
-					append(table.quotedID);
-
-				rows += database.executeSQLUpdate(connection, bf, false);
-			}
-
-			return rows;
-		}
-		finally
-		{
-			// do not put it into connection pool again
-			// because foreign key constraints are disabled
-			if(connection!=null)
-			{
-				try
-				{
-					connection.close();
-				}
-				catch(SQLException e)
-				{
-					throw new SQLRuntimeException(e, "close");
-				}
-			}
-		}
 	}
 }

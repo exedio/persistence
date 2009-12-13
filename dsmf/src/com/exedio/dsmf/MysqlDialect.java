@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -338,5 +339,69 @@ public final class MysqlDialect extends Dialect
 		bf.append("drop table ").
 			append(sequenceName);
 		return bf.toString();
+	}
+	
+	@Deprecated // experimental api
+	@Override
+	public int deleteSchema(final Schema schema)
+	{
+		Connection connection = null;
+		java.sql.Statement sqlStatement = null;
+		final StringBuilder bf = new StringBuilder();
+		try
+		{
+			connection = schema.connectionProvider.getConnection();
+			sqlStatement = connection.createStatement();
+			int rows = 0; 
+			
+			bf.setLength(0);
+			bf.append("set FOREIGN_KEY_CHECKS=0");
+			rows += sqlStatement.executeUpdate(bf.toString());
+			
+			for(final Table table : schema.getTables())
+			{
+				bf.setLength(0);
+				bf.append("delete from ").
+					append(quoteName(table.name));
+				rows += sqlStatement.executeUpdate(bf.toString());
+			}
+			
+			bf.setLength(0);
+			bf.append("set FOREIGN_KEY_CHECKS=1");
+			rows += sqlStatement.executeUpdate(bf.toString());
+			
+			return rows;
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, bf.toString());
+		}
+		finally
+		{
+			if(sqlStatement!=null)
+			{
+				try
+				{
+					sqlStatement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(connection!=null)
+			{
+				try
+				{
+					// do not put it into connection pool again
+					// because foreign key constraints are disabled
+					connection.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
 	}
 }

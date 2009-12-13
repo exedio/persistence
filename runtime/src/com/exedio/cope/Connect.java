@@ -137,18 +137,11 @@ final class Connect
 	{
 		itemCache.clear();
 		queryCache.clear();
-		if(dialect.supportsDeleteSchema())
 		{
 			final long start = System.currentTimeMillis();
-			final int result = dialect.deleteSchema(connectionPool, database);
+			final int result = dialect.dsmfDialect.deleteSchema(database.makeSchema());
 			System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 			return result;
-		}
-		else
-		{
-			database.dropSchema();
-			database.createSchema();
-			return 0;
 		}
 	}
 }
