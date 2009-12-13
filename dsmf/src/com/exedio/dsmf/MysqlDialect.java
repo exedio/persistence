@@ -361,7 +361,7 @@ public final class MysqlDialect extends Dialect
 			for(final Table table : schema.getTables())
 			{
 				bf.setLength(0);
-				bf.append("delete from ").
+				bf.append("truncate ").
 					append(quoteName(table.name));
 				rows += sqlStatement.executeUpdate(bf.toString());
 			}
