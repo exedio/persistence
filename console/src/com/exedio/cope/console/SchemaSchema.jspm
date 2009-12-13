@@ -48,8 +48,8 @@ final class SchemaSchema_Jspm extends Console_Jspm
 			<input type="submit" name="<%=DROP    %>" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			&nbsp;
 			<input type="submit" name="<%=TEARDOWN_AND_CREATE%>" value="tear down &amp; create" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
-			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" /><%
-			%>&nbsp;
+			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
+			&nbsp;
 			<input type="submit" name="<%=DELETE%>" value="delete" onclick="return confirm('This operation will delete the contents of your database tables.\nDo you really want to do this?')" /><%
 			
 			if(isPost(request))
