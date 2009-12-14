@@ -229,17 +229,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mysqlLowerCaseTableNames.getBooleanValue();
 	}
 	
-	/**
-	 * @deprecated
-	 * Not supported anymore.
-	 * This method always returns true.
-	 */
-	@Deprecated
-	public boolean getOracleVarchar()
-	{
-		return true;
-	}
-	
 	java.util.Properties getDatabaseTableOptions()
 	{
 		return databaseTableOptions.getMapValue();
@@ -328,5 +317,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getTransactionLog()
 	{
 		return false;
+	}
+	
+	/**
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns true.
+	 */
+	@Deprecated
+	public boolean getOracleVarchar()
+	{
+		return true;
 	}
 }
