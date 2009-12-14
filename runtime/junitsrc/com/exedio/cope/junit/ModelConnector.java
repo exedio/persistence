@@ -23,7 +23,7 @@ import com.exedio.cope.Model;
 
 final class ModelConnector extends CopeAssert
 {
-	static Model createdSchema = null;
+	private static Model createdSchema = null;
 	private static boolean registeredDropSchemaHook = false;
 	private static Object lock = new Object();
 	
@@ -38,13 +38,7 @@ final class ModelConnector extends CopeAssert
 		{
 			if(createdSchema!=model)
 			{
-				if(createdSchema!=null)
-				{
-					createdSchema.dropSchema();
-					createdSchema.disconnect();
-					createdSchema = null;
-				}
-				
+				dropAndDisconnectIfNeeded();
 				model.connect(properties);
 				model.createSchema();
 				createdSchema = model;
@@ -61,16 +55,21 @@ final class ModelConnector extends CopeAssert
 				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 					public void run()
 					{
-						if(createdSchema!=null)
-						{
-							createdSchema.dropSchema();
-							createdSchema.disconnect();
-							createdSchema = null;
-						}
+						dropAndDisconnectIfNeeded();
 					}
 				}));
 				registeredDropSchemaHook = true;
 			}
+		}
+	}
+	
+	static void dropAndDisconnectIfNeeded()
+	{
+		if(createdSchema!=null)
+		{
+			createdSchema.dropSchema();
+			createdSchema.disconnect();
+			createdSchema = null;
 		}
 	}
 }
