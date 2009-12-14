@@ -19,10 +19,12 @@
 package com.exedio.cope.junit;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 
 public class CopeModelTestTest extends CopeModelTest
@@ -70,6 +72,22 @@ public class CopeModelTestTest extends CopeModelTest
 		model.commit();
 	}
 	
+	public void testDatabaseListener()
+	{
+		assertBlank();
+		
+		model.setDatabaseListener(new DatabaseListener(){
+
+			public void onStatement(
+					String sql, List<Object> parameters,
+					long durationPrepare, long durationExecute, long durationRead,
+					long durationClose)
+			{
+				// do nothing
+			}
+		});
+	}
+	
 	public void testModificationListener()
 	{
 		assertBlank();
@@ -93,6 +111,7 @@ public class CopeModelTestTest extends CopeModelTest
 		assertTrue(model.hasCurrentTransaction());
 		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.getCurrentTransaction().getName());
 		model.checkEmptySchema();
+		assertEquals(null, model.getDatabaseListener());
 		assertEquals(list(), model.getModificationListeners());
 	}
 }

@@ -78,6 +78,7 @@ public abstract class CopeModelTest extends CopeAssert
 	{
 		model.rollbackIfNotCommitted();
 		model.deleteSchema();
+		model.setDatabaseListener(null);
 		for(final ModificationListener ml : model.getModificationListeners())
 			model.removeModificationListener(ml);
 		synchronized(lock)
