@@ -18,11 +18,15 @@
 
 package com.exedio.cope;
 
+import static java.lang.Integer.valueOf;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PlusIntegerOrderTest extends AbstractRuntimeTest
+import com.exedio.cope.junit.CopeModelTest;
+
+public class PlusIntegerOrderTest extends CopeModelTest
 {
 	public PlusIntegerOrderTest()
 	{
@@ -37,19 +41,19 @@ public class PlusIntegerOrderTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusIntegerItem(1, 6, -1000));
-		item2 = deleteOnTearDown(new PlusIntegerItem(2, 1, -1000));
-		item3 = deleteOnTearDown(new PlusIntegerItem(6, 2, -1000));
+		item1 = new PlusIntegerItem(1, 6, -1000);
+		item2 = new PlusIntegerItem(2, 1, -1000);
+		item3 = new PlusIntegerItem(6, 2, -1000);
 	}
 	
 	public void testSumOrder()
 	{
-		assertEquals(i7, item1.getPlusAB());
-		assertEquals(i3, item2.getPlusAB());
-		assertEquals(i8, item3.getPlusAB());
-		assertEquals(new Integer(-6000), item1.getMultiplyBC());
-		assertEquals(new Integer(-1000), item2.getMultiplyBC());
-		assertEquals(new Integer(-2000), item3.getMultiplyBC());
+		assertEquals(valueOf(    7), item1.getPlusAB());
+		assertEquals(valueOf(    3), item2.getPlusAB());
+		assertEquals(valueOf(    8), item3.getPlusAB());
+		assertEquals(valueOf(-6000), item1.getMultiplyBC());
+		assertEquals(valueOf(-1000), item2.getMultiplyBC());
+		assertEquals(valueOf(-2000), item3.getMultiplyBC());
 
 		assertOrder(list(item1, item2, item3), item1.numA);
 		assertOrder(list(item2, item3, item1), item1.numB);

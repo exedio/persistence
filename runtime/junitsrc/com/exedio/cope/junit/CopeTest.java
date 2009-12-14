@@ -35,11 +35,6 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
-	static Model createdSchema = null;
-	private static boolean registeredDropSchemaHook = false;
-	private static Object lock = new Object();
-	//private static final HashSet<Model> duplicateCreates = new HashSet<Model>();
-
 	public final Model model;
 	public final boolean exclusive;
 	
@@ -97,26 +92,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 		else
 		{
-			synchronized(lock)
-			{
-				if(createdSchema!=model)
-				{
-					if(createdSchema!=null)
-					{
-						//System.out.println("---- drop " + System.identityHashCode(createdDatabase));
-						createdSchema.dropSchema();
-						createdSchema.disconnect();
-						createdSchema = null;
-					}
-					
-					//System.out.println("---- create " + System.identityHashCode(model));
-					model.connect(getConnectProperties());
-					model.createSchema();
-					createdSchema = model;
-					//if(!duplicateCreates.add(model))
-						//System.out.println("creating duplicate model " + System.identityHashCode(model) + ':' + model.getTypes());
-				}
-			}
+			ModelConnector.connectAndCreate(model, getConnectProperties());
 		}
 	}
 	
@@ -129,26 +105,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 		else
 		{
-			synchronized(lock)
-			{
-				if(!registeredDropSchemaHook)
-				{
-					Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-						public void run()
-						{
-							//printConnectionPoolCounter();
-							if(createdSchema!=null)
-							{
-								//System.out.println("---- drop hook " + System.identityHashCode(createdDatabase));
-								createdSchema.dropSchema();
-								createdSchema.disconnect();
-								createdSchema = null;
-							}
-						}
-					}));
-					registeredDropSchemaHook = true;
-				}
-			}
+			ModelConnector.dropAndDisconnect();
 		}
 	}
 
