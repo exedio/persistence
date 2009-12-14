@@ -36,8 +36,8 @@ import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.QueryCacheInfo;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 
 final class HistoryThread extends Thread

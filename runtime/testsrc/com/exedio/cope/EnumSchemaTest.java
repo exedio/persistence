@@ -18,8 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
+
+import com.exedio.cope.junit.CopeAssert;
 
 public class EnumSchemaTest extends CopeAssert
 {
