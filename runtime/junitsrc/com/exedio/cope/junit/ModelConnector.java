@@ -25,7 +25,7 @@ final class ModelConnector implements Runnable
 {
 	private static Model createdSchema = null;
 	private static boolean registeredDropSchemaHook = false;
-	private static Object lock = new Object();
+	private static final Object lock = new Object();
 	
 	private ModelConnector()
 	{
