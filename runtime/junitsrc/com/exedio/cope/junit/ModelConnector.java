@@ -43,6 +43,8 @@ final class ModelConnector implements Runnable
 				model.createSchema();
 				createdSchema = model;
 			}
+			else
+				model.getProperties().ensureEquality(properties);
 		}
 	}
 	
