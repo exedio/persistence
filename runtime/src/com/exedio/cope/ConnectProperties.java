@@ -36,7 +36,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 	
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
-	private final BooleanField oracleVarchar = new BooleanField("database.oracle.varchar", false); // TODO rename to oracle.varchar
 	
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 	
@@ -230,9 +229,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mysqlLowerCaseTableNames.getBooleanValue();
 	}
 	
+	/**
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns true.
+	 */
+	@Deprecated
 	public boolean getOracleVarchar()
 	{
-		return oracleVarchar.getBooleanValue();
+		return true;
 	}
 	
 	java.util.Properties getDatabaseTableOptions()

@@ -320,12 +320,7 @@ public class SchemaTest extends TestmodelTest
 			else if(mysql)
 				string8 = "varchar(8) character set utf8 binary";
 			else
-			{
-				if(model.getProperties().getOracleVarchar())
-					string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
-				else
-					string8 = "NVARCHAR2(8)"; // nvarchar specifies characters
-			}
+				string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 			assertEquals(string8, min4Max8.getType());
 
 			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(("+p("MIN_4")+" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+p("MIN_4")+" IS NULL)");

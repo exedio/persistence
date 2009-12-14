@@ -50,18 +50,12 @@ final class OracleDialect extends Dialect
 		}
 	}
 	
-	/**
-	 * whether to use varchar instead of nvarchar
-	 */
-	private final boolean varchar;
-
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
 				new com.exedio.dsmf.OracleDialect(
 						parameters.properties.getDatabaseUser().toUpperCase()),
 				"LENGTH");
-		this.varchar = parameters.properties.getOracleVarchar();
 	}
 	
 	@Override
@@ -85,10 +79,7 @@ final class OracleDialect extends Dialect
 	String getStringType(final int maxChars)
 	{
 		if(maxChars<=ORACLE_VARCHAR_MAX_CHARS)
-			return
-				varchar
-				? ( "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)")
-				: ("NVARCHAR2(" +  maxChars                               +      ')');
+			return "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)";
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
