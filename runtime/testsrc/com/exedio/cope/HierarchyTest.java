@@ -421,7 +421,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		
 		
 		model.commit();
-		assertEquals(0, model.deleteSchema());
+		model.deleteSchema();
 		model.startTransaction("testDeleteSchema");
 		model.checkEmptySchema();
 		
