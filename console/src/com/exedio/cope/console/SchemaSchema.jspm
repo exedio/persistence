@@ -71,11 +71,10 @@ final class SchemaSchema_Jspm extends Console_Jspm
 				}
 				if(request.getParameter(DELETE)!=null)
 				{
-					final int rows = model.deleteSchema();
+					model.deleteSchema();
 					%>
 					<div class="message">
 						Schema successfully deleted!
-						 <%=rows%> rows affected.
 					</div><%
 				}
 			}

@@ -308,13 +308,13 @@ public final class Model
 	 * @deprecated Experimental API, may be removed in the future
 	 */
 	@Deprecated // experimental api
-	public int deleteSchema()
+	public void deleteSchema()
 	{
 		final Transaction tx = getCurrentTransactionIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 		
-		return connect().deleteSchema();
+		connect().deleteSchema();
 	}
 
 	public void dropSchema()

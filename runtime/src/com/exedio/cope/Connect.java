@@ -133,15 +133,14 @@ final class Connect
 	}
 
 	@Deprecated // experimental api
-	int deleteSchema()
+	void deleteSchema()
 	{
 		itemCache.clear();
 		queryCache.clear();
 		{
 			final long start = System.currentTimeMillis();
-			final int result = dialect.dsmfDialect.deleteSchema(database.makeSchema());
+			dialect.dsmfDialect.deleteSchema(database.makeSchema());
 			System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
-			return result;
 		}
 	}
 }

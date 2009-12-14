@@ -174,11 +174,10 @@ public abstract class Dialect
 	 * Subclasses are encouraged to provide a more efficient implementation.
 	 */
 	@Deprecated // experimental api
-	public int deleteSchema(final Schema schema)
+	public void deleteSchema(final Schema schema)
 	{
 		schema.drop();
 		schema.create();
-		return 0;
 	}
 	
 	/**

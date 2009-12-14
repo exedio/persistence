@@ -343,7 +343,7 @@ public final class MysqlDialect extends Dialect
 	
 	@Deprecated // experimental api
 	@Override
-	public int deleteSchema(final Schema schema)
+	public void deleteSchema(final Schema schema)
 	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
@@ -352,30 +352,29 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = schema.connectionProvider.getConnection();
 			sqlStatement = connection.createStatement();
-			int rows = 0; 
 			
 			bf.setLength(0);
 			bf.append("set FOREIGN_KEY_CHECKS=0");
-			rows += sqlStatement.executeUpdate(bf.toString());
+			sqlStatement.executeUpdate(bf.toString());
 			
 			for(final Table table : schema.getTables())
 			{
 				bf.setLength(0);
 				bf.append("truncate ").
 					append(quoteName(table.name));
-				rows += sqlStatement.executeUpdate(bf.toString());
+				sqlStatement.executeUpdate(bf.toString());
 			}
 			
 			bf.setLength(0);
 			bf.append("set FOREIGN_KEY_CHECKS=1");
-			rows += sqlStatement.executeUpdate(bf.toString());
+			sqlStatement.executeUpdate(bf.toString());
 			
 			for(final Sequence sequence : schema.getSequences())
 			{
 				bf.setLength(0);
 				bf.append("truncate ").
 					append(quoteName(sequence.name));
-				rows += sqlStatement.executeUpdate(bf.toString());
+				sqlStatement.executeUpdate(bf.toString());
 				
 				final int startWith = sequence.startWith;
 				if(startWith!=0)
@@ -389,8 +388,6 @@ public final class MysqlDialect extends Dialect
 					sqlStatement.executeUpdate(bf.toString());
 				}
 			}
-			
-			return rows;
 		}
 		catch(SQLException e)
 		{
