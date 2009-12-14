@@ -21,7 +21,7 @@ package com.exedio.cope.junit;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
-final class ModelConnector extends CopeAssert
+final class ModelConnector implements Runnable
 {
 	private static Model createdSchema = null;
 	private static boolean registeredDropSchemaHook = false;
@@ -52,18 +52,13 @@ final class ModelConnector extends CopeAssert
 		{
 			if(!registeredDropSchemaHook)
 			{
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-					public void run()
-					{
-						dropAndDisconnectIfNeeded();
-					}
-				}));
+				Runtime.getRuntime().addShutdownHook(new Thread(new ModelConnector()));
 				registeredDropSchemaHook = true;
 			}
 		}
 	}
 	
-	static void dropAndDisconnectIfNeeded()
+	private static void dropAndDisconnectIfNeeded()
 	{
 		if(createdSchema!=null)
 		{
@@ -71,5 +66,10 @@ final class ModelConnector extends CopeAssert
 			createdSchema.disconnect();
 			createdSchema = null;
 		}
+	}
+	
+	public void run()
+	{
+		dropAndDisconnectIfNeeded();
 	}
 }
