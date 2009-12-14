@@ -391,6 +391,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
+					<sysproperty key="webapp" value="teardownwebapp" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
