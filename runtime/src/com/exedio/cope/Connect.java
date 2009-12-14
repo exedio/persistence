@@ -132,7 +132,6 @@ final class Connect
 			clusterSender.invalidate(invalidations);
 	}
 
-	@Deprecated // experimental api
 	void deleteSchema()
 	{
 		itemCache.clear();

@@ -341,7 +341,6 @@ public final class MysqlDialect extends Dialect
 		return bf.toString();
 	}
 	
-	@Deprecated // experimental api
 	@Override
 	public void deleteSchema(final Schema schema)
 	{

@@ -35,7 +35,6 @@ public abstract class CopeModelTest extends CopeAssert
 	
 	protected final Model model;
 	
-	@Deprecated // experimental api
 	protected CopeModelTest(final Model model)
 	{
 		this.model = model;
@@ -75,7 +74,6 @@ public abstract class CopeModelTest extends CopeAssert
 	}
 	
 	@Override
-	@Deprecated // experimental api
 	protected void tearDown() throws Exception
 	{
 		model.rollbackIfNotCommitted();

@@ -375,7 +375,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 	}
 	
-	@Deprecated // experimental api
 	public void testDeleteSchema()
 	{
 		model.checkEmptySchema();

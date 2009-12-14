@@ -173,7 +173,6 @@ public abstract class Dialect
 	 * The default implementation just drops and re-creates the schema.
 	 * Subclasses are encouraged to provide a more efficient implementation.
 	 */
-	@Deprecated // experimental api
 	public void deleteSchema(final Schema schema)
 	{
 		schema.drop();
