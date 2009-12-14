@@ -82,33 +82,7 @@ public abstract class CopeTest extends CopeAssert
 			System.out.println("ConnectionPool:["+pool.getIdleLimit()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
 		}
 	}
-
-	private final void createDatabase()
-	{
-		if(exclusive)
-		{
-			model.connect(getConnectProperties());
-			model.createSchema();
-		}
-		else
-		{
-			ModelConnector.connectAndCreate(model, getConnectProperties());
-		}
-	}
 	
-	private final void dropDatabase()
-	{
-		if(exclusive)
-		{
-			model.dropSchema();
-			model.disconnect();
-		}
-		else
-		{
-			ModelConnector.dropAndDisconnect();
-		}
-	}
-
 	@Override
 	public void runBare() throws Throwable
 	{
@@ -155,7 +129,15 @@ public abstract class CopeTest extends CopeAssert
 	{
 		super.setUp();
 		deleteOnTearDown = new ArrayList<Item>();
-		createDatabase();
+		if(exclusive)
+		{
+			model.connect(getConnectProperties());
+			model.createSchema();
+		}
+		else
+		{
+			ModelConnector.connectAndCreate(model, getConnectProperties());
+		}
 
 		if(manageTransactions)
 		{
@@ -248,7 +230,15 @@ public abstract class CopeTest extends CopeAssert
 			}
 		}
 
-		dropDatabase();
+		if(exclusive)
+		{
+			model.dropSchema();
+			model.disconnect();
+		}
+		else
+		{
+			ModelConnector.dropAndDisconnect();
+		}
 		model.flushSequences();
 		super.tearDown();
 	}
