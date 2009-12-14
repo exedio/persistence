@@ -29,10 +29,6 @@ import com.exedio.cope.util.ModificationListener;
  */
 public abstract class CopeModelTest extends CopeAssert
 {
-	static Model createdSchema = null;
-	private static boolean registeredDropSchemaHook = false;
-	private static Object lock = new Object();
-	
 	protected final Model model;
 	
 	protected CopeModelTest(final Model model)
@@ -53,22 +49,7 @@ public abstract class CopeModelTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		synchronized(lock)
-		{
-			if(createdSchema!=model)
-			{
-				if(createdSchema!=null)
-				{
-					createdSchema.dropSchema();
-					createdSchema.disconnect();
-					createdSchema = null;
-				}
-				
-				model.connect(getConnectProperties());
-				model.createSchema();
-				createdSchema = model;
-			}
-		}
+		ModelConnector.connectAndCreate(model, getConnectProperties());
 		model.startTransaction("tx:" + getClass().getName());
 		model.checkEmptySchema();
 	}
@@ -81,24 +62,7 @@ public abstract class CopeModelTest extends CopeAssert
 		model.setDatabaseListener(null);
 		for(final ModificationListener ml : model.getModificationListeners())
 			model.removeModificationListener(ml);
-		synchronized(lock)
-		{
-			if(!registeredDropSchemaHook)
-			{
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-					public void run()
-					{
-						if(createdSchema!=null)
-						{
-							createdSchema.dropSchema();
-							createdSchema.disconnect();
-							createdSchema = null;
-						}
-					}
-				}));
-				registeredDropSchemaHook = true;
-			}
-		}
+		ModelConnector.dropAndDisconnect();
 		model.flushSequences();
 		super.tearDown();
 	}
