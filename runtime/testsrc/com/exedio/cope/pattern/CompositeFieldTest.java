@@ -361,4 +361,27 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}
+	
+	public void testConditions()
+	{
+		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1);
+		final CompositeItem i1 = deleteOnTearDown(new CompositeItem("i1", v, v));
+		final CompositeItem i2 = deleteOnTearDown(new CompositeItem("i1", v, v));
+		final CompositeOptionalItem o1 = deleteOnTearDown(new CompositeOptionalItem("o1"));
+		final CompositeOptionalItem o2 = deleteOnTearDown(new CompositeOptionalItem("o2"));
+		o1.setUno(v);
+		o2.setDuo(v);
+		
+		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.eins.isNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.zwei.isNull(), CompositeItem.TYPE.getThis(), true));
+		
+		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.eins.isNotNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.zwei.isNotNull(), CompositeItem.TYPE.getThis(), true));
+		
+		assertEquals(list(o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		
+		assertEquals(list(target1, target2, o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
+	}
 }

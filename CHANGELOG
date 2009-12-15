@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* added conditions CompositeField.is[Not]Null()
 * removed key in cope.properties: database.oracle.varchar
 * deprecated Pattern.annotationField
 * rename keys in cope.properties:

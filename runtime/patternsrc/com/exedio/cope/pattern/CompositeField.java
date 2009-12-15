@@ -32,6 +32,7 @@ import java.util.Set;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
@@ -56,6 +57,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private HashMap<FunctionField, FunctionField> componentToTemplate = null;
 	private List<FunctionField> componentList = null;
 	private FunctionField mandatoryComponent = null;
+	private FunctionField isNullComponent = null;
 	
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
@@ -118,6 +120,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.componentToTemplate = componentToTemplate;
 		this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
 		this.mandatoryComponent = mandatoryComponent;
+		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
 	}
 	
 	private FunctionField copy(final FunctionField template)
@@ -299,6 +302,18 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public SetValue map(E value)
 	{
 		return new SetValue<E>(this, value);
+	}
+	
+	// convenience methods for conditions and views ---------------------------------
+	
+	public IsNullCondition isNull()
+	{
+		return isNullComponent.isNull();
+	}
+	
+	public IsNullCondition isNotNull()
+	{
+		return isNullComponent.isNotNull();
 	}
 	
 	// ------------------- deprecated stuff -------------------
