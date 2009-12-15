@@ -19,8 +19,10 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
 final class Sequence
@@ -78,9 +80,17 @@ final class Sequence
 		impl().makeSchema(schema);
 	}
 
-	int next(final Connection connection)
+	int next()
 	{
-		final int result = impl().next(connection);
+		final int result;
+		try
+		{
+			result = impl().next();
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "next");
+		}
 		
 		if(result<minimum || result>maximum)
 			throw new RuntimeException("sequence overflow to " + result + " in " + feature);
@@ -117,7 +127,15 @@ final class Sequence
 			return 0;
 		
 		final int max = maxO.intValue();
-		final int current = impl().getNext(connection);
+		final int current;
+		try
+		{
+			current = impl().getNext();
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getNext");
+		}
 		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);
 		return (max<current) ? 0 : (max-current+1);
 	}

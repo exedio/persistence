@@ -150,7 +150,7 @@ final class HsqldbDialect extends Dialect
 		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
 		{
 			final Statement bf = database.createStatement();
-			bf.append("CREATE TEMPORARY TABLE ").
+			bf.append("CREATE TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
 			database.executeSQLUpdate(connection, bf, false);

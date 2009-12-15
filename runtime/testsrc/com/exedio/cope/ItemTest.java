@@ -106,11 +106,9 @@ public class ItemTest extends TestmodelTest
 
 		final EmptyItem item4 = new EmptyItem();
 		assertID(2, item4);
-		item4.TYPE.flushPrimaryKey();
 		final EmptyItem item5 = new EmptyItem();
 		assertID(3, item5);
 		assertNotEquals(item4, item5);
-		item4.TYPE.flushPrimaryKey();
 		final EmptyItem item6 = new EmptyItem();
 		assertID(4, item6);
 		assertNotEquals(item4, item5);

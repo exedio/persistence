@@ -816,7 +816,7 @@ public final class Type<T extends Item>
 					{
 						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
 						if(sequence!=null)
-							defaultValue = sequence.next(getModel().getCurrentTransaction().getConnection());
+							defaultValue = sequence.next();
 					}
 				}
 				if(defaultValue!=null)
@@ -848,18 +848,9 @@ public final class Type<T extends Item>
 	
 	int nextPrimaryKey()
 	{
-		// TODO use a separate transaction to avoid dead locks
-		return primaryKeySequence.next(getModel().getCurrentTransaction().getConnection());
+		return primaryKeySequence.next();
 	}
 	
-	/**
-	 * for test only
-	 */
-	void flushPrimaryKey()
-	{
-		primaryKeySequence.flush();
-	}
-
 	public T cast(final Item item)
 	{
 		return Cast.verboseCast(javaClass, item);
