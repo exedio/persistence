@@ -129,15 +129,6 @@ public final class Model
 		return connect;
 	}
 	
-	/**
-	 * @deprecated Not supported anymore. This method does nothing.
-	 */
-	@Deprecated
-	public void flushSequences()
-	{
-		// does nothing
-	}
-	
 	private final void assertRevisionEnabled()
 	{
 		if(revisions==null)
@@ -850,5 +841,14 @@ public final class Model
 	public Model(final Revision[] revisions, final Type... types)
 	{
 		this(new Revisions(revisions), types);
+	}
+	
+	/**
+	 * @deprecated Not supported anymore. This method does nothing.
+	 */
+	@Deprecated
+	public void flushSequences()
+	{
+		// does nothing
 	}
 }
