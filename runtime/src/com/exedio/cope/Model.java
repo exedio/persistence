@@ -129,9 +129,13 @@ public final class Model
 		return connect;
 	}
 	
+	/**
+	 * @deprecated Not supported anymore. This method does nothing.
+	 */
+	@Deprecated
 	public void flushSequences()
 	{
-		connect().database.flushSequences();
+		// does nothing
 	}
 	
 	private final void assertRevisionEnabled()

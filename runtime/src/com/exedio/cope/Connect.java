@@ -141,5 +141,6 @@ final class Connect
 			dialect.dsmfDialect.deleteSchema(database.makeSchema());
 			System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 		}
+		database.flushSequences();
 	}
 }

@@ -239,7 +239,6 @@ public abstract class CopeTest extends CopeAssert
 		{
 			ModelConnector.dropAndDisconnect();
 		}
-		model.flushSequences();
 		super.tearDown();
 	}
 	
