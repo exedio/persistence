@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import org.hsqldb.jdbcDriver;
 
 import com.exedio.cope.Database.ResultSetHandler;
+import com.exedio.dsmf.SQLRuntimeException;
 
 final class HsqldbDialect extends Dialect
 {
@@ -148,9 +149,17 @@ final class HsqldbDialect extends Dialect
 			final String name)
 	{
 		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
+		try
+		{
+			connection.setAutoCommit(false);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "setAutoCommit");
+		}
 		{
 			final Statement bf = database.createStatement();
-			bf.append("CREATE TABLE ").
+			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
 			database.executeSQLUpdate(connection, bf, false);
@@ -188,6 +197,14 @@ final class HsqldbDialect extends Dialect
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
 			database.executeSQLUpdate(connection, bf, false);
+		}
+		try
+		{
+			connection.commit();
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "commit");
 		}
 		return result;
 	}
