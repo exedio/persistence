@@ -256,17 +256,25 @@ abstract class Dialect
 		// empty default implementation
 	}
 	
+	/**
+	 * @param database used in subclasses
+	 * @param connection used in subclasses
+	 */
 	protected Integer nextSequence(
-			@SuppressWarnings("unused") final Database database,
-			@SuppressWarnings("unused") final Connection connection,
+			final Database database,
+			final Connection connection,
 			final String name)
 	{
 		throw new RuntimeException("sequences not implemented: " + name);
 	}
 	
+	/**
+	 * @param database used in subclasses
+	 * @param connection used in subclasses
+	 */
 	protected Integer getNextSequence(
-			@SuppressWarnings("unused") final Database database,
-			@SuppressWarnings("unused") final Connection connection,
+			final Database database,
+			final Connection connection,
 			final String name)
 	{
 		throw new RuntimeException("sequences not implemented: " + name);
