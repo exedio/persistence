@@ -18,19 +18,47 @@
 
 package com.exedio.cope;
 
-import com.exedio.dsmf.Schema;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-interface SequenceImpl
+import com.exedio.cope.util.Pool;
+import com.exedio.dsmf.SQLRuntimeException;
+
+final class ConnectionPool
 {
-	void makeSchema(Schema schema);
-	int next();
+	private final Pool<Connection> pool;
+
+	ConnectionPool(final Pool<Connection> pool)
+	{
+		this.pool = pool;
+	}
 	
-	/**
-	 * Returns the same value as {@link #next()},
-	 * but without incrementing the internal state.
-	 * Thus multiple calls to {@link #getNext()} do
-	 * return the same value again and again.
-	 */
-	int getNext();
-	void flush();
+	Connection get(final boolean autoCommit)
+	{
+		final Connection result = pool.get();
+		try
+		{
+			result.setAutoCommit(autoCommit);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "setAutoCommit");
+		}
+		return result;
+	}
+	
+	void put(final Connection connection)
+	{
+		pool.put(connection);
+	}
+	
+	void flush()
+	{
+		pool.flush();
+	}
+	
+	Pool.Info getInfo()
+	{
+		return pool.getInfo();
+	}
 }

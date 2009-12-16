@@ -37,7 +37,6 @@ import java.util.Map;
 
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -57,7 +56,7 @@ final class Database
 	private Revisions revisions; // TODO make final
 	final boolean prepare;
 	private final boolean fulltextIndex;
-	private final Pool<Connection> connectionPool;
+	private final ConnectionPool connectionPool;
 	final boolean mysqlLowerCaseTableNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
@@ -74,7 +73,7 @@ final class Database
 			final com.exedio.dsmf.Dialect dsmfDialect,
 			final DialectParameters dialectParameters,
 			final Dialect dialect,
-			final Pool<Connection> connectionPool,
+			final ConnectionPool connectionPool,
 			final Revisions revisions)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
@@ -197,17 +196,12 @@ final class Database
 		if(revisions!=null)
 		{
 			final int revisionNumber = revisions.getNumber();
-			final Pool<Connection> connectionPool = this.connectionPool;
+			final ConnectionPool connectionPool = this.connectionPool;
 			Connection con = null;
 			try
 			{
-				con = connectionPool.get();
-				con.setAutoCommit(true);
+				con = connectionPool.get(true);
 				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment()));
-			}
-			catch(SQLException e)
-			{
-				throw new SQLRuntimeException(e, "revise");
 			}
 			finally
 			{
@@ -1457,14 +1451,12 @@ final class Database
 	
 	Schema makeSchema()
 	{
-		final Pool<Connection> connectionPool = this.connectionPool;
+		final ConnectionPool connectionPool = this.connectionPool;
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
-			public Connection getConnection() throws SQLException
+			public Connection getConnection()
 			{
-				final Connection result = connectionPool.get();
-				result.setAutoCommit(true);
-				return result;
+				return connectionPool.get(true);
 			}
 
 			public void putConnection(Connection connection)
@@ -1520,17 +1512,12 @@ final class Database
 	
 	Map<Integer, byte[]> getRevisionLogs()
 	{
-		final Pool<Connection> connectionPool = this.connectionPool;
+		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;
 		try
 		{
-			con = connectionPool.get();
-			con.setAutoCommit(true);
+			con = connectionPool.get(true);
 			return getRevisionLogs(con);
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getRevisionLogs");
 		}
 		finally
 		{
@@ -1605,19 +1592,11 @@ final class Database
 		
 		assert targetNumber>=0 : targetNumber;
 
-		final Pool<Connection> connectionPool = this.connectionPool;
+		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;
 		try
 		{
-			con = connectionPool.get();
-			try
-			{
-				con.setAutoCommit(true);
-			}
-			catch(SQLException e)
-			{
-				throw new SQLRuntimeException(e, "setAutoCommit");
-			}
+			con = connectionPool.get(true);
 			
 			final int departureNumber = getActualRevisionNumber(con);
 			final List<Revision> revisionsToRun = revisions.getListToRun(departureNumber);

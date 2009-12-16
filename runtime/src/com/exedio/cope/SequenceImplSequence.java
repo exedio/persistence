@@ -19,9 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
-import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 
@@ -29,10 +27,10 @@ final class SequenceImplSequence implements SequenceImpl
 {
 	private final int start;
 	private final Database database;
-	private final Pool<Connection> connectionPool;
+	private final ConnectionPool connectionPool;
 	private final String name;
 
-	SequenceImplSequence(final IntegerColumn column, final int start, final Pool<Connection> connectionPool, final Database database)
+	SequenceImplSequence(final IntegerColumn column, final int start, final ConnectionPool connectionPool, final Database database)
 	{
 		if(!database.supportsSequences)
 			throw new RuntimeException("database does not support sequences");
@@ -48,13 +46,12 @@ final class SequenceImplSequence implements SequenceImpl
 		new Sequence(schema, name, start);
 	}
 
-	public int next() throws SQLException
+	public int next()
 	{
 		Connection connection = null;
 		try
 		{
-			connection = connectionPool.get();
-			connection.setAutoCommit(true);
+			connection = connectionPool.get(true);
 			return database.dialect.nextSequence(database, connection, name);
 		}
 		finally
@@ -64,13 +61,12 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 	
-	public int getNext() throws SQLException
+	public int getNext()
 	{
 		Connection connection = null;
 		try
 		{
-			connection = connectionPool.get();
-			connection.setAutoCommit(true);
+			connection = connectionPool.get(true);
 			return database.dialect.getNextSequence(database, connection, name);
 		}
 		finally

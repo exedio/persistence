@@ -19,22 +19,20 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
-import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Schema;
 
 final class SequenceImplMax implements SequenceImpl
 {
 	private final IntegerColumn column;
 	private final int start;
-	private final Pool<Connection> connectionPool;
+	private final ConnectionPool connectionPool;
 	
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock = new Object();
 
-	SequenceImplMax(final IntegerColumn column, final int start, final Pool<Connection> connectionPool)
+	SequenceImplMax(final IntegerColumn column, final int start, final ConnectionPool connectionPool)
 	{
 		this.column = column;
 		this.start = start;
@@ -46,7 +44,7 @@ final class SequenceImplMax implements SequenceImpl
 		// empty
 	}
 	
-	public int next() throws SQLException
+	public int next()
 	{
 		synchronized(lock)
 		{
@@ -67,7 +65,7 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 	
-	public int getNext() throws SQLException
+	public int getNext()
 	{
 		synchronized(lock)
 		{
@@ -86,13 +84,12 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 	
-	private Integer current() throws SQLException
+	private Integer current()
 	{
 		Connection connection = null;
 		try
 		{
-			connection = connectionPool.get();
-			connection.setAutoCommit(true);
+			connection = connectionPool.get(true);
 			return column.table.database.max(connection, column);
 		}
 		finally

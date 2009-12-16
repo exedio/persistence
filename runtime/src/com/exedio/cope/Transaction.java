@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
@@ -100,7 +99,7 @@ public final class Transaction
 	}
 	
 	private Connection connection = null;
-	private Pool<Connection> connectionPool = null;
+	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
 	
 	public boolean isClosed()
@@ -250,15 +249,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		final Connection connection = connectionPool.get();
-		try
-		{
-			connection.setAutoCommit(false);
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "setAutoCommit");
-		}
+		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 		
 		return connection;

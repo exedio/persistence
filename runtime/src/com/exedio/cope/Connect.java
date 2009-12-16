@@ -33,7 +33,7 @@ final class Connect
 	final long date = System.currentTimeMillis();
 	final ConnectProperties properties;
 	final Dialect dialect;
-	final Pool<Connection> connectionPool;
+	final ConnectionPool connectionPool;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -78,11 +78,11 @@ final class Connect
 		}
 		
 		this.dialect = properties.createDialect(dialectParameters);
-		this.connectionPool = new Pool<Connection>(
+		this.connectionPool = new ConnectionPool(new Pool<Connection>(
 				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
-				new PoolCounter());
+				new PoolCounter()));
 		this.database = new Database(
 				dialect.dsmfDialect,
 				dialectParameters,
