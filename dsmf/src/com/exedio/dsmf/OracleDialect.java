@@ -31,7 +31,7 @@ public final class OracleDialect extends Dialect
 {
 	public OracleDialect(final String schema)
 	{
-		super(schema, null);
+		super(schema);
 	}
 
 	@Override

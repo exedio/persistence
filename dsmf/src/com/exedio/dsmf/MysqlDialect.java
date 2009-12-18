@@ -32,7 +32,7 @@ public final class MysqlDialect extends Dialect
 	
 	public MysqlDialect(final String primaryKeyColumnName)
 	{
-		super(null, null);
+		super(null);
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 	

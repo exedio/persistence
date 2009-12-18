@@ -25,12 +25,10 @@ import java.sql.SQLException;
 public abstract class Dialect
 {
 	final String schema;
-	final String systemTableNamePrefix;
 
-	Dialect(final String schema, final String systemTableNamePrefix)
+	Dialect(final String schema)
 	{
 		this.schema = schema;
-		this.systemTableNamePrefix = systemTableNamePrefix;
 	}
 	
 	/**
@@ -68,12 +66,9 @@ public abstract class Dialect
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
-						if(systemTableNamePrefix==null || !tableName.startsWith(systemTableNamePrefix))
-						{
-							//printRow(resultSet);
-							schema.notifyExistentTable(tableName);
-							//System.out.println("EXISTS:"+tableName);
-						}
+						//printRow(resultSet);
+						schema.notifyExistentTable(tableName);
+						//System.out.println("EXISTS:"+tableName);
 					}
 				}
 			});

@@ -28,7 +28,7 @@ public final class PostgresqlDialect extends Dialect
 {
 	public PostgresqlDialect()
 	{
-		super(null, null);
+		super(null);
 	}
 
 	@Override

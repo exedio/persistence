@@ -26,7 +26,7 @@ public final class HsqldbDialect extends Dialect
 {
 	public HsqldbDialect()
 	{
-		super(null, null);
+		super(null);
 	}
 
 	@Override
