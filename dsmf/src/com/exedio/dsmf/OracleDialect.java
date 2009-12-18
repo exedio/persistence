@@ -29,11 +29,9 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class OracleDialect extends Dialect
 {
-	private static final String SYSTEM_TABLE_PREFIX = "BIN$"; // for Oracle 10
-	
 	public OracleDialect(final String schema)
 	{
-		super(schema, SYSTEM_TABLE_PREFIX);
+		super(schema, null);
 	}
 
 	@Override
@@ -141,9 +139,6 @@ public final class OracleDialect extends Dialect
 					{
 						//printRow(resultSet);
 						final String tableName = resultSet.getString(1);
-						if(tableName.startsWith(SYSTEM_TABLE_PREFIX))
-							continue;
-						
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
 						final Table table = schema.notifyExistentTable(tableName);
