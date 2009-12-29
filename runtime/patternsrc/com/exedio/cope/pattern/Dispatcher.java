@@ -45,6 +45,15 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedInstance;
 import com.exedio.cope.util.Interrupter;
 
+/**
+ * TODO
+ * Allow multiple successful dispatches:
+ *    - move successDate/successElapsed into Failure
+ *    - add BooleanField Failure.success
+ *    - re-implement getSuccessDate/getSuccessElapsed with search
+ *    - rename Failure to Run
+ *    - remove @Computed from pending
+ */
 public final class Dispatcher extends Pattern
 {
 	private static final String ENCODING = "utf8";
