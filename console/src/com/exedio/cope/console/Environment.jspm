@@ -99,7 +99,7 @@ final class Environment_Jspm extends Console_Jspm
 		</table><%
 	}
 
-	final static void writeTestBody(final Out out, final java.util.Properties current, final HashMap[] properties)
+	final static void writeTestBody(final OutBasic out, final java.util.Properties current, final HashMap[] properties)
 	{
 			for(int i = 0; i<properties.length; i++)
 			{

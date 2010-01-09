@@ -39,7 +39,7 @@ public class MimeTypesTest extends TestCase
 	private void assertIt(final String expected, final String... actual) throws UnsupportedEncodingException
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		final Out out = new Out(new PrintStream(baos, false, "UTF8"));
+		final OutBasic out = new OutBasic(new PrintStream(baos, false, "UTF8"));
 		MediaStatsCop.printContentTypes(out, Arrays.asList(actual));
 		assertEquals(expected, new String(baos.toByteArray(), "UTF8"));
 	}

@@ -131,7 +131,7 @@ final class MediaStatsCop extends ConsoleCop
 		}
 	}
 	
-	static final void printContentTypes(final Out out, final Collection<String> contentTypes)
+	static final void printContentTypes(final OutBasic out, final Collection<String> contentTypes)
 	{
 		final TreeSet<String> sorted = new TreeSet<String>(contentTypes);
 		collapse(sorted, "image/[p]jpeg", "image/jpeg", "image/pjpeg");

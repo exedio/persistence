@@ -19,33 +19,61 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.exedio.cops.Cop;
-import com.exedio.cops.Resource;
-import com.exedio.cops.XMLEncoder;
-
-final class Out extends OutBasic
+class OutBasic
 {
-	private final HttpServletRequest request;
+	protected final PrintStream bf;
 	
-	Out(final HttpServletRequest request, final PrintStream bf)
+	OutBasic(final PrintStream bf)
 	{
-		super(bf);
-		assert request!=null;
-		this.request = request;
+		assert bf!=null;
+		this.bf = bf;
 	}
 	
-	void write(final Resource resource)
+	void write(final String s)
 	{
-		bf.print(resource.getURL(request));
+		bf.print(s);
 	}
 	
-	void write(final Cop cop)
+	void write(final char c)
 	{
-		// here we don't have to call HttpServletResponse.encodeURL
-		// since HttpSessions are not used at all
-		bf.print(XMLEncoder.encode(cop.getURL(request)));
+		bf.print(c);
+	}
+	
+	void write(final int i)
+	{
+		bf.print(i);
+	}
+	
+	void write(final long i)
+	{
+		bf.print(i);
+	}
+	
+	void write(final InetAddress s)
+	{
+		bf.print(s);
+	}
+	
+	void write(final Date date)
+	{
+		bf.print(Format.format(date));
+	}
+	
+	void writeStackTrace(final Throwable t)
+	{
+		t.printStackTrace(bf);
+	}
+	
+	void flush()
+	{
+		bf.flush();
+	}
+	
+	void close()
+	{
+		bf.close();
 	}
 }
