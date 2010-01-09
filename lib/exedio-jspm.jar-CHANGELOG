@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* changed default method names:
+	staticMethod:     append -> writeStatic
+	expressionMethod: append -> write
 * ant task supports attributes staticMethod and expressionMethod
 * support for
 	<taskdef resource="com/exedio/jspm/ant.properties" classpath="lib/exedio-jspm.jar" />
