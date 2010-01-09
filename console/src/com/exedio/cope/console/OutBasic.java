@@ -32,14 +32,14 @@ class OutBasic
 		this.bf = bf;
 	}
 	
-	void write(final String s)
+	void writeStatic(final String s)
 	{
 		bf.print(s);
 	}
 	
-	void write(final char c)
+	void write(final String s)
 	{
-		bf.print(c);
+		bf.print(s);
 	}
 	
 	void write(final int i)
