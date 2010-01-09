@@ -52,6 +52,11 @@ class OutBasic
 		bf.print(s);
 	}
 	
+	void write(final char c)
+	{
+		bf.print(c); // TODO encode this as well
+	}
+	
 	void write(final int i)
 	{
 		bf.print(i);
