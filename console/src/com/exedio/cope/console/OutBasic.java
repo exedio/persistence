@@ -37,6 +37,16 @@ class OutBasic
 		bf.print(s);
 	}
 	
+	void writeRaw(final String s)
+	{
+		bf.print(s);
+	}
+	
+	void writeRaw(final char c)
+	{
+		bf.print(c);
+	}
+	
 	void write(final String s)
 	{
 		bf.print(s);
