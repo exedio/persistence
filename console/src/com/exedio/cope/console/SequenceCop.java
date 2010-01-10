@@ -63,7 +63,7 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	void writeValue(final Out out, final SequenceInfo info, final int h)
 	{
 		final Feature feature = info.getFeature();
-		final boolean unknown = !info.isKnown();
+		final boolean known = info.isKnown();
 		switch(h)
 		{
 			case 0: out.write(feature.getType().getID()); break;
@@ -72,8 +72,8 @@ final class SequenceCop extends TestCop<SequenceInfo>
 			case 3: out.write(format(info.getMinimum())); break;
 			case 4: out.write(format(info.getMaximum())); break;
 			case 5: out.write(format(info.getCount())); break;
-			case 6: if(!unknown) out.write(format(info.getFirst())); break;
-			case 7: if(!unknown) out.write(format(info.getLast())); break;
+			case 6: if(known) out.write(format(info.getFirst())); break;
+			case 7: if(known) out.write(format(info.getLast())); break;
 			default:
 				throw new RuntimeException(String.valueOf(h));
 		}
