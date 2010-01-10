@@ -117,10 +117,10 @@ final class Test_Jspm
 			%>
 			<tr><%
 			
-			for(final String value : cop.getValues(item))
+			for(int h = 0; h<headings.length; h++)
 			{
 				%>
-				<td class="text"><%=value%></td><%
+				<td class="text"><% cop.writeValue(out, item, h); %></td><%
 			}
 			if(infos!=null)
 			{

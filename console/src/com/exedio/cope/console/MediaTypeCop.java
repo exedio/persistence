@@ -18,8 +18,6 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cope.console.Format.highlightSQL;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cops.XMLEncoder;
 
 final class MediaTypeCop extends TestCop<Media>
 {
@@ -79,14 +76,14 @@ final class MediaTypeCop extends TestCop<Media>
 	}
 	
 	@Override
-	String[] getValues(final Media media)
+	void writeValue(final Out out, final Media media, final int h)
 	{
 		final Query q = query(media);
-		return new String[]{
-				media.getType().getID(),
-				media.getName(),
-				media.getContentTypeDescription().replaceAll(",", ", "),
-				(q.getCondition()!=Condition.FALSE) ? highlightSQL(XMLEncoder.encode(q.toString())) : ""};
+		switch(h){
+			case 0: out.write(media.getType().getID()); break;
+			case 1: out.write(media.getName()); break;
+			case 2: out.write(media.getContentTypeDescription().replaceAll(",", ", ")); break;
+			case 3: if(q.getCondition()!=Condition.FALSE) out.writeSQL(q.toString()); break; default: throw new RuntimeException(String.valueOf(h)); }
 	}
 	
 	@Override

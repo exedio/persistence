@@ -63,9 +63,9 @@ final class CopyConstraintCop extends TestCop<CopyConstraint>
 	}
 	
 	@Override
-	String[] getValues(final CopyConstraint constraint)
+	void writeValue(final Out out, final CopyConstraint constraint, final int h)
 	{
-		return new String[]{constraint.toString(), constraint.getTarget().getValueType().getID()};
+		switch(h){ case 0: out.write(constraint.toString()); break; case 1: out.write(constraint.getTarget().getValueType().getID()); break; default: throw new RuntimeException(String.valueOf(h)); };
 	}
 	
 	@Override

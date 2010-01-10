@@ -77,9 +77,9 @@ final class TypeColumnCop extends TestCop<ItemFunction>
 	}
 	
 	@Override
-	String[] getValues(final ItemFunction function)
+	void writeValue(final Out out, final ItemFunction function, final int h)
 	{
-		return new String[]{function.toString(), function.getValueType().getID()};
+		switch(h){ case 0: out.write(function.toString()); break; case 1: out.write(function.getValueType().getID()); break; default: throw new RuntimeException(String.valueOf(h)); };
 	}
 	
 	@Override

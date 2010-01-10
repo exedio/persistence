@@ -60,19 +60,19 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	}
 	
 	@Override
-	String[] getValues(final SequenceInfo info)
+	void writeValue(final Out out, final SequenceInfo info, final int h)
 	{
 		final Feature feature = info.getFeature();
 		final boolean unknown = !info.isKnown();
-		return new String[]{
-				feature.getType().getID(),
-				feature.getName(),
-				format(info.getStart()),
-				format(info.getMinimum()),
-				format(info.getMaximum()),
-				format(info.getCount()),
-				unknown ? "-" : format(info.getFirst()),
-				unknown ? "-" : format(info.getLast())};
+		switch(h){
+			case 0: out.write(feature.getType().getID()); break;
+			case 1: out.write(feature.getName()); break;
+			case 2: out.write(format(info.getStart())); break;
+			case 3: out.write(format(info.getMinimum())); break;
+			case 4: out.write(format(info.getMaximum())); break;
+			case 5: out.write(format(info.getCount())); break;
+			case 6: if(!unknown) out.write(format(info.getFirst())); break;
+			case 7: if(!unknown) out.write(format(info.getLast())); break; default: throw new RuntimeException(String.valueOf(h)); }
 	}
 	
 	@Override
