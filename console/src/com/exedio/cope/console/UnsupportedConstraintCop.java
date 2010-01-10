@@ -81,7 +81,7 @@ final class UnsupportedConstraintCop extends TestCop<Constraint>
 	}
 	
 	@Override
-	int test(final Constraint constraint)
+	int check(final Constraint constraint)
 	{
 		return constraint.check();
 	}

@@ -89,7 +89,7 @@ final class TypeColumnCop extends TestCop<ItemFunction>
 	}
 	
 	@Override
-	int test(final ItemFunction function)
+	int check(final ItemFunction function)
 	{
 		return function.checkTypeColumn();
 	}

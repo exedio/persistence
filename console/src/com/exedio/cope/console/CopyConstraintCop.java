@@ -75,7 +75,7 @@ final class CopyConstraintCop extends TestCop<CopyConstraint>
 	}
 	
 	@Override
-	int test(final CopyConstraint constraint)
+	int check(final CopyConstraint constraint)
 	{
 		return constraint.check();
 	}

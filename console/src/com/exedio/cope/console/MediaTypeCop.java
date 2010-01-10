@@ -94,7 +94,7 @@ final class MediaTypeCop extends TestCop<Media>
 	}
 	
 	@Override
-	int test(final Media media)
+	int check(final Media media)
 	{
 		final Query<? extends Item> q = query(media);
 		final int result = q.total();

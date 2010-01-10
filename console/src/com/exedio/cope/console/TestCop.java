@@ -82,5 +82,5 @@ abstract class TestCop<I> extends ConsoleCop<HashMap<Integer, TestCop.Info>>
 	abstract String getCaption();
 	abstract String[] getHeadings();
 	abstract void writeValue(Out out, I item, int h);
-	abstract int test(I item);
+	abstract int check(I item);
 }

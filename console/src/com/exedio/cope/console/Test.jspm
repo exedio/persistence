@@ -131,7 +131,7 @@ final class Test_Jspm
 				{
 					out.flush();
 					final long start = System.currentTimeMillis();
-					failures = cop.test(item);
+					failures = cop.check(item);
 					elapsed = System.currentTimeMillis() - start;
 					infos.put(itemNumber, new Info(failures, elapsed));
 				}
