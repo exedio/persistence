@@ -79,11 +79,18 @@ final class MediaTypeCop extends TestCop<Media>
 	void writeValue(final Out out, final Media media, final int h)
 	{
 		final Query q = query(media);
-		switch(h){
+		switch(h)
+		{
 			case 0: out.write(media.getType().getID()); break;
 			case 1: out.write(media.getName()); break;
 			case 2: out.write(media.getContentTypeDescription().replaceAll(",", ", ")); break;
-			case 3: if(q.getCondition()!=Condition.FALSE) out.writeSQL(q.toString()); break; default: throw new RuntimeException(String.valueOf(h)); }
+			case 3:
+				if(q.getCondition()!=Condition.FALSE)
+					out.writeSQL(q.toString());
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(h));
+		}
 	}
 	
 	@Override
