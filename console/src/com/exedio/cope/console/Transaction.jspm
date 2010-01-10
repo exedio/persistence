@@ -27,8 +27,6 @@ import java.util.Date;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
 
-import static com.exedio.cops.XMLEncoder.encode;
-
 final class Transaction_Jspm extends Console_Jspm
 {
 	final static void writeHead(final Out out)
@@ -164,12 +162,12 @@ final class Transaction_Jspm extends Console_Jspm
 				<td><%=format(n)%></td>
 				<td><%=format(t.getID())%></td>
 				<td><%=t.getStartDate()%></td>
-				<td class="text"><%=encode(t.getName())%></td>
+				<td class="text"><%=t.getName()%></td>
 				<%
 				if(thread!=null)
 				{
 				%><td><%=format(threadIds[n])%></td>
-				<td class="text"><%=encode(threadNames[n])%></td>
+				<td class="text"><%=threadNames[n]%></td>
 				<td><%=threadPriorities[n]%></td>
 				<td class="text"><%=threadStates[n].name().toLowerCase()%></td>
 				<td class="text"><%
@@ -234,8 +232,8 @@ final class Transaction_Jspm extends Console_Jspm
 				<td><%=format(commit.id)%></td>
 				<td><%=commit.getStartDate()%></td>
 				<td><%=format(commit.elapsed)%></td>
-				<td class="text"><%=encode(commit.name)%></td>
-				<td class="text"><%=encode(commit.modifiedItems)%></td>
+				<td class="text"><%=commit.name%></td>
+				<td class="text"><%=commit.modifiedItems%></td>
 			</tr><%
 			}
 		}

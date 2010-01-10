@@ -25,8 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
-import static com.exedio.cops.XMLEncoder.encode;
-
 final class Vm_Jspm extends Console_Jspm
 {
 	private final static void write(final Out out, final String key, final String title, final String version, final String vendor)
@@ -46,8 +44,8 @@ final class Vm_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<th rowspan="<%=values.size()%>"><%=key%></th>
-				<th><%=encode(first.getKey())%></th>
-				<td class="text"><%=encode(first.getValue())%></td>
+				<th><%=first.getKey()%></th>
+				<td class="text"><%=first.getValue()%></td>
 			</tr><%
 			
 			while(i.hasNext())
@@ -55,8 +53,8 @@ final class Vm_Jspm extends Console_Jspm
 				final Map.Entry<String, String> next = i.next();
 			%>
 			<tr>
-				<th><%=encode(next.getKey())%></th>
-				<td class="text"><%=encode(next.getValue())%></td>
+				<th><%=next.getKey()%></th>
+				<td class="text"><%=next.getValue()%></td>
 			</tr><%
 			}
 		}
@@ -77,7 +75,7 @@ final class Vm_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td colspan="2"></td>
-				<th><%=encode(name)%></th>
+				<th><%=name%></th>
 			</tr><%
 			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
 			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
@@ -93,7 +91,7 @@ final class Vm_Jspm extends Console_Jspm
 					else
 						{%>, <%}
 						
-					%><%=encode(pack.getName())%><%
+					%><%=pack.getName()%><%
 				}
 				%></td>
 			</tr><%
@@ -110,19 +108,19 @@ final class Vm_Jspm extends Console_Jspm
 				
 					if(p.getSpecificationTitle()!=null)
 					{
-						%><%=encode(p.getSpecificationTitle())%><%
+						%><%=p.getSpecificationTitle()%><%
 					}
 					else if(p.getImplementationTitle()!=null)
 					{
-						%><%=encode(p.getImplementationTitle())%><%
+						%><%=p.getImplementationTitle()%><%
 					}
 					else
 					{
-						%><%=encode(p.getName())%><%
+						%><%=p.getName()%><%
 					}
 				%></th>
-				<td class="text"><% if(spec!=null) { %><%=encode(spec)%><% } %></td>
-				<td class="text"><% if(impl!=null) { %><%=encode(impl)%><% } %></td>
+				<td class="text"><% if(spec!=null) { %><%=spec%><% } %></td>
+				<td class="text"><% if(impl!=null) { %><%=impl%><% } %></td>
 			</tr><%
 	}
 

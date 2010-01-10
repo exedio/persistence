@@ -20,7 +20,6 @@
 package com.exedio.cope.console;
 
 import static com.exedio.cops.Cop.isPost;
-import static com.exedio.cops.XMLEncoder.encode;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -175,14 +174,14 @@ final class SchemaDetails_Jspm extends Console_Jspm
 							if(constraintCondition!=null)
 							{
 							%>
-							<small><%=encode(constraintCondition)%></small><%
+							<small><%=constraintCondition%></small><%
 							}
 						
 							final String constraintError = constraint.getError();
 							if(constraintError!=null)
 							{
 							%>
-							<% write(constraint.getParticularColor(), out); %> <%=encode(constraintError)%><%
+							<% write(constraint.getParticularColor(), out); %> <%=constraintError%><%
 							}
 							if(constraint.exists())
 							{

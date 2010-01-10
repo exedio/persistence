@@ -27,10 +27,8 @@ import java.util.Set;
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.console.RevisionLine;
 
-import static com.exedio.cops.XMLEncoder.encode;
 import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
-import static com.exedio.cope.console.Format.highlightSQL;
 
 final class Revision_Jspm extends Console_Jspm
 {
@@ -204,19 +202,19 @@ final class Revision_Jspm extends Console_Jspm
 				{
 					for(final Map.Entry<String, String> entry : logProperty.entrySet())
 					{
-						%><%=encode(entry.getKey())%>=<%=encode(entry.getValue().replace('\'', '|'))%>\n<%
+						%><%=entry.getKey()%>=<%=entry.getValue().replace('\'', '|')%>\n<%
 					}
 				}
 				else if(logString!=null)
 				{
-					%><%=encode(logString)%><%
+					%><%=logString%><%
 				}
 				else
 				{
 					// ok
 				}
 				final String content = line.getContent();
-				%>');"><% if(content!=null){%><%=encode(content)%><%}else{%>-<%} %></td>
+				%>');"><% if(content!=null){%><%=content%><%}else{%>-<%} %></td>
 				<td><%=formatAndHide(-1, line.getRows   ())%></td>
 				<td><%=formatAndHide(-1, line.getElapsed())%></td>
 			</tr><%
@@ -228,7 +226,7 @@ final class Revision_Jspm extends Console_Jspm
 			<tr id="r<%=number%>b<%=currentBodyNumber%>" class="sql">
 				<td class="toggle"></td>
 				<td><%=currentBodyNumber%></td>
-				<td class="text" colspan="2"><%=highlightSQL(encode(body.getSQL()))%></td>
+				<td class="text" colspan="2"><% out.writeSQL(body.getSQL()); %></td>
 				<td><%=format(body.getRows   ())%></td>
 				<td><%=format(body.getElapsed())%></td>
 			</tr><%

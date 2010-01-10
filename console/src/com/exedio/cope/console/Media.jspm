@@ -37,8 +37,6 @@ import com.exedio.cope.pattern.MediaThumbnail;
 import com.exedio.cope.pattern.MediaImageMagickFilter;
 import com.exedio.cope.pattern.MediaImageMagickThumbnail;
 
-import static com.exedio.cops.XMLEncoder.encode;
-
 final class Media_Jspm extends Console_Jspm
 {
 	final static void writeBody(
@@ -92,7 +90,7 @@ final class Media_Jspm extends Console_Jspm
 					if(path instanceof Media)
 					{
 						final Media m = (Media)path;
-						%>(<%=encode(m.getContentTypeDescription())%>)<%
+						%>(<%=m.getContentTypeDescription()%>)<%
 					}
 					else if(path instanceof MediaRedirect)
 					{

@@ -19,8 +19,6 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cops.XMLEncoder.encode;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -67,7 +65,7 @@ abstract class Console_Jspm
 		<div class="<% if(authentication==null){%>not<%} %>authenticated"><%
 		if(authentication!=null)
 		{
-			%>authenticated as <%=encode(authentication)%><%
+			%>authenticated as <%=authentication%><%
 		}
 		else
 		{
@@ -75,7 +73,7 @@ abstract class Console_Jspm
 		}
 		if(hostname!=null)
 		{
-			%> on <%=encode(hostname)%><%
+			%> on <%=hostname%><%
 		}
 		%></div>
 		<div class="authenticated">

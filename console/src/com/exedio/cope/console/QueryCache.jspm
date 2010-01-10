@@ -21,13 +21,10 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
-import static com.exedio.cope.console.Format.highlightSQL;
 import static com.exedio.cope.console.Format.ratio;
 
 import com.exedio.cope.info.QueryCacheHistogram;
 import com.exedio.cope.info.QueryCacheInfo;
-
-import static com.exedio.cops.XMLEncoder.encode;
 
 final class QueryCache_Jspm extends Console_Jspm
 {
@@ -124,7 +121,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				ColoredTable_Jspm.writeData(out, data); %>
-				<td class="text"><%=highlightSQL(encode(condense.query))%></td>
+				<td class="text"><% out.writeSQL(condense.query); %></td>
 			</tr><%
 		}
 		
@@ -176,7 +173,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				ColoredTable_Jspm.writeData(out, data); %>
-				<td class="text"><%=highlightSQL(encode(histogram.getQuery()))%></td>
+				<td class="text"><% out.writeSQL(histogram.getQuery()); %></td>
 			</tr><%
 		}
 		

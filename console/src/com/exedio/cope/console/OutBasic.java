@@ -22,6 +22,8 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.util.Date;
 
+import com.exedio.cops.XMLEncoder;
+
 class OutBasic
 {
 	protected final PrintStream bf;
@@ -49,7 +51,7 @@ class OutBasic
 	
 	void write(final String s)
 	{
-		bf.print(s);
+		bf.print(XMLEncoder.encode(s));
 	}
 	
 	void write(final char c)
@@ -80,6 +82,11 @@ class OutBasic
 	void writeStackTrace(final Throwable t)
 	{
 		t.printStackTrace(bf);
+	}
+	
+	void writeSQL(final String s)
+	{
+		bf.print(Format.highlightSQL(XMLEncoder.encode(s)));
 	}
 	
 	void flush()
