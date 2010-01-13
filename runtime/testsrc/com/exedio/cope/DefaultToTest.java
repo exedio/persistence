@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Date;
 
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
+import com.exedio.cope.util.Day;
 
 public class DefaultToTest extends AbstractRuntimeTest
 {
@@ -63,6 +64,14 @@ public class DefaultToTest extends AbstractRuntimeTest
 		assertEquals(true,  DefaultToItem.dateNowOpt.isDefaultNow());
 		assertEquals(false, DefaultToItem.dateNone.isDefaultNow());
 		
+		assertEquals(null, DefaultToItem.dayNow.getDefaultConstant());
+		assertEquals(null, DefaultToItem.dayNowOpt.getDefaultConstant());
+		assertEquals(null, DefaultToItem.dayNone.getDefaultConstant());
+		
+		assertEquals(true,  DefaultToItem.dayNow.isDefaultNow());
+		assertEquals(true,  DefaultToItem.dayNowOpt.isDefaultNow());
+		assertEquals(false, DefaultToItem.dayNone.isDefaultNow());
+		
 		assertEquals(DefaultToEnum.ONE, DefaultToItem.enumOne.getDefaultConstant());
 		assertEquals(DefaultToEnum.TWO, DefaultToItem.enumTwo.getDefaultConstant());
 		assertEquals(null, DefaultToItem.enumNone.getDefaultConstant());
@@ -89,6 +98,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertWithin(before, after, item.getDateNowOpt());
 			assertEquals(item.getDateNow(), item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(new Day(item.getDateNow()), item.getDayNow());
+			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
+			assertEquals(null, item.getDayNone());
 			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
@@ -115,6 +127,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertWithin(before, after, item.getDateNowOpt());
 			assertEquals(item.getDateNow(), item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(new Day(item.getDateNow()), item.getDayNow());
+			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
+			assertEquals(null, item.getDayNone());
 			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
@@ -135,6 +150,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 					DefaultToItem.dateNow.map(date(501)),
 					DefaultToItem.dateNowOpt.map(date(502)),
 					DefaultToItem.dateNone.map(date(503)),
+					DefaultToItem.dayNow.map(day(2010, 1, 13)),
+					DefaultToItem.dayNowOpt.map(day(2010, 1, 14)),
+					DefaultToItem.dayNone.map(day(2010, 1, 15)),
 					DefaultToItem.enumOne.map(DefaultToEnum.THREE),
 					DefaultToItem.enumTwo.map(DefaultToEnum.ONE),
 					DefaultToItem.enumNone.map(DefaultToEnum.TWO)
@@ -150,6 +168,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(date(501), item.getDateNow());
 			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
+			assertEquals(day(2010, 1, 13), item.getDayNow());
+			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
+			assertEquals(day(2010, 1, 15), item.getDayNone());
 			assertEquals(DefaultToEnum.THREE, item.getEnumOne());
 			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
 			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
@@ -168,6 +189,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 					DefaultToItem.dateEighty.map(null),
 					DefaultToItem.dateNowOpt.map(null),
 					DefaultToItem.dateNone.map(null),
+					DefaultToItem.dayNowOpt.map(null),
+					DefaultToItem.dayNone.map(null),
 					DefaultToItem.enumOne.map(DefaultToEnum.TWO),
 					DefaultToItem.enumTwo.map(null),
 					DefaultToItem.enumNone.map(null)
@@ -185,6 +208,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertWithin(before, after, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(new Day(item.getDateNow()), item.getDayNow());
+			assertEquals(null, item.getDayNowOpt());
+			assertEquals(null, item.getDayNone());
 			assertEquals(DefaultToEnum.TWO, item.getEnumOne());
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
@@ -246,6 +272,15 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
+			DefaultToItem.dayNow.defaultTo(new Day(2010, 1, 13));
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+		}
+		try
+		{
 			new StringField().lengthMax(3).defaultTo("1234");
 			fail();
 		}
@@ -286,5 +321,10 @@ public class DefaultToTest extends AbstractRuntimeTest
 	private static final Date date(final long l)
 	{
 		return new Date(l);
+	}
+	
+	private static final Day day(final int year, final int month, final int day)
+	{
+		return new Day(year, month, day);
 	}
 }

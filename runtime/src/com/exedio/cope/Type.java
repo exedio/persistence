@@ -37,6 +37,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Day;
 
 public final class Type<T extends Item>
 {
@@ -798,6 +799,7 @@ public final class Type<T extends Item>
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
 		Date now = null;
+		Day today = null;
 		for(final Field field : fields)
 		{
 			if(field instanceof FunctionField && !fieldValues.containsKey(field))
@@ -811,6 +813,14 @@ public final class Type<T extends Item>
 						if(now==null)
 							now = new Date();
 						defaultValue = now;
+					}
+					else if(ff instanceof DayField && ((DayField)ff).defaultNow)
+					{
+						if(now==null)
+							now = new Date();
+						if(today==null)
+							today = new Day(now);
+						defaultValue = today;
 					}
 					else if(ff instanceof IntegerField)
 					{
