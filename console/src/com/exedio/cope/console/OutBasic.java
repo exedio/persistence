@@ -19,8 +19,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.net.InetAddress;
-import java.util.Date;
 
 import com.exedio.cops.XMLEncoder;
 
@@ -39,16 +37,6 @@ class OutBasic
 		bf.print(s);
 	}
 	
-	void writeRaw(final String s)
-	{
-		bf.print(s);
-	}
-	
-	void writeRaw(final char c)
-	{
-		bf.print(c);
-	}
-	
 	void write(final String s)
 	{
 		bf.print(XMLEncoder.encode(s));
@@ -62,41 +50,5 @@ class OutBasic
 	void write(final int i)
 	{
 		bf.print(i);
-	}
-	
-	void write(final long i)
-	{
-		bf.print(i);
-	}
-	
-	void write(final InetAddress s)
-	{
-		bf.print(s);
-	}
-	
-	void write(final Date date)
-	{
-		if(date!=null)
-			bf.print(Format.format(date));
-	}
-	
-	void writeStackTrace(final Throwable t)
-	{
-		t.printStackTrace(bf);
-	}
-	
-	void writeSQL(final String s)
-	{
-		bf.print(Format.highlightSQL(XMLEncoder.encode(s)));
-	}
-	
-	void flush()
-	{
-		bf.flush();
-	}
-	
-	void close()
-	{
-		bf.close();
 	}
 }
