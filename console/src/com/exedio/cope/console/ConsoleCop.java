@@ -286,10 +286,10 @@ abstract class ConsoleCop<S> extends Cop
 		if(pager.isNeeded())
 		{
 			out.writeRaw("<span class=\"pager\">");
-			Console_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;", "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;",     "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;",     "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.last(),     "&gt;&gt;", "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.first(),    "<<", "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.previous(), "<" , "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.next(),     ">" , "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.last(),     ">>", "disabled");
 			for(final Pager newLimit : pager.newLimits())
 				Console_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()), "selected");
 			out.writeRaw(' ');
