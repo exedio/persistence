@@ -194,7 +194,7 @@ final class Revision_Jspm extends Console_Jspm
 					}
 					%><%=bodyCount%></td>
 				<td><% if(line.isCurrent()){%>&#187;&nbsp;<%} %><%=number%></td>
-				<td<% if(date!=null && date.equals(lastDate)){%> class="grey"<%} %>><%=formatAndHide(date)%></td>
+				<td<% if(date!=null && date.equals(lastDate)){%> class="grey"<%} %>><%=date%></td>
 				<td class="text" onClick="alert('<%
 				final String logString = line.getLogString();
 				final Map<String, String> logProperty = line.getLogProperties();

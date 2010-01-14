@@ -76,7 +76,8 @@ class OutBasic
 	
 	void write(final Date date)
 	{
-		bf.print(Format.format(date));
+		if(date!=null)
+			bf.print(Format.format(date));
 	}
 	
 	void writeStackTrace(final Throwable t)
