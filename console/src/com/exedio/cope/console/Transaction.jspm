@@ -87,16 +87,7 @@ final class Transaction_Jspm extends Console_Jspm
 		<table style="float:left;">
 			<caption>Transaction Statistics</caption>
 			<tr><th>Next ID</th><td><%=format(nextId)%></td></tr>
-			<tr><th>Last Start Date</th><td><%
-				if(lastStartDate!=null)
-				{
-					%><%=lastStartDate%><%
-				}
-				else
-				{
-					%>none started yet<%
-				}
-				%></td></tr>
+			<tr><th>Last Start Date</th><td><%=lastStartDate%></td></tr>
 		</table>
 		<table>
 			<caption>Transaction Counters</caption>
