@@ -18,17 +18,19 @@
 
 package com.exedio.cope.console.example;
 
-import com.exedio.cope.Model;
+import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
 
-public final class Main
+final class AReducedItem extends Item
 {
-	public static final Model model =
-		new Model(
-				AnItem.TYPE
-		);
+	static final StringField aField = new StringField();
 	
-	public static final Model reducedModel =
-		new Model(
-				AReducedItem.TYPE
-		);
+	private AReducedItem(com.exedio.cope.ActivationParameters ap)
+	{
+		super(ap);
+	}
+	
+	private static final long serialVersionUID = 1l;
+	
+	static final com.exedio.cope.Type<AReducedItem> TYPE = com.exedio.cope.TypesBound.newType(AReducedItem.class);
 }

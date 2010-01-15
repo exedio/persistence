@@ -18,6 +18,19 @@
 		<url-pattern>/standard/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>reduced</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.console.example.Main#reducedModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reduced</servlet-name>
+		<url-pattern>/reduced/*</url-pattern>
+	</servlet-mapping>
+	
 	<description>Cope Console Test Application</description>
 	<display-name>Cope Console  Application</display-name>
 	
