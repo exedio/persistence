@@ -18,12 +18,7 @@
 
 package com.exedio.cope;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Date;
-import java.util.Iterator;
 
 import com.exedio.cope.testmodel.Main;
 
@@ -73,7 +68,7 @@ public class ModelTest extends TestmodelTest
 		assertEquals(!postgresql, model.supportsSequences());
 	}
 
-	public void testModel() throws IOException
+	public void testModel()
 	{
 		try
 		{
@@ -92,35 +87,6 @@ public class ModelTest extends TestmodelTest
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("types must not be empty", e.getMessage());
-		}
-
-		// TODO put this into an extra test called an extra ant target
-		{
-			final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
-			if(prefix!=null)
-			{
-				final java.util.Properties databaseInfo = model.getDatabaseInfo();
-				final java.util.Properties prefixed = new java.util.Properties();
-				final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
-				for(Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
-				{
-					final String name = (String)i.next();
-					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
-				}
-				final ConnectProperties p = model.getProperties();
-				for(final ConnectProperties.Field field : p.getFields())
-				{
-					if(field.getDefaultValue()!=null
-						&& field!=p.mediaRooturl
-						&& !field.hasHiddenValue()
-						&& field.isSpecified()
-						&& field.getValue()!=null)
-						prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
-				}
-				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
-				prefixed.store(out, null);
-				out.close();
-			}
 		}
 	}
 	
