@@ -677,10 +677,34 @@
 		</ljunit>
 	</target>
 	
+	<target name="console.web" depends="console.core.compile">
+		<copy todir="console/web/WEB-INF/classes">
+			<fileset dir="build/runtime/classes" />
+			<fileset dir="build/console/classes" />
+		</copy>
+		<copy todir="console/web/WEB-INF/lib">
+			<fileset file="lib/trove.jar" />
+			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/jdbc/hsqldb.jar" />
+		</copy>
+		<ljavac srcdir="console/examplesrc" destdir="console/web/WEB-INF/classes">
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="console.tomcat" depends="console.web, catalina">
+		<copy tofile="tomcat/conf/Catalina/localhost/cope-console.xml" file="console/context.xml"/>
+	</target>
+	
 	<target name="console.compile" depends="console.core.compile, console.test.compile" />
 	
 	<target name="console.clean">
 		<delete dir="build/console" />
+		<delete dir="console/web/WEB-INF/classes" />
+		<delete dir="console/web/WEB-INF/lib" />
 		<delete>
 			<fileset dir="console/src">
 				<include name="**/*_Jspm.java" />
@@ -810,7 +834,7 @@
 	
 	<target name="web" depends="runtime.web, copernica.web" />
 	
-	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, copernica.tomcat" />
+	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, console.tomcat, copernica.tomcat" />
 	
 	<target name="webtest" depends="copernica.webtest" />
 	
