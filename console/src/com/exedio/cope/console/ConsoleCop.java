@@ -145,7 +145,7 @@ abstract class ConsoleCop<S> extends Cop
 		if(start==0)
 			throw new RuntimeException();
 		
-		return new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS Z (z)").format(new Date(start));
+		return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date(start));
 	}
 	
 	final long getDuration()
