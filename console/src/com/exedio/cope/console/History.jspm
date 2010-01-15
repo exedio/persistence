@@ -102,8 +102,8 @@ final class History_Jspm
 				
 				final Date[] dates = HistoryThread.analyzeDate(type);
 				%>
-				<td><%=formatAndHide(dates[0])%></td>
-				<td><%=formatAndHide(dates[1])%></td><%
+				<td><%=dates[0]%></td>
+				<td><%=dates[1]%></td><%
 				out.flush();
 				
 				infos.put(type, new Info(count, dates[0], dates[1]));
@@ -113,8 +113,8 @@ final class History_Jspm
 				final Info info = infos.get(type);
 				%>
 				<td><%=format(info.count)%></th>
-				<td><%=formatAndHide(info.from)%></td>
-				<td><%=formatAndHide(info.until)%></td><%
+				<td><%=info.from%></td>
+				<td><%=info.until%></td><%
 			}
 			%>
 			</tr><%
