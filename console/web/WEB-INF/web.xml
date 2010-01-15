@@ -36,6 +36,24 @@
 		<url-pattern>/reduced/*</url-pattern>
 	</servlet-mapping>
 	
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/reduced/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<!--  manager is the same role as required by Tomcat Manager
+					and Lambda Probe for full access to all functionality -->
+			<role-name>manager</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>Cope Console Test Application Realm Name</realm-name>
+	</login-config>
+	<security-role>
+		<role-name>manager</role-name>
+	</security-role>
+	
 	<context-param>
 		<param-name>com.exedio.cope.console.log</param-name>
 		<param-value>history.cope.properties</param-value>
