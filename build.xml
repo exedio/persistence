@@ -704,6 +704,7 @@
 	
 	<target name="console.tomcat" depends="console.web, catalina">
 		<copy tofile="tomcat/conf/Catalina/localhost/cope-console.xml" file="console/context.xml"/>
+		<copy todir="tomcat/bin" file="console/history.cope.properties"/>
 	</target>
 	
 	<target name="console.compile" depends="console.core.compile, console.test.compile" />

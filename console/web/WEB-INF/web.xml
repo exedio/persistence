@@ -36,10 +36,10 @@
 		<url-pattern>/reduced/*</url-pattern>
 	</servlet-mapping>
 	
-	<!--context-param>
+	<context-param>
 		<param-name>com.exedio.cope.console.log</param-name>
-		<param-value>/your/path/history.cope.properties</param-value>
-	</context-param-->
+		<param-value>history.cope.properties</param-value>
+	</context-param>
 	
 	<servlet>
 		<servlet-name>media</servlet-name>
