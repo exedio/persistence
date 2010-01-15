@@ -381,11 +381,11 @@
 						 haltonerror="true" haltonfailure="true"
 						 dir="${basedir}"
 						 showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />

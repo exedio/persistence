@@ -24,8 +24,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Iterator;
 
-public class ProtocolWriter extends TestmodelTest
+public class ProtocolWriter extends AbstractRuntimeTest
 {
+	public ProtocolWriter()
+	{
+		super(CompareConditionTest.MODEL);
+	}
+	
 	public void testProtocol() throws IOException
 	{
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
