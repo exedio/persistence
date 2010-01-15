@@ -28,32 +28,30 @@ public class ProtocolWriter extends TestmodelTest
 {
 	public void testProtocol() throws IOException
 	{
+		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
+		if(prefix!=null)
 		{
-			final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
-			if(prefix!=null)
+			final java.util.Properties databaseInfo = model.getDatabaseInfo();
+			final java.util.Properties prefixed = new java.util.Properties();
+			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
+			for(Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
 			{
-				final java.util.Properties databaseInfo = model.getDatabaseInfo();
-				final java.util.Properties prefixed = new java.util.Properties();
-				final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
-				for(Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
-				{
-					final String name = (String)i.next();
-					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
-				}
-				final ConnectProperties p = model.getProperties();
-				for(final ConnectProperties.Field field : p.getFields())
-				{
-					if(field.getDefaultValue()!=null
-						&& field!=p.mediaRooturl
-						&& !field.hasHiddenValue()
-						&& field.isSpecified()
-						&& field.getValue()!=null)
-						prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
-				}
-				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
-				prefixed.store(out, null);
-				out.close();
+				final String name = (String)i.next();
+				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 			}
+			final ConnectProperties p = model.getProperties();
+			for(final ConnectProperties.Field field : p.getFields())
+			{
+				if(field.getDefaultValue()!=null
+					&& field!=p.mediaRooturl
+					&& !field.hasHiddenValue()
+					&& field.isSpecified()
+					&& field.getValue()!=null)
+					prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
+			}
+			final PrintStream out = new PrintStream(new FileOutputStream(file, true));
+			prefixed.store(out, null);
+			out.close();
 		}
 	}
 }
