@@ -25,6 +25,10 @@
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.console.example.Main#reducedModel</param-value>
 		</init-param>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/cope-reduced.properties</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>reduced</servlet-name>
