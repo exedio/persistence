@@ -390,7 +390,6 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
-					<!--test name="com.exedio.cope.ProtocolWriter" todir="build/testresults" outfile="runtime-@{env}" /-->
 					<test name="com.exedio.cope.ProtocolWriter" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
