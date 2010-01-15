@@ -24,7 +24,9 @@ public final class Main
 {
 	public static final Model model =
 		new Model(
-				AnItem.TYPE
+				Revisions.revisions(64),
+				AnItem.TYPE,
+				MediaServletItem.TYPE
 		);
 	
 	public static final Model reducedModel =

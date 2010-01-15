@@ -35,6 +35,37 @@
 		<url-pattern>/reduced/*</url-pattern>
 	</servlet-mapping>
 	
+	<!--context-param>
+		<param-name>com.exedio.cope.console.log</param-name>
+		<param-value>/your/path/history.cope.properties</param-value>
+	</context-param-->
+	
+	<servlet>
+		<servlet-name>media</servlet-name>
+		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.console.example.Main#model</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>media</servlet-name>
+		<url-pattern>/media/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>com.exedio.cope.console.example.InitServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.console.example.Main#model</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>init</servlet-name>
+		<url-pattern>/init/*</url-pattern>
+	</servlet-mapping>
+	
 	<description>Cope Console Test Application</description>
 	<display-name>Cope Console  Application</display-name>
 	

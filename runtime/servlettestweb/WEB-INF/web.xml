@@ -5,11 +5,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<!--context-param>
-		<param-name>com.exedio.cope.console.log</param-name>
-		<param-value>/your/path/history.cope.properties</param-value>
-	</context-param-->
-	
 	<servlet>
 		<servlet-name>media</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>

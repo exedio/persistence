@@ -691,8 +691,15 @@
 		<ljavac srcdir="console/examplesrc" destdir="console/web/WEB-INF/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
+		<copy todir="console/web/WEB-INF/classes">
+			<fileset dir="console/examplesrc">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="console.tomcat" depends="console.web, catalina">

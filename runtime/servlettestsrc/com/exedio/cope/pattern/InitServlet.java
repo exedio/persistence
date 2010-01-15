@@ -33,7 +33,7 @@ public class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	public static final Model model = new Model(Revisions.revisions(64), MediaServletItem.TYPE);
+	public static final Model model = new Model(MediaServletItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
@@ -105,7 +105,6 @@ public class InitServlet extends HttpServlet
 		{
 			model.rollbackIfNotCommitted();
 		}
-		Revisions.revisions(model);
 	}
 
 	@Override
