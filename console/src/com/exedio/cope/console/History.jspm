@@ -20,7 +20,6 @@
 package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
-import static com.exedio.cope.console.Format.formatAndHide;
 
 import java.util.Date;
 import java.util.HashMap;
