@@ -688,7 +688,7 @@
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
 		</copy>
-		<ljavac srcdir="console/examplesrc" destdir="console/web/WEB-INF/classes">
+		<ljavac srcdir="console/websrc" destdir="console/web/WEB-INF/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cope-util.jar" />
@@ -696,7 +696,7 @@
 			</classpath>
 		</ljavac>
 		<copy todir="console/web/WEB-INF/classes">
-			<fileset dir="console/examplesrc">
+			<fileset dir="console/websrc">
 				<include name="**/*.png" />
 			</fileset>
 		</copy>

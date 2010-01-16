@@ -16,7 +16,7 @@
 	<classpathentry kind="src" path="instrument/testsrc"/>
 	<classpathentry kind="src" path="console/src"/>
 	<classpathentry kind="src" path="console/testsrc"/>
-	<classpathentry kind="src" path="console/examplesrc"/>
+	<classpathentry kind="src" path="console/websrc"/>
 	<classpathentry kind="src" path="copernica/testsrc"/>
 	<classpathentry kind="src" path="copernica/webtestsrc"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
