@@ -29,6 +29,7 @@ import java.util.Map;
 final class Statement
 {
 	private final Executor executor;
+	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
 	final TC tc;
@@ -42,6 +43,7 @@ final class Statement
 			throw new NullPointerException();
 
 		this.executor = executor;
+		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		this.tc = null;
 		this.joinTables = null;
@@ -55,6 +57,7 @@ final class Statement
 			throw new NullPointerException();
 
 		this.executor = executor;
+		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		
 		this.tc = query.check();
@@ -307,7 +310,10 @@ final class Statement
 
 	void appendMatch(final StringFunction function, final String value)
 	{
-		executor.appendMatchClause(this, function, value);
+		if(fulltextIndex)
+			executor.dialect.appendMatchClauseFullTextIndex(this, function, value);
+		else
+			executor.dialect.appendMatchClauseByLike(this, function, value);
 	}
 
 	void appendStartsWith(final DataField field, final byte[] value)

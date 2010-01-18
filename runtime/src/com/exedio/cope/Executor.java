@@ -31,7 +31,7 @@ final class Executor
 {
 	final Dialect dialect;
 	final boolean prepare;
-	private final boolean fulltextIndex;
+	final boolean fulltextIndex;
 	volatile DatabaseListener listener = null;
 	
 	Executor(
@@ -329,16 +329,5 @@ final class Executor
 			result.addChild(plan);
 		
 		return result;
-	}
-
-	/**
-	 * Search full text.
-	 */
-	void appendMatchClause(final Statement bf, final StringFunction function, final String value)
-	{
-		if(fulltextIndex)
-			dialect.appendMatchClauseFullTextIndex(bf, function, value);
-		else
-			dialect.appendMatchClauseByLike(bf, function, value);
 	}
 }
