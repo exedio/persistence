@@ -297,7 +297,7 @@ final class OracleDialect extends Dialect
 				appendParameter(statementID).
 				append(" order by "+ID);
 
-			root = database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler<QueryInfo>()
+			root = database.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
 			{
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
