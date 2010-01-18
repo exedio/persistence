@@ -170,21 +170,6 @@ final class Database
 		return Collections.unmodifiableList(result);
 	}
 	
-	protected Statement createStatement()
-	{
-		return executor.createStatement();
-	}
-	
-	protected Statement createStatement(final boolean qualifyTable)
-	{
-		return executor.createStatement(qualifyTable);
-	}
-	
-	protected Statement createStatement(final Query<? extends Object> query)
-	{
-		return executor.createStatement(query);
-	}
-	
 	void createSchema()
 	{
 		buildStage = false;
@@ -239,7 +224,7 @@ final class Database
 			final int chunkToIndex = Math.min(chunkFromIndex+CHUNK_LENGTH, tablesSize);
 			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
 			
-			final Statement bf = createStatement(true);
+			final Statement bf = executor.createStatement(true);
 			bf.append("select count(*) from ");
 			boolean first = true;
 	
@@ -368,7 +353,7 @@ final class Database
 			throw new RuntimeException();
 
 		final ArrayList<Join> queryJoins = query.joins;
-		final Statement bf = createStatement(query);
+		final Statement bf = executor.createStatement(query);
 		
 		if (totalOnly && distinct)
 		{
@@ -618,7 +603,7 @@ final class Database
 
 		testListener.load(connection, item);
 		
-		final Statement bf = createStatement(type.supertype!=null);
+		final Statement bf = executor.createStatement(type.supertype!=null);
 		bf.append("select ");
 
 		boolean first = true;
@@ -723,7 +708,7 @@ final class Database
 
 		final List<Column> columns = table.getColumns();
 
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		final StringColumn typeColumn = table.typeColumn;
 		if(present)
 		{
@@ -822,7 +807,7 @@ final class Database
 		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
-			final Statement bf = createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("delete from ").
 				append(currentTable.quotedID).
 				append(" where ").
@@ -842,7 +827,7 @@ final class Database
 		buildStage = false;
 
 		final Table table = column.table;
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("select ").
 			append(column.quotedID).
 			append(" from ").
@@ -870,7 +855,7 @@ final class Database
 		buildStage = false;
 
 		final Table table = column.table;
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("select ").
 			append(column.quotedID).
 			append(" from ").
@@ -900,7 +885,7 @@ final class Database
 		buildStage = false;
 
 		final Table table = column.table;
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("select length(").
 			append(column.quotedID).
 			append(") from ").
@@ -942,7 +927,7 @@ final class Database
 		buildStage = false;
 
 		final Table table = column.table;
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("update ").
 			append(table.quotedID).
 			append(" set ").
@@ -1090,7 +1075,7 @@ final class Database
 	
 	private int countTable(final Connection connection, final Table table)
 	{
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("select count(*) from ").
 			append(table.quotedID);
 
@@ -1110,7 +1095,7 @@ final class Database
 	{
 		buildStage = false;
 
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("select max(").
 			append(column.quotedID).
 			append(") from ").
@@ -1146,7 +1131,7 @@ final class Database
 		final Table table = type.getTable();
 		final Table superTable = type.getSupertype().getTable();
 		
-		final Statement bf = createStatement(true);
+		final Statement bf = executor.createStatement(true);
 		bf.append("select count(*) from ").
 			append(table).append(',').append(superTable).
 			append(" where ").
@@ -1174,7 +1159,7 @@ final class Database
 		final String alias1 = dsmfDialect.quoteName(Table.SQL_ALIAS_1);
 		final String alias2 = dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 		
-		final Statement bf = createStatement(false);
+		final Statement bf = executor.createStatement(false);
 		bf.append("select count(*) from ").
 			append(table).append(' ').append(alias1).
 			append(',').
@@ -1245,7 +1230,7 @@ final class Database
 	{
 		buildStage = false;
 
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select max(").
 			append(revision).
@@ -1281,7 +1266,7 @@ final class Database
 	{
 		buildStage = false;
 
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select ").
 			append(revision).
@@ -1318,7 +1303,7 @@ final class Database
 	{
 		assert revisions!=null;
 		
-		final Statement bf = createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("insert into ").
 			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append('(').
@@ -1373,7 +1358,7 @@ final class Database
 						final String sql = body[bodyIndex];
 						if(Model.isLoggingEnabled())
 							System.out.println("COPE revising " + number + ':' + sql);
-						final Statement bf = createStatement();
+						final Statement bf = executor.createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, false);
@@ -1388,7 +1373,7 @@ final class Database
 					insertRevision(con, number, info);
 				}
 				{
-					final Statement bf = createStatement();
+					final Statement bf = executor.createStatement();
 					bf.append("delete from ").
 						append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 						append(" where ").
