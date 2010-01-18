@@ -116,12 +116,11 @@ public final class Revisions
 	
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
-	static final int MUTEX_NUMBER = -1;
 	
 	void makeSchema(final Schema result, final Dialect dialect)
 	{
 		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
-		new com.exedio.dsmf.Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(MUTEX_NUMBER, Integer.MAX_VALUE));
+		new com.exedio.dsmf.Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new com.exedio.dsmf.Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
@@ -278,7 +277,7 @@ public final class Revisions
 						append(" where ").
 						append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 						append('=').
-						appendParameter(MUTEX_NUMBER);
+						appendParameter(RevisionInfoMutex.NUMBER);
 					executor.update(con, bf, true);
 				}
 			}

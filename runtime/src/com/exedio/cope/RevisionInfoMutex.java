@@ -24,6 +24,7 @@ import java.util.Properties;
 
 final class RevisionInfoMutex extends RevisionInfo
 {
+	static final int NUMBER = -1;
 	private final int expectedNumber;
 	private final int actualNumber;
 	
@@ -31,7 +32,7 @@ final class RevisionInfoMutex extends RevisionInfo
 			final Date date, final Map<String, String> environment,
 			final int expectedNumber, final int actualNumber)
 	{
-		super(Revisions.MUTEX_NUMBER, date, environment);
+		super(NUMBER, date, environment);
 		
 		if(expectedNumber<0)
 			throw new IllegalArgumentException("expectedNumber must be greater or equal zero, but was " + expectedNumber);
