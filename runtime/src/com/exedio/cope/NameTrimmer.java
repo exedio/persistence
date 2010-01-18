@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 
+/**
+ * Trims a name to length for being a suitable qualifier for database entities,
+ * such as tables, columns, indexes, constraints, partitions etc.
+ */
 final class NameTrimmer
 {
-	/**
-	 * Trims a name to length for being a suitable qualifier for database entities,
-	 * such as tables, columns, indexes, constraints, partitions etc.
-	 */
 	protected static String trimString(final String longString, final int maxLength)
 	{
 		if(maxLength<=0)
