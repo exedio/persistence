@@ -342,4 +342,43 @@ final class Executor
 		// here.
 		return ((Number)sqlInteger).intValue();
 	}
+	
+	// TestDatabaseListener ------------------
+	
+	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
+	{
+		public void load(Connection connection, Item item)
+		{/* DOES NOTHING */}
+		
+		public void search(Connection connection, Query query, boolean totalOnly)
+		{/* DOES NOTHING */}
+	};
+
+	private TestDatabaseListener testListener = noopTestListener;
+	private final Object testListenerLock = new Object();
+	
+	TestDatabaseListener testListener()
+	{
+		synchronized(testListenerLock)
+		{
+			return this.testListener;
+		}
+	}
+	
+	TestDatabaseListener setTestListener(TestDatabaseListener testListener)
+	{
+		if(testListener==null)
+			testListener = noopTestListener;
+		TestDatabaseListener result;
+
+		synchronized(testListenerLock)
+		{
+			result = this.testListener;
+			this.testListener = testListener;
+		}
+		
+		if(result==noopTestListener)
+			result = null;
+		return result;
+	}
 }

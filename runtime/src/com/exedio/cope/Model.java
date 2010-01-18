@@ -263,7 +263,7 @@ public final class Model
 	 */
 	TestDatabaseListener setTestDatabaseListener(final TestDatabaseListener listener)
 	{
-		return connect().database.setTestListener(listener);
+		return connect().executor.setTestListener(listener);
 	}
 	
 	public void createSchema()
