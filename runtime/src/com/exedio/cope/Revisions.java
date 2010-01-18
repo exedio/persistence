@@ -130,7 +130,7 @@ public final class Revisions
 		new UniqueConstraint(table, UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 	
-	private int getActualRevisionNumber(final Connection connection, final Executor executor)
+	private int getActualNumber(final Connection connection, final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 		
@@ -147,13 +147,13 @@ public final class Revisions
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	Map<Integer, byte[]> getRevisionLogs(final ConnectionPool connectionPool, final Executor executor)
+	Map<Integer, byte[]> getLogs(final ConnectionPool connectionPool, final Executor executor)
 	{
 		Connection con = null;
 		try
 		{
 			con = connectionPool.get(true);
-			return getRevisionLogs(con, executor);
+			return getLogs(con, executor);
 		}
 		finally
 		{
@@ -165,7 +165,7 @@ public final class Revisions
 		}
 	}
 	
-	private Map<Integer, byte[]> getRevisionLogs(final Connection connection, final Executor executor)
+	private Map<Integer, byte[]> getLogs(final Connection connection, final Executor executor)
 	{
 		final Dialect dialect = executor.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
@@ -228,7 +228,7 @@ public final class Revisions
 		{
 			con = connectionPool.get(true);
 			
-			final int departureNumber = getActualRevisionNumber(con, executor);
+			final int departureNumber = getActualNumber(con, executor);
 			final List<Revision> revisionsToRun = getListToRun(departureNumber);
 			
 			if(!revisionsToRun.isEmpty())

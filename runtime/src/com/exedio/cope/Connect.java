@@ -155,6 +155,6 @@ final class Connect
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
-		return revisions.getRevisionLogs(connectionPool, executor);
+		return revisions.getLogs(connectionPool, executor);
 	}
 }
