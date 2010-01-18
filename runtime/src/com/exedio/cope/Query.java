@@ -34,15 +34,15 @@ public final class Query<R>
 	final static int UNLIMITED = -66;
 	
 	final Model model;
-	Selectable[] selects;
-	boolean distinct = false;
+	private Selectable[] selects;
+	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
 	ArrayList<Join> joins = null;
-	Condition condition;
+	private Condition condition;
 
-	Function[] orderBy = null;
-	boolean[] orderAscending;
+	private Function[] orderBy = null;
+	private boolean[] orderAscending;
 	
 	int offset = 0;
 	int limit = UNLIMITED;
