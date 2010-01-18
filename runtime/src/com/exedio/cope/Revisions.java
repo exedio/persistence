@@ -115,6 +115,7 @@ public final class Revisions
 	
 	
 	static final String TABLE_NAME = Table.REVISION_TABLE_NAME;
+	static final String UNIQUE_CONSTRAINT_NAME = Table.REVISION_UNIQUE_CONSTRAINT_NAME;
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 	
@@ -123,7 +124,7 @@ public final class Revisions
 		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, TABLE_NAME);
 		new com.exedio.dsmf.Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new com.exedio.dsmf.Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new com.exedio.dsmf.UniqueConstraint(table, UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 	
 	private int getActualRevisionNumber(final Connection connection, final Executor executor)
