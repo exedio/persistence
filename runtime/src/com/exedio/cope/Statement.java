@@ -28,7 +28,7 @@ import java.util.Map;
 
 final class Statement
 {
-	private final Executor executor;
+	private final Dialect dialect;
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
@@ -42,7 +42,7 @@ final class Statement
 		if(executor==null)
 			throw new NullPointerException();
 
-		this.executor = executor;
+		this.dialect = executor.dialect;
 		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		this.tc = null;
@@ -56,7 +56,7 @@ final class Statement
 		if(executor==null)
 			throw new NullPointerException();
 
-		this.executor = executor;
+		this.dialect = executor.dialect;
 		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		
@@ -226,7 +226,7 @@ final class Statement
 		{
 			if(parameters==null)
 			{
-				this.executor.dialect.addBlobInStatementText(this.text, data);
+				this.dialect.addBlobInStatementText(this.text, data);
 			}
 			else
 			{
@@ -303,7 +303,7 @@ final class Statement
 	
 	Statement appendLength()
 	{
-		this.text.append(executor.dialect.stringLength);
+		this.text.append(dialect.stringLength);
 		
 		return this;
 	}
@@ -311,14 +311,14 @@ final class Statement
 	void appendMatch(final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
-			executor.dialect.appendMatchClauseFullTextIndex(this, function, value);
+			dialect.appendMatchClauseFullTextIndex(this, function, value);
 		else
-			executor.dialect.appendMatchClauseByLike(this, function, value);
+			dialect.appendMatchClauseByLike(this, function, value);
 	}
 
 	void appendStartsWith(final DataField field, final byte[] value)
 	{
-		executor.dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
+		dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
 	}
 
 	<E extends Number >void appendIntegerDivisionOperator(
@@ -326,7 +326,7 @@ final class Statement
 			final NumberFunction<E> divisor,
 			final Join join)
 	{
-		executor.dialect.appendIntegerDivision(this, dividend, divisor, join);
+		dialect.appendIntegerDivision(this, dividend, divisor, join);
 	}
 
 	String getText()
