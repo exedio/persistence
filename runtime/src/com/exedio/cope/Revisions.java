@@ -232,7 +232,25 @@ public final class Revisions
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 			
 			if(!revisionsToRun.isEmpty())
+				revise(con, executor, environment, revisionsToRun, actualNumber);
+		}
+		finally
+		{
+			if(con!=null)
 			{
+				connectionPool.put(con);
+				con = null;
+			}
+		}
+	}
+	
+	private void revise(
+			final Connection con,
+			final Executor executor,
+			final Map<String, String> environment,
+			final List<Revision> revisionsToRun,
+			final int actualNumber)
+	{
 				final Date date = new Date();
 				try
 				{
@@ -280,15 +298,5 @@ public final class Revisions
 						appendParameter(RevisionInfoMutex.NUMBER);
 					executor.update(con, bf, true);
 				}
-			}
-		}
-		finally
-		{
-			if(con!=null)
-			{
-				connectionPool.put(con);
-				con = null;
-			}
-		}
 	}
 }
