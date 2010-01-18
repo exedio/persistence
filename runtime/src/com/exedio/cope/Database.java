@@ -128,7 +128,7 @@ final class Database
 		sequences.add(sequence);
 	}
 	
-	public List<SequenceInfo> getSequenceInfo()
+	List<SequenceInfo> getSequenceInfo()
 	{
 		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
 		for(final Sequence sequence : sequences)
