@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
-import com.exedio.cope.Database.ResultSetHandler;
+import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -245,7 +245,7 @@ final class OracleDialect extends Dialect
 		}));
 	
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -383,7 +383,7 @@ final class OracleDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{
@@ -408,7 +408,7 @@ final class OracleDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{

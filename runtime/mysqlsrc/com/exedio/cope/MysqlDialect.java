@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import com.exedio.cope.Database.ResultSetHandler;
+import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.mysql.jdbc.Driver;
 
@@ -237,7 +237,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -286,7 +286,7 @@ final class MysqlDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{
@@ -311,7 +311,7 @@ final class MysqlDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{

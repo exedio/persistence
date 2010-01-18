@@ -34,6 +34,7 @@ final class Connect
 	final ConnectProperties properties;
 	final Dialect dialect;
 	final ConnectionPool connectionPool;
+	final Executor executor;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -83,11 +84,13 @@ final class Connect
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
+		this.executor = new Executor(dialect, properties);
 		this.database = new Database(
 				dialect.dsmfDialect,
 				dialectParameters,
 				dialect,
 				connectionPool,
+				executor,
 				revisions);
 		
 		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());

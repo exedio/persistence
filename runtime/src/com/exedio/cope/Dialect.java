@@ -66,7 +66,7 @@ abstract class Dialect
 	 * @param connection used in subclasses
 	 * @param database used in subclasses
 	 */
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor database)
 	{
 		return null;
 	}
@@ -261,7 +261,7 @@ abstract class Dialect
 	 * @param connection used in subclasses
 	 */
 	protected Integer nextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{
@@ -273,7 +273,7 @@ abstract class Dialect
 	 * @param connection used in subclasses
 	 */
 	protected Integer getNextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{

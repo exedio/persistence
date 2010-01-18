@@ -28,7 +28,7 @@ import java.util.Map;
 
 final class Statement
 {
-	private final Database database;
+	private final Executor database;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
 	final TC tc;
@@ -36,7 +36,7 @@ final class Statement
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
 	
-	Statement(final Database database, final boolean qualifyTable)
+	Statement(final Executor database, final boolean qualifyTable)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -49,7 +49,7 @@ final class Statement
 		this.qualifyTable = qualifyTable;
 	}
 
-	Statement(final Database database, final Query<? extends Object> query)
+	Statement(final Executor database, final Query<? extends Object> query)
 	{
 		if(database==null)
 			throw new NullPointerException();

@@ -250,12 +250,12 @@ public final class Model
 	
 	public DatabaseListener getDatabaseListener()
 	{
-		return connect().database.listener;
+		return connect().executor.listener;
 	}
 	
 	public void setDatabaseListener(final DatabaseListener listener)
 	{
-		connect().database.listener = listener;
+		connect().executor.listener = listener;
 	}
 	
 	/**

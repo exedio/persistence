@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.integerResultSetHandler;
+
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -35,8 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.info.SequenceInfo;
-import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -57,6 +58,7 @@ final class Database
 	final boolean prepare;
 	private final boolean fulltextIndex;
 	private final ConnectionPool connectionPool;
+	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
@@ -67,13 +69,12 @@ final class Database
 	
 	final boolean oracle; // TODO remove
 	
-	volatile DatabaseListener listener = null;
-	
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
 			final DialectParameters dialectParameters,
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
+			final Executor executor,
 			final Revisions revisions)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
@@ -84,6 +85,7 @@ final class Database
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = connectionPool;
+		this.executor = executor;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
@@ -174,17 +176,17 @@ final class Database
 	
 	protected Statement createStatement()
 	{
-		return createStatement(true);
+		return executor.createStatement();
 	}
 	
 	protected Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, qualifyTable);
+		return executor.createStatement(qualifyTable);
 	}
 	
 	protected Statement createStatement(final Query<? extends Object> query)
 	{
-		return new Statement(this, query);
+		return executor.createStatement(query);
 	}
 	
 	void createSchema()
@@ -675,7 +677,7 @@ final class Database
 			
 		//System.out.println(bf.toString());
 		final Row row = new Row();
-		executeSQLQuery(connection, bf, null, false, new Database.ResultSetHandler<Void>()
+		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -966,22 +968,6 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	static interface ResultSetHandler<R>
-	{
-		public R handle(ResultSet resultSet) throws SQLException;
-	}
-
-	private static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
-	{
-		public Integer handle(final ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException();
-			
-			return resultSet.getInt(1);
-		}
-	};
-	
 	static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
@@ -999,97 +985,7 @@ final class Database
 		final boolean explain,
 		final ResultSetHandler<R> resultSetHandler)
 	{
-		java.sql.Statement sqlStatement = null;
-		ResultSet resultSet = null;
-		try
-		{
-			final DatabaseListener listener = this.listener;
-			final boolean takeTimes = !explain && (listener!=null || (queryInfos!=null));
-			final String sqlText = statement.getText();
-			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
-			final long timePrepared;
-			final long timeExecuted;
-			
-			if(!prepare)
-			{
-				sqlStatement = connection.createStatement();
-				
-				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
-				resultSet = sqlStatement.executeQuery(sqlText);
-			}
-			else
-			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
-				sqlStatement = prepared;
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
-				
-				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
-				resultSet = prepared.executeQuery();
-			}
-			timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-			final R result = resultSetHandler.handle(resultSet);
-			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
-			
-			if(resultSet!=null)
-			{
-				resultSet.close();
-				resultSet = null;
-			}
-			if(sqlStatement!=null)
-			{
-				sqlStatement.close();
-				sqlStatement = null;
-			}
-
-			if(explain)
-				return result;
-
-			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
-			
-			if(listener!=null)
-				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timeExecuted-timePrepared, timeResultRead-timeExecuted, timeEnd-timeResultRead);
-			
-			final QueryInfo queryInfo =
-				(queryInfos!=null)
-				? makeQueryInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
-				: null;
-			
-			if(queryInfos!=null)
-				queryInfos.add(queryInfo);
-			
-			return result;
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(resultSet!=null)
-			{
-				try
-				{
-					resultSet.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
+		return executor.executeSQLQuery(connection, statement, queryInfos, explain, resultSetHandler);
 	}
 	
 	int executeSQLUpdate(
@@ -1097,60 +993,7 @@ final class Database
 			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
 	{
-		java.sql.Statement sqlStatement = null;
-		try
-		{
-			final String sqlText = statement.getText();
-			final DatabaseListener listener = this.listener;
-			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
-			final int rows;
-			
-			final long timePrepared;
-			if(!prepare)
-			{
-				sqlStatement = connection.createStatement();
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
-				rows = sqlStatement.executeUpdate(sqlText);
-			}
-			else
-			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
-				sqlStatement = prepared;
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
-				rows = prepared.executeUpdate();
-			}
-			
-			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
-
-			if(listener!=null)
-				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timePrepared-timeEnd, 0, 0);
-
-			//System.out.println("("+rows+"): "+statement.getText());
-			if(checkRows && rows!=1)
-				throw new RuntimeException("expected one row, but got " + rows + " on statement " + sqlText);
-			return rows;
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
+		return executor.executeSQLUpdate(connection, statement, checkRows);
 	}
 	
 	<R> R executeSQLInsert(
@@ -1159,94 +1002,7 @@ final class Database
 			final ResultSetHandler<R> generatedKeysHandler)
 		throws UniqueViolationException
 	{
-		java.sql.Statement sqlStatement = null;
-		ResultSet generatedKeysResultSet = null;
-		try
-		{
-			final String sqlText = statement.getText();
-			final DatabaseListener listener = this.listener;
-			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
-			
-			final long timePrepared;
-			if(!prepare)
-			{
-				sqlStatement = connection.createStatement();
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
-				sqlStatement.executeUpdate(sqlText);
-			}
-			else
-			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
-				sqlStatement = prepared;
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
-				prepared.executeUpdate();
-			}
-			
-			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
-
-			if(listener!=null)
-				listener.onStatement(sqlText, statement.getParameters(), timePrepared-timeStart, timeEnd-timePrepared, 0, 0);
-
-			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
-			return generatedKeysHandler.handle(generatedKeysResultSet);
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(generatedKeysResultSet!=null)
-			{
-				try
-				{
-					generatedKeysResultSet.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
-	}
-	
-	QueryInfo makeQueryInfo(
-			final Statement statement, final Connection connection,
-			final long start, final long prepared, final long executed, final long resultRead, final long end)
-	{
-		final QueryInfo result = new QueryInfo(statement.getText());
-		
-		result.addChild(new QueryInfo("timing "+(end-start)+'/'+(prepared-start)+'/'+(executed-prepared)+'/'+(resultRead-executed)+'/'+(end-resultRead)+" (total/prepare/execute/readResult/close in ms)"));
-		
-		final ArrayList<Object> parameters = statement.parameters;
-		if(parameters!=null)
-		{
-			final QueryInfo parametersChild = new QueryInfo("parameters");
-			result.addChild(parametersChild);
-			int i = 1;
-			for(Object p : parameters)
-				parametersChild.addChild(new QueryInfo(String.valueOf(i++) + ':' + p));
-		}
-			
-		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
-		if(plan!=null)
-			result.addChild(plan);
-		
-		return result;
+		return executor.executeSQLInsert(connection, statement, generatedKeysHandler);
 	}
 	
 	/**

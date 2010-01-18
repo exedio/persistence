@@ -26,7 +26,7 @@ import com.exedio.dsmf.Sequence;
 final class SequenceImplSequence implements SequenceImpl
 {
 	private final int start;
-	private final Database database;
+	private final Executor database;
 	private final ConnectionPool connectionPool;
 	private final String name;
 
@@ -36,7 +36,7 @@ final class SequenceImplSequence implements SequenceImpl
 			throw new RuntimeException("database does not support sequences");
 		
 		this.start = start;
-		this.database = database;
+		this.database = database.executor;
 		this.connectionPool = connectionPool;
 		this.name = database.makeName(column.table.id + '_' + column.id + "_Seq");
 	}

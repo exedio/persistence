@@ -24,7 +24,7 @@ import java.sql.SQLException;
 
 import org.hsqldb.jdbcDriver;
 
-import com.exedio.cope.Database.ResultSetHandler;
+import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class HsqldbDialect extends Dialect
@@ -144,7 +144,7 @@ final class HsqldbDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{
@@ -211,7 +211,7 @@ final class HsqldbDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Database database,
+			final Executor database,
 			final Connection connection,
 			final String name)
 	{
