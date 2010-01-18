@@ -147,7 +147,7 @@ public class ReviseTest extends CopeAssert
 				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4")
 			);
-		model7.setRevisions(revisions7);
+		setRevisions(revisions7);
 		assertSame(revisions7, model7.getRevisions());
 
 		final Date reviseBefore = new Date();
@@ -178,7 +178,7 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
-		model7.setRevisions(revisions8);
+		setRevisions(revisions8);
 		assertSame(revisions8, model7.getRevisions());
 
 		try
@@ -345,5 +345,13 @@ public class ReviseTest extends CopeAssert
 	final String mysqlLower(final String name)
 	{
 		return props.getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
+	}
+	
+	private void setRevisions(final Revisions revisions)
+	{
+		final ConnectProperties c = model7.getProperties();
+		model7.disconnect();
+		model7.setRevisions(revisions);
+		model7.connect(c);
 	}
 }

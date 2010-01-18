@@ -142,9 +142,14 @@ public final class Model
 	
 	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
 	{
+		if(revisions==null)
+			throw new NullPointerException();
 		assertRevisionEnabled();
-		connect().database.setRevisions(revisions); // do this first to fail early if not yet connected
+		if(connect!=null)
+			throw new IllegalStateException();
 		this.revisions = revisions;
+		if(connect!=null)
+			throw new IllegalStateException();
 	}
 
 	public void revise()

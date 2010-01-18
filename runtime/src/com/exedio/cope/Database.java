@@ -46,7 +46,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private Revisions revisions; // TODO make final
+	private final Revisions revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
@@ -520,11 +520,6 @@ final class Database
 		final Schema result = makeSchema();
 		result.verify();
 		return result;
-	}
-	
-	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
-	{
-		this.revisions = revisions;
 	}
 	
 	void flushSequences()
