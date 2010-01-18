@@ -24,6 +24,10 @@ import java.sql.SQLException;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 
+/**
+ * @deprecated for debugging only, should never be used in committed code
+ */
+@Deprecated // OK: for debugging
 final class ResultSetPrinter
 {
 	private ResultSetPrinter()
@@ -31,10 +35,6 @@ final class ResultSetPrinter
 		// prevent instantiation
 	}
 	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
 	protected static void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -43,10 +43,6 @@ final class ResultSetPrinter
 			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
 	}
 	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
 	protected static void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -55,12 +51,7 @@ final class ResultSetPrinter
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	@SuppressWarnings("unused") // OK: for debugging
-	private static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
+	protected static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
 	{
 		public Void handle(final ResultSet resultSet) throws SQLException
 		{
