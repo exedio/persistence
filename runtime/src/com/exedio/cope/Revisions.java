@@ -228,15 +228,15 @@ public final class Revisions
 		{
 			con = connectionPool.get(true);
 			
-			final int departureNumber = getActualNumber(con, executor);
-			final List<Revision> revisionsToRun = getListToRun(departureNumber);
+			final int actualNumber = getActualNumber(con, executor);
+			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 			
 			if(!revisionsToRun.isEmpty())
 			{
 				final Date date = new Date();
 				try
 				{
-					new RevisionInfoMutex(date, environment, getNumber(), departureNumber).insert(con, executor);
+					new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(con, executor);
 				}
 				catch(SQLRuntimeException e)
 				{
