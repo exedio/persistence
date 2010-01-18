@@ -671,7 +671,7 @@ public final class Query<R>
 		if(offset<0)
 			throw new RuntimeException();
 
-		final ArrayList<Join> queryJoins = this.joins;
+		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this);
 		
 		if (totalOnly && distinct)
@@ -720,9 +720,9 @@ public final class Query<R>
 		bf.append(" from ").
 			appendTypeDefinition((Join)null, this.type);
 
-		if(queryJoins!=null)
+		if(joins!=null)
 		{
-			for(final Join join : queryJoins)
+			for(final Join join : joins)
 				join.search(bf);
 		}
 
