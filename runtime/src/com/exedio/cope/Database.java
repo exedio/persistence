@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
-import static com.exedio.cope.Executor.convertSQLResult;
 
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -298,7 +297,7 @@ final class Database
 		//final long time = System.currentTimeMillis();
 		for(final Table table : tables)
 		{
-			final int count = countTable(connection, table);
+			final int count = table.count(connection, executor);
 			if(count>0)
 				throw new RuntimeException("there are "+count+" items left for table "+table.id);
 		}
@@ -1013,24 +1012,6 @@ final class Database
 	String makeName(final String longName)
 	{
 		return trimString(longName, 25);
-	}
-	
-	private int countTable(final Connection connection, final Table table)
-	{
-		final Statement bf = executor.newStatement();
-		bf.append("select count(*) from ").
-			append(table.quotedID);
-
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
-		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
-			{
-				if(!resultSet.next())
-					throw new SQLException(NO_SUCH_ROW);
-	
-				return convertSQLResult(resultSet.getObject(1));
-			}
-		});
 	}
 	
 	Schema makeSchema()
