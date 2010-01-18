@@ -24,7 +24,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -52,7 +51,6 @@ final class Database
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
 	final java.util.Properties tableOptions;
-	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	final boolean supportsSequences;
@@ -77,13 +75,11 @@ final class Database
 		this.executor = executor;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
-		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.blobLengthFactor = dialect.getBlobLengthFactor();
 		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
-		assert limitSupport!=null;
 		
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
@@ -282,266 +278,6 @@ final class Database
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkEmptyTableTime += amount;
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
-	}
-	
-	ArrayList<Object> search(
-			final Connection connection,
-			final Query<? extends Object> query,
-			final boolean totalOnly,
-			final ArrayList<QueryInfo> queryInfos)
-	{
-		buildStage = false;
-
-		executor.testListener().search(connection, query, totalOnly);
-		
-		final int offset = query.offset;
-		final int limit = query.limit;
-		final boolean limitActive = offset>0 || limit!=Query.UNLIMITED;
-		final boolean distinct = query.distinct;
-		if(offset<0)
-			throw new RuntimeException();
-
-		final ArrayList<Join> queryJoins = query.joins;
-		final Statement bf = executor.newStatement(query);
-		
-		if (totalOnly && distinct)
-		{
-			bf.append("select count(*) from ( ");
-		}
-		
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-			dialect.appendLimitClause(bf, offset, limit);
-		
-		bf.append("select");
-		
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
-			dialect.appendLimitClause(bf, offset, limit);
-		
-		bf.append(' ');
-		
-		final Selectable[] selects = query.selects;
-		final Column[] selectColumns = new Column[selects.length];
-		final Type[] selectTypes = new Type[selects.length];
-
-		if(!distinct&&totalOnly)
-		{
-			bf.append("count(*)");
-		}
-		else
-		{
-			if(distinct)
-				bf.append("distinct ");
-			
-			final Holder<Column> selectColumn = new Holder<Column>();
-			final Holder<Type  > selectType   = new Holder<Type  >();
-			for(int i = 0; i<selects.length; i++)
-			{
-				if(i>0)
-					bf.append(',');
-				
-				selectColumn.value = null;
-				selectType  .value = null;
-				bf.appendSelect(selects[i], null, selectColumn, selectType);
-				selectColumns[i] = selectColumn.value;
-				selectTypes  [i] = selectType  .value;
-			}
-		}
-
-		bf.append(" from ").
-			appendTypeDefinition((Join)null, query.type);
-
-		if(queryJoins!=null)
-		{
-			for(final Join join : queryJoins)
-			{
-				final Condition joinCondition = join.condition;
-				
-				if(joinCondition==null)
-				{
-					if(join.kind!=Join.Kind.INNER)
-						throw new RuntimeException("outer join must have join condition");
-					
-					bf.append(" cross join ");
-				}
-				else
-				{
-					bf.append(' ').
-						append(join.kind.sql);
-				}
-				
-				bf.appendTypeDefinition(join, join.type);
-				
-				if(joinCondition!=null)
-				{
-					bf.append(" on ");
-					joinCondition.append(bf);
-				}
-			}
-		}
-
-		if(query.condition!=null)
-		{
-			bf.append(" where ");
-			query.condition.append(bf);
-		}
-		
-		if(!totalOnly)
-		{
-			final Function[] orderBy = query.orderBy;
-			
-			if(orderBy!=null)
-			{
-				final boolean[] orderAscending = query.orderAscending;
-				for(int i = 0; i<orderBy.length; i++)
-				{
-					if(i==0)
-						bf.append(" order by ");
-					else
-						bf.append(',');
-					
-					bf.append(orderBy[i], (Join)null);
-					
-					if(!orderAscending[i])
-						bf.append(" desc");
-
-					// TODO break here, if already ordered by some unique function
-				}
-			}
-			
-			if(limitActive)
-			{
-				switch(limitSupport)
-				{
-					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
-					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
-					case CLAUSE_AFTER_SELECT:
-					case NONE:
-						break;
-				}
-			}
-		}
-		
-		final Model model = query.model;
-		final ArrayList<Object> result = new ArrayList<Object>();
-		
-		if(totalOnly && distinct)
-		{
-			bf.append(" )");
-			if (dialect.subqueryRequiresAlias())
-			{
-				bf.append(" as cope_total_distinct");
-			}
-		}
-		
-		//System.out.println(bf.toString());
-
-		executor.query(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
-		{
-			public Void handle(final ResultSet resultSet) throws SQLException
-			{
-				if(totalOnly)
-				{
-					resultSet.next();
-					result.add(Integer.valueOf(resultSet.getInt(1)));
-					if(resultSet.next())
-						throw new RuntimeException();
-					return null;
-				}
-				
-				if(offset>0 && limitSupport==Dialect.LimitSupport.NONE)
-				{
-					// TODO: ResultSet.relative
-					// Would like to use
-					//    resultSet.relative(limitStart+1);
-					// but this throws a java.sql.SQLException:
-					// Invalid operation for forward only resultset : relative
-					for(int i = offset; i>0; i--)
-						resultSet.next();
-				}
-					
-				int i = ((limit==Query.UNLIMITED||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limit );
-				if(i<=0)
-					throw new RuntimeException(String.valueOf(limit));
-				
-				while(resultSet.next() && (--i)>=0)
-				{
-					int columnIndex = 1;
-					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
-					final Row dummyRow = new Row();
-						
-					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
-					{
-						final Selectable select;
-						{
-							Selectable select0 = selects[selectIndex];
-							if(select0 instanceof BindFunction)
-								select0 = ((BindFunction)select0).function;
-							if(select0 instanceof Aggregate)
-								select0 = ((Aggregate)select0).getSource();
-							select = select0;
-						}
-						
-						final Object resultCell;
-						if(select instanceof FunctionField)
-						{
-							selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-							final FunctionField selectField = (FunctionField)select;
-							if(select instanceof ItemField)
-							{
-								final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
-								if(typeColumn!=null)
-									typeColumn.load(resultSet, columnIndex++, dummyRow);
-							}
-							resultCell = selectField.get(dummyRow);
-						}
-						else if(select instanceof View)
-						{
-							final View selectFunction = (View)select;
-							resultCell = selectFunction.load(resultSet, columnIndex++);
-						}
-						else
-						{
-							final Number pk = (Number)resultSet.getObject(columnIndex++);
-							//System.out.println("pk:"+pk);
-							if(pk==null)
-							{
-								// can happen when using right outer joins
-								resultCell = null;
-							}
-							else
-							{
-								final Type type = selectTypes[selectIndex];
-								final Type currentType;
-								if(type==null)
-								{
-									final String typeID = resultSet.getString(columnIndex++);
-									currentType = model.getType(typeID);
-									if(currentType==null)
-										throw new RuntimeException("no type with type id "+typeID);
-								}
-								else
-									currentType = type;
-
-								final int pkPrimitive = pk.intValue();
-								if(!PK.isValid(pkPrimitive))
-									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
-								resultCell = currentType.getItemObject(pkPrimitive);
-							}
-						}
-						if(resultRow!=null)
-							resultRow[selectIndex] = resultCell;
-						else
-							result.add(resultCell);
-					}
-					if(resultRow!=null)
-						result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
-				}
-				
-				return null;
-			}
-		});
-
-		return result;
 	}
 	
 	WrittenState load(final Connection connection, final Item item)

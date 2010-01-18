@@ -33,6 +33,7 @@ final class Executor
 	
 	final Dialect dialect;
 	final boolean prepare;
+	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
 	volatile DatabaseListener listener = null;
 	
@@ -42,7 +43,11 @@ final class Executor
 	{
 		this.dialect = dialect;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
+		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
+		
+		if(limitSupport==null)
+			throw new NullPointerException(dialect.toString());
 	}
 	
 	protected Statement newStatement()
