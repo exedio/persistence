@@ -1123,34 +1123,6 @@ final class Database
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	int checkTypeColumn(final Connection connection, final ItemField field)
-	{
-		buildStage = false;
-		
-		final Table table = field.getType().getTable();
-		final Table valueTable = field.getValueType().getTable();
-		final String alias1 = dsmfDialect.quoteName(Table.SQL_ALIAS_1);
-		final String alias2 = dsmfDialect.quoteName(Table.SQL_ALIAS_2);
-		
-		final Statement bf = executor.newStatement(false);
-		bf.append("select count(*) from ").
-			append(table).append(' ').append(alias1).
-			append(',').
-			append(valueTable).append(' ').append(alias2).
-			append(" where ").
-			append(alias1).append('.').append(field.getColumn()).
-			append('=').
-			append(alias2).append('.').append(valueTable.primaryKey).
-			append(" and ").
-			append(alias1).append('.').append(field.getTypeColumn()).
-			append("<>").
-			append(alias2).append('.').append(valueTable.typeColumn);
-		
-		//System.out.println("CHECKA:"+bf.toString());
-		
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
-	}
-	
 	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
 	private static final String REVISION_COLUMN_INFO_NAME = "i";
 	private static final int REVISION_MUTEX_NUMBER = -1;

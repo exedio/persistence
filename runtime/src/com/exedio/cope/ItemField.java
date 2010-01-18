@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.integerResultSetHandler;
+
+import java.sql.Connection;
+
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
 	private final TypeFuture<E> valueTypeFuture;
@@ -268,7 +272,32 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(!needsCheckTypeColumn())
 			throw new RuntimeException("no check for type column needed for " + this);
 		
-		return getColumn().table.database.checkTypeColumn(getType().getModel().getCurrentTransaction().getConnection(), this);
+		final Type type = getType();
+		final Model model = type.getModel();
+		final Connection connection = model.getCurrentTransaction().getConnection();
+		final Executor executor = model.connect().executor;
+		final Table table = type.getTable();
+		final Table valueTable = getValueType().getTable();
+		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);
+		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
+		
+		final Statement bf = executor.newStatement(false);
+		bf.append("select count(*) from ").
+			append(table).append(' ').append(alias1).
+			append(',').
+			append(valueTable).append(' ').append(alias2).
+			append(" where ").
+			append(alias1).append('.').append(getColumn()).
+			append('=').
+			append(alias2).append('.').append(valueTable.primaryKey).
+			append(" and ").
+			append(alias1).append('.').append(getTypeColumn()).
+			append("<>").
+			append(alias2).append('.').append(valueTable.typeColumn);
+		
+		//System.out.println("CHECKA:"+bf.toString());
+		
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	public static enum DeletePolicy
