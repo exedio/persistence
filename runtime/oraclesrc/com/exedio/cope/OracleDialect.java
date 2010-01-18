@@ -245,7 +245,7 @@ final class OracleDialect extends Dialect
 		}));
 	
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -259,7 +259,7 @@ final class OracleDialect extends Dialect
 		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
 		
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
 				append(statementID). // TODO use placeholders for prepared statements
 				append("' for ").
@@ -292,12 +292,12 @@ final class OracleDialect extends Dialect
 		}
 		final QueryInfo root;
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
 				appendParameter(statementID).
 				append(" order by "+ID);
 
-			root = database.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
+			root = executor.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
 			{
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
@@ -383,16 +383,16 @@ final class OracleDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = database.createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".nextval FROM DUAL");
 			
-		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
@@ -408,16 +408,16 @@ final class OracleDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = database.createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".currval FROM DUAL");
 			
-		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{

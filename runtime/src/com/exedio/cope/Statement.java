@@ -28,7 +28,7 @@ import java.util.Map;
 
 final class Statement
 {
-	private final Executor database;
+	private final Executor executor;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
 	final TC tc;
@@ -36,26 +36,26 @@ final class Statement
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
 	
-	Statement(final Executor database, final boolean qualifyTable)
+	Statement(final Executor executor, final boolean qualifyTable)
 	{
-		if(database==null)
+		if(executor==null)
 			throw new NullPointerException();
 
-		this.database = database;
-		this.parameters = database.prepare ? new ArrayList<Object>() : null;
+		this.executor = executor;
+		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		this.tc = null;
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 	}
 
-	Statement(final Executor database, final Query<? extends Object> query)
+	Statement(final Executor executor, final Query<? extends Object> query)
 	{
-		if(database==null)
+		if(executor==null)
 			throw new NullPointerException();
 
-		this.database = database;
-		this.parameters = database.prepare ? new ArrayList<Object>() : null;
+		this.executor = executor;
+		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		
 		this.tc = query.check();
 		
@@ -223,7 +223,7 @@ final class Statement
 		{
 			if(parameters==null)
 			{
-				this.database.dialect.addBlobInStatementText(this.text, data);
+				this.executor.dialect.addBlobInStatementText(this.text, data);
 			}
 			else
 			{
@@ -300,19 +300,19 @@ final class Statement
 	
 	Statement appendLength()
 	{
-		this.text.append(database.dialect.stringLength);
+		this.text.append(executor.dialect.stringLength);
 		
 		return this;
 	}
 
 	void appendMatch(final StringFunction function, final String value)
 	{
-		database.appendMatchClause(this, function, value);
+		executor.appendMatchClause(this, function, value);
 	}
 
 	void appendStartsWith(final DataField field, final byte[] value)
 	{
-		database.dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
+		executor.dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
 	}
 
 	<E extends Number >void appendIntegerDivisionOperator(
@@ -320,7 +320,7 @@ final class Statement
 			final NumberFunction<E> divisor,
 			final Join join)
 	{
-		database.dialect.appendIntegerDivision(this, dividend, divisor, join);
+		executor.dialect.appendIntegerDivision(this, dividend, divisor, join);
 	}
 
 	String getText()

@@ -144,7 +144,7 @@ final class HsqldbDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
@@ -158,28 +158,28 @@ final class HsqldbDialect extends Dialect
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
-			database.executeSQLUpdate(connection, bf, false);
+			executor.executeSQLUpdate(connection, bf, false);
 		}
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			database.executeSQLUpdate(connection, bf, true);
+			executor.executeSQLUpdate(connection, bf, true);
 		}
 		final Integer result;
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("SELECT NEXT VALUE FOR ").
 				append(dsmfDialect.quoteName(name)).
 				append(" FROM ").
 				append(TEMP_TABLE);
 				
-			result = database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+			result = executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
 				public Integer handle(final ResultSet resultSet) throws SQLException
 				{
@@ -193,10 +193,10 @@ final class HsqldbDialect extends Dialect
 			});
 		}
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
-			database.executeSQLUpdate(connection, bf, false);
+			executor.executeSQLUpdate(connection, bf, false);
 		}
 		try
 		{
@@ -211,16 +211,16 @@ final class HsqldbDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = database.createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("SELECT START_WITH" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 		
-		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{

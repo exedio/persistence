@@ -237,7 +237,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -245,12 +245,12 @@ final class MysqlDialect extends Dialect
 		
 		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
-			final Statement bf = database.createStatement();
+			final Statement bf = executor.createStatement();
 			bf.append("explain ").
 				append(statementText).
 				appendParameters(statement);
 
-			database.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<Void>()
+			executor.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<Void>()
 			{
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
@@ -286,16 +286,16 @@ final class MysqlDialect extends Dialect
 	
 	@Override
 	protected Integer nextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = database.createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("INSERT INTO ").
 			append(dsmfDialect.quoteName(name)).
 			append(" () VALUES ()");
 		
-		return (int)(database.executeSQLInsert(connection, bf, new ResultSetHandler<Long>()
+		return (int)(executor.executeSQLInsert(connection, bf, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
@@ -311,17 +311,17 @@ final class MysqlDialect extends Dialect
 	
 	@Override
 	protected Integer getNextSequence(
-			final Executor database,
+			final Executor executor,
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = database.createStatement();
+		final Statement bf = executor.createStatement();
 		bf.append("SELECT MAX(").
 			append(dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 		
-		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{

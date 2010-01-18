@@ -306,7 +306,7 @@ final class Executor
 		}
 	}
 	
-	QueryInfo makeQueryInfo(
+	private QueryInfo makeQueryInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
