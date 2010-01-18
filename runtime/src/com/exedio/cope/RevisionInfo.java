@@ -22,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -206,5 +207,26 @@ public abstract class RevisionInfo
 			throw new RuntimeException(e);
 		}
 		return result;
+	}
+	
+	
+	final void insert(final Connection connection, final Executor executor)
+	{
+		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+		
+		final Statement bf = executor.newStatement();
+		bf.append("insert into ").
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append('(').
+			append(dsmfDialect.quoteName(Revisions.REVISION_COLUMN_NUMBER_NAME)).
+			append(',').
+			append(dsmfDialect.quoteName(Revisions.REVISION_COLUMN_INFO_NAME)).
+			append(")values(").
+			appendParameter(getNumber()).
+			append(',').
+			appendParameterBlob(toBytes()).
+			append(')');
+		
+		executor.update(connection, bf, true);
 	}
 }

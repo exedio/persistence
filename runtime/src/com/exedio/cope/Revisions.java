@@ -114,8 +114,8 @@ public final class Revisions
 	
 	
 	
-	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
-	private static final String REVISION_COLUMN_INFO_NAME = "i";
+	static final String REVISION_COLUMN_NUMBER_NAME = "v";
+	static final String REVISION_COLUMN_INFO_NAME = "i";
 	static final int REVISION_MUTEX_NUMBER = -1;
 	
 	void makeSchema(final Schema result, final Dialect dialect)
@@ -206,7 +206,7 @@ public final class Revisions
 		try
 		{
 			con = connectionPool.get(true);
-			insertRevision(con, executor, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment));
+			new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment).insert(con, executor);
 		}
 		finally
 		{
@@ -216,26 +216,6 @@ public final class Revisions
 				con = null;
 			}
 		}
-	}
-	
-	void insertRevision(final Connection connection, final Executor executor, final RevisionInfo info)
-	{
-		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-		
-		final Statement bf = executor.newStatement();
-		bf.append("insert into ").
-			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
-			append('(').
-			append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
-			append(',').
-			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
-			append(")values(").
-			appendParameter(info.getNumber()).
-			append(',').
-			appendParameterBlob(info.toBytes()).
-			append(')');
-		
-		executor.update(connection, bf, true);
 	}
 	
 	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> revisionEnvironment)
@@ -257,7 +237,7 @@ public final class Revisions
 				final Date date = new Date();
 				try
 				{
-					insertRevision(con, executor, new RevisionInfoMutex(date, revisionEnvironment, targetNumber, departureNumber));
+					new RevisionInfoMutex(date, revisionEnvironment, targetNumber, departureNumber).insert(con, executor);
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -288,7 +268,7 @@ public final class Revisions
 						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 					}
 					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment, revision.comment, bodyInfo);
-					insertRevision(con, executor, info);
+					info.insert(con, executor);
 				}
 				{
 					final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
