@@ -245,7 +245,7 @@ final class MysqlDialect extends Dialect
 		
 		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("explain ").
 				append(statementText).
 				appendParameters(statement);
@@ -290,7 +290,7 @@ final class MysqlDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.createStatement();
+		final Statement bf = executor.newStatement();
 		bf.append("INSERT INTO ").
 			append(dsmfDialect.quoteName(name)).
 			append(" () VALUES ()");
@@ -315,7 +315,7 @@ final class MysqlDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.createStatement();
+		final Statement bf = executor.newStatement();
 		bf.append("SELECT MAX(").
 			append(dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
 			append(") FROM ").

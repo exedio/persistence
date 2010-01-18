@@ -158,14 +158,14 @@ final class HsqldbDialect extends Dialect
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
 			executor.update(connection, bf, false);
 		}
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
@@ -173,7 +173,7 @@ final class HsqldbDialect extends Dialect
 		}
 		final Integer result;
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("SELECT NEXT VALUE FOR ").
 				append(dsmfDialect.quoteName(name)).
 				append(" FROM ").
@@ -193,7 +193,7 @@ final class HsqldbDialect extends Dialect
 			});
 		}
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
 			executor.update(connection, bf, false);
@@ -215,7 +215,7 @@ final class HsqldbDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.createStatement();
+		final Statement bf = executor.newStatement();
 		bf.append("SELECT START_WITH" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');

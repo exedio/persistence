@@ -259,7 +259,7 @@ final class OracleDialect extends Dialect
 		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
 		
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
 				append(statementID). // TODO use placeholders for prepared statements
 				append("' for ").
@@ -292,7 +292,7 @@ final class OracleDialect extends Dialect
 		}
 		final QueryInfo root;
 		{
-			final Statement bf = executor.createStatement();
+			final Statement bf = executor.newStatement();
 			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
 				appendParameter(statementID).
 				append(" order by "+ID);
@@ -387,7 +387,7 @@ final class OracleDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.createStatement();
+		final Statement bf = executor.newStatement();
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".nextval FROM DUAL");
@@ -412,7 +412,7 @@ final class OracleDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.createStatement();
+		final Statement bf = executor.newStatement();
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".currval FROM DUAL");

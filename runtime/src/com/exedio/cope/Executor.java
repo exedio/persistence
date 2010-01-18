@@ -43,17 +43,17 @@ final class Executor
 		this.fulltextIndex = properties.getFulltextIndex();
 	}
 	
-	protected Statement createStatement()
+	protected Statement newStatement()
 	{
-		return createStatement(true);
+		return newStatement(true);
 	}
 	
-	protected Statement createStatement(final boolean qualifyTable)
+	protected Statement newStatement(final boolean qualifyTable)
 	{
 		return new Statement(this, qualifyTable);
 	}
 	
-	protected Statement createStatement(final Query<? extends Object> query)
+	protected Statement newStatement(final Query<? extends Object> query)
 	{
 		return new Statement(this, query);
 	}
