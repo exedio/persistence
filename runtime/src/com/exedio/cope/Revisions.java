@@ -205,12 +205,11 @@ public final class Revisions
 	
 	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
-		final int revisionNumber = getNumber();
 		Connection con = null;
 		try
 		{
 			con = connectionPool.get(true);
-			new RevisionInfoCreate(revisionNumber, new Date(), environment).insert(con, executor);
+			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(con, executor);
 		}
 		finally
 		{
@@ -224,10 +223,6 @@ public final class Revisions
 	
 	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
-		final int targetNumber = getNumber();
-		
-		assert targetNumber>=0 : targetNumber;
-
 		Connection con = null;
 		try
 		{
@@ -241,7 +236,7 @@ public final class Revisions
 				final Date date = new Date();
 				try
 				{
-					new RevisionInfoMutex(date, environment, targetNumber, departureNumber).insert(con, executor);
+					new RevisionInfoMutex(date, environment, getNumber(), departureNumber).insert(con, executor);
 				}
 				catch(SQLRuntimeException e)
 				{
