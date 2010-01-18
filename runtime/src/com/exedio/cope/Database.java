@@ -270,7 +270,7 @@ final class Database
 			}
 			
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
-			executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
@@ -486,7 +486,7 @@ final class Database
 		
 		//System.out.println(bf.toString());
 
-		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
+		executor.query(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -658,7 +658,7 @@ final class Database
 			
 		//System.out.println(bf.toString());
 		final Row row = new Row();
-		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -795,7 +795,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executeSQLUpdate(connection, bf, true);
+		executor.update(connection, bf, true);
 	}
 
 	void delete(final Connection connection, final Item item)
@@ -817,7 +817,7 @@ final class Database
 
 			//System.out.println("deleting "+bf.toString());
 
-			executeSQLUpdate(connection, bf, true);
+			executor.update(connection, bf, true);
 		}
 	}
 
@@ -838,7 +838,7 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<byte[]>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<byte[]>()
 		{
 			public byte[] handle(final ResultSet resultSet) throws SQLException
 			{
@@ -866,7 +866,7 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 		
-		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -896,7 +896,7 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Long>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
@@ -946,7 +946,7 @@ final class Database
 			appendTypeCheck(table, item.type);
 		
 		//System.out.println("storing "+bf.toString());
-		executeSQLUpdate(connection, bf, true);
+		executor.update(connection, bf, true);
 	}
 	
 	static int convertSQLResult(final Object sqlInteger)
@@ -957,33 +957,6 @@ final class Database
 		// OracleStatement.defineColumnType is used or not, so we support all
 		// here.
 		return ((Number)sqlInteger).intValue();
-	}
-
-	protected <R> R executeSQLQuery(
-		final Connection connection,
-		final Statement statement,
-		final ArrayList<QueryInfo> queryInfos,
-		final boolean explain,
-		final ResultSetHandler<R> resultSetHandler)
-	{
-		return executor.query(connection, statement, queryInfos, explain, resultSetHandler);
-	}
-	
-	int executeSQLUpdate(
-			final Connection connection,
-			final Statement statement, final boolean checkRows)
-		throws UniqueViolationException
-	{
-		return executor.update(connection, statement, checkRows);
-	}
-	
-	<R> R executeSQLInsert(
-			final Connection connection,
-			final Statement statement,
-			final ResultSetHandler<R> generatedKeysHandler)
-		throws UniqueViolationException
-	{
-		return executor.insert(connection, statement, generatedKeysHandler);
 	}
 	
 	/**
@@ -1079,7 +1052,7 @@ final class Database
 		bf.append("select count(*) from ").
 			append(table.quotedID);
 
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
@@ -1101,7 +1074,7 @@ final class Database
 			append(") from ").
 			append(column.table.quotedID);
 			
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
@@ -1147,7 +1120,7 @@ final class Database
 		
 		//System.out.println("CHECKT:"+bf.toString());
 		
-		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	int checkTypeColumn(final Connection connection, final ItemField field)
@@ -1175,7 +1148,7 @@ final class Database
 		
 		//System.out.println("CHECKA:"+bf.toString());
 		
-		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
@@ -1240,7 +1213,7 @@ final class Database
 			append(revision).
 			append(">=0");
 			
-		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	Map<Integer, byte[]> getRevisionLogs()
@@ -1280,7 +1253,7 @@ final class Database
 		
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 		
-		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -1316,7 +1289,7 @@ final class Database
 			appendParameterBlob(info.toBytes()).
 			append(')');
 		
-		executeSQLUpdate(connection, bf, true);
+		executor.update(connection, bf, true);
 	}
 	
 	void revise()
@@ -1361,7 +1334,7 @@ final class Database
 						final Statement bf = executor.newStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
-						final int rows = executeSQLUpdate(con, bf, false);
+						final int rows = executor.update(con, bf, false);
 						final long elapsed = System.currentTimeMillis() - start;
 						if(elapsed>1000)
 							System.out.println(
@@ -1380,7 +1353,7 @@ final class Database
 						append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
 						append('=').
 						appendParameter(REVISION_MUTEX_NUMBER);
-					executeSQLUpdate(con, bf, true);
+					executor.update(con, bf, true);
 				}
 			}
 		}
