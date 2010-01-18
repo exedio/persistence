@@ -18,7 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.NO_SUCH_ROW;
+
+import java.io.OutputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.exedio.cope.Executor.ResultSetHandler;
 
 final class BlobColumn extends Column
 {
@@ -74,4 +81,124 @@ final class BlobColumn extends Column
 		throw new RuntimeException(id);
 	}
 	
+
+	byte[] load(final Connection connection, final Executor executor, final Item item)
+	{
+		// TODO reuse code in load blob methods
+		final Table table = this.table;
+		final Statement bf = executor.newStatement();
+		bf.append("select ").
+			append(quotedID).
+			append(" from ").
+			append(table.quotedID).
+			append(" where ").
+			append(table.primaryKey.quotedID).
+			append('=').
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
+			
+		return executor.query(connection, bf, null, false, new ResultSetHandler<byte[]>()
+		{
+			public byte[] handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+				
+				return executor.dialect.getBytes(resultSet, 1);
+			}
+		});
+	}
+	
+	void load(final Connection connection, final Executor executor, final Item item, final OutputStream data, final DataField field)
+	{
+		final Table table = this.table;
+		final Statement bf = executor.newStatement();
+		bf.append("select ").
+			append(quotedID).
+			append(" from ").
+			append(table.quotedID).
+			append(" where ").
+			append(table.primaryKey.quotedID).
+			append('=').
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
+		
+		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		{
+			public Void handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+				
+				executor.dialect.fetchBlob(resultSet, 1, item, data, field);
+				
+				return null;
+			}
+		});
+	}
+	
+	long loadLength(final Connection connection, final Executor executor, final Item item)
+	{
+		final Table table = this.table;
+		final Statement bf = executor.newStatement();
+		bf.append("select length(").
+			append(quotedID).
+			append(") from ").
+			append(table.quotedID).
+			append(" where ").
+			append(table.primaryKey.quotedID).
+			append('=').
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
+			
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
+		{
+			public Long handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+	
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					return -1l;
+	
+				long result = ((Number)o).longValue();
+				final long factor = table.database.blobLengthFactor;
+				if(factor!=1)
+				{
+					if(result%factor!=0)
+						throw new RuntimeException("not dividable "+result+'/'+factor);
+					result /= factor;
+				}
+				return result;
+			}
+		});
+	}
+	
+	void store(
+			final Connection connection, final Executor executor, final Item item,
+			final DataField.Value data, final DataField field)
+	{
+		final Table table = this.table;
+		final Statement bf = executor.newStatement();
+		bf.append("update ").
+			append(table.quotedID).
+			append(" set ").
+			append(quotedID).
+			append('=');
+		
+		if(data!=null)
+			bf.appendParameterBlob(data.asArray(field, item));
+		else
+			bf.append("NULL");
+		
+		bf.append(" where ").
+			append(table.primaryKey.quotedID).
+			append('=').
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
+		
+		//System.out.println("storing "+bf.toString());
+		executor.update(connection, bf, true);
+	}
 }

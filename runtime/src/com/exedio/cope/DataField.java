@@ -202,7 +202,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public long getLength(final Item item)
 	{
-		return column.table.database.loadLength(model.getCurrentTransaction().getConnection(), column, item);
+		return column.loadLength(model.getCurrentTransaction().getConnection(), model.connect().executor, item);
 	}
 	
 	/**
@@ -222,7 +222,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public byte[] getArray(final Item item)
 	{
-		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
+		return column.load(model.getCurrentTransaction().getConnection(), model.connect().executor, item);
 	}
 	
 	/**
@@ -238,7 +238,7 @@ public final class DataField extends Field<DataField.Value>
 		if(data==null)
 			throw new NullPointerException();
 		
-		column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, this);
+		column.load(model.getCurrentTransaction().getConnection(), model.connect().executor, item, data, this);
 	}
 	
 	/**
@@ -295,7 +295,7 @@ public final class DataField extends Field<DataField.Value>
 			checkNotNull(data, item);
 		}
 		
-		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
+		column.store(model.getCurrentTransaction().getConnection(), model.connect().executor, item, data, this);
 	}
 	
 	/**
