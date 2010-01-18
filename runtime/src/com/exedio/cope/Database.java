@@ -55,7 +55,6 @@ final class Database
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
 	private Revisions revisions; // TODO make final
-	final boolean prepare;
 	private final boolean fulltextIndex;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
@@ -82,7 +81,6 @@ final class Database
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
 		this.revisions = revisions;
-		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = connectionPool;
 		this.executor = executor;
