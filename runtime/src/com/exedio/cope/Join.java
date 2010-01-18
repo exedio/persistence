@@ -118,4 +118,30 @@ public final class Join
 	{
 		return String.valueOf(Character.toLowerCase(type.id.charAt(0))) + (index+1);
 	}
+	
+	void search(final Statement bf)
+	{
+		final Condition joinCondition = this.condition;
+		
+		if(joinCondition==null)
+		{
+			if(this.kind!=Join.Kind.INNER)
+				throw new RuntimeException("outer join must have join condition");
+			
+			bf.append(" cross join ");
+		}
+		else
+		{
+			bf.append(' ').
+				append(this.kind.sql);
+		}
+		
+		bf.appendTypeDefinition(this, this.type);
+		
+		if(joinCondition!=null)
+		{
+			bf.append(" on ");
+			joinCondition.append(bf);
+		}
+	}
 }

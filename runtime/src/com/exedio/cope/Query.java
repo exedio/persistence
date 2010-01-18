@@ -723,30 +723,7 @@ public final class Query<R>
 		if(queryJoins!=null)
 		{
 			for(final Join join : queryJoins)
-			{
-				final Condition joinCondition = join.condition;
-				
-				if(joinCondition==null)
-				{
-					if(join.kind!=Join.Kind.INNER)
-						throw new RuntimeException("outer join must have join condition");
-					
-					bf.append(" cross join ");
-				}
-				else
-				{
-					bf.append(' ').
-						append(join.kind.sql);
-				}
-				
-				bf.appendTypeDefinition(join, join.type);
-				
-				if(joinCondition!=null)
-				{
-					bf.append(" on ");
-					joinCondition.append(bf);
-				}
-			}
+				join.search(bf);
 		}
 
 		if(this.condition!=null)
