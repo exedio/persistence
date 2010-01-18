@@ -112,7 +112,8 @@ public final class This<E extends Item> extends Feature implements Function<E>, 
 		if(!needsCheckTypeColumn())
 			throw new RuntimeException("no check for type column needed for " + this);
 		
-		return type.table.database.checkTypeColumn(type.getModel().getCurrentTransaction().getConnection(), type);
+		final Model model = type.getModel();
+		return type.checkTypeColumn(model.getCurrentTransaction().getConnection(), model.connect().executor);
 	}
 	
 	// convenience methods for conditions and views ---------------------------------

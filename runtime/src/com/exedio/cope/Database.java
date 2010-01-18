@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Executor.integerResultSetHandler;
-
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -1075,32 +1073,6 @@ final class Database
 				}
 			}
 		});
-	}
-	
-	int checkTypeColumn(final Connection connection, final Type type)
-	{
-		buildStage = false;
-		
-		final Table table = type.getTable();
-		final Table superTable = type.getSupertype().getTable();
-		
-		final Statement bf = executor.newStatement(true);
-		bf.append("select count(*) from ").
-			append(table).append(',').append(superTable).
-			append(" where ").
-			append(table.primaryKey).append('=').append(superTable.primaryKey).
-			append(" and ");
-		
-		if(table.typeColumn!=null)
-			bf.append(table.typeColumn);
-		else
-			bf.appendParameter(type.id);
-			
-		bf.append("<>").append(superTable.typeColumn);
-		
-		//System.out.println("CHECKT:"+bf.toString());
-		
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	Schema makeSchema()

@@ -18,11 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.integerResultSetHandler;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1015,6 +1018,30 @@ public final class Type<T extends Item>
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=PK.MAX_VALUE)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
+	}
+	
+	int checkTypeColumn(final Connection connection, final Executor executor)
+	{
+		final Table table = getTable();
+		final Table superTable = supertype.getTable();
+		
+		final Statement bf = executor.newStatement(true);
+		bf.append("select count(*) from ").
+			append(table).append(',').append(superTable).
+			append(" where ").
+			append(table.primaryKey).append('=').append(superTable.primaryKey).
+			append(" and ");
+		
+		if(table.typeColumn!=null)
+			bf.append(table.typeColumn);
+		else
+			bf.appendParameter(id);
+			
+		bf.append("<>").append(superTable.typeColumn);
+		
+		//System.out.println("CHECKT:"+bf.toString());
+		
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	// ------------------- deprecated stuff -------------------
