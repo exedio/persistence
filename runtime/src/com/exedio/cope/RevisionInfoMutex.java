@@ -31,7 +31,7 @@ final class RevisionInfoMutex extends RevisionInfo
 			final Date date, final Map<String, String> environment,
 			final int expectedNumber, final int actualNumber)
 	{
-		super(-1, date, environment);
+		super(Database.REVISION_MUTEX_NUMBER, date, environment);
 		
 		if(expectedNumber<0)
 			throw new IllegalArgumentException("expectedNumber must be greater or equal zero, but was " + expectedNumber);

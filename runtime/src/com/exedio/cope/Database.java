@@ -184,7 +184,7 @@ final class Database
 			try
 			{
 				con = connectionPool.get(true);
-				insertRevision(con, revisionNumber, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment()));
+				insertRevision(con, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment()));
 			}
 			finally
 			{
@@ -1125,7 +1125,7 @@ final class Database
 	
 	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
 	private static final String REVISION_COLUMN_INFO_NAME = "i";
-	private static final int REVISION_MUTEX_NUMBER = -1;
+	static final int REVISION_MUTEX_NUMBER = -1;
 	
 	Schema makeSchema()
 	{
@@ -1244,7 +1244,7 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void insertRevision(final Connection connection, final int number, final RevisionInfo info)
+	private void insertRevision(final Connection connection, final RevisionInfo info)
 	{
 		assert revisions!=null;
 		
@@ -1256,7 +1256,7 @@ final class Database
 			append(',').
 			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
 			append(")values(").
-			appendParameter(number).
+			appendParameter(info.getNumber()).
 			append(',').
 			appendParameterBlob(info.toBytes()).
 			append(')');
@@ -1284,7 +1284,7 @@ final class Database
 				final Date date = new Date();
 				try
 				{
-					insertRevision(con, REVISION_MUTEX_NUMBER, new RevisionInfoMutex(date, revisionEnvironment(), targetNumber, departureNumber));
+					insertRevision(con, new RevisionInfoMutex(date, revisionEnvironment(), targetNumber, departureNumber));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1315,7 +1315,7 @@ final class Database
 						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 					}
 					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment(), revision.comment, bodyInfo);
-					insertRevision(con, number, info);
+					insertRevision(con, info);
 				}
 				{
 					final Statement bf = executor.newStatement();
