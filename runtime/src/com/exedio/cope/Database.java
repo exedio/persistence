@@ -1032,39 +1032,6 @@ final class Database
 			}
 		});
 	}
-
-	Integer max(final Connection connection, final IntegerColumn column)
-	{
-		buildStage = false;
-
-		final Statement bf = executor.newStatement();
-		bf.append("select max(").
-			append(column.quotedID).
-			append(") from ").
-			append(column.table.quotedID);
-			
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
-		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
-			{
-				if(!resultSet.next())
-					throw new SQLException(NO_SUCH_ROW);
-				
-				final Object o = resultSet.getObject(1);
-				if(o!=null)
-				{
-					final int result = convertSQLResult(o);
-					if(result<column.minimum || result>column.maximum)
-						throw new RuntimeException("invalid maximum " + result + " in column " + column.id);
-					return result;
-				}
-				else
-				{
-					return null;
-				}
-			}
-		});
-	}
 	
 	Schema makeSchema()
 	{

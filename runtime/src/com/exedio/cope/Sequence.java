@@ -112,7 +112,7 @@ final class Sequence
 
 	int check(final Connection connection)
 	{
-		final Integer maxO = column.table.database.max(connection, column);
+		final Integer maxO = column.max(connection, column.table.database.executor);
 		if(maxO==null)
 			return 0;
 		

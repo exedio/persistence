@@ -90,7 +90,7 @@ final class SequenceImplMax implements SequenceImpl
 		try
 		{
 			connection = connectionPool.get(true);
-			return column.table.database.max(connection, column);
+			return column.max(connection, column.table.database.executor);
 		}
 		finally
 		{

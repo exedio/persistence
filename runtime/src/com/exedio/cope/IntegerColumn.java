@@ -17,8 +17,13 @@
  */
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.NO_SUCH_ROW;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.exedio.cope.Executor.ResultSetHandler;
 
 class IntegerColumn extends Column
 {
@@ -209,4 +214,34 @@ class IntegerColumn extends Column
 		}
 	}
 
+	Integer max(final Connection connection, final Executor executor)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("select max(").
+			append(quotedID).
+			append(") from ").
+			append(table.quotedID);
+			
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+				
+				final Object o = resultSet.getObject(1);
+				if(o!=null)
+				{
+					final int result = Executor.convertSQLResult(o);
+					if(result<minimum || result>maximum)
+						throw new RuntimeException("invalid maximum " + result + " in column " + id);
+					return result;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		});
+	}
 }
