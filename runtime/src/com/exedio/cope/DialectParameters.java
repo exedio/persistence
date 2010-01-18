@@ -18,9 +18,13 @@
 
 package com.exedio.cope;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.exedio.dsmf.SQLRuntimeException;
@@ -71,5 +75,32 @@ final class DialectParameters
 		result.setProperty("driver.name", driverName);
 		result.setProperty("driver.version", driverVersion + ' ' + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
 		return result;
+	}
+	
+	Map<String, String> revisionEnvironment()
+	{
+		final HashMap<String, String> store = new HashMap<String, String>();
+		
+		try
+		{
+			store.put("hostname", InetAddress.getLocalHost().getHostName());
+		}
+		catch(UnknownHostException e)
+		{
+			// do not put in hostname
+		}
+		
+		store.put("jdbc.url",  properties.getDatabaseUrl());
+		store.put("jdbc.user", properties.getDatabaseUser());
+		store.put("database.name",    databaseProductName);
+		store.put("database.version", databaseProductVersion);
+		store.put("database.version.major", String.valueOf(databaseMajorVersion));
+		store.put("database.version.minor", String.valueOf(databaseMinorVersion));
+		store.put("driver.name",    driverName);
+		store.put("driver.version", driverVersion);
+		store.put("driver.version.major", String.valueOf(driverMajorVersion));
+		store.put("driver.version.minor", String.valueOf(driverMinorVersion));
+		
+		return store;
 	}
 }

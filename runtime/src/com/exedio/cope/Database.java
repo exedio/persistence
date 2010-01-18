@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,33 +91,6 @@ final class Database
 		this.supportsSequences = dsmfDialect.supportsSequences();
 	}
 	
-	Map<String, String> revisionEnvironment()
-	{
-		final HashMap<String, String> store = new HashMap<String, String>();
-		
-		try
-		{
-			store.put("hostname", InetAddress.getLocalHost().getHostName());
-		}
-		catch(UnknownHostException e)
-		{
-			// do not put in hostname
-		}
-		
-		store.put("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
-		store.put("jdbc.user", dialectParameters.properties.getDatabaseUser());
-		store.put("database.name",    dialectParameters.databaseProductName);
-		store.put("database.version", dialectParameters.databaseProductVersion);
-		store.put("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
-		store.put("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
-		store.put("driver.name",    dialectParameters.driverName);
-		store.put("driver.version", dialectParameters.driverVersion);
-		store.put("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
-		store.put("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
-		
-		return store;
-	}
-	
 	java.util.Properties getTableOptions()
 	{
 		return tableOptions;
@@ -172,7 +143,7 @@ final class Database
 		makeSchema().create();
 		
 		if(revisions!=null)
-			revisions.inserCreate(connectionPool, executor, revisionEnvironment());
+			revisions.inserCreate(connectionPool, executor, dialectParameters.revisionEnvironment());
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
