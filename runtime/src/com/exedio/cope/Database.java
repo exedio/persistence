@@ -55,7 +55,6 @@ final class Database
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
 	private Revisions revisions; // TODO make final
-	private final boolean fulltextIndex;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
@@ -81,7 +80,6 @@ final class Database
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
 		this.revisions = revisions;
-		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
@@ -1088,17 +1086,6 @@ final class Database
 	String makeName(final String longName)
 	{
 		return trimString(longName, 25);
-	}
-
-	/**
-	 * Search full text.
-	 */
-	void appendMatchClause(final Statement bf, final StringFunction function, final String value)
-	{
-		if(fulltextIndex)
-			dialect.appendMatchClauseFullTextIndex(bf, function, value);
-		else
-			dialect.appendMatchClauseByLike(bf, function, value);
 	}
 	
 	private int countTable(final Connection connection, final Table table)
