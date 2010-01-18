@@ -121,16 +121,16 @@ public final class Join
 	
 	void check(final TC tc)
 	{
-		final Condition c = this.condition;
-		if(c!=null)
-			c.check(tc);
+		final Condition condition = this.condition;
+		if(condition!=null)
+			condition.check(tc);
 	}
 	
 	void search(final Statement bf)
 	{
-		final Condition joinCondition = this.condition;
+		final Condition condition = this.condition;
 		
-		if(joinCondition==null)
+		if(condition==null)
 		{
 			if(this.kind!=Join.Kind.INNER)
 				throw new RuntimeException("outer join must have join condition");
@@ -145,10 +145,10 @@ public final class Join
 		
 		bf.appendTypeDefinition(this, this.type);
 		
-		if(joinCondition!=null)
+		if(condition!=null)
 		{
 			bf.append(" on ");
-			joinCondition.append(bf);
+			condition.append(bf);
 		}
 	}
 }

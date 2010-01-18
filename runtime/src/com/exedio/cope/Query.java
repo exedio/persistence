@@ -378,8 +378,8 @@ public final class Query<R>
 
 		if(joins!=null)
 		{
-			for(final Join j : joins)
-				j.check(tc);
+			for(final Join join : joins)
+				join.check(tc);
 		}
 		
 		if(orderBy!=null)
