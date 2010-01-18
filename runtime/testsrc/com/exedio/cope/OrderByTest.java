@@ -172,8 +172,8 @@ public class OrderByTest extends TestmodelTest
 			catch(IllegalArgumentException e)
 			{
 				assertEquals("offset must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.offset);
-				assertEquals(q.UNLIMITED, q.limit);
+				assertEquals(0, q.getOffset());
+				assertEquals(-1, q.getLimit());
 			}
 			try
 			{
@@ -183,8 +183,8 @@ public class OrderByTest extends TestmodelTest
 			catch(IllegalArgumentException e)
 			{
 				assertEquals("offset must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.offset);
-				assertEquals(q.UNLIMITED, q.limit);
+				assertEquals(0, q.getOffset());
+				assertEquals(-1, q.getLimit());
 			}
 			try
 			{
@@ -194,8 +194,8 @@ public class OrderByTest extends TestmodelTest
 			catch(IllegalArgumentException e)
 			{
 				assertEquals("limit must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.offset);
-				assertEquals(q.UNLIMITED, q.limit);
+				assertEquals(0, q.getOffset());
+				assertEquals(-1, q.getLimit());
 			}
 		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
@@ -238,18 +238,22 @@ public class OrderByTest extends TestmodelTest
 			else
 				query.setLimit(offset, limit);
 			
+			assertEquals(offset, query.getOffset());
+			assertEquals(limit, query.getLimit());
 			assertEquals(expectedOrder, query.search());
 			assertNotNull(query.toString());
 		}
 		{
 			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, false);
-	
+			
 			if(limit==-1)
 				query.setLimit(offset);
 			else
 				query.setLimit(offset, limit);
 
+			assertEquals(offset, query.getOffset());
+			assertEquals(limit, query.getLimit());
 			assertEquals(expectedReverseOrder, query.search());
 		}
 		{
@@ -260,6 +264,9 @@ public class OrderByTest extends TestmodelTest
 				query2.setLimit(offset);
 			else
 				query2.setLimit(offset, limit);
+			
+			assertEquals(offset, query2.getOffset());
+			assertEquals(limit, query2.getLimit());
 			
 			final ArrayList<String> expected = new ArrayList<String>(expectedOrder.size());
 			for(Iterator<? extends Object> i = expectedOrder.iterator(); i.hasNext(); )
@@ -275,6 +282,9 @@ public class OrderByTest extends TestmodelTest
 				query.setLimit(offset);
 			else
 				query.setLimit(offset, limit);
+			
+			assertEquals(offset, query.getOffset());
+			assertEquals(limit, query.getLimit());
 			
 			final Query.Result resultAndTotal = query.searchAndTotal();
 			assertEquals(expectedOrder, resultAndTotal.getData());

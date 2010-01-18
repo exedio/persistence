@@ -44,8 +44,8 @@ public final class Query<R>
 	private Function[] orderBy = null;
 	private boolean[] orderAscending;
 	
-	int offset = 0;
-	int limit = UNLIMITED;
+	private int offset = 0;
+	private int limit = UNLIMITED;
 	
 	public Query(final Selectable<? extends R> select)
 	{
@@ -272,6 +272,16 @@ public final class Query<R>
 		orderAscending = null;
 	}
 	
+	public int getOffset()
+	{
+		return offset;
+	}
+	
+	public int getLimit()
+	{
+		return limit!=UNLIMITED ? limit : -1;
+	}
+	
 	/**
 	 * @see #setLimit(int)
 	 * @param limit the maximum number of items to be found.
@@ -413,11 +423,11 @@ public final class Query<R>
 		{
 			this.data = query.search();
 			final int dataSize = data.size();
-			this.offset = query.offset;
-			this.limit = query.limit;
+			this.offset = query.getOffset();
+			this.limit = query.getLimit();
 			
 			this.total =
-					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
+					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==-1)))
 					? (offset+dataSize)
 					: query.total();
 		}
@@ -430,7 +440,7 @@ public final class Query<R>
 			this.data = Collections.emptyList();
 			this.total = 0;
 			this.offset = 0;
-			this.limit = UNLIMITED;
+			this.limit = -1;
 		}
 		
 		public List<R> getData()
@@ -450,7 +460,7 @@ public final class Query<R>
 		
 		public int getLimit()
 		{
-			return limit!=UNLIMITED ? limit : -1;
+			return limit;
 		}
 		
 		@Override
