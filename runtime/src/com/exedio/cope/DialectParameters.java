@@ -77,7 +77,7 @@ final class DialectParameters
 		return result;
 	}
 	
-	Map<String, String> revisionEnvironment()
+	Map<String, String> getRevisionEnvironment()
 	{
 		final HashMap<String, String> store = new HashMap<String, String>();
 		

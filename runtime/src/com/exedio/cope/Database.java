@@ -143,7 +143,7 @@ final class Database
 		makeSchema().create();
 		
 		if(revisions!=null)
-			revisions.inserCreate(connectionPool, executor, dialectParameters.revisionEnvironment());
+			revisions.inserCreate(connectionPool, executor, dialectParameters.getRevisionEnvironment());
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)

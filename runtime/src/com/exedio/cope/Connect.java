@@ -150,7 +150,7 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
-		revisions.revise(connectionPool, executor, database.dialectParameters.revisionEnvironment());
+		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
