@@ -29,6 +29,8 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class Executor
 {
+	static final String NO_SUCH_ROW = "no such row";
+	
 	final Dialect dialect;
 	final boolean prepare;
 	final boolean fulltextIndex;
