@@ -25,7 +25,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1142,59 +1141,6 @@ final class Database
 	{
 		this.revisions = revisions;
 	}
-
-	
-	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	protected static void printMeta(final ResultSet resultSet) throws SQLException
-	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();
-		final int columnCount = metaData.getColumnCount();
-		for(int i = 1; i<=columnCount; i++)
-			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
-	}
-	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	protected static void printRow(final ResultSet resultSet) throws SQLException
-	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();
-		final int columnCount = metaData.getColumnCount();
-		for(int i = 1; i<=columnCount; i++)
-			System.out.println("----------"+i+":"+resultSet.getObject(i));
-	}
-	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	@SuppressWarnings("unused") // OK: for debugging
-	private static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
-	{
-		public Void handle(final ResultSet resultSet) throws SQLException
-		{
-			final int columnCount = resultSet.getMetaData().getColumnCount();
-			System.out.println("columnCount:"+columnCount);
-			final ResultSetMetaData meta = resultSet.getMetaData();
-			for(int i = 1; i<=columnCount; i++)
-			{
-				System.out.println(meta.getColumnName(i)+"|");
-			}
-			while(resultSet.next())
-			{
-				for(int i = 1; i<=columnCount; i++)
-				{
-					System.out.println(resultSet.getObject(i)+"|");
-				}
-			}
-			return null;
-		}
-	};
 	
 	void close()
 	{
