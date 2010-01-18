@@ -114,16 +114,16 @@ public final class Revisions
 	
 	
 	
-	static final String REVISION_COLUMN_NUMBER_NAME = "v";
-	static final String REVISION_COLUMN_INFO_NAME = "i";
-	static final int REVISION_MUTEX_NUMBER = -1;
+	static final String COLUMN_NUMBER_NAME = "v";
+	static final String COLUMN_INFO_NAME = "i";
+	static final int MUTEX_NUMBER = -1;
 	
 	void makeSchema(final Schema result, final Dialect dialect)
 	{
 		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
-		new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
-		new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME) + ')');
+		new com.exedio.dsmf.Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(MUTEX_NUMBER, Integer.MAX_VALUE));
+		new com.exedio.dsmf.Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
+		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 	
 	private int getActualRevisionNumber(final Connection connection, final Executor executor)
@@ -131,7 +131,7 @@ public final class Revisions
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 		
 		final Statement bf = executor.newStatement();
-		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
@@ -167,11 +167,11 @@ public final class Revisions
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
 		
 		final Statement bf = executor.newStatement();
-		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
+		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
 		bf.append("select ").
 			append(revision).
 			append(',').
-			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
 			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
@@ -276,9 +276,9 @@ public final class Revisions
 					bf.append("delete from ").
 						append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 						append(" where ").
-						append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
+						append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 						append('=').
-						appendParameter(REVISION_MUTEX_NUMBER);
+						appendParameter(MUTEX_NUMBER);
 					executor.update(con, bf, true);
 				}
 			}

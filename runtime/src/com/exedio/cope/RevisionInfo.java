@@ -218,9 +218,9 @@ public abstract class RevisionInfo
 		bf.append("insert into ").
 			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
 			append('(').
-			append(dsmfDialect.quoteName(Revisions.REVISION_COLUMN_NUMBER_NAME)).
+			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append(',').
-			append(dsmfDialect.quoteName(Revisions.REVISION_COLUMN_INFO_NAME)).
+			append(dsmfDialect.quoteName(Revisions.COLUMN_INFO_NAME)).
 			append(")values(").
 			appendParameter(getNumber()).
 			append(',').
