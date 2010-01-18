@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
+import static com.exedio.cope.Executor.convertSQLResult;
 
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -925,16 +926,6 @@ final class Database
 		
 		//System.out.println("storing "+bf.toString());
 		executor.update(connection, bf, true);
-	}
-	
-	static int convertSQLResult(final Object sqlInteger)
-	{
-		// IMPLEMENTATION NOTE
-		// Whether the returned object is an Integer, a Long or a BigDecimal,
-		// depends on the database used and for oracle on whether
-		// OracleStatement.defineColumnType is used or not, so we support all
-		// here.
-		return ((Number)sqlInteger).intValue();
 	}
 	
 	/**

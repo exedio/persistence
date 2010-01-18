@@ -332,4 +332,14 @@ final class Executor
 		
 		return result;
 	}
+	
+	static int convertSQLResult(final Object sqlInteger)
+	{
+		// IMPLEMENTATION NOTE
+		// Whether the returned object is an Integer, a Long or a BigDecimal,
+		// depends on the database used and for oracle on whether
+		// OracleStatement.defineColumnType is used or not, so we support all
+		// here.
+		return ((Number)sqlInteger).intValue();
+	}
 }
