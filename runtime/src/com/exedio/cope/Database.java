@@ -985,7 +985,7 @@ final class Database
 		final boolean explain,
 		final ResultSetHandler<R> resultSetHandler)
 	{
-		return executor.executeSQLQuery(connection, statement, queryInfos, explain, resultSetHandler);
+		return executor.query(connection, statement, queryInfos, explain, resultSetHandler);
 	}
 	
 	int executeSQLUpdate(
@@ -993,7 +993,7 @@ final class Database
 			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
 	{
-		return executor.executeSQLUpdate(connection, statement, checkRows);
+		return executor.update(connection, statement, checkRows);
 	}
 	
 	<R> R executeSQLInsert(
@@ -1002,7 +1002,7 @@ final class Database
 			final ResultSetHandler<R> generatedKeysHandler)
 		throws UniqueViolationException
 	{
-		return executor.executeSQLInsert(connection, statement, generatedKeysHandler);
+		return executor.insert(connection, statement, generatedKeysHandler);
 	}
 	
 	/**

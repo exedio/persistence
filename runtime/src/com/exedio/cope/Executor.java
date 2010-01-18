@@ -74,7 +74,7 @@ final class Executor
 		}
 	};
 
-	protected <R> R executeSQLQuery(
+	protected <R> R query(
 		final Connection connection,
 		final Statement statement,
 		final ArrayList<QueryInfo> queryInfos,
@@ -174,7 +174,7 @@ final class Executor
 		}
 	}
 	
-	int executeSQLUpdate(
+	int update(
 			final Connection connection,
 			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
@@ -235,7 +235,7 @@ final class Executor
 		}
 	}
 	
-	<R> R executeSQLInsert(
+	<R> R insert(
 			final Connection connection,
 			final Statement statement,
 			final ResultSetHandler<R> generatedKeysHandler)

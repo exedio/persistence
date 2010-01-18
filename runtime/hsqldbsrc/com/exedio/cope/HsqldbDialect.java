@@ -162,14 +162,14 @@ final class HsqldbDialect extends Dialect
 			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
-			executor.executeSQLUpdate(connection, bf, false);
+			executor.update(connection, bf, false);
 		}
 		{
 			final Statement bf = executor.createStatement();
 			bf.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			executor.executeSQLUpdate(connection, bf, true);
+			executor.update(connection, bf, true);
 		}
 		final Integer result;
 		{
@@ -179,7 +179,7 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 				
-			result = executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+			result = executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
 				public Integer handle(final ResultSet resultSet) throws SQLException
 				{
@@ -196,7 +196,7 @@ final class HsqldbDialect extends Dialect
 			final Statement bf = executor.createStatement();
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
-			executor.executeSQLUpdate(connection, bf, false);
+			executor.update(connection, bf, false);
 		}
 		try
 		{
@@ -220,7 +220,7 @@ final class HsqldbDialect extends Dialect
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 		
-		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{

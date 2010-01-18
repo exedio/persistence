@@ -250,7 +250,7 @@ final class MysqlDialect extends Dialect
 				append(statementText).
 				appendParameters(statement);
 
-			executor.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<Void>()
+			executor.query(connection, bf, null, true, new ResultSetHandler<Void>()
 			{
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
@@ -295,7 +295,7 @@ final class MysqlDialect extends Dialect
 			append(dsmfDialect.quoteName(name)).
 			append(" () VALUES ()");
 		
-		return (int)(executor.executeSQLInsert(connection, bf, new ResultSetHandler<Long>()
+		return (int)(executor.insert(connection, bf, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
@@ -321,7 +321,7 @@ final class MysqlDialect extends Dialect
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 		
-		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{

@@ -297,7 +297,7 @@ final class OracleDialect extends Dialect
 				appendParameter(statementID).
 				append(" order by "+ID);
 
-			root = executor.executeSQLQuery(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
+			root = executor.query(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
 			{
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
@@ -392,7 +392,7 @@ final class OracleDialect extends Dialect
 			append(dsmfDialect.quoteName(name)).
 			append(".nextval FROM DUAL");
 			
-		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
@@ -417,7 +417,7 @@ final class OracleDialect extends Dialect
 			append(dsmfDialect.quoteName(name)).
 			append(".currval FROM DUAL");
 			
-		return executor.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
