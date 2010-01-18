@@ -37,7 +37,7 @@ public final class Join
 	final int index;
 	private final Kind kind;
 	final Type<?> type;
-	Condition condition;
+	private Condition condition;
 	
 	Join(final int index, final Kind kind, final Type type, final Condition condition)
 	{
@@ -117,6 +117,13 @@ public final class Join
 	String getToStringAlias()
 	{
 		return String.valueOf(Character.toLowerCase(type.id.charAt(0))) + (index+1);
+	}
+	
+	void check(final TC tc)
+	{
+		final Condition c = this.condition;
+		if(c!=null)
+			c.check(tc);
 	}
 	
 	void search(final Statement bf)

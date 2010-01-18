@@ -379,11 +379,7 @@ public final class Query<R>
 		if(joins!=null)
 		{
 			for(final Join j : joins)
-			{
-				final Condition c = j.condition;
-				if(c!=null)
-					c.check(tc);
-			}
+				j.check(tc);
 		}
 		
 		if(orderBy!=null)
