@@ -23,6 +23,7 @@ import gnu.trove.TIntHashSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
@@ -145,5 +146,15 @@ final class Connect
 			//System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 		}
 		database.flushSequences();
+	}
+
+	void revise(final Revisions revisions)
+	{
+		revisions.revise(connectionPool, executor, database.revisionEnvironment());
+	}
+
+	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
+	{
+		return revisions.getRevisionLogs(connectionPool, executor);
 	}
 }

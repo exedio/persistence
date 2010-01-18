@@ -153,7 +153,7 @@ public final class Model
 		
 		synchronized(reviseLock)
 		{
-			connect().database.revise();
+			connect.revise(revisions);
 		}
 	}
 
@@ -168,7 +168,7 @@ public final class Model
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertRevisionEnabled();
-		return connect().database.getRevisionLogs();
+		return connect().getRevisionLogs(revisions);
 	}
 	
 	public ConnectProperties getProperties()

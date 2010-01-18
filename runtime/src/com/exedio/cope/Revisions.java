@@ -18,9 +18,21 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.integerResultSetHandler;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
 
 public final class Revisions
 {
@@ -98,5 +110,206 @@ public final class Revisions
 			result[resultIndex++] = revisions[i];
 		
 		return Collections.unmodifiableList(Arrays.asList(result));
+	}
+	
+	
+	
+	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
+	private static final String REVISION_COLUMN_INFO_NAME = "i";
+	static final int REVISION_MUTEX_NUMBER = -1;
+	
+	void makeSchema(final Schema result, final Dialect dialect)
+	{
+		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
+		new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
+		new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
+		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME) + ')');
+	}
+	
+	private int getActualRevisionNumber(final Connection connection, final Executor executor)
+	{
+		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+		
+		final Statement bf = executor.newStatement();
+		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
+		bf.append("select max(").
+			append(revision).
+			append(") from ").
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append(" where ").
+			append(revision).
+			append(">=0");
+			
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
+	}
+	
+	Map<Integer, byte[]> getRevisionLogs(final ConnectionPool connectionPool, final Executor executor)
+	{
+		Connection con = null;
+		try
+		{
+			con = connectionPool.get(true);
+			return getRevisionLogs(con, executor);
+		}
+		finally
+		{
+			if(con!=null)
+			{
+				connectionPool.put(con);
+				con = null;
+			}
+		}
+	}
+	
+	private Map<Integer, byte[]> getRevisionLogs(final Connection connection, final Executor executor)
+	{
+		final Dialect dialect = executor.dialect;
+		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
+		
+		final Statement bf = executor.newStatement();
+		final String revision = dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME);
+		bf.append("select ").
+			append(revision).
+			append(',').
+			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
+			append(" from ").
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append(" where ").
+			append(revision).
+			append(">=0");
+		
+		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
+		
+		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		{
+			public Void handle(final ResultSet resultSet) throws SQLException
+			{
+				while(resultSet.next())
+				{
+					final int revision = resultSet.getInt(1);
+					final byte[] info = dialect.getBytes(resultSet, 2);
+					final byte[] previous = result.put(revision, info);
+					if(previous!=null)
+						throw new RuntimeException("duplicate revision " + revision);
+				}
+				
+				return null;
+			}
+		});
+		return Collections.unmodifiableMap(result);
+	}
+	
+	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> revisionEnvironment)
+	{
+		final int revisionNumber = getNumber();
+		Connection con = null;
+		try
+		{
+			con = connectionPool.get(true);
+			insertRevision(con, executor, new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment));
+		}
+		finally
+		{
+			if(con!=null)
+			{
+				connectionPool.put(con);
+				con = null;
+			}
+		}
+	}
+	
+	void insertRevision(final Connection connection, final Executor executor, final RevisionInfo info)
+	{
+		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+		
+		final Statement bf = executor.newStatement();
+		bf.append("insert into ").
+			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append('(').
+			append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
+			append(',').
+			append(dsmfDialect.quoteName(REVISION_COLUMN_INFO_NAME)).
+			append(")values(").
+			appendParameter(info.getNumber()).
+			append(',').
+			appendParameterBlob(info.toBytes()).
+			append(')');
+		
+		executor.update(connection, bf, true);
+	}
+	
+	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> revisionEnvironment)
+	{
+		final int targetNumber = getNumber();
+		
+		assert targetNumber>=0 : targetNumber;
+
+		Connection con = null;
+		try
+		{
+			con = connectionPool.get(true);
+			
+			final int departureNumber = getActualRevisionNumber(con, executor);
+			final List<Revision> revisionsToRun = getListToRun(departureNumber);
+			
+			if(!revisionsToRun.isEmpty())
+			{
+				final Date date = new Date();
+				try
+				{
+					insertRevision(con, executor, new RevisionInfoMutex(date, revisionEnvironment, targetNumber, departureNumber));
+				}
+				catch(SQLRuntimeException e)
+				{
+					throw new IllegalStateException(
+							"Revision mutex set: " +
+							"Either a revision is currently underway, " +
+							"or a revision has failed unexpectedly.", e);
+				}
+				for(final Revision revision : revisionsToRun)
+				{
+					final int number = revision.number;
+					final String[] body = revision.body;
+					final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
+					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+					{
+						final String sql = body[bodyIndex];
+						if(Model.isLoggingEnabled())
+							System.out.println("COPE revising " + number + ':' + sql);
+						final Statement bf = executor.newStatement();
+						bf.append(sql);
+						final long start = System.currentTimeMillis();
+						final int rows = executor.update(con, bf, false);
+						final long elapsed = System.currentTimeMillis() - start;
+						if(elapsed>1000)
+							System.out.println(
+									"Warning: slow cope revision " + number +
+									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
+						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+					}
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment, revision.comment, bodyInfo);
+					insertRevision(con, executor, info);
+				}
+				{
+					final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+					final Statement bf = executor.newStatement();
+					bf.append("delete from ").
+						append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+						append(" where ").
+						append(dsmfDialect.quoteName(REVISION_COLUMN_NUMBER_NAME)).
+						append('=').
+						appendParameter(REVISION_MUTEX_NUMBER);
+					executor.update(con, bf, true);
+				}
+			}
+		}
+		finally
+		{
+			if(con!=null)
+			{
+				connectionPool.put(con);
+				con = null;
+			}
+		}
 	}
 }
