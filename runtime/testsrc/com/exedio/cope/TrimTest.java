@@ -24,7 +24,7 @@ public class TrimTest extends TestCase
 {
 	private void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{
-		final String actual = NameTrimmer.trimString(actualLongString, maxLength);
+		final String actual = new NameTrimmer(maxLength).trimString(actualLongString);
 		assertEquals(">"+expected+"< >"+actual+"<", expected, actual);
 		if(actualLongString.length()>maxLength)
 			assertEquals(maxLength, actual.length());
@@ -62,16 +62,17 @@ public class TrimTest extends TestCase
 
 		try
 		{
-			NameTrimmer.trimString("hallo", 0);
+			new NameTrimmer(0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("maxLength must be greater zero", e.getMessage());
 		}
+		final NameTrimmer nt = new NameTrimmer(20);
 		try
 		{
-			NameTrimmer.trimString("", 20);
+			nt.trimString("");
 			fail();
 		}
 		catch(IllegalArgumentException e)

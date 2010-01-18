@@ -26,10 +26,17 @@ import java.util.ArrayList;
  */
 final class NameTrimmer
 {
-	protected static String trimString(final String longString, final int maxLength)
+	private final int maxLength;
+	
+	NameTrimmer(final int maxLength)
 	{
 		if(maxLength<=0)
 			throw new IllegalArgumentException("maxLength must be greater zero");
+		this.maxLength = maxLength;
+	}
+	
+	String trimString(final String longString)
+	{
 		if(longString.length()==0)
 			throw new IllegalArgumentException("longString must not be empty");
 

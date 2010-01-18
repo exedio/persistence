@@ -42,6 +42,7 @@ import com.exedio.dsmf.Schema;
 
 final class Database
 {
+	private final NameTrimmer nameTrimmer = new NameTrimmer(25);
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
@@ -929,7 +930,7 @@ final class Database
 
 	String makeName(final String longName)
 	{
-		return NameTrimmer.trimString(longName, 25);
+		return nameTrimmer.trimString(longName);
 	}
 	
 	Schema makeSchema()
