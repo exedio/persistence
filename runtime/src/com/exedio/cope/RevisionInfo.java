@@ -216,7 +216,7 @@ public abstract class RevisionInfo
 		
 		final Statement bf = executor.newStatement();
 		bf.append("insert into ").
-			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(Revisions.TABLE_NAME)).
 			append('(').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append(',').

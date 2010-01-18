@@ -114,12 +114,13 @@ public final class Revisions
 	
 	
 	
+	static final String TABLE_NAME = Table.REVISION_TABLE_NAME;
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 	
 	void makeSchema(final Schema result, final Dialect dialect)
 	{
-		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
+		final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, TABLE_NAME);
 		new com.exedio.dsmf.Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new com.exedio.dsmf.Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 		new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
@@ -134,7 +135,7 @@ public final class Revisions
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -172,7 +173,7 @@ public final class Revisions
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+			append(dsmfDialect.quoteName(TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -273,7 +274,7 @@ public final class Revisions
 					final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 					final Statement bf = executor.newStatement();
 					bf.append("delete from ").
-						append(dsmfDialect.quoteName(Table.REVISION_TABLE_NAME)).
+						append(dsmfDialect.quoteName(TABLE_NAME)).
 						append(" where ").
 						append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 						append('=').
