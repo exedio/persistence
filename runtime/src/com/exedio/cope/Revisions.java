@@ -203,14 +203,14 @@ public final class Revisions
 		return Collections.unmodifiableMap(result);
 	}
 	
-	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> revisionEnvironment)
+	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
 		final int revisionNumber = getNumber();
 		Connection con = null;
 		try
 		{
 			con = connectionPool.get(true);
-			new RevisionInfoCreate(revisionNumber, new Date(), revisionEnvironment).insert(con, executor);
+			new RevisionInfoCreate(revisionNumber, new Date(), environment).insert(con, executor);
 		}
 		finally
 		{
@@ -222,7 +222,7 @@ public final class Revisions
 		}
 	}
 	
-	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> revisionEnvironment)
+	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
 		final int targetNumber = getNumber();
 		
@@ -241,7 +241,7 @@ public final class Revisions
 				final Date date = new Date();
 				try
 				{
-					new RevisionInfoMutex(date, revisionEnvironment, targetNumber, departureNumber).insert(con, executor);
+					new RevisionInfoMutex(date, environment, targetNumber, departureNumber).insert(con, executor);
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -271,7 +271,7 @@ public final class Revisions
 									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
 						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 					}
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, revisionEnvironment, revision.comment, bodyInfo);
+					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
 					info.insert(con, executor);
 				}
 				{
