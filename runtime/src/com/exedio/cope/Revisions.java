@@ -251,52 +251,52 @@ public final class Revisions
 			final List<Revision> revisionsToRun,
 			final int actualNumber)
 	{
-				final Date date = new Date();
-				try
-				{
-					new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(con, executor);
-				}
-				catch(SQLRuntimeException e)
-				{
-					throw new IllegalStateException(
-							"Revision mutex set: " +
-							"Either a revision is currently underway, " +
-							"or a revision has failed unexpectedly.", e);
-				}
-				for(final Revision revision : revisionsToRun)
-				{
-					final int number = revision.number;
-					final String[] body = revision.body;
-					final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
-					{
-						final String sql = body[bodyIndex];
-						if(Model.isLoggingEnabled())
-							System.out.println("COPE revising " + number + ':' + sql);
-						final Statement bf = executor.newStatement();
-						bf.append(sql);
-						final long start = System.currentTimeMillis();
-						final int rows = executor.update(con, bf, false);
-						final long elapsed = System.currentTimeMillis() - start;
-						if(elapsed>1000)
-							System.out.println(
-									"Warning: slow cope revision " + number +
-									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
-						bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
-					}
-					final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-					info.insert(con, executor);
-				}
-				{
-					final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-					final Statement bf = executor.newStatement();
-					bf.append("delete from ").
-						append(dsmfDialect.quoteName(TABLE_NAME)).
-						append(" where ").
-						append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
-						append('=').
-						appendParameter(RevisionInfoMutex.NUMBER);
-					executor.update(con, bf, true);
-				}
+		final Date date = new Date();
+		try
+		{
+			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(con, executor);
+		}
+		catch(SQLRuntimeException e)
+		{
+			throw new IllegalStateException(
+					"Revision mutex set: " +
+					"Either a revision is currently underway, " +
+					"or a revision has failed unexpectedly.", e);
+		}
+		for(final Revision revision : revisionsToRun)
+		{
+			final int number = revision.number;
+			final String[] body = revision.body;
+			final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
+			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			{
+				final String sql = body[bodyIndex];
+				if(Model.isLoggingEnabled())
+					System.out.println("COPE revising " + number + ':' + sql);
+				final Statement bf = executor.newStatement();
+				bf.append(sql);
+				final long start = System.currentTimeMillis();
+				final int rows = executor.update(con, bf, false);
+				final long elapsed = System.currentTimeMillis() - start;
+				if(elapsed>1000)
+					System.out.println(
+							"Warning: slow cope revision " + number +
+							" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
+				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+			}
+			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
+			info.insert(con, executor);
+		}
+		{
+			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+			final Statement bf = executor.newStatement();
+			bf.append("delete from ").
+				append(dsmfDialect.quoteName(TABLE_NAME)).
+				append(" where ").
+				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
+				append('=').
+				appendParameter(RevisionInfoMutex.NUMBER);
+			executor.update(con, bf, true);
+		}
 	}
 }
