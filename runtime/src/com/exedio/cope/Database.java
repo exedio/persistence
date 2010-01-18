@@ -791,11 +791,6 @@ final class Database
 		this.revisions = revisions;
 	}
 	
-	void close()
-	{
-		connectionPool.flush();
-	}
-	
 	void flushSequences()
 	{
 		for(final Sequence sequence : sequences)

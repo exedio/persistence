@@ -125,7 +125,7 @@ final class Connect
 		if(clusterListener!=null)
 			clusterListener.close();
 		
-		database.close();
+		connectionPool.flush();
 	}
 	
 	void invalidate(final TIntHashSet[] invalidations)
