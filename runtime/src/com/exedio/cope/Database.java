@@ -776,29 +776,6 @@ final class Database
 		executor.update(connection, bf, true);
 	}
 
-	void delete(final Connection connection, final Item item)
-	{
-		buildStage = false;
-		final Type type = item.type;
-		final int pk = item.pk;
-
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
-		{
-			final Table currentTable = currentType.getTable();
-			final Statement bf = executor.newStatement();
-			bf.append("delete from ").
-				append(currentTable.quotedID).
-				append(" where ").
-				append(currentTable.primaryKey.quotedID).
-				append('=').
-				appendParameter(pk);
-
-			//System.out.println("deleting "+bf.toString());
-
-			executor.update(connection, bf, true);
-		}
-	}
-
 	String makeName(final String longName)
 	{
 		return nameTrimmer.trimString(longName);

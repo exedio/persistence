@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
 import java.util.Map;
 
 final class DeletedState extends State
@@ -46,13 +47,32 @@ final class DeletedState extends State
 		assert blobs==null;
 		try
 		{
-			type.getModel().connect().database.delete( transaction.getConnection(), item );
+			doDelete(transaction.getConnection(), type.getModel().connect().executor);
 		}
 		finally
 		{
 			discard( transaction );
 		}
 		return null;
+	}
+
+	private void doDelete(final Connection connection, final Executor executor)
+	{
+		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		{
+			final Table currentTable = currentType.getTable();
+			final Statement bf = executor.newStatement();
+			bf.append("delete from ").
+				append(currentTable.quotedID).
+				append(" where ").
+				append(currentTable.primaryKey.quotedID).
+				append('=').
+				appendParameter(pk);
+
+			//System.out.println("deleting "+bf.toString());
+
+			executor.update(connection, bf, true);
+		}
 	}
 
 	@Override
