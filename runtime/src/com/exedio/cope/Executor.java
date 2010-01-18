@@ -354,15 +354,12 @@ final class Executor
 		{/* DOES NOTHING */}
 	};
 
-	private TestDatabaseListener testListener = noopTestListener;
+	private volatile TestDatabaseListener testListener = noopTestListener;
 	private final Object testListenerLock = new Object();
 	
 	TestDatabaseListener testListener()
 	{
-		synchronized(testListenerLock)
-		{
-			return this.testListener;
-		}
+		return this.testListener;
 	}
 	
 	TestDatabaseListener setTestListener(TestDatabaseListener testListener)
