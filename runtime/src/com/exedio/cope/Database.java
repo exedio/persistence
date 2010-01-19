@@ -50,7 +50,6 @@ final class Database
 	private final Revisions revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
-	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
 	
@@ -69,7 +68,6 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
-		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
@@ -78,7 +76,7 @@ final class Database
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
 	{
 		return
-			cluster
+			properties.cluster.getBooleanValue()
 			? new SequenceImplSequence(column, start, connectionPool, this)
 			: new SequenceImplMax(column, start, connectionPool);
 	}
