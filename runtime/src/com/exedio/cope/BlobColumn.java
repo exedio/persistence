@@ -30,6 +30,7 @@ import com.exedio.cope.Executor.ResultSetHandler;
 final class BlobColumn extends Column
 {
 	final long maximumLength;
+	final long lengthFactor;
 	
 	BlobColumn(
 			final Table table,
@@ -40,6 +41,7 @@ final class BlobColumn extends Column
 	{
 		super(table, field, id, false, optional);
 		this.maximumLength = maximumLength;
+		this.lengthFactor = table.database.blobLengthFactor;
 		
 		if(table.database.dialect.getBlobType(maximumLength)==null)
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
@@ -54,7 +56,7 @@ final class BlobColumn extends Column
 	@Override
 	final String getCheckConstraintIfNotNull()
 	{
-		return "LENGTH(" + quotedID + ")<=" + (maximumLength*table.database.blobLengthFactor);
+		return "LENGTH(" + quotedID + ")<=" + (maximumLength*lengthFactor);
 	}
 	
 	@Override
@@ -163,7 +165,7 @@ final class BlobColumn extends Column
 					return -1l;
 	
 				long result = ((Number)o).longValue();
-				final long factor = table.database.blobLengthFactor;
+				final long factor = lengthFactor;
 				if(factor!=1)
 				{
 					if(result%factor!=0)
