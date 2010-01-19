@@ -49,7 +49,7 @@ final class Table
 	{
 		this.database = database;
 		this.id = intern(database.makeName(id));
-		this.idLower = database.properties.getMysqlLowerCaseTableNames() ? this.id.toLowerCase() : this.id;
+		this.idLower = database.properties.filterTableName(this.id);
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
 		this.primaryKey =
 			(supertype!=null)

@@ -224,9 +224,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return databaseDontSupportNativeDate.getBooleanValue();
 	}
 	
-	public boolean getMysqlLowerCaseTableNames()
+	String filterTableName(final String tableName)
 	{
-		return mysqlLowerCaseTableNames.getBooleanValue();
+		return
+			mysqlLowerCaseTableNames.getBooleanValue()
+			? tableName.toLowerCase()
+			: tableName;
 	}
 	
 	java.util.Properties getDatabaseTableOptions()

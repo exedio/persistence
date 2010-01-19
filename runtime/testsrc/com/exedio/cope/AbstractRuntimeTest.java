@@ -338,7 +338,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	final String mysqlLower(final String name)
 	{
-		return model.getConnectProperties().getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
+		return model.getConnectProperties().filterTableName(name);
 	}
 	
 	protected final CheckConstraint assertCheckConstraint(

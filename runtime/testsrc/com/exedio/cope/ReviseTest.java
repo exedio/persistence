@@ -344,7 +344,7 @@ public class ReviseTest extends CopeAssert
 	
 	final String mysqlLower(final String name)
 	{
-		return props.getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
+		return props.filterTableName(name);
 	}
 	
 	private void setRevisions(final Revisions revisions)
