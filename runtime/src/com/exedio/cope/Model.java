@@ -250,7 +250,7 @@ public final class Model
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return !getConnectProperties().getDatabaseDontSupportEmptyStrings() && connect().dialect.supportsEmptyStrings();
+		return connect().supportsEmptyStrings();
 	}
 	
 	public DatabaseListener getDatabaseListener()

@@ -134,6 +134,11 @@ final class Connect
 		connectionPool.flush();
 	}
 	
+	boolean supportsEmptyStrings()
+	{
+		return !properties.getDatabaseDontSupportEmptyStrings() && dialect.supportsEmptyStrings();
+	}
+	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		itemCache.invalidate(invalidations);
