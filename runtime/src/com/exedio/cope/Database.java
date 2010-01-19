@@ -50,7 +50,7 @@ final class Database
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
-	final java.util.Properties tableOptions;
+	private final java.util.Properties tableOptions;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	final boolean supportsSequences;
@@ -87,9 +87,9 @@ final class Database
 		this.supportsSequences = dsmfDialect.supportsSequences();
 	}
 	
-	java.util.Properties getTableOptions()
+	String getTableOption(final Table table)
 	{
-		return tableOptions;
+		return tableOptions.getProperty(table.id);
 	}
 	
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
