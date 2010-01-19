@@ -29,8 +29,8 @@ import com.exedio.cope.Executor.ResultSetHandler;
 
 final class BlobColumn extends Column
 {
-	final long maximumLength;
-	final long lengthFactor;
+	private final long maximumLength;
+	private final long lengthFactor;
 	
 	BlobColumn(
 			final Table table,
@@ -153,6 +153,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
+		final long lengthFactor= this.lengthFactor;
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
