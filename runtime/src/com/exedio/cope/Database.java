@@ -51,7 +51,6 @@ final class Database
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
 	private final java.util.Properties tableOptions;
-	final boolean supportsReadCommitted;
 	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
@@ -77,10 +76,6 @@ final class Database
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
-		
-		this.supportsReadCommitted =
-			!dialect.fakesSupportReadCommitted() &&
-			dialectParameters.supportsTransactionIsolationLevel;
 	}
 	
 	String getTableOption(final Table table)

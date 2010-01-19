@@ -585,7 +585,7 @@ public final class Model
 	 */
 	boolean supportsReadCommitted()
 	{
-		return connect().database.supportsReadCommitted;
+		return connect().supportsReadCommitted;
 	}
 	
 	/**

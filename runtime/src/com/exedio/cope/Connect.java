@@ -42,6 +42,8 @@ final class Connect
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
 	
+	final boolean supportsReadCommitted;
+	
 	Connect(
 			final Types types,
 			final Revisions revisions,
@@ -116,6 +118,10 @@ final class Connect
 			this.clusterSender   = null;
 			this.clusterListener = null;
 		}
+		
+		this.supportsReadCommitted =
+			!dialect.fakesSupportReadCommitted() &&
+			dialectParameters.supportsTransactionIsolationLevel;
 	}
 	
 	void close()

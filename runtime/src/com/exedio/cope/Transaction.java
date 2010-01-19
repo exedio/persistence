@@ -297,7 +297,7 @@ public final class Transaction
 		}
 
 		// notify global cache
-		if(!rollback || !connect.database.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
+		if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
 		{
 			boolean modified = false;
 			for(final TIntHashSet invalidation : invalidations)
