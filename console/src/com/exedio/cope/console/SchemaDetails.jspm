@@ -34,19 +34,6 @@ import com.exedio.dsmf.Table;
 
 final class SchemaDetails_Jspm extends Console_Jspm
 {
-	private static final String type(final Constraint.Type type)
-	{
-		switch(type)
-		{
-			case PrimaryKey: return "pk";
-			case ForeignKey: return "fk";
-			case Unique:     return "unique";
-			case Check:      return "check";
-			default:
-				throw new RuntimeException(type.name());
-		}
-	}
-	
 	private static final String APPLY = "details.apply";
 	private static final String APPLY_DRY = "details.dry";
 	
@@ -167,7 +154,7 @@ final class SchemaDetails_Jspm extends Console_Jspm
 						%>
 						<li>
 							<img class="node" src="<%=leaf(constraint.getCumulativeColor())%>">
-							<small><%=type(constraint.getType())%><%=constraintCount%></small>
+							<small><%=constraint.getType()%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
 							final String constraintCondition = constraint.getRequiredCondition();

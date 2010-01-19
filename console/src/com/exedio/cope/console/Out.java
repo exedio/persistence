@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cops.Cop;
 import com.exedio.cops.Resource;
 import com.exedio.cops.XMLEncoder;
+import com.exedio.dsmf.Constraint;
 
 final class Out extends OutBasic
 {
@@ -63,6 +64,19 @@ final class Out extends OutBasic
 	{
 		if(date!=null)
 			bf.print(Format.format(date));
+	}
+	
+	void write(final Constraint.Type type)
+	{
+		switch(type)
+		{
+			case PrimaryKey: bf.append("pk"    ); break;
+			case ForeignKey: bf.append("fk"    ); break;
+			case Unique:     bf.append("unique"); break;
+			case Check:      bf.append("check" ); break;
+			default:
+				throw new RuntimeException(type.name());
+		}
 	}
 	
 	void writeStackTrace(final Throwable t)
