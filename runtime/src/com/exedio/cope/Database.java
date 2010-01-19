@@ -51,7 +51,6 @@ final class Database
 	final Executor executor;
 	final boolean mysqlLowerCaseTableNames;
 	private final java.util.Properties tableOptions;
-	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	final boolean cluster;
 	
@@ -74,7 +73,6 @@ final class Database
 		this.executor = executor;
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
-		this.blobLengthFactor = dialect.getBlobLengthFactor();
 		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		

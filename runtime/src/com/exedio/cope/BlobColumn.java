@@ -41,7 +41,7 @@ final class BlobColumn extends Column
 	{
 		super(table, field, id, false, optional);
 		this.maximumLength = maximumLength;
-		this.lengthFactor = table.database.blobLengthFactor;
+		this.lengthFactor = table.database.dialect.getBlobLengthFactor();
 		
 		if(table.database.dialect.getBlobType(maximumLength)==null)
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
