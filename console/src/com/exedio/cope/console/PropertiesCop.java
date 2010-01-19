@@ -56,7 +56,7 @@ final class PropertiesCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		final ConnectProperties props = model.getProperties();
+		final ConnectProperties props = model.getConnectProperties();
 		final String source = props.getSource();
 		String sourceContent = null;
 		try

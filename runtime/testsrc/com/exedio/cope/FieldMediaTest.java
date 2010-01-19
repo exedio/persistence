@@ -42,7 +42,7 @@ public class FieldMediaTest extends FieldTest
 		assertStreamClosed();
 
 		final String prefix =
-			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
+			model.getConnectProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String expectedURL =
 			prefix + item.getCopeID();
 		//System.out.println(expectedURL);

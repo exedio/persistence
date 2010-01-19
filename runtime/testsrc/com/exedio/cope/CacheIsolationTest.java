@@ -42,7 +42,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
 		
-		if(model.getProperties().getItemCacheLimit()>0)
+		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheInfo();
 			setupInvalidationsOrdered = ci[0].getInvalidationsOrdered();
@@ -179,7 +179,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 	private final void assertInvalidations(final int ordered, final int done)
 	{
 		final ItemCacheInfo[] ci = model.getItemCacheInfo();
-		if(model.getProperties().getItemCacheLimit()>0)
+		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(1, ci.length);
 			assertSame(CacheIsolationItem.TYPE, ci[0].getType());

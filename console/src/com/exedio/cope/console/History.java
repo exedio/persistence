@@ -61,7 +61,7 @@ final class History
 			Properties.Source context = null;
 			try
 			{
-				context = model.getProperties().getContext();
+				context = model.getConnectProperties().getContext();
 			}
 			catch(IllegalStateException e)
 			{

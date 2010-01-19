@@ -148,7 +148,7 @@ public final class ConsoleServlet extends CopsServlet
 					historyConnectToken =
 						ConnectToken.issue(
 								HistoryThread.HISTORY_MODEL,
-								new ConnectProperties(new File(this.model.getProperties().getContext().
+								new ConnectProperties(new File(this.model.getConnectProperties().getContext().
 										get(HISTORY_PROPERTY_FILE))),
 								"ConsoleServlet");
 				}

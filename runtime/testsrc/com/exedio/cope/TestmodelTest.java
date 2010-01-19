@@ -46,7 +46,7 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 		{
 			throw new RuntimeException(e);
 		}
-		final String prefix = model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
+		final String prefix = model.getConnectProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());

@@ -53,7 +53,7 @@ public abstract class CachedMedia extends MediaPath
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 		//System.out.println("ifModifiedSince="+ifModifiedSince);
 		
-		final int mediaOffsetExpires = getType().getModel().getProperties().getMediaOffsetExpires();
+		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
 		if(mediaOffsetExpires>0)
 			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
 		

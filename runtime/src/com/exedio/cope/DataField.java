@@ -88,7 +88,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final Type type = getType();
 		this.model = type.getModel();
-		final ConnectProperties properties = model.getProperties();
+		final ConnectProperties properties = model.getConnectProperties();
 		column = new BlobColumn(table, this, name, optional, maximumLength);
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLength);
 		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLength);

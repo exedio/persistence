@@ -65,7 +65,7 @@ final class EnvironmentCop extends ConsoleCop
 			current.setProperty(name, replaceNull(current.getProperty(name)));
 		}
 
-		Environment_Jspm.writeCurrent(out, model.getProperties().getDialect(), current);
+		Environment_Jspm.writeCurrent(out, model.getConnectProperties().getDialect(), current);
 		Environment_Jspm.writeTest(out, current, makeTestedDatabases());
 	}
 	

@@ -176,7 +176,7 @@ public final class Model
 		return connect().getRevisionLogs(revisions);
 	}
 	
-	public ConnectProperties getProperties()
+	public ConnectProperties getConnectProperties()
 	{
 		return connect().properties;
 	}
@@ -250,7 +250,7 @@ public final class Model
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return !getProperties().getDatabaseDontSupportEmptyStrings() && connect().dialect.supportsEmptyStrings();
+		return !getConnectProperties().getDatabaseDontSupportEmptyStrings() && connect().dialect.supportsEmptyStrings();
 	}
 	
 	public DatabaseListener getDatabaseListener()
@@ -855,5 +855,14 @@ public final class Model
 	public void flushSequences()
 	{
 		// does nothing
+	}
+	
+	/**
+	 * @deprecated Use {@link #getConnectProperties()} instead
+	 */
+	@Deprecated
+	public ConnectProperties getProperties()
+	{
+		return getConnectProperties();
 	}
 }

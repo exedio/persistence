@@ -95,13 +95,13 @@ public class ModelTest extends TestmodelTest
 		assertWithin(Main.beforeModel, Main.afterModel, model.getInitializeDate());
 		
 		model.commit();
-		final ConnectProperties p = model.getProperties();
+		final ConnectProperties p = model.getConnectProperties();
 		assertNotNull(p);
 		
 		model.disconnect();
 		try
 		{
-			model.getProperties();
+			model.getConnectProperties();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -124,7 +124,7 @@ public class ModelTest extends TestmodelTest
 		final Date before = new Date();
 		model.connect(p);
 		final Date after = new Date();
-		assertSame(p, model.getProperties());
+		assertSame(p, model.getConnectProperties());
 		assertWithin(before, after, model.getConnectDate());
 		model.startTransaction("ModelTest.testDisconnect");
 	}

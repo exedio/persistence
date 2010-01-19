@@ -52,7 +52,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		// because type is invalidated.
 		restartTransaction();
 		
-		final boolean enabled = model.getProperties().getQueryCacheLimit()>0;
+		final boolean enabled = model.getConnectProperties().getQueryCacheLimit()>0;
 		assertEquals(list(), qch());
 		
 		final DBL l = new DBL();

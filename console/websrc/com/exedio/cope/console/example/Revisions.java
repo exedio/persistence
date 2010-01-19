@@ -98,7 +98,7 @@ final class Revisions
 		
 		final Iterator<Revision> revisions = model.getRevisions().getList().iterator();
 		
-		final ConnectProperties p = model.getProperties();
+		final ConnectProperties p = model.getConnectProperties();
 		Connection con = null;
 		PreparedStatement stat = null;
 		try

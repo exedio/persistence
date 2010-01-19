@@ -349,7 +349,7 @@ public class ReviseTest extends CopeAssert
 	
 	private void setRevisions(final Revisions revisions)
 	{
-		final ConnectProperties c = model7.getProperties();
+		final ConnectProperties c = model7.getConnectProperties();
 		model7.disconnect();
 		model7.setRevisions(revisions);
 		model7.connect(c);

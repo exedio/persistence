@@ -58,7 +58,7 @@ public abstract class MediaPath extends Pattern
 	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
-			mediaRootUrl = getType().getModel().getProperties().getMediaRootUrl();
+			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
 		
 		return mediaRootUrl;
 	}

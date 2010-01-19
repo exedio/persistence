@@ -294,7 +294,7 @@ final class QueryCacheCop extends ConsoleCop
 	{
 		final QueryCacheHistogram[] histogram = model.getQueryCacheHistogram();
 		QueryCache_Jspm.writeBody(this, out,
-				model.getProperties().getQueryCacheLimit(),
+				model.getConnectProperties().getQueryCacheLimit(),
 				model.getQueryCacheInfo(),
 				new Content(histogram, condense));
 	}

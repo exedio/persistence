@@ -121,7 +121,7 @@ public final class ConnectToken
 				if(connect)
 					model.connect(properties);
 				else
-					model.getProperties().ensureEquality(properties);
+					model.getConnectProperties().ensureEquality(properties);
 					
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
 				tokens.add(result);

@@ -290,7 +290,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	 */
 	public void testRevise()
 	{
-		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
+		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getConnectProperties().getSource());
 		
 		assertNull(model.getRevisions());
 		try

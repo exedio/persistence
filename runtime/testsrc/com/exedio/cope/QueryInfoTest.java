@@ -47,7 +47,7 @@ public class QueryInfoTest extends TestmodelTest
 			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
 			assertContains(timing.getChilds());
 		}
-		if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
 			final QueryInfo parameters = rootChilds.next();
 			assertEquals("parameters", parameters.getText());
@@ -138,7 +138,7 @@ public class QueryInfoTest extends TestmodelTest
 		assertUnmodifiable(cached1Infos);
 		assertEquals(1, cached1Infos.size());
 		final QueryInfo cached1 = cached1Infos.iterator().next();
-		if(model.getProperties().getQueryCacheLimit()>0)
+		if(model.getConnectProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #1 for " + statement, cached1.getText());
 			assertEqualsUnmodifiable(list(), cached1.getChilds());
@@ -157,7 +157,7 @@ public class QueryInfoTest extends TestmodelTest
 		assertUnmodifiable(cached2Infos);
 		assertEquals(1, cached2Infos.size());
 		final QueryInfo cached2 = cached2Infos.iterator().next();
-		if(model.getProperties().getQueryCacheLimit()>0)
+		if(model.getConnectProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #2 for " + statement, cached2.getText());
 			assertEqualsUnmodifiable(list(), cached2.getChilds());

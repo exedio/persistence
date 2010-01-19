@@ -34,7 +34,7 @@ public class ConnectTokenTest extends CopeAssert
 	{
 		try
 		{
-			model.getProperties();
+			model.getConnectProperties();
 			fail();
 		}
 		catch(IllegalStateException e)
@@ -49,7 +49,7 @@ public class ConnectTokenTest extends CopeAssert
 		final Date before1 = new Date();
 		final ConnectToken token1 = ConnectToken.issue(model, props, "token1Name");
 		final Date after1 = new Date();
-		assertSame(props, model.getProperties());
+		assertSame(props, model.getConnectProperties());
 		final Date connectDate = model.getConnectDate();
 		assertWithin(before1, after1, connectDate);
 		assertEqualsUnmodifiable(list(token1), ConnectToken.getTokens(model));
@@ -65,7 +65,7 @@ public class ConnectTokenTest extends CopeAssert
 				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource())/* not the same but equal */,
 				"token2Name");
 		final Date after2 = new Date();
-		assertSame(props, model.getProperties());
+		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
 		assertEquals(false, token1.isReturned());
@@ -93,13 +93,13 @@ public class ConnectTokenTest extends CopeAssert
 						" and ConnectTokenTestChangedProps, expected " + props.getDatabaseUser() +
 						" but got zack.", e.getMessage());
 			}
-			assertSame(props, model.getProperties());
+			assertSame(props, model.getConnectProperties());
 			assertEquals(connectDate, model.getConnectDate());
 			assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
 		}
 
 		assertEquals(false, token1.returnIt());
-		assertSame(props, model.getProperties());
+		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token2), ConnectToken.getTokens(model));
 		assertEquals(true, token1.isReturned());
@@ -109,7 +109,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals(true, token2.returnIt());
 		try
 		{
-			model.getProperties();
+			model.getConnectProperties();
 			fail();
 		}
 		catch(IllegalStateException e)

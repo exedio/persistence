@@ -44,7 +44,7 @@ public class ProtocolWriter extends AbstractRuntimeTest
 				final String name = (String)i.next();
 				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 			}
-			final ConnectProperties p = model.getProperties();
+			final ConnectProperties p = model.getConnectProperties();
 			for(final ConnectProperties.Field field : p.getFields())
 			{
 				if(field.getDefaultValue()!=null

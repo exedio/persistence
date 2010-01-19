@@ -128,7 +128,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final String database = model.getProperties().getDialect();
+		final String database = model.getConnectProperties().getDialect();
 		
 		if("com.exedio.cope.HsqldbDialect".equals(database))
 			dialect = Dialect.HSQLDB;
@@ -146,11 +146,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		mysql  = dialect==Dialect.MYSQL;
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
-		cache = model.getProperties().getItemCacheLimit()>0;
+		cache = model.getConnectProperties().getItemCacheLimit()>0;
 		noJoinParentheses = hsqldb;
 		files.clear();
 		
-		mediaRootUrl = model.getProperties().getMediaRootUrl();
+		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 	}
 	
 	@Override
@@ -338,7 +338,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	final String mysqlLower(final String name)
 	{
-		return model.getProperties().getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
+		return model.getConnectProperties().getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
 	}
 	
 	protected final CheckConstraint assertCheckConstraint(
@@ -406,7 +406,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(types.length, limits.length);
 		
 		final ItemCacheInfo[] ci = model.getItemCacheInfo();
-		if(model.getProperties().getItemCacheLimit()>0)
+		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(types.length, ci.length);
 			for(int i = 0; i<ci.length; i++)
