@@ -232,9 +232,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			: tableName;
 	}
 	
-	java.util.Properties getDatabaseTableOptions()
+	String getTableOption(final Table table)
 	{
-		return databaseTableOptions.getMapValue();
+		return databaseTableOptions.getValue(table.id);
 	}
 	
 	public boolean getFulltextIndex()

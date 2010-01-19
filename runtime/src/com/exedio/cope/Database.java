@@ -50,7 +50,6 @@ final class Database
 	private final Revisions revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
-	private final java.util.Properties tableOptions;
 	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
@@ -70,16 +69,10 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
-		this.tableOptions = properties.getDatabaseTableOptions();
 		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
-	}
-	
-	String getTableOption(final Table table)
-	{
-		return tableOptions.getProperty(table.id);
 	}
 	
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
