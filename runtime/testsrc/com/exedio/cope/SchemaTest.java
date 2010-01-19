@@ -38,7 +38,7 @@ public class SchemaTest extends TestmodelTest
 		if(postgresql) return;
 		final String TABLE1 = getTableName(FinalItem.TYPE);
 		final String COLUMN1 = getColumnName(FinalItem.nonFinalInteger);
-		assertEquals(mysqlLower("FinalItem"), TABLE1);
+		assertEquals(filterTableName("FinalItem"), TABLE1);
 		assertEquals("nonFinalInteger", COLUMN1);
 
 		final String column1Type;
@@ -289,23 +289,23 @@ public class SchemaTest extends TestmodelTest
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, getPrimaryKeyColumnName(AttributeItem.TYPE));
 
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", mysqlLower("EmptyItem"), getPrimaryKeyColumnName(AttributeItem.TYPE));
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", filterTableName("EmptyItem"), getPrimaryKeyColumnName(AttributeItem.TYPE));
 
-			final com.exedio.dsmf.Table uniqueItem = schema.getTable(mysqlLower("UNIQUE_ITEMS"));
+			final com.exedio.dsmf.Table uniqueItem = schema.getTable(filterTableName("UNIQUE_ITEMS"));
 			assertNotNull(uniqueItem);
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.Color.OK, uniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(uniqueItem, "UNIQUE_ITEMS_UNIQUE_S_Unq", "("+p("UNIQUE_S")+")");
 			
-			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable(mysqlLower("ItemWithDoubleUnique"));
+			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable(filterTableName("ItemWithDoubleUnique"));
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(Schema.Color.OK, doubleUniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 			
-			final com.exedio.dsmf.Table stringItem = schema.getTable(mysqlLower("STRINGITEMS"));
+			final com.exedio.dsmf.Table stringItem = schema.getTable(filterTableName("STRINGITEMS"));
 			assertNotNull(stringItem);
 			assertEquals(null, stringItem.getError());
 			assertEquals(Schema.Color.OK, stringItem.getParticularColor());

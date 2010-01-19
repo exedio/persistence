@@ -75,7 +75,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		}
 		
 		// with sub types
-		assertEquals(mysqlLower("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
+		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals("class", getTypeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
@@ -83,7 +83,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 
 		// without sub types
-		assertEquals(mysqlLower("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
+		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try
 		{

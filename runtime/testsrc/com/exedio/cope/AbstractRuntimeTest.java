@@ -336,7 +336,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertNotSame(o1, o2);
 	}
 	
-	final String mysqlLower(final String name)
+	final String filterTableName(final String name)
 	{
 		return model.getConnectProperties().filterTableName(name);
 	}

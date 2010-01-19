@@ -85,7 +85,7 @@ public class NameTest extends AbstractRuntimeTest
 		
 		// test schema
 		
-		assertEquals(mysqlLower("NameLongItem"), getTableName(NameLongItem.TYPE));
+		assertEquals(filterTableName("NameLongItem"), getTableName(NameLongItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(NameLongItem.TYPE));
 		assertEquals("class", getTypeColumnName(NameLongItem.TYPE));
 		assertEquals("code", getColumnName(NameLongItem.code));
@@ -93,13 +93,13 @@ public class NameTest extends AbstractRuntimeTest
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 		
-		assertEquals(mysqlLower("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
+		assertEquals(filterTableName("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 		
-		assertEquals(mysqlLower("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
+		assertEquals(filterTableName("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 		
@@ -119,7 +119,7 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals("integer", nameSub.getColumn("integer").getName());
 			assertEquals("item",    nameSub.getColumn("item")   .getName());
 			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+p("unique")+")");
-			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", mysqlLower("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+p("integer")+","+p("item")+")");
 			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+p("unique")+" IS NOT NULL) AND (("+p("unique")+">=-2147483648) AND ("+p("unique")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+p("integer")+" IS NOT NULL) AND (("+p("integer")+">=-2147483648) AND ("+p("integer")+"<=2147483647))");
@@ -129,7 +129,7 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
 			assertEquals("itemY",    nameSub.getColumn("itemY")   .getName());
 			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+p("uniqueY")+")");
-			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", mysqlLower("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+p("integerY")+","+p("itemY")+")");
 			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+p("uniqueY")+" IS NOT NULL) AND (("+p("uniqueY")+">=-2147483648) AND ("+p("uniqueY")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+p("integerY")+" IS NOT NULL) AND (("+p("integerY")+">=-2147483648) AND ("+p("integerY")+"<=2147483647))");
