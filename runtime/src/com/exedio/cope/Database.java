@@ -43,13 +43,13 @@ final class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 	private boolean buildStage = true;
+	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
 	private final Revisions revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
-	final boolean mysqlLowerCaseTableNames;
 	private final java.util.Properties tableOptions;
 	final boolean cluster;
 	
@@ -63,14 +63,13 @@ final class Database
 			final Executor executor,
 			final Revisions revisions)
 	{
-		final ConnectProperties properties = dialectParameters.properties;
+		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
-		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
