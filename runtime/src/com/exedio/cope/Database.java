@@ -53,7 +53,6 @@ final class Database
 	private final java.util.Properties tableOptions;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
-	final boolean supportsSequences;
 	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
@@ -84,7 +83,6 @@ final class Database
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
-		this.supportsSequences = dsmfDialect.supportsSequences();
 	}
 	
 	String getTableOption(final Table table)

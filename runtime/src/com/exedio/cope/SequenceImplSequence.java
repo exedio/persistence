@@ -32,9 +32,6 @@ final class SequenceImplSequence implements SequenceImpl
 
 	SequenceImplSequence(final IntegerColumn column, final int start, final ConnectionPool connectionPool, final Database database)
 	{
-		if(!database.supportsSequences)
-			throw new RuntimeException("database does not support sequences");
-		
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;

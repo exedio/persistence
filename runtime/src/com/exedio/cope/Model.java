@@ -232,7 +232,7 @@ public final class Model
 	
 	public boolean supportsSequences()
 	{
-		return connect().database.supportsSequences;
+		return connect().dialect.dsmfDialect.supportsSequences();
 	}
 	
 	/**
