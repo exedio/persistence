@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.System.nanoTime;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -262,11 +264,12 @@ public final class Dispatcher extends Pattern
 					}
 					
 					final long start = System.currentTimeMillis();
+					final long nanoStart = nanoTime();
 					try
 					{
 						((Dispatchable)item).dispatch(this);
 
-						final long elapsed = System.currentTimeMillis() - start;
+						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						item.set(
 							pending.map(false),
 							successDate.map(new Date(start)),
@@ -277,7 +280,7 @@ public final class Dispatcher extends Pattern
 					}
 					catch(Exception cause)
 					{
-						final long elapsed = System.currentTimeMillis() - start;
+						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						model.rollbackIfNotCommitted();
 						
 						model.startTransaction(id + " register failure " + itemID);

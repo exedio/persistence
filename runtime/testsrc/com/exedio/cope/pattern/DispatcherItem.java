@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.System.nanoTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,15 +59,15 @@ public class DispatcherItem extends Item implements Dispatchable
 		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), DispatcherTest.MODEL.getCurrentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		final Log log = logs.get(this);
-		final long start = System.currentTimeMillis();
+		final long start = nanoTime();
 		log.dispatchCount++;
 		Thread.sleep(5);
 		if(log.fail)
 		{
-			log.dispatchFailureElapsed.add((int)(System.currentTimeMillis() - start));
+			log.dispatchFailureElapsed.add((int)((nanoTime() - start) / 1000000));
 			throw new IOException(getBody());
 		}
-		log.dispatchLastSuccessElapsed = ((int)(System.currentTimeMillis() - start));
+		log.dispatchLastSuccessElapsed = ((int)((nanoTime() - start) / 1000000));
 	}
 	
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
