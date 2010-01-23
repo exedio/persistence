@@ -262,6 +262,7 @@ public final class Schedule extends Pattern
 		if(toRun.isEmpty())
 			return 0;
 		
+		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : DEFAULT_INTERRUPTER;
 		int result = 0;
 		for(final P item : toRun)
 		{
@@ -291,7 +292,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				((Scheduleable)item).run(this, from, until, interrupter!=null ? interrupter : DEFAULT_INTERRUPTER);
+				((Scheduleable)item).run(this, from, until, effectiveInterrupter);
 				final long elapsed = (nanoTime() - elapsedStart) / 1000000;
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
