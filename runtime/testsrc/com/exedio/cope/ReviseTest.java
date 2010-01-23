@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.String.valueOf;
+
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -321,9 +323,13 @@ public class ReviseTest extends CopeAssert
 		assertEquals(jdbcUrl, p.getProperty("env.jdbc.url"));
 		assertEquals(jdbcUser, p.getProperty("env.jdbc.user"));
 		assertEquals(info.getDatabaseProductName(), p.getProperty("env.database.name"));
-		assertEquals(info.getDatabaseVersionDescription(), p.getProperty("env.database.version") + " (" + p.getProperty("env.database.version.major") + '.' + p.getProperty("env.database.version.minor") + ')');
+		assertEquals(info.getDatabaseProductVersion(),          p.getProperty("env.database.version"));
+		assertEquals(valueOf(info.getDatabaseMajorVersion()),   p.getProperty("env.database.version.major"));
+		assertEquals(valueOf(info.getDatabaseMinorVersion()),   p.getProperty("env.database.version.minor"));
 		assertEquals(info.getDriverName(), p.getProperty("env.driver.name"));
-		assertEquals(info.getDriverVersionDescription(), p.getProperty("env.driver.version") + " (" + p.getProperty("env.driver.version.major") + '.' + p.getProperty("env.driver.version.minor") + ')');
+		assertEquals(info.getDriverVersion(),               p.getProperty("env.driver.version"));
+		assertEquals(valueOf(info.getDriverMajorVersion()), p.getProperty("env.driver.version.major"));
+		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
 	}
 	
 	private static final Properties parse(final byte[] log)
