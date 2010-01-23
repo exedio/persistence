@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -275,9 +276,9 @@ public final class Revisions
 					System.out.println("COPE revising " + number + ':' + sql);
 				final Statement bf = executor.newStatement();
 				bf.append(sql);
-				final long start = System.currentTimeMillis();
+				final long start = nanoTime();
 				final int rows = executor.update(con, bf, false);
-				final long elapsed = System.currentTimeMillis() - start;
+				final long elapsed = (nanoTime() - start) / 1000000;
 				if(elapsed>1000)
 					System.out.println(
 							"Warning: slow cope revision " + number +
