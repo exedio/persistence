@@ -322,11 +322,11 @@ public class ReviseTest extends CopeAssert
 		assertEquals(hostname, p.getProperty("env.hostname"));
 		assertEquals(jdbcUrl, p.getProperty("env.jdbc.url"));
 		assertEquals(jdbcUser, p.getProperty("env.jdbc.user"));
-		assertEquals(info.getDatabaseProductName(), p.getProperty("env.database.name"));
+		assertEquals(info.getDatabaseProductName(),             p.getProperty("env.database.name"));
 		assertEquals(info.getDatabaseProductVersion(),          p.getProperty("env.database.version"));
 		assertEquals(valueOf(info.getDatabaseMajorVersion()),   p.getProperty("env.database.version.major"));
 		assertEquals(valueOf(info.getDatabaseMinorVersion()),   p.getProperty("env.database.version.minor"));
-		assertEquals(info.getDriverName(), p.getProperty("env.driver.name"));
+		assertEquals(info.getDriverName(),                  p.getProperty("env.driver.name"));
 		assertEquals(info.getDriverVersion(),               p.getProperty("env.driver.version"));
 		assertEquals(valueOf(info.getDriverMajorVersion()), p.getProperty("env.driver.version.major"));
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
