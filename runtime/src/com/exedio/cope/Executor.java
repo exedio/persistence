@@ -319,7 +319,14 @@ final class Executor
 	{
 		final QueryInfo result = new QueryInfo(statement.getText());
 		
-		result.addChild(new QueryInfo("timing "+(end-start)+'/'+(prepared-start)+'/'+(executed-prepared)+'/'+(resultRead-executed)+'/'+(end-resultRead)+" (total/prepare/execute/readResult/close in ms)"));
+		result.addChild(new QueryInfo(
+				"timing " +
+				(end-start) + '/' +
+				(prepared-start) + '/' +
+				(executed-prepared) + '/' +
+				(resultRead-executed) + '/' +
+				(end-resultRead) +
+				" (total/prepare/execute/readResult/close in ms)"));
 		
 		final ArrayList<Object> parameters = statement.parameters;
 		if(parameters!=null)
