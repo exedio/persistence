@@ -152,7 +152,7 @@ public class ServletUtilTest extends CopeAssert
 	{
 		try
 		{
-			model.getDatabaseInfo();
+			model.getEnvironmentInfo();
 			fail();
 		}
 		catch(IllegalStateException e)

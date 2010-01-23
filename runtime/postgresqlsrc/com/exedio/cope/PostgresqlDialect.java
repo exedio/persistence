@@ -26,6 +26,8 @@ import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
+import com.exedio.cope.info.EnvironmentInfo;
+
 final class PostgresqlDialect extends Dialect
 {
 	static
@@ -46,11 +48,12 @@ final class PostgresqlDialect extends Dialect
 				new com.exedio.dsmf.PostgresqlDialect(),
 				"LENGTH");
 		
+		final EnvironmentInfo ei = parameters.environmentInfo;
 		// version 8 needed for savepoints
-		if(parameters.databaseMajorVersion<8)
-			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + parameters.databaseProductVersion + '(' + parameters.databaseMajorVersion + '.' + parameters.databaseMinorVersion + ')');
-		if(parameters.driverMajorVersion<8)
-			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + parameters.driverVersion + '(' + parameters.driverMajorVersion + '.' + parameters.driverMinorVersion + ')');
+		if(ei.getDatabaseMajorVersion()<8)
+			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + ei.getDatabaseVersionDescription());
+		if(ei.getDriverMajorVersion()<8)
+			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + ei.getDriverVersionDescription());
 	}
 	
 	@Override

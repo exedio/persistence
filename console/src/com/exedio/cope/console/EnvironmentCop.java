@@ -58,7 +58,7 @@ final class EnvironmentCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		final java.util.Properties current = model.getDatabaseInfo();
+		final java.util.Properties current = model.getEnvironmentInfo().asProperties();
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();

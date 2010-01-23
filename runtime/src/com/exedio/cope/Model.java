@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.info.ClusterSenderInfo;
+import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.cope.info.QueryCacheHistogram;
 import com.exedio.cope.info.QueryCacheInfo;
@@ -404,9 +405,18 @@ public final class Model
 		return connect().connectionPool.getInfo();
 	}
 	
+	public EnvironmentInfo getEnvironmentInfo()
+	{
+		return connect().database.dialectParameters.environmentInfo;
+	}
+	
+	/**
+	 * @deprecated Use {@link #getEnvironmentInfo()} and {@link EnvironmentInfo#asProperties()} instead.
+	 */
+	@Deprecated
 	public java.util.Properties getDatabaseInfo()
 	{
-		return connect().database.dialectParameters.getInfo();
+		return getEnvironmentInfo().asProperties();
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()

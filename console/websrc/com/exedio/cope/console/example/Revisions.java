@@ -91,7 +91,7 @@ final class Revisions
 	
 	static final void revisions(final Model model)
 	{
-		final java.util.Properties dbinfo = model.getDatabaseInfo();
+		final java.util.Properties dbinfo = model.getEnvironmentInfo().asProperties();
 		final HashMap<String, String> environment = new HashMap<String, String>();
 		for(final Object key : dbinfo.keySet())
 			environment.put((String)key, dbinfo.getProperty((String)key));

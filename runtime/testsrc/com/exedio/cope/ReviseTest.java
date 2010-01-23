@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
+import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -82,11 +83,11 @@ public class ReviseTest extends CopeAssert
 		model5.connect(props);
 		model5.tearDownSchema();
 
-		final Properties info = model5.getDatabaseInfo();
-		databaseName = info.getProperty("database.name");
-		databaseVersion = info.getProperty("database.version");
-		driverName = info.getProperty("driver.name");
-		driverVersion = info.getProperty("driver.version");
+		final EnvironmentInfo info = model5.getEnvironmentInfo();
+		databaseName = info.getDatabaseProductName();
+		databaseVersion = info.getDatabaseVersionDescription();
+		driverName = info.getDriverName();
+		driverVersion = info.getDriverVersionDescription();
 		
 		final Date createBefore = new Date();
 		model5.createSchema();

@@ -25,8 +25,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
+import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class DialectParameters
@@ -35,14 +35,7 @@ final class DialectParameters
 
 	// probed on the initial connection
 	final boolean supportsTransactionIsolationLevel;
-	final String databaseProductName;
-	final String databaseProductVersion;
-	final int databaseMajorVersion;
-	final int databaseMinorVersion;
-	final String driverName;
-	final String driverVersion;
-	final int driverMajorVersion;
-	final int driverMinorVersion;
+	final EnvironmentInfo environmentInfo;
 	
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
@@ -52,29 +45,12 @@ final class DialectParameters
 		{
 			final DatabaseMetaData dmd = connection.getMetaData();
 			supportsTransactionIsolationLevel = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
-			databaseProductName = dmd.getDatabaseProductName();
-			databaseProductVersion = dmd.getDatabaseProductVersion();
-			databaseMajorVersion = dmd.getDatabaseMajorVersion();
-			databaseMinorVersion = dmd.getDatabaseMinorVersion();
-			driverName = dmd.getDriverName();
-			driverVersion = dmd.getDriverVersion();
-			driverMajorVersion = dmd.getDriverMajorVersion();
-			driverMinorVersion = dmd.getDriverMinorVersion();
+			this.environmentInfo = new EnvironmentInfo(dmd);
 		}
 		catch(SQLException e)
 		{
 			throw new SQLRuntimeException(e, "getMetaData");
 		}
-	}
-	
-	Properties getInfo()
-	{
-		final Properties result = new Properties();
-		result.setProperty("database.name", databaseProductName);
-		result.setProperty("database.version", databaseProductVersion + ' ' + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
-		result.setProperty("driver.name", driverName);
-		result.setProperty("driver.version", driverVersion + ' ' + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
-		return result;
 	}
 	
 	Map<String, String> getRevisionEnvironment()
@@ -92,14 +68,14 @@ final class DialectParameters
 		
 		store.put("jdbc.url",  properties.getDatabaseUrl());
 		store.put("jdbc.user", properties.getDatabaseUser());
-		store.put("database.name",    databaseProductName);
-		store.put("database.version", databaseProductVersion);
-		store.put("database.version.major", String.valueOf(databaseMajorVersion));
-		store.put("database.version.minor", String.valueOf(databaseMinorVersion));
-		store.put("driver.name",    driverName);
-		store.put("driver.version", driverVersion);
-		store.put("driver.version.major", String.valueOf(driverMajorVersion));
-		store.put("driver.version.minor", String.valueOf(driverMinorVersion));
+		store.put("database.name",    environmentInfo.getDatabaseProductName());
+		store.put("database.version", environmentInfo.getDatabaseProductVersion());
+		store.put("database.version.major", String.valueOf(environmentInfo.getDatabaseMajorVersion()));
+		store.put("database.version.minor", String.valueOf(environmentInfo.getDatabaseMinorVersion()));
+		store.put("driver.name",    environmentInfo.getDriverName());
+		store.put("driver.version", environmentInfo.getDriverVersion());
+		store.put("driver.version.major", String.valueOf(environmentInfo.getDriverMajorVersion()));
+		store.put("driver.version.minor", String.valueOf(environmentInfo.getDriverMinorVersion()));
 		
 		return store;
 	}
