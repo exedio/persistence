@@ -138,7 +138,13 @@ final class Executor
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(listener!=null)
-				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timeExecuted-timePrepared, timeResultRead-timeExecuted, timeEnd-timeResultRead);
+				listener.onStatement(
+						statement.text.toString(),
+						statement.getParameters(),
+						timePrepared-timeStart,
+						timeExecuted-timePrepared,
+						timeResultRead-timeExecuted,
+						timeEnd-timeResultRead);
 			
 			final QueryInfo queryInfo =
 				(queryInfos!=null)
@@ -215,7 +221,13 @@ final class Executor
 			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
 
 			if(listener!=null)
-				listener.onStatement(statement.text.toString(), statement.getParameters(), timePrepared-timeStart, timePrepared-timeEnd, 0, 0);
+				listener.onStatement(
+						statement.text.toString(),
+						statement.getParameters(),
+						timePrepared-timeStart,
+						timePrepared-timeEnd,
+						0,
+						0);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(checkRows && rows!=1)
@@ -277,7 +289,13 @@ final class Executor
 			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
 
 			if(listener!=null)
-				listener.onStatement(sqlText, statement.getParameters(), timePrepared-timeStart, timeEnd-timePrepared, 0, 0);
+				listener.onStatement(
+						sqlText,
+						statement.getParameters(),
+						timePrepared-timeStart,
+						timeEnd-timePrepared,
+						0,
+						0);
 
 			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
 			return generatedKeysHandler.handle(generatedKeysResultSet);
