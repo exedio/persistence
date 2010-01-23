@@ -35,14 +35,14 @@ public final class EnvironmentInfo
 	
 	public EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
-			databaseProductName = dmd.getDatabaseProductName();
-			databaseProductVersion = dmd.getDatabaseProductVersion();
-			databaseMajorVersion = dmd.getDatabaseMajorVersion();
-			databaseMinorVersion = dmd.getDatabaseMinorVersion();
-			driverName = dmd.getDriverName();
-			driverVersion = dmd.getDriverVersion();
-			driverMajorVersion = dmd.getDriverMajorVersion();
-			driverMinorVersion = dmd.getDriverMinorVersion();
+		databaseProductName = dmd.getDatabaseProductName();
+		databaseProductVersion = dmd.getDatabaseProductVersion();
+		databaseMajorVersion = dmd.getDatabaseMajorVersion();
+		databaseMinorVersion = dmd.getDatabaseMinorVersion();
+		driverName = dmd.getDriverName();
+		driverVersion = dmd.getDriverVersion();
+		driverMajorVersion = dmd.getDriverMajorVersion();
+		driverMinorVersion = dmd.getDriverMinorVersion();
 	}
 
 	public String getDatabaseProductName()
