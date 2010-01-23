@@ -68,10 +68,7 @@ public class ReviseTest extends CopeAssert
 
 	String jdbcUrl;
 	String jdbcUser;
-	String databaseName;
-	String databaseVersion;
-	String driverName;
-	String driverVersion;
+	EnvironmentInfo info;
 	
 	public void testRevise() throws ParseException
 	{
@@ -83,11 +80,7 @@ public class ReviseTest extends CopeAssert
 		model5.connect(props);
 		model5.tearDownSchema();
 
-		final EnvironmentInfo info = model5.getEnvironmentInfo();
-		databaseName = info.getDatabaseProductName();
-		databaseVersion = info.getDatabaseVersionDescription();
-		driverName = info.getDriverName();
-		driverVersion = info.getDriverVersionDescription();
+		info = model5.getEnvironmentInfo();
 		
 		final Date createBefore = new Date();
 		model5.createSchema();
@@ -319,18 +312,18 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(hostname);
 		assertNotNull(jdbcUrl);
 		assertNotNull(jdbcUser);
-		assertNotNull(databaseName);
-		assertNotNull(databaseVersion);
-		assertNotNull(driverName);
-		assertNotNull(driverVersion);
+		assertNotNull(info.getDatabaseProductName());
+		assertNotNull(info.getDatabaseProductVersion());
+		assertNotNull(info.getDriverName());
+		assertNotNull(info.getDriverVersion());
 
 		assertEquals(hostname, p.getProperty("env.hostname"));
 		assertEquals(jdbcUrl, p.getProperty("env.jdbc.url"));
 		assertEquals(jdbcUser, p.getProperty("env.jdbc.user"));
-		assertEquals(databaseName, p.getProperty("env.database.name"));
-		assertEquals(databaseVersion, p.getProperty("env.database.version") + " (" + p.getProperty("env.database.version.major") + '.' + p.getProperty("env.database.version.minor") + ')');
-		assertEquals(driverName, p.getProperty("env.driver.name"));
-		assertEquals(driverVersion, p.getProperty("env.driver.version") + " (" + p.getProperty("env.driver.version.major") + '.' + p.getProperty("env.driver.version.minor") + ')');
+		assertEquals(info.getDatabaseProductName(), p.getProperty("env.database.name"));
+		assertEquals(info.getDatabaseVersionDescription(), p.getProperty("env.database.version") + " (" + p.getProperty("env.database.version.major") + '.' + p.getProperty("env.database.version.minor") + ')');
+		assertEquals(info.getDriverName(), p.getProperty("env.driver.name"));
+		assertEquals(info.getDriverVersionDescription(), p.getProperty("env.driver.version") + " (" + p.getProperty("env.driver.version.major") + '.' + p.getProperty("env.driver.version.minor") + ')');
 	}
 	
 	private static final Properties parse(final byte[] log)
