@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.System.nanoTime;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -288,9 +290,9 @@ public final class Schedule extends Pattern
 					default: throw new RuntimeException(interval.name());
 				}
 				final Date from = cal.getTime();
-				final long elapsedStart = System.currentTimeMillis();
+				final long elapsedStart = nanoTime();
 				((Scheduleable)item).run(this, from, until, interrupter!=null ? interrupter : DEFAULT_INTERRUPTER);
-				final long elapsed = System.currentTimeMillis() - elapsedStart;
+				final long elapsed = (nanoTime() - elapsedStart) / 1000000;
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
 					this.runFrom.map(from),
