@@ -18,10 +18,14 @@
 
 package com.exedio.cope;
 
+import static java.lang.System.nanoTime;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import com.exedio.cope.misc.DatabaseListener;
@@ -95,15 +99,15 @@ final class Executor
 			final DatabaseListener listener = this.listener;
 			final boolean takeTimes = !explain && (listener!=null || (queryInfos!=null));
 			final String sqlText = statement.getText();
-			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
-			final long timePrepared;
-			final long timeExecuted;
+			final long nanoStart = takeTimes ? nanoTime() : 0;
+			final long nanoPrepared;
+			final long nanoExecuted;
 			
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
 				
-				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
+				nanoPrepared = takeTimes ? nanoTime() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
 			}
 			else
@@ -114,12 +118,12 @@ final class Executor
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
 				
-				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
+				nanoPrepared = takeTimes ? nanoTime() : 0;
 				resultSet = prepared.executeQuery();
 			}
-			timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
+			nanoExecuted = takeTimes ? nanoTime() : 0;
 			final R result = resultSetHandler.handle(resultSet);
-			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
+			final long nanoResultRead = takeTimes ? nanoTime() : 0;
 			
 			if(resultSet!=null)
 			{
@@ -135,20 +139,20 @@ final class Executor
 			if(explain)
 				return result;
 
-			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
+			final long nanoEnd = takeTimes ? nanoTime() : 0;
 			
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						timePrepared-timeStart,
-						timeExecuted-timePrepared,
-						timeResultRead-timeExecuted,
-						timeEnd-timeResultRead);
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoExecuted-nanoPrepared),
+						n2m(nanoResultRead-nanoExecuted),
+						n2m(nanoEnd-nanoResultRead));
 			
 			final QueryInfo queryInfo =
 				(queryInfos!=null)
-				? makeQueryInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
+				? makeQueryInfo(statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd)
 				: null;
 			
 			if(queryInfos!=null)
@@ -197,14 +201,14 @@ final class Executor
 		{
 			final String sqlText = statement.getText();
 			final DatabaseListener listener = this.listener;
-			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
+			final long nanoStart = listener!=null ? nanoTime() : 0;
 			final int rows;
 			
-			final long timePrepared;
+			final long nanoPrepared;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -214,18 +218,18 @@ final class Executor
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = prepared.executeUpdate();
 			}
 			
-			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
+			final long timeEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						timePrepared-timeStart,
-						timePrepared-timeEnd,
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoPrepared-timeEnd),
 						0,
 						0);
 
@@ -266,13 +270,13 @@ final class Executor
 		{
 			final String sqlText = statement.getText();
 			final DatabaseListener listener = this.listener;
-			final long timeStart = listener!=null ? System.currentTimeMillis() : 0;
+			final long nanoStart = listener!=null ? nanoTime() : 0;
 			
-			final long timePrepared;
+			final long nanoPrepared;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -282,18 +286,18 @@ final class Executor
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = listener!=null ? System.currentTimeMillis() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				prepared.executeUpdate();
 			}
 			
-			final long timeEnd = listener!=null ? System.currentTimeMillis() : 0;
+			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
 				listener.onStatement(
 						sqlText,
 						statement.getParameters(),
-						timePrepared-timeStart,
-						timeEnd-timePrepared,
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoEnd-nanoPrepared),
 						0,
 						0);
 
@@ -339,12 +343,12 @@ final class Executor
 		
 		result.addChild(new QueryInfo(
 				"timing " +
-				(end-start) + '/' +
-				(prepared-start) + '/' +
-				(executed-prepared) + '/' +
-				(resultRead-executed) + '/' +
-				(end-resultRead) +
-				" (total/prepare/execute/readResult/close in ms)"));
+				numberFormat.format(end-start) + '/' +
+				numberFormat.format(prepared-start) + '/' +
+				numberFormat.format(executed-prepared) + '/' +
+				numberFormat.format(resultRead-executed) + '/' +
+				numberFormat.format(end-resultRead) +
+				" (total/prepare/execute/readResult/close in ns)"));
 		
 		final ArrayList<Object> parameters = statement.parameters;
 		if(parameters!=null)
@@ -361,6 +365,21 @@ final class Executor
 			result.addChild(plan);
 		
 		return result;
+	}
+	
+	private static DecimalFormat numberFormat;
+	
+	static
+	{
+		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
+		nfs.setDecimalSeparator(',');
+		nfs.setGroupingSeparator('\'');
+		numberFormat = new DecimalFormat("", nfs);
+	}
+	
+	private static final long n2m(final long nanos)
+	{
+		return nanos/1000000;
 	}
 	
 	static int convertSQLResult(final Object sqlInteger)
