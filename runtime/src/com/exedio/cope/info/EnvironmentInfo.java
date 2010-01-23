@@ -24,14 +24,14 @@ import java.util.Properties;
 
 public final class EnvironmentInfo
 {
-	final String databaseProductName;
-	final String databaseProductVersion;
-	final int databaseMajorVersion;
-	final int databaseMinorVersion;
-	final String driverName;
-	final String driverVersion;
-	final int driverMajorVersion;
-	final int driverMinorVersion;
+	private final String databaseProductName;
+	private final String databaseProductVersion;
+	private final int databaseMajorVersion;
+	private final int databaseMinorVersion;
+	private final String driverName;
+	private final String driverVersion;
+	private final int driverMajorVersion;
+	private final int driverMinorVersion;
 	
 	public EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
