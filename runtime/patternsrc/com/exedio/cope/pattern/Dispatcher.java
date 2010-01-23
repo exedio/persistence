@@ -252,6 +252,7 @@ public final class Dispatcher extends Pattern
 					return result;
 				
 				lastDispatched = item;
+				final Dispatchable itemCasted = (Dispatchable)item;
 				final String itemID = item.getCopeID();
 				try
 				{
@@ -267,7 +268,7 @@ public final class Dispatcher extends Pattern
 					final long nanoStart = nanoTime();
 					try
 					{
-						((Dispatchable)item).dispatch(this);
+						itemCasted.dispatch(this);
 
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						item.set(
