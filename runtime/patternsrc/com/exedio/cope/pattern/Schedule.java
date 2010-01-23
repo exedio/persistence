@@ -294,13 +294,13 @@ public final class Schedule extends Pattern
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
 				itemCasted.run(this, from, until, effectiveInterrupter);
-				final long elapsed = (nanoTime() - elapsedStart) / 1000000;
+				final long elapsedEnd = nanoTime();
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
 					this.runFrom.map(from),
 					this.runUntil.map(until),
 					this.runRun.map(now),
-					this.runElapsed.map(elapsed));
+					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
 				model.commit();
 				result++;
 			}
