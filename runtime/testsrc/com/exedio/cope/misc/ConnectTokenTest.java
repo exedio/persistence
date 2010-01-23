@@ -31,6 +31,7 @@ public class ConnectTokenTest extends CopeAssert
 
 	public void testIt()
 	{
+		assertFalse(model.isConnected());
 		try
 		{
 			model.getConnectProperties();
@@ -48,6 +49,7 @@ public class ConnectTokenTest extends CopeAssert
 		final Date before1 = new Date();
 		final ConnectToken token1 = ConnectToken.issue(model, props, "token1Name");
 		final Date after1 = new Date();
+		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		final Date connectDate = model.getConnectDate();
 		assertWithin(before1, after1, connectDate);
@@ -64,6 +66,7 @@ public class ConnectTokenTest extends CopeAssert
 				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource())/* not the same but equal */,
 				"token2Name");
 		final Date after2 = new Date();
+		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
@@ -92,12 +95,14 @@ public class ConnectTokenTest extends CopeAssert
 						" and ConnectTokenTestChangedProps, expected " + props.getDatabaseUser() +
 						" but got zack.", e.getMessage());
 			}
+			assertTrue(model.isConnected());
 			assertSame(props, model.getConnectProperties());
 			assertEquals(connectDate, model.getConnectDate());
 			assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
 		}
 
 		assertEquals(false, token1.returnIt());
+		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token2), ConnectToken.getTokens(model));
@@ -106,6 +111,7 @@ public class ConnectTokenTest extends CopeAssert
 		
 		
 		assertEquals(true, token2.returnIt());
+		assertFalse(model.isConnected());
 		try
 		{
 			model.getConnectProperties();

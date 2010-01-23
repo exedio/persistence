@@ -47,15 +47,15 @@ public class ServletUtilTest extends CopeAssert
 
 	public void testIt() throws ServletException
 	{
-		assertModelNotConnected(modelOk);
+		assertFalse(modelOk.isConnected());
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk"));
 		assertSame(ModelOk.TYPE, modelOk.getType("ModelOk"));
 
-		assertModelNotConnected(modelOk2);
+		assertFalse(modelOk2.isConnected());
 		assertIt(modelOk2, "nameOk2", new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2"));
 		assertSame(ModelOk2.TYPE, modelOk2.getType("ModelOk2"));
 
-		assertModelNotConnected(modelContext);
+		assertFalse(modelContext.isConnected());
 		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext")));
 		assertSame(ModelContext.TYPE, modelContext.getType("ModelContext"));
 
@@ -149,19 +149,6 @@ public class ServletUtilTest extends CopeAssert
 				"filter \"" + name + "\" " +
 					"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')' +
 					message, e.getMessage());
-		}
-	}
-	
-	private static final void assertModelNotConnected(final Model model)
-	{
-		try
-		{
-			model.getEnvironmentInfo();
-			fail();
-		}
-		catch(IllegalStateException e)
-		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
 	}
 	

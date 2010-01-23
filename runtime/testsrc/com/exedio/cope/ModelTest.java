@@ -44,6 +44,7 @@ public class ModelTest extends TestmodelTest
 	{
 		final ConnectProperties defaultProps = getConnectProperties();
 		// test duplicate call of connect
+		assertTrue(model.isConnected());
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
 		try
@@ -64,6 +65,7 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals("properties", e.getMessage());
 		}
+		assertTrue(model.isConnected());
 		assertNotSame(connectDate, model.getConnectDate());
 		assertEquals(!postgresql, model.supportsSequences());
 	}
@@ -99,6 +101,7 @@ public class ModelTest extends TestmodelTest
 		assertNotNull(p);
 		
 		model.disconnect();
+		assertFalse(model.isConnected());
 		try
 		{
 			model.getConnectProperties();
@@ -119,11 +122,13 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
+		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());
 
 		final Date before = new Date();
 		model.connect(p);
 		final Date after = new Date();
+		assertTrue(model.isConnected());
 		assertSame(p, model.getConnectProperties());
 		assertWithin(before, after, model.getConnectDate());
 		model.startTransaction("ModelTest.testDisconnect");

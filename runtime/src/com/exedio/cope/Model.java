@@ -177,6 +177,11 @@ public final class Model
 		return connect().getRevisionLogs(revisions);
 	}
 	
+	public boolean isConnected()
+	{
+		return this.connect!=null;
+	}
+	
 	public ConnectProperties getConnectProperties()
 	{
 		return connect().properties;
