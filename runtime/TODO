@@ -50,6 +50,7 @@ TODO for cope runtime
 	* test configuration of tomcat
 	* sequences for primary keys and IntegerField.defaultToNext
 		- fix sequences for MySQL in console
+	* use auto-increment instead of sequences
 - move DateField#touch into separate pattern Timestamp
 - FieldListLimited: allow length terminated instead of null terminated as well
 - patterns such as PriceField as function for select and orderBy
