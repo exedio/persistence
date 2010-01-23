@@ -409,15 +409,6 @@ public final class Model
 	{
 		return connect().database.dialectParameters.environmentInfo;
 	}
-	
-	/**
-	 * @deprecated Use {@link #getEnvironmentInfo()} and {@link EnvironmentInfo#asProperties()} instead.
-	 */
-	@Deprecated
-	public java.util.Properties getDatabaseInfo()
-	{
-		return getEnvironmentInfo().asProperties();
-	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
@@ -874,5 +865,14 @@ public final class Model
 	public ConnectProperties getProperties()
 	{
 		return getConnectProperties();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getEnvironmentInfo()} and {@link EnvironmentInfo#asProperties()} instead.
+	 */
+	@Deprecated
+	public java.util.Properties getDatabaseInfo()
+	{
+		return getEnvironmentInfo().asProperties();
 	}
 }
