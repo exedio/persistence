@@ -269,6 +269,7 @@ public final class Schedule extends Pattern
 			if(interrupter!=null && interrupter.isRequested())
 				return result;
 			
+			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
 			try
 			{
@@ -292,7 +293,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				((Scheduleable)item).run(this, from, until, effectiveInterrupter);
+				itemCasted.run(this, from, until, effectiveInterrupter);
 				final long elapsed = (nanoTime() - elapsedStart) / 1000000;
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
