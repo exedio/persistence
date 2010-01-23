@@ -700,10 +700,14 @@
 				<include name="**/*.png" />
 			</fileset>
 		</copy>
+		<copy todir="build/console/historyweb">
+			<fileset dir="console/web" />
+		</copy>
 	</target>
 	
 	<target name="console.tomcat" depends="console.web, catalina">
 		<copy tofile="tomcat/conf/Catalina/localhost/cope-console.xml" file="console/context.xml"/>
+		<copy tofile="tomcat/conf/Catalina/localhost/cope-console-history.xml" file="console/context-history.xml"/>
 		<copy todir="tomcat/bin" file="console/history.cope.properties"/>
 	</target>
 	

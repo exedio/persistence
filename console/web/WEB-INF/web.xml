@@ -54,11 +54,6 @@
 		<role-name>manager</role-name>
 	</security-role>
 	
-	<context-param>
-		<param-name>com.exedio.cope.console.log</param-name>
-		<param-value>history.cope.properties</param-value>
-	</context-param>
-	
 	<servlet>
 		<servlet-name>media</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>

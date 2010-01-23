@@ -1,0 +1,8 @@
+
+<Context
+		path="/copeconsole-history"
+		docBase="../../build/console/historyweb"
+		debug="0"
+		privileged="true">
+	<Parameter name="com.exedio.cope.console.log" value="history.cope.properties" />
+</Context>
