@@ -27,11 +27,6 @@ public final class Compare
 	
 	public static int compare(final int left, final int right)
 	{
-		if(left<right)
-			return -1;
-		else if(left>right)
-			return 1;
-		
-		return 0;
+		return (left<right ? -1 : (left==right ? 0 : 1));
 	}
 }
