@@ -234,12 +234,12 @@ public final class StringField extends FunctionField<String> implements StringFu
 	
 	public final Condition equalIgnoreCase(final String value)
 	{
-		return toUpperCase().equal(value.toUpperCase());
+		return UppercaseView.equalIgnoreCase(this, value);
 	}
 	
 	public final LikeCondition likeIgnoreCase(final String value)
 	{
-		return toUpperCase().like(value.toUpperCase());
+		return UppercaseView.likeIgnoreCase(this, value);
 	}
 	
 	public final LikeCondition startsWithIgnoreCase(final String value)

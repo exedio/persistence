@@ -50,4 +50,16 @@ public final class UppercaseView extends StringView
 			append(source, join).
 			append(')');
 	}
+	
+	// convenience methods for conditions and views ---------------------------------
+	
+	public static final Condition equalIgnoreCase(final StringFunction function, final String value)
+	{
+		return function.toUpperCase().equal(value.toUpperCase());
+	}
+	
+	public static final LikeCondition likeIgnoreCase(final StringFunction function, final String value)
+	{
+		return function.toUpperCase().like(value.toUpperCase());
+	}
 }
