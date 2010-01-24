@@ -34,10 +34,12 @@ TODO for cope runtime
 - MySQL: warning, if row could exceed 8000 bytes limit
 - implement Comparable
 	* Item
+	* Price
 - implement Serializable
 	* items of types without unique java class
 	* Type and Feature (for backoffice and ContentEditor sessions)
 	* Composite.Value (add tests)
+	* Price
 - feature reuse with copy() for Order.articleName
 	* copy() for all features
 - Connection Pool: throw exception, if transaction is not closed when putting back to pool
