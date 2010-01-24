@@ -990,6 +990,7 @@
 					jvmargs="-Xmx250M"
 					output="html"
 					outputFile="${basedir}/build/findbugs-prod.html"
+					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/runtime/classes" />

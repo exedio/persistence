@@ -1,0 +1,22 @@
+<FindBugsFilter>
+	<Match>
+		<!-- Non-transient non-serializable instance field in serializable class -->
+		<Bug pattern="SE_BAD_FIELD" />
+		<Or>
+			<Class name="com.exedio.cope.CopyViolationException" />
+			<Class name="com.exedio.cope.DataLengthViolationException" />
+			<Class name="com.exedio.cope.DoubleRangeViolationException" />
+			<Class name="com.exedio.cope.FinalViolationException" />
+			<Class name="com.exedio.cope.IntegerRangeViolationException" />
+			<Class name="com.exedio.cope.IntegrityViolationException" />
+			<Class name="com.exedio.cope.MandatoryViolationException" />
+			<Class name="com.exedio.cope.StringLengthViolationException" />
+			<Class name="com.exedio.cope.StringCharSetViolationException" />
+			<Class name="com.exedio.cope.UniqueViolationException" />
+			<Class name="com.exedio.cope.pattern.IllegalContentTypeException" />
+			<Class name="com.exedio.cope.pattern.ListSizeViolationException" />
+			<Class name="com.exedio.cope.pattern.MediaServlet" />
+			<Class name="com.exedio.cope.console.ConsoleServlet" />
+		</Or>
+	</Match>
+</FindBugsFilter>
