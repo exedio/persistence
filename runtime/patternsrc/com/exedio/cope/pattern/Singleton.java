@@ -32,7 +32,7 @@ import com.exedio.cope.misc.ComputedInstance;
 public final class Singleton extends Pattern
 {
 	private static final int THE_ONE = 42;
-	private static final Integer THE_ONE_OBJECT = new Integer(THE_ONE);
+	private static final Integer THE_ONE_OBJECT = Integer.valueOf(THE_ONE);
 	
 	private final IntegerField source =
 		new IntegerField().toFinal().unique().
