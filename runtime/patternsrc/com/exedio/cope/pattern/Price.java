@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.exedio.cope.misc.Compare;
+
 // TODO cache of common small values
 public final class Price implements Serializable, Comparable<Price>
 {
@@ -136,12 +138,7 @@ public final class Price implements Serializable, Comparable<Price>
 	
 	public int compareTo(final Price other)
 	{
-		if(store<other.store)
-			return -1;
-		else if(store>other.store)
-			return 1;
-		
-		return 0;
+		return Compare.compare(store, other.store);
 	}
 	
 	@Override

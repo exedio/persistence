@@ -38,6 +38,7 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.info.SequenceInfo;
+import com.exedio.cope.misc.Compare;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
@@ -467,12 +468,7 @@ public final class Type<T extends Item> implements Comparable<Type>
 			if(model!=other.model)
 				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + other.id);
 			
-			if(orderIdTransiently<other.orderIdTransiently)
-				return -1;
-			else if(orderIdTransiently>other.orderIdTransiently)
-				return 1;
-			
-			return 0;
+			return Compare.compare(orderIdTransiently, other.orderIdTransiently);
 		}
 	}
 	

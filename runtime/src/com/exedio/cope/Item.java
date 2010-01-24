@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.Compare;
 
 /**
  * This is the super class for all classes,
@@ -113,12 +114,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(typeResult!=0)
 			return typeResult;
 		
-		if(pk<other.pk)
-			return -1;
-		else if(pk>other.pk)
-			return 1;
-		
-		return 0;
+		return Compare.compare(pk, other.pk);
 	}
 	
 	/**
