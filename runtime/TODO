@@ -34,7 +34,6 @@ TODO for cope runtime
 - MySQL: warning, if row could exceed 8000 bytes limit
 - implement Comparable
 	* Item
-	* Price
 - implement Serializable
 	* items of non-bound types
 	* Type and Feature (for backoffice and live editor sessions)

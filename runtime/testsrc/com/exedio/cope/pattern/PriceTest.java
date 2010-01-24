@@ -220,6 +220,14 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).hashCode()==storeOf( 124).hashCode());
 		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
 		
+		// compareTo
+		assertEquals(-1, storeOf(122).compareTo(storeOf(123)));
+		assertEquals( 0, storeOf(123).compareTo(storeOf(123)));
+		assertEquals( 1, storeOf(124).compareTo(storeOf(123)));
+		assertEquals( 1, storeOf(-122).compareTo(storeOf(-123)));
+		assertEquals( 0, storeOf(-123).compareTo(storeOf(-123)));
+		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
+		
 		// toString()
 		assertEquals( "1.23", storeOf( 123).toString());
 		assertEquals("-1.23", storeOf(-123).toString());

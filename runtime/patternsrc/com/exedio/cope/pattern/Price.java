@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 // TODO cache of common small values
-public final class Price implements Serializable
+public final class Price implements Serializable, Comparable<Price>
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -132,6 +132,16 @@ public final class Price implements Serializable
 	public int hashCode()
 	{
 		return store ^ 827345123;
+	}
+	
+	public int compareTo(final Price other)
+	{
+		if(store<other.store)
+			return -1;
+		else if(store>other.store)
+			return 1;
+		
+		return 0;
 	}
 	
 	@Override
