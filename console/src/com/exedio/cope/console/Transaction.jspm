@@ -23,6 +23,7 @@ import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.ratio;
 
 import java.util.Date;
+import java.util.Locale;
 
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
@@ -160,7 +161,7 @@ final class Transaction_Jspm extends Console_Jspm
 				%><td><%=format(threadIds[n])%></td>
 				<td class="text"><%=threadNames[n]%></td>
 				<td><%=threadPriorities[n]%></td>
-				<td class="text"><%=threadStates[n].name().toLowerCase()%></td>
+				<td class="text"><%=threadStates[n].name().toLowerCase(Locale.ENGLISH)%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = stacktraces[n];
 					if(sts!=null && sts.length>0)

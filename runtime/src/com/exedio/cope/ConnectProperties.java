@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Locale;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
@@ -228,7 +229,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return
 			mysqlLowerCaseTableNames.getBooleanValue()
-			? tableName.toLowerCase()
+			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
 	}
 	

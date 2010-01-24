@@ -28,6 +28,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Random;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -54,7 +55,7 @@ final class OracleDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.OracleDialect(
-						parameters.properties.getDatabaseUser().toUpperCase()),
+						parameters.properties.getDatabaseUser().toUpperCase(Locale.ENGLISH)),
 				"LENGTH");
 	}
 	
@@ -341,7 +342,7 @@ final class OracleDialect extends Dialect
 								if(value!=null)
 								{
 									bf.append(' ').
-										append(columnName.toLowerCase()).
+										append(columnName.toLowerCase(Locale.ENGLISH)).
 										append('=').
 										append(value.toString());
 								}
