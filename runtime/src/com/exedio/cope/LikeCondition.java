@@ -96,4 +96,19 @@ public final class LikeCondition extends Condition
 	{
 		return new LikeCondition(function, WILDCARD + value + WILDCARD);
 	}
+	
+	public static final LikeCondition startsWithIgnoreCase(final StringFunction function, final String value)
+	{
+		return startsWith(function.toUpperCase(), value.toUpperCase());
+	}
+	
+	public static final LikeCondition endsWithIgnoreCase(final StringFunction function, final String value)
+	{
+		return endsWith(function.toUpperCase(), value.toUpperCase());
+	}
+	
+	public static final LikeCondition containsIgnoreCase(final StringFunction function, final String value)
+	{
+		return contains(function.toUpperCase(), value.toUpperCase());
+	}
 }

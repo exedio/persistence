@@ -87,16 +87,16 @@ public final class BindStringFunction extends BindFunction<String> implements St
 	
 	public final LikeCondition startsWithIgnoreCase(final String value)
 	{
-		return LikeCondition.startsWith(toUpperCase(), value.toUpperCase());
+		return LikeCondition.startsWithIgnoreCase(this, value);
 	}
 	
 	public final LikeCondition endsWithIgnoreCase(final String value)
 	{
-		return LikeCondition.endsWith(toUpperCase(), value.toUpperCase());
+		return LikeCondition.endsWithIgnoreCase(this, value);
 	}
 	
 	public final LikeCondition containsIgnoreCase(final String value)
 	{
-		return LikeCondition.contains(toUpperCase(), value.toUpperCase());
+		return LikeCondition.containsIgnoreCase(this, value);
 	}
 }
