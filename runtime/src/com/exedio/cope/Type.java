@@ -42,7 +42,7 @@ import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
-public final class Type<T extends Item>
+public final class Type<T extends Item> implements Comparable<Type>
 {
 	private final Class<T> javaClass;
 	private final boolean bound;
@@ -341,7 +341,7 @@ public final class Type<T extends Item>
 		if(this.idTransiently>=0)
 			throw new RuntimeException();
 		
-		this.mount = new Mount<T>(model, parameters);
+		this.mount = new Mount<T>(model, id, parameters);
 		this.idTransiently = parameters.idTransiently;
 	}
 	
@@ -357,6 +357,18 @@ public final class Type<T extends Item>
 	{
 		final Model model;
 		
+		private final String id;
+		
+		/**
+		 * This id uniquely identifies a type within its model.
+		 * However, this id is not stable across JVM restarts.
+		 * So never put this id into any persistent storage,
+		 * nor otherwise make this id accessible outside the library.
+		 * <p>
+		 * This id is positive (including zero) for all types.
+		 */
+		private final int orderIdTransiently;
+		
 		final List<Type<? extends C>> subtypes;
 		final List<Type<? extends C>> subtypesTransitively;
 		final List<Type<? extends C>> typesOfInstances;
@@ -368,9 +380,11 @@ public final class Type<T extends Item>
 		final List<ItemField<C>> declaredReferences;
 		final List<ItemField> references;
 		
-		Mount(final Model model, final Types.MountParameters parameters)
+		Mount(final Model model, final String id, final Types.MountParameters parameters)
 		{
 			this.model = model;
+			this.id = id;
+			this.orderIdTransiently = parameters.orderIdTransiently;
 			
 			this.subtypes = castTypeInstanceList(parameters.getSubtypes());
 			this.subtypesTransitively = castTypeInstanceList(parameters.getSubtypesTransitively());
@@ -446,6 +460,19 @@ public final class Type<T extends Item>
 		private List<ItemField> castReferences(final List l)
 		{
 			return l;
+		}
+		
+		int compareTo(final Mount other)
+		{
+			if(model!=other.model)
+				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + other.id);
+			
+			if(orderIdTransiently<other.orderIdTransiently)
+				return -1;
+			else if(orderIdTransiently>other.orderIdTransiently)
+				return 1;
+			
+			return 0;
 		}
 	}
 	
@@ -952,6 +979,11 @@ public final class Type<T extends Item>
 	public Query<T> newQuery(final Condition condition)
 	{
 		return new Query<T>(thisFunction, this, condition);
+	}
+	
+	public int compareTo(final Type other)
+	{
+		return mount().compareTo(other.mount());
 	}
 	
 	@Override

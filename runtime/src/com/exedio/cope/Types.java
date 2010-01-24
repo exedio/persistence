@@ -73,10 +73,11 @@ final class Types
 			addTypeIncludingGenerated(type, typesSorted, 10);
 
 		final HashMap<Type, MountParameters> parametersMap = new HashMap<Type, MountParameters>();
+		int typeCount = 0;
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
-			parametersMap.put(type, new MountParameters(type, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
+			parametersMap.put(type, new MountParameters(type, typeCount++, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
 		for(final Type<?> type : typesSorted)
 		{
 			final Type supertype = type.getSupertype();
@@ -172,15 +173,17 @@ final class Types
 	static final class MountParameters
 	{
 		final Type type;
+		final int orderIdTransiently;
 		final int idTransiently;
 		private ArrayList<Type> subtypes;
 		private ArrayList<Type> subtypesTransitively;
 		private ArrayList<Type> typesOfInstances;
 		private ArrayList<ItemField> references;
 		
-		MountParameters(final Type type, final int idTransiently)
+		MountParameters(final Type type, final int orderIdTransiently, final int idTransiently)
 		{
 			this.type = type;
+			this.orderIdTransiently = orderIdTransiently;
 			this.idTransiently = idTransiently;
 			assert (idTransiently<0) == type.isAbstract;
 		}

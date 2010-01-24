@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import com.exedio.dsmf.Constraint;
@@ -323,6 +325,25 @@ public class HierarchyTest extends AbstractRuntimeTest
 				HierarchySecondSub.TYPE,
 				HierarchySingleSub.TYPE
 			), model.getConcreteTypes());
+		
+		{
+			final ArrayList<Type<?>> comparableList = new ArrayList<Type<?>>(model.getTypes());
+			assertEquals(list(
+					HierarchyFirstSub.TYPE,
+					HierarchySecondSub.TYPE,
+					HierarchySuper.TYPE,
+					HierarchySingleSuper.TYPE,
+					HierarchySingleSub.TYPE
+				), comparableList);
+			Collections.sort(comparableList);
+			assertEquals(list(
+					HierarchySuper.TYPE,
+					HierarchyFirstSub.TYPE,
+					HierarchySecondSub.TYPE,
+					HierarchySingleSuper.TYPE,
+					HierarchySingleSub.TYPE
+				), comparableList);
+		}
 		
 		assertCacheInfo(
 				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
