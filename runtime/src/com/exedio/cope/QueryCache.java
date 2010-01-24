@@ -235,12 +235,12 @@ final class QueryCache
 			final ArrayList<Join> joins = query.joins;
 			final TIntHashSet typeSet = new TIntHashSet();
 			for(final Type<?> t : query.type.getTypesOfInstances())
-				typeSet.add(t.idTransiently);
+				typeSet.add(t.cacheIdTransiently);
 			if(joins!=null)
 			{
 				for(final Join join : joins)
 					for(final Type t : join.type.getTypesOfInstances())
-						typeSet.add(t.idTransiently);
+						typeSet.add(t.cacheIdTransiently);
 			}
 			this.invalidationTypesTransiently = typeSet.toArray();
 

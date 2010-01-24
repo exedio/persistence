@@ -174,18 +174,18 @@ final class Types
 	{
 		final Type type;
 		final int orderIdTransiently;
-		final int idTransiently;
+		final int cacheIdTransiently;
 		private ArrayList<Type> subtypes;
 		private ArrayList<Type> subtypesTransitively;
 		private ArrayList<Type> typesOfInstances;
 		private ArrayList<ItemField> references;
 		
-		MountParameters(final Type type, final int orderIdTransiently, final int idTransiently)
+		MountParameters(final Type type, final int orderIdTransiently, final int cacheIdTransiently)
 		{
 			this.type = type;
 			this.orderIdTransiently = orderIdTransiently;
-			this.idTransiently = idTransiently;
-			assert (idTransiently<0) == type.isAbstract;
+			this.cacheIdTransiently = cacheIdTransiently;
+			assert (cacheIdTransiently<0) == type.isAbstract;
 		}
 		
 		void addSubtype(final Type type)

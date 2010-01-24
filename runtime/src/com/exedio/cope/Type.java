@@ -84,7 +84,7 @@ public final class Type<T extends Item> implements Comparable<Type>
 	 * This id is negative for abstract types and positive
 	 * (including zero) for non-abstract types.
 	 */
-	int idTransiently = Integer.MIN_VALUE;
+	int cacheIdTransiently = Integer.MIN_VALUE;
 
 	Table table;
 	
@@ -338,11 +338,11 @@ public final class Type<T extends Item> implements Comparable<Type>
 			throw new IllegalStateException("type already mounted");
 		if(this.table!=null)
 			throw new RuntimeException();
-		if(this.idTransiently>=0)
+		if(this.cacheIdTransiently>=0)
 			throw new RuntimeException();
 		
 		this.mount = new Mount<T>(model, id, parameters);
-		this.idTransiently = parameters.idTransiently;
+		this.cacheIdTransiently = parameters.cacheIdTransiently;
 	}
 	
 	private Mount<T> mount()

@@ -32,7 +32,7 @@ import com.exedio.cope.info.ItemCacheInfo;
 final class ItemCache
 {
 	/**
-	 * Index of array is {@link Type#idTransiently}.
+	 * Index of array is {@link Type#cacheIdTransiently}.
 	 */
 	private final Cachlet[] cachlets;
 	
@@ -63,7 +63,7 @@ final class ItemCache
 	
 	WrittenState getState(final Transaction connectionSource, final Item item)
 	{
-		final Cachlet cachlet = cachlets[item.type.idTransiently];
+		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
 
 		WrittenState state = null;
 		if(cachlet!=null)

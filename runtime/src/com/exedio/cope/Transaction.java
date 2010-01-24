@@ -39,7 +39,7 @@ public final class Transaction
 	final long startDate;
 	
 	/**
-	 * index in array is {@link Type#idTransiently};
+	 * index in array is {@link Type#cacheIdTransiently};
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
@@ -114,11 +114,11 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		TIntObjectHashMap<Entity> entityMap = entityMaps[type.idTransiently];
+		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
 		if(entityMap==null)
 		{
 			entityMap = new TIntObjectHashMap<Entity>();
-			entityMaps[type.idTransiently] = entityMap;
+			entityMaps[type.cacheIdTransiently] = entityMap;
 		}
 
 		Entity result = entityMap.get(pk);
@@ -156,7 +156,7 @@ public final class Transaction
 	
 	void removeEntity(final Item item)
 	{
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.idTransiently];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.cacheIdTransiently];
 		if(entityMap!=null)
 		{
 			entityMap.remove( item.pk );
@@ -202,7 +202,7 @@ public final class Transaction
 		
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
-			final TIntHashSet invalidationsForType = invalidations[instanceType.idTransiently];
+			final TIntHashSet invalidationsForType = invalidations[instanceType.cacheIdTransiently];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
@@ -212,13 +212,13 @@ public final class Transaction
 	
 	private boolean isInvalidated( final Item item )
 	{
-		final TIntHashSet invalidationsForType = invalidations[item.type.idTransiently];
+		final TIntHashSet invalidationsForType = invalidations[item.type.cacheIdTransiently];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 	
 	void addInvalidation(final Item item)
 	{
-		final int typeTransiently = item.type.idTransiently;
+		final int typeTransiently = item.type.cacheIdTransiently;
 		TIntHashSet invalidationsForType = invalidations[typeTransiently];
 		if ( invalidationsForType==null )
 		{
@@ -232,7 +232,7 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.idTransiently];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
 		if(entityMap==null)
 			return null;
 		return entityMap.get(pk);
