@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.Locale;
 
 public final class UppercaseView extends StringView
 {
@@ -34,13 +35,18 @@ public final class UppercaseView extends StringView
 		super(new StringFunction[]{source}, "upper");
 		this.source = source;
 	}
+	
+	private static String toUpperCase(final String s)
+	{
+		return s.toUpperCase(Locale.ENGLISH); // TODO which locale ?
+	}
 
 	@Override
 	public final String mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
-		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
+		return sourceValue==null ? null : toUpperCase((String)sourceValue);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
@@ -55,26 +61,26 @@ public final class UppercaseView extends StringView
 	
 	public static final Condition equalIgnoreCase(final StringFunction function, final String value)
 	{
-		return function.toUpperCase().equal(value.toUpperCase());
+		return function.toUpperCase().equal(toUpperCase(value));
 	}
 	
 	public static final LikeCondition likeIgnoreCase(final StringFunction function, final String value)
 	{
-		return function.toUpperCase().like(value.toUpperCase());
+		return function.toUpperCase().like(toUpperCase(value));
 	}
 	
 	public static final LikeCondition startsWithIgnoreCase(final StringFunction function, final String value)
 	{
-		return LikeCondition.startsWith(function.toUpperCase(), value.toUpperCase());
+		return LikeCondition.startsWith(function.toUpperCase(), toUpperCase(value));
 	}
 	
 	public static final LikeCondition endsWithIgnoreCase(final StringFunction function, final String value)
 	{
-		return LikeCondition.endsWith(function.toUpperCase(), value.toUpperCase());
+		return LikeCondition.endsWith(function.toUpperCase(), toUpperCase(value));
 	}
 	
 	public static final LikeCondition containsIgnoreCase(final StringFunction function, final String value)
 	{
-		return LikeCondition.contains(function.toUpperCase(), value.toUpperCase());
+		return LikeCondition.contains(function.toUpperCase(), toUpperCase(value));
 	}
 }
