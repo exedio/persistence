@@ -62,4 +62,19 @@ public final class UppercaseView extends StringView
 	{
 		return function.toUpperCase().like(value.toUpperCase());
 	}
+	
+	public static final LikeCondition startsWithIgnoreCase(final StringFunction function, final String value)
+	{
+		return LikeCondition.startsWith(function.toUpperCase(), value.toUpperCase());
+	}
+	
+	public static final LikeCondition endsWithIgnoreCase(final StringFunction function, final String value)
+	{
+		return LikeCondition.endsWith(function.toUpperCase(), value.toUpperCase());
+	}
+	
+	public static final LikeCondition containsIgnoreCase(final StringFunction function, final String value)
+	{
+		return LikeCondition.contains(function.toUpperCase(), value.toUpperCase());
+	}
 }
