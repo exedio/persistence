@@ -36,8 +36,8 @@ TODO for cope runtime
 	* Item
 	* Price
 - implement Serializable
-	* items of types without unique java class
-	* Type and Feature (for backoffice and ContentEditor sessions)
+	* items of non-bound types
+	* Type and Feature (for backoffice and live editor sessions)
 	* Composite.Value (add tests)
 	* Price
 - feature reuse with copy() for Order.articleName
