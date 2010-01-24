@@ -98,6 +98,16 @@ public class ItemTest extends TestmodelTest
 		assertFalse(item1.equals(Integer.valueOf(1)));
 		assertFalse(item1.equals(Boolean.TRUE));
 		
+		assertEquals( 0, item1.compareTo(item1));
+		assertEquals( 1, item2.compareTo(item1));
+		assertEquals( 1, item3.compareTo(item1));
+		assertEquals(-1, item1.compareTo(item2));
+		assertEquals( 0, item2.compareTo(item2));
+		assertEquals( 1, item3.compareTo(item2));
+		assertEquals(-1, item1.compareTo(item3));
+		assertEquals(-1, item2.compareTo(item3));
+		assertEquals( 0, item3.compareTo(item3));
+		
 		assertSame(item1, item1.get(item1.TYPE.getThis()));
 		assertSame(item1, item1.TYPE.getThis().get(item1));
 		assertContains(item1, item1.TYPE.search(item1.TYPE.getThis().equal(item1)));

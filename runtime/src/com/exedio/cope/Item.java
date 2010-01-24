@@ -40,7 +40,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
  *
  * @author Ralf Wiebicke
  */
-public abstract class Item implements Serializable
+public abstract class Item implements Serializable, Comparable<Item>
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -105,6 +105,20 @@ public abstract class Item implements Serializable
 	public final int hashCode()
 	{
 		return type.hashCode() ^ pk;
+	}
+	
+	public int compareTo(final Item other)
+	{
+		final int typeResult = type.compareTo(other.type);
+		if(typeResult!=0)
+			return typeResult;
+		
+		if(pk<other.pk)
+			return -1;
+		else if(pk>other.pk)
+			return 1;
+		
+		return 0;
 	}
 	
 	/**
