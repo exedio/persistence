@@ -1016,13 +1016,13 @@ final class Injector
 		}
 	}
 
-	class EndException extends Exception
+	static final class EndException extends Exception
 	{
 		private static final long serialVersionUID = 1l;
 		
 	}
 
-	private class ParseException extends InjectorParseException
+	private final class ParseException extends InjectorParseException
 	{
 		private static final long serialVersionUID = 1l;
 		

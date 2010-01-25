@@ -96,7 +96,7 @@ public final class Wrapper
 	}
 	
 	
-	final class Parameter
+	static final class Parameter
 	{
 		private final java.lang.reflect.Type type;
 		private final String name;
