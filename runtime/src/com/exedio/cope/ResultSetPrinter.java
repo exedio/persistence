@@ -35,7 +35,7 @@ final class ResultSetPrinter
 		// prevent instantiation
 	}
 	
-	protected static void printMeta(final ResultSet resultSet) throws SQLException
+	static void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -43,7 +43,7 @@ final class ResultSetPrinter
 			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
 	}
 	
-	protected static void printRow(final ResultSet resultSet) throws SQLException
+	static void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -51,7 +51,7 @@ final class ResultSetPrinter
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
-	protected static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
+	static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
 	{
 		public Void handle(final ResultSet resultSet) throws SQLException
 		{
