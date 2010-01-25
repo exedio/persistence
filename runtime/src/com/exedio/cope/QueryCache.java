@@ -193,9 +193,9 @@ final class QueryCache
 		}
 		
 		@Override
-		public boolean equals(final Object obj)
+		public boolean equals(final Object other)
 		{
-			final Key o = (Key)obj;
+			final Key o = (Key)other;
 			return Arrays.equals(text, o.text);
 		}
 		
