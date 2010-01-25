@@ -27,4 +27,9 @@
 			<Class name="com.exedio.cope.Statement$JoinTable" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Random object created and used only once -->
+		<Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+		<Class name="com.exedio.cope.ClusterConfig" />
+	</Match>
 </FindBugsFilter>
