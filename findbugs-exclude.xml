@@ -68,4 +68,12 @@
 			<Class name="com.exedio.cope.Type$Mount" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Confusing method names -->
+		<Bug pattern="NM_CONFUSING" />
+		<Or>
+			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.Feature" />
+		</Or>
+	</Match>
 </FindBugsFilter>
