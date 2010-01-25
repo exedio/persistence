@@ -42,4 +42,9 @@
 		<Bug pattern="EI_EXPOSE_REP2" />
 		<Class name="com.exedio.cope.StartsWithCondition" />
 	</Match>
+	<Match>
+		<!-- Could be refactored into a named static inner class -->
+		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
+		<!-- Used often for ResultSethandler -->
+	</Match>
 </FindBugsFilter>
