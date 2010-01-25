@@ -20,8 +20,12 @@
 		</Or>
 	</Match>
 	<Match>
-		<!-- Equals method for class assumes the argument is of that type -->
-		<Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
+		<Or>
+			<!-- Equals method for class assumes the argument is of that type -->
+			<Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
+			<!-- equals() method does not check for null argument -->
+			<Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
+		</Or>
 		<Or>
 			<Class name="com.exedio.cope.QueryCache$Key" />
 			<Class name="com.exedio.cope.Statement$JoinTable" />
