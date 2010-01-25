@@ -23,8 +23,6 @@ import com.exedio.cope.search.SumAggregate;
 
 public final class BindNumberFunction<E extends Number> extends BindFunction<E> implements NumberFunction<E>
 {
-	final NumberFunction<E> integerFunction;
-	
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
@@ -33,7 +31,6 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E> 
 	public BindNumberFunction(final NumberFunction<E> function, final Join join)
 	{
 		super(function, join);
-		this.integerFunction = function;
 	}
 	
 	// convenience methods for conditions and views ---------------------------------

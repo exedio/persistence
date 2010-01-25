@@ -20,9 +20,6 @@ package com.exedio.cope;
 
 public final class BindStringFunction extends BindFunction<String> implements StringFunction
 {
-
-	final StringFunction stringFunction;
-	
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
@@ -31,7 +28,6 @@ public final class BindStringFunction extends BindFunction<String> implements St
 	public BindStringFunction(final StringFunction function, final Join join)
 	{
 		super(function, join);
-		this.stringFunction = function;
 	}
 	
 	/**
