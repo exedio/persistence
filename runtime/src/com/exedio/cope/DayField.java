@@ -121,14 +121,20 @@ public final class DayField extends FunctionField<Day>
 	}
 	
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		if(suspiciousForWrongDefaultNow)
 			System.out.println(
 					"WARNING: " +
-					"Very probably you called \"DayField.defaultTo(new Day())\" on field " + getID() + ". " +
+					"Very probably you called \"DayField.defaultTo(new Day())\" on field " + type.getID() + '.' + name + ". " +
 					"This will not work as expected, use \"defaultToNow()\" instead.");
 		
+		super.mount(type, name, annotationSource);
+	}
+	
+	@Override
+	Column createColumn(final Table table, final String name, final boolean optional)
+	{
 		return new DayColumn(table, this, name, optional);
 	}
 	

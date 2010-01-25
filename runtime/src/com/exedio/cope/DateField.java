@@ -127,14 +127,20 @@ public final class DateField extends FunctionField<Date>
 	}
 	
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		if(suspiciousForWrongDefaultNow)
 			System.out.println(
 					"WARNING: " +
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + getID() + ". " +
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + type.getID() + '.' + name + ". " +
 					"This will not work as expected, use \"defaultToNow()\" instead.");
 		
+		super.mount(type, name, annotationSource);
+	}
+	
+	@Override
+	Column createColumn(final Table table, final String name, final boolean optional)
+	{
 		final Model model = getType().getModel();
 		final boolean useLong =
 			model.getConnectProperties().getDatabaseDontSupportNativeDate() ||
