@@ -139,6 +139,18 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
+	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	{
+		if(!this.optional && ordinalsToNumbers.length==1)
+			throw new IllegalArgumentException(
+					"mandatory enum field is not allowed on valueClass with one enum value only: "
+					+ type.getID() + '.' + name +
+					" on " + getValueClass().getName());
+		
+		super.mount(type, name, annotationSource);
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, this, name, optional, ordinalsToNumbers);

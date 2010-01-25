@@ -64,8 +64,7 @@ class IntegerColumn extends Column
 		this.longInsteadOfInt = false;
 		this.allowedValues = allowedValues;
 		
-		if(allowedValues.length<2)
-			throw new RuntimeException(id);
+		assert allowedValues.length>(optional?0:1) : id;
 		
 		// ensure, that allowedValues are unique and ordered
 		int current = Integer.MIN_VALUE;

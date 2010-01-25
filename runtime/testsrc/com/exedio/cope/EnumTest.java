@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.EnumItem.Single;
+
 public class EnumTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
@@ -62,5 +64,29 @@ public class EnumTest extends AbstractRuntimeTest
 		
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
+		
+		assertEquals(null, item.getSingle());
+		item.setSingle(Single.single);
+		assertEquals(Single.single, item.getSingle());
+		item.setSingle(null);
+		assertEquals(null, item.getSingle());
+		
+		{
+			final EnumField<Single> wrong = item.newEnumField(Single.class);
+			final Features features = new Features();
+			features.put("wrong", wrong);
+			try
+			{
+				new Type<EnumItem>(EnumItem.class, false, "Wrong", null, false, null, features);
+				fail();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals(
+						"mandatory enum field is not allowed on valueClass with one enum value only: " +
+						"Wrong.wrong on " + Single.class.getName(),
+						e.getMessage());
+			}
+		}
 	}
 }

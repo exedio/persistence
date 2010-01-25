@@ -91,7 +91,7 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		

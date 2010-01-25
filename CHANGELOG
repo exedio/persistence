@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* allow optional EnumField on Enum with one value only
 * Item implements Comparable
 * Type implements Comparable
 * Price implements Comparable
