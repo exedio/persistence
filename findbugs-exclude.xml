@@ -76,4 +76,9 @@
 			<Class name="com.exedio.cope.Feature" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Method with Boolean return type returns explicit null -->
+		<Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+		<Class name="com.exedio.cope.BooleanField" />
+	</Match>
 </FindBugsFilter>
