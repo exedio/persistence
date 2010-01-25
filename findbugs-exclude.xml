@@ -19,4 +19,12 @@
 			<Class name="com.exedio.cope.console.ConsoleServlet" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Equals method for class assumes the argument is of that type -->
+		<Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
+		<Or>
+			<Class name="com.exedio.cope.QueryCache$Key" />
+			<Class name="com.exedio.cope.Statement$JoinTable" />
+		</Or>
+	</Match>
 </FindBugsFilter>
