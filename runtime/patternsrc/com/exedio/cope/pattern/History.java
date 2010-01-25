@@ -342,7 +342,16 @@ public final class History extends Pattern
 			return pattern.featureId.getType().getModel().getFeature(pattern.featureId.get(this));
 		}
 		
+		/**
+		 * @deprecated Use {@link #getFeatureID()} instead
+		 */
+		@Deprecated
 		public String getId()
+		{
+			return getFeatureID();
+		}
+		
+		public String getFeatureID()
 		{
 			return getPattern().featureId.get(this);
 		}

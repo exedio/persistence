@@ -186,7 +186,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSame(item.audit, feature11.getPattern());
 		assertEquals(event1, feature11.getEvent());
 		assertSame(item.amount, feature11.getFeature());
-		assertEquals(item.amount.getID(), feature11.getId());
+		assertEquals(item.amount.getID(), feature11.getFeatureID());
 		assertEquals("Amount", feature11.getName());
 		assertEquals("1.1", feature11.getOld());
 		assertEquals("2.2", feature11.getNew());
@@ -196,7 +196,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSame(item.audit, feature12.getPattern());
 		assertEquals(event1, feature12.getEvent());
 		assertSame(item.comment, feature12.getFeature());
-		assertEquals(item.comment.getID(), feature12.getId());
+		assertEquals(item.comment.getID(), feature12.getFeatureID());
 		assertEquals("Comment", feature12.getName());
 		assertEquals("blub", feature12.getOld());
 		assertEquals("blah", feature12.getNew());
