@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -304,7 +303,7 @@ public final class Wrapper
 
 		public Class[] getActualTypeArguments()
 		{
-			return Arrays.copyOf(actualTypeArguments, actualTypeArguments.length);
+			return com.exedio.cope.misc.Arrays.copyOf(actualTypeArguments);
 		}
 	}
 	

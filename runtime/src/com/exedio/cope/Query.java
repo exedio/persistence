@@ -71,7 +71,7 @@ public final class Query<R>
 	public Query(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selects = Arrays.copyOf(selects, selects.length);
+		this.selects = com.exedio.cope.misc.Arrays.copyOf(selects);
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
@@ -227,8 +227,8 @@ public final class Query<R>
 			if(orderBy[i]==null)
 				throw new NullPointerException("orderBy" + '[' + i + ']');
 		
-		this.orderBy = Arrays.copyOf(orderBy, orderBy.length);
-		this.orderAscending = Arrays.copyOf(ascending, ascending.length);
+		this.orderBy = com.exedio.cope.misc.Arrays.copyOf(orderBy);
+		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
 
 	public void addOrderBy(final Function orderBy)
