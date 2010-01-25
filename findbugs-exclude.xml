@@ -81,4 +81,9 @@
 		<Bug pattern="NP_BOOLEAN_RETURN_NULL" />
 		<Class name="com.exedio.cope.BooleanField" />
 	</Match>
+	<Match>
+		<!-- Comparison of String parameter using == or != -->
+		<Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+		<Class name="com.exedio.dsmf.Node" />
+	</Match>
 </FindBugsFilter>
