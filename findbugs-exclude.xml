@@ -60,4 +60,12 @@
 		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
 		<!-- Used often for ResultSethandler -->
 	</Match>
+	<Match>
+		<!-- Class defines compareTo(...) and uses Object.equals() -->
+		<Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS" />
+		<Or>
+			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.Type$Mount" />
+		</Or>
+	</Match>
 </FindBugsFilter>
