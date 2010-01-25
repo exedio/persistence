@@ -48,8 +48,8 @@ public abstract class View<E> extends Feature implements Function<E>
 
 	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
-		this.sources = sources;
-		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
+		this.sources = Arrays.copyOf(sources, sources.length);
+		this.sourceList = Collections.unmodifiableList(Arrays.asList(this.sources));
 		this.name = name;
 		this.valueClass = valueClass;
 		

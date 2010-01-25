@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
+
 public final class PlusView<E extends Number> extends NumberView<E>
 {
 	private final NumberFunction[] addends;
@@ -43,7 +45,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	public PlusView(final NumberFunction[] addends)
 	{
 		super(addends, "plus", valueClass(addends));
-		this.addends = addends;
+		this.addends = Arrays.copyOf(addends, addends.length);
 	}
 	
 	@Override

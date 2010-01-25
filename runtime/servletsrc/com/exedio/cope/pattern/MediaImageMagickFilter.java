@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -76,7 +77,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		this.fallback = fallback;
 		this.outputContentType = outputContentType;
 		this.outputExtension = supportedContentTypes.get(outputContentType);
-		this.options = options;
+		this.options = Arrays.copyOf(options, options.length);
 		
 		if(fallback==null)
 			throw new RuntimeException(); // TODO test

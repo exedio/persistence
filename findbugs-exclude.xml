@@ -32,4 +32,14 @@
 		<Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
 		<Class name="com.exedio.cope.ClusterConfig" />
 	</Match>
+	<Match>
+		<!-- May expose internal representation by returning reference to mutable object -->
+		<Bug pattern="EI_EXPOSE_REP" />
+		<Class name="com.exedio.cope.DataField$ArrayValue" />
+	</Match>
+	<Match>
+		<!-- May expose internal representation by incorporating reference to mutable object -->
+		<Bug pattern="EI_EXPOSE_REP2" />
+		<Class name="com.exedio.cope.StartsWithCondition" />
+	</Match>
 </FindBugsFilter>

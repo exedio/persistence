@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
+
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
 	private final NumberFunction[] multipliers;
@@ -34,7 +36,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	public MultiplyView(final NumberFunction[] multipliers)
 	{
 		super(multipliers, "multiply", PlusView.valueClass(multipliers));
-		this.multipliers = multipliers;
+		this.multipliers = Arrays.copyOf(multipliers, multipliers.length);
 	}
 	
 	@Override
