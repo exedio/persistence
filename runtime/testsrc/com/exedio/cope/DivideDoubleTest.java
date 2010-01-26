@@ -90,7 +90,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("divisor", e.getMessage());
+			assertEquals("sources[1]", e.getMessage());
 		}
 
 		// test normal operation
