@@ -33,8 +33,6 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	{
 		super(new Function[]{left}, "multiply", left.getValueClass());
 		
-		if(left==null)
-			throw new NullPointerException("left");
 		if(right==null)
 			throw new NullPointerException("right");
 		
