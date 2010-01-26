@@ -104,4 +104,13 @@
 			<Class name="com.exedio.cope.OracleDialect" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Consider returning a zero length array rather than null -->
+		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
+		<Or>
+			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.OracleDialect" />
+			<Class name="com.exedio.cope.pattern.Serializer" />
+		</Or>
+	</Match>
 </FindBugsFilter>
