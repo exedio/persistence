@@ -73,6 +73,25 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(divideAB, numA.plus(numB));
 		assertNotEquals(divideAB, numA.multiply(numB));
 		assertNotEquals(divideAB, numB.divide(numA));
+		
+		// exceptions
+		try
+		{
+			new DivideView<Double>(null, numA);
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			new DivideView<Double>(numA, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("divisor", e.getMessage());
+		}
 
 		// test normal operation
 		assertEquals(nA, item.getNumA());

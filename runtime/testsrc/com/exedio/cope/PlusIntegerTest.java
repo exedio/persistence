@@ -89,6 +89,42 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
 
+		// exceptions
+		try
+		{
+			new PlusLiteralView<Integer>(null, 6);
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			new PlusLiteralView<Integer>(numA, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("right", e.getMessage());
+		}
+		try
+		{
+			new MultiplyLiteralView<Integer>(null, 6);
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			new MultiplyLiteralView<Integer>(numA, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("right", e.getMessage());
+		}
+		
 		// test normal operation
 		assertEquals(i1, item.getNumA());
 		assertEquals(i2, item.getNumB());
