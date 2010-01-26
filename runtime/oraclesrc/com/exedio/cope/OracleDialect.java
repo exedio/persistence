@@ -257,7 +257,7 @@ final class OracleDialect extends Dialect
 		{
 			statementIDNumber = statementIDCounter.nextInt();
 		}
-		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
+		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(statementIDNumber!=Integer.MIN_VALUE ? Math.abs(statementIDNumber) : Integer.MAX_VALUE);
 		
 		{
 			final Statement bf = executor.newStatement();
