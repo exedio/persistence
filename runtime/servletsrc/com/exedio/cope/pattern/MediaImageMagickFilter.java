@@ -164,21 +164,27 @@ public class MediaImageMagickFilter extends MediaFilter
 		
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		FileInputStream body = null;
-		ServletOutputStream out = null;
 		try
 		{
 			body = new FileInputStream(outFile);
-			out = response.getOutputStream();
-
-			for(int len = body.read(b); len>=0; len = body.read(b))
-				out.write(b, 0, len);
-
-			return delivered;
+			ServletOutputStream out = null;
+			try
+			{
+				out = response.getOutputStream();
+	
+				for(int len = body.read(b); len>=0; len = body.read(b))
+					out.write(b, 0, len);
+	
+				return delivered;
+			}
+			finally
+			{
+				if(out!=null)
+					out.close();
+			}
 		}
 		finally
 		{
-			if(out!=null)
-				out.close();
 			if(body!=null)
 				body.close();
 			if(!outFile.delete())

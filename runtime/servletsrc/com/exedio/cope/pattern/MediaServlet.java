@@ -121,43 +121,50 @@ public final class MediaServlet extends HttpServlet
 		response.setStatus(log.responseStatus);
 		response.setContentType("text/html");
 		
-		final PrintStream out = new PrintStream(response.getOutputStream());
-
-		switch(log.responseStatus)
+		PrintStream out = null;
+		try
 		{
-			case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
-				out.print("<html>\n" +
-						"<head>\n" +
-						"<title>Internal Server Error</title>\n" +
-						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-						"</head>\n" +
-						"<body>\n" +
-						"<h1>Internal Server Error</h1>\n" +
-						"An internal error occured on the server.\n" +
-						"</body>\n" +
-						"</html>\n");
-				break;
-
-			case HttpServletResponse.SC_NOT_FOUND:
-				out.print("<html>\n" +
-						"<head>\n" +
-						"<title>Not Found</title>\n" +
-						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-						"</head>\n" +
-						"<body>\n" +
-						"<h1>Not Found</h1>\n" +
-						"The requested URL was not found on this server (");
-				out.print(log.name);
-				out.print(").\n" +
-						"</body>\n" +
-						"</html>\n");
-				break;
+			out = new PrintStream(response.getOutputStream());
 			
-			default:
-				throw new RuntimeException(String.valueOf(log.responseStatus));
+			switch(log.responseStatus)
+			{
+				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
+					out.print("<html>\n" +
+							"<head>\n" +
+							"<title>Internal Server Error</title>\n" +
+							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+							"</head>\n" +
+							"<body>\n" +
+							"<h1>Internal Server Error</h1>\n" +
+							"An internal error occured on the server.\n" +
+							"</body>\n" +
+							"</html>\n");
+					break;
+	
+				case HttpServletResponse.SC_NOT_FOUND:
+					out.print("<html>\n" +
+							"<head>\n" +
+							"<title>Not Found</title>\n" +
+							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+							"</head>\n" +
+							"<body>\n" +
+							"<h1>Not Found</h1>\n" +
+							"The requested URL was not found on this server (");
+					out.print(log.name);
+					out.print(").\n" +
+							"</body>\n" +
+							"</html>\n");
+					break;
+				
+				default:
+					throw new RuntimeException(String.valueOf(log.responseStatus));
+			}
 		}
-		
-		out.close();
+		finally
+		{
+			if(out!=null)
+				out.close();
+		}
 	}
 	
 	private Media.Log serveContent(

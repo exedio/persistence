@@ -59,10 +59,11 @@ final class PropertiesCop extends ConsoleCop
 		final ConnectProperties props = model.getConnectProperties();
 		final String source = props.getSource();
 		String sourceContent = null;
+		FileReader r = null;
 		try
 		{
 			final File f = new File(source);
-			final FileReader r = new FileReader(f);
+			r = new FileReader(f);
 			final StringBuilder bf = new StringBuilder();
 
 			final char[] b = new char[20*1024];
@@ -86,6 +87,20 @@ final class PropertiesCop extends ConsoleCop
 		catch(IOException e)
 		{
 			throw new RuntimeException(source, e);
+		}
+		finally
+		{
+			if(r!=null)
+			{
+				try
+				{
+					r.close();
+				}
+				catch(IOException e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
 		}
 		
 		Properties_Jspm.writeBody(

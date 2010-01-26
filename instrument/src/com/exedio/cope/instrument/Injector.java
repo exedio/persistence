@@ -83,14 +83,18 @@ final class Injector
 		throws IOException
 	{
 		final byte[] inputBytes = new byte[(int)inputFile.length()];
-		final FileInputStream fis = new FileInputStream(inputFile);
+		FileInputStream fis = null;
 		try
 		{
-			fis.read(inputBytes);
+			fis = new FileInputStream(inputFile);
+			final int readBytes = fis.read(inputBytes);
+			if(readBytes!=inputBytes.length)
+				throw new RuntimeException(inputFile.getAbsolutePath() + '(' + readBytes + ')');
 		}
 		finally
 		{
-			fis.close();
+			if(fis!=null)
+				fis.close();
 		}
 		final CRC32 crc32 = new CRC32();
 		crc32.update(inputBytes);
