@@ -113,4 +113,17 @@
 			<Class name="com.exedio.cope.pattern.Serializer" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Method invoked that should be only be invoked inside a doPrivileged block -->
+		<Bug pattern="DP_DO_INSIDE_DO_PRIVILEGED" />
+		<Or>
+			<Class name="com.exedio.cope.TypesBound" />
+			<Class name="com.exedio.cope.pattern.CompositeType" />
+		</Or>
+	</Match>
+	<Match>
+		<!-- Field only ever set to null -->
+		<Bug pattern="UWF_NULL_FIELD" />
+		<Class name="com.exedio.cope.ClusterListener" />
+	</Match>
 </FindBugsFilter>
