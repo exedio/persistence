@@ -35,8 +35,6 @@ public final class Column extends Node
 	{
 		super(table.dialect, table.connectionProvider);
 
-		if(table==null)
-			throw new RuntimeException(name);
 		if(name==null)
 			throw new RuntimeException(type);
 		if(type==null)

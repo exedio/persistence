@@ -34,8 +34,6 @@ public final class Sequence extends Node
 	{
 		super(schema.dialect, schema.connectionProvider);
 		
-		if(schema==null)
-			throw new RuntimeException();
 		if(name==null)
 			throw new RuntimeException();
 		if(!schema.dialect.supportsSequences())

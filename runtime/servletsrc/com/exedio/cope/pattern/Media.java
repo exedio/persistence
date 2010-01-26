@@ -74,7 +74,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());
 		assert optional == !lastModified.isMandatory();
-		assert contentType!=null;
 	}
 	
 	private static final DataField optional(final DataField field, final boolean optional)
