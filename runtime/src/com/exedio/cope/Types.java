@@ -154,7 +154,7 @@ final class Types
 			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
 		
 		//System.out.println("<--------------------"+result);
-		return result.toArray(new Type[]{});
+		return result.toArray(new Type[result.size()]);
 	}
 	
 	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)

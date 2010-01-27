@@ -85,7 +85,8 @@ final class TransactionCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		final Transaction[] openTransactions = model.getOpenTransactions().toArray(new Transaction[]{});
+		final Collection<Transaction> openTransactionsList = model.getOpenTransactions();
+		final Transaction[] openTransactions = openTransactionsList.toArray(new Transaction[openTransactionsList.size()]);
 		Arrays.sort(openTransactions, new Comparator<Transaction>(){
 
 			public int compare(final Transaction tx1, final Transaction tx2)

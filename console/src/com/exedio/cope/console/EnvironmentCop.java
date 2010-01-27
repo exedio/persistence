@@ -136,7 +136,7 @@ final class EnvironmentCop extends ConsoleCop
 				database.put(key, value);
 		}
 		
-		return testedDatabases.values().toArray(new HashMap[0]);
+		return testedDatabases.values().toArray(new HashMap[testedDatabases.size()]);
 	}
 	
 	@SuppressWarnings("unchecked") // TODO testedDatabases contains Strings and Maps
