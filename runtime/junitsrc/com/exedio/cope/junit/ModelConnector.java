@@ -62,11 +62,14 @@ final class ModelConnector implements Runnable
 	
 	private static void dropAndDisconnectIfNeeded()
 	{
-		if(createdSchema!=null)
+		synchronized(lock)
 		{
-			createdSchema.dropSchema();
-			createdSchema.disconnect();
-			createdSchema = null;
+			if(createdSchema!=null)
+			{
+				createdSchema.dropSchema();
+				createdSchema.disconnect();
+				createdSchema = null;
+			}
 		}
 	}
 	
