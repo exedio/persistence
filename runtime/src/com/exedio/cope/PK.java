@@ -21,7 +21,7 @@ package com.exedio.cope;
 final class PK
 {
 	static final int MIN_VALUE = 0;
-	static final int MAX_VALUE = Integer.MAX_VALUE;
+	static final int MAX_VALUE = Integer.MAX_VALUE; // for any value than Integer.MAX_VALUE method isValid(int) needs another comparison
 	static final int NaPK = Integer.MIN_VALUE;
 
 	private PK()
@@ -31,6 +31,6 @@ final class PK
 	
 	static boolean isValid(final int pk)
 	{
-		return pk>=MIN_VALUE && pk<=MAX_VALUE;
+		return pk>=MIN_VALUE;
 	}
 }
