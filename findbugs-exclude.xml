@@ -139,4 +139,15 @@
 		<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE" />
 		<Class name="com.exedio.cope.Model" />
 	</Match>
+	<Match>
+		<!-- Exception is caught when Exception is not thrown -->
+		<Bug pattern="REC_CATCH_EXCEPTION" />
+		<Class name="com.exedio.cope.pattern.Dispatcher" />
+	</Match>
+	<Match>
+		<!-- Useless control flow -->
+		<!-- TODO -->
+		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
+		<Class name="com.exedio.cope.instrument.Injector" />
+	</Match>
 </FindBugsFilter>
