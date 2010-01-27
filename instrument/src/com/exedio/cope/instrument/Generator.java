@@ -678,7 +678,7 @@ final class Generator
 	{
 		final Option option = new Option(
 				Injector.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
-		if(option!=null && !option.exists)
+		if(!option.exists)
 			return;
 		
 		final CopeAttribute[] attributes = constraint.getAttributes();
@@ -717,7 +717,7 @@ final class Generator
 		}
 		
 		o.write('\t');
-		writeModifier((option!=null ? option.getModifier(constraint.modifier) : (constraint.modifier&(PRIVATE|PROTECTED|PUBLIC))) | (STATIC|FINAL) );
+		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
 		o.write(className);
 		o.write(deprecated ? " findBy" : " for");
 		o.write(toCamelCase(constraint.name));
