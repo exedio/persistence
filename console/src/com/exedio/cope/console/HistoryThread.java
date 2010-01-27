@@ -128,7 +128,7 @@ final class HistoryThread extends Thread
 					System.out.println(topic + "run() not connected");
 			}
 		}
-		catch(Exception e)
+		catch(RuntimeException e)
 		{
 			e.printStackTrace();
 		}
