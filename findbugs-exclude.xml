@@ -169,4 +169,15 @@
 			<Class name="com.exedio.cope.console.Environment_Jspm" />
 		</Or>
 	</Match>
+	<Match>
+		<Or>
+			<!-- Using notify() rather than notifyAll() -->
+			<Bug pattern="NO_NOTIFY_NOT_NOTIFYALL" />
+			<!-- Unconditional wait -->
+			<Bug pattern="UW_UNCOND_WAIT" />
+			<!-- Wait not in loop -->
+			<Bug pattern="WA_NOT_IN_LOOP" />
+		</Or>
+		<Class name="com.exedio.cope.console.HistoryThread" />
+	</Match>
 </FindBugsFilter>
