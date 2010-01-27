@@ -155,4 +155,14 @@
 		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
 		<Class name="com.exedio.cope.instrument.Injector" />
 	</Match>
+	<Match>
+		<!-- Inefficient use of keySet iterator instead of entrySet iterator -->
+		<Bug pattern="WMI_WRONG_MAP_ITERATOR" />
+		<Or>
+			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.Item" />
+			<Class name="com.exedio.cope.console.EnvironmentCop" />
+			<Class name="com.exedio.cope.console.Environment_Jspm" />
+		</Or>
+	</Match>
 </FindBugsFilter>

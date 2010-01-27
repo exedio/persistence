@@ -196,15 +196,16 @@ final class RevisionLine
 	static final <K,V> Set<K> diff(final Map<K,V> left, final Map<K,V> right)
 	{
 		final TreeSet<K> result = new TreeSet<K>();
-		for(final K key : left.keySet())
+		for(final Map.Entry<K,V> e : left.entrySet())
 		{
+			final K key = e.getKey();
 			if(!right.containsKey(key))
 			{
 				result.add(key);
 			}
 			else
 			{
-				final V l = left.get(key);
+				final V l = e.getValue();
 				final V r = right.get(key);
 				if(r!=null ? !r.equals(l) : l!=null)
 					result.add(key);

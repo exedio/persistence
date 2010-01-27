@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
@@ -261,14 +262,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 			ClassCastException
 	{
 		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
-		for(final Field field : fieldValues.keySet())
+		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
 		{
+			final Field field = e.getKey();
 			type.assertBelongs(field);
 			
 			if(field.isfinal)
 				throw new FinalViolationException(field, field, this);
 
-			field.check(fieldValues.get(field), this);
+			field.check(e.getValue(), this);
 		}
 		type.checkUniqueConstraints(this, fieldValues);
 

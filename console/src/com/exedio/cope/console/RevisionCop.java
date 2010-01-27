@@ -123,8 +123,8 @@ final class RevisionCop extends ConsoleCop implements Pageable
 
 		if(logsRaw!=null)
 		{
-			for(final Integer number : logsRaw.keySet())
-				register(lines, number).setInfo(logsRaw.get(number));
+			for(final Map.Entry<Integer, byte[]> e : logsRaw.entrySet())
+				register(lines, e.getKey()).setInfo(e.getValue());
 		}
 		
 		final ArrayList<RevisionLine> lineList = new ArrayList<RevisionLine>(lines.values());
