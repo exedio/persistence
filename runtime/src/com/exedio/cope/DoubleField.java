@@ -204,7 +204,7 @@ public final class DoubleField extends NumberField<Double>
 				return super.equal(value);
 		}
 		else
-			return super.equal(value);
+			return isNull();
 	}
 	
 	@Override
@@ -219,7 +219,7 @@ public final class DoubleField extends NumberField<Double>
 				return super.notEqual(value);
 		}
 		else
-			return super.notEqual(value);
+			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
 }

@@ -265,7 +265,7 @@ public final class IntegerField extends NumberField<Integer>
 				return super.equal(value);
 		}
 		else
-			return super.equal(value);
+			return isNull();
 	}
 	
 	@Override
@@ -280,7 +280,7 @@ public final class IntegerField extends NumberField<Integer>
 				return super.notEqual(value);
 		}
 		else
-			return super.notEqual(value);
+			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
 }
