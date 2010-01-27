@@ -150,4 +150,9 @@
 		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
 		<Class name="com.exedio.cope.instrument.Injector" />
 	</Match>
+	<Match>
+		<!-- Method uses the same code for two switch clauses -->
+		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
+		<Class name="com.exedio.cope.instrument.Injector" />
+	</Match>
 </FindBugsFilter>
