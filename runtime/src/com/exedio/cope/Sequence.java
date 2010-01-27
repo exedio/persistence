@@ -31,7 +31,7 @@ final class Sequence
 	private final int maximum;
 	
 	private SequenceImpl impl;
-	private IntegerColumn column;
+	private IntegerColumn column = null;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
