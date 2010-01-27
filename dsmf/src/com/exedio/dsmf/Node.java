@@ -112,7 +112,7 @@ public abstract class Node
 		}
 		catch(SQLException e)
 		{
-			throw new SQLRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement);
 		}
 		finally
 		{
@@ -172,7 +172,7 @@ public abstract class Node
 		catch(SQLException e)
 		{
 			//System.out.println("  -> "+e.getMessage());
-			throw new SQLRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement);
 		}
 		finally
 		{
