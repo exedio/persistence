@@ -46,7 +46,7 @@ public abstract class NumberView<E extends Number> extends View<E> implements Nu
 				return Integer.valueOf(((Long)loadedInteger).intValue());
 			else
 			{
-				assert loadedInteger==null || loadedInteger instanceof Integer;
+				assert loadedInteger instanceof Integer;
 				return loadedInteger;
 			}
 		}

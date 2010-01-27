@@ -95,9 +95,7 @@ public final class Column extends Node
 		}
 		else
 		{
-			if(requiredType!=null &&
-				existingType!=null &&
-				!requiredType.equals(existingType))
+			if(!requiredType.equals(existingType))
 			{
 				error = "different type in database: >"+existingType+"<";
 				particularColor = Color.ERROR;
