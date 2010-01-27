@@ -134,4 +134,9 @@
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Redundant nullcheck of value known to be null -->
+		<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE" />
+		<Class name="com.exedio.cope.Model" />
+	</Match>
 </FindBugsFilter>
