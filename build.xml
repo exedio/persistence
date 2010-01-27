@@ -988,6 +988,8 @@
 		<findbugs
 					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
 					jvmargs="-Xmx250M"
+					failOnError="true"
+					warningsProperty="findbugs.warnings"
 					output="html"
 					outputFile="${basedir}/build/findbugs-prod.html"
 					excludeFilter="findbugs-exclude.xml"
@@ -1008,6 +1010,7 @@
 				<pathelement location="${ant.jar}" />
 			</auxclasspath>
 		</findbugs>
+		<fail if="findbugs.warnings" message="findbugs warnings" />
 	</target>
 	
 	<target name="findbugs.test" depends="findbugs.prepare, compile">
