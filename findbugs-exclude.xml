@@ -127,8 +127,12 @@
 		<Class name="com.exedio.cope.ClusterListener" />
 	</Match>
 	<Match>
-		<!-- Class extends Servlet class and uses instance variables -->
-		<Bug pattern="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD" />
+		<Or>
+			<!-- Class extends Servlet class and uses instance variables -->
+			<Bug pattern="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD" />
+			<!-- Mutable servlet field -->
+			<Bug pattern="MSF_MUTABLE_SERVLET_FIELD" />
+		</Or>
 		<Or>
 			<Class name="com.exedio.cope.console.ConsoleServlet" />
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
