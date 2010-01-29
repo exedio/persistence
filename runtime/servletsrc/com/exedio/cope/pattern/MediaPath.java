@@ -91,6 +91,10 @@ public abstract class MediaPath extends Pattern
 			new Wrapper("getURL").
 			addComment("Returns a URL the content of {0} is available under.").
 			setReturn(String.class));
+		result.add(
+			new Wrapper("getLocator").
+			addComment("Returns a Locator the content of {0} is available under.").
+			setReturn(Locator.class));
 
 		if((!(this instanceof Media)) || (((Media)this).getContentType()!=null))
 			result.add(
@@ -99,6 +103,50 @@ public abstract class MediaPath extends Pattern
 				setReturn(String.class));
 		
 		return Collections.unmodifiableList(result);
+	}
+	
+	public final class Locator
+	{
+		private final Item item;
+		private final String extension;
+		
+		Locator(final Item item, final String extension)
+		{
+			this.item = item;
+			this.extension = extension;
+		}
+		
+		public String getPath()
+		{
+			final StringBuilder bf = new StringBuilder();
+			appendPath(bf);
+			return bf.toString();
+		}
+		
+		public void appendPath(final StringBuilder bf)
+		{
+			bf.append(getUrlPath()).
+				append(item.getCopeID());
+			
+			if(extension!=null)
+				bf.append(extension);
+		}
+		
+		@Override
+		public String toString()
+		{
+			return getPath();
+		}
+	}
+	
+	public final Locator getLocator(final Item item)
+	{
+		final String contentType = getContentType(item);
+
+		if(contentType==null)
+			return null;
+		
+		return new Locator(item, contentTypeToExtension.get(contentType));
 	}
 	
 	/**
