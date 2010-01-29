@@ -303,18 +303,19 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			final String expectedContentType, final String expectedExtension)
 	throws IOException
 	{
+		final String path = "MediaItem/file/" + item.getCopeID() + expectedExtension;
 		assertTrue(!item.isFileNull());
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, new Date(item.getFileLastModified()));
 		assertEquals(expectedContentType, item.getFileContentType());
-		assertEquals(mediaRootUrl + "MediaItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
-		assertEquals("MediaItem/file/" + item.getCopeID() + expectedExtension, item.getFileLocator().getPath());
-		assertEquals("MediaItem/file/" + item.getCopeID() + expectedExtension, item.getFileLocator().toString());
+		assertEquals(mediaRootUrl + path, item.getFileURL());
+		assertEquals(path, item.getFileLocator().getPath());
+		assertEquals(path, item.getFileLocator().toString());
 		final StringBuilder bf = new StringBuilder();
 		item.getFileLocator().appendPath(bf);
-		assertEquals("MediaItem/file/" + item.getCopeID() + expectedExtension, bf.toString());
+		assertEquals(path, bf.toString());
 	}
 	
 	private final void assertDataFile(final byte[] expectedData) throws IOException
