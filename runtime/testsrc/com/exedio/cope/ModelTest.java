@@ -22,10 +22,6 @@ import java.util.Date;
 
 import com.exedio.cope.testmodel.Main;
 
-/**
- * Tests the model itself, without creating/using any persistent data.
- * @author Ralf Wiebicke
- */
 public class ModelTest extends TestmodelTest
 {
 	
