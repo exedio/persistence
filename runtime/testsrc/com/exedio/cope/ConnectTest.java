@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.testmodel.Main;
 
-public class ModelTest extends TestmodelTest
+public class ConnectTest extends TestmodelTest
 {
 	
 	public void testSupportsReadCommitted()

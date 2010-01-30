@@ -49,7 +49,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FeaturesTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
-		suite.addTestSuite( ModelTest.class );
+		suite.addTestSuite( ConnectTest.class );
 		suite.addTestSuite( TypesBoundTest.class );
 		suite.addTestSuite( TypesBoundComplexTest.class );
 		suite.addTestSuite( TypesBoundAnnotationTest.class );
