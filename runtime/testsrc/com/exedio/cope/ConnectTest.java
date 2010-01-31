@@ -20,10 +20,16 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.testmodel.Main;
-
-public class ConnectTest extends TestmodelTest
+public class ConnectTest extends AbstractRuntimeTest
 {
+	private static final Date beforeModel = new Date();
+	private static final Model MODEL = new Model(ConnectItem.TYPE);
+	private static final Date afterModel = new Date();
+
+	public ConnectTest()
+	{
+		super(MODEL);
+	}
 	
 	public void testSupportsReadCommitted()
 	{
@@ -90,7 +96,7 @@ public class ConnectTest extends TestmodelTest
 	
 	public void testDisconnect()
 	{
-		assertWithin(Main.beforeModel, Main.afterModel, model.getInitializeDate());
+		assertWithin(beforeModel, afterModel, model.getInitializeDate());
 		
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();

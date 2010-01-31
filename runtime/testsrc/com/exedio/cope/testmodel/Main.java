@@ -18,8 +18,6 @@
 
 package com.exedio.cope.testmodel;
 
-import java.util.Date;
-
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
 import com.exedio.cope.Type;
@@ -52,13 +50,9 @@ public class Main
 		new Revision(1, "comment1<andTag>",
 				"select nice sql statement of revision one which does not work <andAnotherTag>"),
 	};
-
-	public static final Date beforeModel = new Date();
 	
 	public static final Model model = new Model(
 		//revisions,
 		//0,
 		modelTypes);
-	
-	public static final Date afterModel = new Date();
 }
