@@ -23,7 +23,7 @@ import java.util.Date;
 public class ConnectTest extends AbstractRuntimeTest
 {
 	private static final Date beforeModel = new Date();
-	private static final Model MODEL = new Model(ConnectItem.TYPE);
+	private static final Model MODEL = new Model(ConnectItem.TYPE, ConnectItem2.TYPE);
 	private static final Date afterModel = new Date();
 
 	public ConnectTest()
