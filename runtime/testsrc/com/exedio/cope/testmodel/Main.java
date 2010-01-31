@@ -19,7 +19,6 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Revision;
 import com.exedio.cope.Type;
 
 public class Main
@@ -41,18 +40,6 @@ public class Main
 		CollisionItem2.TYPE,
 	};
 	
-	@SuppressWarnings("unused") // OK: to be used by model for debugging
-	private static final Revision[] revisions = new Revision[]
-	{
-		new Revision(2, "comment2 a bit longer",
-				"select nice sql statement of revision two which does not work",
-				"select second nice sql statement of revision two which does not work"),
-		new Revision(1, "comment1<andTag>",
-				"select nice sql statement of revision one which does not work <andAnotherTag>"),
-	};
-	
 	public static final Model model = new Model(
-		//revisions,
-		//0,
 		modelTypes);
 }
