@@ -202,6 +202,14 @@ public final class IntegerField extends NumberField<Integer>
 	}
 	
 	@Override
+	void disconnect()
+	{
+		if(defaultToNextSequence!=null)
+			defaultToNextSequence.disconnect();
+		super.disconnect();
+	}
+	
+	@Override
 	Integer get(final Row row)
 	{
 		return (Integer)row.get(getColumn());

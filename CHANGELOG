@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: Model failed on second connect, if there was a IntegerField.defaultToNext
 * add MediaPath.Locator
 * allow optional EnumField on Enum with one value only
 * Item implements Comparable
