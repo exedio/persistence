@@ -143,7 +143,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
 		final long tokenSecret = token.getSecret();
-		Thread.sleep(EXPIRY_MILLIS + 1);
+		sleepLongerThan( EXPIRY_MILLIS );
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), expires);
@@ -193,7 +193,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final ArrayList<Token> tokens = new ArrayList<Token>();
 		for(int n = 0; n<tokenNumber; n++)
 			tokens.add(i.issuePasswordRecovery(EXPIRY_MILLIS));
-		Thread.sleep(EXPIRY_MILLIS + 1);
+		sleepLongerThan( EXPIRY_MILLIS );
 		model.commit();
 		final Interrupter interrupter = new Interrupter(){
 			public boolean isRequested()
@@ -207,5 +207,21 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		model.startTransaction("PasswordRecoveryTest");
 		for(final Token token : tokens)
 			assertFalse(token.existsCopeItem());
+	}
+
+	/**
+	 * This method will not return until the result of System.currentTimeMillis() has increased
+	 * by the given amount of milli seconds.
+	 */
+	private void sleepLongerThan( long millis ) throws InterruptedException
+	{
+		long start = System.currentTimeMillis();
+		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
+		// value ... needed for Windows.
+		do
+		{
+			Thread.sleep( millis+1 );
+		}
+		while ( (System.currentTimeMillis()-start)<=millis );
 	}
 }
