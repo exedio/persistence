@@ -22,7 +22,14 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.util.Arrays;
+
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 
 public class ItemSerializationTest extends AbstractRuntimeTest
@@ -65,5 +72,24 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		readItem.setName("zwei");
 		assertEquals("zwei", readItem.getName());
 		assertEquals("zwei", item.getName());
+	}
+	
+	public void testUnbound() throws IOException
+	{
+		item.setList(Arrays.asList("zack"));
+		final Item unboundItem =
+			item.list.getRelationType().searchSingleton(item.listParent().equal(item));
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		final ObjectOutputStream oos = new ObjectOutputStream(bos);
+		try
+		{
+			oos.writeObject(unboundItem);
+			fail();
+		}
+		catch(NotSerializableException e)
+		{
+			assertEquals("not yet implemented for class com.exedio.cope.pattern.PatternItem", e.getMessage());
+		}
+		oos.close();
 	}
 }
