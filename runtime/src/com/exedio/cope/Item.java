@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -200,6 +202,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 		//System.out.println("activate item:"+type+" "+pk);
 
 		assert PK.isValid(pk) : pk;
+	}
+	
+	private void writeObject(final ObjectOutputStream out) throws IOException
+	{
+		if(!type.isBound())
+			throw new NotSerializableException("not yet implemented for " + getClass());
+		
+		out.defaultWriteObject();
 	}
 	
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException

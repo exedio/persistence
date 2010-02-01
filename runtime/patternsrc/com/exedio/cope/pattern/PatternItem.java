@@ -18,11 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Computed;
@@ -35,23 +30,5 @@ final class PatternItem extends Item
 	PatternItem(final ActivationParameters ap)
 	{
 		super(ap);
-	}
-	
-	/**
-	 * @param out must be there to be called by serialization
-	 */
-	private void writeObject(final ObjectOutputStream out) throws IOException
-	{
-		// TODO
-		throw new NotSerializableException("not yet implemented for " + getClass());
-	}
-	
-	/**
-	 * @param in must be there to be called by serialization
-	 */
-	private void readObject(final ObjectInputStream in) throws IOException
-	{
-		// TODO
-		throw new NotSerializableException("not yet implemented for " + getClass());
 	}
 }
