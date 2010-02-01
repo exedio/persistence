@@ -88,7 +88,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		}
 		catch(NotSerializableException e)
 		{
-			assertEquals("not yet implemented for class com.exedio.cope.pattern.PatternItem", e.getMessage());
+			assertEquals("com.exedio.cope.pattern.PatternItem(ItemSerializationItem.list)", e.getMessage());
 		}
 		oos.close();
 	}

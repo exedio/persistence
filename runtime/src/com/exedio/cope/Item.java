@@ -207,7 +207,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	private void writeObject(final ObjectOutputStream out) throws IOException
 	{
 		if(!type.isBound())
-			throw new NotSerializableException("not yet implemented for " + getClass());
+			throw new NotSerializableException(getClass().getName() + '(' + type.id + ')');
 		
 		out.defaultWriteObject();
 	}
