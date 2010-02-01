@@ -121,7 +121,7 @@ public class RevisionLineTest extends CopeAssert
 		l.setInfo(new RevisionInfoRevise(55, DATE, Collections.<String, String>emptyMap(), "comment55",
 				new Body("sql55.1", 126, 567),
 				new Body("sql55.2", 127, 568)).toBytes());
-		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
+		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01"+lineSeparator()));
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("comment", "comment55");
 		map.put("dateUTC", DATE_STRING);
@@ -164,7 +164,7 @@ public class RevisionLineTest extends CopeAssert
 		l.setInfo(new RevisionInfoRevise(55, DATE, Collections.<String, String>emptyMap(), "comment55",
 				new Body("sql55.1", 126, 567),
 				new Body("sql55.2", 127, 568)).toBytes());
-		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
+		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01"+lineSeparator()));
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("comment", "comment55");
 		map.put("dateUTC", DATE_STRING);
@@ -222,7 +222,7 @@ public class RevisionLineTest extends CopeAssert
 		assertEquals(-1, l.getElapsed());
 		
 		l.setInfo(new RevisionInfoCreate(55, DATE, Collections.<String, String>emptyMap()).toBytes());
-		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
+		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01"+lineSeparator()));
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("create", "true");
 		map.put("dateUTC", DATE_STRING);
@@ -257,7 +257,7 @@ public class RevisionLineTest extends CopeAssert
 		assertEquals(-1, l.getElapsed());
 		
 		l.setInfo(new RevisionInfoCreate(55, DATE, Collections.<String, String>emptyMap()).toBytes());
-		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01\n"));
+		assertTrue(l.getLogString(), l.getLogString().startsWith("#migrationlogv01"+lineSeparator()));
 		final HashMap<String, String> map = new HashMap<String, String>();
 		map.put("create", "true");
 		map.put("dateUTC", DATE_STRING);
@@ -299,5 +299,10 @@ public class RevisionLineTest extends CopeAssert
 		assertEquals("<b>select</b> selected <b>from</b> fromage <b>where</b> x=1", highlightSQL("select selected from fromage where x=1"));
 		assertEquals("<b>insert</b> <b>into</b> bing <b>values</b> (a,b,c)", highlightSQL("insert into bing values (a,b,c)"));
 		assertEquals("<b>update</b> bong <b>set</b> bing = 1", highlightSQL("update bong set bing = 1"));
+	}
+
+	private String lineSeparator()
+	{
+		return System.getProperty("line.separator");
 	}
 }
