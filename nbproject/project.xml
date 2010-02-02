@@ -75,6 +75,24 @@
                     <location>copernica/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>console\src</label>
+                    <type>java</type>
+                    <location>console/src</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>console\websrc</label>
+                    <type>java</type>
+                    <location>console/websrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>console\testsrc</label>
+                    <type>java</type>
+                    <location>console/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -136,6 +154,18 @@
                         <label>copernica/testsrc</label>
                         <location>copernica/testsrc</location>
                     </source-folder>
+                    <source-folder style="packages">
+                        <label>console\src</label>
+                        <location>console/src</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>console\websrc</label>
+                        <location>console/websrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>console\testsrc</label>
+                        <location>console/testsrc</location>
+                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
@@ -168,7 +198,10 @@
                 <package-root>runtime/junitsrc</package-root>
                 <package-root>copernica/webtestsrc</package-root>
                 <package-root>copernica/testsrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar</classpath>
+                <package-root>console/src</package-root>
+                <package-root>console/websrc</package-root>
+                <package-root>console/testsrc</package-root>
+                <classpath mode="compile">lib/bsh-src.jar;lib/commons-fileupload.jar;lib/commons-io.jar;lib/cojen-sources.jar;lib/bsh-core.jar;lib/cojen.jar;lib/servlet-api.jar;lib/exedio-cope-util.jar;lib/exedio-cope-util.jar-src.zip;lib/junit.jar;lib/jdbc/hsqldb.jar;lib/jdbc/mysql-connector-java-5.0.3-bin.jar;lib/jdbc/postgresql-8.1-404.jdbc3.jar;lib/exedio-cops.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
