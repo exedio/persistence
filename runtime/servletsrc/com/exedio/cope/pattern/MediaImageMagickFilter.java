@@ -30,16 +30,42 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
+import java.util.Arrays;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
 	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
+	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 	
+	private static final String DEFAULT_COMMAND_BINARY = "convert";
+	// private static final String COMMAND_BINARY = "C:\\Programme\\ImageMagick-6.3.7-Q16\\convert.exe";
+
 	private static final boolean enabled = Boolean.valueOf(System.getProperty(ENABLE_PROPERTY));
+	private static final String convertCommand = System.getProperty(CONVERT_COMMAND_PROPERTY);
+	private static final boolean osIsWindows = System.getProperty("os.name").startsWith("Windows");
 
 	public static boolean isEnabled()
 	{
 		return enabled;
+	}
+
+	private static String getConvertBinary()
+	{
+		if ( convertCommand==null||convertCommand.equals("") )
+		{
+			if ( osIsWindows )
+			{
+				throw new RuntimeException(
+					"on windows systems, the property \""+CONVERT_COMMAND_PROPERTY+"\" has to be set "+
+					"when enabling imagemagick"
+				);
+			}
+			return DEFAULT_COMMAND_BINARY;
+		}
+		else
+		{
+			return convertCommand;
+		}
 	}
 	
 	
@@ -105,7 +131,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? outputContentType : null;
 	}
 
-	private static final String COMMAND_BINARY = "convert";
 	private static final String COMMAND_QUIET  = "-quiet";
 
 	@Override
@@ -114,7 +139,7 @@ public class MediaImageMagickFilter extends MediaFilter
 			final Item item)
 	throws IOException
 	{
-		if(!enabled)
+		if(!isEnabled())
 			return fallback.doGetIfModified(response, item);
 		
 		final String contentType = source.getContentType(item);
@@ -128,7 +153,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
 
 		final String[] command = new String[options.length+4];
-		command[0] = COMMAND_BINARY;
+		command[0] = getConvertBinary();
 		command[1] = COMMAND_QUIET;
 		for(int i = 0; i<options.length; i++)
 			command[i+2] = options[i];
@@ -145,11 +170,17 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(exitValue!=0)
 			throw new RuntimeException(
 					"process " + process +
+					" (command " + Arrays.asList(command) + ")" +
 					" exited with " + exitValue +
 					" for feature " + getID() +
 					" and item " + item.getCopeID() +
 					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath());
+					" and " + outFile.getAbsolutePath() + 
+					( exitValue==4 ? 
+						" (if running on Windows, make sure ImageMagick convert.exe and " +
+							"not \\Windows\\system32\\convert.exe is called)"
+						: ""
+					) );
 		
 		if(!inFile.delete())
 			throw new RuntimeException(inFile.toString());

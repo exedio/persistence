@@ -3,6 +3,7 @@
 <project name="cope" default="build" basedir=".">
 
 	<property file="local.properties" />
+	<property file="project.properties" />
 	<property name="build.file.tag" value="unlabeled" />
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
@@ -131,7 +132,7 @@
 								failonerror="true"
 								output="build/@{name}-catalina-start.log">
 							<arg value="run" />
-							<env key="CATALINA_OPTS" value="-enableassertions -Dcom.exedio.cope.media.imagemagick=true" />
+							<env key="CATALINA_OPTS" value="-enableassertions -Dcom.exedio.cope.media.imagemagick=true -Dcom.exedio.cope.media.convertcommand=${com.exedio.cope.media.convertcommand}" />
 						</exec>
 					</forget>
 					<echo message="tomcat (@{name}): waiting to be ready ..." />
