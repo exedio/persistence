@@ -207,20 +207,37 @@ public class MediaServletTest extends TestCase
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
-		assertEquals(expectNotModified ? -1 : 66, conn.getContentLength());
-		
-		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		if(!expectNotModified)
+		final String data = lines(
+			"This is an example file",
+			"for testing data",
+			"attributes in copernica."
+		);
+		assertEquals(expectNotModified ? -1 : data.length(), conn.getContentLength());
+
+		if ( expectNotModified )
 		{
-			assertEquals("This is an example file", is.readLine());
-			assertEquals("for testing data", is.readLine());
-			assertEquals("attributes in copernica.", is.readLine());
+			assertEquals( -1, conn.getInputStream().read() );
 		}
-		assertEquals(null, is.readLine());
-		is.close();
+		else
+		{
+			assertEquals( data, getContentAsString(conn.getInputStream()) );
+		}
 		
 		//textConn.setIfModifiedSince();
 		return lastModified;
+	}
+
+	private String getContentAsString( InputStream is ) throws IOException
+	{
+		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		StringBuilder builder = new StringBuilder();
+		String s;
+		while ( (s=br.readLine())!=null )
+		{
+			builder.append( s + System.getProperty("line.separator") );
+		}
+		br.close();
+		return builder.toString();
 	}
 
 	private void assertURLRedirect(final URL url, final String target) throws IOException
@@ -276,7 +293,7 @@ public class MediaServletTest extends TestCase
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(conn.HTTP_OK, conn.getResponseCode());
+		assertEquals("url="+url.toString(), conn.HTTP_OK, conn.getResponseCode());
 		assertEquals("OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -408,5 +425,16 @@ public class MediaServletTest extends TestCase
 
 		assertTrue(message, !expectedBefore.after(actual));
 		assertTrue(message, !expectedAfter.before(actual));
+	}
+
+	private String lines( String... lines )
+	{
+		StringBuilder builder = new StringBuilder();
+		for ( String line: lines )
+		{
+			builder.append( line );
+			builder.append( System.getProperty("line.separator") );
+		}
+		return builder.toString();
 	}
 }
