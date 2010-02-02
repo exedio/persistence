@@ -122,8 +122,12 @@
 			<trycatch>
 				<try>
 					<echo message="tomcat (@{name}): starting ..." />
+					<condition property="catalina.executable" value="catalina.bat" else="catalina.sh">
+						<os family="windows"/>
+					</condition>
 					<forget>
-						<exec executable="${basedir}/tomcat/bin/catalina.sh"
+						<exec dir="${basedir}/tomcat/bin"
+								executable="${basedir}/tomcat/bin/${catalina.executable}"
 								failonerror="true"
 								output="build/@{name}-catalina-start.log">
 							<arg value="run" />
@@ -142,15 +146,16 @@
 					<body />
 				</try>
 				<finally>
-					<echo message="tomcat (@{name}): stoping ..." />
-					<exec executable="${basedir}/tomcat/bin/catalina.sh"
+					<echo message="tomcat (@{name}): stopping ..." />
+					<exec dir="${basedir}/tomcat/bin"
+							executable="${basedir}/tomcat/bin/${catalina.executable}"
 							failonerror="true"
 							output="build/@{name}-catalina-stop.log">
 						<arg value="stop" />
 					</exec>
-					<echo message="tomcat (@{name}): waiting to be stoped ..." />
+					<echo message="tomcat (@{name}): waiting to be stopped ..." />
 					<sleep seconds="10" />
-					<echo message="tomcat (@{name}): stoped." />
+					<echo message="tomcat (@{name}): stopped." />
 				</finally>
 			</trycatch>
 		</sequential>
