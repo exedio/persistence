@@ -53,7 +53,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new ItemSerializationItem("eins"));
 	}
 	
-	public void testItemSerialization()
+	public void testItem()
 	{
 		final String id = item.getCopeID();
 		assertSame(item.TYPE, item.getCopeType());
@@ -74,7 +74,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		assertEquals("zwei", item.getName());
 	}
 	
-	public void testUnbound() throws IOException
+	public void testUnboundItem() throws IOException
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
