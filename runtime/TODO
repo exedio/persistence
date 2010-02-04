@@ -35,6 +35,7 @@ TODO for cope runtime
 - implement Serializable
 	* items of non-bound types
 	* Type and Feature (for backoffice and live editor sessions)
+		see readResolve: http://java.sun.com/j2se/1.3/docs/guide/serialization/spec/input.doc6.html
 	* Composite.Value (add tests)
 	* Price
 - feature reuse with copy() for Order.articleName
@@ -45,7 +46,7 @@ TODO for cope runtime
 		- option for disable
 		- omit if all fields are final
 	* trigger ModificationListener for transaction on other nodes as well
-	* make migrations cluster aware
+	* make revisions cluster aware
 	* test configuration of tomcat
 	* sequences for primary keys and IntegerField.defaultToNext
 		- fix sequences for MySQL in console
