@@ -193,11 +193,14 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(STANDARD, "getIgnoreString");
 		assertNoMethod(STANDARD, "setIgnoreString", new Class[]{STRING});
 		
-		assertMethod(STANDARD, "getDefaultFeature", DOUBLE, FINAL);
-		assertMethod(STANDARD, "setDefaultFeature", new Class[]{DOUBLE}, FINAL, new Class[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
-		assertMethod(STANDARD, "forDefaultFeature"   , new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
-		assertMethod(STANDARD, "findByDefaultFeature", new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
+		assertMethod(STANDARD, "get", DOUBLE, FINAL);
+		assertMethod(STANDARD, "set", new Class[]{DOUBLE}, FINAL, new Class[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
+		assertMethod(STANDARD, "forDefaultFeature", new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
+		assertMethod(STANDARD, "findBy"           , new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
 
+		assertNoMethod(STANDARD, "getDefaultFeature");
+		assertNoMethod(STANDARD, "setDefaultFeature"   , new Class[]{DOUBLE});
+		assertNoMethod(STANDARD, "findByDefaultFeature", new Class[]{DOUBLE});
 		assertMethod(STANDARD, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaContentType", STRING, PUBLIC|FINAL);

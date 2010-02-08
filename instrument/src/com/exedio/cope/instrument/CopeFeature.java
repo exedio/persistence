@@ -87,4 +87,9 @@ class CopeFeature
 			result.remove(MandatoryViolationException.class);
 		return result;
 	}
+	
+	final boolean isDefault()
+	{
+		return "defaultFeature".equals(name);
+	}
 }

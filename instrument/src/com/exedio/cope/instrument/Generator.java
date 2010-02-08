@@ -501,9 +501,25 @@ final class Generator
 			{
 				o.write(' ');
 				if(pattern!=null)
-					o.write(format(pattern, featureNameCamelCase, feature.name));
+				{
+					if(feature.isDefault())
+					{
+						final String x = format(pattern, "", "");
+						if(!isKeyword(x))
+							o.write(x);
+						else
+							o.write(format(pattern, featureNameCamelCase, feature.name));
+					}
+					else
+						o.write(format(pattern, featureNameCamelCase, feature.name));
+				}
 				else
-					writeName(methodName, featureNameCamelCase);
+				{
+					if(feature.isDefault() && !isKeyword(methodName))
+						o.write(methodName);
+					else
+						writeName(methodName, featureNameCamelCase);
+				}
 			}
 			if(option!=null)
 				o.write(option.suffix);
@@ -857,5 +873,10 @@ final class Generator
 			o.write(modifierString);
 			o.write(' ');
 		}
+	}
+	
+	private static boolean isKeyword(final String s)
+	{
+		return "for".equals(s); // TODO
 	}
 }

@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* instrumentor generates minimal method names for feature "defaultFeature"
 * Resizing with ImageMagick works on Windows. 
 	On Windows, install ImageMagick, and set the system properties com.exedio.cope.media.imagemagick (to "true") and 
 	com.exedio.cope.media.convertcommand (to the absolute path of the convert binary).
