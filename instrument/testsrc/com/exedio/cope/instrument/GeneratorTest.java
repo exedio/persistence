@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
@@ -58,6 +59,7 @@ public class GeneratorTest extends InstrumentorTest
 	public static final int VARARGS = 0x00000080;
 	
 	final static Class STRING = String.class;
+	final static Class DOUBLE = Double.class;
 	final static Class BYTE_ARRAY = byte[].class;
 	final static Class INPUT_STREAM = InputStream.class;
 	final static Class OUTPUT_STREAM = OutputStream.class;
@@ -67,6 +69,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class LENGTH_VIOLATION = StringLengthViolationException.class;
+	final static Class DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
 	final static Class ACTIVATION = ActivationParameters.class;
 	
 	final static Class STANDARD = Standard.class;
@@ -189,6 +192,11 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertNoMethod(STANDARD, "getIgnoreString");
 		assertNoMethod(STANDARD, "setIgnoreString", new Class[]{STRING});
+		
+		assertMethod(STANDARD, "getDefaultFeature", DOUBLE, FINAL);
+		assertMethod(STANDARD, "setDefaultFeature", new Class[]{DOUBLE}, FINAL, new Class[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
+		assertMethod(STANDARD, "forDefaultFeature"   , new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
+		assertMethod(STANDARD, "findByDefaultFeature", new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
 
 		assertMethod(STANDARD, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
