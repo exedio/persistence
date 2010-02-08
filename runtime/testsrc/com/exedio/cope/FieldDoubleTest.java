@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
-
 public class FieldDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;
@@ -28,7 +25,7 @@ public class FieldDoubleTest extends FieldTest
 	public void testSomeDouble()
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
-		assertEquals(Date.class, item.someDate.getValueClass());
+		assertEquals(Double.class, item.someDouble.getValueClass());
 
 		assertEquals(null, item.getSomeDouble());
 		assertContains(item, item2, item.TYPE.search(item.someDouble.equal((Double)null)));
