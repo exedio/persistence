@@ -59,7 +59,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		assertSame(item.TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 		
-		final ItemSerializationItem readItem = reserialize(item, 150);
+		final ItemSerializationItem readItem = reserialize(item, 113);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(item.TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());

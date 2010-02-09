@@ -357,7 +357,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 		
 		// test serialization
-		final CompositeValue serializedValue = reserialize(value, 600);
+		final CompositeValue serializedValue = reserialize(value, 492);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}

@@ -240,8 +240,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals( "0.00", storeOf(   0).toString());
 		
 		// serialization
-		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 100));
-		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 100));
+		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
+		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 62));
 	}
 	
 	private static final BigDecimal bd(final long unscaledVal, final int scale)
