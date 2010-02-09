@@ -42,4 +42,9 @@ public class Main
 	
 	public static final Model model = new Model(
 		modelTypes);
+	
+	static
+	{
+		model.enableSerialization(Main.class, "model");
+	}
 }

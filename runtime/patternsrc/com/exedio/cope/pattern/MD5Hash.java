@@ -25,6 +25,8 @@ import com.exedio.cope.StringLengthViolationException;
 
 public final class MD5Hash extends JavaSecurityHash
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final String HASH = "MD5";
 
 	private MD5Hash(final boolean optional, final String encoding)

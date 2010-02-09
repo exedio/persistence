@@ -24,6 +24,8 @@ import java.sql.SQLException;
 
 public abstract class StringView extends View<String> implements StringFunction
 {
+	private static final long serialVersionUID = 1l;
+	
 	public StringView(final Function<?>[] sources, final String name)
 	{
 		super(sources, name, String.class);

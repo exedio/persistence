@@ -27,6 +27,11 @@ import com.exedio.cope.Model;
 public class EnumSetFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumSetFieldItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(EnumSetFieldTest.class, "MODEL");
+	}
 
 	private static final EnumSetFieldItem.Language DE = EnumSetFieldItem.Language.DE;
 	private static final EnumSetFieldItem.Language EN = EnumSetFieldItem.Language.EN;
@@ -74,6 +79,8 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
+		
+		assertSerializedSame(item.activeLanguage, 396);
 
 		// test persistence
 		assertEquals(false, item.containsActiveLanguage(DE));

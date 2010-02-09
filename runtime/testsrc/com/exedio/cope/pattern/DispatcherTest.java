@@ -35,6 +35,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(DispatcherTest.class, "MODEL");
+	}
+	
 	public DispatcherTest()
 	{
 		super(MODEL);
@@ -130,6 +135,8 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertTrue(item.toTarget.getSuccessDate()   .isAnnotationPresent(Computed.class));
 		assertTrue(item.toTarget.getSuccessElapsed().isAnnotationPresent(Computed.class));
 		assertTrue(item.toTarget.getFailureType()   .isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.toTarget, 386);
 		
 		try
 		{

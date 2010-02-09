@@ -67,6 +67,8 @@ public class UniqueItemTest extends TestmodelTest
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint()),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
+		
+		assertSerializedSame(ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(), 402);
 
 		// test persistence
 		assertEquals(null, ItemWithSingleUnique.forUniqueString("uniqueString"));
@@ -416,6 +418,8 @@ public class UniqueItemTest extends TestmodelTest
 			list(ItemWithDoubleUnique.doubleUnique),
 			ItemWithDoubleUnique.integer.getUniqueConstraints());
 
+		assertSerializedSame(ItemWithDoubleUnique.doubleUnique, 388);
+		
 		assertEquals(null, ItemWithDoubleUnique.forDoubleUnique("a", 1));
 		
 		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);

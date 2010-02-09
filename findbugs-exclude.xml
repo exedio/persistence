@@ -3,18 +3,24 @@
 		<!-- Non-transient non-serializable instance field in serializable class -->
 		<Bug pattern="SE_BAD_FIELD" />
 		<Or>
-			<Class name="com.exedio.cope.CopyViolationException" />
-			<Class name="com.exedio.cope.DataLengthViolationException" />
-			<Class name="com.exedio.cope.DoubleRangeViolationException" />
-			<Class name="com.exedio.cope.FinalViolationException" />
-			<Class name="com.exedio.cope.IntegerRangeViolationException" />
-			<Class name="com.exedio.cope.IntegrityViolationException" />
-			<Class name="com.exedio.cope.MandatoryViolationException" />
-			<Class name="com.exedio.cope.StringLengthViolationException" />
-			<Class name="com.exedio.cope.StringCharSetViolationException" />
-			<Class name="com.exedio.cope.UniqueViolationException" />
-			<Class name="com.exedio.cope.pattern.IllegalContentTypeException" />
-			<Class name="com.exedio.cope.pattern.ListSizeViolationException" />
+			<Class name="com.exedio.cope.Model" />
+			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.DataField" />
+			<Class name="com.exedio.cope.IntegerField" />
+			<Class name="com.exedio.cope.ItemField" />
+			<Class name="com.exedio.cope.EnumField" />
+			<Class name="com.exedio.cope.StringField" />
+			<Class name="com.exedio.cope.PlusView" />
+			<Class name="com.exedio.cope.PlusLiteralView" />
+			<Class name="com.exedio.cope.MultiplyView" />
+			<Class name="com.exedio.cope.MultiplyLiteralView" />
+			<Class name="com.exedio.cope.DivideView" />
+			<Class name="com.exedio.cope.UppercaseView" />
+			<Class name="com.exedio.cope.LengthView" />
+			<Class name="com.exedio.cope.pattern.CompositeField" />
+			<Class name="com.exedio.cope.pattern.JavaView" />
+			<Class name="com.exedio.cope.pattern.Media" />
+			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 			<Class name="com.exedio.cope.console.ConsoleServlet" />
 		</Or>
@@ -26,6 +32,13 @@
 			<Class name="com.exedio.cope.instrument.Injector$ParseException" />
 			<Class name="com.exedio.cope.instrument.JavaClass$NS" />
 			<Class name="com.exedio.cope.instrument.JavaRepository$NS" />
+		</Or>
+	</Match>
+	<Match>
+		<!-- Non-serializable value stored into instance field of a serializable class -->
+		<Bug pattern="SE_BAD_FIELD_STORE" />
+		<Or>
+			<Class name="com.exedio.cope.ItemField" />
 		</Or>
 	</Match>
 	<Match>
@@ -117,6 +130,7 @@
 		<!-- Method invoked that should be only be invoked inside a doPrivileged block -->
 		<Bug pattern="DP_DO_INSIDE_DO_PRIVILEGED" />
 		<Or>
+			<Class name="com.exedio.cope.Model$Serialized" />
 			<Class name="com.exedio.cope.TypesBound" />
 			<Class name="com.exedio.cope.pattern.CompositeType" />
 		</Or>

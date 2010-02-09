@@ -19,9 +19,7 @@
 package com.exedio.cope;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -204,18 +202,42 @@ public abstract class Item implements Serializable, Comparable<Item>
 		assert PK.isValid(pk) : pk;
 	}
 	
-	private void writeObject(final ObjectOutputStream out) throws IOException
+	// serialization -------------
+	
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	protected final Object writeReplace()
 	{
-		if(!type.isBound())
-			throw new NotSerializableException(getClass().getName() + '(' + type.id + ')');
-		
-		out.defaultWriteObject();
+		return type.isBound() ? this : new Serialized(type, pk);
 	}
 	
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
-		type = TypesBound.forClass(getClass()); // TODO does not work for non-bound types
+		type = TypesBound.forClass(getClass());
+	}
+	
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final Type type;
+		private final int pk;
+		
+		Serialized(final Type type, final int pk)
+		{
+			this.type = type;
+			this.pk = pk;
+		}
+		
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return type.activate(pk);
+		}
 	}
 	
 	public final <E> E get(final Function<E> function)

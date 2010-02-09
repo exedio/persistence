@@ -34,6 +34,11 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PasswordRecoveryItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(PasswordRecoveryTest.class, "MODEL");
+	}
+	
 	public PasswordRecoveryTest()
 	{
 		super(MODEL);
@@ -84,6 +89,8 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertFalse(i.password                       .isAnnotationPresent(Computed.class));
 		assertFalse(i.passwordRecovery               .isAnnotationPresent(Computed.class));
 		assertTrue (i.passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(i.passwordRecovery, 406);
 		
 		try
 		{

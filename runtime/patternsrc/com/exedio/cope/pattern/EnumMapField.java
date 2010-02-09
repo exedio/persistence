@@ -30,6 +30,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Class<K> keyClass;
 	private final EnumMap<K, FunctionField<V>> fields;
 

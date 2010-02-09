@@ -23,6 +23,8 @@ import com.exedio.cope.search.SumAggregate;
 
 public abstract class NumberField<E extends Number> extends FunctionField<E> implements NumberFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	protected NumberField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);

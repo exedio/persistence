@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
 
+import java.io.InvalidObjectException;
+import java.io.NotSerializableException;
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -43,7 +47,7 @@ import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
-public final class Type<T extends Item> implements Comparable<Type>
+public final class Type<T extends Item> implements Comparable<Type>, Serializable
 {
 	private final Class<T> javaClass;
 	private final boolean bound;
@@ -1070,6 +1074,47 @@ public final class Type<T extends Item> implements Comparable<Type>
 		//System.out.println("CHECKT:"+bf.toString());
 		
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
+	}
+	
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	private Object writeReplace() throws ObjectStreamException
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new NotSerializableException(Type.class.getName());
+
+		return new Serialized(mount.model, id);
+	}
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final Model model;
+		private final String id;
+		
+		Serialized(final Model model, final String id)
+		{
+			this.model = model;
+			this.id = id;
+		}
+		
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve() throws InvalidObjectException
+		{
+			final Type result = model.getType(id);
+			if(result==null)
+				throw new InvalidObjectException("type does not exist: " + id);
+			return result;
+		}
 	}
 	
 	// ------------------- deprecated stuff -------------------

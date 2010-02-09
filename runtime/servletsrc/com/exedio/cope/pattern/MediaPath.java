@@ -36,6 +36,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaPath extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private String urlPath = null;
 	private String mediaRootUrl = null;
 

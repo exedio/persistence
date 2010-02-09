@@ -27,6 +27,8 @@ import com.exedio.cope.search.SumAggregate;
 
 public abstract class NumberView<E extends Number> extends View<E> implements NumberFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);

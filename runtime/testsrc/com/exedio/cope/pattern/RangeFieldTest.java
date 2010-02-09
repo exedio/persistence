@@ -31,6 +31,11 @@ public class RangeFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(RangeFieldItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(RangeFieldTest.class, "MODEL");
+	}
+	
 	public RangeFieldTest()
 	{
 		super(MODEL);
@@ -66,6 +71,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(false, item.valid.isFinal());
 		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
+		assertSerializedSame(item.valid, 383);
 		
 		// test persistence
 		item = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(3, 5)));

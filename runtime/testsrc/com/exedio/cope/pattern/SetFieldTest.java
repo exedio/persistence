@@ -37,6 +37,11 @@ public class SetFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SetFieldItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(SetFieldTest.class, "MODEL");
+	}
+	
 	public SetFieldTest()
 	{
 		super(MODEL);
@@ -148,6 +153,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 		
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.strings, 381);
+		assertSerializedSame(item.dates  , 379);
 		
 		try
 		{

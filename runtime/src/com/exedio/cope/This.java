@@ -25,6 +25,8 @@ import com.exedio.cope.search.ExtremumAggregate;
 
 public final class This<E extends Item> extends Feature implements Function<E>, ItemFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	static final String NAME = "this";
 	
 	final Type<E> type;

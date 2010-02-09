@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final int boundX;
 	private final int boundY;
 	private final String flattenColor;

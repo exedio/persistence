@@ -36,6 +36,8 @@ import com.exedio.cope.util.Cast;
  */
 public abstract class Field<E> extends Feature implements Settable<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final boolean isfinal;
 	final boolean optional;
 	final Class<E> valueClass;

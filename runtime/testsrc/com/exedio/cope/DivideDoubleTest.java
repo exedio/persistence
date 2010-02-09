@@ -30,6 +30,11 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(DivideDoubleTest.class, "MODEL");
+	}
+	
 	public DivideDoubleTest()
 	{
 		super(MODEL);
@@ -73,6 +78,11 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(divideAB, numA.plus(numB));
 		assertNotEquals(divideAB, numA.multiply(numB));
 		assertNotEquals(divideAB, numB.divide(numA));
+		
+		// serialization
+		assertSerializedSame(divideAB, 382);
+		assertSerializedSame(divideAC, 382);
+		assertSerializedSame(divideBC, 382);
 		
 		// exceptions
 		try

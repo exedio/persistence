@@ -339,6 +339,8 @@ final class JavaRepository
 	
 	public static final class DummyHash extends Hash
 	{
+		private static final long serialVersionUID = 1l;
+		
 		public DummyHash()
 		{
 			super("Dummy");

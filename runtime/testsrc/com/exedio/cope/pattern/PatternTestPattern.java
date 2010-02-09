@@ -30,6 +30,8 @@ import com.exedio.cope.ItemField.DeletePolicy;
 
 class PatternTestPattern extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	final StringField ownString = new StringField();
 	@TestAnnotation("ownIntAnn")
 	final IntegerField ownInt = new IntegerField();

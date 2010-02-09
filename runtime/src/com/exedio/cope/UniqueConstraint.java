@@ -30,6 +30,8 @@ import com.exedio.cope.util.Cast;
 
 public final class UniqueConstraint extends Feature
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;

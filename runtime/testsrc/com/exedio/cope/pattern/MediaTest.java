@@ -30,6 +30,11 @@ import com.exedio.cope.misc.Computed;
 public final class MediaTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MediaItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(MediaTest.class, "MODEL");
+	}
 
 	public MediaTest()
 	{
@@ -117,6 +122,13 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertTrue(item.file.getBody        ().isAnnotationPresent(Computed.class));
 		assertTrue(item.file.getContentType ().isAnnotationPresent(Computed.class));
 		assertTrue(item.file.getLastModified().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.file,   372);
+		assertSerializedSame(item.image,  373);
+		assertSerializedSame(item.photo,  373);
+		assertSerializedSame(item.foto,   372);
+		assertSerializedSame(item.sheet,  373);
+		assertSerializedSame(item.custom, 374);
 		
 
 		// logs -----------------------------------------------

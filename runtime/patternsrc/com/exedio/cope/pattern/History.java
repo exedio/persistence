@@ -42,6 +42,8 @@ import com.exedio.cope.misc.Computed;
 
 public final class History extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	ItemField<?> eventParent = null;
 	PartOf<?> eventEvents = null;
 	final DateField eventDate = new DateField().toFinal().defaultToNow();

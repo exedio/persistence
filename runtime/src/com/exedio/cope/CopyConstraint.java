@@ -22,6 +22,8 @@ import java.util.Map;
 
 public final class CopyConstraint extends Feature
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final ItemField target;
 	private final FunctionField copy;
 

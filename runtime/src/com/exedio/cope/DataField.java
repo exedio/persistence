@@ -36,6 +36,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class DataField extends Field<DataField.Value>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final long maximumLength;
 
 	public static final long DEFAULT_LENGTH = 10*1000*1000;

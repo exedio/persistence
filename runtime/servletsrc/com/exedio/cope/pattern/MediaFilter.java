@@ -29,6 +29,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaFilter extends CachedMedia
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Media source;
 
 	public MediaFilter(final Media source)

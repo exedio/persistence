@@ -31,6 +31,11 @@ import com.exedio.cope.misc.Computed;
 public class MapFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MapFieldItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(MapFieldTest.class, "MODEL");
+	}
 
 	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
 	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
@@ -112,6 +117,11 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.string    .getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.integer   .getRelationType().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.name      , 378);
+		assertSerializedSame(item.nameLength, 384);
+		assertSerializedSame(item.string    , 380);
+		assertSerializedSame(item.integer   , 381);
 		
 		try
 		{

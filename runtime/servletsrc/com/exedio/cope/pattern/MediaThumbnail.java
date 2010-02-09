@@ -25,6 +25,8 @@ import java.awt.image.DirectColorModel;
 
 public final class MediaThumbnail extends MediaImageioFilter
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final int boundX;
 	private final int boundY;
 	

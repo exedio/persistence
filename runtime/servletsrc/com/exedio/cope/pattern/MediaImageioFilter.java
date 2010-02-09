@@ -45,6 +45,8 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Media source;
 	private final HashMap<String, ImageReaderSpi> imageReaderSpi;
 	private final ImageWriterSpi imageWriterSpi;

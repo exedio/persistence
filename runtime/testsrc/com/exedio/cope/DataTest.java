@@ -28,6 +28,11 @@ import java.io.OutputStream;
 public class DataTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(DataTest.class, "MODEL");
+	}
 
 	public DataTest()
 	{
@@ -166,6 +171,9 @@ public class DataTest extends AbstractRuntimeTest
 		assertEquals(null, item.data10.getPattern());
 		assertEquals(10, item.data10.getMaximumLength());
 		assertEquals(DataField.Value.class, item.data10.getValueClass());
+		
+		assertSerializedSame(item.data  , 362);
+		assertSerializedSame(item.data10, 364);
 
 		try
 		{

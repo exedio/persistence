@@ -25,6 +25,11 @@ public class PartOfTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(PartOfTest.class, "MODEL");
+	}
+	
 	public PartOfTest()
 	{
 		super(MODEL);
@@ -71,6 +76,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(list(PartOfItem.parts), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(PartOfItem.parts), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
+		assertSerializedSame(PartOfItem.parts, 375);
 
 		try
 		{

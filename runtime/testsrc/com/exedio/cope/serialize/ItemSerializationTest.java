@@ -22,10 +22,6 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -34,7 +30,12 @@ import com.exedio.cope.Model;
 
 public class ItemSerializationTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(ItemSerializationItem.TYPE);
+	static final Model MODEL = new Model(ItemSerializationItem.TYPE, ItemSerializationItem2.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(ItemSerializationTest.class, "MODEL");
+	}
 
 	public ItemSerializationTest()
 	{
@@ -59,7 +60,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		assertSame(item.TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 		
-		final ItemSerializationItem readItem = reserialize(item, 113);
+		final ItemSerializationItem readItem = reserialize(item, 112);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(item.TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());
@@ -74,22 +75,22 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		assertEquals("zwei", item.getName());
 	}
 	
-	public void testUnboundItem() throws IOException
+	public void testUnboundItem()
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
 			item.list.getRelationType().searchSingleton(item.listParent().equal(item));
-		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		final ObjectOutputStream oos = new ObjectOutputStream(bos);
-		try
-		{
-			oos.writeObject(unboundItem);
-			fail();
-		}
-		catch(NotSerializableException e)
-		{
-			assertEquals("com.exedio.cope.pattern.PatternItem(ItemSerializationItem.list)", e.getMessage());
-		}
-		oos.close();
+		final String id = unboundItem.getCopeID();
+		assertEquals(item.list.getRelationType(), unboundItem.getCopeType());
+		
+		final Item readItem = reserialize(unboundItem, 390);
+		assertEquals(id, readItem.getCopeID());
+		assertSame(item.list.getRelationType(), readItem.getCopeType());
+		assertEquals("zack", item.list.getElement().get(readItem));
+		assertEquals(unboundItem, readItem);
+		assertEquals(unboundItem.hashCode(), readItem.hashCode());
+		assertNotSame(unboundItem, readItem);
+		assertSame(unboundItem, unboundItem.activeCopeItem());
+		assertSame(unboundItem, readItem.activeCopeItem());
 	}
 }

@@ -40,6 +40,11 @@ public final class ScheduleTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ScheduleItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(ScheduleTest.class, "MODEL");
+	}
+	
 	public ScheduleTest()
 	{
 		super(MODEL);
@@ -125,6 +130,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertFalse(report.getRunRun    ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getRunElapsed().isAnnotationPresent(Computed.class));
 		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(report, 380);
 		
 		// test persistence
 		assertEquals(Interval.DAILY, item.getReportInterval());

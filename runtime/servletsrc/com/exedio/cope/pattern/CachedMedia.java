@@ -27,6 +27,8 @@ import com.exedio.cope.Item;
 
 public abstract class CachedMedia extends MediaPath
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";

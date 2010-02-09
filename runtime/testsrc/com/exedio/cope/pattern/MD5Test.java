@@ -30,6 +30,11 @@ public class MD5Test extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(MD5Item.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(MD5Test.class, "MODEL");
+	}
+	
 	private static final String EMPTY_HASH = "d41d8cd98f00b204e9800998ecf8427e";
 
 	public MD5Test()
@@ -98,6 +103,10 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		
+		assertSerializedSame(item.password         , 372);
+		assertSerializedSame(item.passwordLatin    , 377);
+		assertSerializedSame(item.passwordMandatory, 381);
 		
 		try
 		{

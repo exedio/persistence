@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 public final class LongField extends NumberField<Long>
 {
+	private static final long serialVersionUID = 1l;
 
 	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
 	{

@@ -35,6 +35,11 @@ public class PriceFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(PriceFieldItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(PriceFieldTest.class, "MODEL");
+	}
+	
 	public PriceFieldTest()
 	{
 		super(MODEL);
@@ -106,6 +111,10 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertTrue(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.   finalPrice, 388);
+		assertSerializedSame(item.optionalPrice, 391);
+		assertSerializedSame(item.     bigPrice, 386);
 		
 		// test persistence
 		assertEquals(storeOf(555), item.getFinalPrice());

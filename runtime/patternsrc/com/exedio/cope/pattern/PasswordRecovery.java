@@ -41,6 +41,8 @@ import com.exedio.cope.util.Interrupter;
 
 public final class PasswordRecovery extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final long NOT_A_SECRET = 0l;
 	
 	private final Hash password;

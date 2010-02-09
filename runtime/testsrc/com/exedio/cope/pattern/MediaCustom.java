@@ -31,6 +31,8 @@ import com.exedio.cope.StringField;
  */
 final class MediaCustom extends MediaPath
 {
+	private static final long serialVersionUID = 1l;
+	
 	final StringField source;
 
 	MediaCustom(final StringField source)

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class DivideView<E extends Number> extends NumberView<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final NumberFunction<E> dividend;
 	private final NumberFunction<E> divisor;
 	

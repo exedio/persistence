@@ -29,6 +29,11 @@ public final class SingletonTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SingletonItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(SingletonTest.class, "MODEL");
+	}
+	
 	public SingletonTest()
 	{
 		super(MODEL);
@@ -66,6 +71,8 @@ public final class SingletonTest extends AbstractRuntimeTest
 		
 		assertFalse(item.einzigartig.            isAnnotationPresent(Computed.class));
 		assertTrue (item.einzigartig.getSource().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.einzigartig, 387);
 		
 		// test persistence
 		assertEquals(list(), item.TYPE.search());

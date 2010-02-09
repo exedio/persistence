@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.io.NotSerializableException;
+import java.io.ObjectStreamException;
+import java.io.Serializable;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,7 +46,7 @@ import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
-public final class Model
+public final class Model implements Serializable
 {
 	private Revisions revisions; // TODO make final
 	private final Object reviseLock = new Object();
@@ -661,6 +665,101 @@ public final class Model
 	public static final boolean isLoggingEnabled()
 	{
 		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
+	}
+	
+	// serialization -------------
+	
+	private static final long serialVersionUID = 1l;
+	
+	private Serialized serialized = null;
+
+	public void enableSerialization(final Class<?> type, final String name)
+	{
+		if(type==null)
+			throw new NullPointerException("type");
+		if(name==null)
+			throw new NullPointerException("name");
+		if(serialized!=null)
+			throw new IllegalStateException("enableSerialization already been called for " + serialized.toString());
+		final Serialized serialized = new Serialized(type, name);
+		final Object other = serialized.resolveModel();
+		if(this!=other)
+			throw new IllegalArgumentException("enableSerialization does not resolve to itself " + serialized.toString());
+		
+		this.serialized = serialized;
+	}
+
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	private Object writeReplace() throws ObjectStreamException
+	{
+		if(serialized==null)
+			throw new NotSerializableException(getClass().getName() + " (can be fixed by calling method enableSerialization(Class,String))");
+		
+		return serialized;
+	}
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final Class<?> type;
+		private final String name;
+		
+		Serialized(final Class<?> type, final String name)
+		{
+			this.type = type;
+			this.name = name;
+		}
+		
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return resolveModel();
+		}
+		
+		@Override
+		public String toString()
+		{
+			return type.getName() + '#' + name;			
+		}
+		
+		Object resolveModel()
+		{
+			final java.lang.reflect.Field field;
+			try
+			{
+				field = type.getDeclaredField(name);
+			}
+			catch(NoSuchFieldException e)
+			{
+				throw new IllegalArgumentException(toString() + " does not exist.", e);
+			}
+			if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+				throw new IllegalArgumentException(toString() + " is not static final.");
+			field.setAccessible(true);
+			final Object result;
+			try
+			{
+				result = field.get(null);
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new IllegalArgumentException("accessing " + field.toString(), e);
+			}
+			
+			if(result==null)
+				throw new IllegalArgumentException(toString() + " is null.");
+			if(!(result instanceof Model))
+				throw new IllegalArgumentException(toString() + " is not a model, but " + result.getClass().getName() + '.');
+			
+			return result;
+		}
+		
+		private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	}
 	
 	// ------------------- deprecated stuff -------------------

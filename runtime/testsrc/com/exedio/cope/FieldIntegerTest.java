@@ -27,6 +27,7 @@ public class FieldIntegerTest extends FieldTest
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(Integer.class, item.someInteger.getValueClass());
+		assertSerializedSame(item.someInteger, 380);
 
 		assertEquals(null, item.getSomeInteger());
 		assertContains(item, item2, item.TYPE.search(item.someInteger.equal((Integer)null)));

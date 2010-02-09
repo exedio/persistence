@@ -38,6 +38,11 @@ public class ListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(ListFieldItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(ListFieldTest.class, "MODEL");
+	}
+	
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
 	
@@ -196,6 +201,10 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 		assertTrue(  itemsType.isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.strings, 383);
+		assertSerializedSame(item.dates  , 381);
+		assertSerializedSame(item.items  , 381);
 		
 		try
 		{

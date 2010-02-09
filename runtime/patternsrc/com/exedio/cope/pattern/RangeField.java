@@ -33,6 +33,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
 	

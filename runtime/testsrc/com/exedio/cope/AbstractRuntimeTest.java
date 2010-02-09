@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -532,5 +533,10 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertTrue(ae.isAnnotationPresent(TestAnnotation2.class));
 		assertNotNull(ae.getAnnotation(TestAnnotation2.class));
+	}
+	
+	public static final void assertSerializedSame(final Serializable value, final int expectedSize)
+	{
+		assertSame(value, reserialize(value, expectedSize));
 	}
 }

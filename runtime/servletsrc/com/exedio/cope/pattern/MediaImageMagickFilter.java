@@ -34,6 +34,8 @@ import java.util.Arrays;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
+	private static final long serialVersionUID = 1l;
+	
 	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
 	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 	

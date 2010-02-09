@@ -40,6 +40,8 @@ import com.exedio.cope.search.ExtremumAggregate;
  */
 public abstract class View<E> extends Feature implements Function<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Function<?>[] sources;
 	private final List<Function<?>> sourceList;
 	private final String name;

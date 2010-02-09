@@ -28,6 +28,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class DateField extends FunctionField<Date>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final boolean defaultNow;
 	private final boolean suspiciousForWrongDefaultNow;
 

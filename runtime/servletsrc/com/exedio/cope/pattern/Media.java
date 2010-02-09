@@ -54,6 +54,8 @@ import com.exedio.cope.util.CharSet;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final boolean optional;
 	final DataField body;
 	final ContentType<?> contentType;

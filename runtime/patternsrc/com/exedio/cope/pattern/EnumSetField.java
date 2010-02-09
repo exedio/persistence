@@ -33,6 +33,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
 

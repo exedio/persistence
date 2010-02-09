@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final NumberFunction[] multipliers;
 	
 	/**

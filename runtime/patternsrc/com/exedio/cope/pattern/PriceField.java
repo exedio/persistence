@@ -35,6 +35,8 @@ import com.exedio.cope.misc.ComputedInstance;
 
 public final class PriceField extends Pattern implements Settable<Price>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final IntegerField integer;
 	private final boolean isfinal;
 	private final boolean optional;

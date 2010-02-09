@@ -25,6 +25,11 @@ import com.exedio.cope.util.Day;
 public class DayFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(DayFieldTest.class, "MODEL");
+	}
 
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);
@@ -51,6 +56,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.day.getType());
 		assertEquals(Day.class, item.day.getValueClass());
+		assertSerializedSame(item.day, 364);
 
 		// test persistence
 		assertEquals(DEFAULT, item.getDay());

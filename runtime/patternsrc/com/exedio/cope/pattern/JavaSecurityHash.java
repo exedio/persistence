@@ -32,6 +32,8 @@ import com.exedio.cope.util.CharSet;
  */
 public class JavaSecurityHash extends Hash
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final String algorithm;
 	private final String encoding;
 

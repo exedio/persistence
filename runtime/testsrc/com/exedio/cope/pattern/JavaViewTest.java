@@ -28,6 +28,12 @@ import com.exedio.cope.Model;
 public class JavaViewTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(JavaViewItem.TYPE, JavaViewItem2.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(JavaViewTest.class, "MODEL");
+	}
+	
 	private static final Double d2 = new Double(2.25d);
 	
 	public JavaViewTest()
@@ -61,6 +67,9 @@ public class JavaViewTest extends AbstractRuntimeTest
 		assertEquals(null, item.numberString.getPattern());
 		assertEquals(Double.class, item.number.getValueType());
 		assertEquals(Double.class, item.number.getValueGenericType());
+		
+		assertSerializedSame(item.number         , 380);
+		assertSerializedSame(item.numberPrimitive, 389);
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());

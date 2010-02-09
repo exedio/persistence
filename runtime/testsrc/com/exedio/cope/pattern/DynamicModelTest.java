@@ -33,6 +33,11 @@ import com.exedio.cope.pattern.DynamicModel.ValueType;
 public class DynamicModelTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(DynamicModelItem.TYPE, DynamicModelLocalizationItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(DynamicModelTest.class, "MODEL");
+	}
 
 	public DynamicModelTest()
 	{
@@ -106,6 +111,8 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    0, null), "Enum0");
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    1, null), "Enum1");
 		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "String0");
+		assertSerializedSame(DynamicModelItem.features, 390);
+		assertSerializedSame(DynamicModelItem.small   , 387);
 		
 		// test persistence
 		assertContains(item.features.getTypes());

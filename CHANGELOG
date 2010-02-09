@@ -7,6 +7,27 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* allow serialization/deserialization of:
+		* Model
+		* Type
+		* Feature and its subclasses
+		* Items of unbound Types (see Type.isBound)
+	To make serialization work, you need to enable it at the model. Otherwise
+	a NotSerializableException is thrown when trying to deserialize.
+	For any model defined like this:
+	
+		static final Model model = new Model(Aaa.TYPE, Bbb.TYPE, ...);
+	
+	add the following code immediately below:
+	
+		static
+		{
+			model.enableSerialization(Main.class, "model");
+		}
+	
+	where "model" is the name of the static final field, the model is assigned to,
+	and Main is the class of that field.
+	
 * CopeAssert.reserialize checks for exact expected size, not for maximum
 	this breaks backwards API compatibility, but affects junit tests only
 * instrumentor generates minimal method names for feature "defaultFeature"

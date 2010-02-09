@@ -27,6 +27,8 @@ import com.exedio.cope.pattern.Hash;
  */
 public class WrapHash extends Hash
 {
+	private static final long serialVersionUID = 1l;
+	
 	public WrapHash(final StringField storage)
 	{
 		super(storage, "Wrap");

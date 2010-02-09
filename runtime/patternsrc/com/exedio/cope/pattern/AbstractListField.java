@@ -28,6 +28,8 @@ import com.exedio.cope.util.Cast;
 
 public abstract class AbstractListField<E> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	public abstract FunctionField<E> getElement();
 	
 	public int getMaximumSize()

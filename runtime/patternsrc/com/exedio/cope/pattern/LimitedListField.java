@@ -41,6 +41,8 @@ import com.exedio.cope.misc.ComputedInstance;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;

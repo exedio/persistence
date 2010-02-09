@@ -38,6 +38,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class ListField<E> extends AbstractListField<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private ItemField<?> parent = null;
 	private final IntegerField order;
 	private UniqueConstraint uniqueConstraint = null;

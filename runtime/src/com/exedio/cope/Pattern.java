@@ -53,6 +53,8 @@ import java.util.List;
  */
 public abstract class Pattern extends Feature
 {
+	private static final long serialVersionUID = 1l;
+	
 	private Features sourceFieldsGather = new Features();
 	private List<Field> sourceFieldList = null;
 	

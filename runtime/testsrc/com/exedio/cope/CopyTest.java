@@ -24,6 +24,11 @@ public class CopyTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(CopyTest.class, "MODEL");
+	}
+	
 	public CopyTest()
 	{
 		super(MODEL);
@@ -124,6 +129,10 @@ public class CopyTest extends AbstractRuntimeTest
 		assertSame(CopySourceItem.templateString, CopySourceItem.templateStringCopyFromTarget.getCopy());
 		assertSame(CopySourceItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getCopy());
 		assertSame(CopySourceItem.selfTemplateItem,   CopySourceItem.selfTemplateItemCopyFromTarget.getCopy());
+		
+		assertSerializedSame(CopySourceItem.templateStringCopyFromTarget  , 392);
+		assertSerializedSame(CopySourceItem.templateItemCopyFromTarget    , 390);
+		assertSerializedSame(CopySourceItem.selfTemplateItemCopyFromTarget, 394);
 		
 		try
 		{

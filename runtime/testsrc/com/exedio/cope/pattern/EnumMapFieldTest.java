@@ -24,6 +24,11 @@ import com.exedio.cope.Model;
 public class EnumMapFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(EnumMapFieldTest.class, "MODEL");
+	}
 
 	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
 	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
@@ -72,6 +77,9 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
+		
+		assertSerializedSame(item.name      , 386);
+		assertSerializedSame(item.nameLength, 392);
 
 		// test persistence
 		assertEquals(null, item.getName(DE));

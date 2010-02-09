@@ -26,6 +26,7 @@ public class FieldDoubleTest extends FieldTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(Double.class, item.someDouble.getValueClass());
+		assertSerializedSame(item.someDouble, 379);
 
 		assertEquals(null, item.getSomeDouble());
 		assertContains(item, item2, item.TYPE.search(item.someDouble.equal((Double)null)));

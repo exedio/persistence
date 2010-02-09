@@ -50,6 +50,8 @@ import com.exedio.cope.Item;
  */
 public final class MediaRedirect extends MediaPath
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final MediaPath target;
 
 	public MediaRedirect(final MediaPath target)

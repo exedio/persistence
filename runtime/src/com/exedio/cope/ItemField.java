@@ -24,6 +24,8 @@ import java.sql.Connection;
 
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 

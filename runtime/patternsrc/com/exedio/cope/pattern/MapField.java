@@ -38,6 +38,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class MapField<K,V> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private ItemField<? extends Item> parent = null;
 	private final FunctionField<K> key;
 	private UniqueConstraint uniqueConstraint = null;

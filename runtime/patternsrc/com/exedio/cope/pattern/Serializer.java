@@ -58,6 +58,8 @@ import com.exedio.cope.util.Cast;
  */
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Class<E> valueClass;
 	private final DataField source;
 

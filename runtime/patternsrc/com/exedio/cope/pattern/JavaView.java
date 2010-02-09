@@ -27,6 +27,8 @@ import com.exedio.cope.Type;
 
 public final class JavaView extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private Mount mount;
 	
 	private static final class Mount

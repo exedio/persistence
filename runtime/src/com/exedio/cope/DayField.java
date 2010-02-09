@@ -28,6 +28,8 @@ import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final boolean defaultNow;
 	private final boolean suspiciousForWrongDefaultNow;
 	

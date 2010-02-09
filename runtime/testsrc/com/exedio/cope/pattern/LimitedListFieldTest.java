@@ -37,6 +37,11 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(LimitedListFieldTest.class, "MODEL");
+	}
+	
 	public LimitedListFieldTest()
 	{
 		super(MODEL);
@@ -140,6 +145,10 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertTrue (string1  .isAnnotationPresent(Computed.class));
 		assertTrue (string2  .isAnnotationPresent(Computed.class));
 		assertTrue (string3  .isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.nums   , 394);
+		assertSerializedSame(item.dates  , 395);
+		assertSerializedSame(item.strings, 397);
 
 		// test persistence
 		assertEquals(i1, item.getNum1());

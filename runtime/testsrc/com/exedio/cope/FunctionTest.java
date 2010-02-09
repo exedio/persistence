@@ -45,6 +45,12 @@ public class FunctionTest extends TestmodelTest
 	
 	public void testFunctions()
 	{
+		assertSerializedSame(item1.min4Upper, 375);
+		assertSerializedSame(item1.max4Upper, 375);
+		assertSerializedSame(item1.min4UpperLength, 381);
+		assertSerializedSame(item1.max4UpperLength, 381);
+		assertSerializedSame(item1.min4AndMax4UpperLength, 388);
+		
 		assertEquals("5ffff", item1.getMin4());
 		assertEquals("5FFFF", item1.getMin4Upper());
 		assertEquals(Integer.valueOf(5), item1.getMin4UpperLength());

@@ -32,6 +32,8 @@ import com.exedio.cope.util.Cast;
 
 public final class PartOf<C extends Item> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final ItemField<C> container;
 
 	private PartOf(final ItemField<C> container)
@@ -151,5 +153,4 @@ public final class PartOf<C extends Item> extends Pattern
 		}
 		return result;
 	}
-	
 }

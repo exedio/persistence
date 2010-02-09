@@ -25,6 +25,7 @@ public class FieldBooleanTest extends FieldTest
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(Boolean.class, item.someBoolean.getValueClass());
+		assertSerializedSame(item.someBoolean, 380);
 
 		assertEquals(null, item.getSomeBoolean());
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));

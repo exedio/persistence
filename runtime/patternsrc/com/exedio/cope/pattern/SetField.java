@@ -42,6 +42,8 @@ import com.exedio.cope.util.Cast;
 
 public final class SetField<E> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private ItemField<?> parent = null;
 	private final FunctionField<E> element;
 	private UniqueConstraint uniqueConstraint = null;

@@ -32,6 +32,11 @@ public class SerializerTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SerializerItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(SerializerTest.class, "MODEL");
+	}
+	
 	public SerializerTest()
 	{
 		super(MODEL);
@@ -89,6 +94,9 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertFalse(item.map                .isAnnotationPresent(Computed.class));
 		assertTrue (item.integer.getSource().isAnnotationPresent(Computed.class));
 		assertTrue (item.map    .getSource().isAnnotationPresent(Computed.class));
+		
+		assertSerializedSame(item.integer, 385);
+		assertSerializedSame(item.map    , 381);
 		
 		// test persistence
 		

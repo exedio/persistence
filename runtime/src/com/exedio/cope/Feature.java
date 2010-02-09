@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import java.io.InvalidObjectException;
+import java.io.NotSerializableException;
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +31,7 @@ import java.util.List;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.CharSet;
 
-public abstract class Feature
+public abstract class Feature implements Serializable
 {
 	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mount = null;
@@ -180,5 +184,46 @@ public abstract class Feature
 			mount.toString(bf, defaultType);
 		else
 			toStringNotMounted(bf);
+	}
+	
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	protected final Object writeReplace() throws ObjectStreamException
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new NotSerializableException(getClass().getName());
+
+		return new Serialized(mount);
+	}
+	
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final Type type;
+		private final String name;
+		
+		Serialized(final Mount mount)
+		{
+			this.type = mount.type;
+			this.name = mount.name;
+		}
+		
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve() throws InvalidObjectException
+		{
+			final Feature result = type.getDeclaredFeature(name);
+			if(result==null)
+				throw new InvalidObjectException("feature does not exist: " + type + '.' + name);
+			return result;
+		}
 	}
 }

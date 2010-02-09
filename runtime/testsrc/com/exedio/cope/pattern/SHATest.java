@@ -30,6 +30,11 @@ public class SHATest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(SHAItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(SHATest.class, "MODEL");
+	}
+	
 	private static final String EMPTY_HASH = "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e";
 
 	public SHATest()
@@ -95,6 +100,10 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		
+		assertSerializedSame(item.password         , 372);
+		assertSerializedSame(item.passwordLatin    , 377);
+		assertSerializedSame(item.passwordMandatory, 381);
 		
 		try
 		{

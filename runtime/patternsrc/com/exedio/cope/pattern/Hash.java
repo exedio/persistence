@@ -40,6 +40,8 @@ import com.exedio.cope.misc.ComputedInstance;
 
 public abstract class Hash extends Pattern implements Settable<String>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final StringField storage;
 	private final String algorithmName;
 

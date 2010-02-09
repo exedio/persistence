@@ -30,6 +30,8 @@ import com.exedio.cope.info.SequenceInfo;
  */
 public final class IntegerField extends NumberField<Integer>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final Integer defaultNextStart;
 	final Sequence defaultToNextSequence;
 	private final int minimum;

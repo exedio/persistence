@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final NumberFunction<E> left;
 	private final E right;
 	

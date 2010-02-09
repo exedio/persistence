@@ -30,6 +30,8 @@ import com.exedio.cope.util.CharSet;
  */
 public final class StringField extends FunctionField<String> implements StringFunction
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final int minimumLength;
 	private final int maximumLength;
 	private final CharSet charSet;

@@ -35,6 +35,11 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(PlusDoubleTest.class, "MODEL");
+	}
+	
 	public PlusDoubleTest()
 	{
 		super(MODEL);
@@ -93,6 +98,16 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, plusBC);
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
+		
+		// serialization
+		assertSerializedSame(plusA9    , 376);
+		assertSerializedSame(plusAB    , 376);
+		assertSerializedSame(plusAC    , 376);
+		assertSerializedSame(plusBC    , 376);
+		assertSerializedSame(plusABC   , 377);
+		assertSerializedSame(plusABaC  , 378);
+		assertSerializedSame(multiplyBC, 380);
+		assertSerializedSame(multiplyB9, 380);
 
 		// test normal operation
 		assertEquals(d1, item.getNumA());

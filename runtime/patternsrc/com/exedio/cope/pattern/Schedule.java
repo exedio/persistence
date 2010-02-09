@@ -47,6 +47,8 @@ import com.exedio.cope.util.Interrupter;
 
 public final class Schedule extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	public enum Interval
 	{
 		DAILY,

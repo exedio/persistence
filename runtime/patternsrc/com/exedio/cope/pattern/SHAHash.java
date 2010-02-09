@@ -25,6 +25,8 @@ import com.exedio.cope.StringLengthViolationException;
 
 public final class SHAHash extends JavaSecurityHash
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final String HASH = "SHA-512";
 
 	private SHAHash(final boolean optional, final String encoding)

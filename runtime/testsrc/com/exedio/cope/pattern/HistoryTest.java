@@ -32,6 +32,11 @@ public class HistoryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(HistoryTest.class, "MODEL");
+	}
+	
 	public HistoryTest()
 	{
 		super(MODEL);
@@ -167,6 +172,8 @@ public class HistoryTest extends AbstractRuntimeTest
 		PartOf featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
+		
+		assertSerializedSame(HistoryItem.audit, 377);
 		
 		// test persistence
 		assertEquals(list(), item.getAuditEvents());

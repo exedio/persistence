@@ -43,6 +43,8 @@ import com.exedio.cope.misc.ComputedInstance;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final boolean isfinal;
 	private final boolean optional;
 	private final Class<E> valueClass;

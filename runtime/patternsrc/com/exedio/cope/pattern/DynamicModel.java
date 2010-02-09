@@ -44,6 +44,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class DynamicModel<L> extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
 	com.exedio.cope.Type<Type<L>> typeType = null;

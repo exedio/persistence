@@ -33,9 +33,6 @@ TODO for cope runtime
 - Global History / Undo facility for backoffice, that can undo deletes as well.
 - MySQL: warning, if row could exceed 8000 bytes limit
 - implement Serializable
-	* items of non-bound types
-	* Type and Feature (for backoffice and live editor sessions)
-		see readResolve: http://java.sun.com/j2se/1.3/docs/guide/serialization/spec/input.doc6.html
 	* Composite.Value (add tests)
 	* Price
 - feature reuse with copy() for Order.articleName

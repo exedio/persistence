@@ -27,6 +27,8 @@ import junit.framework.TestSuite;
 
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
+import com.exedio.cope.serialize.ModelSerializationTest;
+import com.exedio.cope.serialize.SerializationSizeTest;
 
 public class PackageTest extends TestCase
 {
@@ -57,7 +59,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FeatureTest.class );
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );
+		suite.addTestSuite( ModelSerializationTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
+		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
 		

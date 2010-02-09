@@ -26,6 +26,8 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final EnumFieldType<E> valueType;
 	private final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;

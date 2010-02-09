@@ -43,6 +43,11 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
 	
+	static
+	{
+		MODEL.enableSerialization(CompositeFieldTest.class, "MODEL");
+	}
+	
 	public CompositeFieldTest()
 	{
 		super(MODEL);
@@ -155,6 +160,11 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(eins.  of(aString), eins  .of(anInt), eins  .of(anEnum), eins  .of(anItem)), eins  .getComponents());
 		assertEqualsUnmodifiable(list(uno   .of(aString), uno   .of(anInt), uno   .of(anEnum), uno   .of(anItem)), uno   .getComponents());
 		assertEqualsUnmodifiable(list(second.of(aString), second.of(anInt), second.of(anEnum), second.of(anItem)), second.getComponents());
+		
+		assertSerializedSame(eins, 385);
+		assertSerializedSame(zwei, 385);
+		assertSerializedSame(uno,  392);
+		assertSerializedSame(duo,  392);
 		
 		// test type safety of template-component relation
 		second.of(aString).startsWith("zack");
@@ -357,7 +367,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 		
 		// test serialization
-		final CompositeValue serializedValue = reserialize(value, 492);
+		final CompositeValue serializedValue = reserialize(value, 491);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}

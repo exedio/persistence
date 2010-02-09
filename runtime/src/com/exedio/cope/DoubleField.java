@@ -22,6 +22,8 @@ import java.util.Set;
 
 public final class DoubleField extends NumberField<Double>
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
 	

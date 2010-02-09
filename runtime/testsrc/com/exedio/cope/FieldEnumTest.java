@@ -35,6 +35,7 @@ public class FieldEnumTest extends FieldTest
 		// model
 		assertEquals(item.TYPE, item.someEnum.getType());
 		assertEquals(AttributeItem.SomeEnum.class, item.someEnum.getValueClass());
+		assertSerializedSame(item.someEnum, 377);
 		assertEquals(
 			list(
 				AttributeItem.SomeEnum.enumValue1,

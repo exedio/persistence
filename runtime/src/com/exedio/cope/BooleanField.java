@@ -21,6 +21,8 @@ package com.exedio.cope;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
+	private static final long serialVersionUID = 1l;
+	
 	static final int[] ALLOWED_VALUES = {0, 1};
 
 	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)

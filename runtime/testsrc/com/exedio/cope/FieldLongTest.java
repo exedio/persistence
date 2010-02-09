@@ -27,6 +27,7 @@ public class FieldLongTest extends FieldTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(Long.class, item.someLong.getValueClass());
+		assertSerializedSame(item.someLong, 377);
 
 		assertEquals(null, item.getSomeLong());
 		assertContains(item, item2, item.TYPE.search(item.someLong.equal((Long)null)));

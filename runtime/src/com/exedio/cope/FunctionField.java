@@ -33,6 +33,8 @@ public abstract class FunctionField<E extends Object>
 	extends Field<E>
 	implements Function<E>
 {
+	private static final long serialVersionUID = 1l;
+	
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
 	final E defaultConstant;

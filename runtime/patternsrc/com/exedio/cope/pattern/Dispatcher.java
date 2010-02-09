@@ -58,6 +58,8 @@ import com.exedio.cope.util.Interrupter;
  */
 public final class Dispatcher extends Pattern
 {
+	private static final long serialVersionUID = 1l;
+	
 	private static final String ENCODING = "utf8";
 	
 	private final int failureLimit;
