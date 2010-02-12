@@ -18,10 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 final class Importer<E extends Object> extends Pattern
@@ -47,6 +52,24 @@ final class Importer<E extends Object> extends Pattern
 	public static final <E> Importer<E> newImporter(final FunctionField<E> key)
 	{
 		return new Importer<E>(key);
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(
+			new Wrapper("doImport").
+			setMethodWrapperPattern("import{0}").
+			addComment("Import {0}.").
+			setReturn(Wrapper.ClassVariable.class, "the imported item").
+			addParameter(key.getInitialType(), "keyValue").
+			addParameter(SetValue[].class, "setValues").
+			setStatic());
+		
+		return Collections.unmodifiableList(result);
 	}
 	
 	public <P extends Item> P doImport(
