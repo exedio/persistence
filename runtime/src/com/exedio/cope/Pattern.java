@@ -198,7 +198,7 @@ public abstract class Pattern extends Feature
 	}
 	
 	/**
-	 * @deprecated Use {@link #addSource(Field,String)} instead
+	 * @deprecated Use {@link #addSource(Feature,String)} instead
 	 */
 	@Deprecated
 	protected final void registerSource(final Field field, final String postfix)
