@@ -56,12 +56,12 @@ public abstract class Pattern extends Feature
 	private static final long serialVersionUID = 1l;
 	
 	private Features sourceFieldsGather = new Features();
-	private List<Field> sourceFieldList = null;
+	private List<Feature> sourceFieldList = null;
 	
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	protected final void addSource(final Field field, final String postfix, final java.lang.reflect.Field annotationSource)
+	protected final void addSource(final Feature field, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
@@ -74,7 +74,7 @@ public abstract class Pattern extends Feature
 		sourceFieldsGather.put(postfix, field, annotationSource);
 	}
 	
-	protected final void addSource(final Field field, final String postfix)
+	protected final void addSource(final Feature field, final String postfix)
 	{
 		addSource(field, postfix, null);
 	}
@@ -136,12 +136,12 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @see Field#getPattern()
+	 * @see Feature#getPattern()
 	 */
-	public final List<? extends Field> getSourceFields()
+	public final List<? extends Feature> getSourceFeatures()
 	{
 		if(sourceFieldList==null)
-			throw new IllegalStateException("getSourceFields can be called only after pattern is mounted, not before");
+			throw new IllegalStateException("getSourceFeatures can be called only after pattern is mounted, not before");
 		assert sourceFieldsGather==null;
 		return sourceFieldList;
 	}
@@ -165,6 +165,19 @@ public abstract class Pattern extends Feature
 	}
 	
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getSourceFeatures()} instead
+	 */
+	@Deprecated
+	public List<? extends Field> getSourceFields()
+	{
+		final ArrayList<Field> result = new ArrayList<Field>();
+		for(final Feature f : getSourceFeatures())
+			if(f instanceof Field)
+				result.add((Field)f);
+		return Type.finish(result);
+	}
 
 	/**
 	 * @deprecated Use {@link #getSourceFields()} instead

@@ -83,7 +83,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("num3", item.num3.getName());
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
-		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSourceFields());
+		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSourceFeatures());
 		assertEquals(item.nums, item.num1.getPattern());
 		assertEquals(item.nums, item.num2.getPattern());
 		assertEquals(item.nums, item.num3.getPattern());
@@ -107,7 +107,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertTrue(!dateSourcesIterator.hasNext());
 		assertEquals(item.dates, date0.getPattern());
 		assertEquals(item.dates, date1.getPattern());
-		assertEqualsUnmodifiable(list(date0, date1), item.dates.getSourceFields());
+		assertEqualsUnmodifiable(list(date0, date1), item.dates.getSourceFeatures());
 		assertEqualsUnmodifiable(list(date0, date1), item.dates.getListSources());
 		assertEquals(false, item.dates.isInitial());
 		assertEquals(false, item.dates.isFinal());
@@ -128,7 +128,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(item.strings, string1.getPattern());
 		assertEquals(item.strings, string2.getPattern());
 		assertEquals(item.strings, string3.getPattern());
-		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getSourceFields());
+		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getSourceFeatures());
 		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getListSources());
 		assertEquals(false, item.strings.isInitial());
 		assertEquals(false, item.strings.isFinal());

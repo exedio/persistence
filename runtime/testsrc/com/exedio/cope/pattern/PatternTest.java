@@ -62,12 +62,12 @@ public class PatternTest extends AbstractRuntimeTest
 					PatternTestItem.testPattern.ownString,
 					PatternTestItem.testPattern.ownInt,
 					PatternTestItem.testPattern.getOwnItem()
-				), PatternTestItem.testPattern.getSourceFields());
+				), PatternTestItem.testPattern.getSourceFeatures());
 		assertEqualsUnmodifiable(list(
 					PatternTestItem.testPattern2.ownString,
 					PatternTestItem.testPattern2.ownInt,
 					PatternTestItem.testPattern2.getOwnItem()
-				), PatternTestItem.testPattern2.getSourceFields());
+				), PatternTestItem.testPattern2.getSourceFeatures());
 		
 		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownString.getPattern());
 		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownInt.getPattern());
@@ -217,5 +217,20 @@ public class PatternTest extends AbstractRuntimeTest
 		assertTestAnnotation("subTypeIntegerAnn", PatternTestItem.testPattern.subTypeInteger);
 		assertTestAnnotation("PatternTestTypeItemAnn", superType);
 		assertTestAnnotation("PatternTestTypeItemAnn", subType);
+	}
+	
+	@Deprecated
+	public void testDeprecated()
+	{
+		assertEqualsUnmodifiable(list(
+				PatternTestItem.testPattern.ownString,
+				PatternTestItem.testPattern.ownInt,
+				PatternTestItem.testPattern.getOwnItem()
+			), PatternTestItem.testPattern.getSourceFields());
+	assertEqualsUnmodifiable(list(
+				PatternTestItem.testPattern2.ownString,
+				PatternTestItem.testPattern2.ownInt,
+				PatternTestItem.testPattern2.getOwnItem()
+			), PatternTestItem.testPattern2.getSourceFields());
 	}
 }

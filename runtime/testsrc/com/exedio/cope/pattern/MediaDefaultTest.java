@@ -95,7 +95,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(lastModified.isNull(), item.file.isNull());
 		assertEquals(lastModified.isNotNull(), item.file.isNotNull());
 		
-		assertEqualsUnmodifiable(list(body, contentType, lastModified), item.file.getSourceFields());
+		assertEqualsUnmodifiable(list(body, contentType, lastModified), item.file.getSourceFeatures());
 		
 		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));

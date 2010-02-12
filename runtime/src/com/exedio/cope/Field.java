@@ -187,50 +187,10 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		// empty default implementation
 	}
-		
-	// patterns ---------------------------------------------------------------------
-	
-	private Pattern patternWhileTypeInitialization = null;
-	private Pattern pattern = null;
-	
-	final void registerPattern(final Pattern pattern)
-	{
-		if(isMounted())
-			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
-		if(pattern==null)
-			throw new NullPointerException();
-		
-		if(patternWhileTypeInitialization!=null)
-			throw new IllegalStateException("field has already registered pattern " + this.patternWhileTypeInitialization + " and tried to register a new one: " + pattern);
-		
-		this.patternWhileTypeInitialization = pattern;
-	}
-	
-	/**
-	 * @see Pattern#getSourceFields()
-	 */
-	public final Pattern getPattern()
-	{
-		if(!isMounted())
-			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
-		if(patternWhileTypeInitialization!=null)
-			throw new RuntimeException();
-
-		return pattern;
-	}
 	
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
-	
-	@Override
-	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
-	{
-		super.mount(type, name, annotationSource);
-		
-		this.pattern = this.patternWhileTypeInitialization;
-		this.patternWhileTypeInitialization = null;
-	}
 	
 	final void connect(final Table table)
 	{

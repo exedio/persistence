@@ -80,7 +80,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals("secret", i.passwordRecovery.getSecret().getName());
 		assertEquals("expires", i.passwordRecovery.getExpires().getName());
 		
-		assertEquals(list(), i.passwordRecovery.getSourceFields());
+		assertEquals(list(), i.passwordRecovery.getSourceFeatures());
 		assertEquals(null, i.passwordRecovery.getSecret().getPattern());
 		assertEquals(null, i.passwordRecovery.getExpires().getPattern());
 		

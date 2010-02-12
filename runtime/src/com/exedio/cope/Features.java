@@ -100,13 +100,13 @@ public final class Features
 			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
 	}
 	
-	List<Field> mountPattern(final Type<?> type, final String name)
+	List<Feature> mountPattern(final Type<?> type, final String name)
 	{
-		final ArrayList<Field> result = new ArrayList<Field>();
+		final ArrayList<Feature> result = new ArrayList<Feature>();
 		
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
-			final Field<?> source = (Field)entry.getValue();
+			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
 			if(!source.isMounted())
 				source.mount(type, name + postfix, getAnnotationSource(source));

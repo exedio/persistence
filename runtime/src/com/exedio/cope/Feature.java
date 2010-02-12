@@ -92,6 +92,9 @@ public abstract class Feature implements Serializable
 		this.mount = new Mount(type, name, annotationSource);
 		
 		type.registerMounted(this);
+		
+		this.pattern = this.patternWhileTypeInitialization;
+		this.patternWhileTypeInitialization = null;
 	}
 	
 	private final Mount mount()
@@ -184,6 +187,37 @@ public abstract class Feature implements Serializable
 			mount.toString(bf, defaultType);
 		else
 			toStringNotMounted(bf);
+	}
+	
+	// patterns ------------------
+	
+	private Pattern patternWhileTypeInitialization = null;
+	private Pattern pattern = null;
+	
+	final void registerPattern(final Pattern pattern)
+	{
+		if(isMounted())
+			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
+		if(pattern==null)
+			throw new NullPointerException();
+		
+		if(patternWhileTypeInitialization!=null)
+			throw new IllegalStateException("field has already registered pattern " + this.patternWhileTypeInitialization + " and tried to register a new one: " + pattern);
+		
+		this.patternWhileTypeInitialization = pattern;
+	}
+	
+	/**
+	 * @see Pattern#getSourceFields()
+	 */
+	public final Pattern getPattern()
+	{
+		if(!isMounted())
+			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
+		if(patternWhileTypeInitialization!=null)
+			throw new RuntimeException();
+
+		return pattern;
 	}
 	
 	// serialization -------------

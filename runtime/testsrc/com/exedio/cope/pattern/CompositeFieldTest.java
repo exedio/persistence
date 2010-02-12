@@ -124,7 +124,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals("unoAString", uno.of(aString).getName());
 		assertEquals("uno", uno.getName());
 		assertEquals(uno, uno.of(aString).getPattern());
-		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFields());
+		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFeatures());
 		
 		assertEquals(true,  eins.isInitial());
 		assertEquals(false, eins.isFinal());
