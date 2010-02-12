@@ -113,8 +113,8 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
-	@Override
-	public List<FunctionField<E>> getSourceFields()
+
+	public List<FunctionField<E>> getListSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
@@ -279,17 +279,5 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			conditions[i] = sources[i].equal(value);
 
 		return Cope.or(conditions);
-	}
-	
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getSourceFields()} instead
-	 */
-	@Deprecated
-	@Override
-	public List<FunctionField<E>> getSources()
-	{
-		return getSourceFields();
 	}
 }

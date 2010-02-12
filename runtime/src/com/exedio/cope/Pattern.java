@@ -138,7 +138,7 @@ public abstract class Pattern extends Feature
 	/**
 	 * @see Field#getPattern()
 	 */
-	public List<? extends Field> getSourceFields()
+	public final List<? extends Field> getSourceFields()
 	{
 		if(sourceFieldList==null)
 			throw new IllegalStateException("getSourceFields can be called only after pattern is mounted, not before");
@@ -149,7 +149,7 @@ public abstract class Pattern extends Feature
 	/**
 	 * @see Type#getPattern()
 	 */
-	public List<Type<? extends Item>> getSourceTypes()
+	public final List<Type<? extends Item>> getSourceTypes()
 	{
 		if(sourceTypes==null)
 			throw new IllegalStateException("getSourceTypes can be called only after pattern is mounted, not before");
@@ -170,7 +170,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceFields()} instead
 	 */
 	@Deprecated
-	public List<? extends Field> getSources()
+	public final List<? extends Field> getSources()
 	{
 		return getSourceFields();
 	}
@@ -179,7 +179,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceTypes()} instead
 	 */
 	@Deprecated
-	public List<Type<? extends Item>> getGeneratedTypes()
+	public final List<Type<? extends Item>> getGeneratedTypes()
 	{
 		return getSourceTypes();
 	}

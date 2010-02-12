@@ -141,7 +141,7 @@ public abstract class Feature implements Serializable
 		return mount().getAnnotation(annotationClass);
 	}
 	
-	String getSchemaName()
+	final String getSchemaName()
 	{
 		final CopeSchemaName annotation =
 			getAnnotation(CopeSchemaName.class);
