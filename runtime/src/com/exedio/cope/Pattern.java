@@ -55,8 +55,8 @@ public abstract class Pattern extends Feature
 {
 	private static final long serialVersionUID = 1l;
 	
-	private Features sourceFieldsGather = new Features();
-	private List<Feature> sourceFieldList = null;
+	private Features sourceFeaturesGather = new Features();
+	private List<Feature> sourceFeatureList = null;
 	
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
@@ -67,11 +67,11 @@ public abstract class Pattern extends Feature
 			throw new NullPointerException("postfix");
 		if(field==null)
 			throw new NullPointerException("field");
-		if(sourceFieldsGather==null)
+		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
-		assert sourceFieldList==null;
+		assert sourceFeatureList==null;
 		field.registerPattern(this);
-		sourceFieldsGather.put(postfix, field, annotationSource);
+		sourceFeaturesGather.put(postfix, field, annotationSource);
 	}
 	
 	protected final void addSource(final Feature field, final String postfix)
@@ -127,8 +127,8 @@ public abstract class Pattern extends Feature
 		initialize();
 		onMount();
 
-		this.sourceFieldList = sourceFieldsGather.mountPattern(type, name);
-		this.sourceFieldsGather = null;
+		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
+		this.sourceFeaturesGather = null;
 		
 		this.sourceTypesWhileGather.trimToSize();
 		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
@@ -140,10 +140,10 @@ public abstract class Pattern extends Feature
 	 */
 	public final List<? extends Feature> getSourceFeatures()
 	{
-		if(sourceFieldList==null)
+		if(sourceFeatureList==null)
 			throw new IllegalStateException("getSourceFeatures can be called only after pattern is mounted, not before");
-		assert sourceFieldsGather==null;
-		return sourceFieldList;
+		assert sourceFeaturesGather==null;
+		return sourceFeatureList;
 	}
 
 	/**
