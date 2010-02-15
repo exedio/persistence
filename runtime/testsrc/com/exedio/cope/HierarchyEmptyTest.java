@@ -120,7 +120,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
 		
 		// test getItem
-		assertSame(subItem, model.getItem("HierarchyEmptySub.0"));
+		assertSame(subItem, model.getItem("HierarchyEmptySub.0")); // important to test with zero as well
 		assertSame(superItem, model.getItem("HierarchyEmptySuper.1"));
 		assertIDFails("HierarchyEmptySuper.0",  "item <0> does not exist", false);
 		assertIDFails("HierarchyEmptySub.1",    "item <1> does not exist", false);
@@ -137,10 +137,10 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertIDFails("HierarchyEmptySuper." + 2147483648l, "does not fit in 31 bit", true); // 2^31
 		assertIDFails("HierarchyEmptySuper." + 2147483649l, "does not fit in 31 bit", true); // 2^31 + 1
 		assertIDFails("HierarchyEmptySuper." + Long.MAX_VALUE, "does not fit in 31 bit", true);
-		assertSame(subItem, model.getItem("HierarchyEmptySub.00")); // TODO should not work
-		assertSame(subItem, model.getItem("HierarchyEmptySub.000")); // TODO should not work
-		assertSame(superItem, model.getItem("HierarchyEmptySuper.01")); // TODO should not work
-		assertSame(superItem, model.getItem("HierarchyEmptySuper.001")); // TODO should not work
+		assertIDFails("HierarchyEmptySub.00"   , "has leading zeros", true);
+		assertIDFails("HierarchyEmptySub.000"  , "has leading zeros", true);
+		assertIDFails("HierarchyEmptySuper.01" , "has leading zeros", true);
+		assertIDFails("HierarchyEmptySuper.001", "has leading zeros", true);
 	}
 	
 	public void testModel()

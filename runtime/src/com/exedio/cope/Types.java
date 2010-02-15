@@ -360,6 +360,8 @@ final class Types
 			throw new NoSuchIDException(id, true, "type is abstract");
 		
 		final String pkString = id.substring(pos+1);
+		if(pkString.length()>1 && pkString.charAt(0)=='0')
+			throw new NoSuchIDException(id, true, "has leading zeros");
 
 		final long pkLong;
 		try
