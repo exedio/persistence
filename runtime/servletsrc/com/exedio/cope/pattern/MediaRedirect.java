@@ -80,8 +80,8 @@ public final class MediaRedirect extends MediaPath
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
 	{
-		final Locator url = target.getLocator(item);
-		if(url==null)
+		final Locator locator = target.getLocator(item);
+		if(locator==null)
 			return isNull;
 		
 		final StringBuilder location = new StringBuilder();
@@ -94,7 +94,7 @@ public final class MediaRedirect extends MediaPath
 				append(request.getContextPath()).
 				append(request.getServletPath()).
 				append('/');
-			url.appendPath(location);
+			locator.appendPath(location);
 		}
 		//System.out.println("location="+location);
 		
