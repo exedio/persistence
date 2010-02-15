@@ -137,6 +137,10 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertIDFails("HierarchyEmptySuper." + 2147483648l, "does not fit in 31 bit", true); // 2^31
 		assertIDFails("HierarchyEmptySuper." + 2147483649l, "does not fit in 31 bit", true); // 2^31 + 1
 		assertIDFails("HierarchyEmptySuper." + Long.MAX_VALUE, "does not fit in 31 bit", true);
+		assertSame(subItem, model.getItem("HierarchyEmptySub.00")); // TODO should not work
+		assertSame(subItem, model.getItem("HierarchyEmptySub.000")); // TODO should not work
+		assertSame(superItem, model.getItem("HierarchyEmptySuper.01")); // TODO should not work
+		assertSame(superItem, model.getItem("HierarchyEmptySuper.001")); // TODO should not work
 	}
 	
 	public void testModel()
