@@ -127,6 +127,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertIDFails("noDotInThisString",      "no separator '.' in id", true);
 		assertIDFails("noSuchType.x",           "type <noSuchType> does not exist", true);
 		assertIDFails("HierarchyEmptySuper.x",  "wrong number format <x>", true);
+		assertIDFails("HierarchyEmptySuper.",   "wrong number format <>" , true);
 		assertIDFails("HierarchyEmptySuper.92386591832651832659213865193456293456",
 															 "wrong number format <92386591832651832659213865193456293456>", true);
 		assertIDFails("HierarchyEmptySuper.-1", "must be positive", true);
