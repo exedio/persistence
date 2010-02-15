@@ -85,17 +85,14 @@ public final class MediaRedirect extends MediaPath
 			return isNull;
 		
 		final StringBuilder location = new StringBuilder();
-		
-		{
-			location.
-				append(request.getScheme()).
-				append("://").
-				append(request.getHeader("Host")).
-				append(request.getContextPath()).
-				append(request.getServletPath()).
-				append('/');
-			locator.appendPath(location);
-		}
+		location.
+			append(request.getScheme()).
+			append("://").
+			append(request.getHeader("Host")).
+			append(request.getContextPath()).
+			append(request.getServletPath()).
+			append('/');
+		locator.appendPath(location);
 		//System.out.println("location="+location);
 		
 		response.setStatus(response.SC_MOVED_PERMANENTLY);
