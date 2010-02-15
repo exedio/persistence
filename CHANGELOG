@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* do not allow item ids with leading zeros
+	protects against Denial of Service against MediaServlet caching mechanism
 * allow arbitrary Feature as source of Pattern, not Field only
 * make Pattern.getSource[Fields|Types] final
 * allow serialization/deserialization of:
