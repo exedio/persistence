@@ -54,10 +54,15 @@ public class MediaServletTest extends TestCase
 		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.txt"), "image/gif");
 		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
 		
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.jpg")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.txt")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.jpg")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.zack")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/")));
@@ -108,6 +113,13 @@ public class MediaServletTest extends TestCase
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified+5000, true));
 
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4.jpg"), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4."), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4"), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick.jpg"), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick."), "unknownma/unknownmi"));
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick"), "unknownma/unknownmi"));
 
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3.jpg"), prefix + "content/MediaServletItem.3.jpg");
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "content/MediaServletItem.3.jpg");
