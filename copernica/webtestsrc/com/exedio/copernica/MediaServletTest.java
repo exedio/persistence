@@ -42,6 +42,7 @@ public class MediaServletTest extends TestCase
 	
 	private static final String ITEM_TXT = "MediaServletItem.0";
 	private static final String ITEM_PNG = "MediaServletItem.2";
+	private static final String ITEM_JPG = "MediaServletItem.3";
 	private static final String ITEM_NX  = "MediaServletItem.20";
 
 	public void testIt() throws Exception
@@ -54,7 +55,7 @@ public class MediaServletTest extends TestCase
 
 		final long textLastModified = assertURL(new URL(prefix + "content/" + ITEM_TXT + ".txt"));
 		final long pngLastModified = assertBinary(new URL(prefix + "content/" + ITEM_PNG + ".png"), "image/png");
-		final long jpegLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.3.jpg"), "image/jpeg");
+		final long jpegLastModified = assertBinary(new URL(prefix + "content/" + ITEM_JPG + ".jpg"), "image/jpeg");
 		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.gif"), "image/gif");
 		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4"), "unknownma/unknownmi");
 		
@@ -126,26 +127,26 @@ public class MediaServletTest extends TestCase
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick."), "unknownma/unknownmi"));
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick"), "unknownma/unknownmi"));
 
-		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3.jpg"), prefix + "content/MediaServletItem.3.jpg");
-		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "redirect/MediaServletItem.3.jpg");
-		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "redirect/MediaServletItem.3.jpg");
+		assertURLRedirect(new URL(prefix + "redirect/" + ITEM_JPG + ".jpg"), prefix + "content/" + ITEM_JPG + ".jpg");
+		assertURLRedirect(new URL(prefix + "redirect/" + ITEM_JPG + "."), prefix + "redirect/" + ITEM_JPG + ".jpg");
+		assertURLRedirect(new URL(prefix + "redirect/" + ITEM_JPG + ""), prefix + "redirect/" + ITEM_JPG + ".jpg");
 		
 		assertNotFound(new URL(prefix + "thumbnail/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnail/" + ITEM_PNG + ".jpg"), "image/jpeg"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3.jpg"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/" + ITEM_JPG + ".jpg"), "image/jpeg"));
 		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8.jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg"), "image/jpeg"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3.jpg"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg"), "image/jpeg"));
 		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8.jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png"), "image/png"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.3.png"), "image/png"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png"), "image/png"));
 		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8.png"), "image/png"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
