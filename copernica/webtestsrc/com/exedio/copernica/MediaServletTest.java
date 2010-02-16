@@ -262,6 +262,11 @@ public class MediaServletTest extends TestCase
 		assertEquals(conn.HTTP_MOVED_PERM, conn.getResponseCode());
 		assertEquals("Moved Permanently", conn.getResponseMessage());
 		assertEquals(target, conn.getHeaderField("Location"));
+		assertEquals(null, conn.getContentType());
+		assertEquals(0, conn.getContentLength());
+		final InputStream is = conn.getInputStream();
+		assertEquals(-1, is.read());
+		is.close();
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
