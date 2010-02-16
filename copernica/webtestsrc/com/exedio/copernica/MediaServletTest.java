@@ -43,6 +43,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_TXT = "MediaServletItem.0";
 	private static final String ITEM_PNG = "MediaServletItem.2";
 	private static final String ITEM_JPG = "MediaServletItem.3";
+	private static final String ITEM_GIF = "MediaServletItem.8";
 	private static final String ITEM_NX  = "MediaServletItem.20";
 
 	public void testIt() throws Exception
@@ -56,7 +57,7 @@ public class MediaServletTest extends TestCase
 		final long textLastModified = assertURL(new URL(prefix + "content/" + ITEM_TXT + ".txt"));
 		final long pngLastModified = assertBinary(new URL(prefix + "content/" + ITEM_PNG + ".png"), "image/png");
 		final long jpegLastModified = assertBinary(new URL(prefix + "content/" + ITEM_JPG + ".jpg"), "image/jpeg");
-		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.gif"), "image/gif");
+		final long gifLastModified = assertBinary(new URL(prefix + "content/" + ITEM_GIF + ".gif"), "image/gif");
 		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4"), "unknownma/unknownmi");
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/" + ITEM_TXT + ".txt")));
@@ -135,19 +136,19 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnail/" + ITEM_PNG + ".jpg"), "image/jpeg"));
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/" + ITEM_JPG + ".jpg"), "image/jpeg"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8.jpg"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnail/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg"), "image/jpeg"));
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg"), "image/jpeg"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8.jpg"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png"), "image/png"));
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png"), "image/png"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8.png"), "image/png"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png"), "image/png"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/" + ITEM_NX + ".jpg"), NO_SUCH_ITEM);
