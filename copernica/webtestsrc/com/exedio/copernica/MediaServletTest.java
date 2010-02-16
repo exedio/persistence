@@ -56,9 +56,9 @@ public class MediaServletTest extends TestCase
 		final String prefix = app + "media/MediaServletItem/";
 
 		final long lmTxt = assertTxt(new URL(prefix + "content/" + ITEM_TXT + ".txt"));
-		final long lmPng = assertBinary(new URL(prefix + "content/" + ITEM_PNG + ".png"), "image/png");
-		final long lmJpg = assertBinary(new URL(prefix + "content/" + ITEM_JPG + ".jpg"), "image/jpeg");
-		final long lmGif = assertBinary(new URL(prefix + "content/" + ITEM_GIF + ".gif"), "image/gif");
+		final long lmPng = assertBin(new URL(prefix + "content/" + ITEM_PNG + ".png"), "image/png");
+		final long lmJpg = assertBin(new URL(prefix + "content/" + ITEM_JPG + ".jpg"), "image/jpeg");
+		final long lmGif = assertBin(new URL(prefix + "content/" + ITEM_GIF + ".gif"), "image/gif");
 		final long lmUnk = assertTxt(new URL(prefix + "content/" + ITEM_UNK + ""), "unknownma/unknownmi");
 		
 		assertEquals(lmTxt, assertTxt(new URL(prefix + "content/" + ITEM_TXT + ".txt")));
@@ -135,21 +135,21 @@ public class MediaServletTest extends TestCase
 		
 		assertNotFound(new URL(prefix + "thumbnail/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
-		assertEquals(lmPng,  assertBinary(new URL(prefix + "thumbnail/" + ITEM_PNG + ".jpg"), "image/jpeg"));
-		assertEquals(lmJpg, assertBinary(new URL(prefix + "thumbnail/" + ITEM_JPG + ".jpg"), "image/jpeg"));
-		assertEquals(lmGif,  assertBinary(new URL(prefix + "thumbnail/" + ITEM_GIF + ".jpg"), "image/jpeg"));
+		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnail/" + ITEM_PNG + ".jpg"), "image/jpeg"));
+		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnail/" + ITEM_JPG + ".jpg"), "image/jpeg"));
+		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnail/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
-		assertEquals(lmPng,  assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg"), "image/jpeg"));
-		assertEquals(lmJpg, assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg"), "image/jpeg"));
-		assertEquals(lmGif,  assertBinary(new URL(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg"), "image/jpeg"));
+		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg"), "image/jpeg"));
+		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg"), "image/jpeg"));
+		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/" + ITEM_TXT + ""), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
-		assertEquals(lmPng,  assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png"), "image/png"));
-		assertEquals(lmJpg, assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png"), "image/png"));
-		assertEquals(lmGif,  assertBinary(new URL(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png"), "image/png"));
+		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png"), "image/png"));
+		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png"), "image/png"));
+		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png"), "image/png"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/" + ITEM_NX + ".jpg"), NO_SUCH_ITEM);
@@ -312,7 +312,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private long assertBinary(final URL url, final String contentType) throws IOException
+	private long assertBin(final URL url, final String contentType) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
