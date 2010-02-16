@@ -39,6 +39,13 @@ public abstract class CachedMedia extends MediaPath
 			final Item item)
 		throws IOException
 	{
+		// NOTE
+		// This code prevents a Denial of Service attack against the caching mechanism.
+		// Query strings can be used to effectively disable the cache by using many urls
+		// for one media value. Therefore they are forbidden completely.
+		if(request.getQueryString()!=null)
+			return notAnItem;
+		
 		final long lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)

@@ -107,7 +107,7 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1."), IS_NULL);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1"), IS_NULL);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt?x=y")));
+		assertNotFound(new URL(prefix + "content/MediaServletItem.0.txt?x=y"), NOT_AN_ITEM);
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified-1, false));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified, true));
