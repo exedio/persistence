@@ -26,7 +26,7 @@
 	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
-	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api.jar-src.zip"/>
 	<classpathentry kind="lib" path="lib/trove.jar" sourcepath="lib/trove-src.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
 	<classpathentry kind="lib" path="lib/exedio-cops.jar" sourcepath="lib/exedio-cops.jar-src.zip"/>
