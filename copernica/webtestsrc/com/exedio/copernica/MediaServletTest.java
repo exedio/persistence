@@ -49,16 +49,16 @@ public class MediaServletTest extends TestCase
 		final String prefix = app + "media/MediaServletItem/";
 
 		final long textLastModified = assertURL(new URL(prefix + "content/MediaServletItem.0.txt"));
-		final long pngLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.2.txt"), "image/png");
-		final long jpegLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.3.txt"), "image/jpeg");
-		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.txt"), "image/gif");
-		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
+		final long pngLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.2.png"), "image/png");
+		final long jpegLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.3.jpg"), "image/jpeg");
+		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.gif"), "image/gif");
+		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4"), "unknownma/unknownmi");
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.jpg")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.zick")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0")));
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.0.jpg") , prefix + "content/MediaServletItem.0.txt");
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.0.zick"), prefix + "content/MediaServletItem.0.txt"); // TODO should be 404
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.0.")    , prefix + "content/MediaServletItem.0.txt"); // TODO should be 404
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.0")     , prefix + "content/MediaServletItem.0.txt");
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.txt")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.jpg")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0/zick.zack")));
@@ -109,13 +109,13 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.0.txt?x=y"), NOT_AN_ITEM);
 		
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified-1, false));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified, true));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified+5000, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.txt"), textLastModified+5000, true));
 
-		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi"));
-		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4.jpg"), "unknownma/unknownmi"));
-		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4."), "unknownma/unknownmi"));
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), prefix + "content/MediaServletItem.4"); // TODO should be 404
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.4.jpg")                , prefix + "content/MediaServletItem.4");
+		assertURLRedirect(new URL(prefix + "content/MediaServletItem.4.")                   , prefix + "content/MediaServletItem.4"); // TODO should be 404
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4"), "unknownma/unknownmi"));
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick.unknownma.unknownmi"), "unknownma/unknownmi"));
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick.jpg"), "unknownma/unknownmi"));
@@ -123,26 +123,26 @@ public class MediaServletTest extends TestCase
 		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4/zick"), "unknownma/unknownmi"));
 
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3.jpg"), prefix + "content/MediaServletItem.3.jpg");
-		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "content/MediaServletItem.3.jpg");
-		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "content/MediaServletItem.3.jpg");
+		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "redirect/MediaServletItem.3.jpg");
+		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "redirect/MediaServletItem.3.jpg");
 		
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
-		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.2"), "image/jpeg"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3"), "image/jpeg"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8"), "image/jpeg"));
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.2.jpg"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3.jpg"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8.jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
-		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.2"), "image/jpeg"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3"), "image/jpeg"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8"), "image/jpeg"));
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.2.jpg"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3.jpg"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8.jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
-		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.2"), "image/png"));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.3"), "image/png"));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8"), "image/png"));
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.2.png"), "image/png"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.3.png"), "image/png"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8.png"), "image/png"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
@@ -161,8 +161,8 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
 
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5.txt"));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5."));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5"));
+		assertURLRedirect(new URL(prefix + "nameServer/MediaServletItem.5."), prefix + "nameServer/MediaServletItem.5.txt"); // TODO should be 404
+		assertURLRedirect(new URL(prefix + "nameServer/MediaServletItem.5") , prefix + "nameServer/MediaServletItem.5.txt");
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/something.txt"));
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/."));
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/"));
@@ -181,8 +181,8 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
 
 		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7.txt"));
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7."));
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7"));
+		assertURLRedirect(new URL(prefix + "nameServer/MediaServletItem.7."), prefix + "nameServer/MediaServletItem.7.txt"); // TODO should be 404
+		assertURLRedirect(new URL(prefix + "nameServer/MediaServletItem.7") , prefix + "nameServer/MediaServletItem.7.txt");
 	}
 	
 	private long assertURL(final URL url) throws IOException

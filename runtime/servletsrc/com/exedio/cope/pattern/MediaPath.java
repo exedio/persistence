@@ -240,6 +240,7 @@ public abstract class MediaPath extends Pattern
 	public final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	public final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
 	public final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
+	public final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
 	public final Log isNull            = new Log("is null"       , HttpServletResponse.SC_NOT_FOUND);
 	public final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
 	public final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
@@ -254,6 +255,7 @@ public abstract class MediaPath extends Pattern
 		
 		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;
+		final boolean checkCanonical;
 		if(slash<0)
 		{
 			final int firstDot = pathInfo.indexOf('.', fromIndex);
@@ -264,10 +266,13 @@ public abstract class MediaPath extends Pattern
 				id = pathInfo.substring(fromIndex, dot);
 			else
 				id = pathInfo.substring(fromIndex);
+			
+			checkCanonical = true;
 		}
 		else
 		{
 			id = pathInfo.substring(fromIndex, slash);
+			checkCanonical = false;
 		}
 		
 		//System.out.println("ID="+id);
@@ -277,6 +282,32 @@ public abstract class MediaPath extends Pattern
 			model.startTransaction("MediaServlet");
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
+			if(checkCanonical)
+			{
+				final Locator locator = getLocator(item);
+				if(locator!=null)
+				{
+					final StringBuilder expectedPathInfo = new StringBuilder();
+					expectedPathInfo.append('/');
+					locator.appendPath(expectedPathInfo);
+					if(!expectedPathInfo.toString().equals(pathInfo))
+					{
+						final StringBuilder location = new StringBuilder();
+						location.
+							append(request.getScheme()).
+							append("://").
+							append(request.getHeader("Host")).
+							append(request.getContextPath()).
+							append(request.getServletPath()).
+							append('/');
+						locator.appendPath(location);
+						
+						response.setStatus(response.SC_MOVED_PERMANENTLY);
+						response.setHeader("Location", location.toString());
+						return moved;
+					}
+				}
+			}
 			
 			final Media.Log result = doGet(request, response, item);
 			model.commit();

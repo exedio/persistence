@@ -69,6 +69,7 @@ final class MediaStatsCop extends ConsoleCop
 				"Exception <small>(500)</small>",
 				"Not An Item <small>(404)</small>",
 				"No Such Item <small>(404)</small>",
+				"Moved <small>(301)</small>",
 				"Is Null <small>(404)</small>",
 				"Not Computable <small>(404)</small>",
 				"Not Modified <small>(304)</small>",
@@ -82,13 +83,14 @@ final class MediaStatsCop extends ConsoleCop
 				"ex",
 				"nai",
 				"nsi",
+				"mv",
 				"in",
 				"nc",
 				"nm",
 				"del",
 				"ratio",
 			};
-		final int[] total = new int[7];
+		final int[] total = new int[8];
 		final int[][] logs = new int[medias.size()][];
 
 		int mediaIndex = 0;
@@ -98,6 +100,7 @@ final class MediaStatsCop extends ConsoleCop
 				media.exception.get(),
 				media.notAnItem.get(),
 				media.noSuchItem.get(),
+				media.moved.get(),
 				media.isNull.get(),
 				media.notComputable.get(),
 				media.notModified.get(),
