@@ -109,6 +109,15 @@ public final class Wrapper
 				final String comment,
 				final boolean vararg)
 		{
+			if(type==null)
+				throw new NullPointerException("type");
+			if(name==null)
+				throw new NullPointerException("name");
+			if(comment!=null)
+				assertComment(comment);
+			if(vararg && !((Class)type).isArray())
+				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
+			
 			this.type = type;
 			this.name = name;
 			this.comment = comment;
@@ -163,15 +172,6 @@ public final class Wrapper
 	
 	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
-		if(name==null)
-			throw new NullPointerException("name");
-		if(comment!=null)
-			assertComment(comment);
-		if(vararg && !((Class)type).isArray())
-			throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
-		
 		if(parameters==null)
 			parameters = new ArrayList<Parameter>();
 		parameters.add(new Parameter(type, name, comment, vararg));
@@ -286,7 +286,7 @@ public final class Wrapper
 	}
 	
 	
-	private static final void assertComment(final String comment)
+	static final void assertComment(final String comment)
 	{
 		if(comment==null)
 			throw new NullPointerException("comment");
