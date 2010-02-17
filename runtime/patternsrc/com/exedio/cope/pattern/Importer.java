@@ -40,11 +40,11 @@ final class Importer<E extends Object> extends Pattern
 		if(key==null)
 			throw new NullPointerException("key");
 		if(!key.isFinal())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("key must be final");
 		if(!key.isMandatory())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("key must be mandatory");
 		if(key.getImplicitUniqueConstraint()==null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("key must be unique");
 		
 		this.key = key;
 	}
@@ -52,6 +52,11 @@ final class Importer<E extends Object> extends Pattern
 	public static final <E> Importer<E> newImporter(final FunctionField<E> key)
 	{
 		return new Importer<E>(key);
+	}
+	
+	public FunctionField<E> getKey()
+	{
+		return key;
 	}
 	
 	@Override
