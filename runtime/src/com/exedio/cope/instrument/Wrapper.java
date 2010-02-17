@@ -122,9 +122,6 @@ public final class Wrapper
 			this.name = name;
 			this.comment = comment;
 			this.vararg = vararg;
-			
-			assert type!=null;
-			assert name!=null;
 		}
 
 		public java.lang.reflect.Type getType()
