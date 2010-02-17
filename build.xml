@@ -992,13 +992,14 @@
 	</target>
 	
 	<target name="findbugs.prod" depends="findbugs.prepare, compile">
+		<mkdir dir="${basedir}/cruise" />
 		<findbugs
 					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
 					jvmargs="-Xmx250M"
 					failOnError="true"
 					warningsProperty="findbugs.warnings"
 					output="html"
-					outputFile="${basedir}/build/findbugs-prod.html"
+					outputFile="${basedir}/cruise/findbugs-prod.html"
 					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
