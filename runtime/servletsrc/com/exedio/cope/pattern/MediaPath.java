@@ -42,7 +42,7 @@ public abstract class MediaPath extends Pattern
 	private String mediaRootUrl = null;
 
 	@Override
-	protected final void onMount()
+	protected void onMount()
 	{
 		final String name = getName();
 		
@@ -52,7 +52,7 @@ public abstract class MediaPath extends Pattern
 	final String getUrlPath()
 	{
 		if(urlPath==null)
-			throw new RuntimeException("not yet initialized");
+			throw new RuntimeException("not yet mounted");
 		
 		return urlPath;
 	}

@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* MediaPath.onMount is not final anymore
 * add pattern Importer
 	helps implementing typical update-or-insert scenarios
 * do not allow item ids with leading zeros
