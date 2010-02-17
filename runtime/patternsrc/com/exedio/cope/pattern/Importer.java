@@ -29,7 +29,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
-final class Importer<E extends Object> extends Pattern
+public final class Importer<E extends Object> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 	
