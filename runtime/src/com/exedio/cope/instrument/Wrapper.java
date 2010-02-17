@@ -103,7 +103,11 @@ public final class Wrapper
 		private final String comment;
 		private final boolean vararg;
 		
-		Parameter(final java.lang.reflect.Type type, final String name, String comment, final boolean vararg)
+		Parameter(
+				final java.lang.reflect.Type type,
+				final String name,
+				final String comment,
+				final boolean vararg)
 		{
 			this.type = type;
 			this.name = name;
