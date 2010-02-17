@@ -172,9 +172,10 @@ public final class Wrapper
 	
 	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
 	{
+		final Parameter p = new Parameter(type, name, comment, vararg);
 		if(parameters==null)
 			parameters = new ArrayList<Parameter>();
-		parameters.add(new Parameter(type, name, comment, vararg));
+		parameters.add(p);
 
 		return this;
 	}
