@@ -534,7 +534,15 @@ final class Generator
 						o.write(',');
 					
 					o.write(finalArgPrefix);
-					o.write(toString(parameter.getType(), feature));
+					if(parameter.isVararg())
+					{
+						o.write(((Class)parameter.getType()).getComponentType().getName());
+						o.write("...");
+					}
+					else
+					{
+						o.write(toString(parameter.getType(), feature));
+					}
 					o.write(' ');
 					o.write(format(parameter.getName(), arguments));
 				}

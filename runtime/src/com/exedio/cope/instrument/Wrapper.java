@@ -101,12 +101,14 @@ public final class Wrapper
 		private final java.lang.reflect.Type type;
 		private final String name;
 		private final String comment;
+		private final boolean vararg;
 		
-		Parameter(final java.lang.reflect.Type type, final String name, String comment)
+		Parameter(final java.lang.reflect.Type type, final String name, String comment, final boolean vararg)
 		{
 			this.type = type;
 			this.name = name;
 			this.comment = comment;
+			this.vararg = vararg;
 			
 			assert type!=null;
 			assert name!=null;
@@ -126,6 +128,11 @@ public final class Wrapper
 		{
 			return comment;
 		}
+
+		public boolean isVararg()
+		{
+			return vararg;
+		}
 	}
 	
 	private ArrayList<Parameter> parameters;
@@ -142,16 +149,28 @@ public final class Wrapper
 	
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
 	{
+		return addParameter(type, name, comment, false);
+	}
+	
+	public Wrapper addParameterVararg(final Class type, final String name)
+	{
+		return addParameter(type, name, null, true);
+	}
+	
+	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
+	{
 		if(type==null)
 			throw new NullPointerException("type");
 		if(name==null)
 			throw new NullPointerException("name");
 		if(comment!=null)
 			assertComment(comment);
+		if(vararg && !((Class)type).isArray())
+			throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
 		
 		if(parameters==null)
 			parameters = new ArrayList<Parameter>();
-		parameters.add(new Parameter(type, name, comment));
+		parameters.add(new Parameter(type, name, comment, vararg));
 
 		return this;
 	}

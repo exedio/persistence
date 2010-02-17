@@ -71,7 +71,7 @@ public final class Importer<E extends Object> extends Pattern
 			addComment("Import {0}.").
 			setReturn(Wrapper.ClassVariable.class, "the imported item").
 			addParameter(key.getInitialType(), "keyValue").
-			addParameter(SetValue[].class, "setValues").
+			addParameterVararg(SetValue[].class, "setValues").
 			setStatic());
 		
 		return Collections.unmodifiableList(result);

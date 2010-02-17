@@ -27,7 +27,6 @@ import static com.exedio.cope.pattern.ImporterItem.importByCode;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 public class ImporterTest extends AbstractRuntimeTest
@@ -110,14 +109,14 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 		
 		final ImporterItem itemA = deleteOnTearDown(
-			importByCode("codeA", new SetValue[]{description.map("descA"), description2.map("desc2A")}));
+			importByCode("codeA", description.map("descA"), description2.map("desc2A")));
 		assertEquals(list(itemA), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
 		assertEquals("desc2A", itemA.getDescription2());
 		
 		final ImporterItem itemB = deleteOnTearDown(
-			importByCode("codeB", new SetValue[]{description.map("descB"), description2.map("desc2B")}));
+			importByCode("codeB", description.map("descB"), description2.map("desc2B")));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
@@ -127,7 +126,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("desc2B", itemB.getDescription2());
 		
 		assertEquals(itemA,
-			importByCode("codeA", new SetValue[]{description.map("descAx"), description2.map("desc2Ax")}));
+			importByCode("codeA", description.map("descAx"), description2.map("desc2Ax")));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA", itemA.getCode());
 		assertEquals("descAx", itemA.getDescription());
