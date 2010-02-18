@@ -477,7 +477,6 @@
 		<instrument verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
-				<exclude name="**/EditedServlet_Jspm.java" />
 			</fileset>
 		</instrument>
 	</target>
