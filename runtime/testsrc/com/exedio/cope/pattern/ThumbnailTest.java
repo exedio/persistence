@@ -67,7 +67,6 @@ public class ThumbnailTest extends AbstractRuntimeTest
 				item.file.getContentType(),
 				item.file.getLastModified(),
 				item.thumb,
-				item.thumM,
 			}), item.TYPE.getFeatures());
 		assertEquals(item.TYPE, item.thumb.getType());
 		assertEquals("thumb", item.thumb.getName());
@@ -85,7 +84,6 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
 		
 		assertSerializedSame(item.thumb, 381);
-		assertSerializedSame(item.thumM, 381);
 		
 		try
 		{
