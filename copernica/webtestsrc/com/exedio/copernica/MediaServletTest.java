@@ -100,10 +100,10 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(app + "media/dingdangdong////"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/dingdangdong///"), NO_SUCH_PATH);
 		assertNotFound(new URL(app + "media/dingdangdong//"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.150.txt"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.150.zick"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.150."), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.150"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/" + ITEM_NX + ".txt"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/" + ITEM_NX + ".zick"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/" + ITEM_NX + "."), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/" + ITEM_NX + ""), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem."), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaZack"), NOT_AN_ITEM);
