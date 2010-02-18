@@ -35,7 +35,7 @@ import com.exedio.cope.RevisionInfoCreate;
 import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class Revisions
+public final class Revisions
 {
 	static final com.exedio.cope.Revisions revisions(final int length)
 	{

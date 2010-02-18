@@ -34,13 +34,13 @@ import com.exedio.cope.pattern.MediaPath;
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
  * @author Ralf Wiebicke
  */
-final class MediaNameServer extends MediaPath
+public final class ANameServer extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
 	
 	final StringField source;
 
-	MediaNameServer(final StringField source)
+	ANameServer(final StringField source)
 	{
 		this.source = source;
 		if(source!=null)
@@ -75,7 +75,7 @@ final class MediaNameServer extends MediaPath
 			return isNull;
 		
 		if(content.endsWith(" error"))
-			throw new RuntimeException("test error in MediaNameServer");
+			throw new RuntimeException("test error in ANameServer");
 
 		response.setContentType("text/plain");
 

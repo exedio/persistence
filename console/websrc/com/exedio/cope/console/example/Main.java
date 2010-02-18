@@ -26,7 +26,7 @@ public final class Main
 		new Model(
 				Revisions.revisions(64),
 				AnItem.TYPE,
-				MediaServletItem.TYPE
+				AMediaItem.TYPE
 		);
 	
 	public static final Model reducedModel =

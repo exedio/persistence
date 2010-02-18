@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
 
-public class InitServlet extends HttpServlet
+public final class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -45,9 +45,9 @@ public class InitServlet extends HttpServlet
 		try
 		{
 			Main.model.startTransaction(thisClass.getName());
-			new MediaServletItem();
-			new MediaServletItem().setContent(thisClass.getResourceAsStream("test.png"), "image/png");
-			new MediaServletItem().setContent(thisClass.getResourceAsStream("test.png"), "unknownma/unknownmi");
+			new AMediaItem();
+			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "image/png");
+			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "unknownma/unknownmi");
 			Main.model.commit();
 		}
 		catch(IOException e)

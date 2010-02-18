@@ -21,7 +21,7 @@ package com.exedio.cope.console.example;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-final class AReducedItem extends Item
+public final class AReducedItem extends Item
 {
 	static final StringField aField = new StringField();
 	
