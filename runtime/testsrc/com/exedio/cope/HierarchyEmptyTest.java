@@ -35,7 +35,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	}
 	
 	public void testHierarchy()
-			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
+			throws IntegrityViolationException, UniqueViolationException
 	{
 		// model HierarchyEmptySuper
 		assertEquals(null, HierarchyEmptySuper.TYPE.getSupertype());
@@ -97,7 +97,6 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 
 		// test persistence
 		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
-		assertID(0, subItem);
 		assertEquals(0, subItem.getSuperInt());
 		
 		subItem.setSuperInt(2);
@@ -108,7 +107,6 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		if(!noJoinParentheses) assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
 		
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
-		assertID(1, superItem);
 		assertEquals(3, superItem.getSuperInt());
 		
 		superItem.setSuperInt(4);
