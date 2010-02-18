@@ -34,10 +34,10 @@ import junit.framework.TestCase;
 
 public class MediaServletTest extends TestCase
 {
-	private static final String NO_SUCH_PATH = "no such path";
-	private static final String NOT_AN_ITEM = "not an item";
-	private static final String NO_SUCH_ITEM = "no such item";
-	private static final String IS_NULL = "is null";
+	private static final String NO_SUCH_PATH   = "no such path";
+	private static final String NOT_AN_ITEM    = "not an item";
+	private static final String NO_SUCH_ITEM   = "no such item";
+	private static final String IS_NULL        = "is null";
 	private static final String NOT_COMPUTABLE = "not computable";
 	
 	private static final String ITEM_TXT = "MediaServletItem.0";
