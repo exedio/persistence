@@ -171,12 +171,12 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP, IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 
-		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt"));
+		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + ".", prefix + "nameServer/" + ITEM_NAME_OK + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK , prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
-		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt"));
-		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/."));
-		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/"));
+		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt");
+		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/.");
+		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/");
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL + ".txt", IS_NULL);
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL + ".", IS_NULL);
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL, IS_NULL);
@@ -372,9 +372,9 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private void assertNameURL(final URL url) throws IOException
+	private void assertNameURL(final String url) throws IOException
 	{
-		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
