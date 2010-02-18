@@ -60,115 +60,115 @@ public class MediaServletTest extends TestCase
 		final String prefix = app + "media/MediaServletItem/";
 
 		final long lmTxt = assertTxt(prefix + "content/" + ITEM_TXT + ".txt");
-		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png");
+		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" );
 		final long lmJpg = assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg");
-		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif");
-		final long lmUnk = assertTxt(prefix + "content/" + ITEM_UNK, "unknownma/unknownmi");
+		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
+		final long lmUnk = assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi");
 		
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt"));
 		assertMoved(prefix + "content/" + ITEM_TXT + ".jpg" , prefix + "content/" + ITEM_TXT + ".txt");
 		assertMoved(prefix + "content/" + ITEM_TXT + ".zick", prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TXT + "."    , prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_TXT     , prefix + "content/" + ITEM_TXT + ".txt");
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.txt"));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.jpg"));
+		assertMoved(prefix + "content/" + ITEM_TXT          , prefix + "content/" + ITEM_TXT + ".txt");
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.txt" ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.jpg" ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.zack"));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick."));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick"));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/."));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/"));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick."    ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick"     ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/."        ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/"         ));
 		assertNotFound(app + "media/MeDiaServletItem/content/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/conTent/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media//content/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem//" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media///" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media////", NO_SUCH_PATH);
-		assertNotFound(app + "media///", NO_SUCH_PATH);
-		assertNotFound(app + "media//", NO_SUCH_PATH);
-		assertNotFound(app + "media/", NO_SUCH_PATH);
-		assertNotFound(app + "media", NO_SUCH_PATH);
+		assertNotFound(app + "media///" , NO_SUCH_PATH);
+		assertNotFound(app + "media//"  , NO_SUCH_PATH);
+		assertNotFound(app + "media/"   , NO_SUCH_PATH);
+		assertNotFound(app + "media"    , NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/content", NO_SUCH_PATH);
-		assertNotFound(app + "media/MediaServletItem/c", NO_SUCH_PATH);
-		assertNotFound(app + "media/MediaServletItem/", NO_SUCH_PATH);
-		assertNotFound(app + "media/MediaServletItem", NO_SUCH_PATH);
-		assertNotFound(app + "media/M", NO_SUCH_PATH);
+		assertNotFound(app + "media/MediaServletItem/c"      , NO_SUCH_PATH);
+		assertNotFound(app + "media/MediaServletItem/"       , NO_SUCH_PATH);
+		assertNotFound(app + "media/MediaServletItem"        , NO_SUCH_PATH);
+		assertNotFound(app + "media/M"                       , NO_SUCH_PATH);
 		assertNotFound(prefix + "c", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/c", NO_SUCH_PATH);
-		assertNotFound(app + "media/MediaServletItem/", NO_SUCH_PATH);
+		assertNotFound(app + "media/MediaServletItem/" , NO_SUCH_PATH);
 		assertNotFound(app + "media////", NO_SUCH_PATH);
-		assertNotFound(app + "media///", NO_SUCH_PATH);
-		assertNotFound(app + "media//", NO_SUCH_PATH);
-		assertNotFound(app + "media/", NO_SUCH_PATH);
-		assertNotFound(app + "media", NO_SUCH_PATH);
+		assertNotFound(app + "media///" , NO_SUCH_PATH);
+		assertNotFound(app + "media//"  , NO_SUCH_PATH);
+		assertNotFound(app + "media/"   , NO_SUCH_PATH);
+		assertNotFound(app + "media"    , NO_SUCH_PATH);
 		assertNotFound(app + "media/dingdangdong/////", NO_SUCH_PATH);
-		assertNotFound(app + "media/dingdangdong////", NO_SUCH_PATH);
-		assertNotFound(app + "media/dingdangdong///", NO_SUCH_PATH);
-		assertNotFound(app + "media/dingdangdong//", NO_SUCH_PATH);
-		assertNotFound(prefix + "content/" + ITEM_NX + ".txt", NO_SUCH_ITEM);
+		assertNotFound(app + "media/dingdangdong////" , NO_SUCH_PATH);
+		assertNotFound(app + "media/dingdangdong///"  , NO_SUCH_PATH);
+		assertNotFound(app + "media/dingdangdong//"   , NO_SUCH_PATH);
+		assertNotFound(prefix + "content/" + ITEM_NX + ".txt" , NO_SUCH_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".zick", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX + ".", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX, NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX + "."    , NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX          , NO_SUCH_ITEM);
 		assertNotFound(prefix + "content/MediaServletItem.", NOT_AN_ITEM);
-		assertNotFound(prefix + "content/MediaServletItem", NOT_AN_ITEM);
+		assertNotFound(prefix + "content/MediaServletItem" , NOT_AN_ITEM);
 		assertNotFound(prefix + "content/MediaZack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/", NOT_AN_ITEM);
-		assertNotFound(prefix + "content", NO_SUCH_PATH);
+		assertNotFound(prefix + "content" , NO_SUCH_PATH);
 		assertNotFound(prefix + "content/zapp", NOT_AN_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_EMP + ".jpg", IS_NULL);
-		assertNotFound(prefix + "content/" + ITEM_EMP + ".", IS_NULL);
-		assertNotFound(prefix + "content/" + ITEM_EMP, IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP + ".jpg" , IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP + "."    , IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP          , IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
 		
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt-1, false));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt, true));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt+5000, true));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt-1   , false));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt     , true ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt+5000, true ));
 
 		assertMoved(prefix + "content/" + ITEM_UNK + ".unknownma.unknownmi", prefix + "content/" + ITEM_UNK); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_UNK + ".jpg"                , prefix + "content/" + ITEM_UNK);
 		assertMoved(prefix + "content/" + ITEM_UNK + "."                   , prefix + "content/" + ITEM_UNK); // TODO should be 404
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK, "unknownma/unknownmi"));
+		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK                              , "unknownma/unknownmi"));
 		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.unknownma.unknownmi", "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.jpg", "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.", "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick", "unknownma/unknownmi"));
+		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.jpg"                , "unknownma/unknownmi"));
+		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick."                   , "unknownma/unknownmi"));
+		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick"                    , "unknownma/unknownmi"));
 
-		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/" + ITEM_JPG + ".jpg");
-		assertMoved(prefix + "redirect/" + ITEM_JPG + ".", prefix + "redirect/" + ITEM_JPG + ".jpg");
-		assertMoved(prefix + "redirect/" + ITEM_JPG, prefix + "redirect/" + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "redirect/" + ITEM_JPG         , prefix + "redirect/" + ITEM_JPG + ".jpg");
 		
 		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng,  assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg"));
+		assertEquals(lmPng, assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif,  assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg"));
+		assertEquals(lmGif, assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg"));
 		
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng,  assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg"));
+		assertEquals(lmPng, assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif,  assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg"));
+		assertEquals(lmGif, assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg"));
 		
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng,  assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
+		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png"));
-		assertEquals(lmGif,  assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
+		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
 		
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX + ".", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX, NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX + "."   , NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX         , NO_SUCH_ITEM);
 		assertNotFound(prefix + "content/MediaServletItem.", NOT_AN_ITEM);
-		assertNotFound(prefix + "content/MediaServletItem", NOT_AN_ITEM);
+		assertNotFound(prefix + "content/MediaServletItem" , NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + "/dingens.jpg", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX + "/.", NO_SUCH_ITEM);
-		assertNotFound(prefix + "content/" + ITEM_NX + "/", NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX + "/."          , NO_SUCH_ITEM);
+		assertNotFound(prefix + "content/" + ITEM_NX + "/"           , NO_SUCH_ITEM);
 		assertNotFound(prefix + "content/", NOT_AN_ITEM);
 		assertNotFound(prefix + "content", NO_SUCH_PATH);
-		assertNotFound(prefix + "content/" + ITEM_EMP + ".jpg", IS_NULL);
-		assertNotFound(prefix + "content/" + ITEM_EMP + ".", IS_NULL);
-		assertNotFound(prefix + "content/" + ITEM_EMP, IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP + ".jpg" , IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP + "."    , IS_NULL);
+		assertNotFound(prefix + "content/" + ITEM_EMP          , IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
@@ -193,7 +193,7 @@ public class MediaServletTest extends TestCase
 
 		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR + ".", prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"); // TODO should be 404
-		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
+		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
 	
 	private long assertTxt(final String url) throws IOException
