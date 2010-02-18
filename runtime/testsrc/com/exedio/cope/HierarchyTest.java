@@ -40,7 +40,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 	}
 	
 	public void testHierarchy()
-			throws NoSuchIDException
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -131,11 +130,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 		
 		// test persistence
 		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
-		assertID(0, firstItem);
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
-		assertSame(firstItem, model.getItem(HierarchyFirstSub.TYPE.getID()+".0"));
-		assertIDFails("HierarchySuper.0", "type is abstract", true);
 		
 		firstItem.setSuperInt(2);
 		assertEquals(2, firstItem.getSuperInt());
@@ -151,15 +147,12 @@ public class HierarchyTest extends AbstractRuntimeTest
 		firstItem.setSuperInt(0);
 		
 		final HierarchySecondSub secondItem = deleteOnTearDown(new HierarchySecondSub(2));
-		assertID(1, secondItem);
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
 		final HierarchySecondSub secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
-		assertID(2, secondItem2);
 
 		final HierarchyFirstSub firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
-		assertID(3, firstItem2);
 		
 		assertEquals(list(firstItem), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubString")));
 		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
