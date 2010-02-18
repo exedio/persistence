@@ -437,13 +437,11 @@
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
-				
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/console/classes" />
 				</copy>
-				
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
@@ -451,7 +449,6 @@
 					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
-				
 				<copy tofile="build/runtime/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
 				<copy todir="build/runtime/web-@{env}/WEB-INF/"
 						file="runtime/web.xml" />
