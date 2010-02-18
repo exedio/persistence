@@ -41,6 +41,7 @@ public class MediaServletTest extends TestCase
 	private static final String NOT_COMPUTABLE = "not computable";
 	
 	private static final String ITEM_TXT = "MediaServletItem.0";
+	private static final String ITEM_EMP = "MediaServletItem.1";
 	private static final String ITEM_PNG = "MediaServletItem.2";
 	private static final String ITEM_JPG = "MediaServletItem.3";
 	private static final String ITEM_UNK = "MediaServletItem.4";
@@ -110,10 +111,10 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "content/zapp"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1.jpg"), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1."), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1"), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ".jpg"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + "."), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ""), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ".zick"), IS_NULL);
 		assertNotFound(new URL(prefix + "content/" + ITEM_TXT + ".txt?x=y"), NOT_AN_ITEM);
 		
 		assertEquals(lmTxt, assertTxt(new URL(prefix + "content/" + ITEM_TXT + ".txt"), lmTxt-1, false));
@@ -134,19 +135,19 @@ public class MediaServletTest extends TestCase
 		assertMoved(new URL(prefix + "redirect/" + ITEM_JPG + ""), prefix + "redirect/" + ITEM_JPG + ".jpg");
 		
 		assertNotFound(new URL(prefix + "thumbnail/" + ITEM_TXT + ""), NOT_COMPUTABLE);
-		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
+		assertNotFound(new URL(prefix + "thumbnail/" + ITEM_EMP + ""), IS_NULL);
 		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnail/" + ITEM_PNG + ".jpg"), "image/jpeg"));
 		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnail/" + ITEM_JPG + ".jpg"), "image/jpeg"));
 		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnail/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/" + ITEM_TXT + ""), NOT_COMPUTABLE);
-		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
+		assertNotFound(new URL(prefix + "thumbnailMagick/" + ITEM_EMP + ""), IS_NULL);
 		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg"), "image/jpeg"));
 		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg"), "image/jpeg"));
 		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/" + ITEM_TXT + ""), NOT_COMPUTABLE);
-		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
+		assertNotFound(new URL(prefix + "thumbnailMagickPng/" + ITEM_EMP + ""), IS_NULL);
 		assertEquals(lmPng,  assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png"), "image/png"));
 		assertEquals(lmJpg, assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png"), "image/png"));
 		assertEquals(lmGif,  assertBin(new URL(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png"), "image/png"));
@@ -162,10 +163,10 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/" + ITEM_NX + "/"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1.jpg"), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1."), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1"), IS_NULL);
-		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ".jpg"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + "."), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ""), IS_NULL);
+		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ".zick"), IS_NULL);
 
 		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5.txt"));
 		assertMoved(new URL(prefix + "nameServer/MediaServletItem.5."), prefix + "nameServer/MediaServletItem.5.txt"); // TODO should be 404
