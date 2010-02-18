@@ -520,6 +520,88 @@
 				file="runtime/servlet-context.xml" />
 	</target>
 	
+	<target name="copernica.test.jspm">
+		<jspm method="print">
+			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
+		</jspm>
+	</target>
+	
+	<target name="copernica.test.compile"
+				depends="runtime.compile, runtime.test.compile, copernica.test.jspm">
+		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/runtime/testclasses" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+		</ljavac>
+		<copy todir="build/copernica/testclasses/com/exedio/copernica/test">
+			<fileset dir="copernica/testresources" />
+		</copy>
+	</target>
+	
+	<target name="copernica.web" depends="copernica.test.compile, console.core.compile">
+		<mkdir dir="build/copernica/web" />
+		<copy todir="build/copernica/web/WEB-INF/classes">
+			<fileset dir="build/runtime/classes" />
+			<fileset dir="build/runtime/testclasses" />
+			<fileset dir="build/console/classes" />
+			<fileset dir="build/copernica/testclasses" />
+		</copy>
+		<copy todir="build/copernica/web/WEB-INF/lib">
+			<fileset file="lib/trove.jar" />
+			<fileset file="lib/commons-fileupload.jar" />
+			<fileset file="lib/commons-io.jar" />
+			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/jdbc/hsqldb.jar" />
+		</copy>
+		<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
+		<copy todir="build/copernica/web/WEB-INF/"
+				file="copernica/web.xml" />
+		<touch file="build/copernica/web/WEB-INF/web.xml" />
+	</target>
+	
+	<target name="copernica.tomcat" depends="copernica.web, catalina">
+		<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
+				file="copernica/context.xml" />
+	</target>
+	
+	<target name="copernica.webtest.compile">
+		<ljavac srcdir="copernica/webtestsrc" destdir="build/copernica/webtestclasses">
+			<classpath>
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="copernica.webtest"
+				depends="catalina,
+							runtime.servlet.test.tomcat,
+							copernica.tomcat, copernica.webtest.compile">
+		<runInTomcat name="copernica.webtest">
+			<body>
+				<ljunit test="com.exedio.copernica.PackageTest">
+					<classpath>
+						<pathelement location="build/copernica/webtestclasses" />
+						<pathelement location="lib/junit.jar" />
+					</classpath>
+				</ljunit>
+			</body>
+		</runInTomcat>
+	</target>
+
+	<target name="copernica.clean">
+		<delete dir="build/copernica" />
+		<delete>
+			<fileset dir="copernica/testsrc">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+		</delete>
+	</target>
+	
 	<target name="runtime.clean">
 		<delete>
 			<fileset dir="runtime/servletsrc"><!-- is not created anymore -->
@@ -727,90 +809,6 @@
 		<delete dir="console/web/WEB-INF/lib" />
 		<delete>
 			<fileset dir="console/src">
-				<include name="**/*_Jspm.java" />
-			</fileset>
-		</delete>
-	</target>
-	
-	<!-- copernica -->
-	
-	<target name="copernica.test.jspm">
-		<jspm method="print">
-			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
-		</jspm>
-	</target>
-	
-	<target name="copernica.test.compile"
-				depends="runtime.compile, runtime.test.compile, copernica.test.jspm">
-		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
-			<classpath>
-				<pathelement location="build/runtime/classes" />
-				<pathelement location="build/runtime/testclasses" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</ljavac>
-		<copy todir="build/copernica/testclasses/com/exedio/copernica/test">
-			<fileset dir="copernica/testresources" />
-		</copy>
-	</target>
-	
-	<target name="copernica.web" depends="copernica.test.compile, console.core.compile">
-		<mkdir dir="build/copernica/web" />
-		<copy todir="build/copernica/web/WEB-INF/classes">
-			<fileset dir="build/runtime/classes" />
-			<fileset dir="build/runtime/testclasses" />
-			<fileset dir="build/console/classes" />
-			<fileset dir="build/copernica/testclasses" />
-		</copy>
-		<copy todir="build/copernica/web/WEB-INF/lib">
-			<fileset file="lib/trove.jar" />
-			<fileset file="lib/commons-fileupload.jar" />
-			<fileset file="lib/commons-io.jar" />
-			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/jdbc/hsqldb.jar" />
-		</copy>
-		<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
-		<copy todir="build/copernica/web/WEB-INF/"
-				file="copernica/web.xml" />
-		<touch file="build/copernica/web/WEB-INF/web.xml" />
-	</target>
-	
-	<target name="copernica.tomcat" depends="copernica.web, catalina">
-		<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
-				file="copernica/context.xml" />
-	</target>
-	
-	<target name="copernica.webtest.compile">
-		<ljavac srcdir="copernica/webtestsrc" destdir="build/copernica/webtestclasses">
-			<classpath>
-				<pathelement location="lib/junit.jar" />
-			</classpath>
-		</ljavac>
-	</target>
-	
-	<target name="copernica.webtest"
-				depends="catalina,
-							runtime.servlet.test.tomcat,
-							copernica.tomcat, copernica.webtest.compile">
-		<runInTomcat name="copernica.webtest">
-			<body>
-				<ljunit test="com.exedio.copernica.PackageTest">
-					<classpath>
-						<pathelement location="build/copernica/webtestclasses" />
-						<pathelement location="lib/junit.jar" />
-					</classpath>
-				</ljunit>
-			</body>
-		</runInTomcat>
-	</target>
-
-	<target name="copernica.clean">
-		<delete dir="build/copernica" />
-		<delete>
-			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
 			</fileset>
 		</delete>
