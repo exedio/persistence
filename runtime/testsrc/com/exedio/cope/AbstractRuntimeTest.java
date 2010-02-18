@@ -303,11 +303,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 		assertTrue(item.existsCopeItem());
 	}
-	
-	protected void assertID(final int id, final Item item)
-	{
-		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
-	}
 
 	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
 	{

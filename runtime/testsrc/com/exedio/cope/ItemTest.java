@@ -75,9 +75,9 @@ public class ItemTest extends TestmodelTest
 			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
-		assertID(0, item1);
-		assertID(1, item2);
-		assertID(0, item3);
+		assertEquals("EmptyItem.0", item1.getCopeID());
+		assertEquals("EmptyItem.1", item2.getCopeID());
+		assertEquals("EmptyItem2.0", item3.getCopeID());
 
 		assertEquals(item1, model.getItem("EmptyItem.0"));
 		assertEquals(item2, model.getItem("EmptyItem.1"));
@@ -116,12 +116,12 @@ public class ItemTest extends TestmodelTest
 		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().in(listg(item1, item2))));
 
 		final EmptyItem item4 = new EmptyItem();
-		assertID(2, item4);
+		assertEquals("EmptyItem.2", item4.getCopeID());
 		final EmptyItem item5 = new EmptyItem();
-		assertID(3, item5);
+		assertEquals("EmptyItem.3", item5.getCopeID());
 		assertNotEquals(item4, item5);
 		final EmptyItem item6 = new EmptyItem();
-		assertID(4, item6);
+		assertEquals("EmptyItem.4", item6.getCopeID());
 		assertNotEquals(item4, item5);
 		assertNotEquals(item4, item6);
 		assertNotEquals(item5, item6);
