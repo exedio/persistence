@@ -1,8 +1,8 @@
 
 <Context
-		path="/copetest-@ENV@"
-		docBase="../../build/copernica/web-@ENV@"
+		path="/copetest"
+		docBase="../../build/copernica/web"
 		debug="0"
 		privileged="true">
-	<Parameter override="false" name="webapp" value="copetest-@ENV@" />
+	<Parameter override="false" name="webapp" value="copetest" />
 </Context>

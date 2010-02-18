@@ -140,7 +140,7 @@
 							maxwait="40" maxwaitunit="second"
 							checkevery="5" checkeveryunit="second"
 							timeoutproperty="server.app.init.failed">
-						<http url="http://127.0.0.1:8080/copetest-hsqldb/console" />
+						<http url="http://127.0.0.1:8080/copetest/console" />
 					</waitfor>
 					<echo message="tomcat (@{name}): ready ..." />
 					<fail if="server.app.init.failed" message="tomcat could not be started." />
@@ -756,46 +756,46 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.web" depends="copernica.test.compile">
-		<foreachEnvironment skipSwitch="copernica.web">
-			<body>
-				<mkdir dir="build/copernica/web-@{env}" />
+	<target name="copernica.web" depends="copernica.test.compile, console.core.compile">
+		
+			
+				<mkdir dir="build/copernica/web" />
 				
-				<copy todir="build/copernica/web-@{env}/WEB-INF/classes">
+				<copy todir="build/copernica/web/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/console/classes" />
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
 				
-				<copy todir="build/copernica/web-@{env}/WEB-INF/lib">
+				<copy todir="build/copernica/web/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
-					<fileset file="lib/jdbc/@{env.driver}" />
+					<fileset file="lib/jdbc/hsqldb.jar" />
 				</copy>
 				
-				<copy tofile="build/copernica/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
-				<copy todir="build/copernica/web-@{env}/WEB-INF/"
+				<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
+				<copy todir="build/copernica/web/WEB-INF/"
 						file="copernica/web.xml" />
-				<touch file="build/copernica/web-@{env}/WEB-INF/web.xml" />
-			</body>
-		</foreachEnvironment>
+				<touch file="build/copernica/web/WEB-INF/web.xml" />
+			
+		
 	</target>
 	
 	<target name="copernica.tomcat" depends="copernica.web, catalina">
-		<foreachEnvironment skipSwitch="copernica.tomcat">
-			<body>
-				<copy tofile="tomcat/conf/Catalina/localhost/copetest-@{env}.xml"
+		
+			
+				<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
 						file="copernica/context.xml">
-					<filterset>
-						<filter token="ENV" value="@{env}" />
-					</filterset>
+					
+					
+					
 				</copy>
-			</body>
-		</foreachEnvironment>
+			
+		
 	</target>
 	
 	<target name="copernica.webtest.compile">
