@@ -47,7 +47,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_UNK = "MediaServletItem.4";
 	private static final String ITEM_GIF = "MediaServletItem.8";
 	private static final String ITEM_NX  = "MediaServletItem.20";
-	private static final String ITEM_NAME_OK = "MediaServletItem.5";
+	private static final String ITEM_NAME_OK  = "MediaServletItem.5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem.6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem.7";
 
