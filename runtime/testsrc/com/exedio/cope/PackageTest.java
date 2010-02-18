@@ -59,6 +59,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FeatureTest.class );
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );
+		suite.addTestSuite( FindItemHierarchyEmptyTest.class );
 		suite.addTestSuite( ModelSerializationTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
 		suite.addTestSuite( SerializationSizeTest.class );
