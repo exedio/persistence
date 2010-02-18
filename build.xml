@@ -757,45 +757,30 @@
 	</target>
 	
 	<target name="copernica.web" depends="copernica.test.compile, console.core.compile">
-		
-			
-				<mkdir dir="build/copernica/web" />
-				
-				<copy todir="build/copernica/web/WEB-INF/classes">
-					<fileset dir="build/runtime/classes" />
-					<fileset dir="build/runtime/testclasses" />
-					<fileset dir="build/console/classes" />
-					<fileset dir="build/copernica/testclasses" />
-				</copy>
-				
-				<copy todir="build/copernica/web/WEB-INF/lib">
-					<fileset file="lib/trove.jar" />
-					<fileset file="lib/commons-fileupload.jar" />
-					<fileset file="lib/commons-io.jar" />
-					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/exedio-cope-util.jar" />
-					<fileset file="lib/jdbc/hsqldb.jar" />
-				</copy>
-				
-				<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
-				<copy todir="build/copernica/web/WEB-INF/"
-						file="copernica/web.xml" />
-				<touch file="build/copernica/web/WEB-INF/web.xml" />
-			
-		
+		<mkdir dir="build/copernica/web" />
+		<copy todir="build/copernica/web/WEB-INF/classes">
+			<fileset dir="build/runtime/classes" />
+			<fileset dir="build/runtime/testclasses" />
+			<fileset dir="build/console/classes" />
+			<fileset dir="build/copernica/testclasses" />
+		</copy>
+		<copy todir="build/copernica/web/WEB-INF/lib">
+			<fileset file="lib/trove.jar" />
+			<fileset file="lib/commons-fileupload.jar" />
+			<fileset file="lib/commons-io.jar" />
+			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/jdbc/hsqldb.jar" />
+		</copy>
+		<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
+		<copy todir="build/copernica/web/WEB-INF/"
+				file="copernica/web.xml" />
+		<touch file="build/copernica/web/WEB-INF/web.xml" />
 	</target>
 	
 	<target name="copernica.tomcat" depends="copernica.web, catalina">
-		
-			
-				<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
-						file="copernica/context.xml">
-					
-					
-					
-				</copy>
-			
-		
+		<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
+				file="copernica/context.xml" />
 	</target>
 	
 	<target name="copernica.webtest.compile">
