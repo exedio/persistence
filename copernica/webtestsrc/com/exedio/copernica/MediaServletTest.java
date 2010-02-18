@@ -49,6 +49,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_NX  = "MediaServletItem.20";
 	private static final String ITEM_NAME_OK = "MediaServletItem.5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem.6";
+	private static final String ITEM_NAME_ERR = "MediaServletItem.7";
 
 	public void testIt() throws Exception
 	{
@@ -190,9 +191,9 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "nameServer/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
 
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7.txt"));
-		assertMoved(new URL(prefix + "nameServer/MediaServletItem.7."), prefix + "nameServer/MediaServletItem.7.txt"); // TODO should be 404
-		assertMoved(new URL(prefix + "nameServer/MediaServletItem.7") , prefix + "nameServer/MediaServletItem.7.txt");
+		assertInternalError(new URL(prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"));
+		assertMoved(new URL(prefix + "nameServer/" + ITEM_NAME_ERR + "."), prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"); // TODO should be 404
+		assertMoved(new URL(prefix + "nameServer/" + ITEM_NAME_ERR + "") , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
 	
 	private long assertTxt(final URL url) throws IOException
