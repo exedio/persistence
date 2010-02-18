@@ -33,7 +33,7 @@ public class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	public static final Model model = new Model(MediaServletItem.TYPE);
+	public static final Model model = new Model(MediaServletItem.TYPE, MediaPatternItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
@@ -94,6 +94,11 @@ public class InitServlet extends HttpServlet
 			final MediaServletItem transparency = new MediaServletItem();
 			assertID("MediaServletItem.12", transparency);
 			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png");
+			
+			final MediaPatternItem pattern = new MediaPatternItem();
+			pattern.setSourceFeature(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
+			pattern.addSourceItem(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
+			pattern.addSourceItem(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
 			
 			model.commit();
 		}

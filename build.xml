@@ -474,6 +474,7 @@
 		<instrument verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
+				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
 			</fileset>
 		</instrument>
 	</target>
