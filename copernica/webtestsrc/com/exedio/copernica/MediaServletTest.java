@@ -47,6 +47,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_UNK = "MediaServletItem.4";
 	private static final String ITEM_GIF = "MediaServletItem.8";
 	private static final String ITEM_NX  = "MediaServletItem.20";
+	private static final String ITEM_NAME_OK = "MediaServletItem.5";
 
 	public void testIt() throws Exception
 	{
@@ -168,12 +169,12 @@ public class MediaServletTest extends TestCase
 		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ""), IS_NULL);
 		assertNotFound(new URL(prefix + "content/" + ITEM_EMP + ".zick"), IS_NULL);
 
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5.txt"));
-		assertMoved(new URL(prefix + "nameServer/MediaServletItem.5."), prefix + "nameServer/MediaServletItem.5.txt"); // TODO should be 404
-		assertMoved(new URL(prefix + "nameServer/MediaServletItem.5") , prefix + "nameServer/MediaServletItem.5.txt");
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/something.txt"));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/."));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5/"));
+		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt"));
+		assertMoved(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "."), prefix + "nameServer/" + ITEM_NAME_OK + ".txt"); // TODO should be 404
+		assertMoved(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "") , prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
+		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt"));
+		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/."));
+		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/"));
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6.txt"), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6."), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6"), IS_NULL);
