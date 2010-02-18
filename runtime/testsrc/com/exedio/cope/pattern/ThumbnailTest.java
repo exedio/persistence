@@ -39,22 +39,22 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 	
-	private ThumbnailItem item, jpeg, png, gif, text, empty;
+	private ThumbnailItem item, jpg, png, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		jpeg  = deleteOnTearDown(new ThumbnailItem());
-		png   = deleteOnTearDown(new ThumbnailItem());
-		gif   = deleteOnTearDown(new ThumbnailItem());
-		text  = deleteOnTearDown(new ThumbnailItem());
-		empty = deleteOnTearDown(new ThumbnailItem());
-		jpeg.setFile(data, "image/jpeg");
+		jpg = deleteOnTearDown(new ThumbnailItem());
+		png = deleteOnTearDown(new ThumbnailItem());
+		gif = deleteOnTearDown(new ThumbnailItem());
+		txt = deleteOnTearDown(new ThumbnailItem());
+		emp = deleteOnTearDown(new ThumbnailItem());
+		jpg.setFile(data, "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
-		text.setFile(data, "text/plain");
+		txt.setFile(data, "text/plain");
 	}
 	
 	public void testThumbs()
@@ -123,30 +123,30 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		assertBB(10, 10, 20, 20);
 		
 		// test content type
-		assertEquals("image/jpeg", jpeg.getThumbContentType());
+		assertEquals("image/jpeg", jpg.getThumbContentType());
 		assertEquals("image/jpeg", png.getThumbContentType());
 		assertEquals("image/jpeg", gif.getThumbContentType());
-		assertEquals(null, text.getThumbContentType());
-		assertEquals(null, empty.getThumbContentType());
+		assertEquals(null, txt.getThumbContentType());
+		assertEquals(null, emp.getThumbContentType());
 		
 		// test url
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
+		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
-		assertEquals(null, text.getThumbURL());
-		assertEquals(null, empty.getThumbURL());
+		assertEquals(null, txt.getThumbURL());
+		assertEquals(null, emp.getThumbURL());
 		
 		// test url fallback
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID()  + ".jpg", png.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID()  + ".jpg", gif.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + text.getCopeID() + ".txt", text.getThumbURLWithFallbackToSource());
-		assertEquals(null, empty.getThumbURL());
+		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
+		assertEquals(null, emp.getThumbURL());
 		
-		assertContains(empty, item.TYPE.search(item.file.isNull()));
-		assertContains(jpeg, png, gif, text, item.TYPE.search(item.file.isNotNull()));
-		assertContains(empty , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpeg, png, gif, text, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(emp, item.TYPE.search(item.file.isNull()));
+		assertContains(jpg, png, gif, txt, item.TYPE.search(item.file.isNotNull()));
+		assertContains(emp , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
+		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 	
 	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
