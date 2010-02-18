@@ -44,11 +44,11 @@ public class FindItemHierarchyTest extends AbstractRuntimeTest
 	public void testHierarchy()
 			throws NoSuchIDException
 	{
-		assertID(0, firstItem);
+		assertSame(firstItem, model.getItem("HierarchyFirstSub.0"));
 		assertSame(firstItem, model.getItem(HierarchyFirstSub.TYPE.getID()+".0"));
 		assertIDFails("HierarchySuper.0", "type is abstract", true);
-		assertID(1, secondItem);
-		assertID(2, secondItem2);
-		assertID(3, firstItem2);
+		assertSame(secondItem, model.getItem("HierarchySecondSub.1"));
+		assertSame(secondItem2, model.getItem("HierarchySecondSub.2"));
+		assertSame(firstItem2, model.getItem("HierarchyFirstSub.3"));
 	}
 }
