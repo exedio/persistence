@@ -26,22 +26,29 @@ public class FindItemHierarchyTest extends AbstractRuntimeTest
 		super(HierarchyTest.MODEL);
 	}
 	
+	HierarchyFirstSub firstItem;
+	HierarchySecondSub secondItem;
+	HierarchySecondSub secondItem2;
+	HierarchyFirstSub firstItem2;
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
+		secondItem = deleteOnTearDown(new HierarchySecondSub(2));
+		secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
+		firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
+	}
+	
 	public void testHierarchy()
 			throws NoSuchIDException
 	{
-		// test persistence
-		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
 		assertID(0, firstItem);
 		assertSame(firstItem, model.getItem(HierarchyFirstSub.TYPE.getID()+".0"));
 		assertIDFails("HierarchySuper.0", "type is abstract", true);
-		
-		final HierarchySecondSub secondItem = deleteOnTearDown(new HierarchySecondSub(2));
 		assertID(1, secondItem);
-
-		final HierarchySecondSub secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
 		assertID(2, secondItem2);
-
-		final HierarchyFirstSub firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
 		assertID(3, firstItem2);
 	}
 }
