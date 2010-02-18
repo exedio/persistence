@@ -48,6 +48,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_GIF = "MediaServletItem.8";
 	private static final String ITEM_NX  = "MediaServletItem.20";
 	private static final String ITEM_NAME_OK = "MediaServletItem.5";
+	private static final String ITEM_NAME_NUL = "MediaServletItem.6";
 
 	public void testIt() throws Exception
 	{
@@ -175,12 +176,12 @@ public class MediaServletTest extends TestCase
 		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt"));
 		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/."));
 		assertNameURL(new URL(prefix + "nameServer/" + ITEM_NAME_OK + "/"));
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6.txt"), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6."), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6"), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/bla.txt"), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/."), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6/"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + ".txt"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + "."), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + ""), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + "/bla.txt"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + "/."), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NAME_NUL + "/"), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NX + ".txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NX + "."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/" + ITEM_NX + ""), NO_SUCH_ITEM);
