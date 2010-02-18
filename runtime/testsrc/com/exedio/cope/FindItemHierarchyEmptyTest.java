@@ -25,13 +25,19 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeTest
 		super(HierarchyEmptyTest.MODEL);
 	}
 	
+	HierarchyEmptySub subItem;
+	HierarchyEmptySuper superItem;
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		subItem = deleteOnTearDown(new HierarchyEmptySub(0));
+		superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
+	}
+	
 	public void test() throws NoSuchIDException
 	{
-		// test persistence
-		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
-		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
-		
-		// test getItem
 		assertSame(subItem, model.getItem("HierarchyEmptySub.0")); // important to test with zero as well
 		assertSame(superItem, model.getItem("HierarchyEmptySuper.1"));
 		assertIDFails("HierarchyEmptySuper.0",  "item <0> does not exist", false);
