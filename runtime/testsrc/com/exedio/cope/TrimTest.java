@@ -72,6 +72,15 @@ public class TrimTest extends TestCase
 		final NameTrimmer nt = new NameTrimmer(20);
 		try
 		{
+			nt.trimString(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
 			nt.trimString("");
 			fail();
 		}
@@ -80,5 +89,4 @@ public class TrimTest extends TestCase
 			assertEquals("longString must not be empty", e.getMessage());
 		}
 	}
-
 }
