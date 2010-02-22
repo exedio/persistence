@@ -107,9 +107,9 @@ public class InitServlet extends HttpServlet
 			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png");
 			
 			final MediaPatternItem pattern = new MediaPatternItem();
-			pattern.setSourceFeature(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
-			pattern.addSourceItem(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
-			pattern.addSourceItem(Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
+			pattern.setSourceFeature(textValue, "text/plain");
+			pattern.addSourceItem(textValue, "text/plain");
+			pattern.addSourceItem(textValue, "text/plain");
 			
 			model.commit();
 		}

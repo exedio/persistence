@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
@@ -46,16 +44,16 @@ public final class MediaPattern extends Pattern
 		addSource(sourceFeature, "SourceFeature");
 	}
 
-	public void setSourceFeature(final Item item, final Media.Value sourceFeature) throws IOException
+	public void setSourceFeature(final Item item, final byte[] body, final String contentType)
 	{
-		this.sourceFeature.set(item, sourceFeature);
+		this.sourceFeature.set(item, body, contentType);
 	}
 
-	public void addSourceItem(final Item item, final Media.Value value)
+	public void addSourceItem(final Item item, final byte[] body, final String contentType)
 	{
 		sourceType.newItem(
 				Cope.mapAndCast(this.parent, item),
-				this.sourceTypeValue.map(value));
+				this.sourceTypeValue.map(Media.toValue(body, contentType)));
 	}
 
 	@Override

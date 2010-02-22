@@ -18,22 +18,20 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-
 import com.exedio.cope.Item;
 
 final class MediaPatternItem extends Item
 {
 	static final MediaPattern pattern = new MediaPattern();
 	
-	void setSourceFeature(final Media.Value value) throws IOException
+	void setSourceFeature(final byte[] body, final String contentType)
 	{
-		pattern.setSourceFeature(this, value);
+		pattern.setSourceFeature(this, body, contentType);
 	}
 	
-	void addSourceItem(final Media.Value value)
+	void addSourceItem(final byte[] body, final String contentType)
 	{
-		pattern.addSourceItem(this, value);
+		pattern.addSourceItem(this, body, contentType);
 	}
 	
 	/**
