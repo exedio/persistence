@@ -318,6 +318,7 @@
 				<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypeCompareTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
 				<exclude name="NameTest.java" /><!-- TODO remove -->
