@@ -52,6 +52,21 @@ public class ModelCharSetTest extends CopeAssert
 		}
 	}
 	
+	public void testFeatureNaked()
+	{
+		final Type<AnItem> t = new Type<AnItem>(AnItem.class, false, "Type123", null, false, null, new Features());
+		final StringField f = new StringField();
+		try
+		{
+			f.mount(t, "Zack.Zick123", null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("name >Zack.Zick123< of feature in type Type123 contains illegal character >.< at position 4", e.getMessage());
+		}
+	}
+	
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
