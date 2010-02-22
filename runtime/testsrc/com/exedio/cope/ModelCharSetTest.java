@@ -32,7 +32,7 @@ public class ModelCharSetTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("name >Zack-Zick123< of feature in contains illegal character >-< at position 4", e.getMessage());
+			assertEquals("id >Zack-Zick123< of type contains illegal character >-< at position 4", e.getMessage());
 		}
 	}
 	

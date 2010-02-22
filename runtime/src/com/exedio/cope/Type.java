@@ -127,7 +127,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
 				if(!ID_CHAR_SET.contains(id.charAt(i)))
-					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >" + id.charAt(i) + "< at position " + i); // TODO test
+					throw new IllegalArgumentException("id >" + id + "< of type contains illegal character >" + id.charAt(i) + "< at position " + i); // TODO test
 		}
 		if(featuresParameter==null)
 			throw new NullPointerException("featuresParameter for " + id); // TODO test
