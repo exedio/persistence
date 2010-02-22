@@ -33,7 +33,7 @@ import com.exedio.cope.util.CharSet;
 
 public abstract class Feature implements Serializable
 {
-	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
+	static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mount = null;
 	
 	private static final class Mount

@@ -40,15 +40,14 @@ public class ModelCharSetTest extends CopeAssert
 	{
 		final StringField f = new StringField();
 		final Features fs = new Features();
-		fs.put("Zack.Zick123", f);
 		try
 		{
-			new Type<AnItem>(AnItem.class, false, "Type123", null, false, null, fs);
+			fs.put("Zack.Zick123", f);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("name >Zack.Zick123< of feature in type Type123 contains illegal character >.< at position 4", e.getMessage());
+			assertEquals("name >Zack.Zick123< contains illegal character >.< at position 4", e.getMessage());
 		}
 	}
 	

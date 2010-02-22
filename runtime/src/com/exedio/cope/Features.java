@@ -50,6 +50,12 @@ public final class Features
 	{
 		if(name==null)
 			throw new NullPointerException("name");
+		if(!"BEANSHELL_HACK_ATTRIBUTE".equals(name)) // TODO
+		{
+			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
+			if(i>=0)
+			throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
+		}
 		if(feature==null)
 			throw new NullPointerException("feature");
 		if(map.containsKey(name))
