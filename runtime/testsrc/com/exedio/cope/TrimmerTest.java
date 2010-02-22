@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import junit.framework.TestCase;
 
-public class TrimTest extends TestCase
+public class TrimmerTest extends TestCase
 {
 	private void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{
