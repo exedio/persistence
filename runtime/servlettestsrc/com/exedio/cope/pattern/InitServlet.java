@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,16 @@ public class InitServlet extends HttpServlet
 	{
 		super.init();
 		
+		final byte[] textValue;
+		try
+		{
+			textValue = "This is an example file\nfor testing media data.\n".getBytes("utf8");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
 		final Class thisClass = InitServlet.class;
 		connectToken = ServletUtil.connect(model, getServletConfig(), thisClass.getName());
 		model.createSchema();
@@ -51,7 +62,7 @@ public class InitServlet extends HttpServlet
 			
 			final MediaServletItem text = new MediaServletItem();
 			assertID("MediaServletItem.0", text);
-			text.setContent(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
+			text.setContent(textValue, "text/plain");
 				
 			final MediaServletItem empty = new MediaServletItem();
 			assertID("MediaServletItem.1", empty);
@@ -66,7 +77,7 @@ public class InitServlet extends HttpServlet
 
 			final MediaServletItem unknown = new MediaServletItem();
 			assertID("MediaServletItem.4", unknown);
-			unknown.setContent(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
+			unknown.setContent(textValue, "unknownma/unknownmi");
 			
 			final MediaServletItem nameOk = new MediaServletItem("media item 1");
 			assertID("MediaServletItem.5", nameOk);

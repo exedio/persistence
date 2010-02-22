@@ -1,2 +1,0 @@
-This is an example file
-for testing media data.
