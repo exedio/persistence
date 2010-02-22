@@ -120,6 +120,8 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
 		
+		assertBin     (app + "media/MediaPatternItem/patternSourceFeature/MediaPatternItem.0.jpg", "image/jpeg");
+		assertNotFound(app + "media/MediaPatternItem/patternSourceFeature/MediaPatternItem.1.jpg", NO_SUCH_ITEM);
 		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.0.jpg", NOT_AN_ITEM); // should be ok
 		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.1.jpg", NOT_AN_ITEM); // should be ok
 		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.2.jpg", NOT_AN_ITEM); // should be NO_SUCH_ITEM
