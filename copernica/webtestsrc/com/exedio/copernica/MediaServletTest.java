@@ -237,8 +237,7 @@ public class MediaServletTest extends TestCase
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
 		final String data = lines(
 			"This is an example file",
-			"for testing data",
-			"attributes in copernica."
+			"for testing media data."
 		);
 		assertEquals(expectNotModified ? -1 : data.length(), conn.getContentLength());
 
