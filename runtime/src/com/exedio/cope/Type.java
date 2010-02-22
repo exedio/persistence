@@ -181,7 +181,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 					declaredCopyConstraints.add((CopyConstraint)feature);
 				
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
-					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
+					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
 			this.declaredFields            = finish(declaredFields);
 			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
