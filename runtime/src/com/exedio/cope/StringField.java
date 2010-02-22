@@ -196,9 +196,9 @@ public final class StringField extends FunctionField<String> implements StringFu
 			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
 		if(charSet!=null)
 		{
-			for(int i = 0; i<length; i++)
-				if(!charSet.contains(value.charAt(i)))
-					throw new StringCharSetViolationException(this, exceptionItem, value, value.charAt(i), i);
+			final int i = charSet.indexOfNotContains(value);
+			if(i>=0)
+				throw new StringCharSetViolationException(this, exceptionItem, value, value.charAt(i), i);
 		}
 	}
 	

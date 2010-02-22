@@ -81,10 +81,9 @@ public abstract class Feature implements Serializable
 	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
 	{
 		{
-			final int l = name.length();
-			for(int i = 0; i<l; i++)
-				if(!NAME_CHAR_SET.contains(name.charAt(i)))
-					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
+			final int i = NAME_CHAR_SET.indexOfNotContains(name);
+			if(i>=0)
+				throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 		
 		if(this.mount!=null)
