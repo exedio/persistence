@@ -38,7 +38,7 @@ import com.exedio.dsmf.Schema;
 
 final class Database
 {
-	private final NameTrimmer nameTrimmer = new NameTrimmer(25);
+	private final Trimmer nameTrimmer = new Trimmer(25);
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();

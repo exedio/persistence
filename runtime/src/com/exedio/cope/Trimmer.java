@@ -24,11 +24,11 @@ import java.util.ArrayList;
  * Trims a name to length for being a suitable qualifier for database entities,
  * such as tables, columns, indexes, constraints, partitions etc.
  */
-final class NameTrimmer
+final class Trimmer
 {
 	private final int maxLength;
 	
-	NameTrimmer(final int maxLength)
+	Trimmer(final int maxLength)
 	{
 		if(maxLength<=0)
 			throw new IllegalArgumentException("maxLength must be greater zero");
