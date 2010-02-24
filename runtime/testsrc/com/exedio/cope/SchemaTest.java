@@ -279,7 +279,7 @@ public class SchemaTest extends TestmodelTest
 
 			String mediaContentTypeCharSet = null;
 			if(mysql)
-				mediaContentTypeCharSet = " AND (`someDataContentType` regexp '^[-,/,0-9,a-z]*$')";
+				mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+p(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+l(AttributeItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "(("+p(AttributeItem.someBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someBoolean)+" IN (0,1))) OR ("+p(AttributeItem.someBoolean)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullBoolean)+" IN (0,1))");
