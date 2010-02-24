@@ -178,6 +178,19 @@ final class Database
 					append('=').
 					appendParameter(PK.NaPK);
 				
+				final Column typeColumn = table.typeColumn;
+				if(typeColumn!=null)
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(" and ");
+					
+					bf.append(typeColumn).
+						append('=').
+						appendParameter("x");
+				}
+				
 				for(final Column column : table.getColumns())
 				{
 					bf.append(" and ").
