@@ -138,9 +138,9 @@ final class SchemaCop extends ConsoleCop
 			
 			public boolean beforeExecute(final String statement)
 			{
-				out.writeRaw("\n\t\t<li>");
-				out.writeSQL(statement);
-				out.writeRaw("</li>");
+				out.writeRaw("\n\t\t<li><span class=\"javaDecoration\">\"</span>"); // TODO do java decoration by javascript, and encode quotes for java string literal
+				out.writeSQL(statement); // TODO encode quotes for java string literal
+				out.writeRaw("<span class=\"javaDecoration\">\",</span></li>");
 				if(dryRun)
 				{
 					return false;
@@ -156,7 +156,7 @@ final class SchemaCop extends ConsoleCop
 			public void afterExecute(final String statement, final int rows)
 			{
 				final long time = System.currentTimeMillis()-beforeExecuteTime;
-				out.writeRaw("\n\t\t<li class=\"timelog\">");
+				out.writeRaw("\n\t\t<li class=\"timelog\">// ");
 				out.write(time);
 				out.writeRaw("ms, ");
 				out.write(rows);
