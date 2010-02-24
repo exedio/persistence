@@ -121,7 +121,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 
 		assertEquals(oItem.TYPE, uno.of(aString).getType());
 		assertEquals(oItem.TYPE, uno.getType());
-		assertEquals("unoAString", uno.of(aString).getName());
+		assertEquals("uno-aString", uno.of(aString).getName());
 		assertEquals("uno", uno.getName());
 		assertEquals(uno, uno.of(aString).getPattern());
 		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFeatures());
@@ -197,7 +197,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("CompositeOptionalItem.duoAString is not a component of CompositeOptionalItem.uno", e.getMessage());
+			assertEquals("CompositeOptionalItem.duo-aString is not a component of CompositeOptionalItem.uno", e.getMessage());
 		}
 		
 		{
@@ -306,7 +306,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e) 
 		{
-			assertEquals("mandatory violation on CompositeItem.0 for CompositeItem.einsAString", e.getMessage()); // TODO feature should be CompositeItem.eins
+			assertEquals("mandatory violation on CompositeItem-0 for CompositeItem.eins-aString", e.getMessage()); // TODO feature should be CompositeItem.eins
 		}
 		try
 		{
@@ -317,7 +317,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation for CompositeItem.zweiAString", e.getMessage()); // TODO feature should be CompositeItem.zwei
+			assertEquals("mandatory violation for CompositeItem.zwei-aString", e.getMessage()); // TODO feature should be CompositeItem.zwei
 		}
 		try
 		{
@@ -326,7 +326,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals("final violation on CompositeFinalItem.0 for CompositeFinalItem.firstAString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}
 		try
 		{
@@ -335,7 +335,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals("final violation on CompositeFinalItem.0 for CompositeFinalItem.firstAString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}
 
 		// test value independence

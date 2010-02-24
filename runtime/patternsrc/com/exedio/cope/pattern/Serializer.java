@@ -71,7 +71,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.valueClass = valueClass;
 		this.source = source;
 
-		addSource(source, "Data", ComputedInstance.get());
+		addSource(source, "data", ComputedInstance.get());
 	}
 	
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)

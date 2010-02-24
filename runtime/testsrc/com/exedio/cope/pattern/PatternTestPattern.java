@@ -57,8 +57,8 @@ class PatternTestPattern extends Pattern
 	
 	PatternTestPattern()
 	{
-		addSource(ownString, "OwnString", af("ownString"));
-		addSource(ownInt, "OwnInt", af("ownInt"));
+		addSource(ownString, "ownString", af("ownString"));
+		addSource(ownInt, "ownInt", af("ownInt"));
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ class PatternTestPattern extends Pattern
 		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
 		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
 		
-		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "OwnItem", af("ownItem"));
+		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "ownItem", af("ownItem"));
 	}
 	
 	ItemField<PatternTestTypeItem> getOwnItem()

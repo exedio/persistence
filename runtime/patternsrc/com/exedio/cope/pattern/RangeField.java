@@ -40,8 +40,8 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	
 	private RangeField(final FunctionField<E> borderTemplate)
 	{
-		addSource(from = borderTemplate.copy(), "From");
-		addSource(to   = borderTemplate.copy(), "To");
+		addSource(from = borderTemplate.copy(), "from");
+		addSource(to   = borderTemplate.copy(), "to");
 	}
 	
 	public static final <E> RangeField<E> newRange(final FunctionField<E> borderTemplate)

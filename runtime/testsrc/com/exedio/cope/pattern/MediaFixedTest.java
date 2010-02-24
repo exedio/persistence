@@ -60,7 +60,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 
 		final DataField body = item.photo.getBody();
 		assertSame(item.TYPE, body.getType());
-		assertSame("photoBody", body.getName());
+		assertSame("photo-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(2000, body.getMaximumLength());
@@ -71,7 +71,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 
 		final DateField lastModified = item.photo.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
-		assertEquals("photoLastModified", lastModified.getName());
+		assertEquals("photo-lastModified", lastModified.getName());
 		assertEquals(item.photo, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());

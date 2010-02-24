@@ -258,8 +258,7 @@ public abstract class MediaPath extends Pattern
 		final boolean checkCanonical;
 		if(slash<0)
 		{
-			final int firstDot = pathInfo.indexOf('.', fromIndex);
-			final int dot = (firstDot>=0) ? pathInfo.indexOf('.', firstDot+1) : firstDot;
+			final int dot = pathInfo.indexOf('.', fromIndex);
 			//System.out.println("trailingDot="+trailingDot);
 
 			if(dot>=0)

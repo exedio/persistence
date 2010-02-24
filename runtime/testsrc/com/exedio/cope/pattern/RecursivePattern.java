@@ -31,8 +31,8 @@ class RecursivePattern extends Pattern
 	
 	RecursivePattern()
 	{
-		addSource(media, "Media");
-		addSource(fetch, "Fetch");
+		addSource(media, "media");
+		addSource(fetch, "fetch");
 	}
 	
 	void set(final Item item, final String value)

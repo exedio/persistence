@@ -90,8 +90,8 @@ public final class Schedule extends Pattern
 			throw new NullPointerException("locale");
 		
 		this.locale = locale;
-		addSource(enabled,  "Enabled");
-		addSource(interval, "Interval");
+		addSource(enabled,  "enabled");
+		addSource(interval, "interval");
 	}
 	
 	public Locale getLocale()

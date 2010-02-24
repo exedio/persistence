@@ -42,11 +42,11 @@ public class ItemTest extends TestmodelTest
 		
 		assertInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
 		final EmptyItem item1 = new EmptyItem();
-		assertEquals("EmptyItem.0", item1.getCopeID());
+		assertEquals("EmptyItem-0", item1.getCopeID());
 		final EmptyItem item2 = new EmptyItem();
-		assertEquals("EmptyItem.1", item2.getCopeID());
+		assertEquals("EmptyItem-1", item2.getCopeID());
 		final EmptyItem2 item3 = new EmptyItem2();
-		assertEquals("EmptyItem2.0", item3.getCopeID());
+		assertEquals("EmptyItem2-0", item3.getCopeID());
 		assertInfo(EmptyItem.TYPE, 2, 0, 1, EmptyItem.TYPE.getPrimaryKeyInfo());
 
 		assertEquals(EmptyItem.TYPE, item1.getCopeType());
@@ -75,13 +75,13 @@ public class ItemTest extends TestmodelTest
 			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
-		assertEquals("EmptyItem.0", item1.getCopeID());
-		assertEquals("EmptyItem.1", item2.getCopeID());
-		assertEquals("EmptyItem2.0", item3.getCopeID());
+		assertEquals("EmptyItem-0", item1.getCopeID());
+		assertEquals("EmptyItem-1", item2.getCopeID());
+		assertEquals("EmptyItem2-0", item3.getCopeID());
 
-		assertEquals(item1, model.getItem("EmptyItem.0"));
-		assertEquals(item2, model.getItem("EmptyItem.1"));
-		assertEquals(item3, model.getItem("EmptyItem2.0"));
+		assertEquals(item1, model.getItem("EmptyItem-0"));
+		assertEquals(item2, model.getItem("EmptyItem-1"));
+		assertEquals(item3, model.getItem("EmptyItem2-0"));
 
 		assertEquals(item1, item1);
 		assertEquals(item2, item2);
@@ -116,12 +116,12 @@ public class ItemTest extends TestmodelTest
 		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().in(listg(item1, item2))));
 
 		final EmptyItem item4 = new EmptyItem();
-		assertEquals("EmptyItem.2", item4.getCopeID());
+		assertEquals("EmptyItem-2", item4.getCopeID());
 		final EmptyItem item5 = new EmptyItem();
-		assertEquals("EmptyItem.3", item5.getCopeID());
+		assertEquals("EmptyItem-3", item5.getCopeID());
 		assertNotEquals(item4, item5);
 		final EmptyItem item6 = new EmptyItem();
-		assertEquals("EmptyItem.4", item6.getCopeID());
+		assertEquals("EmptyItem-4", item6.getCopeID());
 		assertNotEquals(item4, item5);
 		assertNotEquals(item4, item6);
 		assertNotEquals(item5, item6);

@@ -72,9 +72,9 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getEnabled(), report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
 		assertEquals(TYPE, report.getInterval().getType());
-		assertEquals("reportInterval", report.getInterval().getName());
+		assertEquals("report-interval", report.getInterval().getName());
 		assertEquals(TYPE, report.getEnabled().getType());
-		assertEquals("reportEnabled", report.getEnabled().getName());
+		assertEquals("report-enabled", report.getEnabled().getName());
 		
 		assertEqualsUnmodifiable(list(
 				report.getRunType().getThis(),
@@ -86,7 +86,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				report.getRunElapsed()
 			), report.getRunType().getFeatures());
 		
-		assertEquals("ScheduleItem.reportRun", report.getRunType().getID());
+		assertEquals("ScheduleItem-report-Run", report.getRunType().getID());
 		assertEquals(Schedule.Run.class, report.getRunType().getJavaClass());
 		assertEquals(false, report.getRunType().isBound());
 		assertSame(report, report.getRunType().getPattern());

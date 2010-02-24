@@ -60,7 +60,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 	private static final void assertIt(final Pattern pattern, final Field field, final String postfix)
 	{
 		assertEquals(pattern.getType(), field.getType());
-		assertEquals(pattern.getName() + postfix, field.getName());
+		assertEquals(pattern.getName() + '-' + postfix, field.getName());
 		assertEquals(pattern, field.getPattern());
 	}
 	
@@ -77,7 +77,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals("features", item.features.getName());
 		
 		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
-		assertEquals("featuresType", item.features.getTypeField().getName());
+		assertEquals("features-type", item.features.getTypeField().getName());
 		
 		assertEquals(Arrays.asList(new Type[]{
 				DynamicModelItem.TYPE,
@@ -104,13 +104,13 @@ public class DynamicModelTest extends AbstractRuntimeTest
 				DynamicModelItem.small.getField(ValueType.STRING, 0, null),
 				DynamicModelItem.small.getTypeField(),
 			}), DynamicModelItem.TYPE.getFeatures());
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "String0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "Bool0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.INTEGER, 0, null), "Int0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.DOUBLE,  0, null), "Double0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    0, null), "Enum0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    1, null), "Enum1");
-		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "String0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "string0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "bool0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.INTEGER, 0, null), "int0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.DOUBLE,  0, null), "double0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    0, null), "enum0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    1, null), "enum1");
+		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "string0");
 		assertSerializedSame(DynamicModelItem.features, 390);
 		assertSerializedSame(DynamicModelItem.small   , 387);
 		
@@ -131,7 +131,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
 		assertSame(item.TYPE, akkuTime.getField().getType());
-		assertEquals("featuresInt0", akkuTime.getField().getName());
+		assertEquals("features-int0", akkuTime.getField().getName());
 		assertEquals(Integer.class, akkuTime.getField().getValueClass());
 		assertEquals(list(akkuTime), cellPhone.getFields());
 		assertEquals(akkuTime, cellPhone.getField("akkuTime"));
@@ -142,7 +142,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
 		assertSame(item.TYPE, memory.getField().getType());
-		assertEquals("featuresString0", memory.getField().getName());
+		assertEquals("features-string0", memory.getField().getName());
 		assertEquals(String.class, memory.getField().getValueClass());
 		assertEquals(list(akkuTime, memory), cellPhone.getFields());
 		
@@ -198,7 +198,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
 		assertSame(item.TYPE, bluetooth.getField().getType());
-		assertEquals("featuresBool0", bluetooth.getField().getName());
+		assertEquals("features-bool0", bluetooth.getField().getName());
 		assertEquals(Boolean.class, bluetooth.getField().getValueClass());
 		assertEquals(list(weight, bluetooth), organizer.getFields());
 		
@@ -207,7 +207,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
 		assertSame(item.TYPE, length.getField().getType());
-		assertEquals("featuresDouble0", length.getField().getName());
+		assertEquals("features-double0", length.getField().getName());
 		assertEquals(Double.class, length.getField().getValueClass());
 		assertEquals(list(weight, bluetooth, length), organizer.getFields());
 		
@@ -223,7 +223,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
-		assertEquals("featuresEnum0", color.getField().getName());
+		assertEquals("features-enum0", color.getField().getName());
 		assertEquals(item.features.getEnumType(), ((ItemField)color.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
@@ -251,7 +251,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
-		assertEquals("featuresEnum1", manufacturer.getField().getName());
+		assertEquals("features-enum1", manufacturer.getField().getName());
 		assertEquals(item.features.getEnumType(), ((ItemField)manufacturer.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());

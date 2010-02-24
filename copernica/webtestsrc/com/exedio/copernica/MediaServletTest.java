@@ -40,16 +40,16 @@ public class MediaServletTest extends TestCase
 	private static final String IS_NULL        = "is null";
 	private static final String NOT_COMPUTABLE = "not computable";
 	
-	private static final String ITEM_TXT = "MediaServletItem.0";
-	private static final String ITEM_EMP = "MediaServletItem.1";
-	private static final String ITEM_PNG = "MediaServletItem.2";
-	private static final String ITEM_JPG = "MediaServletItem.3";
-	private static final String ITEM_UNK = "MediaServletItem.4";
-	private static final String ITEM_GIF = "MediaServletItem.8";
-	private static final String ITEM_NX  = "MediaServletItem.20";
-	private static final String ITEM_NAME_OK  = "MediaServletItem.5";
-	private static final String ITEM_NAME_NUL = "MediaServletItem.6";
-	private static final String ITEM_NAME_ERR = "MediaServletItem.7";
+	private static final String ITEM_TXT = "MediaServletItem-0";
+	private static final String ITEM_EMP = "MediaServletItem-1";
+	private static final String ITEM_PNG = "MediaServletItem-2";
+	private static final String ITEM_JPG = "MediaServletItem-3";
+	private static final String ITEM_UNK = "MediaServletItem-4";
+	private static final String ITEM_GIF = "MediaServletItem-8";
+	private static final String ITEM_NX  = "MediaServletItem-20";
+	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
+	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
+	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
 
 	public void testIt() throws Exception
 	{
@@ -120,11 +120,11 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
 		
-		assertBin     (app + "media/MediaPatternItem/patternSourceFeature/MediaPatternItem.0.txt", "text/plain");
-		assertNotFound(app + "media/MediaPatternItem/patternSourceFeature/MediaPatternItem.1.txt", NO_SUCH_ITEM);
-		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.0.txt", NOT_AN_ITEM); // should be ok
-		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.1.txt", NOT_AN_ITEM); // should be ok
-		assertNotFound(app + "media/MediaPatternItem.pattern/value/MediaPatternItem.pattern.2.txt", NOT_AN_ITEM); // should be NO_SUCH_ITEM
+		assertTxt     (app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-0.txt", "text/plain");
+		assertNotFound(app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-1.txt", NO_SUCH_ITEM);
+		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-0.txt", "text/plain");
+		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-1.txt", "text/plain");
+		assertNotFound(app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-2.txt", NO_SUCH_ITEM);
 		
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt-1   , false));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt     , true ));

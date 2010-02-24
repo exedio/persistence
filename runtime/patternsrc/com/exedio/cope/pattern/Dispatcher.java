@@ -89,9 +89,9 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		addSource(pending,        "Pending",        ComputedInstance.get());
-		addSource(successDate,    "SuccessDate",    ComputedInstance.get());
-		addSource(successElapsed, "SuccessElapsed", ComputedInstance.get());
+		addSource(pending,        "pending",        ComputedInstance.get());
+		addSource(successDate,    "successDate",    ComputedInstance.get());
+		addSource(successElapsed, "successElapsed", ComputedInstance.get());
 	}
 	
 	@Override

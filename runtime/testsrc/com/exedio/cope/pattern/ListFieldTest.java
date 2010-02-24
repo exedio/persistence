@@ -120,7 +120,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.items.getType());
 		assertEquals("items", item.items.getName());
 
-		assertEquals("ListFieldItem.strings", stringsType.getID());
+		assertEquals("ListFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
 		assertSame(ListFieldItem.strings, stringsType.getPattern());
@@ -134,7 +134,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(0                , stringsOrder.getMinimum());
 		assertEquals(Integer.MAX_VALUE, stringsOrder.getMaximum());
 
-		assertEquals("ListFieldItem.dates", datesType.getID());
+		assertEquals("ListFieldItem-dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
 		assertSame(ListFieldItem.dates, datesType.getPattern());
@@ -145,7 +145,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(datesType, datesType.getThis().getValueType());
 		assertEquals(model, datesType.getModel());
 
-		assertEquals("ListFieldItem.items", itemsType.getID());
+		assertEquals("ListFieldItem-items", itemsType.getID());
 		assertEquals(PatternItem.class, itemsType.getJavaClass());
 		assertEquals(false, itemsType.isBound());
 		assertSame(ListFieldItem.items, itemsType.getPattern());
@@ -251,7 +251,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("ListFieldItem.dates.element does not belong to a type of the query: " + q, e.getMessage());
+			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q, e.getMessage());
 		}
 		try
 		{
@@ -260,7 +260,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("ListFieldItem.dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
+			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
 		}
 
 		// strings

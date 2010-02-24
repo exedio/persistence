@@ -86,7 +86,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertSame(item.name.getRelationType(), item.name.getValue().getType());
 		assertEquals(null, item.name.getValue().getPattern());
 
-		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
+		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
 		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());
 		assertEquals(false, item.name.getRelationType().isBound());
 		assertSame(item.name, item.name.getRelationType().getPattern());
@@ -104,14 +104,14 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
 		
-		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
-		assertEquals("MapFieldItem.name.parent", item.name.getParent(MapFieldItem.class).getID());
-		assertEquals("MapFieldItem.name.key", item.name.getKey().getID());
-		assertEquals("MapFieldItem.name.value", item.name.getValue().getID());
-		assertSame(item.name.getRelationType(), model.getType("MapFieldItem.name"));
-		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem.name.parent"));
-		assertSame(item.name.getKey(), model.getFeature("MapFieldItem.name.key"));
-		assertSame(item.name.getValue(), model.getFeature("MapFieldItem.name.value"));
+		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
+		assertEquals("MapFieldItem-name.parent", item.name.getParent(MapFieldItem.class).getID());
+		assertEquals("MapFieldItem-name.key", item.name.getKey().getID());
+		assertEquals("MapFieldItem-name.value", item.name.getValue().getID());
+		assertSame(item.name.getRelationType(), model.getType("MapFieldItem-name"));
+		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem-name.parent"));
+		assertSame(item.name.getKey(), model.getFeature("MapFieldItem-name.key"));
+		assertSame(item.name.getValue(), model.getFeature("MapFieldItem-name.value"));
 		
 		assertTrue(item.name      .getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));

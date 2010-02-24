@@ -85,27 +85,27 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getContentType ().getType());
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getLastModified().getType());
 		
-		assertSame("testPatternMedia" , RecursiveItem.testPattern .media.getName());
-		assertSame("testPatternFetch" , RecursiveItem.testPattern .fetch.getName());
-		assertSame("testPattern2Media", RecursiveItem.testPattern2.media.getName());
-		assertSame("testPattern2Fetch", RecursiveItem.testPattern2.fetch.getName());
-		assertSame("testPatternMediaBody"         , RecursiveItem.testPattern .media.getBody        ().getName());
-		assertSame("testPatternMediaContentType"  , RecursiveItem.testPattern .media.getContentType ().getName());
-		assertSame("testPatternMediaLastModified" , RecursiveItem.testPattern .media.getLastModified().getName());
-		assertSame("testPattern2MediaBody"        , RecursiveItem.testPattern2.media.getBody        ().getName());
-		assertSame("testPattern2MediaContentType" , RecursiveItem.testPattern2.media.getContentType ().getName());
-		assertSame("testPattern2MediaLastModified", RecursiveItem.testPattern2.media.getLastModified().getName());
+		assertSame("testPattern-media" , RecursiveItem.testPattern .media.getName());
+		assertSame("testPattern-fetch" , RecursiveItem.testPattern .fetch.getName());
+		assertSame("testPattern2-media", RecursiveItem.testPattern2.media.getName());
+		assertSame("testPattern2-fetch", RecursiveItem.testPattern2.fetch.getName());
+		assertSame("testPattern-media-body"         , RecursiveItem.testPattern .media.getBody        ().getName());
+		assertSame("testPattern-media-contentType"  , RecursiveItem.testPattern .media.getContentType ().getName());
+		assertSame("testPattern-media-lastModified" , RecursiveItem.testPattern .media.getLastModified().getName());
+		assertSame("testPattern2-media-body"        , RecursiveItem.testPattern2.media.getBody        ().getName());
+		assertSame("testPattern2-media-contentType" , RecursiveItem.testPattern2.media.getContentType ().getName());
+		assertSame("testPattern2-media-lastModified", RecursiveItem.testPattern2.media.getLastModified().getName());
 		
-		assertSame("RecursiveItem.testPatternMedia" , RecursiveItem.testPattern .media.getID());
-		assertSame("RecursiveItem.testPatternFetch" , RecursiveItem.testPattern .fetch.getID());
-		assertSame("RecursiveItem.testPattern2Media", RecursiveItem.testPattern2.media.getID());
-		assertSame("RecursiveItem.testPattern2Fetch", RecursiveItem.testPattern2.fetch.getID());
-		assertSame("RecursiveItem.testPatternMediaBody"         , RecursiveItem.testPattern .media.getBody        ().getID());
-		assertSame("RecursiveItem.testPatternMediaContentType"  , RecursiveItem.testPattern .media.getContentType ().getID());
-		assertSame("RecursiveItem.testPatternMediaLastModified" , RecursiveItem.testPattern .media.getLastModified().getID());
-		assertSame("RecursiveItem.testPattern2MediaBody"        , RecursiveItem.testPattern2.media.getBody        ().getID());
-		assertSame("RecursiveItem.testPattern2MediaContentType" , RecursiveItem.testPattern2.media.getContentType ().getID());
-		assertSame("RecursiveItem.testPattern2MediaLastModified", RecursiveItem.testPattern2.media.getLastModified().getID());
+		assertSame("RecursiveItem.testPattern-media" , RecursiveItem.testPattern .media.getID());
+		assertSame("RecursiveItem.testPattern-fetch" , RecursiveItem.testPattern .fetch.getID());
+		assertSame("RecursiveItem.testPattern2-media", RecursiveItem.testPattern2.media.getID());
+		assertSame("RecursiveItem.testPattern2-fetch", RecursiveItem.testPattern2.fetch.getID());
+		assertSame("RecursiveItem.testPattern-media-body"         , RecursiveItem.testPattern .media.getBody        ().getID());
+		assertSame("RecursiveItem.testPattern-media-contentType"  , RecursiveItem.testPattern .media.getContentType ().getID());
+		assertSame("RecursiveItem.testPattern-media-lastModified" , RecursiveItem.testPattern .media.getLastModified().getID());
+		assertSame("RecursiveItem.testPattern2-media-body"        , RecursiveItem.testPattern2.media.getBody        ().getID());
+		assertSame("RecursiveItem.testPattern2-media-contentType" , RecursiveItem.testPattern2.media.getContentType ().getID());
+		assertSame("RecursiveItem.testPattern2-media-lastModified", RecursiveItem.testPattern2.media.getLastModified().getID());
 		
 		assertTestAnnotationNull(PatternTestItem.testPattern.ownString);
 		assertTestAnnotationNull(PatternTestItem.testPattern2.ownString);
@@ -124,7 +124,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertEquals(null, item.testPattern.getLocator(item));
 		
 		assertTrue(item.fetch());
-		assertEquals("RecursiveItem/testPatternMedia/RecursiveItem.0.png", item.testPattern.getLocator(item).toString());
+		assertEquals("RecursiveItem/testPattern-media/RecursiveItem-0.png", item.testPattern.getLocator(item).toString());
 	}
 	
 	@Deprecated

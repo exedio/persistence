@@ -91,7 +91,7 @@ public class FieldDateTest extends FieldTest
 		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
 		
 		// special test of Model#getItem for items without any attributes
-		assertIDFails("EmptyItem.51", "item <51> does not exist", false);
+		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage

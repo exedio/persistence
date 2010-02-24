@@ -62,8 +62,8 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.valid.getFrom().getType());
 		assertEquals(item.TYPE, item.valid.getTo().getType());
 		assertEquals(item.TYPE, item.valid.getType());
-		assertEquals("validFrom", item.valid.getFrom().getName());
-		assertEquals("validTo",   item.valid.getTo().getName());
+		assertEquals("valid-from", item.valid.getFrom().getName());
+		assertEquals("valid-to",   item.valid.getTo().getName());
 		assertEquals("valid",     item.valid.getName());
 		assertEquals(item.valid, item.valid.getFrom().getPattern());
 		

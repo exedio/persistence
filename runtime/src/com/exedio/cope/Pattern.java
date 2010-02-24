@@ -65,6 +65,8 @@ public abstract class Pattern extends Feature
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
+		if(postfix.length()==0)
+			throw new IllegalArgumentException("postfix must not be empty");
 		if(field==null)
 			throw new NullPointerException("field");
 		if(sourceFeaturesGather==null)
@@ -93,7 +95,7 @@ public abstract class Pattern extends Feature
 			final Class<T> javaClass,
 			final Features features)
 	{
-		return newSourceType(javaClass, features, "");
+		return newSourceType(javaClass, features, null);
 	}
 	
 	protected final <T extends Item> Type<T> newSourceType(
@@ -111,10 +113,12 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
+		if(postfix!=null && postfix.length()==0)
+			throw new IllegalArgumentException("postfix must not be empty");
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
-		final String id = getType().getID() + '.' + getName() + postfix;
+		final String id = getType().getID() + '-' + getName() + (postfix!=null ? ('-' + postfix) : "");
 		final Type<T> result = new Type<T>(javaClass, false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;

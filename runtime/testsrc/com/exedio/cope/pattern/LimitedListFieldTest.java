@@ -349,7 +349,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 	{
 		final DateField date = (DateField)i.next();
 		assertEquals(item.TYPE, date.getType());
-		assertEquals("dates"+num, date.getName());
+		assertEquals("dates-"+num, date.getName());
 		assertEquals(false, date.isMandatory());
 		assertEquals(false, date.isFinal());
 		return date;
@@ -359,7 +359,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 	{
 		final StringField string = (StringField)i.next();
 		assertEquals(item.TYPE, string.getType());
-		assertEquals("strings"+num, string.getName());
+		assertEquals("strings-"+num, string.getName());
 		assertEquals(false, string.isMandatory());
 		assertEquals(false, string.isFinal());
 		assertEquals(1, string.getMinimumLength());

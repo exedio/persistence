@@ -83,19 +83,19 @@ public class PatternTest extends AbstractRuntimeTest
 		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern2.ownInt      .getType());
 		assertSame(PatternTestItem.TYPE, PatternTestItem.testPattern2.getOwnItem().getType());
 		
-		assertSame("testPatternOwnString" , PatternTestItem.testPattern.ownString    .getName());
-		assertSame("testPatternOwnInt"    , PatternTestItem.testPattern.ownInt       .getName());
-		assertSame("testPatternOwnItem"   , PatternTestItem.testPattern.getOwnItem() .getName());
-		assertSame("testPattern2OwnString", PatternTestItem.testPattern2.ownString   .getName());
-		assertSame("testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getName());
-		assertSame("testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getName());
+		assertSame("testPattern-ownString" , PatternTestItem.testPattern.ownString    .getName());
+		assertSame("testPattern-ownInt"    , PatternTestItem.testPattern.ownInt       .getName());
+		assertSame("testPattern-ownItem"   , PatternTestItem.testPattern.getOwnItem() .getName());
+		assertSame("testPattern2-ownString", PatternTestItem.testPattern2.ownString   .getName());
+		assertSame("testPattern2-ownInt"   , PatternTestItem.testPattern2.ownInt      .getName());
+		assertSame("testPattern2-ownItem"  , PatternTestItem.testPattern2.getOwnItem().getName());
 		
-		assertSame("PatternTestItem.testPatternOwnString" , PatternTestItem.testPattern.ownString    .getID());
-		assertSame("PatternTestItem.testPatternOwnInt"    , PatternTestItem.testPattern.ownInt       .getID());
-		assertSame("PatternTestItem.testPatternOwnItem"   , PatternTestItem.testPattern.getOwnItem() .getID());
-		assertSame("PatternTestItem.testPattern2OwnString", PatternTestItem.testPattern2.ownString   .getID());
-		assertSame("PatternTestItem.testPattern2OwnInt"   , PatternTestItem.testPattern2.ownInt      .getID());
-		assertSame("PatternTestItem.testPattern2OwnItem"  , PatternTestItem.testPattern2.getOwnItem().getID());
+		assertSame("PatternTestItem.testPattern-ownString" , PatternTestItem.testPattern.ownString    .getID());
+		assertSame("PatternTestItem.testPattern-ownInt"    , PatternTestItem.testPattern.ownInt       .getID());
+		assertSame("PatternTestItem.testPattern-ownItem"   , PatternTestItem.testPattern.getOwnItem() .getID());
+		assertSame("PatternTestItem.testPattern2-ownString", PatternTestItem.testPattern2.ownString   .getID());
+		assertSame("PatternTestItem.testPattern2-ownInt"   , PatternTestItem.testPattern2.ownInt      .getID());
+		assertSame("PatternTestItem.testPattern2-ownItem"  , PatternTestItem.testPattern2.getOwnItem().getID());
 		
 		assertTestAnnotationNull(PatternTestItem.testPattern.ownString);
 		assertTestAnnotationNull(PatternTestItem.testPattern2.ownString);
@@ -183,10 +183,10 @@ public class PatternTest extends AbstractRuntimeTest
 		assertFalse(subType.isAssignableFrom(subType2));
 		
 		//getID
-		assertEquals("PatternTestItem.testPatternUperType", superType.getID());
-		assertEquals("PatternTestItem.testPatternSubType", subType.getID());
-		assertEquals("PatternTestItem.testPattern2UperType", superType2.getID());
-		assertEquals("PatternTestItem.testPattern2SubType", subType2.getID());
+		assertEquals("PatternTestItem-testPattern-UperType", superType.getID());
+		assertEquals("PatternTestItem-testPattern-SubType", subType.getID());
+		assertEquals("PatternTestItem-testPattern2-UperType", superType2.getID());
+		assertEquals("PatternTestItem-testPattern2-SubType", subType2.getID());
 		
 		//creating instances
 		try
@@ -198,7 +198,7 @@ public class PatternTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("cannot create item of abstract type PatternTestItem.testPatternUperType", e.getMessage());
+			assertEquals("cannot create item of abstract type PatternTestItem-testPattern-UperType", e.getMessage());
 		}
 		
 		final Item item = subType.newItem(

@@ -66,12 +66,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
 		this.optional = optional;
-		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "Body", ComputedInstance.get());
+		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "body", ComputedInstance.get());
 		this.contentType = contentType;
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
 			addSource(contentTypeField, contentType.name, ComputedInstance.get());
-		addSource(this.lastModified = optional(new DateField(), optional), "LastModified", ComputedInstance.get());
+		addSource(this.lastModified = optional(new DateField(), optional), "lastModified", ComputedInstance.get());
 		
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());
@@ -715,7 +715,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		DefaultContentType(final boolean optional)
 		{
-			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), optional, "ContentType");
+			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), optional, "contentType");
 		}
 		
 		@Override
@@ -774,7 +774,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		
 		EnumContentType(final String[] types, final boolean optional)
 		{
-			super(new IntegerField().range(0, types.length-1), optional, "ContentType");
+			super(new IntegerField().range(0, types.length-1), optional, "contentType");
 			this.types = types;
 			final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
 			for(int i = 0; i<types.length; i++)
@@ -939,7 +939,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		
 		SubContentType(final String major, final boolean optional)
 		{
-			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), optional, "Minor");
+			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), optional, "minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();

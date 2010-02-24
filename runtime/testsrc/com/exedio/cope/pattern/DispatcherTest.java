@@ -109,7 +109,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(3, item.toTarget.getFailureLimit());
 		assertEquals(2, item.toTarget.getSearchSize());
 
-		assertEquals("DispatcherItem.toTargetFailure", failureType.getID());
+		assertEquals("DispatcherItem-toTarget-Failure", failureType.getID());
 		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
 		assertEquals(false, failureType.isBound());
 		assertSame(DispatcherItem.toTarget, failureType.getPattern());

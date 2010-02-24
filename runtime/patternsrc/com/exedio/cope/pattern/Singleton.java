@@ -42,7 +42,7 @@ public final class Singleton extends Pattern
 	
 	public Singleton()
 	{
-		addSource(source, "Once", ComputedInstance.get());
+		addSource(source, "once", ComputedInstance.get());
 	}
 	
 	public IntegerField getSource()

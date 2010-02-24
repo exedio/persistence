@@ -100,7 +100,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.audit.getType());
 		assertEquals("audit", item.audit.getName());
 
-		assertEquals("HistoryItem.auditEvent", eventType.getID());
+		assertEquals("HistoryItem-audit-Event", eventType.getID());
 		assertEquals(History.Event.class, eventType.getJavaClass());
 		assertEquals(false, eventType.isBound());
 		assertSame(HistoryItem.audit, eventType.getPattern());
@@ -111,7 +111,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(eventType, eventType.getThis().getValueType());
 		assertEquals(model, eventType.getModel());
 
-		assertEquals("HistoryItem.auditFeature", featureType.getID());
+		assertEquals("HistoryItem-audit-Feature", featureType.getID());
 		assertEquals(History.Feature.class, featureType.getJavaClass());
 		assertEquals(false, featureType.isBound());
 		assertSame(HistoryItem.audit, featureType.getPattern());

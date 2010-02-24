@@ -49,7 +49,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	private PriceField(final IntegerField integer)
 	{
 		this.integer = integer;
-		addSource(integer, "Int", ComputedInstance.get());
+		addSource(integer, "int", ComputedInstance.get());
 		this.isfinal = integer.isFinal();
 		this.optional = !integer.isMandatory();
 	}

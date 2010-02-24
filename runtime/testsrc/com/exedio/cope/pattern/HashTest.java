@@ -58,7 +58,7 @@ public class HashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals("Wrap", item.explicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.explicitExternal.getAlgorithmName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 		assertEquals(item.explicitExternal, item.explicitExternalWrap.getPattern());
 		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFeatures());
@@ -101,9 +101,9 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.implicitExternal.getType());
 		assertEquals("implicitExternal", item.implicitExternal.getName());
-		assertEquals("Wrap", item.implicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.implicitExternal.getAlgorithmName());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
-		assertEquals("implicitExternalWrap", item.implicitExternal.getStorage().getName());
+		assertEquals("implicitExternal-wrap", item.implicitExternal.getStorage().getName());
 		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFeatures());
 		assertEquals(false, item.implicitExternal.isInitial());
@@ -127,9 +127,9 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.internal.getType());
 		assertEquals("internal", item.internal.getName());
-		assertEquals("Wrap", item.internal.getAlgorithmName());
+		assertEquals("wrap", item.internal.getAlgorithmName());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
-		assertEquals("internalWrap", item.internal.getStorage().getName());
+		assertEquals("internal-wrap", item.internal.getStorage().getName());
 		assertEquals(item.internal, item.internal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFeatures());
 		assertEquals(false, item.internal.isInitial());

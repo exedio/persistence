@@ -41,7 +41,7 @@ final class Trimmer
 			throw new IllegalArgumentException("longString must not be empty");
 
 		if(longString.length()<=maxLength)
-			return (longString.indexOf('.')<=0) ? longString : longString.replace('.', '_');
+			return (longString.indexOf('-')<=0) ? longString : longString.replace('-', '_');
 
 		int longStringLength = longString.length();
 		final int[] trimPotential = new int[maxLength];
@@ -51,7 +51,7 @@ final class Trimmer
 			for(int i=0; i<longString.length(); i++)
 			{
 				char c = longString.charAt(i);
-				if(c=='.')
+				if(c=='-')
 					c = '_';
 				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && buf.length()>0)
 				{

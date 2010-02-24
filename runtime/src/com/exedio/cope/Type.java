@@ -51,7 +51,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 {
 	private final Class<T> javaClass;
 	private final boolean bound;
-	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
+	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	final String schemaId;
 	private final Pattern pattern;

@@ -53,15 +53,15 @@ public class FindItemPatternTest extends AbstractRuntimeTest
 		final Item item1 = items.get(1);
 		final Item item2 = items.get(2);
 		
-		assertEquals("ListFieldItem.strings.0", item0.getCopeID());
-		assertEquals("ListFieldItem.strings.1", item1.getCopeID());
-		assertEquals("ListFieldItem.strings.2", item2.getCopeID());
+		assertEquals("ListFieldItem-strings-0", item0.getCopeID());
+		assertEquals("ListFieldItem-strings-1", item1.getCopeID());
+		assertEquals("ListFieldItem-strings-2", item2.getCopeID());
 		
-		assertSame(item0, model.getItem("ListFieldItem.strings.0")); // important to test with zero as well
-		assertSame(item1, model.getItem("ListFieldItem.strings.1"));
-		assertSame(item2, model.getItem("ListFieldItem.strings.2"));
+		assertSame(item0, model.getItem("ListFieldItem-strings-0")); // important to test with zero as well
+		assertSame(item1, model.getItem("ListFieldItem-strings-1"));
+		assertSame(item2, model.getItem("ListFieldItem-strings-2"));
 		
-		assertIDFails("ListFieldItem.strings.10", "item <10> does not exist", false);
-		assertIDFails("ListFieldItem.strings10",  "wrong number format <strings10>", true);
+		assertIDFails("ListFieldItem-strings-10", "item <10> does not exist", false);
+		assertIDFails("ListFieldItem-strings10",  "wrong number format <strings10>", true);
 	}
 }

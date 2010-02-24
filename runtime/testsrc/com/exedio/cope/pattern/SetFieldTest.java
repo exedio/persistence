@@ -102,7 +102,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
 
-		assertEquals("SetFieldItem.strings", stringsType.getID());
+		assertEquals("SetFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
 		assertSame(SetFieldItem.strings, stringsType.getPattern());
@@ -113,7 +113,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(stringsType, stringsType.getThis().getValueType());
 		assertEquals(model, stringsType.getModel());
 
-		assertEquals("SetFieldItem.dates", datesType.getID());
+		assertEquals("SetFieldItem-dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
 		assertSame(SetFieldItem.dates, datesType.getPattern());

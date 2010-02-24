@@ -62,7 +62,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 
 		final DataField body = item.sheet.getBody();
 		assertSame(item.TYPE, body.getType());
-		assertSame("sheetBody", body.getName());
+		assertSame("sheet-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(5000, body.getMaximumLength());
@@ -71,7 +71,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		
 		final IntegerField contentType = (IntegerField)item.sheet.getContentType();
 		assertSame(item.TYPE, contentType.getType());
-		assertEquals("sheetContentType", contentType.getName());
+		assertEquals("sheet-contentType", contentType.getName());
 		assertEquals(item.sheet, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
@@ -79,7 +79,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		
 		final DateField lastModified = item.sheet.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
-		assertEquals("sheetLastModified", lastModified.getName());
+		assertEquals("sheet-lastModified", lastModified.getName());
 		assertEquals(item.sheet, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());

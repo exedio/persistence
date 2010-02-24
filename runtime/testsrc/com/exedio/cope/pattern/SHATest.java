@@ -67,7 +67,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals("password", item.password.getName());
 		assertEquals("SHA512", item.password.getAlgorithmName());
 		assertEquals(item.TYPE, item.password.getStorage().getType());
-		assertEquals("passwordSHA512", item.password.getStorage().getName());
+		assertEquals("password-SHA512", item.password.getStorage().getName());
 		assertEquals(false, item.password.getStorage().isFinal());
 		assertEquals(false, item.password.getStorage().isMandatory());
 		assertEquals(128, item.password.getStorage().getMinimumLength());

@@ -109,7 +109,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		{
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
-			addSource(component, toCamelCase(e.getKey()), ComputedInstance.get());
+			addSource(component, e.getKey(), ComputedInstance.get());
 			templateToComponent.put(template, component);
 			componentToTemplate.put(component, template);
 			if(optional && mandatoryComponent==null && template.isMandatory())
@@ -137,15 +137,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 				return (FunctionField)template.optional();
 			else
 				return template.copy();
-	}
-	
-	private static final String toCamelCase(final String name)
-	{
-		final char first = name.charAt(0);
-		if(Character.isUpperCase(first))
-			return name;
-		else
-			return Character.toUpperCase(first) + name.substring(1);
 	}
 
 	public <X extends FunctionField> X of(final X template)

@@ -24,15 +24,15 @@ public class ModelCharSetTest extends CopeAssert
 {
 	public void testType()
 	{
-		new Type<AnItem>(AnItem.class, false, "Zack.Zick123", null, false, null, new Features());
+		new Type<AnItem>(AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
 		try
 		{
-			new Type<AnItem>(AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
+			new Type<AnItem>(AnItem.class, false, "Zack.Zick123", null, false, null, new Features());
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("id >Zack-Zick123< of type contains illegal character >-< at position 4", e.getMessage());
+			assertEquals("id >Zack.Zick123< of type contains illegal character >.< at position 4", e.getMessage());
 		}
 	}
 	

@@ -46,7 +46,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 {
 	private static final long serialVersionUID = 1l;
 	
-	static final char ID_SEPARATOR = '.';
+	static final char ID_SEPARATOR = '-';
 	
 	transient Type<? extends Item> type;
 

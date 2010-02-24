@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* refactoring of id of types, features and items
+	BEWARE !!!
+	heavily affects persistent schema and localization files of a generic backoffice
 * MediaPath.onMount is not final anymore
 * add pattern Importer
 	helps implementing typical update-or-insert scenarios

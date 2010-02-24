@@ -68,7 +68,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 
 		final DataField body = item.file.getBody();
 		assertSame(item.TYPE, body.getType());
-		assertSame("fileBody", body.getName());
+		assertSame("file-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
@@ -77,7 +77,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		
 		final StringField contentType = (StringField)item.file.getContentType();
 		assertSame(item.TYPE, contentType.getType());
-		assertEquals("fileContentType", contentType.getName());
+		assertEquals("file-contentType", contentType.getName());
 		assertEquals(item.file, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
@@ -87,7 +87,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		
 		final DateField lastModified = item.file.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
-		assertEquals("fileLastModified", lastModified.getName());
+		assertEquals("file-lastModified", lastModified.getName());
 		assertEquals(item.file, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());

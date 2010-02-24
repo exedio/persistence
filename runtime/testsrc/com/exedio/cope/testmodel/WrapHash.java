@@ -31,12 +31,12 @@ public class WrapHash extends Hash
 	
 	public WrapHash(final StringField storage)
 	{
-		super(storage, "Wrap");
+		super(storage, "wrap");
 	}
 
 	public WrapHash()
 	{
-		super("Wrap");
+		super("wrap");
 	}
 	
 	@Override

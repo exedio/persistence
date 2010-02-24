@@ -61,49 +61,49 @@ public class InitServlet extends HttpServlet
 			model.startTransaction(thisClass.getName());
 			
 			final MediaServletItem text = new MediaServletItem();
-			assertID("MediaServletItem.0", text);
+			assertID("MediaServletItem-0", text);
 			text.setContent(textValue, "text/plain");
 				
 			final MediaServletItem empty = new MediaServletItem();
-			assertID("MediaServletItem.1", empty);
+			assertID("MediaServletItem-1", empty);
 
 			final MediaServletItem png = new MediaServletItem();
-			assertID("MediaServletItem.2", png);
+			assertID("MediaServletItem-2", png);
 			png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png");
 
 			final MediaServletItem jpeg = new MediaServletItem();
-			assertID("MediaServletItem.3", jpeg);
+			assertID("MediaServletItem-3", jpeg);
 			jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 
 			final MediaServletItem unknown = new MediaServletItem();
-			assertID("MediaServletItem.4", unknown);
+			assertID("MediaServletItem-4", unknown);
 			unknown.setContent(textValue, "unknownma/unknownmi");
 			
 			final MediaServletItem nameOk = new MediaServletItem("media item 1");
-			assertID("MediaServletItem.5", nameOk);
+			assertID("MediaServletItem-5", nameOk);
 			final MediaServletItem nameNull = new MediaServletItem(null);
-			assertID("MediaServletItem.6", nameNull);
+			assertID("MediaServletItem-6", nameNull);
 			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
-			assertID("MediaServletItem.7", nameError);
+			assertID("MediaServletItem-7", nameError);
 			
 			final MediaServletItem gif = new MediaServletItem();
-			assertID("MediaServletItem.8", gif);
+			assertID("MediaServletItem-8", gif);
 			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif");
 
 			final MediaServletItem small = new MediaServletItem();
-			assertID("MediaServletItem.9", small);
+			assertID("MediaServletItem-9", small);
 			small.setContent(thisClass.getResourceAsStream("small.jpg"), "image/jpeg");
 
 			final MediaServletItem antialias = new MediaServletItem();
-			assertID("MediaServletItem.10", antialias);
+			assertID("MediaServletItem-10", antialias);
 			antialias.setContent(thisClass.getResourceAsStream("antialias.png"), "image/png");
 
 			final MediaServletItem antialiasJpeg = new MediaServletItem();
-			assertID("MediaServletItem.11", antialiasJpeg);
+			assertID("MediaServletItem-11", antialiasJpeg);
 			antialiasJpeg.setContent(thisClass.getResourceAsStream("antialias.jpg"), "image/jpeg");
 
 			final MediaServletItem transparency = new MediaServletItem();
-			assertID("MediaServletItem.12", transparency);
+			assertID("MediaServletItem-12", transparency);
 			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png");
 			
 			final MediaPatternItem pattern = new MediaPatternItem();

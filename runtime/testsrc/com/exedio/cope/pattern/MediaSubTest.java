@@ -61,7 +61,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 
 		final DataField body = item.image.getBody();
 		assertSame(item.TYPE, body.getType());
-		assertSame("imageBody", body.getName());
+		assertSame("image-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(Media.DEFAULT_LENGTH, body.getMaximumLength());
@@ -70,7 +70,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		
 		final StringField contentType = (StringField)item.image.getContentType();
 		assertSame(item.TYPE, contentType.getType());
-		assertEquals("imageMinor", contentType.getName());
+		assertEquals("image-minor", contentType.getName());
 		assertEquals(item.image, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
@@ -80,7 +80,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		
 		final DateField lastModified = item.image.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
-		assertEquals("imageLastModified", lastModified.getName());
+		assertEquals("image-lastModified", lastModified.getName());
 		assertEquals(item.image, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());

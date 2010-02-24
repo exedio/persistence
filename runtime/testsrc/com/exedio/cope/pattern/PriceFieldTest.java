@@ -82,11 +82,11 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.optionalPrice.getType());
 		assertEquals(item.TYPE, item.bigPrice.getInt().getType());
 		assertEquals(item.TYPE, item.bigPrice.getType());
-		assertEquals("finalPriceInt", item.finalPrice.getInt().getName());
+		assertEquals("finalPrice-int",item.finalPrice.getInt().getName());
 		assertEquals("finalPrice",    item.finalPrice.getName());
-		assertEquals("optionalPriceInt", item.optionalPrice.getInt().getName());
+		assertEquals("optionalPrice-int",item.optionalPrice.getInt().getName());
 		assertEquals("optionalPrice",    item.optionalPrice.getName());
-		assertEquals("bigPriceInt", item.bigPrice.getInt().getName());
+		assertEquals("bigPrice-int",item.bigPrice.getInt().getName());
 		assertEquals("bigPrice",    item.bigPrice.getName());
 
 		assertEquals(item.finalPrice, item.finalPrice.getInt().getPattern());

@@ -48,15 +48,18 @@ public class TrimmerTest extends TestCase
 		assertTrim("FirstSecondThird", "FirstSecondThird", 16);
 		assertTrim("FirstSecondThird", "FirstSecondThird", 18);
 
-		assertTrim("First_SecondThird", "First.SecondThird", 18);
-		assertTrim("FirstSecond_Third", "FirstSecond.Third", 18);
-		assertTrim("Fir_SecThi", "First.SecondThird", 10);
-		assertTrim("FirSec_Thi", "FirstSecond.Third", 10);
-		assertTrim("First-SecondThird", "First-SecondThird", 18);
-		assertTrim("FirstSecond-Third", "FirstSecond-Third", 18);
-		assertTrim("FirsSecThi", "First-SecondThird", 10);
-		assertTrim("FirsSecThi", "FirstSecond-Third", 10);
+		assertTrim("First_SecondThird", "First-SecondThird", 18);
+		assertTrim("FirstSecond_Third", "FirstSecond-Third", 18);
+		assertTrim("Fir_SecThi", "First-SecondThird", 10);
+		assertTrim("FirSec_Thi", "FirstSecond-Third", 10);
+		assertTrim("First.SecondThird", "First.SecondThird", 18);
+		assertTrim("FirstSecond.Third", "FirstSecond.Third", 18);
+		assertTrim("FirsSecThi", "First.SecondThird", 10);
+		assertTrim("FirsSecThi", "FirstSecond.Third", 10);
 
+		assertTrim("Firs1Seco2dThird", "Firs1Seco2dThird", 18);
+		assertTrim("Fir1Se2dTh", "Firs1Seco2dThird", 10);
+		
 		assertTrim("1irs2ec3hi", "1irst2econd3hird", 10);
 		assertTrim("_irs_ec_hi", "_irst_econd_hird", 10);
 
