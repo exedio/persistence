@@ -192,6 +192,19 @@ public final class Column extends Node
 		executeSQL(bf.toString(), listener);
 	}
 	
+	public final void update(final String value, final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("update ").
+			append(quoteName(table.name)).
+			append(" set ").
+			append(quoteName(name)).
+			append('=').
+			append(value);
+
+		executeSQL(bf.toString(), listener);
+	}
+	
 	@Override
 	public final String toString()
 	{

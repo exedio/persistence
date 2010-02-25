@@ -40,12 +40,14 @@ final class Table
 	final String quotedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
+	final IntegerColumn modificationCount;
 
 	Table(
 			final Database database,
 			final String id,
 			final Type<? extends Item> supertype,
-			final String[] typesOfInstancesColumnValues)
+			final String[] typesOfInstancesColumnValues,
+			final boolean concurrentModificationDetectionEnabled)
 	{
 		this.database = database;
 		this.id = intern(database.makeName(id));
@@ -58,6 +60,10 @@ final class Table
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
 			? new StringColumn(this, null, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues)
+			: null;
+		this.modificationCount =
+			concurrentModificationDetectionEnabled
+			? new IntegerColumn(this, null, CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME, false, 0, Integer.MAX_VALUE, false)
 			: null;
 		database.addTable(this);
 	}
@@ -85,6 +91,15 @@ final class Table
 	 * which cannot be used for java fields.
 	 */
 	private static final String TYPE_COLUMN_NAME = "class";
+
+	/**
+	 * The column name for the modification counter.
+	 * The value "catch" prevents name collisions
+	 * with columns for cope fields,
+	 * since "catch" is a reserved java keyword,
+	 * which cannot be used for java fields.
+	 */
+	private static final String CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME = "catch";
 
 	/**
 	 * The table name for the revision information.
@@ -174,7 +189,7 @@ final class Table
 		for(final Column column : allColumnsModifiable)
 		{
 			// TODO dont use TYPE_COLUMN_NAME
-			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
+			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id) && modificationCount!=column)
 				columns.add(column);
 		}
 		

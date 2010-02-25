@@ -45,6 +45,11 @@ public final class InitServlet extends HttpServlet
 		try
 		{
 			Main.model.startTransaction(thisClass.getName());
+			new AnItem("aField1");
+			new AnItem("aField2");
+			new ASubItem("aField1s", "aSubField1s");
+			new ASubItem("aField2s", "aSubField2s");
+			new ASubItem("aField3s", "aSubField3s");
 			new AMediaItem();
 			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "image/png");
 			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "unknownma/unknownmi");

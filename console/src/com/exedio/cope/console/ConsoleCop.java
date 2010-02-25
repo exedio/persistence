@@ -120,6 +120,7 @@ abstract class ConsoleCop<S> extends Cop
 					new PropertiesCop(args),
 					new SchemaCop(args),
 					new UnsupportedConstraintCop(args),
+					new ModificationCounterCop(args),
 					new SequenceCop(args),
 					new TypeColumnCop(args),
 					new CopyConstraintCop(args),
@@ -170,6 +171,7 @@ abstract class ConsoleCop<S> extends Cop
 	static final String TAB_SCHEMA = "schema";
 	static final String TAB_UNSUPPORTED_CONSTRAINTS = "unsupportedconstraints";
 	static final String TAB_TYPE_COLUMNS = "typecolumns";
+	static final String TAB_MODIFICATION_COUNTERS = "modificationcounters";
 	static final String TAB_COPY_CONSTRAINTS = "copyconstraints";
 	static final String TAB_REVISION = "revision";
 	static final String TAB_DATBASE_LOG = "dblogs";
@@ -205,6 +207,8 @@ abstract class ConsoleCop<S> extends Cop
 			return new UnsupportedConstraintCop(args);
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop(args);
+		if(TAB_MODIFICATION_COUNTERS.equals(tab))
+			return new ModificationCounterCop(args);
 		if(TAB_COPY_CONSTRAINTS.equals(tab))
 			return new CopyConstraintCop(args);
 		if(TAB_PROPERTIES.equals(tab))

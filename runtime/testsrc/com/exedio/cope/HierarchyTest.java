@@ -129,30 +129,39 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertEquals(map(), model.getHiddenFeatures());
 		
 		// test persistence
+		assertCheckModificationCounters();
+		
 		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
+		assertCheckModificationCounters();
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 		
 		firstItem.setSuperInt(2);
+		assertCheckModificationCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 		
 		firstItem.setFirstSubString("firstSubString");
+		assertCheckModificationCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		
 		restartTransaction();
+		assertCheckModificationCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		firstItem.setSuperInt(0);
 		
 		final HierarchySecondSub secondItem = deleteOnTearDown(new HierarchySecondSub(2));
+		assertCheckModificationCounters();
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
 		final HierarchySecondSub secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
+		assertCheckModificationCounters();
 
 		final HierarchyFirstSub firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
+		assertCheckModificationCounters();
 		
 		assertEquals(list(firstItem), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubString")));
 		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
@@ -169,16 +178,22 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertFalse(HierarchySingleSub.TYPE.isAbstract());
 		
 		final HierarchySingleSub singleSub1a = deleteOnTearDown(new HierarchySingleSub());
+		assertCheckModificationCounters();
 		singleSub1a.setSubString("a");
+		assertCheckModificationCounters();
 		singleSub1a.setSuperInt(Integer.valueOf(1));
+		assertCheckModificationCounters();
 		final HierarchySingleSub singleSub1b = deleteOnTearDown(new HierarchySingleSub(1, "b"));
+		assertCheckModificationCounters();
 		final HierarchySingleSub singleSub2a = deleteOnTearDown(new HierarchySingleSub(2, "a"));
+		assertCheckModificationCounters();
 		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1b, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub2a, singleSub1a.TYPE.search(singleSub1a.subString.equal("a")));
 		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		
 		restartTransaction();
+		assertCheckModificationCounters();
 		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(Integer.valueOf(1), singleSub1b.getSuperInt());
@@ -187,15 +202,18 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
+		assertCheckModificationCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(firstItem)));
 		restartTransaction();
+		assertCheckModificationCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(firstItem)));
 
 		singleSub1a.setHierarchySuper(secondItem2);
+		assertCheckModificationCounters();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list(secondItem2), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(secondItem2)));
@@ -205,9 +223,11 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(secondItem2)));
 
 		singleSub1a.setHierarchySuper(null);
+		assertCheckModificationCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		restartTransaction();
+		assertCheckModificationCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		
@@ -266,6 +286,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		{
 			assertEquals("cannot create item of abstract type HierarchySuper", e.getMessage());
 		}
+		assertCheckModificationCounters();
 	}
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException

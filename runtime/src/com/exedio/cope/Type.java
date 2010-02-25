@@ -501,7 +501,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		if(this.table!=null)
 			throw new RuntimeException();
 		
-		this.table = new Table(database, schemaId, supertype, mount().typesOfInstancesColumnValues);
+		this.table = new Table(
+				database,
+				schemaId,
+				supertype,
+				mount().typesOfInstancesColumnValues,
+				database.properties.itemCacheConcurrentModificationDetection.getBooleanValue() && !hasFinalTable());
 		if(supertype==null)
 		{
 			primaryKeySequence.connect(database, table.primaryKey);
@@ -514,6 +519,17 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			uc.connect(table);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.finish();
+	}
+	
+	private boolean hasFinalTable()
+	{
+		for(final Field f : fields)
+			if(!f.isFinal())
+				return false;
+		for(final Type t : getSubtypes())
+			if(!t.hasFinalTable())
+				return false;
+		return true;
 	}
 	
 	void disconnect()
@@ -1071,6 +1087,38 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		bf.append("<>").append(superTable.typeColumn);
 		
 		//System.out.println("CHECKT:"+bf.toString());
+		
+		return executor.query(connection, bf, null, false, integerResultSetHandler);
+	}
+	
+	public boolean needsCheckModificationCounter()
+	{
+		return supertype!=null && getTable().modificationCount!=null;
+	}
+	
+	public int checkModificationCounter()
+	{
+		if(!needsCheckModificationCounter())
+			throw new RuntimeException("no check for modification counter needed for " + this);
+		
+		final Model model = getModel();
+		return checkModificationCounter(model.getCurrentTransaction().getConnection(), model.connect().executor);
+	}
+	
+	private int checkModificationCounter(final Connection connection, final Executor executor)
+	{
+		final Table table = getTable();
+		final Table superTable = supertype.getTable();
+		
+		final Statement bf = executor.newStatement(true);
+		bf.append("select count(*) from ").
+			append(table).append(',').append(superTable).
+			append(" where ").
+			append(table.primaryKey).append('=').append(superTable.primaryKey).
+			append(" and ").
+			append(table.modificationCount).append("<>").append(superTable.modificationCount);
+		
+		//System.out.println("CHECKM:"+bf.toString());
 		
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}

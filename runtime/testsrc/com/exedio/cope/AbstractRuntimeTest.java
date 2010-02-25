@@ -534,4 +534,36 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertSame(value, reserialize(value, expectedSize));
 	}
+	
+	final void assertCheckModificationCounters()
+	{
+		for(final Type type : model.getTypes())
+		{
+			if(model.getConnectProperties().itemCacheConcurrentModificationDetection.getBooleanValue())
+			{
+				if(type.needsCheckModificationCounter())
+					assertEquals(0, type.checkModificationCounter());
+				else
+					assertCheckModificationCounterFails(type);
+			}
+			else
+			{
+				assertFalse(type.needsCheckModificationCounter());
+				assertCheckModificationCounterFails(type);
+			}
+		}
+	}
+	
+	private static final void assertCheckModificationCounterFails(final Type type)
+	{
+		try
+		{
+			type.checkModificationCounter();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("no check for modification counter needed for " + type, e.getMessage());
+		}
+	}
 }

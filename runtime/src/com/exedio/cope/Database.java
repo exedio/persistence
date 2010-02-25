@@ -191,6 +191,19 @@ final class Database
 						appendParameter("x");
 				}
 				
+				final Column modificationCount = table.modificationCount;
+				if(modificationCount!=null)
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(" and ");
+					
+					bf.append(modificationCount).
+						append('=').
+						appendParameter(Integer.MIN_VALUE);
+				}
+				
 				for(final Column column : table.getColumns())
 				{
 					bf.append(" and ").
@@ -288,6 +301,19 @@ final class Database
 		boolean first = true;
 		for(Type superType = type; superType!=null; superType = superType.supertype)
 		{
+			final Table table = superType.getTable();
+			
+			final IntegerColumn modificationCountColumn = table.modificationCount;
+			if(modificationCountColumn!=null)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+				
+				bf.append(modificationCountColumn);
+			}
+			// TODO reuse table below
 			for(final Column column : superType.getTable().getColumns())
 			{
 				if(!(column instanceof BlobColumn))
@@ -347,6 +373,25 @@ final class Database
 				int columnIndex = 1;
 				for(Type superType = type; superType!=null; superType = superType.supertype)
 				{
+					final Table table = superType.getTable();
+					
+					final IntegerColumn modificationCountColumn = table.modificationCount;
+					if(modificationCountColumn!=null)
+					{
+						final int value = resultSet.getInt(columnIndex++);
+						if(type==superType)
+						{
+							if(value<0)
+								throw new RuntimeException("zick "+ value + '/' + superType.id);
+							row.modificationCount = value;
+						}
+						else
+						{
+							if(row.modificationCount!=value)
+								throw new RuntimeException("zack "+ row.modificationCount + '/' + value + '/' + superType.id);
+						}
+					}
+					// TODO reuse table below
 					for(final Column column : superType.getTable().getColumns())
 					{
 						if(!(column instanceof BlobColumn))
@@ -368,6 +413,8 @@ final class Database
 			final Map<BlobColumn, byte[]> blobs)
 	{
 		store(connection, state, present, blobs, state.type);
+		if(present)
+			state.modificationCount++;
 	}
 
 	private void store(
@@ -389,6 +436,7 @@ final class Database
 
 		final Statement bf = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
+		final IntegerColumn modificationCountColumn = table.modificationCount;
 		if(present)
 		{
 			bf.append("update ").
@@ -396,6 +444,15 @@ final class Database
 				append(" set ");
 
 			boolean first = true;
+			
+			if(modificationCountColumn!=null)
+			{
+				bf.append(modificationCountColumn.quotedID).
+					append('=').
+					appendParameter(modificationCountColumn, state.modificationCount+1);
+				first = false;
+			}
+			
 			for(final Column column : columns)
 			{
 				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
@@ -422,6 +479,14 @@ final class Database
 				append('=').
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
+			
+			if(modificationCountColumn!=null)
+			{
+				bf.append(" and ").
+					append(modificationCountColumn.quotedID).
+					append('=').
+					appendParameter(state.modificationCount);
+			}
 		}
 		else
 		{
@@ -434,6 +499,12 @@ final class Database
 			{
 				bf.append(',').
 					append(typeColumn.quotedID);
+			}
+			
+			if(modificationCountColumn!=null)
+			{
+				bf.append(',').
+					append(modificationCountColumn.quotedID);
 			}
 
 			for(final Column column : columns)
@@ -452,6 +523,12 @@ final class Database
 			{
 				bf.append(',').
 					appendParameter(state.type.id);
+			}
+			
+			if(modificationCountColumn!=null)
+			{
+				bf.append(',').
+					appendParameter(state.modificationCount);
 			}
 
 			for(final Column column : columns)

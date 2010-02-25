@@ -18,20 +18,25 @@
 
 package com.exedio.cope.console.example;
 
-import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 
-public final class Main
+public final class ASubItem extends AnItem
 {
-	public static final Model model =
-		new Model(
-				Revisions.revisions(64),
-				AnItem.TYPE,
-				ASubItem.TYPE,
-				AMediaItem.TYPE
-		);
+	static final StringField aSubField = new StringField();
 	
-	public static final Model reducedModel =
-		new Model(
-				AReducedItem.TYPE
-		);
+	ASubItem(final String aField, final String aSubField)
+	{
+		super(
+			AnItem.aField.map(aField),
+			ASubItem.aSubField.map(aSubField));
+	}
+	
+	private ASubItem(com.exedio.cope.ActivationParameters ap)
+	{
+		super(ap);
+	}
+	
+	private static final long serialVersionUID = 1l;
+	
+	static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
 }

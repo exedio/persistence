@@ -28,14 +28,14 @@ final class WrittenState extends State
 	
 	WrittenState(final Item item, final Row row)
 	{
-		super( item );
+		super(item, row.modificationCount);
 		this.row = row;
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
 	WrittenState(final State original)
 	{
-		super( original.item );
+		super(original.item, original.modificationCount);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();

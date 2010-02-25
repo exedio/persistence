@@ -18,6 +18,7 @@
 
 package com.exedio.cope.console;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,6 +129,10 @@ final class SchemaCop extends ConsoleCop
 	static final String CREATE_COLUMN     = "CREATE_COLUMN";
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
 	
+	static final String CATCH_CREATE = "catch.create";
+	static final String CATCH_DROP   = "catch.drop";
+	static final String CATCH_RESET  = "catch.reset";
+	
 	final static void writeApply(final Out out,
 			final HttpServletRequest request, final Model model, final boolean dryRun)
 	{
@@ -168,6 +173,10 @@ final class SchemaCop extends ConsoleCop
 			getConstraint(schema, p).drop(listener);
 		for(final String p : getParameters(request, DROP_COLUMN))
 			getColumn    (schema, p).drop(listener);
+		if(request.getParameter(CATCH_DROP)!=null)
+			for(final Column c : getCatchColumns(schema))
+				if(c.exists())
+					c.drop(listener);
 		for(final String p : getParameters(request, DROP_TABLE))
 			getTable     (schema, p).drop(listener);
 		for(final String p : getParameters(request, DROP_SEQUENCE))
@@ -212,10 +221,18 @@ final class SchemaCop extends ConsoleCop
 
 			getColumn(schema, sourceName).renameTo(targetName, listener);
 		}
+		if(request.getParameter(CATCH_RESET)!=null)
+			for(final Column c : getCatchColumns(schema))
+				c.update("0", listener);
+		
 		for(final String p : getParameters(request, CREATE_SEQUENCE))
 			getSequence  (schema, p).create(listener);
 		for(final String p : getParameters(request, CREATE_TABLE))
 			getTable     (schema, p).create(listener);
+		if(request.getParameter(CATCH_CREATE)!=null)
+			for(final Column c : getCatchColumns(schema))
+				if(!c.exists())
+					c.create(listener);
 		for(final String p : getParameters(request, CREATE_COLUMN))
 			getColumn    (schema, p).create(listener);
 		for(final String p : getParameters(request, CREATE_CONSTRAINT))
@@ -228,5 +245,15 @@ final class SchemaCop extends ConsoleCop
 	{
 		final String[] result = (String[]) request.getParameterMap().get(name);
 		return result!=null ? result : EMPTY_STRINGS;
+	}
+	
+	private static final ArrayList<Column> getCatchColumns(final Schema schema)
+	{
+		final ArrayList<Column> result = new ArrayList<Column>();
+		for(final Table table : schema.getTables())
+			for(final Column column : table.getColumns())
+				if("catch".equals(column.getName()))
+					result.add(column);
+		return result;
 	}
 }

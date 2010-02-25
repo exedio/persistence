@@ -19,13 +19,25 @@
 package com.exedio.cope.console.example;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
-public final class AnItem extends Item
+public class AnItem extends Item
 {
 	static final StringField aField = new StringField();
 	
-	private AnItem(com.exedio.cope.ActivationParameters ap)
+	AnItem(final String aField)
+	{
+		super(
+			AnItem.aField.map(aField));
+	}
+	
+	AnItem(final SetValue... setValues)
+	{
+		super(setValues);
+	}
+	
+	protected AnItem(com.exedio.cope.ActivationParameters ap)
 	{
 		super(ap);
 	}

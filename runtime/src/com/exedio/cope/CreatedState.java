@@ -26,7 +26,7 @@ final class CreatedState extends State
 	
 	CreatedState(final Transaction transaction, final Item item)
 	{
-		super( item );
+		super(item, 0);
 		transaction.addInvalidation(item);
 	}
 	
