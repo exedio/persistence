@@ -313,8 +313,8 @@ final class Database
 				
 				bf.append(modificationCountColumn);
 			}
-			// TODO reuse table below
-			for(final Column column : superType.getTable().getColumns())
+			
+			for(final Column column : table.getColumns())
 			{
 				if(!(column instanceof BlobColumn))
 				{
@@ -391,8 +391,8 @@ final class Database
 								throw new RuntimeException("zack "+ row.modificationCount + '/' + value + '/' + superType.id);
 						}
 					}
-					// TODO reuse table below
-					for(final Column column : superType.getTable().getColumns())
+					
+					for(final Column column : table.getColumns())
 					{
 						if(!(column instanceof BlobColumn))
 							column.load(resultSet, columnIndex++, row);
