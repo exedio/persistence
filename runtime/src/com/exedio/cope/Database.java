@@ -382,13 +382,16 @@ final class Database
 						if(type==superType)
 						{
 							if(value<0)
-								throw new RuntimeException("zick "+ value + '/' + superType.id);
+								throw new RuntimeException("invalid modification counter in table " + table.id + ": " + value);
 							row.modificationCount = value;
 						}
 						else
 						{
 							if(row.modificationCount!=value)
-								throw new RuntimeException("zack "+ row.modificationCount + '/' + value + '/' + superType.id);
+								throw new RuntimeException(
+										"inconsistent modification counter in table " + table.id +
+										" compared to " + type.getTable().id + ": " +
+										+ value + '/' + row.modificationCount);
 						}
 					}
 					
