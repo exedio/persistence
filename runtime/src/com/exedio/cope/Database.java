@@ -384,14 +384,14 @@ final class Database
 						if(type==superType)
 						{
 							if(value<0)
-								throw new RuntimeException("invalid modification counter in table " + table.id + ": " + value);
+								throw new RuntimeException("invalid modification counter for row " + item.pk + " in table " + table.id + ": " + value);
 							modificationCount = value;
 						}
 						else
 						{
 							if(modificationCount!=value)
 								throw new RuntimeException(
-										"inconsistent modification counter in table " + table.id +
+										"inconsistent modification counter for row " + item.pk + " in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
 										+ value + '/' + modificationCount);
 						}
