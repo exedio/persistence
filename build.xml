@@ -288,7 +288,7 @@
 							runtime.servlet.compile,
 							runtime.junit.compile" />
 	
-	<target name="runtime.jar" depends="runtime.compile">
+	<target name="runtime.jar" depends="runtime.compile, runtime.test.protocol">
 		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar exedio-cope-util.jar">
 			<fileset dir="build/runtime/classes" />
 		</ljar>
