@@ -381,7 +381,7 @@ final class Database
 					if(modificationCountColumn!=null)
 					{
 						final int value = resultSet.getInt(columnIndex++);
-						if(type==superType)
+						if(modificationCount==Integer.MIN_VALUE)
 						{
 							if(value<0)
 								throw new RuntimeException("invalid modification counter for row " + item.pk + " in table " + table.id + ": " + value);
