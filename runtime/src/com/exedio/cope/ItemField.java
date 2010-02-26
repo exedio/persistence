@@ -177,6 +177,14 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this.typeColumn = null;
 	}
 	
+	private Type<? extends E> getOnlyPossibleValueType()
+	{
+		if(valueType==null)
+			throw new RuntimeException();
+
+		return onlyPossibleValueType;
+	}
+	
 	StringColumn getTypeColumn()
 	{
 		if(valueType==null)
@@ -237,7 +245,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			}
 			else
 			{
-				cellType = onlyPossibleValueType;
+				cellType = getOnlyPossibleValueType();
 				
 				if(cellType==null)
 					throw new RuntimeException();
