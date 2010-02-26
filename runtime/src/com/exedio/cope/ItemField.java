@@ -150,13 +150,13 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		if(valueType==null)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 		if(connected)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 		if(onlyPossibleValueType!=null)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 		if(typeColumn!=null)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 		
 		final ItemColumn result = new ItemColumn(table, this, name, optional, valueType);
 		
@@ -175,9 +175,9 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	void disconnect()
 	{
 		if(!connected)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 		if(this.onlyPossibleValueType==null && this.typeColumn==null)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 
 		super.disconnect();
 		this.connected = false;
@@ -188,7 +188,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	private Type<? extends E> getOnlyPossibleValueType()
 	{
 		if(!connected)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 
 		return onlyPossibleValueType;
 	}
@@ -196,7 +196,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	StringColumn getTypeColumn()
 	{
 		if(!connected)
-			throw new RuntimeException();
+			throw new RuntimeException(toString());
 
 		return typeColumn;
 	}
