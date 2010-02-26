@@ -50,6 +50,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TypeSetTest.class );
 		suite.addTestSuite( TypeCompareTest.class );
 		suite.addTestSuite( FeaturesTest.class );
+		suite.addTestSuite( FinalTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( ConnectTest.class );
