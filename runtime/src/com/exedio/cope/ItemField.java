@@ -204,12 +204,13 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
-		bf.append(Statement.assertTypeColumn(typeColumn, getValueType()), join);
+		bf.append(Statement.assertTypeColumn(getTypeColumn(), getValueType()), join);
 	}
 	
 	@Override
 	E get(final Row row)
 	{
+		final StringColumn typeColumn = getTypeColumn();
 		final Object cell = row.get(getColumn());
 
 		if(cell==null)
@@ -249,6 +250,8 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Override
 	void set(final Row row, final E surface)
 	{
+		final StringColumn typeColumn = getTypeColumn();
+		
 		if(surface==null)
 		{
 			row.put(getColumn(), null);
@@ -266,7 +269,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	
 	public boolean needsCheckTypeColumn()
 	{
-		return typeColumn!=null;
+		return getTypeColumn()!=null;
 	}
 	
 	public int checkTypeColumn()
