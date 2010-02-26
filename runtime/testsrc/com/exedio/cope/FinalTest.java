@@ -29,7 +29,7 @@ public final class FinalTest extends AbstractRuntimeTest
 	
 	public void test()
 	{
-		final FinalSubItem item1 = deleteOnTearDown(new FinalSubItem(1, 11));
+		deleteOnTearDown(new FinalSubItem(1, 11));
 		restartTransaction();
 		model.clearCache();
 		final FinalSubItem item1c = FinalSubItem.TYPE.searchSingleton(null);
