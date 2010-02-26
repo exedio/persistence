@@ -39,18 +39,20 @@ public final class DoubleField extends NumberField<Double>
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
-		if(Double.isInfinite(minimum))
-			throw new IllegalArgumentException("minimum must not be infinite, but was " + minimum + '.');
-		if(Double.isInfinite(maximum))
-			throw new IllegalArgumentException("maximum must not be infinite, but was " + maximum + '.');
-		if(Double.isNaN(minimum))
-			throw new IllegalArgumentException("minimum must not be NaN, but was " + minimum + '.');
-		if(Double.isNaN(maximum))
-			throw new IllegalArgumentException("maximum must not be NaN, but was " + maximum + '.');
+		assertLimit(minimum, "minimum");
+		assertLimit(maximum, "maximum");
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 		
 		checkDefaultConstant();
+	}
+	
+	private static final void assertLimit(final double value, final String name)
+	{
+		if(Double.isInfinite(value))
+			throw new IllegalArgumentException(name + " must not be infinite, but was " + value + '.');
+		if(Double.isNaN(value))
+			throw new IllegalArgumentException(name + " must not be NaN, but was " + value + '.');
 	}
 	
 	public DoubleField()
