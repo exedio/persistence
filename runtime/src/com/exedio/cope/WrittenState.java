@@ -26,9 +26,9 @@ final class WrittenState extends State
 	private final Row row;
 	private long lastUsageMillis;
 	
-	WrittenState(final Item item, final Row row)
+	WrittenState(final Item item, final Row row, final int modificationCount)
 	{
-		super(item, row.modificationCount);
+		super(item, modificationCount);
 		this.row = row;
 		lastUsageMillis = System.currentTimeMillis();
 	}

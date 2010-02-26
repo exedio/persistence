@@ -362,15 +362,17 @@ final class Database
 		}
 			
 		//System.out.println(bf.toString());
-		final Row row = new Row();
-		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		
+		final WrittenState result = executor.query(connection, bf, null, false, new ResultSetHandler<WrittenState>()
 		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+			public WrittenState handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
 
+				final Row row = new Row();
 				int columnIndex = 1;
+				int modificationCount = Integer.MIN_VALUE;
 				for(Type superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
@@ -383,15 +385,15 @@ final class Database
 						{
 							if(value<0)
 								throw new RuntimeException("invalid modification counter in table " + table.id + ": " + value);
-							row.modificationCount = value;
+							modificationCount = value;
 						}
 						else
 						{
-							if(row.modificationCount!=value)
+							if(modificationCount!=value)
 								throw new RuntimeException(
 										"inconsistent modification counter in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
-										+ value + '/' + row.modificationCount);
+										+ value + '/' + modificationCount);
 						}
 					}
 					
@@ -402,11 +404,11 @@ final class Database
 					}
 				}
 				
-				return null;
+				return new WrittenState(item, row, modificationCount);
 			}
 		});
 		
-		return new WrittenState(item, row);
+		return result;
 	}
 
 	void store(

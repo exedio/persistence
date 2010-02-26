@@ -29,7 +29,6 @@ final class Row
 	
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final HashMap<Column, Object> impl;
-	int modificationCount = Integer.MIN_VALUE;
 	
 	Row()
 	{
