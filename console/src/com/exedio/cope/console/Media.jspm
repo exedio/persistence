@@ -72,7 +72,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				ColoredTable_Jspm.writeData(out, cop.format(logs[mediaIndex]));
 				%>
-				<td class="color1"><%=ratio(logs[mediaIndex][5], logs[mediaIndex][6])%></td>
+				<td class="color1"><%=ratio(logs[mediaIndex][6], logs[mediaIndex][7])%></td>
 				<td class="text"><%=type%></td>
 				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
 				<td class="text"><%
