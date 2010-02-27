@@ -66,6 +66,7 @@ final class MediaStatsCop extends ConsoleCop
 		}
 
 		final String[] names = {
+				"Redirect From <small>(301)</small>",
 				"Exception <small>(500)</small>",
 				"Not An Item <small>(404)</small>",
 				"No Such Item <small>(404)</small>",
@@ -80,6 +81,7 @@ final class MediaStatsCop extends ConsoleCop
 				"Description",
 			};
 		final String[] shortNames = {
+				"rf",
 				"ex",
 				"nai",
 				"nsi",
@@ -90,13 +92,14 @@ final class MediaStatsCop extends ConsoleCop
 				"del",
 				"ratio",
 			};
-		final int[] total = new int[8];
+		final int[] total = new int[9];
 		final int[][] logs = new int[medias.size()][];
 
 		int mediaIndex = 0;
 		for(final MediaPath media : medias)
 		{
 			final int[] log = {
+				media.redirectFrom.get(),
 				media.exception.get(),
 				media.notAnItem.get(),
 				media.noSuchItem.get(),

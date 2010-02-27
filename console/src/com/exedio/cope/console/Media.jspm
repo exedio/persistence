@@ -58,7 +58,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				ColoredTable_Jspm.writeData(out, cop.format(total));
 				%>
-				<td class="color1"><%=ratio(total[6], total[7])%></td>
+				<td class="color1"><%=ratio(total[7], total[8])%></td>
 				<th colspan="3">Total</th>
 			</tr><%
 			
@@ -72,7 +72,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				ColoredTable_Jspm.writeData(out, cop.format(logs[mediaIndex]));
 				%>
-				<td class="color1"><%=ratio(logs[mediaIndex][6], logs[mediaIndex][7])%></td>
+				<td class="color1"><%=ratio(logs[mediaIndex][7], logs[mediaIndex][8])%></td>
 				<td class="text"><%=type%></td>
 				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
 				<td class="text"><%
