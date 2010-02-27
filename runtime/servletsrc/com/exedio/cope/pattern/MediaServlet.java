@@ -82,22 +82,23 @@ public final class MediaServlet extends HttpServlet
 			{
 				if(feature instanceof MediaPath)
 				{
-					// TODO reuse strings
 					final MediaPath path = (MediaPath)feature;
-					pathes.put(path.getType().getID() + '/' + path.getName(), path);
+					final String typeID = path.getType().getID();
+					final String pathName = path.getName();
+					pathes.put(typeID + '/' + pathName, path);
 					
 					final RedirectFrom typeRedirectFrom = type.getAnnotation(RedirectFrom.class);
 					if(typeRedirectFrom!=null)
 					{
 						for(final String typeRedirectFromValue : typeRedirectFrom.value())
-							put(pathesRedirectFrom, typeRedirectFromValue + '/' + path.getName(), path);
+							put(pathesRedirectFrom, typeRedirectFromValue + '/' + pathName, path);
 					}
 					final RedirectFrom featureRedirectFrom = path.getAnnotation(RedirectFrom.class);
 					if(featureRedirectFrom!=null)
 					{
 						for(final String featureRedirectFromValue : featureRedirectFrom.value())
 						{
-							put(pathesRedirectFrom, path.getType().getID() + '/' + featureRedirectFromValue, path);
+							put(pathesRedirectFrom, typeID + '/' + featureRedirectFromValue, path);
 						
 							if(typeRedirectFrom!=null)
 							{
