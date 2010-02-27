@@ -139,6 +139,15 @@ public class MediaServletTest extends TestCase
 		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick."                   , "unknownma/unknownmi"));
 		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick"                    , "unknownma/unknownmi"));
 
+		assertMoved(app + "media/MediaServletItemAlt1/content/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItemAlt2/content/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItem/contentAlt1/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItem/contentAlt2/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItemAlt1/contentAlt1/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItemAlt2/contentAlt2/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItemAlt1/contentAlt2/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		assertMoved(app + "media/MediaServletItemAlt2/contentAlt1/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+
 		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG         , prefix + "redirect/" + ITEM_JPG + ".jpg");

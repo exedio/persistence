@@ -237,6 +237,7 @@ public abstract class MediaPath extends Pattern
 
 
 	public static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
+	public final Log redirectFrom      = new Log("redirect"      , HttpServletResponse.SC_MOVED_PERMANENTLY);
 	public final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	public final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
 	public final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
@@ -353,6 +354,7 @@ public abstract class MediaPath extends Pattern
 			switch(responseStatus)
 			{
 				case HttpServletResponse.SC_OK:
+				case HttpServletResponse.SC_MOVED_PERMANENTLY:
 				case HttpServletResponse.SC_NOT_FOUND:
 				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
 					break;

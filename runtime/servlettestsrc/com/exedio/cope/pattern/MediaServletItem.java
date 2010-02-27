@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
+@RedirectFrom({"MediaServletItemAlt1", "MediaServletItemAlt2"})
 final class MediaServletItem extends Item
 {
 	/**
@@ -28,6 +29,7 @@ final class MediaServletItem extends Item
 	 */
 	static final StringField name = new StringField().optional();
 
+	@RedirectFrom({"contentAlt1", "contentAlt2"})
 	static final Media content = new Media().optional();
 
 	static final MediaRedirect redirect = new MediaRedirect(content);

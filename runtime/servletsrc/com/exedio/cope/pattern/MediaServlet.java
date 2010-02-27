@@ -66,6 +66,7 @@ public final class MediaServlet extends HttpServlet
 	
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
+	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();
 	
 	@Override
 	public void init() throws ServletException
@@ -81,11 +82,40 @@ public final class MediaServlet extends HttpServlet
 			{
 				if(feature instanceof MediaPath)
 				{
+					// TODO reuse strings
 					final MediaPath path = (MediaPath)feature;
 					pathes.put(path.getType().getID() + '/' + path.getName(), path);
+					
+					final RedirectFrom typeRedirectFrom = type.getAnnotation(RedirectFrom.class);
+					if(typeRedirectFrom!=null)
+					{
+						for(final String typeRedirectFromValue : typeRedirectFrom.value())
+							put(pathesRedirectFrom, typeRedirectFromValue + '/' + path.getName(), path);
+					}
+					final RedirectFrom featureRedirectFrom = path.getAnnotation(RedirectFrom.class);
+					if(featureRedirectFrom!=null)
+					{
+						for(final String featureRedirectFromValue : featureRedirectFrom.value())
+						{
+							put(pathesRedirectFrom, path.getType().getID() + '/' + featureRedirectFromValue, path);
+						
+							if(typeRedirectFrom!=null)
+							{
+								for(final String typeRedirectFromValue : typeRedirectFrom.value())
+									put(pathesRedirectFrom, typeRedirectFromValue + '/' + featureRedirectFromValue, path);
+							}
+						}
+					}
 				}
 			}
 		}
+	}
+	
+	private static final void put(final HashMap<String, MediaPath> map, final String key, final MediaPath value)
+	{
+		final MediaPath collision = map.put(key, value);
+		if(collision!=null)
+			throw new RuntimeException("colliding path " + key + ':' + value + '/' + collision);
 	}
 
 	@Override
@@ -115,7 +145,7 @@ public final class MediaServlet extends HttpServlet
 			final Media.Log log)
 		throws IOException
 	{
-		if(log.responseStatus==HttpServletResponse.SC_OK)
+		if(log.responseStatus==HttpServletResponse.SC_OK || log.responseStatus==HttpServletResponse.SC_MOVED_PERMANENTLY) // TODO introduce explicit boolean on Log
 			return;
 		
 		response.setStatus(log.responseStatus);
@@ -190,7 +220,31 @@ public final class MediaServlet extends HttpServlet
 
 		final MediaPath path = pathes.get(featureString);
 		if(path==null)
+		{
+			final MediaPath alt = pathesRedirectFrom.get(featureString);
+			if(alt!=null)
+			{
+				final StringBuilder location = new StringBuilder();
+				location.
+					append(request.getScheme()).
+					append("://").
+					append(request.getHeader("Host")).
+					append(request.getContextPath()).
+					append(request.getServletPath()).
+					append('/').
+					append(alt.getType().getID()).
+					append('/').
+					append(alt.getName()).
+					append(pathInfo.substring(slash2));
+				System.out.println("location="+location);
+				
+				response.setStatus(response.SC_MOVED_PERMANENTLY);
+				response.setHeader(RESPONSE_LOCATION, location.toString());
+				
+				return alt.redirectFrom;
+			}
 			return MediaPath.noSuchPath;
+		}
 
 		try
 		{
@@ -208,6 +262,8 @@ public final class MediaServlet extends HttpServlet
 			return path.exception;
 		}
 	}
+	
+	private static final String RESPONSE_LOCATION = "Location";
 	
 	private static void printHeader(final HttpServletRequest request, final String name)
 	{
