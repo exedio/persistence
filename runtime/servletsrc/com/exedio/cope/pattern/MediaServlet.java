@@ -237,7 +237,7 @@ public final class MediaServlet extends HttpServlet
 					append('/').
 					append(alt.getName()).
 					append(pathInfo.substring(slash2));
-				System.out.println("location="+location);
+				//System.out.println("location="+location);
 				
 				response.setStatus(response.SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
