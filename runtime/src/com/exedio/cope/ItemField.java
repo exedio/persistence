@@ -232,7 +232,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(cell==null)
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
-				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + query + " --- row: " + query);
+				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row + " --- query: " + query);
 			
 			return null;
 		}
