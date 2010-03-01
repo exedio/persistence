@@ -114,6 +114,7 @@ final class HistoryModel extends Item
 	
 	
 	static final IntegerField mediasNoSuchPath = new IntegerField().toFinal().min(0);
+	
 	static final IntegerField mediasException = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasNotAnItem = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasNoSuchItem = new IntegerField().toFinal().min(0);
@@ -121,6 +122,19 @@ final class HistoryModel extends Item
 	static final IntegerField mediasNotComputable = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasNotModified = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
+	
+	static List<SetValue> map(final MediaSummary info)
+	{
+		return Arrays.asList((SetValue)
+			mediasException    .map(info.getException()),
+			mediasNotAnItem    .map(info.getNotAnItem()),
+			mediasNoSuchItem   .map(info.getNoSuchItem()),
+			mediasIsNull       .map(info.getIsNull()),
+			mediasNotComputable.map(info.getNotComputable()),
+			mediasNotModified  .map(info.getNotModified()),
+			mediasDelivered    .map(info.getDelivered()));
+	}
+	
 	
 	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
 	

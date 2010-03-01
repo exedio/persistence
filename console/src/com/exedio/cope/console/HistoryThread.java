@@ -181,13 +181,7 @@ final class HistoryThread extends Thread
 				sv.addAll(HistoryModel.map(itemCacheSummary));
 				sv.addAll(HistoryModel.map(queryCacheInfo));
 				sv.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
-				sv.add(HistoryModel.mediasException    .map(mediaSummary.getException()));
-				sv.add(HistoryModel.mediasNotAnItem    .map(mediaSummary.getNotAnItem()));
-				sv.add(HistoryModel.mediasNoSuchItem   .map(mediaSummary.getNoSuchItem()));
-				sv.add(HistoryModel.mediasIsNull       .map(mediaSummary.getIsNull()));
-				sv.add(HistoryModel.mediasNotComputable.map(mediaSummary.getNotComputable()));
-				sv.add(HistoryModel.mediasNotModified  .map(mediaSummary.getNotModified()));
-				sv.add(HistoryModel.mediasDelivered    .map(mediaSummary.getDelivered()));
+				sv.addAll(HistoryModel.map(mediaSummary));
 				sv.addAll(HistoryModel.map(clusterSenderInfo));
 				sv.addAll(HistoryModel.map(clusterListenerInfo));
 				model = new HistoryModel(toArray(sv));
