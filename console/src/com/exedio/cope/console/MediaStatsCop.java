@@ -58,13 +58,9 @@ final class MediaStatsCop extends ConsoleCop
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 
 		for(final Type<?> type : model.getTypes())
-		{
 			for(final Feature feature : type.getDeclaredFeatures())
-			{
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
-			}
-		}
 
 		final MediaInfo[] infos = new MediaInfo[medias.size()];
 		int mediaIndex = 0;
