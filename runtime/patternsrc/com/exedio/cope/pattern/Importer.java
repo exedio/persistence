@@ -73,8 +73,24 @@ public final class Importer<E extends Object> extends Pattern
 			addParameter(key.getInitialType(), "keyValue").
 			addParameterVararg(SetValue[].class, "setValues").
 			setStatic());
+		result.add(
+			new Wrapper("doImport").
+			setMethodWrapperPattern("import{0}").
+			addComment("Import {0}.").
+			setReturn(Wrapper.ClassVariable.class, "the imported item").
+			addParameter(key.getInitialType(), "keyValue").
+			addParameter(Wrapper.genericExtends(List.class, SetValue.class), "setValues").
+			setStatic());
 		
 		return Collections.unmodifiableList(result);
+	}
+	
+	public <P extends Item> P doImport(
+			final Class<P> parentClass,
+			final E keyValue,
+			final List<? extends SetValue> setValues)
+	{
+		return doImport(parentClass, keyValue, setValues.toArray(new SetValue[setValues.size()]));
 	}
 	
 	public <P extends Item> P doImport(

@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add Importer.doImport(Class<P>, E, List<? extends SetValue>) in addition to
+	doImport(Class<P>, E, SetValue...)
 * deprecate constructor Query(Selectable[], Type, Condition)
 	in favour of type-safe factory method
 * add @RedirectFrom for media

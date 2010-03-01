@@ -25,8 +25,11 @@ import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
 
+import java.util.ArrayList;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 public class ImporterTest extends AbstractRuntimeTest
@@ -134,5 +137,17 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("codeB",  itemB.getCode());
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
+		
+		final ArrayList<SetValue> list = new ArrayList<SetValue>();
+		list.add(description.map("descBl"));
+		list.add(description2.map("desc2Bl"));
+		assertEquals(itemB, importByCode("codeB", list));
+		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
+		assertEquals("codeA", itemA.getCode());
+		assertEquals("descAx", itemA.getDescription());
+		assertEquals("desc2Ax",itemA.getDescription2());
+		assertEquals("codeB",  itemB.getCode());
+		assertEquals("descBl",  itemB.getDescription());
+		assertEquals("desc2Bl", itemB.getDescription2());
 	}
 }
