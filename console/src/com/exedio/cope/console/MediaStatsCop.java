@@ -66,33 +66,6 @@ final class MediaStatsCop extends ConsoleCop
 			}
 		}
 
-		final String[] names = {
-				"Redirect From <small>(301)</small>",
-				"Exception <small>(500)</small>",
-				"Not An Item <small>(404)</small>",
-				"No Such Item <small>(404)</small>",
-				"Moved <small>(301)</small>",
-				"Is Null <small>(404)</small>",
-				"Not Computable <small>(404)</small>",
-				"Not Modified <small>(304)</small>",
-				"Delivered <small>(200/301)</small>",
-				"log<sub>10</sub> Not Modified / Delivered",
-				"Type",
-				"Name",
-				"Description",
-			};
-		final String[] shortNames = {
-				"rf",
-				"ex",
-				"nai",
-				"nsi",
-				"mv",
-				"in",
-				"nc",
-				"nm",
-				"del",
-				"ratio",
-			};
 		final MediaInfo[] infos = new MediaInfo[medias.size()];
 		int mediaIndex = 0;
 		for(final MediaPath media : medias)
@@ -101,6 +74,34 @@ final class MediaStatsCop extends ConsoleCop
 		
 		Media_Jspm.writeBody(this, out, medias, names, shortNames, infos, summary);
 	}
+	
+	private static final String[] names = {
+			"Redirect From <small>(301)</small>",
+			"Exception <small>(500)</small>",
+			"Not An Item <small>(404)</small>",
+			"No Such Item <small>(404)</small>",
+			"Moved <small>(301)</small>",
+			"Is Null <small>(404)</small>",
+			"Not Computable <small>(404)</small>",
+			"Not Modified <small>(304)</small>",
+			"Delivered <small>(200/301)</small>",
+			"log<sub>10</sub> Not Modified / Delivered",
+			"Type",
+			"Name",
+			"Description",
+		};
+	private static final String[] shortNames = {
+			"rf",
+			"ex",
+			"nai",
+			"nsi",
+			"mv",
+			"in",
+			"nc",
+			"nm",
+			"del",
+			"ratio",
+		};
 	
 	static final String[] format(final MediaSummary summary)
 	{
