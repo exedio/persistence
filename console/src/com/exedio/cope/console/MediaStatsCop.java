@@ -93,18 +93,18 @@ final class MediaStatsCop extends ConsoleCop
 				"del",
 				"ratio",
 			};
-		final MediaSummary total; // TODO rename
-		final MediaInfo[] logs = new MediaInfo[medias.size()]; // TODO rename
+		final MediaSummary summary;
+		final MediaInfo[] infos = new MediaInfo[medias.size()];
 
 		int mediaIndex = 0;
 		for(final MediaPath media : medias)
 		{
 			final MediaInfo log = media.getInfo();
-			logs[mediaIndex++] = log;
+			infos[mediaIndex++] = log;
 		}
-		total = new MediaSummary(logs);
+		summary = new MediaSummary(infos);
 		
-		Media_Jspm.writeBody(this, out, medias, names, shortNames, logs, total);
+		Media_Jspm.writeBody(this, out, medias, names, shortNames, infos, summary);
 	}
 	
 	static final String[] format(final MediaSummary summary)

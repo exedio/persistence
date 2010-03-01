@@ -46,8 +46,8 @@ final class Media_Jspm extends Console_Jspm
 			final Collection<MediaPath> media,
 			final String[] names,
 			final String[] shortNames,
-			final MediaInfo[] logs, // TODO rename
-			final MediaSummary total) // TODO rename
+			final MediaInfo[] infos,
+			final MediaSummary summary)
 	{
 		%>
 		<table id="coloredTable">
@@ -57,9 +57,9 @@ final class Media_Jspm extends Console_Jspm
 			
 			%>
 			<tr><%
-				ColoredTable_Jspm.writeData(out, cop.format(total));
+				ColoredTable_Jspm.writeData(out, cop.format(summary));
 				%>
-				<td class="color1"><%=ratio(total.getNotModified(), total.getDelivered())%></td>
+				<td class="color1"><%=ratio(summary.getNotModified(), summary.getDelivered())%></td>
 				<th colspan="3">Total</th>
 			</tr><%
 			
@@ -71,9 +71,9 @@ final class Media_Jspm extends Console_Jspm
 				final String name = path.getName();
 				%>
 			<tr><%
-				ColoredTable_Jspm.writeData(out, cop.format(logs[mediaIndex]));
+				ColoredTable_Jspm.writeData(out, cop.format(infos[mediaIndex]));
 				%>
-				<td class="color1"><%=ratio(logs[mediaIndex].getNotModified(), logs[mediaIndex].getDelivered())%></td>
+				<td class="color1"><%=ratio(infos[mediaIndex].getNotModified(), infos[mediaIndex].getDelivered())%></td>
 				<td class="text"><%=type%></td>
 				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
 				<td class="text"><%

@@ -141,7 +141,7 @@ final class HistoryThread extends Thread
 	{
 		// prepare
 		final int thread = System.identityHashCode(this);
-		final MediaInfo[] mediaValues = new MediaInfo[medias.length]; // TODO rename
+		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
 		
 		// gather data
 		final Date date = new Date();
@@ -155,13 +155,13 @@ final class HistoryThread extends Thread
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
-			mediaValues[mediaValuesIndex++] = path.getInfo();
+			mediaInfos[mediaValuesIndex++] = path.getInfo();
 		final ClusterSenderInfo clusterSenderInfo = watchedModel.getClusterSenderInfo();
 		final ClusterListenerInfo clusterListenerInfo = watchedModel.getClusterListenerInfo();
 		
 		// process data
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
-		final MediaSummary mediaTotal = new MediaSummary(mediaValues); // TODO rename
+		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
 		
 		// save data
 		try
@@ -181,13 +181,13 @@ final class HistoryThread extends Thread
 				sv.addAll(HistoryModel.map(itemCacheSummary));
 				sv.addAll(HistoryModel.map(queryCacheInfo));
 				sv.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
-				sv.add(HistoryModel.mediasException    .map(mediaTotal.getException()));
-				sv.add(HistoryModel.mediasNotAnItem    .map(mediaTotal.getNotAnItem()));
-				sv.add(HistoryModel.mediasNoSuchItem   .map(mediaTotal.getNoSuchItem()));
-				sv.add(HistoryModel.mediasIsNull       .map(mediaTotal.getIsNull()));
-				sv.add(HistoryModel.mediasNotComputable.map(mediaTotal.getNotComputable()));
-				sv.add(HistoryModel.mediasNotModified  .map(mediaTotal.getNotModified()));
-				sv.add(HistoryModel.mediasDelivered    .map(mediaTotal.getDelivered()));
+				sv.add(HistoryModel.mediasException    .map(mediaSummary.getException()));
+				sv.add(HistoryModel.mediasNotAnItem    .map(mediaSummary.getNotAnItem()));
+				sv.add(HistoryModel.mediasNoSuchItem   .map(mediaSummary.getNoSuchItem()));
+				sv.add(HistoryModel.mediasIsNull       .map(mediaSummary.getIsNull()));
+				sv.add(HistoryModel.mediasNotComputable.map(mediaSummary.getNotComputable()));
+				sv.add(HistoryModel.mediasNotModified  .map(mediaSummary.getNotModified()));
+				sv.add(HistoryModel.mediasDelivered    .map(mediaSummary.getDelivered()));
 				sv.addAll(HistoryModel.map(clusterSenderInfo));
 				sv.addAll(HistoryModel.map(clusterListenerInfo));
 				model = new HistoryModel(toArray(sv));
@@ -204,7 +204,7 @@ final class HistoryThread extends Thread
 			{
 				final SetValue modelSetValue = HistoryMedia.model.map(model);
 				int mediaSetValuesIndex = 0;
-				for(final MediaInfo mediaValue : mediaValues)
+				for(final MediaInfo info : mediaInfos)
 				{
 					new HistoryMedia(
 							modelSetValue,
@@ -214,13 +214,13 @@ final class HistoryThread extends Thread
 							HistoryMedia.connectDate.map(connectDate),
 							HistoryMedia.thread.map(thread),
 							HistoryMedia.running.map(running),
-							HistoryMedia.exception    .map(mediaValue.getException()),
-							HistoryMedia.notAnItem    .map(mediaValue.getNotAnItem()),
-							HistoryMedia.noSuchItem   .map(mediaValue.getNoSuchItem()),
-							HistoryMedia.isNull       .map(mediaValue.getIsNull()),
-							HistoryMedia.notComputable.map(mediaValue.getNotComputable()),
-							HistoryMedia.notModified  .map(mediaValue.getNotModified()),
-							HistoryMedia.delivered    .map(mediaValue.getDelivered()));
+							HistoryMedia.exception    .map(info.getException()),
+							HistoryMedia.notAnItem    .map(info.getNotAnItem()),
+							HistoryMedia.noSuchItem   .map(info.getNoSuchItem()),
+							HistoryMedia.isNull       .map(info.getIsNull()),
+							HistoryMedia.notComputable.map(info.getNotComputable()),
+							HistoryMedia.notModified  .map(info.getNotModified()),
+							HistoryMedia.delivered    .map(info.getDelivered()));
 				}
 			}
 			if(clusterListenerInfo!=null)
