@@ -196,24 +196,12 @@ final class HistoryThread extends Thread
 				}
 			}
 			{
-				final SetValue modelSetValue = HistoryMedia.model.map(model);
 				for(final MediaInfo info : mediaInfos)
 				{
-					new HistoryMedia(
-							modelSetValue,
-							HistoryMedia.media.map(info.getPath().getID()),
-							HistoryMedia.date.map(date),
-							HistoryMedia.initializeDate.map(initializeDate),
-							HistoryMedia.connectDate.map(connectDate),
-							HistoryMedia.thread.map(thread),
-							HistoryMedia.running.map(running),
-							HistoryMedia.exception    .map(info.getException()),
-							HistoryMedia.notAnItem    .map(info.getNotAnItem()),
-							HistoryMedia.noSuchItem   .map(info.getNoSuchItem()),
-							HistoryMedia.isNull       .map(info.getIsNull()),
-							HistoryMedia.notComputable.map(info.getNotComputable()),
-							HistoryMedia.notModified  .map(info.getNotModified()),
-							HistoryMedia.delivered    .map(info.getDelivered()));
+					final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+					sv.addAll(HistoryMedia.map(model));
+					sv.addAll(HistoryMedia.map(info));
+					new HistoryMedia(toArray(sv));
 				}
 			}
 			if(clusterListenerInfo!=null)
