@@ -32,12 +32,12 @@ final class MediaServletItem extends Item
 	@RedirectFrom({"contentAlt1", "contentAlt2"})
 	static final Media content = new Media().optional();
 
-	@Deprecated
+	@Deprecated()
 	static final MediaRedirect redirect = new MediaRedirect(content);
 
 	static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
 
-	@Deprecated
+	@Deprecated()
 	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
 	
 	static final MediaImageMagickThumbnail thumbnailMagick = new MediaImageMagickThumbnail(content, 150, 150);
