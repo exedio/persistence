@@ -152,7 +152,7 @@ final class HistoryThread extends Thread
 		final TransactionCounters transactionCounters = watchedModel.getTransactionCounters();
 		final ItemCacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
 		final QueryCacheInfo queryCacheInfo = watchedModel.getQueryCacheInfo();
-		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
+		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
 			mediaInfos[mediaValuesIndex++] = path.getInfo();

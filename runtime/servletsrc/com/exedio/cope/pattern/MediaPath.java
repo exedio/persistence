@@ -236,7 +236,7 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	public static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
+	static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
 	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
 	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
@@ -246,6 +246,11 @@ public abstract class MediaPath extends Pattern
 	final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
 	final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
 	public final Log delivered         = new Log("delivered"     , HttpServletResponse.SC_OK);
+	
+	public static final int getNoSuchPath()
+	{
+		return noSuchPath.get();
+	}
 	
 	public final MediaInfo getInfo()
 	{
