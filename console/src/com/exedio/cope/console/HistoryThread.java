@@ -197,12 +197,11 @@ final class HistoryThread extends Thread
 			}
 			{
 				final SetValue modelSetValue = HistoryMedia.model.map(model);
-				int mediaSetValuesIndex = 0;
 				for(final MediaInfo info : mediaInfos)
 				{
 					new HistoryMedia(
 							modelSetValue,
-							HistoryMedia.media.map(medias[mediaSetValuesIndex++].getID()),
+							HistoryMedia.media.map(info.getPath().getID()),
 							HistoryMedia.date.map(date),
 							HistoryMedia.initializeDate.map(initializeDate),
 							HistoryMedia.connectDate.map(connectDate),
