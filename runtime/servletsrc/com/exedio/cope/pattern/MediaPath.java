@@ -237,15 +237,31 @@ public abstract class MediaPath extends Pattern
 
 
 	public static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
-	public final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
-	public final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	public final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
-	public final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
-	public final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
+	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
+	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
+	final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
+	final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
 	public final Log isNull            = new Log("is null"       , HttpServletResponse.SC_NOT_FOUND);
-	public final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
-	public final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
+	final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
+	final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
 	public final Log delivered         = new Log("delivered"     , HttpServletResponse.SC_OK);
+	
+	public final MediaInfo getInfo()
+	{
+		return new MediaInfo(
+				this,
+				redirectFrom.get(),
+				exception.get(),
+				notAnItem.get(),
+				noSuchItem.get(),
+				moved.get(),
+				isNull.get(),
+				notComputable.get(),
+				notModified.get(),
+				delivered.get());
+	}
+
 
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,

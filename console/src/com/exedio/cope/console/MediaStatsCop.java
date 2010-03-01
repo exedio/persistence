@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 
 final class MediaStatsCop extends ConsoleCop
@@ -92,33 +93,51 @@ final class MediaStatsCop extends ConsoleCop
 				"del",
 				"ratio",
 			};
-		final int[] total = new int[9];
-		final int[][] logs = new int[medias.size()][];
+		final MediaSummary total; // TODO rename
+		final MediaInfo[] logs = new MediaInfo[medias.size()]; // TODO rename
 
 		int mediaIndex = 0;
 		for(final MediaPath media : medias)
 		{
-			final int[] log = {
-				media.redirectFrom.get(),
-				media.exception.get(),
-				media.notAnItem.get(),
-				media.noSuchItem.get(),
-				media.moved.get(),
-				media.isNull.get(),
-				media.notComputable.get(),
-				media.notModified.get(),
-				media.delivered.get(),
-			};
-			for(int i = 0; i<log.length; i++)
-				total[i] += log[i];
-
+			final MediaInfo log = media.getInfo();
 			logs[mediaIndex++] = log;
 		}
+		total = new MediaSummary(logs);
 		
 		Media_Jspm.writeBody(this, out, medias, names, shortNames, logs, total);
 	}
 	
-	static final String[] format(final int[] numbers)
+	static final String[] format(final MediaSummary summary)
+	{
+		return format(new int[]{
+				summary.getRedirectFrom(),
+				summary.getException(),
+				summary.getNotAnItem(),
+				summary.getNoSuchItem(),
+				summary.getMoved(),
+				summary.getIsNull(),
+				summary.getNotComputable(),
+				summary.getNotModified(),
+				summary.getDelivered()
+		});
+	}
+	
+	static final String[] format(final MediaInfo info)
+	{
+		return format(new int[]{
+				info.getRedirectFrom(),
+				info.getException(),
+				info.getNotAnItem(),
+				info.getNoSuchItem(),
+				info.getMoved(),
+				info.getIsNull(),
+				info.getNotComputable(),
+				info.getNotModified(),
+				info.getDelivered()
+		});
+	}
+	
+	private static final String[] format(final int[] numbers)
 	{
 		final int length = numbers.length;
 		final String[] result = new String[length];

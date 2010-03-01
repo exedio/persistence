@@ -32,6 +32,7 @@ import com.exedio.cope.pattern.CachedMedia;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
 import com.exedio.cope.pattern.MediaImageMagickFilter;
@@ -45,8 +46,8 @@ final class Media_Jspm extends Console_Jspm
 			final Collection<MediaPath> media,
 			final String[] names,
 			final String[] shortNames,
-			final int[][] logs,
-			final int[] total)
+			final MediaInfo[] logs, // TODO rename
+			final MediaSummary total) // TODO rename
 	{
 		%>
 		<table id="coloredTable">
@@ -58,7 +59,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				ColoredTable_Jspm.writeData(out, cop.format(total));
 				%>
-				<td class="color1"><%=ratio(total[7], total[8])%></td>
+				<td class="color1"><%=ratio(total.getNotModified(), total.getDelivered())%></td>
 				<th colspan="3">Total</th>
 			</tr><%
 			
@@ -72,7 +73,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				ColoredTable_Jspm.writeData(out, cop.format(logs[mediaIndex]));
 				%>
-				<td class="color1"><%=ratio(logs[mediaIndex][7], logs[mediaIndex][8])%></td>
+				<td class="color1"><%=ratio(logs[mediaIndex].getNotModified(), logs[mediaIndex].getDelivered())%></td>
 				<td class="text"><%=type%></td>
 				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
 				<td class="text"><%
