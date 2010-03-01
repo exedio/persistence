@@ -68,7 +68,7 @@ final class MediaStatsCop extends ConsoleCop
 			infos[mediaIndex++] = media.getInfo();
 		final MediaSummary summary = new MediaSummary(infos);
 		
-		Media_Jspm.writeBody(this, out, medias, names, shortNames, infos, summary);
+		Media_Jspm.writeBody(this, out, names, shortNames, infos, summary);
 	}
 	
 	private static final String[] names = {
