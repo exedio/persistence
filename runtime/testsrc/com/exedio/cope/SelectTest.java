@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Query.newQuery;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +67,7 @@ public class SelectTest extends TestmodelTest
 
 	public void testSelect()
 	{
-		final Query query = new Query(
+		final Query query = newQuery(
 				new Function[]{
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,

@@ -68,12 +68,22 @@ public final class Query<R>
 		this.condition = replaceTrue(condition);
 	}
 	
+	/**
+	 * @deprecated Use {@link #newQuery(Selectable[], Type, Condition)} instead
+	 */
+	@Deprecated
 	public Query(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selects = com.exedio.cope.misc.Arrays.copyOf(selects);
 		this.type = type;
 		this.condition = replaceTrue(condition);
+	}
+	
+	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
+	public static Query<List<Object>> newQuery(final Selectable[] selects, final Type type, final Condition condition)
+	{
+		return new Query<List<Object>>(selects, type, condition);
 	}
 	
 	public void setSelects(final Selectable... selects)

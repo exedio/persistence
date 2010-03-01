@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Query.newQuery;
+
 import java.util.List;
 
 public class DistinctTest extends AbstractRuntimeTest
@@ -43,7 +45,7 @@ public class DistinctTest extends AbstractRuntimeTest
 	public void testDistinctSingle()
 	{
 		{
-			final Query<List> q = new Query<List>(new Function[]{item1.numB}, item1.TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function[]{item1.numB}, item1.TYPE, null);
 			assertContains(2, 3, 4, 4, 4, q.search());
 			assertEquals(5, q.total());
 			
@@ -74,7 +76,7 @@ public class DistinctTest extends AbstractRuntimeTest
 	public void testDistinctMulti()
 	{
 		{
-			final Query<List> q = new Query<List>(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
 			assertContains(
 					list(1, 2),
 					list(1, 3),

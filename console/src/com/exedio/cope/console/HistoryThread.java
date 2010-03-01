@@ -18,6 +18,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.Query.newQuery;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +29,6 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
@@ -331,7 +332,7 @@ final class HistoryThread extends Thread
 		try
 		{
 			HISTORY_MODEL.startTransaction("history analyze dates");
-			dates = new Query<List>(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
+			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
 			HISTORY_MODEL.commit();
 		}
 		finally
