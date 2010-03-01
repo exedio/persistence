@@ -131,7 +131,7 @@ public abstract class FunctionField<E extends Object>
 	
 	public abstract FunctionField<E> nonUnique();
 
-	abstract E get(final Row row);
+	abstract E get(final Row row, final Query query);
 	abstract void set(final Row row, final E surface);
 	
 	private static final Entity getEntity(final Item item)

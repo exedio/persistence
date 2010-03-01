@@ -224,7 +224,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	@Override
-	E get(final Row row)
+	E get(final Row row, final Query query)
 	{
 		final StringColumn typeColumn = getTypeColumn();
 		final Object cell = row.get(getColumn());
@@ -232,7 +232,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(cell==null)
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
-				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn));
+				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + query + " --- row: " + query);
 			
 			return null;
 		}

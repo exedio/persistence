@@ -160,7 +160,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	@Override
-	String get(final Row row)
+	String get(final Row row, final Query query)
 	{
 		return (String)row.get(getColumn());
 	}

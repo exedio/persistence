@@ -845,7 +845,7 @@ public final class Query<R>
 								if(typeColumn!=null)
 									typeColumn.load(resultSet, columnIndex++, dummyRow);
 							}
-							resultCell = selectField.get(dummyRow);
+							resultCell = selectField.get(dummyRow, Query.this);
 						}
 						else if(select instanceof View)
 						{

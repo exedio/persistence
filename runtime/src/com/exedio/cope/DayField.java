@@ -141,7 +141,7 @@ public final class DayField extends FunctionField<Day>
 	}
 	
 	@Override
-	Day get(final Row row)
+	Day get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());

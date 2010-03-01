@@ -155,7 +155,7 @@ public final class DateField extends FunctionField<Date>
 	}
 	
 	@Override
-	Date get(final Row row)
+	Date get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());

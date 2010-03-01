@@ -33,7 +33,7 @@ final class CreatedState extends State
 	@Override
 	Object get(FunctionField field)
 	{
-		return field.get(row);
+		return field.get(row, null);
 	}
 
 	@Override

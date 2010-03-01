@@ -81,7 +81,7 @@ public final class LongField extends NumberField<Long>
 	}
 	
 	@Override
-	Long get(final Row row)
+	Long get(final Row row, final Query query)
 	{
 		return (Long)row.get(getColumn());
 	}

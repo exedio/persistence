@@ -212,7 +212,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 	
 	@Override
-	Integer get(final Row row)
+	Integer get(final Row row, final Query query)
 	{
 		return (Integer)row.get(getColumn());
 	}

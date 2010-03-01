@@ -159,7 +159,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
-	E get(final Row row)
+	E get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		return

@@ -84,7 +84,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	@Override
-	Boolean get(final Row row)
+	Boolean get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		if(cell==null)
