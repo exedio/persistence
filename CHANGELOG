@@ -8,6 +8,7 @@ The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
 * add @RedirectFrom for media
+	deprecate MediaRedirect
 * implement Concurrent Modification Detection, still disabled by default
 * refactoring of id of types, features and items
 	BEWARE !!!

@@ -54,6 +54,10 @@ public final class MediaRedirect extends MediaPath
 	
 	private final MediaPath target;
 
+	/**
+	 * @deprecated Use {@link RedirectFrom} instead
+	 */
+	@Deprecated
 	public MediaRedirect(final MediaPath target)
 	{
 		if(target==null)

@@ -31,6 +31,7 @@ public class MediaItem extends Item
 	
 	static final Media photo = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
+	@SuppressWarnings("deprecation") // OK: test deprecated api
 	static final MediaRedirect foto = new MediaRedirect(photo);
 
 	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");

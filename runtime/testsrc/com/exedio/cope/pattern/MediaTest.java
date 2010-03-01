@@ -90,16 +90,6 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(item.photo.isNull(), item.foto.isNull());
 		assertEquals(item.photo.isNotNull(), item.foto.isNotNull());
 		
-		try
-		{
-			new MediaRedirect(null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("target", e.getMessage());
-		}
-		
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 
@@ -152,5 +142,19 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(1, item.photo.isNull.get());
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
+	}
+	
+	@Deprecated
+	public void testDeprecated()
+	{
+		try
+		{
+			new MediaRedirect(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("target", e.getMessage());
+		}
 	}
 }
