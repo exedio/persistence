@@ -114,18 +114,26 @@ public class SelectBindTest extends AbstractRuntimeTest
 			}
 			catch(IllegalArgumentException e)
 			{
-				assertEquals("must not be empty", e.getMessage());
+				assertEquals("must have at least 2 selects, but was []", e.getMessage());
 			}
 			try
 			{
-				q.setSelects(new Selectable[]{null});
+				q.setSelects(new Selectable[]{string});
+				fail();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals("must have at least 2 selects, but was [" + string + "]", e.getMessage());
+			}
+			try
+			{
+				q.setSelects(new Selectable[]{string, null});
 				fail();
 			}
 			catch(NullPointerException e)
 			{
-				assertEquals("selects[0]", e.getMessage());
+				assertEquals("selects[1]", e.getMessage());
 			}
-			q.setSelects(new Selectable[]{string}); // should fail, because it converts query to Query<String>
 		}
 	}
 }

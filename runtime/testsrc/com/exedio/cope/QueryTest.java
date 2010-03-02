@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Query.newQuery;
+
+import java.util.List;
+
 import com.exedio.cope.util.Day;
 
 public class QueryTest extends AbstractRuntimeTest
@@ -60,11 +64,69 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 	}
 	
+	public void testSetSelect()
+	{
+		final Query<DayItem> q = DayItem.TYPE.newQuery(null);
+		
+		try
+		{
+			q.setSelects(new Selectable[]{DayItem.day});
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
+		}
+		try
+		{
+			q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("use setSelect instead", e.getMessage());
+		}
+	}
+	
 	public void testSetSelects()
 	{
-		final Query q = DayItem.TYPE.newQuery(null);
+		try
+		{
+			newQuery(new Selectable[]{DayItem.day}, DayItem.TYPE, null);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
+		}
 		
-		q.setSelects(new Selectable[]{DayItem.day}); // should fail, because it converts query to Query<Day>
+		final Query<List<Object>> q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+		
+		try
+		{
+			q.setSelects(new Selectable[]{DayItem.day});
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad api usage
+	public void testSetSelectsUnchecked()
+	{
+		final Query q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		try
+		{
+			q.setSelect(DayItem.TYPE.getThis());
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("use setSelects instead", e.getMessage());
+		}
 	}
 	
 	public void testLiterals()

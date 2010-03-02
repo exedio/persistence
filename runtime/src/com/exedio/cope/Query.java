@@ -34,7 +34,8 @@ public final class Query<R>
 	final static int UNLIMITED = -66;
 	
 	final Model model;
-	private Selectable[] selects;
+	private Selectable<? extends R> selectSingle;
+	private Selectable[] selectsMulti;
 	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
@@ -54,7 +55,7 @@ public final class Query<R>
 	
 	public Query(final Selectable<? extends R> select, final Condition condition)
 	{
-		this.selects = new Selectable[]{select};
+		this.selectSingle = select;
 		this.type = select.getType();
 		this.model = this.type.getModel();
 		this.condition = replaceTrue(condition);
@@ -62,8 +63,10 @@ public final class Query<R>
 	
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
 	{
+		if(select==null)
+			throw new NullPointerException("select");
 		this.model = type.getModel();
-		this.selects = new Selectable[]{select};
+		this.selectSingle = select;
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
@@ -75,7 +78,7 @@ public final class Query<R>
 	public Query(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selects = checkAndCopy(selects);
+		this.selectsMulti = checkAndCopy(selects);
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
@@ -86,15 +89,35 @@ public final class Query<R>
 		return new Query<List<Object>>(selects, type, condition);
 	}
 	
+	Selectable[] selects()
+	{
+		if(selectSingle!=null)
+			return new Selectable[]{selectSingle};
+		else
+			return selectsMulti;
+	}
+	
+	public void setSelect(final Selectable<? extends R> select)
+	{
+		if(selectSingle==null)
+			throw new IllegalStateException("use setSelects instead");
+		assert selectsMulti==null;
+		this.selectSingle = select;
+	}
+	
 	public void setSelects(final Selectable... selects)
 	{
-		this.selects = checkAndCopy(selects);
+		final Selectable[] selectsCopy = checkAndCopy(selects);
+		if(selectsMulti==null)
+			throw new IllegalStateException("use setSelect instead");
+		assert selectSingle==null;
+		this.selectsMulti = selectsCopy;
 	}
 	
 	private static final Selectable[] checkAndCopy(final Selectable[] selects)
 	{
-		if(selects.length==0)
-			throw new IllegalArgumentException("must not be empty");
+		if(selects.length<2)
+			throw new IllegalArgumentException("must have at least 2 selects, but was " + Arrays.asList(selects));
 		for(int i = 0; i<selects.length; i++)
 			if(selects[i]==null)
 				throw new NullPointerException("selects" + '[' + i + ']');
@@ -380,7 +403,7 @@ public final class Query<R>
 	{
 		final TC tc = new TC(this);
 		
-		for(final Selectable select : selects)
+		for(final Selectable select : selects())
 			Cope.check(select, tc, null);
 		
 		if(condition!=null)
@@ -592,6 +615,7 @@ public final class Query<R>
 		}
 		else
 		{
+			final Selectable[] selects = selects();
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
@@ -695,7 +719,7 @@ public final class Query<R>
 		
 		bf.append(' ');
 		
-		final Selectable[] selects = this.selects;
+		final Selectable[] selects = this.selects();
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
