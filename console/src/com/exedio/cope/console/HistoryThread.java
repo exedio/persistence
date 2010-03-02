@@ -100,6 +100,7 @@ final class HistoryThread extends Thread
 				connectToken =
 					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
+				HISTORY_MODEL.reviseIfSupported();
 				try
 				{
 					HISTORY_MODEL.startTransaction("check");

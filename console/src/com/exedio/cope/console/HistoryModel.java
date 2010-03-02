@@ -47,8 +47,8 @@ final class HistoryModel extends Item
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("connectionPoolInvalidFromIdle") private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("connectionPoolInvalidIntoIdle") private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final Pool.Info info)
 	{
@@ -83,8 +83,8 @@ final class HistoryModel extends Item
 	private static final LongField itemCacheHits = new LongField().toFinal();
 	private static final LongField itemCacheMisses = new LongField().toFinal();
 	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal();
-	@CopeSchemaName("itemCacheNumberOfCleanups") private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
-	@CopeSchemaName("itemCacheItemsCleanedUp") private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final ItemCacheSummary info)
 	{

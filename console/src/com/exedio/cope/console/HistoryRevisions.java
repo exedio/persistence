@@ -18,13 +18,26 @@
 
 package com.exedio.cope.console;
 
+import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 
+/**
+ * Currently works for MySQL only.
+ */
 final class HistoryRevisions
 {
 	static final Revisions REVISIONS =
 		new Revisions(
-			0
+			new Revision(1, "item cache renames \"cleanup\" to \"replacement\"",
+				"alter table `HistoryModel`" +
+					" change `connectPoolInvaliFromIdle` `connectioPoolInvalidOnGet` integer," +
+					" change `connectPoolInvaliIntoIdle` `connectioPoolInvalidOnPut` integer," +
+					" change `itemCacheNumberOfCleanups` `itemCacheReplacementRuns` integer," +
+					" change `itemCacheItemsCleanedUp` `itemCacheReplacements` integer",
+				"alter table `HistoryItemCache`" +
+					" change `numberOfCleanups` `replacementRuns` integer," +
+					" change `itemsCleanedUp` `replacements` integer," +
+					" change `lastCleanup` `lastReplacementRun` bigint")
 		);
 	
 	private HistoryRevisions()
