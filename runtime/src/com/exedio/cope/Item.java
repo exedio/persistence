@@ -420,12 +420,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	private final Entity getEntity(final boolean present)
 	{
-		return type.getModel().getCurrentTransaction().getEntity(this, present);
+		return type.getModel().currentTransaction().getEntity(this, present);
 	}
 
 	private final Entity getEntityIfActive()
 	{
-		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
+		return type.getModel().currentTransaction().getEntityIfActive(type, pk);
 	}
 	
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)

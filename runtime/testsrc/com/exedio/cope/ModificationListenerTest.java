@@ -67,7 +67,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
-		final Transaction firstTransaction = model.getCurrentTransaction();
+		final Transaction firstTransaction = model.currentTransaction();
 		model.commit();
 		l.assertIt(list(item1), firstTransaction);
 		l.assertIt(null, null);
@@ -186,7 +186,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			assertContains(model.getOpenTransactions());
 			try
 			{
-				model.getCurrentTransaction();
+				model.currentTransaction();
 				fail();
 			}
 			catch(IllegalStateException e)

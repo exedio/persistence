@@ -295,7 +295,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		
 		final Type type = getType();
 		final Model model = type.getModel();
-		final Connection connection = model.getCurrentTransaction().getConnection();
+		final Connection connection = model.currentTransaction().getConnection();
 		final Executor executor = model.connect().executor;
 		final Table table = type.getTable();
 		final Table valueTable = getValueType().getTable();

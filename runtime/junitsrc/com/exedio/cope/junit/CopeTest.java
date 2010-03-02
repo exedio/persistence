@@ -156,7 +156,7 @@ public abstract class CopeTest extends CopeAssert
 			{
 				model.startTransaction( "started by tearDown" );
 			}
-			Transaction current = model.getCurrentTransaction();
+			Transaction current = model.currentTransaction();
 			ArrayList<Transaction> openTransactions = null;
 			for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
 			{
@@ -249,7 +249,7 @@ public abstract class CopeTest extends CopeAssert
 	
 	protected void restartTransaction()
 	{
-		final String oldName = model.getCurrentTransaction().getName();
+		final String oldName = model.currentTransaction().getName();
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}

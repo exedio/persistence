@@ -39,7 +39,7 @@ public class TransactionEmptyTest extends AbstractRuntimeTest
 		final Transaction emptyCommit = model.startTransaction("emptyCommit");
 		final Date afterCommit = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
-		assertSame(emptyCommit, model.getCurrentTransaction());
+		assertSame(emptyCommit, model.currentTransaction());
 		assertEquals(id+1, model.getNextTransactionId());
 		final Date startCommit = model.getLastTransactionStartDate();
 		assertWithin(beforeCommit, afterCommit, startCommit);
@@ -64,7 +64,7 @@ public class TransactionEmptyTest extends AbstractRuntimeTest
 		final Transaction emptyRollback = model.startTransaction("emptyRollback");
 		final Date afterRollback = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
-		assertSame(emptyRollback, model.getCurrentTransaction());
+		assertSame(emptyRollback, model.currentTransaction());
 		assertEquals(id+2, model.getNextTransactionId());
 		final Date startRollback = model.getLastTransactionStartDate();
 		assertWithin(beforeRollback, afterRollback, startRollback);

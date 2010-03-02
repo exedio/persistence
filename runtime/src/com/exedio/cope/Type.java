@@ -630,7 +630,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	
 	public int checkPrimaryKey()
 	{
-		return primaryKeySequence.check(getModel().getCurrentTransaction().getConnection());
+		return primaryKeySequence.check(getModel().currentTransaction().getConnection());
 	}
 	
 	/**
@@ -1009,7 +1009,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	
 	T getItemObject(final int pk)
 	{
-		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
+		final Entity entity = getModel().currentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
 			return cast(entity.getItem());
 		else
@@ -1102,7 +1102,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new RuntimeException("no check for modification counter needed for " + this);
 		
 		final Model model = getModel();
-		return checkModificationCounter(model.getCurrentTransaction().getConnection(), model.connect().executor);
+		return checkModificationCounter(model.currentTransaction().getConnection(), model.connect().executor);
 	}
 	
 	private int checkModificationCounter(final Connection connection, final Executor executor)

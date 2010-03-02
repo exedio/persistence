@@ -35,7 +35,7 @@ public final class TransactionSlicer
 	{
 		this.model = model;
 		this.bitesPerSlice = bitesPerSlice;
-		this.transaction = model.getCurrentTransaction();
+		this.transaction = model.currentTransaction();
 		this.transactionName = transaction.getName();
 		this.bitsLeft = bitesPerSlice;
 		
@@ -48,8 +48,8 @@ public final class TransactionSlicer
 		if((--bitsLeft)>0)
 			return false;
 		
-		if(transaction!=model.getCurrentTransaction())
-			throw new IllegalStateException("inconsistent transaction, expected " + transaction + ", but was " + model.getCurrentTransaction());
+		if(transaction!=model.currentTransaction())
+			throw new IllegalStateException("inconsistent transaction, expected " + transaction + ", but was " + model.currentTransaction());
 
 		model.commit();
 		bitsLeft = bitesPerSlice;

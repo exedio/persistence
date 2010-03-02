@@ -305,12 +305,12 @@ public final class Model implements Serializable
 	 */
 	public void checkSchema()
 	{
-		connect().database.checkSchema(getCurrentTransaction().getConnection());
+		connect().database.checkSchema(currentTransaction().getConnection());
 	}
 
 	public void checkEmptySchema()
 	{
-		connect().database.checkEmptySchema(getCurrentTransaction().getConnection());
+		connect().database.checkEmptySchema(currentTransaction().getConnection());
 	}
 
 	/**
@@ -318,7 +318,7 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
-		final Transaction tx = getCurrentTransactionIfBound();
+		final Transaction tx = currentTransactionIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 		
@@ -459,7 +459,7 @@ public final class Model implements Serializable
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		final Transaction previousTransaction = getCurrentTransactionIfBound();
+		final Transaction previousTransaction = currentTransactionIfBound();
 		if(previousTransaction!=null)
 		{
 			final String previousName = previousTransaction.name;
@@ -499,7 +499,7 @@ public final class Model implements Serializable
 	
 	public Transaction leaveTransaction()
 	{
-		Transaction tx = getCurrentTransaction();
+		Transaction tx = currentTransaction();
 		tx.unbindThread();
 		setTransaction( null );
 		return tx;
@@ -514,7 +514,7 @@ public final class Model implements Serializable
 	
 	public boolean hasCurrentTransaction()
 	{
-		return getCurrentTransactionIfBound()!=null;
+		return currentTransactionIfBound()!=null;
 	}
 
 	/**
@@ -523,16 +523,16 @@ public final class Model implements Serializable
 	 * @throws IllegalStateException if there is no cope transaction bound to current thread
 	 * @see Thread#currentThread()
 	 */
-	public Transaction getCurrentTransaction()
+	public Transaction currentTransaction()
 	{
-		final Transaction result = getCurrentTransactionIfBound();
+		final Transaction result = currentTransactionIfBound();
 		if(result==null)
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		assert result.assertBoundToCurrentThread();
 		return result;
 	}
 	
-	private Transaction getCurrentTransactionIfBound()
+	private Transaction currentTransactionIfBound()
 	{
 		final Transaction result = boundTransactions.get();
 		assert result==null || result.assertBoundToCurrentThread();
@@ -557,7 +557,7 @@ public final class Model implements Serializable
 	
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = getCurrentTransactionIfBound();
+		final Transaction t = currentTransactionIfBound();
 		if( t!=null )
 			rollback();
 	}
@@ -569,7 +569,7 @@ public final class Model implements Serializable
 
 	private void commitOrRollback(final boolean rollback)
 	{
-		final Transaction tx = getCurrentTransaction();
+		final Transaction tx = currentTransaction();
 		
 		synchronized(openTransactions)
 		{
@@ -978,5 +978,14 @@ public final class Model implements Serializable
 	public java.util.Properties getDatabaseInfo()
 	{
 		return getEnvironmentInfo().asProperties();
+	}
+	
+	/**
+	 * @deprecated Use {@link #currentTransaction()} instead
+	 */
+	@Deprecated
+	public Transaction getCurrentTransaction()
+	{
+		return currentTransaction();
 	}
 }

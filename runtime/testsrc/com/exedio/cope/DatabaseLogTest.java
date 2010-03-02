@@ -55,7 +55,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl = new DBL();
 		model.setDatabaseListener(dbl);
 		assertSame(dbl, model.getDatabaseListener());
-		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
+		l.expectSearch(model.currentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string1"));
 		l.verifyExpectations();
 		dbl.assertSql("select");
@@ -65,7 +65,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl2 = new DBL();
 		model.setDatabaseListener(dbl2);
 		assertSame(dbl2, model.getDatabaseListener());
-		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
+		l.expectSearch(model.currentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
 		dbl2.assertSql("select");
@@ -76,7 +76,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl3 = new DBL();
 		model.setDatabaseListener(dbl3);
 		assertSame(dbl3, model.getDatabaseListener());
-		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
+		l.expectSearch(model.currentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
 		dbl3.assertSql("select");
@@ -87,7 +87,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		
 		model.setDatabaseListener(null);
 		assertNull(model.getDatabaseListener());
-		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
+		l.expectSearch(model.currentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string3"));
 		l.verifyExpectations();
 		item.setText("string3");

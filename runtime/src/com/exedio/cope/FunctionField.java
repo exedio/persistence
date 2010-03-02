@@ -141,7 +141,7 @@ public abstract class FunctionField<E extends Object>
 
 	private static final Entity getEntity(final Item item, final boolean present)
 	{
-		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
+		return item.type.getModel().currentTransaction().getEntity(item, present);
 	}
 
 	@Override

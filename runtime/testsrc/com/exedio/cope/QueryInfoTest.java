@@ -27,7 +27,7 @@ public class QueryInfoTest extends TestmodelTest
 {
 	public void testExecutionPlan()
 	{
-		final Transaction transaction = model.getCurrentTransaction();
+		final Transaction transaction = model.currentTransaction();
 		final Query query = ItemWithSingleUnique.TYPE.newQuery(ItemWithSingleUnique.uniqueString.equal("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();

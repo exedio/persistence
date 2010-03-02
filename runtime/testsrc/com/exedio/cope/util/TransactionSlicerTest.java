@@ -32,25 +32,25 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 	@Deprecated
 	public void testIt()
 	{
-		final Transaction t1 = model.getCurrentTransaction();
+		final Transaction t1 = model.currentTransaction();
 		
 		final TransactionSlicer ts = new TransactionSlicer(model, 3);
 		assertEquals(0, ts.getSliceCount());
-		assertSame(t1, model.getCurrentTransaction());
+		assertSame(t1, model.currentTransaction());
 		
 		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
-		assertSame(t1, model.getCurrentTransaction());
+		assertSame(t1, model.currentTransaction());
 		assertFalse(t1.isClosed());
 		
 		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
-		assertSame(t1, model.getCurrentTransaction());
+		assertSame(t1, model.currentTransaction());
 		assertFalse(t1.isClosed());
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
-		final Transaction t2 = model.getCurrentTransaction();
+		final Transaction t2 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
@@ -58,19 +58,19 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		
 		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
-		assertSame(t2, model.getCurrentTransaction());
+		assertSame(t2, model.currentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		
 		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
-		assertSame(t2, model.getCurrentTransaction());
+		assertSame(t2, model.currentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
-		final Transaction t3 = model.getCurrentTransaction();
+		final Transaction t3 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertNotSame(t1, t3);
 		assertNotSame(t2, t3);
@@ -83,15 +83,15 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 	@Deprecated
 	public void testEmpty()
 	{
-		final Transaction t1 = model.getCurrentTransaction();
+		final Transaction t1 = model.currentTransaction();
 		
 		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
-		assertSame(t1, model.getCurrentTransaction());
+		assertSame(t1, model.currentTransaction());
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
-		final Transaction t2 = model.getCurrentTransaction();
+		final Transaction t2 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
@@ -99,7 +99,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
-		final Transaction t3 = model.getCurrentTransaction();
+		final Transaction t3 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertNotSame(t1, t3);
 		assertNotSame(t2, t3);
@@ -134,15 +134,15 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		model.commit();
 		model.startTransaction(null);
 		
-		final Transaction t1 = model.getCurrentTransaction();
+		final Transaction t1 = model.currentTransaction();
 		
 		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
-		assertSame(t1, model.getCurrentTransaction());
+		assertSame(t1, model.currentTransaction());
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
-		final Transaction t2 = model.getCurrentTransaction();
+		final Transaction t2 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
@@ -150,7 +150,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
-		final Transaction t3 = model.getCurrentTransaction();
+		final Transaction t3 = model.currentTransaction();
 		assertNotSame(t1, t2);
 		assertNotSame(t1, t3);
 		assertNotSame(t2, t3);

@@ -260,7 +260,7 @@ public final class IntegerField extends NumberField<Integer>
 	
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().getCurrentTransaction().getConnection()) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().currentTransaction().getConnection()) : 0;
 	}
 	
 	@Override

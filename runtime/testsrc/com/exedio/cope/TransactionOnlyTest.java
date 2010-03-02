@@ -31,7 +31,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 	public void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		final Transaction tx = model.getCurrentTransaction();
+		final Transaction tx = model.currentTransaction();
 		try
 		{
 			model.startTransaction("nested");
@@ -41,13 +41,13 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"tried to start a new transaction with name >nested<, " +
-					"but there is already a transaction CT." + model.getCurrentTransaction().getID() +
+					"but there is already a transaction CT." + model.currentTransaction().getID() +
 					" with name >CopeTest< " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
 		}
-		assertEquals( tx, model.getCurrentTransaction() );
+		assertEquals( tx, model.currentTransaction() );
 		try
 		{
 			model.startTransaction(null);
@@ -57,18 +57,18 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"tried to start a new transaction without a name, " +
-					"but there is already a transaction CT." + model.getCurrentTransaction().getID() +
+					"but there is already a transaction CT." + model.currentTransaction().getID() +
 					" with name >CopeTest< " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
 		}
-		assertEquals(tx, model.getCurrentTransaction());
+		assertEquals(tx, model.currentTransaction());
 	}
 	
 	public void testJoinClosed()
 	{
-		Transaction tx = model.getCurrentTransaction();
+		Transaction tx = model.currentTransaction();
 		model.commit();
 		try
 		{
@@ -81,7 +81,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		}
 		assertEquals( false, model.hasCurrentTransaction() );
 		model.startTransaction("just for tearDown");
-		assertEquals( "just for tearDown", model.getCurrentTransaction().getName() );
+		assertEquals( "just for tearDown", model.currentTransaction().getName() );
 	}
 	
 	static class IllegalStateExceptionReference
@@ -91,7 +91,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 	
 	public void testJoinMultiple() throws InterruptedException
 	{
-		final Transaction tx = model.getCurrentTransaction();
+		final Transaction tx = model.currentTransaction();
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 		
 		final Thread t2 = new Thread(new Runnable(){
@@ -115,7 +115,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 	
 	public void testTransactionLifecycle()
 	{
-		final Transaction copeTest = model.getCurrentTransaction();
+		final Transaction copeTest = model.currentTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
 		assertUnmodifiable( model.getOpenTransactions() );
 		assertSame(Thread.currentThread(), copeTest.getBoundThread());
@@ -191,7 +191,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		{
 			try
 			{
-				model.getCurrentTransaction();
+				model.currentTransaction();
 				fail();
 			}
 			catch(IllegalStateException e)
@@ -201,7 +201,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		}
 		else
 		{
-			assertEquals( tx, model.getCurrentTransaction() );
+			assertEquals( tx, model.currentTransaction() );
 		}
 	}
 }

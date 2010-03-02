@@ -305,7 +305,7 @@ public abstract class CopeAssert extends TestCase
 	 */
 	public static final Collection infoSearch(final Query query)
 	{
-		final Transaction transaction = query.getType().getModel().getCurrentTransaction();
+		final Transaction transaction = query.getType().getModel().currentTransaction();
 		transaction.setQueryInfoEnabled(true);
 		final Collection result = query.search();
 		System.out.println("INFO-------------------");

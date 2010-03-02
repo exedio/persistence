@@ -109,7 +109,7 @@ public class CopeModelTestTest extends CopeModelTest
 	private void assertBlank()
 	{
 		assertTrue(model.hasCurrentTransaction());
-		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.getCurrentTransaction().getName());
+		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
 		model.checkEmptySchema();
 		assertEquals(null, model.getDatabaseListener());
 		assertEquals(list(), model.getModificationListeners());

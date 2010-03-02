@@ -331,7 +331,7 @@ public final class Query<R>
 	 */
 	public List<R> search()
 	{
-		final Transaction transaction = model.getCurrentTransaction();
+		final Transaction transaction = model.currentTransaction();
 		
 		if(limit==0 || condition==Condition.FALSE)
 		{
@@ -360,7 +360,7 @@ public final class Query<R>
 	 */
 	public int total()
 	{
-		final Transaction transaction = model.getCurrentTransaction();
+		final Transaction transaction = model.currentTransaction();
 		
 		if(condition==Condition.FALSE)
 		{

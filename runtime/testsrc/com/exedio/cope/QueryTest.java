@@ -68,9 +68,9 @@ public class QueryTest extends AbstractRuntimeTest
 			final Query q = DayItem.TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
 	
-			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
-			assertTrue(model.getCurrentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
+			assertTrue(model.currentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
 			
 			q.narrow(c1);
 			assertSame(c1, q.getCondition());
@@ -88,15 +88,15 @@ public class QueryTest extends AbstractRuntimeTest
 			final Query q = DayItem.TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
 	
-			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
-			assertEquals("skipped search because condition==false", model.getCurrentTransaction().getQueryInfos().get(0).getText());
-			model.getCurrentTransaction().setQueryInfoEnabled(false);
+			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
+			model.currentTransaction().setQueryInfoEnabled(false);
 			
-			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			model.currentTransaction().setQueryInfoEnabled(true);
 			assertEquals(0, q.total());
-			assertEquals("skipped search because condition==false", model.getCurrentTransaction().getQueryInfos().get(0).getText());
-			model.getCurrentTransaction().setQueryInfoEnabled(false);
+			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
+			model.currentTransaction().setQueryInfoEnabled(false);
 			
 			q.setCondition(TRUE);
 			assertSame(null, q.getCondition());
