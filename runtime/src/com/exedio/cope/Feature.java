@@ -92,8 +92,8 @@ public abstract class Feature implements Serializable
 		
 		type.registerMounted(this);
 		
-		this.pattern = this.patternWhileTypeInitialization;
-		this.patternWhileTypeInitialization = null;
+		this.pattern = this.patternUntilMount;
+		this.patternUntilMount = null;
 	}
 	
 	private final Mount mount()
@@ -190,7 +190,7 @@ public abstract class Feature implements Serializable
 	
 	// patterns ------------------
 	
-	private Pattern patternWhileTypeInitialization = null;
+	private Pattern patternUntilMount = null;
 	private Pattern pattern = null;
 	
 	final void registerPattern(final Pattern pattern)
@@ -200,10 +200,10 @@ public abstract class Feature implements Serializable
 		if(pattern==null)
 			throw new NullPointerException();
 		
-		if(patternWhileTypeInitialization!=null)
-			throw new IllegalStateException("field has already registered pattern " + this.patternWhileTypeInitialization + " and tried to register a new one: " + pattern);
+		if(patternUntilMount!=null)
+			throw new IllegalStateException("field has already registered pattern " + this.patternUntilMount + " and tried to register a new one: " + pattern);
 		
-		this.patternWhileTypeInitialization = pattern;
+		this.patternUntilMount = pattern;
 	}
 	
 	/**
@@ -213,7 +213,7 @@ public abstract class Feature implements Serializable
 	{
 		if(!isMounted())
 			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
-		if(patternWhileTypeInitialization!=null)
+		if(patternUntilMount!=null)
 			throw new RuntimeException();
 
 		return pattern;
