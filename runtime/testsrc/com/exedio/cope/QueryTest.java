@@ -60,6 +60,13 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 	}
 	
+	public void testSetSelects()
+	{
+		final Query q = DayItem.TYPE.newQuery(null);
+		
+		q.setSelects(new Selectable[]{DayItem.day}); // should fail, because it converts query to Query<Day>
+	}
+	
 	public void testLiterals()
 	{
 		final Condition c1 = DayItem.day.equal(d1);

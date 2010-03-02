@@ -125,6 +125,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			{
 				assertEquals("selects[0]", e.getMessage());
 			}
+			q.setSelects(new Selectable[]{string}); // should fail, because it converts query to Query<String>
 		}
 	}
 }
