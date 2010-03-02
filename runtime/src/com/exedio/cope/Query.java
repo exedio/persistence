@@ -75,7 +75,7 @@ public final class Query<R>
 	public Query(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selects = com.exedio.cope.misc.Arrays.copyOf(selects);
+		this.selects = checkAndCopy(selects);
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
@@ -88,17 +88,17 @@ public final class Query<R>
 	
 	public void setSelects(final Selectable... selects)
 	{
-		check(selects);
-		this.selects = selects;
+		this.selects = checkAndCopy(selects);
 	}
 	
-	private static final void check(final Selectable[] selects)
+	private static final Selectable[] checkAndCopy(final Selectable[] selects)
 	{
 		if(selects.length==0)
 			throw new IllegalArgumentException("must not be empty");
 		for(int i = 0; i<selects.length; i++)
 			if(selects[i]==null)
 				throw new NullPointerException("selects" + '[' + i + ']');
+		return com.exedio.cope.misc.Arrays.copyOf(selects);
 	}
 	
 	public boolean isDistinct()
