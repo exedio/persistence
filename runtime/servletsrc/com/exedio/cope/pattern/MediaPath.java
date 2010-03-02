@@ -44,6 +44,7 @@ public abstract class MediaPath extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		final String name = getName();
 		
 		urlPath = getType().getID() + '/' + name + '/';

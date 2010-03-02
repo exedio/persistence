@@ -97,6 +97,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		final Type<?> type = getType();
 		if(!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
 			throw new ClassCastException(

@@ -102,6 +102,7 @@ public final class Schedule extends Pattern
 	@Override
 	public void onMount()
 	{
+		super.onMount();
 		final Type<?> type = getType();
 		if(!Scheduleable.class.isAssignableFrom(type.getJavaClass()))
 			throw new ClassCastException(

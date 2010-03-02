@@ -63,6 +63,7 @@ public final class History extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		final Type<?> type = getType();
 		
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();

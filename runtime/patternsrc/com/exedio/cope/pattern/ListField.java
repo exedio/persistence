@@ -66,6 +66,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		final Type<?> type = getType();
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();

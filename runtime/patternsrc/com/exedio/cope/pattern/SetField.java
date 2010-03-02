@@ -68,6 +68,7 @@ public final class SetField<E> extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		final Type<?> type = getType();
 		
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();

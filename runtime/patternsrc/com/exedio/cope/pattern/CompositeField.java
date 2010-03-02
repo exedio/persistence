@@ -99,6 +99,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
+		
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
 		final HashMap<FunctionField, FunctionField> componentToTemplate =

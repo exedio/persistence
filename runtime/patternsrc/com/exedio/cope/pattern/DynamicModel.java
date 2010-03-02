@@ -152,6 +152,8 @@ public final class DynamicModel<L> extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
+		
 		final Features features = new Features();
 		features.put("code", typeCode);
 		features.put("name", typeLocalization);

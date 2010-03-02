@@ -64,6 +64,7 @@ public final class JavaView extends Pattern
 	@Override
 	protected void onMount()
 	{
+		super.onMount();
 		this.mount = new Mount(getType(), getName());
 	}
 	

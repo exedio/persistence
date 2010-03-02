@@ -81,6 +81,8 @@ public abstract class Pattern extends Feature
 		addSource(field, postfix, null);
 	}
 	
+	private boolean calledOnMount;
+	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
@@ -88,7 +90,7 @@ public abstract class Pattern extends Feature
 	 */
 	protected void onMount()
 	{
-		// empty default implementation
+		calledOnMount = true;
 	}
 	
 	protected final <T extends Item> Type<T> newSourceType(
@@ -129,7 +131,11 @@ public abstract class Pattern extends Feature
 	{
 		super.mount(type, name, annotationSource);
 		initialize();
+		
+		calledOnMount = false;
 		onMount();
+		if(!calledOnMount)
+			throw new RuntimeException("Method onMount did not call super.onMount in " + getClass().getName() + " or one of it's superclasses.");
 
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
 		this.sourceFeaturesGather = null;
