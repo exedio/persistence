@@ -33,6 +33,7 @@ import com.exedio.cope.Revision;
 import com.exedio.cope.RevisionInfo;
 import com.exedio.cope.RevisionInfoCreate;
 import com.exedio.cope.RevisionInfoRevise;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Revisions
@@ -104,7 +105,7 @@ public final class Revisions
 		try
 		{
 			con = DriverManager.getConnection(p.getDatabaseUrl(), p.getDatabaseUser(), p.getDatabasePassword());
-			stat = con.prepareStatement("insert into \"while\" (\"v\",\"i\") values (?,?)");
+			stat = con.prepareStatement("insert into " + q(model, "while") + " (" + q(model, "v") + "," + q(model, "i") + ") values (?,?)");
 			
 			// skip first two revisions not yet applied
 			revisions.next();
@@ -172,6 +173,11 @@ public final class Revisions
 				}
 			}
 		}
+	}
+	
+	private static final String q(final Model model, final String name)
+	{
+		return SchemaInfo.quoteName(model, name);
 	}
 	
 	private static final void save(final PreparedStatement stat, final RevisionInfo info) throws SQLException

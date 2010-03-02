@@ -775,6 +775,7 @@
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
+			<fileset file="lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
 		</copy>
 		<ljavac srcdir="console/websrc" destdir="console/web/WEB-INF/classes">
 			<classpath>
