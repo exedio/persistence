@@ -153,7 +153,7 @@ public final class MysqlDialect extends Dialect
 											}
 										}
 										else
-											table.notifyExistentPrimaryKeyConstraint(table.name + '_' + field+"_Pk");
+											table.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 									}
 								}
 							}
