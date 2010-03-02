@@ -31,6 +31,7 @@ public final class Schema extends Node
 	private final ArrayList<Table> tableList = new ArrayList<Table>();
 	private final HashMap<String, Sequence> sequenceMap = new HashMap<String, Sequence>();
 	private final ArrayList<Sequence> sequenceList = new ArrayList<Sequence>();
+	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
 	private boolean verified = false;
 	
 	public Schema(final Dialect dialect, final ConnectionProvider connectionProvider)
@@ -92,6 +93,12 @@ public final class Schema extends Node
 	public List<Sequence> getSequences()
 	{
 		return sequenceList;
+	}
+	
+	final void register(final Constraint constraint)
+	{
+		if(constraintMap.put(constraint.name, constraint)!=null)
+			throw new RuntimeException("duplicate constraint name in schema : " + constraint.name);
 	}
 	
 	public void verify()

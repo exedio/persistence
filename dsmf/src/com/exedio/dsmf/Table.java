@@ -27,6 +27,7 @@ import com.exedio.dsmf.Constraint.Type;
 
 public final class Table extends Node
 {
+	final Schema schema;
 	final String name;
 	final String options;
 	private final boolean required;
@@ -57,6 +58,7 @@ public final class Table extends Node
 		if(name==null)
 			throw new RuntimeException();
 
+		this.schema = schema;
 		this.name = name;
 		this.options = options;
 		this.required = required;
@@ -92,6 +94,7 @@ public final class Table extends Node
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
 		constraintList.add(constraint);
+		schema.register(constraint);
 	}
 	
 	final void notifyExists()
