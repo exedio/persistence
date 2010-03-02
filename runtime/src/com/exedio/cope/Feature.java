@@ -196,12 +196,12 @@ public abstract class Feature implements Serializable
 	final void registerPattern(final Pattern pattern)
 	{
 		if(isMounted())
-			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
+			throw new RuntimeException("registerPattern must be called before mounting the feature.");
 		if(pattern==null)
 			throw new NullPointerException();
 		
 		if(patternUntilMount!=null)
-			throw new IllegalStateException("field has already registered pattern " + this.patternUntilMount + " and tried to register a new one: " + pattern);
+			throw new IllegalStateException("feature has already registered pattern " + this.patternUntilMount + " and tried to register a new one: " + pattern);
 		
 		this.patternUntilMount = pattern;
 	}
@@ -212,7 +212,7 @@ public abstract class Feature implements Serializable
 	public final Pattern getPattern()
 	{
 		if(!isMounted())
-			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
+			throw new RuntimeException("getPattern must be called after mounting the feature.");
 		if(patternUntilMount!=null)
 			throw new RuntimeException();
 
