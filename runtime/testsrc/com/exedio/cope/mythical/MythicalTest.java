@@ -35,7 +35,7 @@ public class MythicalTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 	
-	public void test()
+	public void testItemField()
 	{
 		final MythicalSuper superItem = deleteOnTearDown(new MythicalSuper((MythicalSuper)null));
 		final MythicalSub subItem = deleteOnTearDown(new MythicalSub(superItem));
@@ -52,5 +52,24 @@ public class MythicalTest extends AbstractRuntimeTest
 		if(noJoinParentheses)
 			return;
 		assertEquals(list(list(subItem, null)), q.search());
+	}
+	
+	public void testThis()
+	{
+		final MythicalSuper superItem = deleteOnTearDown(new MythicalSuper((MythicalSuper)null));
+		deleteOnTearDown(new MythicalSub(superItem));
+
+		final Query<List<Object>> q = Query.newQuery(
+			new Selectable[]{MythicalSuper.TYPE.getThis(), MythicalSub.parent},
+			MythicalSuper.TYPE,
+			null
+		);
+		final Join j = q.joinOuterLeft(MythicalSuper.TYPE, null);
+		j.setCondition(MythicalSub.parent.equalTarget(j));
+		q.setSelects(MythicalSuper.TYPE.getThis().bind(j), MythicalSub.parent);
+		q.addOrderBy(MythicalSuper.parent.bind(j));
+		if(noJoinParentheses)
+			return;
+		assertEquals(list(list(null, null), list(superItem, superItem)), q.search());
 	}
 }
