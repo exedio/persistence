@@ -115,15 +115,15 @@ final class HistoryModel extends Item
 	
 	static final IntegerField mediasNoSuchPath = new IntegerField().toFinal().min(0);
 	
-	private static final IntegerField mediasRedirectFrom = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasException = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNotAnItem = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNoSuchItem = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasMoved = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasIsNull = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasRedirectFrom  = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasException     = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasNotAnItem     = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasNoSuchItem    = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasMoved         = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasIsNull        = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasNotComputable = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNotModified = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasNotModified   = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasDelivered     = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final MediaSummary info)
 	{

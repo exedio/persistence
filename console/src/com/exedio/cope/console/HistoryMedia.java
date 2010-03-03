@@ -65,15 +65,15 @@ final class HistoryMedia extends Item
 	}
 	
 	
-	private static final IntegerField redirectFrom = new IntegerField().toFinal().min(0);
-	private static final IntegerField exception = new IntegerField().toFinal().min(0);
-	private static final IntegerField notAnItem = new IntegerField().toFinal().min(0);
-	private static final IntegerField noSuchItem = new IntegerField().toFinal().min(0);
-	private static final IntegerField moved = new IntegerField().toFinal().min(0);
-	private static final IntegerField isNull = new IntegerField().toFinal().min(0);
+	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
+	private static final IntegerField exception     = new IntegerField().toFinal().min(0);
+	private static final IntegerField notAnItem     = new IntegerField().toFinal().min(0);
+	private static final IntegerField noSuchItem    = new IntegerField().toFinal().min(0);
+	private static final IntegerField moved         = new IntegerField().toFinal().min(0);
+	private static final IntegerField isNull        = new IntegerField().toFinal().min(0);
 	private static final IntegerField notComputable = new IntegerField().toFinal().min(0);
-	private static final IntegerField notModified = new IntegerField().toFinal().min(0);
-	private static final IntegerField delivered = new IntegerField().toFinal().min(0);
+	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
+	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final MediaInfo info)
 	{
