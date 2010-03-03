@@ -64,9 +64,11 @@ final class HistoryMedia extends Item
 	}
 	
 	
+	static final IntegerField redirectFrom = new IntegerField().toFinal().min(0);
 	static final IntegerField exception = new IntegerField().toFinal().min(0);
 	static final IntegerField notAnItem = new IntegerField().toFinal().min(0);
 	static final IntegerField noSuchItem = new IntegerField().toFinal().min(0);
+	static final IntegerField moved = new IntegerField().toFinal().min(0);
 	static final IntegerField isNull = new IntegerField().toFinal().min(0);
 	static final IntegerField notComputable = new IntegerField().toFinal().min(0);
 	static final IntegerField notModified = new IntegerField().toFinal().min(0);
@@ -76,9 +78,11 @@ final class HistoryMedia extends Item
 	{
 		return Arrays.asList((SetValue)
 			media        .map(info.getPath().getID()),
+			redirectFrom .map(info.getRedirectFrom()),
 			exception    .map(info.getException()),
 			notAnItem    .map(info.getNotAnItem()),
 			noSuchItem   .map(info.getNoSuchItem()),
+			moved        .map(info.getMoved()),
 			isNull       .map(info.getIsNull()),
 			notComputable.map(info.getNotComputable()),
 			notModified  .map(info.getNotModified()),

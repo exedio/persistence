@@ -28,6 +28,13 @@ final class HistoryRevisions
 {
 	static final Revisions REVISIONS =
 		new Revisions(
+			new Revision(2, "add MediaInfo.get[RedirectFrom|Moved]",
+				"alter table `HistoryModel`" +
+					" add column `mediasRedirectFrom` integer," +
+					" add column `mediasMoved` integer",
+				"alter table `HistoryMedia`" +
+					" add column `redirectFrom` integer," +
+					" add column `moved` integer"),
 			new Revision(1, "item cache renames \"cleanup\" to \"replacement\"",
 				"alter table `HistoryModel`" +
 					" change `connectPoolInvaliFromIdle` `connectioPoolInvalidOnGet` integer," +
