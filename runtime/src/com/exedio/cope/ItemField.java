@@ -211,7 +211,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		super.appendSelect(bf, join, columnHolder, typeHolder);
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
-			bf.append(',').append(typeColumn);
+			bf.append(',').append(typeColumn, join);
 	}
 	
 	/**

@@ -38,7 +38,7 @@ public class MythicalTest extends AbstractRuntimeTest
 	public void test()
 	{
 		final MythicalSuper superItem = deleteOnTearDown(new MythicalSuper((MythicalSuper)null));
-		deleteOnTearDown(new MythicalSub(superItem));
+		final MythicalSub subItem = deleteOnTearDown(new MythicalSub(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
 			new Selectable[]{MythicalSub.TYPE.getThis(), MythicalSuper.parent},
@@ -51,21 +51,6 @@ public class MythicalTest extends AbstractRuntimeTest
 		q.addOrderBy(MythicalSuper.parent.bind(j));
 		if(noJoinParentheses)
 			return;
-		try
-		{
-			q.search();
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals(
-					"inconsistent type column on field MythicalSuper.parent: MythicalSuper" +
-					" --- row: {MythicalSuper#parentType=MythicalSuper}" +
-					" --- query: " +
-						"select this,m1.MythicalSuper.parent " +
-						"from MythicalSub left join MythicalSuper m1 on MythicalSuper.parent=m1.MythicalSuper.this " +
-						"order by m1.MythicalSuper.parent",
-				e.getMessage());
-		}
+		assertEquals(list(list(subItem, null)), q.search());
 	}
 }

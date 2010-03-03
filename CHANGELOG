@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: polymorphic and bound item fields selected in queries
 * do not use raw type SetValue in instrumented code, avoids typical ide warnings
 	heavily affects instrumented code !
 * Query.setSelects does not accept one Selectable only,

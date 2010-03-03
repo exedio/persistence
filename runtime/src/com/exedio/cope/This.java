@@ -81,7 +81,7 @@ public final class This<E extends Item> extends Feature implements Function<E>, 
 		if(typeColumn!=null)
 		{
 			bf.append(',').
-				append(typeColumn);
+				append(typeColumn); // TODO use join !!!
 		}
 		else
 			typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
