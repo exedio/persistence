@@ -164,11 +164,6 @@ final class HistoryModel extends Item
 	}
 	
 	
-	HistoryModel(final SetValue... setValues)
-	{
-		super(setValues);
-	}
-	
 	@SuppressWarnings("unused")
 	private HistoryModel(final ActivationParameters ap)
 	{

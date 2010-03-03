@@ -103,10 +103,6 @@ final class HistoryItemCache extends Item
 			invalidationsDone   .map(info.getInvalidationsDone()));
 	}
 	
-	HistoryItemCache(final SetValue... setValues)
-	{
-		super(setValues);
-	}
 	
 	@SuppressWarnings("unused")
 	private HistoryItemCache(final ActivationParameters ap)

@@ -90,10 +90,6 @@ final class HistoryMedia extends Item
 			delivered    .map(info.getDelivered()));
 	}
 	
-	HistoryMedia(final SetValue... setValues)
-	{
-		super(setValues);
-	}
 	
 	@SuppressWarnings("unused")
 	private HistoryMedia(final ActivationParameters ap)

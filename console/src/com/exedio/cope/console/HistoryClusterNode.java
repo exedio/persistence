@@ -85,10 +85,6 @@ final class HistoryClusterNode extends Item
 				invalidate.map(new SequenceInfo(node.getInvalidateInfo())));
 	}
 	
-	HistoryClusterNode(final SetValue... setValues)
-	{
-		super(setValues);
-	}
 	
 	@SuppressWarnings("unused")
 	private HistoryClusterNode(final ActivationParameters ap)
