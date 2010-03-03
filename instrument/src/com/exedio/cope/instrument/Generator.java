@@ -332,7 +332,7 @@ final class Generator
 		o.write(type.name);
 		o.write('(');
 		o.write(finalArgPrefix);
-		o.write(SET_VALUE + "... setValues)");
+		o.write(SET_VALUE + "<?>... setValues)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
