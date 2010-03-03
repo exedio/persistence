@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.exedio.cope.badquery.BadQueryTest;
-import com.exedio.cope.mythical.MythicalTest;
+import com.exedio.cope.mythical.PolymorphicBoundSelectTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
 import com.exedio.cope.serialize.ModelSerializationTest;
 import com.exedio.cope.serialize.SerializationSizeTest;
@@ -139,7 +139,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CopyTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
-		suite.addTestSuite( MythicalTest.class );
+		suite.addTestSuite( PolymorphicBoundSelectTest.class );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
