@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
@@ -36,15 +37,15 @@ import com.exedio.cope.pattern.MediaInfo;
 
 final class HistoryMedia extends Item
 {
-	static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
-	static final StringField media = new StringField().toFinal();
+	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
+	private static final StringField media = new StringField().toFinal();
 	
-	static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
-	static final DateField initializeDate = new DateField().toFinal();
-	static final DateField connectDate = new DateField().toFinal();
-	static final IntegerField thread = new IntegerField().toFinal();
-	static final IntegerField running = new IntegerField().toFinal().min(0);
+	private static final DateField initializeDate = new DateField().toFinal();
+	private static final DateField connectDate = new DateField().toFinal();
+	private static final IntegerField thread = new IntegerField().toFinal();
+	private static final IntegerField running = new IntegerField().toFinal().min(0);
 	
 	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
 	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
@@ -64,15 +65,15 @@ final class HistoryMedia extends Item
 	}
 	
 	
-	static final IntegerField redirectFrom = new IntegerField().toFinal().min(0);
-	static final IntegerField exception = new IntegerField().toFinal().min(0);
-	static final IntegerField notAnItem = new IntegerField().toFinal().min(0);
-	static final IntegerField noSuchItem = new IntegerField().toFinal().min(0);
-	static final IntegerField moved = new IntegerField().toFinal().min(0);
-	static final IntegerField isNull = new IntegerField().toFinal().min(0);
-	static final IntegerField notComputable = new IntegerField().toFinal().min(0);
-	static final IntegerField notModified = new IntegerField().toFinal().min(0);
-	static final IntegerField delivered = new IntegerField().toFinal().min(0);
+	private static final IntegerField redirectFrom = new IntegerField().toFinal().min(0);
+	private static final IntegerField exception = new IntegerField().toFinal().min(0);
+	private static final IntegerField notAnItem = new IntegerField().toFinal().min(0);
+	private static final IntegerField noSuchItem = new IntegerField().toFinal().min(0);
+	private static final IntegerField moved = new IntegerField().toFinal().min(0);
+	private static final IntegerField isNull = new IntegerField().toFinal().min(0);
+	private static final IntegerField notComputable = new IntegerField().toFinal().min(0);
+	private static final IntegerField notModified = new IntegerField().toFinal().min(0);
+	private static final IntegerField delivered = new IntegerField().toFinal().min(0);
 	
 	static List<SetValue> map(final MediaInfo info)
 	{
@@ -98,6 +99,41 @@ final class HistoryMedia extends Item
 	private HistoryMedia(final ActivationParameters ap)
 	{
 		super(ap);
+	}
+	
+	HistoryModel getModel()
+	{
+		return model.get(this);
+	}
+	
+	String getMedia()
+	{
+		return media.get(this);
+	}
+	
+	Date getDate()
+	{
+		return date.get(this);
+	}
+	
+	Date getInitalizeDate()
+	{
+		return initializeDate.get(this);
+	}
+	
+	Date getConnectDate()
+	{
+		return connectDate.get(this);
+	}
+	
+	int getThread()
+	{
+		return thread.getMandatory(this);
+	}
+	
+	int getRunning()
+	{
+		return running.getMandatory(this);
 	}
 	
 	private static final long serialVersionUID = 1l;
