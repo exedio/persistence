@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.mythical;
+package com.exedio.cope;
 
 public class PolymorphicBoundSelectTestSubItem extends PolymorphicBoundSelectTestSuperItem
 {
@@ -29,7 +29,7 @@ public class PolymorphicBoundSelectTestSubItem extends PolymorphicBoundSelectTes
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	public PolymorphicBoundSelectTestSubItem(
-				final com.exedio.cope.mythical.PolymorphicBoundSelectTestSuperItem parent)
+				final com.exedio.cope.PolymorphicBoundSelectTestSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			PolymorphicBoundSelectTestSubItem.parent.map(parent),

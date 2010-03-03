@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.exedio.cope.badquery.BadQueryTest;
-import com.exedio.cope.mythical.PolymorphicBoundSelectTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
 import com.exedio.cope.serialize.ModelSerializationTest;
 import com.exedio.cope.serialize.SerializationSizeTest;
