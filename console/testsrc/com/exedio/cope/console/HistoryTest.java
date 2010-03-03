@@ -199,13 +199,13 @@ public class HistoryTest extends TestCase
 			final HistoryThread thread,
 			final HistoryMedia media)
 	{
-		assertEquals(model, HistoryMedia.model.get(media));
-		assertEquals("HistoryItem.media", HistoryMedia.media.get(media));
-		assertEquals(HistoryModel.date.get(model), HistoryMedia.date.get(media));
-		assertEquals(MODEL.getInitializeDate(), HistoryMedia.initializeDate.get(media));
-		assertEquals(MODEL.getConnectDate(), HistoryMedia.connectDate.get(media));
-		assertEquals(System.identityHashCode(thread), HistoryMedia.thread.getMandatory(media));
-		assertEquals(HistoryModel.running.getMandatory(model), HistoryMedia.running.getMandatory(media));
+		assertEquals(model, media.getModel());
+		assertEquals("HistoryItem.media", media.getMedia());
+		assertEquals(HistoryModel.date.get(model), media.getDate());
+		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
+		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
+		assertEquals(System.identityHashCode(thread), media.getThread());
+		assertEquals(HistoryModel.running.getMandatory(model), media.getRunning());
 		return media;
 	}
 	
