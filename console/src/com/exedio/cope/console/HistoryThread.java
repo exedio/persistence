@@ -185,7 +185,7 @@ final class HistoryThread extends Thread
 				sv.addAll(HistoryModel.map(mediaSummary));
 				sv.addAll(HistoryModel.map(clusterSenderInfo));
 				sv.addAll(HistoryModel.map(clusterListenerInfo));
-				model = HistoryModel.TYPE.newItem(toArray(sv));
+				model = HistoryModel.TYPE.newItem(sv);
 			}
 			{
 				for(final ItemCacheInfo info : itemCacheInfos)
@@ -193,7 +193,7 @@ final class HistoryThread extends Thread
 					final ArrayList<SetValue> sv = new ArrayList<SetValue>();
 					sv.addAll(HistoryItemCache.map(model));
 					sv.addAll(HistoryItemCache.map(info));
-					HistoryItemCache.TYPE.newItem(toArray(sv));
+					HistoryItemCache.TYPE.newItem(sv);
 				}
 			}
 			{
@@ -202,7 +202,7 @@ final class HistoryThread extends Thread
 					final ArrayList<SetValue> sv = new ArrayList<SetValue>();
 					sv.addAll(HistoryMedia.map(model));
 					sv.addAll(HistoryMedia.map(info));
-					HistoryMedia.TYPE.newItem(toArray(sv));
+					HistoryMedia.TYPE.newItem(sv);
 				}
 			}
 			if(clusterListenerInfo!=null)
@@ -212,7 +212,7 @@ final class HistoryThread extends Thread
 					final ArrayList<SetValue> list = new ArrayList<SetValue>();
 					HistoryClusterNode.map(model);
 					HistoryClusterNode.map(node);
-					HistoryClusterNode.TYPE.newItem(toArray(list));
+					HistoryClusterNode.TYPE.newItem(list);
 				}
 			}
 			HISTORY_MODEL.commit();
@@ -221,11 +221,6 @@ final class HistoryThread extends Thread
 		{
 			HISTORY_MODEL.rollbackIfNotCommitted();
 		}
-	}
-	
-	private static final SetValue[] toArray(final ArrayList<SetValue> sv)
-	{
-		return sv.toArray(new SetValue[sv.size()]);
 	}
 	
 	private void sleepByWait(final long millis)

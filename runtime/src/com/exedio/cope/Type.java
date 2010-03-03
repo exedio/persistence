@@ -820,6 +820,15 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return type.id;
 		}
 	}
+	
+	public T newItem(final List<SetValue> setValues)
+		throws ConstraintViolationException
+	{
+		return newItem(
+				setValues!=null
+				? setValues.toArray(setValues.toArray(new SetValue[setValues.size()]))
+				: null);
+	}
 
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
