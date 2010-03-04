@@ -810,9 +810,13 @@ public final class Query<R>
 			}
 		}
 		
+		QueryInfo queryInfo = null;
+		if(queryInfos!=null)
+			queryInfos.add(queryInfo = new QueryInfo(toString()));
+		
 		//System.out.println(bf.toString());
 
-		executor.query(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
+		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{

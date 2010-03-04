@@ -26,7 +26,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -88,7 +87,7 @@ final class Executor
 	protected <R> R query(
 		final Connection connection,
 		final Statement statement,
-		final ArrayList<QueryInfo> queryInfos,
+		final QueryInfo queryInfo,
 		final boolean explain,
 		final ResultSetHandler<R> resultSetHandler)
 	{
@@ -97,7 +96,7 @@ final class Executor
 		try
 		{
 			final DatabaseListener listener = this.listener;
-			final boolean takeTimes = !explain && (listener!=null || (queryInfos!=null));
+			final boolean takeTimes = !explain && (listener!=null || (queryInfo!=null));
 			final String sqlText = statement.getText();
 			final long nanoStart = takeTimes ? nanoTime() : 0;
 			final long nanoPrepared;
@@ -150,8 +149,8 @@ final class Executor
 						n2m(nanoResultRead-nanoExecuted),
 						n2m(nanoEnd-nanoResultRead));
 			
-			if(queryInfos!=null)
-				queryInfos.add(makeQueryInfo(statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd));
+			if(queryInfo!=null)
+				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
 			
 			return result;
 		}
@@ -330,12 +329,10 @@ final class Executor
 		}
 	}
 	
-	private QueryInfo makeQueryInfo(
-			final Statement statement, final Connection connection,
+	private void makeQueryInfo(
+			final QueryInfo result, final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
-		final QueryInfo result = new QueryInfo(statement.getText());
-		
 		result.addChild(statement.getQueryInfo());
 		
 		result.addChild(new QueryInfo(
@@ -350,8 +347,6 @@ final class Executor
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
 			result.addChild(plan);
-		
-		return result;
 	}
 	
 	private static DecimalFormat numberFormat;

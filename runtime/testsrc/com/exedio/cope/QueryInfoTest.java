@@ -38,12 +38,10 @@ public class QueryInfoTest extends TestmodelTest
 		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
 		
-		assertTrue(root.getText(), root.getText().startsWith("select "));
+		assertEquals(query.toString(), root.getText());
 		
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
-		final String firstStatementText = statementInfo.getText();
-		assertEquals(firstStatementText, root.getText());
 		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
@@ -115,17 +113,18 @@ public class QueryInfoTest extends TestmodelTest
 		assertTrue(!rootChilds.hasNext());
 
 		// test multiple queries
+		final String query1String = query.toString();
 		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
+		final String query2String = query.toString();
 		query.search();
 		final List<QueryInfo> rootOrdered = transaction.getQueryInfos();
 		//rootOrdered.print(System.out);
 		assertUnmodifiable(rootOrdered);
 		final Iterator<QueryInfo> rootOrderedIterator = rootOrdered.iterator();
 		final QueryInfo ordered1 = rootOrderedIterator.next();
-		assertEquals(firstStatementText, ordered1.getText());
+		assertEquals(query1String, ordered1.getText());
 		final QueryInfo ordered2 = rootOrderedIterator.next();
-		assertTrue(!firstStatementText.equals(ordered2.getText()));
-		assertTrue(ordered2.getText(), ordered2.getText().startsWith("select "));
+		assertEquals(query2String, ordered2.getText());
 		assertTrue(!rootOrderedIterator.hasNext());
 		
 		transaction.setQueryInfoEnabled(false);
