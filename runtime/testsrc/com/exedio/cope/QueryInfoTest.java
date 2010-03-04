@@ -47,10 +47,10 @@ public class QueryInfoTest extends TestmodelTest
 			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
 			assertContains(timing.getChilds());
 		}
+		final QueryInfo parameters = rootChilds.next();
+		assertTrue(parameters.getText(), parameters.getText().startsWith("select "));
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
-			final QueryInfo parameters = rootChilds.next();
-			assertTrue(parameters.getText(), parameters.getText().startsWith("select "));
 			final Iterator<QueryInfo> parametersChilds = parameters.getChilds().iterator();
 			{
 				final QueryInfo parameter = parametersChilds.next();
@@ -58,6 +58,10 @@ public class QueryInfoTest extends TestmodelTest
 				assertContains(parameter.getChilds());
 			}
 			assertTrue(!parametersChilds.hasNext());
+		}
+		else
+		{
+			assertContains(parameters.getChilds());
 		}
 
 		switch(dialect)

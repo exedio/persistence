@@ -345,14 +345,12 @@ final class Executor
 				numberFormat.format(end-resultRead) +
 				" (total/prepare/execute/readResult/close in ns)"));
 		
+		final QueryInfo parametersChild = new QueryInfo(statement.getText());
+		result.addChild(parametersChild);
 		final ArrayList<Object> parameters = statement.parameters;
 		if(parameters!=null)
-		{
-			final QueryInfo parametersChild = new QueryInfo(statement.getText());
-			result.addChild(parametersChild);
 			for(Object p : parameters)
 				parametersChild.addChild(new QueryInfo(p.toString()));
-		}
 			
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
