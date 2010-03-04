@@ -47,21 +47,21 @@ public class QueryInfoTest extends TestmodelTest
 			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
 			assertContains(timing.getChilds());
 		}
-		final QueryInfo parameters = rootChilds.next();
-		assertTrue(parameters.getText(), parameters.getText().startsWith("select "));
+		final QueryInfo statementInfo = rootChilds.next();
+		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
-			final Iterator<QueryInfo> parametersChilds = parameters.getChilds().iterator();
+			final Iterator<QueryInfo> statementInfoChilds = statementInfo.getChilds().iterator();
 			{
-				final QueryInfo parameter = parametersChilds.next();
-				assertEquals("zack", parameter.getText());
-				assertContains(parameter.getChilds());
+				final QueryInfo statementInfoChild = statementInfoChilds.next();
+				assertEquals("zack", statementInfoChild.getText());
+				assertContains(statementInfoChild.getChilds());
 			}
-			assertTrue(!parametersChilds.hasNext());
+			assertTrue(!statementInfoChilds.hasNext());
 		}
 		else
 		{
-			assertContains(parameters.getChilds());
+			assertContains(statementInfo.getChilds());
 		}
 
 		switch(dialect)
