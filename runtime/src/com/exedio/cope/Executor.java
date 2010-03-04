@@ -336,6 +336,8 @@ final class Executor
 	{
 		final QueryInfo result = new QueryInfo(statement.getText());
 		
+		result.addChild(statement.getQueryInfo());
+		
 		result.addChild(new QueryInfo(
 				"timing " +
 				numberFormat.format(end-start) + '/' +
@@ -344,8 +346,6 @@ final class Executor
 				numberFormat.format(resultRead-executed) + '/' +
 				numberFormat.format(end-resultRead) +
 				" (total/prepare/execute/readResult/close in ns)"));
-		
-		result.addChild(statement.getQueryInfo());
 			
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)

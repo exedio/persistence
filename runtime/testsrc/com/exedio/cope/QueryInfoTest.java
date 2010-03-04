@@ -42,11 +42,6 @@ public class QueryInfoTest extends TestmodelTest
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
-		{
-			final QueryInfo timing = rootChilds.next();
-			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
-			assertContains(timing.getChilds());
-		}
 		final QueryInfo statementInfo = rootChilds.next();
 		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
@@ -62,6 +57,11 @@ public class QueryInfoTest extends TestmodelTest
 		else
 		{
 			assertContains(statementInfo.getChilds());
+		}
+		{
+			final QueryInfo timing = rootChilds.next();
+			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
+			assertContains(timing.getChilds());
 		}
 
 		switch(dialect)
