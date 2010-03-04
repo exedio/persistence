@@ -350,9 +350,8 @@ final class Executor
 		{
 			final QueryInfo parametersChild = new QueryInfo("parameters");
 			result.addChild(parametersChild);
-			int i = 1;
 			for(Object p : parameters)
-				parametersChild.addChild(new QueryInfo(String.valueOf(i++) + ':' + p));
+				parametersChild.addChild(new QueryInfo(p.toString()));
 		}
 			
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);

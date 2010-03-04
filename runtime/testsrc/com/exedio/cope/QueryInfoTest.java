@@ -54,7 +54,7 @@ public class QueryInfoTest extends TestmodelTest
 			final Iterator<QueryInfo> parametersChilds = parameters.getChilds().iterator();
 			{
 				final QueryInfo parameter = parametersChilds.next();
-				assertEquals("1:zack", parameter.getText());
+				assertEquals("zack", parameter.getText());
 				assertContains(parameter.getChilds());
 			}
 			assertTrue(!parametersChilds.hasNext());
