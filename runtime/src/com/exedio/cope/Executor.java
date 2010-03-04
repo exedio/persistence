@@ -150,13 +150,8 @@ final class Executor
 						n2m(nanoResultRead-nanoExecuted),
 						n2m(nanoEnd-nanoResultRead));
 			
-			final QueryInfo queryInfo =
-				(queryInfos!=null)
-				? makeQueryInfo(statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd)
-				: null;
-			
 			if(queryInfos!=null)
-				queryInfos.add(queryInfo);
+				queryInfos.add(makeQueryInfo(statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd));
 			
 			return result;
 		}
