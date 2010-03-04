@@ -348,7 +348,7 @@ final class Executor
 		final ArrayList<Object> parameters = statement.parameters;
 		if(parameters!=null)
 		{
-			final QueryInfo parametersChild = new QueryInfo("parameters");
+			final QueryInfo parametersChild = new QueryInfo(statement.getText());
 			result.addChild(parametersChild);
 			for(Object p : parameters)
 				parametersChild.addChild(new QueryInfo(p.toString()));

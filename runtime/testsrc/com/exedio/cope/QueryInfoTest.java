@@ -50,7 +50,7 @@ public class QueryInfoTest extends TestmodelTest
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
 			final QueryInfo parameters = rootChilds.next();
-			assertEquals("parameters", parameters.getText());
+			assertTrue(parameters.getText(), parameters.getText().startsWith("select "));
 			final Iterator<QueryInfo> parametersChilds = parameters.getChilds().iterator();
 			{
 				final QueryInfo parameter = parametersChilds.next();
