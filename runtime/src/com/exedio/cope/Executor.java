@@ -330,12 +330,12 @@ final class Executor
 	}
 	
 	private void makeQueryInfo(
-			final QueryInfo result, final Statement statement, final Connection connection,
+			final QueryInfo queryInfo, final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
-		result.addChild(statement.getQueryInfo());
+		queryInfo.addChild(statement.getQueryInfo());
 		
-		result.addChild(new QueryInfo(
+		queryInfo.addChild(new QueryInfo(
 				"timing " +
 				numberFormat.format(end-start) + '/' +
 				numberFormat.format(prepared-start) + '/' +
@@ -346,7 +346,7 @@ final class Executor
 			
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
-			result.addChild(plan);
+			queryInfo.addChild(plan);
 	}
 	
 	private static DecimalFormat numberFormat;
