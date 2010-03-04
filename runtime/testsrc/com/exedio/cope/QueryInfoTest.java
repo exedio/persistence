@@ -38,11 +38,12 @@ public class QueryInfoTest extends TestmodelTest
 		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
 		
-		final String firstStatementText = root.getText();
-		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
+		assertTrue(root.getText(), root.getText().startsWith("select "));
 		
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
+		final String firstStatementText = statementInfo.getText();
+		assertEquals(firstStatementText, root.getText());
 		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
 		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
 		{
