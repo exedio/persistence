@@ -52,6 +52,15 @@ public class PlusIntegerItem extends Item
 		});
 	}
 
+	public PlusIntegerItem(final Integer initialNumA, final Integer initialNumB, final Integer initialNumC)
+	{
+		super(new SetValue[]{
+			numA.map(initialNumA),
+			numB.map(initialNumB),
+			numC.map(initialNumC),
+		});
+	}
+
 	/**
 
 	 **
