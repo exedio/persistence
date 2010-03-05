@@ -67,7 +67,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, null);
 		j.setCondition(PolymorphicBoundSelectSubItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSuperItem.TYPE.getThis().bind(j), PolymorphicBoundSelectSubItem.parent);
-		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent.bind(j));
+		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent);
 		if(noJoinParentheses)
 			return;
 		if(oracle)
