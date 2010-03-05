@@ -95,12 +95,6 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 				}
 			}
 			%>
-			<br>
-			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
-			<br>
-			supports sequences: <i><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></i>
-			<br>
-			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 		</form><%
 	}
 }

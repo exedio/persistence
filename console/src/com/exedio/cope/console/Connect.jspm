@@ -23,10 +23,9 @@ import static com.exedio.cope.console.Format.format;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.Date;
-import java.util.List;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
 
 final class Connect_Jspm extends Console_Jspm
@@ -68,9 +67,7 @@ final class Connect_Jspm extends Console_Jspm
 				final Out out,
 				final ConnectCop cop,
 				final ConnectProperties properties,
-				final Date initializeDate,
-				final Date connectDate,
-				final List<ConnectToken> connectTokens,
+				final Model model,
 				final String sourceContent)
 	{
 		%>
@@ -78,11 +75,11 @@ final class Connect_Jspm extends Console_Jspm
 			<caption>Connect Properties</caption>
 			<tr>
 				<th>Initialized</th>
-				<td class="text"><%=initializeDate%></td>
+				<td class="text"><%=model.getInitializeDate()%></td>
 			</tr>
 			<tr>
 				<th>Connected</th>
-				<td class="text"><%=connectDate%></td>
+				<td class="text"><%=model.getConnectDate()%></td>
 			</tr>
 			<tr>
 				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse%>"> show unspecified</th>
@@ -146,6 +143,22 @@ final class Connect_Jspm extends Console_Jspm
 		</table>
 		<hr>
 		<table>
+			<caption>Capabilities</caption>
+			<tr>
+				<th>Supports Check Constraints</th>
+				<td class="text"><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></td>
+			</tr>
+			<tr>
+				<th>Supports Sequences</th>
+				<td class="text"><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></td>
+			</tr>
+			<tr>
+				<th>Supports Empty Strings</th>
+				<td class="text"><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></td>
+			</tr>
+		</table>
+		<hr>
+		<table>
 			<caption>Open Connect Tokens</caption>
 			<tr>
 				<th>#</th>
@@ -154,7 +167,7 @@ final class Connect_Jspm extends Console_Jspm
 				<th>Name</th>
 			</tr><%
 			int number = 0;
-			for(final ConnectToken token : connectTokens)
+			for(final ConnectToken token : ConnectToken.getTokens(model))
 			{
 				final String name = token.getName();
 			%>

@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cops.XMLEncoder;
 
 final class ConnectCop extends ConsoleCop
@@ -106,8 +105,7 @@ final class ConnectCop extends ConsoleCop
 		Connect_Jspm.writeBody(
 				out, this,
 				props,
-				model.getInitializeDate(), model.getConnectDate(),
-				ConnectToken.getTokens(model),
+				model,
 				sourceContent);
 	}
 	
