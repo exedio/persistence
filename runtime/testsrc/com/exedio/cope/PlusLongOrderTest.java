@@ -57,15 +57,15 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 		assertOrder(list(item1, item3, item2), item1.multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)
+	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
 	{
 		final Query query = item1.TYPE.newQuery(null);
-		query.setOrderBy(searchFunction, true);
+		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 
 		final List<? extends Object> expectedReverseOrder = new ArrayList<Object>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
-		query.setOrderBy(searchFunction, false);
+		query.setOrderBy(orderBy, false);
 		assertEquals(expectedReverseOrder, query.search());
 	}
 }
