@@ -117,7 +117,7 @@ abstract class ConsoleCop<S> extends Cop
 	{
 		return
 			new ConsoleCop[]{
-					new PropertiesCop(args),
+					new ConnectCop(args),
 					new SchemaCop(args),
 					new UnsupportedConstraintCop(args),
 					new ModificationCounterCop(args),
@@ -167,7 +167,7 @@ abstract class ConsoleCop<S> extends Cop
 	
 	abstract void writeBody(Out out, Model model, HttpServletRequest request, History history);
 	
-	static final String TAB_PROPERTIES = "properties";
+	static final String TAB_CONNECT = "connect";
 	static final String TAB_SCHEMA = "schema";
 	static final String TAB_UNSUPPORTED_CONSTRAINTS = "unsupportedconstraints";
 	static final String TAB_TYPE_COLUMNS = "typecolumns";
@@ -195,7 +195,7 @@ abstract class ConsoleCop<S> extends Cop
 		final String pathInfo = request.getPathInfo();
 		
 		if("/".equals(pathInfo))
-			return new PropertiesCop(args);
+			return new ConnectCop(args);
 		
 		if(pathInfo==null || !pathInfo.startsWith("/") || !pathInfo.endsWith(NAME_POSTFIX))
 			return new NotFound(args, pathInfo);
@@ -211,8 +211,8 @@ abstract class ConsoleCop<S> extends Cop
 			return new ModificationCounterCop(args);
 		if(TAB_COPY_CONSTRAINTS.equals(tab))
 			return new CopyConstraintCop(args);
-		if(TAB_PROPERTIES.equals(tab))
-			return new PropertiesCop(args);
+		if(TAB_CONNECT.equals(tab))
+			return new ConnectCop(args);
 		if(TAB_REVISION.equals(tab))
 			return new RevisionCop(args, request);
 		if(TAB_CONNECTION_POOL.equals(tab))

@@ -30,23 +30,23 @@ import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cops.XMLEncoder;
 
-final class PropertiesCop extends ConsoleCop
+final class ConnectCop extends ConsoleCop
 {
-	PropertiesCop(final Args args)
+	ConnectCop(final Args args)
 	{
-		super(TAB_PROPERTIES, "properties", args);
+		super(TAB_CONNECT, "connect", args);
 	}
 
 	@Override
-	protected PropertiesCop newArgs(final Args args)
+	protected ConnectCop newArgs(final Args args)
 	{
-		return new PropertiesCop(args);
+		return new ConnectCop(args);
 	}
 	
 	@Override
 	void writeHead(final Out out)
 	{
-		Properties_Jspm.writeHead(out);
+		Connect_Jspm.writeHead(out);
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ final class PropertiesCop extends ConsoleCop
 			}
 		}
 		
-		Properties_Jspm.writeBody(
+		Connect_Jspm.writeBody(
 				out, this,
 				props,
 				model.getInitializeDate(), model.getConnectDate(),

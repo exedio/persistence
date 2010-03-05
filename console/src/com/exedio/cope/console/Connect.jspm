@@ -29,7 +29,7 @@ import java.util.List;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.misc.ConnectToken;
 
-final class Properties_Jspm extends Console_Jspm
+final class Connect_Jspm extends Console_Jspm
 {
 	final static void writeHead(final Out out)
 	{
@@ -66,7 +66,7 @@ final class Properties_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 				final Out out,
-				final PropertiesCop cop,
+				final ConnectCop cop,
 				final ConnectProperties properties,
 				final Date initializeDate,
 				final Date connectDate,
