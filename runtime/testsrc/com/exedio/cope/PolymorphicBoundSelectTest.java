@@ -70,8 +70,8 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent);
 		if(noJoinParentheses)
 			return;
-		if(oracle||postgresql)
-			assertEquals(list(list(superItem, superItem), list(null, null)), q.search()); // null is sorted last
+		if(!model.nullsAreSortedLow())
+			assertEquals(list(list(superItem, superItem), list(null, null)), q.search());
 		else
 			assertEquals(list(list(null, null), list(superItem, superItem)), q.search());
 	}

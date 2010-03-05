@@ -47,6 +47,7 @@ final class HsqldbDialect extends Dialect
 	protected HsqldbDialect(final DialectParameters parameters)
 	{
 		super(
+				parameters,
 				new com.exedio.dsmf.HsqldbDialect(),
 				"LENGTH");
 	}

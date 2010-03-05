@@ -56,6 +56,7 @@ final class MysqlDialect extends Dialect
 	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(
+				parameters,
 				new com.exedio.dsmf.MysqlDialect(
 						Table.PK_COLUMN_NAME),
 				"CHAR_LENGTH");

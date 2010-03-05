@@ -42,11 +42,13 @@ abstract class Dialect
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
 	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 	
+	private final boolean nullsAreSortedLow;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final String stringLength;
 	
-	protected Dialect(final com.exedio.dsmf.Dialect dsmfDialect, final String stringLength)
+	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect, final String stringLength)
 	{
+		this.nullsAreSortedLow = parameters.nullsAreSortedLow;
 		this.dsmfDialect = dsmfDialect;
 		this.stringLength = stringLength;
 	}
@@ -107,6 +109,11 @@ abstract class Dialect
 				}
 			}
 		}
+	}
+	
+	boolean nullsAreSortedLow()
+	{
+		return nullsAreSortedLow;
 	}
 
 	boolean supportsEmptyStrings()

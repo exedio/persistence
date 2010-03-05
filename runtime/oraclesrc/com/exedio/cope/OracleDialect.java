@@ -54,6 +54,7 @@ final class OracleDialect extends Dialect
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
+				parameters,
 				new com.exedio.dsmf.OracleDialect(
 						parameters.properties.getDatabaseUser().toUpperCase(Locale.ENGLISH)),
 				"LENGTH");
@@ -172,6 +173,14 @@ final class OracleDialect extends Dialect
 			appendParameter(value.length).
 			append(",1))=").
 			appendParameter(hexUpper(value));
+	}
+	
+	@Override
+	boolean nullsAreSortedLow()
+	{
+		if(super.nullsAreSortedLow()==false)
+			System.out.println(getClass().getName() + ": nullsAreSortedLow is unexpectedly correct");
+		return false;
 	}
 	
 	@Override

@@ -45,6 +45,7 @@ final class PostgresqlDialect extends Dialect
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
+				parameters,
 				new com.exedio.dsmf.PostgresqlDialect(),
 				"LENGTH");
 		

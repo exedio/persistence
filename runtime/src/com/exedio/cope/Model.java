@@ -235,6 +235,11 @@ public final class Model implements Serializable
 		return new Date(initializeDate);
 	}
 	
+	public boolean nullsAreSortedLow()
+	{
+		return connect().dialect.nullsAreSortedLow();
+	}
+	
 	public boolean supportsCheckConstraints()
 	{
 		return connect().database.dsmfDialect.supportsCheckConstraints();

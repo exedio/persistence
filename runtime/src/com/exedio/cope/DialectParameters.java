@@ -36,6 +36,7 @@ final class DialectParameters
 	// probed on the initial connection
 	final boolean supportsTransactionIsolationLevel;
 	final EnvironmentInfo environmentInfo;
+	final boolean nullsAreSortedLow;
 	
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
@@ -46,6 +47,14 @@ final class DialectParameters
 			final DatabaseMetaData dmd = connection.getMetaData();
 			supportsTransactionIsolationLevel = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 			this.environmentInfo = new EnvironmentInfo(dmd);
+			if(dmd.nullsAreSortedAtStart())
+				throw new IllegalStateException("not supported: nullsAreSortedAtStart");
+			if(dmd.nullsAreSortedAtEnd())
+				throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
+			final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
+			if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
+				throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
+			this.nullsAreSortedLow = nullsAreSortedLow;
 		}
 		catch(SQLException e)
 		{

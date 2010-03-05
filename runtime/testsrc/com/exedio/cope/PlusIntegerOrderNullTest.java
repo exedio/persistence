@@ -45,8 +45,7 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		final String url = model.getConnectProperties().getDatabaseUrl();
-		nullsLow = !(url.startsWith("jdbc:oracle:")||url.startsWith("jdbc:postgresql:"));
+		nullsLow = model.nullsAreSortedLow();
 		item1 = new PlusIntegerItem(1, null, null);
 		item2 = new PlusIntegerItem(2, 12,   null);
 		item3 = new PlusIntegerItem(3, 13,   null);
