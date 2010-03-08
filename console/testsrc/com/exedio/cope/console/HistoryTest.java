@@ -53,6 +53,8 @@ public class HistoryTest extends TestCase
 					return "sa";
 				else if(key.equals("database.password"))
 					return "";
+				else if(key.equals("cache.query.limit"))
+					return "0";
 				else
 					return null;
 			}
@@ -76,6 +78,7 @@ public class HistoryTest extends TestCase
 	protected void tearDown() throws Exception
 	{
 		MODEL.disconnect();
+		HISTORY_MODEL.dropSchema();
 		HISTORY_MODEL.disconnect();
 		super.tearDown();
 	}
@@ -164,6 +167,34 @@ public class HistoryTest extends TestCase
 		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
 		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
+	}
+	
+	public void testPurge()
+	{
+		final HistoryThread thread = new HistoryThread(MODEL, "zack");
+		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(0, HistoryThread.purge(new Date()));
+		
+		thread.store(66);
+		assertEquals(1, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(1, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		
+		assertEquals(3, HistoryThread.purge(new Date()));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		
+		assertEquals(0, HistoryThread.purge(new Date()));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
 	}
 	
 	private static final HistoryModel assertIt(

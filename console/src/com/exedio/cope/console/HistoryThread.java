@@ -50,7 +50,8 @@ final class HistoryThread extends Thread
 			HistoryModel.TYPE,
 			HistoryItemCache.TYPE,
 			HistoryClusterNode.TYPE,
-			HistoryMedia.TYPE);
+			HistoryMedia.TYPE,
+			HistoryPurge.TYPE);
 	
 	private static final String NAME = "COPE History";
 	
@@ -303,5 +304,18 @@ final class HistoryThread extends Thread
 				(Date)dates.get(0),
 				(Date)dates.get(1),
 			};
+	}
+	
+	static int purge(final Date limit)
+	{
+		int result = 0;
+		for(final Type type : HISTORY_MODEL.getTypes())
+			if(HistoryModel.TYPE!=type && // purge HistoryModel at the end
+				HistoryPurge.TYPE!=type)
+				result += HistoryPurge.purge(type, limit);
+		
+		result += HistoryPurge.purge(HistoryModel.TYPE, limit);
+		
+		return result;
 	}
 }
