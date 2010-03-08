@@ -179,7 +179,7 @@ public class TypesBoundTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("type already mounted", e.getMessage());
+			assertEquals("type AnItem already mounted", e.getMessage());
 		}
 	}
 	

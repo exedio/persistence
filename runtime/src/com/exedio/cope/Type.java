@@ -339,7 +339,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		assert this==parameters.type;
 
 		if(this.mount!=null)
-			throw new IllegalStateException("type already mounted");
+			throw new IllegalStateException("type " + id + " already mounted");
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.cacheIdTransiently>=0)
