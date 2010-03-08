@@ -89,6 +89,8 @@ final class History_Jspm
 		
 		for(final Type<?> type : historyModel.getTypes())
 		{
+			if(HistoryPurge.TYPE==type)
+				continue;
 			%>
 			<tr>
 				<td class="text"><%=type.getID()%></td><%
