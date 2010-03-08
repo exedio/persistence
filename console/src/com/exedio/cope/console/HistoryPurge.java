@@ -69,6 +69,17 @@ final class HistoryPurge extends Item
 				stat.setTimestamp(1, new Timestamp(limit.getTime()));
 			
 			rows = stat.executeUpdate();
+			
+			if(stat!=null)
+			{
+				stat.close();
+				stat = null;
+			}
+			if(con!=null)
+			{
+				con.close();
+				con = null;
+			}
 		}
 		catch(SQLException e)
 		{
@@ -85,7 +96,7 @@ final class HistoryPurge extends Item
 				}
 				catch(SQLException e)
 				{
-					throw new SQLRuntimeException(e, "close");
+					// exception is already thrown
 				}
 			}
 			if(con!=null)
@@ -97,7 +108,7 @@ final class HistoryPurge extends Item
 				}
 				catch(SQLException e)
 				{
-					throw new SQLRuntimeException(e, "close");
+					// exception is already thrown
 				}
 			}
 		}
