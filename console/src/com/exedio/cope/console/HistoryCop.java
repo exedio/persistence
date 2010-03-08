@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,7 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>> imp
 {
 	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	static final String ANALYZE = "analyze";
+	static final String PURGE = "purge";
 	
 	private final Pager pager;
 	
@@ -79,12 +81,25 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>> imp
 			
 			try
 			{
+				int limitDays = 100;
+				if(isPost(request))
+				{
+					final String purgeString = request.getParameter(PURGE);
+					if(purgeString!=null)
+					{
+						limitDays = Integer.parseInt(purgeString);
+						final GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeInMillis(System.currentTimeMillis());
+						cal.add(cal.DATE, -limitDays);
+						HistoryThread.purge(cal.getTime());
+					}
+				}
 				HistoryThread.HISTORY_MODEL.startTransaction("browse HistoryPurge");
 				final Query<HistoryPurge> purgeQuery = HistoryPurge.newQuery();
 				purgeQuery.setLimit(pager.getOffset(), pager.getLimit());
 				final Query.Result<HistoryPurge> purgeResult = purgeQuery.searchAndTotal();
 				pager.init(purgeResult.getData().size(), purgeResult.getTotal());
-				History_Jspm.writePurges(this, out, purgeResult.getData());
+				History_Jspm.writePurges(this, out, limitDays, purgeResult.getData());
 				HistoryThread.HISTORY_MODEL.commit();
 			}
 			finally

@@ -131,10 +131,15 @@ final class History_Jspm
 	final static void writePurges(
 			final HistoryCop cop,
 			final Out out,
+			final int limitDays,
 			final List<HistoryPurge> purges)
 	{
 		%>
 		<hr>
+		<form action="<%=cop%>" method="POST">
+			<input name="<%=cop.PURGE%>" value="<%=limitDays%>"> days or older
+			<input type="submit" value="Purge">
+		</form>
 		<table>
 			<caption>History Purge<% cop.writePager(out, cop); %></caption>
 			<tr>
