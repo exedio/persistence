@@ -23,6 +23,7 @@ import static com.exedio.cope.console.Format.format;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
@@ -123,6 +124,38 @@ final class History_Jspm
 		
 		if(analyze)
 			cop.putStore(infos);
+	}
+		
+	final static void writePurges(
+			final HistoryCop cop,
+			final Out out,
+			final List<HistoryPurge> purges)
+	{
+		%>
+		<hr>
+		<table>
+			<caption>History Purge<% cop.writePager(out, cop); %></caption>
+			<tr>
+				<th>Type</th>
+				<th>Limit</th>
+				<th>Finished</th>
+				<th>Rows</th>
+				<th>Elapsed</th>
+			</tr><%
+		
+		for(final HistoryPurge purge : purges)
+		{
+			%>
+			<tr>
+				<td class="text"><%=purge.getType()%></td>
+				<td><%=purge.getLimit()%></th>
+				<td><%=purge.getFinished()%></th>
+				<td><%=format(purge.getRows())%></th>
+				<td><%=format(purge.getElapsed())%></th>
+			</tr><%
+		}
+		%>
+		</table><%
 	}
 	
 	final static void writeBodyNotAvailable(final Out out)

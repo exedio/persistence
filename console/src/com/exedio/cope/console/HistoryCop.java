@@ -24,15 +24,33 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cops.Pageable;
+import com.exedio.cops.Pager;
 
-final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>>
+final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>> implements Pageable
 {
+	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	static final String ANALYZE = "analyze";
+	
+	private final Pager pager;
 	
 	HistoryCop(final Args args)
 	{
+		this(args, PAGER_CONFIG.newPager());
+	}
+	
+	private HistoryCop(final Args args, final Pager pager)
+	{
 		super(TAB_HISTORY, "history", args);
+		this.pager = pager;
+		pager.addParameters(this);
+	}
+	
+	static final HistoryCop getHistoryCop(final Args args, final HttpServletRequest request)
+	{
+		return new HistoryCop(args, PAGER_CONFIG.newPager(request));
 	}
 
 	@Override
@@ -49,6 +67,7 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>>
 			final History history)
 	{
 		if(history.isAvailable())
+		{
 			History_Jspm.writeBody(
 					this,
 					out,
@@ -57,6 +76,22 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>>
 					history.getThreadID(),
 					history.isRunning(),
 					(isPost(request) && request.getParameter(ANALYZE)!=null));
+			
+			try
+			{
+				HistoryThread.HISTORY_MODEL.startTransaction("browse HistoryPurge");
+				final Query<HistoryPurge> purgeQuery = HistoryPurge.newQuery();
+				purgeQuery.setLimit(pager.getOffset(), pager.getLimit());
+				final Query.Result<HistoryPurge> purgeResult = purgeQuery.searchAndTotal();
+				pager.init(purgeResult.getData().size(), purgeResult.getTotal());
+				History_Jspm.writePurges(this, out, purgeResult.getData());
+				HistoryThread.HISTORY_MODEL.commit();
+			}
+			finally
+			{
+				HistoryThread.HISTORY_MODEL.rollbackIfNotCommitted();
+			}
+		}
 		else
 			History_Jspm.writeBodyNotAvailable(out);
 	}
@@ -73,5 +108,15 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>>
 			this.from  = from;
 			this.until = until;
 		}
+	}
+	
+	public Pager getPager()
+	{
+		return pager;
+	}
+	
+	public HistoryCop toPage(final Pager pager)
+	{
+		return new HistoryCop(args, pager);
 	}
 }

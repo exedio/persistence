@@ -226,7 +226,7 @@ abstract class ConsoleCop<S> extends Cop
 		if(TAB_QUERY_CACHE.equals(tab))
 			return QueryCacheCop.getQueryCacheCop(args, request);
 		if(TAB_HISTORY.equals(tab))
-			return new HistoryCop(args);
+			return HistoryCop.getHistoryCop(args, request);
 		if(TAB_SEQUENCE.equals(tab))
 			return new SequenceCop(args);
 		if(TAB_MEDIA_STATS.equals(tab))

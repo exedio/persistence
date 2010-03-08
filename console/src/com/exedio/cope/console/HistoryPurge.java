@@ -28,9 +28,11 @@ import java.util.Date;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DateField;
+import com.exedio.cope.Function;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -45,6 +47,13 @@ final class HistoryPurge extends Item
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
 	private static final IntegerField elapsed  = new IntegerField().toFinal().min(0);
 	
+	static Query<HistoryPurge> newQuery()
+	{
+		final Query<HistoryPurge> q = TYPE.newQuery();
+		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
+		return q;
+	}
+
 	static int purge(final Type type, final Date limit)
 	{
 		final DateField field = (DateField)type.getFeature("date");
@@ -146,6 +155,11 @@ final class HistoryPurge extends Item
 	private HistoryPurge(final ActivationParameters ap)
 	{
 		super(ap);
+	}
+	
+	String getType()
+	{
+		return type.get(this);
 	}
 	
 	Date getLimit()
