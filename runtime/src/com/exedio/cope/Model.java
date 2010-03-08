@@ -704,6 +704,16 @@ public final class Model implements Serializable
 		
 		return serialized;
 	}
+	
+	@Override
+	public String toString()
+	{
+		final Serialized serialized = this.serialized;
+		return
+			serialized!=null
+			? serialized.toString()
+			: super.toString();
+	}
 
 	private static final class Serialized implements Serializable
 	{

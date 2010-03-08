@@ -61,6 +61,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotNull(model.toString());
 		
 		try
 		{
@@ -159,6 +160,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertEquals(ModelSerializationTest.class.getName() + "#model", model.toString());
 		
 		try
 		{
