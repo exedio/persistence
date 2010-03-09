@@ -176,7 +176,7 @@ public class HistoryTest extends TestCase
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(0, HistoryThread.purge(new Date()));
+		assertEquals(0, HistoryPurge.purge(new Date()));
 		
 		thread.store(66);
 		assertEquals(1, HistoryThread.analyzeCount(HistoryModel.TYPE));
@@ -184,13 +184,13 @@ public class HistoryTest extends TestCase
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
 		
-		assertEquals(3, HistoryThread.purge(new Date()));
+		assertEquals(3, HistoryPurge.purge(new Date()));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
 		
-		assertEquals(0, HistoryThread.purge(new Date()));
+		assertEquals(0, HistoryPurge.purge(new Date()));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));

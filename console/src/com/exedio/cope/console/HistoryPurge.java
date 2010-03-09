@@ -63,10 +63,23 @@ final class HistoryPurge extends Item
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
 		cal.add(cal.DATE, -days);
-		return HistoryThread.purge(cal.getTime());
+		return purge(cal.getTime());
+	}
+	
+	static int purge(final Date limit)
+	{
+		int result = 0;
+		for(final Type type : TYPE.getModel().getTypes())
+			if(HistoryModel.TYPE!=type && // purge HistoryModel at the end
+				TYPE!=type)
+				result += purge(type, limit);
+		
+		result += purge(HistoryModel.TYPE, limit);
+		
+		return result;
 	}
 
-	static int purge(final Type type, final Date limit)
+	private static int purge(final Type type, final Date limit)
 	{
 		final DateField field = (DateField)type.getFeature("date");
 		if(field==null)
