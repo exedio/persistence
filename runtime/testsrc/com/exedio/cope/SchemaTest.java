@@ -299,24 +299,24 @@ public class SchemaTest extends AbstractRuntimeTest
 			assertEquals(!mysql, model.supportsCheckConstraints());
 			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table attributeItem = schema.getTable(getTableName(SchemaItem.TYPE)); // TODO same table as above
-			assertNotNull(attributeItem);
-			assertEquals(null, attributeItem.getError());
-			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
+			final com.exedio.dsmf.Table table = schema.getTable(getTableName(SchemaItem.TYPE));
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
 
 			String mediaContentTypeCharSet = null;
 			if(mysql)
 				mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
-			assertCheckConstraint(attributeItem, "ScheItem_somNotNullStr_Ck", "("+p(SchemaItem.someNotNullString)+" IS NOT NULL) AND ("+l(SchemaItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
-			assertCheckConstraint(attributeItem, "SchemaItem_someBoolean_Ck", "(("+p(SchemaItem.someBoolean)+" IS NOT NULL) AND ("+p(SchemaItem.someBoolean)+" IN (0,1))) OR ("+p(SchemaItem.someBoolean)+" IS NULL)");
-			assertCheckConstraint(attributeItem, "ScheItem_somNotNullBoo_Ck", "("+p(SchemaItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(SchemaItem.someNotNullBoolean)+" IN (0,1))");
-			assertCheckConstraint(attributeItem, "SchemaItem_someEnum_Ck"   , "(("+p(SchemaItem.someEnum)+" IS NOT NULL) AND ("+p(SchemaItem.someEnum)+" IN (10,20,30))) OR ("+p(SchemaItem.someEnum)+" IS NULL)");
-			assertCheckConstraint(attributeItem, "ScheItem_somNotNullEnu_Ck", "("+p(SchemaItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(SchemaItem.someNotNullEnum)+" IN (10,20,30))");
-			assertCheckConstraint(attributeItem, "ScheItem_somData_coTyp_Ck", "(("+p(SchemaItem.someData.getContentType())+" IS NOT NULL) AND (("+l(SchemaItem.someData.getContentType())+">=1) AND ("+l(SchemaItem.someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+p(SchemaItem.someData.getContentType())+" IS NULL)");
+			assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "("+p(SchemaItem.someNotNullString)+" IS NOT NULL) AND ("+l(SchemaItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
+			assertCheckConstraint(table, "SchemaItem_someBoolean_Ck", "(("+p(SchemaItem.someBoolean)+" IS NOT NULL) AND ("+p(SchemaItem.someBoolean)+" IN (0,1))) OR ("+p(SchemaItem.someBoolean)+" IS NULL)");
+			assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "("+p(SchemaItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(SchemaItem.someNotNullBoolean)+" IN (0,1))");
+			assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+p(SchemaItem.someEnum)+" IS NOT NULL) AND ("+p(SchemaItem.someEnum)+" IN (10,20,30))) OR ("+p(SchemaItem.someEnum)+" IS NULL)");
+			assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "("+p(SchemaItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(SchemaItem.someNotNullEnum)+" IN (10,20,30))");
+			assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+p(SchemaItem.someData.getContentType())+" IS NOT NULL) AND (("+l(SchemaItem.someData.getContentType())+">=1) AND ("+l(SchemaItem.someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+p(SchemaItem.someData.getContentType())+" IS NULL)");
 
-			assertPkConstraint(attributeItem, "SchemaItem_Pk", null, getPrimaryKeyColumnName(SchemaItem.TYPE));
+			assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(SchemaItem.TYPE));
 
-			assertFkConstraint(attributeItem, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+			assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
 			final com.exedio.dsmf.Table uniqueItem = schema.getTable(getTableName(SchemaItem.TYPE)); // TODO same table as above
 			assertNotNull(uniqueItem);
