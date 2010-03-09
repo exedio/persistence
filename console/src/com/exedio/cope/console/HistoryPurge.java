@@ -66,7 +66,7 @@ final class HistoryPurge extends Item
 		return purge(cal.getTime());
 	}
 	
-	static int purge(final Date limit)
+	static int purge(final Date limit) // non-private for testing
 	{
 		int result = 0;
 		for(final Type type : TYPE.getModel().getTypes())
