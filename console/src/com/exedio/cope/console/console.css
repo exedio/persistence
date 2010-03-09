@@ -22,9 +22,19 @@ h1
 	font-size:180%;
 }
 
+span.pager
+{
+	font-size:70%;
+}
+
 span.pager a
 {
 	text-decoration: none;
+}
+
+span.pager a.selected
+{
+	background-color: #aaa;
 }
 
 a.selected
