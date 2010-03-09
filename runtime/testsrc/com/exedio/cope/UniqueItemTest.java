@@ -24,8 +24,23 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.UniqueFinal;
 
 
-public class UniqueItemTest extends TestmodelTest
+public class UniqueItemTest extends AbstractRuntimeTest
 {
+	static final Model MODEL = new Model(
+			ItemWithSingleUnique.TYPE,
+			ItemWithDoubleUnique.TYPE,
+			ItemWithSingleUniqueNotNull.TYPE,
+			UniqueFinal.TYPE);
+	
+	static
+	{
+		MODEL.enableSerialization(UniqueItemTest.class, "MODEL");
+	}
+	
+	public UniqueItemTest()
+	{
+		super(MODEL);
+	}
 
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
