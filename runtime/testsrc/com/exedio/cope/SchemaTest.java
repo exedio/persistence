@@ -28,7 +28,7 @@ import com.exedio.dsmf.Schema;
 
 public class SchemaTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(SchemaItem.TYPE, SchemaTargetItem.TYPE);
+	static final Model MODEL = new Model(SchemaItem.TYPE, SchemaTargetItem.TYPE);
 	
 	public SchemaTest()
 	{

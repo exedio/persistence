@@ -21,14 +21,17 @@ package com.exedio.cope;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.testmodel.ItemWithSingleUnique;
-
-public class QueryInfoTest extends TestmodelTest
+public class QueryInfoTest extends AbstractRuntimeTest
 {
+	public QueryInfoTest()
+	{
+		super(SchemaTest.MODEL);
+	}
+	
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
-		final Query query = ItemWithSingleUnique.TYPE.newQuery(ItemWithSingleUnique.uniqueString.equal("zack"));
+		final Query query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> infos = transaction.getQueryInfos();
@@ -86,12 +89,12 @@ public class QueryInfoTest extends TestmodelTest
 							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final QueryInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
+								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on SchemaItem[1]"));
 								{
 									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on UNIQUE_ITEMS_UNIQUE_S_Unq"));
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on SchemaItem_UNIQUE_S_Unq"));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
@@ -114,7 +117,7 @@ public class QueryInfoTest extends TestmodelTest
 
 		// test multiple queries
 		final String query1String = query.toString();
-		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
+		query.setOrderBy(SchemaItem.uniqueString, true);
 		final String query2String = query.toString();
 		query.search();
 		final List<QueryInfo> rootOrdered = transaction.getQueryInfos();
@@ -132,7 +135,7 @@ public class QueryInfoTest extends TestmodelTest
 		
 		final String statement =
 			"select this " +
-			"from ItemWithSingleUnique " +
+			"from SchemaItem " +
 			"where uniqueString='zack' " +
 			"order by uniqueString";
 		
