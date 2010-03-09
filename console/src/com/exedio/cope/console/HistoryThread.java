@@ -22,7 +22,9 @@ import static com.exedio.cope.Query.newQuery;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.exedio.cope.ConnectProperties;
@@ -54,22 +56,25 @@ final class HistoryThread extends Thread
 			HistoryPurge.TYPE);
 	
 	private static final String NAME = "COPE History";
+	private static final int PURGE_INTERVAL = Calendar.DAY_OF_YEAR;
 	
 	private final String name;
 	private final Model watchedModel;
 	private final String propertyFile;
+	final int autoPurgeDays;
 	private final Object lock = new Object();
 	private final String topic;
 	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 	
-	HistoryThread(final Model watchedModel, final String propertyFile)
+	HistoryThread(final Model watchedModel, final String propertyFile, final int autoPurgeDays)
 	{
 		super(NAME);
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
 		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
+		this.autoPurgeDays = autoPurgeDays;
 		this.topic = name + ' ';
 		
 		assert watchedModel!=null;
@@ -113,10 +118,30 @@ final class HistoryThread extends Thread
 					HISTORY_MODEL.rollbackIfNotCommitted();
 				}
 				
+				final GregorianCalendar purgeLast = new GregorianCalendar();
+				purgeLast.setTimeInMillis(System.currentTimeMillis());
+				int purgeDayLast = purgeLast.get(PURGE_INTERVAL);
+				
 				for(int running = 0; proceed; running++)
 				{
 					System.out.println(topic + "run() store " + running);
 					store(running);
+					
+					if(autoPurgeDays>0)
+					{
+						purgeLast.setTimeInMillis(System.currentTimeMillis());
+						final int purgeDayNow = purgeLast.get(PURGE_INTERVAL);
+						if(purgeDayLast!=purgeDayNow)
+						{
+							System.out.println(topic + "run() purge " + autoPurgeDays + " days");
+							final long start = System.nanoTime();
+							final int result = HistoryPurge.purge(autoPurgeDays);
+							final long elapsed = System.nanoTime() - start;
+							System.out.println(topic + "run() purge " + autoPurgeDays + " days deleted " + result + " rows and took " + (elapsed/1000000) + "ms");
+							purgeDayLast = purgeDayNow;
+						}
+					}
+					
 					sleepByWait(60000l);
 				}
 			}

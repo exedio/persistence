@@ -19,7 +19,6 @@
 package com.exedio.cope.console;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,10 +87,7 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>> imp
 					if(purgeString!=null)
 					{
 						limitDays = Integer.parseInt(purgeString);
-						final GregorianCalendar cal = new GregorianCalendar();
-						cal.setTimeInMillis(System.currentTimeMillis());
-						cal.add(cal.DATE, -limitDays);
-						HistoryThread.purge(cal.getTime());
+						HistoryPurge.purge(limitDays);
 					}
 				}
 				HistoryThread.HISTORY_MODEL.startTransaction("browse HistoryPurge");
@@ -99,7 +95,7 @@ final class HistoryCop extends ConsoleCop<HashMap<Type<?>, HistoryCop.Info>> imp
 				purgeQuery.setLimit(pager.getOffset(), pager.getLimit());
 				final Query.Result<HistoryPurge> purgeResult = purgeQuery.searchAndTotal();
 				pager.init(purgeResult.getData().size(), purgeResult.getTotal());
-				History_Jspm.writePurges(this, out, limitDays, purgeResult.getData());
+				History_Jspm.writePurges(this, out, history.getAutoPurgeDays(), limitDays, purgeResult.getData());
 				HistoryThread.HISTORY_MODEL.commit();
 			}
 			finally

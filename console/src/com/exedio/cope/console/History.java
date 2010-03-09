@@ -23,6 +23,8 @@ import com.exedio.cope.util.Properties;
 
 final class History
 {
+	private static final String AUTO_PURGE_DAYS = "com.exedio.cope.console.history.autoPurgeDays";
+	
 	private final Model model;
 	private final Object lock = new Object();
 	private HistoryThread thread = null;
@@ -73,7 +75,13 @@ final class History
 				if(propertyFile!=null)
 				{
 					available = true;
-					thread = new HistoryThread(model, propertyFile);
+					
+					int autoPurgeDays = 0;
+					final String autoPurgeDaysString = context.get(AUTO_PURGE_DAYS);
+					if(autoPurgeDaysString!=null)
+						autoPurgeDays = Integer.parseInt(autoPurgeDaysString);
+					
+					thread = new HistoryThread(model, propertyFile, autoPurgeDays);
 					thread.start();
 				}
 			}
@@ -98,5 +106,11 @@ final class History
 			thread!=null
 			? thread.toString()
 			: null;
+	}
+	
+	int getAutoPurgeDays()
+	{
+		final HistoryThread thread = this.thread;
+		return thread!=null ? thread.autoPurgeDays : 0;
 	}
 }

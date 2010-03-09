@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
@@ -52,6 +53,17 @@ final class HistoryPurge extends Item
 		final Query<HistoryPurge> q = TYPE.newQuery();
 		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
 		return q;
+	}
+	
+	static int purge(final int days)
+	{
+		if(days<=0)
+			throw new IllegalArgumentException(String.valueOf(days));
+		
+		final GregorianCalendar cal = new GregorianCalendar();
+		cal.setTimeInMillis(System.currentTimeMillis());
+		cal.add(cal.DATE, -days);
+		return HistoryThread.purge(cal.getTime());
 	}
 
 	static int purge(final Type type, final Date limit)

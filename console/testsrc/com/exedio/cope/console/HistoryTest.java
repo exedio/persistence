@@ -85,7 +85,7 @@ public class HistoryTest extends TestCase
 	
 	public void testIt()
 	{
-		final HistoryThread thread = new HistoryThread(MODEL, "zack");
+		final HistoryThread thread = new HistoryThread(MODEL, "zack", 0);
 
 		HISTORY_MODEL.startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
@@ -171,7 +171,7 @@ public class HistoryTest extends TestCase
 	
 	public void testPurge()
 	{
-		final HistoryThread thread = new HistoryThread(MODEL, "zack");
+		final HistoryThread thread = new HistoryThread(MODEL, "zack", 0);
 		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));

@@ -5,4 +5,5 @@
 		debug="0"
 		privileged="true">
 	<Parameter name="com.exedio.cope.console.log" value="history.cope.properties" />
+	<Parameter name="com.exedio.cope.console.history.autoPurgeDays" value="2" />
 </Context>
