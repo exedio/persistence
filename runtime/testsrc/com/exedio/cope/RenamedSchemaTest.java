@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
+import static com.exedio.cope.RenamedSchemaItem.uniqueString;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -39,6 +40,10 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
+		
+		assertEquals("SchemaItem", getTableName(TYPE));
+		assertEquals("UNIQUE_S", getColumnName(uniqueString));
+		
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
