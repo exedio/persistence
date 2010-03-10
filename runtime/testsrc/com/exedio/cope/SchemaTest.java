@@ -78,9 +78,9 @@ public class SchemaTest extends AbstractRuntimeTest
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
 		
-		final Column min4Max8 = table.getColumn("MIN4_MAX8");
-		assertEquals(null, min4Max8.getError());
-		assertEquals(Schema.Color.OK, min4Max8.getParticularColor());
+		final Column min4Max8Column = table.getColumn("MIN4_MAX8");
+		assertEquals(null, min4Max8Column.getError());
+		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
 		
 		final String string8;
 		if(hsqldb)
@@ -89,7 +89,7 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "varchar(8) character set utf8 binary";
 		else
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
-		assertEquals(string8, min4Max8.getType());
+		assertEquals(string8, min4Max8Column.getType());
 
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
