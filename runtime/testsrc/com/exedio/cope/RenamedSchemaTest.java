@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.min4;
-import static com.exedio.cope.RenamedSchemaItem.integer;
-import static com.exedio.cope.RenamedSchemaItem.string;
+import static com.exedio.cope.RenamedSchemaItem.doubleUnique2;
+import static com.exedio.cope.RenamedSchemaItem.doubleUnique1;
 import static com.exedio.cope.RenamedSchemaItem.someItem;
 import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
 import static com.exedio.cope.RenamedSchemaItem.uniqueString;
@@ -48,8 +48,8 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
 		assertEquals("UNIQUE_S", getColumnName(uniqueString));
 		assertEquals("zackItem", getColumnName(someItem));
-		assertEquals("string", getColumnName(string));
-		assertEquals("integer", getColumnName(integer));
+		assertEquals("doubleUnique1", getColumnName(doubleUnique1));
+		assertEquals("doubleUnique2", getColumnName(doubleUnique2));
 		assertEquals("MIN_4", getColumnName(min4));
 		
 		final Schema schema = model.getVerifiedSchema();
@@ -67,7 +67,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		
-		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
+		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
 		
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck", "(("+q(min4)+" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 	}
