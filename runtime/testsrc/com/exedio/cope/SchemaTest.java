@@ -318,12 +318,12 @@ public class SchemaTest extends AbstractRuntimeTest
 
 			assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
-			final com.exedio.dsmf.Table uniqueItem = schema.getTable(getTableName(SchemaItem.TYPE)); // TODO same table as above
-			assertNotNull(uniqueItem);
-			assertEquals(null, uniqueItem.getError());
-			assertEquals(Schema.Color.OK, uniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(uniqueItem, "SchemaItem_UNIQUE_S_Unq", "("+p("UNIQUE_S")+")");
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
+			
+			assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+p("UNIQUE_S")+")");
 			
 			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable(getTableName(SchemaItem.TYPE)); // TODO same table as above
 			assertNotNull(doubleUniqueItem);
