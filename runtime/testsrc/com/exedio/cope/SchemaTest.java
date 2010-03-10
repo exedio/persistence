@@ -75,7 +75,7 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
+		assertUniqueConstraint(table, "SchemaItem_uniquStrin_Unq", "("+q(uniqueString)+")");
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
 		
@@ -92,10 +92,10 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8Column.getType());
 
-		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+q(min4Max8)+" IS NOT NULL) AND (("+l(min4Max8)+">=4) AND ("+l(min4Max8)+"<=8))) OR ("+q(min4Max8)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_min4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_max4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_min4Max8_Ck", "(("+q(min4Max8)+" IS NOT NULL) AND (("+l(min4Max8)+">=4) AND ("+l(min4Max8)+"<=8))) OR ("+q(min4Max8)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_exact6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)

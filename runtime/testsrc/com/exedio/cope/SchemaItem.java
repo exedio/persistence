@@ -32,20 +32,15 @@ class SchemaItem extends Item
 	static final ItemField<SchemaTargetItem> someItem = newItemField(SchemaTargetItem.class).optional();
 	static final Media someData = new Media().optional();
 	
-	@CopeSchemaName("UNIQUE_S")
 	static final StringField uniqueString = new StringField().optional().unique();
 	
 	static final StringField string = new StringField();
 	static final IntegerField integer = new IntegerField();
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 	
-	@CopeSchemaName("MIN_4")
 	static final StringField min4 = new StringField().optional().lengthMin(4);
-	@CopeSchemaName("MAX_4")
 	static final StringField max4 = new StringField().optional().lengthMax(4);
-	@CopeSchemaName("MIN4_MAX8")
 	static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
-	@CopeSchemaName("EXACT_6")
 	static final StringField exact6 = new StringField().optional().lengthExact(6);
 	
 	/**
