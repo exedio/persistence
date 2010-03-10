@@ -98,7 +98,7 @@ final class HistoryPurge extends Item
 			con = DriverManager.getConnection(p.getDatabaseUrl(), p.getDatabaseUser(), p.getDatabasePassword());
 			stat = con.prepareStatement(bf);
 			
-			if(p.getDatabaseUrl().startsWith("jdbc:mysql:"))
+			if(!SchemaInfo.supportsNativeDate(model))
 				stat.setLong     (1,               limit.getTime() ); else
 				stat.setTimestamp(1, new Timestamp(limit.getTime()));
 			

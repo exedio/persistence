@@ -53,6 +53,11 @@ public final class SchemaInfo
 		return model.connect().database.dsmfDialect.supportsCheckConstraints();
 	}
 	
+	public static boolean supportsNativeDate(final Model model)
+	{
+		return model.connect().supportsNativeDate();
+	}
+	
 	public static boolean supportsSequences(final Model model)
 	{
 		return model.connect().dialect.dsmfDialect.supportsSequences();

@@ -161,6 +161,10 @@ final class Connect_Jspm extends Console_Jspm
 				<td class="text"><%if(SchemaInfo.supportsCheckConstraints(model)){%>yes<%}else{%>no<%}%></td>
 			</tr>
 			<tr>
+				<th>Supports Native Date</th>
+				<td class="text"><%if(SchemaInfo.supportsNativeDate(model)){%>yes<%}else{%>no<%}%></td>
+			</tr>
+			<tr>
 				<th>Supports Sequences</th>
 				<td class="text"><%if(SchemaInfo.supportsSequences(model)){%>yes<%}else{%>no<%}%></td>
 			</tr>

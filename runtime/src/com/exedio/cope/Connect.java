@@ -139,6 +139,11 @@ final class Connect
 		return !properties.getDatabaseDontSupportEmptyStrings() && dialect.supportsEmptyStrings();
 	}
 	
+	boolean supportsNativeDate()
+	{
+		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
+	}
+	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		itemCache.invalidate(invalidations);
