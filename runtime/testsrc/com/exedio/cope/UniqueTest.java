@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class UniqueItemTest extends AbstractRuntimeTest
+public class UniqueTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
 			UniqueSingleItem.TYPE,
@@ -28,10 +28,10 @@ public class UniqueItemTest extends AbstractRuntimeTest
 	
 	static
 	{
-		MODEL.enableSerialization(UniqueItemTest.class, "MODEL");
+		MODEL.enableSerialization(UniqueTest.class, "MODEL");
 	}
 	
-	public UniqueItemTest()
+	public UniqueTest()
 	{
 		super(MODEL);
 	}
@@ -77,7 +77,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			list(UniqueSingleNotNullItem.uniqueNotNullString.getImplicitUniqueConstraint()),
 			UniqueSingleNotNullItem.uniqueNotNullString.getUniqueConstraints());
 		
-		assertSerializedSame(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), 398);
+		assertSerializedSame(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), 394);
 
 		// test persistence
 		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
@@ -427,7 +427,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			list(UniqueDoubleItem.doubleUnique),
 			UniqueDoubleItem.integer.getUniqueConstraints());
 
-		assertSerializedSame(UniqueDoubleItem.doubleUnique, 384);
+		assertSerializedSame(UniqueDoubleItem.doubleUnique, 380);
 		
 		assertEquals(null, UniqueDoubleItem.forDoubleUnique("a", 1));
 		
