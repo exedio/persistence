@@ -77,7 +77,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
 	
-	private final String l(final FunctionField f)
+	private final String l(final StringField f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
 	}
