@@ -67,19 +67,14 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		
-		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q("string")+","+q("integer")+")");
+		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
 		
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck", "(("+q(min4)+" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
 	{
-		return q(getColumnName(f));
-	}
-	
-	private final String q(final String name)
-	{
-		return SchemaInfo.quoteName(model, name);
+		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
 	
 	private final String l(final FunctionField f)
