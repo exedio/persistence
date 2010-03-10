@@ -26,15 +26,15 @@ import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.enumOpt;
-import static com.exedio.cope.SchemaItem.exact6;
+import static com.exedio.cope.SchemaItem.stringExact6;
 import static com.exedio.cope.SchemaItem.item;
-import static com.exedio.cope.SchemaItem.max4;
+import static com.exedio.cope.SchemaItem.stringMax4;
 import static com.exedio.cope.SchemaItem.media;
-import static com.exedio.cope.SchemaItem.min4;
-import static com.exedio.cope.SchemaItem.min4Max8;
+import static com.exedio.cope.SchemaItem.stringMin4;
+import static com.exedio.cope.SchemaItem.stringMin4Max8;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.uniqueString;
-import static com.exedio.cope.SchemaItem.upper6;
+import static com.exedio.cope.SchemaItem.stringUpper6;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
@@ -79,7 +79,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(anEnum)+")");
 		
-		final Column min4Max8Column = table.getColumn(getColumnName(min4Max8));
+		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
 		
@@ -92,13 +92,13 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8Column.getType());
 
-		final String upperSQL = mysql ? " AND (`upper6` regexp '^[A-Z]*$')" : "";
+		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" regexp '^[A-Z]*$')" : "";
 		
-		assertCheckConstraint(table, "SchemaItem_min4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_max4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_min4Max8_Ck", "(("+q(min4Max8)+" IS NOT NULL) AND (("+l(min4Max8)+">=4) AND ("+l(min4Max8)+"<=8))) OR ("+q(min4Max8)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_exact6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_upper6_Ck",   "(("+q(upper6)  +" IS NOT NULL) AND (" +l(upper6)+"=6" + upperSQL + ")) OR ("+q(upper6)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "(("+q(stringMin4)    +" IS NOT NULL) AND (("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(stringMin4)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "(("+q(stringMax4)    +" IS NOT NULL) AND (" +l(stringMax4)+"<=4)) OR ("+q(stringMax4)+" IS NULL)");
+		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "(("+q(stringMin4Max8)+" IS NOT NULL) AND (("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8))) OR ("+q(stringMin4Max8)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", "(("+q(stringExact6)  +" IS NOT NULL) AND (" +l(stringExact6)+"=6)) OR ("+q(stringExact6)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
