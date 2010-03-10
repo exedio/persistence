@@ -21,6 +21,13 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaItem.TYPE;
+import static com.exedio.cope.SchemaItem.someBoolean;
+import static com.exedio.cope.SchemaItem.someData;
+import static com.exedio.cope.SchemaItem.someEnum;
+import static com.exedio.cope.SchemaItem.someNotNullBoolean;
+import static com.exedio.cope.SchemaItem.someNotNullEnum;
+import static com.exedio.cope.SchemaItem.someNotNullString;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
@@ -28,7 +35,7 @@ import com.exedio.dsmf.Table;
 
 public class SchemaTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(SchemaItem.TYPE, SchemaTargetItem.TYPE);
+	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE);
 	
 	public SchemaTest()
 	{
@@ -40,7 +47,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(SchemaItem.TYPE));
+		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
@@ -48,14 +55,14 @@ public class SchemaTest extends AbstractRuntimeTest
 		String mediaContentTypeCharSet = null;
 		if(mysql)
 			mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
-		assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "("+q(SchemaItem.someNotNullString)+" IS NOT NULL) AND ("+l(SchemaItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_someBoolean_Ck", "(("+q(SchemaItem.someBoolean)+" IS NOT NULL) AND ("+q(SchemaItem.someBoolean)+" IN (0,1))) OR ("+q(SchemaItem.someBoolean)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "("+q(SchemaItem.someNotNullBoolean)+" IS NOT NULL) AND ("+q(SchemaItem.someNotNullBoolean)+" IN (0,1))");
-		assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+q(SchemaItem.someEnum)+" IS NOT NULL) AND ("+q(SchemaItem.someEnum)+" IN (10,20,30))) OR ("+q(SchemaItem.someEnum)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "("+q(SchemaItem.someNotNullEnum)+" IS NOT NULL) AND ("+q(SchemaItem.someNotNullEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(SchemaItem.someData.getContentType())+" IS NOT NULL) AND (("+l(SchemaItem.someData.getContentType())+">=1) AND ("+l(SchemaItem.someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(SchemaItem.someData.getContentType())+" IS NULL)");
+		assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "("+q(someNotNullString)+" IS NOT NULL) AND ("+l(someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_someBoolean_Ck", "(("+q(someBoolean)+" IS NOT NULL) AND ("+q(someBoolean)+" IN (0,1))) OR ("+q(someBoolean)+" IS NULL)");
+		assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "("+q(someNotNullBoolean)+" IS NOT NULL) AND ("+q(someNotNullBoolean)+" IN (0,1))");
+		assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+q(someEnum)+" IS NOT NULL) AND ("+q(someEnum)+" IN (10,20,30))) OR ("+q(someEnum)+" IS NULL)");
+		assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "("+q(someNotNullEnum)+" IS NOT NULL) AND ("+q(someNotNullEnum)+" IN (10,20,30))");
+		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(someData.getContentType())+" IS NOT NULL) AND (("+l(someData.getContentType())+">=1) AND ("+l(someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someData.getContentType())+" IS NULL)");
 
-		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(SchemaItem.TYPE));
+		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
 		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
