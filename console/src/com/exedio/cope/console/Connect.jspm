@@ -150,16 +150,16 @@ final class Connect_Jspm extends Console_Jspm
 				<td class="text"><%if(model.nullsAreSortedLow()){%>low<%}else{%>high<%}%></td>
 			</tr>
 			<tr>
+				<th>Supports Empty Strings</th>
+				<td class="text"><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></td>
+			</tr>
+			<tr>
 				<th>Supports Check Constraints</th>
 				<td class="text"><%if(SchemaInfo.supportsCheckConstraints(model)){%>yes<%}else{%>no<%}%></td>
 			</tr>
 			<tr>
 				<th>Supports Sequences</th>
 				<td class="text"><%if(SchemaInfo.supportsSequences(model)){%>yes<%}else{%>no<%}%></td>
-			</tr>
-			<tr>
-				<th>Supports Empty Strings</th>
-				<td class="text"><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></td>
 			</tr>
 		</table>
 		<hr>
