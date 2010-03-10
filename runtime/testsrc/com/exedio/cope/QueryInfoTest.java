@@ -94,7 +94,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on SchemaItem_UNIQUE_S_Unq"));
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on SchemaItem_uniquStrin_Unq"));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
