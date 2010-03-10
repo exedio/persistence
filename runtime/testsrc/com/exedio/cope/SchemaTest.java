@@ -26,6 +26,7 @@ import static com.exedio.cope.SchemaItem.exact6;
 import static com.exedio.cope.SchemaItem.integer;
 import static com.exedio.cope.SchemaItem.max4;
 import static com.exedio.cope.SchemaItem.min4;
+import static com.exedio.cope.SchemaItem.min4Max8;
 import static com.exedio.cope.SchemaItem.someBoolean;
 import static com.exedio.cope.SchemaItem.someData;
 import static com.exedio.cope.SchemaItem.someEnum;
@@ -93,7 +94,7 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+q("MIN4_MAX8")+" IS NOT NULL) AND (("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8))) OR ("+q("MIN4_MAX8")+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+q(min4Max8)+" IS NOT NULL) AND (("+l(min4Max8)+">=4) AND ("+l(min4Max8)+"<=8))) OR ("+q(min4Max8)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
 	}
 	
@@ -108,11 +109,6 @@ public class SchemaTest extends AbstractRuntimeTest
 	}
 	
 	private final String l(final FunctionField f)
-	{
-		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
-	}
-	
-	private final String l(final String f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
 	}
