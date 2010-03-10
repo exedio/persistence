@@ -26,7 +26,11 @@ import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.data;
+import static com.exedio.cope.SchemaItem.doub;
+import static com.exedio.cope.SchemaItem.doubOpt;
 import static com.exedio.cope.SchemaItem.enumOpt;
+import static com.exedio.cope.SchemaItem.integ;
+import static com.exedio.cope.SchemaItem.integOpt;
 import static com.exedio.cope.SchemaItem.item;
 import static com.exedio.cope.SchemaItem.itemOpt;
 import static com.exedio.cope.SchemaItem.string;
@@ -62,11 +66,15 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
 		assertCheckConstraint(table, "SchemaItem_string_Ck", "(" +q(string)+" IS NOT NULL) AND (" +l(string)+"<="+StringField.DEFAULT_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_integ_Ck" , "(" +q(integ )+" IS NOT NULL) AND (("+q(integ )+">=-10) AND ("+q(integ)+"<=10))");
+		assertCheckConstraint(table, "SchemaItem_doub_Ck"  , "(" +q(doub  )+" IS NOT NULL) AND (("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1))");
 		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , "(" +q(bool  )+" IS NOT NULL) AND (" +q(bool  )+" IN (0,1))");
 		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", "(" +q(anEnum)+" IS NOT NULL) AND (" +q(anEnum)+" IN (10,20,30))");
 		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "(" +q(item  )+" IS NOT NULL) AND (("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+"))");
 
 		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (" +l(stringOpt)+"<="+StringField.DEFAULT_LENGTH+"))"                +" OR ("+q(stringOpt)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"(("+q(integOpt )+" IS NOT NULL) AND (("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)))"                 +" OR ("+q(integOpt )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_doubOpt_Ck"  ,"(("+q(doubOpt  )+" IS NOT NULL) AND (("+q(doubOpt)+">=-11.1) AND ("+q(doubOpt)+"<=11.1)))"               +" OR ("+q(doubOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,"(("+q(boolOpt  )+" IS NOT NULL) AND (" +q(boolOpt)  +" IN (0,1)))"                                       +" OR ("+q(boolOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,"(("+q(enumOpt  )+" IS NOT NULL) AND (" +q(enumOpt)  +" IN (10,20,30)))"                                  +" OR ("+q(enumOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<="+Integer.MAX_VALUE+")))"+" OR ("+q(itemOpt  )+" IS NULL)");
