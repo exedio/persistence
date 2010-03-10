@@ -121,6 +121,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( JoinFunctionTest.class );
 		suite.addTestSuite( HardJoinTest.class );
 		suite.addTestSuite( SchemaTest.class );
+		suite.addTestSuite( SchemaModifyTest.class );
 		suite.addTestSuite( QueryInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );
 		suite.addTestSuite( TransactionEmptyTest.class );
