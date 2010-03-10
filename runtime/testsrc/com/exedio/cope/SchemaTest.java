@@ -34,6 +34,7 @@ import static com.exedio.cope.SchemaItem.min4;
 import static com.exedio.cope.SchemaItem.min4Max8;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.uniqueString;
+import static com.exedio.cope.SchemaItem.upper6;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
@@ -61,7 +62,7 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		String mediaContentTypeCharSet = null;
 		if(mysql)
-			mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
+			mediaContentTypeCharSet = " AND ("+q(someContentType)+" regexp '^[-,/,0-9,a-z]*$')";
 		assertCheckConstraint(table, "SchemaItem_string_Ck",  "(" +q(string) +" IS NOT NULL) AND ("+l(string)+"<="+StringField.DEFAULT_LENGTH+")");
 		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck", "(("+q(boolOpt)       +" IS NOT NULL) AND ("+q(boolOpt)+" IN (0,1))) OR ("+q(boolOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_bool_Ck",    "(" +q(bool)+" IS NOT NULL) AND ("+q(bool)+" IN (0,1))");
@@ -91,10 +92,13 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8Column.getType());
 
+		final String upperSQL = mysql ? " AND (`upper6` regexp '^[A-Z]*$')" : "";
+		
 		assertCheckConstraint(table, "SchemaItem_min4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_max4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_min4Max8_Ck", "(("+q(min4Max8)+" IS NOT NULL) AND (("+l(min4Max8)+">=4) AND ("+l(min4Max8)+"<=8))) OR ("+q(min4Max8)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_exact6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_upper6_Ck",   "(("+q(upper6)  +" IS NOT NULL) AND (" +l(upper6)+"=6" + upperSQL + ")) OR ("+q(upper6)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
