@@ -45,6 +45,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
+		final FunctionField someContentType = someData.getContentType();
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -60,7 +61,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "("+q(someNotNullBoolean)+" IS NOT NULL) AND ("+q(someNotNullBoolean)+" IN (0,1))");
 		assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+q(someEnum)+" IS NOT NULL) AND ("+q(someEnum)+" IN (10,20,30))) OR ("+q(someEnum)+" IS NULL)");
 		assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "("+q(someNotNullEnum)+" IS NOT NULL) AND ("+q(someNotNullEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(someData.getContentType())+" IS NOT NULL) AND (("+l(someData.getContentType())+">=1) AND ("+l(someData.getContentType())+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someData.getContentType())+" IS NULL)");
+		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(someContentType)+" IS NOT NULL) AND (("+l(someContentType)+">=1) AND ("+l(someContentType)+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someContentType)+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
