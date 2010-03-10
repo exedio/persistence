@@ -22,12 +22,18 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaItem.TYPE;
+import static com.exedio.cope.SchemaItem.exact6;
+import static com.exedio.cope.SchemaItem.integer;
+import static com.exedio.cope.SchemaItem.max4;
+import static com.exedio.cope.SchemaItem.min4;
 import static com.exedio.cope.SchemaItem.someBoolean;
 import static com.exedio.cope.SchemaItem.someData;
 import static com.exedio.cope.SchemaItem.someEnum;
 import static com.exedio.cope.SchemaItem.someNotNullBoolean;
 import static com.exedio.cope.SchemaItem.someNotNullEnum;
 import static com.exedio.cope.SchemaItem.someNotNullString;
+import static com.exedio.cope.SchemaItem.string;
+import static com.exedio.cope.SchemaItem.uniqueString;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
@@ -68,9 +74,9 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q("UNIQUE_S")+")");
+		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		
-		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q("string")+","+q("integer")+")");
+		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
 		
 		final Column min4Max8 = table.getColumn("MIN4_MAX8");
 		assertEquals(null, min4Max8.getError());
@@ -85,10 +91,10 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8.getType());
 
-		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q("MIN_4")    +" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q("MIN_4")+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q("MAX_4")    +" IS NOT NULL) AND (" +l("MAX_4")+"<=4)) OR ("+q("MAX_4")+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q(min4)    +" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q(max4)    +" IS NOT NULL) AND (" +l(max4)+"<=4)) OR ("+q(max4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+q("MIN4_MAX8")+" IS NOT NULL) AND (("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8))) OR ("+q("MIN4_MAX8")+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q("EXACT_6")  +" IS NOT NULL) AND (" +l("EXACT_6")+"=6)) OR ("+q("EXACT_6")+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
 	}
 	
 	private final String q(final Field attribute)
