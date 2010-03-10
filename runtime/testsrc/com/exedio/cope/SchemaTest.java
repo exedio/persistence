@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
 
 public class SchemaTest extends AbstractRuntimeTest
 {
@@ -39,7 +40,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(!mysql, model.supportsCheckConstraints());
 		final Schema schema = model.getVerifiedSchema();
 
-		final com.exedio.dsmf.Table table = schema.getTable(getTableName(SchemaItem.TYPE));
+		final Table table = schema.getTable(getTableName(SchemaItem.TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
