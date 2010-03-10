@@ -48,6 +48,16 @@ public final class SchemaInfo
 		return model.connect().dialect.dsmfDialect.quoteName(name);
 	}
 	
+	public static boolean supportsCheckConstraints(final Model model)
+	{
+		return model.connect().database.dsmfDialect.supportsCheckConstraints();
+	}
+	
+	public static boolean supportsSequences(final Model model)
+	{
+		return model.connect().dialect.dsmfDialect.supportsSequences();
+	}
+	
 	/**
 	 * Returns the name of database table for the type.
 	 * If not configured otherwise

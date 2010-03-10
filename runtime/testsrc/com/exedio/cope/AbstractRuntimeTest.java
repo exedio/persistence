@@ -387,7 +387,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String condition)
 	{
 		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = model.supportsCheckConstraints() || type!=CheckConstraint.class;
+		final boolean expectedSupported = SchemaInfo.supportsCheckConstraints(model) || type!=CheckConstraint.class;
 		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
 		assertEquals(name, type, constraint.getClass());
 		assertEquals(name, condition, constraint.getRequiredCondition());

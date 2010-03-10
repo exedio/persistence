@@ -240,14 +240,22 @@ public final class Model implements Serializable
 		return connect().dialect.nullsAreSortedLow();
 	}
 	
+	/**
+	 * @deprecated Use {@link SchemaInfo#supportsCheckConstraints(Model)} instead
+	 */
+	@Deprecated
 	public boolean supportsCheckConstraints()
 	{
-		return connect().database.dsmfDialect.supportsCheckConstraints();
+		return SchemaInfo.supportsCheckConstraints(this);
 	}
 	
+	/**
+	 * @deprecated Use {@link SchemaInfo#supportsSequences(Model)} instead
+	 */
+	@Deprecated
 	public boolean supportsSequences()
 	{
-		return connect().dialect.dsmfDialect.supportsSequences();
+		return SchemaInfo.supportsSequences(this);
 	}
 	
 	/**

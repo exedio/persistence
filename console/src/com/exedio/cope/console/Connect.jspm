@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.ConnectToken;
 
 final class Connect_Jspm extends Console_Jspm
@@ -150,11 +151,11 @@ final class Connect_Jspm extends Console_Jspm
 			</tr>
 			<tr>
 				<th>Supports Check Constraints</th>
-				<td class="text"><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></td>
+				<td class="text"><%if(SchemaInfo.supportsCheckConstraints(model)){%>yes<%}else{%>no<%}%></td>
 			</tr>
 			<tr>
 				<th>Supports Sequences</th>
-				<td class="text"><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></td>
+				<td class="text"><%if(SchemaInfo.supportsSequences(model)){%>yes<%}else{%>no<%}%></td>
 			</tr>
 			<tr>
 				<th>Supports Empty Strings</th>

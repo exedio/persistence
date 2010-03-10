@@ -121,7 +121,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(Schema.Color.OK, table.getParticularColor());
 
 			final Constraint constraint = table.getConstraint("SchemItem_nonFinalInte_Ck");
-			if(model.supportsCheckConstraints())
+			if(SchemaInfo.supportsCheckConstraints(model))
 				constraint.drop();
 			
 			final Column column = table.getColumn(COLUMN1);
