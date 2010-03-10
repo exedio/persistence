@@ -41,7 +41,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	{
 		if(postgresql) return;
 		
-		assertEquals("SchemaItem", getTableName(TYPE));
+		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
 		assertEquals("UNIQUE_S", getColumnName(uniqueString));
 		
 		final Schema schema = model.getVerifiedSchema();
