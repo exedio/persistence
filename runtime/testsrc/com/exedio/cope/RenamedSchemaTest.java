@@ -59,13 +59,13 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "SchemaItem_someItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q("UNIQUE_S")+")");
+		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q("string")+","+q("integer")+")");
 		
-		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q("MIN_4")    +" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q("MIN_4")+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck", "(("+q(min4)+" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
@@ -79,11 +79,6 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	}
 	
 	private final String l(final FunctionField f)
-	{
-		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
-	}
-	
-	private final String l(final String f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
 	}
