@@ -32,14 +32,14 @@ import com.exedio.cope.testmodel.CollisionItem2;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FinalItem;
-import com.exedio.cope.testmodel.ItemWithDoubleUnique;
-import com.exedio.cope.testmodel.ItemWithSingleUnique;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
+import com.exedio.cope.testmodel.UniqueDoubleItem;
+import com.exedio.cope.testmodel.UniqueSingleItem;
+import com.exedio.cope.testmodel.UniqueSingleNotNullItem;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.testmodel.UniqueFinal;
+import com.exedio.cope.testmodel.UniqueFinalItem;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -115,22 +115,22 @@ public class InitServlet extends CopsServlet
 		{
 			final Class thisClass = InitServlet.class;
 			{
-				final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
+				final UniqueSingleItem item1 = new UniqueSingleItem();
 				item1.setUniqueString("item1");
-				final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
+				final UniqueSingleItem item2 = new UniqueSingleItem();
 				item2.setUniqueString("item2");
 			}
 			
-			new UniqueFinal("item1");
-			new UniqueFinal("item2");
+			new UniqueFinalItem("item1");
+			new UniqueFinalItem("item2");
 			
-			new ItemWithSingleUniqueNotNull("item1");
-			new ItemWithSingleUniqueNotNull("item2");
+			new UniqueSingleNotNullItem("item1");
+			new UniqueSingleNotNullItem("item2");
 			
-			new ItemWithDoubleUnique("string1", 1);
-			new ItemWithDoubleUnique("string1", 2);
-			new ItemWithDoubleUnique("string2", 1);
-			new ItemWithDoubleUnique("string2", 2);
+			new UniqueDoubleItem("string1", 1);
+			new UniqueDoubleItem("string1", 2);
+			new UniqueDoubleItem("string2", 1);
+			new UniqueDoubleItem("string2", 2);
 			
 			final EmptyItem emptyItem1 = new EmptyItem();
 			final EmptyItem emptyItem2 = new EmptyItem();

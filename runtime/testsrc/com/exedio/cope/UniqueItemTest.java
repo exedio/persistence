@@ -18,19 +18,19 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.ItemWithDoubleUnique;
-import com.exedio.cope.testmodel.ItemWithSingleUnique;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
-import com.exedio.cope.testmodel.UniqueFinal;
+import com.exedio.cope.testmodel.UniqueDoubleItem;
+import com.exedio.cope.testmodel.UniqueSingleItem;
+import com.exedio.cope.testmodel.UniqueSingleNotNullItem;
+import com.exedio.cope.testmodel.UniqueFinalItem;
 
 
 public class UniqueItemTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
-			ItemWithSingleUnique.TYPE,
-			ItemWithDoubleUnique.TYPE,
-			ItemWithSingleUniqueNotNull.TYPE,
-			UniqueFinal.TYPE);
+			UniqueSingleItem.TYPE,
+			UniqueDoubleItem.TYPE,
+			UniqueSingleNotNullItem.TYPE,
+			UniqueFinalItem.TYPE);
 	
 	static
 	{
@@ -48,48 +48,48 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		// test model
 		assertEqualsUnmodifiable(
 			list(
-				ItemWithSingleUnique.TYPE.getThis(),
-				ItemWithSingleUnique.uniqueString,
-				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
-				ItemWithSingleUnique.otherString
+				UniqueSingleItem.TYPE.getThis(),
+				UniqueSingleItem.uniqueString,
+				UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(),
+				UniqueSingleItem.otherString
 			),
-			ItemWithSingleUnique.TYPE.getDeclaredFeatures());
+			UniqueSingleItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
-				ItemWithSingleUnique.TYPE.getThis(),
-				ItemWithSingleUnique.uniqueString,
-				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
-				ItemWithSingleUnique.otherString
+				UniqueSingleItem.TYPE.getThis(),
+				UniqueSingleItem.uniqueString,
+				UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(),
+				UniqueSingleItem.otherString
 			),
-			ItemWithSingleUnique.TYPE.getFeatures());
+			UniqueSingleItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString),
-			ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint().getFields());
+			list(UniqueSingleItem.uniqueString),
+			UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint()),
-			ItemWithSingleUnique.uniqueString.getUniqueConstraints());
+			list(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint()),
+			UniqueSingleItem.uniqueString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
-			list(UniqueFinal.uniqueFinalString),
-			UniqueFinal.uniqueFinalString.getImplicitUniqueConstraint().getFields());
+			list(UniqueFinalItem.uniqueFinalString),
+			UniqueFinalItem.uniqueFinalString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(UniqueFinal.uniqueFinalString.getImplicitUniqueConstraint()),
-			UniqueFinal.uniqueFinalString.getUniqueConstraints());
+			list(UniqueFinalItem.uniqueFinalString.getImplicitUniqueConstraint()),
+			UniqueFinalItem.uniqueFinalString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
-			ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint().getFields());
+			list(UniqueSingleNotNullItem.uniqueNotNullString),
+			UniqueSingleNotNullItem.uniqueNotNullString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint()),
-			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
+			list(UniqueSingleNotNullItem.uniqueNotNullString.getImplicitUniqueConstraint()),
+			UniqueSingleNotNullItem.uniqueNotNullString.getUniqueConstraints());
 		
-		assertSerializedSame(ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(), 402);
+		assertSerializedSame(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), 398);
 
 		// test persistence
-		assertEquals(null, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		// create two items with null, that must not interfere with uniqueness
-		final ItemWithSingleUnique nullItem1 = deleteOnTearDown(new ItemWithSingleUnique());
+		final UniqueSingleItem nullItem1 = deleteOnTearDown(new UniqueSingleItem());
 		assertEquals(null, nullItem1.getUniqueString());
 		assertEquals(null, nullItem1.forUniqueString("uniqueString"));
 		try
@@ -99,10 +99,10 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
+			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
 		
-		final ItemWithSingleUnique nullItem2 = deleteOnTearDown(new ItemWithSingleUnique());
+		final UniqueSingleItem nullItem2 = deleteOnTearDown(new UniqueSingleItem());
 		assertEquals(null, nullItem2.getUniqueString());
 		assertEquals(null, nullItem2.forUniqueString("uniqueString"));
 		try
@@ -112,12 +112,12 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
+			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
 		
 		nullItem2.setUniqueString("uniqueString");
 		assertEquals("uniqueString", nullItem2.getUniqueString());
-		assertEquals(nullItem2, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(nullItem2, UniqueSingleItem.forUniqueString("uniqueString"));
 		try
 		{
 			nullItem2.forUniqueString(null);
@@ -125,7 +125,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
+			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
 		
 		nullItem2.setUniqueString(null);
@@ -138,21 +138,21 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
+			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
 		
 		// test non-null values
-		final ItemWithSingleUnique item = new ItemWithSingleUnique();
+		final UniqueSingleItem item = new UniqueSingleItem();
 		assertEquals(null, item.getUniqueString());
 		assertEquals(null, item.forUniqueString("uniqueString"));
 
 		item.setUniqueString("uniqueString");
 		assertEquals("uniqueString", item.getUniqueString());
-		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		// test unique violation
 		{
-			final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
+			final UniqueSingleItem item2 = new UniqueSingleItem();
 			item2.setUniqueString("uniqueString2");
 			try
 			{
@@ -166,14 +166,14 @@ public class UniqueItemTest extends AbstractRuntimeTest
 				assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
-			assertEquals(item2, ItemWithSingleUnique.forUniqueString("uniqueString2"));
+			assertEquals(item2, UniqueSingleItem.forUniqueString("uniqueString2"));
 
 			assertDelete(item2);
 		}
 		
 		try
 		{
-			new ItemWithSingleUnique("uniqueString");
+			new UniqueSingleItem("uniqueString");
 			fail();
 		}
 		catch(UniqueViolationException e)
@@ -182,11 +182,11 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
-		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		try
 		{
-			new ItemWithSingleUnique("uniqueString", "otherString");
+			new UniqueSingleItem("uniqueString", "otherString");
 			fail();
 		}
 		catch(UniqueViolationException e)
@@ -195,11 +195,11 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
-		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		try
 		{
-			new ItemWithSingleUnique("uniqueString", null);
+			new UniqueSingleItem("uniqueString", null);
 			fail();
 		}
 		catch(UniqueViolationException e)
@@ -208,7 +208,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
-		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
@@ -220,11 +220,11 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		assertTrue(otheritem.isActiveCopeItem());
 		assertTrue(!item.isActiveCopeItem());
 		
-		final ItemWithSingleUnique firstFoundItem;
+		final UniqueSingleItem firstFoundItem;
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.forUniqueString("uniqueString");
+			final UniqueSingleItem foundItem = UniqueSingleItem.forUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
@@ -247,7 +247,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.forUniqueString("uniqueString");
+			final UniqueSingleItem foundItem = UniqueSingleItem.forUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, foundItem);
@@ -274,8 +274,8 @@ public class UniqueItemTest extends AbstractRuntimeTest
 	
 	public void testMultipleSet()
 	{
-		final ItemWithSingleUnique item1 = deleteOnTearDown(new ItemWithSingleUnique());
-		final ItemWithSingleUnique item2 = deleteOnTearDown(new ItemWithSingleUnique());
+		final UniqueSingleItem item1 = deleteOnTearDown(new UniqueSingleItem());
+		final UniqueSingleItem item2 = deleteOnTearDown(new UniqueSingleItem());
 
 		item1.set(
 				item1.uniqueString.map("uniqueString1"),
@@ -320,11 +320,11 @@ public class UniqueItemTest extends AbstractRuntimeTest
 
 	public void testUniqueFinal()
 	{
-		assertEquals(null, UniqueFinal.forUniqueFinalString("uniqueString"));
+		assertEquals(null, UniqueFinalItem.forUniqueFinalString("uniqueString"));
 
-		final UniqueFinal item = new UniqueFinal("uniqueString");
+		final UniqueFinalItem item = new UniqueFinalItem("uniqueString");
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinal.forUniqueFinalString("uniqueString"));
+		assertEquals(item, UniqueFinalItem.forUniqueFinalString("uniqueString"));
 
 		try
 		{
@@ -339,25 +339,25 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals("final violation on " + item + " for " + item.uniqueFinalString, e.getMessage());
 		}
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinal.forUniqueFinalString("uniqueString"));
+		assertEquals(item, UniqueFinalItem.forUniqueFinalString("uniqueString"));
 
 		assertDelete(item);
 	}
 
 	public void testItemWithSingleUniqueNotNull()
 	{
-		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
-		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
+		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
 
-		final ItemWithSingleUniqueNotNull item = new ItemWithSingleUniqueNotNull("uniqueString");
+		final UniqueSingleNotNullItem item = new UniqueSingleNotNullItem("uniqueString");
 		assertEquals("uniqueString", item.getUniqueNotNullString());
-		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
-		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
+		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
+		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
 
 		item.setUniqueNotNullString("uniqueString2");
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
-		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
+		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
 
 		try
 		{
@@ -371,13 +371,13 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation on " + item + " for " + item.uniqueNotNullString, e.getMessage());
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
-		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
+		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
 
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			new ItemWithSingleUniqueNotNull(null);
+			new UniqueSingleNotNullItem(null);
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -389,7 +389,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			ItemWithSingleUniqueNotNull.TYPE.newItem(item.uniqueNotNullString.map(null));
+			UniqueSingleNotNullItem.TYPE.newItem(item.uniqueNotNullString.map(null));
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -407,52 +407,52 @@ public class UniqueItemTest extends AbstractRuntimeTest
 	{
 		assertEqualsUnmodifiable(
 			list(
-				ItemWithDoubleUnique.TYPE.getThis(),
-				ItemWithDoubleUnique.string,
-				ItemWithDoubleUnique.integer,
-				ItemWithDoubleUnique.doubleUnique
+				UniqueDoubleItem.TYPE.getThis(),
+				UniqueDoubleItem.string,
+				UniqueDoubleItem.integer,
+				UniqueDoubleItem.doubleUnique
 			),
-			ItemWithDoubleUnique.TYPE.getDeclaredFeatures());
+			UniqueDoubleItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
-				ItemWithDoubleUnique.TYPE.getThis(),
-				ItemWithDoubleUnique.string,
-				ItemWithDoubleUnique.integer,
-				ItemWithDoubleUnique.doubleUnique
+				UniqueDoubleItem.TYPE.getThis(),
+				UniqueDoubleItem.string,
+				UniqueDoubleItem.integer,
+				UniqueDoubleItem.doubleUnique
 			),
-			ItemWithDoubleUnique.TYPE.getFeatures());
-		assertEquals("doubleUnique", ItemWithDoubleUnique.doubleUnique.getName());
-		assertEquals(ItemWithDoubleUnique.TYPE, ItemWithDoubleUnique.doubleUnique.getType());
+			UniqueDoubleItem.TYPE.getFeatures());
+		assertEquals("doubleUnique", UniqueDoubleItem.doubleUnique.getName());
+		assertEquals(UniqueDoubleItem.TYPE, UniqueDoubleItem.doubleUnique.getType());
 		assertEquals(
-			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
-			ItemWithDoubleUnique.doubleUnique.getFields());
+			list(UniqueDoubleItem.string, UniqueDoubleItem.integer),
+			UniqueDoubleItem.doubleUnique.getFields());
 		assertEquals(
-			list(ItemWithDoubleUnique.doubleUnique),
-			ItemWithDoubleUnique.string.getUniqueConstraints());
+			list(UniqueDoubleItem.doubleUnique),
+			UniqueDoubleItem.string.getUniqueConstraints());
 		assertEquals(
-			list(ItemWithDoubleUnique.doubleUnique),
-			ItemWithDoubleUnique.integer.getUniqueConstraints());
+			list(UniqueDoubleItem.doubleUnique),
+			UniqueDoubleItem.integer.getUniqueConstraints());
 
-		assertSerializedSame(ItemWithDoubleUnique.doubleUnique, 388);
+		assertSerializedSame(UniqueDoubleItem.doubleUnique, 384);
 		
-		assertEquals(null, ItemWithDoubleUnique.forDoubleUnique("a", 1));
+		assertEquals(null, UniqueDoubleItem.forDoubleUnique("a", 1));
 		
-		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);
-		assertEquals(a1, ItemWithDoubleUnique.forDoubleUnique("a", 1));
+		final UniqueDoubleItem a1 = new UniqueDoubleItem("a", 1);
+		assertEquals(a1, UniqueDoubleItem.forDoubleUnique("a", 1));
 		
-		final ItemWithDoubleUnique a2 = new ItemWithDoubleUnique("a", 2);
-		assertEquals(a2, ItemWithDoubleUnique.forDoubleUnique("a", 2));
+		final UniqueDoubleItem a2 = new UniqueDoubleItem("a", 2);
+		assertEquals(a2, UniqueDoubleItem.forDoubleUnique("a", 2));
 		
-		final ItemWithDoubleUnique b1 = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
+		final UniqueDoubleItem b1 = new UniqueDoubleItem("b", 1);
+		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 		
-		final ItemWithDoubleUnique b2 = new ItemWithDoubleUnique("b", 2);
-		assertEquals(b2, ItemWithDoubleUnique.forDoubleUnique("b", 2));
+		final UniqueDoubleItem b2 = new UniqueDoubleItem("b", 2);
+		assertEquals(b2, UniqueDoubleItem.forDoubleUnique("b", 2));
 
-		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 		try
 		{
-			new ItemWithDoubleUnique("b", 1);
+			new UniqueDoubleItem("b", 1);
 			fail();
 		}
 		catch(UniqueViolationException e)
@@ -461,12 +461,12 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
-		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 		try
 		{
-			ItemWithDoubleUnique.TYPE.newItem(
-					ItemWithDoubleUnique.string.map("b"),
-					ItemWithDoubleUnique.integer.map(1)
+			UniqueDoubleItem.TYPE.newItem(
+					UniqueDoubleItem.string.map("b"),
+					UniqueDoubleItem.integer.map(1)
 				);
 			fail();
 		}
@@ -476,7 +476,7 @@ public class UniqueItemTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
-		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 		
 		try
 		{
@@ -511,8 +511,8 @@ public class UniqueItemTest extends AbstractRuntimeTest
 		assertDelete(b2);
 		assertDelete(b1);
 
-		final ItemWithDoubleUnique b1X = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1X, ItemWithDoubleUnique.forDoubleUnique("b", 1));
+		final UniqueDoubleItem b1X = new UniqueDoubleItem("b", 1);
+		assertEquals(b1X, UniqueDoubleItem.forDoubleUnique("b", 1));
 
 		assertDelete(a2);
 		assertDelete(a1);
