@@ -18,17 +18,11 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-@CopeSchemaName("UNIQUE_ITEMS")
 public class ItemWithSingleUnique extends Item
 {
-	/**
-	 * An attribute that is unique.
-	 */
-	@CopeSchemaName("UNIQUE_S")
 	public static final StringField uniqueString = new StringField().optional().unique();
 
 	public static final StringField otherString = new StringField().optional();

@@ -20,7 +20,6 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
-import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
 import com.exedio.cope.MandatoryViolationException;
@@ -34,20 +33,15 @@ import com.exedio.cope.util.CharSet;
 /**
  * @cope.generic.constructor public
  */
-@CopeSchemaName("STRINGITEMS")
 public class StringItem extends Item
 {
 	public static final StringField any = new StringField().optional();
 
 	public static final StringField mandatory = new StringField();
 	
-	@CopeSchemaName("MIN_4")
 	public static final StringField min4 = new StringField().optional().lengthMin(4);
-	@CopeSchemaName("MAX_4")
 	public static final StringField max4 = new StringField().optional().lengthMax(4);
-	@CopeSchemaName("MIN4_MAX8")
 	public static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
-	@CopeSchemaName("EXACT_6")
 	public static final StringField exact6 = new StringField().optional().lengthExact(6);
 	
 	public static final StringField lowercase = new StringField().optional().charSet(new CharSet('a', 'z'));
