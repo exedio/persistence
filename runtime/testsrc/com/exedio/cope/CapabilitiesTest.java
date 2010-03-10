@@ -29,9 +29,9 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		assertEquals(hsqldb||mysql, model.nullsAreSortedLow());
-		assertEquals(!mysql, model.supportsCheckConstraints());
+		assertEquals(!mysql, SchemaInfo.supportsCheckConstraints(model));
 		assertEquals(!mysql && !props.getDatabaseDontSupportNativeDate(), SchemaInfo.supportsNativeDate(model));
-		assertEquals(!postgresql, model.supportsSequences());
+		assertEquals(!postgresql, SchemaInfo.supportsSequences(model));
 		assertEquals(!oracle && !props.getDatabaseDontSupportEmptyStrings(), model.supportsEmptyStrings());
 	}
 }
