@@ -100,12 +100,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	
 	private final String q(final Field attribute)
 	{
-		return q(getColumnName(attribute));
-	}
-	
-	private final String q(final String name)
-	{
-		return SchemaInfo.quoteName(model, name);
+		return SchemaInfo.quoteName(model, getColumnName(attribute));
 	}
 	
 	private final String l(final FunctionField f)
