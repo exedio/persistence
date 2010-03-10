@@ -241,24 +241,6 @@ public final class Model implements Serializable
 	}
 	
 	/**
-	 * @deprecated Use {@link SchemaInfo#supportsCheckConstraints(Model)} instead
-	 */
-	@Deprecated
-	public boolean supportsCheckConstraints()
-	{
-		return SchemaInfo.supportsCheckConstraints(this);
-	}
-	
-	/**
-	 * @deprecated Use {@link SchemaInfo#supportsSequences(Model)} instead
-	 */
-	@Deprecated
-	public boolean supportsSequences()
-	{
-		return SchemaInfo.supportsSequences(this);
-	}
-	
-	/**
 	 * Returns, whether the database can store empty strings.
 	 * <p>
 	 * If true, an empty string can be stored into a {@link StringField}
@@ -1010,5 +992,23 @@ public final class Model implements Serializable
 	public Transaction getCurrentTransaction()
 	{
 		return currentTransaction();
+	}
+	
+	/**
+	 * @deprecated Use {@link SchemaInfo#supportsCheckConstraints(Model)} instead
+	 */
+	@Deprecated
+	public boolean supportsCheckConstraints()
+	{
+		return SchemaInfo.supportsCheckConstraints(this);
+	}
+	
+	/**
+	 * @deprecated Use {@link SchemaInfo#supportsSequences(Model)} instead
+	 */
+	@Deprecated
+	public boolean supportsSequences()
+	{
+		return SchemaInfo.supportsSequences(this);
 	}
 }
