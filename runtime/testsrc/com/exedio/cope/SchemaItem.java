@@ -24,11 +24,13 @@ import com.exedio.cope.util.CharSet;
 class SchemaItem extends Item
 {
 	static final IntegerField nonFinalInteger = new IntegerField();
+	
 	static final StringField string = new StringField();
-	static final BooleanField boolOpt = new BooleanField().optional();
 	static final BooleanField bool = new BooleanField();
-	static final EnumField<SomeEnum> enumOpt = newEnumField(SomeEnum.class).optional();
 	static final EnumField<SomeEnum> anEnum = newEnumField(SomeEnum.class);
+	
+	static final BooleanField boolOpt = new BooleanField().optional();
+	static final EnumField<SomeEnum> enumOpt = newEnumField(SomeEnum.class).optional();
 	static final ItemField<SchemaTargetItem> item = newItemField(SchemaTargetItem.class).optional();
 	
 	static final StringField uniqueString = new StringField().optional().unique();
