@@ -52,7 +52,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final FunctionField someContentType = someData.getContentType();
+		final StringField someContentType = (StringField)someData.getContentType();
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -98,12 +98,12 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q(exact6)  +" IS NOT NULL) AND (" +l(exact6)+"=6)) OR ("+q(exact6)+" IS NULL)");
 	}
 	
-	private final String q(final Field attribute)
+	private final String q(final Field f)
 	{
-		return SchemaInfo.quoteName(model, getColumnName(attribute));
+		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
 	
-	private final String l(final FunctionField f)
+	private final String l(final StringField f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
 	}
