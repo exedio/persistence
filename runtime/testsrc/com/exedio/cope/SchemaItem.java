@@ -34,9 +34,6 @@ class SchemaItem extends Item
 	static final Media media = new Media().optional();
 	
 	static final StringField uniqueString = new StringField().optional().unique();
-	
-	
-	
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(string, anEnum);
 	
 	static final StringField min4 = new StringField().optional().lengthMin(4);
