@@ -66,7 +66,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		
 		assertUniqueConstraint(table, "ZackItem_zackDoubUniq_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
 		
-		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND (("+l(string)+">=4) AND ("+l(string)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(string)+" IS NULL)");
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)

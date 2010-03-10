@@ -32,7 +32,7 @@ package com.exedio.cope;
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
 	@CopeSchemaName("zackString")
-	static final StringField string = new StringField().optional().lengthMin(4);
+	static final StringField string = new StringField().optional().lengthMax(4);
 	
 	/**
 
