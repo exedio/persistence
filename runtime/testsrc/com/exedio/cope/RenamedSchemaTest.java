@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.min4;
+import static com.exedio.cope.RenamedSchemaItem.integer;
+import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.someItem;
 import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
 import static com.exedio.cope.RenamedSchemaItem.uniqueString;
@@ -46,6 +48,8 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
 		assertEquals("UNIQUE_S", getColumnName(uniqueString));
 		assertEquals("someItem", getColumnName(someItem));
+		assertEquals("string", getColumnName(string));
+		assertEquals("integer", getColumnName(integer));
 		assertEquals("MIN_4", getColumnName(min4));
 		
 		final Schema schema = model.getVerifiedSchema();
