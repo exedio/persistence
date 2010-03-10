@@ -272,6 +272,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(column1Type, column.getType());
 			
 			table.getConstraint("SchemaItem_item_Fk").create();
+			table.getConstraint("SchemaItem_itemOpt_Fk").create();
 		}
 		// OK
 		{
