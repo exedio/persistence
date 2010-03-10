@@ -19,10 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
-import static com.exedio.cope.RenamedSchemaItem.string;
-import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
-import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.item;
+import static com.exedio.cope.RenamedSchemaItem.string;
+import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
+import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
 import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
