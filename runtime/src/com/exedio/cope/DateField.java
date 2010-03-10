@@ -143,10 +143,8 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final Model model = getType().getModel();
-		
 		return
-				model.connect().supportsNativeDate()
+				getType().getModel().connect().supportsNativeDate()
 				? (Column)new TimestampColumn(table, this, name, optional)
 				: (Column)new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
