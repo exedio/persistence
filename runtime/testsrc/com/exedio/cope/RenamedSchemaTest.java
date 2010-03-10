@@ -18,18 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RenamedSchemaItem.TYPE;
+import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.RenamedSchemaItem.TYPE;
-import static com.exedio.cope.RenamedSchemaItem.someBoolean;
-import static com.exedio.cope.RenamedSchemaItem.someData;
-import static com.exedio.cope.RenamedSchemaItem.someEnum;
-import static com.exedio.cope.RenamedSchemaItem.someNotNullBoolean;
-import static com.exedio.cope.RenamedSchemaItem.someNotNullEnum;
-import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
 
-import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -45,7 +39,6 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final FunctionField someContentType = someData.getContentType();
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -53,16 +46,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		String mediaContentTypeCharSet = null;
-		if(mysql)
-			mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
 		assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "(" +q(someNotNullString) +" IS NOT NULL) AND ("+l(someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_someBoolean_Ck", "(("+q(someBoolean)       +" IS NOT NULL) AND ("+q(someBoolean)+" IN (0,1))) OR ("+q(someBoolean)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "(" +q(someNotNullBoolean)+" IS NOT NULL) AND ("+q(someNotNullBoolean)+" IN (0,1))");
-		assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+q(someEnum)          +" IS NOT NULL) AND ("+q(someEnum)+" IN (10,20,30))) OR ("+q(someEnum)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "(" +q(someNotNullEnum)   +" IS NOT NULL) AND ("+q(someNotNullEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(someContentType)   +" IS NOT NULL) AND " +
-				"(("+l(someContentType)+">=1) AND ("+l(someContentType)+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someContentType)+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
@@ -72,23 +56,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q("string")+","+q("integer")+")");
 		
-		final Column min4Max8 = table.getColumn("MIN4_MAX8");
-		assertEquals(null, min4Max8.getError());
-		assertEquals(Schema.Color.OK, min4Max8.getParticularColor());
-		
-		final String string8;
-		if(hsqldb)
-			string8 = "varchar(8)";
-		else if(mysql)
-			string8 = "varchar(8) character set utf8 binary";
-		else
-			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
-		assertEquals(string8, min4Max8.getType());
-
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q("MIN_4")    +" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q("MIN_4")+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+q("MAX_4")    +" IS NOT NULL) AND (" +l("MAX_4")+"<=4)) OR ("+q("MAX_4")+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+q("MIN4_MAX8")+" IS NOT NULL) AND (("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8))) OR ("+q("MIN4_MAX8")+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+q("EXACT_6")  +" IS NOT NULL) AND (" +l("EXACT_6")+"=6)) OR ("+q("EXACT_6")+" IS NULL)");
 	}
 	
 	private final String q(final Field attribute)
