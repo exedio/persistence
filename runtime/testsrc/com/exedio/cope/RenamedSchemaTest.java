@@ -20,10 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.string;
-import static com.exedio.cope.RenamedSchemaItem.doubleUnique2;
-import static com.exedio.cope.RenamedSchemaItem.doubleUnique1;
+import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
+import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.item;
-import static com.exedio.cope.RenamedSchemaItem.singleUnique;
+import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -45,10 +45,10 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
-		assertEquals("zackSingleUnique", getColumnName(singleUnique));
+		assertEquals("zackSingleUnique", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
-		assertEquals("doubleUnique1", getColumnName(doubleUnique1));
-		assertEquals("doubleUnique2", getColumnName(doubleUnique2));
+		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
+		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
 		
 		final Schema schema = model.getVerifiedSchema();
@@ -62,9 +62,9 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "ZackItem_zackSingUniq_Unq", "("+q(singleUnique)+")");
+		assertUniqueConstraint(table, "ZackItem_zackSingUniq_Unq", "("+q(uniqueSingle)+")");
 		
-		assertUniqueConstraint(table, "ZackItem_zackDoubUniq_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
+		assertUniqueConstraint(table, "ZackItem_zackDoubUniq_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 		
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
 	}
