@@ -23,7 +23,7 @@ package com.exedio.cope;
 	@CopeSchemaName("zackItem")
 	static final ItemField<RenamedSchemaTargetItem> someItem = newItemField(RenamedSchemaTargetItem.class).optional();
 	
-	@CopeSchemaName("UNIQUE_S")
+	@CopeSchemaName("zackSingleUnique")
 	static final StringField uniqueString = new StringField().optional().unique();
 	
 	static final StringField doubleUnique1 = new StringField();

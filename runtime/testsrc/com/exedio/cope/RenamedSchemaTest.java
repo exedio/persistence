@@ -45,7 +45,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 		
 		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
-		assertEquals("UNIQUE_S", getColumnName(uniqueString));
+		assertEquals("zackSingleUnique", getColumnName(uniqueString));
 		assertEquals("zackItem", getColumnName(someItem));
 		assertEquals("doubleUnique1", getColumnName(doubleUnique1));
 		assertEquals("doubleUnique2", getColumnName(doubleUnique2));
@@ -62,7 +62,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertFkConstraint(table, "SchemaItem_zackItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
+		assertUniqueConstraint(table, "SchemItem_zacSingUniq_Unq", "("+q(uniqueString)+")");
 		
 		assertUniqueConstraint(table, "SchemItem_zacDoubUniq_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
 		
