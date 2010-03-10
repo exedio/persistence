@@ -47,7 +47,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		
 		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
 		assertEquals("UNIQUE_S", getColumnName(uniqueString));
-		assertEquals("someItem", getColumnName(someItem));
+		assertEquals("zackItem", getColumnName(someItem));
 		assertEquals("string", getColumnName(string));
 		assertEquals("integer", getColumnName(integer));
 		assertEquals("MIN_4", getColumnName(min4));
@@ -63,7 +63,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_someItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "SchemaItem_zackItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		

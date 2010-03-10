@@ -21,6 +21,7 @@ package com.exedio.cope;
 @CopeSchemaName("SchemaItem") class RenamedSchemaItem extends Item
 {
 	static final StringField someNotNullString = new StringField();
+	@CopeSchemaName("zackItem")
 	static final ItemField<RenamedSchemaTargetItem> someItem = newItemField(RenamedSchemaTargetItem.class).optional();
 	
 	@CopeSchemaName("UNIQUE_S")
