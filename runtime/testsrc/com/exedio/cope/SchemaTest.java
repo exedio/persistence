@@ -27,7 +27,7 @@ import static com.exedio.cope.SchemaItem.bool;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.enumOpt;
 import static com.exedio.cope.SchemaItem.item;
-import static com.exedio.cope.SchemaItem.media;
+import static com.exedio.cope.SchemaItem.data;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.stringExact6;
 import static com.exedio.cope.SchemaItem.stringMax4;
@@ -52,7 +52,6 @@ public class SchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final StringField someContentType = (StringField)media.getContentType();
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -60,16 +59,11 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		String mediaContentTypeCharSet = null;
-		if(mysql)
-			mediaContentTypeCharSet = " AND ("+q(someContentType)+" regexp '^[-,/,0-9,a-z]*$')";
 		assertCheckConstraint(table, "SchemaItem_string_Ck",  "(" +q(string) +" IS NOT NULL) AND ("+l(string)+"<="+StringField.DEFAULT_LENGTH+")");
 		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck", "(("+q(boolOpt)       +" IS NOT NULL) AND ("+q(boolOpt)+" IN (0,1))) OR ("+q(boolOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_bool_Ck",    "(" +q(bool)+" IS NOT NULL) AND ("+q(bool)+" IN (0,1))");
 		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck", "(("+q(enumOpt)      +" IS NOT NULL) AND ("+q(enumOpt)+" IN (10,20,30))) OR ("+q(enumOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_anEnum_Ck",  "(" +q(anEnum)   +" IS NOT NULL) AND ("+q(anEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "SchemItem_medi_conType_Ck", "(("+q(someContentType)   +" IS NOT NULL) AND " +
-				"(("+l(someContentType)+">=1) AND ("+l(someContentType)+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someContentType)+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
@@ -99,6 +93,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "(("+q(stringMin4Max8)+" IS NOT NULL) AND (("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8))) OR ("+q(stringMin4Max8)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", "(("+q(stringExact6)  +" IS NOT NULL) AND (" +l(stringExact6)+"=6)) OR ("+q(stringExact6)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH*model.connect().dialect.getBlobLengthFactor())+")) OR ("+q(data)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
@@ -109,5 +104,10 @@ public class SchemaTest extends AbstractRuntimeTest
 	private final String l(final StringField f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
+	}
+	
+	private final String l(final DataField f)
+	{
+		return "LENGTH(" + q(f) + ')';
 	}
 }
