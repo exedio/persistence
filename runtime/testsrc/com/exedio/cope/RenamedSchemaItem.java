@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
-
 @CopeSchemaName("SchemaItem") class RenamedSchemaItem extends Item
 {
 	static final StringField someNotNullString = new StringField();
