@@ -38,7 +38,6 @@ public class SchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		assertEquals(!mysql, model.supportsCheckConstraints());
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(SchemaItem.TYPE));

@@ -69,7 +69,6 @@ public class ConnectTest extends AbstractRuntimeTest
 		}
 		assertTrue(model.isConnected());
 		assertNotSame(connectDate, model.getConnectDate());
-		assertEquals(!postgresql, model.supportsSequences());
 	}
 
 	public void testModel()
