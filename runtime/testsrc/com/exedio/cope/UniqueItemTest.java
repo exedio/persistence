@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-
-
 public class UniqueItemTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
