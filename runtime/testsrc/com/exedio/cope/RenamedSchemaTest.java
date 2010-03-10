@@ -59,9 +59,9 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+q("MIN_4")    +" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q("MIN_4")+" IS NULL)");
 	}
 	
-	private final String q(final Field attribute)
+	private final String q(final Field f)
 	{
-		return q(getColumnName(attribute));
+		return q(getColumnName(f));
 	}
 	
 	private final String q(final String name)
