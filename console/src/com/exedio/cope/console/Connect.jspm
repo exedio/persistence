@@ -153,6 +153,9 @@ final class Connect_Jspm extends Console_Jspm
 				<th>Supports Empty Strings</th>
 				<td class="text"><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></td>
 			</tr>
+		</table>
+		<table>
+			<caption>Dialect Capabilities</caption>
 			<tr>
 				<th>Supports Check Constraints</th>
 				<td class="text"><%if(SchemaInfo.supportsCheckConstraints(model)){%>yes<%}else{%>no<%}%></td>
