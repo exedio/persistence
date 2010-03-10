@@ -23,7 +23,6 @@ import static com.exedio.cope.RenamedSchemaItem.min4;
 import static com.exedio.cope.RenamedSchemaItem.doubleUnique2;
 import static com.exedio.cope.RenamedSchemaItem.doubleUnique1;
 import static com.exedio.cope.RenamedSchemaItem.someItem;
-import static com.exedio.cope.RenamedSchemaItem.someNotNullString;
 import static com.exedio.cope.RenamedSchemaItem.uniqueString;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
@@ -58,8 +57,6 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertNotNull(table);
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
-
-		assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "(" +q(someNotNullString) +" IS NOT NULL) AND ("+l(someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
