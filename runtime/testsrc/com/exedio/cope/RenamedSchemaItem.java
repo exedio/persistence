@@ -31,7 +31,7 @@ package com.exedio.cope;
 	@CopeSchemaName("zackDoubleUnique")
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
-	@CopeSchemaName("MIN_4")
+	@CopeSchemaName("zackString")
 	static final StringField min4 = new StringField().optional().lengthMin(4);
 	
 	/**
