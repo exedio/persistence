@@ -44,7 +44,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	{
 		if(postgresql) return;
 		
-		assertEquals(filterTableName("SchemaItem"), getTableName(TYPE));
+		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackSingleUnique", getColumnName(uniqueString));
 		assertEquals("zackItem", getColumnName(someItem));
 		assertEquals("doubleUnique1", getColumnName(doubleUnique1));
@@ -58,15 +58,15 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_zackItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(someItem), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemItem_zacSingUniq_Unq", "("+q(uniqueString)+")");
+		assertUniqueConstraint(table, "ZackItem_zackSingUniq_Unq", "("+q(uniqueString)+")");
 		
-		assertUniqueConstraint(table, "SchemItem_zacDoubUniq_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
+		assertUniqueConstraint(table, "ZackItem_zackDoubUniq_Unq", "("+q(doubleUnique1)+","+q(doubleUnique2)+")");
 		
-		assertCheckConstraint(table, "SchemaItem_zackString_Ck", "(("+q(min4)+" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(min4)+" IS NOT NULL) AND (("+l(min4)+">=4) AND ("+l(min4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(min4)+" IS NULL)");
 	}
 	
 	private final String q(final Field f)
