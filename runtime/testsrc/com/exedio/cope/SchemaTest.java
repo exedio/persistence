@@ -332,12 +332,12 @@ public class SchemaTest extends AbstractRuntimeTest
 			
 			assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+p("string")+","+p("integer")+")");
 			
-			final com.exedio.dsmf.Table stringItem = schema.getTable(getTableName(SchemaItem.TYPE)); // TODO same table as above
-			assertNotNull(stringItem);
-			assertEquals(null, stringItem.getError());
-			assertEquals(Schema.Color.OK, stringItem.getParticularColor());
+			
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
 
-			final Column min4Max8 = stringItem.getColumn("MIN4_MAX8");
+			final Column min4Max8 = table.getColumn("MIN4_MAX8");
 			assertEquals(null, min4Max8.getError());
 			assertEquals(Schema.Color.OK, min4Max8.getParticularColor());
 			
@@ -350,10 +350,10 @@ public class SchemaTest extends AbstractRuntimeTest
 				string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 			assertEquals(string8, min4Max8.getType());
 
-			assertCheckConstraint(stringItem, "SchemaItem_MIN_4_Ck",     "(("+p("MIN_4")+" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+p("MIN_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "SchemaItem_MAX_4_Ck",     "(("+p("MAX_4")+" IS NOT NULL) AND ("+l("MAX_4")+"<=4)) OR ("+p("MAX_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "SchemaItem_MIN4_MAX8_Ck", "(("+p("MIN4_MAX8")+" IS NOT NULL) AND (("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8))) OR ("+p("MIN4_MAX8")+" IS NULL)");
-			assertCheckConstraint(stringItem, "SchemaItem_EXACT_6_Ck",   "(("+p("EXACT_6")+" IS NOT NULL) AND ("+l("EXACT_6")+"=6)) OR ("+p("EXACT_6")+" IS NULL)");
+			assertCheckConstraint(table, "SchemaItem_MIN_4_Ck",     "(("+p("MIN_4")+" IS NOT NULL) AND (("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+p("MIN_4")+" IS NULL)");
+			assertCheckConstraint(table, "SchemaItem_MAX_4_Ck",     "(("+p("MAX_4")+" IS NOT NULL) AND ("+l("MAX_4")+"<=4)) OR ("+p("MAX_4")+" IS NULL)");
+			assertCheckConstraint(table, "SchemaItem_MIN4_MAX8_Ck", "(("+p("MIN4_MAX8")+" IS NOT NULL) AND (("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8))) OR ("+p("MIN4_MAX8")+" IS NULL)");
+			assertCheckConstraint(table, "SchemaItem_EXACT_6_Ck",   "(("+p("EXACT_6")+" IS NOT NULL) AND ("+l("EXACT_6")+"=6)) OR ("+p("EXACT_6")+" IS NULL)");
 		}
 	}
 	
