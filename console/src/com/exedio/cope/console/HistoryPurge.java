@@ -98,9 +98,9 @@ final class HistoryPurge extends Item
 			con = DriverManager.getConnection(p.getDatabaseUrl(), p.getDatabaseUser(), p.getDatabasePassword());
 			stat = con.prepareStatement(bf);
 			
-			if(!SchemaInfo.supportsNativeDate(model))
-				stat.setLong     (1,               limit.getTime() ); else
-				stat.setTimestamp(1, new Timestamp(limit.getTime()));
+			if(SchemaInfo.supportsNativeDate(model))
+				stat.setTimestamp(1, new Timestamp(limit.getTime())); else
+				stat.setLong     (1,               limit.getTime() );
 			
 			rows = stat.executeUpdate();
 			
