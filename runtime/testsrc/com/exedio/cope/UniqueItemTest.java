@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.UniqueDoubleItem;
-import com.exedio.cope.testmodel.UniqueSingleItem;
-import com.exedio.cope.testmodel.UniqueSingleNotNullItem;
-import com.exedio.cope.testmodel.UniqueFinalItem;
 
 
 public class UniqueItemTest extends AbstractRuntimeTest
