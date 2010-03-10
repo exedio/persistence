@@ -29,6 +29,7 @@ package com.exedio.cope;
 	
 	static final StringField doubleUnique1 = new StringField();
 	static final IntegerField doubleUnique2 = new IntegerField();
+	@CopeSchemaName("zackDoubleUnique")
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
 	@CopeSchemaName("MIN_4")
