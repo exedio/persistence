@@ -73,13 +73,13 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", filterTableName("SchemaTargetItem"), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "SchemaItem_UNIQUE_S_Unq", "("+q(uniqueString)+")");
 		
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
 		
-		final Column min4Max8Column = table.getColumn("MIN4_MAX8");
+		final Column min4Max8Column = table.getColumn(getColumnName(min4Max8));
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
 		
