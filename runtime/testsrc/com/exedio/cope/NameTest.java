@@ -113,27 +113,27 @@ public class NameTest extends AbstractRuntimeTest
 			
 			assertEquals("this",    nameSub.getColumn("this")   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+q("this")+">=0) AND ("+q("this")+"<=2147483647)");
 			
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
 			assertEquals("integer", nameSub.getColumn("integer").getName());
 			assertEquals("item",    nameSub.getColumn("item")   .getName());
-			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+p("unique")+")");
+			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+q("unique")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+p("integer")+","+p("item")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+p("unique")+" IS NOT NULL) AND (("+p("unique")+">=-2147483648) AND ("+p("unique")+"<=2147483647))");
-			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+p("integer")+" IS NOT NULL) AND (("+p("integer")+">=-2147483648) AND ("+p("integer")+"<=2147483647))");
-			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+p("item")+" IS NOT NULL) AND (("+p("item")+">=0) AND ("+p("item")+"<=2147483647))");
+			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+q("integer")+","+q("item")+")");
+			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+q("unique")+" IS NOT NULL) AND (("+q("unique")+">=-2147483648) AND ("+q("unique")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+q("integer")+" IS NOT NULL) AND (("+q("integer")+">=-2147483648) AND ("+q("integer")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+q("item")+" IS NOT NULL) AND (("+q("item")+">=0) AND ("+q("item")+"<=2147483647))");
 			
 			assertEquals("uniqueY",  nameSub.getColumn("uniqueY") .getName());
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
 			assertEquals("itemY",    nameSub.getColumn("itemY")   .getName());
-			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+p("uniqueY")+")");
+			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+q("uniqueY")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+p("integerY")+","+p("itemY")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+p("uniqueY")+" IS NOT NULL) AND (("+p("uniqueY")+">=-2147483648) AND ("+p("uniqueY")+"<=2147483647))");
-			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+p("integerY")+" IS NOT NULL) AND (("+p("integerY")+">=-2147483648) AND ("+p("integerY")+"<=2147483647))");
-			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     "("+p("itemY")+" IS NOT NULL) AND (("+p("itemY")+">=0) AND ("+p("itemY")+"<=2147483647))");
+			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+q("integerY")+","+q("itemY")+")");
+			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+q("uniqueY")+" IS NOT NULL) AND (("+q("uniqueY")+">=-2147483648) AND ("+q("uniqueY")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+q("integerY")+" IS NOT NULL) AND (("+q("integerY")+">=-2147483648) AND ("+q("integerY")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     "("+q("itemY")+" IS NOT NULL) AND (("+q("itemY")+">=0) AND ("+q("itemY")+"<=2147483647))");
 			
 			assertEquals(null, nameSub.getColumn("unique").getError());
 			assertEquals(null, nameSub.getColumn("uniqueY").getError());
@@ -170,7 +170,7 @@ public class NameTest extends AbstractRuntimeTest
 		assertContains(itemca, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
 	}
 	
-	private final String p(final String name)
+	private final String q(final String name)
 	{
 		return SchemaInfo.quoteName(model, name);
 	}
