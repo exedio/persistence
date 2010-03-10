@@ -22,17 +22,16 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaItem.TYPE;
+import static com.exedio.cope.SchemaItem.anEnum;
+import static com.exedio.cope.SchemaItem.bool;
+import static com.exedio.cope.SchemaItem.boolOpt;
+import static com.exedio.cope.SchemaItem.enumOpt;
 import static com.exedio.cope.SchemaItem.exact6;
-import static com.exedio.cope.SchemaItem.integer;
+import static com.exedio.cope.SchemaItem.item;
 import static com.exedio.cope.SchemaItem.max4;
+import static com.exedio.cope.SchemaItem.media;
 import static com.exedio.cope.SchemaItem.min4;
 import static com.exedio.cope.SchemaItem.min4Max8;
-import static com.exedio.cope.SchemaItem.someBoolean;
-import static com.exedio.cope.SchemaItem.someData;
-import static com.exedio.cope.SchemaItem.someEnum;
-import static com.exedio.cope.SchemaItem.someNotNullBoolean;
-import static com.exedio.cope.SchemaItem.someNotNullEnum;
-import static com.exedio.cope.SchemaItem.someNotNullString;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.uniqueString;
 
@@ -52,7 +51,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final StringField someContentType = (StringField)someData.getContentType();
+		final StringField someContentType = (StringField)media.getContentType();
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -63,21 +62,21 @@ public class SchemaTest extends AbstractRuntimeTest
 		String mediaContentTypeCharSet = null;
 		if(mysql)
 			mediaContentTypeCharSet = " AND (`someData_contentType` regexp '^[-,/,0-9,a-z]*$')";
-		assertCheckConstraint(table, "ScheItem_somNotNullStr_Ck", "(" +q(someNotNullString) +" IS NOT NULL) AND ("+l(someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_someBoolean_Ck", "(("+q(someBoolean)       +" IS NOT NULL) AND ("+q(someBoolean)+" IN (0,1))) OR ("+q(someBoolean)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullBoo_Ck", "(" +q(someNotNullBoolean)+" IS NOT NULL) AND ("+q(someNotNullBoolean)+" IN (0,1))");
-		assertCheckConstraint(table, "SchemaItem_someEnum_Ck"   , "(("+q(someEnum)          +" IS NOT NULL) AND ("+q(someEnum)+" IN (10,20,30))) OR ("+q(someEnum)+" IS NULL)");
-		assertCheckConstraint(table, "ScheItem_somNotNullEnu_Ck", "(" +q(someNotNullEnum)   +" IS NOT NULL) AND ("+q(someNotNullEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "ScheItem_somData_coTyp_Ck", "(("+q(someContentType)   +" IS NOT NULL) AND " +
+		assertCheckConstraint(table, "SchemaItem_string_Ck",  "(" +q(string) +" IS NOT NULL) AND ("+l(string)+"<="+StringField.DEFAULT_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck", "(("+q(boolOpt)       +" IS NOT NULL) AND ("+q(boolOpt)+" IN (0,1))) OR ("+q(boolOpt)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_bool_Ck",    "(" +q(bool)+" IS NOT NULL) AND ("+q(bool)+" IN (0,1))");
+		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck", "(("+q(enumOpt)      +" IS NOT NULL) AND ("+q(enumOpt)+" IN (10,20,30))) OR ("+q(enumOpt)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_anEnum_Ck",  "(" +q(anEnum)   +" IS NOT NULL) AND ("+q(anEnum)+" IN (10,20,30))");
+		assertCheckConstraint(table, "SchemItem_medi_conType_Ck", "(("+q(someContentType)   +" IS NOT NULL) AND " +
 				"(("+l(someContentType)+">=1) AND ("+l(someContentType)+"<=61)" + (mediaContentTypeCharSet!=null ? mediaContentTypeCharSet : "") + ")) OR ("+q(someContentType)+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_someItem_Fk", "someItem", getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "SchemaItem_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "SchemaItem_uniquStrin_Unq", "("+q(uniqueString)+")");
 		
-		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(integer)+")");
+		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(anEnum)+")");
 		
 		final Column min4Max8Column = table.getColumn(getColumnName(min4Max8));
 		assertEquals(null, min4Max8Column.getError());

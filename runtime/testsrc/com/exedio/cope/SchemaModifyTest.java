@@ -271,7 +271,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(column1Type, column.getType());
 			
-			table.getConstraint("SchemaItem_someItem_Fk").create();
+			table.getConstraint("SchemaItem_item_Fk").create();
 		}
 		// OK
 		{
