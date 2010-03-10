@@ -28,7 +28,10 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
+import java.util.List;
+
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 
 public class RenamedSchemaTest extends AbstractRuntimeTest
@@ -67,6 +70,16 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 		
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
+		
+		final List<Sequence> sequences = schema.getSequences();
+		if(SchemaInfo.supportsSequences(model) && model.getConnectProperties().cluster.getBooleanValue())
+		{
+			final Sequence sequence = sequences.get(0);
+			assertEquals("ZackItem_this_Seq", sequence.getName());
+			assertEquals(0, sequence.getStartWith());
+		}
+		else
+			assertEquals(list(), sequences);
 	}
 	
 	private final String q(final Field f)
