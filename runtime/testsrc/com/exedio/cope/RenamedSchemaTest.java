@@ -45,7 +45,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
-		assertEquals("zackSingleUnique", getColumnName(uniqueSingle));
+		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
@@ -62,9 +62,9 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "ZackItem_zackSingUniq_Unq", "("+q(uniqueSingle)+")");
+		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
 		
-		assertUniqueConstraint(table, "ZackItem_zackDoubUniq_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
+		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 		
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
 	}
