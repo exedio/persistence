@@ -89,7 +89,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	
 	private final String p(final String name)
 	{
-		return model.connect().database.dsmfDialect.quoteName(name);
+		return SchemaInfo.quoteName(model, name);
 	}
 	
 	private final String l(final FunctionField f)

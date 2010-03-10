@@ -172,6 +172,6 @@ public class NameTest extends AbstractRuntimeTest
 	
 	private final String p(final String name)
 	{
-		return model.connect().database.dsmfDialect.quoteName(name);
+		return SchemaInfo.quoteName(model, name);
 	}
 }
