@@ -61,15 +61,15 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		assertCheckConstraint(table, "SchemaItem_string_Ck",  "(" +q(string)+" IS NOT NULL) AND ("+l(string)+"<="+StringField.DEFAULT_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_bool_Ck",    "(" +q(bool  )+" IS NOT NULL) AND ("+q(bool)  +" IN (0,1))");
-		assertCheckConstraint(table, "SchemaItem_anEnum_Ck",  "(" +q(anEnum)+" IS NOT NULL) AND ("+q(anEnum)+" IN (10,20,30))");
-		assertCheckConstraint(table, "SchemaItem_item_Ck",    "(" +q(item  )+" IS NOT NULL) AND (("+q(item)  +">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+"))");
+		assertCheckConstraint(table, "SchemaItem_string_Ck", "(" +q(string)+" IS NOT NULL) AND (" +l(string)+"<="+StringField.DEFAULT_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , "(" +q(bool  )+" IS NOT NULL) AND (" +q(bool  )+" IN (0,1))");
+		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", "(" +q(anEnum)+" IS NOT NULL) AND (" +q(anEnum)+" IN (10,20,30))");
+		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "(" +q(item  )+" IS NOT NULL) AND (("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+"))");
 
-		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_LENGTH+"))"  +" OR ("+q(stringOpt)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck", "(("+q(boolOpt)+" IS NOT NULL) AND ("+q(boolOpt)+" IN (0,1)))"  +" OR ("+q(boolOpt)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck", "(("+q(enumOpt)+" IS NOT NULL) AND ("+q(enumOpt)+" IN (10,20,30))) OR ("+q(enumOpt)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck", "(("+q(itemOpt)+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<="+Integer.MAX_VALUE+")))"  +" OR ("+q(itemOpt)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (" +l(stringOpt)+"<="+StringField.DEFAULT_LENGTH+"))"                +" OR ("+q(stringOpt)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,"(("+q(boolOpt  )+" IS NOT NULL) AND (" +q(boolOpt)  +" IN (0,1)))"                                       +" OR ("+q(boolOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,"(("+q(enumOpt  )+" IS NOT NULL) AND (" +q(enumOpt)  +" IN (10,20,30)))"                                  +" OR ("+q(enumOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<="+Integer.MAX_VALUE+")))"+" OR ("+q(itemOpt  )+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
