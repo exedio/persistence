@@ -22,19 +22,26 @@ h1
 	font-size:180%;
 }
 
-span.pager
+td.pager
 {
+	text-align:left;
 	font-size:70%;
 }
 
-span.pager a
+td.pager a
 {
 	text-decoration: none;
 }
 
-span.pager a.selected
+td.pager a.selected
 {
-	background-color: #aaa;
+	background-color: #ccc;
+}
+
+td.pager div.right
+{
+	float:right;
+	text-align:right;
 }
 
 a.selected

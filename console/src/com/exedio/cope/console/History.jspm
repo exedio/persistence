@@ -143,7 +143,9 @@ final class History_Jspm
 			<input type="submit" value="Purge" onclick="return confirm('Purging may be a time consuming operation and may use significant resources on your server, depending on the amount of history data.\nDo you really want to do this?')">
 		</form>
 		<table>
-			<caption>History Purge<% cop.writePager(out, cop); %></caption>
+			<caption>History Purge</caption><%
+				cop.writePager(out, cop);
+			%>
 			<tr>
 				<th>Type</th>
 				<th>Limit</th>

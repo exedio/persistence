@@ -121,7 +121,9 @@ final class Revision_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<caption>Revisions<% cop.writePager(out, cop); %></caption>
+			<caption>Revisions</caption><%
+				cop.writePager(out, cop);
+			%>
 			<tr>
 				<th></th>
 				<th title="Number">No.</th>

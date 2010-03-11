@@ -289,27 +289,39 @@ abstract class ConsoleCop<S> extends Cop
 		final Pager pager = cop.getPager();
 		if(pager.isNeeded())
 		{
-			out.writeRaw("<br><span class=\"pager\">");
+			out.writeRaw("<tr><td colspan=\"0\" class=\"pager\"><div class=\"right\">");
+			
+			out.write(pager.getFrom());
+			out.writeRaw('-');
+			out.write(pager.getTo());
+			out.writeRaw(" of ");
+			out.write(pager.getTotal());
+			
+			out.writeRaw("<br>per page:");
+			for(final Pager newLimit : pager.newLimits())
+				Console_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()), "selected");
+				
+			out.writeRaw("</div>");
+			
+			Console_Jspm.writePagerButton(out, cop, pager.first(),    "<<", "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.previous(), "<" , "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.next(),     ">" , "disabled");
+			Console_Jspm.writePagerButton(out, cop, pager.last(),     ">>", "disabled");
+			
+			out.writeRaw(" page ");
+			out.write(pager.getPage());
+			out.writeRaw(" of ");
+			out.write(pager.getTotalPages());
+			out.writeRaw("<br>");
+			
 			if(pager.hasBeforeNewPages())
 				out.writeStatic("...");
 			for(final Pager newPage : pager.newPages())
 				Console_Jspm.writePagerButton(out, cop, newPage, String.valueOf(newPage.getPage()), "selected");
 			if(pager.hasAfterNewPages())
 				out.writeStatic("...");
-			out.writeRaw("<br>");
-			Console_Jspm.writePagerButton(out, cop, pager.first(),    "<<", "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.previous(), "<" , "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.next(),     ">" , "disabled");
-			Console_Jspm.writePagerButton(out, cop, pager.last(),     ">>", "disabled");
-			for(final Pager newLimit : pager.newLimits())
-				Console_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()), "selected");
-			out.writeRaw(' ');
-			out.write(pager.getFrom());
-			out.writeRaw('-');
-			out.write(pager.getTo());
-			out.writeRaw('/');
-			out.write(pager.getTotal());
-			out.writeRaw("</span>");
+			
+			out.writeRaw("</td></tr>");
 		}
 	}
 	

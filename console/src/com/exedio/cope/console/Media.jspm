@@ -161,7 +161,9 @@ final class Media_Jspm extends Console_Jspm
 		final boolean otherInline = cop.otherInline;
 		%>
 		<table>
-			<caption><%=media.getID()%><% cop.writePager(out, cop); %></caption>
+			<caption><%=media.getID()%></caption><%
+				cop.writePager(out, cop);
+			%>
 			<tr>
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
