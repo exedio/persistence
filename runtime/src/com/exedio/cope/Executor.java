@@ -193,7 +193,6 @@ final class Executor
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			final String sqlText = statement.getText();
 			final DatabaseListener listener = this.listener;
 			final long nanoStart = listener!=null ? nanoTime() : 0;
 			final int rows;
@@ -203,11 +202,11 @@ final class Executor
 			{
 				sqlStatement = connection.createStatement();
 				nanoPrepared = listener!=null ? nanoTime() : 0;
-				rows = sqlStatement.executeUpdate(sqlText);
+				rows = sqlStatement.executeUpdate(statement.getText());
 			}
 			else
 			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				final PreparedStatement prepared = connection.prepareStatement(statement.getText());
 				sqlStatement = prepared;
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
@@ -229,7 +228,7 @@ final class Executor
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(checkRows && rows!=1)
-				throw new RuntimeException("expected one row, but got " + rows + " on statement " + sqlText);
+				throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
 			return rows;
 		}
 		catch(SQLException e)
