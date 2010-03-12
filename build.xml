@@ -1050,4 +1050,15 @@
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
 	</target>
 	
+	<target name="hudson" depends="all">
+		<copy todir="${basedir}/build/success">
+			<fileset file="${basedir}/build/exedio-cope.jar" />
+			<fileset file="${basedir}/build/exedio-cope.jar-src.zip" />
+			<fileset file="${basedir}/build/exedio-cope-test.jar" />
+			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
+			<fileset file="${basedir}/build/exedio-cope-console.jar" />
+			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
+		</copy>
+	</target>
+
 </project>
