@@ -38,7 +38,7 @@ final class CompositeType<X>
 	final List<FunctionField> templateList;
 	final int componentSize;
 	
-	CompositeType(final Class<X> valueClass)
+	private CompositeType(final Class<X> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
 		try
