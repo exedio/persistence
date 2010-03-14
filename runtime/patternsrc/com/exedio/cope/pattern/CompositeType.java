@@ -88,17 +88,17 @@ final class CompositeType<X>
 	
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 
-	@SuppressWarnings("unchecked")
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
 		assert valueClass!=null;
 		
 		synchronized(types)
 		{
+			@SuppressWarnings("unchecked")
 			CompositeType<E> result = types.get(valueClass);
 			if(result==null)
 			{
-				result = new CompositeType(valueClass);
+				result = new CompositeType<E>(valueClass);
 				types.put(valueClass, result);
 			}
 			return result;
