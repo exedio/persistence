@@ -53,7 +53,7 @@ public class MediaServletTest extends TestCase
 
 	public void testIt() throws Exception
 	{
-		final String app = "http://localhost:8080/cope-runtime-servlet/";
+		final String app = "http://localhost:" + System.getProperty("tomcat.port.http") + "/cope-runtime-servlet/";
 		final URL init = new URL(app + "init");
 		init.getContent();
 		

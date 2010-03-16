@@ -42,7 +42,7 @@ public class AbstractWebTest extends TestCase
 	private static final void post(final String url, final String button) throws Exception
 	{
 		final byte[] content = new String(button + "=true").getBytes("UTF8");
-		final URL u = new URL("http://127.0.0.1:8080/copetest/" + url);
+		final URL u = new URL("http://127.0.0.1:" + System.getProperty("tomcat.port.http") + "/copetest/" + url);
 		//final long start = System.currentTimeMillis();
 		final HttpURLConnection con = (HttpURLConnection)u.openConnection();
 		con.setConnectTimeout(5000);

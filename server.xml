@@ -2,7 +2,7 @@
 	This is a tomcat server.xml for suitable for testing the
 	web applications of the COPE project.
 -->
-<Server port="8005" shutdown="SHUTDOWN">
+<Server port="@PORT_SHUTDOWN@" shutdown="SHUTDOWN">
 	<GlobalNamingResources>
 		<Resource
 				name="UserDatabase"
@@ -16,7 +16,7 @@
 		<!-- For COPE: needs useBodyEncodingForURI, otherwise special character are
 				corrupted when using GET-after-POST forms -->
 		<Connector
-				port="8080" maxHttpHeaderSize="8192"
+				port="@PORT_HTTP@" maxHttpHeaderSize="8192"
 				maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
 				enableLookups="false" redirectPort="8443" acceptCount="100"
 				useBodyEncodingForURI="true"
