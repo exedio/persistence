@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -93,7 +94,7 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
 	private final HashSet<Feature> set;
-	private HashMap<Feature, java.lang.reflect.Field> annotationSources = null;
+	private HashMap<Feature, AnnotatedElement> annotationSources = null;
 	
 	public Features()
 	{
@@ -46,7 +47,15 @@ public final class Features
 			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
 	}
 	
+	/**
+	 * For binary compatibility only.
+	 */
 	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
+	{
+		put(name, feature, (AnnotatedElement)annotationSource);
+	}
+	
+	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
@@ -68,7 +77,7 @@ public final class Features
 		if(annotationSource!=null)
 		{
 			if(annotationSources==null)
-				annotationSources = new HashMap<Feature, java.lang.reflect.Field>();
+				annotationSources = new HashMap<Feature, AnnotatedElement>();
 			if(annotationSources.put(feature, annotationSource)!=null)
 				throw new RuntimeException();
 		}
@@ -92,7 +101,7 @@ public final class Features
 		return map.size();
 	}
 	
-	private java.lang.reflect.Field getAnnotationSource(final Feature feature)
+	private AnnotatedElement getAnnotationSource(final Feature feature)
 	{
 		if(annotationSources==null)
 			return null;

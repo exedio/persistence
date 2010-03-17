@@ -25,6 +25,7 @@ import java.io.NotSerializableException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,9 +42,9 @@ public abstract class Feature implements Serializable
 		final Type<? extends Item> type;
 		final String name;
 		final String id;
-		private final java.lang.reflect.Field annotationSource;
+		private final AnnotatedElement annotationSource;
 		
-		Mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+		Mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
 			assert type!=null;
 			assert name!=null;
@@ -78,7 +79,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		{
 			final int i = NAME_CHAR_SET.indexOfNotContains(name);

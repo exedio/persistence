@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -203,7 +204,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();

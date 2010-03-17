@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -123,7 +124,7 @@ public final class DayField extends FunctionField<Day>
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(suspiciousForWrongDefaultNow)
 			System.out.println(

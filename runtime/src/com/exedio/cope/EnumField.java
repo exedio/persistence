@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import gnu.trove.TIntObjectHashMap;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapper;
@@ -141,7 +142,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(!this.optional && ordinalsToNumbers.length==1)
 			throw new IllegalArgumentException(

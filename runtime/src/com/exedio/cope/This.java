@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
@@ -38,7 +39,7 @@ public final class This<E extends Item> extends Feature implements Function<E>, 
 	}
 	
 	@Override
-	void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		assert this.type == type;

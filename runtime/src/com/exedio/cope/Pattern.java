@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -61,7 +62,15 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
+	/**
+	 * For binary compatibility only.
+	 */
 	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
+	{
+		addSource(feature, postfix, (AnnotatedElement)annotationSource);
+	}
+	
+	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
@@ -127,7 +136,7 @@ public abstract class Pattern extends Feature
 	}
 	
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final java.lang.reflect.Field annotationSource)
+	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		initialize();
