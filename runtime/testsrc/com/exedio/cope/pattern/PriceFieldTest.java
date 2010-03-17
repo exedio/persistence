@@ -28,6 +28,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.misc.Computed;
 
@@ -117,6 +118,8 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertSerializedSame(item.     bigPrice, 386);
 		
 		// test persistence
+		assertEquals("finalPrice_int", SchemaInfo.getColumnName(item.finalPrice.getInt()));
+		
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
