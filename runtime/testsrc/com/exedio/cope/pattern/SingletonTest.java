@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.Computed;
 
 public final class SingletonTest extends AbstractRuntimeTest
@@ -75,6 +76,8 @@ public final class SingletonTest extends AbstractRuntimeTest
 		assertSerializedSame(item.einzigartig, 387);
 		
 		// test persistence
+		assertEquals("einzigartig_once", SchemaInfo.getColumnName(item.einzigartig.getSource()));
+		
 		assertEquals(list(), item.TYPE.search());
 		
 		final SingletonItem theOne = deleteOnTearDown(SingletonItem.instance());

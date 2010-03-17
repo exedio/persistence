@@ -25,6 +25,7 @@ import java.util.Map;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.misc.Computed;
 
@@ -99,6 +100,7 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertSerializedSame(item.map    , 381);
 		
 		// test persistence
+		assertEquals("integer_data", SchemaInfo.getColumnName(item.integer.getSource()));
 		
 		final HashMap<String, String> map1 = new HashMap<String, String>();
 		map1.put("key1a", "value1a");
