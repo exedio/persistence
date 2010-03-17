@@ -85,7 +85,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("field", e.getMessage());
+			assertEquals("feature", e.getMessage());
 		}
 
 		// test persistence

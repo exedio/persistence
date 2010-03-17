@@ -61,24 +61,24 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	protected final void addSource(final Feature field, final String postfix, final java.lang.reflect.Field annotationSource)
+	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
 		if(postfix.length()==0)
 			throw new IllegalArgumentException("postfix must not be empty");
-		if(field==null)
-			throw new NullPointerException("field");
+		if(feature==null)
+			throw new NullPointerException("feature");
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
-		field.registerPattern(this);
-		sourceFeaturesGather.put(postfix, field, annotationSource);
+		feature.registerPattern(this);
+		sourceFeaturesGather.put(postfix, feature, annotationSource);
 	}
 	
-	protected final void addSource(final Feature field, final String postfix)
+	protected final void addSource(final Feature feature, final String postfix)
 	{
-		addSource(field, postfix, null);
+		addSource(feature, postfix, null);
 	}
 	
 	private boolean calledOnMount;
