@@ -24,6 +24,7 @@ import java.util.List;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
@@ -176,6 +177,8 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSerializedSame(HistoryItem.audit, 377);
 		
 		// test persistence
+		assertEquals("id", SchemaInfo.getColumnName(HistoryItem.audit.getFeatureId()));
+		
 		assertEquals(list(), item.getAuditEvents());
 		
 		final Date before1 = new Date();
