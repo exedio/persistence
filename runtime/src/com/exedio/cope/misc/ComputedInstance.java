@@ -37,7 +37,7 @@ public final class ComputedInstance
 		}
 	}
 	
-	public static final java.lang.reflect.Field get()
+	public static java.lang.reflect.Field get()
 	{
 		return instance;
 	}
