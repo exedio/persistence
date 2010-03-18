@@ -23,10 +23,41 @@ class RenamedSchemaPattern extends Pattern
 	private static final long serialVersionUID = 1l;
 	
 	final IntegerField sourceFeature;
+
+	final StringField sourceTypeField = new StringField();
+	private Type<?> sourceType = null;
 	
 	RenamedSchemaPattern()
 	{
 		this.sourceFeature = new IntegerField();
 		addSource(sourceFeature, "sourceFeature");
+	}
+	
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		
+		final Features features = new Features();
+		features.put("field", sourceTypeField);
+		this.sourceType = newSourceType(SourceType.class, features);
+	}
+	
+	Type<?> getSourceType()
+	{
+		if(sourceType==null)
+			throw new IllegalStateException();
+		
+		return sourceType;
+	}
+	
+	static final class SourceType extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private SourceType(final ActivationParameters ap)
+		{
+			super(ap);
+		}
 	}
 }
