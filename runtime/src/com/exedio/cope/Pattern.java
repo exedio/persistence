@@ -62,15 +62,6 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	/**
-	 * @deprecated For binary compatibility only, use {@link #addSource(Feature,String,AnnotatedElement)} instead.
-	 */
-	@Deprecated
-	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
-	{
-		addSource(feature, postfix, (AnnotatedElement)annotationSource);
-	}
-	
 	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
 	{
 		if(postfix==null)
@@ -295,5 +286,14 @@ public abstract class Pattern extends Feature
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	/**
+	 * @deprecated For binary compatibility only, use {@link #addSource(Feature,String,AnnotatedElement)} instead.
+	 */
+	@Deprecated
+	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
+	{
+		addSource(feature, postfix, (AnnotatedElement)annotationSource);
 	}
 }

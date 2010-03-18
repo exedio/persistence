@@ -38,24 +38,6 @@ public final class Features
 		set = new HashSet<Feature>();
 	}
 	
-	@Deprecated
-	Features(final LinkedHashMap<String, Feature> map)
-	{
-		this.map = map;
-		this.set = new HashSet<Feature>(map.values());
-		if(map.size()!=set.size())
-			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
-	}
-	
-	/**
-	 * @deprecated For binary compatibility only, use {@link #put(String,Feature,AnnotatedElement)} instead.
-	 */
-	@Deprecated
-	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
-	{
-		put(name, feature, (AnnotatedElement)annotationSource);
-	}
-	
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
 	{
 		if(name==null)
@@ -134,5 +116,25 @@ public final class Features
 		}
 
 		return Type.finish(result);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	@Deprecated
+	Features(final LinkedHashMap<String, Feature> map)
+	{
+		this.map = map;
+		this.set = new HashSet<Feature>(map.values());
+		if(map.size()!=set.size())
+			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
+	}
+	
+	/**
+	 * @deprecated For binary compatibility only, use {@link #put(String,Feature,AnnotatedElement)} instead.
+	 */
+	@Deprecated
+	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
+	{
+		put(name, feature, (AnnotatedElement)annotationSource);
 	}
 }
