@@ -63,8 +63,9 @@ public abstract class Pattern extends Feature
 	private List<Type<? extends Item>> sourceTypes = null;
 	
 	/**
-	 * For binary compatibility only.
+	 * @deprecated For binary compatibility only, use {@link #addSource(Feature,String,AnnotatedElement)} instead.
 	 */
+	@Deprecated
 	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
 		addSource(feature, postfix, (AnnotatedElement)annotationSource);

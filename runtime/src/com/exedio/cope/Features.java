@@ -48,8 +48,9 @@ public final class Features
 	}
 	
 	/**
-	 * For binary compatibility only.
+	 * @deprecated For binary compatibility only, use {@link #put(String,Feature,AnnotatedElement)} instead.
 	 */
+	@Deprecated
 	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
 	{
 		put(name, feature, (AnnotatedElement)annotationSource);
