@@ -34,6 +34,9 @@ package com.exedio.cope;
 	@CopeSchemaName("zackString")
 	static final StringField string = new StringField().optional().lengthMax(4);
 	
+	@CopeSchemaName("zackPattern")
+	static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
+	
 	/**
 
 	 **
