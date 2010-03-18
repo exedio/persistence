@@ -93,7 +93,7 @@ public final class TypesBound
 				if(feature==null)
 					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
 				final String featureName = id(field, field.getName());
-				features.put(featureName, feature, field);
+				features.put(featureName, feature, (AnnotatedElement)field);
 			}
 		}
 		catch(IllegalAccessException e)

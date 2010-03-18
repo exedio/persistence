@@ -49,7 +49,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.misc.ComputedInstance;
+import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
@@ -66,12 +66,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
 		this.optional = optional;
-		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "body", ComputedInstance.get());
+		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "body", ComputedElement.get());
 		this.contentType = contentType;
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
-			addSource(contentTypeField, contentType.name, ComputedInstance.get());
-		addSource(this.lastModified = optional(new DateField(), optional), "lastModified", ComputedInstance.get());
+			addSource(contentTypeField, contentType.name, ComputedElement.get());
+		addSource(this.lastModified = optional(new DateField(), optional), "lastModified", ComputedElement.get());
 		
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());

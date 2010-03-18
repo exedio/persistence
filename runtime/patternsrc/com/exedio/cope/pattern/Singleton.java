@@ -27,7 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.misc.ComputedInstance;
+import com.exedio.cope.misc.ComputedElement;
 
 public final class Singleton extends Pattern
 {
@@ -42,7 +42,7 @@ public final class Singleton extends Pattern
 	
 	public Singleton()
 	{
-		addSource(source, "once", ComputedInstance.get());
+		addSource(source, "once", ComputedElement.get());
 	}
 	
 	public IntegerField getSource()

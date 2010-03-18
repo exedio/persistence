@@ -18,35 +18,17 @@
 
 package com.exedio.cope.misc;
 
-public final class ComputedInstance
+import java.lang.reflect.AnnotatedElement;
+
+public final class ComputedElement
 {
-	@Computed
-	@SuppressWarnings("unused")
-	private static final int source = 0;
-	private static final java.lang.reflect.Field instance;
-	
-	static
+	@SuppressWarnings("deprecation")
+	public static AnnotatedElement get()
 	{
-		try
-		{
-			instance = ComputedInstance.class.getDeclaredField("source");
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return ComputedInstance.get();
 	}
 	
-	/**
-	 * @deprecated Use {@link ComputedElement#get()} instead
-	 */
-	@Deprecated
-	public static java.lang.reflect.Field get()
-	{
-		return instance;
-	}
-	
-	private ComputedInstance()
+	private ComputedElement()
 	{
 		// prevent instantiation
 	}

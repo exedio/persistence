@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
+
 import junit.framework.TestCase;
 
 public class FeaturesTest extends TestCase
 {
 	private Features features;
-	private java.lang.reflect.Field annotationSource;
+	private AnnotatedElement annotationSource;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -77,7 +79,7 @@ public class FeaturesTest extends TestCase
 		final BooleanField zack = new BooleanField();
 		features.put("zack", zack, annotationSource);
 		final BooleanField zock = new BooleanField();
-		features.put("zock", zock, null);
+		features.put("zock", zock, (AnnotatedElement)null);
 	}
 	
 	public void testDuplicateName()

@@ -44,7 +44,7 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ComputedInstance;
+import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Interrupter;
 
 /**
@@ -89,9 +89,9 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		addSource(pending,        "pending",        ComputedInstance.get());
-		addSource(successDate,    "successDate",    ComputedInstance.get());
-		addSource(successElapsed, "successElapsed", ComputedInstance.get());
+		addSource(pending,        "pending",        ComputedElement.get());
+		addSource(successDate,    "successDate",    ComputedElement.get());
+		addSource(successElapsed, "successElapsed", ComputedElement.get());
 	}
 	
 	@Override

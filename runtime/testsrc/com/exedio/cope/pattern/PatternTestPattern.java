@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.lang.reflect.AnnotatedElement;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
@@ -96,7 +98,7 @@ class PatternTestPattern extends Pattern
 	}
 	
 	@SuppressWarnings("deprecation") // OK test deprecated api
-	private java.lang.reflect.Field af(final String name)
+	private AnnotatedElement af(final String name)
 	{
 		return annotationField(name);
 	}
