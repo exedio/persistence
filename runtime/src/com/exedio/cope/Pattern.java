@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,8 +80,76 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
 		feature.registerPattern(this);
-		sourceFeaturesGather.put(postfix, feature, annotationSource);
+		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
 	}
+	
+	private final class SourceFeatureAnnotationProxy implements AnnotatedElement
+	{
+		private final AnnotatedElement source;
+		final String postfix;
+		
+		SourceFeatureAnnotationProxy(final AnnotatedElement source, final String postfix)
+		{
+			this.source = source;
+			this.postfix = postfix;
+		}
+
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(CopeSchemaName.class==annotationClass)
+				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+			
+			if(source==null)
+				return false;
+			
+			return source.isAnnotationPresent(annotationClass);
+		}
+		
+		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+		{
+			if(CopeSchemaName.class==annotationClass)
+			{
+				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
+				if(patternName!=null)
+				{
+					return annotationClass.cast(new CopeSchemaName()
+					{
+						public Class<? extends Annotation> annotationType()
+						{
+							return CopeSchemaName.class;
+						}
+						
+						public String value()
+						{
+							return patternName.value() + '-' + postfix;
+						}
+					});
+				}
+			}
+			
+			if(source==null)
+				return null;
+			
+			return source.getAnnotation(annotationClass);
+		}
+
+		public Annotation[] getAnnotations()
+		{
+			throw new RuntimeException(Pattern.this.toString());
+		}
+
+		public Annotation[] getDeclaredAnnotations()
+		{
+			throw new RuntimeException(Pattern.this.toString());
+		}
+		
+		@Override
+		public String toString()
+		{
+			return Pattern.this.toString() + "-sourceFeatureAnnotations";
+		}
+	}
+	
 	
 	private boolean calledOnMount;
 	
