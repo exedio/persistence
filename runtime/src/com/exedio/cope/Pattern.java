@@ -62,6 +62,11 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
+	protected final void addSource(final Feature feature, final String postfix)
+	{
+		addSource(feature, postfix, null);
+	}
+	
 	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
 	{
 		if(postfix==null)
@@ -75,11 +80,6 @@ public abstract class Pattern extends Feature
 		assert sourceFeatureList==null;
 		feature.registerPattern(this);
 		sourceFeaturesGather.put(postfix, feature, annotationSource);
-	}
-	
-	protected final void addSource(final Feature feature, final String postfix)
-	{
-		addSource(feature, postfix, null);
 	}
 	
 	private boolean calledOnMount;
