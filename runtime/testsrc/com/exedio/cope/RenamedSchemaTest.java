@@ -69,8 +69,8 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
 		assertEquals("zackPattern_sourceFeature", getColumnName(pattern.sourceFeature));
-		assertEquals(filterTableName("RenamedSchemaItem") + "_pattern", getTableName(pattern.getSourceType())); // TODO should be ZackItem_zackPattern_sourceType
-		assertEquals(filterTableName("RenameSchemItem") + "_patt_tail", getTableName(pattern.getSourceTypePostfix())); // TODO should be ZackItem_zackPattern_sourceType
+		assertEquals(filterTableName("ZackItem_zackPattern"), getTableName(pattern.getSourceType()));
+		assertEquals(filterTableName("ZackItem_zackPattern_tail"), getTableName(pattern.getSourceTypePostfix()));
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 		

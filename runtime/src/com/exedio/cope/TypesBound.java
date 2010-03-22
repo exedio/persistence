@@ -103,6 +103,7 @@ public final class TypesBound
 
 		final Type<T> result = new Type<T>(
 				javaClass,
+				javaClass, // annotationSource
 				true,
 				id,
 				null, // pattern

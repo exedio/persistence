@@ -191,9 +191,81 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '-' + getName() + (postfix!=null ? ('-' + postfix) : "");
-		final Type<T> result = new Type<T>(javaClass, false, id, this, isAbstract, supertype, features);
+		final Type<T> result = new Type<T>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
+	}
+	
+	private final class SourceTypeAnnotationProxy implements AnnotatedElement
+	{
+		private final AnnotatedElement source;
+		final String postfix;
+		
+		SourceTypeAnnotationProxy(final AnnotatedElement source, final String postfix)
+		{
+			this.source = source;
+			this.postfix = postfix;
+		}
+
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(CopeSchemaName.class==annotationClass)
+				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+			
+			if(source==null)
+				return false;
+			
+			return source.isAnnotationPresent(annotationClass);
+		}
+		
+		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+		{
+			if(CopeSchemaName.class==annotationClass)
+			{
+				final Type<?> type = getType();
+				final CopeSchemaName typeName = type.getAnnotation(CopeSchemaName.class);
+				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
+				if(typeName!=null || patternName!=null)
+				{
+					return annotationClass.cast(new CopeSchemaName()
+					{
+						public Class<? extends Annotation> annotationType()
+						{
+							return CopeSchemaName.class;
+						}
+						
+						public String value()
+						{
+							return
+								(typeName!=null ? typeName.value() : type.getID()) + '-' +
+								(patternName!=null ? patternName.value() : Pattern.this.getName()) +
+								(postfix!=null ? ('-' + postfix) : "");
+						}
+					});
+				}
+			}
+			
+			if(source==null)
+				return null;
+			
+			return source.getAnnotation(annotationClass);
+		}
+
+		public Annotation[] getAnnotations()
+		{
+			throw new RuntimeException(Pattern.this.toString());
+		}
+
+		public Annotation[] getDeclaredAnnotations()
+		{
+			throw new RuntimeException(Pattern.this.toString());
+		}
+		
+		@Override
+		public String toString()
+		{
+			return Pattern.this.toString() + "-sourceTypeAnnotations";
+		}
 	}
 	
 	@Override

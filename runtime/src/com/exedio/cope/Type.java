@@ -25,6 +25,7 @@ import java.io.NotSerializableException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -50,6 +51,7 @@ import com.exedio.cope.util.Day;
 public final class Type<T extends Item> implements Comparable<Type>, Serializable
 {
 	private final Class<T> javaClass;
+	private final AnnotatedElement annotationSource;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
@@ -106,6 +108,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	
 	Type(
 			final Class<T> javaClass,
+			final AnnotatedElement annotationSource,
 			final boolean bound,
 			final String id,
 			final Pattern pattern,
@@ -119,6 +122,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
+		if(annotationSource==null)
+			throw new NullPointerException(javaClass.getName());
 		if(!isAbstract && Modifier.isAbstract(javaClass.getModifiers()))
 			throw new IllegalArgumentException("Cannot make a non-abstract type for abstract " + javaClass + '.'); // TODO test
 		if(id==null)
@@ -132,6 +137,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new NullPointerException("featuresParameter for " + id); // TODO test
 		
 		this.javaClass = javaClass;
+		this.annotationSource = annotationSource;
 		this.bound = bound;
 		this.id = id;
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
@@ -480,7 +486,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	 */
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
-		return javaClass.isAnnotationPresent(annotationClass);
+		return annotationSource.isAnnotationPresent(annotationClass);
 	}
 	
 	/**
@@ -488,7 +494,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	 */
 	public <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
-		return javaClass.getAnnotation(annotationClass);
+		return annotationSource.getAnnotation(annotationClass);
 	}
 	
 	void connect(final Database database)
