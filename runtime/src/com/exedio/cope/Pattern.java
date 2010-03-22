@@ -428,7 +428,7 @@ public abstract class Pattern extends Feature
 	}
 	
 	/**
-	 * @deprecated Do not this method anymore.
+	 * @deprecated Do not use this method anymore.
 	 */
 	@Deprecated
 	protected final java.lang.reflect.Field annotationField(final String name)
