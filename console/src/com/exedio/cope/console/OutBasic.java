@@ -20,7 +20,7 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
-import com.exedio.cops.XMLEncoder;
+import com.exedio.cope.util.XMLEncoder;
 
 class OutBasic
 {

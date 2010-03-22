@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cops.XMLEncoder;
+import com.exedio.cope.util.XMLEncoder;
 
 final class ConnectCop extends ConsoleCop
 {

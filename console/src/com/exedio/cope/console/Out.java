@@ -24,9 +24,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.util.XMLEncoder;
 import com.exedio.cops.Cop;
 import com.exedio.cops.Resource;
-import com.exedio.cops.XMLEncoder;
 import com.exedio.dsmf.Constraint;
 
 final class Out extends OutBasic

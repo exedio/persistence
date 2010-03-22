@@ -909,6 +909,7 @@
 				<pathelement location="build/console/classes" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
