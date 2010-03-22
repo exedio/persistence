@@ -30,6 +30,9 @@ class RenamedSchemaPattern extends Pattern
 	final StringField sourceTypeField = new StringField();
 	private Type<?> sourceType = null;
 	
+	final StringField sourceTypePostfixField = new StringField();
+	private Type<?> sourceTypePostfix = null;
+	
 	RenamedSchemaPattern()
 	{
 		this.sourceFeature = new IntegerField();
@@ -84,6 +87,10 @@ class RenamedSchemaPattern extends Pattern
 		final Features features = new Features();
 		features.put("field", sourceTypeField);
 		this.sourceType = newSourceType(SourceType.class, features);
+		
+		features.clear();
+		features.put("field", sourceTypePostfixField);
+		this.sourceTypePostfix = newSourceType(SourceType.class, features, "tail");
 	}
 	
 	Type<?> getSourceType()
@@ -92,6 +99,14 @@ class RenamedSchemaPattern extends Pattern
 			throw new IllegalStateException();
 		
 		return sourceType;
+	}
+	
+	Type<?> getSourceTypePostfix()
+	{
+		if(sourceTypePostfix==null)
+			throw new IllegalStateException();
+		
+		return sourceTypePostfix;
 	}
 	
 	@TestAnnotation("sourceType-TestAnnotation")

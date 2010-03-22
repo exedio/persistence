@@ -52,11 +52,15 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
+		assertEquals(false, pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
 		
 		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
 		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
+		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
 		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
+		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
@@ -66,7 +70,9 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("zackString", getColumnName(string));
 		assertEquals("zackPattern_sourceFeature", getColumnName(pattern.sourceFeature));
 		assertEquals(filterTableName("RenamedSchemaItem") + "_pattern", getTableName(pattern.getSourceType())); // TODO should be ZackItem_zackPattern_sourceType
+		assertEquals(filterTableName("RenameSchemItem") + "_patt_tail", getTableName(pattern.getSourceTypePostfix())); // TODO should be ZackItem_zackPattern_sourceType
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
+		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 		
 		final Schema schema = model.getVerifiedSchema();
 
