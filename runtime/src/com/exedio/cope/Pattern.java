@@ -237,7 +237,7 @@ public abstract class Pattern extends Feature
 						public String value()
 						{
 							return newSourceTypeId(
-								(typeName!=null ? typeName.value() : type.getID()),
+								(   typeName!=null ?    typeName.value() : type.getID()),
 								(patternName!=null ? patternName.value() : Pattern.this.getName()),
 								postfix);
 						}
