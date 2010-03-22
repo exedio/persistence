@@ -85,7 +85,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
 	}
 	
-	int store()
+	public int store()
 	{
 		return store;
 	}
