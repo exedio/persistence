@@ -190,7 +190,7 @@ public abstract class Pattern extends Feature
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
-		final String id = getType().getID() + '-' + getName() + (postfix!=null ? ('-' + postfix) : "");
+		final String id = newSourceTypeId(getType().getID(), getName(), postfix);
 		final Type<T> result = new Type<T>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
@@ -236,10 +236,10 @@ public abstract class Pattern extends Feature
 						
 						public String value()
 						{
-							return
-								(typeName!=null ? typeName.value() : type.getID()) + '-' +
-								(patternName!=null ? patternName.value() : Pattern.this.getName()) +
-								(postfix!=null ? ('-' + postfix) : "");
+							return newSourceTypeId(
+								(typeName!=null ? typeName.value() : type.getID()),
+								(patternName!=null ? patternName.value() : Pattern.this.getName()),
+								postfix);
 						}
 					});
 				}
@@ -266,6 +266,11 @@ public abstract class Pattern extends Feature
 		{
 			return Pattern.this.toString() + "-sourceTypeAnnotations";
 		}
+	}
+	
+	static final String newSourceTypeId(final String type, final String name, final String postfix)
+	{
+		return type + '-' + name + (postfix!=null ? ('-' + postfix) : "");
 	}
 	
 	@Override
