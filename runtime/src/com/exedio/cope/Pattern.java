@@ -111,20 +111,7 @@ public abstract class Pattern extends Feature
 			{
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				if(patternName!=null)
-				{
-					return annotationClass.cast(new CopeSchemaName()
-					{
-						public Class<? extends Annotation> annotationType()
-						{
-							return CopeSchemaName.class;
-						}
-						
-						public String value()
-						{
-							return patternName.value() + '-' + postfix;
-						}
-					});
-				}
+					return annotationClass.cast(new CopeSchemaNameImpl(patternName.value() + '-' + postfix));
 			}
 			
 			if(source==null)
@@ -227,21 +214,12 @@ public abstract class Pattern extends Feature
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				if(typeName!=null || patternName!=null)
 				{
-					return annotationClass.cast(new CopeSchemaName()
-					{
-						public Class<? extends Annotation> annotationType()
-						{
-							return CopeSchemaName.class;
-						}
-						
-						public String value()
-						{
-							return newSourceTypeId(
-								(   typeName!=null ?    typeName.value() : type.getID()),
-								(patternName!=null ? patternName.value() : Pattern.this.getName()),
-								postfix);
-						}
-					});
+					return annotationClass.cast(new CopeSchemaNameImpl(
+						newSourceTypeId(
+							(   typeName!=null ?    typeName.value() : type.getID()),
+							(patternName!=null ? patternName.value() : Pattern.this.getName()),
+							postfix)
+					));
 				}
 			}
 			
@@ -280,6 +258,26 @@ public abstract class Pattern extends Feature
 				append(postfix);
 		
 		return bf.toString();
+	}
+	
+	private static final class CopeSchemaNameImpl implements CopeSchemaName
+	{
+		private final String value;
+		
+		CopeSchemaNameImpl(final String value)
+		{
+			this.value = value;
+		}
+		
+		public Class<? extends Annotation> annotationType()
+		{
+			return CopeSchemaName.class;
+		}
+		
+		public String value()
+		{
+			return value;
+		}
 	}
 	
 	@Override
