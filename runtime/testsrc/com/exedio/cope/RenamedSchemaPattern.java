@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+
 class RenamedSchemaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
@@ -30,7 +33,47 @@ class RenamedSchemaPattern extends Pattern
 	RenamedSchemaPattern()
 	{
 		this.sourceFeature = new IntegerField();
-		addSource(sourceFeature, "sourceFeature");
+		addSource(sourceFeature, "sourceFeature", new AnnotatedElement()
+		{
+			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+			{
+				if(TestAnnotation.class==annotationClass)
+					return true;
+				
+				return false;
+			}
+			
+			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+			{
+				if(TestAnnotation.class==annotationClass)
+				{
+					return annotationClass.cast(new TestAnnotation()
+					{
+						public Class<? extends Annotation> annotationType()
+						{
+							return TestAnnotation.class;
+						}
+						
+						public String value()
+						{
+							return "sourceFeature-TestAnnotation";
+						}
+					});
+				}
+				
+				return null;
+			}
+			
+			public Annotation[] getAnnotations()
+			{
+				throw new RuntimeException();
+			}
+			
+			public Annotation[] getDeclaredAnnotations()
+			{
+				throw new RuntimeException();
+			}
+		});
 	}
 	
 	@Override

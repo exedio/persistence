@@ -48,6 +48,16 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	{
 		if(postgresql) return;
 		
+		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
+		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation.class)); // TODO
+		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
+		
+		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
+		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation.class)); // TODO
+		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
+		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
+		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
