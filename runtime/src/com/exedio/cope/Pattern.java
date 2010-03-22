@@ -270,7 +270,16 @@ public abstract class Pattern extends Feature
 	
 	static final String newSourceTypeId(final String type, final String name, final String postfix)
 	{
-		return type + '-' + name + (postfix!=null ? ('-' + postfix) : "");
+		final StringBuilder bf = new StringBuilder(type);
+		
+		bf.append('-').
+			append(name);
+		
+		if(postfix!=null)
+			bf.append('-').
+				append(postfix);
+		
+		return bf.toString();
 	}
 	
 	@Override
