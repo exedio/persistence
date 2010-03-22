@@ -94,6 +94,7 @@ class RenamedSchemaPattern extends Pattern
 		return sourceType;
 	}
 	
+	@TestAnnotation("sourceType-TestAnnotation")
 	static final class SourceType extends Item
 	{
 		private static final long serialVersionUID = 1l;

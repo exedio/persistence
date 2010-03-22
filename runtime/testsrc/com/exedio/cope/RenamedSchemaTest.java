@@ -50,11 +50,11 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		
 		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation.class)); // TODO
+		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
 		
 		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation.class)); // TODO
+		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
 		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		
