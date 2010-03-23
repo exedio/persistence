@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedPatternSchemaItem.TYPE;
 import static com.exedio.cope.RenamedPatternSchemaItem.pattern;
+import static com.exedio.cope.RenamedPatternSchemaItem.raw;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
@@ -52,8 +53,11 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackPattern_sourceFeature", getColumnName(pattern.sourceFeature));
+		assertEquals("raw_sourceFeature", getColumnName(raw.sourceFeature));
 		assertEquals(filterTableName("ZackItem_zackPattern"), getTableName(pattern.getSourceType()));
 		assertEquals(filterTableName("ZackItem_zackPattern_tail"), getTableName(pattern.getSourceTypePostfix()));
+		assertEquals(filterTableName("ZackItem_raw"), getTableName(raw.getSourceType()));
+		assertEquals(filterTableName("ZackItem_raw_tail"), getTableName(raw.getSourceTypePostfix()));
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 	}

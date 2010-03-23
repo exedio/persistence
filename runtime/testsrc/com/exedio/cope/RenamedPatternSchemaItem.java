@@ -23,6 +23,8 @@ package com.exedio.cope;
 	@CopeSchemaName("zackPattern")
 	static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
 	
+	static final RenamedSchemaPattern raw = new RenamedSchemaPattern();
+	
 	/**
 
 	 **
