@@ -52,10 +52,10 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
-		assertEquals("zackPattern_sourceFeature", getColumnName(pattern.sourceFeature));
+		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
 		assertEquals("raw_sourceFeature", getColumnName(raw.sourceFeature));
-		assertEquals(filterTableName("ZackItem_zackPattern"), getTableName(pattern.getSourceType()));
-		assertEquals(filterTableName("ZackItem_zackPattern_tail"), getTableName(pattern.getSourceTypePostfix()));
+		assertEquals(filterTableName("ZackItem_zack"), getTableName(pattern.getSourceType()));
+		assertEquals(filterTableName("ZackItem_zack_tail"), getTableName(pattern.getSourceTypePostfix()));
 		assertEquals(filterTableName("ZackItem_raw"), getTableName(raw.getSourceType()));
 		assertEquals(filterTableName("ZackItem_raw_tail"), getTableName(raw.getSourceTypePostfix()));
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
