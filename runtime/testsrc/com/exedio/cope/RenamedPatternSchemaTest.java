@@ -26,7 +26,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 
 public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(TYPE);
+	private static final Model MODEL = new Model(TYPE, RawItem.TYPE);
 	
 	public RenamedPatternSchemaTest()
 	{
@@ -52,13 +52,37 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
+		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
 		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
 		assertEquals("raw_sourceFeature", getColumnName(raw.sourceFeature));
+		assertEquals("zack_sourceFeature", getColumnName(RawItem.pattern.sourceFeature));
+		assertEquals("raw_sourceFeature", getColumnName(RawItem.raw.sourceFeature));
 		assertEquals(filterTableName("ZackItem_zack"), getTableName(pattern.getSourceType()));
 		assertEquals(filterTableName("ZackItem_zack_tail"), getTableName(pattern.getSourceTypePostfix()));
 		assertEquals(filterTableName("ZackItem_raw"), getTableName(raw.getSourceType()));
 		assertEquals(filterTableName("ZackItem_raw_tail"), getTableName(raw.getSourceTypePostfix()));
+		assertEquals(filterTableName("RawItem_zack"), getTableName(RawItem.pattern.getSourceType()));
+		assertEquals(filterTableName("RawItem_zack_tail"), getTableName(RawItem.pattern.getSourceTypePostfix()));
+		assertEquals(filterTableName("RawItem_raw"), getTableName(RawItem.raw.getSourceType()));
+		assertEquals(filterTableName("RawItem_raw_tail"), getTableName(RawItem.raw.getSourceTypePostfix()));
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
+	}
+	
+	private static class RawItem extends Item
+	{
+		@CopeSchemaName("zack")
+		static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
+		
+		static final RenamedSchemaPattern raw = new RenamedSchemaPattern();
+		
+		private RawItem(final com.exedio.cope.ActivationParameters ap)
+		{
+			super(ap);
+		}
+		
+		private static final long serialVersionUID = 1l;
+		
+		static final com.exedio.cope.Type<RawItem> TYPE = com.exedio.cope.TypesBound.newType(RawItem.class);
 	}
 }
