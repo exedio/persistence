@@ -4,7 +4,6 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
-	<property name="build.file.tag" value="unlabeled" />
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
@@ -931,47 +930,6 @@
 						tomcat, index,
 						webtest" />
 	
-	<target name="dist.tar">
-		<mkdir dir="build/runtime" />
-		<echo file="build/runtime/build.number" message="${build.tag}" />
-		<tar destfile="build/exedio-cope-src-${build.file.tag}.tar.gz"
-			  compression="gzip">
-			<tarfileset file="${basedir}/build/runtime/build.number" />
-			<tarfileset dir="${basedir}">
-				<exclude name="getlib/**" />
-				<exclude name="getlib.xml" />
-				<exclude name="getlib.properties" />
-				<exclude name="log.xml" /><!-- created by cruise -->
-				<exclude name=".eclipse-output/**" />
-				<exclude name="build/**" />
-				<exclude name="tomcat/**" />
-				<exclude name="cruise/**" />
-				<exclude name="**/*_Jspm.java" />
-				<exclude name="test-properties/*.properties" />
-				<exclude name="local.properties" />
-				<exclude name="runtime/servlettestweb/WEB-INF/classes/**" />
-				<exclude name="runtime/servlettestweb/WEB-INF/lib/**" />
-				<!-- oracle is not open source -->
-				<exclude name="oracle.dialect.properties" />
-				<exclude name="lib/jdbc/ojdbc*.jar" />
-			</tarfileset>
-			<tarfileset dir="${basedir}">
-				<include name="test-properties/hsqldb*.properties" />
-			</tarfileset>
-		</tar>
-	</target>
-	
-	<target name="dist.test" depends="dist.tar">
-		<delete dir="build/dist-test" />
-		<mkdir dir="build/dist-test" />
-		<untar src="build/exedio-cope-src-${build.file.tag}.tar.gz"
-				 dest="build/dist-test"
-				 compression="gzip" />
-		<ant dir="build/dist-test" target="build" />
-	</target>
-	
-	<target name="dist" depends="dist.tar, dist.test" />
-	
 	<target name="findbugs.prepare">
 		<untar
 				compression="gzip"
@@ -1041,7 +999,7 @@
 	
 	<target name="findbugs" depends="findbugs.prod, findbugs.test" />
 	
-	<target name="all" depends="build, runtime.jar.src, api, dist, findbugs" />
+	<target name="all" depends="build, runtime.jar.src, api, findbugs" />
 
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">
@@ -1051,7 +1009,6 @@
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
-			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
 			<fileset file="${basedir}/build/testprotocol.html" />
 			<fileset file="${basedir}/build/findbugs-prod.html" />
 			<fileset file="${basedir}/build/findbugs-test.html" />
@@ -1066,7 +1023,6 @@
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
-			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
 		</copy>
 	</target>
 
