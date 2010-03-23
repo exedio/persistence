@@ -123,6 +123,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( HardJoinTest.class );
 		suite.addTestSuite( SchemaTest.class );
 		suite.addTestSuite( RenamedSchemaTest.class );
+		suite.addTestSuite( RenamedPatternSchemaTest.class );
 		suite.addTestSuite( SchemaModifyTest.class );
 		suite.addTestSuite( QueryInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );

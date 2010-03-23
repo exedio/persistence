@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.item;
-import static com.exedio.cope.RenamedSchemaItem.pattern;
 import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
@@ -48,31 +47,12 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	{
 		if(postgresql) return;
 		
-		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
-		
-		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
-		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
-		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
-		
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
-		assertEquals("zackPattern_sourceFeature", getColumnName(pattern.sourceFeature));
-		assertEquals(filterTableName("ZackItem_zackPattern"), getTableName(pattern.getSourceType()));
-		assertEquals(filterTableName("ZackItem_zackPattern_tail"), getTableName(pattern.getSourceTypePostfix()));
-		assertEquals("field", getColumnName(pattern.sourceTypeField));
-		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 		
 		final Schema schema = model.getVerifiedSchema();
 
