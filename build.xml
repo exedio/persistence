@@ -20,14 +20,13 @@
 	<macrodef name="ljavac">
 		<attribute name="srcdir" />
 		<attribute name="destdir" />
-		<attribute name="includeAntRuntime" default="false" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local compile @{srcdir} to @{destdir}" /-->
 			<mkdir dir="@{destdir}" />
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
-					 includeAntRuntime="@{includeAntRuntime}"
+					 includeAntRuntime="false"
 					 source="1.5"
 					 deprecation="on"
 					 debug="on"
@@ -675,15 +674,12 @@
 	</target>
 	
 	<target name="instrument.ant.compile" depends="instrument.core.compile">
-		<ljavac srcdir="instrument/antsrc" destdir="build/classes/instrument/antsrc" includeAntRuntime="true">
+		<compile srcdir="instrument/antsrc" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
-		</ljavac>
-		<copy
-			file="instrument/antsrc/com/exedio/cope/instrument/ant.properties"
-			todir="build/classes/instrument/antsrc/com/exedio/cope/instrument" />
+		</compile>
 	</target>
 	
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />

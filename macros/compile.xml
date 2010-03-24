@@ -4,13 +4,14 @@
 
 	<macrodef name="compile">
 		<attribute name="srcdir" />
+		<attribute name="includeAntRuntime" default="false" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local compile @{srcdir}" /-->
 			<mkdir dir="build/classes/@{srcdir}" />
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
-					 includeAntRuntime="false"
+					 includeAntRuntime="@{includeAntRuntime}"
 					 source="1.5"
 					 deprecation="on"
 					 debug="on"
