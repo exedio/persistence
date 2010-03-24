@@ -509,11 +509,7 @@
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/servletsrc" />
-		</copy>
-		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/classes/console/src" />
-		</copy>
-		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
@@ -805,8 +801,6 @@
 		<copy todir="console/web/WEB-INF/classes">
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/console/src" />
-		</copy>
-		<copy todir="console/web/WEB-INF/classes">
 			<fileset dir="build/classes/console/websrc" />
 		</copy>
 		<copy todir="console/web/WEB-INF/lib">
