@@ -496,12 +496,6 @@
 	<target name="runtime.servlet.test.web"
 			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile,
 			           console.compile">
-		<copy todir="runtime/servlettestweb/WEB-INF/classes">
-			<fileset dir="build/classes/dsmf/src" />
-			<fileset dir="build/classes/runtime/src" />
-			<fileset dir="build/classes/runtime/dialects" />
-			<fileset dir="build/classes/runtime/servletsrc" />
-		</copy>
 		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -510,6 +504,15 @@
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</compile>
+		<copy todir="runtime/servlettestweb/WEB-INF/classes">
+			<fileset dir="build/classes/dsmf/src" />
+			<fileset dir="build/classes/runtime/src" />
+			<fileset dir="build/classes/runtime/dialects" />
+			<fileset dir="build/classes/runtime/servletsrc" />
+		</copy>
+		<copy todir="runtime/servlettestweb/WEB-INF/classes">
+			<fileset dir="build/classes/console/src" />
+		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
@@ -520,9 +523,6 @@
 			<fileset file="lib/commons-fileupload.jar" />
 			<fileset file="lib/commons-io.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
-		</copy>
-		<copy todir="runtime/servlettestweb/WEB-INF/classes">
-			<fileset dir="build/classes/console/src" />
 		</copy>
 	</target>
 	
@@ -793,17 +793,6 @@
 	</target>
 	
 	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.servlet.compile, console.core.compile">
-		<copy todir="console/web/WEB-INF/classes">
-			<fileset dir="build/classes/runtime/src" />
-			<fileset dir="build/classes/console/src" />
-		</copy>
-		<copy todir="console/web/WEB-INF/lib">
-			<fileset file="lib/trove.jar" />
-			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/jdbc/hsqldb.jar" />
-			<fileset file="lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
-		</copy>
 		<compile srcdir="console/websrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
@@ -814,7 +803,18 @@
 			</classpath>
 		</compile>
 		<copy todir="console/web/WEB-INF/classes">
+			<fileset dir="build/classes/runtime/src" />
+			<fileset dir="build/classes/console/src" />
+		</copy>
+		<copy todir="console/web/WEB-INF/classes">
 			<fileset dir="build/classes/console/websrc" />
+		</copy>
+		<copy todir="console/web/WEB-INF/lib">
+			<fileset file="lib/trove.jar" />
+			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/jdbc/hsqldb.jar" />
+			<fileset file="lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
 		</copy>
 		<copy todir="build/console/historyweb">
 			<fileset dir="console/web" />
