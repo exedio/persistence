@@ -17,28 +17,6 @@
 			resource="com/exedio/jspm/ant.properties"
 			classpath="lib/exedio-jspm.jar" />
 	
-	<macrodef name="ljavac">
-		<attribute name="srcdir" />
-		<attribute name="destdir" />
-		<element name="classpath" optional="true" implicit="true" />
-		<sequential>
-			<!--echo message="local compile @{srcdir} to @{destdir}" /-->
-			<mkdir dir="@{destdir}" />
-			<javac srcdir="@{srcdir}"
-					 destdir="@{destdir}"
-					 includeAntRuntime="false"
-					 source="1.5"
-					 deprecation="on"
-					 debug="on"
-					 optimize="off">
-				<classpath />
-				<compilerarg value="-Xlint" />
-				<compilerarg value="-encoding" />
-				<compilerarg value="ascii" />
-			</javac>
-		</sequential>
-	</macrodef>
-	
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
@@ -524,21 +502,16 @@
 			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/servletsrc" />
 		</copy>
-		<ljavac srcdir="runtime/servlettestsrc" destdir="runtime/servlettestweb/WEB-INF/classes">
+		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
-		</ljavac>
+		</compile>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
-			<fileset dir="runtime/servlettestsrc">
-				<include name="**/*.gif" />
-				<include name="**/*.jpg" />
-				<include name="**/*.png" />
-				<include name="**/*.txt" />
-			</fileset>
+			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
@@ -831,7 +804,7 @@
 			<fileset file="lib/jdbc/hsqldb.jar" />
 			<fileset file="lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
 		</copy>
-		<ljavac srcdir="console/websrc" destdir="console/web/WEB-INF/classes">
+		<compile srcdir="console/websrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
@@ -839,11 +812,9 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
-		</ljavac>
+		</compile>
 		<copy todir="console/web/WEB-INF/classes">
-			<fileset dir="console/websrc">
-				<include name="**/*.png" />
-			</fileset>
+			<fileset dir="build/classes/console/websrc" />
 		</copy>
 		<copy todir="build/console/historyweb">
 			<fileset dir="console/web" />
