@@ -304,6 +304,45 @@
 		</zip>
 	</target>
 	
+	<target name="runtime.utiltest.compile"
+			depends="runtime.core.compile, runtime.junit.compile">
+		<compile srcdir="runtime/utiltestsrc">
+			<classpath>
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/junitsrc" />
+				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+		</compile>
+	</target>
+	
+	<target name="runtime.utiltest"
+			depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.utiltest.compile">
+		<mkdir dir="build/testresults" />
+		<junit taskname="junit" fork="yes"
+					haltonerror="true" haltonfailure="true"
+					dir="${basedir}"
+					showoutput="true" printsummary="true">
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<classpath>
+				<pathelement location="build/classes/dsmf/src" />
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/dialects" />
+				<pathelement location="build/classes/runtime/junitsrc" />
+				<pathelement location="build/classes/runtime/utiltestsrc" />
+				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/jdbc/hsqldb.jar" />
+			</classpath>
+			<test name="com.exedio.cope.PackageUtilTest" todir="build/testresults" outfile="runtime-util" />
+			<sysproperty key="com.exedio.cope.properties" file="runtime/utiltest.properties" />
+			<assertions><enable/></assertions>
+		</junit>
+	</target>
+	
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument finalArgs="true" createDeprecated="true" verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
@@ -853,7 +892,7 @@
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
-	<target name="test" depends="dsmf.test, runtime.test, instrument.test, console.test" />
+	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test, console.test" />
 	
 	<target name="web" depends="runtime.web, copernica.web" />
 	

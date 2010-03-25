@@ -43,7 +43,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TrimmerTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
 		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( ClusterTest.class );
 		suite.addTestSuite( IsInitialTest.class );
 		suite.addTestSuite( GetModelTest.class );
 		suite.addTestSuite( TestGetModelTest.class );

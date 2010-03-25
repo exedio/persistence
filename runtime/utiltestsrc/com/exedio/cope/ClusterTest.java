@@ -31,6 +31,9 @@ import com.exedio.cope.info.ClusterSenderInfo;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
 
+/**
+ * BEWARE: This test listens to port 14446, thus must not be included into exedio-cope-test.jar. 
+ */
 public class ClusterTest extends CopeAssert
 {
 	private ConnectProperties properties;
