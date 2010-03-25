@@ -338,7 +338,6 @@
 				<pathelement location="lib/jdbc/hsqldb.jar" />
 			</classpath>
 			<test name="com.exedio.cope.PackageUtilTest" todir="build/testresults" outfile="runtime-util" />
-			<sysproperty key="com.exedio.cope.properties" file="runtime/utiltest.properties" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>

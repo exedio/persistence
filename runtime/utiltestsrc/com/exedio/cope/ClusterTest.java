@@ -21,6 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
+import java.io.File;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class ClusterTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties defaultProperties = new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
 		final Properties.Source source = defaultProperties.getSourceObject();
 		Properties.Source context = null;
 		try
