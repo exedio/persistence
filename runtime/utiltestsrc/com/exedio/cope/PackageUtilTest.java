@@ -27,7 +27,11 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite( TrimmerTest.class );
+		suite.addTestSuite( IsInitialTest.class );
+		suite.addTestSuite( GetModelTest.class );
 		suite.addTestSuite( ClusterTest.class );
+		suite.addTestSuite( ClusterIntTest.class );
 		return suite;
 	}
 }

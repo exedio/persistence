@@ -40,11 +40,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 		
 		suite.addTestSuite( CapabilitiesTest.class );
-		suite.addTestSuite( TrimmerTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
-		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( IsInitialTest.class );
-		suite.addTestSuite( GetModelTest.class );
 		suite.addTestSuite( TestGetModelTest.class );
 		suite.addTestSuite( TypeCollisionTest.class );
 		suite.addTestSuite( TypeSetTest.class );
