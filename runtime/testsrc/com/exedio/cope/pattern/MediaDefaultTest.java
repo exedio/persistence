@@ -27,6 +27,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 
 public class MediaDefaultTest extends AbstractRuntimeTest
@@ -102,6 +103,9 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertNotNull(item.file.bodyMismatchesContentType());
 		
 		// test persistence
+		assertEquals("file_body", SchemaInfo.getColumnName(item.file.getBody()));
+		assertEquals("file_contentType", SchemaInfo.getColumnName(item.file.getContentType()));
+		assertEquals("file_lastModified", SchemaInfo.getColumnName(item.file.getLastModified()));
 		
 		assertNull();
 		assertContains(item, item.TYPE.search(item.file.isNull()));
