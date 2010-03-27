@@ -24,5 +24,5 @@ import com.exedio.cope.util.Interrupter;
 
 public interface Scheduleable
 {
-	public void run(Schedule schedule, Date from, Date until, Interrupter interrupter);
+	void run(Schedule schedule, Date from, Date until, Interrupter interrupter);
 }
