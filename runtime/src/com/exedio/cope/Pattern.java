@@ -109,6 +109,9 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
+				if(source!=null && source.getAnnotation(annotationClass)!=null)
+					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
+				
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				if(patternName!=null)
 					return annotationClass.cast(schemaName(patternName.value() + '-' + postfix));
@@ -209,6 +212,9 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
+				if(source!=null && source.getAnnotation(annotationClass)!=null)
+					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
+				
 				final Type<?> type = getType();
 				final CopeSchemaName typeName = type.getAnnotation(CopeSchemaName.class);
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
