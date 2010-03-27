@@ -36,48 +36,57 @@ class RenamedSchemaPattern extends Pattern
 	RenamedSchemaPattern()
 	{
 		this.sourceFeature = new IntegerField();
-		addSource(sourceFeature, "sourceFeature", new AnnotatedElement()
-		{
-			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-			{
-				if(TestAnnotation.class==annotationClass)
-					return true;
-				
-				return false;
-			}
-			
-			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
-			{
-				if(TestAnnotation.class==annotationClass)
-				{
-					return annotationClass.cast(new TestAnnotation()
-					{
-						public Class<? extends Annotation> annotationType()
-						{
-							return TestAnnotation.class;
-						}
-						
-						public String value()
-						{
-							return "sourceFeature-TestAnnotation";
-						}
-					});
-				}
-				
-				return null;
-			}
-			
-			public Annotation[] getAnnotations()
-			{
-				throw new RuntimeException();
-			}
-			
-			public Annotation[] getDeclaredAnnotations()
-			{
-				throw new RuntimeException();
-			}
-		});
+		addSource(sourceFeature, "sourceFeature", new AnnotationSource("sourceFeature"));
 	}
+	
+	private static final class AnnotationSource implements AnnotatedElement
+	{
+		final String name;
+		
+		AnnotationSource(final String name)
+		{
+			this.name = name;
+		}
+		
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(TestAnnotation.class==annotationClass)
+				return true;
+			
+			return false;
+		}
+		
+		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+		{
+			if(TestAnnotation.class==annotationClass)
+			{
+				return annotationClass.cast(new TestAnnotation()
+				{
+					public Class<? extends Annotation> annotationType()
+					{
+						return TestAnnotation.class;
+					}
+					
+					public String value()
+					{
+						return name + "-TestAnnotation";
+					}
+				});
+			}
+			
+			return null;
+		}
+		
+		public Annotation[] getAnnotations()
+		{
+			throw new RuntimeException();
+		}
+		
+		public Annotation[] getDeclaredAnnotations()
+		{
+			throw new RuntimeException();
+		}
+	};
 	
 	@Override
 	protected void onMount()
