@@ -107,8 +107,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.toTarget.getType());
 		assertEquals("toTarget", item.toTarget.getName());
-		assertEquals(3, config.getFailureLimit());
-		assertEquals(2, config.getSearchSize());
 
 		assertEquals("DispatcherItem-toTarget-Failure", failureType.getID());
 		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
@@ -139,43 +137,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		assertSerializedSame(item.toTarget, 386);
 		
-		// TODO move to separate DispatcherConfigTest
-		try
-		{
-			new Dispatcher.Config(0, 0);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("failureLimit must be greater zero, but was 0.", e.getMessage());
-		}
-		try
-		{
-			new Dispatcher.Config(-10, 0);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("failureLimit must be greater zero, but was -10.", e.getMessage());
-		}
-		try
-		{
-			new Dispatcher.Config(1000, 0);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("searchSize must be greater zero, but was 0.", e.getMessage());
-		}
-		try
-		{
-			new Dispatcher.Config(1000, -10);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
-		}
 		try
 		{
 			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);

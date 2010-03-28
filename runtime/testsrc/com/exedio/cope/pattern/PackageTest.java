@@ -54,6 +54,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
+		suite.addTestSuite(DispatcherConfigTest.class);
 		suite.addTestSuite(DispatcherTest.class);
 		suite.addTestSuite(ImporterTest.class);
 		suite.addTestSuite(SingletonTest.class);
