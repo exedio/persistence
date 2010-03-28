@@ -55,7 +55,6 @@ import com.exedio.cope.util.Interrupter;
  *    - re-implement getSuccessDate/getSuccessElapsed with search
  *    - rename Failure to Run
  *    - remove @Computed from pending
- * + Accept failureLimit/searchSize in dispatch, instead of setting it at the dispatcher
  */
 public final class Dispatcher extends Pattern
 {
@@ -63,8 +62,6 @@ public final class Dispatcher extends Pattern
 	
 	private static final String ENCODING = "utf8";
 	
-	private final int failureLimit;
-	private final int searchSize;
 	private final BooleanField pending = new BooleanField().defaultTo(true);
 	private final DateField successDate = new DateField().optional();
 	private final LongField successElapsed = new LongField().optional();
@@ -78,18 +75,6 @@ public final class Dispatcher extends Pattern
 	
 	public Dispatcher()
 	{
-		this(5, 100);
-	}
-	
-	public Dispatcher(final int failureLimit, final int searchSize)
-	{
-		this.failureLimit = failureLimit;
-		this.searchSize = searchSize;
-		if(failureLimit<1)
-			throw new IllegalArgumentException("failureLimit must be greater zero, but was " + failureLimit + ".");
-		if(searchSize<1)
-			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
-		
 		addSource(pending,        "pending",        ComputedElement.get());
 		addSource(successDate,    "successDate",    ComputedElement.get());
 		addSource(successElapsed, "successElapsed", ComputedElement.get());
@@ -114,16 +99,6 @@ public final class Dispatcher extends Pattern
 		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
 		failureType = newSourceType(Failure.class, features, "Failure");
-	}
-	
-	public int getFailureLimit()
-	{
-		return failureLimit;
-	}
-	
-	public int getSearchSize()
-	{
-		return searchSize;
 	}
 	
 	public BooleanField getPending()
@@ -183,6 +158,7 @@ public final class Dispatcher extends Pattern
 			new Wrapper("dispatch").
 			addComment("Dispatch by {0}.").
 			setReturn(int.class, "the number of successfully dispatched items").
+			addParameter(Config.class, "config").
 			addParameter(Interrupter.class, "interrupter").
 			setStatic());
 		
@@ -219,8 +195,11 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	public <P extends Item> int dispatch(final Class<P> parentClass, final Interrupter interrupter)
+	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
+		if(config==null)
+			throw new NullPointerException("config");
+		
 		final Type<P> type = getType().as(parentClass);
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
@@ -238,7 +217,7 @@ public final class Dispatcher extends Pattern
 				if(lastDispatched!=null)
 					q.narrow(typeThis.greater(lastDispatched));
 				q.setOrderBy(typeThis, true);
-				q.setLimit(0, searchSize);
+				q.setLimit(0, config.getSearchSize());
 				toDispatch = q.search();
 				model.commit();
 			}
@@ -310,7 +289,7 @@ public final class Dispatcher extends Pattern
 							failureElapsed.map(elapsed),
 							failureCause.map(baos.toByteArray()));
 						
-						final boolean finalFailure = failureType.newQuery(failureParent.equal(item)).total()>=failureLimit;
+						final boolean finalFailure = failureType.newQuery(failureParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 						
@@ -348,6 +327,38 @@ public final class Dispatcher extends Pattern
 	public List<Failure> getFailures(final Item item)
 	{
 		return failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
+	}
+	
+	public static final class Config
+	{
+		private final int failureLimit;
+		private final int searchSize;
+		
+		public Config()
+		{
+			this(5, 100);
+		}
+		
+		public Config(final int failureLimit, final int searchSize)
+		{
+			if(failureLimit<1)
+				throw new IllegalArgumentException("failureLimit must be greater zero, but was " + failureLimit + '.');
+			if(searchSize<1)
+				throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + '.');
+			
+			this.failureLimit = failureLimit;
+			this.searchSize = searchSize;
+		}
+		
+		public int getFailureLimit()
+		{
+			return failureLimit;
+		}
+		
+		public int getSearchSize()
+		{
+			return searchSize;
+		}
 	}
 
 	@Computed

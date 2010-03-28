@@ -34,6 +34,7 @@ import com.exedio.cope.util.Interrupter;
 public class DispatcherTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
+	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 	
 	static
 	{
@@ -106,8 +107,8 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.toTarget.getType());
 		assertEquals("toTarget", item.toTarget.getName());
-		assertEquals(3, item.toTarget.getFailureLimit());
-		assertEquals(2, item.toTarget.getSearchSize());
+		assertEquals(3, config.getFailureLimit());
+		assertEquals(2, config.getSearchSize());
 
 		assertEquals("DispatcherItem-toTarget-Failure", failureType.getID());
 		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
@@ -138,9 +139,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		assertSerializedSame(item.toTarget, 386);
 		
+		// TODO move to separate DispatcherConfigTest
 		try
 		{
-			new Dispatcher(0, 0);
+			new Dispatcher.Config(0, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -149,7 +151,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Dispatcher(-10, 0);
+			new Dispatcher.Config(-10, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -158,7 +160,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Dispatcher(1000, 0);
+			new Dispatcher.Config(1000, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -167,7 +169,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Dispatcher(1000, -10);
+			new Dispatcher.Config(1000, -10);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -220,12 +222,21 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), null);
 			fail();
 		}
 		catch(ClassCastException e)
 		{
 			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherItem.class.getName(), e.getMessage());
+		}
+		try
+		{
+			DispatcherItem.toTarget.dispatch(HashItem.class, null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("config", e.getMessage());
 		}
 	}
 	
@@ -305,7 +316,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	{
 		model.commit();
 		final Date before = new Date();
-		final int actualResult = item.dispatchToTarget(interrupter);
+		final int actualResult = item.dispatchToTarget(config, interrupter);
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
 		assertEquals(expectedResult, actualResult);
