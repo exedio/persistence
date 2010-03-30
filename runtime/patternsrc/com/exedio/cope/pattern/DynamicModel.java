@@ -215,7 +215,7 @@ public final class DynamicModel<L> extends Pattern
 		return t;
 	}
 	
-	public DynamicModel.Type<L> createType(final String code)
+	public Type<L> createType(final String code)
 	{
 		return typeType.newItem(typeCode.map(code));
 	}
