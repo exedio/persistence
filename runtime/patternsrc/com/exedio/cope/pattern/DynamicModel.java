@@ -225,7 +225,7 @@ public final class DynamicModel<L> extends Pattern
 		return typeType.search();
 	}
 	
-	public Type getType(final String code)
+	public Type<L> getType(final String code)
 	{
 		return typeType.searchSingleton(typeCode.equal(code));
 	}
@@ -266,17 +266,17 @@ public final class DynamicModel<L> extends Pattern
 		return this.type.get(item);
 	}
 	
-	public com.exedio.cope.Type<?> getTypeType()
+	public com.exedio.cope.Type<Type<L>> getTypeType()
 	{
 		return typeType;
 	}
 	
-	public com.exedio.cope.Type getFieldType()
+	public com.exedio.cope.Type<Field<L>> getFieldType()
 	{
 		return fieldType;
 	}
 	
-	public com.exedio.cope.Type getEnumType()
+	public com.exedio.cope.Type<Enum<L>> getEnumType()
 	{
 		return enumType;
 	}
@@ -296,7 +296,7 @@ public final class DynamicModel<L> extends Pattern
 		return enumLocalization.getRelationType();
 	}
 	
-	public ItemField<?> getTypeField()
+	public ItemField<Type<L>> getTypeField()
 	{
 		return type;
 	}
@@ -315,7 +315,7 @@ public final class DynamicModel<L> extends Pattern
 		item.set(values);
 	}
 	
-	private void assertType(final Item item, final Field field)
+	private void assertType(final Item item, final Field<L> field)
 	{
 		final Item fieldType = fieldParent.get(field);
 		final Item itemType = type.get(item);
@@ -325,7 +325,7 @@ public final class DynamicModel<L> extends Pattern
 					", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
 	}
 	
-	FunctionField<?> getField(final Field field)
+	FunctionField<?> getField(final Field<L> field)
 	{
 		final ValueType valueType = field.getValueType();
 		final int pos = field.getPositionPerValueType();
@@ -346,13 +346,13 @@ public final class DynamicModel<L> extends Pattern
 		return array[pos];
 	}
 	
-	public Object get(final Item item, final Field field)
+	public Object get(final Item item, final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
 	}
 	
-	public void set(final Item item, final DynamicModel.Field<L> field, final Object value)
+	public void set(final Item item, final Field<L> field, final Object value)
 	{
 		assertType(item, field);
 		
@@ -494,7 +494,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addField(String,com.exedio.cope.pattern.DynamicModel.ValueType)} instead
 		 */
 		@Deprecated
-		public Field addAttribute(final String code, final ValueType valueType)
+		public Field<L> addAttribute(final String code, final ValueType valueType)
 		{
 			return addField(code, valueType);
 		}
@@ -503,7 +503,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addStringField(String)} instead
 		 */
 		@Deprecated
-		public Field addStringAttribute(final String code)
+		public Field<L> addStringAttribute(final String code)
 		{
 			return addStringField(code);
 		}
@@ -512,7 +512,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addBooleanField(String)} instead
 		 */
 		@Deprecated
-		public Field addBooleanAttribute(final String code)
+		public Field<L> addBooleanAttribute(final String code)
 		{
 			return addBooleanField(code);
 		}
@@ -521,7 +521,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addIntegerField(String)} instead
 		 */
 		@Deprecated
-		public Field addIntegerAttribute(final String code)
+		public Field<L> addIntegerAttribute(final String code)
 		{
 			return addIntegerField(code);
 		}
@@ -530,7 +530,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addDoubleField(String)} instead
 		 */
 		@Deprecated
-		public Field addDoubleAttribute(final String code)
+		public Field<L> addDoubleAttribute(final String code)
 		{
 			return addDoubleField(code);
 		}
@@ -539,7 +539,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addEnumField(String)} instead
 		 */
 		@Deprecated
-		public Field addEnumAttribute(final String code)
+		public Field<L> addEnumAttribute(final String code)
 		{
 			return addEnumField(code);
 		}
@@ -557,7 +557,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getField(String)} instead
 		 */
 		@Deprecated
-		public Field getAttribute(final String code)
+		public Field<L> getAttribute(final String code)
 		{
 			return getField(code);
 		}
@@ -611,7 +611,7 @@ public final class DynamicModel<L> extends Pattern
 			return p.enumType.search(p.enumParent.equal(this), p.enumPosition, true);
 		}
 		
-		public Enum getEnumValue(final String code)
+		public Enum<L> getEnumValue(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
 			assertEnum();
@@ -631,7 +631,7 @@ public final class DynamicModel<L> extends Pattern
 							p.enumCode.map(code));
 		}
 		
-		public Type getParent()
+		public Type<L> getParent()
 		{
 			return getPattern().fieldParent.get(this);
 		}
