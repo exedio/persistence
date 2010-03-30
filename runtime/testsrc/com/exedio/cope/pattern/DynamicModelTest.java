@@ -23,7 +23,6 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
@@ -222,12 +221,13 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
-		assertSame(item.TYPE, color.getField().getType());
-		assertEquals("features-enum0", color.getField().getName());
-		assertEquals(item.features.getEnumType(), ((ItemField)color.getField()).getValueType());
+		assertSame(item.TYPE, color.getFieldEnum().getType());
+		assertEquals("features-enum0", color.getFieldEnum().getName());
+		assertEquals(item.features.getEnumType(), color.getFieldEnum().getValueType());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
+		assertSame(color.getFieldEnum(), color.getField());
 		
 		final Enum colorRed = color.addEnumValue("red");
 		assertEquals(color, colorRed.getParent());
@@ -250,12 +250,13 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
-		assertSame(item.TYPE, manufacturer.getField().getType());
-		assertEquals("features-enum1", manufacturer.getField().getName());
-		assertEquals(item.features.getEnumType(), ((ItemField)manufacturer.getField()).getValueType());
+		assertSame(item.TYPE, manufacturer.getFieldEnum().getType());
+		assertEquals("features-enum1", manufacturer.getFieldEnum().getName());
+		assertEquals(item.features.getEnumType(), manufacturer.getFieldEnum().getValueType());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
+		assertSame(manufacturer.getFieldEnum(), manufacturer.getField());
 		
 		final Enum manufacturer1 = manufacturer.addEnumValue("manufacturer1");
 		assertEquals(manufacturer, manufacturer1.getParent());
@@ -278,6 +279,42 @@ public class DynamicModelTest extends AbstractRuntimeTest
 
 		
 		// wrong value type
+		try
+		{
+			akkuTime.getFieldEnum();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was INTEGER", e.getMessage());
+		}
+		try
+		{
+			memory.getFieldEnum();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was STRING", e.getMessage());
+		}
+		try
+		{
+			bluetooth.getFieldEnum();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was BOOLEAN", e.getMessage());
+		}
+		try
+		{
+			length.getFieldEnum();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was DOUBLE", e.getMessage());
+		}
 		try
 		{
 			item2.setFeatures(weight, "510");

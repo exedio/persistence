@@ -72,7 +72,7 @@ public final class DynamicModel<L> extends Pattern
 	private final BooleanField[] booleans;
 	private final IntegerField[] integers;
 	private final DoubleField [] doubles;
-	private final ItemField<?>[] enums;
+	private final ItemField<Enum<L>>[] enums;
 	
 	private DynamicModel(
 			final FunctionField<L> locale,
@@ -94,7 +94,7 @@ public final class DynamicModel<L> extends Pattern
 		booleans = new BooleanField[booleanCapacity];
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
-		enums    = new ItemField   [enumCapacity];
+		enums    = newItemField    (enumCapacity);
 		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		int n = 0;
@@ -106,6 +106,12 @@ public final class DynamicModel<L> extends Pattern
 			addSource(fields[n++] = integers[i] = new IntegerField().optional(), "int"   +i);
 		for(int i = 0; i<doubles.length; i++)
 			addSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "double"+i);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ItemField<Enum<L>>[] newItemField(final int length)
+	{
+		return new ItemField[length];
 	}
 	
 	public static final <L> DynamicModel<L> newModel(
@@ -344,6 +350,29 @@ public final class DynamicModel<L> extends Pattern
 			throw new RuntimeException("accessing " + field + " exceeded capacity for " + valueType + ", " + capacity + " available, but tried to access " + (pos+1));
 
 		return array[pos];
+	}
+	
+	private void assertValueType(final Field<L> field, final ValueType valueType)
+	{
+		final ValueType fieldValueType = field.getValueType();
+		if(valueType!=fieldValueType)
+			throw new IllegalArgumentException("operation allowed for getValueType()==" + valueType + " fields only, but was " + fieldValueType);
+	}
+	
+	ItemField<Enum<L>> getFieldEnum(final Field<L> field)
+	{
+		assertValueType(field, ValueType.ENUM);
+		
+		final int pos = field.getPositionPerValueType();
+		
+		// make a more verbose exception instead
+		// of the ArrayIndexOutOfBoundException
+		// thrown by the last line.
+		final int capacity = enums.length;
+		if(capacity<=pos)
+			throw new RuntimeException("accessing " + field + " exceeded capacity, " + capacity + " available, but tried to access " + (pos+1));
+
+		return enums[pos];
 	}
 	
 	public Object get(final Item item, final Field<L> field)
@@ -659,6 +688,11 @@ public final class DynamicModel<L> extends Pattern
 		public FunctionField<?> getField()
 		{
 			return getPattern().getField(this);
+		}
+		
+		public ItemField<Enum<L>> getFieldEnum()
+		{
+			return getPattern().getFieldEnum(this);
 		}
 		
 		
