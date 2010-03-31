@@ -722,7 +722,7 @@ public final class DynamicModel<L> extends Pattern
 			return (DynamicModel)getCopeType().getPattern();
 		}
 		
-		public Field getParent()
+		public Field<L> getParent()
 		{
 			return getPattern().enumParent.get(this);
 		}
