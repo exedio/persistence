@@ -159,6 +159,17 @@ final class Media_Jspm extends Console_Jspm
 		final Media mediaLength = media instanceof Media ? (Media)media : null;
 		final boolean mediaInline = cop.mediaInline;
 		final boolean otherInline = cop.otherInline;
+		final boolean mediaTouch = cop.canTouch();
+		final boolean otherTouch = cop.canTouchOther();
+		final boolean form = mediaTouch||otherTouch;
+		
+	if(form)
+	{
+		%>
+		<form action="<%=cop%>" method="post"><%
+		writeButton(out);
+	}
+		
 		%>
 		<table>
 			<caption><%=media.getID()%></caption><%
@@ -199,7 +210,14 @@ final class Media_Jspm extends Console_Jspm
 				if(mediaLastModified!=null)
 				{
 				%>
-				<td><%=new Date(mediaLastModified.getLastModified(item))%></td><%
+				<td><%=new Date(mediaLastModified.getLastModified(item))%><%
+				
+				if(mediaTouch)
+					writeCheckbox(out, MediaCop.TOUCH,       item);
+				if(otherTouch)
+					writeCheckbox(out, MediaCop.TOUCH_OTHER, item);
+				
+				%></td><%
 				}
 				if(mediaLength!=null)
 				{
@@ -216,6 +234,24 @@ final class Media_Jspm extends Console_Jspm
 			}
 		%>
 		</table><%
+		
+	if(form)
+	{
+		writeButton(out);
+		%>
+		</form><%
+	}
+	}
+	
+	private static void writeCheckbox(final Out out, final String name, final Item item)
+	{
+		%><input type="checkbox" name="<%=name%>" value="<%=item.getCopeID()%>"></input><%
+	}
+	
+	private static void writeButton(final Out out)
+	{
+		%>
+		<input type="submit" value="touch"></input><%
 	}
 	
 	private static final void writeURL(final Out out, final String url, final String contentType, final boolean inline)

@@ -18,11 +18,16 @@
 
 package com.exedio.cope.console;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Query;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -34,6 +39,9 @@ final class MediaCop extends ConsoleCop implements Pageable
 	private static final String MEDIA = "m";
 	private static final String MEDIA_INLINE = "ilm";
 	private static final String OTHER_INLINE = "ilo";
+	
+	static final String TOUCH = "touch";
+	static final String TOUCH_OTHER = "touchOther";
 	
 	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	
@@ -114,6 +122,68 @@ final class MediaCop extends ConsoleCop implements Pageable
 	MediaCop toOther()
 	{
 		return new MediaCop(args, other, otherInline, false, pager);
+	}
+	
+	boolean canTouch()
+	{
+		return canTouchInternal(media);
+	}
+	
+	boolean canTouchOther()
+	{
+		return other!=null && canTouchInternal(other);
+	}
+	
+	private static boolean canTouchInternal(final MediaPath media)
+	{
+		return
+			media instanceof Media &&
+			!((Media)media).getLastModified().isFinal();
+	}
+	
+	@Override
+	void initialize(final HttpServletRequest request, final Model model)
+	{
+		super.initialize(request, model);
+		if(isPost(request))
+		{
+			final String[] touchIds = request.getParameterValues(TOUCH);
+			final String[] touchOtherIds = request.getParameterValues(TOUCH_OTHER);
+			if(touchIds!=null || touchOtherIds!=null)
+			{
+				try
+				{
+					model.startTransaction(getClass().getName() + "#touch");
+
+					final Date now = new Date();
+					touchInternal(model, now, media, touchIds);
+					touchInternal(model, now, other, touchOtherIds);
+					
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+		}
+	}
+	
+	private static void touchInternal(final Model model, final Date now, final MediaPath media, final String[] touchIds)
+	{
+		if(touchIds!=null)
+		{
+			final DateField lastModified = ((Media)media).getLastModified();
+			try
+			{
+				for(final String touchId : touchIds)
+					lastModified.set(model.getItem(touchId), now);
+			}
+			catch(NoSuchIDException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 	}
 	
 	@Override
