@@ -42,6 +42,7 @@ public final class Query<R>
 	ArrayList<Join> joins = null;
 	private Condition condition;
 
+	// orderBy-arrays must never be modified, because they are reused by copy constructor
 	private Function[] orderBy = null;
 	private boolean[] orderAscending;
 	
@@ -59,6 +60,24 @@ public final class Query<R>
 		this.type = select.getType();
 		this.model = this.type.getModel();
 		this.condition = replaceTrue(condition);
+	}
+	
+	/**
+	 * Copy Constructor
+	 */
+	public Query(final Selectable<? extends R> select, final Query<?> query)
+	{
+		this.model = query.model;
+		this.selectSingle = select;
+		this.distinct = query.distinct;
+		this.type = query.type;
+		this.joinIndex = query.joinIndex;
+		this.joins = query.joins!=null ? new ArrayList<Join>(query.joins) : null;
+		this.condition = query.condition;
+		this.orderBy = query.orderBy;
+		this.orderAscending = query.orderAscending;
+		this.offset = query.offset;
+		this.limit = query.limit;
 	}
 	
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
