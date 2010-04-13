@@ -28,7 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.pattern.Dispatcher.Failure;
+import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.Interrupter;
 
 public class DispatcherTest extends AbstractRuntimeTest
@@ -64,16 +64,16 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testIt()
 	{
-		final Type<?> failureType = item.toTarget.getFailureType();
+		final Type<?> runType = item.toTarget.getRunType();
 		
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				failureType
+				runType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				failureType
+				runType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.isBound());
@@ -82,9 +82,9 @@ public class DispatcherTest extends AbstractRuntimeTest
 		List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
 		assertEquals(1, partOfs.size());
 		PartOf partOf = partOfs.get(0);
-		assertSame(failureType, partOf.getType());
+		assertSame(runType, partOf.getType());
 		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
-		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.failureType), DispatcherItem.toTarget.getSourceTypes());
+		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());
 		assertEquals(list(partOf), PartOf.getPartOfs(DispatcherItem.toTarget));
 
 		assertEqualsUnmodifiable(list(
@@ -92,48 +92,45 @@ public class DispatcherTest extends AbstractRuntimeTest
 				item.body,
 				item.dispatchCountCommitted,
 				item.toTarget,
-				item.toTarget.getPending(),
-				item.toTarget.getSuccessDate(),
-				item.toTarget.getSuccessElapsed()
+				item.toTarget.getPending()
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
-				failureType.getThis(),
-				item.toTargetFailureParent(),
-				item.toTarget.getFailureFailures(),
-				item.toTarget.getFailureDate(),
-				item.toTarget.getFailureElapsed(),
-				item.toTarget.getFailureCause()
-			), failureType.getFeatures());
+				runType.getThis(),
+				item.toTargetRunParent(),
+				item.toTarget.getRunRuns(),
+				item.toTarget.getRunDate(),
+				item.toTarget.getRunElapsed(),
+				item.toTarget.getRunSuccess(),
+				item.toTarget.getRunFailure()
+			), runType.getFeatures());
 
 		assertEquals(item.TYPE, item.toTarget.getType());
 		assertEquals("toTarget", item.toTarget.getName());
 
-		assertEquals("DispatcherItem-toTarget-Failure", failureType.getID());
-		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
-		assertEquals(false, failureType.isBound());
-		assertSame(DispatcherItem.toTarget, failureType.getPattern());
-		assertEquals(null, failureType.getSupertype());
-		assertEqualsUnmodifiable(list(), failureType.getSubtypes());
-		assertEquals(false, failureType.isAbstract());
-		assertEquals(Item.class, failureType.getThis().getValueClass().getSuperclass());
-		assertEquals(failureType, failureType.getThis().getValueType());
-		assertEquals(model, failureType.getModel());
+		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
+		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
+		assertEquals(false, runType.isBound());
+		assertSame(DispatcherItem.toTarget, runType.getPattern());
+		assertEquals(null, runType.getSupertype());
+		assertEqualsUnmodifiable(list(), runType.getSubtypes());
+		assertEquals(false, runType.isAbstract());
+		assertEquals(Item.class, runType.getThis().getValueClass().getSuperclass());
+		assertEquals(runType, runType.getThis().getValueType());
+		assertEquals(model, runType.getModel());
 
-		assertEquals(failureType, item.toTargetFailureParent().getType());
-		assertEquals(failureType, item.toTarget.getFailureDate().getType());
-		assertEquals(failureType, item.toTarget.getFailureCause().getType());
+		assertEquals(runType, item.toTargetRunParent().getType());
+		assertEquals(runType, item.toTarget.getRunDate().getType());
+		assertEquals(runType, item.toTarget.getRunFailure().getType());
 
-		assertEquals("parent", item.toTargetFailureParent().getName());
-		assertEquals("date", item.toTarget.getFailureDate().getName());
-		assertEquals("cause", item.toTarget.getFailureCause().getName());
+		assertEquals("parent", item.toTargetRunParent().getName());
+		assertEquals("date", item.toTarget.getRunDate().getName());
+		assertEquals("failure", item.toTarget.getRunFailure().getName());
 		
-		assertSame(DispatcherItem.class, item.toTargetFailureParent().getValueClass());
-		assertSame(DispatcherItem.TYPE, item.toTargetFailureParent().getValueType());
+		assertSame(DispatcherItem.class, item.toTargetRunParent().getValueClass());
+		assertSame(DispatcherItem.TYPE, item.toTargetRunParent().getValueType());
 		
-		assertTrue(item.toTarget.getPending()       .isAnnotationPresent(Computed.class));
-		assertTrue(item.toTarget.getSuccessDate()   .isAnnotationPresent(Computed.class));
-		assertTrue(item.toTarget.getSuccessElapsed().isAnnotationPresent(Computed.class));
-		assertTrue(item.toTarget.getFailureType()   .isAnnotationPresent(Computed.class));
+		assertFalse(item.toTarget.getPending().isAnnotationPresent(Computed.class));
+		assertTrue (item.toTarget.getRunType().isAnnotationPresent(Computed.class));
 		
 		assertSerializedSame(item.toTarget, 386);
 		
@@ -177,6 +174,19 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		dispatch(0);
 		assertSuccess(item1, 1, d1, list());
+		assertSuccess(item2, 1, d3, list(d1, d2));
+		assertSuccess(item3, 1, d1, list());
+		assertFailed (item4, 0, list(d1, d2, d3));
+		
+		item1.setToTargetPending(true);
+		final DateRange d4 = dispatch(1);
+		assertSuccess(item1, 2, d4, list());
+		assertSuccess(item2, 1, d3, list(d1, d2));
+		assertSuccess(item3, 1, d1, list());
+		assertFailed (item4, 0, list(d1, d2, d3));
+		
+		dispatch(0);
+		assertSuccess(item1, 2, d4, list());
 		assertSuccess(item2, 1, d3, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
 		assertFailed (item4, 0, list(d1, d2, d3));
@@ -317,26 +327,26 @@ public class DispatcherTest extends AbstractRuntimeTest
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
-		assertWithin(date.before, date.after, item.getToTargetSuccessDate());
+		assertWithin(date.before, date.after, item.getToTargetLastSuccessDate());
 		assertTrue(
-				String.valueOf(item.getToTargetSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
-				item.getToTargetSuccessElapsed()>=log.dispatchLastSuccessElapsed);
-		assertIt(dispatchCountCommitted, failures.size()+1, failures, item, 0);
+				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
+				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
+		assertIt(dispatchCountCommitted, failures.size()+dispatchCountCommitted, failures, item, 0);
 	}
 	
 	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
 	{
 		assertTrue(item.isToTargetPending());
-		assertNull(item.getToTargetSuccessDate());
-		assertNull(item.getToTargetSuccessElapsed());
+		assertNull(item.getToTargetLastSuccessDate());
+		assertNull(item.getToTargetLastSuccessElapsed());
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
 	}
 	
 	private static void assertFailed(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
 	{
 		assertFalse(item.isToTargetPending());
-		assertNull(item.getToTargetSuccessDate());
-		assertNull(item.getToTargetSuccessElapsed());
+		assertNull(item.getToTargetLastSuccessDate());
+		assertNull(item.getToTargetLastSuccessElapsed());
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
 	}
 	
@@ -345,7 +355,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
 		
-		final List<Failure> actualFailures = item.getToTargetFailures();
+		final List<Run> actualFailures = item.getToTargetFailures();
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 		
@@ -354,7 +364,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		final Iterator<Integer> failureElapsedIter = failuresElapsed.iterator();
 		
 		final Iterator expectedFailureIter = failures.iterator();
-		for(final Failure actual : actualFailures)
+		for(final Run actual : actualFailures)
 		{
 			final Integer failureElapsed = failureElapsedIter.next();
 			final DateRange expected = (DateRange)expectedFailureIter.next();
@@ -362,7 +372,8 @@ public class DispatcherTest extends AbstractRuntimeTest
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
-			assertTrue(actual.getCause(), actual.getCause().startsWith(IOException.class.getName()+": "+item.getBody()));
+			assertFalse(actual.isSuccess());
+			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
 	}

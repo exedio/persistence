@@ -44,18 +44,8 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Interrupter;
 
-/**
- * TODO
- * + Allow multiple successful dispatches:
- *    - move successDate/successElapsed into Failure
- *    - add BooleanField Failure.success
- *    - re-implement getSuccessDate/getSuccessElapsed with search
- *    - rename Failure to Run
- *    - remove @Computed from pending
- */
 public final class Dispatcher extends Pattern
 {
 	private static final long serialVersionUID = 1l;
@@ -63,21 +53,18 @@ public final class Dispatcher extends Pattern
 	private static final String ENCODING = "utf8";
 	
 	private final BooleanField pending = new BooleanField().defaultTo(true);
-	private final DateField successDate = new DateField().optional();
-	private final LongField successElapsed = new LongField().optional();
 
-	ItemField<?> failureParent = null;
-	PartOf<?> failureFailures = null;
-	final DateField failureDate = new DateField().toFinal();
-	final LongField failureElapsed = new LongField().toFinal();
-	final DataField failureCause = new DataField().toFinal();
-	Type<Failure> failureType = null;
+	ItemField<?> runParent = null;
+	private PartOf<?> runRuns = null;
+	final DateField runDate = new DateField().toFinal();
+	final LongField runElapsed = new LongField().toFinal();
+	final BooleanField runSuccess = new BooleanField().toFinal();
+	final DataField runFailure = new DataField().toFinal().optional();
+	private Type<Run> runType = null;
 	
 	public Dispatcher()
 	{
-		addSource(pending,        "pending",        ComputedElement.get());
-		addSource(successDate,    "successDate",    ComputedElement.get());
-		addSource(successElapsed, "successElapsed", ComputedElement.get());
+		addSource(pending, "pending");
 	}
 	
 	@Override
@@ -90,15 +77,16 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		failureFailures = PartOf.newPartOf(failureParent);
+		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		runRuns = PartOf.newPartOf(runParent);
 		final Features features = new Features();
-		features.put("parent", failureParent);
-		features.put("failures", failureFailures);
-		features.put("date", failureDate);
-		features.put("elapsed", failureElapsed);
-		features.put("cause", failureCause);
-		failureType = newSourceType(Failure.class, features, "Failure");
+		features.put("parent", runParent);
+		features.put("runs", runRuns);
+		features.put("date", runDate);
+		features.put("elapsed", runElapsed);
+		features.put("success", runSuccess);
+		features.put("failure", runFailure);
+		runType = newSourceType(Run.class, features, "Run");
 	}
 	
 	public BooleanField getPending()
@@ -106,46 +94,41 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 	
-	public DateField getSuccessDate()
+	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
-		return successDate;
+		assert runParent!=null;
+		return runParent.as(parentClass);
 	}
 	
-	public LongField getSuccessElapsed()
+	public PartOf getRunRuns()
 	{
-		return successElapsed;
+		return runRuns;
 	}
 	
-	public <P extends Item> ItemField<P> getFailureParent(final Class<P> parentClass)
+	public DateField getRunDate()
 	{
-		assert failureParent!=null;
-		return failureParent.as(parentClass);
+		return runDate;
 	}
 	
-	public PartOf getFailureFailures()
+	public LongField getRunElapsed()
 	{
-		return failureFailures;
+		return runElapsed;
 	}
 	
-	public DateField getFailureDate()
+	public BooleanField getRunSuccess()
 	{
-		return failureDate;
+		return runSuccess;
 	}
 	
-	public LongField getFailureElapsed()
+	public DataField getRunFailure()
 	{
-		return failureElapsed;
+		return runFailure;
 	}
 	
-	public DataField getFailureCause()
+	public Type<Run> getRunType()
 	{
-		return failureCause;
-	}
-	
-	public Type<Failure> getFailureType()
-	{
-		assert failureType!=null;
-		return failureType;
+		assert runType!=null;
+		return runType;
 	}
 	
 	@Override
@@ -168,25 +151,35 @@ public final class Dispatcher extends Pattern
 			setReturn(boolean.class));
 		
 		result.add(
-			new Wrapper("getSuccessDate").
-			addComment("Returns the date, this item was successfully dispatched by {0}.").
+			new Wrapper("setPending").
+			addComment("Sets whether this item is yet to be dispatched by {0}.").
+			addParameter(boolean.class, "pending"));
+		
+		result.add(
+			new Wrapper("getLastSuccessDate").
+			addComment("Returns the date, this item was last successfully dispatched by {0}.").
 			setReturn(Date.class));
 		
 		result.add(
-			new Wrapper("getSuccessElapsed").
-			addComment("Returns the milliseconds, this item needed to be successfully dispatched by {0}.").
+			new Wrapper("getLastSuccessElapsed").
+			addComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.").
 			setReturn(Long.class));
+		
+		result.add(
+			new Wrapper("getRuns").
+			addComment("Returns the attempts to dispatch this item by {0}.").
+			setReturn(Wrapper.generic(List.class, Run.class)));
 		
 		result.add(
 			new Wrapper("getFailures").
 			addComment("Returns the failed attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Failure.class)));
+			setReturn(Wrapper.generic(List.class, Run.class)));
 		
 		result.add(
-			new Wrapper("getFailureParent").
-			addComment("Returns the parent field of the failure type of {0}.").
+			new Wrapper("getRunParent").
+			addComment("Returns the parent field of the run type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}FailureParent").
+			setMethodWrapperPattern("{1}RunParent").
 			setStatic());
 		
 		return Collections.unmodifiableList(result);
@@ -229,6 +222,8 @@ public final class Dispatcher extends Pattern
 			if(toDispatch.isEmpty())
 				break;
 			
+			final ItemField<P> runParent = this.runParent.as(parentClass);
+			
 			for(final P item : toDispatch)
 			{
 				if(interrupter!=null && interrupter.isRequested())
@@ -254,10 +249,12 @@ public final class Dispatcher extends Pattern
 						itemCasted.dispatch(this);
 
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
-						item.set(
-							pending.map(false),
-							successDate.map(new Date(start)),
-							successElapsed.map(elapsed));
+						pending.set(item, false);
+						runType.newItem(
+								runParent.map(item),
+								runDate.map(new Date(start)),
+								runElapsed.map(elapsed),
+								runSuccess.map(true));
 						
 						model.commit();
 						result++;
@@ -281,15 +278,14 @@ public final class Dispatcher extends Pattern
 						cause.printStackTrace(out);
 						out.close();
 						
-						final ItemField<P> failureParent = this.failureParent.as(parentClass);
+						runType.newItem(
+							runParent.map(item),
+							runDate.map(new Date(start)),
+							runElapsed.map(elapsed),
+							runSuccess.map(false),
+							runFailure.map(baos.toByteArray()));
 						
-						failureType.newItem(
-							failureParent.map(item),
-							failureDate.map(new Date(start)),
-							failureElapsed.map(elapsed),
-							failureCause.map(baos.toByteArray()));
-						
-						final boolean finalFailure = failureType.newQuery(failureParent.equal(item)).total()>=config.getFailureLimit();
+						final boolean finalFailure = runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 						
@@ -314,19 +310,39 @@ public final class Dispatcher extends Pattern
 		return pending.getMandatory(item);
 	}
 	
-	public Date getSuccessDate(final Item item)
+	public void setPending(final Item item, final boolean pending)
 	{
-		return successDate.get(item);
+		this.pending.set(item, pending);
 	}
 	
-	public Long getSuccessElapsed(final Item item)
+	public Date getLastSuccessDate(final Item item)
 	{
-		return successElapsed.get(item);
+		final Run success = getLastSuccess(item);
+		return success!=null ? runDate.get(success) : null;
 	}
 	
-	public List<Failure> getFailures(final Item item)
+	public Long getLastSuccessElapsed(final Item item)
 	{
-		return failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
+		final Run success = getLastSuccess(item);
+		return success!=null ? runElapsed.get(success) : null;
+	}
+	
+	private Run getLastSuccess(final Item item)
+	{
+		final Query<Run> q = runType.newQuery(Cope.equalAndCast(runParent, item).and(runSuccess.equal(true)));
+		q.setOrderBy(runType.getThis(), false);
+		q.setLimit(0, 1);
+		return q.searchSingleton();
+	}
+	
+	public List<Run> getRuns(final Item item)
+	{
+		return runType.search(Cope.equalAndCast(runParent, item), runType.getThis(), true);
+	}
+	
+	public List<Run> getFailures(final Item item)
+	{
+		return runType.search(Cope.equalAndCast(runParent, item).and(runSuccess.equal(false)), runType.getThis(), true);
 	}
 	
 	public static final class Config
@@ -362,11 +378,11 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Computed
-	public static final class Failure extends Item
+	public static final class Run extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		
-		Failure(final ActivationParameters ap)
+		Run(final ActivationParameters ap)
 		{
 			super(ap);
 		}
@@ -378,24 +394,29 @@ public final class Dispatcher extends Pattern
 		
 		public Item getParent()
 		{
-			return getPattern().failureParent.get(this);
+			return getPattern().runParent.get(this);
 		}
 		
 		public Date getDate()
 		{
-			return getPattern().failureDate.get(this);
+			return getPattern().runDate.get(this);
 		}
 		
 		public long getElapsed()
 		{
-			return getPattern().failureElapsed.getMandatory(this);
+			return getPattern().runElapsed.getMandatory(this);
 		}
 		
-		public String getCause()
+		public boolean isSuccess()
+		{
+			return getPattern().runSuccess.getMandatory(this);
+		}
+		
+		public String getFailure()
 		{
 			try
 			{
-				return new String(getPattern().failureCause.get(this).asArray(), ENCODING);
+				return new String(getPattern().runFailure.get(this).asArray(), ENCODING);
 			}
 			catch(UnsupportedEncodingException e)
 			{
