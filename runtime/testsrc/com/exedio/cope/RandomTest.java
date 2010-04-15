@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RandomTest extends AbstractRuntimeTest
@@ -72,31 +73,31 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select rand(5) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List expected = list(
-						0.40613597483014313,
-						0.8745439358749836,
-						0.15431178561813363,
-						0.1479271511993624,
-						0.276700429876056);
-				assertEquals(expected, q.search());
-				assertEquals(expected, q.search());
+				final List<Long> expected = listg(
+						406135974830l,
+						874543935874l,
+						154311785618l,
+						147927151199l,
+						276700429876l);
+				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected, toLong(q.search()));
 				model.clearCache();
-				assertEquals(expected, q.search());
+				assertEquals(expected, toLong(q.search()));
 			}
 			q.setSelect(TYPE.random(6));
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List expected = list(
-						0.6563190842571847,
-						0.12527637474730274,
-						0.6574246516986049,
-						0.911294164984761,
-						0.5841969005616353);
-				assertEquals(expected, q.search());
-				assertEquals(expected, q.search());
+				final List<Long> expected = listg(
+						656319084257l,
+						125276374747l,
+						657424651698l,
+						911294164984l,
+						584196900561l);
+				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected, toLong(q.search()));
 				model.clearCache();
-				assertEquals(expected, q.search());
+				assertEquals(expected, toLong(q.search()));
 			}
 		}
 		{
@@ -112,5 +113,13 @@ public class RandomTest extends AbstractRuntimeTest
 				assertEquals(expected, q.search());
 			}
 		}
+	}
+	
+	private static final List<Long> toLong(final List<Double> l)
+	{
+		final ArrayList<Long> result = new ArrayList<Long>(l.size());
+		for(final Double d : l)
+			result.add(Math.round(Math.floor(d.doubleValue()*1000000000000d)));
+		return result;
 	}
 }
