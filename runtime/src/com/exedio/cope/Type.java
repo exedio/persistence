@@ -1138,6 +1138,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 	
+	public Random random(final int seed)
+	{
+		return new Random(this, seed);
+	}
+	
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;

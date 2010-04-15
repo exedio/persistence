@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* added Type.random(seed), works on MySQL only
 * TextUrlFilter
 * refactoring of Dispatcher
 	This breaks backwards API compatibility

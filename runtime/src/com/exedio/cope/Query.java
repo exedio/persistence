@@ -899,6 +899,10 @@ public final class Query<R>
 							final View selectFunction = (View)select;
 							resultCell = selectFunction.load(resultSet, columnIndex++);
 						}
+						else if(select instanceof Random)
+						{
+							resultCell = resultSet.getObject(columnIndex);
+						}
 						else
 						{
 							final Number pk = (Number)resultSet.getObject(columnIndex++);
