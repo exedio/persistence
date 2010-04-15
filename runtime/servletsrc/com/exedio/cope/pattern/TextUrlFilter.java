@@ -1,0 +1,186 @@
+/*
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Cope;
+import com.exedio.cope.Features;
+import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
+import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaFilter;
+
+public class TextUrlFilter extends MediaFilter
+{
+	private static final long serialVersionUID = 1l;
+	
+	private final Media raw;
+	private final String supportedContentType;
+	private final String encoding;
+	private final String pasteStart;
+	private final String pasteStop;
+	
+	private ItemField<? extends Item> pasteParent = null;
+	private final StringField pasteKey;
+	private UniqueConstraint pasteParentAndKey = null;
+	private final Media pasteValue;
+	private Type<Paste> pasteType = null;
+	
+	public TextUrlFilter(
+			final Media raw,
+			final String supportedContentType,
+			final String encoding,
+			final String pasteStart,
+			final String pasteStop,
+			final StringField pasteKey,
+			final Media pasteValue)
+	{
+		super(raw);
+		this.raw = raw;
+		this.supportedContentType = supportedContentType;
+		this.encoding = encoding;
+		this.pasteStart = pasteStart;
+		this.pasteStop = pasteStop;
+		this.pasteKey = pasteKey;
+		this.pasteValue = pasteValue;
+	}
+	
+	public final void addPaste(final Item item, final String key, final Media.Value value)
+	{
+		pasteType.newItem(
+				this.pasteKey.map(key),
+				this.pasteValue.map(value),
+				Cope.mapAndCast(this.pasteParent, item));
+	}
+	
+	@Override
+	public final List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(
+				new Wrapper("addPaste").
+				addParameter(String.class, "key").
+				addParameter(Media.Value.class, "value"));
+		
+		return Collections.unmodifiableList(result);
+	}
+	
+	@Override
+	protected final void onMount()
+	{
+		super.onMount();
+		final Type<?> type = getType();
+
+		pasteParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
+		final Features features = new Features();
+		features.put("parent", pasteParent);
+		features.put("key", pasteKey);
+		features.put("parentAndKey", pasteParentAndKey);
+		features.put("value", pasteValue);
+		this.pasteType = newSourceType(Paste.class, features);
+	}
+	
+	@Override
+	public final String getContentType(final Item item)
+	{
+		final String contentType = raw.getContentType(item);
+		return supportedContentType.equals(contentType) ? contentType : null;
+	}
+	
+	@Override
+	public final Log doGetIfModified(final HttpServletResponse response, final Item item) throws IOException
+	{
+		final String sourceContentType = raw.getContentType(item);
+		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))
+			return isNull;
+		
+		final byte[] sourceByte = raw.getBody().getArray(item);
+		final String srcString = new String(sourceByte, encoding);
+		
+		String tempString = srcString;
+		while(tempString.indexOf(pasteStart) > -1)
+		{
+			final int startPos = tempString.indexOf(pasteStart);
+			final StringBuilder sb = new StringBuilder();
+			sb.append(tempString.substring(0, startPos));
+			String image = tempString.substring(startPos + pasteStart.length());
+			image = image.substring(0, image.indexOf(pasteStop));
+			final String rest = tempString.substring(startPos);
+			final Paste pasteItem = pasteType.searchSingletonStrict(
+					Cope.equalAndCast(pasteParent, item).and(pasteKey.equal(image)));
+			sb.append(pasteValue.getURL(pasteItem));
+			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
+			tempString = sb.toString();
+		}
+		
+		response.setContentType(supportedContentType);
+		
+		final ByteArrayOutputStream body = new ByteArrayOutputStream(); // TODO do not use ByteArrayOutputStream, is non-sense
+		
+		body.write(tempString.getBytes(encoding));
+		
+		response.setContentLength(body.size());
+		
+		final ServletOutputStream out = response.getOutputStream();
+		try
+		{
+			body.writeTo(out);
+			return delivered;
+		}
+		finally
+		{
+			out.close();
+		}
+	}
+	
+	@Override
+	public final Set<String> getSupportedSourceContentTypes()
+	{
+		return Collections.singleton(supportedContentType);
+	}
+	
+	@Computed
+	private static final class Paste extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		private Paste(final ActivationParameters ap)
+		{
+			super(ap);
+		}
+	}
+}

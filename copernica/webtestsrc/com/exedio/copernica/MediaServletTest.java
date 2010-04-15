@@ -47,6 +47,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_UNK = "MediaServletItem-4";
 	private static final String ITEM_GIF = "MediaServletItem-8";
 	private static final String ITEM_NX  = "MediaServletItem-20";
+	private static final String ITEM_TEXT_FILTER = "MediaServletItem-13";
 	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
@@ -169,6 +170,13 @@ public class MediaServletTest extends TestCase
 		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png"));
 		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
+		
+		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL);
+		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
+		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
+		final long lmFilter = assertBin(prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html" );
+		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html"));
+		assertMoved(                     prefix + "html/" + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
 		
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);

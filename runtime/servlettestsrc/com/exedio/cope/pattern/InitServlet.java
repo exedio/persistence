@@ -105,6 +105,12 @@ public class InitServlet extends HttpServlet
 			final MediaServletItem transparency = new MediaServletItem();
 			assertID("MediaServletItem-12", transparency);
 			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png");
+
+			final MediaServletItem html = new MediaServletItem();
+			assertID("MediaServletItem-13", html);
+			html.setContent(thisClass.getResourceAsStream("filter.html"), "text/html");
+			html.addHtmlPaste("small", Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
+			html.addHtmlPaste("tree",  Media.toValue(thisClass.getResourceAsStream("tree.jpg"),  "image/jpeg"));
 			
 			final MediaPatternItem pattern = new MediaPatternItem();
 			pattern.setSourceFeature(textValue, "text/plain");
