@@ -74,31 +74,31 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select rand(5) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List<Long> expected = listg(
+				final List<Long> expected5 = listg(
 						406135974830l,
 						874543935874l,
 						154311785618l,
 						147927151199l,
 						276700429876l);
-				assertEquals(expected, toLong(q.search()));
-				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected5, toLong(q.search()));
+				assertEquals(expected5, toLong(q.search()));
 				model.clearCache();
-				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected5, toLong(q.search()));
 			}
 			q.setSelect(TYPE.random(6));
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List<Long> expected = listg(
+				final List<Long> expected6 = listg(
 						656319084257l,
 						125276374747l,
 						657424651698l,
 						911294164984l,
 						584196900561l);
-				assertEquals(expected, toLong(q.search()));
-				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected6, toLong(q.search()));
+				assertEquals(expected6, toLong(q.search()));
 				model.clearCache();
-				assertEquals(expected, toLong(q.search()));
+				assertEquals(expected6, toLong(q.search()));
 			}
 		}
 		{
@@ -107,11 +107,11 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select this from CompareConditionItem order by rand(6)", q.toString());
 			if(mysql)
 			{
-				final List expected = list(item2, item5, item1, item3, item4);
-				assertEquals(expected, q.search());
-				assertEquals(expected, q.search());
+				final List expected6Sort = list(item2, item5, item1, item3, item4);
+				assertEquals(expected6Sort, q.search());
+				assertEquals(expected6Sort, q.search());
 				model.clearCache();
-				assertEquals(expected, q.search());
+				assertEquals(expected6Sort, q.search());
 			}
 		}
 		
