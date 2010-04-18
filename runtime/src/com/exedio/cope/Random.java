@@ -99,8 +99,8 @@ public class Random implements NumberFunction<Double>
 	public void append(Statement bf, Join join)
 	{
 		bf.append("rand(").
-		append(String.valueOf(seed)). // TODO try parameter of prepared statement
-		append(')');
+			appendParameter(seed).
+			append(')');
 	}
 	
 	@Deprecated // OK: for internal use within COPE only
