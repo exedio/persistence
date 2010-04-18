@@ -93,6 +93,9 @@ public class RandomTest extends AbstractRuntimeTest
 				assertEquals(expected5, toLong(q.search()));
 				model.clearCache();
 				assertEquals(expected5, toLong(q.search()));
+				restartTransaction();
+				model.clearCache();
+				assertEquals(expected5, toLong(q.search()));
 			}
 			q.setSelect(TYPE.random(6));
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
@@ -100,6 +103,9 @@ public class RandomTest extends AbstractRuntimeTest
 			{
 				assertEquals(expected6, toLong(q.search()));
 				assertEquals(expected6, toLong(q.search()));
+				model.clearCache();
+				assertEquals(expected6, toLong(q.search()));
+				restartTransaction();
 				model.clearCache();
 				assertEquals(expected6, toLong(q.search()));
 			}
@@ -112,6 +118,9 @@ public class RandomTest extends AbstractRuntimeTest
 			{
 				assertEquals(expected6Sort, q.search());
 				assertEquals(expected6Sort, q.search());
+				model.clearCache();
+				assertEquals(expected6Sort, q.search());
+				restartTransaction();
 				model.clearCache();
 				assertEquals(expected6Sort, q.search());
 			}
@@ -164,6 +173,11 @@ public class RandomTest extends AbstractRuntimeTest
 		assertEquals(result.toString(), result.size(), set.size());
 		
 		assertEquals(result, q.search());
+		
+		model.clearCache();
+		assertEquals(result, q.search());
+		
+		restartTransaction();
 		model.clearCache();
 		assertEquals(result, q.search());
 	}
