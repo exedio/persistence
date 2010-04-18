@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class RandomTest extends AbstractRuntimeTest
@@ -113,6 +114,24 @@ public class RandomTest extends AbstractRuntimeTest
 				assertEquals(expected, q.search());
 			}
 		}
+		
+		assertSeed(Integer.MIN_VALUE);
+		assertSeed(Integer.MIN_VALUE+1);
+		assertSeed(Integer.MIN_VALUE+2);
+		assertSeed(Integer.MIN_VALUE+3);
+		assertSeed(-4);
+		assertSeed(-3);
+		assertSeed(-2);
+		assertSeed(-1);
+		assertSeed( 0);
+		assertSeed(+1);
+		assertSeed(+2);
+		assertSeed(+3);
+		assertSeed(+4);
+		assertSeed(Integer.MAX_VALUE-3);
+		assertSeed(Integer.MAX_VALUE-2);
+		assertSeed(Integer.MAX_VALUE-1);
+		assertSeed(Integer.MAX_VALUE);
 	}
 	
 	private static final List<Long> toLong(final List<Double> l)
@@ -121,5 +140,29 @@ public class RandomTest extends AbstractRuntimeTest
 		for(final Double d : l)
 			result.add(Math.round(Math.floor(d.doubleValue()*1000000000000d)));
 		return result;
+	}
+	
+	private void assertSeed(final int seed)
+	{
+		final Query<Double> q = new Query<Double>(TYPE.random(seed));
+		q.setOrderBy(TYPE.getThis(), true);
+		assertEquals("select rand(" + seed + ") from CompareConditionItem order by this", q.toString());
+		if(!mysql)
+			return;
+		
+		final List<Double> result = q.search();
+		//System.out.println("random " + result + " seed " + seed);
+		for(final Double d : result)
+		{
+			assertNotNull(d);
+			assertTrue(String.valueOf(d), 0.0<=d);
+			assertTrue(String.valueOf(d), d<=1.0);
+		}
+		final HashSet<Double> set = new HashSet<Double>(result);
+		assertEquals(result.toString(), result.size(), set.size());
+		
+		assertEquals(result, q.search());
+		model.clearCache();
+		assertEquals(result, q.search());
 	}
 }
