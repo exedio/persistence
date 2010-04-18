@@ -32,6 +32,8 @@ public class RandomTest extends AbstractRuntimeTest
 	}
 	
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
+	List<Long> expected5, expected6;
+	List expected6Sort;
 
 	@Override
 	public void setUp() throws Exception
@@ -42,6 +44,19 @@ public class RandomTest extends AbstractRuntimeTest
 		item3 = deleteOnTearDown(new CompareConditionItem("string3", 3, 13l, 2.3, null, null, null));
 		item4 = deleteOnTearDown(new CompareConditionItem("string4", 4, 14l, 2.4, null, null, null));
 		item5 = deleteOnTearDown(new CompareConditionItem("string5", 5, 15l, 2.5, null, null, null));
+		expected5 = listg(
+				406135974830l,
+				874543935874l,
+				154311785618l,
+				147927151199l,
+				276700429876l);
+		expected6 = listg(
+				656319084257l,
+				125276374747l,
+				657424651698l,
+				911294164984l,
+				584196900561l);
+		expected6Sort = list(item2, item5, item1, item3, item4);
 	}
 	
 	public void testModel()
@@ -74,12 +89,6 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select rand(5) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List<Long> expected5 = listg(
-						406135974830l,
-						874543935874l,
-						154311785618l,
-						147927151199l,
-						276700429876l);
 				assertEquals(expected5, toLong(q.search()));
 				assertEquals(expected5, toLong(q.search()));
 				model.clearCache();
@@ -89,12 +98,6 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
 			if(mysql)
 			{
-				final List<Long> expected6 = listg(
-						656319084257l,
-						125276374747l,
-						657424651698l,
-						911294164984l,
-						584196900561l);
 				assertEquals(expected6, toLong(q.search()));
 				assertEquals(expected6, toLong(q.search()));
 				model.clearCache();
@@ -107,7 +110,6 @@ public class RandomTest extends AbstractRuntimeTest
 			assertEquals("select this from CompareConditionItem order by rand(6)", q.toString());
 			if(mysql)
 			{
-				final List expected6Sort = list(item2, item5, item1, item3, item4);
 				assertEquals(expected6Sort, q.search());
 				assertEquals(expected6Sort, q.search());
 				model.clearCache();
