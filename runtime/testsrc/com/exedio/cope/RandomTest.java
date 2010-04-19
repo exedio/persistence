@@ -34,6 +34,7 @@ public class RandomTest extends AbstractRuntimeTest
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	List<Long> expected5, expected6;
 	List expected6Sort;
+	boolean doSearch;
 
 	@Override
 	public void setUp() throws Exception
@@ -57,6 +58,7 @@ public class RandomTest extends AbstractRuntimeTest
 				911294164984l,
 				584196900561l);
 		expected6Sort = list(item2, item5, item1, item3, item4);
+		doSearch = mysql;
 	}
 	
 	public void testModel()
@@ -87,7 +89,7 @@ public class RandomTest extends AbstractRuntimeTest
 			final Query<Double> q = new Query<Double>(TYPE.random(5));
 			q.setOrderBy(TYPE.getThis(), true);
 			assertEquals("select rand(5) from CompareConditionItem order by this", q.toString());
-			if(mysql)
+			if(doSearch)
 			{
 				assertEquals(expected5, toLong(q.search()));
 				assertEquals(expected5, toLong(q.search()));
@@ -99,7 +101,7 @@ public class RandomTest extends AbstractRuntimeTest
 			}
 			q.setSelect(TYPE.random(6));
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
-			if(mysql)
+			if(doSearch)
 			{
 				assertEquals(expected6, toLong(q.search()));
 				assertEquals(expected6, toLong(q.search()));
@@ -114,7 +116,7 @@ public class RandomTest extends AbstractRuntimeTest
 			final Query<CompareConditionItem> q = TYPE.newQuery();
 			q.setOrderBy(TYPE.random(6), true);
 			assertEquals("select this from CompareConditionItem order by rand(6)", q.toString());
-			if(mysql)
+			if(doSearch)
 			{
 				assertEquals(expected6Sort, q.search());
 				assertEquals(expected6Sort, q.search());
@@ -158,7 +160,7 @@ public class RandomTest extends AbstractRuntimeTest
 		final Query<Double> q = new Query<Double>(TYPE.random(seed));
 		q.setOrderBy(TYPE.getThis(), true);
 		assertEquals("select rand(" + seed + ") from CompareConditionItem order by this", q.toString());
-		if(!mysql)
+		if(!doSearch)
 			return;
 		
 		final List<Double> result = q.search();
