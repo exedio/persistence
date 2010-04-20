@@ -350,7 +350,7 @@ final class Statement
 			{
 				result.append(text.substring(lastPos, pos));
 				result.append(QUESTION_MARK);
-				result.append(pi.next());
+				result.append(Condition.toStringForValue(pi.next(), true));
 				result.append(QUESTION_MARK);
 				lastPos = pos+1;
 			}
