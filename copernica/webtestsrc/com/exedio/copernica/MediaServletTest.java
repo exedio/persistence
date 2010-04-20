@@ -484,7 +484,7 @@ public class MediaServletTest extends TestCase
 		for ( String line: lines )
 		{
 			builder.append( line );
-			builder.append( System.getProperty("line.separator") );
+			builder.append( '\n' );
 		}
 		return builder.toString();
 	}
