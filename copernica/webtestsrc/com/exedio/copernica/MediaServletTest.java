@@ -280,7 +280,7 @@ public class MediaServletTest extends TestCase
 		String s;
 		while ( (s=br.readLine())!=null )
 		{
-			builder.append( s + System.getProperty("line.separator") );
+			builder.append(s + '\n');
 		}
 		br.close();
 		return builder.toString();
