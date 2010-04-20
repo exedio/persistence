@@ -184,12 +184,14 @@ public class HistoryTest extends TestCase
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
 		
+		sleepLongerThan(1);
 		assertEquals(3, HistoryPurge.purge(new Date()));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
 		
+		sleepLongerThan(1);
 		assertEquals(0, HistoryPurge.purge(new Date()));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
@@ -259,5 +261,28 @@ public class HistoryTest extends TestCase
 
 		assertTrue(message, !expectedBefore.after(actual));
 		assertTrue(message, !expectedAfter.before(actual));
+	}
+
+	/**
+	 * This method will not return until the result of System.currentTimeMillis() has increased
+	 * by the given amount of milli seconds.
+	 */
+	private static void sleepLongerThan(final long millis)
+	{
+		final long start = System.currentTimeMillis();
+		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
+		// value ... needed for Windows.
+		try
+		{
+			do
+			{
+				Thread.sleep(millis+1);
+			}
+			while((System.currentTimeMillis()-start)<=millis);
+		}
+		catch(InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
