@@ -31,6 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
 		suite.addTestSuite(TransactionSlicerTest.class);
+		suite.addTestSuite(QueryAggregatorTest.class);
 		return suite;
 	}
 }

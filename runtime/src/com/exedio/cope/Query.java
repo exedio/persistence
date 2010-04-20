@@ -491,6 +491,45 @@ public final class Query<R>
 			this.limit = -1;
 		}
 		
+		public Result(
+				final List<R> data,
+				final int total,
+				final int offset,
+				final int limit)
+		{
+			if(data==null)
+				throw new NullPointerException("data");
+			if(total<0)
+				throw new IllegalArgumentException("total must not be negative, but was " + total);
+			if(offset<0)
+				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
+			if(limit<0)
+				throw new IllegalArgumentException("limit must not be negative, but was " + limit);
+			
+			this.data = data;
+			this.total = total;
+			this.offset = offset;
+			this.limit = limit;
+		}
+		
+		public Result(
+				final List<R> data,
+				final int total,
+				final int offset)
+		{
+			if(data==null)
+				throw new NullPointerException("data");
+			if(total<0)
+				throw new IllegalArgumentException("total must not be negative, but was " + total);
+			if(offset<0)
+				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
+			
+			this.data = data;
+			this.total = total;
+			this.offset = offset;
+			this.limit = -1;
+		}
+		
 		public List<R> getData()
 		{
 			return data;

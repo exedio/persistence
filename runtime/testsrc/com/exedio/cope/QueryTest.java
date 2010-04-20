@@ -204,6 +204,98 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotEqualsResult(r(0, 3), r(1, 4));
 		assertNotEqualsResult(r(0, 3), r(2, 3));
 		assertNotEqualsResult(r(0, 3), r(3, 3));
+		
+		{
+			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 0, 0);
+			assertEquals(list(d1), r.getData());
+			assertEquals(0, r.getTotal());
+			assertEquals(0, r.getOffset());
+			assertEquals(-1, r.getLimit());
+		}
+		{
+			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 0, 0, 0);
+			assertEquals(list(d1), r.getData());
+			assertEquals(0, r.getTotal());
+			assertEquals(0, r.getOffset());
+			assertEquals(0, r.getLimit());
+		}
+		{
+			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 11, 22);
+			assertEquals(list(d1), r.getData());
+			assertEquals(11, r.getTotal());
+			assertEquals(22, r.getOffset());
+			assertEquals(-1, r.getLimit());
+		}
+		{
+			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 11, 22, 33);
+			assertEquals(list(d1), r.getData());
+			assertEquals(11, r.getTotal());
+			assertEquals(22, r.getOffset());
+			assertEquals(33, r.getLimit());
+		}
+		try
+		{
+			new Query.Result<Day>(null, -1, -1);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("data", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(null, -1, -1, -1);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("data", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(listg(d1), -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("total must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(listg(d1), -1, -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("total must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(listg(d1), 0, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("offset must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(listg(d1), 0, -1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("offset must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			new Query.Result<Day>(listg(d1), 0, 0, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("limit must not be negative, but was -1", e.getMessage());
+		}
 	}
 	
 	private static Query.Result<Day> r(final int offset, final int limit)
