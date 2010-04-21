@@ -414,7 +414,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		ExpectedRun(final Run run)
 		{
 			this(run.getFrom(), run.getUntil(), run.getRun());
-			assertTrue(run.getElapsed()>=0);
+			assertTrue(String.valueOf(run.getElapsed()), run.getElapsed()>=0);
 		}
 
 		ExpectedRun(final Date from, final Date until, final Date run)
