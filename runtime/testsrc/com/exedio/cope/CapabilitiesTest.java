@@ -31,6 +31,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		
 		assertEquals(hsqldb||mysql, model.nullsAreSortedLow());
 		assertEquals(!oracle && !props.getDatabaseDontSupportEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(mysql, model.supportsRandom());
 		
 		// SchemaInfo
 		assertEquals(!mysql, SchemaInfo.supportsCheckConstraints(model));

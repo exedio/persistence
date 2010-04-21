@@ -120,6 +120,11 @@ abstract class Dialect
 	{
 		return true;
 	}
+	
+	boolean supportsRandom()
+	{
+		return false;
+	}
 
 	boolean fakesSupportReadCommitted()
 	{

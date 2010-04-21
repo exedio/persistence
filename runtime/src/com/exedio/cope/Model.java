@@ -258,6 +258,14 @@ public final class Model implements Serializable
 		return connect().supportsEmptyStrings();
 	}
 	
+	/**
+	 * @see Random
+	 */
+	public boolean supportsRandom()
+	{
+		return connect().dialect.supportsRandom();
+	}
+	
 	public DatabaseListener getDatabaseListener()
 	{
 		return connect().executor.listener;

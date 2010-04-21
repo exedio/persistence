@@ -98,6 +98,9 @@ public class Random implements NumberFunction<Double>
 	@Deprecated // OK: for internal use within COPE only
 	public void append(Statement bf, Join join)
 	{
+		if(!type.getModel().supportsRandom())
+			throw new IllegalArgumentException("random not supported by this dialect");
+		
 		bf.append("rand(").
 			appendParameter(seed).
 			append(')');
