@@ -32,33 +32,33 @@ public final class QueryAggregator<R>
 {
 	private final static int UNLIMITED = -77;
 	
-	private final List<Query<R>> queries;
+	private final List<Query<? extends R>> queries;
 	private int offset = 0;
 	private int limit = -1;
 	
-	public QueryAggregator(final List<Query<R>> queries)
+	public QueryAggregator(final List<Query<? extends R>> queries)
 	{
 		this.queries = queries;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
-			final Query<R> query1,
-			final Query<R> query2)
+			final Query<? extends R> query1,
+			final Query<? extends R> query2)
 	{
 		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2));
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
-			final Query<R> query1,
-			final Query<R> query2,
-			final Query<R> query3)
+			final Query<? extends R> query1,
+			final Query<? extends R> query2,
+			final Query<? extends R> query3)
 	{
 		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2, query3));
 	}
 	
-	public List<Query<R>> getQueries()
+	public List<Query<? extends R>> getQueries()
 	{
 		return queries;
 	}
@@ -117,13 +117,13 @@ public final class QueryAggregator<R>
 		List<R> data = null;
 		int total = 0;
 		
-		final Iterator<Query<R>> i = queries.iterator();
+		final Iterator<Query<? extends R>> i = queries.iterator();
 		{
-			Query<R> first = null;
+			Query<? extends R> first = null;
 			int totalBeforeFirst = 0;
 			while(i.hasNext())
 			{
-				final Query<R> query = i.next();
+				final Query<? extends R> query = i.next();
 				totalBeforeFirst = total;
 				total += query.total();
 				if(total>offset)
@@ -139,11 +139,11 @@ public final class QueryAggregator<R>
 		}
 		{
 			final int totalBreak = (limit!=UNLIMITED) ? (offset+limit) : Integer.MAX_VALUE;
-			Query<R> last = null;
+			Query<? extends R> last = null;
 			int totalBeforeLast = 0;
 			while(i.hasNext())
 			{
-				final Query<R> query = i.next();
+				final Query<? extends R> query = i.next();
 				totalBeforeLast = total;
 				total += query.total();
 				if(total>totalBreak)
@@ -173,14 +173,14 @@ public final class QueryAggregator<R>
 		return result(unmodifiableList(data), total);
 	}
 	
-	private List<R> search(final Query<R> query, final int offset)
+	private List<? extends R> search(final Query<? extends R> query, final int offset)
 	{
 		if(limit!=UNLIMITED)
 			query.setLimit(offset, limit);
 		else
 			query.setLimit(offset);
 		
-		final List<R> result = query.search();
+		final List<? extends R> result = query.search();
 		query.setLimit(0);
 		return result;
 	}
