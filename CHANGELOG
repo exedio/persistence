@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* added ListField#getQuery
+	affects instrumented code
 * added Model#supportsRandom(), is true for MySQL only
 * added QueryAggregator
 * added Type.random(seed), works on MySQL only

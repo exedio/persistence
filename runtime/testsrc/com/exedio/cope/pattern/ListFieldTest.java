@@ -236,6 +236,10 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		// test persistence
 		// test searching
+		assertEquals("select element from ListFieldItem-strings" + " where parent='ListFieldItem-0' order by order", item.getStringsQuery().toString());
+		assertEquals("select element from ListFieldItem-dates"   + " where parent='ListFieldItem-0' order by order", item.getDatesQuery  ().toString());
+		assertEquals("select element from ListFieldItem-items"   + " where parent='ListFieldItem-0' order by order", item.getItemsQuery  ().toString());
+		
 		final Query<ListFieldItem> q = item.TYPE.newQuery();
 		q.join(stringsType, item.stringsParent().equalTarget());
 		assertEquals(list(), q.search());
