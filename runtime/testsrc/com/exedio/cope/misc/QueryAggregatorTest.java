@@ -68,6 +68,32 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		assertEquals(list(q1, q2, q3), ag.getQueries());
+		{
+			Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
+			Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
+			final QueryAggregator agBad = QueryAggregator.get(q1Bad, q2Bad);
+			agBad.setLimit(1, 2);
+			assertEquals(list(item1, item2), agBad.searchAndTotal().getData());
+			
+			q1Bad.setLimit(1);
+			try
+			{
+				agBad.searchAndTotal();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
+			}
+			q1Bad.setLimit(0, 1);
+			try
+			{
+				agBad.searchAndTotal();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
+			}
+		}
 		try
 		{
 			ag.setLimit(-1, -1);

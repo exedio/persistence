@@ -110,6 +110,10 @@ public final class QueryAggregator<R>
 	 */
 	public Result<R> searchAndTotal()
 	{
+		for(final Query q : queries)
+			if(q.getOffset()!=0 || q.getLimit()!=-1)
+				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
+		
 		List<R> data = null;
 		int total = 0;
 		
@@ -159,6 +163,7 @@ public final class QueryAggregator<R>
 			{
 				last.setLimit(0, nowLimit);
 				data.addAll(last.search());
+				last.setLimit(0);
 			}
 		}
 		
@@ -175,7 +180,9 @@ public final class QueryAggregator<R>
 		else
 			query.setLimit(offset);
 		
-		return query.search();
+		final List<R> result = query.search();
+		query.setLimit(0);
+		return result;
 	}
 	
 	private Query.Result<R> result(final List<R> data, final int total)
