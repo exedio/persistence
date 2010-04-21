@@ -180,6 +180,9 @@ public class QueryTest extends AbstractRuntimeTest
 	
 	public void testResult()
 	{
+		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
+		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
+		
 		assertEquals(list(), Query.emptyResult().getData());
 		assertEquals(0, Query.emptyResult().getTotal());
 		assertEquals(0, Query.emptyResult().getOffset());

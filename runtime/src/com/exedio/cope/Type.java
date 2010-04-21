@@ -1011,6 +1011,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return new Query<T>(thisFunction, this, condition);
 	}
 	
+	public Query<T> emptyQuery()
+	{
+		return new Query<T>(thisFunction, this, Condition.FALSE);
+	}
+	
 	public int compareTo(final Type other)
 	{
 		return mount().compareTo(other.mount());
