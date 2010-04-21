@@ -119,6 +119,11 @@ public final class SetField<E> extends Pattern
 			setReturn(Wrapper.generic(Set.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
+			new Wrapper("getQuery").
+			addComment("Returns a query for the value of {0}.").
+			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
+		
+		result.add(
 			new Wrapper("getParents").
 			addComment("Returns the items, for which field set {0} contains the given element.").
 			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
@@ -165,7 +170,12 @@ public final class SetField<E> extends Pattern
 	
 	public Set<E> get(final Item item)
 	{
-		return Collections.unmodifiableSet(new HashSet<E>(new Query<E>(element, Cope.equalAndCast(this.parent, item)).search()));
+		return Collections.unmodifiableSet(new HashSet<E>(getQuery(item).search()));
+	}
+	
+	public Query<E> getQuery(final Item item)
+	{
+		return new Query<E>(element, Cope.equalAndCast(this.parent, item));
 	}
 
 	/**

@@ -186,6 +186,8 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
+		assertEquals("select element from SetFieldItem-strings" + " where parent='SetFieldItem-0'", item.getStringsQuery().toString());
+		assertEquals("select element from SetFieldItem-dates"   + " where parent='SetFieldItem-0'", item.getDatesQuery  ().toString());
 		
 		// strings
 		
