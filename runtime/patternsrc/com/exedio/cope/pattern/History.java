@@ -52,7 +52,7 @@ public final class History extends Pattern
 	Type<Event> eventType = null;
 	
 	ItemField<Event> featureEvent = null;
-	PartOf<?> featureFeatures = null;
+	PartOf<Event> featureFeatures = null;
 	final StringField featureId = new StringField().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
@@ -140,7 +140,7 @@ public final class History extends Pattern
 		return eventType;
 	}
 	
-	public ItemField<?> getFeatureEvent()
+	public ItemField<Event> getFeatureEvent()
 	{
 		assert featureEvent!=null;
 		return featureEvent;
