@@ -157,6 +157,9 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
 		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
 		
+		assertSame(item.auditEventParent(), item.audit.getEventEvents().getContainer());
+		assertSame(item.audit.getFeatureEvent(), item.audit.getFeatureFeatures().getContainer());
+		
 		assertTrue(  eventType.isAnnotationPresent(Computed.class));
 		assertTrue(featureType.isAnnotationPresent(Computed.class));
 		
