@@ -130,6 +130,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertSame(DispatcherItem.TYPE, item.toTargetRunParent().getValueType());
 		
 		assertSame(item.toTargetRunParent(), item.toTarget.getRunRuns().getContainer());
+		assertSame(null, item.toTarget.getRunRuns().getOrder());
 		
 		assertFalse(item.toTarget.getPending().isAnnotationPresent(Computed.class));
 		assertTrue (item.toTarget.getRunType().isAnnotationPresent(Computed.class));
