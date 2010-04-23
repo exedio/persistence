@@ -78,11 +78,11 @@ public final class Dispatcher extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		runRuns = PartOf.newPartOf(runParent);
+		runRuns = PartOf.newPartOf(runParent, runDate);
 		final Features features = new Features();
 		features.put("parent", runParent);
-		features.put("runs", runRuns);
 		features.put("date", runDate);
+		features.put("runs", runRuns);
 		features.put("elapsed", runElapsed);
 		features.put("success", runSuccess);
 		features.put("failure", runFailure);

@@ -110,11 +110,11 @@ public final class Schedule extends Pattern
 					", but was " + type.getJavaClass().getName());
 		
 		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		runRuns = PartOf.newPartOf(runParent);
+		runRuns = PartOf.newPartOf(runParent, runFrom);
 		final Features features = new Features();
 		features.put("parent", runParent);
-		features.put("runs",  runRuns);
 		features.put("from",  runFrom);
+		features.put("runs",  runRuns);
 		features.put("until", runUntil);
 		features.put("run",   runRun);
 		features.put("elapsed", runElapsed);

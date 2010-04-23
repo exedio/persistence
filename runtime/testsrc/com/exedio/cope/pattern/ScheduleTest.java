@@ -79,8 +79,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				report.getRunType().getThis(),
 				report.getRunParent(),
-				report.getRunRuns(),
 				report.getRunFrom(),
+				report.getRunRuns(),
 				report.getRunUntil(),
 				report.getRunRun(),
 				report.getRunElapsed()
@@ -123,7 +123,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 		
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
-		assertSame(null, report.getRunRuns().getOrder());
+		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
 		
 		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));

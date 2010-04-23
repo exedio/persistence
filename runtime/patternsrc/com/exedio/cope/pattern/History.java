@@ -67,11 +67,11 @@ public final class History extends Pattern
 		final Type<?> type = getType();
 		
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		eventEvents = PartOf.newPartOf(eventParent);
+		eventEvents = PartOf.newPartOf(eventParent, eventDate);
 		final Features features = new Features();
 		features.put("parent", eventParent);
-		features.put("events", eventEvents);
 		features.put("date", eventDate);
+		features.put("events", eventEvents);
 		features.put("author", eventAuthor);
 		features.put("new", eventNew);
 		eventType = newSourceType(Event.class, features, "Event");

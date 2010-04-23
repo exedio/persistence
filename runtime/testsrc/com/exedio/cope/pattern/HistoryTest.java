@@ -82,8 +82,8 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				eventType.getThis(),
 				item.auditEventParent(),
-				item.audit.getEventEvents(),
 				item.audit.getEventDate(),
+				item.audit.getEventEvents(),
 				item.audit.getEventAuthor(),
 				item.audit.getEventNew()
 			), eventType.getFeatures());
@@ -158,7 +158,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
 		
 		assertSame(item.auditEventParent(), item.audit.getEventEvents().getContainer());
-		assertSame(null, item.audit.getEventEvents().getOrder());
+		assertSame(item.audit.getEventDate(), item.audit.getEventEvents().getOrder());
 		assertSame(item.audit.getFeatureEvent(), item.audit.getFeatureFeatures().getContainer());
 		assertSame(null, item.audit.getFeatureFeatures().getOrder());
 		
