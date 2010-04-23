@@ -37,6 +37,16 @@ public class PartOfContainerItem extends Item
 	{
 		return new PartOfItem(this, partString, partInteger);
 	}
+	
+	List<? extends PartOfItem> getPartsOrdered() // TODO generate this
+	{
+		return PartOfOrderedItem.partsOrdered.<PartOfItem>getParts(this);
+	}
+
+	PartOfOrderedItem addToPartsOrdered(final int order, final String partString, final int partInteger) // TODO generate this
+	{
+		return new PartOfOrderedItem(this, order, partString, partInteger);
+	}
 
 	/**
 

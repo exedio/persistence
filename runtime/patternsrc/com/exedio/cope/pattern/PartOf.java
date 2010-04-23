@@ -23,9 +23,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
@@ -35,21 +37,38 @@ public final class PartOf<C extends Item> extends Pattern
 	private static final long serialVersionUID = 1l;
 	
 	private final ItemField<C> container;
+	private final FunctionField order;
 
-	private PartOf(final ItemField<C> container)
+	private PartOf(final ItemField<C> container, final FunctionField order)
 	{
 		this.container = container;
 		addSource(container, "Container");
+		this.order = order;
+		if(order!=null)
+			addSource(order, "Order");
 	}
 	
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
 	{
-		return new PartOf<C>(container);
+		return new PartOf<C>(container, null);
+	}
+	
+	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)
+	{
+		if(order==null)
+			throw new NullPointerException("order");
+		
+		return new PartOf<C>(container, order);
 	}
 	
 	public ItemField<C> getContainer()
 	{
 		return container;
+	}
+	
+	public FunctionField getOrder()
+	{
+		return order;
 	}
 	
 	@Override
@@ -74,7 +93,10 @@ public final class PartOf<C extends Item> extends Pattern
 	@SuppressWarnings("unchecked")
 	public <P extends Item> List<? extends P> getParts(final C container)
 	{
-		return (List<P>)getType().search(this.container.equal(container));
+		final Query<P> q = (Query<P>)getType().newQuery(this.container.equal(container));
+		if(order!=null)
+			q.setOrderBy(order, true);
+		return q.search();
 	}
 
 	public List<? extends Item> getPartsAndCast(final Item container)
