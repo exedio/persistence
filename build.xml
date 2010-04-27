@@ -818,7 +818,7 @@
 		</ljunit>
 	</target>
 	
-	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.servlet.compile, console.core.compile">
+	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, console.core.compile">
 		<compile srcdir="console/websrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
