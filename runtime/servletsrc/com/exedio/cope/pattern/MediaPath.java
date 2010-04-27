@@ -347,6 +347,7 @@ public abstract class MediaPath extends Pattern
 				this,
 				redirectFrom.get(),
 				exception.get(),
+				guessedUrl.get(),
 				notAnItem.get(),
 				noSuchItem.get(),
 				moved.get(),

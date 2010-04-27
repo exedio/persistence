@@ -117,6 +117,7 @@ final class HistoryModel extends Item
 	
 	private static final IntegerField mediasRedirectFrom  = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasException     = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasGuessedUrl    = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasNotAnItem     = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasNoSuchItem    = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasMoved         = new IntegerField().toFinal().min(0);
@@ -130,6 +131,7 @@ final class HistoryModel extends Item
 		return Arrays.asList((SetValue)
 			mediasRedirectFrom .map(info.getRedirectFrom()),
 			mediasException    .map(info.getException()),
+			mediasGuessedUrl   .map(info.getGuessedUrl()),
 			mediasNotAnItem    .map(info.getNotAnItem()),
 			mediasNoSuchItem   .map(info.getNoSuchItem()),
 			mediasMoved        .map(info.getMoved()),

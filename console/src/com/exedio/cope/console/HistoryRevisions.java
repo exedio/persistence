@@ -28,6 +28,9 @@ final class HistoryRevisions
 {
 	static final Revisions REVISIONS =
 		new Revisions(
+			new Revision(4, "add guessedUrl",
+				"alter table `HistoryModel` add column `mediasGuessedUrl` integer",
+				"alter table `HistoryMedia` add column `guessedUrl` integer"),
 			new Revision(3, "add HistoryPurge",
 				"create table `HistoryPurge`(" +
 				"`this` integer," +

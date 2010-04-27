@@ -67,6 +67,7 @@ final class HistoryMedia extends Item
 	
 	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
 	private static final IntegerField exception     = new IntegerField().toFinal().min(0);
+	private static final IntegerField guessedUrl    = new IntegerField().toFinal().min(0);
 	private static final IntegerField notAnItem     = new IntegerField().toFinal().min(0);
 	private static final IntegerField noSuchItem    = new IntegerField().toFinal().min(0);
 	private static final IntegerField moved         = new IntegerField().toFinal().min(0);
@@ -81,6 +82,7 @@ final class HistoryMedia extends Item
 			media        .map(info.getPath().getID()),
 			redirectFrom .map(info.getRedirectFrom()),
 			exception    .map(info.getException()),
+			guessedUrl   .map(info.getGuessedUrl()),
 			notAnItem    .map(info.getNotAnItem()),
 			noSuchItem   .map(info.getNoSuchItem()),
 			moved        .map(info.getMoved()),
