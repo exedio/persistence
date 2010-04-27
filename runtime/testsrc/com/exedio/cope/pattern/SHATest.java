@@ -122,7 +122,7 @@ public class SHATest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals(NoSuchAlgorithmException.class.getName()+": NIXUS MessageDigest not available", e.getMessage());
+			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 

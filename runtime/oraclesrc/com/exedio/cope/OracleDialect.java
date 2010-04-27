@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -172,7 +173,7 @@ final class OracleDialect extends Dialect
 			append(',').
 			appendParameter(value.length).
 			append(",1))=").
-			appendParameter(hexUpper(value));
+			appendParameter(Hex.encodeUpper(value));
 	}
 	
 	@Override

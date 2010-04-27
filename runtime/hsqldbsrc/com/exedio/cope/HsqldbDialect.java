@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import org.hsqldb.jdbcDriver;
 
 import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class HsqldbDialect extends Dialect
@@ -134,7 +135,7 @@ final class HsqldbDialect extends Dialect
 			append(",0,").
 			appendParameter(2*value.length).
 			append(")=").
-			appendParameter(hexLower(value));
+			appendParameter(Hex.encodeLower(value));
 	}
 	
 	@Override

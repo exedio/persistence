@@ -25,6 +25,7 @@ import java.sql.SQLException;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 import com.mysql.jdbc.Driver;
 
 /**
@@ -223,7 +224,7 @@ final class MysqlDialect extends Dialect
 			append(",1,").
 			appendParameter(value.length).
 			append("))=").
-			appendParameter(hexUpper(value));
+			appendParameter(Hex.encodeUpper(value));
 	}
 	
 	@Override

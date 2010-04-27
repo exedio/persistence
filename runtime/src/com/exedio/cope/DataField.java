@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Hex;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -459,18 +460,6 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 	
-	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-	
-	static final void appendAsHex(final byte[] in, final int len, final StringBuilder out)
-	{
-		for(int i = 0; i<len; i++)
-		{
-			final byte bi = in[i];
-			out.append(mapping[(bi & 0xF0)>>4]);
-			out.append(mapping[bi & 0x0F]);
-		}
-	}
-	
 	public abstract static class Value
 	{
 		/**
@@ -540,7 +529,7 @@ public final class DataField extends Field<DataField.Value>
 		{
 			final StringBuilder bf = new StringBuilder((2*TO_STRING_LIMIT)+30);
 			bf.append("DataField.Value:");
-			appendAsHex(array, Math.min(TO_STRING_LIMIT, array.length), bf);
+			Hex.append(bf, array, Math.min(TO_STRING_LIMIT, array.length));
 
 			if(array.length>TO_STRING_LIMIT)
 				bf.append("...(").

@@ -53,9 +53,6 @@ public class MD5Test extends AbstractRuntimeTest
 	
 	public void testMD5()
 	{
-		assertEquals("000ff0aa", JavaSecurityHash.encodeBytes(new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa}));
-		assertEquals("0123456789abcdef", JavaSecurityHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
-
 		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
 				item.password,
@@ -125,7 +122,7 @@ public class MD5Test extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals(NoSuchAlgorithmException.class.getName()+": NIXUS MessageDigest not available", e.getMessage());
+			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 

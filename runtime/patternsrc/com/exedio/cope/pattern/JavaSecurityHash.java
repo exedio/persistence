@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.StringField;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.MessageDigestUtil;
 
 /**
  * Uses hash algorithms from {@link MessageDigest}.
@@ -66,15 +67,7 @@ public class JavaSecurityHash extends Hash
 	
 	private static final StringField length(final StringField f, final String algorithm)
 	{
-		final MessageDigest digest;
-		try
-		{
-			digest = MessageDigest.getInstance(algorithm);
-		}
-		catch(NoSuchAlgorithmException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
+		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
 		
 		final int digestLength = digest.getDigestLength();
 		if(digestLength<=0)
@@ -119,38 +112,17 @@ public class JavaSecurityHash extends Hash
 	{
 		try
 		{
-			final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+			final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
 			messageDigest.reset();
 			messageDigest.update(encode(plainText));
 			final byte[] resultBytes = messageDigest.digest();
-			final String result = encodeBytes(resultBytes);
+			final String result = Hex.encodeLower(resultBytes);
 			//System.out.println("----------- encoded ("+hash+","+encoding+") >"+plainText+"< to >"+result+"< ("+resultBytes.length+").");
 			return result;
-		}
-		catch(NoSuchAlgorithmException e)
-		{
-			throw new RuntimeException(algorithm, e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(encoding, e);
 		}
-	}
-	
-	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-	
-	static final String encodeBytes(final byte[] buf)
-	{
-		final int length = buf.length;
-		final char[] result = new char[length*2];
-
-		int i2 = 0;
-		for(int i = 0; i<length; i++)
-		{
-			final byte b = buf[i];
-			result[i2++] = mapping[(b & 0xf0)>>4];
-			result[i2++] = mapping[ b & 0x0f    ];
-		}
-		return new String(result);
 	}
 }

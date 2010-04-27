@@ -27,6 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Schema;
 
 /**
@@ -148,7 +149,7 @@ abstract class Dialect
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');
-		DataField.appendAsHex(parameter, parameter.length, statementText);
+		Hex.append(statementText, parameter, parameter.length);
 		statementText.append('\'');
 	}
 	
@@ -215,34 +216,6 @@ abstract class Dialect
 		bf.append(function, (Join)null).
 			append(" like ").
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
-	}
-	
-	static final String hexUpper(final byte[] buf)
-	{
-		return hex(buf, hexUpper);
-	}
-	
-	static final String hexLower(final byte[] buf)
-	{
-		return hex(buf, hexLower);
-	}
-	
-	private static final char[] hexUpper = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	private static final char[] hexLower = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-	
-	private static final String hex(final byte[] buf, final char[] hex)
-	{
-		final int length = buf.length;
-		final char[] result = new char[length*2];
-
-		int i2 = 0;
-		for(int i = 0; i<length; i++)
-		{
-			final byte b = buf[i];
-			result[i2++] = hex[(b & 0xf0)>>4];
-			result[i2++] = hex[ b & 0x0f    ];
-		}
-		return new String(result);
 	}
 	
 	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);

@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add Hex#append
+* add MessageDigestUtil
+* add Hex
 * add Interrupters
 * add CharSet.indexOfNotContains(String)
 * Day implements Comparable
