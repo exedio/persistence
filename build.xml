@@ -829,7 +829,11 @@
 			</classpath>
 		</compile>
 		<copy todir="console/web/WEB-INF/classes">
+			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
+			<fileset dir="build/classes/runtime/dialects" />
+			<fileset dir="build/classes/runtime/patternsrc" />
+			<fileset dir="build/classes/runtime/servletsrc" />
 			<fileset dir="build/classes/console/src" />
 			<fileset dir="build/classes/console/websrc" />
 		</copy>
