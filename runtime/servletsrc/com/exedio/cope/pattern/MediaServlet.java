@@ -87,7 +87,7 @@ public final class MediaServlet extends HttpServlet
 					final String pathName = path.getName();
 					pathes.put(typeID + '/' + pathName, path);
 					
-					final RedirectFrom typeRedirectFrom = type.getAnnotation(RedirectFrom.class);
+					final RedirectFrom typeRedirectFrom = getAnnotationRedirectFrom(type, path);
 					if(typeRedirectFrom!=null)
 					{
 						for(final String typeRedirectFromValue : typeRedirectFrom.value())
@@ -117,6 +117,28 @@ public final class MediaServlet extends HttpServlet
 		final MediaPath collision = map.put(key, value);
 		if(collision!=null)
 			throw new RuntimeException("colliding path " + key + ':' + value + '/' + collision);
+	}
+	
+	private static final RedirectFrom getAnnotationRedirectFrom(final Type<?> type, final MediaPath path)
+	{
+		final RedirectFrom result = type.getAnnotation(RedirectFrom.class);
+		if(result==null)
+			return result;
+		
+		if(path.isAnnotationPresent(PreventUrlGuessing.class))
+		{
+			System.out.println(
+					"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+					" at " + path.getID() +
+					" together with @" + RedirectFrom.class.getSimpleName() +
+					" at type " + type.getID() +
+					", " + RedirectFrom.class.getSimpleName() +
+					" will be ignored for " + path.getID() +
+					", but not for other medias of " + type.getID() + ".");
+			return null;
+		}
+		
+		return result;
 	}
 
 	@Override

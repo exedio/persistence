@@ -80,6 +80,10 @@ public final class MediaTest extends AbstractRuntimeTest
 				item.sheet.getBody(),
 				item.sheet.getContentType(),
 				item.sheet.getLastModified(),
+				item.tokened,
+				item.tokened.getBody(),
+				item.tokened.getContentType(),
+				item.tokened.getLastModified(),
 				item.custom,
 			}), item.TYPE.getFeatures());
 
@@ -100,6 +104,19 @@ public final class MediaTest extends AbstractRuntimeTest
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
+		
+		// token
+		
+		assertEquals(null, item.getTokenedURL());
+		assertEquals(null, item.getTokenedLocator());
+		item.setTokened(data4, "image/jpeg");
+		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedURL());
+		assertEquals(               "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() + "/name.jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedURL("name"));
+		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
+		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedURL());
+		assertEquals(               "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() + "/name.jpg?t=cbefb774d68037711a58", item.getTokenedURL("name"));
 		
 		// custom
 		assertEquals(item.TYPE, item.custom.getType());

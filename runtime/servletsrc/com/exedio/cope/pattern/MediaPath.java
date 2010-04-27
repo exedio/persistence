@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,12 +35,16 @@ import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.Properties;
 
 public abstract class MediaPath extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 	
 	private String urlPath = null;
+	boolean preventUrlGuessing = false;
 	private String mediaRootUrl = null;
 
 	@Override
@@ -48,6 +54,12 @@ public abstract class MediaPath extends Pattern
 		final String name = getName();
 		
 		urlPath = getType().getID() + '/' + name + '/';
+		preventUrlGuessing = isAnnotationPresent(PreventUrlGuessing.class);
+		if(preventUrlGuessing && isAnnotationPresent(RedirectFrom.class))
+			throw new RuntimeException(
+					"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+					" at " + getID() +
+					" together with @" + RedirectFrom.class.getSimpleName());
 	}
 	
 	final String getUrlPath()
@@ -112,11 +124,13 @@ public abstract class MediaPath extends Pattern
 	{
 		private final Item item;
 		private final String extension;
+		private final String secret;
 		
-		Locator(final Item item, final String extension)
+		Locator(final Item item, final String extension, final String secret)
 		{
 			this.item = item;
 			this.extension = extension;
+			this.secret = secret;
 		}
 		
 		public String getPath()
@@ -127,6 +141,19 @@ public abstract class MediaPath extends Pattern
 		}
 		
 		public void appendPath(final StringBuilder bf)
+		{
+			bf.append(getUrlPath()).
+				append(item.getCopeID());
+			
+			if(extension!=null)
+				bf.append(extension);
+			
+			if(secret!=null)
+				bf.append("?" + URL_TOKEN + "=").
+					append(secret);
+		}
+		
+		void appendPathInfo(final StringBuilder bf)
 		{
 			bf.append(getUrlPath()).
 				append(item.getCopeID());
@@ -149,7 +176,7 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 		
-		return new Locator(item, contentTypeToExtension.get(contentType));
+		return new Locator(item, contentTypeToExtension.get(contentType), makeUrlToken(item));
 	}
 	
 	/**
@@ -190,6 +217,11 @@ public abstract class MediaPath extends Pattern
 		final String extension = contentTypeToExtension.get(contentType);
 		if(extension!=null)
 			bf.append(extension);
+		
+		final String secret = makeUrlToken(item);
+		if(secret!=null)
+			bf.append("?" + URL_TOKEN + "=").
+				append(secret);
 		
 		return bf.toString();
 	}
@@ -235,11 +267,67 @@ public abstract class MediaPath extends Pattern
 		}
 		return s;
 	}
+	
+	static final String URL_TOKEN = "t";
+	
+	private final String makeUrlToken(final Item item)
+	{
+		if(!preventUrlGuessing)
+			return null;
+		
+		return makeUrlToken(item.getCopeID());
+	}
+	
+	private final String makeUrlToken(final String itemID)
+	{
+		if(!preventUrlGuessing)
+			return null;
+		
+		final String sss = getNonGuessableUrlSecret();
+		if(sss==null)
+			return getID() + '-' + itemID;
+		
+		final String plainText = getUrlPath() + itemID + '-' + sss;
+		try
+		{
+			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
+			messageDigest.reset();
+			messageDigest.update(plainText.getBytes("utf8"));
+			final byte[] digest = messageDigest.digest();
+			final byte[] digestShrink = new byte[10];
+			int j = 0;
+			for(int i = 0; i<digest.length; i++)
+			{
+				digestShrink[j++] ^= digest[i];
+				if(j>=digestShrink.length)
+					j = 0;
+			}
+			return Hex.encodeLower(digestShrink);
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private final String getNonGuessableUrlSecret()
+	{
+		final Properties.Source context = getType().getModel().getConnectProperties().getContext();
+		if(context==null)
+			return null;
+		
+		final String result = context.get("media.url.secret");
+		if(result==null || result.length()<10)
+			return null;
+		
+		return result;
+	}
 
 
 	static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
 	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
 	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	private final Log guessedUrl = new Log("guessed url"  , HttpServletResponse.SC_NOT_FOUND);
 	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
 	final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
 	final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
@@ -297,6 +385,14 @@ public abstract class MediaPath extends Pattern
 			checkCanonical = false;
 		}
 		
+		final String token = makeUrlToken(id);
+		if(token!=null)
+		{
+			final String x = request.getParameter(URL_TOKEN);
+			if(!token.equals(x))
+				return guessedUrl;
+		}
+		
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
 		try
@@ -311,7 +407,7 @@ public abstract class MediaPath extends Pattern
 				{
 					final StringBuilder expectedPathInfo = new StringBuilder();
 					expectedPathInfo.append('/');
-					locator.appendPath(expectedPathInfo);
+					locator.appendPathInfo(expectedPathInfo);
 					if(!expectedPathInfo.toString().equals(pathInfo))
 					{
 						final StringBuilder location = new StringBuilder();

@@ -4,4 +4,5 @@
 		docBase="../../runtime/servlettestweb"
 		debug="0"
 		privileged="true">
+	<!--Parameter name="media.url.secret" value="valueOfMediaUrlSecret" /-->
 </Context>

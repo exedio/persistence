@@ -35,6 +35,7 @@ import junit.framework.TestCase;
 public class MediaServletTest extends TestCase
 {
 	private static final String NO_SUCH_PATH   = "no such path";
+	private static final String GUESSED_URL    = "guessed url";
 	private static final String NOT_AN_ITEM    = "not an item";
 	private static final String NO_SUCH_ITEM   = "no such item";
 	private static final String IS_NULL        = "is null";
@@ -194,6 +195,29 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP          , IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 
+		// tokened
+		final String TOKEN;
+		//TOKEN = "74466680090a38495c89";
+		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
+		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, "image/jpeg"));
+		
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t="  , GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=1" , GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=12", GUESSED_URL);
+		
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png"     , GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png?t=12", GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG              , GUESSED_URL);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + "?t=12"    , GUESSED_URL);
+		assertMoved(prefix + "tokened/" + ITEM_JPG + ".png?t=" + TOKEN,
+						prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&x=y", NOT_AN_ITEM);
+		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&t=y", NOT_AN_ITEM);
+		
+		// nameServer
+		
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + ".", prefix + "nameServer/" + ITEM_NAME_OK + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK , prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
