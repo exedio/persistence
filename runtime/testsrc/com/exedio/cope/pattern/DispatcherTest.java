@@ -107,6 +107,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.toTarget.getType());
 		assertEquals("toTarget", item.toTarget.getName());
 
+		assertSame(item.TYPE, item.toTarget.getPending().getType());
+		assertSame("toTarget-pending", item.toTarget.getPending().getName());
+		assertSame(item.toTarget, item.toTarget.getPending().getPattern());
+		assertSame(Boolean.TRUE, item.toTarget.getPending().getDefaultConstant());
+		
 		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
 		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
 		assertEquals(false, runType.isBound());
