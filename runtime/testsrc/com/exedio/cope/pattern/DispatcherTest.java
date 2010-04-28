@@ -142,6 +142,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		assertSerializedSame(item.toTarget, 386);
 		
+		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
 		try
 		{
 			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);

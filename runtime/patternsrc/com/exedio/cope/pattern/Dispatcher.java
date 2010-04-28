@@ -52,7 +52,7 @@ public final class Dispatcher extends Pattern
 	
 	private static final String ENCODING = "utf8";
 	
-	private final BooleanField pending = new BooleanField().defaultTo(true);
+	private final BooleanField pending;
 
 	ItemField<?> runParent = null;
 	private PartOf<?> runRuns = null;
@@ -64,7 +64,18 @@ public final class Dispatcher extends Pattern
 	
 	public Dispatcher()
 	{
+		this(new BooleanField().defaultTo(true));
+	}
+	
+	private Dispatcher(final BooleanField pending)
+	{
+		this.pending = pending;
 		addSource(pending, "pending");
+	}
+	
+	public Dispatcher defaultPendingTo(final boolean defaultConstant)
+	{
+		return new Dispatcher(pending.defaultTo(defaultConstant));
 	}
 	
 	@Override
