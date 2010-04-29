@@ -107,6 +107,8 @@ public final class MediaTest extends AbstractRuntimeTest
 		
 		// token
 		
+		assertFalse(item.photo.isUrlGuessingPrevented());
+		assertTrue(item.tokened.isUrlGuessingPrevented());
 		assertEquals(null, item.getTokenedURL());
 		assertEquals(null, item.getTokenedLocator());
 		item.setTokened(data4, "image/jpeg");

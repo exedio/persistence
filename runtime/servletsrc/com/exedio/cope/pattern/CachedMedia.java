@@ -44,7 +44,7 @@ public abstract class CachedMedia extends MediaPath
 		// This code prevents a Denial of Service attack against the caching mechanism.
 		// Query strings can be used to effectively disable the cache by using many urls
 		// for one media value. Therefore they are forbidden completely.
-		if(preventUrlGuessing)
+		if(isUrlGuessingPrevented())
 		{
 			final String[] tokens = request.getParameterValues(URL_TOKEN);
 			if(tokens!=null&&tokens.length>1)

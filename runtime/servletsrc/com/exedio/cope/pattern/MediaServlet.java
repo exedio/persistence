@@ -125,7 +125,7 @@ public final class MediaServlet extends HttpServlet
 		if(result==null)
 			return result;
 		
-		if(path.isAnnotationPresent(PreventUrlGuessing.class))
+		if(path.isUrlGuessingPrevented())
 		{
 			System.out.println(
 					"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +

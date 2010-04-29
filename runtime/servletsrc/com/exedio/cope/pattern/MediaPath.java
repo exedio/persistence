@@ -44,7 +44,7 @@ public abstract class MediaPath extends Pattern
 	private static final long serialVersionUID = 1l;
 	
 	private String urlPath = null;
-	boolean preventUrlGuessing = false;
+	private boolean preventUrlGuessing = false;
 	private String mediaRootUrl = null;
 
 	@Override
@@ -68,6 +68,11 @@ public abstract class MediaPath extends Pattern
 			throw new RuntimeException("not yet mounted");
 		
 		return urlPath;
+	}
+	
+	public final boolean isUrlGuessingPrevented()
+	{
+		return preventUrlGuessing;
 	}
 	
 	private final String getMediaRootUrl()
