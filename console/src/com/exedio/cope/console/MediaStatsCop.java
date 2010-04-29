@@ -29,6 +29,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.PreventUrlGuessing;
 
 final class MediaStatsCop extends ConsoleCop
 {
@@ -56,11 +57,21 @@ final class MediaStatsCop extends ConsoleCop
 			final History history)
 	{
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
+		boolean isUrlGuessingPrevented = false;
 
 		for(final Type<?> type : model.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
-					medias.add((MediaPath)feature);
+				{
+					final MediaPath path = (MediaPath)feature;
+					medias.add(path);
+					if(!isUrlGuessingPrevented && path.isUrlGuessingPrevented())
+						isUrlGuessingPrevented = true;
+				}
+		
+		final boolean isUrlGuessingNotSecure =
+			isUrlGuessingPrevented &&
+			!MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties());
 
 		final MediaInfo[] infos = new MediaInfo[medias.size()];
 		int mediaIndex = 0;
@@ -68,7 +79,7 @@ final class MediaStatsCop extends ConsoleCop
 			infos[mediaIndex++] = media.getInfo();
 		final MediaSummary summary = new MediaSummary(infos);
 		
-		Media_Jspm.writeBody(this, out, names, shortNames, infos, summary);
+		Media_Jspm.writeBody(this, out, names, shortNames, isUrlGuessingNotSecure, infos, summary);
 	}
 	
 	private static final String[] names = {
