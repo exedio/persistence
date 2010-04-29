@@ -29,7 +29,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.pattern.PreventUrlGuessing;
 
 final class MediaStatsCop extends ConsoleCop
 {
