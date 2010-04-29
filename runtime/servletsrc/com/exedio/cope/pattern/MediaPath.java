@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -317,7 +318,12 @@ public abstract class MediaPath extends Pattern
 	
 	private final String getNonGuessableUrlSecret()
 	{
-		final Properties.Source context = getType().getModel().getConnectProperties().getContext();
+		return getNonGuessableUrlSecret(getType().getModel().getConnectProperties());
+	}
+	
+	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
+	{
+		final Properties.Source context = properties.getContext();
 		if(context==null)
 			return null;
 		
