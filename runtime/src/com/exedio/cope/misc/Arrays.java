@@ -40,4 +40,9 @@ public final class Arrays
 		arraycopy(original, 0, copy, 0, l);
 		return copy;
 	}
+	
+	private Arrays()
+	{
+		// prevent instantiation
+	}
 }
