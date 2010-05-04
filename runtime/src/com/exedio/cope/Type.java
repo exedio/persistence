@@ -322,6 +322,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			}
 			catch(InvocationTargetException e)
 			{
+				final Throwable cause = e.getCause();
+				if(cause instanceof RuntimeException)
+					throw (RuntimeException)cause;
 				throw new RuntimeException(id, e);
 			}
 			catch(IllegalAccessException e)

@@ -41,6 +41,36 @@ public class CreateTest extends AbstractRuntimeTest
 			final CreateItem item = deleteOnTearDown(CreateItem.TYPE.newItem(CreateSuperItem.text.map("type")));
 			assertEquals("type.preCreate.preCreateSuper.postCreate", item.getText());
 		}
+		try
+		{
+			new CreateItem("fail");
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		try
+		{
+			new CreateItem(CreateSuperItem.text.map("fail"));
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		try
+		{
+			CreateItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
 		// super
 		{
 			final CreateSuperItem item = deleteOnTearDown(new CreateSuperItem("normal"));
@@ -53,6 +83,36 @@ public class CreateTest extends AbstractRuntimeTest
 		{
 			final CreateSuperItem item = deleteOnTearDown(CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("type")));
 			assertEquals("type.preCreateSuper.postCreateSuper", item.getText());
+		}
+		try
+		{
+			new CreateSuperItem("fail");
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateSuperItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		try
+		{
+			new CreateSuperItem(CreateSuperItem.text.map("fail"));
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateSuperItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		try
+		{
+			CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(CreateSuperItem.text, e.getFeature());
+			assertEquals(null, e.getItem());
 		}
 	}
 }

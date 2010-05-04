@@ -31,6 +31,8 @@ class CreateItem extends CreateSuperItem
 	{
 		assertEquals(1, setValues.length);
 		assertSame(text, setValues[0].settable);
+		if("fail".equals(setValues[0].value))
+			throw new MandatoryViolationException(text, text, null);
 		setValues[0] = text.map(((String)setValues[0].value) + ".preCreate");
 		return setValues;
 	}
