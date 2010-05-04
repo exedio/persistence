@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 
 public final class Importer<E extends Object> extends Pattern
@@ -90,7 +91,7 @@ public final class Importer<E extends Object> extends Pattern
 			final E keyValue,
 			final List<? extends SetValue> setValues)
 	{
-		return doImport(parentClass, keyValue, setValues.toArray(new SetValue[setValues.size()]));
+		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
 	
 	public <P extends Item> P doImport(

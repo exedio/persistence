@@ -50,6 +50,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.CharSet;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
@@ -529,7 +530,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			values.add(this.lastModified.map(new Date()));
 			values.add(this.body.map(body));
 			
-			return values.toArray(new SetValue[values.size()]);
+			return SetValueUtil.toArray(values);
 		}
 		else
 		{
@@ -543,7 +544,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			values.add(this.lastModified.map(null));
 			values.add(this.body.mapNull());
 			
-			return values.toArray(new SetValue[values.size()]);
+			return SetValueUtil.toArray(values);
 		}
 	}
 	

@@ -44,6 +44,7 @@ import java.util.Map;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.misc.Compare;
+import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
@@ -833,10 +834,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	public T newItem(final List<SetValue> setValues)
 		throws ConstraintViolationException
 	{
-		return newItem(
-				setValues!=null
-				? setValues.toArray(setValues.toArray(new SetValue[setValues.size()]))
-				: null);
+		return newItem(SetValueUtil.toArray(setValues));
 	}
 
 	private static final SetValue[] EMPTY_SET_VALUES = {};
