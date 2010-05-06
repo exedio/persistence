@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 
 <project name="cope getlib" default="getlib" basedir=".">
+	<property environment="env" />
+	<property name="getlib.home" value="${env.GETLIB_HOME}" />
 
-	<import file="getlib/getlib-contrib.xml"/>
+	<import file="${getlib.home}/getlib-contrib.xml"/>
 
 	<!-- the project uses several mysql libraries directly -->
 	<target name="getlib" depends="hsqldb, trove, cojen, bsh-core, exedio-cope-util, exedio-cops, exedio-jspm" />
