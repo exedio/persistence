@@ -63,7 +63,7 @@ public class CompositeTest extends CopeAssert
 		
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals("1234", value.getString4());
-		assertEquals(null, value.getStringDefault()); // TODO "defaultString"
+		assertEquals("defString", value.getStringDefault());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
 		assertEquals(6.6, value.getDoubleField());
@@ -139,7 +139,7 @@ public class CompositeTest extends CopeAssert
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		
 		assertEquals("1234", value.getString4());
-		assertEquals(null,   value.getStringDefault()); // TODO "defaultString"
+		assertEquals("defString", value.getStringDefault());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
 		assertEquals(6.6,    value.getDoubleField());

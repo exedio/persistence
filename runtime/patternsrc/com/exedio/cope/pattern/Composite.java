@@ -42,6 +42,7 @@ public abstract class Composite implements Serializable
 	{
 		final CompositeType<?> type = type();
 		values = new Object[type.componentSize];
+		final boolean[] valueSet = new boolean[values.length];
 		for(final SetValue v : setValues)
 		{
 			final Integer position = type.templatePositions.get(v.settable);
@@ -49,7 +50,12 @@ public abstract class Composite implements Serializable
 				throw new IllegalArgumentException("not a member");
 			
 			values[position.intValue()] = v.value;
+			valueSet[position.intValue()] = true;
 		}
+		for(int i = 0; i<valueSet.length; i++)
+			if(!valueSet[i])
+				values[i] = type.templateList.get(i).getDefaultConstant();
+		
 		int i = 0;
 		for(final FunctionField ff : type.templateList)
 			check(ff, values[i++]);
