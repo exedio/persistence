@@ -26,7 +26,10 @@ final class CopeSchemaNameSame
 {
 	static CopeSchemaName get()
 	{
-		return new CopeSchemaName()
+		return instance;
+	}
+	
+	private static final CopeSchemaName instance = new CopeSchemaName()
 		{
 			public Class<? extends Annotation> annotationType()
 			{
@@ -38,7 +41,6 @@ final class CopeSchemaNameSame
 				return "";
 			}
 		};
-	}
 	
 	private CopeSchemaNameSame()
 	{
