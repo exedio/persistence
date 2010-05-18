@@ -109,29 +109,29 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
-				boolean doIt = false;
-				
-				String postfix = this.postfix;
-				if(source!=null)
-				{
-					final CopeSchemaName sourceName = source.getAnnotation(CopeSchemaName.class);
-					if(sourceName!=null)
-					{
-						postfix = sourceName.value();
-						doIt = true;
-					}
-				}
-				
-				String prefix = Pattern.this.getName();
+				final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
-				if(patternName!=null)
-				{
-					prefix = patternName.value();
-					doIt = true;
-				}
 				
-				if(doIt)
-					return annotationClass.cast(schemaName(prefix + (postfix.length()>0 ? ('-' + postfix) : "")));
+				if(sourceName==null && patternName==null)
+					return null;
+				
+				final StringBuilder bf = new StringBuilder();
+				
+				bf.append(
+					patternName!=null
+					? patternName.value()
+					: Pattern.this.getName());
+				
+				if(sourceName!=null)
+				{
+					final String v = sourceName.value();
+					if(v.length()>0)
+						bf.append('-').append(v);
+				}
+				else
+					bf.append('-').append(postfix);
+				
+				return annotationClass.cast(schemaName(bf.toString()));
 			}
 			
 			if(source==null)
