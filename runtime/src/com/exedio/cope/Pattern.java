@@ -109,10 +109,10 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
-				final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
+				final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
 				
-				if(sourceName==null && patternName==null)
+				if(patternName==null && sourceName==null)
 					return null;
 				
 				final StringBuilder bf = new StringBuilder();
