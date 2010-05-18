@@ -160,5 +160,18 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("zack", e.getMessage());
 		}
+		item.setFeature(string1);
+		
+		item.string.getIdField().set(item, integer1.getID());
+		try
+		{
+			item.getString();
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
+		}
+		item.setString(null);
 	}
 }
