@@ -66,7 +66,8 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				item.feature, item.feature.getIdField(),
 				item.featureFinal, item.featureFinal.getIdField(),
 				item.featureOptional, item.featureOptional.getIdField(),
-				item.featureRenamed, item.featureRenamed.getIdField()
+				item.featureRenamed, item.featureRenamed.getIdField(),
+				item.string, item.string.getIdField()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.feature.getType());
@@ -93,16 +94,31 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
+		assertSame(null, item.getString());
 		
 		item.setFeatureOptional(integer1);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(integer1, item.getFeatureOptional());
+		assertSame(null, item.getString());
 		
 		item.setFeatureOptional(null);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
+		assertSame(null, item.getString());
+		
+		item.setString(string2);
+		assertSame(FeatureFieldItem.string1, item.getFeature());
+		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
+		assertSame(null, item.getFeatureOptional());
+		assertSame(string2, item.getString());
+		
+		item.setString(null);
+		assertSame(FeatureFieldItem.string1, item.getFeature());
+		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
+		assertSame(null, item.getFeatureOptional());
+		assertSame(null, item.getString());
 		
 		try
 		{
@@ -117,6 +133,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
+		assertSame(null, item.getString());
 		
 		try
 		{
@@ -131,5 +148,6 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
+		assertSame(null, item.getString());
 	}
 }
