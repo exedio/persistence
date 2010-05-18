@@ -31,6 +31,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
@@ -167,5 +168,17 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			throw new MandatoryViolationException(this, this, exceptionItem);
 		
 		return new SetValue[]{ idField.map(value!=null ? value.getID() : null) };
+	}
+	
+	public List<E> getValues()
+	{
+		final ArrayList<E> result = new ArrayList<E>();
+		
+		for(final Type<?> type : getType().getModel().getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(valueClass.isInstance(feature))
+					result.add(valueClass.cast(feature));
+		
+		return Collections.unmodifiableList(result);
 	}
 }

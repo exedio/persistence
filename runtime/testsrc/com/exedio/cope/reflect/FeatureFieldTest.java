@@ -76,6 +76,15 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		
 		assertSerializedSame(FeatureFieldItem.feature, 389);
 		
+		assertEqualsUnmodifiable(item.TYPE.getFeatures(), item.feature.getValues());
+		assertEqualsUnmodifiable(list(
+				string1, string2, string3,
+				item.feature.getIdField(),
+				item.featureFinal.getIdField(),
+				item.featureOptional.getIdField(),
+				item.featureRenamed.getIdField(),
+				item.string.getIdField()), item.string.getValues());
+		
 		try
 		{
 			FeatureField.newField(null);
