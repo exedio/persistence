@@ -39,6 +39,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.reflect.FeatureField;
 
 public final class History extends Pattern
 {
@@ -53,7 +54,7 @@ public final class History extends Pattern
 	
 	ItemField<Event> featureEvent = null;
 	PartOf<Event> featureFeatures = null;
-	final StringField featureId = new StringField().toFinal();
+	final FeatureField featureId = new FeatureField().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
 	final StringField featureOld = new StringField().toFinal().optional();
@@ -79,7 +80,7 @@ public final class History extends Pattern
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		featureFeatures = PartOf.newPartOf(featureEvent);
-		featureUnique = new UniqueConstraint(featureEvent, featureId);
+		featureUnique = new UniqueConstraint(featureEvent, featureId.getIdField());
 		features.put("event", featureEvent);
 		features.put("features", featureFeatures);
 		features.put("id", featureId);
@@ -151,9 +152,14 @@ public final class History extends Pattern
 		return featureFeatures;
 	}
 	
-	public StringField getFeatureId()
+	public FeatureField getFeature()
 	{
 		return featureId;
+	}
+	
+	public StringField getFeatureId()
+	{
+		return featureId.getIdField();
 	}
 	
 	public UniqueConstraint getFeatureUniqueConstraint()
@@ -311,7 +317,7 @@ public final class History extends Pattern
 			final History pattern = getPattern();
 			return pattern.featureType.newItem(
 					Cope.mapAndCast(pattern.featureEvent, this),
-					pattern.featureId.map(f.getID()),
+					pattern.featureId.map(f),
 					pattern.featureName.map(name),
 					cut(pattern.featureOld, oldValue),
 					cut(pattern.featureNew, newValue)
@@ -342,7 +348,7 @@ public final class History extends Pattern
 		public com.exedio.cope.Feature getFeature()
 		{
 			final History pattern = getPattern();
-			return pattern.featureId.getType().getModel().getFeature(pattern.featureId.get(this));
+			return pattern.featureId.get(this);
 		}
 		
 		/**
@@ -356,7 +362,7 @@ public final class History extends Pattern
 		
 		public String getFeatureID()
 		{
-			return getPattern().featureId.get(this);
+			return getPattern().featureId.getId(this);
 		}
 		
 		public String getName()

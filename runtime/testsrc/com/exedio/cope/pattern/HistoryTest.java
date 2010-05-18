@@ -91,6 +91,7 @@ public class HistoryTest extends AbstractRuntimeTest
 				featureType.getThis(),
 				item.audit.getFeatureEvent(),
 				item.audit.getFeatureFeatures(),
+				item.audit.getFeature(),
 				item.audit.getFeatureId(),
 				item.audit.getFeatureUniqueConstraint(),
 				item.audit.getFeatureName(),
@@ -128,6 +129,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(eventType, item.audit.getEventAuthor().getType());
 		assertEquals(eventType, item.audit.getEventNew().getType());
 		assertEquals(featureType, item.audit.getFeatureEvent().getType());
+		assertEquals(featureType, item.audit.getFeature().getType());
 		assertEquals(featureType, item.audit.getFeatureId().getType());
 		assertEquals(featureType, item.audit.getFeatureUniqueConstraint().getType());
 		assertEquals(featureType, item.audit.getFeatureName().getType());
@@ -139,7 +141,8 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals("author", item.audit.getEventAuthor().getName());
 		assertEquals("new", item.audit.getEventNew().getName());
 		assertEquals("event", item.audit.getFeatureEvent().getName());
-		assertEquals("id", item.audit.getFeatureId().getName());
+		assertEquals("id", item.audit.getFeature().getName());
+		assertEquals("id-id", item.audit.getFeatureId().getName());
 		assertEquals("uniqueConstraint", item.audit.getFeatureUniqueConstraint().getName());
 		assertEquals("name", item.audit.getFeatureName().getName());
 		assertEquals("old", item.audit.getFeatureOld().getName());

@@ -109,8 +109,13 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
-				if(source!=null && source.getAnnotation(annotationClass)!=null)
-					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
+				String postfix = this.postfix;
+				if(source!=null)
+				{
+					final CopeSchemaName sourceName = source.getAnnotation(CopeSchemaName.class);
+					if(sourceName!=null)
+						postfix = sourceName.value();
+				}
 				
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				if(patternName!=null)
