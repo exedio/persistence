@@ -22,7 +22,7 @@ import java.lang.annotation.Annotation;
 
 import com.exedio.cope.CopeSchemaName;
 
-final class CopeSchemaNameSame
+final class CopeSchemaNameEmpty
 {
 	static CopeSchemaName get()
 	{
@@ -42,7 +42,7 @@ final class CopeSchemaNameSame
 			}
 		};
 	
-	private CopeSchemaNameSame()
+	private CopeSchemaNameEmpty()
 	{
 		// prevent instantiation
 	}
