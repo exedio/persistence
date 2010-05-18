@@ -32,36 +32,47 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.Cast;
 
-public final class FeatureField extends Pattern implements Settable<Feature>
+public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;
 	
+	private final Class<E> valueClass;
 	private final StringField idField;
 	private final boolean isfinal;
 	private final boolean optional;
 	
-	public FeatureField()
+	public static <E extends Feature> FeatureField<E> newField(final Class<E> valueClass)
 	{
-		this(new StringField());
+		return new FeatureField<E>(valueClass, new StringField());
 	}
 	
-	private FeatureField(final StringField integer)
+	private FeatureField(final Class<E> valueClass, final StringField integer)
 	{
+		if(valueClass==null)
+			throw new NullPointerException("valueClass");
+		
+		this.valueClass = valueClass;
 		this.idField = integer;
 		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameEmpty.get()));
 		this.isfinal = integer.isFinal();
 		this.optional = !integer.isMandatory();
 	}
 	
-	public FeatureField toFinal()
+	public FeatureField<E> toFinal()
 	{
-		return new FeatureField(idField.toFinal());
+		return new FeatureField<E>(valueClass, idField.toFinal());
 	}
 	
-	public FeatureField optional()
+	public FeatureField<E> optional()
 	{
-		return new FeatureField(idField.optional());
+		return new FeatureField<E>(valueClass, idField.optional());
+	}
+	
+	public Class<E> getValueClass()
+	{
+		return valueClass;
 	}
 	
 	public StringField getIdField()
@@ -81,7 +92,7 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 	
 	public Class getInitialType()
 	{
-		return Feature.class;
+		return valueClass;
 	}
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
@@ -98,7 +109,7 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
-			setReturn(Feature.class));
+			setReturn(Wrapper.TypeVariable0.class));
 		
 		if(!isfinal)
 		{
@@ -106,15 +117,15 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
 				addThrows(getInitialExceptions()).
-				addParameter(Feature.class));
+				addParameter(Wrapper.TypeVariable0.class));
 		}
 			
 		return Collections.unmodifiableList(result);
 	}
 	
-	public Feature get(final Item item)
+	public E get(final Item item)
 	{
-		return getType().getModel().getFeature(idField.get(item));
+		return Cast.verboseCast(valueClass, getType().getModel().getFeature(idField.get(item)));
 	}
 	
 	public String getId(final Item item)
@@ -122,7 +133,7 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 		return idField.get(item);
 	}
 	
-	public void set(final Item item, final Feature value)
+	public void set(final Item item, final E value)
 	{
 		if(isfinal)
 			throw new FinalViolationException(this, this, item);
@@ -132,12 +143,12 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 	
-	public SetValue<Feature> map(final Feature value)
+	public SetValue<E> map(final E value)
 	{
-		return new SetValue<Feature>(this, value);
+		return new SetValue<E>(this, value);
 	}
 	
-	public SetValue[] execute(final Feature value, final Item exceptionItem)
+	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw new MandatoryViolationException(this, this, exceptionItem);

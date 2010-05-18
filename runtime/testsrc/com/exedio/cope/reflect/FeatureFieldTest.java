@@ -75,6 +75,16 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		
 		assertSerializedSame(FeatureFieldItem.feature, 389);
 		
+		try
+		{
+			FeatureField.newField(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("valueClass", e.getMessage());
+		}
+		
 		// test persistence
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
