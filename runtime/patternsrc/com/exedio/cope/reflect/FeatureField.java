@@ -130,7 +130,15 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	
 	public E get(final Item item)
 	{
-		return Cast.verboseCast(valueClass, getType().getModel().getFeature(idField.get(item)));
+		final String id = idField.get(item);
+		if(id==null)
+			return null;
+		
+		final Feature f = getType().getModel().getFeature(id);
+		if(f==null)
+			throw new IllegalStateException(id);
+		
+		return Cast.verboseCast(valueClass, f);
 	}
 	
 	public String getId(final Item item)

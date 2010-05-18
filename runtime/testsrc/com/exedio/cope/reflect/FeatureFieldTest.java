@@ -149,5 +149,16 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+		
+		item.feature.getIdField().set(item, "zack");
+		try
+		{
+			item.getFeature();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("zack", e.getMessage());
+		}
 	}
 }
