@@ -49,7 +49,7 @@ public final class FeatureField extends Pattern implements Settable<Feature>
 	private FeatureField(final StringField integer)
 	{
 		this.idField = integer;
-		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameSame.get(this)));
+		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameSame.get()));
 		this.isfinal = integer.isFinal();
 		this.optional = !integer.isMandatory();
 	}

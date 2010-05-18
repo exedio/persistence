@@ -77,7 +77,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		
 		// test persistence
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
-		assertEquals("featureNewnam_featuRename", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField())); // TODO
+		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
 		
 		item = deleteOnTearDown(new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2));
 		assertSame(FeatureFieldItem.string1, item.getFeature());

@@ -21,15 +21,11 @@ package com.exedio.cope.reflect;
 import java.lang.annotation.Annotation;
 
 import com.exedio.cope.CopeSchemaName;
-import com.exedio.cope.Feature;
 
 final class CopeSchemaNameSame
 {
-	static CopeSchemaName get(final Feature feature)
+	static CopeSchemaName get()
 	{
-		if(feature==null)
-			throw new NullPointerException("feature");
-		
 		return new CopeSchemaName()
 		{
 			public Class<? extends Annotation> annotationType()
@@ -39,7 +35,7 @@ final class CopeSchemaNameSame
 
 			public String value()
 			{
-				return feature.getName();
+				return "";
 			}
 		};
 	}
