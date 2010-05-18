@@ -33,11 +33,11 @@ public class FeatureFieldItem extends Item
 	static final StringField string2 = new StringField().optional();
 	static final StringField string3 = new StringField().optional();
 
-	static final FeatureField<Feature> feature = FeatureField.newField(Feature.class);
-	static final FeatureField<Feature> featureFinal = FeatureField.newField(Feature.class).toFinal();
-	static final FeatureField<Feature> featureOptional = FeatureField.newField(Feature.class).optional();
+	static final FeatureField<Feature> feature = FeatureField.newField();
+	static final FeatureField<Feature> featureFinal = FeatureField.newField().toFinal();
+	static final FeatureField<Feature> featureOptional = FeatureField.newField().optional();
 	@CopeSchemaName("featureNewname")
-	static final FeatureField<Feature> featureRenamed = FeatureField.newField(Feature.class).optional();
+	static final FeatureField<Feature> featureRenamed = FeatureField.newField().optional();
 	static final FeatureField<StringField> string = FeatureField.newField(StringField.class).optional();
 	
 	/**

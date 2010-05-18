@@ -43,6 +43,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private final boolean isfinal;
 	private final boolean optional;
 	
+	public static FeatureField<Feature> newField()
+	{
+		return newField(Feature.class);
+	}
+	
 	public static <E extends Feature> FeatureField<E> newField(final Class<E> valueClass)
 	{
 		return new FeatureField<E>(valueClass, new StringField());
