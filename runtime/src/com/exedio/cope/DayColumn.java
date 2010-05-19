@@ -21,8 +21,10 @@ package com.exedio.cope;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import com.exedio.cope.util.Day;
 
@@ -92,7 +94,9 @@ final class DayColumn extends Column
 		else
 		{
 			final Day day = getDay(((Integer)cache).intValue());
-			return "{d '"+day.getYear()+'-'+day.getMonth()+'-'+day.getDay()+"'}";
+			final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+			nf.setMinimumIntegerDigits(2);
+			return "{d '"+day.getYear()+'-'+nf.format(day.getMonth())+'-'+nf.format(day.getDay())+"'}";
 		}
 	}
 	
