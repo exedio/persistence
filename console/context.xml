@@ -1,7 +1,0 @@
-
-<Context
-		path="/copeconsole"
-		docBase="../../console/web"
-		debug="0"
-		privileged="true">
-</Context>

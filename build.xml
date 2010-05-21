@@ -476,20 +476,19 @@
 	</target>
 
 	<target name="runtime.web"
-			  depends="runtime.core.compile, runtime.test.compile,
-							console.core.compile">
+			  depends="runtime.core.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/classes/runtime/src" />
 					<fileset dir="build/classes/runtime/testsrc" />
-					<fileset dir="build/classes/console/src" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
+					<fileset file="lib/exedio-cope-console.jar" />
 					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
@@ -524,8 +523,7 @@
 	</target>
 
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile,
-			           console.compile">
+			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile">
 		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -539,11 +537,11 @@
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/servletsrc" />
-			<fileset dir="build/classes/console/src" />
 			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
+			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/commons-fileupload.jar" />
@@ -581,7 +579,7 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.web" depends="copernica.test.compile, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.test.compile, console.core.compile">
+	<target name="copernica.web" depends="copernica.test.compile, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.test.compile">
 		<mkdir dir="build/copernica/web" />
 		<copy todir="build/copernica/web/WEB-INF/classes">
 			<fileset dir="build/classes/dsmf/src" />
@@ -589,7 +587,6 @@
 			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/servletsrc" />
 			<fileset dir="build/classes/runtime/testsrc" />
-			<fileset dir="build/classes/console/src" />
 			<fileset dir="build/classes/copernica/testsrc" />
 		</copy>
 		<copy todir="build/copernica/web/WEB-INF/lib">
@@ -598,6 +595,7 @@
 			<fileset file="lib/commons-io.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
 		</copy>
 		<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
@@ -755,151 +753,29 @@
 		<delete dir="build/instrument" />
 	</target>
 	
-	<!-- console -->
-	
-	<target name="console.jspm">
-		<jspm>
-			<fileset dir="console/src" includes="**/*.jspm" />
-		</jspm>
-	</target>
-	
-	<target name="console.core.compile" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, console.jspm">
-		<compile srcdir="console/src">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</compile>
-	</target>
-	
-	<target name="console.jar" depends="console.core.compile">
-		<ljar name="cope console" jarfile="build/exedio-cope-console.jar" classpath="exedio-cope.jar exedio-cops.jar">
-			<fileset dir="build/classes/console/src" />
-		</ljar>
-	</target>
-	
-	<target name="console.test.compile" depends="runtime.core.compile, runtime.servlet.compile, runtime.junit.compile, console.core.compile">
-		<compile srcdir="console/testsrc">
-			<classpath>
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
-				<pathelement location="build/classes/console/src" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/junit.jar" />
-			</classpath>
-		</compile>
-	</target>
-	
-	<target name="console.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, console.core.compile, console.test.compile">
-		<ljunit test="com.exedio.cope.console.PackageTest">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/dialects" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
-				<pathelement location="build/classes/console/src" />
-				<pathelement location="build/classes/console/testsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/trove.jar" />
-				<pathelement location="lib/jdbc/hsqldb.jar" />
-				<pathelement location="lib/junit.jar" />
-			</classpath>
-		</ljunit>
-	</target>
-	
-	<target name="console.web.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument>
-			<fileset dir="console/websrc">
-				<include name="**/*.java" />
-			</fileset>
-		</instrument>
-	</target>
-	
-	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, console.web.instrument, console.core.compile">
-		<compile srcdir="console/websrc">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</compile>
-		<copy todir="console/web/WEB-INF/classes">
-			<fileset dir="build/classes/dsmf/src" />
-			<fileset dir="build/classes/runtime/src" />
-			<fileset dir="build/classes/runtime/dialects" />
-			<fileset dir="build/classes/runtime/patternsrc" />
-			<fileset dir="build/classes/runtime/servletsrc" />
-			<fileset dir="build/classes/console/src" />
-			<fileset dir="build/classes/console/websrc" />
-		</copy>
-		<copy todir="console/web/WEB-INF/lib">
-			<fileset file="lib/trove.jar" />
-			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/jdbc/hsqldb.jar" />
-			<fileset file="lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
-		</copy>
-		<copy todir="build/console/historyweb">
-			<fileset dir="console/web" />
-		</copy>
-	</target>
-	
-	<target name="console.tomcat" depends="console.web, catalina">
-		<copy tofile="tomcat/conf/Catalina/localhost/cope-console.xml" file="console/context.xml"/>
-		<copy tofile="tomcat/conf/Catalina/localhost/cope-console-history.xml" file="console/context-history.xml"/>
-		<copy todir="tomcat/bin" file="console/history.cope.properties"/>
-	</target>
-	
-	<target name="console.compile" depends="console.core.compile, console.test.compile" />
-	
-	<target name="console.clean">
-		<delete dir="build/console" />
-		<delete dir="console/web/WEB-INF/classes" />
-		<delete dir="console/web/WEB-INF/lib" />
-		<delete>
-			<fileset dir="console/src">
-				<include name="**/*_Jspm.java" />
-			</fileset>
-		</delete>
-	</target>
-	
 	<!-- common -->
 	
-	<target name="jspm" depends="console.jspm, copernica.test.jspm" />
+	<target name="jspm" depends="copernica.test.jspm" />
 	
 	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument, console.web.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
 			  instrument.compile,
-			  console.compile,
 			  copernica.test.compile" />
 	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar" />
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar" />
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
-	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test, console.test" />
+	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test" />
 	
 	<target name="web" depends="runtime.web, copernica.web" />
 	
-	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, console.tomcat, copernica.tomcat" />
+	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, copernica.tomcat" />
 	
 	<target name="webtest" depends="copernica.webtest" />
 	
@@ -917,7 +793,7 @@
 		</foreachEnvironment>
 	</target>
 	
-	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
+	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, copernica.clean">
 		<delete dir="build" />
 		<delete dir="tomcat" />
 	</target>
@@ -942,7 +818,6 @@
 			<fileset file="runtime/junitsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="instrument/antsrc/com" includes="**/*.java" />
-			<fileset file="console/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -956,16 +831,16 @@
 		</javadoc>
 	</target>
 	
-	<target name="testprotocol" depends="runtime.test.protocol, runtime.core.compile, console.core.compile">
+	<target name="testprotocol" depends="runtime.test.protocol, runtime.core.compile">
 		<mkdir dir="build/runtime" />
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
 				fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/console/src" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-console.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
@@ -1016,7 +891,6 @@
 			<class location="${basedir}/build/classes/runtime/junitsrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
-			<class location="${basedir}/build/classes/console/src" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cops.jar" />
@@ -1041,7 +915,6 @@
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/classes/runtime/testsrc" />
-			<class location="${basedir}/build/classes/console/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/build/classes/dsmf/src" />
 				<pathelement location="${basedir}/build/classes/runtime/src" />
@@ -1049,7 +922,6 @@
 				<pathelement location="${basedir}/build/classes/runtime/servletsrc" />
 				<pathelement location="${basedir}/build/classes/runtime/junitsrc" />
 				<pathelement location="${basedir}/build/classes/instrument/src" />
-				<pathelement location="${basedir}/build/classes/console/src" />
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cops.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
@@ -1073,7 +945,6 @@
 			<fileset file="${basedir}/build/exedio-cope.jar-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
-			<fileset file="${basedir}/build/exedio-cope-console.jar" />
 		</copy>
 	</target>
 
