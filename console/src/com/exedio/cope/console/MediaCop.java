@@ -56,7 +56,12 @@ final class MediaCop extends ConsoleCop implements Pageable
 		this(args, media, false, false, PAGER_CONFIG.newPager());
 	}
 
-	private MediaCop(final Args args, final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
+	private MediaCop(
+			final Args args,
+			final MediaPath media,
+			final boolean mediaInline,
+			final boolean otherInline,
+			final Pager pager)
 	{
 		super("media", "media - " + media.getID(), args);
 		
