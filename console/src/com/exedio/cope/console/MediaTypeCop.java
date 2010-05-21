@@ -23,9 +23,7 @@ import java.util.List;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 
@@ -70,15 +68,10 @@ final class MediaTypeCop extends TestCop<Media>
 		return new String[]{"Type", "Name", "Content Type", "Query"};
 	}
 	
-	private final Query<? extends Item> query(final Media media)
-	{
-		return media.getType().newQuery(media.bodyMismatchesContentType());
-	}
-	
 	@Override
 	void writeValue(final Out out, final Media media, final int h)
 	{
-		final Query q = query(media);
+		final Condition c = media.bodyMismatchesContentType();
 		switch(h)
 		{
 			case 0: out.write(media.getType().getID()); break;
@@ -91,8 +84,8 @@ final class MediaTypeCop extends TestCop<Media>
 				break;
 			case 2: out.write(media.getContentTypeDescription().replaceAll(",", ", ")); break;
 			case 3:
-				if(q.getCondition()!=Condition.FALSE)
-					out.writeSQL(q.toString());
+				if(c!=Condition.FALSE)
+					out.writeSQL(c.toString());
 				break;
 			default:
 				throw new RuntimeException(String.valueOf(h));
@@ -102,6 +95,6 @@ final class MediaTypeCop extends TestCop<Media>
 	@Override
 	int check(final Media media)
 	{
-		return query(media).total();
+		return media.getType().newQuery(media.bodyMismatchesContentType()).total();
 	}
 }
