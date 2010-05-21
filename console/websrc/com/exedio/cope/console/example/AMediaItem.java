@@ -34,6 +34,8 @@ public final class AMediaItem extends Item
 
 	static final Media content = new Media().optional();
 
+	static final Media stylesheet = new Media().optional().contentType("text/css");
+
 	@Deprecated
 	static final MediaRedirect redirect = new MediaRedirect(content);
 
