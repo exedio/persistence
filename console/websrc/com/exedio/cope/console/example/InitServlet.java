@@ -53,6 +53,7 @@ public final class InitServlet extends HttpServlet
 			new AMediaItem();
 			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "image/png");
 			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "unknownma/unknownmi");
+			new AMediaItem().setContent(thisClass.getResourceAsStream("test.png"), "image/jpeg"); // wrong content type by intention
 			Main.model.commit();
 		}
 		catch(IOException e)
