@@ -82,7 +82,13 @@ final class MediaTypeCop extends TestCop<Media>
 		switch(h)
 		{
 			case 0: out.write(media.getType().getID()); break;
-			case 1: out.write(media.getName()); break;
+			case 1:
+				out.writeRaw("<a href=\"");
+				out.write(new MediaCop(args, media));
+				out.writeRaw("\">");
+				out.write(media.getName());
+				out.writeRaw("</a>");
+				break;
 			case 2: out.write(media.getContentTypeDescription().replaceAll(",", ", ")); break;
 			case 3:
 				if(q.getCondition()!=Condition.FALSE)
