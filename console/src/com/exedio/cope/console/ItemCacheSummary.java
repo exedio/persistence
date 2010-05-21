@@ -20,7 +20,7 @@ package com.exedio.cope.console;
 
 import java.util.Date;
 
-import com.exedio.cope.info.ItemCacheInfo;
+import com.exedio.cope.ItemCacheInfo;
 
 final class ItemCacheSummary
 {

@@ -33,13 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.exedio.cope.info.ClusterListenerInfo;
-import com.exedio.cope.info.ClusterSenderInfo;
-import com.exedio.cope.info.EnvironmentInfo;
-import com.exedio.cope.info.ItemCacheInfo;
-import com.exedio.cope.info.QueryCacheHistogram;
-import com.exedio.cope.info.QueryCacheInfo;
-import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;

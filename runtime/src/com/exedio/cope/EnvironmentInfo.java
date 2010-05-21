@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public final class EnvironmentInfo
 	private final int driverMajorVersion;
 	private final int driverMinorVersion;
 	
-	public EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
+	EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
 		databaseProductName = dmd.getDatabaseProductName();
 		databaseProductVersion = dmd.getDatabaseProductVersion();

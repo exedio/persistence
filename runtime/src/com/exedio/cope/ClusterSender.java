@@ -27,8 +27,6 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.exedio.cope.info.ClusterSenderInfo;
-
 final class ClusterSender
 {
 	private final ClusterConfig config;

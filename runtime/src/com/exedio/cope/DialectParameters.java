@@ -26,7 +26,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class DialectParameters

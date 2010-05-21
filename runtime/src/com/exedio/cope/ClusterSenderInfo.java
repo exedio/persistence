@@ -16,13 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 public final class ClusterSenderInfo
 {
 	private final long invalidationSplit;
 	
-	public ClusterSenderInfo(
+	ClusterSenderInfo(
 			final long invalidationSplit)
 	{
 		this.invalidationSplit = invalidationSplit;

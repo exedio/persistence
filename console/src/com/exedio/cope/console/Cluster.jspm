@@ -21,8 +21,8 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.Format.format;
 
-import com.exedio.cope.info.ClusterListenerInfo;
-import com.exedio.cope.info.ClusterSenderInfo;
+import com.exedio.cope.ClusterListenerInfo;
+import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.util.SequenceChecker;
 
 final class Cluster_Jspm

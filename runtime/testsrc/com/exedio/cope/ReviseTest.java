@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
-import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;

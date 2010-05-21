@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.info.ItemCacheInfo;
-
 final class ItemCache
 {
 	/**

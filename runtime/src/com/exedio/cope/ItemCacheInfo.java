@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 import java.util.Date;
 
@@ -39,7 +39,7 @@ public final class ItemCacheInfo
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
 	
-	public ItemCacheInfo(
+	ItemCacheInfo(
 			final Type type,
 			final int limit,
 			final int level,

@@ -20,8 +20,8 @@ package com.exedio.cope.console;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.Model;
-import com.exedio.cope.info.ItemCacheInfo;
 
 final class ItemCacheCop extends ConsoleCop
 {

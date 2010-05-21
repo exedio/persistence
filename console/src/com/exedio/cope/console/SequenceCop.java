@@ -26,9 +26,8 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.This;
-import com.exedio.cope.info.SequenceInfo;
 
-final class SequenceCop extends TestCop<SequenceInfo>
+final class SequenceCop extends TestCop<com.exedio.cope.SequenceInfo>
 {
 	SequenceCop(final Args args)
 	{
@@ -42,7 +41,7 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	}
 	
 	@Override
-	List<SequenceInfo> getItems(final Model model)
+	List<com.exedio.cope.SequenceInfo> getItems(final Model model)
 	{
 		return model.getSequenceInfo();
 	}
@@ -60,7 +59,7 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	}
 	
 	@Override
-	void writeValue(final Out out, final SequenceInfo info, final int h)
+	void writeValue(final Out out, final com.exedio.cope.SequenceInfo info, final int h)
 	{
 		final Feature feature = info.getFeature();
 		final boolean known = info.isKnown();
@@ -80,7 +79,7 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	}
 	
 	@Override
-	int check(final SequenceInfo info)
+	int check(final com.exedio.cope.SequenceInfo info)
 	{
 		final Feature feature = info.getFeature();
 		if(feature instanceof This)

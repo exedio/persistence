@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -32,7 +33,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.info.ClusterListenerInfo;
 import com.exedio.cope.pattern.CompositeField;
 
 final class HistoryClusterNode extends Item

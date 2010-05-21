@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 import com.exedio.cope.Feature;
 
@@ -32,7 +32,7 @@ public final class SequenceInfo
 	private final int first;
 	private final int last;
 	
-	public SequenceInfo(
+	SequenceInfo(
 			final Feature feature,
 			final int start,
 			final int minimum,

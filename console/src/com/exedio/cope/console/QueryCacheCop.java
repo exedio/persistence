@@ -25,7 +25,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.info.QueryCacheHistogram;
+import com.exedio.cope.QueryCacheHistogram;
 
 final class QueryCacheCop extends ConsoleCop
 {

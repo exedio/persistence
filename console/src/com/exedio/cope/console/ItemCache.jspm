@@ -22,7 +22,7 @@ package com.exedio.cope.console;
 import static com.exedio.cope.console.Format.formatAndHide;
 import static com.exedio.cope.console.Format.ratio;
 
-import com.exedio.cope.info.ItemCacheInfo;
+import com.exedio.cope.ItemCacheInfo;
 
 final class ItemCache_Jspm extends Console_Jspm
 {

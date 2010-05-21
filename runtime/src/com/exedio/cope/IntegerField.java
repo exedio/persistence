@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.info.SequenceInfo;
-
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a integer.

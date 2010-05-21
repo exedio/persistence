@@ -26,7 +26,6 @@ import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
-import com.exedio.cope.info.EnvironmentInfo;
 import com.exedio.cope.util.Hex;
 
 final class PostgresqlDialect extends Dialect

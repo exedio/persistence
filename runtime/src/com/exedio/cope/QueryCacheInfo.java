@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 public final class QueryCacheInfo
 {
@@ -26,7 +26,7 @@ public final class QueryCacheInfo
 	private final long invalidations;
 	private final int level;
 	
-	public QueryCacheInfo(
+	QueryCacheInfo(
 			final long hits,
 			final long misses,
 			final long replacements,

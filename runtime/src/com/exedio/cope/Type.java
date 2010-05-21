@@ -42,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.info.SequenceInfo;
 import com.exedio.cope.misc.Compare;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;

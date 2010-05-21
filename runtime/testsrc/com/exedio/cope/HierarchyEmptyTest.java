@@ -20,10 +20,7 @@ package com.exedio.cope;
 
 import java.util.EnumSet;
 
-import com.exedio.cope.info.ItemCacheInfo;
 import com.exedio.dsmf.Constraint;
-
-
 
 public class HierarchyEmptyTest extends AbstractRuntimeTest
 {

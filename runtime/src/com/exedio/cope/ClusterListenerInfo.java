@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.info;
+package com.exedio.cope;
 
 import java.net.InetAddress;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public final class ClusterListenerInfo
 	private final long fromMyself;
 	private final List<Node> nodes;
 	
-	public ClusterListenerInfo(
+	ClusterListenerInfo(
 			final long exception,
 			final long missingMagic,
 			final long wrongSecret,

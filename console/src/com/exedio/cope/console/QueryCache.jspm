@@ -23,8 +23,8 @@ import static com.exedio.cope.console.Format.format;
 import static com.exedio.cope.console.Format.formatAndHide;
 import static com.exedio.cope.console.Format.ratio;
 
-import com.exedio.cope.info.QueryCacheHistogram;
-import com.exedio.cope.info.QueryCacheInfo;
+import com.exedio.cope.QueryCacheHistogram;
+import com.exedio.cope.QueryCacheInfo;
 
 final class QueryCache_Jspm extends Console_Jspm
 {

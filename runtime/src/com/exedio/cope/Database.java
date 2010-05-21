@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.cope.info.SequenceInfo;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;

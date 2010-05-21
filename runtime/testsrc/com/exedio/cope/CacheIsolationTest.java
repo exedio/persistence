@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.info.ItemCacheInfo;
-
 public class CacheIsolationTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CacheIsolationItem.TYPE);
