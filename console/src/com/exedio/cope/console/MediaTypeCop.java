@@ -102,17 +102,6 @@ final class MediaTypeCop extends TestCop<Media>
 	@Override
 	int check(final Media media)
 	{
-		final Query<? extends Item> q = query(media);
-		final int result = q.total();
-		if(result>0)
-		{
-			q.setLimit(0, 100);
-			// TODO show this on console web page
-			System.out.println("* COPE Media Content Type mismatched on " + media.getID());
-			for(final Item item : q.search())
-				System.out.println(' ' + item.getCopeID() + ' ' + media.getContentType(item) + ' ' + media.getURL(item));
-			System.out.println("/ COPE Media Content Type mismatched on " + media.getID());
-		}
-		return result;
+		return query(media).total();
 	}
 }
