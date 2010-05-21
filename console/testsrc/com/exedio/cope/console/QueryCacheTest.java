@@ -18,6 +18,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.QueryCacheHistogramAccessor.newQueryCacheHistogram;
+
 import java.util.Arrays;
 
 import junit.framework.TestCase;
@@ -55,8 +57,8 @@ public class QueryCacheTest extends TestCase
 		}
 		{
 			final QueryCacheHistogram[] histogram = new QueryCacheHistogram[]{
-					new QueryCacheHistogram("query1",   3, 101),
-					new QueryCacheHistogram("query2xx", 7, 103),
+					newQueryCacheHistogram("query1",   3, 101),
+					newQueryCacheHistogram("query2xx", 7, 103),
 			};
 			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, false);
 			assertSame(histogram, content.histogram);
@@ -74,14 +76,14 @@ public class QueryCacheTest extends TestCase
 		}
 		{
 			final QueryCacheHistogram[] histogram = new QueryCacheHistogram[]{
-					new QueryCacheHistogram("query1 'hallo' and 'bello' order by",   11, 31),
-					new QueryCacheHistogram("query1 'knollo' and 'knallo' order by", 13, 33),
-					new QueryCacheHistogram("query2 nixus",                          14, 34),
-					new QueryCacheHistogram("query3 'backus'",                       15, 35),
-					new QueryCacheHistogram("'frontus' query4",                      16, 36),
-					new QueryCacheHistogram("'' query5",                             17, 37),
-					new QueryCacheHistogram("query6 ''",                             18, 38),
-					new QueryCacheHistogram("query7 '' order by",                    19, 39),
+					newQueryCacheHistogram("query1 'hallo' and 'bello' order by",   11, 31),
+					newQueryCacheHistogram("query1 'knollo' and 'knallo' order by", 13, 33),
+					newQueryCacheHistogram("query2 nixus",                          14, 34),
+					newQueryCacheHistogram("query3 'backus'",                       15, 35),
+					newQueryCacheHistogram("'frontus' query4",                      16, 36),
+					newQueryCacheHistogram("'' query5",                             17, 37),
+					newQueryCacheHistogram("query6 ''",                             18, 38),
+					newQueryCacheHistogram("query7 '' order by",                    19, 39),
 			};
 			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, true);
 			assertSame(histogram, content.histogram);

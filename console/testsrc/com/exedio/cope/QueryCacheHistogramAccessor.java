@@ -18,61 +18,13 @@
 
 package com.exedio.cope;
 
-
-public final class QueryCacheHistogram
+public class QueryCacheHistogramAccessor
 {
-	private final String query;
-	private final int resultSize;
-	private final long hits;
-	
-	QueryCacheHistogram(
+	public static final QueryCacheHistogram newQueryCacheHistogram(
 			final String query,
 			final int resultSize,
 			final long hits)
 	{
-		if(query==null)
-			throw new NullPointerException();
-		
-		this.query = query;
-		this.resultSize = resultSize;
-		this.hits = hits;
-	}
-	
-	public String getQuery()
-	{
-		return query;
-	}
-
-	public int getResultSize()
-	{
-		return resultSize;
-	}
-
-	public long getHits()
-	{
-		return hits;
-	}
-	
-	@Override
-	public boolean equals(final Object other)
-	{
-		if(!(other instanceof QueryCacheHistogram))
-			return false;
-		
-		final QueryCacheHistogram o = (QueryCacheHistogram)other;
-		
-		return query.equals(o.query) && resultSize==o.resultSize && hits==o.hits;
-	}
-	
-	@Override
-	public int hashCode()
-	{
-		return query.hashCode() ^ resultSize ^ ((int)hits) ^ 298742165;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return query + ':' + resultSize + ':' + hits;
+		return new QueryCacheHistogram(query, resultSize, hits);
 	}
 }
