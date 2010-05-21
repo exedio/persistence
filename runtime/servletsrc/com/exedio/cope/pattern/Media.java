@@ -642,6 +642,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 						new byte[]{0, 0, 1, 0},
 						"image/icon", "image/x-icon", "image/vnd.microsoft.icon"),
 				bodyMismatchesContentType(
+						// http://en.wikipedia.org/wiki/ZIP_(file_format)
+						new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
+						"application/zip", "application/java-archive"),
+				bodyMismatchesContentType(
 						// http://en.wikipedia.org/wiki/PDF
 						new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
 						"application/pdf"));
