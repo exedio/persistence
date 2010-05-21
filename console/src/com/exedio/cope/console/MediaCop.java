@@ -39,6 +39,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 	private static final String MEDIA = "m";
 	private static final String MEDIA_INLINE = "ilm";
 	private static final String OTHER_INLINE = "ilo";
+	private static final String CONTENT_TYPE_MISMATCH = "ctmm";
 	
 	static final String TOUCH = "touch";
 	static final String TOUCH_OTHER = "touchOther";
@@ -49,11 +50,12 @@ final class MediaCop extends ConsoleCop implements Pageable
 	final MediaPath other;
 	final boolean mediaInline;
 	final boolean otherInline;
+	final boolean contentTypeMismatch;
 	final Pager pager;
 
 	MediaCop(final Args args, final MediaPath media)
 	{
-		this(args, media, false, false, PAGER_CONFIG.newPager());
+		this(args, media, false, false, false, PAGER_CONFIG.newPager());
 	}
 
 	private MediaCop(
@@ -61,6 +63,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 			final MediaPath media,
 			final boolean mediaInline,
 			final boolean otherInline,
+			final boolean contentTypeMismatch,
 			final Pager pager)
 	{
 		super("media", "media - " + media.getID(), args);
@@ -76,11 +79,13 @@ final class MediaCop extends ConsoleCop implements Pageable
 
 		this.mediaInline = mediaInline;
 		this.otherInline = otherInline;
+		this.contentTypeMismatch = contentTypeMismatch;
 		this.pager = pager;
 		
 		addParameter(MEDIA, media.getID());
 		addParameter(MEDIA_INLINE, mediaInline);
 		addParameter(OTHER_INLINE, otherInline);
+		addParameter(CONTENT_TYPE_MISMATCH, contentTypeMismatch);
 		pager.addParameters(this);
 	}
 	
@@ -95,25 +100,31 @@ final class MediaCop extends ConsoleCop implements Pageable
 				(MediaPath)model.getFeature(mediaID),
 				getBooleanParameter(request, MEDIA_INLINE),
 				getBooleanParameter(request, OTHER_INLINE),
+				getBooleanParameter(request, CONTENT_TYPE_MISMATCH),
 				PAGER_CONFIG.newPager(request));
 	}
 
 	@Override
 	protected MediaCop newArgs(final Args args)
 	{
-		return new MediaCop(args, media, mediaInline, otherInline, pager);
+		return new MediaCop(args, media, mediaInline, otherInline, contentTypeMismatch, pager);
 	}
 	
 	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(args, media, !mediaInline, otherInline, pager);
+		return new MediaCop(args, media, !mediaInline, otherInline, contentTypeMismatch, pager);
 	}
 
 	MediaCop toggleInlineOther()
 	{
-		return new MediaCop(args, media, mediaInline, !otherInline, pager);
+		return new MediaCop(args, media, mediaInline, !otherInline, contentTypeMismatch, pager);
 	}
-
+	
+	MediaCop toggleContentTypeMismatch()
+	{
+		return new MediaCop(args, media, mediaInline, otherInline, !contentTypeMismatch, pager);
+	}
+	
 	public Pager getPager()
 	{
 		return pager;
@@ -121,12 +132,17 @@ final class MediaCop extends ConsoleCop implements Pageable
 	
 	public MediaCop toPage(final Pager pager)
 	{
-		return new MediaCop(args, media, mediaInline, otherInline, pager);
+		return new MediaCop(args, media, mediaInline, otherInline, contentTypeMismatch, pager);
 	}
 	
 	MediaCop toOther()
 	{
-		return new MediaCop(args, other, otherInline, false, pager);
+		return new MediaCop(args, other, otherInline, false, contentTypeMismatch, pager);
+	}
+	
+	boolean canContentTypeMismatch()
+	{
+		return media instanceof Media;
 	}
 	
 	boolean canTouch()
@@ -210,6 +226,8 @@ final class MediaCop extends ConsoleCop implements Pageable
 			model.startTransaction(getClass().getName());
 			
 			final Query<? extends Item> q = media.getType().newQuery(media.isNotNull());
+			if(contentTypeMismatch)
+				q.narrow(((Media)media).bodyMismatchesContentType());
 			q.setLimit(pager.getOffset(), pager.getLimit());
 			q.setOrderBy(media.getType().getThis(), true);
 			final Query.Result<? extends Item> items = q.searchAndTotal();

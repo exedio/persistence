@@ -182,6 +182,12 @@ final class Media_Jspm extends Console_Jspm
 		final boolean otherTouch = cop.canTouchOther();
 		final boolean form = mediaTouch||otherTouch;
 		
+	if(cop.canContentTypeMismatch())
+	{
+		%>
+		<% writeToggle(out, cop.toggleContentTypeMismatch(), cop.contentTypeMismatch); %> Show Mismatching Content-Type only<%
+	}
+	
 	if(form)
 	{
 		%>
