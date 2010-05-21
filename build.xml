@@ -818,7 +818,15 @@
 		</ljunit>
 	</target>
 	
-	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, console.core.compile">
+	<target name="console.web.instrument" depends="instrument.taskdef" unless="skip.instrument">
+		<instrument>
+			<fileset dir="console/websrc">
+				<include name="**/*.java" />
+			</fileset>
+		</instrument>
+	</target>
+	
+	<target name="console.web" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, console.web.instrument, console.core.compile">
 		<compile srcdir="console/websrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
@@ -874,7 +882,7 @@
 	
 	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument, console.web.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
