@@ -72,5 +72,4 @@ TODO for cope runtime
 	* make small test models for each lib test
 - support JMX for information displayed by ConsoleServlet
 - separate into own sub-projects:
-	* console
 	* instrumentor
