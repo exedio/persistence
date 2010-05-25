@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: fixed file descriptor leak in MediaImageMagickFilter
 * cope console is now its own independent project
 	make sure, that you add cope console to your getlib configuration
 * added FeatureField

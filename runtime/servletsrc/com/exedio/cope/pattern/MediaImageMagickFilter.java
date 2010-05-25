@@ -168,6 +168,18 @@ public class MediaImageMagickFilter extends MediaFilter
 		source.getBody(item, inFile);
 		final Process process = processBuilder.start();
 		try { process.waitFor(); } catch(InterruptedException e) { throw new RuntimeException(toString(), e); }
+		
+		// IMPLEMENTATION NOTE
+		// Without the following three lines each run of this code will leave
+		// three open file descriptors in the system. Using utility "lsof"
+		// you will see the following:
+		//    java <pid> <user> 52w FIFO 0,8 0t0 141903 pipe
+		//    java <pid> <user> 53r FIFO 0,8 0t0 141904 pipe
+		//    java <pid> <user> 54w FIFO 0,8 0t0 142576 pipe
+		process.getInputStream ().close();
+		process.getOutputStream().close();
+		process.getErrorStream ().close();
+		
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 			throw new RuntimeException(
