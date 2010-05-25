@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* remove forms
+	- does not need commons-fileupload.jar and commons-io.jar anymore
+	- you MUST update copernica to at least build 46
+* made Cop.addParameter methods public
 * add PropertiesServlet
 * add BodySender to public API
 * bugfix: look for resources in super classes of the servlet

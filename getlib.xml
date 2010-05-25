@@ -7,7 +7,7 @@
 	<import file="${getlib.home}/getlib-contrib.xml"/>
 
 	<!-- the project uses several mysql libraries directly -->
-	<target name="getlib" depends="hsqldb, trove, cojen, bsh-core, exedio-cope-util, exedio-cops, exedio-jspm, exedio-cope-console">
+	<target name="getlib" depends="hsqldb, trove, cojen, bsh-core, exedio-cope-util, exedio-jspm, exedio-cope-console">
 		<delete>
 			<fileset dir="lib">
 				<include name="exedio-cope.jar" />
