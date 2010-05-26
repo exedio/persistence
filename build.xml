@@ -544,8 +544,6 @@
 			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/commons-fileupload.jar" />
-			<fileset file="lib/commons-io.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
 		</copy>
 	</target>
@@ -591,8 +589,6 @@
 		</copy>
 		<copy todir="build/copernica/web/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
-			<fileset file="lib/commons-fileupload.jar" />
-			<fileset file="lib/commons-io.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cope-console.jar" />
@@ -897,7 +893,6 @@
 				<pathelement location="${basedir}/lib/trove.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
-				<pathelement location="${basedir}/lib/commons-io.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
@@ -927,7 +922,6 @@
 				<pathelement location="${basedir}/lib/trove.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
-				<pathelement location="${basedir}/lib/commons-io.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
