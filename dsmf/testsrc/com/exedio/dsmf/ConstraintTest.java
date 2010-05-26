@@ -60,7 +60,7 @@ public class ConstraintTest extends SchemaReadyTest
 			new Column(table, NOT_NULL_COLUMN, stringType);
 			new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 			
-			new Column(table, CHECK_COLUMN, stringType);
+			new Column(table, CHECK_COLUMN, intType);
 			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		}
 		
