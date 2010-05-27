@@ -97,9 +97,9 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			new PasswordRecovery(null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(NullPointerException e)
 		{
-			assertEquals("password must not be null", e.getMessage());
+			assertEquals("password", e.getMessage());
 		}
 		
 		// test persistence

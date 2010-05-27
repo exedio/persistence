@@ -59,7 +59,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		this.password = password;
 		if(password==null)
-			throw new IllegalArgumentException("password must not be null");
+			throw new NullPointerException("password");
 	}
 	
 	@Override
