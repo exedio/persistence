@@ -234,7 +234,9 @@ public class MediaImageMagickFilter extends MediaFilter
 		try
 		{
 			body = new FileInputStream(outFile);
-			body.read(result);
+			final int readResult = body.read(result);
+			if(readResult!=contentLength)
+				throw new RuntimeException(String.valueOf(contentLength) + '/' + readResult);
 		}
 		finally
 		{
