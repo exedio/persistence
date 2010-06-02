@@ -42,7 +42,7 @@ public final class Arrays
 	}
 
 	/**
-	 * @see java.util.Arrays.toString(byte[])
+	 * @see java.util.Arrays#toString(byte[])
 	 */
 	public static String toString(final byte[] a, final int limit)
 	{
