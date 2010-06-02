@@ -18,21 +18,34 @@
 
 package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.misc.Arrays;
 
-public class PackageUtilTest extends TestCase
+import junit.framework.TestCase;
+
+public class ArraysTest extends TestCase
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite( TrimmerTest.class );
-		suite.addTestSuite( IsInitialTest.class );
-		suite.addTestSuite( GetModelTest.class );
-		suite.addTestSuite( ClusterTest.class );
-		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( ArraysTest.class );
-		return suite;
+		try
+		{
+			str(null, 0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
+		}
+		assertEquals("null", str(null, 1));
+		assertEquals("[]", str(new byte[]{}, 1));
+		assertEquals("[20]",         str(new byte[]{20}, 1));
+		assertEquals("[20, 21]",     str(new byte[]{20, 21}, 2));
+		assertEquals("[20, 21, 22]", str(new byte[]{20, 21, 22}, 3));
+		assertEquals("[20, 21, ... (3)]", str(new byte[]{20, 21, 22}, 2));
+		assertEquals("[20, ... (3)]", str(new byte[]{20, 21, 22}, 1));
+	}
+	
+	private static final String str(final byte[] a, final int limit)
+	{
+		return Arrays.toString(a, limit);
 	}
 }

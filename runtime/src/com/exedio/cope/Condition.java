@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import com.exedio.cope.misc.Arrays;
 import java.util.Date;
 
 public abstract class Condition
@@ -202,7 +202,7 @@ public abstract class Condition
 		else if(o instanceof Date)
 			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
 		else if(o instanceof byte[])
-			return Arrays.toString((byte[])o);
+			return Arrays.toString((byte[])o, 30);
 		else
 			return o.toString();
 	}

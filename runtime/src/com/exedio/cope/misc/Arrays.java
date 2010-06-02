@@ -40,6 +40,29 @@ public final class Arrays
 		arraycopy(original, 0, copy, 0, l);
 		return copy;
 	}
+
+	/**
+	 * @see java.util.Arrays.toString(byte[])
+	 */
+	public static String toString(final byte[] a, final int limit)
+	{
+		if(limit<=0)
+			throw new IllegalArgumentException("limit must be greater that zero, but was " + limit);
+		if(a==null||a.length<=limit)
+			return java.util.Arrays.toString(a);
+		
+		final StringBuilder bf = new StringBuilder();
+		bf.append('[');
+		for(int i = 0; i<limit; i++)
+		{
+			bf.append(a[i]);
+			bf.append(", ");
+		}
+		bf.append("... (").
+			append(a.length).
+			append(")]");
+		return bf.toString();
+	}
 	
 	private Arrays()
 	{
