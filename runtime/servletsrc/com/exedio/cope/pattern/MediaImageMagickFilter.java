@@ -21,8 +21,10 @@ package com.exedio.cope.pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -30,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
+
 import java.util.Arrays;
 
 public class MediaImageMagickFilter extends MediaFilter
@@ -113,6 +117,21 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(outputExtension==null)
 			throw new RuntimeException(outputContentType); // TODO test
 	}
+
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+
+		result.add(
+			new Wrapper("get").
+			addComment("Returns the body of {0}.").
+			setReturn(byte[].class).
+			addThrows(IOException.class));
+		
+		return Collections.unmodifiableList(result);
+	}
 	
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
@@ -187,6 +206,44 @@ public class MediaImageMagickFilter extends MediaFilter
 			if(!outFile.delete())
 				throw new RuntimeException(outFile.toString());
 		}
+	}
+
+	public final byte[] get(final Item item) throws IOException
+	{
+		if(!isEnabled())
+			throw new RuntimeException("not yet implemented");
+		
+		final String contentType = source.getContentType(item);
+		if(contentType==null)
+			return null;
+		
+		if(!supportedContentTypes.containsKey(contentType))
+			return null;
+		
+		final File outFile = execute(item);
+
+		final long contentLength = outFile.length();
+		if(contentLength<=0)
+			throw new RuntimeException(String.valueOf(contentLength));
+		if(contentLength>=Integer.MAX_VALUE)
+			throw new RuntimeException("too large");
+		
+		final byte[] result = new byte[(int)contentLength];
+		
+		FileInputStream body = null;
+		try
+		{
+			body = new FileInputStream(outFile);
+			body.read(result);
+		}
+		finally
+		{
+			if(body!=null)
+				body.close();
+			if(!outFile.delete())
+				throw new RuntimeException(outFile.toString());
+		}
+		return result;
 	}
 	
 	private final File execute(final Item item) throws IOException

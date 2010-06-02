@@ -416,6 +416,7 @@
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="webapp" value="junitwebapp" />
+					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>

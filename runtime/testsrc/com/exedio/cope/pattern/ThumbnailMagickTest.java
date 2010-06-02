@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -51,13 +52,13 @@ public class ThumbnailMagickTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailMagickItem());
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
-		jpg.setFile(data, "image/jpeg");
+		jpg.setFile(getClass().getResourceAsStream("small.jpg"), "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");
 	}
 	
-	public void testThumbs()
+	public void testThumbs() throws IOException
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -138,5 +139,10 @@ public class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertContains(jpg, png, gif, txt, item.TYPE.search(item.file.isNotNull()));
 		assertContains(emp , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
 		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		
+		// test get
+		assertNotNull(jpg.getThumb());
+		assertNull(txt.getThumb());
+		assertNull(emp.getThumb());
 	}
 }
