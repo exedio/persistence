@@ -18,11 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Set;
-
-import com.exedio.cope.StringCharSetViolationException;
-import com.exedio.cope.StringLengthViolationException;
-
 public final class SHAHash extends JavaSecurityHash
 {
 	private static final long serialVersionUID = 1l;
@@ -42,15 +37,6 @@ public final class SHAHash extends JavaSecurityHash
 	public SHAHash()
 	{
 		super(false, HASH);
-	}
-
-	@Override
-	public Set<Class<? extends Throwable>> getInitialExceptions()
-	{
-		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		result.remove(StringLengthViolationException.class);
-		result.remove(StringCharSetViolationException.class);
-		return result;
 	}
 	
 	@Override

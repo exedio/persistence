@@ -20,8 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Set;
 
+import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -105,6 +108,15 @@ public class JavaSecurityHash extends Hash
 	private final byte[] encode(final String s) throws UnsupportedEncodingException
 	{
 		return s.getBytes(encoding);
+	}
+	
+	@Override
+	public final Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
+		result.remove(StringLengthViolationException.class);
+		result.remove(StringCharSetViolationException.class);
+		return result;
 	}
 	
 	@Override
