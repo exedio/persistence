@@ -133,8 +133,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? outputContentType : null;
 	}
 
-	private static final String COMMAND_QUIET  = "-quiet";
-
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletResponse response,
@@ -198,7 +196,7 @@ public class MediaImageMagickFilter extends MediaFilter
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
-		command[1] = COMMAND_QUIET;
+		command[1] = "-quiet";
 		for(int i = 0; i<options.length; i++)
 			command[i+2] = options[i];
 		command[command.length-2] = inFile.getAbsolutePath();
