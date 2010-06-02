@@ -151,6 +151,48 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(!supportedContentTypes.containsKey(contentType))
 			return notComputable;
 		
+		final File outFile = execute(item);
+
+		final long contentLength = outFile.length();
+		if(contentLength<=0)
+			throw new RuntimeException(String.valueOf(contentLength));
+		if(contentLength<=Integer.MAX_VALUE)
+			response.setContentLength((int)contentLength);
+		
+		response.setContentType(outputContentType);
+		
+		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
+		FileInputStream body = null;
+		try
+		{
+			body = new FileInputStream(outFile);
+			ServletOutputStream out = null;
+			try
+			{
+				out = response.getOutputStream();
+	
+				for(int len = body.read(b); len>=0; len = body.read(b))
+					out.write(b, 0, len);
+	
+				return delivered;
+			}
+			finally
+			{
+				if(out!=null)
+					out.close();
+			}
+		}
+		finally
+		{
+			if(body!=null)
+				body.close();
+			if(!outFile.delete())
+				throw new RuntimeException(outFile.toString());
+		}
+	}
+	
+	private final File execute(final Item item) throws IOException
+	{
 		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");
 		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
 
@@ -199,42 +241,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(!inFile.delete())
 			throw new RuntimeException(inFile.toString());
 		
-		final long contentLength = outFile.length();
-		if(contentLength<=0)
-			throw new RuntimeException(String.valueOf(contentLength));
-		if(contentLength<=Integer.MAX_VALUE)
-			response.setContentLength((int)contentLength);
-		
-		response.setContentType(outputContentType);
-		
-		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
-		FileInputStream body = null;
-		try
-		{
-			body = new FileInputStream(outFile);
-			ServletOutputStream out = null;
-			try
-			{
-				out = response.getOutputStream();
-	
-				for(int len = body.read(b); len>=0; len = body.read(b))
-					out.write(b, 0, len);
-	
-				return delivered;
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
-		}
-		finally
-		{
-			if(body!=null)
-				body.close();
-			if(!outFile.delete())
-				throw new RuntimeException(outFile.toString());
-		}
+		return outFile;
 	}
 	
 	// ------------------- deprecated stuff -------------------
