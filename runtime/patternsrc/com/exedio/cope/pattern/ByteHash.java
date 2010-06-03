@@ -40,11 +40,11 @@ public abstract class ByteHash extends Hash
 
 	public ByteHash(
 			final boolean optional,
-			final String algorithm,
+			final String algorithmName,
 			final int hashLength,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), hashLength), algorithm);
+		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), hashLength), algorithmName);
 		this.encoding = encoding;
 
 		try

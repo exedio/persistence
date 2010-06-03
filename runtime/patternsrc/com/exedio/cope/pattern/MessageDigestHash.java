@@ -41,7 +41,7 @@ public class MessageDigestHash extends ByteHash
 			final String algorithm,
 			final String encoding)
 	{
-		super(optional, name(algorithm), hashLength(algorithm), encoding);
+		super(optional, algorithmName(algorithm), hashLength(algorithm), encoding);
 		this.algorithm = algorithm;
 	}
 	
@@ -56,7 +56,7 @@ public class MessageDigestHash extends ByteHash
 		return digestLength;
 	}
 
-	private static final String name(final String algorithm)
+	private static final String algorithmName(final String algorithm)
 	{
 		return algorithm.replaceAll("-", "");
 	}
