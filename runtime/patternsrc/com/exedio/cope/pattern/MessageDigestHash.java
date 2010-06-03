@@ -41,11 +41,11 @@ public class MessageDigestHash extends ByteHash
 			final String algorithm,
 			final String encoding)
 	{
-		super(optional, name(algorithm), length(algorithm), encoding);
+		super(optional, name(algorithm), hashLength(algorithm), encoding);
 		this.algorithm = algorithm;
 	}
 	
-	private static final int length(final String algorithm)
+	private static final int hashLength(final String algorithm)
 	{
 		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
 		
