@@ -117,7 +117,7 @@ public class SHATest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new JavaSecurityHash(true, "NIXUS");
+			new MessageDigestHash(true, "NIXUS");
 			fail();
 		}
 		catch(IllegalArgumentException e)

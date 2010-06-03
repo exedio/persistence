@@ -117,7 +117,7 @@ public class MD5Test extends AbstractRuntimeTest
 		}
 		try
 		{
-			new JavaSecurityHash(true, "NIXUS");
+			new MessageDigestHash(true, "NIXUS");
 			fail();
 		}
 		catch(IllegalArgumentException e)

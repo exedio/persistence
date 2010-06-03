@@ -27,7 +27,7 @@ import com.exedio.cope.util.MessageDigestUtil;
  *
  * @author Ralf Wiebicke
  */
-public class JavaSecurityHash extends ByteHash
+public class MessageDigestHash extends ByteHash
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -36,7 +36,7 @@ public class JavaSecurityHash extends ByteHash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(
+	public MessageDigestHash(
 			final boolean optional,
 			final String algorithm,
 			final String encoding)
@@ -64,7 +64,7 @@ public class JavaSecurityHash extends ByteHash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(
+	public MessageDigestHash(
 			final boolean optional,
 			final String algorithm)
 	{
@@ -72,9 +72,9 @@ public class JavaSecurityHash extends ByteHash
 	}
 	
 	@Override
-	public JavaSecurityHash optional()
+	public MessageDigestHash optional()
 	{
-		return new JavaSecurityHash(true, algorithm, getEncoding());
+		return new MessageDigestHash(true, algorithm, getEncoding());
 	}
 	
 	@Override

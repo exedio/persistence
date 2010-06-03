@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-public final class MD5Hash extends JavaSecurityHash
+public final class MD5Hash extends MessageDigestHash
 {
 	private static final long serialVersionUID = 1l;
 	

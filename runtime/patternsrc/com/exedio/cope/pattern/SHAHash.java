@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-public final class SHAHash extends JavaSecurityHash
+public final class SHAHash extends MessageDigestHash
 {
 	private static final long serialVersionUID = 1l;
 	
