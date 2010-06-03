@@ -51,7 +51,7 @@ public class MessageDigestHash extends ByteHash
 		
 		final int digestLength = digest.getDigestLength();
 		if(digestLength<=0)
-			throw new IllegalArgumentException("digest length not supported: " + digestLength);
+			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
 		
 		return digestLength;
 	}
