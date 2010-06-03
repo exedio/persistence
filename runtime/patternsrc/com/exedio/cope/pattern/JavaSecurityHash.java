@@ -18,15 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.Set;
 
-import com.exedio.cope.StringCharSetViolationException;
-import com.exedio.cope.StringField;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 
 /**
@@ -34,12 +27,11 @@ import com.exedio.cope.util.MessageDigestUtil;
  *
  * @author Ralf Wiebicke
  */
-public class JavaSecurityHash extends Hash
+public class JavaSecurityHash extends ByteHash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private final String algorithm;
-	private final String encoding;
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
@@ -49,26 +41,11 @@ public class JavaSecurityHash extends Hash
 			final String algorithm,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm), name(algorithm));
+		super(optional, name(algorithm), length(algorithm), encoding);
 		this.algorithm = algorithm;
-		this.encoding = encoding;
-
-		try
-		{
-			encode("test");
-		}
-		catch(UnsupportedEncodingException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
 	}
 	
-	private static final StringField optional(final StringField f, final boolean optional)
-	{
-		return optional ? f.optional() : f;
-	}
-	
-	private static final StringField length(final StringField f, final String algorithm)
+	private static final int length(final String algorithm)
 	{
 		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
 		
@@ -76,7 +53,7 @@ public class JavaSecurityHash extends Hash
 		if(digestLength<=0)
 			throw new IllegalArgumentException("digest length not supported: " + digestLength);
 		
-		return f.lengthExact(2 * digestLength);
+		return digestLength;
 	}
 
 	private static final String name(final String algorithm)
@@ -97,44 +74,15 @@ public class JavaSecurityHash extends Hash
 	@Override
 	public JavaSecurityHash optional()
 	{
-		return new JavaSecurityHash(true, algorithm, encoding);
-	}
-	
-	public final String getEncoding()
-	{
-		return encoding;
-	}
-	
-	private final byte[] encode(final String s) throws UnsupportedEncodingException
-	{
-		return s.getBytes(encoding);
+		return new JavaSecurityHash(true, algorithm, getEncoding());
 	}
 	
 	@Override
-	public final Set<Class<? extends Throwable>> getInitialExceptions()
+	public final byte[] hash(final byte[] plainText)
 	{
-		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		result.remove(StringLengthViolationException.class);
-		result.remove(StringCharSetViolationException.class);
-		return result;
-	}
-	
-	@Override
-	public final String hash(final String plainText)
-	{
-		try
-		{
-			final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
-			messageDigest.reset();
-			messageDigest.update(encode(plainText));
-			final byte[] resultBytes = messageDigest.digest();
-			final String result = Hex.encodeLower(resultBytes);
-			//System.out.println("----------- encoded ("+hash+","+encoding+") >"+plainText+"< to >"+result+"< ("+resultBytes.length+").");
-			return result;
-		}
-		catch(UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(encoding, e);
-		}
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
+		messageDigest.reset();
+		messageDigest.update(plainText);
+		return messageDigest.digest();
 	}
 }
