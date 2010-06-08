@@ -83,26 +83,26 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		
 		
 		// isNull
-		assertContains(itemX, item1.TYPE.search(item1.string.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.intx.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.longx.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.doublex.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.date.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.day.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.enumx.isNull()));
-		assertContains(itemX, item1.TYPE.search(item1.item.isNull()));
-		assertContains(item1.TYPE.search(item1.TYPE.getThis().isNull()));
+		assertIt(itemX, item1.string.isNull());
+		assertIt(itemX, item1.intx.isNull());
+		assertIt(itemX, item1.longx.isNull());
+		assertIt(itemX, item1.doublex.isNull());
+		assertIt(itemX, item1.date.isNull());
+		assertIt(itemX, item1.day.isNull());
+		assertIt(itemX, item1.enumx.isNull());
+		assertIt(itemX, item1.item.isNull());
+		assertIt(item1.TYPE.getThis().isNull());
 
 		// isNotNull
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.string.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.intx.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.longx.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.doublex.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.date.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.day.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.enumx.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.item.isNotNull()));
-		assertContains(item1, item2, item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().isNotNull()));
+		assertIt(item1, item2, item3, item4, item5, item1.string.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.intx.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.longx.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.doublex.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.date.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.day.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.enumx.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, item1.item.isNotNull());
+		assertIt(item1, item2, item3, item4, item5, itemX, item1.TYPE.getThis().isNotNull());
 
 		// equal
 		assertIt(item3, item1.string.equal("string3"));
@@ -295,6 +295,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		model.checkUnsupportedConstraints();
 	}
 	
+	private void assertIt(final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{}), actual);
+	}
+	
 	private void assertIt(final Object o1, final Condition actual)
 	{
 		assertIt(Arrays.asList(new Object[]{o1}), actual);
@@ -320,6 +325,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 	
+	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6}), actual);
+	}
+	
 	private void assertIt(final List<?> expected, final Condition actual)
 	{
 		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
@@ -333,6 +343,6 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	
 	private static void assertIt(final List<?> expected, final Condition actual, final Item item)
 	{
-		assertEquals(expected.contains(item), ((CompareCondition)actual).evaluate(item));
+		assertEquals(expected.contains(item), (actual instanceof IsNullCondition) ? ((IsNullCondition)actual).evaluate(item) : ((CompareCondition)actual).evaluate(item));
 	}
 }
