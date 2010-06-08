@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.SafeFile.delete;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -158,7 +160,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		mediaRootUrl = null;
 		
 		for(Iterator i = files.iterator(); i.hasNext(); )
-			((File)i.next()).delete();
+			delete((File)i.next());
 		files.clear();
 
 		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
@@ -269,7 +271,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			for(int i = 0; i<expectedData.length; i++)
 				assertEquals(expectedData[i], actualData[i]);
 			
-			assertTrue(actualFile.delete());
+			delete(actualFile);
 		}
 	}
 

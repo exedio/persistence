@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.SafeFile.delete;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -325,7 +327,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 	private final void assertDataFile(final byte[] expectedData) throws IOException
 	{
 		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
-		assertTrue(tempFile.delete());
+		delete(tempFile);
 		assertFalse(tempFile.exists());
 		
 		item.getFileBody(tempFile);

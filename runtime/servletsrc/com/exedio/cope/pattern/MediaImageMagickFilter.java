@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.SafeFile.delete;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -203,8 +205,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		{
 			if(body!=null)
 				body.close();
-			if(!outFile.delete())
-				throw new RuntimeException(outFile.toString());
+			delete(outFile);
 		}
 	}
 
@@ -242,8 +243,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		{
 			if(body!=null)
 				body.close();
-			if(!outFile.delete())
-				throw new RuntimeException(outFile.toString());
+			delete(outFile);
 		}
 		return result;
 	}
@@ -295,8 +295,7 @@ public class MediaImageMagickFilter extends MediaFilter
 						: ""
 					) );
 		
-		if(!inFile.delete())
-			throw new RuntimeException(inFile.toString());
+		delete(inFile);
 		
 		return outFile;
 	}

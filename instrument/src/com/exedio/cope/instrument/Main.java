@@ -19,6 +19,8 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.util.SafeFile.delete;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -138,8 +140,7 @@ public final class Main
 			if(injector.inputCRC!=generator.getCRC())
 			{
 				logInstrumented(file);
-				if(!file.delete())
-					throw new RuntimeException("deleting "+file+" failed.");
+				delete(file);
 				final FileOutputStream o = new FileOutputStream(file);
 				try
 				{

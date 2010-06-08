@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.SafeFile.delete;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -92,7 +94,7 @@ public class DataTest extends AbstractRuntimeTest
 			assertData(expectedData, tempStream.toByteArray());
 			
 			final File tempFile = File.createTempFile("exedio-cope-DataTest-", ".tmp");
-			assertTrue(tempFile.delete());
+			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);
 			assertTrue(tempFile.exists());
@@ -109,7 +111,7 @@ public class DataTest extends AbstractRuntimeTest
 			assertEquals(0, tempStream.toByteArray().length);
 			
 			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
-			assertTrue(tempFile.delete());
+			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);
 			assertFalse(tempFile.exists());
