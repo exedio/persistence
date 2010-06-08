@@ -50,6 +50,20 @@ public final class StartsWithCondition extends Condition
 		bf.appendStartsWith(field, value);
 	}
 	
+	boolean evaluate(final Item item)
+	{
+		// TODO wastes performance, fetch only the first bytes
+		final byte[] v = field.getArray(item);
+		if(v==null || v.length<value.length)
+			return false;
+		
+		for(int i = 0; i<value.length; i++)
+			if(v[i]!=value[i])
+				return false;
+		
+		return true;
+	}
+	
 	@Override
 	void check(final TC tc)
 	{

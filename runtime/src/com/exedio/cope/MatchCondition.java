@@ -54,6 +54,12 @@ public final class MatchCondition extends Condition
 	{
 		bf.appendMatch(function, value);
 	}
+	
+	/*@Override
+	boolean evaluate(final Item item)
+	{
+		throw new RuntimeException("not yet implemented");
+	}*/
 
 	@Override
 	void check(final TC tc)
