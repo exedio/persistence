@@ -46,12 +46,6 @@ public final class NotCondition extends Condition
 		argument.append(bf);
 		bf.append(')');
 	}
-	
-	/*@Override
-	boolean evaluate(final Item item)
-	{
-		return !argument.evaluate(item);
-	}*/
 
 	@Override
 	void check(final TC tc)

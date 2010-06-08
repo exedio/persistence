@@ -72,16 +72,6 @@ public final class CompositeCondition extends Condition
 		}
 		bf.append(')');
 	}
-	
-	/*@Override
-	boolean evaluate(final Item item)
-	{
-		final boolean absorber = operator.absorber.value;
-		for(int i = 0; i<conditions.length; i++)
-			if(conditions[i].evaluate(item)==absorber)
-				return absorber;
-		return operator.identity.value;
-	}*/
 
 	@Override
 	void check(final TC tc)

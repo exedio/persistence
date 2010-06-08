@@ -26,8 +26,6 @@ public abstract class Condition
 {
 	abstract void append(Statement statment);
 	
-	//abstract boolean evaluate(Item item);
-	
 	abstract void check(TC tc);
 
 	public final Condition not()
