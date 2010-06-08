@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -103,70 +105,70 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertContains(item1, item2, item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().isNotNull()));
 
 		// equal
-		assertContains(item3, item1.TYPE.search(item1.string.equal("string3")));
-		assertContains(item3, item1.TYPE.search(item1.intx.equal(3)));
-		assertContains(item3, item1.TYPE.search(item1.longx.equal(13l)));
-		assertContains(item3, item1.TYPE.search(item1.doublex.equal(2.3)));
-		assertContains(item3, item1.TYPE.search(item1.date.equal(date)));
-		assertContains(item3, item1.TYPE.search(item1.day.equal(day)));
-		assertContains(item3, item1.TYPE.search(item1.enumx.equal(YEnum.V3)));
-		assertContains(item3, item1.TYPE.search(item1.item.equal(item3)));
-		assertContains(item3, item1.TYPE.search(item1.TYPE.getThis().equal(item3)));
+		assertIt(item3, item1.string.equal("string3"));
+		assertIt(item3, item1.intx.equal(3));
+		assertIt(item3, item1.longx.equal(13l));
+		assertIt(item3, item1.doublex.equal(2.3));
+		assertIt(item3, item1.date.equal(date));
+		assertIt(item3, item1.day.equal(day));
+		assertIt(item3, item1.enumx.equal(YEnum.V3));
+		assertIt(item3, item1.item.equal(item3));
+		assertIt(item3, item1.TYPE.getThis().equal(item3));
 
 		// notEqual
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.intx.notEqual(3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.longx.notEqual(13l)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.doublex.notEqual(2.3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.date.notEqual(date)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.day.notEqual(day)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.item.notEqual(item3)));
-		assertContains(item1, item2, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().notEqual(item3)));
+		assertIt(item1, item2, item4, item5, item1.string.notEqual("string3"));
+		assertIt(item1, item2, item4, item5, item1.intx.notEqual(3));
+		assertIt(item1, item2, item4, item5, item1.longx.notEqual(13l));
+		assertIt(item1, item2, item4, item5, item1.doublex.notEqual(2.3));
+		assertIt(item1, item2, item4, item5, item1.date.notEqual(date));
+		assertIt(item1, item2, item4, item5, item1.day.notEqual(day));
+		assertIt(item1, item2, item4, item5, item1.enumx.notEqual(YEnum.V3));
+		assertIt(item1, item2, item4, item5, item1.item.notEqual(item3));
+		assertIt(item1, item2, item4, item5, itemX, item1.TYPE.getThis().notEqual(item3));
 
 		// less
-		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
-		assertContains(item1, item2, item1.TYPE.search(item1.intx.less(3)));
-		assertContains(item1, item2, item1.TYPE.search(item1.longx.less(13l)));
-		assertContains(item1, item2, item1.TYPE.search(item1.doublex.less(2.3)));
-		assertContains(item1, item2, item1.TYPE.search(item1.date.less(date)));
-		assertContains(item1, item2, item1.TYPE.search(item1.day.less(day)));
-		assertContains(item1, item2, item1.TYPE.search(item1.enumx.less(YEnum.V3)));
-		assertContains(item1, item2, item1.TYPE.search(item1.item.less(item3)));
-		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().less(item3)));
+		assertIt(item1, item2, item1.string.less("string3"));
+		assertIt(item1, item2, item1.intx.less(3));
+		assertIt(item1, item2, item1.longx.less(13l));
+		assertIt(item1, item2, item1.doublex.less(2.3));
+		assertIt(item1, item2, item1.date.less(date));
+		assertIt(item1, item2, item1.day.less(day));
+		assertIt(item1, item2, item1.enumx.less(YEnum.V3));
+		assertIt(item1, item2, item1.item.less(item3));
+		assertIt(item1, item2, item1.TYPE.getThis().less(item3));
 
 		// lessOrEqual
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.string.lessOrEqual("string3")));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.intx.lessOrEqual(3)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.longx.lessOrEqual(13l)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.doublex.lessOrEqual(2.3)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.date.lessOrEqual(date)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.day.lessOrEqual(day)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.enumx.lessOrEqual(YEnum.V3)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.item.lessOrEqual(item3)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.TYPE.getThis().lessOrEqual(item3)));
+		assertIt(item1, item2, item3, item1.string.lessOrEqual("string3"));
+		assertIt(item1, item2, item3, item1.intx.lessOrEqual(3));
+		assertIt(item1, item2, item3, item1.longx.lessOrEqual(13l));
+		assertIt(item1, item2, item3, item1.doublex.lessOrEqual(2.3));
+		assertIt(item1, item2, item3, item1.date.lessOrEqual(date));
+		assertIt(item1, item2, item3, item1.day.lessOrEqual(day));
+		assertIt(item1, item2, item3, item1.enumx.lessOrEqual(YEnum.V3));
+		assertIt(item1, item2, item3, item1.item.lessOrEqual(item3));
+		assertIt(item1, item2, item3, item1.TYPE.getThis().lessOrEqual(item3));
 
 		// greater
-		assertContains(item4, item5, item1.TYPE.search(item1.string.greater("string3")));
-		assertContains(item4, item5, item1.TYPE.search(item1.intx.greater(3)));
-		assertContains(item4, item5, item1.TYPE.search(item1.longx.greater(13l)));
-		assertContains(item4, item5, item1.TYPE.search(item1.doublex.greater(2.3)));
-		assertContains(item4, item5, item1.TYPE.search(item1.date.greater(date)));
-		assertContains(item4, item5, item1.TYPE.search(item1.day.greater(day)));
-		assertContains(item4, item5, item1.TYPE.search(item1.enumx.greater(YEnum.V3)));
-		assertContains(item4, item5, item1.TYPE.search(item1.item.greater(item3)));
-		assertContains(item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().greater(item3)));
+		assertIt(item4, item5, item1.string.greater("string3"));
+		assertIt(item4, item5, item1.intx.greater(3));
+		assertIt(item4, item5, item1.longx.greater(13l));
+		assertIt(item4, item5, item1.doublex.greater(2.3));
+		assertIt(item4, item5, item1.date.greater(date));
+		assertIt(item4, item5, item1.day.greater(day));
+		assertIt(item4, item5, item1.enumx.greater(YEnum.V3));
+		assertIt(item4, item5, item1.item.greater(item3));
+		assertIt(item4, item5, itemX, item1.TYPE.getThis().greater(item3));
 
 		// greaterOrEqual
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.string.greaterOrEqual("string3")));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.intx.greaterOrEqual(3)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.longx.greaterOrEqual(13l)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.doublex.greaterOrEqual(2.3)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.date.greaterOrEqual(date)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.day.greaterOrEqual(day)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.enumx.greaterOrEqual(YEnum.V3)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.item.greaterOrEqual(item3)));
-		assertContains(item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item3)));
+		assertIt(item3, item4, item5, item1.string.greaterOrEqual("string3"));
+		assertIt(item3, item4, item5, item1.intx.greaterOrEqual(3));
+		assertIt(item3, item4, item5, item1.longx.greaterOrEqual(13l));
+		assertIt(item3, item4, item5, item1.doublex.greaterOrEqual(2.3));
+		assertIt(item3, item4, item5, item1.date.greaterOrEqual(date));
+		assertIt(item3, item4, item5, item1.day.greaterOrEqual(day));
+		assertIt(item3, item4, item5, item1.enumx.greaterOrEqual(YEnum.V3));
+		assertIt(item3, item4, item5, item1.item.greaterOrEqual(item3));
+		assertIt(item3, item4, item5, itemX, item1.TYPE.getThis().greaterOrEqual(item3));
 		
 		// between
 		assertContains(item2, item3, item4, item1.TYPE.search(item1.string.between("string2", "string4")));
@@ -291,5 +293,46 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		}
 
 		model.checkUnsupportedConstraints();
+	}
+	
+	private void assertIt(final Object o1, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1}), actual);
+	}
+	
+	private void assertIt(final Object o1, final Object o2, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1, o2}), actual);
+	}
+	
+	private void assertIt(final Object o1, final Object o2, final Object o3, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1, o2, o3}), actual);
+	}
+	
+	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
+	}
+	
+	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Condition actual)
+	{
+		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
+	}
+	
+	private void assertIt(final List<?> expected, final Condition actual)
+	{
+		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
+		assertIt(expected, actual, item1);
+		assertIt(expected, actual, item2);
+		assertIt(expected, actual, item3);
+		assertIt(expected, actual, item4);
+		assertIt(expected, actual, item5);
+		assertIt(expected, actual, itemX);
+	}
+	
+	private static void assertIt(final List<?> expected, final Condition actual, final Item item)
+	{
+		assertEquals(expected.contains(item), ((CompareCondition)actual).evaluate(item));
 	}
 }

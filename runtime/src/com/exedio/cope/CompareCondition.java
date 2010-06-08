@@ -56,6 +56,11 @@ public final class CompareCondition<E> extends Condition
 			append(operator.sql).
 			appendParameter(left, right);
 	}
+	
+	boolean evaluate(final Item item)
+	{
+		return operator.evaluate(left.get(item), right);
+	}
 
 	@Override
 	void check(final TC tc)
