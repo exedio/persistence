@@ -136,6 +136,10 @@ public abstract class Condition
 
 		boolean evaluate(final Item item)
 		{
+			// NOTE
+			// all other implementations of evaluate will fail when
+			// item==null, so this method fails as well, to avoid
+			// hiding bugs.
 			if(item==null)
 				throw new NullPointerException();
 			
