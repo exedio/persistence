@@ -537,7 +537,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		for(final Type type : model.getTypes())
 		{
-			if(model.getConnectProperties().itemCacheConcurrentModificationDetection.getBooleanValue())
+			if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
 			{
 				if(type.needsCheckModificationCounter())
 					assertEquals(0, type.checkModificationCounter());

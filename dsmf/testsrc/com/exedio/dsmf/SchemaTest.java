@@ -67,9 +67,9 @@ public abstract class SchemaTest extends TestCase
 		super.setUp();
 		
 		final Properties config = new Properties();
-		final String url = config.databaseUrl.getStringValue();
-		final String user = config.databaseUser.getStringValue();
-		final String password = config.databasePassword.getStringValue();
+		final String url = config.databaseUrl.stringValue();
+		final String user = config.databaseUser.stringValue();
+		final String password = config.databasePassword.stringValue();
 		
 		if(url.startsWith("jdbc:hsqldb:"))
 		{

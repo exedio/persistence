@@ -105,12 +105,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		super(source, context);
 
-		final String dialectCodeRaw = this.dialectCode.getStringValue();
+		final String dialectCodeRaw = this.dialectCode.stringValue();
 		
 		final String dialectCode;
 		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
-			final String url = databaseUrl.getStringValue();
+			final String url = databaseUrl.stringValue();
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
 				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
@@ -124,7 +124,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
-		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
+		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 		
 		ensureValidity("x-build");
@@ -193,43 +193,43 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getDatabaseUrl()
 	{
-		return databaseUrl.getStringValue();
+		return databaseUrl.stringValue();
 	}
 
 	public String getDatabaseUser()
 	{
-		return databaseUser.getStringValue();
+		return databaseUser.stringValue();
 	}
 
 	public String getDatabasePassword()
 	{
-		return databasePassword.getStringValue();
+		return databasePassword.stringValue();
 	}
 	
 	public boolean getDatabaseDontSupportPreparedStatements()
 	{
-		return databaseDontSupportPreparedStatements.getBooleanValue();
+		return databaseDontSupportPreparedStatements.booleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportEmptyStrings()
 	{
-		return databaseDontSupportEmptyStrings.getBooleanValue();
+		return databaseDontSupportEmptyStrings.booleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportLimit()
 	{
-		return databaseDontSupportLimit.getBooleanValue();
+		return databaseDontSupportLimit.booleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportNativeDate()
 	{
-		return databaseDontSupportNativeDate.getBooleanValue();
+		return databaseDontSupportNativeDate.booleanValue();
 	}
 	
 	String filterTableName(final String tableName)
 	{
 		return
-			mysqlLowerCaseTableNames.getBooleanValue()
+			mysqlLowerCaseTableNames.booleanValue()
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
 	}
@@ -241,32 +241,32 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	
 	public boolean getFulltextIndex()
 	{
-		return fulltextIndex.getBooleanValue();
+		return fulltextIndex.booleanValue();
 	}
 	
 	public int getConnectionPoolIdleInitial()
 	{
-		return connectionPoolIdleInitial.getIntValue();
+		return connectionPoolIdleInitial.intValue();
 	}
 	
 	public int getConnectionPoolIdleLimit()
 	{
-		return connectionPoolIdleLimit.getIntValue();
+		return connectionPoolIdleLimit.intValue();
 	}
 	
 	public int getItemCacheLimit()
 	{
-		return itemCacheLimit.getIntValue();
+		return itemCacheLimit.intValue();
 	}
 	
 	public int getQueryCacheLimit()
 	{
-		return queryCacheLimit.getIntValue();
+		return queryCacheLimit.intValue();
 	}
 	
 	public String getMediaRootUrl()
 	{
-		return mediaRooturl.getStringValue();
+		return mediaRooturl.stringValue();
 	}
 	
 	/**
@@ -281,7 +281,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	public int getMediaOffsetExpires()
 	{
-		return mediaOffsetExpires.getIntValue();
+		return mediaOffsetExpires.intValue();
 	}
 	
 	// ------------------- deprecated stuff -------------------

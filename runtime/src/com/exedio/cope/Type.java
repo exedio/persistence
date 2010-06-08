@@ -515,7 +515,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				schemaId,
 				supertype,
 				mount().typesOfInstancesColumnValues,
-				database.properties.itemCacheConcurrentModificationDetection.getBooleanValue() && !hasFinalTable());
+				database.properties.itemCacheConcurrentModificationDetection.booleanValue() && !hasFinalTable());
 		if(supertype==null)
 		{
 			primaryKeySequence.connect(database, table.primaryKey);

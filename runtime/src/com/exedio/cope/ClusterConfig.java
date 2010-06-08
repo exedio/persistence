@@ -68,15 +68,15 @@ final class ClusterConfig
 	{
 		this.secret = secret;
 		this.node = node;
-		this.log = properties.clusterLog.getBooleanValue();
-		this.packetSize = properties.clusterPacketSize.getIntValue() & (~3);
+		this.log = properties.clusterLog.booleanValue();
+		this.packetSize = properties.clusterPacketSize.intValue() & (~3);
 		try
 		{
-			this.group = InetAddress.getByName(properties.clusterGroup.getStringValue());
+			this.group = InetAddress.getByName(properties.clusterGroup.stringValue());
 		}
 		catch(UnknownHostException e)
 		{
-			throw new RuntimeException(properties.clusterGroup.getStringValue(), e);
+			throw new RuntimeException(properties.clusterGroup.stringValue(), e);
 		}
 		{
 			final Random r = new Random(secret);

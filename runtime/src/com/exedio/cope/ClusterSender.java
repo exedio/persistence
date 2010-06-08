@@ -49,14 +49,14 @@ final class ClusterSender
 	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
-		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
+		this.destinationPort = properties.clusterSendDestinationPort.intValue();
 		try
 		{
-			this.socket = new DatagramSocket(properties.clusterSendSourcePort.getIntValue());
+			this.socket = new DatagramSocket(properties.clusterSendSourcePort.intValue());
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.getIntValue()), e);
+			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.intValue()), e);
 		}
 		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];
