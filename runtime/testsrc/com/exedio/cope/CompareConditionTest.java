@@ -297,40 +297,40 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	
 	private void assertIt(final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final CompareConditionItem o2, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1, o2}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1, o2, o3}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4, o5}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Condition actual)
+	private void assertIt(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final CompareConditionItem o6, final Condition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6}), actual);
+		assertIt(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4, o5, o6}), actual);
 	}
 	
-	private void assertIt(final List<?> expected, final Condition actual)
+	private void assertIt(final List<CompareConditionItem> expected, final Condition actual)
 	{
 		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
 		assertIt(expected, actual, item1);
@@ -341,7 +341,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertIt(expected, actual, itemX);
 	}
 	
-	private static void assertIt(final List<?> expected, final Condition actual, final Item item)
+	private static void assertIt(final List<CompareConditionItem> expected, final Condition actual, final CompareConditionItem item)
 	{
 		assertEquals(expected.contains(item), (actual instanceof IsNullCondition) ? ((IsNullCondition)actual).evaluate(item) : ((CompareCondition)actual).evaluate(item));
 	}

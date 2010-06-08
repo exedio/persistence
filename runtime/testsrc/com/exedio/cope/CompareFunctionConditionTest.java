@@ -149,27 +149,27 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		assertIt(item3, item4, item5, item1.TYPE.getThis().greaterOrEqual(item1.rightItem));
 	}
 	
-	private void assertIt(final Object o1, final CompareFunctionCondition actual)
+	private void assertIt(final CompareFunctionConditionItem o1, final CompareFunctionCondition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1}), actual);
+		assertIt(Arrays.asList(new CompareFunctionConditionItem[]{o1}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final CompareFunctionCondition actual)
+	private void assertIt(final CompareFunctionConditionItem o1, final CompareFunctionConditionItem o2, final CompareFunctionCondition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2}), actual);
+		assertIt(Arrays.asList(new CompareFunctionConditionItem[]{o1, o2}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final CompareFunctionCondition actual)
+	private void assertIt(final CompareFunctionConditionItem o1, final CompareFunctionConditionItem o2, final CompareFunctionConditionItem o3, final CompareFunctionCondition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3}), actual);
+		assertIt(Arrays.asList(new CompareFunctionConditionItem[]{o1, o2, o3}), actual);
 	}
 	
-	private void assertIt(final Object o1, final Object o2, final Object o3, final Object o4, final CompareFunctionCondition actual)
+	private void assertIt(final CompareFunctionConditionItem o1, final CompareFunctionConditionItem o2, final CompareFunctionConditionItem o3, final CompareFunctionConditionItem o4, final CompareFunctionCondition actual)
 	{
-		assertIt(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
+		assertIt(Arrays.asList(new CompareFunctionConditionItem[]{o1, o2, o3, o4}), actual);
 	}
 	
-	private void assertIt(final List<?> expected, final CompareFunctionCondition actual)
+	private void assertIt(final List<CompareFunctionConditionItem> expected, final CompareFunctionCondition actual)
 	{
 		assertContainsList(expected, CompareFunctionConditionItem.TYPE.search(actual));
 		assertIt(expected, actual, item1);
@@ -180,7 +180,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		assertIt(expected, actual, itemX);
 	}
 	
-	private static void assertIt(final List<?> expected, final CompareFunctionCondition actual, final Item item)
+	private static void assertIt(final List<CompareFunctionConditionItem> expected, final CompareFunctionCondition actual, final CompareFunctionConditionItem item)
 	{
 		assertEquals(expected.contains(item), actual.evaluate(item));
 	}
