@@ -134,6 +134,14 @@ public abstract class Condition
 			throw new RuntimeException();
 		}
 
+		boolean evaluate(final Item item)
+		{
+			if(item==null)
+				throw new NullPointerException();
+			
+			return value;
+		}
+
 		@Override
 		void check(TC tc)
 		{
