@@ -28,7 +28,8 @@ import com.exedio.cope.util.CharSet;
  *
  * @author Ralf Wiebicke
  */
-public final class StringField extends FunctionField<String> implements StringFunction
+public final class StringField extends FunctionField<String>
+	implements StringFunction
 {
 	private static final long serialVersionUID = 1l;
 	

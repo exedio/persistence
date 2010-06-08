@@ -25,7 +25,8 @@ import java.sql.SQLException;
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
-public abstract class NumberView<E extends Number> extends View<E> implements NumberFunction<E>
+public abstract class NumberView<E extends Number> extends View<E>
+	implements NumberFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 	

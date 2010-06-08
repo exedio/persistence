@@ -22,7 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public abstract class StringView extends View<String> implements StringFunction
+public abstract class StringView extends View<String>
+	implements StringFunction
 {
 	private static final long serialVersionUID = 1l;
 	

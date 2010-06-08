@@ -39,7 +39,8 @@ import com.exedio.cope.search.ExtremumAggregate;
  *
  * @author Ralf Wiebicke
  */
-public abstract class View<E> extends Feature implements Function<E>
+public abstract class View<E> extends Feature
+	implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
 	

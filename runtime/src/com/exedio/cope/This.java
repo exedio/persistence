@@ -24,7 +24,8 @@ import java.util.Collection;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
 
-public final class This<E extends Item> extends Feature implements Function<E>, ItemFunction<E>
+public final class This<E extends Item> extends Feature
+	implements Function<E>, ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 	

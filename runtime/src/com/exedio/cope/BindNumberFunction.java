@@ -21,7 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
-public final class BindNumberFunction<E extends Number> extends BindFunction<E> implements NumberFunction<E>
+public final class BindNumberFunction<E extends Number> extends BindFunction<E>
+	implements NumberFunction<E>
 {
 	/**
 	 * Instead of using this constructor directly,
