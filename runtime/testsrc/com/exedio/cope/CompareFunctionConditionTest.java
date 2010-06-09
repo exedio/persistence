@@ -145,27 +145,5 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, item1.TYPE, item1.leftEnum.greaterOrEqual(item1.rightEnum));
 		assertCondition(item3, item4, item5, item1.TYPE, item1.leftItem.greaterOrEqual(item1.rightItem));
 		assertCondition(item3, item4, item5, item1.TYPE, item1.TYPE.getThis().greaterOrEqual(item1.rightItem));
-		
-		// Condition.Literal.evaluate
-		assertEquals(true,  Condition.TRUE .evaluate(item1));
-		assertEquals(false, Condition.FALSE.evaluate(item1));
-		try
-		{
-			Condition.TRUE.evaluate(null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			Condition.FALSE.evaluate(null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
 	}
 }

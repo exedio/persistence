@@ -129,6 +129,28 @@ public class SearchTest extends TestmodelTest
 					"select this from AttributeItem order by this",
 				e.getMessage());
 		}
+		
+		// Condition.Literal.evaluate
+		assertEquals(true,  Condition.TRUE .evaluate(item));
+		assertEquals(false, Condition.FALSE.evaluate(item));
+		try
+		{
+			Condition.TRUE.evaluate(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			Condition.FALSE.evaluate(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 
 		assertDelete(item);
 		assertDelete(item2);
