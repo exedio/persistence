@@ -5,6 +5,7 @@
 		<Or>
 			<Class name="com.exedio.cope.Model" />
 			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.CheckConstraint" />
 			<Class name="com.exedio.cope.DataField" />
 			<Class name="com.exedio.cope.IntegerField" />
 			<Class name="com.exedio.cope.ItemField" />
