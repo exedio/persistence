@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Intern.intern;
+
 public final class CheckConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
@@ -33,5 +35,16 @@ public final class CheckConstraint extends Feature
 	{
 		if(!condition.get(item))
 			throw new CheckViolationException(item, this);
+	}
+	
+	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
+	{
+		final Statement statement = new Statement(table.database.dialect);
+		condition.append(statement);
+		
+		new com.exedio.dsmf.CheckConstraint(
+				dsmfTable,
+				intern(table.database.makeName(table.id + '_' + getSchemaName())),
+				statement.getText());
 	}
 }

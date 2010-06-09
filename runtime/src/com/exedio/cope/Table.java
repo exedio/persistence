@@ -73,6 +73,7 @@ final class Table
 	private List<Column> allColumns = null;
 
 	private List<UniqueConstraint> uniqueConstraints = null;
+	private List< CheckConstraint>  checkConstraints = null;
 	
 	/**
 	 * The column name for the primary key.
@@ -183,6 +184,26 @@ final class Table
 		return uniqueConstraints;
 	}
 	
+	void setCheckConstraints(final List<CheckConstraint> checkConstraints)
+	{
+		if(checkConstraints==null)
+			throw new IllegalArgumentException();
+		if(allColumns!=null)
+			throw new RuntimeException();
+		if(this.checkConstraints!=null)
+			throw new RuntimeException();
+
+		this.checkConstraints = checkConstraints;
+	}
+	
+	List<CheckConstraint> getCheckConstraints()
+	{
+		if(checkConstraints==null)
+			throw new RuntimeException();
+		
+		return checkConstraints;
+	}
+	
 	final void finish()
 	{
 		final ArrayList<Column> columns = new ArrayList<Column>();
@@ -213,6 +234,9 @@ final class Table
 
 		for(final UniqueConstraint uc : getUniqueConstraints())
 			uc.makeSchema(result);
+
+		for(final CheckConstraint cc : getCheckConstraints())
+			cc.makeSchema(this, result);
 	}
 	
 	int count(final Connection connection, final Executor executor)

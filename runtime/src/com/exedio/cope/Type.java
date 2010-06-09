@@ -536,6 +536,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.connect(table);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
+		this.table.setCheckConstraints (this.declaredCheckConstraints);
 		this.table.finish();
 	}
 	
