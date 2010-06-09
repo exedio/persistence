@@ -362,11 +362,6 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	{
 		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
 		for(final CompareConditionItem item : CompareConditionItem.TYPE.search())
-			assertCondition(expected, actual, (T)item);
-	}
-	
-	private static <T extends Item> void assertCondition(final List<T> expected, final Condition actual, final T item)
-	{
-		assertEquals(expected.contains(item), actual.evaluate(item));
+			assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 }
