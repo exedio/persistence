@@ -28,6 +28,11 @@ public final class CheckConstraint extends Feature
 	
 	public CheckConstraint(final Condition condition)
 	{
+		if(condition==null)
+			throw new NullPointerException("condition");
+		if(condition instanceof Condition.Literal)
+			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition.toString());
+		
 		this.condition = condition;
 	}
 	

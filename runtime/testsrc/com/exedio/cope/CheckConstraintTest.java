@@ -95,6 +95,34 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 				einsGreaterOrEqualZwei),
 			CheckConstraintSuperItem.TYPE.getCheckConstraints());
 		
+		try
+		{
+			new CheckConstraint(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("condition", e.getMessage());
+		}
+		try
+		{
+			new CheckConstraint(Condition.TRUE);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("literal condition makes no sense, but was Condition.TRUE", e.getMessage());
+		}
+		try
+		{
+			new CheckConstraint(Condition.FALSE);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
+		}
+		
 		assertSerializedSame(alphaLessBeta, 393);
 		
 		// test schema
