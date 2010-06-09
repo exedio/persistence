@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -84,6 +86,15 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		
+		final CheckConstraint unison = item.sheet.getUnison();
+		assertSame(item.TYPE, unison.getType());
+		assertEquals("sheet-unison", unison.getName());
+		assertEquals(item.sheet, unison.getPattern());
+		assertEquals(Cope.or(
+				contentType.isNull   ().and(lastModified.isNull   ()),
+				contentType.isNotNull().and(lastModified.isNotNull())),
+				unison.getCondition());
 		
 		assertEquals(contentType.equal(0),  item.sheet.contentTypeEqual("application/pdf"));
 		assertEquals(contentType.equal(1),  item.sheet.contentTypeEqual("image/png"));

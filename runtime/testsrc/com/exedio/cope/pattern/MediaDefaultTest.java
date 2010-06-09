@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.util.Date;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
@@ -97,8 +99,16 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 		assertEquals(lastModified.isNull(), item.file.isNull());
 		assertEquals(lastModified.isNotNull(), item.file.isNotNull());
+		final CheckConstraint unison = item.file.getUnison();
+		assertSame(item.TYPE, unison.getType());
+		assertEquals("file-unison", unison.getName());
+		assertEquals(item.file, unison.getPattern());
+		assertEquals(Cope.or(
+				contentType.isNull   ().and(lastModified.isNull   ()),
+				contentType.isNotNull().and(lastModified.isNotNull())),
+				unison.getCondition());
 		
-		assertEqualsUnmodifiable(list(body, contentType, lastModified), item.file.getSourceFeatures());
+		assertEqualsUnmodifiable(list(body, contentType, lastModified, unison), item.file.getSourceFeatures());
 		
 		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));

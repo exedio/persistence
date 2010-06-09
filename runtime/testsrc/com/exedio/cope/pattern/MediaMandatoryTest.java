@@ -88,6 +88,8 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 		assertEquals(t.file, lastModified.getPattern());
 		
+		assertNull(t.file.getUnison());
+		
 		// test persistence
 		assertEquals(list(), t.TYPE.search());
 

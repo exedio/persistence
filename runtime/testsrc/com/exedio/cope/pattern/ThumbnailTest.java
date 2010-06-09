@@ -66,6 +66,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 				item.file.getBody(),
 				item.file.getContentType(),
 				item.file.getLastModified(),
+				item.file.getUnison(),
 				item.thumb,
 			}), item.TYPE.getFeatures());
 		assertEquals(item.TYPE, item.thumb.getType());

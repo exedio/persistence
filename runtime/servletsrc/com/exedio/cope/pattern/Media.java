@@ -34,6 +34,7 @@ import java.util.Set;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
@@ -61,6 +62,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	final DataField body;
 	final ContentType<?> contentType;
 	final DateField lastModified;
+	final CheckConstraint unison;
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
@@ -74,9 +76,29 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addSource(contentTypeField, contentType.name, ComputedElement.get());
 		addSource(this.lastModified = optional(new DateField(), optional), "lastModified", ComputedElement.get());
 		
+		if(optional)
+		{
+			final ArrayList<Condition> isNull    = new ArrayList<Condition>();
+			final ArrayList<Condition> isNotNull = new ArrayList<Condition>();
+			// TODO include body as well, needs DataField#isNull
+			if(contentTypeField!=null)
+			{
+				isNull   .add(contentTypeField.isNull());
+				isNotNull.add(contentTypeField.isNotNull());
+			}
+			isNull   .add(this.lastModified.isNull());
+			isNotNull.add(this.lastModified.isNotNull());
+			addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
+		}
+		else
+		{
+			this.unison = null;
+		}
+		
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());
 		assert optional == !lastModified.isMandatory();
+		assert optional == (unison!=null);
 	}
 	
 	private static final DataField optional(final DataField field, final boolean optional)
@@ -201,6 +223,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public DateField getLastModified()
 	{
 		return lastModified;
+	}
+	
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 	
 	public Class getInitialType()
