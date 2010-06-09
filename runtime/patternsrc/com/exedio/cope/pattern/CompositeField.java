@@ -29,7 +29,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -60,6 +63,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private List<FunctionField> componentList = null;
 	private FunctionField mandatoryComponent = null;
 	private FunctionField isNullComponent = null;
+	private CheckConstraint unison = null;
 	
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
@@ -106,6 +110,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		final HashMap<FunctionField, FunctionField> componentToTemplate =
 			new HashMap<FunctionField, FunctionField>();
 		FunctionField mandatoryComponent = null;
+		final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
+		final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
 		
 		for(Map.Entry<String, FunctionField> e : templates.entrySet())
 		{
@@ -116,6 +122,12 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			componentToTemplate.put(component, template);
 			if(optional && mandatoryComponent==null && template.isMandatory())
 				mandatoryComponent = component;
+			if(optional)
+			{
+				isNull.add(component.isNull());
+				if(template.isMandatory())
+					isNotNull.add(component.isNotNull());
+			}
 		}
 		if(optional && mandatoryComponent==null)
 			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
@@ -125,6 +137,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
 		this.mandatoryComponent = mandatoryComponent;
 		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
+		if(optional)
+			addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
 	}
 	
 	private FunctionField copy(final FunctionField template)
@@ -167,6 +181,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public List<FunctionField> getComponents()
 	{
 		return componentList;
+	}
+	
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 	
 	@Override
