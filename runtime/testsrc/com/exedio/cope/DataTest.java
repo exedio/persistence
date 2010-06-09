@@ -26,8 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.List;
 
 public class DataTest extends AbstractRuntimeTest
 {
@@ -245,28 +243,28 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
-		assertCondition(item.data.startsWith(data4));
-		assertCondition(item.data.startsWith(data6));
-		assertCondition(item.data.startsWith(data6x4));
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		// set byte[]
 		item.setData(data4);
 		assertIt(data4);
-		assertCondition(item, item.data.startsWith(data4));
-		assertCondition(item.data.startsWith(data6));
-		assertCondition(item.data.startsWith(data6x4));
+		assertCondition(item, item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data6);
 		assertIt(data6);
-		assertCondition(item.data.startsWith(data4));
-		assertCondition(item, item.data.startsWith(data6));
-		assertCondition(item, item.data.startsWith(data6x4));
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item, item.TYPE, item.data.startsWith(data6));
+		assertCondition(item, item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data0);
 		assertIt(data0);
-		assertCondition(item.data.startsWith(data4));
-		assertCondition(item.data.startsWith(data6));
-		assertCondition(item.data.startsWith(data6x4));
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);
@@ -473,27 +471,6 @@ public class DataTest extends AbstractRuntimeTest
 		);
 		assertNull(item.getDataArray());
 		assertNull(item.getData10Array());
-	}
-	
-	private void assertCondition(final StartsWithCondition actual)
-	{
-		assertCondition(Arrays.asList(new DataItem[]{}), actual);
-	}
-	
-	private void assertCondition(final DataItem o1, final StartsWithCondition actual)
-	{
-		assertCondition(Arrays.asList(new DataItem[]{o1}), actual);
-	}
-	
-	private void assertCondition(final List<DataItem> expected, final StartsWithCondition actual)
-	{
-		assertContainsList(expected, DataItem.TYPE.search(actual));
-		assertCondition(expected, actual, item);
-	}
-	
-	private static void assertCondition(final List<DataItem> expected, final StartsWithCondition actual, final DataItem item)
-	{
-		assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage
