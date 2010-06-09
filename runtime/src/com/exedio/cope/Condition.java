@@ -26,6 +26,8 @@ public abstract class Condition
 {
 	abstract void append(Statement statment);
 	
+	abstract boolean evaluate(Item item);
+	
 	abstract void check(TC tc);
 
 	public final Condition not()
@@ -134,6 +136,7 @@ public abstract class Condition
 			throw new RuntimeException();
 		}
 
+		@Override
 		boolean evaluate(final Item item)
 		{
 			// NOTE

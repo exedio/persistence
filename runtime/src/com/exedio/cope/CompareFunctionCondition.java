@@ -57,6 +57,7 @@ public final class CompareFunctionCondition<E> extends Condition
 			append(right, (Join)null);
 	}
 	
+	@Override
 	boolean evaluate(final Item item)
 	{
 		return operator.evaluate(left.get(item), right.get(item));

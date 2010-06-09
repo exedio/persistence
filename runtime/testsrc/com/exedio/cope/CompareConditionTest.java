@@ -343,6 +343,6 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	
 	private static void assertIt(final List<CompareConditionItem> expected, final Condition actual, final CompareConditionItem item)
 	{
-		assertEquals(expected.contains(item), (actual instanceof IsNullCondition) ? ((IsNullCondition)actual).evaluate(item) : ((CompareCondition)actual).evaluate(item));
+		assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 }

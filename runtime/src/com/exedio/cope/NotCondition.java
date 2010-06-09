@@ -46,6 +46,13 @@ public final class NotCondition extends Condition
 		argument.append(bf);
 		bf.append(')');
 	}
+	
+	@Override
+	boolean evaluate(final Item item)
+	{
+		// TODO evaluate needs to be tested
+		return !argument.evaluate(item);
+	}
 
 	@Override
 	void check(final TC tc)

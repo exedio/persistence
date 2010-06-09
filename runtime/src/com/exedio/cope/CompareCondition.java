@@ -57,6 +57,7 @@ public final class CompareCondition<E> extends Condition
 			appendParameter(left, right);
 	}
 	
+	@Override
 	boolean evaluate(final Item item)
 	{
 		return operator.evaluate(left.get(item), right);

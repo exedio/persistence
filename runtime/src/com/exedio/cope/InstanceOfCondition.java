@@ -122,6 +122,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		bf.append(')');
 	}
 	
+	@Override
 	boolean evaluate(final Item item)
 	{
 		final Item value = function.get(item);

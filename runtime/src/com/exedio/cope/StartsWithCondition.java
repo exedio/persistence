@@ -50,6 +50,7 @@ public final class StartsWithCondition extends Condition
 		bf.appendStartsWith(field, value);
 	}
 	
+	@Override
 	boolean evaluate(final Item item)
 	{
 		// TODO wastes performance, fetch only the first bytes
