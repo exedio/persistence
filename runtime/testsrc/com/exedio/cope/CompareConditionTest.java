@@ -301,33 +301,33 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(Arrays.asList(new CompareConditionItem[]{}), actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -335,9 +335,9 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -346,9 +346,9 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final CompareConditionItem o6, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Condition actual)
 	{
-		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -358,18 +358,18 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(l, actual);
 	}
 	
-	private void assertCondition(final List<CompareConditionItem> expected, final Condition actual)
+	private <T extends Item> void assertCondition(final List<T> expected, final Condition actual)
 	{
 		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
-		assertCondition(expected, actual, item1);
-		assertCondition(expected, actual, item2);
-		assertCondition(expected, actual, item3);
-		assertCondition(expected, actual, item4);
-		assertCondition(expected, actual, item5);
-		assertCondition(expected, actual, itemX);
+		assertCondition(expected, actual, (T)item1);
+		assertCondition(expected, actual, (T)item2);
+		assertCondition(expected, actual, (T)item3);
+		assertCondition(expected, actual, (T)item4);
+		assertCondition(expected, actual, (T)item5);
+		assertCondition(expected, actual, (T)itemX);
 	}
 	
-	private static void assertCondition(final List<CompareConditionItem> expected, final Condition actual, final CompareConditionItem item)
+	private static <T extends Item> void assertCondition(final List<T> expected, final Condition actual, final T item)
 	{
 		assertEquals(expected.contains(item), actual.evaluate(item));
 	}
