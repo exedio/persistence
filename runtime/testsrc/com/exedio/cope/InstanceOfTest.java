@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class InstanceOfTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -123,23 +120,23 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
-		assertIt(itema, itemb1, itemb2, itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
-		assertIt(itema, itemb2, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE));
-		assertIt(itema, itemb2, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE));
-		assertIt(itema, itemb1, itemc1, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE));
-		assertIt(itema, itemb1, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE));
-		assertIt(itema.TYPE.getThis().notInstanceOf(itema.TYPE));
-		assertIt(itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
-		assertIt(itemc1, itema.TYPE.getThis().instanceOf(itemc1.TYPE));
+		assertCondition(itema, itemb1, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
+		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE));
+		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE));
+		assertCondition(itema, itemb1, itemc1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE));
+		assertCondition(itema, itemb1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE));
+		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(itema.TYPE));
+		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(itemc1, itema.TYPE, itema.TYPE.getThis().instanceOf(itemc1.TYPE));
 
-		assertRef(reffa, reffb1, reffb2, reffa.ref.notInstanceOf(itemc1.TYPE));
-		assertRef(reffa, reffb2, reffa.ref.notInstanceOf(itemb1.TYPE));
-		assertRef(reffa, reffb2, reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE));
-		assertRef(reffa, reffb1, reffc1, reffa.ref.notInstanceOf(itemb2.TYPE));
-		assertRef(reffa, reffb1, reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE));
-		assertRef(reffa.ref.notInstanceOf(itema.TYPE));
-		assertRef(reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
-		assertRef(reffc1, reffa.ref.instanceOf(itemc1.TYPE));
+		assertCondition(reffa, reffb1, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemc1.TYPE));
+		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE));
+		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE));
+		assertCondition(reffa, reffb1, reffc1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE));
+		assertCondition(reffa, reffb1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE));
+		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(itema.TYPE));
+		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(reffc1, reffa.TYPE, reffa.ref.instanceOf(itemc1.TYPE));
 		
 		model.checkTypeColumns();
 		
@@ -311,73 +308,5 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		{
 			assertEquals("type InstanceOfB1Item is not assignable from type InstanceOfAItem", e.getMessage());
 		}
-	}
-	
-	private void assertIt(final InstanceOfCondition actual)
-	{
-		assertIt(Arrays.asList(new InstanceOfAItem[]{}), actual);
-	}
-	
-	private void assertIt(final InstanceOfAItem o1, final InstanceOfCondition actual)
-	{
-		assertIt(Arrays.asList(new InstanceOfAItem[]{o1}), actual);
-	}
-	
-	private void assertIt(final InstanceOfAItem o1, final InstanceOfAItem o2, final InstanceOfCondition actual)
-	{
-		assertIt(Arrays.asList(new InstanceOfAItem[]{o1, o2}), actual);
-	}
-	
-	private void assertIt(final InstanceOfAItem o1, final InstanceOfAItem o2, final InstanceOfAItem o3, final InstanceOfCondition actual)
-	{
-		assertIt(Arrays.asList(new InstanceOfAItem[]{o1, o2, o3}), actual);
-	}
-	
-	private void assertIt(final List<InstanceOfAItem> expected, final InstanceOfCondition actual)
-	{
-		assertContainsList(expected, InstanceOfAItem.TYPE.search(actual));
-		assertIt(expected, actual, itema);
-		assertIt(expected, actual, itemb1);
-		assertIt(expected, actual, itemb2);
-		assertIt(expected, actual, itemc1);
-	}
-	
-	private static void assertIt(final List<InstanceOfAItem> expected, final InstanceOfCondition actual, final InstanceOfAItem item)
-	{
-		assertEquals(expected.contains(item), actual.evaluate(item));
-	}
-	
-	private void assertRef(final InstanceOfCondition actual)
-	{
-		assertRef(Arrays.asList(new InstanceOfRefItem[]{}), actual);
-	}
-	
-	private void assertRef(final InstanceOfRefItem o1, final InstanceOfCondition actual)
-	{
-		assertRef(Arrays.asList(new InstanceOfRefItem[]{o1}), actual);
-	}
-	
-	private void assertRef(final InstanceOfRefItem o1, final InstanceOfRefItem o2, final InstanceOfCondition actual)
-	{
-		assertRef(Arrays.asList(new InstanceOfRefItem[]{o1, o2}), actual);
-	}
-	
-	private void assertRef(final InstanceOfRefItem o1, final InstanceOfRefItem o2, final InstanceOfRefItem o3, final InstanceOfCondition actual)
-	{
-		assertRef(Arrays.asList(new InstanceOfRefItem[]{o1, o2, o3}), actual);
-	}
-	
-	private void assertRef(final List<InstanceOfRefItem> expected, final InstanceOfCondition actual)
-	{
-		assertContainsList(expected, InstanceOfRefItem.TYPE.search(actual));
-		assertRef(expected, actual, reffa);
-		assertRef(expected, actual, reffb1);
-		assertRef(expected, actual, reffb2);
-		assertRef(expected, actual, reffc1);
-	}
-	
-	private static void assertRef(final List<InstanceOfRefItem> expected, final InstanceOfCondition actual, final InstanceOfRefItem item)
-	{
-		assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 }
