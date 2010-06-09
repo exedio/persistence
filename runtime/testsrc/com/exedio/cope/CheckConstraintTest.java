@@ -19,15 +19,19 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintItem.TYPE;
+import static com.exedio.cope.CheckConstraintSuperItem.eins;
+import static com.exedio.cope.CheckConstraintSuperItem.zwei;
+import static com.exedio.cope.CheckConstraintSuperItem.drei;
+import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 import static com.exedio.cope.CheckConstraintItem.alpha;
+import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintItem.beta;
 import static com.exedio.cope.CheckConstraintItem.delta;
 import static com.exedio.cope.CheckConstraintItem.gamma;
-import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;;
 
 public class CheckConstraintTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(CheckConstraintItem.TYPE);
+	static final Model MODEL = new Model(CheckConstraintItem.TYPE, CheckConstraintSuperItem.TYPE);
 	
 	static
 	{
@@ -51,9 +55,23 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(
 			list(
 				TYPE.getThis(),
+				eins, zwei, drei,
+				einsGreaterOrEqualZwei,
 				alpha, beta, gamma, delta,
 				alphaLessBeta),
 			TYPE.getFeatures());
+		assertEqualsUnmodifiable(
+			list(
+				CheckConstraintSuperItem.TYPE.getThis(),
+				eins, zwei, drei,
+				einsGreaterOrEqualZwei),
+			CheckConstraintSuperItem.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(
+			list(
+				CheckConstraintSuperItem.TYPE.getThis(),
+				eins, zwei, drei,
+				einsGreaterOrEqualZwei),
+			CheckConstraintSuperItem.TYPE.getFeatures());
 		
 		assertSerializedSame(alphaLessBeta, 393);
 	}
