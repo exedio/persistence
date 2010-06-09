@@ -402,7 +402,9 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	private final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
-		assertContainsList(expected, type.search(actual));
+		final List<T> actualResult = type.search(actual);
+		assertContainsList(expected, actualResult);
+		assertUnmodifiable(actualResult);
 		for(final T item : type.search())
 			assertEquals(expected.contains(item), actual.evaluate(item));
 	}

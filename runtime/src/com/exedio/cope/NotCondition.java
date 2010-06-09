@@ -50,7 +50,6 @@ public final class NotCondition extends Condition
 	@Override
 	boolean evaluate(final Item item)
 	{
-		// TODO evaluate needs to be tested
 		return !argument.evaluate(item);
 	}
 

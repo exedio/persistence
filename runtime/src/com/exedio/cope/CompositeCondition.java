@@ -76,7 +76,6 @@ public final class CompositeCondition extends Condition
 	@Override
 	boolean evaluate(final Item item)
 	{
-		// TODO evaluate needs to be tested
 		final boolean absorber = operator.absorber.value;
 		for(int i = 0; i<conditions.length; i++)
 			if(conditions[i].evaluate(item)==absorber)
