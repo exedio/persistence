@@ -51,7 +51,7 @@ public final class StartsWithCondition extends Condition
 	}
 	
 	@Override
-	boolean evaluate(final Item item)
+	boolean get(final Item item)
 	{
 		// TODO wastes performance, fetch only the first bytes
 		final byte[] v = field.getArray(item);

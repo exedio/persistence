@@ -26,7 +26,7 @@ public abstract class Condition
 {
 	abstract void append(Statement statment);
 	
-	abstract boolean evaluate(Item item);
+	abstract boolean get(Item item);
 	
 	abstract void check(TC tc);
 
@@ -137,10 +137,10 @@ public abstract class Condition
 		}
 
 		@Override
-		boolean evaluate(final Item item)
+		boolean get(final Item item)
 		{
 			// NOTE
-			// all other implementations of evaluate will fail when
+			// all other implementations of get will fail when
 			// item==null, so this method fails as well, to avoid
 			// hiding bugs.
 			if(item==null)

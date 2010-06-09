@@ -130,12 +130,12 @@ public class SearchTest extends TestmodelTest
 				e.getMessage());
 		}
 		
-		// Condition.Literal.evaluate
-		assertEquals(true,  Condition.TRUE .evaluate(item));
-		assertEquals(false, Condition.FALSE.evaluate(item));
+		// Condition.Literal.get
+		assertEquals(true,  Condition.TRUE .get(item));
+		assertEquals(false, Condition.FALSE.get(item));
 		try
 		{
-			Condition.TRUE.evaluate(null);
+			Condition.TRUE.get(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -144,7 +144,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			Condition.FALSE.evaluate(null);
+			Condition.FALSE.get(null);
 			fail();
 		}
 		catch(NullPointerException e)

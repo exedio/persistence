@@ -74,11 +74,11 @@ public final class CompositeCondition extends Condition
 	}
 	
 	@Override
-	boolean evaluate(final Item item)
+	boolean get(final Item item)
 	{
 		final boolean absorber = operator.absorber.value;
 		for(int i = 0; i<conditions.length; i++)
-			if(conditions[i].evaluate(item)==absorber)
+			if(conditions[i].get(item)==absorber)
 				return absorber;
 		return operator.identity.value;
 	}

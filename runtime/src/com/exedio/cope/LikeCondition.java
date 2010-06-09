@@ -49,7 +49,7 @@ public final class LikeCondition extends Condition
 	}
 	
 	@Override
-	boolean evaluate(final Item item)
+	boolean get(final Item item)
 	{
 		throw new RuntimeException("not yet implemented");
 	}

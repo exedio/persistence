@@ -406,7 +406,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertContainsList(expected, actualResult);
 		assertUnmodifiable(actualResult);
 		for(final T item : type.search())
-			assertEquals(expected.contains(item), actual.evaluate(item));
+			assertEquals(expected.contains(item), actual.get(item));
 	}
 	
 	protected final CheckConstraint assertCheckConstraint(

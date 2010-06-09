@@ -52,7 +52,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 	
 	@Override
-	boolean evaluate(final Item item)
+	boolean get(final Item item)
 	{
 		return (function.get(item)==null) ^ not;
 	}
