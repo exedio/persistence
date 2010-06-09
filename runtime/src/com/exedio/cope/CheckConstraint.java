@@ -36,6 +36,11 @@ public final class CheckConstraint extends Feature
 		this.condition = condition;
 	}
 	
+	public Condition getCondition()
+	{
+		return condition;
+	}
+	
 	void check(final Item item)
 	{
 		if(!condition.get(item))

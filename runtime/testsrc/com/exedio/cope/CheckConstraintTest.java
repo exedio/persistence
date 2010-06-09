@@ -95,6 +95,9 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 				einsGreaterOrEqualZwei),
 			CheckConstraintSuperItem.TYPE.getCheckConstraints());
 		
+		assertEquals(alpha.less(beta), alphaLessBeta.getCondition());
+		assertEquals(eins.greaterOrEqual(zwei), einsGreaterOrEqualZwei.getCondition());
+		
 		try
 		{
 			new CheckConstraint(null);
