@@ -18,10 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -294,74 +291,5 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		}
 
 		model.checkUnsupportedConstraints();
-	}
-	
-	private <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
-	{
-		assertCondition(Collections.<T>emptyList(), type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		l.add(o6);
-		assertCondition(l, type, actual);
-	}
-	
-	private <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
-	{
-		assertContainsList(expected, type.search(actual));
-		for(final T item : type.search())
-			assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 }
