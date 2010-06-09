@@ -361,12 +361,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	private <T extends Item> void assertCondition(final List<T> expected, final Condition actual)
 	{
 		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
-		assertCondition(expected, actual, (T)item1);
-		assertCondition(expected, actual, (T)item2);
-		assertCondition(expected, actual, (T)item3);
-		assertCondition(expected, actual, (T)item4);
-		assertCondition(expected, actual, (T)item5);
-		assertCondition(expected, actual, (T)itemX);
+		for(final CompareConditionItem item : CompareConditionItem.TYPE.search())
+			assertCondition(expected, actual, (T)item);
 	}
 	
 	private static <T extends Item> void assertCondition(final List<T> expected, final Condition actual, final T item)
