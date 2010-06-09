@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -302,32 +303,59 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	
 	private void assertCondition(final CompareConditionItem o1, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1, o2}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		l.add(o2);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1, o2, o3}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4, o5}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		l.add(o5);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final CompareConditionItem o1, final CompareConditionItem o2, final CompareConditionItem o3, final CompareConditionItem o4, final CompareConditionItem o5, final CompareConditionItem o6, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{o1, o2, o3, o4, o5, o6}), actual);
+		final ArrayList<CompareConditionItem> l = new ArrayList<CompareConditionItem>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		l.add(o5);
+		l.add(o6);
+		assertCondition(l, actual);
 	}
 	
 	private void assertCondition(final List<CompareConditionItem> expected, final Condition actual)
