@@ -62,6 +62,15 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 			TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(
+				alphaLessBeta),
+			TYPE.getDeclaredCheckConstraints());
+		assertEqualsUnmodifiable(
+			list(
+				einsGreaterOrEqualZwei,
+				alphaLessBeta),
+			TYPE.getCheckConstraints());
+		assertEqualsUnmodifiable(
+			list(
 				CheckConstraintSuperItem.TYPE.getThis(),
 				eins, zwei, drei,
 				einsGreaterOrEqualZwei),
@@ -72,6 +81,14 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 				eins, zwei, drei,
 				einsGreaterOrEqualZwei),
 			CheckConstraintSuperItem.TYPE.getFeatures());
+		assertEqualsUnmodifiable(
+			list(
+				einsGreaterOrEqualZwei),
+			CheckConstraintSuperItem.TYPE.getDeclaredCheckConstraints());
+		assertEqualsUnmodifiable(
+			list(
+				einsGreaterOrEqualZwei),
+			CheckConstraintSuperItem.TYPE.getCheckConstraints());
 		
 		assertSerializedSame(alphaLessBeta, 393);
 	}
