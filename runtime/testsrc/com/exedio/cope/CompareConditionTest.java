@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -84,92 +84,92 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		
 		
 		// isNull
-		assertCondition(itemX, item1.string.isNull());
-		assertCondition(itemX, item1.intx.isNull());
-		assertCondition(itemX, item1.longx.isNull());
-		assertCondition(itemX, item1.doublex.isNull());
-		assertCondition(itemX, item1.date.isNull());
-		assertCondition(itemX, item1.day.isNull());
-		assertCondition(itemX, item1.enumx.isNull());
-		assertCondition(itemX, item1.item.isNull());
-		assertCondition(item1.TYPE.getThis().isNull());
+		assertCondition(itemX, item1.TYPE, item1.string.isNull());
+		assertCondition(itemX, item1.TYPE, item1.intx.isNull());
+		assertCondition(itemX, item1.TYPE, item1.longx.isNull());
+		assertCondition(itemX, item1.TYPE, item1.doublex.isNull());
+		assertCondition(itemX, item1.TYPE, item1.date.isNull());
+		assertCondition(itemX, item1.TYPE, item1.day.isNull());
+		assertCondition(itemX, item1.TYPE, item1.enumx.isNull());
+		assertCondition(itemX, item1.TYPE, item1.item.isNull());
+		assertCondition(item1.TYPE, item1.TYPE.getThis().isNull());
 
 		// isNotNull
-		assertCondition(item1, item2, item3, item4, item5, item1.string.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.intx.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.longx.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.doublex.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.date.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.day.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.enumx.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, item1.item.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, itemX, item1.TYPE.getThis().isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.string.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.intx.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.longx.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.doublex.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.date.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.day.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.enumx.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, item1.TYPE, item1.item.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, itemX, item1.TYPE, item1.TYPE.getThis().isNotNull());
 
 		// equal
-		assertCondition(item3, item1.string.equal("string3"));
-		assertCondition(item3, item1.intx.equal(3));
-		assertCondition(item3, item1.longx.equal(13l));
-		assertCondition(item3, item1.doublex.equal(2.3));
-		assertCondition(item3, item1.date.equal(date));
-		assertCondition(item3, item1.day.equal(day));
-		assertCondition(item3, item1.enumx.equal(YEnum.V3));
-		assertCondition(item3, item1.item.equal(item3));
-		assertCondition(item3, item1.TYPE.getThis().equal(item3));
+		assertCondition(item3, item1.TYPE, item1.string.equal("string3"));
+		assertCondition(item3, item1.TYPE, item1.intx.equal(3));
+		assertCondition(item3, item1.TYPE, item1.longx.equal(13l));
+		assertCondition(item3, item1.TYPE, item1.doublex.equal(2.3));
+		assertCondition(item3, item1.TYPE, item1.date.equal(date));
+		assertCondition(item3, item1.TYPE, item1.day.equal(day));
+		assertCondition(item3, item1.TYPE, item1.enumx.equal(YEnum.V3));
+		assertCondition(item3, item1.TYPE, item1.item.equal(item3));
+		assertCondition(item3, item1.TYPE, item1.TYPE.getThis().equal(item3));
 
 		// notEqual
-		assertCondition(item1, item2, item4, item5, item1.string.notEqual("string3"));
-		assertCondition(item1, item2, item4, item5, item1.intx.notEqual(3));
-		assertCondition(item1, item2, item4, item5, item1.longx.notEqual(13l));
-		assertCondition(item1, item2, item4, item5, item1.doublex.notEqual(2.3));
-		assertCondition(item1, item2, item4, item5, item1.date.notEqual(date));
-		assertCondition(item1, item2, item4, item5, item1.day.notEqual(day));
-		assertCondition(item1, item2, item4, item5, item1.enumx.notEqual(YEnum.V3));
-		assertCondition(item1, item2, item4, item5, item1.item.notEqual(item3));
-		assertCondition(item1, item2, item4, item5, itemX, item1.TYPE.getThis().notEqual(item3));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.string.notEqual("string3"));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.intx.notEqual(3));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.longx.notEqual(13l));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.doublex.notEqual(2.3));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.date.notEqual(date));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.day.notEqual(day));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.enumx.notEqual(YEnum.V3));
+		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.item.notEqual(item3));
+		assertCondition(item1, item2, item4, item5, itemX, item1.TYPE, item1.TYPE.getThis().notEqual(item3));
 
 		// less
-		assertCondition(item1, item2, item1.string.less("string3"));
-		assertCondition(item1, item2, item1.intx.less(3));
-		assertCondition(item1, item2, item1.longx.less(13l));
-		assertCondition(item1, item2, item1.doublex.less(2.3));
-		assertCondition(item1, item2, item1.date.less(date));
-		assertCondition(item1, item2, item1.day.less(day));
-		assertCondition(item1, item2, item1.enumx.less(YEnum.V3));
-		assertCondition(item1, item2, item1.item.less(item3));
-		assertCondition(item1, item2, item1.TYPE.getThis().less(item3));
+		assertCondition(item1, item2, item1.TYPE, item1.string.less("string3"));
+		assertCondition(item1, item2, item1.TYPE, item1.intx.less(3));
+		assertCondition(item1, item2, item1.TYPE, item1.longx.less(13l));
+		assertCondition(item1, item2, item1.TYPE, item1.doublex.less(2.3));
+		assertCondition(item1, item2, item1.TYPE, item1.date.less(date));
+		assertCondition(item1, item2, item1.TYPE, item1.day.less(day));
+		assertCondition(item1, item2, item1.TYPE, item1.enumx.less(YEnum.V3));
+		assertCondition(item1, item2, item1.TYPE, item1.item.less(item3));
+		assertCondition(item1, item2, item1.TYPE, item1.TYPE.getThis().less(item3));
 
 		// lessOrEqual
-		assertCondition(item1, item2, item3, item1.string.lessOrEqual("string3"));
-		assertCondition(item1, item2, item3, item1.intx.lessOrEqual(3));
-		assertCondition(item1, item2, item3, item1.longx.lessOrEqual(13l));
-		assertCondition(item1, item2, item3, item1.doublex.lessOrEqual(2.3));
-		assertCondition(item1, item2, item3, item1.date.lessOrEqual(date));
-		assertCondition(item1, item2, item3, item1.day.lessOrEqual(day));
-		assertCondition(item1, item2, item3, item1.enumx.lessOrEqual(YEnum.V3));
-		assertCondition(item1, item2, item3, item1.item.lessOrEqual(item3));
-		assertCondition(item1, item2, item3, item1.TYPE.getThis().lessOrEqual(item3));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.string.lessOrEqual("string3"));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.intx.lessOrEqual(3));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.longx.lessOrEqual(13l));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.doublex.lessOrEqual(2.3));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.date.lessOrEqual(date));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.day.lessOrEqual(day));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.enumx.lessOrEqual(YEnum.V3));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.item.lessOrEqual(item3));
+		assertCondition(item1, item2, item3, item1.TYPE, item1.TYPE.getThis().lessOrEqual(item3));
 
 		// greater
-		assertCondition(item4, item5, item1.string.greater("string3"));
-		assertCondition(item4, item5, item1.intx.greater(3));
-		assertCondition(item4, item5, item1.longx.greater(13l));
-		assertCondition(item4, item5, item1.doublex.greater(2.3));
-		assertCondition(item4, item5, item1.date.greater(date));
-		assertCondition(item4, item5, item1.day.greater(day));
-		assertCondition(item4, item5, item1.enumx.greater(YEnum.V3));
-		assertCondition(item4, item5, item1.item.greater(item3));
-		assertCondition(item4, item5, itemX, item1.TYPE.getThis().greater(item3));
+		assertCondition(item4, item5, item1.TYPE, item1.string.greater("string3"));
+		assertCondition(item4, item5, item1.TYPE, item1.intx.greater(3));
+		assertCondition(item4, item5, item1.TYPE, item1.longx.greater(13l));
+		assertCondition(item4, item5, item1.TYPE, item1.doublex.greater(2.3));
+		assertCondition(item4, item5, item1.TYPE, item1.date.greater(date));
+		assertCondition(item4, item5, item1.TYPE, item1.day.greater(day));
+		assertCondition(item4, item5, item1.TYPE, item1.enumx.greater(YEnum.V3));
+		assertCondition(item4, item5, item1.TYPE, item1.item.greater(item3));
+		assertCondition(item4, item5, itemX, item1.TYPE, item1.TYPE.getThis().greater(item3));
 
 		// greaterOrEqual
-		assertCondition(item3, item4, item5, item1.string.greaterOrEqual("string3"));
-		assertCondition(item3, item4, item5, item1.intx.greaterOrEqual(3));
-		assertCondition(item3, item4, item5, item1.longx.greaterOrEqual(13l));
-		assertCondition(item3, item4, item5, item1.doublex.greaterOrEqual(2.3));
-		assertCondition(item3, item4, item5, item1.date.greaterOrEqual(date));
-		assertCondition(item3, item4, item5, item1.day.greaterOrEqual(day));
-		assertCondition(item3, item4, item5, item1.enumx.greaterOrEqual(YEnum.V3));
-		assertCondition(item3, item4, item5, item1.item.greaterOrEqual(item3));
-		assertCondition(item3, item4, item5, itemX, item1.TYPE.getThis().greaterOrEqual(item3));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.string.greaterOrEqual("string3"));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.intx.greaterOrEqual(3));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.longx.greaterOrEqual(13l));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.doublex.greaterOrEqual(2.3));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.date.greaterOrEqual(date));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.day.greaterOrEqual(day));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.enumx.greaterOrEqual(YEnum.V3));
+		assertCondition(item3, item4, item5, item1.TYPE, item1.item.greaterOrEqual(item3));
+		assertCondition(item3, item4, item5, itemX, item1.TYPE, item1.TYPE.getThis().greaterOrEqual(item3));
 		
 		// between
 		assertContains(item2, item3, item4, item1.TYPE.search(item1.string.between("string2", "string4")));
@@ -296,46 +296,46 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		model.checkUnsupportedConstraints();
 	}
 	
-	private void assertCondition(final Condition actual)
+	private <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
 	{
-		assertCondition(Arrays.asList(new CompareConditionItem[]{}), actual);
+		assertCondition(Collections.<T>emptyList(), type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
 		l.add(o4);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -343,10 +343,10 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		l.add(o3);
 		l.add(o4);
 		l.add(o5);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Condition actual)
+	private <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -355,13 +355,13 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		l.add(o4);
 		l.add(o5);
 		l.add(o6);
-		assertCondition(l, actual);
+		assertCondition(l, type, actual);
 	}
 	
-	private <T extends Item> void assertCondition(final List<T> expected, final Condition actual)
+	private <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
-		assertContainsList(expected, CompareConditionItem.TYPE.search(actual));
-		for(final CompareConditionItem item : CompareConditionItem.TYPE.search())
+		assertContainsList(expected, type.search(actual));
+		for(final T item : type.search())
 			assertEquals(expected.contains(item), actual.evaluate(item));
 	}
 }
