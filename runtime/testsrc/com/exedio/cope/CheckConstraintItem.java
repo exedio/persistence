@@ -34,6 +34,19 @@ public class CheckConstraintItem extends CheckConstraintSuperItem
 	
 	public static final CheckConstraint alphaLessBeta = new CheckConstraint(alpha.less(beta));
 	
+	void setAlphaBeta(final Integer alpha, final Integer beta)
+	{
+		set(
+			CheckConstraintItem.alpha.map(alpha),
+			CheckConstraintItem.beta.map(beta));
+	}
+	
+	void setBetaGamma(final Integer beta, final Integer gamma)
+	{
+		set(
+			CheckConstraintItem.beta.map(beta),
+			CheckConstraintItem.gamma.map(gamma));
+	}
 	
 	/**
 

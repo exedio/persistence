@@ -31,6 +31,20 @@ public class CheckConstraintSuperItem extends Item
 	
 	public static final CheckConstraint einsGreaterOrEqualZwei = new CheckConstraint(eins.greaterOrEqual(zwei));
 	
+	void setEinsZwei(final Integer eins, final Integer zwei)
+	{
+		set(
+			CheckConstraintSuperItem.eins.map(eins),
+			CheckConstraintSuperItem.zwei.map(zwei));
+	}
+	
+	void setZweiDrei(final Integer zwei, final Integer drei)
+	{
+		set(
+			CheckConstraintSuperItem.zwei.map(zwei),
+			CheckConstraintSuperItem.drei.map(drei));
+	}
+	
 	
 	/**
 
