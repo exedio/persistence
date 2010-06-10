@@ -100,7 +100,7 @@ public abstract class View<E> extends Feature
 	}
 	
 	@Override
-	public List<Wrapper> getWrappers()
+	public final List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
@@ -171,7 +171,7 @@ public abstract class View<E> extends Feature
 	}
 	
 	@Override
-	public boolean equals(final Object other)
+	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof View))
 			return false;
@@ -191,7 +191,7 @@ public abstract class View<E> extends Feature
 	}
 	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		int result = name.hashCode();
 		
