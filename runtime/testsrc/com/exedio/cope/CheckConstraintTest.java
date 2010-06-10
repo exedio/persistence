@@ -48,7 +48,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	public void testItemWithSingleUnique()
+	public void testMeta()
 	{
 		// test model
 		assertEqualsUnmodifiable(
