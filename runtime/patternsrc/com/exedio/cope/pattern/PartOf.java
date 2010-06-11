@@ -98,7 +98,7 @@ public final class PartOf<C extends Item> extends Pattern
 		return q.search();
 	}
 
-	public List<? extends Item> getPartsAndCast(final Item container)
+	public List<? extends Item> getParts(final Item container)
 	{
 		return getParts(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container));
 	}
@@ -173,5 +173,16 @@ public final class PartOf<C extends Item> extends Pattern
 			}
 		}
 		return result;
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getParts(Item)} instead
+	 */
+	@Deprecated
+	public List<? extends Item> getPartsAndCast(final Item container)
+	{
+		return getParts(container);
 	}
 }
