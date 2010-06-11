@@ -125,18 +125,18 @@ public class PartOfTest extends AbstractRuntimeTest
 		}
 
 		// test persistence
-		assertContains(container.getParts());
+		assertEquals(list(), container.getParts());
 		
 		final PartOfItem part1 = container.addToParts("part1", 1);
 		assertEquals(container, part1.getPartsContainer());
-		assertContains(part1, container.getParts());
-		assertContains(part1, PartOfItem.parts.getParts(container));
+		assertEquals(list(part1), container.getParts());
+		assertEquals(list(part1), PartOfItem.parts.getParts(container));
 		
 		final PartOfItem part2 = container.addToParts("part2", 2);
 		assertEquals(container, part1.getPartsContainer());
 		assertEquals(container, part2.getPartsContainer());
-		assertContains(part1, part2, container.getParts());
-		assertContains(part1, part2, PartOfItem.parts.getParts(container));
+		assertEquals(list(part1, part2), container.getParts());
+		assertEquals(list(part1, part2), PartOfItem.parts.getParts(container));
 		
 		
 		assertEquals(list(), container.getPartsOrdered());

@@ -23,11 +23,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
+import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
@@ -93,8 +95,13 @@ public final class PartOf<C extends Item> extends Pattern
 	public <P extends Item> List<? extends P> getParts(final Class<P> partClass, final C container)
 	{
 		final Query<P> q = getType().as(partClass).newQuery(this.container.equal(container));
+		
+		final This typeThis = getType().getThis(); // make search deterministic
 		if(order!=null)
-			q.setOrderBy(order, true);
+			q.setOrderBy(new Function[]{order, typeThis}, new boolean[]{true, true});
+		else
+			q.setOrderBy(typeThis, true);
+		
 		return q.search();
 	}
 
