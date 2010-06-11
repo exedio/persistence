@@ -22,10 +22,6 @@ import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 
-import java.util.Locale;
-
-import com.exedio.dsmf.SQLRuntimeException;
-
 public class CheckConstraintDataTest extends AbstractRuntimeTest
 {
 	public CheckConstraintDataTest()
@@ -204,16 +200,13 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7));
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("insert into \"checkconstraintitem\"", "Check constraint violation CheckConsItem_alpLessBeta", e);
+			assertSame(null, e.getItem());
+			assertSame(alphaLessBeta, e.getFeature());
+			assertEquals("check violation for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertEquals(list(), TYPE.search());
-		
-		// TODO remove, once CheckViolations are thrown
-		model.commit();
-		model.deleteSchema();
-		model.startTransaction(getClass().getName());
 	}
 	
 	public void testCreateSuper()
@@ -223,22 +216,13 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			new CheckConstraintItem(101, 102, 103, 4, 5, 6, 7);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("insert into \"checkconstraintsuperitem\"", "Check constraint violation CheConSupIte_eiGreOrEquZw", e);
+			assertSame(null, e.getItem());
+			assertSame(einsGreaterOrEqualZwei, e.getFeature());
+			assertEquals("check violation for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertEquals(list(), TYPE.search());
-	}
-	
-	private static void assertCheckFailed(final String message, final String messageCause, final SQLRuntimeException e)
-	{
-		assertStartsWith(message, e.getMessage().toLowerCase(Locale.ENGLISH));
-		assertStartsWith(messageCause, e.getCause().getMessage());
-	}
-	
-	private static void assertStartsWith(final String expected, final String actual)
-	{
-		assertTrue(actual, actual.startsWith(expected));
 	}
 	
 	private static void assertIt(

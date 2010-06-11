@@ -41,12 +41,12 @@ public final class CheckConstraint extends Feature
 		return condition;
 	}
 	
-	void check(final Item item, final Entity entity)
+	void check(final Item item, final Entity entity, final Item exceptionItem)
 	{
 		if(!condition.get(item))
 		{
 			entity.discard();
-			throw new CheckViolationException(item, this);
+			throw new CheckViolationException(exceptionItem, this);
 		}
 	}
 	

@@ -169,6 +169,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
+		type.checkCheckConstraints(this, entity, null);
 		entity.write(toBlobs(fieldValues, null));
 		
 		afterNewCopeItem();
@@ -273,7 +274,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		
 		final Entity entity = getEntity();
 		entity.put(field, value);
-		type.checkCheckConstraints(this, entity);
+		type.checkCheckConstraints(this, entity, this);
 		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
 	}
 
@@ -309,7 +310,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
-		type.checkCheckConstraints(this, entity);
+		type.checkCheckConstraints(this, entity, this);
 		entity.write(toBlobs(fieldValues, this));
 	}
 	
