@@ -42,8 +42,8 @@ public class MediaImageMagickFilter extends MediaFilter
 {
 	private static final long serialVersionUID = 1l;
 	
-	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
-	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
+	private static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
+	private static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 	
 	private static final String DEFAULT_COMMAND_BINARY = "convert";
 	// private static final String COMMAND_BINARY = "C:\\Programme\\ImageMagick-6.3.7-Q16\\convert.exe";

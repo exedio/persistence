@@ -58,11 +58,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 {
 	private static final long serialVersionUID = 1l;
 	
-	final boolean optional;
-	final DataField body;
-	final ContentType<?> contentType;
-	final DateField lastModified;
-	final CheckConstraint unison;
+	private final boolean optional;
+	private final DataField body;
+	private final ContentType<?> contentType;
+	private final DateField lastModified;
+	private final CheckConstraint unison;
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
