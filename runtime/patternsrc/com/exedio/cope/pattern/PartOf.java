@@ -90,10 +90,10 @@ public final class PartOf<C extends Item> extends Pattern
 		return container.get(part);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <P extends Item> List<? extends P> getParts(final C container)
+	
+	public <P extends Item> List<? extends P> getParts(final Class<P> partClass, final C container)
 	{
-		final Query<P> q = (Query<P>)getType().newQuery(this.container.equal(container));
+		final Query<P> q = getType().as(partClass).newQuery(this.container.equal(container));
 		if(order!=null)
 			q.setOrderBy(order, true);
 		return q.search();
@@ -101,7 +101,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public List<? extends Item> getPartsAndCast(final Item container)
 	{
-		return getParts(Cast.<C>verboseCast(this.container.getValueClass(), container));
+		return getParts(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container));
 	}
 	
 	// static convenience methods ---------------------------------

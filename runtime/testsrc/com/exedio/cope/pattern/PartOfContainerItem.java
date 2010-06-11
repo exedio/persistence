@@ -30,7 +30,7 @@ public class PartOfContainerItem extends Item
 	
 	List<? extends PartOfItem> getParts() // TODO generate this
 	{
-		return PartOfItem.parts.<PartOfItem>getParts(this);
+		return PartOfItem.parts.getParts(PartOfItem.class, this);
 	}
 
 	PartOfItem addToParts(final String partString, final int partInteger) // TODO generate this
@@ -38,9 +38,9 @@ public class PartOfContainerItem extends Item
 		return new PartOfItem(this, partString, partInteger);
 	}
 	
-	List<? extends PartOfItem> getPartsOrdered() // TODO generate this
+	List<? extends PartOfOrderedItem> getPartsOrdered() // TODO generate this
 	{
-		return PartOfOrderedItem.partsOrdered.<PartOfItem>getParts(this);
+		return PartOfOrderedItem.partsOrdered.getParts(PartOfOrderedItem.class, this);
 	}
 
 	PartOfOrderedItem addToPartsOrdered(final int order, final String partString, final int partInteger) // TODO generate this

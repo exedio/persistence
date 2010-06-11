@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* method PartOf#getParts gets a class token
+	This breaks backwards API compatibility.
 * changed the default for option cache.item.concurrentModificationDetection
 	in cope.properties from false to true.	Changing this option requires
 	modification of persistent schema. Override the default if needed.
