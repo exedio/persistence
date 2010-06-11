@@ -85,7 +85,6 @@ public final class UniqueConstraint extends Feature
 			? fields[0].getSchemaName()
 			: getSchemaName();
 		this.databaseID = intern(database.makeName(table.id + '_' + schemaName + "_Unq"));
-		database.addUniqueConstraint(databaseID, this);
 	}
 
 	void disconnect()

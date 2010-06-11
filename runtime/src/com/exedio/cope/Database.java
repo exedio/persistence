@@ -26,7 +26,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +38,6 @@ final class Database
 {
 	private final Trimmer nameTrimmer = new Trimmer(25);
 	private final ArrayList<Table> tables = new ArrayList<Table>();
-	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 	private boolean buildStage = true;
 	final ConnectProperties properties;
@@ -85,16 +83,6 @@ final class Database
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
-	}
-	
-	void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
-	{
-		if(!buildStage)
-			throw new RuntimeException();
-
-		final Object collision = uniqueConstraintsByID.put(constraintID, constraint);
-		if(collision!=null)
-			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
 	void addSequence(final Sequence sequence)
