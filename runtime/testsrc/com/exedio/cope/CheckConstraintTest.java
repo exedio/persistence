@@ -129,6 +129,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		assertSerializedSame(alphaLessBeta, 393);
 		
 		// test schema
+		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
 			
