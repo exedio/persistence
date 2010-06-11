@@ -94,9 +94,10 @@ public final class PartOf<C extends Item> extends Pattern
 	
 	public <P extends Item> List<? extends P> getParts(final Class<P> partClass, final C container)
 	{
-		final Query<P> q = getType().as(partClass).newQuery(this.container.equal(container));
+		final Type<P> type = getType().as(partClass);
+		final Query<P> q = type.newQuery(this.container.equal(container));
 		
-		final This typeThis = getType().getThis(); // make search deterministic
+		final This typeThis = type.getThis(); // make search deterministic
 		if(order!=null)
 			q.setOrderBy(new Function[]{order, typeThis}, new boolean[]{true, true});
 		else
