@@ -41,10 +41,13 @@ public final class CheckConstraint extends Feature
 		return condition;
 	}
 	
-	void check(final Item item)
+	void check(final Item item, final Entity entity)
 	{
 		if(!condition.get(item))
+		{
+			entity.discard();
 			throw new CheckViolationException(item, this);
+		}
 	}
 	
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)

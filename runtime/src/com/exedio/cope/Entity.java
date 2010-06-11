@@ -74,6 +74,11 @@ final class Entity
 		return state.exists();
 	}
 	
+	void discard()
+	{
+		state.discard(transaction);
+	}
+	
 	@Override
 	public String toString()
 	{

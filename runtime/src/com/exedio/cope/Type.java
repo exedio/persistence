@@ -936,6 +936,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			uc.check(item, fieldValues);
 	}
 	
+	void checkCheckConstraints(final Item item, final Entity entity)
+	{
+		for(final CheckConstraint cc : checkConstraints)
+			cc.check(item, entity);
+	}
+	
 	int nextPrimaryKey()
 	{
 		return primaryKeySequence.next();

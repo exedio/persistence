@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintItem.TYPE;
+import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
+import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 
 import java.util.Locale;
 
@@ -111,10 +113,6 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 
 	public void testSetMulti()
 	{
-		// TODO remove, once CheckViolations are thrown
-		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
-			return;
-		
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -123,9 +121,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setAlphaBeta(5, 4);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintitem\"", "Check constraint violation CheckConsItem_alpLessBeta", e);
+			assertSame(item, e.getItem());
+			assertSame(alphaLessBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -134,9 +134,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setBetaGamma(4, 6);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintitem\"", "Check constraint violation CheckConsItem_alpLessBeta", e);
+			assertSame(item, e.getItem());
+			assertSame(alphaLessBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -160,9 +162,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setEinsZwei(101, 102);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintsuperitem\"", "Check constraint violation CheConSupIte_eiGreOrEquZw", e);
+			assertSame(item, e.getItem());
+			assertSame(einsGreaterOrEqualZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -171,9 +175,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setZweiDrei(103, 104);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintsuperitem\"", "Check constraint violation CheConSupIte_eiGreOrEquZw", e);
+			assertSame(item, e.getItem());
+			assertSame(einsGreaterOrEqualZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
