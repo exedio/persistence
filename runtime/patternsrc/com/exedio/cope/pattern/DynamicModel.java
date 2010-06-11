@@ -150,9 +150,17 @@ public final class DynamicModel<L> extends Pattern
 		final int capacity = array(valueType).length;
 		if(capacity<=positionPerValuetype)
 			throw new IllegalArgumentException(
-					"capacity for " + valueType + " exceeded, " +
+					"Capacity for " + valueType + " exceeded, " +
 					capacity + " available, " +
-					"but tried to allocate " + (positionPerValuetype+1));
+					"but tried to allocate " + (positionPerValuetype+1) + ". " +
+					"Use DynamicModel#newModel(" +
+						"FunctionField<L> locale, " +
+						"int stringCapacity, " +
+						"int booleanCapacity, " +
+						"int integerCapacity, " +
+						"int doubleCapacity, " +
+						"int enumCapacity) " +
+					"to increase capacities.");
 	}
 	
 	@Override
