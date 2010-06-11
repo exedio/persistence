@@ -196,6 +196,23 @@ public class DataTest extends AbstractRuntimeTest
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}
 		
+		// condition isNull/isNotNull
+		assertEquals(item.data.isNull(), item.data.isNull());
+		assertEquals(item.data.isNull().hashCode(), item.data.isNull().hashCode());
+		assertNotEquals(item.data.isNull(), item.data.isNotNull());
+		assertNotEquals(item.data.isNull(), item.data10.isNull());
+		assertEquals("DataItem.data is null", item.data.isNull().toString());
+		assertEquals("DataItem.data is not null", item.data.isNotNull().toString());
+		try
+		{
+			new DataIsNullCondition(null, true);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("field", e.getMessage());
+		}
+		
 		// condition startsWith
 		assertEquals(item.data.startsWith(data4), item.data.startsWith(data4));
 		assertEquals(item.data.startsWith(data4).hashCode(), item.data.startsWith(data4).hashCode());
@@ -243,6 +260,8 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
+		assertCondition(item, item.TYPE, item.data.isNull());
+		assertCondition(item.TYPE, item.data.isNotNull());
 		assertCondition(item.TYPE, item.data.startsWith(data4));
 		assertCondition(item.TYPE, item.data.startsWith(data6));
 		assertCondition(item.TYPE, item.data.startsWith(data6x4));
@@ -250,24 +269,32 @@ public class DataTest extends AbstractRuntimeTest
 		// set byte[]
 		item.setData(data4);
 		assertIt(data4);
+		assertCondition(item.TYPE, item.data.isNull());
+		assertCondition(item, item.TYPE, item.data.isNotNull());
 		assertCondition(item, item.TYPE, item.data.startsWith(data4));
 		assertCondition(item.TYPE, item.data.startsWith(data6));
 		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data6);
 		assertIt(data6);
+		assertCondition(item.TYPE, item.data.isNull());
+		assertCondition(item, item.TYPE, item.data.isNotNull());
 		assertCondition(item.TYPE, item.data.startsWith(data4));
 		assertCondition(item, item.TYPE, item.data.startsWith(data6));
 		assertCondition(item, item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data0);
 		assertIt(data0);
+		assertCondition(item.TYPE, item.data.isNull());
+		assertCondition(item, item.TYPE, item.data.isNotNull());
 		assertCondition(item.TYPE, item.data.startsWith(data4));
 		assertCondition(item.TYPE, item.data.startsWith(data6));
 		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);
+		assertCondition(item.TYPE, item.data.isNull());
+		assertCondition(item, item.TYPE, item.data.isNotNull());
 
 		item.setData((byte[])null);
 		assertIt(null);

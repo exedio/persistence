@@ -638,6 +638,17 @@ public final class DataField extends Field<DataField.Value>
 			return "DataField.Value:" + file.toString();
 		}
 	}
+	// convenience methods for conditions and views ---------------------------------
+	
+	public DataIsNullCondition isNull()
+	{
+		return new DataIsNullCondition(this, false);
+	}
+	
+	public DataIsNullCondition isNotNull()
+	{
+		return new DataIsNullCondition(this, true);
+	}
 	
 	public StartsWithCondition startsWith(final byte[] value)
 	{
