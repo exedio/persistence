@@ -355,7 +355,17 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("Capacity for STRING exceeded, 1 available, but tried to allocate 2. Use DynamicModel#newModel(FunctionField<L> locale, int stringCapacity, int booleanCapacity, int integerCapacity, int doubleCapacity, int enumCapacity) to increase capacities.", e.getMessage());
+			assertEquals(
+					"Capacity for STRING exceeded, " +
+					"1 available, but tried to allocate 2. " +
+					"Use DynamicModel#newModel(" +
+						"FunctionField<L> locale, " +
+						"int stringCapacity, " +
+						"int booleanCapacity, " +
+						"int integerCapacity, " +
+						"int doubleCapacity, " +
+						"int enumCapacity) " +
+					"to increase capacities.", e.getMessage());
 		}
 		assertContains(akkuTime, memory, cellPhone.getFields());
 		
