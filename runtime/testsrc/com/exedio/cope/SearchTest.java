@@ -65,21 +65,21 @@ public class SearchTest extends TestmodelTest
 		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 		final AttributeItem item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
 		item.setSomeNotNullInteger(0);
-		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));
-		assertContainsUnmodifiable(item2, item.TYPE.search(item.someNotNullInteger.equal(0).not()));
+		assertCondition(item, item.TYPE, item.someNotNullInteger.equal(0));
+		assertCondition(item2, item.TYPE, item.someNotNullInteger.equal(0).not());
 		
 		assertContainsUnmodifiable(item, item2, item.TYPE.search());
 		assertContainsUnmodifiable(item, item2, item.TYPE.search(null));
-		assertContainsUnmodifiable(item, item2,
-			item.TYPE.search(
+		assertCondition(item, item2,
+			item.TYPE,
 				Cope.or(
 					item.someNotNullString.equal("someString"),
-					item.someNotNullString.equal("someString2"))));
-		assertContainsUnmodifiable(
-			item.TYPE.search(
+					item.someNotNullString.equal("someString2")));
+		assertCondition(
+			item.TYPE,
 				Cope.and(
 					item.someNotNullString.equal("someString"),
-					item.someNotNullString.equal("someString2"))));
+					item.someNotNullString.equal("someString2")));
 		
 		// test Query#searchSingleton
 		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
@@ -128,6 +128,28 @@ public class SearchTest extends TestmodelTest
 					"but was " + list(item, item2) + " for query: " +
 					"select this from AttributeItem order by this",
 				e.getMessage());
+		}
+		
+		// Condition.Literal.get
+		assertEquals(true,  Condition.TRUE .get(item));
+		assertEquals(false, Condition.FALSE.get(item));
+		try
+		{
+			Condition.TRUE.get(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			Condition.FALSE.get(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 
 		assertDelete(item);

@@ -47,6 +47,12 @@ public final class LikeCondition extends Condition
 			append(" like ").
 			appendParameter(function, value);
 	}
+	
+	@Override
+	boolean get(final Item item)
+	{
+		throw new RuntimeException("not yet implemented");
+	}
 
 	@Override
 	void check(final TC tc)

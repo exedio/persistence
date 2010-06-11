@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -335,6 +336,77 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	final String filterTableName(final String name)
 	{
 		return model.getConnectProperties().filterTableName(name);
+	}
+	
+	protected final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
+	{
+		assertCondition(Collections.<T>emptyList(), type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		assertCondition(l, type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		l.add(o2);
+		assertCondition(l, type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		assertCondition(l, type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		assertCondition(l, type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		l.add(o5);
+		assertCondition(l, type, actual);
+	}
+	
+	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
+	{
+		final ArrayList<T> l = new ArrayList<T>();
+		l.add(o1);
+		l.add(o2);
+		l.add(o3);
+		l.add(o4);
+		l.add(o5);
+		l.add(o6);
+		assertCondition(l, type, actual);
+	}
+	
+	private final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
+	{
+		final List<T> actualResult = type.search(actual);
+		assertContainsList(expected, actualResult);
+		assertUnmodifiable(actualResult);
+		for(final T item : type.search())
+			assertEquals(expected.contains(item), actual.get(item));
 	}
 	
 	protected final CheckConstraint assertCheckConstraint(

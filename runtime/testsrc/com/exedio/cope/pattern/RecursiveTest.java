@@ -41,12 +41,14 @@ public class RecursiveTest extends AbstractRuntimeTest
 					RecursiveItem.testPattern.media.getBody(),
 					RecursiveItem.testPattern.media.getContentType(),
 					RecursiveItem.testPattern.media.getLastModified(),
+					RecursiveItem.testPattern.media.getUnison(),
 					RecursiveItem.testPattern.fetch,
 					RecursiveItem.testPattern2,
 					RecursiveItem.testPattern2.media,
 					RecursiveItem.testPattern2.media.getBody(),
 					RecursiveItem.testPattern2.media.getContentType(),
 					RecursiveItem.testPattern2.media.getLastModified(),
+					RecursiveItem.testPattern2.media.getUnison(),
 					RecursiveItem.testPattern2.fetch
 				),
 				RecursiveItem.TYPE.getFeatures());

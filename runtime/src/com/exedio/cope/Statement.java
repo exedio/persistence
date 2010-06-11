@@ -50,6 +50,17 @@ final class Statement
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 	}
+	
+	Statement(final Dialect dialect)
+	{
+		this.dialect = dialect;
+		this.fulltextIndex = false;
+		this.parameters = null;
+		this.tc = null;
+		this.joinTables = null;
+		this.ambiguousTables = null;
+		this.qualifyTable = false;
+	}
 
 	Statement(final Executor executor, final Query<? extends Object> query)
 	{

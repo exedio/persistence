@@ -243,25 +243,28 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
-		assertContains(item.TYPE.search(item.data.startsWith(data4)));
-		assertContains(item.TYPE.search(item.data.startsWith(data6)));
-		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		// set byte[]
 		item.setData(data4);
 		assertIt(data4);
-		assertContains(item, item.TYPE.search(item.data.startsWith(data4)));
-		assertContains(item.TYPE.search(item.data.startsWith(data6)));
-		assertContains(item.TYPE.search(item.data.startsWith(data6x4)));
+		assertCondition(item, item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data6);
 		assertIt(data6);
-		assertContains(item.TYPE.search(item.data.startsWith(data4)));
-		assertContains(item, item.TYPE.search(item.data.startsWith(data6)));
-		assertContains(item, item.TYPE.search(item.data.startsWith(data6x4)));
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item, item.TYPE, item.data.startsWith(data6));
+		assertCondition(item, item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(data0);
 		assertIt(data0);
+		assertCondition(item.TYPE, item.data.startsWith(data4));
+		assertCondition(item.TYPE, item.data.startsWith(data6));
+		assertCondition(item.TYPE, item.data.startsWith(data6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);

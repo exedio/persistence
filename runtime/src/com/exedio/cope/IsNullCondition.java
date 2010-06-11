@@ -50,6 +50,12 @@ public final class IsNullCondition<E> extends Condition
 		bf.append(function, null).
 			append(sql());
 	}
+	
+	@Override
+	boolean get(final Item item)
+	{
+		return (function.get(item)==null) ^ not;
+	}
 
 	@Override
 	void check(final TC tc)

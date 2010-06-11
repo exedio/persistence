@@ -32,6 +32,8 @@ import static com.exedio.cope.pattern.CompositeValue.anItem;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
@@ -91,16 +93,20 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				oItem.code,
 				uno,
 				uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem),
+				uno.getUnison(),
 				duo,
 				duo.of(aString), duo.of(anInt), duo.of(anEnum), duo.of(anItem),
+				duo.getUnison(),
 			}), oItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				uno,
 				uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem),
+				uno.getUnison(),
 				duo,
 				duo.of(aString), duo.of(anInt), duo.of(anEnum), duo.of(anItem),
+				duo.getUnison(),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
@@ -124,7 +130,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals("uno-aString", uno.of(aString).getName());
 		assertEquals("uno", uno.getName());
 		assertEquals(uno, uno.of(aString).getPattern());
-		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFeatures());
+		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem), uno.getUnison()), uno.getSourceFeatures());
 		
 		assertEquals(true,  eins.isInitial());
 		assertEquals(false, eins.isFinal());
@@ -160,6 +166,47 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(eins.  of(aString), eins  .of(anInt), eins  .of(anEnum), eins  .of(anItem)), eins  .getComponents());
 		assertEqualsUnmodifiable(list(uno   .of(aString), uno   .of(anInt), uno   .of(anEnum), uno   .of(anItem)), uno   .getComponents());
 		assertEqualsUnmodifiable(list(second.of(aString), second.of(anInt), second.of(anEnum), second.of(anItem)), second.getComponents());
+		
+		assertNull(eins.getUnison());
+		assertNull(zwei.getUnison());
+		assertNull(first.getUnison());
+		assertNull(second.getUnison());
+		{
+			final CheckConstraint unison = uno.getUnison();
+			assertSame(CompositeOptionalItem.TYPE, unison.getType());
+			assertEquals("uno-unison", unison.getName());
+			assertEquals(uno, unison.getPattern());
+			assertEquals(Cope.or(
+					Cope.and(
+							uno.of(aString).isNull(),
+							uno.of(anInt  ).isNull(),
+							uno.of(anEnum ).isNull(),
+							uno.of(anItem ).isNull()),
+					Cope.and(
+							uno.of(aString).isNotNull(),
+							uno.of(anInt  ).isNotNull(),
+							uno.of(anEnum ).isNotNull(),
+							uno.of(anItem ).isNotNull())),
+					unison.getCondition());
+		}
+		{
+			final CheckConstraint unison = duo.getUnison();
+			assertSame(CompositeOptionalItem.TYPE, unison.getType());
+			assertEquals("duo-unison", unison.getName());
+			assertEquals(duo, unison.getPattern());
+			assertEquals(Cope.or(
+					Cope.and(
+							duo.of(aString).isNull(),
+							duo.of(anInt  ).isNull(),
+							duo.of(anEnum ).isNull(),
+							duo.of(anItem ).isNull()),
+					Cope.and(
+							duo.of(aString).isNotNull(),
+							duo.of(anInt  ).isNotNull(),
+							duo.of(anEnum ).isNotNull(),
+							duo.of(anItem ).isNotNull())),
+					unison.getCondition());
+		}
 		
 		assertSerializedSame(eins, 385);
 		assertSerializedSame(zwei, 385);

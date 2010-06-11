@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 
@@ -76,6 +78,15 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		
+		final CheckConstraint unison = item.photo.getUnison();
+		assertSame(item.TYPE, unison.getType());
+		assertEquals("photo-unison", unison.getName());
+		assertEquals(item.photo, unison.getPattern());
+		assertEquals(Cope.or(
+				lastModified.isNull   (),
+				lastModified.isNotNull()),
+				unison.getCondition());
 		
 		assertEquals(Condition.TRUE,        item.photo.contentTypeEqual("image/jpeg"));
 		assertEquals(Condition.FALSE,       item.photo.contentTypeEqual("major/minor"));

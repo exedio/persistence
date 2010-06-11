@@ -121,6 +121,17 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		}
 		bf.append(')');
 	}
+	
+	@Override
+	boolean get(final Item item)
+	{
+		final Item value = function.get(item);
+		final Type valueType = value.getCopeType();
+		for(final Type<?> t : types)
+			if(t.isAssignableFrom(valueType))
+				return !not;
+		return not;
+	}
 
 	@Override
 	void check(final TC tc)

@@ -56,6 +56,12 @@ public final class CompareFunctionCondition<E> extends Condition
 			append(operator.sql).
 			append(right, (Join)null);
 	}
+	
+	@Override
+	boolean get(final Item item)
+	{
+		return operator.evaluate(left.get(item), right.get(item));
+	}
 
 	@Override
 	void check(final TC tc)
@@ -91,12 +97,54 @@ public final class CompareFunctionCondition<E> extends Condition
 
 	public static enum Operator
 	{
-		Equal("="),
-		NotEqual("<>"),
-		Less("<"),
-		LessEqual("<="),
-		Greater(">"),
-		GreaterEqual(">=");
+		Equal("=")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable left, final Comparable right)
+			{
+				return left.equals(right);
+			}
+		},
+		NotEqual("<>")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable left, final Comparable right)
+			{
+				return !left.equals(right);
+			}
+		},
+		Less("<")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			{
+				return left.compareTo(right)<0;
+			}
+		},
+		LessEqual("<=")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			{
+				return left.compareTo(right)<=0;
+			}
+		},
+		Greater(">")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			{
+				return left.compareTo(right)>0;
+			}
+		},
+		GreaterEqual(">=")
+		{
+			@Override
+			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			{
+				return left.compareTo(right)>=0;
+			}
+		};
 		
 		final String sql;
 		
@@ -104,5 +152,18 @@ public final class CompareFunctionCondition<E> extends Condition
 		{
 			this.sql = sql;
 		}
+		
+		@SuppressWarnings("unchecked")
+		final boolean evaluate(final Object left, final Object right)
+		{
+			return
+				(left!=null) &&
+				(right!=null) &&
+				evaluateNotNull(
+						(Comparable<Comparable>)left, // TODO make casts to Comparable redundant
+						(Comparable<Comparable>)right);
+		}
+		
+		abstract boolean evaluateNotNull(Comparable<Comparable> left, Comparable<Comparable> right);
 	}
 }

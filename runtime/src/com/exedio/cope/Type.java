@@ -73,6 +73,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
 	
+	private final List<CheckConstraint> declaredCheckConstraints;
+	private final List<CheckConstraint> checkConstraints;
+	
 	private final List<CopyConstraint> declaredCopyConstraints;
 	private final List<CopyConstraint> copyConstraints;
 
@@ -175,6 +178,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			final ArrayList<Field> declaredFields = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
+			final ArrayList< CheckConstraint> declaredCheckConstraints  = new ArrayList< CheckConstraint>(declaredFeatures.size());
 			final ArrayList<CopyConstraint> declaredCopyConstraints = new ArrayList<CopyConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
@@ -183,6 +187,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 					declaredFields.add((Field)feature);
 				else if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add((UniqueConstraint)feature);
+				else if(feature instanceof CheckConstraint)
+					declaredCheckConstraints.add((CheckConstraint)feature);
 				else if(feature instanceof CopyConstraint)
 					declaredCopyConstraints.add((CopyConstraint)feature);
 				
@@ -191,6 +197,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			}
 			this.declaredFields            = finish(declaredFields);
 			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
+			this.declaredCheckConstraints  = finish(declaredCheckConstraints);
 			this.declaredCopyConstraints   = finish(declaredCopyConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
@@ -202,6 +209,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			this.featuresByName    = this.declaredFeaturesByName;
 			this.fields            = this.declaredFields;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
+			this.checkConstraints  = this.declaredCheckConstraints;
 			this.copyConstraints   = this.declaredCopyConstraints;
 		}
 		else
@@ -218,6 +226,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			this.featuresByName    = inherit(supertype.featuresByName,    this.declaredFeaturesByName);
 			this.fields            = inherit(supertype.fields,            this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
+			this.checkConstraints  = inherit(supertype. checkConstraints, this.declaredCheckConstraints);
 			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
 		assert thisFunction==this.features.get(0) : this.features;
@@ -527,6 +536,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.connect(table);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
+		this.table.setCheckConstraints (this.declaredCheckConstraints);
 		this.table.finish();
 	}
 	
@@ -784,6 +794,16 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return uniqueConstraints;
 	}
 	
+	public List<CheckConstraint> getDeclaredCheckConstraints()
+	{
+		return declaredCheckConstraints;
+	}
+	
+	public List<CheckConstraint> getCheckConstraints()
+	{
+		return checkConstraints;
+	}
+	
 	public List<CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return declaredCopyConstraints;
@@ -914,6 +934,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		for(final UniqueConstraint uc : uniqueConstraints)
 			uc.check(item, fieldValues);
+	}
+	
+	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
+	{
+		for(final CheckConstraint cc : checkConstraints)
+			cc.check(item, entity, exceptionItem);
 	}
 	
 	int nextPrimaryKey()

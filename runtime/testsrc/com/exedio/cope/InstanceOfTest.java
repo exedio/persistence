@@ -120,23 +120,23 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
-		assertContains(itema, itemb1, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE)));
-		assertContains(itema, itemb1, itemc1, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb2.TYPE)));
-		assertContains(itema, itemb1, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE)));
-		assertContains(itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itema.TYPE)));
-		assertContains(itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
-		assertContains(itemc1, itema.TYPE.search(itema.TYPE.getThis().instanceOf(itemc1.TYPE)));
+		assertCondition(itema, itemb1, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
+		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE));
+		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE));
+		assertCondition(itema, itemb1, itemc1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE));
+		assertCondition(itema, itemb1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE));
+		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(itema.TYPE));
+		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(itemc1, itema.TYPE, itema.TYPE.getThis().instanceOf(itemc1.TYPE));
 
-		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemc1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE)));
-		assertContains(reffa, reffb1, reffc1, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb2.TYPE)));
-		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE)));
-		assertContains(reffa.TYPE.search(reffa.ref.notInstanceOf(itema.TYPE)));
-		assertContains(reffa.TYPE.search(reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
-		assertContains(reffc1, reffa.TYPE.search(reffa.ref.instanceOf(itemc1.TYPE)));
+		assertCondition(reffa, reffb1, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemc1.TYPE));
+		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE));
+		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE));
+		assertCondition(reffa, reffb1, reffc1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE));
+		assertCondition(reffa, reffb1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE));
+		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(itema.TYPE));
+		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(reffc1, reffa.TYPE, reffa.ref.instanceOf(itemc1.TYPE));
 		
 		model.checkTypeColumns();
 		
