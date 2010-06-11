@@ -179,7 +179,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			final ArrayList<Field> declaredFields = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
 			final ArrayList< CheckConstraint> declaredCheckConstraints  = new ArrayList< CheckConstraint>(declaredFeatures.size());
-			final ArrayList<CopyConstraint> declaredCopyConstraints = new ArrayList<CopyConstraint>(declaredFeatures.size());
+			final ArrayList<  CopyConstraint> declaredCopyConstraints   = new ArrayList<  CopyConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
 			{
@@ -226,8 +226,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			this.featuresByName    = inherit(supertype.featuresByName,    this.declaredFeaturesByName);
 			this.fields            = inherit(supertype.fields,            this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
-			this.checkConstraints  = inherit(supertype. checkConstraints, this.declaredCheckConstraints);
-			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
+			this. checkConstraints = inherit(supertype. checkConstraints, this.declaredCheckConstraints);
+			this.  copyConstraints = inherit(supertype.  copyConstraints, this.declaredCopyConstraints);
 		}
 		assert thisFunction==this.features.get(0) : this.features;
 		assert thisFunction==this.featuresByName.get(This.NAME) : this.featuresByName;
