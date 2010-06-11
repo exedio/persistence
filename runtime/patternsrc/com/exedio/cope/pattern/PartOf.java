@@ -92,7 +92,7 @@ public final class PartOf<C extends Item> extends Pattern
 		return container.get(part);
 	}
 	
-	public <P extends Item> List<? extends P> getParts(final Class<P> partClass, final C container)
+	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Query<P> q = type.newQuery(this.container.equal(container));
