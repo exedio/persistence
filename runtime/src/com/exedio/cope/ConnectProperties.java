@@ -47,7 +47,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", false);
+	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
