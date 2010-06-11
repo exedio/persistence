@@ -273,6 +273,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		
 		final Entity entity = getEntity();
 		entity.put(field, value);
+		type.checkCheckConstraints(this, entity);
 		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
 	}
 

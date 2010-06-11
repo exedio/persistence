@@ -35,10 +35,6 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 
 	public void testSet()
 	{
-		// TODO remove, once CheckViolations are thrown
-		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
-			return;
-		
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -47,9 +43,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setAlpha(5);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintitem\"", "Check constraint violation CheckConsItem_alpLessBeta", e);
+			assertSame(item, e.getItem());
+			assertSame(alphaLessBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -58,9 +56,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setBeta(4);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintitem\"", "Check constraint violation CheckConsItem_alpLessBeta", e);
+			assertSame(item, e.getItem());
+			assertSame(alphaLessBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -84,9 +84,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setEins(100);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintsuperitem\"", "Check constraint violation CheConSupIte_eiGreOrEquZw", e);
+			assertSame(item, e.getItem());
+			assertSame(einsGreaterOrEqualZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
@@ -95,9 +97,11 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setZwei(103);
 			fail();
 		}
-		catch(SQLRuntimeException e)
+		catch(CheckViolationException e)
 		{
-			assertCheckFailed("update \"checkconstraintsuperitem\"", "Check constraint violation CheConSupIte_eiGreOrEquZw", e);
+			assertSame(item, e.getItem());
+			assertSame(einsGreaterOrEqualZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 		
