@@ -107,5 +107,19 @@ public abstract class ByteHash extends Hash
 		}
 	}
 	
+	@Override
+	public final boolean check(final String plainText, final String hash)
+	{
+		try
+		{
+			return check(encode(plainText), Hex.decodeLower(hash));
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(encoding, e);
+		}
+	}
+	
 	public abstract byte[] hash(final byte[] plainText);
+	public abstract boolean check(byte[] plainText, byte[] hash);
 }

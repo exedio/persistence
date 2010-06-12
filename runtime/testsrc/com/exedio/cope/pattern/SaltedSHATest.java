@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Random;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
@@ -35,7 +36,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		MODEL.enableSerialization(SaltedSHATest.class, "MODEL");
 	}
 	
-	private static final String EMPTY_HASH = "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e";
+	private static final String EMPTY_HASH = "aeab417a9b5a7cf379c224f53a48f3ba32de8c9f5e12a2d78e281665c88b4addfe9c5357e1edd5f74ce7b0a2822dbb4a4274627d5e87bc8f24db5999b18dfe812bb037e1196bb4bc";
 
 	public SaltedSHATest()
 	{
@@ -48,7 +49,9 @@ public class SaltedSHATest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		final Random byMandatory = item.passwordMandatory.setSaltSource(new Random(2345l));
 		item = deleteOnTearDown(new SaltedSHAItem("musso"));
+		item.passwordMandatory.setSaltSource(byMandatory);
 	}
 	
 	public void testMD5()
@@ -70,8 +73,8 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertEquals("password-SHA512", item.password.getStorage().getName());
 		assertEquals(false, item.password.getStorage().isFinal());
 		assertEquals(false, item.password.getStorage().isMandatory());
-		assertEquals(128, item.password.getStorage().getMinimumLength());
-		assertEquals(128, item.password.getStorage().getMaximumLength());
+		assertEquals(144, item.password.getStorage().getMinimumLength());
+		assertEquals(144, item.password.getStorage().getMaximumLength());
 		assertEquals(item.password, item.password.getStorage().getPattern());
 		assertEquals(false, item.password.isInitial());
 		assertEquals(false, item.password.isFinal());
@@ -125,6 +128,15 @@ public class SaltedSHATest extends AbstractRuntimeTest
 			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
+		try
+		{
+			new MessageDigestHash(true, "SHA-512", -1, "utf8");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
+		}
 
 		assertNull(item.getPasswordSHA512());
 		assertTrue(item.checkPassword(null));
@@ -132,28 +144,28 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.password.equal(null)));
 		assertContains(item.TYPE.search(item.password.equal("bing")));
 		
-		item.setPasswordSHA512("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678");
-		assertEquals("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678", item.getPasswordSHA512());
+		item.setPasswordSHA512("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234");
+		assertEquals("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
-		assertTrue(!item.checkPassword("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678"));
+		assertTrue(!item.checkPassword("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"));
 		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678")));
+		assertContains(item.TYPE.search(item.password.equal("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234")));
 
 		item.setPassword("knollo");
-		assertEquals("1835861e09d3f89ee0f3f0e875366cad0d1877615ad322be2fff1135eb8e6f1ee1f55ce00edd17ae1c2ad89a96e676dfb106a0a8e78a7ea71e3ac373a5426af6", item.getPasswordSHA512());
+		assertEquals("aeab417a9b5a7cf385decb666a4d572c9962e9c042e0fc33718b2cbabc28a866c35594f6c17596dedb0437dedb652eb2854d9645e7aa80926538923763b733f8ad00747248df9ade", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword("knollo"));
 		assertContains(item.TYPE.search(item.password.equal(null)));
 		assertContains(item.TYPE.search(item.password.equal("bello")));
-		assertContains(item, item.TYPE.search(item.password.equal("knollo")));
+		assertContains(item.TYPE.search(item.password.equal("knollo")));
 		
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknollo";
 		item.setPassword(longPlainText);
-		assertEquals("cb7e2023fc2372d06a876501b2f8f6c5347ac23fd8e92c02b5efd8ce60e03240a60ca82d760849103455dfd26cd1c28695e5f51b41001f71496e8126d168eb84", item.getPasswordSHA512());
+		assertEquals("aeab417a9b5a7cf39904017f7a5e22767e17c88ec0b1442490df10531c7806f803b07dac383380623df954bef6ce5da18fdc82d1baf7146fbd3e95be7c00acf08c4062f624510b20", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword(longPlainText));
@@ -163,8 +175,8 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		final String specialPlainText = "Viele Gr\u00fc\u00dfe";
 		item.setPassword(specialPlainText);
 		item.setPasswordLatin(specialPlainText);
-		assertEquals("588a46bb7275c6a4ecc1254348e98a8abff50b148f7712cd8f5d9b85718294fc48f9671cab2ab3008491cd54b92395ad7f90b635e76d564123d07b44c1d527a2", item.getPasswordSHA512());
-		assertEquals("1ce6008f9153bdf7c7e7b07db950d5824922d2245d0f7f47b89fe76cd2f4a62da38d54f19b608b292ee2268c1201da817f8aeb8ef47e4c9734a268c48d02ce63", item.getPasswordLatinSHA512());
+		assertEquals("aeab417a9b5a7cf39b34c0af850a7a5d37d8d44b68e54146f9d89e640236c2ccb70cf98727dde23892065bd720c1b8684e308a005b2f68521a4b6c61a6def51d80264c2af6122f6e", item.getPasswordSHA512());
+		assertEquals("aeab417a9b5a7cf3c3f367f3c1a35efab4b40431e7b3e771c5c5cf39137e767da919877b3a549bef724250f4bd9f5814ddb2e52b34341a321b3b7d510f8f83663cbe186c2a63fe2e", item.getPasswordLatinSHA512());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword(specialPlainText));
@@ -172,32 +184,32 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordLatin("bello"));
 		assertTrue(item.checkPasswordLatin(specialPlainText));
 	
-		assertEquals("5ffb7d043d1cc5cf87dc71b29d8387b7b9d4a9d9858b68777cb83e61c1381538641971c4fbe08301b88c0bd39b107478de48c945448b21cfe8f76bb17be75333", item.getPasswordMandatorySHA512());
+		assertEquals("885406ef34cef3027d1d2bb87abb6b695a3f9b61acd946fcdbfa55d8818c84df4cdff978c951eacab0ffd49e8c8f1778b0bc4a969b6ba7cecb2573a22a3b55414496464b1b143acb", item.getPasswordMandatorySHA512());
 		assertTrue(item.checkPasswordMandatory("musso"));
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("musso")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("musso")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
 		
 		item.setPasswordMandatory("mussx");
-		assertEquals("fcb991d0f9270258af56da9a1d6f007ddd102ee4d3a3db08f6d9071df31d1cc5154cd51af2083e70e09acceddb16c99895cd9df2639758f10b7fe31388fcd83f", item.getPasswordMandatorySHA512());
+		assertEquals("aeab417a9b5a7cf3c290abe28f8ecf35715d3c1d6423bb526498ad0359b0ffaaa40ef925727e85f585fb7df73c6ec3f6432afd7f2281a7d87ff98bc76788e98f7dd3335c2048cb7a", item.getPasswordMandatorySHA512());
 		assertTrue(!item.checkPasswordMandatory("musso"));
 		assertTrue(item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("mussx")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
 		
@@ -209,11 +221,11 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory(null));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
 
 		try
@@ -232,89 +244,37 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory(null));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
 		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
 		
-		// reference example from http://de.wikipedia.org/wiki/Secure_Hash_Algorithm
-		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
-		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
-		
-		item.setPassword(upper);
-		assertEquals("af9ed2de700433b803240a552b41b5a472a6ef3fe1431a722b2063c75e9f07451f67a28e37d09cde769424c96aea6f8971389db9e1993d6c565c3c71b855723c", item.getPasswordSHA512());
-		assertTrue(item.checkPassword(upper));
-		assertTrue(!item.checkPassword(lower));
+		item.setPasswordSHA512("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234");
+		assertEquals("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item, item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
 		assertContains(item.TYPE.search(item.password.equal("")));
 		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
-
-		item.setPassword(lower);
-		assertEquals("90b30ef9902ae4c4c691d2d78c2f8fa0aa785afbc5545286b310f68e91dd2299c84a2484f0419fc5eaa7de598940799e1091c4948926ae1c9488dddae180bb80", item.getPasswordSHA512());
-		assertTrue(!item.checkPassword(upper));
-		assertTrue(item.checkPassword(lower));
-		assertTrue(!item.checkPassword(""));
-		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item, item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
-
-		item.setPasswordSHA512("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678");
-		assertEquals("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678", item.getPasswordSHA512());
-		assertTrue(!item.checkPassword(upper));
-		assertTrue(!item.checkPassword(lower));
-		assertTrue(!item.checkPassword(""));
-		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
 		assertContains(item, item.TYPE.search(item.password.notEqual("")));
 		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
 
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordSHA512());
-		assertTrue(!item.checkPassword(upper));
-		assertTrue(!item.checkPassword(lower));
 		assertTrue(item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item, item.TYPE.search(item.password.equal("")));
+		assertContains(item.TYPE.search(item.password.equal("")));
 		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item.TYPE.search(item.password.notEqual("")));
+		assertContains(item, item.TYPE.search(item.password.notEqual("")));
 		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
 
 		item.setPassword(null);
 		assertEquals(null, item.getPasswordSHA512());
-		assertTrue(!item.checkPassword(upper));
-		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
 		assertContains(item.TYPE.search(item.password.equal("")));
 		assertContains(item, item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
 		assertContains(item.TYPE.search(item.password.notEqual("")));
 		assertContains(item.TYPE.search(item.password.notEqual(null)));
 	}

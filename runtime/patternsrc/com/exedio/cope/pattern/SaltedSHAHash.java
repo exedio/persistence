@@ -26,17 +26,17 @@ public final class SaltedSHAHash extends MessageDigestHash
 
 	private SaltedSHAHash(final boolean optional, final String encoding)
 	{
-		super(optional, HASH, encoding);
+		super(optional, HASH, 8, encoding);
 	}
 
 	public SaltedSHAHash(final String encoding)
 	{
-		super(false, HASH, encoding);
+		super(false, HASH, 8, encoding);
 	}
 
 	public SaltedSHAHash()
 	{
-		super(false, HASH);
+		super(false, HASH, 8, "utf8");
 	}
 	
 	@Override

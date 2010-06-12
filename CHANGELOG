@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add salted hashes
+	This breaks backwards API compatibility
+		- Hash#hash does not have to deterministic anymore
+		- Hash#[not]Equal does not work anymore
 * add byte[] MediaImageMagickFilter.get(Item)
 	affects instrumented code
 * bugfix: fixed file descriptor leak in MediaImageMagickFilter

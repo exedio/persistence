@@ -98,10 +98,27 @@ public abstract class Hash extends Pattern implements Settable<String>
 	}
 	
 	/**
+	 * Returns a hash for the given plain text.
+	 * The result is not required to be deterministic -
+	 * this means, multiple calls for the same plain text
+	 * do not have to return the same hash.
+	 * This is especially true for salted hashs.
 	 * @param plainText the text to be hashed. Is never null.
 	 * @return the hash of plainText. Must never return null.
 	 */
 	public abstract String hash(String plainText);
+	
+	/**
+	 * Returns whether the given plain text matches the given hash.
+	 * The default implementation of this method works for all
+	 * deterministic implementations of {@link #hash(String)}.
+	 * @param plainText the text to be hashed. Is never null.
+	 * @param hash the hash of plainText. Is never null.
+	 */
+	public boolean check(final String plainText, final String hash)
+	{
+		return hash(plainText).equals(hash);
+	}
 	
 	public abstract Hash optional();
 	
@@ -154,7 +171,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
-			return hash(actualPlainText).equals(expectedHash); // hash(String) must not return null
+			return (expectedHash!=null) && check(actualPlainText, expectedHash); // hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -181,17 +198,17 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final Condition equal(final String value)
 	{
-		return value!=null ? storage.equal(hash(value)) : storage.isNull();
+		return value!=null ? storage.equal(hash(value)) : storage.isNull(); // TODO replace by isNull, since hash is not guaranteed to be deterministic anymore
 	}
 	
 	public final Condition equal(final Join join, final String value)
 	{
 		final Function<String> boundStorage = storage.bind(join);
-		return value!=null ? boundStorage.equal(hash(value)) : boundStorage.isNull();
+		return value!=null ? boundStorage.equal(hash(value)) : boundStorage.isNull(); // TODO replace by isNull, since hash is not guaranteed to be deterministic anymore
 	}
 
 	public final Condition notEqual(final String value)
 	{
-		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull();
+		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull(); // TODO replace by isNotNull, since hash is not guaranteed to be deterministic anymore
 	}
 }

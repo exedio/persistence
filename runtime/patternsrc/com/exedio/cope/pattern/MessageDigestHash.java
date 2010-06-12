@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.security.DigestException;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 
 import com.exedio.cope.util.MessageDigestUtil;
 
@@ -32,6 +34,9 @@ public class MessageDigestHash extends ByteHash
 	private static final long serialVersionUID = 1l;
 	
 	private final String algorithm;
+	private final int algorithmLength;
+	private final int saltLength;
+	private java.util.Random saltSource;
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
@@ -41,8 +46,25 @@ public class MessageDigestHash extends ByteHash
 			final String algorithm,
 			final String encoding)
 	{
-		super(optional, algorithmName(algorithm), hashLength(algorithm), encoding);
+		this(optional, algorithm, 0, encoding);
+	}
+	
+	/**
+	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 */
+	public MessageDigestHash(
+			final boolean optional,
+			final String algorithm,
+			final int saltLength,
+			final String encoding)
+	{
+		super(optional, algorithmName(algorithm), hashLength(algorithm)+saltLength, encoding);
 		this.algorithm = algorithm;
+		this.algorithmLength = hashLength(algorithm);
+		this.saltLength = saltLength;
+		this.saltSource = saltLength>0 ? new SecureRandom() : null;
+		if(saltLength<0)
+			throw new IllegalArgumentException("saltLength must be at least zero, but was " + saltLength);
 	}
 	
 	private static final int hashLength(final String algorithm)
@@ -77,12 +99,64 @@ public class MessageDigestHash extends ByteHash
 		return new MessageDigestHash(true, algorithm, getEncoding());
 	}
 	
+	/**
+	 * For tests only !!!
+	 */
+	java.util.Random setSaltSource(final java.util.Random saltSource)
+	{
+		if(this.saltSource==null)
+			throw new RuntimeException();
+		
+		final java.util.Random result = this.saltSource;
+		this.saltSource = saltSource;
+		return result;
+	}
+	
 	@Override
 	public final byte[] hash(final byte[] plainText)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
 		messageDigest.reset();
+		
+		final byte[] result = new byte[saltLength + algorithmLength];
+		
+		// http://www.owasp.org/index.php/Hashing_Java
+		if(saltLength>0)
+		{
+			final byte[] salt = new byte[saltLength];
+			saltSource.nextBytes(salt);
+			messageDigest.update(salt);
+			System.arraycopy(salt, 0, result, 0, saltLength);
+		}
+		
 		messageDigest.update(plainText);
-		return messageDigest.digest();
+		
+		try
+		{
+			messageDigest.digest(result, saltLength, algorithmLength);
+		}
+		catch(DigestException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+	
+	@Override
+	public final boolean check(final byte[] plainText, final byte[] hash)
+	{
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
+		messageDigest.reset();
+		
+		if(saltLength>0)
+			messageDigest.update(hash, 0, saltLength);
+		
+		messageDigest.update(plainText);
+		
+		final byte[] result = messageDigest.digest();
+		for(int i = 0; i<algorithmLength; i++)
+			if(result[i]!=hash[i+saltLength])
+				return false;
+		return true;
 	}
 }
