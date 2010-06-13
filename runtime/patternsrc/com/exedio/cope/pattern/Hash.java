@@ -196,19 +196,19 @@ public abstract class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash);
 	}
 	
-	public final Condition equal(final String value)
+	public final Condition isNull()
 	{
-		return value!=null ? storage.equal(hash(value)) : storage.isNull(); // TODO replace by isNull, since hash is not guaranteed to be deterministic anymore
+		return storage.isNull();
 	}
 	
-	public final Condition equal(final Join join, final String value)
+	public final Condition isNull(final Join join)
 	{
 		final Function<String> boundStorage = storage.bind(join);
-		return value!=null ? boundStorage.equal(hash(value)) : boundStorage.isNull(); // TODO replace by isNull, since hash is not guaranteed to be deterministic anymore
+		return boundStorage.isNull();
 	}
 
-	public final Condition notEqual(final String value)
+	public final Condition isNotNull()
 	{
-		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull(); // TODO replace by isNotNull, since hash is not guaranteed to be deterministic anymore
+		return storage.isNotNull();
 	}
 }

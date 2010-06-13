@@ -129,24 +129,20 @@ public class MD5Test extends AbstractRuntimeTest
 		assertNull(item.getPasswordMD5());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));
-		assertContains(item, item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("bing")));
+		assertContains(item, item.TYPE.search(item.password.isNull()));
 		
 		item.setPasswordMD5("12345678901234567890123456789012");
 		assertEquals("12345678901234567890123456789012", item.getPasswordMD5());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("12345678901234567890123456789012"));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("12345678901234567890123456789012")));
+		assertContains(item.TYPE.search(item.password.isNull()));
 
 		item.setPassword("knollo");
 		assertEquals("ad373a47d81949f466552edf29499b32", item.getPasswordMD5());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword("knollo"));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("bello")));
-		assertContains(item, item.TYPE.search(item.password.equal("knollo")));
+		assertContains(item.TYPE.search(item.password.isNull()));
 		
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -177,14 +173,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		item.setPasswordMandatory("mussx");
 		assertEquals("20e875db11d2cc3b3378cb905cbcd340", item.getPasswordMandatoryMD5());
@@ -192,14 +182,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		item.setPasswordMandatory("");
 		assertEquals(EMPTY_HASH, item.getPasswordMandatoryMD5());
@@ -207,14 +191,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 
 		try
 		{
@@ -230,14 +208,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		// reference example from http://de.wikipedia.org/wiki/MD5
 		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
@@ -249,14 +221,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item, item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword(lower);
 		assertEquals("7e716d0e702df0505fc72e2b89467910", item.getPasswordMD5());
@@ -264,14 +230,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item, item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPasswordMD5("12345678901234567890123456789012");
 		assertEquals("12345678901234567890123456789012", item.getPasswordMD5());
@@ -279,14 +239,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordMD5());
@@ -294,14 +248,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item, item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword(null);
 		assertEquals(null, item.getPasswordMD5());
@@ -309,13 +257,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item, item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item.TYPE.search(item.password.notEqual("")));
-		assertContains(item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item, item.TYPE.search(item.password.isNull()));
+		assertContains(item.TYPE.search(item.password.isNotNull()));
 	}
 }
