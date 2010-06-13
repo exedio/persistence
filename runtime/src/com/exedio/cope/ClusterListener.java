@@ -55,7 +55,7 @@ final class ClusterListener implements Runnable
 	{
 		this.config = config;
 		this.log = config.log;
-		this.port = properties.clusterListenPort.getIntValue();
+		this.port = properties.clusterListenPort.intValue();
 		try
 		{
 			this.socket = new MulticastSocket(port);
@@ -72,8 +72,8 @@ final class ClusterListener implements Runnable
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
 		thread.setDaemon(true);
-		if(properties.clusterListenPrioritySet.getBooleanValue())
-			thread.setPriority(properties.clusterListenPriority.getIntValue());
+		if(properties.clusterListenPrioritySet.booleanValue())
+			thread.setPriority(properties.clusterListenPriority.intValue());
 		thread.start();
 	}
 	

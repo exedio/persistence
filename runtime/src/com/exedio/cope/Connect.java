@@ -99,7 +99,7 @@ final class Connect
 		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 		
-		if(properties.cluster.getBooleanValue())
+		if(properties.cluster.booleanValue())
 		{
 			final ClusterConfig config = ClusterConfig.get(properties);
 			if(config!=null)
