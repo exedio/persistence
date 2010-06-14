@@ -126,6 +126,29 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			return notComputable;
 		
+		final ByteArrayOutputStream body = execute(item, contentType, spi);
+		response.setContentType(outputContentType);
+		
+		response.setContentLength(body.size());
+
+		final ServletOutputStream out = response.getOutputStream();
+		try
+		{
+			body.writeTo(out);
+			return delivered;
+		}
+		finally
+		{
+			out.close();
+		}
+	}
+	
+	private final ByteArrayOutputStream execute(
+			final Item item,
+			final String contentType,
+			final ImageReaderSpi spi)
+	throws IOException
+	{
 		final byte[] srcBytes = source.getBody().getArray(item);
 		final BufferedImage srcBuf;
 		
@@ -155,8 +178,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 		final JPEGImageWriteParam imageWriteParam = getImageWriteParam();
 		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
 		
-		response.setContentType(outputContentType);
-
 		// Dont let ImageWriter write directly to ServletOutputStream,
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
@@ -172,19 +193,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 				imageWriter.dispose();
 			}
 		}
-		
-		response.setContentLength(body.size());
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			body.writeTo(out);
-			return delivered;
-		}
-		finally
-		{
-			out.close();
-		}
+		return body;
 	}
 	
 	public JPEGImageWriteParam getImageWriteParam()
