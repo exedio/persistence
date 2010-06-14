@@ -24,24 +24,24 @@ public final class SHAHash extends MessageDigestHash
 	
 	private static final String HASH = "SHA-512";
 
-	private SHAHash(final boolean optional, final String encoding)
+	private SHAHash(final boolean optional, final int iterations, final String encoding)
 	{
-		super(optional, HASH, encoding);
+		super(optional, HASH, iterations, encoding);
 	}
 
-	public SHAHash(final String encoding)
+	public SHAHash(final int iterations, final String encoding)
 	{
-		super(false, HASH, encoding);
+		super(false, HASH, iterations, encoding);
 	}
 
-	public SHAHash()
+	public SHAHash(final int iterations)
 	{
-		super(false, HASH);
+		super(false, HASH, iterations);
 	}
 	
 	@Override
 	public SHAHash optional()
 	{
-		return new SHAHash(true, getEncoding());
+		return new SHAHash(true, getIterations(), getEncoding());
 	}
 }

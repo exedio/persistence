@@ -22,9 +22,9 @@ import com.exedio.cope.Item;
 
 public class SHAItem extends Item
 {
-	static final SHAHash password = new SHAHash().optional();
-	static final SHAHash passwordLatin = new SHAHash("ISO-8859-1").optional();
-	static final SHAHash passwordMandatory = new SHAHash();
+	static final SHAHash password = new SHAHash(1).optional();
+	static final SHAHash passwordLatin = new SHAHash(1, "ISO-8859-1").optional();
+	static final SHAHash passwordMandatory = new SHAHash(1);
 
 	/**
 

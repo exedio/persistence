@@ -24,24 +24,24 @@ public final class SaltedSHAHash extends MessageDigestHash
 	
 	private static final String HASH = "SHA-512";
 
-	private SaltedSHAHash(final boolean optional, final String encoding)
+	private SaltedSHAHash(final boolean optional, final int iterations, final String encoding)
 	{
-		super(optional, HASH, 8, encoding);
+		super(optional, HASH, 8, iterations, encoding);
 	}
 
-	public SaltedSHAHash(final String encoding)
+	public SaltedSHAHash(final int iterations, final String encoding)
 	{
-		super(false, HASH, 8, encoding);
+		super(false, HASH, 8, iterations, encoding);
 	}
 
-	public SaltedSHAHash()
+	public SaltedSHAHash(final int iterations)
 	{
-		super(false, HASH, 8, "utf8");
+		super(false, HASH, 8, iterations, "utf8");
 	}
 	
 	@Override
 	public SaltedSHAHash optional()
 	{
-		return new SaltedSHAHash(true, getEncoding());
+		return new SaltedSHAHash(true, getIterations(), getEncoding());
 	}
 }

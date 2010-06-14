@@ -37,6 +37,7 @@ public class MessageDigestHash extends ByteHash
 	private final int algorithmLength;
 	private final int saltLength;
 	private java.util.Random saltSource;
+	private final int iterations;
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
@@ -44,9 +45,10 @@ public class MessageDigestHash extends ByteHash
 	public MessageDigestHash(
 			final boolean optional,
 			final String algorithm,
+			final int iterations,
 			final String encoding)
 	{
-		this(optional, algorithm, 0, encoding);
+		this(optional, algorithm, 0, iterations, encoding);
 	}
 	
 	/**
@@ -56,6 +58,7 @@ public class MessageDigestHash extends ByteHash
 			final boolean optional,
 			final String algorithm,
 			final int saltLength,
+			final int iterations,
 			final String encoding)
 	{
 		super(optional, algorithmName(algorithm), hashLength(algorithm)+saltLength, encoding);
@@ -63,8 +66,11 @@ public class MessageDigestHash extends ByteHash
 		this.algorithmLength = hashLength(algorithm);
 		this.saltLength = saltLength;
 		this.saltSource = saltLength>0 ? new SecureRandom() : null;
+		this.iterations = iterations;
 		if(saltLength<0)
 			throw new IllegalArgumentException("saltLength must be at least zero, but was " + saltLength);
+		if(iterations<1)
+			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 	
 	private static final int hashLength(final String algorithm)
@@ -88,15 +94,16 @@ public class MessageDigestHash extends ByteHash
 	 */
 	public MessageDigestHash(
 			final boolean optional,
-			final String algorithm)
+			final String algorithm,
+			final int iterations)
 	{
-		this(optional, algorithm, "utf8");
+		this(optional, algorithm, iterations, "utf8");
 	}
 	
 	@Override
 	public MessageDigestHash optional()
 	{
-		return new MessageDigestHash(true, algorithm, getEncoding());
+		return new MessageDigestHash(true, algorithm, iterations, getEncoding());
 	}
 	
 	/**
@@ -110,6 +117,11 @@ public class MessageDigestHash extends ByteHash
 		final java.util.Random result = this.saltSource;
 		this.saltSource = saltSource;
 		return result;
+	}
+	
+	public final int getIterations()
+	{
+		return iterations;
 	}
 	
 	@Override
@@ -134,11 +146,18 @@ public class MessageDigestHash extends ByteHash
 		try
 		{
 			messageDigest.digest(result, saltLength, algorithmLength);
+			
+			for(int i = 1; i<iterations; i++)
+			{
+				messageDigest.update(result, saltLength, algorithmLength);
+				messageDigest.digest(result, saltLength, algorithmLength);
+			}
 		}
 		catch(DigestException e)
 		{
 			throw new RuntimeException(e);
 		}
+		
 		return result;
 	}
 	
@@ -154,6 +173,20 @@ public class MessageDigestHash extends ByteHash
 		messageDigest.update(plainText);
 		
 		final byte[] result = messageDigest.digest();
+		
+		for(int i = 1; i<iterations; i++)
+		{
+			messageDigest.update(result);
+			try
+			{
+				messageDigest.digest(result, 0, result.length);
+			}
+			catch(DigestException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		
 		for(int i = 0; i<algorithmLength; i++)
 			if(result[i]!=hash[i+saltLength])
 				return false;

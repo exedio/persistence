@@ -82,6 +82,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.password.getInitialType());
 		assertContains(item.password.getInitialExceptions());
 		assertEquals("utf8", item.password.getEncoding());
+		assertEquals(1, item.password.getIterations());
 		
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
@@ -92,6 +93,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordLatin.getInitialType());
 		assertContains(item.passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
+		assertEquals(1, item.passwordLatin.getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -103,6 +105,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		assertEquals(1, item.passwordMandatory.getIterations());
 		
 		assertSerializedSame(item.password         , 384);
 		assertSerializedSame(item.passwordLatin    , 389);
@@ -120,7 +123,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MessageDigestHash(true, "NIXUS");
+			new MessageDigestHash(true, "NIXUS", 1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -130,7 +133,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MessageDigestHash(true, "SHA-512", -1, "utf8");
+			new MessageDigestHash(true, "SHA-512", -1, 0, "utf8");
 			fail();
 		}
 		catch(IllegalArgumentException e)
