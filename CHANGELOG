@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* implement fallback from MediaImageMagickFilter#get(Item) to MediaImageioFilter,
+	requires MediaImageMagickFilter#fallback to be restricted to MediaImageioFilter.
+	This breaks backwards API compatibility.
 * method PartOf#getParts gets a class token
 	This breaks backwards API compatibility.
 * changed the default for option cache.item.concurrentModificationDetection

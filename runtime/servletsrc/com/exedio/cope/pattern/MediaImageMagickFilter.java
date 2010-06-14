@@ -89,19 +89,19 @@ public class MediaImageMagickFilter extends MediaFilter
 	}
 	
 	private final Media source;
-	private final MediaFilter fallback;
+	private final MediaImageioFilter fallback;
 	private final String outputContentType;
 	private final String outputExtension;
 	private final String[] options;
 
-	public MediaImageMagickFilter(final Media source, final MediaFilter fallback, final String[] options)
+	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
 	{
 		this(source, fallback, "image/jpeg", options);
 	}
 	
 	public MediaImageMagickFilter(
 			final Media source,
-			final MediaFilter fallback,
+			final MediaImageioFilter fallback,
 			final String outputContentType,
 			final String[] options)
 	{
@@ -212,7 +212,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	public final byte[] get(final Item item) throws IOException
 	{
 		if(!isEnabled())
-			throw new RuntimeException("not yet implemented");
+			return fallback.get(item);
 		
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
