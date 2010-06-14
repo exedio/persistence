@@ -173,7 +173,7 @@ final class Generator
 					o.write(',');
 				o.write(lineSeparator);
 				o.write("\t\t\t\t");
-				o.write(e.getName());
+				o.write(e.getCanonicalName());
 			}
 			o.write(lineSeparator);
 		}
@@ -247,7 +247,7 @@ final class Generator
 				continue;
 			
 			o.write("\t * @throws ");
-			o.write(constructorException.getName());
+			o.write(constructorException.getCanonicalName());
 			o.write(' ');
 
 			boolean first = true;
@@ -447,7 +447,7 @@ final class Generator
 					if(comment!=null)
 					{
 						o.write("\t * @throws ");
-						o.write(e.getKey().getName());
+						o.write(e.getKey().getCanonicalName());
 						o.write(' ');
 						o.write(format(comment, arguments));
 						o.write(lineSeparator);
@@ -536,7 +536,7 @@ final class Generator
 					o.write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
-						o.write(((Class)parameter.getType()).getComponentType().getName());
+						o.write(((Class)parameter.getType()).getComponentType().getCanonicalName());
 						o.write("...");
 					}
 					else
