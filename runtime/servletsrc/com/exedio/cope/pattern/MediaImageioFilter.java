@@ -22,9 +22,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -41,6 +43,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 import com.sun.image.codec.jpeg.JPEGCodec;
 
 public abstract class MediaImageioFilter extends MediaFilter
@@ -98,6 +101,21 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+
+		result.add(
+			new Wrapper("get").
+			addComment("Returns the body of {0}.").
+			setReturn(byte[].class).
+			addThrows(IOException.class));
+		
+		return Collections.unmodifiableList(result);
+	}
+
+	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(imageReaderSpi.keySet());
@@ -141,6 +159,18 @@ public abstract class MediaImageioFilter extends MediaFilter
 		{
 			out.close();
 		}
+	}
+	
+	public final byte[] get(final Item item) throws IOException
+	{
+		final String contentType = source.getContentType(item);
+		if(contentType==null)
+			return null;
+		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
+		if(spi==null)
+			return null;
+		
+		return execute(item, contentType, spi).toByteArray();
 	}
 	
 	private final ByteArrayOutputStream execute(
