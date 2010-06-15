@@ -31,12 +31,12 @@ public final class SHAHash extends ByteHash
 
 	public SHAHash(final int iterations, final String encoding)
 	{
-		super(false, new MessageDigestHash(HASH, iterations), encoding);
+		super(false, new MessageDigestAlgorithm(HASH, iterations), encoding);
 	}
 
 	public SHAHash(final int iterations)
 	{
-		super(false, new MessageDigestHash(HASH, iterations));
+		super(false, new MessageDigestAlgorithm(HASH, iterations));
 	}
 	
 	@Override

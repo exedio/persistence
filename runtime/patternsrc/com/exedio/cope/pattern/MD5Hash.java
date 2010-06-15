@@ -26,17 +26,17 @@ public final class MD5Hash extends ByteHash
 
 	private MD5Hash(final boolean optional, final String encoding)
 	{
-		super(optional, new MessageDigestHash(HASH, 1), encoding);
+		super(optional, new MessageDigestAlgorithm(HASH, 1), encoding);
 	}
 
 	public MD5Hash(final String encoding)
 	{
-		super(false, new MessageDigestHash(HASH, 1), encoding);
+		super(false, new MessageDigestAlgorithm(HASH, 1), encoding);
 	}
 
 	public MD5Hash()
 	{
-		super(false, new MessageDigestHash(HASH, 1));
+		super(false, new MessageDigestAlgorithm(HASH, 1));
 	}
 	
 	@Override

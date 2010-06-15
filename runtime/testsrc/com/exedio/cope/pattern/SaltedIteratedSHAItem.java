@@ -53,9 +53,9 @@ public class SaltedIteratedSHAItem extends Item
 	{
 		final Random newRandom = new Random(seed);
 		final SecureRandom before =
-			(SecureRandom)((MessageDigestHash)hash.getAlgorithm()).setSaltSource(newRandom);
+			(SecureRandom)((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(newRandom);
 		hash.set(this, password);
-		Assert.assertSame(newRandom, ((MessageDigestHash)hash.getAlgorithm()).setSaltSource(before));
+		Assert.assertSame(newRandom, ((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(before));
 	}
 
 	/**

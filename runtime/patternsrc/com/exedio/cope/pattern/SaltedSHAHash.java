@@ -31,12 +31,12 @@ public final class SaltedSHAHash extends ByteHash
 
 	public SaltedSHAHash(final int iterations, final String encoding)
 	{
-		super(false, new MessageDigestHash(HASH, 8, iterations), encoding);
+		super(false, new MessageDigestAlgorithm(HASH, 8, iterations), encoding);
 	}
 
 	public SaltedSHAHash(final int iterations)
 	{
-		super(false, new MessageDigestHash(HASH, 8, iterations), "utf8");
+		super(false, new MessageDigestAlgorithm(HASH, 8, iterations), "utf8");
 	}
 	
 	@Override

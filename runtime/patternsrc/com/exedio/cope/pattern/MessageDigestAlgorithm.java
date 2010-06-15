@@ -29,7 +29,7 @@ import com.exedio.cope.util.MessageDigestUtil;
  *
  * @author Ralf Wiebicke
  */
-public final class MessageDigestHash implements ByteHash.Algorithm // TODO rename to MessageDigestAlgorithm
+public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 {
 	// TODO remove final on methods
 	private static final long serialVersionUID = 1l;
@@ -43,7 +43,7 @@ public final class MessageDigestHash implements ByteHash.Algorithm // TODO renam
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public MessageDigestHash(
+	public MessageDigestAlgorithm(
 			final String algorithm,
 			final int iterations)
 	{
@@ -53,7 +53,7 @@ public final class MessageDigestHash implements ByteHash.Algorithm // TODO renam
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public MessageDigestHash(
+	public MessageDigestAlgorithm(
 			final String algorithm,
 			final int saltLength,
 			final int iterations)
