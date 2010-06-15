@@ -31,7 +31,6 @@ import com.exedio.cope.util.MessageDigestUtil;
  */
 public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 {
-	// TODO remove final on methods
 	private static final long serialVersionUID = 1l;
 	
 	private final String algorithm;
@@ -69,7 +68,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 	
-	private static final int hashLength(final String algorithm)
+	private static int hashLength(final String algorithm)
 	{
 		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
 		
@@ -93,7 +92,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		return result;
 	}
 	
-	public final int getIterations()
+	public int getIterations()
 	{
 		return iterations;
 	}
@@ -108,7 +107,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		return saltLength + algorithmLength;
 	}
 	
-	public final byte[] hash(final byte[] plainText)
+	public byte[] hash(final byte[] plainText)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
 		messageDigest.reset();
@@ -144,7 +143,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		return result;
 	}
 	
-	public final boolean check(final byte[] plainText, final byte[] hash)
+	public boolean check(final byte[] plainText, final byte[] hash)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
 		messageDigest.reset();
