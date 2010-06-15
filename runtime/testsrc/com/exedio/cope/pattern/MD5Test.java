@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -117,16 +116,6 @@ public class MD5Test extends AbstractRuntimeTest
 		{
 			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
 			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
-		}
-		try
-		{
-			new MessageDigestAlgorithm("NIXUS", 1);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 
 		assertNull(item.getPasswordMD5());

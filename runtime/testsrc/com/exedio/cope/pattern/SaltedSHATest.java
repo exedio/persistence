@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -120,25 +119,6 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		{
 			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
 			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
-		}
-		try
-		{
-			new MessageDigestAlgorithm("NIXUS", 1);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
-		}
-		try
-		{
-			new MessageDigestAlgorithm("SHA-512", -1, 0);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
 		}
 
 		assertNull(item.getPasswordSHA512());

@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(FindItemPatternTest.class);
+		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(SHATest.class);
