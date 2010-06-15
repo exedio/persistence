@@ -59,19 +59,19 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testSalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 8, 100);
+			new MessageDigestAlgorithm("SHA-512", 8, 5);
 		assertEquals("SHA512", a.name());
 		assertEquals(72, a.length());
-		assertEquals(100, a.getIterations());
+		assertEquals(5, a.getIterations());
 	}
 	
 	public void testUnsalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 100);
+			new MessageDigestAlgorithm("SHA-512", 0, 5);
 		assertEquals("SHA512", a.name());
 		assertEquals(64, a.length());
-		assertEquals(100, a.getIterations());
+		assertEquals(5, a.getIterations());
 	}
 	
 	public void testNoniterated()
