@@ -88,11 +88,6 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		return result;
 	}
 	
-	public int getIterations()
-	{
-		return iterations;
-	}
-	
 	public String name()
 	{
 		return digest.replaceAll("-", "");
@@ -168,5 +163,10 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			if(result[i]!=hash[i+saltLength])
 				return false;
 		return true;
+	}
+	
+	public int getIterations()
+	{
+		return iterations;
 	}
 }
