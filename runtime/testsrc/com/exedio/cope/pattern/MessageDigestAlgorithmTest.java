@@ -63,6 +63,8 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals("SHA512", a.name());
 		assertEquals(72, a.length());
 		assertEquals(5, a.getIterations());
+		
+		// TODO test hash and check
 	}
 	
 	public void testUnsalted()
