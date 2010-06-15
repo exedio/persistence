@@ -55,4 +55,40 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			assertEquals("iterations must be at least one, but was 0", e.getMessage());
 		}
 	}
+	
+	public void testSalted()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 8, 100);
+		assertEquals("SHA512", a.name());
+		assertEquals(72, a.length());
+		assertEquals(100, a.getIterations());
+	}
+	
+	public void testUnsalted()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 0, 100);
+		assertEquals("SHA512", a.name());
+		assertEquals(64, a.length());
+		assertEquals(100, a.getIterations());
+	}
+	
+	public void testNoniterated()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 8, 1);
+		assertEquals("SHA512", a.name());
+		assertEquals(72, a.length());
+		assertEquals(1, a.getIterations());
+	}
+	
+	public void testUnsaltedNoniterated()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 0, 1);
+		assertEquals("SHA512", a.name());
+		assertEquals(64, a.length());
+		assertEquals(1, a.getIterations());
+	}
 }
