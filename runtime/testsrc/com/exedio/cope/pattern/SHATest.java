@@ -79,7 +79,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.password.getInitialType());
 		assertContains(item.password.getInitialExceptions());
 		assertEquals("utf8", item.password.getEncoding());
-		assertEquals(1, item.password.getIterations());
+		assertEquals(1, ((MessageDigestHash)item.password.getAlgorithm()).getIterations());
 		
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
@@ -90,7 +90,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordLatin.getInitialType());
 		assertContains(item.passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
-		assertEquals(1, item.passwordLatin.getIterations());
+		assertEquals(1, ((MessageDigestHash)item.passwordLatin.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -102,7 +102,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
-		assertEquals(1, item.passwordMandatory.getIterations());
+		assertEquals(1, ((MessageDigestHash)item.passwordMandatory.getAlgorithm()).getIterations());
 		
 		assertSerializedSame(item.password         , 372);
 		assertSerializedSame(item.passwordLatin    , 377);
@@ -120,7 +120,7 @@ public class SHATest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MessageDigestHash(true, "NIXUS", 1);
+			new MessageDigestHash("NIXUS", 1);
 			fail();
 		}
 		catch(IllegalArgumentException e)

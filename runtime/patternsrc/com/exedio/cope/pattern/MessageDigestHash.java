@@ -29,8 +29,9 @@ import com.exedio.cope.util.MessageDigestUtil;
  *
  * @author Ralf Wiebicke
  */
-public class MessageDigestHash extends ByteHash
+public final class MessageDigestHash implements ByteHash.Algorithm // TODO rename to MessageDigestAlgorithm
 {
+	// TODO remove final on methods
 	private static final long serialVersionUID = 1l;
 	
 	private final String algorithm;
@@ -43,25 +44,20 @@ public class MessageDigestHash extends ByteHash
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public MessageDigestHash(
-			final boolean optional,
 			final String algorithm,
-			final int iterations,
-			final String encoding)
+			final int iterations)
 	{
-		this(optional, algorithm, 0, iterations, encoding);
+		this(algorithm, 0, iterations);
 	}
 	
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public MessageDigestHash(
-			final boolean optional,
 			final String algorithm,
 			final int saltLength,
-			final int iterations,
-			final String encoding)
+			final int iterations)
 	{
-		super(optional, algorithmName(algorithm), hashLength(algorithm)+saltLength, encoding);
 		this.algorithm = algorithm;
 		this.algorithmLength = hashLength(algorithm);
 		this.saltLength = saltLength;
@@ -83,28 +79,6 @@ public class MessageDigestHash extends ByteHash
 		
 		return digestLength;
 	}
-
-	private static final String algorithmName(final String algorithm)
-	{
-		return algorithm.replaceAll("-", "");
-	}
-	
-	/**
-	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	public MessageDigestHash(
-			final boolean optional,
-			final String algorithm,
-			final int iterations)
-	{
-		this(optional, algorithm, iterations, "utf8");
-	}
-	
-	@Override
-	public MessageDigestHash optional()
-	{
-		return new MessageDigestHash(true, algorithm, iterations, getEncoding());
-	}
 	
 	/**
 	 * For tests only !!!
@@ -124,7 +98,16 @@ public class MessageDigestHash extends ByteHash
 		return iterations;
 	}
 	
-	@Override
+	public String name()
+	{
+		return algorithm.replaceAll("-", "");
+	}
+	
+	public int length()
+	{
+		return saltLength + algorithmLength;
+	}
+	
 	public final byte[] hash(final byte[] plainText)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
@@ -161,7 +144,6 @@ public class MessageDigestHash extends ByteHash
 		return result;
 	}
 	
-	@Override
 	public final boolean check(final byte[] plainText, final byte[] hash)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);

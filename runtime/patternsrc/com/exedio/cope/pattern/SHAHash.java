@@ -18,30 +18,30 @@
 
 package com.exedio.cope.pattern;
 
-public final class SHAHash extends MessageDigestHash
+public final class SHAHash extends ByteHash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "SHA-512";
 
-	private SHAHash(final boolean optional, final int iterations, final String encoding)
+	private SHAHash(final boolean optional, final Algorithm algorithm, final String encoding)
 	{
-		super(optional, HASH, iterations, encoding);
+		super(optional, algorithm, encoding);
 	}
 
 	public SHAHash(final int iterations, final String encoding)
 	{
-		super(false, HASH, iterations, encoding);
+		super(false, new MessageDigestHash(HASH, iterations), encoding);
 	}
 
 	public SHAHash(final int iterations)
 	{
-		super(false, HASH, iterations);
+		super(false, new MessageDigestHash(HASH, iterations));
 	}
 	
 	@Override
 	public SHAHash optional()
 	{
-		return new SHAHash(true, getIterations(), getEncoding());
+		return new SHAHash(true, getAlgorithm(), getEncoding());
 	}
 }

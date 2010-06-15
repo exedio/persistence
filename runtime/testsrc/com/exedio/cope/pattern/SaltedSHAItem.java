@@ -53,9 +53,9 @@ public class SaltedSHAItem extends Item
 	{
 		final Random newRandom = new Random(seed);
 		final SecureRandom before =
-			(SecureRandom)hash.setSaltSource(newRandom);
+			(SecureRandom)((MessageDigestHash)hash.getAlgorithm()).setSaltSource(newRandom);
 		hash.set(this, password);
-		Assert.assertSame(newRandom, hash.setSaltSource(before));
+		Assert.assertSame(newRandom, ((MessageDigestHash)hash.getAlgorithm()).setSaltSource(before));
 	}
 
 	/**

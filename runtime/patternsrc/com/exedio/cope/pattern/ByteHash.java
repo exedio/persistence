@@ -32,19 +32,20 @@ import com.exedio.cope.util.Hex;
  *
  * @author Ralf Wiebicke
  */
-public abstract class ByteHash extends Hash
+public class ByteHash extends Hash // TODO make final
 {
 	private static final long serialVersionUID = 1l;
 	
+	private final Algorithm algorithm;
 	private final String encoding;
 
 	public ByteHash(
 			final boolean optional,
-			final String algorithmName,
-			final int hashLength,
+			final Algorithm algorithm,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), hashLength), algorithmName);
+		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm.length()), algorithm.name());
+		this.algorithm = algorithm;
 		this.encoding = encoding;
 
 		try
@@ -69,10 +70,20 @@ public abstract class ByteHash extends Hash
 	
 	public ByteHash(
 			final boolean optional,
-			final String algorithm,
-			final int hashLength)
+			final Algorithm algorithm)
 	{
-		this(optional, algorithm, hashLength, "utf8");
+		this(optional, algorithm, "utf8");
+	}
+	
+	@Override
+	public ByteHash optional()
+	{
+		return new ByteHash(true, algorithm, encoding);
+	}
+	
+	public final Algorithm getAlgorithm()
+	{
+		return algorithm;
 	}
 	
 	public final String getEncoding()
@@ -99,7 +110,7 @@ public abstract class ByteHash extends Hash
 	{
 		try
 		{
-			return Hex.encodeLower(hash(encode(plainText)));
+			return Hex.encodeLower(algorithm.hash(encode(plainText)));
 		}
 		catch(UnsupportedEncodingException e)
 		{
@@ -112,7 +123,7 @@ public abstract class ByteHash extends Hash
 	{
 		try
 		{
-			return check(encode(plainText), Hex.decodeLower(hash));
+			return algorithm.check(encode(plainText), Hex.decodeLower(hash));
 		}
 		catch(UnsupportedEncodingException e)
 		{
@@ -120,6 +131,11 @@ public abstract class ByteHash extends Hash
 		}
 	}
 	
-	public abstract byte[] hash(final byte[] plainText);
-	public abstract boolean check(byte[] plainText, byte[] hash);
+	interface Algorithm
+	{
+		String name();
+		int length();
+		byte[] hash(byte[] plainText);
+		boolean check(byte[] plainText, byte[] hash);
+	}
 }

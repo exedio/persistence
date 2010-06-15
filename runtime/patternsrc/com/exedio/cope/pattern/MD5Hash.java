@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-public final class MD5Hash extends MessageDigestHash
+public final class MD5Hash extends ByteHash
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -26,17 +26,17 @@ public final class MD5Hash extends MessageDigestHash
 
 	private MD5Hash(final boolean optional, final String encoding)
 	{
-		super(optional, HASH, 1, encoding);
+		super(optional, new MessageDigestHash(HASH, 1), encoding);
 	}
 
 	public MD5Hash(final String encoding)
 	{
-		super(false, HASH, 1, encoding);
+		super(false, new MessageDigestHash(HASH, 1), encoding);
 	}
 
 	public MD5Hash()
 	{
-		super(false, HASH, 1);
+		super(false, new MessageDigestHash(HASH, 1));
 	}
 	
 	@Override
