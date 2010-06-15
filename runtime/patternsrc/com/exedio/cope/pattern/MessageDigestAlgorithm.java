@@ -33,32 +33,32 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final String algorithm;
-	private final int algorithmLength;
+	private final String digest;
+	private final int digestLength;
 	private final int saltLength;
 	private java.util.Random saltSource;
 	private final int iterations;
 
 	/**
-	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public MessageDigestAlgorithm(
-			final String algorithm,
+			final String digest,
 			final int iterations)
 	{
-		this(algorithm, 0, iterations);
+		this(digest, 0, iterations);
 	}
 	
 	/**
-	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public MessageDigestAlgorithm(
-			final String algorithm,
+			final String digest,
 			final int saltLength,
 			final int iterations)
 	{
-		this.algorithm = algorithm;
-		this.algorithmLength = hashLength(algorithm);
+		this.digest = digest;
+		this.digestLength = hashLength(digest);
 		this.saltLength = saltLength;
 		this.saltSource = saltLength>0 ? new SecureRandom() : null;
 		this.iterations = iterations;
@@ -99,20 +99,20 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 	
 	public String name()
 	{
-		return algorithm.replaceAll("-", "");
+		return digest.replaceAll("-", "");
 	}
 	
 	public int length()
 	{
-		return saltLength + algorithmLength;
+		return saltLength + digestLength;
 	}
 	
 	public byte[] hash(final byte[] plainText)
 	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		messageDigest.reset();
 		
-		final byte[] result = new byte[saltLength + algorithmLength];
+		final byte[] result = new byte[saltLength + digestLength];
 		
 		// http://www.owasp.org/index.php/Hashing_Java
 		if(saltLength>0)
@@ -127,12 +127,12 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		
 		try
 		{
-			messageDigest.digest(result, saltLength, algorithmLength);
+			messageDigest.digest(result, saltLength, digestLength);
 			
 			for(int i = 1; i<iterations; i++)
 			{
-				messageDigest.update(result, saltLength, algorithmLength);
-				messageDigest.digest(result, saltLength, algorithmLength);
+				messageDigest.update(result, saltLength, digestLength);
+				messageDigest.digest(result, saltLength, digestLength);
 			}
 		}
 		catch(DigestException e)
@@ -145,7 +145,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 	
 	public boolean check(final byte[] plainText, final byte[] hash)
 	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		messageDigest.reset();
 		
 		if(saltLength>0)
@@ -168,7 +168,7 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			}
 		}
 		
-		for(int i = 0; i<algorithmLength; i++)
+		for(int i = 0; i<digestLength; i++)
 			if(result[i]!=hash[i+saltLength])
 				return false;
 		return true;
