@@ -35,8 +35,10 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 	
 	private final String digest;
 	private final int digestLength;
+	
 	private final int saltLength;
 	private java.util.Random saltSource;
+	
 	private final int iterations;
 
 	/**
