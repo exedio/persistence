@@ -68,9 +68,9 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 	
-	private static int hashLength(final String algorithm)
+	private static int hashLength(final String digest)
 	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		
 		final int digestLength = messageDigest.getDigestLength();
 		if(digestLength<=0)
