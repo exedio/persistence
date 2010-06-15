@@ -20,6 +20,7 @@
 			<Class name="com.exedio.cope.pattern.CompositeField" />
 			<Class name="com.exedio.cope.pattern.JavaView" />
 			<Class name="com.exedio.cope.pattern.Media" />
+			<Class name="com.exedio.cope.pattern.ByteHash" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 			<Class name="com.exedio.cope.console.ConsoleServlet" />
