@@ -28,7 +28,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	{
 		try
 		{
-			new MessageDigestAlgorithm("NIXUS", 1);
+			new MessageDigestAlgorithm("NIXUS", -1, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
