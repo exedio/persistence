@@ -58,7 +58,12 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			final int iterations)
 	{
 		this.digest = digest;
-		this.digestLength = hashLength(digest);
+		
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
+		this.digestLength = messageDigest.getDigestLength();
+		if(digestLength<=0)
+			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
+		
 		this.saltLength = saltLength;
 		this.saltSource = saltLength>0 ? new SecureRandom() : null;
 		this.iterations = iterations;
@@ -66,17 +71,6 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 			throw new IllegalArgumentException("saltLength must be at least zero, but was " + saltLength);
 		if(iterations<1)
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
-	}
-	
-	private static int hashLength(final String digest)
-	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		
-		final int digestLength = messageDigest.getDigestLength();
-		if(digestLength<=0)
-			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
-		
-		return digestLength;
 	}
 	
 	/**
