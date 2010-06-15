@@ -70,9 +70,9 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 	
 	private static int hashLength(final String algorithm)
 	{
-		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
 		
-		final int digestLength = digest.getDigestLength();
+		final int digestLength = messageDigest.getDigestLength();
 		if(digestLength<=0)
 			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
 		
