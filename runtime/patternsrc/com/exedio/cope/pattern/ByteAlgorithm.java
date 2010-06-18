@@ -132,7 +132,7 @@ public final class ByteAlgorithm implements Hash.Algorithm
 		}
 	}
 	
-	interface Algorithm
+	public interface Algorithm
 	{
 		String name();
 		int length();

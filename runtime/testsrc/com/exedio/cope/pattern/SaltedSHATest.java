@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -110,17 +109,6 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordLatin    , 389);
 		assertSerializedSame(item.passwordMandatory, 393);
 		
-		try
-		{
-			new MD5Hash("nixus");
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
-		}
-
 		assertNull(item.getPasswordSHA512s8());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));

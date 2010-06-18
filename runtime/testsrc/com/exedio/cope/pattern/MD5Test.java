@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -107,17 +106,6 @@ public class MD5Test extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordLatin    , 377);
 		assertSerializedSame(item.passwordMandatory, 381);
 		
-		try
-		{
-			new MD5Hash("nixus");
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
-		}
-
 		assertNull(item.getPasswordMD5());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));
