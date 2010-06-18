@@ -16,11 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope;
 
 import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.MessageDigestAlgorithm;
 
 public class MessageDigestAlgorithmTest extends CopeAssert
 {
