@@ -24,13 +24,13 @@ public final class SHAHash extends Hash
 	
 	private static final String HASH = "SHA-512";
 
-	public SHAHash(final int iterations, final String encoding)
+	public SHAHash(final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, iterations), encoding));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
 	}
 
-	public SHAHash(final int iterations)
+	public SHAHash()
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, iterations)));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));
 	}
 }
