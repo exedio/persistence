@@ -111,24 +111,24 @@ public class Hash extends Pattern implements Settable<String>
 		String name();
 		StringField newStorage(boolean optional);
 		void reduceInitialExceptions(Set<Class<? extends Throwable>> exceptions);
-
-	/**
-	 * Returns a hash for the given plain text.
-	 * The result is not required to be deterministic -
-	 * this means, multiple calls for the same plain text
-	 * do not have to return the same hash.
-	 * This is especially true for salted hashs.
-	 * @param plainText the text to be hashed. Is never null.
-	 * @return the hash of plainText. Must never return null.
-	 */
-	String hash(String plainText);
-	
-	/**
-	 * Returns whether the given plain text matches the given hash.
-	 * @param plainText the text to be hashed. Is never null.
-	 * @param hash the hash of plainText. Is never null.
-	 */
-	boolean check(final String plainText, final String hash);
+		
+		/**
+		 * Returns a hash for the given plain text.
+		 * The result is not required to be deterministic -
+		 * this means, multiple calls for the same plain text
+		 * do not have to return the same hash.
+		 * This is especially true for salted hashs.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @return the hash of plainText. Must never return null.
+		 */
+		String hash(String plainText);
+		
+		/**
+		 * Returns whether the given plain text matches the given hash.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @param hash the hash of plainText. Is never null.
+		 */
+		boolean check(final String plainText, final String hash);
 	}
 	
 	public final Hash optional()

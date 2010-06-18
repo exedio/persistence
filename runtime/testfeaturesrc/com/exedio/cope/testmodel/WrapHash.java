@@ -61,13 +61,13 @@ public class WrapHash extends Hash
 			// no reductions
 		}
 		
-	public String hash(final String plainText)
-	{
-		if(plainText==null)
-			throw new NullPointerException();
-		else
-			return '[' + plainText + ']';
-	}
+		public String hash(final String plainText)
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+			else
+				return '[' + plainText + ']';
+		}
 		
 		public boolean check(final String plainText, final String hash)
 		{
