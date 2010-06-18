@@ -24,11 +24,23 @@ public final class SHAHash extends Hash
 	
 	private static final String HASH = "SHA-512";
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public SHAHash(final String encoding)
 	{
 		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
 	}
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public SHAHash()
 	{
 		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));

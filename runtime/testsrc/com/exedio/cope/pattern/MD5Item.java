@@ -22,8 +22,11 @@ import com.exedio.cope.Item;
 
 public class MD5Item extends Item
 {
+	@SuppressWarnings("deprecation")
 	static final Hash password = new MD5Hash().optional();
+	@SuppressWarnings("deprecation")
 	static final Hash passwordLatin = new MD5Hash("ISO-8859-1").optional();
+	@SuppressWarnings("deprecation")
 	static final MD5Hash passwordMandatory = new MD5Hash();
 
 	/**

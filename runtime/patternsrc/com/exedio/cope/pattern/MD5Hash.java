@@ -24,11 +24,23 @@ public final class MD5Hash extends Hash
 	
 	private static final String HASH = "MD5";
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public MD5Hash(final String encoding)
 	{
 		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
 	}
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public MD5Hash()
 	{
 		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));
