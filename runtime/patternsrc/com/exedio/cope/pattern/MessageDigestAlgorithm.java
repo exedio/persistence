@@ -160,17 +160,17 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 		
 		final byte[] result = messageDigest.digest();
 		
-		for(int i = 1; i<iterations; i++)
+		try
 		{
-			messageDigest.update(result);
-			try
+			for(int i = 1; i<iterations; i++)
 			{
+				messageDigest.update(result);
 				messageDigest.digest(result, 0, result.length);
 			}
-			catch(DigestException e)
-			{
-				throw new RuntimeException(e);
-			}
+		}
+		catch(DigestException e)
+		{
+			throw new RuntimeException(e);
 		}
 		
 		for(int i = 0; i<digestLength; i++)
