@@ -69,6 +69,18 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		// TODO test hash and check
 	}
 	
+	public void testSaltedMinimal()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 1, 2);
+		assertEquals("SHA512s1i2", a.name());
+		assertEquals(65, a.length());
+		assertEquals(1, a.getSaltLength());
+		assertEquals(2, a.getIterations());
+		
+		// TODO test hash and check
+	}
+	
 	public void testUnsalted()
 	{
 		final MessageDigestAlgorithm a =
