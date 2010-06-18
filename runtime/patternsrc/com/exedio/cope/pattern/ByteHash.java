@@ -78,12 +78,6 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 		return s.getBytes(encoding);
 	}
 	
-	public void reduceInitialExceptions(final Set<Class<? extends Throwable>> result)
-	{
-		result.remove(StringLengthViolationException.class);
-		result.remove(StringCharSetViolationException.class);
-	}
-	
 	public String name()
 	{
 		return algorithm.name();
@@ -98,6 +92,12 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 		if(optional)
 			result = result.optional();
 		return result;
+	}
+	
+	public void reduceInitialExceptions(final Set<Class<? extends Throwable>> result)
+	{
+		result.remove(StringLengthViolationException.class);
+		result.remove(StringCharSetViolationException.class);
 	}
 	
 	public String hash(final String plainText)
