@@ -25,7 +25,6 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
@@ -218,8 +217,7 @@ public class Hash extends Pattern implements Settable<String>
 	
 	public final Condition isNull(final Join join)
 	{
-		final Function<String> boundStorage = storage.bind(join);
-		return boundStorage.isNull();
+		return storage.bind(join).isNull();
 	}
 
 	public final Condition isNotNull()
