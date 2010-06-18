@@ -26,11 +26,11 @@ public final class SaltedSHAHash extends Hash
 
 	public SaltedSHAHash(final int iterations, final String encoding)
 	{
-		super(new ByteHash(new MessageDigestAlgorithm(HASH, 8, iterations), encoding));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 8, iterations), encoding));
 	}
 
 	public SaltedSHAHash(final int iterations)
 	{
-		super(new ByteHash(new MessageDigestAlgorithm(HASH, 8, iterations)));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 8, iterations)));
 	}
 }

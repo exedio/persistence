@@ -33,14 +33,14 @@ import com.exedio.cope.util.Hex;
  *
  * @author Ralf Wiebicke
  */
-public final class ByteHash implements Hash.Algorithm // TODO rename
+public final class ByteAlgorithm implements Hash.Algorithm
 {
 	private static final long serialVersionUID = 1l;
 	
 	private final Algorithm algorithm;
 	private final String encoding;
 
-	public ByteHash(
+	public ByteAlgorithm(
 			final Algorithm algorithm,
 			final String encoding)
 	{
@@ -57,7 +57,7 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 		}
 	}
 	
-	public ByteHash(
+	public ByteAlgorithm(
 			final Algorithm algorithm)
 	{
 		this(algorithm, "utf8");

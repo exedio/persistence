@@ -26,11 +26,11 @@ public final class SHAHash extends Hash
 
 	public SHAHash(final int iterations, final String encoding)
 	{
-		super(new ByteHash(new MessageDigestAlgorithm(HASH, iterations), encoding));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, iterations), encoding));
 	}
 
 	public SHAHash(final int iterations)
 	{
-		super(new ByteHash(new MessageDigestAlgorithm(HASH, iterations)));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, iterations)));
 	}
 }
