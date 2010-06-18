@@ -100,11 +100,6 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 		return algorithm.name();
 	}
 	
-	public int length()
-	{
-		return 2 * algorithm.length(); // factor two is because hex encoding needs two characters per byte
-	}
-	
 	public String hash(final String plainText)
 	{
 		try
