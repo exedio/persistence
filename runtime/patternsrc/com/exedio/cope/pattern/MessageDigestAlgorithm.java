@@ -173,6 +173,11 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 		return true;
 	}
 	
+	public int getSaltLength()
+	{
+		return saltLength;
+	}
+	
 	public int getIterations()
 	{
 		return iterations;

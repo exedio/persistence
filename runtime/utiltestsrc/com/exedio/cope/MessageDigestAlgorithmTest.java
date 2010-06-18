@@ -63,6 +63,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", 8, 5);
 		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
+		assertEquals(8, a.getSaltLength());
 		assertEquals(5, a.getIterations());
 		
 		// TODO test hash and check
@@ -74,6 +75,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", 0, 5);
 		assertEquals("SHA512i5", a.name());
 		assertEquals(64, a.length());
+		assertEquals(0, a.getSaltLength());
 		assertEquals(5, a.getIterations());
 	}
 	
@@ -83,6 +85,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", 8, 1);
 		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
+		assertEquals(8, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 	}
 	
@@ -92,6 +95,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", 0, 1);
 		assertEquals("SHA512", a.name());
 		assertEquals(64, a.length());
+		assertEquals(0, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 	}
 }
