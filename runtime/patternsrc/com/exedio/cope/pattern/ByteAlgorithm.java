@@ -102,6 +102,9 @@ public final class ByteAlgorithm implements Hash.Algorithm
 	
 	public String hash(final String plainText)
 	{
+		if(plainText==null)
+			throw new NullPointerException();
+		
 		try
 		{
 			return Hex.encodeLower(algorithm.hash(encode(plainText)));
@@ -114,6 +117,11 @@ public final class ByteAlgorithm implements Hash.Algorithm
 	
 	public boolean check(final String plainText, final String hash)
 	{
+		if(plainText==null)
+			throw new NullPointerException();
+		if(hash==null)
+			throw new NullPointerException();
+		
 		try
 		{
 			return algorithm.check(encode(plainText), Hex.decodeLower(hash));

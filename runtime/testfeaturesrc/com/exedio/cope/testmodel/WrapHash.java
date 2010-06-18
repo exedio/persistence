@@ -65,12 +65,17 @@ public class WrapHash extends Hash
 		{
 			if(plainText==null)
 				throw new NullPointerException();
-			else
-				return '[' + plainText + ']';
+			
+			return '[' + plainText + ']';
 		}
 		
 		public boolean check(final String plainText, final String hash)
 		{
+			if(plainText==null)
+				throw new NullPointerException();
+			if(hash==null)
+				throw new NullPointerException();
+			
 			return hash(plainText).equals(hash);
 		}
 	};

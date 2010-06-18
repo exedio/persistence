@@ -108,6 +108,9 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 	
 	public byte[] hash(final byte[] plainText)
 	{
+		if(plainText==null)
+			throw new NullPointerException();
+		
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		messageDigest.reset();
 		
@@ -144,6 +147,11 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 	
 	public boolean check(final byte[] plainText, final byte[] hash)
 	{
+		if(plainText==null)
+			throw new NullPointerException();
+		if(hash==null)
+			throw new NullPointerException();
+		
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		messageDigest.reset();
 		
