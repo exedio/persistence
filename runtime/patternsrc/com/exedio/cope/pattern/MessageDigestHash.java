@@ -23,14 +23,15 @@ public final class MessageDigestHash extends Hash
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "SHA-512";
+	private static final int SALT_LENGTH = 8;
 
 	public MessageDigestHash(final int iterations, final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 8, iterations), encoding));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, SALT_LENGTH, iterations), encoding));
 	}
 
 	public MessageDigestHash(final int iterations)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 8, iterations)));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, SALT_LENGTH, iterations)));
 	}
 }
