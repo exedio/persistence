@@ -33,7 +33,7 @@ import com.exedio.cope.util.Hex;
  *
  * @author Ralf Wiebicke
  */
-public final class ByteHash implements Hash.Algorithm // TODO remove finals, TODO rename
+public final class ByteHash implements Hash.Algorithm // TODO rename
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -62,12 +62,12 @@ public final class ByteHash implements Hash.Algorithm // TODO remove finals, TOD
 		return length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm.length());
 	}
 	
-	private static final StringField optional(final StringField f, final boolean optional)
+	private static StringField optional(final StringField f, final boolean optional)
 	{
 		return optional ? f.optional() : f;
 	}
 	
-	private static final StringField length(final StringField f, final int hashLength)
+	private static StringField length(final StringField f, final int hashLength)
 	{
 		return f.lengthExact(2 * hashLength); // factor two is because hex encoding needs two characters per byte
 	}
@@ -78,17 +78,17 @@ public final class ByteHash implements Hash.Algorithm // TODO remove finals, TOD
 		this(algorithm, "utf8");
 	}
 	
-	public final Algorithm getAlgorithm()
+	public Algorithm getAlgorithm()
 	{
 		return algorithm;
 	}
 	
-	public final String getEncoding()
+	public String getEncoding()
 	{
 		return encoding;
 	}
 	
-	private final byte[] encode(final String s) throws UnsupportedEncodingException
+	private byte[] encode(final String s) throws UnsupportedEncodingException
 	{
 		return s.getBytes(encoding);
 	}
@@ -109,7 +109,7 @@ public final class ByteHash implements Hash.Algorithm // TODO remove finals, TOD
 		return 2 * algorithm.length(); // factor two is because hex encoding needs two characters per byte
 	}
 	
-	public final String hash(final String plainText)
+	public String hash(final String plainText)
 	{
 		try
 		{
@@ -121,7 +121,7 @@ public final class ByteHash implements Hash.Algorithm // TODO remove finals, TOD
 		}
 	}
 	
-	public final boolean check(final String plainText, final String hash)
+	public boolean check(final String plainText, final String hash)
 	{
 		try
 		{
