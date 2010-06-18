@@ -127,7 +127,7 @@ public class Hash extends Pattern implements Settable<String>
 		 * @param plainText the text to be hashed. Is never null.
 		 * @param hash the hash of plainText. Is never null.
 		 */
-		boolean check(final String plainText, final String hash);
+		boolean check(String plainText, String hash);
 	}
 	
 	public final Hash optional()
