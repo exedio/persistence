@@ -40,16 +40,6 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 	private java.util.Random saltSource;
 	
 	private final int iterations;
-
-	/**
-	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	public MessageDigestAlgorithm(
-			final String digest,
-			final int iterations)
-	{
-		this(digest, 0, iterations);
-	}
 	
 	/**
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.

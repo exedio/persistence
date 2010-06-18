@@ -26,11 +26,11 @@ public final class MD5Hash extends Hash
 
 	public MD5Hash(final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 1), encoding));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
 	}
 
 	public MD5Hash()
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 1)));
+		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));
 	}
 }
