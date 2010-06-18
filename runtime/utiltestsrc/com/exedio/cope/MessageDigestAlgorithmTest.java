@@ -61,7 +61,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 8, 5);
-		assertEquals("SHA512", a.name());
+		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
 		assertEquals(5, a.getIterations());
 		
@@ -72,7 +72,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 5);
-		assertEquals("SHA512", a.name());
+		assertEquals("SHA512i5", a.name());
 		assertEquals(64, a.length());
 		assertEquals(5, a.getIterations());
 	}
@@ -81,7 +81,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 8, 1);
-		assertEquals("SHA512", a.name());
+		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
 		assertEquals(1, a.getIterations());
 	}

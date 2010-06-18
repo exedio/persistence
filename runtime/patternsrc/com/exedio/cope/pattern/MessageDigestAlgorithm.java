@@ -90,7 +90,15 @@ public final class MessageDigestAlgorithm implements ByteHash.Algorithm
 	
 	public String name()
 	{
-		return digest.replaceAll("-", "");
+		final StringBuilder bf = new StringBuilder();
+		bf.append(digest.replaceAll("-", ""));
+		if(saltLength>0)
+			bf.append('s').
+				append(saltLength);
+		if(iterations>1)
+			bf.append('i').
+				append(iterations);
+		return bf.toString();
 	}
 	
 	public int length()
