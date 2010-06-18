@@ -57,17 +57,6 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 		}
 	}
 	
-	public StringField newStorage(final boolean optional)
-	{
-		StringField result =
-			new StringField().
-				charSet(CharSet.HEX_LOWER).
-				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
-		if(optional)
-			result = result.optional();
-		return result;
-	}
-	
 	public ByteHash(
 			final Algorithm algorithm)
 	{
@@ -98,6 +87,17 @@ public final class ByteHash implements Hash.Algorithm // TODO rename
 	public String name()
 	{
 		return algorithm.name();
+	}
+	
+	public StringField newStorage(final boolean optional)
+	{
+		StringField result =
+			new StringField().
+				charSet(CharSet.HEX_LOWER).
+				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
+		if(optional)
+			result = result.optional();
+		return result;
 	}
 	
 	public String hash(final String plainText)
