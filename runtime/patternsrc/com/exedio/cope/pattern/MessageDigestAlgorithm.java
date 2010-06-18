@@ -112,7 +112,6 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 			throw new NullPointerException();
 		
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		messageDigest.reset();
 		
 		final byte[] result = new byte[saltLength + digestLength];
 		
@@ -153,7 +152,6 @@ public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
 			throw new NullPointerException();
 		
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		messageDigest.reset();
 		
 		if(saltLength>0)
 			messageDigest.update(hash, 0, saltLength);
