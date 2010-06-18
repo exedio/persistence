@@ -28,11 +28,11 @@ import com.exedio.cope.Item;
 public class SaltedIteratedSHAItem extends Item
 {
 	/** @cope.set none */
-	static final Hash password = new SaltedSHAHash(5).optional();
+	static final Hash password = new MessageDigestHash(5).optional();
 	/** @cope.set none */
-	static final Hash passwordLatin = new SaltedSHAHash(5, "ISO-8859-1").optional();
+	static final Hash passwordLatin = new MessageDigestHash(5, "ISO-8859-1").optional();
 	/** @cope.set none */
-	static final SaltedSHAHash passwordMandatory = new SaltedSHAHash(5);
+	static final MessageDigestHash passwordMandatory = new MessageDigestHash(5);
 	
 	void setPassword(final String password)
 	{
