@@ -47,11 +47,9 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.NumberFunction;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
-import com.exedio.cope.pattern.Hash;
 
 final class JavaRepository
 {
@@ -280,9 +278,6 @@ final class JavaRepository
 			if(superResult!=null)
 				return superResult;
 			
-			if(name.endsWith("Hash")) // TODO this is a hack
-				return DummyHash.class;
-			
 			final JavaClass javaClass = getJavaClass(name);
 			if(javaClass!=null)
 			{
@@ -335,32 +330,5 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
-	}
-	
-	public static final class DummyHash extends Hash
-	{
-		private static final long serialVersionUID = 1l;
-		
-		public DummyHash()
-		{
-			super("Dummy");
-		}
-		
-		public DummyHash(final StringField storage)
-		{
-			super(storage, "Dummy");
-		}
-		
-		@Override
-		public DummyHash optional()
-		{
-			return new DummyHash(getStorage().optional());
-		}
-		
-		@Override
-		public String hash(final String plainText)
-		{
-			throw new RuntimeException(); // should not happen
-		}
 	}
 }
