@@ -38,28 +38,30 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
-public abstract class Hash extends Pattern implements Settable<String>
+public class Hash extends Pattern implements Settable<String>
 {
 	private static final long serialVersionUID = 1l;
 	
 	private final StringField storage;
-	private final String algorithmName;
+	private final Algorithm algorithm;
 
-	public Hash(final StringField storage, final String algorithmName)
+	public Hash(final StringField storage, final Algorithm algorithm)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
-		if(algorithmName==null)
-			throw new NullPointerException("algorithmName");
+		if(algorithm==null)
+			throw new NullPointerException("algorithm");
+		this.algorithm = algorithm;
+		final String algorithmName = algorithm.name();
 		if(algorithmName.length()==0)
 			throw new IllegalArgumentException("algorithmName must not be empty");
 
-		addSource(this.storage = storage, this.algorithmName = algorithmName, ComputedElement.get());
+		addSource(this.storage = storage, algorithmName, ComputedElement.get());
 	}
 	
-	public Hash(final String algorithmName)
+	public Hash(final Algorithm algorithm)
 	{
-		this(new StringField(), algorithmName);
+		this(algorithm.newStorage(false), algorithm);
 	}
 	
 	public final StringField getStorage()
@@ -67,9 +69,14 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage;
 	}
 	
+	public final Algorithm getAlgorithm()
+	{
+		return algorithm;
+	}
+	
 	public final String getAlgorithmName()
 	{
-		return algorithmName;
+		return algorithm.name();
 	}
 	
 	public final boolean isInitial()
@@ -87,16 +94,24 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.isMandatory();
 	}
 	
-	public Class getInitialType()
+	public final Class getInitialType()
 	{
 		return String.class;
 	}
 	
-	public Set<Class<? extends Throwable>> getInitialExceptions()
+	public final Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return storage.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = storage.getInitialExceptions();
+		algorithm.reduceInitialExceptions(result);
+		return result;
 	}
 	
+	public interface Algorithm
+	{
+		String name();
+		StringField newStorage(boolean optional);
+		void reduceInitialExceptions(Set<Class<? extends Throwable>> exceptions);
+
 	/**
 	 * Returns a hash for the given plain text.
 	 * The result is not required to be deterministic -
@@ -106,21 +121,20 @@ public abstract class Hash extends Pattern implements Settable<String>
 	 * @param plainText the text to be hashed. Is never null.
 	 * @return the hash of plainText. Must never return null.
 	 */
-	public abstract String hash(String plainText);
+	String hash(String plainText);
 	
 	/**
 	 * Returns whether the given plain text matches the given hash.
-	 * The default implementation of this method works for all
-	 * deterministic implementations of {@link #hash(String)}.
 	 * @param plainText the text to be hashed. Is never null.
 	 * @param hash the hash of plainText. Is never null.
 	 */
-	public boolean check(final String plainText, final String hash)
-	{
-		return hash(plainText).equals(hash);
+	boolean check(final String plainText, final String hash);
 	}
 	
-	public abstract Hash optional();
+	public final Hash optional()
+	{
+		return new Hash(storage.optional(), algorithm);
+	}
 	
 	@Override
 	public List<Wrapper> getWrappers()
@@ -141,6 +155,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 			addThrows(exceptions).
 			addParameter(String.class));
 		
+		final String algorithmName = algorithm.name();
 		result.add(
 			new Wrapper("getHash").
 			setMethodWrapperPattern("get{0}" + algorithmName).
@@ -164,14 +179,14 @@ public abstract class Hash extends Pattern implements Settable<String>
 			StringLengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, plainText!=null ? hash(plainText) : null);
+		storage.set(item, plainText!=null ? algorithm.hash(plainText) : null);
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
-			return (expectedHash!=null) && check(actualPlainText, expectedHash); // hash(String) must not return null
+			return (expectedHash!=null) && algorithm.check(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -183,7 +198,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(value!=null ? hash(value) : null) };
+		return new SetValue[]{ storage.map(value!=null ? algorithm.hash(value) : null) };
 	}
 	
 	public final String getHash(final Item item)

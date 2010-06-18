@@ -18,6 +18,8 @@
 
 package com.exedio.cope.testmodel;
 
+import java.util.Set;
+
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 
@@ -31,21 +33,34 @@ public class WrapHash extends Hash
 	
 	public WrapHash(final StringField storage)
 	{
-		super(storage, "wrap");
+		super(storage, ALGORITHM);
 	}
 
 	public WrapHash()
 	{
-		super("wrap");
+		super(ALGORITHM);
 	}
 	
-	@Override
-	public WrapHash optional()
+	private static final Algorithm ALGORITHM = new Algorithm()
 	{
-		return new WrapHash(getStorage().optional());
-	}
+		public String name()
+		{
+			return "wrap";
+		}
+
+		public StringField newStorage(final boolean optional)
+		{
+			StringField result = new StringField();
+			if(optional)
+				result = result.optional();
+			return result;
+		}
 	
-	@Override
+		public void reduceInitialExceptions(final Set<Class<? extends Throwable>> exceptions)
+		{
+			// no reductions
+		}
+		
 	public String hash(final String plainText)
 	{
 		if(plainText==null)
@@ -53,4 +68,10 @@ public class WrapHash extends Hash
 		else
 			return '[' + plainText + ']';
 	}
+		
+		public boolean check(final String plainText, final String hash)
+		{
+			return hash(plainText).equals(hash);
+		}
+	};
 }

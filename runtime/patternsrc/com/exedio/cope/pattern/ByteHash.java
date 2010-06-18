@@ -28,11 +28,12 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 
 /**
- * Uses hash algorithms that work with byte arrays.
+ * Adapts hash algorithms that work with strings
+ * to hash algorithms that work with byte arrays.
  *
  * @author Ralf Wiebicke
  */
-public class ByteHash extends Hash // TODO make final
+public final class ByteHash implements Hash.Algorithm // TODO remove finals, TODO rename
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -40,11 +41,9 @@ public class ByteHash extends Hash // TODO make final
 	private final String encoding;
 
 	public ByteHash(
-			final boolean optional,
 			final Algorithm algorithm,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm.length()), algorithm.name());
 		this.algorithm = algorithm;
 		this.encoding = encoding;
 
@@ -58,6 +57,11 @@ public class ByteHash extends Hash // TODO make final
 		}
 	}
 	
+	public StringField newStorage(final boolean optional)
+	{
+		return length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm.length());
+	}
+	
 	private static final StringField optional(final StringField f, final boolean optional)
 	{
 		return optional ? f.optional() : f;
@@ -69,16 +73,9 @@ public class ByteHash extends Hash // TODO make final
 	}
 	
 	public ByteHash(
-			final boolean optional,
 			final Algorithm algorithm)
 	{
-		this(optional, algorithm, "utf8");
-	}
-	
-	@Override
-	public ByteHash optional()
-	{
-		return new ByteHash(true, algorithm, encoding);
+		this(algorithm, "utf8");
 	}
 	
 	public final Algorithm getAlgorithm()
@@ -96,16 +93,22 @@ public class ByteHash extends Hash // TODO make final
 		return s.getBytes(encoding);
 	}
 	
-	@Override
-	public final Set<Class<? extends Throwable>> getInitialExceptions()
+	public void reduceInitialExceptions(final Set<Class<? extends Throwable>> result)
 	{
-		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.remove(StringLengthViolationException.class);
 		result.remove(StringCharSetViolationException.class);
-		return result;
 	}
 	
-	@Override
+	public String name()
+	{
+		return algorithm.name();
+	}
+	
+	public int length()
+	{
+		return 2 * algorithm.length(); // factor two is because hex encoding needs two characters per byte
+	}
+	
 	public final String hash(final String plainText)
 	{
 		try
@@ -118,7 +121,6 @@ public class ByteHash extends Hash // TODO make final
 		}
 	}
 	
-	@Override
 	public final boolean check(final String plainText, final String hash)
 	{
 		try

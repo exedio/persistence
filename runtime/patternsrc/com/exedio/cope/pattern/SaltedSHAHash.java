@@ -18,30 +18,19 @@
 
 package com.exedio.cope.pattern;
 
-public final class SaltedSHAHash extends ByteHash
+public final class SaltedSHAHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "SHA-512";
 
-	private SaltedSHAHash(final boolean optional, final Algorithm algorithm, final String encoding)
-	{
-		super(optional, algorithm, encoding);
-	}
-
 	public SaltedSHAHash(final int iterations, final String encoding)
 	{
-		super(false, new MessageDigestAlgorithm(HASH, 8, iterations), encoding);
+		super(new ByteHash(new MessageDigestAlgorithm(HASH, 8, iterations), encoding));
 	}
 
 	public SaltedSHAHash(final int iterations)
 	{
-		super(false, new MessageDigestAlgorithm(HASH, 8, iterations), "utf8");
-	}
-	
-	@Override
-	public SaltedSHAHash optional()
-	{
-		return new SaltedSHAHash(true, getAlgorithm(), getEncoding());
+		super(new ByteHash(new MessageDigestAlgorithm(HASH, 8, iterations)));
 	}
 }

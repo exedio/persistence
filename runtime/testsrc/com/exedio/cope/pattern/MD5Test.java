@@ -77,8 +77,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(false, item.password.isMandatory());
 		assertEquals(String.class, item.password.getInitialType());
 		assertContains(item.password.getInitialExceptions());
-		assertEquals("utf8", item.password.getEncoding());
-		assertEquals(1, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
+		assertEquals("utf8", ((ByteHash)item.password.getAlgorithm()).getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)((ByteHash)item.password.getAlgorithm()).getAlgorithm()).getIterations());
 		
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
@@ -88,8 +88,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(false, item.passwordLatin.isMandatory());
 		assertEquals(String.class, item.passwordLatin.getInitialType());
 		assertContains(item.passwordLatin.getInitialExceptions());
-		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
-		assertEquals(1, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
+		assertEquals("ISO-8859-1", ((ByteHash)item.passwordLatin.getAlgorithm()).getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)((ByteHash)item.passwordLatin.getAlgorithm()).getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -100,8 +100,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(true, item.passwordMandatory.isMandatory());
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
-		assertEquals("utf8", item.passwordMandatory.getEncoding());
-		assertEquals(1, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
+		assertEquals("utf8", ((ByteHash)item.passwordMandatory.getAlgorithm()).getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)((ByteHash)item.passwordMandatory.getAlgorithm()).getAlgorithm()).getIterations());
 		
 		assertSerializedSame(item.password         , 372);
 		assertSerializedSame(item.passwordLatin    , 377);

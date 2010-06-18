@@ -28,9 +28,9 @@ import com.exedio.cope.Item;
 public class SaltedSHAItem extends Item
 {
 	/** @cope.set none */
-	static final SaltedSHAHash password = new SaltedSHAHash(1).optional();
+	static final Hash password = new SaltedSHAHash(1).optional();
 	/** @cope.set none */
-	static final SaltedSHAHash passwordLatin = new SaltedSHAHash(1, "ISO-8859-1").optional();
+	static final Hash passwordLatin = new SaltedSHAHash(1, "ISO-8859-1").optional();
 	/** @cope.set none */
 	static final SaltedSHAHash passwordMandatory = new SaltedSHAHash(1);
 	
@@ -49,13 +49,13 @@ public class SaltedSHAItem extends Item
 		set(SaltedSHAItem.passwordMandatory, password, 61654632);
 	}
 	
-	private void set(final SaltedSHAHash hash, final String password, final long seed)
+	private void set(final Hash hash, final String password, final long seed)
 	{
 		final Random newRandom = new Random(seed);
 		final SecureRandom before =
-			(SecureRandom)((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(newRandom);
+			(SecureRandom)((MessageDigestAlgorithm)((ByteHash)hash.getAlgorithm()).getAlgorithm()).setSaltSource(newRandom);
 		hash.set(this, password);
-		Assert.assertSame(newRandom, ((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(before));
+		Assert.assertSame(newRandom, ((MessageDigestAlgorithm)((ByteHash)hash.getAlgorithm()).getAlgorithm()).setSaltSource(before));
 	}
 
 	/**

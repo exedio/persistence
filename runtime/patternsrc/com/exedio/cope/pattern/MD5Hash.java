@@ -18,30 +18,19 @@
 
 package com.exedio.cope.pattern;
 
-public final class MD5Hash extends ByteHash
+public final class MD5Hash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "MD5";
 
-	private MD5Hash(final boolean optional, final String encoding)
-	{
-		super(optional, new MessageDigestAlgorithm(HASH, 1), encoding);
-	}
-
 	public MD5Hash(final String encoding)
 	{
-		super(false, new MessageDigestAlgorithm(HASH, 1), encoding);
+		super(new ByteHash(new MessageDigestAlgorithm(HASH, 1), encoding));
 	}
 
 	public MD5Hash()
 	{
-		super(false, new MessageDigestAlgorithm(HASH, 1));
-	}
-	
-	@Override
-	public MD5Hash optional()
-	{
-		return new MD5Hash(true, getEncoding());
+		super(new ByteHash(new MessageDigestAlgorithm(HASH, 1)));
 	}
 }

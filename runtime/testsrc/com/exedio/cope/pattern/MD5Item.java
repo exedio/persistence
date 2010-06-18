@@ -22,8 +22,8 @@ import com.exedio.cope.Item;
 
 public class MD5Item extends Item
 {
-	static final MD5Hash password = new MD5Hash().optional();
-	static final MD5Hash passwordLatin = new MD5Hash("ISO-8859-1").optional();
+	static final Hash password = new MD5Hash().optional();
+	static final Hash passwordLatin = new MD5Hash("ISO-8859-1").optional();
 	static final MD5Hash passwordMandatory = new MD5Hash();
 
 	/**
