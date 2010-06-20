@@ -107,7 +107,10 @@ public final class ByteAlgorithm implements Hash.Algorithm
 		
 		try
 		{
-			return Hex.encodeLower(algorithm.hash(encode(plainText)));
+			final byte[] resultBytes = algorithm.hash(encode(plainText));
+			if(resultBytes==null)
+				throw new NullPointerException();
+			return Hex.encodeLower(resultBytes);
 		}
 		catch(UnsupportedEncodingException e)
 		{

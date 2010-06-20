@@ -178,7 +178,7 @@ public class Hash extends Pattern implements Settable<String>
 			StringLengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, plainText!=null ? algorithm.hash(plainText) : null);
+		storage.set(item, hash(plainText));
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)
@@ -197,7 +197,7 @@ public class Hash extends Pattern implements Settable<String>
 	
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(value!=null ? algorithm.hash(value) : null) };
+		return new SetValue[]{ storage.map(hash(value)) };
 	}
 	
 	public final String getHash(final Item item)
@@ -208,6 +208,16 @@ public class Hash extends Pattern implements Settable<String>
 	public final void setHash(final Item item, final String hash)
 	{
 		storage.set(item, hash);
+	}
+	
+	private String hash(final String plainText)
+	{
+		if(plainText==null)
+			return null;
+		final String result = algorithm.hash(plainText);
+		if(result==null)
+			throw new NullPointerException();
+		return result;
 	}
 	
 	public final Condition isNull()
