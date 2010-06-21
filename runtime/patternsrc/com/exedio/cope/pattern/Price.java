@@ -127,6 +127,12 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(store * other);
 	}
 	
+	public Price multiply(final double other)
+	{
+		// TODO shortcut for neutral element
+		return valueOf(doubleValue() * other);
+	}
+	
 	@Override
 	public boolean equals(final Object other)
 	{

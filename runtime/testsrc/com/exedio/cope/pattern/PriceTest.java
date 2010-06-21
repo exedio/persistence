@@ -231,6 +231,14 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
 	}
 	
+	public void testMultiplyPrice()
+	{
+		assertEquals( 999, storeOf( 333).multiply( 3d).store());
+		assertEquals(-999, storeOf(-333).multiply( 3d).store());
+		assertEquals(-999, storeOf( 333).multiply(-3d).store());
+		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+	}
+	
 	public void testEquals()
 	{
 		assertEquals(storeOf( 123), storeOf( 123));
