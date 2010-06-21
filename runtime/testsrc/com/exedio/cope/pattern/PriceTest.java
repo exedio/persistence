@@ -32,24 +32,32 @@ public final class PriceTest extends CopeAssert
 	{
 		assertEquals(5, new Price(5).store());
 		assertEquals(0, new Price(0).store());
-		
-		// ZERO
+	}
+	
+	public void testZero()
+	{
 		assertEquals(0, ZERO.store());
 		assertEquals(0.0, ZERO.doubleValue());
-		
-		// storeOf(int)
+	}
+	
+	public void testStoreOfInt()
+	{
 		assertEquals(storeOf(1), storeOf(1));
 		assertNotSame(storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertSame(ZERO, storeOf(0));
-		
-		// storeOf(Integer)
+	}
+	
+	public void testStoreOfInteger()
+	{
 		assertEquals( 5, storeOf(new Integer( 5)).store());
 		assertEquals(-5, storeOf(new Integer(-5)).store());
 		assertSame(ZERO, storeOf(new Integer(0)));
 		assertEquals(null, storeOf((Integer)null));
-		
-		// valueOf(double)
+	}
+	
+	public void testValueOfDouble()
+	{
 		assertEquals( 222, valueOf( 2.22).store());
 		assertEquals(-222, valueOf(-2.22).store());
 		assertEquals( 220, valueOf( 2.2 ).store());
@@ -121,8 +129,10 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
-		
-		// valueOf(BigDecimal)
+	}
+	
+	public void testValueOfBigDecimal()
+	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
 		assertEquals(-222, valueOf(bd(-222, 2)).store());
 		assertEquals( 220, valueOf(bd( 22,  1)).store());
@@ -175,15 +185,19 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		
-		// doubleValue
+	}
+	
+	public void testDoubleValue()
+	{
 		assertEquals( 2.22, storeOf( 222).doubleValue());
 		assertEquals(-2.22, storeOf(-222).doubleValue());
 		assertEquals( 2.2,  storeOf( 220).doubleValue());
 		assertEquals(-2.2,  storeOf(-220).doubleValue());
 		assertEquals( 0.0,  storeOf(   0).doubleValue());
-		
-		// bigValue
+	}
+	
+	public void testBigValue()
+	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
 		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
 		assertEquals(bd( 22,  1), storeOf( 220).bigValue());
@@ -191,20 +205,26 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd( 2,   0), storeOf( 200).bigValue());
 		assertEquals(bd(-2,   0), storeOf(-200).bigValue());
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
-		
-		// add
+	}
+	
+	public void testAdd()
+	{
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
 		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
-		
-		// multiply
+	}
+	
+	public void testMultiplyInt()
+	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
-		
-		// equals
+	}
+	
+	public void testEquals()
+	{
 		assertEquals(storeOf( 123), storeOf( 123));
 		assertEquals(storeOf(-123), storeOf(-123));
 		assertFalse(storeOf(123).equals(storeOf( 124)));
@@ -213,22 +233,28 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).equals(new Integer(123)));
 		assertFalse(storeOf(123).equals(new Double(1.23)));
 		assertFalse(storeOf(123).equals(null));
-		
-		// hashCode
+	}
+	
+	public void testHashCode()
+	{
 		assertEquals(storeOf( 123).hashCode(), storeOf( 123).hashCode());
 		assertEquals(storeOf(-123).hashCode(), storeOf(-123).hashCode());
 		assertFalse(storeOf(123).hashCode()==storeOf( 124).hashCode());
 		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
-		
-		// compareTo
+	}
+	
+	public void testCompareTo()
+	{
 		assertEquals(-1, storeOf(122).compareTo(storeOf(123)));
 		assertEquals( 0, storeOf(123).compareTo(storeOf(123)));
 		assertEquals( 1, storeOf(124).compareTo(storeOf(123)));
 		assertEquals( 1, storeOf(-122).compareTo(storeOf(-123)));
 		assertEquals( 0, storeOf(-123).compareTo(storeOf(-123)));
 		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
-		
-		// toString()
+	}
+	
+	public void testToString()
+	{
 		assertEquals( "1.23", storeOf( 123).toString());
 		assertEquals("-1.23", storeOf(-123).toString());
 		assertEquals( "1.03", storeOf( 103).toString());
