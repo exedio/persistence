@@ -215,6 +215,14 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 	}
 	
+	public void testSubtract()
+	{
+		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).store());
+		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
+		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).store());
+		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
+	}
+	
 	public void testMultiplyInt()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
