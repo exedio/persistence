@@ -55,6 +55,9 @@ public class Hash extends Pattern implements Settable<String>
 			throw new NullPointerException("storage");
 		if(algorithm==null)
 			throw new NullPointerException("algorithm");
+		if(encoding==null)
+			throw new NullPointerException("encoding");
+		
 		this.algorithm = algorithm;
 		final String algorithmName = algorithm.name();
 		if(algorithmName.length()==0)
