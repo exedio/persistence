@@ -18,9 +18,11 @@
 
 package com.exedio.cope.testmodel;
 
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.ByteAlgorithm;
 import com.exedio.cope.pattern.Hash;
 
 /**
@@ -33,50 +35,61 @@ public class WrapHash extends Hash
 	
 	public WrapHash(final StringField storage)
 	{
-		super(storage, ALGORITHM);
+		super(storage, new ByteAlgorithm(ALGORITHM));
 	}
 
 	public WrapHash()
 	{
-		super(ALGORITHM);
+		super(new ByteAlgorithm(ALGORITHM));
 	}
 	
-	private static final Algorithm ALGORITHM = new Algorithm()
+	private static final ByteAlgorithm.Algorithm ALGORITHM = new ByteAlgorithm.Algorithm()
 	{
 		public String name()
 		{
 			return "wrap";
 		}
 
-		public StringField newStorage(final boolean optional)
+		public int length()
 		{
-			StringField result = new StringField();
-			if(optional)
-				result = result.optional();
-			return result;
-		}
-	
-		public void reduceInitialExceptions(final Set<Class<? extends Throwable>> exceptions)
-		{
-			// no reductions
+			return 6;
 		}
 		
-		public String hash(final String plainText)
+		public byte[] hash(final byte[] plainText)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 			
-			return '[' + plainText + ']';
+			final String x;
+			try
+			{
+				x = new String(plainText, "utf8");
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+			final int i = Integer.parseInt(x, 16);
+			final byte[] result = new byte[]{
+					0x34,
+					(byte)( i >> 24),
+					(byte)((i >> 16) & 0x000000ff),
+					(byte)((i >>  8) & 0x000000ff),
+					(byte)( i        & 0x000000ff),
+					0x43,
+			};
+			assert result.length==length();
+			return result;
 		}
 		
-		public boolean check(final String plainText, final String hash)
+		public boolean check(final byte[] plainText, final byte[] hash)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 			if(hash==null)
 				throw new NullPointerException();
 			
-			return hash(plainText).equals(hash);
+			return Arrays.equals(hash(plainText), hash);
 		}
 	};
 }

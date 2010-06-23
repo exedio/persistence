@@ -73,18 +73,18 @@ public class HashTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item.TYPE.search(item.explicitExternal.isNotNull()));
 		
-		item.setExplicitExternalWrap("bello");
-		assertEquals("bello", item.getExplicitExternalWrap());
+		item.setExplicitExternalWrap("03affe01");
+		assertEquals("03affe01", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bello"));
+		assertTrue(!item.checkExplicitExternal("03affe01"));
 		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
 		
-		item.setExplicitExternal("knollo");
-		assertEquals("[knollo]", item.getExplicitExternalWrap());
+		item.setExplicitExternal("03affe02");
+		assertEquals("3403affe0243", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bello"));
-		assertTrue(item.checkExplicitExternal("knollo"));
+		assertTrue(!item.checkExplicitExternal("03affe01"));
+		assertTrue(item.checkExplicitExternal("03affe02"));
 		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
 	}
@@ -100,7 +100,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFeatures());
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
-		assertContains(StringLengthViolationException.class, item.implicitExternal.getInitialExceptions());
+		assertContains(item.implicitExternal.getInitialExceptions());
 		assertTrue(item.implicitExternal.getStorage().isAnnotationPresent(Computed.class));
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
@@ -108,11 +108,11 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkImplicitExternal(""));
 		assertFalse(item.checkImplicitExternal("zack"));
 
-		item.setImplicitExternal("zack");
-		assertEquals("[zack]", item.get(item.implicitExternal.getStorage()));
+		item.setImplicitExternal("03affe05");
+		assertEquals("3403affe0543", item.get(item.implicitExternal.getStorage()));
 		assertFalse(item.checkImplicitExternal(null));
-		assertFalse(item.checkImplicitExternal(""));
-		assertTrue(item.checkImplicitExternal("zack"));
+		assertFalse(item.checkImplicitExternal("0"));
+		assertTrue(item.checkImplicitExternal("03affe05"));
 	}
 
 	public void testInternal()
@@ -126,7 +126,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFeatures());
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());
-		assertContains(StringLengthViolationException.class, item.internal.getInitialExceptions());
+		assertContains(item.internal.getInitialExceptions());
 		assertTrue(item.internal.getStorage().isAnnotationPresent(Computed.class));
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
@@ -134,29 +134,29 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkInternal(""));
 		assertFalse(item.checkInternal("zack"));
 
-		item.setInternal("zack");
-		assertEquals("[zack]", item.get(item.internal.getStorage()));
+		item.setInternal("03affe07");
+		assertEquals("3403affe0743", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
-		assertFalse(item.checkInternal(""));
-		assertTrue(item.checkInternal("zack"));
+		assertFalse(item.checkInternal("0"));
+		assertTrue(item.checkInternal("03affe07"));
 
-		item.set(item.internal.map("zosch"));
-		assertEquals("[zosch]", item.get(item.internal.getStorage()));
+		item.set(item.internal.map("03affe08"));
+		assertEquals("3403affe0843", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
-		assertFalse(item.checkInternal(""));
-		assertFalse(item.checkInternal("zack"));
-		assertTrue(item.checkInternal("zosch"));
+		assertFalse(item.checkInternal("0"));
+		assertFalse(item.checkInternal("03affe07"));
+		assertTrue(item.checkInternal("03affe08"));
 		
-		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("lets")}));
-		assertEquals("[lets]", item2.get(item2.internal.getStorage()));
+		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("03affe09")}));
+		assertEquals("3403affe0943", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
-		assertFalse(item2.checkInternal(""));
-		assertTrue(item2.checkInternal("lets"));
+		assertFalse(item2.checkInternal("03affe10"));
+		assertTrue(item2.checkInternal("03affe09"));
 		
-		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("fetz")));
-		assertEquals("[fetz]", item3.get(item3.internal.getStorage()));
+		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("03affe10")));
+		assertEquals("3403affe1043", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
-		assertFalse(item3.checkInternal(""));
-		assertTrue(item3.checkInternal("fetz"));
+		assertFalse(item3.checkInternal("03affe09"));
+		assertTrue(item3.checkInternal("03affe10"));
 	}
 }

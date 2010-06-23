@@ -105,8 +105,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setExplicitExternal(final java.lang.String explicitExternal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternal.set(this,explicitExternal);
 	}/**
@@ -127,8 +125,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setExplicitExternalwrap(final java.lang.String explicitExternal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternal.setHash(this,explicitExternal);
 	}/**
@@ -149,8 +145,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setImplicitExternal(final java.lang.String implicitExternal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.implicitExternal.set(this,implicitExternal);
 	}/**
@@ -171,8 +165,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setImplicitExternalwrap(final java.lang.String implicitExternal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.implicitExternal.setHash(this,implicitExternal);
 	}/**
@@ -193,8 +185,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setInternal(final java.lang.String internal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.internal.set(this,internal);
 	}/**
@@ -215,8 +205,6 @@ public class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setInternalwrap(final java.lang.String internal)
-			throws
-				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.internal.setHash(this,internal);
 	}/**
