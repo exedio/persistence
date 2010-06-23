@@ -195,6 +195,9 @@ public class MD5Test extends AbstractRuntimeTest
 		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		
+		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.password.hash(upper));
+		assertEquals("7e716d0e702df0505fc72e2b89467910", item.password.hash(lower));
+		
 		item.setPassword(upper);
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPasswordMD5());
 		assertTrue(item.checkPassword(upper));

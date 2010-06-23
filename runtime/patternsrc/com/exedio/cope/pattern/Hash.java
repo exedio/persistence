@@ -292,7 +292,7 @@ public class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash);
 	}
 	
-	private String hash(final String plainText)
+	public final String hash(final String plainText)
 	{
 		if(plainText==null)
 			return null;
