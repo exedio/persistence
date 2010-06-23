@@ -83,12 +83,12 @@ public class Hash extends Pattern implements Settable<String>
 	
 	public Hash(final Algorithm algorithm, final String encoding)
 	{
-		this(newStorage(false, algorithm), algorithm, encoding);
+		this(newStorage(algorithm), algorithm, encoding);
 	}
 	
 	public Hash(final Algorithm algorithm)
 	{
-		this(newStorage(false, algorithm), algorithm);
+		this(newStorage(algorithm), algorithm);
 	}
 	
 	public final StringField getStorage()
@@ -139,14 +139,12 @@ public class Hash extends Pattern implements Settable<String>
 		return result;
 	}
 	
-	private static StringField newStorage(final boolean optional, final Algorithm algorithm)
+	private static StringField newStorage(final Algorithm algorithm)
 	{
 		StringField result =
 			new StringField().
 				charSet(CharSet.HEX_LOWER).
 				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
-		if(optional)
-			result = result.optional();
 		return result;
 	}
 	
