@@ -32,7 +32,7 @@ public final class MD5Hash extends Hash
 	@Deprecated
 	public MD5Hash(final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
+		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
 	}
 
 	/**
@@ -43,6 +43,6 @@ public final class MD5Hash extends Hash
 	@Deprecated
 	public MD5Hash()
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));
+		super(new MessageDigestAlgorithm(HASH, 0, 1));
 	}
 }

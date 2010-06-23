@@ -21,13 +21,13 @@ package com.exedio.cope;
 import java.io.UnsupportedEncodingException;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.ByteAlgorithm;
+import com.exedio.cope.pattern.Hash;
 
 public class ByteAlgorithmTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final ByteAlgorithm.Algorithm a = new ByteAlgorithm.Algorithm(){
+		final Hash.Algorithm a = new Hash.Algorithm(){
 
 			public boolean check(byte[] plainText, byte[] hash)
 			{
@@ -52,7 +52,7 @@ public class ByteAlgorithmTest extends CopeAssert
 		
 		try
 		{
-			new ByteAlgorithm(a, "nixus");
+			new Hash(a, "nixus");
 			fail();
 		}
 		catch(IllegalArgumentException e)

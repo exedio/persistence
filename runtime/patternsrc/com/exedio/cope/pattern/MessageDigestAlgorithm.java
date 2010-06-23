@@ -29,7 +29,7 @@ import com.exedio.cope.util.MessageDigestUtil;
  *
  * @author Ralf Wiebicke
  */
-public final class MessageDigestAlgorithm implements ByteAlgorithm.Algorithm
+public final class MessageDigestAlgorithm implements Hash.Algorithm
 {
 	private static final long serialVersionUID = 1l;
 	

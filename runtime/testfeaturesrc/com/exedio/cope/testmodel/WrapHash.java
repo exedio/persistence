@@ -22,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.pattern.ByteAlgorithm;
 import com.exedio.cope.pattern.Hash;
 
 /**
@@ -35,15 +34,15 @@ public class WrapHash extends Hash
 	
 	public WrapHash(final StringField storage)
 	{
-		super(storage, new ByteAlgorithm(ALGORITHM));
+		super(storage, ALGORITHM);
 	}
 
 	public WrapHash()
 	{
-		super(new ByteAlgorithm(ALGORITHM));
+		super(ALGORITHM);
 	}
 	
-	private static final ByteAlgorithm.Algorithm ALGORITHM = new ByteAlgorithm.Algorithm()
+	private static final Algorithm ALGORITHM = new Algorithm()
 	{
 		public String name()
 		{

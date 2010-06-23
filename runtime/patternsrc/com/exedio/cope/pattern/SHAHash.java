@@ -32,7 +32,7 @@ public final class SHAHash extends Hash
 	@Deprecated
 	public SHAHash(final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1), encoding));
+		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
 	}
 
 	/**
@@ -43,6 +43,6 @@ public final class SHAHash extends Hash
 	@Deprecated
 	public SHAHash()
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(HASH, 0, 1)));
+		super(new MessageDigestAlgorithm(HASH, 0, 1));
 	}
 }

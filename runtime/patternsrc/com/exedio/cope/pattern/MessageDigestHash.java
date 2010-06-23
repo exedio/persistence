@@ -27,11 +27,11 @@ public final class MessageDigestHash extends Hash
 
 	public MessageDigestHash(final int iterations, final String encoding)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations), encoding));
+		super(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations), encoding);
 	}
 
 	public MessageDigestHash(final int iterations)
 	{
-		super(new ByteAlgorithm(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations)));
+		super(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations));
 	}
 }

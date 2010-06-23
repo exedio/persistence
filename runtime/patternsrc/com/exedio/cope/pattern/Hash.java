@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +32,14 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 
 public class Hash extends Pattern implements Settable<String>
 {
@@ -43,8 +47,9 @@ public class Hash extends Pattern implements Settable<String>
 	
 	private final StringField storage;
 	private final Algorithm algorithm;
+	private final String encoding;
 
-	public Hash(final StringField storage, final Algorithm algorithm)
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
@@ -56,11 +61,31 @@ public class Hash extends Pattern implements Settable<String>
 			throw new IllegalArgumentException("algorithmName must not be empty");
 
 		addSource(this.storage = storage, algorithmName, ComputedElement.get());
+		
+		this.encoding = encoding;
+		try
+		{
+			encode("test");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new IllegalArgumentException(e);
+		}
+	}
+	
+	public Hash(final StringField storage, final Algorithm algorithm)
+	{
+		this(storage, algorithm, "utf8");
+	}
+	
+	public Hash(final Algorithm algorithm, final String encoding)
+	{
+		this(newStorage(false, algorithm), algorithm, encoding);
 	}
 	
 	public Hash(final Algorithm algorithm)
 	{
-		this(algorithm.newStorage(false), algorithm);
+		this(newStorage(false, algorithm), algorithm);
 	}
 	
 	public final StringField getStorage()
@@ -76,6 +101,11 @@ public class Hash extends Pattern implements Settable<String>
 	public final String getAlgorithmName()
 	{
 		return algorithm.name();
+	}
+	
+	public final String getEncoding()
+	{
+		return encoding;
 	}
 	
 	public final boolean isInitial()
@@ -101,15 +131,66 @@ public class Hash extends Pattern implements Settable<String>
 	public final Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = storage.getInitialExceptions();
-		algorithm.reduceInitialExceptions(result);
+		result.remove(StringLengthViolationException.class);
+		result.remove(StringCharSetViolationException.class);
 		return result;
+	}
+	
+	private static StringField newStorage(final boolean optional, final Algorithm algorithm)
+	{
+		StringField result =
+			new StringField().
+				charSet(CharSet.HEX_LOWER).
+				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
+		if(optional)
+			result = result.optional();
+		return result;
+	}
+	
+	private String algorithmHash(final String plainText)
+	{
+		if(plainText==null)
+			throw new NullPointerException();
+		
+		try
+		{
+			final byte[] resultBytes = algorithm.hash(encode(plainText));
+			if(resultBytes==null)
+				throw new NullPointerException();
+			return Hex.encodeLower(resultBytes);
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(encoding, e);
+		}
+	}
+	
+	private boolean algorithmCheck(final String plainText, final String hash)
+	{
+		if(plainText==null)
+			throw new NullPointerException();
+		if(hash==null)
+			throw new NullPointerException();
+		
+		try
+		{
+			return algorithm.check(encode(plainText), Hex.decodeLower(hash));
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(encoding, e);
+		}
+	}
+	
+	private byte[] encode(final String s) throws UnsupportedEncodingException
+	{
+		return s.getBytes(encoding);
 	}
 	
 	public interface Algorithm
 	{
 		String name();
-		StringField newStorage(boolean optional);
-		void reduceInitialExceptions(Set<Class<? extends Throwable>> exceptions);
+		int length();
 		
 		/**
 		 * Returns a hash for the given plain text.
@@ -120,19 +201,19 @@ public class Hash extends Pattern implements Settable<String>
 		 * @param plainText the text to be hashed. Is never null.
 		 * @return the hash of plainText. Must never return null.
 		 */
-		String hash(String plainText);
+		byte[] hash(byte[] plainText);
 		
 		/**
 		 * Returns whether the given plain text matches the given hash.
 		 * @param plainText the text to be hashed. Is never null.
 		 * @param hash the hash of plainText. Is never null.
 		 */
-		boolean check(String plainText, String hash);
+		boolean check(byte[] plainText, byte[] hash);
 	}
 	
 	public final Hash optional()
 	{
-		return new Hash(storage.optional(), algorithm);
+		return new Hash(storage.optional(), algorithm, encoding);
 	}
 	
 	@Override
@@ -185,7 +266,7 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
-			return (expectedHash!=null) && algorithm.check(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
+			return (expectedHash!=null) && algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -214,7 +295,7 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		if(plainText==null)
 			return null;
-		final String result = algorithm.hash(plainText);
+		final String result = algorithmHash(plainText);
 		if(result==null)
 			throw new NullPointerException();
 		return result;
