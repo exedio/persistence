@@ -41,12 +41,12 @@ public class ByteAlgorithmTest extends CopeAssert
 
 			public int length()
 			{
-				throw new RuntimeException();
+				return 1;
 			}
 
 			public String name()
 			{
-				throw new RuntimeException();
+				return "name";
 			}
 		};
 		
