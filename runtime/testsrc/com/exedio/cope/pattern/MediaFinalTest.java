@@ -1,0 +1,191 @@
+/*
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import static com.exedio.cope.util.SafeFile.delete;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Cope;
+import com.exedio.cope.DataField;
+import com.exedio.cope.DateField;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
+
+public class MediaFinalTest extends AbstractRuntimeTest
+{
+	private static final Model MODEL = new Model(MediaFinalItem.TYPE);
+
+	public MediaFinalTest()
+	{
+		super(MODEL);
+	}
+	
+	private final byte[] data19 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71};
+	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+	
+	public void testData() throws IOException
+	{
+		assertEquals(19, data19.length);
+		assertEquals(20, data20.length);
+		
+		// test model
+		final MediaFinalItem t = null;
+		assertEquals(true, t.file.isInitial());
+		assertEquals(true, t.file.isFinal());
+		assertEquals(false, t.file.isMandatory());
+		assertEquals(Media.Value.class, t.file.getInitialType());
+		assertContains(FinalViolationException.class, t.file.getInitialExceptions());
+		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
+		assertEquals("*/*", t.file.getContentTypeDescription());
+		assertEquals(null, t.file.getContentTypesAllowed());
+		assertEquals(20, t.file.getMaximumLength());
+
+		final DataField body = t.file.getBody();
+		assertSame(t.TYPE, body.getType());
+		assertSame("file-body", body.getName());
+		assertEquals(true, body.isFinal());
+		assertEquals(false, body.isMandatory());
+		assertEquals(20, body.getMaximumLength());
+		assertEquals(t.file, body.getPattern());
+		assertSame(t.file, Media.get(body));
+		
+		final StringField contentType = (StringField)t.file.getContentType();
+		assertSame(t.TYPE, contentType.getType());
+		assertEquals("file-contentType", contentType.getName());
+		assertEquals(true, contentType.isFinal());
+		assertEquals(false, contentType.isMandatory());
+		assertEquals(null, contentType.getImplicitUniqueConstraint());
+		assertEquals(1, contentType.getMinimumLength());
+		assertEquals(61, contentType.getMaximumLength());
+		assertEquals(t.file, contentType.getPattern());
+		
+		final DateField lastModified = t.file.getLastModified();
+		assertSame(t.TYPE, lastModified.getType());
+		assertEquals("file-lastModified", lastModified.getName());
+		assertEquals(true, lastModified.isFinal());
+		assertEquals(false, lastModified.isMandatory());
+		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		assertEquals(t.file, lastModified.getPattern());
+		
+		final CheckConstraint unison = t.file.getUnison();
+		assertSame(t.TYPE, unison.getType());
+		assertEquals("file-unison", unison.getName());
+		assertEquals(t.file, unison.getPattern());
+		assertEquals(Cope.or(
+				contentType.isNull   ().and(lastModified.isNull   ()),
+				contentType.isNotNull().and(lastModified.isNotNull())),
+				unison.getCondition());
+		
+		// test persistence
+		assertEquals(list(), t.TYPE.search());
+
+		final Date before = new Date();
+		final MediaFinalItem item = deleteOnTearDown(new MediaFinalItem(data20, "major/minor"));
+		final Date after = new Date();
+		assertContent(item, data20, before, after, "major/minor", "");
+		assertEquals(list(item), item.TYPE.search());
+		
+		try
+		{
+			item.file.set(item, (byte[])null, null);
+			fail();
+		}
+		catch(FinalViolationException e)
+		{
+			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(item, e.getItem());
+		}
+		assertContent(item, data20, before, after, "major/minor", "");
+		
+		try
+		{
+			item.file.set(item, (InputStream)null, null);
+			fail();
+		}
+		catch(FinalViolationException e)
+		{
+			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(item, e.getItem());
+		}
+		assertContent(item, data20, before, after, "major/minor", "");
+		
+		try
+		{
+			item.file.set(item, (File)null, null);
+			fail();
+		}
+		catch(FinalViolationException e)
+		{
+			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(item, e.getItem());
+		}
+		assertContent(item, data20, before, after, "major/minor", "");
+
+		final Date before19 = new Date();
+		final MediaFinalItem item2 = deleteOnTearDown(new MediaFinalItem(data19, "major19/minor19"));
+		final Date after19 = new Date();
+		assertContent(item2, data19, before19, after19, "major19/minor19", "");
+
+		final MediaFinalItem itemNull = deleteOnTearDown(new MediaFinalItem(null, null));
+		assertContentNull(itemNull);
+	}
+
+	private void assertContent(
+			final MediaFinalItem item,
+			final byte[] expectedData,
+			final Date before, final Date after,
+			final String expectedContentType, final String expectedExtension)
+	throws IOException
+	{
+		assertTrue(!item.isFileNull());
+		assertData(expectedData, item.getFileBody());
+		assertDataFile(item, expectedData);
+		assertEquals(expectedData.length, item.getFileLength());
+		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertEquals(expectedContentType, item.getFileContentType());
+		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
+	}
+	
+	private final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
+	{
+		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
+		delete(tempFile);
+		assertFalse(tempFile.exists());
+		
+		item.getFileBody(tempFile);
+		assertEqualContent(expectedData, tempFile);
+	}
+
+	private void assertContentNull(final MediaFinalItem item)
+	{
+		assertTrue(item.isFileNull());
+		assertEquals(null, item.getFileBody());
+		assertEquals(-1, item.getFileLength());
+		assertEquals(-1, item.getFileLastModified());
+		assertEquals(null, item.getFileContentType());
+		assertEquals(null, item.getFileURL());
+	}
+}

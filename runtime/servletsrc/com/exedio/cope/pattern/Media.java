@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +41,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Field;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -58,6 +59,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 {
 	private static final long serialVersionUID = 1l;
 	
+	private final boolean isfinal;
 	private final boolean optional;
 	private final DataField body;
 	private final ContentType<?> contentType;
@@ -66,15 +68,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
-	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
+	private Media(final boolean isfinal, final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
+		this.isfinal = isfinal;
 		this.optional = optional;
-		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "body", ComputedElement.get());
+		addSource(this.body = applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength), "body", ComputedElement.get());
 		this.contentType = contentType;
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
 			addSource(contentTypeField, contentType.name, ComputedElement.get());
-		addSource(this.lastModified = optional(new DateField(), optional), "lastModified", ComputedElement.get());
+		addSource(this.lastModified = applyConstraints(new DateField(), isfinal, optional), "lastModified", ComputedElement.get());
 		
 		if(optional)
 		{
@@ -101,29 +104,42 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		assert optional == (unison!=null);
 	}
 	
-	private static final DataField optional(final DataField field, final boolean optional)
+	private static final DataField applyConstraints(DataField field, final boolean isfinal, final boolean optional)
 	{
-		return optional ? field.optional() : field;
+		if(isfinal)
+			field = field.toFinal();
+		if(optional)
+			field = field.optional();
+		return field;
 	}
 	
-	private static final DateField optional(final DateField field, final boolean optional)
+	private static final DateField applyConstraints(DateField field, final boolean isfinal, final boolean optional)
 	{
-		return optional ? field.optional() : field;
+		if(isfinal)
+			field = field.toFinal();
+		if(optional)
+			field = field.optional();
+		return field;
 	}
 	
 	public Media()
 	{
-		this(false, DEFAULT_LENGTH, new DefaultContentType(false));
+		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
+	}
+	
+	public Media toFinal()
+	{
+		return new Media(true, optional, body.getMaximumLength(), contentType.toFinal());
 	}
 	
 	public Media optional()
 	{
-		return new Media(true, body.getMaximumLength(), contentType.optional());
+		return new Media(isfinal, true, body.getMaximumLength(), contentType.optional());
 	}
 	
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(optional, maximumLength, contentType.copy());
+		return new Media(isfinal, optional, maximumLength, contentType.copy());
 	}
 	
 	/**
@@ -131,7 +147,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public Media contentType(final String contentType)
 	{
-		return new Media(optional, body.getMaximumLength(), new FixedContentType(contentType));
+		return new Media(isfinal, optional, body.getMaximumLength(), new FixedContentType(contentType));
 	}
 	
 	/**
@@ -169,7 +185,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
 	private Media contentTypes(final String... types)
 	{
-		return new Media(optional, body.getMaximumLength(), new EnumContentType(types, optional));
+		return new Media(isfinal, optional, body.getMaximumLength(), new EnumContentType(types, isfinal, optional));
 	}
 	
 	/**
@@ -177,7 +193,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(optional, body.getMaximumLength(), new SubContentType(majorContentType, optional));
+		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional));
 	}
 	
 	public final boolean isMandatory()
@@ -237,7 +253,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
+		if(isfinal)
+			result.add(FinalViolationException.class);
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;
@@ -286,43 +304,46 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
 			addParameter(File.class, "body"));
 		
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the content of media {0}.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(Value.class));
+		if(!isfinal)
+		{
+			result.add(
+				new Wrapper("set").
+				addComment("Sets the content of media {0}.").
+				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
+				addParameter(Value.class));
+				
+			result.add(
+				new Wrapper("set").
+				addComment("Sets the content of media {0}.").
+				addParameter(byte[].class, "body").
+				addParameter(String.class, "contentType"));
+				
+			result.add(
+				new Wrapper("set").
+				addComment("Sets the content of media {0}.").
+				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
+				addParameter(InputStream.class, "body").
+				addParameter(String.class, "contentType"));
 			
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the content of media {0}.").
-			addParameter(byte[].class, "body").
-			addParameter(String.class, "contentType"));
-			
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the content of media {0}.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(InputStream.class, "body").
-			addParameter(String.class, "contentType"));
-		
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the content of media {0}.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(File.class, "body").
-			addParameter(String.class, "contentType"));
+			result.add(
+				new Wrapper("set").
+				addComment("Sets the content of media {0}.").
+				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
+				addParameter(File.class, "body").
+				addParameter(String.class, "contentType"));
+		}
 		
 		return Collections.unmodifiableList(result);
 	}
 	
 	public boolean isFinal()
 	{
-		return false; // TODO
+		return isfinal;
 	}
 
 	public boolean isInitial()
 	{
-		return !optional;
+		return isfinal || !optional;
 	}
 
 	public SetValue map(final Value value)
@@ -714,16 +735,29 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			this.name = null;
 		}
 		
-		ContentType(final FunctionField<B> field, final boolean optional, final String name)
+		ContentType(final FunctionField<B> field, final boolean isfinal, final boolean optional, final String name)
 		{
-			this.field = optional ? (FunctionField<B>)field.optional() : field;
+			this.field = applyConstraints(field, isfinal, optional);
 			this.name = name;
 			
 			assert field!=null;
 			assert name!=null;
 		}
 		
+		private static final <B> FunctionField<B> applyConstraints(
+				FunctionField<B> field,
+				final boolean isfinal,
+				final boolean optional)
+		{
+			if(isfinal)
+				field = (FunctionField<B>)field.toFinal();
+			if(optional)
+				field = (FunctionField<B>)field.optional();
+			return field;
+		}
+		
 		abstract ContentType copy();
+		abstract ContentType toFinal();
 		abstract ContentType optional();
 		abstract boolean check(String contentType);
 		abstract String describe();
@@ -745,21 +779,27 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	private static final class DefaultContentType extends ContentType<String>
 	{
-		DefaultContentType(final boolean optional)
+		DefaultContentType(final boolean isfinal, final boolean optional)
 		{
-			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), optional, "contentType");
+			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
 		}
 		
 		@Override
 		DefaultContentType copy()
 		{
-			return new DefaultContentType(!field.isMandatory());
+			return new DefaultContentType(field.isFinal(), !field.isMandatory());
+		}
+		
+		@Override
+		DefaultContentType toFinal()
+		{
+			return new DefaultContentType(true, !field.isMandatory());
 		}
 		
 		@Override
 		DefaultContentType optional()
 		{
-			return new DefaultContentType(true);
+			return new DefaultContentType(field.isFinal(), true);
 		}
 		
 		@Override
@@ -804,9 +844,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		private final String[] types;
 		private final HashMap<String, Integer> typeSet;
 		
-		EnumContentType(final String[] types, final boolean optional)
+		EnumContentType(final String[] types, final boolean isfinal, final boolean optional)
 		{
-			super(new IntegerField().range(0, types.length-1), optional, "contentType");
+			super(new IntegerField().range(0, types.length-1), isfinal, optional, "contentType");
 			this.types = types;
 			final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
 			for(int i = 0; i<types.length; i++)
@@ -822,13 +862,19 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		@Override
 		EnumContentType copy()
 		{
-			return new EnumContentType(types, !field.isMandatory());
+			return new EnumContentType(types, field.isFinal(), !field.isMandatory());
+		}
+		
+		@Override
+		EnumContentType toFinal()
+		{
+			return new EnumContentType(types, true, !field.isMandatory());
 		}
 		
 		@Override
 		EnumContentType optional()
 		{
-			return new EnumContentType(types, true);
+			return new EnumContentType(types, field.isFinal(), true);
 		}
 		
 		@Override
@@ -902,6 +948,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
+		FixedContentType toFinal()
+		{
+			return copy();
+		}
+		
+		@Override
 		FixedContentType optional()
 		{
 			return copy();
@@ -969,9 +1021,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		private final String prefix;
 		private final int prefixLength;
 		
-		SubContentType(final String major, final boolean optional)
+		SubContentType(final String major, final boolean isfinal, final boolean optional)
 		{
-			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), optional, "minor");
+			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), isfinal, optional, "minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();
@@ -983,13 +1035,19 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		@Override
 		SubContentType copy()
 		{
-			return new SubContentType(major, !field.isMandatory());
+			return new SubContentType(major, field.isFinal(), !field.isMandatory());
+		}
+		
+		@Override
+		SubContentType toFinal()
+		{
+			return new SubContentType(major, true, !field.isMandatory());
 		}
 		
 		@Override
 		SubContentType optional()
 		{
-			return new SubContentType(major, true);
+			return new SubContentType(major, field.isFinal(), true);
 		}
 		
 		@Override
@@ -1041,7 +1099,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Deprecated
 	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this(false, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
+		this(false, false, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
 	}
 	
 	/**
@@ -1050,7 +1108,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Deprecated
 	public Media(final String fixedMimeMajor)
 	{
-		this(false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false));
+		this(false, false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false, false));
 	}
 	
 	/**

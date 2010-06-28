@@ -45,6 +45,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaEnumTest.class);
 		suite.addTestSuite(MediaFixedTest.class);
 		suite.addTestSuite(MediaSubTest.class);
+		suite.addTestSuite(MediaFinalTest.class);
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
