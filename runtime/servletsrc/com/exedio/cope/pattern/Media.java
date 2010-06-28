@@ -119,27 +119,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		assert optional == (unison!=null);
 	}
 	
-	private static final DataField applyConstraints(
-			DataField field,
+	@SuppressWarnings("unchecked")
+	static final <F extends Field> F applyConstraints(
+			F field,
 			final boolean isfinal,
 			final boolean optional)
 	{
 		if(isfinal)
-			field = field.toFinal();
+			field = (F)field.toFinal();
 		if(optional)
-			field = field.optional();
-		return field;
-	}
-	
-	private static final DateField applyConstraints(
-			DateField field,
-			final boolean isfinal,
-			final boolean optional)
-	{
-		if(isfinal)
-			field = field.toFinal();
-		if(optional)
-			field = field.optional();
+			field = (F)field.optional();
 		return field;
 	}
 	
@@ -767,18 +756,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			
 			assert field!=null;
 			assert name!=null;
-		}
-		
-		private static final <B> FunctionField<B> applyConstraints(
-				FunctionField<B> field,
-				final boolean isfinal,
-				final boolean optional)
-		{
-			if(isfinal)
-				field = (FunctionField<B>)field.toFinal();
-			if(optional)
-				field = (FunctionField<B>)field.optional();
-			return field;
 		}
 		
 		abstract ContentType copy();
