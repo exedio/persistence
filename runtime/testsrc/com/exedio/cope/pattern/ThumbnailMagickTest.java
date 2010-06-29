@@ -69,6 +69,7 @@ public class ThumbnailMagickTest extends AbstractRuntimeTest
 				item.file.getLastModified(),
 				item.file.getUnison(),
 				item.thumb,
+				item.thumbFull,
 			}), item.TYPE.getFeatures());
 		assertEquals(item.TYPE, item.thumb.getType());
 		assertEquals("thumb", item.thumb.getName());
@@ -145,5 +146,9 @@ public class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertNotNull(jpg.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
+		
+		assertNotNull(jpg.getThumbFull());
+		assertNull(txt.getThumbFull());
+		assertNull(emp.getThumbFull());
 	}
 }

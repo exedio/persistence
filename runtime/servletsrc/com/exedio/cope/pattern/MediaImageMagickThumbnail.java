@@ -26,22 +26,31 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	
 	private final int boundX;
 	private final int boundY;
+	private final int density;
 	private final String flattenColor;
 
 	private static final int MIN_BOUND = 5;
 	
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		this(source, boundX, boundY, null, "image/jpeg");
+		this(source, boundX, boundY, 0, null, "image/jpeg");
 	}
 	
 	private static String[] options(
 			final int boundX, final int boundY,
+			final int density,
 			final String flattenColor)
 	{
 		final ArrayList<String> result = new ArrayList<String>(5);
 		result.add("-resize");
 		result.add(String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>');
+		if(density>0)
+		{
+			result.add("-density");
+			result.add(String.valueOf(density));
+			result.add("-units");
+			result.add("PixelsPerInch");
+		}
 		if(flattenColor!=null)
 		{
 			result.add("-flatten");
@@ -54,6 +63,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	private MediaImageMagickThumbnail(
 			final Media source,
 			final int boundX, final int boundY,
+			final int density,
 			final String flattenColor,
 			final String outputContentType)
 	{
@@ -61,25 +71,33 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 				source,
 				new MediaThumbnail(source, boundX, boundY),
 				outputContentType,
-				options(boundX, boundY, flattenColor));
+				options(boundX, boundY, density, flattenColor));
 		this.boundX = boundX;
 		this.boundY = boundY;
+		this.density = density;
 		this.flattenColor = flattenColor;
 		
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
+		if(density<0)
+			throw new IllegalArgumentException("density must be 0 or greater, but was " + density);
 	}
 	
 	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.flattenColor, contentType);
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
+	}
+	
+	public MediaImageMagickThumbnail density(final int density)
+	{
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, density, this.flattenColor, this.getOutputContentType());
 	}
 	
 	public MediaImageMagickThumbnail flatten(final String color)
 	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, color, this.getOutputContentType());
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, color, this.getOutputContentType());
 	}
 	
 	public int getBoundX()
