@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add salted hashes and refactoring of Hash framework
+	This breaks backwards API compatibility
+		- Hash#hash does not have to deterministic anymore
+		- Hash#[not]Equal has been replaced by is[Not]Null
+		- Hash takes Algorithm interface
+	- deprecated SHAHash and MD5Hash
 * add PasswordLimiter
 * add Media.toFinal()
 * implement fallback from MediaImageMagickFilter#get(Item) to MediaImageioFilter,

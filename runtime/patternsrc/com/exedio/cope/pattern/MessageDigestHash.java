@@ -18,71 +18,20 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.MessageDigest;
-
-import com.exedio.cope.util.MessageDigestUtil;
-
-/**
- * Uses hash algorithms from {@link MessageDigest}.
- *
- * @author Ralf Wiebicke
- */
-public class MessageDigestHash extends ByteHash
+public final class MessageDigestHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final String algorithm;
+	private static final String DIGEST = "SHA-512";
+	private static final int SALT_LENGTH = 8;
 
-	/**
-	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	public MessageDigestHash(
-			final boolean optional,
-			final String algorithm,
-			final String encoding)
+	public MessageDigestHash(final int iterations, final String encoding)
 	{
-		super(optional, algorithmName(algorithm), hashLength(algorithm), encoding);
-		this.algorithm = algorithm;
-	}
-	
-	private static final int hashLength(final String algorithm)
-	{
-		final MessageDigest digest = MessageDigestUtil.getInstance(algorithm);
-		
-		final int digestLength = digest.getDigestLength();
-		if(digestLength<=0)
-			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
-		
-		return digestLength;
+		super(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations), encoding);
 	}
 
-	private static final String algorithmName(final String algorithm)
+	public MessageDigestHash(final int iterations)
 	{
-		return algorithm.replaceAll("-", "");
-	}
-	
-	/**
-	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	public MessageDigestHash(
-			final boolean optional,
-			final String algorithm)
-	{
-		this(optional, algorithm, "utf8");
-	}
-	
-	@Override
-	public MessageDigestHash optional()
-	{
-		return new MessageDigestHash(true, algorithm, getEncoding());
-	}
-	
-	@Override
-	public final byte[] hash(final byte[] plainText)
-	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(algorithm);
-		messageDigest.reset();
-		messageDigest.update(plainText);
-		return messageDigest.digest();
+		super(new MessageDigestAlgorithm(DIGEST, SALT_LENGTH, iterations));
 	}
 }

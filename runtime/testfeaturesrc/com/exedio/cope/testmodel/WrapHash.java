@@ -18,6 +18,9 @@
 
 package com.exedio.cope.testmodel;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 
@@ -31,26 +34,61 @@ public class WrapHash extends Hash
 	
 	public WrapHash(final StringField storage)
 	{
-		super(storage, "wrap");
+		super(storage, ALGORITHM);
 	}
 
 	public WrapHash()
 	{
-		super("wrap");
+		super(ALGORITHM);
 	}
 	
-	@Override
-	public WrapHash optional()
+	private static final Algorithm ALGORITHM = new Algorithm()
 	{
-		return new WrapHash(getStorage().optional());
-	}
-	
-	@Override
-	public String hash(final String plainText)
-	{
-		if(plainText==null)
-			throw new NullPointerException();
-		else
-			return '[' + plainText + ']';
-	}
+		public String name()
+		{
+			return "wrap";
+		}
+
+		public int length()
+		{
+			return 6;
+		}
+		
+		public byte[] hash(final byte[] plainText)
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+			
+			final String x;
+			try
+			{
+				x = new String(plainText, "utf8");
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+			final int i = Integer.parseInt(x, 16);
+			final byte[] result = new byte[]{
+					0x34,
+					(byte)( i >> 24),
+					(byte)((i >> 16) & 0x000000ff),
+					(byte)((i >>  8) & 0x000000ff),
+					(byte)( i        & 0x000000ff),
+					0x43,
+			};
+			assert result.length==length();
+			return result;
+		}
+		
+		public boolean check(final byte[] plainText, final byte[] hash)
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+			if(hash==null)
+				throw new NullPointerException();
+			
+			return Arrays.equals(hash(plainText), hash);
+		}
+	};
 }

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,41 +26,69 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 
-public abstract class Hash extends Pattern implements Settable<String>
+public class Hash extends Pattern implements Settable<String>
 {
 	private static final long serialVersionUID = 1l;
 	
 	private final StringField storage;
-	private final String algorithmName;
+	private final Algorithm algorithm;
+	private final String encoding;
 
-	public Hash(final StringField storage, final String algorithmName)
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
-		if(algorithmName==null)
-			throw new NullPointerException("algorithmName");
+		if(algorithm==null)
+			throw new NullPointerException("algorithm");
+		if(encoding==null)
+			throw new NullPointerException("encoding");
+		
+		this.algorithm = algorithm;
+		final String algorithmName = algorithm.name();
 		if(algorithmName.length()==0)
 			throw new IllegalArgumentException("algorithmName must not be empty");
 
-		addSource(this.storage = storage, this.algorithmName = algorithmName, ComputedElement.get());
+		addSource(this.storage = storage, algorithmName, ComputedElement.get());
+		
+		this.encoding = encoding;
+		try
+		{
+			encode("test");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
-	public Hash(final String algorithmName)
+	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(new StringField(), algorithmName);
+		this(storage, algorithm, "utf8");
+	}
+	
+	public Hash(final Algorithm algorithm, final String encoding)
+	{
+		this(newStorage(algorithm), algorithm, encoding);
+	}
+	
+	public Hash(final Algorithm algorithm)
+	{
+		this(newStorage(algorithm), algorithm);
 	}
 	
 	public final StringField getStorage()
@@ -67,9 +96,19 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage;
 	}
 	
+	public final Algorithm getAlgorithm()
+	{
+		return algorithm;
+	}
+	
 	public final String getAlgorithmName()
 	{
-		return algorithmName;
+		return algorithm.name();
+	}
+	
+	public final String getEncoding()
+	{
+		return encoding;
 	}
 	
 	public final boolean isInitial()
@@ -87,23 +126,96 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.isMandatory();
 	}
 	
-	public Class getInitialType()
+	public final Class getInitialType()
 	{
 		return String.class;
 	}
 	
-	public Set<Class<? extends Throwable>> getInitialExceptions()
+	public final Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return storage.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = storage.getInitialExceptions();
+		result.remove(StringLengthViolationException.class);
+		result.remove(StringCharSetViolationException.class);
+		return result;
 	}
 	
-	/**
-	 * @param plainText the text to be hashed. Is never null.
-	 * @return the hash of plainText. Must never return null.
-	 */
-	public abstract String hash(String plainText);
+	private static StringField newStorage(final Algorithm algorithm)
+	{
+		StringField result =
+			new StringField().
+				charSet(CharSet.HEX_LOWER).
+				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
+		return result;
+	}
 	
-	public abstract Hash optional();
+	private String algorithmHash(final String plainText)
+	{
+		if(plainText==null)
+			throw new NullPointerException();
+		
+		try
+		{
+			final byte[] resultBytes = algorithm.hash(encode(plainText));
+			if(resultBytes==null)
+				throw new NullPointerException();
+			return Hex.encodeLower(resultBytes);
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(encoding, e);
+		}
+	}
+	
+	private boolean algorithmCheck(final String plainText, final String hash)
+	{
+		if(plainText==null)
+			throw new NullPointerException();
+		if(hash==null)
+			throw new NullPointerException();
+		
+		try
+		{
+			return algorithm.check(encode(plainText), Hex.decodeLower(hash));
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(encoding, e);
+		}
+	}
+	
+	private byte[] encode(final String s) throws UnsupportedEncodingException
+	{
+		return s.getBytes(encoding);
+	}
+	
+	public interface Algorithm
+	{
+		String name();
+		int length();
+		
+		/**
+		 * Returns a hash for the given plain text.
+		 * The result is not required to be deterministic -
+		 * this means, multiple calls for the same plain text
+		 * do not have to return the same hash.
+		 * This is especially true for salted hashs.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @return the hash of plainText. Must never return null.
+		 */
+		byte[] hash(byte[] plainText);
+		
+		/**
+		 * Returns whether the given plain text matches the given hash.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @param hash the hash of plainText. Is never null.
+		 */
+		boolean check(byte[] plainText, byte[] hash);
+	}
+	
+	public final Hash optional()
+	{
+		return new Hash(storage.optional(), algorithm, encoding);
+	}
 	
 	@Override
 	public List<Wrapper> getWrappers()
@@ -124,6 +236,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 			addThrows(exceptions).
 			addParameter(String.class));
 		
+		final String algorithmName = algorithm.name();
 		result.add(
 			new Wrapper("getHash").
 			setMethodWrapperPattern("get{0}" + algorithmName).
@@ -147,14 +260,14 @@ public abstract class Hash extends Pattern implements Settable<String>
 			StringLengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, plainText!=null ? hash(plainText) : null);
+		storage.set(item, hash(plainText));
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
-			return hash(actualPlainText).equals(expectedHash); // hash(String) must not return null
+			return (expectedHash!=null) && algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -166,7 +279,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(value!=null ? hash(value) : null) };
+		return new SetValue[]{ storage.map(hash(value)) };
 	}
 	
 	public final String getHash(final Item item)
@@ -179,19 +292,28 @@ public abstract class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash);
 	}
 	
-	public final Condition equal(final String value)
+	public final String hash(final String plainText)
 	{
-		return value!=null ? storage.equal(hash(value)) : storage.isNull();
+		if(plainText==null)
+			return null;
+		final String result = algorithmHash(plainText);
+		if(result==null)
+			throw new NullPointerException();
+		return result;
 	}
 	
-	public final Condition equal(final Join join, final String value)
+	public final Condition isNull()
 	{
-		final Function<String> boundStorage = storage.bind(join);
-		return value!=null ? boundStorage.equal(hash(value)) : boundStorage.isNull();
+		return storage.isNull();
+	}
+	
+	public final Condition isNull(final Join join)
+	{
+		return storage.bind(join).isNull();
 	}
 
-	public final Condition notEqual(final String value)
+	public final Condition isNotNull()
 	{
-		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull();
+		return storage.isNotNull();
 	}
 }

@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -79,6 +77,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.password.getInitialType());
 		assertContains(item.password.getInitialExceptions());
 		assertEquals("utf8", item.password.getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
 		
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
@@ -89,6 +88,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordLatin.getInitialType());
 		assertContains(item.passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -100,53 +100,29 @@ public class SHATest extends AbstractRuntimeTest
 		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		assertEquals(1, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
 		
 		assertSerializedSame(item.password         , 372);
 		assertSerializedSame(item.passwordLatin    , 377);
 		assertSerializedSame(item.passwordMandatory, 381);
 		
-		try
-		{
-			new MD5Hash("nixus");
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
-		}
-		try
-		{
-			new MessageDigestHash(true, "NIXUS");
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
-		}
-
 		assertNull(item.getPasswordSHA512());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));
-		assertContains(item, item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("bing")));
+		assertContains(item, item.TYPE.search(item.password.isNull()));
 		
 		item.setPasswordSHA512("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678");
 		assertEquals("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678"));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678")));
+		assertContains(item.TYPE.search(item.password.isNull()));
 
 		item.setPassword("knollo");
 		assertEquals("1835861e09d3f89ee0f3f0e875366cad0d1877615ad322be2fff1135eb8e6f1ee1f55ce00edd17ae1c2ad89a96e676dfb106a0a8e78a7ea71e3ac373a5426af6", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword("knollo"));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.equal("bello")));
-		assertContains(item, item.TYPE.search(item.password.equal("knollo")));
+		assertContains(item.TYPE.search(item.password.isNull()));
 		
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -177,14 +153,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		item.setPasswordMandatory("mussx");
 		assertEquals("fcb991d0f9270258af56da9a1d6f007ddd102ee4d3a3db08f6d9071df31d1cc5154cd51af2083e70e09acceddb16c99895cd9df2639758f10b7fe31388fcd83f", item.getPasswordMandatorySHA512());
@@ -192,14 +162,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		item.setPasswordMandatory("");
 		assertEquals(EMPTY_HASH, item.getPasswordMandatorySHA512());
@@ -207,14 +171,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 
 		try
 		{
@@ -230,18 +188,15 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
-		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
-		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 		
 		// reference example from http://de.wikipedia.org/wiki/Secure_Hash_Algorithm
 		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
+		
+		assertEquals("af9ed2de700433b803240a552b41b5a472a6ef3fe1431a722b2063c75e9f07451f67a28e37d09cde769424c96aea6f8971389db9e1993d6c565c3c71b855723c", item.password.hash(upper));
+		assertEquals("90b30ef9902ae4c4c691d2d78c2f8fa0aa785afbc5545286b310f68e91dd2299c84a2484f0419fc5eaa7de598940799e1091c4948926ae1c9488dddae180bb80", item.password.hash(lower));
 		
 		item.setPassword(upper);
 		assertEquals("af9ed2de700433b803240a552b41b5a472a6ef3fe1431a722b2063c75e9f07451f67a28e37d09cde769424c96aea6f8971389db9e1993d6c565c3c71b855723c", item.getPasswordSHA512());
@@ -249,14 +204,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item, item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword(lower);
 		assertEquals("90b30ef9902ae4c4c691d2d78c2f8fa0aa785afbc5545286b310f68e91dd2299c84a2484f0419fc5eaa7de598940799e1091c4948926ae1c9488dddae180bb80", item.getPasswordSHA512());
@@ -264,14 +213,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item, item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPasswordSHA512("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678");
 		assertEquals("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678", item.getPasswordSHA512());
@@ -279,14 +222,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item, item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordSHA512());
@@ -294,14 +231,8 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item, item.TYPE.search(item.password.equal("")));
-		assertContains(item.TYPE.search(item.password.equal(null)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item.TYPE.search(item.password.notEqual("")));
-		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword(null);
 		assertEquals(null, item.getPasswordSHA512());
@@ -309,13 +240,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.equal(upper)));
-		assertContains(item.TYPE.search(item.password.equal(lower)));
-		assertContains(item.TYPE.search(item.password.equal("")));
-		assertContains(item, item.TYPE.search(item.password.equal(null)));
-		assertContains(item.TYPE.search(item.password.notEqual(upper)));
-		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-		assertContains(item.TYPE.search(item.password.notEqual("")));
-		assertContains(item.TYPE.search(item.password.notEqual(null)));
+		assertContains(item, item.TYPE.search(item.password.isNull()));
+		assertContains(item.TYPE.search(item.password.isNotNull()));
 	}
 }

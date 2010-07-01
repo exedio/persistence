@@ -18,23 +18,47 @@
 
 package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.io.UnsupportedEncodingException;
 
-public class PackageUtilTest extends TestCase
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Hash;
+
+public class ByteAlgorithmTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite( TrimmerTest.class );
-		suite.addTestSuite( IsInitialTest.class );
-		suite.addTestSuite( GetModelTest.class );
-		suite.addTestSuite( ClusterTest.class );
-		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( ArraysTest.class );
-		suite.addTestSuite( MessageDigestAlgorithmTest.class );
-		suite.addTestSuite( ByteAlgorithmTest.class );
-		return suite;
+		final Hash.Algorithm a = new Hash.Algorithm(){
+
+			public boolean check(byte[] plainText, byte[] hash)
+			{
+				throw new RuntimeException();
+			}
+
+			public byte[] hash(byte[] plainText)
+			{
+				throw new RuntimeException();
+			}
+
+			public int length()
+			{
+				return 1;
+			}
+
+			public String name()
+			{
+				return "name";
+			}
+		};
+		
+		try
+		{
+			new Hash(a, "nixus");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
+			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
+		}
 	}
 }

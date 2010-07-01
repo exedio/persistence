@@ -305,10 +305,11 @@
 	</target>
 	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.junit.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.junit.compile">
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
@@ -324,6 +325,7 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/dialects" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/utiltestsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
@@ -332,6 +334,16 @@
 				<pathelement location="lib/jdbc/hsqldb.jar" />
 			</classpath>
 		</ljunit>
+	</target>
+	
+	<target name="runtime.test.feature.compile"
+			depends="runtime.core.compile, runtime.pattern.compile">
+		<compile srcdir="runtime/testfeaturesrc">
+			<classpath>
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
+			</classpath>
+		</compile>
 	</target>
 	
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
@@ -366,7 +378,7 @@
 	</target>
 	
 	<target name="runtime.test.compile"
-			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile">
+			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile">
 		<compile srcdir="runtime/testsrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
@@ -374,6 +386,7 @@
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
+				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -382,14 +395,15 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
+	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.feature.compile, runtime.test.compile">
 		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
 			<fileset dir="build/classes/dsmf/testsrc" />
+			<fileset dir="build/classes/runtime/testfeaturesrc" />
 			<fileset dir="build/classes/runtime/testsrc" />
 		</ljar>
 	</target>
 	
-	<target name="runtime.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.compile">
+	<target name="runtime.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
@@ -406,6 +420,7 @@
 						<pathelement location="build/classes/runtime/patternsrc" />
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/junitsrc" />
+						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
@@ -659,7 +674,7 @@
 		<compile srcdir="instrument/src">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Hash only -->
+				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
@@ -685,14 +700,15 @@
 		</ljar>
 	</target>
 	
-	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
+	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Hash only -->
+				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
 				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
+				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />

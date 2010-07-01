@@ -18,30 +18,31 @@
 
 package com.exedio.cope.pattern;
 
-public final class SHAHash extends MessageDigestHash
+public final class SHAHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "SHA-512";
 
-	private SHAHash(final boolean optional, final String encoding)
-	{
-		super(optional, HASH, encoding);
-	}
-
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public SHAHash(final String encoding)
 	{
-		super(false, HASH, encoding);
+		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
 	}
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public SHAHash()
 	{
-		super(false, HASH);
-	}
-	
-	@Override
-	public SHAHash optional()
-	{
-		return new SHAHash(true, getEncoding());
+		super(new MessageDigestAlgorithm(HASH, 0, 1));
 	}
 }

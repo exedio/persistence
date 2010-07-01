@@ -18,30 +18,31 @@
 
 package com.exedio.cope.pattern;
 
-public final class MD5Hash extends MessageDigestHash
+public final class MD5Hash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 	
 	private static final String HASH = "MD5";
 
-	private MD5Hash(final boolean optional, final String encoding)
-	{
-		super(optional, HASH, encoding);
-	}
-
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public MD5Hash(final String encoding)
 	{
-		super(false, HASH, encoding);
+		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
 	}
 
+	/**
+	 * @deprecated
+	 *    This hash is insecure, because it does neither use salts nor iterations.
+	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 */
+	@Deprecated
 	public MD5Hash()
 	{
-		super(false, HASH);
-	}
-	
-	@Override
-	public MD5Hash optional()
-	{
-		return new MD5Hash(true, getEncoding());
+		super(new MessageDigestAlgorithm(HASH, 0, 1));
 	}
 }

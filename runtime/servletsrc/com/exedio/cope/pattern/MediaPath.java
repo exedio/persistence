@@ -297,7 +297,6 @@ public abstract class MediaPath extends Pattern
 		try
 		{
 			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
-			messageDigest.reset();
 			messageDigest.update(plainText.getBytes("utf8"));
 			final byte[] digest = messageDigest.digest();
 			final byte[] digestShrink = new byte[10];
