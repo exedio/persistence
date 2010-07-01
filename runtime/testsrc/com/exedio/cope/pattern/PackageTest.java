@@ -59,6 +59,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DispatcherTest.class);
 		suite.addTestSuite(ImporterTest.class);
 		suite.addTestSuite(SingletonTest.class);
+		suite.addTestSuite(PasswordLimiterModelTest.class);
+		suite.addTestSuite(PasswordLimiterVerboseTest.class);
+		suite.addTestSuite(PasswordLimiterTest.class);
 		suite.addTestSuite(PasswordRecoveryTest.class);
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
