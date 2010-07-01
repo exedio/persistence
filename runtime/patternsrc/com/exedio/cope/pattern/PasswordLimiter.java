@@ -147,10 +147,10 @@ public final class PasswordLimiter extends Pattern
 		final Query<Refusal> query = getCheckQuery(item);
 		if(query.total()>=limit)
 		{
-			// TODO
 			// Prevent timing attacks by running some password check.
-			// A helper method should be supplied by class Hash.
+			// TODO: A helper method should be supplied by class Hash.
 			// see http://en.wikipedia.org/wiki/Timing_attack
+			this.password.check(item, password);
 			return false;
 		}
 		return checkInternally(item, password);
