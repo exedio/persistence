@@ -198,7 +198,7 @@ public final class PasswordLimiter extends Pattern
 		private final Item item;
 		private final long releaseDate;
 
-		private ExceededException(
+		ExceededException(
 				final PasswordLimiter limiter,
 				final Item item,
 				final long releaseDate)
