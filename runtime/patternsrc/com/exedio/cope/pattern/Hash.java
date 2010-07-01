@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -229,6 +230,13 @@ public class Hash extends Pattern implements Settable<String>
 			setReturn(boolean.class).
 			addParameter(String.class));
 		
+		result.add(
+			new Wrapper("blind").
+			addComment("Wastes (almost) as much cpu cycles, as a call to '{@link #check'{3}'(String)}' would have needed.").
+			addComment("Needed to prevent Timing Attacks.").
+			setStatic().
+			addParameter(String.class));
+		
 		final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 		result.add(
 			new Wrapper("set").
@@ -270,6 +278,22 @@ public class Hash extends Pattern implements Settable<String>
 			return (expectedHash!=null) && algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
+	}
+
+	/**
+	 * Wastes (almost) as much cpu cycles, as a call to
+	 * {@link #check(Item, String)}  would have needed.
+	 * Needed to prevent Timing Attacks.
+	 * See http://en.wikipedia.org/wiki/Timing_attack
+	 */
+	public final void blind(@SuppressWarnings("unused") final Class<? extends Item> parentClass, final String actualPlainText)
+	{
+		if(actualPlainText!=null)
+		{
+			final char[] expectedHash = new char[storage.getMinimumLength()];
+			Arrays.fill(expectedHash, 'a');
+			algorithmCheck(actualPlainText, new String(expectedHash));
+		}
 	}
 	
 	public final SetValue<String> map(final String value)

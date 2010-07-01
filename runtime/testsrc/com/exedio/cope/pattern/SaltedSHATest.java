@@ -109,6 +109,16 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordLatin    , 389);
 		assertSerializedSame(item.passwordMandatory, 393);
 		
+		item.blindPassword(null);
+		item.blindPassword("");
+		item.blindPassword("bing");
+		item.blindPasswordLatin(null);
+		item.blindPasswordLatin("");
+		item.blindPasswordLatin("bing");
+		item.blindPasswordMandatory(null);
+		item.blindPasswordMandatory("");
+		item.blindPasswordMandatory("bing");
+		
 		assertNull(item.getPasswordSHA512s8());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));

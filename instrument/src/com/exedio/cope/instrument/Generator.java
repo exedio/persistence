@@ -411,7 +411,8 @@ final class Generator
 			final Object[] arguments = new String[]{
 					link(feature.name),
 					feature.name,
-					lowerCamelCase(feature.parent.name)};
+					lowerCamelCase(feature.parent.name),
+					featureNameCamelCase};
 			{
 				writeCommentHeader();
 				for(final String comment : wrapper.getComments())

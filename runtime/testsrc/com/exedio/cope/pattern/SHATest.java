@@ -106,6 +106,16 @@ public class SHATest extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordLatin    , 377);
 		assertSerializedSame(item.passwordMandatory, 381);
 		
+		item.blindPassword(null);
+		item.blindPassword("");
+		item.blindPassword("bing");
+		item.blindPasswordLatin(null);
+		item.blindPasswordLatin("");
+		item.blindPasswordLatin("bing");
+		item.blindPasswordMandatory(null);
+		item.blindPasswordMandatory("");
+		item.blindPasswordMandatory("bing");
+		
 		assertNull(item.getPasswordSHA512());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));
