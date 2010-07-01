@@ -24,13 +24,13 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 
 import java.util.Arrays;
 
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.misc.Computed;
 
-public class PasswordLimiterModelTest extends CopeTest
+public class PasswordLimiterModelTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(PasswordLimiterItem.TYPE);
 
@@ -79,7 +79,7 @@ public class PasswordLimiterModelTest extends CopeTest
 		assertFalse(passwordLimited                 .isAnnotationPresent(Computed.class));
 		assertTrue (passwordLimited.getRefusalType().isAnnotationPresent(Computed.class));
 
-		//assertSerializedSame(passwordRecovery, 406);
+		assertSerializedSame(passwordLimited, 408);
 
 		try
 		{
