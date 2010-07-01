@@ -24,7 +24,7 @@ import com.exedio.cope.pattern.MD5Hash;
 public class PasswordLimiterItem extends Item
 {
 	static final MD5Hash password = new MD5Hash();
-	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 50, 2);
+	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 200, 2);
 
 
 

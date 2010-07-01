@@ -72,7 +72,7 @@ public class PasswordLimiterModelTest extends CopeTest
 		assertEquals(passwordLimited.getRefusals(), passwordLimited.getDate().getPattern());
 
 		assertSame(password, passwordLimited.getPassword());
-		assertEquals(50, passwordLimited.getPeriod());
+		assertEquals(200, passwordLimited.getPeriod());
 		assertEquals(2, passwordLimited.getLimit());
 
 		assertFalse(password                        .isAnnotationPresent(Computed.class));
