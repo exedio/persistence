@@ -300,6 +300,22 @@ public abstract class CopeAssert extends TestCase
 	}
 
 	/**
+	 * This method will not return until the result of System.currentTimeMillis() has increased
+	 * by the given amount of milli seconds.
+	 */
+	public static final void sleepLongerThan(final long millis) throws InterruptedException
+	{
+		final long start = System.currentTimeMillis();
+		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
+		// value ... needed for Windows.
+		do
+		{
+			Thread.sleep(millis+1);
+		}
+		while((System.currentTimeMillis()-start)<=millis);
+	}
+
+	/**
 	 * Calls {@link Query#search()} on the given query and returns the result.
 	 * Prints the statement info to standard out.
 	 */

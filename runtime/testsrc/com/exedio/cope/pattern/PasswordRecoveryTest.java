@@ -215,20 +215,4 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		for(final Token token : tokens)
 			assertFalse(token.existsCopeItem());
 	}
-
-	/**
-	 * This method will not return until the result of System.currentTimeMillis() has increased
-	 * by the given amount of milli seconds.
-	 */
-	private void sleepLongerThan( long millis ) throws InterruptedException
-	{
-		long start = System.currentTimeMillis();
-		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
-		// value ... needed for Windows.
-		do
-		{
-			Thread.sleep( millis+1 );
-		}
-		while ( (System.currentTimeMillis()-start)<=millis );
-	}
 }

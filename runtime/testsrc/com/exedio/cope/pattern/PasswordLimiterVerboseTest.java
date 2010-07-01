@@ -186,20 +186,4 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		model.startTransaction("PasswordRecoveryTest");
 		return result;
 	}
-
-	/**
-	 * This method will not return until the result of System.currentTimeMillis() has increased
-	 * by the given amount of milli seconds.
-	 */
-	private void sleepLongerThan( final long millis ) throws InterruptedException
-	{
-		final long start = System.currentTimeMillis();
-		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
-		// value ... needed for Windows.
-		do
-		{
-			Thread.sleep( millis+1 );
-		}
-		while ( (System.currentTimeMillis()-start)<=millis );
-	}
 }
