@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<project name="findbugs" default="fail" basedir=".">
+
+	<target name="findbugs.taskdef">
+		<property name="findbugs.root" value="findbugs-1.3.9" />
+		<untar
+				compression="gzip"
+				src="${basedir}/lib/findbugs.tar.gz"
+				dest="${basedir}/build">
+			<patternset>
+				<exclude name="${findbugs.root}/doc/**" />
+			</patternset>
+			<mapper type="glob" from="${findbugs.root}/*" to="findbugs-home/*" />
+		</untar>
+		<taskdef
+				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
+				classpath="build/findbugs-home/lib/findbugs-ant.jar" />
+	</target>
+	
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+	
+</project>

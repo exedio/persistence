@@ -6,6 +6,7 @@
 	<property file="project.properties" />
 	
 	<import file="macros/compile.xml" />
+	<import file="macros/findbugs.xml" />
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
@@ -875,19 +876,10 @@
 						tomcat, index,
 						webtest" />
 	
-	<target name="findbugs.prepare">
-		<untar
-				compression="gzip"
-				src="${basedir}/lib/findbugs-1.3.9.tar.gz"
-				dest="${basedir}/build/findbugs-home" />
-		<taskdef
-				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
-				classpath="build/findbugs-home/findbugs-1.3.9/lib/findbugs-ant.jar" />
-	</target>
 	
-	<target name="findbugs.prod" depends="findbugs.prepare, compile">
+	<target name="findbugs.prod" depends="findbugs.taskdef, compile">
 		<findbugs
-					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
+					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx250M"
 					failOnError="true"
 					warningsProperty="findbugs.warnings"
@@ -918,9 +910,9 @@
 		<fail if="findbugs.warnings" message="findbugs warnings" />
 	</target>
 	
-	<target name="findbugs.test" depends="findbugs.prepare, compile">
+	<target name="findbugs.test" depends="findbugs.taskdef, compile">
 		<findbugs
-					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
+					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx250M"
 					output="html"
 					outputFile="${basedir}/build/findbugs-test.html"
