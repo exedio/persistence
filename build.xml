@@ -883,8 +883,8 @@
 					jvmargs="-Xmx250M"
 					failOnError="true"
 					warningsProperty="findbugs.warnings"
-					output="html"
-					outputFile="${basedir}/build/findbugs-prod.html"
+					output="${findbugs.output}"
+					outputFile="${basedir}/build/findbugs-prod.${findbugs.output}"
 					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
@@ -907,7 +907,6 @@
 				<pathelement location="${ant.core.lib}" />
 			</auxclasspath>
 		</findbugs>
-		<fail if="findbugs.warnings" message="findbugs warnings" />
 	</target>
 	
 	<target name="findbugs.test" depends="findbugs.taskdef, compile">
