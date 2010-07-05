@@ -90,7 +90,7 @@ final class CopeType
 	}
 
 	private CopeType supertype;
-	private ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
+	private final ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
 
 	void endBuildStage()
 	{

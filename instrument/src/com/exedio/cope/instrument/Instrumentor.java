@@ -35,7 +35,7 @@ final class Instrumentor implements InjectionConsumer
 	 * when operating on a inner class.
 	 * @see #class_state
 	 */
-	private ArrayList<JavaClass> class_state_stack = new ArrayList<JavaClass>();
+	private final ArrayList<JavaClass> class_state_stack = new ArrayList<JavaClass>();
 
 	/**
 	 * The last file level doccomment that was read.
