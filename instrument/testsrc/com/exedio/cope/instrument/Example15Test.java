@@ -82,7 +82,7 @@ public class Example15Test extends InjectorTest
 		assertInnerClassAttribute("Weekday", null);
 
 		final JavaBehaviour equalsMethod =
-			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be PUBLIC */);
+			assertBehaviourHeader("equals", "boolean", PUBLIC);
 		assertMethod("equals", null, equalsMethod);
 
 		assertClassEnd(exampleClass);

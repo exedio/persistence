@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
-@SuppressWarnings("unchecked")
 public class Example15
 {
 	private String name;
@@ -35,7 +34,6 @@ public class Example15
 		this.primes = primes;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void set(HashSet<Date> dates, final HashMap<Integer, Boolean> primes)
 	{
 		this.dates = dates;
@@ -47,8 +45,6 @@ public class Example15
 		return dates;
 	}
 
-	@  SuppressWarnings
-	( "unchecked" )
 	HashMap<Integer, Boolean> getPrimes()
 	{
 		return primes;
@@ -73,7 +69,6 @@ public class Example15
 		}
 	}
 	
-	@Override
 	public boolean equals(Object o)
 	{
 		return true;
