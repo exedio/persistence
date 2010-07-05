@@ -603,7 +603,7 @@ final class Injector
 					throw new ParseException(
 						"constructor '"
 							+ featurename
-							+ " must have the classes name '"
+							+ "' must have the classes name '"
 							+ parent.name
 							+ '\'');
 			}
