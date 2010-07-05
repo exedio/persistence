@@ -130,7 +130,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	static final int runReport(final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
+		return ScheduleItem.report.run(interrupter);
 	}/**
 
 	 **

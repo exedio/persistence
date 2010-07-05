@@ -188,7 +188,7 @@ public final class Schedule extends Pattern
 			new Wrapper("run").
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
-			setStatic());
+			setStatic(false));
 				
 		return Collections.unmodifiableList(result);
 	}
@@ -213,14 +213,18 @@ public final class Schedule extends Pattern
 		this.interval.set(item, interval);
 	}
 	
-	public <P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter)
+	public int run(final Interrupter interrupter)
 	{
-		return run(parentClass, interrupter, new Date());
+		return run(interrupter, new Date());
 	}
 	
-	<P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter, final Date now)
+	int run(final Interrupter interrupter, final Date now)
 	{
-		final Type<P> type = getType().as(parentClass);
+		return run(getType(), interrupter, now);
+	}
+	
+	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
+	{
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
@@ -245,7 +249,7 @@ public final class Schedule extends Pattern
 			final Query<P> q = type.newQuery(enabled.equal(true).and(runType.getThis().isNull()));
 			q.joinOuterLeft(runType,
 					Cope.and(
-						runParent.as(parentClass).equal(typeThis),
+						runParent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
 							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
@@ -362,5 +366,16 @@ public final class Schedule extends Pattern
 		{
 			return getPattern().runElapsed.getMandatory(this);
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #run(Interrupter)} instead.
+	 */
+	@Deprecated
+	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final Interrupter interrupter)
+	{
+		return run(interrupter);
 	}
 }

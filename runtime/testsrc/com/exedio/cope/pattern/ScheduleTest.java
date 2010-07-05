@@ -329,7 +329,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		try
 		{
 			model.commit();
-			return report.run(ScheduleItem.class, interrupter, now);
+			return report.run(interrupter, now);
 		}
 		finally
 		{
