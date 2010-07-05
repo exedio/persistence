@@ -351,7 +351,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			item.setEins(null);
 			fail();
 		}
-		catch(MandatoryViolationException e) 
+		catch(MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation on CompositeItem-0 for CompositeItem.eins-aString", e.getMessage()); // TODO feature should be CompositeItem.eins
 		}

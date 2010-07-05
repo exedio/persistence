@@ -145,7 +145,7 @@ public final class SchemaInfo
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated Use {@link #getColumnValue(Enum)} instead. 
+	 * @deprecated Use {@link #getColumnValue(Enum)} instead.
 	 */
 	@Deprecated
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)

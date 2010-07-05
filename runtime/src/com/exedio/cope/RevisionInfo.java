@@ -102,7 +102,7 @@ public abstract class RevisionInfo
 				"driver.version.minor",
 				"hostname",
 				"jdbc.url",
-				"jdbc.user"		
+				"jdbc.user"
 			};
 	
 	public static final RevisionInfo read(final byte[] bytes)

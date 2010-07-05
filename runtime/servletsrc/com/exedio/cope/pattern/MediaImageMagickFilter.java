@@ -288,8 +288,8 @@ public class MediaImageMagickFilter extends MediaFilter
 					" for feature " + getID() +
 					" and item " + item.getCopeID() +
 					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath() + 
-					( exitValue==4 ? 
+					" and " + outFile.getAbsolutePath() +
+					( exitValue==4 ?
 						" (if running on Windows, make sure ImageMagick convert.exe and " +
 							"not \\Windows\\system32\\convert.exe is called)"
 						: ""

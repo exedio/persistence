@@ -193,7 +193,7 @@ public class PatternTest extends AbstractRuntimeTest
 		{
 			superType.newItem(
 					PatternTestItem.testPattern.superTypeString.map("string1"),
-					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));			
+					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));
 			fail();
 		}
 		catch(IllegalArgumentException e)

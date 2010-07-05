@@ -64,7 +64,7 @@ final class CustomAnnotatedElement
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			return annotationClass.cast(annotationMap.get(annotationClass));
-		}		
+		}
 
 		public Annotation[] getAnnotations()
 		{

@@ -730,7 +730,7 @@ public final class Model implements Serializable
 		@Override
 		public String toString()
 		{
-			return type.getName() + '#' + name;			
+			return type.getName() + '#' + name;
 		}
 		
 		Object resolveModel()
