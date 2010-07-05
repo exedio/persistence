@@ -33,14 +33,14 @@ import java.util.zip.CRC32;
 
 /**
  * Implements a modifying java parser.
- * This means, the input stream is continuesly written
+ * This means, the input stream is continuously written
  * into an output stream, and may be modified before writing.
  *
  * The parser recognizes java meta information only,
  * which is anything outside method bodies and attribute
- * inizializers.
+ * initializers.
  *
- * To use the parser, provide an implemention of the
+ * To use the parser, provide an implementation of the
  * InjectionConsumer interface to the constructor.
  * @see InjectionConsumer
  *
