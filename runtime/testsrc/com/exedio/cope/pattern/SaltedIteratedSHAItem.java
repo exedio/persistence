@@ -115,7 +115,7 @@ public class SaltedIteratedSHAItem extends Item
 	 */
 	static final void blindPassword(final java.lang.String password)
 	{
-		SaltedIteratedSHAItem.password.blind(SaltedIteratedSHAItem.class,password);
+		SaltedIteratedSHAItem.password.blind(password);
 	}/**
 
 	 **
@@ -156,7 +156,7 @@ public class SaltedIteratedSHAItem extends Item
 	 */
 	static final void blindPasswordLatin(final java.lang.String passwordLatin)
 	{
-		SaltedIteratedSHAItem.passwordLatin.blind(SaltedIteratedSHAItem.class,passwordLatin);
+		SaltedIteratedSHAItem.passwordLatin.blind(passwordLatin);
 	}/**
 
 	 **
@@ -197,7 +197,7 @@ public class SaltedIteratedSHAItem extends Item
 	 */
 	static final void blindPasswordMandatory(final java.lang.String passwordMandatory)
 	{
-		SaltedIteratedSHAItem.passwordMandatory.blind(SaltedIteratedSHAItem.class,passwordMandatory);
+		SaltedIteratedSHAItem.passwordMandatory.blind(passwordMandatory);
 	}/**
 
 	 **

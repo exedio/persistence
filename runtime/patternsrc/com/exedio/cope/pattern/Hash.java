@@ -234,7 +234,7 @@ public class Hash extends Pattern implements Settable<String>
 			new Wrapper("blind").
 			addComment("Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.").
 			addComment("Needed to prevent Timing Attacks.").
-			setStatic().
+			setStatic(false).
 			addParameter(String.class));
 		
 		final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
@@ -286,7 +286,7 @@ public class Hash extends Pattern implements Settable<String>
 	 * Needed to prevent Timing Attacks.
 	 * See http://en.wikipedia.org/wiki/Timing_attack
 	 */
-	public final void blind(@SuppressWarnings("unused") final Class<? extends Item> parentClass, final String actualPlainText)
+	public final void blind(final String actualPlainText)
 	{
 		if(actualPlainText!=null)
 		{
@@ -339,5 +339,16 @@ public class Hash extends Pattern implements Settable<String>
 	public final Condition isNotNull()
 	{
 		return storage.isNotNull();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #blind(String)} instead.
+	 */
+	@Deprecated
+	public final void blind(@SuppressWarnings("unused") final Class<? extends Item> parentClass, final String actualPlainText)
+	{
+		blind(actualPlainText);
 	}
 }

@@ -107,7 +107,7 @@ public class HashItem extends Item
 	 */
 	static final void blindExplicitExternal(final java.lang.String explicitExternal)
 	{
-		HashItem.explicitExternal.blind(HashItem.class,explicitExternal);
+		HashItem.explicitExternal.blind(explicitExternal);
 	}/**
 
 	 **
@@ -158,7 +158,7 @@ public class HashItem extends Item
 	 */
 	static final void blindImplicitExternal(final java.lang.String implicitExternal)
 	{
-		HashItem.implicitExternal.blind(HashItem.class,implicitExternal);
+		HashItem.implicitExternal.blind(implicitExternal);
 	}/**
 
 	 **
@@ -209,7 +209,7 @@ public class HashItem extends Item
 	 */
 	static final void blindInternal(final java.lang.String internal)
 	{
-		HashItem.internal.blind(HashItem.class,internal);
+		HashItem.internal.blind(internal);
 	}/**
 
 	 **

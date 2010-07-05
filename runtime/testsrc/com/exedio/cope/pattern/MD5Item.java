@@ -86,7 +86,7 @@ public class MD5Item extends Item
 	 */
 	static final void blindPassword(final java.lang.String password)
 	{
-		MD5Item.password.blind(MD5Item.class,password);
+		MD5Item.password.blind(password);
 	}/**
 
 	 **
@@ -137,7 +137,7 @@ public class MD5Item extends Item
 	 */
 	static final void blindPasswordLatin(final java.lang.String passwordLatin)
 	{
-		MD5Item.passwordLatin.blind(MD5Item.class,passwordLatin);
+		MD5Item.passwordLatin.blind(passwordLatin);
 	}/**
 
 	 **
@@ -188,7 +188,7 @@ public class MD5Item extends Item
 	 */
 	static final void blindPasswordMandatory(final java.lang.String passwordMandatory)
 	{
-		MD5Item.passwordMandatory.blind(MD5Item.class,passwordMandatory);
+		MD5Item.passwordMandatory.blind(passwordMandatory);
 	}/**
 
 	 **

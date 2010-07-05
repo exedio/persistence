@@ -135,7 +135,7 @@ public final class PasswordLimiter extends Pattern
 			addThrows(ExceededException.class));
 		result.add(
 			new Wrapper("purge").
-			setStatic().
+			setStatic(false).
 			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of refusals purged"));
 
@@ -148,7 +148,7 @@ public final class PasswordLimiter extends Pattern
 		if(query.total()>=limit)
 		{
 			// prevent Timing Attacks
-			this.password.blind(null, password);
+			this.password.blind(password);
 			return false;
 		}
 		return checkInternally(item, password);
@@ -231,10 +231,8 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
-	public int purge(final Class parentClass, final Interrupter interrupter)
+	public int purge(final Interrupter interrupter)
 	{
-		assert parentClass!=null;
-
 		final int LIMIT = 100;
 		final Model model = getType().getModel();
 		int result = 0;
@@ -299,5 +297,16 @@ public final class PasswordLimiter extends Pattern
 		{
 			return getPattern().date.get(this);
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #purge(Interrupter)} instead.
+	 */
+	@Deprecated
+	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
+	{
+		return purge(interrupter);
 	}
 }

@@ -86,7 +86,7 @@ public class SHAItem extends Item
 	 */
 	static final void blindPassword(final java.lang.String password)
 	{
-		SHAItem.password.blind(SHAItem.class,password);
+		SHAItem.password.blind(password);
 	}/**
 
 	 **
@@ -137,7 +137,7 @@ public class SHAItem extends Item
 	 */
 	static final void blindPasswordLatin(final java.lang.String passwordLatin)
 	{
-		SHAItem.passwordLatin.blind(SHAItem.class,passwordLatin);
+		SHAItem.passwordLatin.blind(passwordLatin);
 	}/**
 
 	 **
@@ -188,7 +188,7 @@ public class SHAItem extends Item
 	 */
 	static final void blindPasswordMandatory(final java.lang.String passwordMandatory)
 	{
-		SHAItem.passwordMandatory.blind(SHAItem.class,passwordMandatory);
+		SHAItem.passwordMandatory.blind(passwordMandatory);
 	}/**
 
 	 **

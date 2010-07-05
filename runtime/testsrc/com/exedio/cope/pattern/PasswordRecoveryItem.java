@@ -84,7 +84,7 @@ public class PasswordRecoveryItem extends Item
 	 */
 	static final void blindPassword(final java.lang.String password)
 	{
-		PasswordRecoveryItem.password.blind(PasswordRecoveryItem.class,password);
+		PasswordRecoveryItem.password.blind(password);
 	}/**
 
 	 **
@@ -149,7 +149,7 @@ public class PasswordRecoveryItem extends Item
 	 */
 	static final int purgePasswordRecovery(final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return PasswordRecoveryItem.passwordRecovery.purge(PasswordRecoveryItem.class,interrupter);
+		return PasswordRecoveryItem.passwordRecovery.purge(interrupter);
 	}/**
 
 	 **

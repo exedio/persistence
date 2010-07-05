@@ -84,7 +84,7 @@ public class PasswordLimiterItem extends Item
 	 */
 	static final void blindPassword(final java.lang.String password)
 	{
-		PasswordLimiterItem.password.blind(PasswordLimiterItem.class,password);
+		PasswordLimiterItem.password.blind(password);
 	}/**
 
 	 **
@@ -148,7 +148,7 @@ public class PasswordLimiterItem extends Item
 	 */
 	static final int purgePasswordLimited(final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return PasswordLimiterItem.passwordLimited.purge(PasswordLimiterItem.class,interrupter);
+		return PasswordLimiterItem.passwordLimited.purge(interrupter);
 	}/**
 
 	 **

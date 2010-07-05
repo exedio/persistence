@@ -584,9 +584,12 @@ final class Generator
 				boolean first = true;
 				if(isStatic)
 				{
-					first = false;
-					o.write(feature.parent.name);
-					o.write(".class");
+					if(wrapper.hasStaticClassToken())
+					{
+						first = false;
+						o.write(feature.parent.name);
+						o.write(".class");
+					}
 				}
 				else
 				{

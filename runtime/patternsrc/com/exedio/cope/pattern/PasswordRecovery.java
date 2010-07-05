@@ -125,7 +125,7 @@ public final class PasswordRecovery extends Pattern
 			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
 		result.add(
 			new Wrapper("purge").
-			setStatic().
+			setStatic(false).
 			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of tokens purged"));
 		
@@ -177,10 +177,8 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 	
-	public int purge(final Class parentClass, final Interrupter interrupter)
+	public int purge(final Interrupter interrupter)
 	{
-		assert parentClass!=null;
-		
 		final int LIMIT = 100;
 		final Date now = new Date();
 		final Model model = getType().getModel();
@@ -250,5 +248,16 @@ public final class PasswordRecovery extends Pattern
 		{
 			return getPattern().expires.get(this);
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #purge(Interrupter)} instead.
+	 */
+	@Deprecated
+	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
+	{
+		return purge(interrupter);
 	}
 }

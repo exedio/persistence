@@ -1732,7 +1732,7 @@ public class Standard extends Item
 	 */
 	public static final void blindPublicHash(final java.lang.String publicHash)
 	{
-		Standard.publicHash.blind(Standard.class,publicHash);
+		Standard.publicHash.blind(publicHash);
 	}/**
 
 	 **
@@ -1783,7 +1783,7 @@ public class Standard extends Item
 	 */
 	private static final void blindPrivateHash(final java.lang.String privateHash)
 	{
-		Standard.privateHash.blind(Standard.class,privateHash);
+		Standard.privateHash.blind(privateHash);
 	}/**
 
 	 **
@@ -1834,7 +1834,7 @@ public class Standard extends Item
 	 */
 	public static final void blindMandatoryHash(final java.lang.String mandatoryHash)
 	{
-		Standard.mandatoryHash.blind(Standard.class,mandatoryHash);
+		Standard.mandatoryHash.blind(mandatoryHash);
 	}/**
 
 	 **
@@ -1889,7 +1889,7 @@ public class Standard extends Item
 	 */
 	public static final void blindPrivateSetterHash(final java.lang.String privateSetterHash)
 	{
-		Standard.privateSetterHash.blind(Standard.class,privateSetterHash);
+		Standard.privateSetterHash.blind(privateSetterHash);
 	}/**
 
 	 **

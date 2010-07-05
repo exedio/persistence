@@ -46,10 +46,17 @@ public final class Wrapper
 	
 	
 	private boolean isStatic = false;
+	private boolean hasStaticClassToken = false;
 	
 	public Wrapper setStatic()
 	{
+		return setStatic(true);
+	}
+	
+	public Wrapper setStatic(final boolean classToken)
+	{
 		isStatic = true;
+		hasStaticClassToken = classToken;
 		
 		return this;
 	}
@@ -57,6 +64,11 @@ public final class Wrapper
 	public boolean isStatic()
 	{
 		return isStatic;
+	}
+	
+	public boolean hasStaticClassToken()
+	{
+		return hasStaticClassToken;
 	}
 	
 	
