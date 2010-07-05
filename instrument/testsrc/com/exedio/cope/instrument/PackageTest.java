@@ -30,6 +30,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ExampleTest.class);
 		suite.addTestSuite(Example15Test.class);
+		suite.addTestSuite(ExampleAnnTest.class);
 		suite.addTestSuite(ResolveImportTest.class);
 		suite.addTestSuite(GeneratorTest.class);
 		return suite;
