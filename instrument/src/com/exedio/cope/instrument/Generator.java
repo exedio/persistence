@@ -584,11 +584,7 @@ final class Generator
 				boolean first = true;
 				if(isStatic)
 				{
-					if(first)
-						first = false;
-					else
-						o.write(',');
-					
+					first = false;
 					o.write(feature.parent.name);
 					o.write(".class");
 				}
