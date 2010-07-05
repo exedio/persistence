@@ -531,7 +531,7 @@
 	</target>
 	
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument verbose="false">
+		<instrument finalArgs="true" verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
 				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
