@@ -42,13 +42,13 @@ final class Instrumentor implements InjectionConsumer
 	 */
 	private String lastFileDocComment = null;
 
-	public void onPackage(JavaFile javafile)
+	public void onPackage(final JavaFile javafile)
 	throws InjectorParseException
 	{
 		// nothing to do here
 	}
 
-	public void onImport(String importname)
+	public void onImport(final String importname)
 	{
 		// nothing to do here
 	}
@@ -76,12 +76,12 @@ final class Instrumentor implements InjectionConsumer
 		class_state = class_state_stack.remove(class_state_stack.size()-1);
 	}
 
-	public void onBehaviourHeader(JavaBehaviour jb)
+	public void onBehaviourHeader(final JavaBehaviour jb)
 	{
 		// nothing to do here
 	}
 
-	public void onAttributeHeader(JavaAttribute ja)
+	public void onAttributeHeader(final JavaAttribute ja)
 	{
 		// nothing to do here
 	}

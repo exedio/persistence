@@ -23,7 +23,7 @@ public final class Range<E>
 	final E from;
 	final E to;
 
-	public Range(E from, E to)
+	public Range(final E from, final E to)
 	{
 		if(from==null)
 			throw new NullPointerException("optional from not yet implemented");

@@ -90,13 +90,13 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(Statement bf, Double value)
+	public void appendParameter(final Statement bf, final Double value)
 	{
 		throw new RuntimeException();
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void append(Statement bf, Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		if(!type.getModel().supportsRandom())
 			throw new IllegalArgumentException("random not supported by this dialect");
@@ -107,13 +107,13 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(Statement bf, Join join, Holder<Column> columnHolder, Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
 	{
 		append(bf, join);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void check(TC tc, Join join)
+	public void check(final TC tc, final Join join)
 	{
 		// nothing to do here, since there are no sources
 	}

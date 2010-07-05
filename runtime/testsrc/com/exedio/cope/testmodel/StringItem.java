@@ -65,7 +65,7 @@ public class StringItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	public StringItem(final String any, boolean dummy)
+	public StringItem(final String any, final boolean dummy)
 	{
 		this(
 				StringItem.mandatory.map("defaultByAny"),
@@ -76,7 +76,7 @@ public class StringItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	public StringItem(final String mandatory, double dummy) throws MandatoryViolationException
+	public StringItem(final String mandatory, final double dummy) throws MandatoryViolationException
 	{
 		this(
 				StringItem.mandatory.map(mandatory)
@@ -86,7 +86,7 @@ public class StringItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	public StringItem(final String exact6, int dummy) throws StringLengthViolationException
+	public StringItem(final String exact6, final int dummy) throws StringLengthViolationException
 	{
 		this(
 				StringItem.mandatory.map("defaultByExact6"),
@@ -97,7 +97,7 @@ public class StringItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	public StringItem(final String max4, Date dummy) throws StringLengthViolationException
+	public StringItem(final String max4, final Date dummy) throws StringLengthViolationException
 	{
 		this(new SetValue[]{
 				StringItem.mandatory.map("defaultByMax4"),

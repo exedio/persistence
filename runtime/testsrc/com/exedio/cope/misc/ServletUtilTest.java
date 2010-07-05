@@ -201,12 +201,12 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public void init(ServletConfig arg0)
+		public void init(final ServletConfig arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public void service(ServletRequest arg0, ServletResponse arg1)
+		public void service(final ServletRequest arg0, final ServletResponse arg1)
 		{
 			throw new RuntimeException();
 		}
@@ -224,12 +224,12 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
+		public void doFilter(final ServletRequest arg0, final ServletResponse arg1, final FilterChain arg2)
 		{
 			throw new RuntimeException();
 		}
 
-		public void init(FilterConfig arg0)
+		public void init(final FilterConfig arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -290,7 +290,7 @@ public class ServletUtilTest extends CopeAssert
 			this.model = model;
 		}
 
-		public ServletContext getContext(String name)
+		public ServletContext getContext(final String name)
 		{
 			throw new RuntimeException(name);
 		}
@@ -305,38 +305,38 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public String getMimeType(String name)
+		public String getMimeType(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public Set getResourcePaths(String name)
+		public Set getResourcePaths(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public URL getResource(String name)
+		public URL getResource(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public InputStream getResourceAsStream(String name)
+		public InputStream getResourceAsStream(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public RequestDispatcher getRequestDispatcher(String name)
+		public RequestDispatcher getRequestDispatcher(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public RequestDispatcher getNamedDispatcher(String name)
+		public RequestDispatcher getNamedDispatcher(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
 		@Deprecated // OK: implementing external api
-		public Servlet getServlet(String name)
+		public Servlet getServlet(final String name)
 		{
 			throw new RuntimeException(name);
 		}
@@ -353,23 +353,23 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public void log(String name)
+		public void log(final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
 		@Deprecated // OK: implementing external api
-		public void log(Exception e, String name)
+		public void log(final Exception e, final String name)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public void log(String name, Throwable arg1)
+		public void log(final String name, final Throwable arg1)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public String getRealPath(String name)
+		public String getRealPath(final String name)
 		{
 			if("WEB-INF/cope.properties".equals(name))
 			{
@@ -385,7 +385,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public String getInitParameter(String name)
+		public String getInitParameter(final String name)
 		{
 			if("model".equals(name))
 				return model;
@@ -401,7 +401,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public Object getAttribute(String name)
+		public Object getAttribute(final String name)
 		{
 			throw new RuntimeException(name);
 		}
@@ -411,12 +411,12 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public void setAttribute(String name, Object claue)
+		public void setAttribute(final String name, final Object claue)
 		{
 			throw new RuntimeException(name);
 		}
 
-		public void removeAttribute(String name)
+		public void removeAttribute(final String name)
 		{
 			throw new RuntimeException(name);
 		}

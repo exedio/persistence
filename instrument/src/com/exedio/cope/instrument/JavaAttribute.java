@@ -39,10 +39,10 @@ final class JavaAttribute
 	private Object rtvalue = null;
 
 	JavaAttribute(
-		JavaClass parent,
-		int modifiers,
-		String type,
-		String name)
+		final JavaClass parent,
+		final int modifiers,
+		final String type,
+		final String name)
 		throws InjectorParseException
 	{
 		// parent must not be null
@@ -59,7 +59,7 @@ final class JavaAttribute
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */
-	JavaAttribute(JavaAttribute ja, String name)
+	JavaAttribute(final JavaAttribute ja, final String name)
 		throws InjectorParseException
 	{
 		this(ja.parent, ja.modifier, ja.type, name);
@@ -96,7 +96,7 @@ final class JavaAttribute
 	private StringBuilder initializerBuf = new StringBuilder();
 	private String initializer = null;
 
-	public void addToInitializer(char c)
+	public void addToInitializer(final char c)
 	{
 		initializerBuf.append(c);
 	}

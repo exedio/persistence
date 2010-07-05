@@ -89,7 +89,7 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public Object getAttribute(String arg0)
+		public Object getAttribute(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -99,7 +99,7 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public ServletContext getContext(String arg0)
+		public ServletContext getContext(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -119,7 +119,7 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public String getMimeType(String arg0)
+		public String getMimeType(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -129,32 +129,32 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public RequestDispatcher getNamedDispatcher(String arg0)
+		public RequestDispatcher getNamedDispatcher(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public String getRealPath(String arg0)
+		public String getRealPath(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public RequestDispatcher getRequestDispatcher(String arg0)
+		public RequestDispatcher getRequestDispatcher(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public URL getResource(String arg0)
+		public URL getResource(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public InputStream getResourceAsStream(String arg0)
+		public InputStream getResourceAsStream(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public Set getResourcePaths(String arg0)
+		public Set getResourcePaths(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -165,7 +165,7 @@ public class ServletUtilContextTest extends CopeAssert
 		}
 
 		@Deprecated
-		public Servlet getServlet(String arg0)
+		public Servlet getServlet(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -182,28 +182,28 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public void log(String arg0)
+		public void log(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
 		@Deprecated
-		public void log(Exception arg0, String arg1)
+		public void log(final Exception arg0, final String arg1)
 		{
 			throw new RuntimeException();
 		}
 
-		public void log(String arg0, Throwable arg1)
+		public void log(final String arg0, final Throwable arg1)
 		{
 			throw new RuntimeException();
 		}
 
-		public void removeAttribute(String arg0)
+		public void removeAttribute(final String arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		public void setAttribute(String arg0, Object arg1)
+		public void setAttribute(final String arg0, final Object arg1)
 		{
 			throw new RuntimeException();
 		}

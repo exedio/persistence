@@ -377,10 +377,10 @@ final class Executor
 
 	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
 	{
-		public void load(Connection connection, Item item)
+		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
-		public void search(Connection connection, Query query, boolean totalOnly)
+		public void search(final Connection connection, final Query query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 

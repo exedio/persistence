@@ -267,7 +267,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@SuppressWarnings("unchecked")
-	public SetValue[] execute(E value, Item exceptionItem)
+	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		final SetValue[] result = new SetValue[componentSize];
 		int i = 0;
@@ -313,7 +313,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
-	public SetValue map(E value)
+	public SetValue map(final E value)
 	{
 		return new SetValue<E>(this, value);
 	}

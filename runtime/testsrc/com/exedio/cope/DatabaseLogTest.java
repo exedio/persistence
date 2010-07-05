@@ -102,12 +102,12 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		private String sql = null;
 
 		public void onStatement(
-				String sql,
-				List<Object> parameters,
-				long durationPrepare,
-				long durationExecute,
-				long durationRead,
-				long durationClose)
+				final String sql,
+				final List<Object> parameters,
+				final long durationPrepare,
+				final long durationExecute,
+				final long durationRead,
+				final long durationClose)
 		{
 			assertNull(this.sql);
 			assertNotNull(sql);

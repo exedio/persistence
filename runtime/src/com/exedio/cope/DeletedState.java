@@ -36,7 +36,7 @@ final class DeletedState extends State
 	}
 
 	@Override
-	State put(Transaction transaction, FunctionField field, Object value)
+	State put(final Transaction transaction, final FunctionField field, final Object value)
 	{
 		throw new NoSuchItemException(item);
 	}
@@ -86,13 +86,13 @@ final class DeletedState extends State
 	}
 
 	@Override
-	State delete( Transaction transaction )
+	State delete( final Transaction transaction )
 	{
 		throw new NoSuchItemException(item);
 	}
 
 	@Override
-	Object store(Column column)
+	Object store(final Column column)
 	{
 		throw new RuntimeException();
 	}

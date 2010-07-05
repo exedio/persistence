@@ -92,7 +92,7 @@ final class EnumFieldType<E extends Enum<E>>
 		this.ordinalsToNumbers = ordinalsToNumbers;
 	}
 
-	private static final <A extends Annotation> A getAnnotation(final Enum e, Class<A> annotationClass)
+	private static final <A extends Annotation> A getAnnotation(final Enum e, final Class<A> annotationClass)
 	{
 		try
 		{

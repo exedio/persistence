@@ -26,7 +26,7 @@ final class IllegalParameterException extends Exception
 {
 	private static final long serialVersionUID = 1l;
 
-	IllegalParameterException(String msg)
+	IllegalParameterException(final String msg)
 	{
 		super(msg);
 	}

@@ -77,7 +77,7 @@ class TestByteArrayInputStream extends InputStream
 	}
 
 	@Override
-	public synchronized void mark(int readAheadLimit)
+	public synchronized void mark(final int readAheadLimit)
 	{
 		throw new RuntimeException();
 	}

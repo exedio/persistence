@@ -79,9 +79,9 @@ public class CopeModelTestTest extends CopeModelTest
 		model.setDatabaseListener(new DatabaseListener(){
 
 			public void onStatement(
-					String sql, List<Object> parameters,
-					long durationPrepare, long durationExecute, long durationRead,
-					long durationClose)
+					final String sql, final List<Object> parameters,
+					final long durationPrepare, final long durationExecute, final long durationRead,
+					final long durationClose)
 			{
 				// do nothing
 			}
@@ -94,7 +94,7 @@ public class CopeModelTestTest extends CopeModelTest
 
 		model.addModificationListener(new ModificationListener()
 		{
-			public void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction)
+			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{
 				throw new RuntimeException();
 			}

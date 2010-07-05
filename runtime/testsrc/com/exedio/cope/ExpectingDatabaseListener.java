@@ -32,7 +32,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 {
 	private List<Call> expectedCalls = null;
 
-	public void load(Connection connection, Item item)
+	public void load(final Connection connection, final Item item)
 	{
 		if ( expectedCalls!=null )
 		{
@@ -40,7 +40,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 	}
 
-	public void search(Connection connection, Query query, boolean totalOnly)
+	public void search(final Connection connection, final Query query, final boolean totalOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
 	}
@@ -60,12 +60,12 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		expectedCalls = Collections.<Call>emptyList();
 	}
 
-	public void expectLoad( Transaction tx, Item item )
+	public void expectLoad( final Transaction tx, final Item item )
 	{
 		getExpectedCalls().add( new LoadCall(tx, item) );
 	}
 
-	public void expectSearch( Transaction tx, Type type )
+	public void expectSearch( final Transaction tx, final Type type )
 	{
 		getExpectedCalls().add( new SearchCall(tx, type) );
 	}
@@ -103,7 +103,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	{
 		final Transaction tx;
 
-		Call( Transaction tx )
+		Call( final Transaction tx )
 		{
 			this.tx = tx;
 		}
@@ -112,7 +112,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		 * @param connection used in subclasses
 		 * @param item used in subclasses
 		 */
-		void checkLoad(Connection connection, Item item)
+		void checkLoad(final Connection connection, final Item item)
 		{
 			throw new RuntimeException( "load in "+toString() );
 		}
@@ -121,12 +121,12 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		 * @param connection used in subclasses
 		 * @param query used in subclasses
 		 */
-		void checkSearch( Connection connection, Query query )
+		void checkSearch( final Connection connection, final Query query )
 		{
 			throw new RuntimeException( "search in "+toString() );
 		}
 
-		void checkConnection( Connection connection )
+		void checkConnection( final Connection connection )
 		{
 			if ( ! tx.getConnection().equals(connection) )
 			{
@@ -139,7 +139,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	{
 		final Item item;
 
-		LoadCall( Transaction tx, Item item )
+		LoadCall( final Transaction tx, final Item item )
 		{
 			super( tx );
 			this.item = item;
@@ -166,14 +166,14 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	{
 		final Type type;
 
-		SearchCall( Transaction tx, Type type )
+		SearchCall( final Transaction tx, final Type type )
 		{
 			super( tx );
 			this.type = type;
 		}
 
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( Connection connection, Query query )
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( final Connection connection, final Query query )
 		{
 			checkConnection( connection );
 			if ( !type.equals(query.getType()) )

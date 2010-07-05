@@ -29,12 +29,12 @@ public class ByteAlgorithmTest extends CopeAssert
 	{
 		final Hash.Algorithm a = new Hash.Algorithm(){
 
-			public boolean check(byte[] plainText, byte[] hash)
+			public boolean check(final byte[] plainText, final byte[] hash)
 			{
 				throw new RuntimeException();
 			}
 
-			public byte[] hash(byte[] plainText)
+			public byte[] hash(final byte[] plainText)
 			{
 				throw new RuntimeException();
 			}

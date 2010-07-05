@@ -31,7 +31,7 @@ class InjectorParseException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
 
-	protected InjectorParseException(String message)
+	protected InjectorParseException(final String message)
 	{
 		super(message);
 	}

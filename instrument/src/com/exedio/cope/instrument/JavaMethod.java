@@ -28,7 +28,7 @@ package com.exedio.cope.instrument;
 final class JavaMethod extends JavaBehaviour
 {
 
-	public JavaMethod(JavaClass parent, int modifiers, String type, String name)
+	public JavaMethod(final JavaClass parent, final int modifiers, final String type, final String name)
 	throws InjectorParseException
 	{
 		// parent must not be null

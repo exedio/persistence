@@ -226,7 +226,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
-	private static final Class<Item> castItemClass(Class c)
+	private static final Class<Item> castItemClass(final Class c)
 	{
 		return c;
 	}

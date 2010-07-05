@@ -31,7 +31,7 @@ final class CreatedState extends State
 	}
 
 	@Override
-	Object get(FunctionField field)
+	Object get(final FunctionField field)
 	{
 		return field.get(row, null);
 	}
@@ -44,7 +44,7 @@ final class CreatedState extends State
 	}
 
 	@Override
-	State delete(Transaction transaction)
+	State delete(final Transaction transaction)
 	{
 		discard( transaction );
 		return null;

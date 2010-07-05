@@ -131,7 +131,7 @@ public abstract class Condition
 		}
 
 		@Override
-		void append(Statement statment)
+		void append(final Statement statment)
 		{
 			throw new RuntimeException();
 		}
@@ -150,13 +150,13 @@ public abstract class Condition
 		}
 
 		@Override
-		void check(TC tc)
+		void check(final TC tc)
 		{
 			throw new RuntimeException();
 		}
 
 		@Override
-		public boolean equals(Object o)
+		public boolean equals(final Object o)
 		{
 			return this==o;
 		}
@@ -168,7 +168,7 @@ public abstract class Condition
 		}
 
 		@Override
-		void toString(StringBuilder bf, boolean key, Type defaultType)
+		void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 		{
 			bf.append(name);
 		}

@@ -184,7 +184,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		model.startTransaction( "forTearDown" );
 	}
 
-	private void assertCurrentTransaction( Transaction tx )
+	private void assertCurrentTransaction( final Transaction tx )
 	{
 		assertEquals( tx!=null, model.hasCurrentTransaction() );
 		if ( tx==null )

@@ -56,7 +56,7 @@ abstract class JavaBehaviour extends JavaFeature
 		super(parent.file, parent, modifiers, type, name);
 	}
 
-	void addParameter(String paramtype, String paramname)
+	void addParameter(final String paramtype, final String paramname)
 	{
 		parameters.add(paramtype);
 		parameters.add(paramname);
@@ -67,7 +67,7 @@ abstract class JavaBehaviour extends JavaFeature
 		return unmodifiableParameters;
 	}
 
-	final void addThrowable(String throwable)
+	final void addThrowable(final String throwable)
 	{
 		throwables.add(throwable);
 	}

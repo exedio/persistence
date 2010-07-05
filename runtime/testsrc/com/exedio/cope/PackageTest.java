@@ -174,7 +174,7 @@ public class PackageTest extends TestCase
 		return models;
 	}
 
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
 		final HashMap<Model, ConnectProperties> models = getModels(PackageTest.suite());
 		for(final Model m : models.keySet())

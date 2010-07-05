@@ -154,7 +154,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void load(Connection connection, Item item)
+		public void load(final Connection connection, final Item item)
 		{
 			throw new RuntimeException();
 		}

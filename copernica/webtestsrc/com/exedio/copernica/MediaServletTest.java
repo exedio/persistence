@@ -297,7 +297,7 @@ public class MediaServletTest extends TestCase
 		return lastModified;
 	}
 
-	private String getContentAsString( InputStream is ) throws IOException
+	private String getContentAsString( final InputStream is ) throws IOException
 	{
 		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		StringBuilder builder = new StringBuilder();
@@ -502,7 +502,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 
-	private String lines( String... lines )
+	private String lines( final String... lines )
 	{
 		StringBuilder builder = new StringBuilder();
 		for ( String line: lines )

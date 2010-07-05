@@ -501,7 +501,7 @@ public final class Model implements Serializable
 		return tx;
 	}
 
-	public void joinTransaction( Transaction tx )
+	public void joinTransaction( final Transaction tx )
 	{
 		if ( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");

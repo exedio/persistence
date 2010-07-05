@@ -137,7 +137,7 @@ final class Injector
 		return c;
 	}
 
-	private void scheduleBlock(boolean collect_when_blocking)
+	private void scheduleBlock(final boolean collect_when_blocking)
 	{
 		if (do_block || collector.length() > 0)
 			throw new IllegalArgumentException();
@@ -173,7 +173,7 @@ final class Injector
 		}
 	}
 
-	private void write(String s)
+	private void write(final String s)
 	{
 		if (output != null)
 			output.append(s);
@@ -481,7 +481,7 @@ final class Injector
 	 * if null, there is no containing class, and
 	 * the feature must be a class itself.
 	 */
-	private JavaFeature[] parseFeature(JavaClass parent)
+	private JavaFeature[] parseFeature(final JavaClass parent)
 		throws IOException, EndException, InjectorParseException
 	{
 		return parseFeature(parent, buf.toString());
@@ -493,7 +493,7 @@ final class Injector
 	 * @param bufs the first token of the class feature.
 	 * @see #parseFeature(JavaClass)
 	 */
-	private JavaFeature[] parseFeature(JavaClass parent, String bufs)
+	private JavaFeature[] parseFeature(final JavaClass parent, String bufs)
 		throws IOException, EndException, InjectorParseException
 	{
 		int modifiers = 0;
@@ -636,7 +636,7 @@ final class Injector
 		}
 	}
 
-	private void parseBehaviour(JavaBehaviour jb)
+	private void parseBehaviour(final JavaBehaviour jb)
 		throws EndException, ParseException
 	{
 		char c = readToken();
@@ -777,7 +777,7 @@ final class Injector
 		}
 	}
 
-	private JavaClass parseClass(JavaClass parent, int modifiers)
+	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, InjectorParseException
 	{
 		if (readToken() != '\0')
@@ -1049,7 +1049,7 @@ final class Injector
 			this.column = column;
 		}
 
-		ParseException(String message)
+		ParseException(final String message)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			this(message, null);
@@ -1077,7 +1077,7 @@ final class Injector
 		}
 	}
 
-	public final static boolean hasTag(String doccomment, String tagname)
+	public final static boolean hasTag(final String doccomment, final String tagname)
 	{
 		if(doccomment==null)
 			return false;
@@ -1095,7 +1095,7 @@ final class Injector
 	 * @param tagname the tag name without the '@' prefix
 	 * @return the first line following the tag
 	 */
-	public final static String findDocTagLine(String doccomment, String tagname)
+	public final static String findDocTagLine(final String doccomment, final String tagname)
 	{
 		if(doccomment==null)
 			return null;

@@ -68,7 +68,7 @@ final class JavaFile
 		repository.add(this);
 	}
 
-	void add(JavaClass javaClass)
+	void add(final JavaClass javaClass)
 	{
 		assert repository.isBuildStage();
 		classes.add(javaClass);
@@ -87,7 +87,7 @@ final class JavaFile
 	 * @param packagename may be null for root package
 	 * @throws InjectorParseException if called more than once.
 	 */
-	public final void setPackage(String packagename)
+	public final void setPackage(final String packagename)
 	throws InjectorParseException
 	{
 		if(!buildStageForImports)
@@ -113,7 +113,7 @@ final class JavaFile
 	/**
 	 * Adds the value of an import statement.
 	 */
-	public final void addImport(String importname)
+	public final void addImport(final String importname)
 	throws InjectorParseException
 	{
 		if(!buildStageForImports)

@@ -561,7 +561,7 @@ final class Database
 				return connectionPool.get(true);
 			}
 
-			public void putConnection(Connection connection)
+			public void putConnection(final Connection connection)
 			{
 				connectionPool.put(connection);
 			}

@@ -220,7 +220,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction)
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			throw new RuntimeException();
 		}
