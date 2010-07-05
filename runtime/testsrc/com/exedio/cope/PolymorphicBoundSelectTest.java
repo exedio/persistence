@@ -20,12 +20,6 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Join;
-import com.exedio.cope.Model;
-import com.exedio.cope.Query;
-import com.exedio.cope.Selectable;
-
 public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PolymorphicBoundSelectSuperItem.TYPE, PolymorphicBoundSelectSubItem.TYPE);

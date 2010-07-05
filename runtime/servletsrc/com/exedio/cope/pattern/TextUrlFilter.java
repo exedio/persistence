@@ -38,8 +38,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaFilter;
 
 public class TextUrlFilter extends MediaFilter
 {

@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
-
 /**
  * An item having a unique mandatory attribute.
  * @author Ralf Wiebicke

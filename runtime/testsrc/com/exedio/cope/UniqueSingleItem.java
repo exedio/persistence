@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
-
 public class UniqueSingleItem extends Item
 {
 	public static final StringField uniqueString = new StringField().optional().unique();

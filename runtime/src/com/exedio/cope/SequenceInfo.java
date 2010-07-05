@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Feature;
-
 public final class SequenceInfo
 {
 	private final Feature feature;

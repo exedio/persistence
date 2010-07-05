@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.Type;
-
 public final class ItemCacheInfo
 {
 	private final Type type;

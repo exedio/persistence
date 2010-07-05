@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-
 public class PolymorphicBoundSelectSuperItem extends Item
 {
 	public static final ItemField<PolymorphicBoundSelectSuperItem> parent = newItemField(PolymorphicBoundSelectSuperItem.class).optional().toFinal();

@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
-import com.exedio.cope.UniqueConstraint;
-
 /**
  * An item having two attributes and a unique constraint over these attributes.
  * @author Ralf Wiebicke

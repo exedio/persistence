@@ -19,8 +19,9 @@
 package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
-import com.exedio.cope.misc.Arrays;
 import java.util.Date;
+
+import com.exedio.cope.misc.Arrays;
 
 public abstract class Condition
 {

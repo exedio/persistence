@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +36,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
-
-import java.util.Arrays;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
