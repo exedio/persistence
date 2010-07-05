@@ -882,20 +882,8 @@ final class Injector
 					scheduleBlock(true);
 					break;
 				case '@':
-				{
-					final char nameToken = readToken();
-					if(nameToken!='\0')
-						throw new ParseException("expected name of annotation");
-					//System.out.println("---------name of annotation-------"+buf);
-
-					final char bracketToken = readToken();
-					if(bracketToken!='(')
-						break; // TODO this is a bug, should push back the token
-					
-					while(readToken()!=')')
-						;
+					parseAnnotation();
 					break;
-				}
 				default :
 					throw new ParseException("class member expected.");
 			}
@@ -989,20 +977,8 @@ final class Injector
 						break;
 						
 					case '@':
-					{
-						final char nameToken = readToken();
-						if(nameToken!='\0')
-							throw new ParseException("expected name of annotation");
-						//System.out.println("---------name of annotation-------"+buf);
-
-						final char bracketToken = readToken();
-						if(bracketToken!='(')
-							break; // TODO this is a bug, should push back the token
-						
-						while(readToken()!=')')
-							;
+						parseAnnotation();
 						break;
-					}
 
 					default :
 						//System.out.println("bufc >" + c + "<");
@@ -1018,6 +994,21 @@ final class Injector
 		{
 			throw new ParseException(e);
 		}
+	}
+	
+	private void parseAnnotation() throws EndException
+	{
+		final char nameToken = readToken();
+		if(nameToken!='\0')
+			throw new ParseException("expected name of annotation");
+		//System.out.println("---------name of annotation-------"+buf);
+
+		final char bracketToken = readToken();
+		if(bracketToken!='(')
+			return; // TODO this is a bug, should push back the token
+		
+		while(readToken()!=')')
+			;
 	}
 
 	static final class EndException extends Exception
