@@ -23,10 +23,6 @@ import static java.lang.reflect.Modifier.PUBLIC;
 
 public class ExampleAnnTest extends InjectorTest
 {
-
-	// TODO spaces in generics
-	// TODO constructor with generics
-	// TODO enums
 	// TODO annotations
 
 	public ExampleAnnTest()
