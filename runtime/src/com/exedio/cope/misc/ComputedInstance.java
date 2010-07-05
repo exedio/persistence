@@ -24,7 +24,7 @@ public final class ComputedInstance
 	@SuppressWarnings("unused")
 	private static final int source = 0;
 	private static final java.lang.reflect.Field instance;
-	
+
 	static
 	{
 		try
@@ -36,7 +36,7 @@ public final class ComputedInstance
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * @deprecated Use {@link ComputedElement#get()} instead
 	 */
@@ -45,7 +45,7 @@ public final class ComputedInstance
 	{
 		return instance;
 	}
-	
+
 	private ComputedInstance()
 	{
 		// prevent instantiation

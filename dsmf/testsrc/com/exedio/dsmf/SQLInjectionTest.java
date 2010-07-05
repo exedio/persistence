@@ -22,10 +22,10 @@ package com.exedio.dsmf;
 public class SQLInjectionTest extends SchemaTest
 {
 	private static final String MESSAGE_PREFIX = "database name contains forbidden characters: ";
-	
+
 	private static final String TABLE = "InjectionTable";
 	private static final String COLUMN = "injectionColumn";
-	
+
 	private static final void failIfNotDebugging()
 	{
 		fail();
@@ -50,7 +50,7 @@ public class SQLInjectionTest extends SchemaTest
 			assertEquals(MESSAGE_PREFIX + BAD_TABLE, e.getMessage());
 		}
 	}
-	
+
 	public void testColumnCreate()
 	{
 		final String BAD_COLUMN_PRE = p("badColumn1")+" varchar(30), " + p("badColumn2");

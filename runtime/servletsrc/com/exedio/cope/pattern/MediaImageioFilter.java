@@ -49,7 +49,7 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 public abstract class MediaImageioFilter extends MediaFilter
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Media source;
 	private final HashMap<String, ImageReaderSpi> imageReaderSpi;
 	private final ImageWriterSpi imageWriterSpi;
@@ -60,7 +60,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	{
 		super(source);
 		this.source = source;
-		
+
 		final IIORegistry registry = IIORegistry.getDefaultInstance();
 		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<String, ImageReaderSpi>();
 		for(final Iterator<ImageReaderSpi> spiIt = registry.getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
@@ -72,12 +72,12 @@ public abstract class MediaImageioFilter extends MediaFilter
       			imageReaderSpi.put(spiMimeType, spi);
       	}
 		}
-		
+
 		// fix for MSIE behaviour
 		final ImageReaderSpi jpegSpi = imageReaderSpi.get("image/jpeg");
 		if(jpegSpi!=null && !imageReaderSpi.containsKey("image/pjpeg"))
 			imageReaderSpi.put("image/pjpeg", jpegSpi);
-			
+
 		this.imageReaderSpi = imageReaderSpi;
 
 		ImageWriterSpi imageWriterSpi = null;
@@ -96,7 +96,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 		if(imageWriterSpi==null)
 			throw new RuntimeException("no jpeg encoder found");
-		
+
 		this.imageWriterSpi = imageWriterSpi;
 	}
 
@@ -111,7 +111,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 			addComment("Returns the body of {0}.").
 			setReturn(byte[].class).
 			addThrows(IOException.class));
-		
+
 		return Collections.unmodifiableList(result);
 	}
 
@@ -130,7 +130,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	public abstract BufferedImage filter(BufferedImage in);
-	
+
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletResponse response,
@@ -143,10 +143,10 @@ public abstract class MediaImageioFilter extends MediaFilter
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
 			return notComputable;
-		
+
 		final ByteArrayOutputStream body = execute(item, contentType, spi);
 		response.setContentType(outputContentType);
-		
+
 		response.setContentLength(body.size());
 
 		final ServletOutputStream out = response.getOutputStream();
@@ -160,7 +160,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 			out.close();
 		}
 	}
-	
+
 	public final byte[] get(final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);
@@ -169,10 +169,10 @@ public abstract class MediaImageioFilter extends MediaFilter
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
 			return null;
-		
+
 		return execute(item, contentType, spi).toByteArray();
 	}
-	
+
 	private final ByteArrayOutputStream execute(
 			final Item item,
 			final String contentType,
@@ -181,7 +181,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	{
 		final byte[] srcBytes = source.getBody().getArray(item);
 		final BufferedImage srcBuf;
-		
+
 		// Special handling of jpeg
 		// avoids spurious black side bars at least for jpeg and
 		// avoids conversion to DirectColorModel in MediaThumbnail.
@@ -202,12 +202,12 @@ public abstract class MediaImageioFilter extends MediaFilter
 			}
 		}
 		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
-		
+
 		final BufferedImage filteredBuf = filter(srcBuf);
-		
+
 		final JPEGImageWriteParam imageWriteParam = getImageWriteParam();
 		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
-		
+
 		// Dont let ImageWriter write directly to ServletOutputStream,
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
@@ -225,7 +225,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 		return body;
 	}
-	
+
 	public JPEGImageWriteParam getImageWriteParam()
 	{
 		final JPEGImageWriteParam result = new JPEGImageWriteParam(Locale.getDefault());

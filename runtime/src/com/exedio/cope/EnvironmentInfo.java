@@ -32,7 +32,7 @@ public final class EnvironmentInfo
 	private final String driverVersion;
 	private final int driverMajorVersion;
 	private final int driverMinorVersion;
-	
+
 	EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
 		databaseProductName = dmd.getDatabaseProductName();
@@ -84,17 +84,17 @@ public final class EnvironmentInfo
 	{
 		return driverMinorVersion;
 	}
-	
+
 	public String getDatabaseVersionDescription()
 	{
 		return databaseProductVersion + ' ' + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')';
 	}
-	
+
 	public String getDriverVersionDescription()
 	{
 		return driverVersion + ' ' + '(' + driverMajorVersion + '.' + driverMinorVersion + ')';
 	}
-	
+
 	public Properties asProperties()
 	{
 		final Properties result = new Properties();

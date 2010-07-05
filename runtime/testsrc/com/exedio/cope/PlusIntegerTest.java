@@ -34,15 +34,15 @@ import static com.exedio.cope.PlusIntegerItem.plusBC;
 public class PlusIntegerTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
-	
+
 	public PlusIntegerTest()
 	{
 		super(MODEL);
 	}
-	
+
 	PlusIntegerItem item;
 	PlusIntegerItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,7 +50,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new PlusIntegerItem(1, 2, 3));
 		item2 = deleteOnTearDown(new PlusIntegerItem(3, 4, 5));
 	}
-	
+
 	public void testSum()
 	{
 		// test model
@@ -78,7 +78,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(plusAB, numC), plusABaC.getSources());
 		assertEqualsUnmodifiable(list(numB), multiplyB9.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
-		
+
 		// test equals/hashCode
 		assertEquals(plusA9, plusA9);
 		assertEquals(plusAB, plusAB);
@@ -124,7 +124,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		{
 			assertEquals("right", e.getMessage());
 		}
-		
+
 		// test normal operation
 		assertEquals(i1, item.getNumA());
 		assertEquals(i2, item.getNumB());
@@ -152,7 +152,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numA.plus(numB).equal(3)));
 		assertContains(item, TYPE.search(numB.multiply(9   ).equal(18)));
 		assertContains(item, TYPE.search(numB.multiply(numC).equal(6)));
-		
+
 		// test null propagation
 		item.setNumA(null);
 

@@ -28,18 +28,18 @@ public class DoubleItem extends Item
 	public static final DoubleField any = new DoubleField().optional();
 
 	public static final DoubleField mandatory = new DoubleField();
-	
+
 	public static final DoubleField min4 = new DoubleField().optional().min(4.0);
 	public static final DoubleField max4 = new DoubleField().optional().max(4.0);
 	public static final DoubleField min4Max8 = new DoubleField().optional().range(4.0, 8.0);
-	
+
 	DoubleItem(final Double mandatory) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			DoubleItem.mandatory.map(mandatory),
 		});
 	}
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -50,7 +50,7 @@ public class DoubleItem extends Item
 			DoubleItem.max4.map(max4),
 		});
 	}
-	
+
 	/**
 
 	 **

@@ -30,9 +30,9 @@ import com.exedio.cope.misc.Computed;
 public final class MediaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Media sourceFeature;
-	
+
 	private ItemField<? extends Item> parent = null;
 	private final Media sourceTypeValue;
 	private Type<SourceItem> sourceType = null;
@@ -61,7 +61,7 @@ public final class MediaPattern extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		
+
 		parent = type.newItemField( ItemField.DeletePolicy.CASCADE ).toFinal();
 		final Features features = new Features();
 		features.put("parent", parent);

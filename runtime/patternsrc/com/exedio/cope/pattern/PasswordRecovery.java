@@ -42,17 +42,17 @@ import com.exedio.cope.util.Interrupter;
 public final class PasswordRecovery extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final long NOT_A_SECRET = 0l;
-	
+
 	private final Hash password;
-	
+
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
 	final LongField secret = new LongField().toFinal();
 	final DateField expires = new DateField().toFinal();
 	Type<Token> tokenType = null;
-	
+
 	private final SecureRandom random = new SecureRandom();
 
 	public PasswordRecovery(final Hash password)
@@ -61,7 +61,7 @@ public final class PasswordRecovery extends Pattern
 		if(password==null)
 			throw new NullPointerException("password");
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
@@ -77,44 +77,44 @@ public final class PasswordRecovery extends Pattern
 		features.put("tokens", tokens);
 		tokenType = newSourceType(Token.class, features, "Token");
 	}
-	
+
 	public Hash getPassword()
 	{
 		return password;
 	}
-	
+
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		assert parent!=null;
 		return parent.as(parentClass);
 	}
-	
+
 	public PartOf getTokens()
 	{
 		return tokens;
 	}
-	
+
 	public LongField getSecret()
 	{
 		return secret;
 	}
-	
+
 	public DateField getExpires()
 	{
 		return expires;
 	}
-	
+
 	public Type<Token> getTokenType()
 	{
 		return tokenType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("issue").
 			addParameter(int.class, "expiryMillis", "the time span, after which this token will not be valid anymore, in milliseconds").
@@ -128,10 +128,10 @@ public final class PasswordRecovery extends Pattern
 			setStatic(false).
 			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of tokens purged"));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * @return a valid token for password recovery
 	 */
@@ -139,17 +139,17 @@ public final class PasswordRecovery extends Pattern
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
-		
+
 		long secret = NOT_A_SECRET;
 		while(secret==NOT_A_SECRET)
 			secret = random.nextLong();
-		
+
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
 			this.expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
 	}
-	
+
 	/**
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
@@ -158,13 +158,13 @@ public final class PasswordRecovery extends Pattern
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
-		
+
 		final List<Token> tokens =
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
 				this.expires.greaterOrEqual(new Date())));
-		
+
 		if(!tokens.isEmpty())
 		{
 			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
@@ -173,10 +173,10 @@ public final class PasswordRecovery extends Pattern
 				t.deleteCopeItem();
 			return newPassword;
 		}
-		
+
 		return null;
 	}
-	
+
 	public int purge(final Interrupter interrupter)
 	{
 		final int LIMIT = 100;
@@ -187,11 +187,11 @@ public final class PasswordRecovery extends Pattern
 		{
 			if(interrupter!=null && interrupter.isRequested())
 				return result;
-			
+
 			try
 			{
 				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
-				
+
 				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
 				query.setLimit(0, LIMIT);
 				final List<Token> tokens = query.search();
@@ -206,7 +206,7 @@ public final class PasswordRecovery extends Pattern
 					model.commit();
 					return result;
 				}
-				
+
 				model.commit();
 			}
 			finally
@@ -214,44 +214,44 @@ public final class PasswordRecovery extends Pattern
 				model.rollbackIfNotCommitted();
 			}
 		}
-		
+
 		System.out.println("Aborting PasswordRecovery#purge " + getID() + " after " + result);
 		return result;
 	}
-	
+
 	@Computed
 	public static final class Token extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		Token(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		public PasswordRecovery getPattern()
 		{
 			return (PasswordRecovery)getCopeType().getPattern();
 		}
-		
+
 		public Item getParent()
 		{
 			return getPattern().parent.get(this);
 		}
-		
+
 		public long getSecret()
 		{
 			return getPattern().secret.get(this);
 		}
-		
+
 		public Date getExpires()
 		{
 			return getPattern().expires.get(this);
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #purge(Interrupter)} instead.
 	 */

@@ -27,7 +27,7 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	public void testHierarchy()
 	{
 		HiddenFeatureSuperItem sp = null;
@@ -38,7 +38,7 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		// test model
 		assertNotSame(sp.hiddenSame,  sb.hiddenSame);
 		assertNotSame(sp.hiddenOther, sb.hiddenOther);
-		
+
 		assertEquals(list(spt, sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getDeclaredFeatures());
 		assertEquals(list(spt, sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getFeatures());
 		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getDeclaredFields());
@@ -129,7 +129,7 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		assertEquals("hiddenOtherSuperSub", sb.getHiddenOther());
 		assertEquals("hiddenSameSub", sb.hiddenSame.get(sb));
 		assertEquals(new Integer(55), sb.hiddenOther.get(sb));
-		
+
 		assertContains(sp, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
 		assertContains(sp, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
 		assertContains(sb, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
@@ -146,5 +146,5 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		assertContains(sb, sb.TYPE.search(sb.hiddenSame.equal("hiddenSameSub")));
 		assertContains(sb, sb.TYPE.search(sb.hiddenOther.equal(55)));
 	}
-	
+
 }

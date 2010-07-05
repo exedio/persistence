@@ -32,7 +32,7 @@ final class TC
 	private HashSet<Type> ambiguousAllTypes = null;
 	private boolean frozen = false;
 	private final HashMap<Join, HashSet<Table>> tables = new HashMap<Join, HashSet<Table>>();
-	
+
 	TC(final Query<?> query)
 	{
 		this.query = query;
@@ -46,10 +46,10 @@ final class TC
 		if(joins!=null)
 			for(final Join join : joins)
 				putType(join.type, join);
-		
+
 		frozen = true;
 	}
-	
+
 	private void putType(final Type type, final Join join)
 	{
 		assert !frozen;
@@ -58,14 +58,14 @@ final class TC
 		for(Type t = type; t!=null; t=t.supertype)
 		{
 			ambiguousAllTypes = putType(t, join, distinctAllTypes, ambiguousAllTypes);
-			
+
 			if(isThis)
 			{
 				ambiguousThisTypes = putType(t, join, distinctThisTypes, ambiguousThisTypes);
 				isThis = false;
 			}
 		}
-		
+
 		tables.put(join, new HashSet<Table>());
 	}
 
@@ -73,7 +73,7 @@ final class TC
 	{
 		if(ambiguousTypes!=null && ambiguousTypes.contains(type))
 			return ambiguousTypes;
-		
+
 		if(distinctTypes.containsKey(type))
 		{
 			distinctTypes.remove(type);
@@ -83,10 +83,10 @@ final class TC
 		}
 		else
 			distinctTypes.put(type, join);
-		
+
 		return ambiguousTypes;
 	}
-	
+
 	void check(final FunctionField select, final Join join)
 	{
 		check(select, join, distinctAllTypes, ambiguousAllTypes);
@@ -100,9 +100,9 @@ final class TC
 	private void check(final Selectable select, final Join join, final HashMap<Type, Join> distinctTypes, final HashSet<Type> ambiguousTypes)
 	{
 		assert frozen;
-		
+
 		final Type selectType = select.getType();
-		
+
 		if(join==null)
 		{
 			if(queryTypes.contains(selectType))
@@ -110,13 +110,13 @@ final class TC
 				register(select, null);
 				return;
 			}
-			
+
 			if(distinctTypes.containsKey(selectType))
 			{
 				register(select, distinctTypes.get(selectType));
 				return;
 			}
-	
+
 			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 				throw new IllegalArgumentException(
 						select.toString() + " is ambiguous, use Function#bind in query: " + query.toString()
@@ -129,7 +129,7 @@ final class TC
 				register(select, join);
 				return;
 			}
-	
+
 			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 			{
 				register(select, join);
@@ -152,7 +152,7 @@ final class TC
 
 		tables.get(join).add(table);
 	}
-	
+
 	// TODO: lowest table for type is always joined, also if no columns of that table are used
 	boolean containsTable(final Join join, final Table table)
 	{

@@ -41,16 +41,16 @@ final class Connect
 	final QueryCache queryCache;
 	final ClusterSender clusterSender;
 	final ClusterListener clusterListener;
-	
+
 	final boolean supportsReadCommitted;
-	
+
 	Connect(
 			final Types types,
 			final Revisions revisions,
 			final ConnectProperties properties)
 	{
 		this.properties = properties;
-		
+
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
 		try
@@ -80,7 +80,7 @@ final class Connect
 				}
 			}
 		}
-		
+
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
 				new ConnectionFactory(properties, dialect),
@@ -95,10 +95,10 @@ final class Connect
 				connectionPool,
 				executor,
 				revisions);
-		
+
 		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
-		
+
 		if(properties.cluster.booleanValue())
 		{
 			final ClusterConfig config = ClusterConfig.get(properties);
@@ -118,32 +118,32 @@ final class Connect
 			this.clusterSender   = null;
 			this.clusterListener = null;
 		}
-		
+
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
 	}
-	
+
 	void close()
 	{
 		if(clusterSender!=null)
 			clusterSender.close();
 		if(clusterListener!=null)
 			clusterListener.close();
-		
+
 		connectionPool.flush();
 	}
-	
+
 	boolean supportsEmptyStrings()
 	{
 		return !properties.getDatabaseDontSupportEmptyStrings() && dialect.supportsEmptyStrings();
 	}
-	
+
 	boolean supportsNativeDate()
 	{
 		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
-	
+
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		itemCache.invalidate(invalidations);

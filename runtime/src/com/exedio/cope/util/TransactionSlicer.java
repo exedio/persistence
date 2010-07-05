@@ -27,17 +27,17 @@ import com.exedio.cope.Model;
 public final class TransactionSlicer
 {
 	private final com.exedio.cope.misc.TransactionSlicer ts;
-	
+
 	public TransactionSlicer(final Model model, final int bitesPerSlice)
 	{
 		this.ts = new com.exedio.cope.misc.TransactionSlicer(model, bitesPerSlice);
 	}
-	
+
 	public boolean biteOff()
 	{
 		return ts.biteOff();
 	}
-	
+
 	public int getSliceCount()
 	{
 		return ts.getSliceCount();

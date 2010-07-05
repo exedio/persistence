@@ -44,12 +44,12 @@ import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 public class CompositeFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(CompositeFieldTest.class, "MODEL");
 	}
-	
+
 	public CompositeFieldTest()
 	{
 		super(MODEL);
@@ -60,7 +60,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 	CompositeItem item;
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -68,7 +68,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		target1 = deleteOnTearDown(new CompositeOptionalItem("target1"));
 		target2 = deleteOnTearDown(new CompositeOptionalItem("target2"));
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -131,7 +131,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals("uno", uno.getName());
 		assertEquals(uno, uno.of(aString).getPattern());
 		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem), uno.getUnison()), uno.getSourceFeatures());
-		
+
 		assertEquals(true,  eins.isInitial());
 		assertEquals(false, eins.isFinal());
 		assertEquals(true,  eins.isMandatory());
@@ -150,7 +150,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(true, first.of(aString).isInitial());
 		assertEquals(true, first.of(aString).isFinal());
 		assertEquals(true, first.of(aString).isMandatory());
-		
+
 		assertEquals(CompositeValue.class, eins .getValueClass());
 		assertEquals(CompositeValue.class, uno  .getValueClass());
 		assertEquals(CompositeValue.class, first.getValueClass());
@@ -158,15 +158,15 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 		assertSame(anInt,   uno .getTemplate(uno .of(anInt)));
-		
+
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), eins  .getTemplates());
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), uno   .getTemplates());
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem), second.getTemplates());
-		
+
 		assertEqualsUnmodifiable(list(eins.  of(aString), eins  .of(anInt), eins  .of(anEnum), eins  .of(anItem)), eins  .getComponents());
 		assertEqualsUnmodifiable(list(uno   .of(aString), uno   .of(anInt), uno   .of(anEnum), uno   .of(anItem)), uno   .getComponents());
 		assertEqualsUnmodifiable(list(second.of(aString), second.of(anInt), second.of(anEnum), second.of(anItem)), second.getComponents());
-		
+
 		assertNull(eins.getUnison());
 		assertNull(zwei.getUnison());
 		assertNull(first.getUnison());
@@ -207,18 +207,18 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 							duo.of(anItem ).isNotNull())),
 					unison.getCondition());
 		}
-		
+
 		assertSerializedSame(eins, 385);
 		assertSerializedSame(zwei, 385);
 		assertSerializedSame(uno,  392);
 		assertSerializedSame(duo,  392);
-		
+
 		// test type safety of template-component relation
 		second.of(aString).startsWith("zack");
 		second.of(anInt).plus(1);
 		second.getTemplate(second.of(aString)).startsWith("zack");
 		second.getTemplate(second.of(anInt)).plus(1);
-		
+
 		try
 		{
 			uno.of(oItem.code);
@@ -246,7 +246,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("CompositeOptionalItem.duo-aString is not a component of CompositeOptionalItem.uno", e.getMessage());
 		}
-		
+
 		{
 			final CompositeValue v = second.newValue(
 					CompositeValue.aString.map("firstString1"),
@@ -257,7 +257,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			assertEquals(1,                           v.getAnInt());
 			assertEquals(AnEnumClass.anEnumConstant1, v.getAnEnum());
 			assertEquals(target1,                     v.getAnItem());
-			
+
 			try
 			{
 				second.newValue();
@@ -286,7 +286,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				assertEquals("not a member", e.getMessage());
 			}
 		}
-		
+
 		try
 		{
 			aString.isAnnotationPresent(Computed.class);
@@ -296,7 +296,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("feature not mounted", e.getMessage());
 		}
-		
+
 		assertTrue(eins.of(aString).isAnnotationPresent(Computed.class));
 		assertTrue(eins.of(anInt  ).isAnnotationPresent(Computed.class));
 		assertTrue(eins.of(anEnum ).isAnnotationPresent(Computed.class));
@@ -312,7 +312,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals("optional1", oItem.getCode());
 		assertEquals(null, oItem.getUno());
 		assertEquals(null, oItem.getDuo());
-		
+
 		fItem = deleteOnTearDown(
 				new CompositeFinalItem("final1",
 						new CompositeValue("firstString1",  1, AnEnumClass.anEnumConstant1, target1),
@@ -326,14 +326,14 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(2, fItem.getSecond().getAnInt());
 		assertEquals(AnEnumClass.anEnumConstant2, fItem.getSecond().getAnEnum());
 		assertEquals(target2, fItem.getSecond().getAnItem());
-		
+
 		oItem.setDuo(fItem.getFirst());
 		assertEquals(null, oItem.getUno());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals(1, oItem.getDuo().getAnInt());
 		assertEquals(AnEnumClass.anEnumConstant1, oItem.getDuo().getAnEnum());
 		assertEquals(target1, oItem.getDuo().getAnItem());
-		
+
 		oItem.setDuo(null);
 		assertEquals(null, oItem.getUno());
 		assertEquals(null, oItem.getDuo());
@@ -341,7 +341,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(null, oItem.duo.of(anInt  ).get(oItem));
 		assertEquals(null, oItem.duo.of(anEnum ).get(oItem));
 		assertEquals(null, oItem.duo.of(anItem ).get(oItem));
-		
+
 		item = deleteOnTearDown(
 				new CompositeItem("default",
 						new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1),
@@ -391,12 +391,12 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals("firstString1", value.getAString());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals("firstString1", fItem.getFirst().getAString());
-		
+
 		value.setAString("firstString1X");
 		assertEquals("firstString1X", value.getAString());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals("firstString1", fItem.getFirst().getAString());
-		
+
 		oItem.setDuo(value);
 		assertEquals("firstString1X", value.getAString());
 		assertEquals("firstString1X", oItem.getDuo().getAString());
@@ -412,13 +412,13 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		// test hashCode
 		assertEquals(fItem.getFirst().hashCode(), fItem.getFirst().hashCode());
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
-		
+
 		// test serialization
 		final CompositeValue serializedValue = reserialize(value, 491);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}
-	
+
 	public void testConditions()
 	{
 		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1);
@@ -428,16 +428,16 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		final CompositeOptionalItem o2 = deleteOnTearDown(new CompositeOptionalItem("o2"));
 		o1.setUno(v);
 		o2.setDuo(v);
-		
+
 		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.eins.isNull(), CompositeItem.TYPE.getThis(), true));
 		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.zwei.isNull(), CompositeItem.TYPE.getThis(), true));
-		
+
 		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.eins.isNotNull(), CompositeItem.TYPE.getThis(), true));
 		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.zwei.isNotNull(), CompositeItem.TYPE.getThis(), true));
-		
+
 		assertEquals(list(o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
 		assertEquals(list(o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
-		
+
 		assertEquals(list(target1, target2, o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}

@@ -43,12 +43,12 @@ public final class CompareCondition<E> extends Condition
 			throw new NullPointerException("left");
 		if(right==null)
 			throw new NullPointerException("right");
-		
+
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
@@ -56,7 +56,7 @@ public final class CompareCondition<E> extends Condition
 			append(operator.sql).
 			appendParameter(left, right);
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -74,12 +74,12 @@ public final class CompareCondition<E> extends Condition
 	{
 		if(!(other instanceof CompareCondition))
 			return false;
-		
+
 		final CompareCondition o = (CompareCondition)other;
-		
+
 		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

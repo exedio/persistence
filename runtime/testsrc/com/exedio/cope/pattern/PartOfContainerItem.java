@@ -27,7 +27,7 @@ public class PartOfContainerItem extends Item
 {
 
 	static final StringField containerString = new StringField();
-	
+
 	List<? extends PartOfItem> getParts() // TODO generate this
 	{
 		return PartOfItem.parts.getParts(PartOfItem.class, this);
@@ -37,7 +37,7 @@ public class PartOfContainerItem extends Item
 	{
 		return new PartOfItem(this, partString, partInteger);
 	}
-	
+
 	List<? extends PartOfOrderedItem> getPartsOrdered() // TODO generate this
 	{
 		return PartOfOrderedItem.partsOrdered.getParts(PartOfOrderedItem.class, this);

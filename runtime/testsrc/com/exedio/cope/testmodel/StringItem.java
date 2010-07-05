@@ -38,30 +38,30 @@ public class StringItem extends Item
 	public static final StringField any = new StringField().optional();
 
 	public static final StringField mandatory = new StringField();
-	
+
 	public static final StringField min4 = new StringField().optional().lengthMin(4);
 	public static final StringField max4 = new StringField().optional().lengthMax(4);
 	public static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
 	public static final StringField exact6 = new StringField().optional().lengthExact(6);
-	
+
 	public static final StringField lowercase = new StringField().optional().charSet(new CharSet('a', 'z'));
 	public static final StringField lowercaseMin4 = new StringField().optional().lengthMin(4).charSet(new CharSet('a', 'z'));
-	
+
 	public static final StringField long1K = new StringField().optional().lengthMax(1000);
 	public static final StringField long1M = new StringField().optional().lengthMax(1000*1000);
 	public static final StringField long40M = new StringField().optional().lengthMax(40*1000*1000);
-	
+
 	public static final StringField oracleNoCLOB = new StringField().optional().lengthMax(4000/3);
 	public static final StringField oracleCLOB = new StringField().optional().lengthMax((4000/3)+1);
-	
+
 	public static final UppercaseView min4Upper = min4.toUpperCase();
 	public static final UppercaseView max4Upper = max4.toUpperCase();
 
 	public static final LengthView min4UpperLength = min4Upper.length();
 	public static final LengthView max4UpperLength = max4Upper.length();
-	
+
 	public static final PlusView<Integer> min4AndMax4UpperLength = min4UpperLength.plus(max4UpperLength);
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -72,7 +72,7 @@ public class StringItem extends Item
 				StringItem.any.map(any)
 		);
 	}
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -82,7 +82,7 @@ public class StringItem extends Item
 				StringItem.mandatory.map(mandatory)
 		);
 	}
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -93,7 +93,7 @@ public class StringItem extends Item
 				StringItem.exact6.map(exact6)
 		);
 	}
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -104,7 +104,7 @@ public class StringItem extends Item
 				StringItem.max4.map(max4)
 		});
 	}
-	
+
 /**
 
 	 **

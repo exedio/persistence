@@ -34,20 +34,20 @@ import static com.exedio.cope.PlusDoubleItem.plusBC;
 public class PlusDoubleTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(PlusDoubleTest.class, "MODEL");
 	}
-	
+
 	public PlusDoubleTest()
 	{
 		super(MODEL);
 	}
-	
+
 	PlusDoubleItem item;
 	PlusDoubleItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -55,12 +55,12 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new PlusDoubleItem(1.1, 2.2, 3.3));
 		item2 = deleteOnTearDown(new PlusDoubleItem(3.3, 4.4, 5.5));
 	}
-	
+
 	private static final double EPS = 0.000000000000005d;
 	private static final Double d6x = Double.valueOf(d2.doubleValue() * d3.doubleValue());
 	private static final Double d10= Double.valueOf(10.4);
 	private static final Double d18= Double.valueOf(20.46);
-	
+
 	public void testSum()
 	{
 		// test model
@@ -88,7 +88,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(plusAB, numC), plusABaC.getSources());
 		assertEqualsUnmodifiable(list(numB), multiplyB9.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
-		
+
 		// test equals/hashCode
 		assertEquals(plusA9, plusA9);
 		assertEquals(plusAB, plusAB);
@@ -98,7 +98,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, plusBC);
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
-		
+
 		// serialization
 		assertSerializedSame(plusA9    , 376);
 		assertSerializedSame(plusAB    , 376);
@@ -136,7 +136,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numA.plus(numB).between(3.3-EPS, 3.3+EPS)));
 		assertContains(item, TYPE.search(numB.multiply(9.3 ).between(d18.doubleValue()-EPS, d18.doubleValue()+EPS)));
 		assertContains(item, TYPE.search(numB.multiply(numC).equal(d6x)));
-		
+
 		// test null propagation
 		item.setNumA(null);
 

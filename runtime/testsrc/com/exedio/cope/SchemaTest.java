@@ -49,7 +49,7 @@ import com.exedio.dsmf.Table;
 public class SchemaTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE);
-	
+
 	public SchemaTest()
 	{
 		super(MODEL);
@@ -85,13 +85,13 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertFkConstraint(table, "SchemaItem_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "SchemaItem_uniquStrin_Unq", "("+q(uniqueString)+")");
-		
+
 		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(anEnum)+")");
-		
+
 		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
-		
+
 		final String string8;
 		if(hsqldb)
 			string8 = "varchar(8)";
@@ -102,7 +102,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(string8, min4Max8Column.getType());
 
 		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" regexp '^[A-Z]*$')" : "";
-		
+
 		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "(("+q(stringMin4)    +" IS NOT NULL) AND (("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_LENGTH+"))) OR ("+q(stringMin4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "(("+q(stringMax4)    +" IS NOT NULL) AND (" +l(stringMax4)+"<=4)) OR ("+q(stringMax4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "(("+q(stringMin4Max8)+" IS NOT NULL) AND (("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8))) OR ("+q(stringMin4Max8)+" IS NULL)");
@@ -110,17 +110,17 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH*model.connect().dialect.getBlobLengthFactor())+")) OR ("+q(data)+" IS NULL)");
 	}
-	
+
 	private final String q(final Field f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
-	
+
 	private final String l(final StringField f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
 	}
-	
+
 	private final String l(final DataField f)
 	{
 		return "LENGTH(" + q(f) + ')';

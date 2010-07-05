@@ -44,12 +44,12 @@ class DefaultToItem extends Item
 	static final DayField dayNow = new DayField().defaultToNow();
 	static final DayField dayNowOpt = new DayField().optional().defaultToNow();
 	static final DayField dayNone = new DayField().optional();
-	
+
 	enum DefaultToEnum
 	{
 		ONE, TWO, THREE;
 	}
-	
+
 	static final EnumField<DefaultToEnum> enumOne = newEnumField(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
 	static final EnumField<DefaultToEnum> enumTwo = newEnumField(DefaultToEnum.class).optional().defaultTo(DefaultToEnum.TWO);
 	static final EnumField<DefaultToEnum> enumNone = newEnumField(DefaultToEnum.class).optional();

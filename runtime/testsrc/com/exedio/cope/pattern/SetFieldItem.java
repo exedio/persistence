@@ -28,8 +28,8 @@ public class SetFieldItem extends Item
 {
 	static final SetField<String> strings = SetField.newSet(new StringField().optional().lengthRange(4, 8));
 	static final SetField<Date> dates = SetField.newSet(new DateField());
-	
-	
+
+
 	/**
 
 	 **

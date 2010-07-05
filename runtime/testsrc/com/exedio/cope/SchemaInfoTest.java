@@ -30,7 +30,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 	{
 		super(InstanceOfTest.MODEL);
 	}
-	
+
 	public void testSchemaInfo()
 	{
 		// quoteName
@@ -73,7 +73,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		{
 			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
 		}
-		
+
 		// with sub types
 		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
 		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));

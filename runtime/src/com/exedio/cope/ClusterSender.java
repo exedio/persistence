@@ -32,20 +32,20 @@ final class ClusterSender
 	private final ClusterConfig config;
 	private final int destinationPort;
 	private final DatagramSocket socket;
-	
+
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
 	private final byte[] pingPongTemplate;
-	
+
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
 	private final byte[] invalidateTemplate;
-	
+
 	private final AtomicInteger pingSequence = new AtomicInteger();
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
-	
+
 	ArrayList<byte[]> testSink = null;
-	
+
 	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
@@ -72,7 +72,7 @@ final class ClusterSender
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
-				
+
 			for(; pos<config.packetSize; pos++)
 				pingPongTemplate[pos] = config.pingPayload[pos];
 			assert pos==config.packetSize : pos;
@@ -94,29 +94,29 @@ final class ClusterSender
 			this.invalidateTemplate = invalidateTemplate;
 		}
 	}
-	
+
 	void ping(final int count)
 	{
 		pingPong(ClusterConfig.KIND_PING, pingSequence, count);
 	}
-	
+
 	void pong()
 	{
 		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
 	}
-	
+
 	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
 	{
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
-		
+
 		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
 		final int packetSize = config.packetSize;
-		
+
 		final byte[] buf = new byte[packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
 		marshal(KIND, buf, kind);
-		
+
 		try
 		{
 			int sequenceStart = sequence.getAndAdd(count);
@@ -131,10 +131,10 @@ final class ClusterSender
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	// info
 	private volatile long invalidationSplit = 0;
-	
+
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int packetSize = config.packetSize;
@@ -148,7 +148,7 @@ final class ClusterSender
 		}
 		final byte[] buf = new byte[Math.min(length, packetSize)];
 		System.arraycopy(invalidateTemplate, 0, buf, 0, INVALIDATE_TEMPLATE_SIZE);
-		
+
 		int typeIdTransiently = 0;
 		TIntIterator i = null;
 		try
@@ -157,11 +157,11 @@ final class ClusterSender
 			packetLoop: do
 			{
 				packetCount++;
-				
+
 				int pos = INVALIDATE_TEMPLATE_SIZE;
-				
+
 				pos = marshal(pos, buf, invalidationSequence.getAndIncrement());
-				
+
 				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
 					if(i!=null && !i.hasNext())
@@ -169,7 +169,7 @@ final class ClusterSender
 						i = null;
 						continue;
 					}
-					
+
 					final TIntHashSet invalidation = invalidations[typeIdTransiently];
 					if(invalidation!=null)
 					{
@@ -179,7 +179,7 @@ final class ClusterSender
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, typeIdTransiently);
-						
+
 						if(i==null)
 							i = invalidation.iterator();
 						while(i.hasNext())
@@ -191,23 +191,23 @@ final class ClusterSender
 							}
 							pos = marshal(pos, buf, i.next());
 						}
-						
+
 						if(pos>=packetSize)
 						{
 							send(pos, buf);
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, PK.NaPK);
-						
+
 						i = null;
 					}
 				}
-				
+
 				send(pos, buf);
 				break;
 			}
 			while(true);
-			
+
 			if(packetCount>1)
 				invalidationSplit += (packetCount-1);
 		}
@@ -216,7 +216,7 @@ final class ClusterSender
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	private void send(final int length, final byte[] buf) throws IOException
 	{
 		if(testSink!=null)
@@ -232,7 +232,7 @@ final class ClusterSender
 			socket.send(packet);
 		}
 	}
-	
+
 	static int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
@@ -241,12 +241,12 @@ final class ClusterSender
 		buf[pos++] = (byte)((i>>>24) & 0xff);
 		return pos;
 	}
-	
+
 	ClusterSenderInfo getInfo()
 	{
 		return new ClusterSenderInfo(invalidationSplit);
 	}
-	
+
 	void close()
 	{
 		socket.close();

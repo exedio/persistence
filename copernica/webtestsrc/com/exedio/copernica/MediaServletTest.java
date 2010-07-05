@@ -40,7 +40,7 @@ public class MediaServletTest extends TestCase
 	private static final String NO_SUCH_ITEM   = "no such item";
 	private static final String IS_NULL        = "is null";
 	private static final String NOT_COMPUTABLE = "not computable";
-	
+
 	private static final String ITEM_TXT = "MediaServletItem-0";
 	private static final String ITEM_EMP = "MediaServletItem-1";
 	private static final String ITEM_PNG = "MediaServletItem-2";
@@ -58,7 +58,7 @@ public class MediaServletTest extends TestCase
 		final String app = "http://localhost:" + System.getProperty("tomcat.port.http") + "/cope-runtime-servlet/";
 		final URL init = new URL(app + "init");
 		init.getContent();
-		
+
 		final String prefix = app + "media/MediaServletItem/";
 
 		final long lmTxt = assertTxt(prefix + "content/" + ITEM_TXT + ".txt");
@@ -66,7 +66,7 @@ public class MediaServletTest extends TestCase
 		final long lmJpg = assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg");
 		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
 		final long lmUnk = assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi");
-		
+
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt"));
 		assertMoved(prefix + "content/" + ITEM_TXT + ".jpg" , prefix + "content/" + ITEM_TXT + ".txt");
 		assertMoved(prefix + "content/" + ITEM_TXT + ".zick", prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
@@ -121,13 +121,13 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP          , IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
-		
+
 		assertTxt     (app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-0.txt", "text/plain");
 		assertNotFound(app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-1.txt", NO_SUCH_ITEM);
 		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-0.txt", "text/plain");
 		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-1.txt", "text/plain");
 		assertNotFound(app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-2.txt", NO_SUCH_ITEM);
-		
+
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt-1   , false));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt     , true ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt+5000, true ));
@@ -153,32 +153,32 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG         , prefix + "redirect/" + ITEM_JPG + ".jpg");
-		
+
 		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
 		assertEquals(lmPng, assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg"));
 		assertEquals(lmGif, assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg"));
-		
+
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
 		assertEquals(lmPng, assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg"));
 		assertEquals(lmGif, assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg"));
-		
+
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
 		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
 		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png"));
 		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
-		
+
 		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
 		final long lmFilter = assertBin(prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html" );
 		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html"));
 		assertMoved(                     prefix + "html/" + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
-		
+
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + "."   , NO_SUCH_ITEM);
@@ -201,12 +201,12 @@ public class MediaServletTest extends TestCase
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
 		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
 		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, "image/jpeg"));
-		
+
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t="  , GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=1" , GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=12", GUESSED_URL);
-		
+
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png"     , GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png?t=12", GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG              , GUESSED_URL);
@@ -215,9 +215,9 @@ public class MediaServletTest extends TestCase
 						prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&x=y", NOT_AN_ITEM);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&t=y", NOT_AN_ITEM);
-		
+
 		// nameServer
-		
+
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + ".", prefix + "nameServer/" + ITEM_NAME_OK + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK , prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
@@ -242,17 +242,17 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR + ".", prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
-	
+
 	private long assertTxt(final String url) throws IOException
 	{
 		return assertTxt(url, -1, false);
 	}
-	
+
 	private long assertTxt(final String url, final String contentType) throws IOException
 	{
 		return assertTxt(url, contentType, -1, false);
 	}
-	
+
 	private long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		return assertTxt(url, "text/plain", ifModifiedSince, expectNotModified);
@@ -292,7 +292,7 @@ public class MediaServletTest extends TestCase
 		{
 			assertEquals( data, getContentAsString(conn.getInputStream()) );
 		}
-		
+
 		//textConn.setIfModifiedSince();
 		return lastModified;
 	}
@@ -341,7 +341,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(conn.HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
-		
+
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
@@ -382,7 +382,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
-		
+
 		return lastModified;
 	}
 
@@ -397,7 +397,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
-		
+
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
@@ -426,7 +426,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(200, conn.getResponseCode());
 		assertEquals("text/plain", conn.getContentType());
 		assertEquals(12, conn.getContentLength());
-		
+
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		assertEquals("media item 1", is.readLine());
 		assertEquals(null, is.readLine());
@@ -463,14 +463,14 @@ public class MediaServletTest extends TestCase
 			final OutputStream out = new FileOutputStream(f);
 			for(int len = in.read(b); len>=0; len = in.read(b))
 				out.write(b, 0, len);
-	
+
 			out.close();
 			in.close();
 		}
 	}
-	
+
 	// ----------------------------------- adapted from CopeAssert
-	
+
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
 	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)

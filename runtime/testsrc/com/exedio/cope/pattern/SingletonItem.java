@@ -27,10 +27,10 @@ public final class SingletonItem extends Item
 	static final IntegerField integer = new IntegerField().optional();
 	static final IntegerField integer55 = new IntegerField().defaultTo(55);
 	static final BooleanField booleanField = new BooleanField().defaultTo(true);
-	
+
 	static final Singleton einzigartig = new Singleton();
-	
-	
+
+
 	/**
 
 	 **

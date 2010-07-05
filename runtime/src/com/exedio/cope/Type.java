@@ -60,7 +60,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	final boolean isAbstract;
 	final Type<? super T> supertype;
 	private final HashSet<Type<?>> supertypes;
-	
+
 	final This<T> thisFunction = new This<T>(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
@@ -69,22 +69,22 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 	private final List<Field> declaredFields;
 	private final List<Field> fields;
-	
+
 	private final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
-	
+
 	private final List<CheckConstraint> declaredCheckConstraints;
 	private final List<CheckConstraint> checkConstraints;
-	
+
 	private final List<CopyConstraint> declaredCopyConstraints;
 	private final List<CopyConstraint> copyConstraints;
 
 	private final Constructor<T> activationConstructor;
 	private final Method[] beforeNewItemMethods;
 	private final Sequence primaryKeySequence;
-	
+
 	private Mount<T> mount = null;
-	
+
 	/**
 	 * This id uniquely identifies a type within its model.
 	 * However, this id is not stable across JVM restarts.
@@ -97,18 +97,18 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	int cacheIdTransiently = Integer.MIN_VALUE;
 
 	Table table;
-	
+
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
 		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
-		
+
 		return (Type<X>)this;
 	}
-	
+
 	private ArrayList<Feature> featuresWhileConstruction;
-	
+
 	Type(
 			final Class<T> javaClass,
 			final AnnotatedElement annotationSource,
@@ -138,7 +138,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		}
 		if(featuresParameter==null)
 			throw new NullPointerException("featuresParameter for " + id); // TODO test
-		
+
 		this.javaClass = javaClass;
 		this.annotationSource = annotationSource;
 		this.bound = bound;
@@ -148,7 +148,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
 		this.supertype = supertype;
-		
+
 		if(supertype==null)
 		{
 			this.supertypes = null;
@@ -160,7 +160,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				this.supertypes = new HashSet<Type<?>>();
 			else
 				this.supertypes = new HashSet<Type<?>>(superSupertypes);
-			
+
 			this.supertypes.add(supertype);
 		}
 
@@ -191,7 +191,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 					declaredCheckConstraints.add((CheckConstraint)feature);
 				else if(feature instanceof CopyConstraint)
 					declaredCopyConstraints.add((CopyConstraint)feature);
-				
+
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
@@ -240,11 +240,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			? supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 	}
-	
+
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
 	{
 		assert inherited!=null;
-		
+
 		if(declared.isEmpty())
 			return inherited;
 		else if(inherited.isEmpty())
@@ -257,14 +257,14 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return Collections.<F>unmodifiableList(result);
 		}
 	}
-	
+
 	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
 	{
 		final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 		result.putAll(declared);
 		return result;
 	}
-	
+
 	static final <F extends Feature> List<F> finish(final ArrayList<F> list)
 	{
 		switch(list.size())
@@ -278,7 +278,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return Collections.<F>unmodifiableList(list);
 		}
 	}
-	
+
 	private static Method[] getBeforeNewItemMethods(final Class javaClass, final Type supertype)
 	{
 		final Method declared = getBeforeNewItemMethod(javaClass);
@@ -295,7 +295,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return result;
 		}
 	}
-	
+
 	private static Method getBeforeNewItemMethod(final Class<?> javaClass)
 	{
 		final Method result;
@@ -307,7 +307,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			return null;
 		}
-		
+
 		if(!Modifier.isStatic(result.getModifiers()))
 			throw new IllegalArgumentException(
 					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must be static");
@@ -315,11 +315,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new IllegalArgumentException(
 					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must return SetValue[], " +
 							"but returns " + result.getReturnType().getName());
-		
+
 		result.setAccessible(true);
 		return result;
 	}
-	
+
 	SetValue[] doBeforeNewItem(SetValue[] setValues)
 	{
 		if(beforeNewItemMethods!=null)
@@ -341,15 +341,15 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				throw new RuntimeException(id, e);
 			}
 		}
-		
+
 		return setValues;
 	}
-	
+
 	void registerMounted(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
 	}
-	
+
 	void mount(final Model model, final Types.MountParameters parameters)
 	{
 		if(model==null)
@@ -362,11 +362,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new RuntimeException();
 		if(this.cacheIdTransiently>=0)
 			throw new RuntimeException();
-		
+
 		this.mount = new Mount<T>(model, id, parameters);
 		this.cacheIdTransiently = parameters.cacheIdTransiently;
 	}
-	
+
 	private Mount<T> mount()
 	{
 		if(mount==null)
@@ -374,13 +374,13 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 		return mount;
 	}
-	
+
 	private static final class Mount<C extends Item>
 	{
 		final Model model;
-		
+
 		private final String id;
-		
+
 		/**
 		 * This id uniquely identifies a type within its model.
 		 * However, this id is not stable across JVM restarts.
@@ -390,28 +390,28 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		 * This id is positive (including zero) for all types.
 		 */
 		private final int orderIdTransiently;
-		
+
 		final List<Type<? extends C>> subtypes;
 		final List<Type<? extends C>> subtypesTransitively;
 		final List<Type<? extends C>> typesOfInstances;
-		
+
 		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
 		final Type<? extends C> onlyPossibleTypeOfInstances;
 		final String[] typesOfInstancesColumnValues;
-		
+
 		final List<ItemField<C>> declaredReferences;
 		final List<ItemField> references;
-		
+
 		Mount(final Model model, final String id, final Types.MountParameters parameters)
 		{
 			this.model = model;
 			this.id = id;
 			this.orderIdTransiently = parameters.orderIdTransiently;
-			
+
 			this.subtypes = castTypeInstanceList(parameters.getSubtypes());
 			this.subtypesTransitively = castTypeInstanceList(parameters.getSubtypesTransitively());
 			this.typesOfInstances = castTypeInstanceList(parameters.getTypesOfInstances());
-			
+
 			switch(typesOfInstances.size())
 			{
 				case 0:
@@ -435,7 +435,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 					this.onlyPossibleTypeOfInstances = null;
 					break;
 			}
-			
+
 			this.declaredReferences = castDeclaredReferences(parameters.getReferences());
 			final Type<?> supertype = parameters.type.supertype;
 			if(supertype!=null)
@@ -459,40 +459,40 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				this.references = castReferences(declaredReferences);
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
 		{
 			return (List)l;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
 		{
 			return m;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private List<ItemField<C>> castDeclaredReferences(final List<ItemField> l)
 		{
 			return (List)l;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private List<ItemField> castReferences(final List l)
 		{
 			return l;
 		}
-		
+
 		int compareTo(final Mount other)
 		{
 			if(model!=other.model)
 				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + other.id);
-			
+
 			return Compare.compare(orderIdTransiently, other.orderIdTransiently);
 		}
 	}
-	
+
 	/**
 	 * @see Class#isAnnotationPresent(Class)
 	 */
@@ -500,7 +500,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return annotationSource.isAnnotationPresent(annotationClass);
 	}
-	
+
 	/**
 	 * @see Class#getAnnotation(Class)
 	 */
@@ -508,7 +508,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return annotationSource.getAnnotation(annotationClass);
 	}
-	
+
 	void connect(final Database database)
 	{
 		if(database==null)
@@ -518,7 +518,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
-		
+
 		this.table = new Table(
 				database,
 				schemaId,
@@ -539,7 +539,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		this.table.setCheckConstraints (this.declaredCheckConstraints);
 		this.table.finish();
 	}
-	
+
 	private boolean hasFinalTable()
 	{
 		for(final Field f : fields)
@@ -550,7 +550,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				return false;
 		return true;
 	}
-	
+
 	void disconnect()
 	{
 		if(this.mount==null)
@@ -561,18 +561,18 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		table = null;
 		if(supertype==null)
 			primaryKeySequence.disconnect();
-		
+
 		for(final Field a : declaredFields)
 			a.disconnect();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.disconnect();
 	}
-	
+
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
 	}
-	
+
 	/**
 	 * Returns, whether this type bound to it's java class.
 	 * Only such types can be found by
@@ -583,7 +583,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return bound;
 	}
-	
+
 	/**
 	 * @see Model#getType(String)
 	 */
@@ -591,12 +591,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return id;
 	}
-	
+
 	public Model getModel()
 	{
 		return mount().model;
 	}
-	
+
 	/**
 	 * Returns a list of types,
 	 * that instances (items) of this type can have.
@@ -609,21 +609,21 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return mount().typesOfInstances;
 	}
-	
+
 	Type<? extends T> getTypeOfInstance(final String id)
 	{
 		return mount().typesOfInstancesMap.get(id);
 	}
-	
+
 	Type<? extends T> getOnlyPossibleTypeOfInstances()
 	{
 		return mount().onlyPossibleTypeOfInstances;
 	}
-	
+
 	String[] getTypesOfInstancesColumnValues()
 	{
 		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;
-		
+
 		if(typesOfInstancesColumnValues==null)
 			return null;
 		else
@@ -633,7 +633,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return result;
 		}
 	}
-	
+
 	Table getTable()
 	{
 		if(table==null)
@@ -641,17 +641,17 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 		return table;
 	}
-	
+
 	public SequenceInfo getPrimaryKeyInfo()
 	{
 		return primaryKeySequence.getInfo();
 	}
-	
+
 	public int checkPrimaryKey()
 	{
 		return primaryKeySequence.check(getModel().currentTransaction().getConnection());
 	}
-	
+
 	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.
@@ -663,7 +663,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return supertype;
 	}
-	
+
 	/**
 	 * @see #getSubtypesTransitively()
 	 */
@@ -671,7 +671,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return mount().subtypes;
 	}
-	
+
 	/**
 	 * @see #getSubtypes()
 	 */
@@ -679,30 +679,30 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return mount().subtypesTransitively;
 	}
-	
+
 	public boolean isAssignableFrom(final Type<?> type)
 	{
 		if(this==type)
 			return true;
-		
+
 		final HashSet<Type<?>> typeSupertypes = type.supertypes;
 		if(typeSupertypes==null)
 			return false;
-		
+
 		return typeSupertypes.contains(this);
 	}
-	
+
 	void assertBelongs(final Field f)
 	{
 		if(!f.getType().isAssignableFrom(this))
 			throw new IllegalArgumentException("field " + f + " does not belong to type " + this.toString());
 	}
-	
+
 	public boolean isAbstract()
 	{
 		return isAbstract;
 	}
-	
+
 	public This<T> getThis()
 	{
 		return thisFunction;
@@ -746,7 +746,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return declaredFields;
 	}
-	
+
 	/**
 	 * Returns the list of accessible persistent fields of this type.
 	 * This includes inherited fields.
@@ -763,7 +763,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return fields;
 	}
-	
+
 	public List<Feature> getDeclaredFeatures()
 	{
 		return declaredFeatures;
@@ -773,7 +773,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return features;
 	}
-	
+
 	public Feature getDeclaredFeature(final String name)
 	{
 		return declaredFeaturesByName.get(name);
@@ -788,32 +788,32 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return declaredUniqueConstraints;
 	}
-	
+
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints;
 	}
-	
+
 	public List<CheckConstraint> getDeclaredCheckConstraints()
 	{
 		return declaredCheckConstraints;
 	}
-	
+
 	public List<CheckConstraint> getCheckConstraints()
 	{
 		return checkConstraints;
 	}
-	
+
 	public List<CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return declaredCopyConstraints;
 	}
-	
+
 	public List<CopyConstraint> getCopyConstraints()
 	{
 		return copyConstraints;
 	}
-	
+
 	/**
 	 * @see Pattern#getSourceTypes()
 	 */
@@ -821,35 +821,35 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return pattern;
 	}
-	
+
 	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
 		return new ItemField<T>(new Future<T>(javaClass, this), policy);
 	}
-	
+
 	private static final class Future<T extends Item> extends TypeFuture<T>
 	{
 		private final Type<T> type;
-		
+
 		Future(final Class<T> javaClass, final Type<T> type)
 		{
 			super(javaClass);
 			this.type = type;
 		}
-		
+
 		@Override
 		Type<T> get()
 		{
 			return type;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return type.id;
 		}
 	}
-	
+
 	public T newItem(final List<SetValue> setValues)
 		throws ConstraintViolationException
 	{
@@ -857,23 +857,23 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	}
 
 	private static final SetValue[] EMPTY_SET_VALUES = {};
-	
+
 	public T newItem(SetValue... setValues)
 		throws ConstraintViolationException
 	{
 		if(isAbstract)
 			throw new IllegalArgumentException("cannot create item of abstract type " + id);
-		
+
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
-		
+
 		final LinkedHashMap<Field, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
-	
+
 	LinkedHashMap<Field, Object> prepareCreate(SetValue[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
@@ -921,32 +921,32 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			field.check(fieldValues.get(field), null);
 		}
-		
+
 		checkUniqueConstraints(null, fieldValues);
-		
+
 		for(final CopyConstraint cc : copyConstraints)
 			cc.check(fieldValues);
 
 		return fieldValues;
 	}
-	
+
 	void checkUniqueConstraints(final Item item, final Map<? extends Field, ?> fieldValues)
 	{
 		for(final UniqueConstraint uc : uniqueConstraints)
 			uc.check(item, fieldValues);
 	}
-	
+
 	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
 	{
 		for(final CheckConstraint cc : checkConstraints)
 			cc.check(item, entity, exceptionItem);
 	}
-	
+
 	int nextPrimaryKey()
 	{
 		return primaryKeySequence.next();
 	}
-	
+
 	public T cast(final Item item)
 	{
 		return Cast.verboseCast(javaClass, item);
@@ -963,7 +963,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return search(null);
 	}
-	
+
 	/**
 	 * Searches for items of this type, that match the given condition.
 	 * <p>
@@ -977,7 +977,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return newQuery(condition).search();
 	}
-	
+
 	/**
 	 * Searches for items of this type, that match the given condition.
 	 * The result is sorted by the given function <tt>orderBy</tt>.
@@ -995,7 +995,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		query.setOrderBy(orderBy, ascending);
 		return query.search();
 	}
-	
+
 	/**
 	 * Searches equivalently to {@link #search(Condition)},
 	 * but assumes that the condition forces the search result to have at most one element.
@@ -1011,7 +1011,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return newQuery(condition).searchSingleton();
 	}
-	
+
 	/**
 	 * Searches equivalently to {@link #search(Condition)},
 	 * but assumes that the condition forces the search result to have exactly one element.
@@ -1026,33 +1026,33 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return newQuery(condition).searchSingletonStrict();
 	}
-	
+
 	public Query<T> newQuery()
 	{
 		return newQuery(null);
 	}
-	
+
 	public Query<T> newQuery(final Condition condition)
 	{
 		return new Query<T>(thisFunction, this, condition);
 	}
-	
+
 	public Query<T> emptyQuery()
 	{
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
-	
+
 	public int compareTo(final Type other)
 	{
 		return mount().compareTo(other.mount());
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return id;
 	}
-	
+
 	T getItemObject(final int pk)
 	{
 		final Entity entity = getModel().currentTransaction().getEntityIfActive(this, pk);
@@ -1061,7 +1061,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		else
 			return activate(pk);
 	}
-	
+
 	T activate(final int pk)
 	{
 		final ActivationParameters ap = new ActivationParameters(this, pk);
@@ -1082,7 +1082,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
 	}
-	
+
 	private static <C> Constructor<C> getActivationConstructor(final Class<C> javaClass)
 	{
 		final Constructor<C> result;
@@ -1096,66 +1096,66 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 					javaClass.getName() + " does not have an activation constructor " +
 					javaClass.getSimpleName() + '(' + ActivationParameters.class.getName() + ')', e);
 		}
-		
+
 		result.setAccessible(true);
 		return result;
 	}
-	
+
 	void testActivation()
 	{
 		if(isAbstract)
 			return;
-		
+
 		final T item = activate(PK.MAX_VALUE);
 		if(item.type!=this)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=PK.MAX_VALUE)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 	}
-	
+
 	int checkTypeColumn(final Connection connection, final Executor executor)
 	{
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
-		
+
 		final Statement bf = executor.newStatement(true);
 		bf.append("select count(*) from ").
 			append(table).append(',').append(superTable).
 			append(" where ").
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
 			append(" and ");
-		
+
 		if(table.typeColumn!=null)
 			bf.append(table.typeColumn);
 		else
 			bf.appendParameter(id);
-			
+
 		bf.append("<>").append(superTable.typeColumn);
-		
+
 		//System.out.println("CHECKT:"+bf.toString());
-		
+
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
-	
+
 	public boolean needsCheckModificationCounter()
 	{
 		return supertype!=null && getTable().modificationCount!=null;
 	}
-	
+
 	public int checkModificationCounter()
 	{
 		if(!needsCheckModificationCounter())
 			throw new RuntimeException("no check for modification counter needed for " + this);
-		
+
 		final Model model = getModel();
 		return checkModificationCounter(model.currentTransaction().getConnection(), model.connect().executor);
 	}
-	
+
 	private int checkModificationCounter(final Connection connection, final Executor executor)
 	{
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
-		
+
 		final Statement bf = executor.newStatement(true);
 		bf.append("select count(*) from ").
 			append(table).append(',').append(superTable).
@@ -1163,17 +1163,17 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
 			append(" and ").
 			append(table.modificationCount).append("<>").append(superTable.modificationCount);
-		
+
 		//System.out.println("CHECKM:"+bf.toString());
-		
+
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
-	
+
 	public Random random(final int seed)
 	{
 		return new Random(this, seed);
 	}
-	
+
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;
@@ -1193,16 +1193,16 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private static final class Serialized implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private final Model model;
 		private final String id;
-		
+
 		Serialized(final Model model, final String id)
 		{
 			this.model = model;
 			this.id = id;
 		}
-		
+
 		/**
 		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
@@ -1214,9 +1214,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return result;
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #forClass(Class)} instead
 	 */
@@ -1243,7 +1243,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return SchemaInfo.getTableName(this);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link SchemaInfo#getPrimaryKeyColumnName(Type)} instead
 	 */
@@ -1252,7 +1252,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return SchemaInfo.getPrimaryKeyColumnName(this);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(Type)} instead
 	 */
@@ -1261,7 +1261,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return SchemaInfo.getTypeColumnName(this);
 	}
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getDeclaredFields()}.
 	 */
@@ -1270,7 +1270,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return declaredFields;
 	}
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFields()}.
 	 */
@@ -1279,7 +1279,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return getFields();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #searchSingleton(Condition)}.
 	 */
@@ -1288,7 +1288,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return searchSingleton(condition);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #as(Class)} instead
 	 */
@@ -1297,7 +1297,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return as(clazz);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #isBound()} instead
 	 */
@@ -1306,7 +1306,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return isBound();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getSubtypes()} instead
 	 */
@@ -1315,7 +1315,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return getSubtypes();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getSubtypesTransitively()} instead
 	 */
@@ -1324,7 +1324,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return getSubtypesTransitively();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #isBound()} instead
 	 */
@@ -1333,7 +1333,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return isBound();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link TypesBound#forClass(Class)} instead.
 	 */
@@ -1342,7 +1342,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	{
 		return TypesBound.forClass(javaClass);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
 	 */

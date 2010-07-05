@@ -40,10 +40,10 @@ public class ClusterTest extends CopeAssert
 	private ClusterConfig clc;
 	private ClusterSender cs;
 	private ClusterListener cl;
-	
+
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -89,7 +89,7 @@ public class ClusterTest extends CopeAssert
 		cs = new ClusterSender(csc, properties);
 		cl = new ClusterListener(clc, properties, cs, 4, null, null);
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
@@ -97,12 +97,12 @@ public class ClusterTest extends CopeAssert
 		cl.close();
 		super.tearDown();
 	}
-	
+
 	public void testSet()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
@@ -117,7 +117,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
 		assertEqualsBytes(buf2,
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
@@ -132,7 +132,7 @@ public class ClusterTest extends CopeAssert
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		{
 			final TIntHashSet[] is = um(buf);
 			assertContains(is[0], 0x456789ab, 0xaf896745);
@@ -142,20 +142,20 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, is.length);
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			// duplicate
  			ume(buf);
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		buf[8] = 0x34;
 		buf[9] = 0x44;
 		buf[10] = 0x22;
 		buf[11] = 0x11;
 		ume(buf);
 		assertInfo(0, 0, 0, 1, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		buf[4] = 0x54;
 		ume(buf);
 		assertInfo(0, 0, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
@@ -164,12 +164,12 @@ public class ClusterTest extends CopeAssert
 		ume(buf);
 		assertInfo(0, 1, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitBeforeTypeSingle()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -204,7 +204,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertContains(pks[0], 3);
@@ -214,14 +214,14 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 	}
-	
+
 	public void testSplitBeforeType()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -259,7 +259,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertContains(pks[0], 3);
@@ -270,12 +270,12 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitAtType()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -310,7 +310,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
@@ -321,12 +321,12 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitAfterType()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -361,7 +361,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
@@ -372,12 +372,12 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -412,7 +412,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
@@ -423,11 +423,11 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitAfterAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -462,7 +462,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
@@ -473,12 +473,12 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testSplitAfterAfterAfterTypeCollapse()
 	{
 		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
-		
+
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
@@ -510,7 +510,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(4, pks.length);
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-		
+
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
@@ -521,7 +521,7 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
-	
+
 	public void testPing()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
@@ -530,7 +530,7 @@ public class ClusterTest extends CopeAssert
 		cs.testSink = null;
 		assertEquals(1, sink.size());
 		final byte[] buf = sink.get(0);
-		
+
 		assertEqualsBytes(buf,
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
@@ -543,12 +543,12 @@ public class ClusterTest extends CopeAssert
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 36 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
-		
+
 		assertEquals(
 				"PING",
 				umi(buf));
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
@@ -563,7 +563,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length-1];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
@@ -578,7 +578,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length+1];
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
@@ -593,7 +593,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length+4];
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
@@ -608,7 +608,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		buf[36] = (byte)35;
 		try
 		{
@@ -620,7 +620,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals("invalid ping, at position 36 expected 47, but was 35", e.getMessage());
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
-		
+
 		buf[28] = (byte)29;
 		try
 		{
@@ -633,7 +633,7 @@ public class ClusterTest extends CopeAssert
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 	}
-	
+
 	public void testPingCount()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
@@ -657,7 +657,7 @@ public class ClusterTest extends CopeAssert
 					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 		}
-		
+
 		sink.clear();
 		cs.testSink = sink;
 		try
@@ -672,7 +672,7 @@ public class ClusterTest extends CopeAssert
 		cs.testSink = null;
 		assertEquals(0, sink.size());
 	}
-	
+
 	public void testPong()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
@@ -681,7 +681,7 @@ public class ClusterTest extends CopeAssert
 		cs.testSink = null;
 		assertEquals(1, sink.size());
 		final byte[] buf = sink.get(0);
-		
+
 		assertEqualsBytes(buf,
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
@@ -694,12 +694,12 @@ public class ClusterTest extends CopeAssert
 				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,      // 36 fillup
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
-		
+
 		assertEquals(
 				"PONG",
 				umi(buf));
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
@@ -714,7 +714,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length-1];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
@@ -729,7 +729,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length+1];
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
@@ -744,7 +744,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		{
 			final byte[] buf2 = new byte[buf.length+4];
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
@@ -759,7 +759,7 @@ public class ClusterTest extends CopeAssert
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		buf[36] = (byte)35;
 		try
 		{
@@ -771,7 +771,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals("invalid pong, at position 36 expected 47, but was 35", e.getMessage());
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
-		
+
 		buf[28] = (byte)29;
 		try
 		{
@@ -783,22 +783,22 @@ public class ClusterTest extends CopeAssert
 			assertEquals("invalid pong, at position 28 expected 40, but was 29", e.getMessage());
 		}
 	}
-	
-	
+
+
 	private static void assertContains(final TIntHashSet actual, final int... expected)
 	{
 		for(int i : expected)
 			assertTrue(actual.contains(i));
 		assertEquals(expected.length, actual.size());
 	}
-	
+
 	private void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
 		assertEquals(expectedData.length, actualData.length);
 	}
-	
+
 	private static TIntHashSet[] convert(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
@@ -814,7 +814,7 @@ public class ClusterTest extends CopeAssert
 		}
 		return invalidations;
 	}
-	
+
 	private byte[] m(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
@@ -825,7 +825,7 @@ public class ClusterTest extends CopeAssert
 		assertEquals(1, sink.size());
 		return sink.get(0);
 	}
-	
+
 	private byte[][] mm(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
@@ -839,17 +839,17 @@ public class ClusterTest extends CopeAssert
 			result[i++] = b;
 		return result;
 	}
-	
+
 	private TIntHashSet[] um(final byte[] buf)
 	{
 		return (TIntHashSet[])umx(buf);
 	}
-	
+
 	private String umi(final byte[] buf)
 	{
 		return (String)umx(buf);
 	}
-	
+
 	private Object umx(final byte[] buf)
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
@@ -859,7 +859,7 @@ public class ClusterTest extends CopeAssert
 		assertEquals(1, sink.size());
 		return sink.get(0);
 	}
-	
+
 	private void ume(final byte[] buf)
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
@@ -868,7 +868,7 @@ public class ClusterTest extends CopeAssert
 		cl.testSink = null;
 		assertEquals(list(), sink);
 	}
-	
+
 	private void assertInfo(
 			final long invalidationSplit,
 			final long listenerMissingMagic,
@@ -878,7 +878,7 @@ public class ClusterTest extends CopeAssert
 	{
 		final ClusterSenderInfo senderInfo = cs.getInfo();
 		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit());
-		
+
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
 		assertEquals(0, listenerInfo.getException());
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
@@ -900,12 +900,12 @@ public class ClusterTest extends CopeAssert
 					assertEquals(967, infoNode.getPort());
 					assertEquals("ping", node[1], infoNode.getPingInfo().getInOrder());
 					assertEquals("pong", node[2], infoNode.getPongInfo().getInOrder());
-					
+
 					assertEquals(0, infoNode.getPingInfo().getOutOfOrder());
 					assertEquals(0, infoNode.getPongInfo().getOutOfOrder());
 					assertEquals(0, infoNode.getPingInfo().getDuplicate());
 					assertEquals(0, infoNode.getPongInfo().getDuplicate());
-					
+
 					assertEquals(0, infoNode.getPingInfo().getLost());
 					assertEquals(0, infoNode.getPongInfo().getLost());
 					assertEquals(0, infoNode.getPingInfo().getLate());
@@ -917,7 +917,7 @@ public class ClusterTest extends CopeAssert
 		}
 		assertEquals(listenerNodes.length, listenerInfoNodes.size());
 	}
-	
+
 	static final String toString(final TIntHashSet[] invalidations)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -929,7 +929,7 @@ public class ClusterTest extends CopeAssert
 				first = false;
 			else
 				bf.append(", ");
-			
+
 			if(invalidation!=null)
 			{
 				bf.append('{');
@@ -940,7 +940,7 @@ public class ClusterTest extends CopeAssert
 						first2 = false;
 					else
 						bf.append(',');
-					
+
 					bf.append(i.next());
 				}
 				bf.append('}');
@@ -949,7 +949,7 @@ public class ClusterTest extends CopeAssert
 				bf.append("null");
 		}
 		bf.append(']');
-		
+
 		return bf.toString();
 	}
 }

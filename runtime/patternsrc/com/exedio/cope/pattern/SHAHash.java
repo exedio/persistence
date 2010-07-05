@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 public final class SHAHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final String HASH = "SHA-512";
 
 	/**

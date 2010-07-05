@@ -21,13 +21,13 @@ package com.exedio.cope;
 class HardJoinA1Item extends Item
 {
 	static final StringField code = new StringField().unique();
-	
+
 	/**
 	 * @cope.initial
 	 */
 	static final IntegerField a1 = new IntegerField().optional();
-	
-	
+
+
 	/**
 
 	 **

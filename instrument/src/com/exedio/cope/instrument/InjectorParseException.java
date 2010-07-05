@@ -30,7 +30,7 @@ package com.exedio.cope.instrument;
 class InjectorParseException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	protected InjectorParseException(String message)
 	{
 		super(message);

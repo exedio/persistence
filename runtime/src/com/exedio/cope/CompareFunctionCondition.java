@@ -43,12 +43,12 @@ public final class CompareFunctionCondition<E> extends Condition
 			throw new NullPointerException("left");
 		if(right==null)
 			throw new NullPointerException("right");
-		
+
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
@@ -56,7 +56,7 @@ public final class CompareFunctionCondition<E> extends Condition
 			append(operator.sql).
 			append(right, (Join)null);
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -75,12 +75,12 @@ public final class CompareFunctionCondition<E> extends Condition
 	{
 		if(!(other instanceof CompareFunctionCondition))
 			return false;
-		
+
 		final CompareFunctionCondition o = (CompareFunctionCondition)other;
-		
+
 		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -145,14 +145,14 @@ public final class CompareFunctionCondition<E> extends Condition
 				return left.compareTo(right)>=0;
 			}
 		};
-		
+
 		final String sql;
-		
+
 		Operator(final String sql)
 		{
 			this.sql = sql;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		final boolean evaluate(final Object left, final Object right)
 		{
@@ -163,7 +163,7 @@ public final class CompareFunctionCondition<E> extends Condition
 						(Comparable<Comparable>)left, // TODO make casts to Comparable redundant
 						(Comparable<Comparable>)right);
 		}
-		
+
 		abstract boolean evaluateNotNull(Comparable<Comparable> left, Comparable<Comparable> right);
 	}
 }

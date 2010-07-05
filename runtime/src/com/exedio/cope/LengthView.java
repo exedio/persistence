@@ -22,7 +22,7 @@ package com.exedio.cope;
 public final class LengthView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final StringFunction source;
 
 	/**

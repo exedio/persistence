@@ -27,7 +27,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 	{
 		super(SchemaTest.MODEL);
 	}
-	
+
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
@@ -40,9 +40,9 @@ public class QueryInfoTest extends AbstractRuntimeTest
 		final QueryInfo root = infos.iterator().next();
 		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
-		
+
 		assertEquals(query.toString(), root.getText());
-		
+
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
 		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
@@ -112,7 +112,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 			default:
 				fail(dialect.toString());
 		}
-		
+
 		assertTrue(!rootChilds.hasNext());
 
 		// test multiple queries
@@ -129,16 +129,16 @@ public class QueryInfoTest extends AbstractRuntimeTest
 		final QueryInfo ordered2 = rootOrderedIterator.next();
 		assertEquals(query2String, ordered2.getText());
 		assertTrue(!rootOrderedIterator.hasNext());
-		
+
 		transaction.setQueryInfoEnabled(false);
 		assertNull(transaction.getQueryInfos());
-		
+
 		final String statement =
 			"select this " +
 			"from SchemaItem " +
 			"where uniqueString='zack' " +
 			"order by uniqueString";
-		
+
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> cached1Infos = transaction.getQueryInfos();
@@ -157,7 +157,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 
 		transaction.setQueryInfoEnabled(false);
 		assertNull(transaction.getQueryInfos());
-		
+
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> cached2Infos = transaction.getQueryInfos();

@@ -22,7 +22,7 @@ public final class SetValue<E>
 {
 	public final Settable<E> settable;
 	public final E value;
-	
+
 	/**
 	 * Creates a new SetValue.
 	 * Instead of using this constructor directly,
@@ -34,5 +34,5 @@ public final class SetValue<E>
 		this.settable = settable;
 		this.value = value;
 	}
-	
+
 }

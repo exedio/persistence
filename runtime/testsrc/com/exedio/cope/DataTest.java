@@ -30,7 +30,7 @@ import java.io.OutputStream;
 public class DataTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(DataTest.class, "MODEL");
@@ -40,15 +40,15 @@ public class DataTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private DataItem item;
 	private byte[] dataBig;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		final int data8Length = data8.length;
 		// must be substantially larger than
 		// dataAttribute.bufferSize* values in cope.properties
@@ -56,30 +56,30 @@ public class DataTest extends AbstractRuntimeTest
 		dataBig = new byte[dataBigLength];
 		for(int i = 0; i<dataBigLength; i++)
 			dataBig[i] = data8[i % data8Length];
-		
+
 		item = deleteOnTearDown(new DataItem());
 	}
-	
+
 	@Override
 	public void tearDown() throws Exception
 	{
 		// release memory
 		dataBig = null;
-		
+
 		super.tearDown();
 	}
-	
+
 	private void assertIt(final byte[] expectedData) throws MandatoryViolationException, IOException
 	{
 		assertIt(expectedData, item);
 	}
-	
+
 	private void assertIt(final byte[] expectedData, final DataItem item)
 		throws MandatoryViolationException, IOException
 	{
 		assertIt(expectedData, item, oracle);
 	}
-	
+
 	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
 		throws MandatoryViolationException, IOException
 	{
@@ -92,7 +92,7 @@ public class DataTest extends AbstractRuntimeTest
 			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
-			
+
 			final File tempFile = File.createTempFile("exedio-cope-DataTest-", ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
@@ -105,11 +105,11 @@ public class DataTest extends AbstractRuntimeTest
 			assertTrue(item.isDataNull());
 			assertEquals(-1, item.getDataLength());
 			assertEquals(null, item.getDataArray());
-			
+
 			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
 			item.getData(tempStream);
 			assertEquals(0, tempStream.toByteArray().length);
-			
+
 			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
@@ -117,12 +117,12 @@ public class DataTest extends AbstractRuntimeTest
 			assertFalse(tempFile.exists());
 		}
 	}
-	
+
 	public void testData() throws MandatoryViolationException, IOException
 	{
 		assertEquals(10, data10.length);
 		assertEquals(11, data11.length);
-		
+
 		// test model
 		assertEquals(0, DataField.min(0, 0l));
 		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
@@ -151,7 +151,7 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals("l must not be negative, but was -1", e.getMessage());
 		}
-		
+
 		assertEquals("DataField.Value:aa7af817", DataField.toValue(data4).toString());
 		assertEquals("DataField.Value:9f13f82382aa7a5613f8", DataField.toValue(data10).toString());
 		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", DataField.toValue(data11).toString());
@@ -159,21 +159,21 @@ public class DataTest extends AbstractRuntimeTest
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(data4);
 		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
 		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
-		
+
 		assertEquals(item.TYPE, item.data.getType());
 		assertEquals("data", item.data.getName());
 		assertEquals(false, item.data.isMandatory());
 		assertEquals(null, item.data.getPattern());
 		assertEquals(item.data.DEFAULT_LENGTH, item.data.getMaximumLength());
 		assertEquals(DataField.Value.class, item.data.getValueClass());
-		
+
 		assertEquals(item.TYPE, item.data10.getType());
 		assertEquals("data10", item.data10.getName());
 		assertEquals(false, item.data10.isMandatory());
 		assertEquals(null, item.data10.getPattern());
 		assertEquals(10, item.data10.getMaximumLength());
 		assertEquals(DataField.Value.class, item.data10.getValueClass());
-		
+
 		assertSerializedSame(item.data  , 362);
 		assertSerializedSame(item.data10, 364);
 
@@ -195,7 +195,7 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}
-		
+
 		// condition startsWith
 		assertEquals(item.data.startsWith(data4), item.data.startsWith(data4));
 		assertEquals(item.data.startsWith(data4).hashCode(), item.data.startsWith(data4).hashCode());
@@ -293,7 +293,7 @@ public class DataTest extends AbstractRuntimeTest
 		item.setData((InputStream)null);
 		assertIt(null);
 
-		
+
 		// set File
 		item.setData(file(data8));
 		assertIt(data8);
@@ -306,8 +306,8 @@ public class DataTest extends AbstractRuntimeTest
 
 		item.setData((File)null);
 		assertIt(null);
-		
-		
+
+
 		try
 		{
 			item.getData((OutputStream)null);
@@ -326,14 +326,14 @@ public class DataTest extends AbstractRuntimeTest
 		{
 			assertEquals(null, e.getMessage());
 		}
-		
+
 		final DataSubItem subItem = deleteOnTearDown(new DataSubItem());
-		
+
 		subItem.setData(stream(data4));
 		assertStreamClosed();
 		assertIt(data4, subItem);
 		assertEquals(data4.length, subItem.getDataLength());
-		
+
 		// test maximum length
 		item.setData10(data0);
 		item.setData10(data4);
@@ -341,7 +341,7 @@ public class DataTest extends AbstractRuntimeTest
 		item.setData10(data8);
 		item.setData10(data10);
 		assertData(data10, item.getData10Array());
-		
+
 		try
 		{
 			item.setData10(data11);
@@ -419,7 +419,7 @@ public class DataTest extends AbstractRuntimeTest
 		assertData(data11, item.getDataArray());
 		assertData(data10, item.getData10Array());
 		assertEquals("eins", item.getName());
-		
+
 		{
 			final DataItem item2 = deleteOnTearDown(new DataItem(data4, data10));
 			assertData(data4, item2.getDataArray());
@@ -472,7 +472,7 @@ public class DataTest extends AbstractRuntimeTest
 		assertNull(item.getDataArray());
 		assertNull(item.getData10Array());
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
@@ -490,7 +490,7 @@ public class DataTest extends AbstractRuntimeTest
 			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + item.data + '.', e.getMessage());
 		}
 		assertData(data8, item.getDataArray());
-		
+
 		try
 		{
 			DataItem.TYPE.newItem(

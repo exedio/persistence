@@ -37,29 +37,29 @@ import com.exedio.cope.misc.Computed;
 public class ListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(ListFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(ListFieldTest.class, "MODEL");
 	}
-	
+
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
-	
+
 	public ListFieldTest()
 	{
 		super(MODEL);
 	}
 
 	ListFieldItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new ListFieldItem());
 	}
-	
+
 	public void testIt()
 	{
 		final Type<?> stringsType = item.strings.getRelationType();
@@ -67,7 +67,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		final Type<?> itemsType = item.items.getRelationType();
 		final IntegerField stringsOrder = item.strings.getOrder();
 		final FunctionField<String> stringsElement = item.strings.getElement();
-		
+
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
@@ -130,7 +130,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(Item.class, stringsType.getThis().getValueClass().getSuperclass());
 		assertEquals(stringsType, stringsType.getThis().getValueType());
 		assertEquals(model, stringsType.getModel());
-		
+
 		assertEquals(0                , stringsOrder.getMinimum());
 		assertEquals(Integer.MAX_VALUE, stringsOrder.getMaximum());
 
@@ -193,19 +193,19 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertTrue(!stringsType.isAssignableFrom(datesType));
 		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
-		
+
 		assertEquals(Integer.MAX_VALUE, item.strings.getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, item.dates  .getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, item.items  .getMaximumSize());
-		
+
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 		assertTrue(  itemsType.isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.strings, 383);
 		assertSerializedSame(item.dates  , 381);
 		assertSerializedSame(item.items  , 381);
-		
+
 		try
 		{
 			ListField.newList(null);
@@ -239,14 +239,14 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals("select element from ListFieldItem-strings" + " where parent='ListFieldItem-0' order by order", item.getStringsQuery().toString());
 		assertEquals("select element from ListFieldItem-dates"   + " where parent='ListFieldItem-0' order by order", item.getDatesQuery  ().toString());
 		assertEquals("select element from ListFieldItem-items"   + " where parent='ListFieldItem-0' order by order", item.getItemsQuery  ().toString());
-		
+
 		final Query<ListFieldItem> q = item.TYPE.newQuery();
 		q.join(stringsType, item.stringsParent().equalTarget());
 		assertEquals(list(), q.search());
-		
+
 		q.setCondition(stringsElement.equal("zack"));
 		assertEquals(list(), q.search());
-		
+
 		q.setCondition(item.dates.getElement().equal(new Date()));
 		try
 		{
@@ -436,7 +436,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.getDistinctParentsOfDates(date1));
 		assertContains(item, item.getDistinctParentsOfDates(date2));
 		assertEquals(2, datesType.newQuery(null).search().size());
-		
+
 		// items
 		assertEquals(list(), item.getItems());
 		assertContains(item.getDistinctParentsOfItems(null));

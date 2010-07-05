@@ -32,9 +32,9 @@ package com.exedio.cope;
 public final class CheckViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final CheckConstraint feature;
-	
+
 	/**
 	 * Creates a new CheckViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -55,7 +55,7 @@ public final class CheckViolationException extends ConstraintViolationException
 	{
 		return feature;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{

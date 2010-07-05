@@ -31,7 +31,7 @@ class JoinFunctionItem extends Item
 	 */
 	static final IntegerField integer = new IntegerField().optional();
 
-	
+
 /**
 
 	 **

@@ -49,9 +49,9 @@ import com.exedio.cope.util.Interrupter;
 public final class Dispatcher extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final String ENCODING = "utf8";
-	
+
 	private final BooleanField pending;
 
 	ItemField<?> runParent = null;
@@ -61,23 +61,23 @@ public final class Dispatcher extends Pattern
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
 	private Type<Run> runType = null;
-	
+
 	public Dispatcher()
 	{
 		this(new BooleanField().defaultTo(true));
 	}
-	
+
 	private Dispatcher(final BooleanField pending)
 	{
 		this.pending = pending;
 		addSource(pending, "pending");
 	}
-	
+
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
 		return new Dispatcher(pending.defaultTo(defaultConstant));
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
@@ -99,55 +99,55 @@ public final class Dispatcher extends Pattern
 		features.put("failure", runFailure);
 		runType = newSourceType(Run.class, features, "Run");
 	}
-	
+
 	public BooleanField getPending()
 	{
 		return pending;
 	}
-	
+
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		assert runParent!=null;
 		return runParent.as(parentClass);
 	}
-	
+
 	public PartOf getRunRuns()
 	{
 		return runRuns;
 	}
-	
+
 	public DateField getRunDate()
 	{
 		return runDate;
 	}
-	
+
 	public LongField getRunElapsed()
 	{
 		return runElapsed;
 	}
-	
+
 	public BooleanField getRunSuccess()
 	{
 		return runSuccess;
 	}
-	
+
 	public DataField getRunFailure()
 	{
 		return runFailure;
 	}
-	
+
 	public Type<Run> getRunType()
 	{
 		assert runType!=null;
 		return runType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("dispatch").
 			addComment("Dispatch by {0}.").
@@ -155,47 +155,47 @@ public final class Dispatcher extends Pattern
 			addParameter(Config.class, "config").
 			addParameter(Interrupter.class, "interrupter").
 			setStatic());
-		
+
 		result.add(
 			new Wrapper("isPending").
 			addComment("Returns, whether this item is yet to be dispatched by {0}.").
 			setReturn(boolean.class));
-		
+
 		result.add(
 			new Wrapper("setPending").
 			addComment("Sets whether this item is yet to be dispatched by {0}.").
 			addParameter(boolean.class, "pending"));
-		
+
 		result.add(
 			new Wrapper("getLastSuccessDate").
 			addComment("Returns the date, this item was last successfully dispatched by {0}.").
 			setReturn(Date.class));
-		
+
 		result.add(
 			new Wrapper("getLastSuccessElapsed").
 			addComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.").
 			setReturn(Long.class));
-		
+
 		result.add(
 			new Wrapper("getRuns").
 			addComment("Returns the attempts to dispatch this item by {0}.").
 			setReturn(Wrapper.generic(List.class, Run.class)));
-		
+
 		result.add(
 			new Wrapper("getFailures").
 			addComment("Returns the failed attempts to dispatch this item by {0}.").
 			setReturn(Wrapper.generic(List.class, Run.class)));
-		
+
 		result.add(
 			new Wrapper("getRunParent").
 			addComment("Returns the parent field of the run type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}RunParent").
 			setStatic());
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * @return the number of successfully dispatched items
 	 */
@@ -203,12 +203,12 @@ public final class Dispatcher extends Pattern
 	{
 		if(config==null)
 			throw new NullPointerException("config");
-		
+
 		final Type<P> type = getType().as(parentClass);
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String id = getID();
-		
+
 		P lastDispatched = null;
 		int result = 0;
 		while(true)
@@ -229,30 +229,30 @@ public final class Dispatcher extends Pattern
 			{
 				model.rollbackIfNotCommitted();
 			}
-			
+
 			if(toDispatch.isEmpty())
 				break;
-			
+
 			final ItemField<P> runParent = this.runParent.as(parentClass);
-			
+
 			for(final P item : toDispatch)
 			{
 				if(interrupter!=null && interrupter.isRequested())
 					return result;
-				
+
 				lastDispatched = item;
 				final Dispatchable itemCasted = (Dispatchable)item;
 				final String itemID = item.getCopeID();
 				try
 				{
 					model.startTransaction(id + " dispatch " + itemID);
-					
+
 					if(!isPending(item))
 					{
 						System.out.println("Already dispatched " + itemID + " by " + id + ", probably due to concurrent dispatching.");
 						continue;
 					}
-					
+
 					final long start = System.currentTimeMillis();
 					final long nanoStart = nanoTime();
 					try
@@ -266,7 +266,7 @@ public final class Dispatcher extends Pattern
 								runDate.map(new Date(start)),
 								runElapsed.map(elapsed),
 								runSuccess.map(true));
-						
+
 						model.commit();
 						result++;
 					}
@@ -274,7 +274,7 @@ public final class Dispatcher extends Pattern
 					{
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						model.rollbackIfNotCommitted();
-						
+
 						model.startTransaction(id + " register failure " + itemID);
 						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						final PrintStream out;
@@ -288,20 +288,20 @@ public final class Dispatcher extends Pattern
 						}
 						cause.printStackTrace(out);
 						out.close();
-						
+
 						runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
 							runSuccess.map(false),
 							runFailure.map(baos.toByteArray()));
-						
+
 						final boolean finalFailure = runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
-						
+
 						model.commit();
-						
+
 						if(finalFailure)
 							((Dispatchable)item).notifyFinalFailure(this, cause);
 					}
@@ -312,32 +312,32 @@ public final class Dispatcher extends Pattern
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
-	
+
 	public void setPending(final Item item, final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
-	
+
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
-	
+
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runElapsed.get(success) : null;
 	}
-	
+
 	private Run getLastSuccess(final Item item)
 	{
 		final Query<Run> q = runType.newQuery(Cope.equalAndCast(runParent, item).and(runSuccess.equal(true)));
@@ -345,43 +345,43 @@ public final class Dispatcher extends Pattern
 		q.setLimit(0, 1);
 		return q.searchSingleton();
 	}
-	
+
 	public List<Run> getRuns(final Item item)
 	{
 		return runType.search(Cope.equalAndCast(runParent, item), runType.getThis(), true);
 	}
-	
+
 	public List<Run> getFailures(final Item item)
 	{
 		return runType.search(Cope.equalAndCast(runParent, item).and(runSuccess.equal(false)), runType.getThis(), true);
 	}
-	
+
 	public static final class Config
 	{
 		private final int failureLimit;
 		private final int searchSize;
-		
+
 		public Config()
 		{
 			this(5, 100);
 		}
-		
+
 		public Config(final int failureLimit, final int searchSize)
 		{
 			if(failureLimit<1)
 				throw new IllegalArgumentException("failureLimit must be greater zero, but was " + failureLimit + '.');
 			if(searchSize<1)
 				throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + '.');
-			
+
 			this.failureLimit = failureLimit;
 			this.searchSize = searchSize;
 		}
-		
+
 		public int getFailureLimit()
 		{
 			return failureLimit;
 		}
-		
+
 		public int getSearchSize()
 		{
 			return searchSize;
@@ -392,37 +392,37 @@ public final class Dispatcher extends Pattern
 	public static final class Run extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		Run(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		public Dispatcher getPattern()
 		{
 			return (Dispatcher)getCopeType().getPattern();
 		}
-		
+
 		public Item getParent()
 		{
 			return getPattern().runParent.get(this);
 		}
-		
+
 		public Date getDate()
 		{
 			return getPattern().runDate.get(this);
 		}
-		
+
 		public long getElapsed()
 		{
 			return getPattern().runElapsed.getMandatory(this);
 		}
-		
+
 		public boolean isSuccess()
 		{
 			return getPattern().runSuccess.getMandatory(this);
 		}
-		
+
 		public String getFailure()
 		{
 			try

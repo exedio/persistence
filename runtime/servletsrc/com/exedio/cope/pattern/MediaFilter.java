@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.Wrapper;
 public abstract class MediaFilter extends CachedMedia
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Media source;
 
 	public MediaFilter(final Media source)
@@ -57,7 +57,7 @@ public abstract class MediaFilter extends CachedMedia
 			new Wrapper("getURLWithFallbackToSource").
 			addComment("Returns a URL the content of {0} is available under."). // TODO better text
 			setReturn(String.class));
-		
+
 		return Collections.unmodifiableList(result);
 	}
 
@@ -66,7 +66,7 @@ public abstract class MediaFilter extends CachedMedia
 	{
 		return source.getLastModified(item);
 	}
-	
+
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);

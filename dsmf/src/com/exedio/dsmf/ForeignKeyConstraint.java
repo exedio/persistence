@@ -23,7 +23,7 @@ public class ForeignKeyConstraint extends Constraint
 	final String foreignKeyColumn;
 	final String targetTable;
 	final String targetColumn;
-	
+
 	public ForeignKeyConstraint(
 			final Table table,
 			final String name,
@@ -33,7 +33,7 @@ public class ForeignKeyConstraint extends Constraint
 	{
 		this(table, name, true, foreignKeyColumn, targetTable, targetColumn);
 	}
-	
+
 	ForeignKeyConstraint(
 			final Table table,
 			final String name,
@@ -43,7 +43,7 @@ public class ForeignKeyConstraint extends Constraint
 			final String targetColumn)
 	{
 		super(table, name, Type.ForeignKey, required, null);
-		
+
 		if(required && foreignKeyColumn==null)
 			throw new RuntimeException(name);
 		if(required && targetTable==null)
@@ -56,22 +56,22 @@ public class ForeignKeyConstraint extends Constraint
 		this.targetColumn = targetColumn;
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
-	
+
 	public final String getForeignKeyColumn()
 	{
 		return foreignKeyColumn;
 	}
-	
+
 	public final String getTargetTable()
 	{
 		return targetTable;
 	}
-	
+
 	public final String getTargetColumn()
 	{
 		return targetColumn;
 	}
-	
+
 	@Override
 	public final void create(final StatementListener listener)
 	{
@@ -95,7 +95,7 @@ public class ForeignKeyConstraint extends Constraint
 		//System.out.println("createForeignKeyConstraints:"+bf);
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	@Override
 	public final void drop(final StatementListener listener)
 	{
@@ -111,7 +111,7 @@ public class ForeignKeyConstraint extends Constraint
 			append(quoteName(foreignKeyColumn)).
 			append(") references ").
 			append(quoteName(targetTable));
-	
+
 		if(dialect.needsTargetColumnName())
 		{
 			bf.append('(').
@@ -119,5 +119,5 @@ public class ForeignKeyConstraint extends Constraint
 				append(')');
 		}
 	}
-	
+
 }

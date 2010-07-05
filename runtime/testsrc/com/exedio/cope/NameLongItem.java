@@ -30,7 +30,7 @@ class NameLongItem extends Item
 
 	static final ItemField<NameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		newItemField(NameLongItem.class, NULLIFY);
-	
+
 	/**
 
 	 **

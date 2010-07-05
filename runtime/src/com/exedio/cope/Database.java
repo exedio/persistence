@@ -47,9 +47,9 @@ final class Database
 	private final Revisions revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
-	
+
 	final boolean oracle; // TODO remove
-	
+
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
 			final DialectParameters dialectParameters,
@@ -66,10 +66,10 @@ final class Database
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
-		
+
 		//System.out.println("using database "+getClass());
 	}
-	
+
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
 	{
 		return
@@ -77,21 +77,21 @@ final class Database
 			? new SequenceImplSequence(column, start, connectionPool, this)
 			: new SequenceImplMax(column, start, connectionPool);
 	}
-	
+
 	void addTable(final Table table)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
 	}
-	
+
 	void addSequence(final Sequence sequence)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
 		sequences.add(sequence);
 	}
-	
+
 	List<SequenceInfo> getSequenceInfo()
 	{
 		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
@@ -99,13 +99,13 @@ final class Database
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	void createSchema()
 	{
 		buildStage = false;
-		
+
 		makeSchema().create();
-		
+
 		if(revisions!=null)
 			revisions.inserCreate(connectionPool, executor, dialectParameters.getRevisionEnvironment());
 	}
@@ -113,7 +113,7 @@ final class Database
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
-		
+
 		makeSchema().createConstraints(types);
 	}
 
@@ -124,33 +124,33 @@ final class Database
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
-		
+
 		// IMPLEMENTATION NOTE
 		// MySQL can have at most 63 joined tables in one statement
 		// and other databases probably have similar constraints as
 		// well, so we limit the number of joined table here.
 		final int CHUNK_LENGTH = 60;
 		final int tablesSize = tables.size();
-		
+
 		for(int chunkFromIndex = 0; chunkFromIndex<tablesSize; chunkFromIndex+=CHUNK_LENGTH)
 		{
 			final int chunkToIndex = Math.min(chunkFromIndex+CHUNK_LENGTH, tablesSize);
 			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
-			
+
 			final Statement bf = executor.newStatement(true);
 			bf.append("select count(*) from ");
 			boolean first = true;
-	
+
 			for(final Table table : tableChunk)
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(',');
-	
+
 				bf.append(table.quotedID);
 			}
-			
+
 			bf.append(" where ");
 			first = true;
 			for(final Table table : tableChunk)
@@ -159,12 +159,12 @@ final class Database
 					first = false;
 				else
 					bf.append(" and ");
-	
+
 				final Column primaryKey = table.primaryKey;
 				bf.append(primaryKey).
 					append('=').
 					appendParameter(PK.NaPK);
-				
+
 				final Column typeColumn = table.typeColumn;
 				if(typeColumn!=null)
 				{
@@ -172,12 +172,12 @@ final class Database
 						first = false;
 					else
 						bf.append(" and ");
-					
+
 					bf.append(typeColumn).
 						append('=').
 						appendParameter("x");
 				}
-				
+
 				final Column modificationCount = table.modificationCount;
 				if(modificationCount!=null)
 				{
@@ -185,17 +185,17 @@ final class Database
 						first = false;
 					else
 						bf.append(" and ");
-					
+
 					bf.append(modificationCount).
 						append('=').
 						appendParameter(Integer.MIN_VALUE);
 				}
-				
+
 				for(final Column column : table.getColumns())
 				{
 					bf.append(" and ").
 						append(column);
-					
+
 					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>Dialect.ORACLE_VARCHAR_MAX_CHARS))
 					{
 						bf.append("is not null");
@@ -207,7 +207,7 @@ final class Database
 					}
 				}
 			}
-			
+
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
 			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
@@ -215,7 +215,7 @@ final class Database
 				{
 					if(!resultSet.next())
 						throw new SQLException(NO_SUCH_ROW);
-					
+
 					return null;
 				}
 			});
@@ -229,14 +229,14 @@ final class Database
 		flushSequences();
 		makeSchema().drop();
 	}
-	
+
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
 		makeSchema().dropConstraints(types);
 	}
-	
+
 	void tearDownSchema()
 	{
 		buildStage = false;
@@ -250,7 +250,7 @@ final class Database
 
 		makeSchema().tearDownConstraints(types);
 	}
-	
+
 	void checkEmptySchema(final Connection connection)
 	{
 		buildStage = false;
@@ -262,26 +262,26 @@ final class Database
 			if(count>0)
 				throw new RuntimeException("there are "+count+" items left for table "+table.id);
 		}
-		
+
 		// NOTICE
 		// The following flushSequences() makes CopeTest work again, so that sequences do start
 		// from their initial value for each test. This is rather a hack, so we should deprecate
 		// CopeTest in favor of CopeModelTest in the future.
 		flushSequences();
-		
+
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkEmptyTableTime += amount;
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
-	
+
 	WrittenState load(final Connection connection, final Item item)
 	{
 		buildStage = false;
-		
+
 		final Type type = item.type;
 
 		executor.testListener().load(connection, item);
-		
+
 		final Statement bf = executor.newStatement(type.supertype!=null);
 		bf.append("select ");
 
@@ -289,7 +289,7 @@ final class Database
 		for(Type superType = type; superType!=null; superType = superType.supertype)
 		{
 			final Table table = superType.getTable();
-			
+
 			final IntegerColumn modificationCountColumn = table.modificationCount;
 			if(modificationCountColumn!=null)
 			{
@@ -297,10 +297,10 @@ final class Database
 					first = false;
 				else
 					bf.append(',');
-				
+
 				bf.append(modificationCountColumn);
 			}
-			
+
 			for(final Column column : table.getColumns())
 			{
 				if(!(column instanceof BlobColumn))
@@ -314,7 +314,7 @@ final class Database
 				}
 			}
 		}
-		
+
 		if(first)
 		{
 			// no columns in type
@@ -332,7 +332,7 @@ final class Database
 
 			bf.append(superType.getTable().quotedID);
 		}
-			
+
 		bf.append(" where ");
 		first = true;
 		for(Type superType = type; superType!=null; superType = superType.supertype)
@@ -347,9 +347,9 @@ final class Database
 				appendParameter(item.pk).
 				appendTypeCheck(superType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
-			
+
 		//System.out.println(bf.toString());
-		
+
 		final WrittenState result = executor.query(connection, bf, null, false, new ResultSetHandler<WrittenState>()
 		{
 			public WrittenState handle(final ResultSet resultSet) throws SQLException
@@ -363,7 +363,7 @@ final class Database
 				for(Type superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
-					
+
 					final IntegerColumn modificationCountColumn = table.modificationCount;
 					if(modificationCountColumn!=null)
 					{
@@ -383,18 +383,18 @@ final class Database
 										+ value + '/' + modificationCount);
 						}
 					}
-					
+
 					for(final Column column : table.getColumns())
 					{
 						if(!(column instanceof BlobColumn))
 							column.load(resultSet, columnIndex++, row);
 					}
 				}
-				
+
 				return new WrittenState(item, row, modificationCount);
 			}
 		});
-		
+
 		return result;
 	}
 
@@ -421,7 +421,7 @@ final class Database
 		final Type supertype = type.supertype;
 		if(supertype!=null)
 			store(connection, state, present, blobs, supertype);
-			
+
 		final Table table = type.getTable();
 
 		final List<Column> columns = table.getColumns();
@@ -436,7 +436,7 @@ final class Database
 				append(" set ");
 
 			boolean first = true;
-			
+
 			if(modificationCountColumn!=null)
 			{
 				bf.append(modificationCountColumn.quotedID).
@@ -444,7 +444,7 @@ final class Database
 					appendParameter(modificationCountColumn, state.modificationCount+1);
 				first = false;
 			}
-			
+
 			for(final Column column : columns)
 			{
 				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
@@ -453,10 +453,10 @@ final class Database
 						first = false;
 					else
 						bf.append(',');
-					
+
 					bf.append(column.quotedID).
 						append('=');
-					
+
 					if(column instanceof BlobColumn)
 						bf.appendParameterBlob(blobs.get(column));
 					else
@@ -465,13 +465,13 @@ final class Database
 			}
 			if(first) // no columns in table
 				return;
-			
+
 			bf.append(" where ").
 				append(table.primaryKey.quotedID).
 				append('=').
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
-			
+
 			if(modificationCountColumn!=null)
 			{
 				bf.append(" and ").
@@ -486,13 +486,13 @@ final class Database
 				append(table.quotedID).
 				append("(").
 				append(table.primaryKey.quotedID);
-			
+
 			if(typeColumn!=null)
 			{
 				bf.append(',').
 					append(typeColumn.quotedID);
 			}
-			
+
 			if(modificationCountColumn!=null)
 			{
 				bf.append(',').
@@ -510,13 +510,13 @@ final class Database
 
 			bf.append(")values(").
 				appendParameter(state.pk);
-			
+
 			if(typeColumn!=null)
 			{
 				bf.append(',').
 					appendParameter(state.type.id);
 			}
-			
+
 			if(modificationCountColumn!=null)
 			{
 				bf.append(',').
@@ -550,7 +550,7 @@ final class Database
 	{
 		return nameTrimmer.trimString(longName);
 	}
-	
+
 	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
@@ -568,23 +568,23 @@ final class Database
 		});
 		for(final Table t : tables)
 			t.makeSchema(result);
-		
+
 		if(revisions!=null)
 			revisions.makeSchema(result, dialect);
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
-		
+
 		dialect.completeSchema(result);
 		return result;
 	}
-	
+
 	Schema makeVerifiedSchema()
 	{
 		final Schema result = makeSchema();
 		result.verify();
 		return result;
 	}
-	
+
 	void flushSequences()
 	{
 		for(final Sequence sequence : sequences)

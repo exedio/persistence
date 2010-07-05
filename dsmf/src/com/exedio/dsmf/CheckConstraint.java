@@ -39,7 +39,7 @@ public class CheckConstraint extends Constraint
 			final String condition)
 	{
 		super(table, name, Type.Check, required, condition);
-		
+
 		if(condition==null)
 			throw new RuntimeException(name);
 	}
@@ -61,16 +61,16 @@ public class CheckConstraint extends Constraint
 			append(')');
 
 		//System.out.println("CHECKC:"+bf.toString());
-		
+
 		final CheckResultSetHandler handler = new CheckResultSetHandler();
 		querySQL(bf.toString(), handler);
 		return handler.result;
 	}
-	
+
 	private static class CheckResultSetHandler implements ResultSetHandler
 	{
 		int result = Integer.MIN_VALUE;
-		
+
 		CheckResultSetHandler()
 		{
 			// make constructor non-private
@@ -80,7 +80,7 @@ public class CheckConstraint extends Constraint
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			
+
 			result = resultSet.getInt(1);
 		}
 	}
@@ -94,7 +94,7 @@ public class CheckConstraint extends Constraint
 			append(requiredCondition).
 			append(')');
 	}
-	
+
 	@Override
 	public final void create(final StatementListener listener)
 	{
@@ -109,7 +109,7 @@ public class CheckConstraint extends Constraint
 
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	@Override
 	public final void drop(final StatementListener listener)
 	{
@@ -121,5 +121,5 @@ public class CheckConstraint extends Constraint
 
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 }

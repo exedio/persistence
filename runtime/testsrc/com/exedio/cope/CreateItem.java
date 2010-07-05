@@ -36,7 +36,7 @@ class CreateItem extends CreateSuperItem
 		setValues[0] = text.map(((String)setValues[0].value) + ".preCreate");
 		return setValues;
 	}
-	
+
 	@Override
 	protected void afterNewCopeItem()
 	{
@@ -44,7 +44,7 @@ class CreateItem extends CreateSuperItem
 		// in a normal production environment you should definitely not forget this
 		setText(getText() + ".postCreate");
 	}
-	
+
 	/**
 
 	 **

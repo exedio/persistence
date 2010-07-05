@@ -42,33 +42,33 @@ public final class Revisions
 {
 	private final int number;
 	private final Revision[] revisions;
-	
+
 	public Revisions(final int number)
 	{
 		if(number<0)
 			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
-		
+
 		this.number = number;
 		this.revisions = new Revision[0];
 	}
-	
+
 	public Revisions(final Revision... revisions)
 	{
 		if(revisions==null)
 			throw new NullPointerException("revisions");
 		if(revisions.length==0)
 			throw new IllegalArgumentException("revisions must not be empty");
-		
+
 		// make a copy to avoid modifications afterwards
 		final Revision[] revisionsCopy = new Revision[revisions.length];
-		
+
 		int base = -1;
 		for(int i = 0; i<revisions.length; i++)
 		{
 			final Revision revision = revisions[i];
 			if(revision==null)
 				throw new NullPointerException("revisions" + '[' + i + ']');
-			
+
 			if(i==0)
 				base = revision.number;
 			else
@@ -77,14 +77,14 @@ public final class Revisions
 				if(revision.number!=expectedNumber)
 					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
 			}
-			
+
 			revisionsCopy[i] = revision;
 		}
-		
+
 		this.number = revisions[0].number;
 		this.revisions = revisionsCopy;
 	}
-	
+
 	public int getNumber()
 	{
 		return number;
@@ -94,35 +94,35 @@ public final class Revisions
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
-	
+
 	List<Revision> getListToRun(final int departureNumber)
 	{
 		if(departureNumber==number)
 			return Collections.emptyList();
 		if(departureNumber>number)
 			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + departureNumber);
-		
+
 		final int startIndex = number - departureNumber - 1;
 		if(startIndex>=revisions.length)
 			throw new IllegalArgumentException(
 					"attempt to revise from " + departureNumber + " to " + number +
 					", but declared revisions allow from " + (number - revisions.length) + " only");
-		
+
 		final Revision[] result = new Revision[number - departureNumber];
 		int resultIndex = 0;
 		for(int i = startIndex; i>=0; i--)
 			result[resultIndex++] = revisions[i];
-		
+
 		return Collections.unmodifiableList(Arrays.asList(result));
 	}
-	
-	
-	
+
+
+
 	static final String TABLE_NAME = com.exedio.cope.Table.REVISION_TABLE_NAME;
 	static final String UNIQUE_CONSTRAINT_NAME = com.exedio.cope.Table.REVISION_UNIQUE_CONSTRAINT_NAME;
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
-	
+
 	void makeSchema(final Schema result, final Dialect dialect)
 	{
 		final Table table = new com.exedio.dsmf.Table(result, TABLE_NAME);
@@ -130,11 +130,11 @@ public final class Revisions
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 		new UniqueConstraint(table, UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
-	
+
 	private int getActualNumber(final Connection connection, final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-		
+
 		final Statement bf = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
 		bf.append("select max(").
@@ -144,10 +144,10 @@ public final class Revisions
 			append(" where ").
 			append(revision).
 			append(">=0");
-			
+
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
-	
+
 	Map<Integer, byte[]> getLogs(final ConnectionPool connectionPool, final Executor executor)
 	{
 		Connection con = null;
@@ -165,12 +165,12 @@ public final class Revisions
 			}
 		}
 	}
-	
+
 	private Map<Integer, byte[]> getLogs(final Connection connection, final Executor executor)
 	{
 		final Dialect dialect = executor.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
-		
+
 		final Statement bf = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
 		bf.append("select ").
@@ -182,9 +182,9 @@ public final class Revisions
 			append(" where ").
 			append(revision).
 			append(">=0");
-		
+
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
-		
+
 		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
@@ -197,13 +197,13 @@ public final class Revisions
 					if(previous!=null)
 						throw new RuntimeException("duplicate revision " + revision);
 				}
-				
+
 				return null;
 			}
 		});
 		return Collections.unmodifiableMap(result);
 	}
-	
+
 	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
 		Connection con = null;
@@ -221,17 +221,17 @@ public final class Revisions
 			}
 		}
 	}
-	
+
 	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
 		Connection con = null;
 		try
 		{
 			con = connectionPool.get(true);
-			
+
 			final int actualNumber = getActualNumber(con, executor);
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
-			
+
 			if(!revisionsToRun.isEmpty())
 				revise(con, executor, environment, revisionsToRun, actualNumber);
 		}
@@ -244,7 +244,7 @@ public final class Revisions
 			}
 		}
 	}
-	
+
 	private void revise(
 			final Connection con,
 			final Executor executor,

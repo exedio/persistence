@@ -25,7 +25,7 @@ public class TypeSetTest extends CopeAssert
 	public void testIt()
 	{
 		final Model m = new Model(Item1.TYPE, Item2.TYPE);
-		
+
 		try
 		{
 			m.containsTypeSet((Type[])null);
@@ -53,7 +53,7 @@ public class TypeSetTest extends CopeAssert
 		{
 			assertEquals("typeSet[0]", e.getMessage());
 		}
-		
+
 		assertEquals(true,  m.containsTypeSet(Item1.TYPE, Item2.TYPE));
 		assertEquals(true,  m.containsTypeSet(Item1.TYPE, Item2.TYPE, Item2.TYPE)); // TODO fail here
 		assertEquals(false, m.containsTypeSet(ItemX.TYPE));
@@ -85,46 +85,46 @@ public class TypeSetTest extends CopeAssert
 			assertEquals("inconsistent type set: ItemX, [Item2], [Item1]", e.getMessage());
 		}
 	}
-	
+
 	static class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		static final StringField f = new StringField();
-		
+
 		Item1(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final Type TYPE = TypesBound.newType(Item1.class);
 	}
-	
+
 	static class Item2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		static final StringField f = new StringField();
-		
+
 		Item2(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final Type TYPE = TypesBound.newType(Item2.class);
 	}
-	
+
 	static class ItemX extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		static final StringField f = new StringField();
-		
+
 		ItemX(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final Type TYPE = TypesBound.newType(ItemX.class);
 	}
 }

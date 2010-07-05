@@ -43,7 +43,7 @@ public abstract class View<E> extends Feature
 	implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Function<?>[] sources;
 	private final List<Function<?>> sourceList;
 	private final String name;
@@ -59,12 +59,12 @@ public abstract class View<E> extends Feature
 		for(int i = 0; i<sources.length; i++)
 			if(sources[i]==null)
 				throw new NullPointerException("sources" + '[' + i + ']');
-		
+
 		this.sources = com.exedio.cope.misc.Arrays.copyOf(sources);
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(this.sources));
 		this.name = name;
 		this.valueClass = valueClass;
-		
+
 		if(sources[0] instanceof Feature)
 		{
 			final Feature f = (Feature)sources[0];
@@ -75,20 +75,20 @@ public abstract class View<E> extends Feature
 			this.sourceType = null;
 		}
 	}
-	
+
 	public final List<Function<?>> getSources()
 	{
 		return sourceList;
 	}
 
 	protected abstract E mapJava(Object[] sourceValues);
-	
+
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
 	abstract String surface2Database(Object value);
-	
+
 	abstract void surface2DatabasePrepared(Statement bf, Object value);
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -98,7 +98,7 @@ public abstract class View<E> extends Feature
 		for(int i = 0; i<sources.length; i++)
 			sources[i].check(tc, join);
 	}
-	
+
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
@@ -110,17 +110,17 @@ public abstract class View<E> extends Feature
 			setReturn(valueClass)); // TODO box into primitives
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public final E get(final Item item)
 	{
 		final Object[] values = new Object[sources.length];
 		int pos = 0;
 		for(final Function<?> source : sources)
 			values[pos++] = source.get(item);
-	
+
 		return mapJava(values);
 	}
-	
+
 	/**
 	 * @deprecated use {@link #get(Item)} instead.
 	 */
@@ -129,7 +129,7 @@ public abstract class View<E> extends Feature
 	{
 		return get(item);
 	}
-	
+
 	public final Class<E> getValueClass()
 	{
 		return valueClass;
@@ -143,7 +143,7 @@ public abstract class View<E> extends Feature
 	{
 		append(bf, join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -155,7 +155,7 @@ public abstract class View<E> extends Feature
 		else
 			surface2DatabasePrepared(bf, value);
 	}
-	
+
 	@Override
 	final void toStringNotMounted(final StringBuilder bf)
 	{
@@ -169,18 +169,18 @@ public abstract class View<E> extends Feature
 		}
 		bf.append(')');
 	}
-	
+
 	@Override
 	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof View))
 			return false;
-		
+
 		final View o = (View)other;
-		
+
 		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;
-		
+
 		for(int i = 0; i<sources.length; i++)
 		{
 			if(!sources[i].equals(o.sources[i]))
@@ -189,12 +189,12 @@ public abstract class View<E> extends Feature
 
 		return true;
 	}
-	
+
 	@Override
 	public final int hashCode()
 	{
 		int result = name.hashCode();
-		
+
 		for(int i = 0; i<sources.length; i++)
 			result = (31*result) + sources[i].hashCode(); // may not be commutative
 
@@ -209,73 +209,73 @@ public abstract class View<E> extends Feature
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
-			
+
 		super.mount(type, name, annotationSource);
 	}
-	
+
 	@Override
 	public final Type<? extends Item> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public final IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<E>(this, false);
 	}
-	
+
 	public final IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<E>(this, true);
 	}
-	
+
 	public final Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
-	
+
 	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
-	
+
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public final Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public final Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
-	
+
 	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(Operator.Less, this, value);
 	}
-	
+
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.LessEqual, this, value);
 	}
-	
+
 	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(Operator.Greater, this, value);
 	}
-	
+
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
 	}
-	
+
 	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
@@ -285,27 +285,27 @@ public abstract class View<E> extends Feature
 	{
 		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Less, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
@@ -315,7 +315,7 @@ public abstract class View<E> extends Feature
 	{
 		return new ExtremumAggregate<E>(this, true);
 	}
-	
+
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);

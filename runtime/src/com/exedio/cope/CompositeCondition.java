@@ -34,7 +34,7 @@ public final class CompositeCondition extends Condition
 	{
 		this(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
-	
+
 	/**
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
@@ -54,7 +54,7 @@ public final class CompositeCondition extends Condition
 			if(conditions[i] instanceof Literal)
 				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal");
 		}
-				
+
 
 		this.operator = operator;
 		this.conditions = conditions;
@@ -72,7 +72,7 @@ public final class CompositeCondition extends Condition
 		}
 		bf.append(')');
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -89,18 +89,18 @@ public final class CompositeCondition extends Condition
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i].check(tc);
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompositeCondition))
 			return false;
-		
+
 		final CompositeCondition o = (CompositeCondition)other;
-		
+
 		if(!operator.equals(o.operator) || conditions.length!=o.conditions.length)
 			return false;
-		
+
 		for(int i = 0; i<conditions.length; i++)
 		{
 			if(!conditions[i].equals(o.conditions[i]))
@@ -109,12 +109,12 @@ public final class CompositeCondition extends Condition
 
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		int result = operator.hashCode();
-		
+
 		for(int i = 0; i<conditions.length; i++)
 			result = (31*result) + conditions[i].hashCode(); // may not be commutative
 
@@ -150,7 +150,7 @@ public final class CompositeCondition extends Condition
 				int i = 0;
 				for(E value : values)
 					result[i++] = function.equal(value);
-				
+
 				return new CompositeCondition(Operator.OR, result);
 		}
 	}
@@ -169,20 +169,20 @@ public final class CompositeCondition extends Condition
 				int i = 0;
 				for(E value : values)
 					result[i++] = function.equal(value);
-				
+
 				return new CompositeCondition(Operator.OR, result);
 		}
 	}
-	
+
 	public static enum Operator
 	{
 		AND(" and ", FALSE, TRUE),
 		OR (" or ",  TRUE, FALSE);
-		
+
 		final String sql;
 		final Condition.Literal absorber;
 		final Condition.Literal identity;
-		
+
 		private Operator(final String sql, final Condition.Literal absorber, final Condition.Literal identity)
 		{
 			this.sql = sql;

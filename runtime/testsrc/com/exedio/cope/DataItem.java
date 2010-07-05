@@ -25,14 +25,14 @@ class DataItem extends Item
 	static final DataField data10k = new DataField().optional().lengthMax(10*1000);
 	static final DataField data100M = new DataField().optional().lengthMax(100*1000*1000);
 	static final StringField name = new StringField().optional();
-	
+
 	DataItem(final byte[] data)
 	{
 		this(new com.exedio.cope.SetValue[]{
 				DataItem.data.map(data),
 		});
 	}
-	
+
 	DataItem(final byte[] data, final byte[] data10)
 	{
 		this(new com.exedio.cope.SetValue[]{
@@ -40,8 +40,8 @@ class DataItem extends Item
 				DataItem.data10.map(data10),
 		});
 	}
-	
-	
+
+
 	/**
 
 	 **

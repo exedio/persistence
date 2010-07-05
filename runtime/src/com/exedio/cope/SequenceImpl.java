@@ -24,7 +24,7 @@ interface SequenceImpl
 {
 	void makeSchema(Schema schema);
 	int next();
-	
+
 	/**
 	 * Returns the same value as {@link #next()},
 	 * but without incrementing the internal state.

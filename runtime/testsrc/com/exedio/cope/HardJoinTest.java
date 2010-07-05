@@ -33,7 +33,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
@@ -41,11 +41,11 @@ public class HardJoinTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		a = deleteOnTearDown(new HardJoinA3Item("a", 10, 11, 12));
 		b = deleteOnTearDown(new HardJoinB3Item("b", 20, 21, 22));
 	}
-	
+
 	private void reset()
 	{
 		a.setA1(10);
@@ -55,7 +55,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 		b.setB2(21);
 		b.setB3(22);
 	}
-	
+
 	private void assert1x1(final IntegerField ax, final IntegerField bx, final int bv)
 	{
 		reset();
@@ -65,7 +65,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 		bx.set(b, bv);
 		assertEquals(list(a), q.search());
 	}
-	
+
 	public void test11()
 	{
 		if(!noJoinParentheses)
@@ -81,7 +81,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 		}
 		assert1x1(a.a3, b.b3, 12);
 	}
-	
+
 	private void assert2x1(final IntegerField a1, final IntegerField a2, final IntegerField bx, final int bv)
 	{
 		reset();
@@ -93,11 +93,11 @@ public class HardJoinTest extends AbstractRuntimeTest
 		a2.set(a, bv);
 		assertEquals(list(a), q.search());
 	}
-	
+
 	public void test2x1()
 	{
 		if(noJoinParentheses) return;
-		
+
 		assert2x1(a.a1, a.a2, b.b1, 20);
 		assert2x1(a.a1, a.a3, b.b1, 20);
 		assert2x1(a.a2, a.a3, b.b1, 20);
@@ -108,7 +108,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 		assert2x1(a.a1, a.a3, b.b3, 22);
 		assert2x1(a.a2, a.a3, b.b3, 22);
 	}
-	
+
 	private void assert1x2(final IntegerField ax, final IntegerField b1, final IntegerField b2, final int av)
 	{
 		reset();
@@ -120,11 +120,11 @@ public class HardJoinTest extends AbstractRuntimeTest
 		b2.set(b, av);
 		assertEquals(list(a), q.search());
 	}
-	
+
 	public void test1x2()
 	{
 		if(noJoinParentheses) return;
-		
+
 		assert1x2(a.a1, b.b1, b.b2, 10);
 		assert1x2(a.a1, b.b1, b.b3, 10);
 		assert1x2(a.a1, b.b2, b.b3, 10);
@@ -135,7 +135,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 		assert1x2(a.a3, b.b1, b.b3, 12);
 		assert1x2(a.a3, b.b2, b.b3, 12);
 	}
-	
+
 	public void testOuter()
 	{
 		if(!noJoinParentheses)
@@ -162,7 +162,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 			assertEquals(list(a), q.search());
 		}
 	}
-	
+
 	public void testValid()
 	{
 		{
@@ -178,7 +178,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
-			
+
 			j1.setCondition(b.b3.bind(j1).equal(a.a3));
 			try
 			{
@@ -189,7 +189,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
-			
+
 			j2.setCondition(b.b3.bind(j2).equal(a.a3));
 			assertEquals(list(), q.search());
 

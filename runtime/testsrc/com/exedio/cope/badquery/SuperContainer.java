@@ -25,7 +25,7 @@ public class SuperContainer extends SuperItem
 {
 	public static final ItemField<QueryItem> queryItem = newItemField(QueryItem.class).toFinal();
 	public static final BooleanField superflag = new BooleanField();
-	
+
 	/**
 
 	 **

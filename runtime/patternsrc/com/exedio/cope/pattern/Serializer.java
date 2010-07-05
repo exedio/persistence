@@ -59,7 +59,7 @@ import com.exedio.cope.util.Cast;
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Class<E> valueClass;
 	private final DataField source;
 
@@ -67,68 +67,68 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	{
 		if(valueClass==null)
 			throw new NullPointerException("valueClass");
-		
+
 		this.valueClass = valueClass;
 		this.source = source;
 
 		addSource(source, "data", ComputedElement.get());
 	}
-	
+
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<E>(valueClass, source);
 	}
-	
+
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
 	{
 		return new Serializer<E>(valueClass, new DataField());
 	}
-	
+
 	public Serializer<E> optional()
 	{
 		return new Serializer<E>(valueClass, source.optional());
 	}
-	
+
 	// TODO allow setting of length of DataField
-	
+
 	public DataField getSource()
 	{
 		return source;
 	}
-	
+
 	public boolean isInitial()
 	{
 		return source.isInitial();
 	}
-	
+
 	public boolean isFinal()
 	{
 		return source.isFinal();
 	}
-	
+
 	public Class getInitialType()
 	{
 		return valueClass;
 	}
-	
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return source.getInitialExceptions();
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		final Class initialType = getInitialType();
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(initialType));
-		
+
 		if(!isFinal())
 		{
 			result.add(
@@ -137,14 +137,14 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 				addThrows(getInitialExceptions()).
 				addParameter(initialType));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public E get(final Item item)
 	{
 		final byte[] buf = source.getArray(item);
-		
+
 		if(buf==null)
 			return null;
 
@@ -180,10 +180,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
@@ -194,22 +194,22 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	{
 		source.set(item, serialize(value));
 	}
-	
+
 	public SetValue<E> map(final E value)
 	{
 		return new SetValue<E>(this, value);
 	}
-	
+
 	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue[]{ source.map(serialize(value)) };
 	}
-	
+
 	private byte[] serialize(final E value)
 	{
 		if(value==null)
 			return null;
-		
+
 		ByteArrayOutputStream bos = null;
 		ObjectOutputStream oos = null;
 		try

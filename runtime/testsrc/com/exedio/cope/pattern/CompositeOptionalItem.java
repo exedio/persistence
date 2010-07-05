@@ -27,8 +27,8 @@ public final class CompositeOptionalItem extends Item
 
 	public static final CompositeField<CompositeValue> uno = CompositeField.newComposite(CompositeValue.class).optional();
 	public static final CompositeField<CompositeValue> duo = CompositeField.newComposite(CompositeValue.class).optional();
-	
-	
+
+
 	/**
 
 	 **

@@ -22,17 +22,17 @@ import java.util.Map;
 
 final class WrittenState extends State
 {
-	
+
 	private final Row row;
 	private long lastUsageMillis;
-	
+
 	WrittenState(final Item item, final Row row, final int modificationCount)
 	{
 		super(item, modificationCount);
 		this.row = row;
 		lastUsageMillis = System.currentTimeMillis();
 	}
-	
+
 	WrittenState(final State original)
 	{
 		super(original.item, original.modificationCount);
@@ -40,7 +40,7 @@ final class WrittenState extends State
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();
 	}
-	
+
 	@Override
 	Object get(FunctionField field)
 	{
@@ -58,7 +58,7 @@ final class WrittenState extends State
 	{
 		if(blobs!=null && !blobs.isEmpty())
 			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
-		
+
 		return this;
 	}
 
@@ -87,17 +87,17 @@ final class WrittenState extends State
 	{
 		return true;
 	}
-	
+
 	void notifyUsed()
 	{
 		lastUsageMillis = System.currentTimeMillis();
 	}
-	
+
 	long getLastUsageMillis()
 	{
 		return lastUsageMillis;
 	}
-	
+
 	@Override
 	public String toStringWithValues()
 	{

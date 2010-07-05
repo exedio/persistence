@@ -31,7 +31,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 	{
 		super(SchemaTest.MODEL);
 	}
-	
+
 	private static final String TABLE1X = "SchemaItemX";
 	private static final String COLUMN1X = "nonFinalIntegerX";
 
@@ -62,7 +62,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			column1Type = column.getType();
 			assertNotNull(column1Type);
-			
+
 			column.renameTo(COLUMN1X);
 		}
 		// OK without verify
@@ -123,7 +123,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			final Constraint constraint = table.getConstraint("SchemItem_nonFinalInte_Ck");
 			if(SchemaInfo.supportsCheckConstraints(model))
 				constraint.drop();
-			
+
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
@@ -170,7 +170,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(column1Type, column.getType());
-			
+
 			table.renameTo(TABLE1X);
 		}
 		// TABLE RENAMED
@@ -227,7 +227,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(column1Type, column.getType());
-			
+
 			table.drop();
 		}
 		// TABLE DROPPED
@@ -270,7 +270,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(column1Type, column.getType());
-			
+
 			table.getConstraint("SchemaItem_item_Fk").create();
 			table.getConstraint("SchemaItem_itemOpt_Fk").create();
 		}

@@ -28,14 +28,14 @@ class DeleteOtherItem extends Item
 		this();
 		this.name = name;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return name;
 	}
-	
-	
+
+
 	/**
 
 	 **

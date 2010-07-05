@@ -31,7 +31,7 @@ import com.exedio.cope.misc.Computed;
 public class MapFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MapFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(MapFieldTest.class, "MODEL");
@@ -39,14 +39,14 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
 	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
-	
+
 	public MapFieldTest()
 	{
 		super(MODEL);
 	}
-	
+
 	MapFieldItem item, itemX;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -54,7 +54,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new MapFieldItem());
 		itemX = deleteOnTearDown(new MapFieldItem());
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -103,7 +103,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
-		
+
 		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
 		assertEquals("MapFieldItem-name.parent", item.name.getParent(MapFieldItem.class).getID());
 		assertEquals("MapFieldItem-name.key", item.name.getKey().getID());
@@ -112,17 +112,17 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem-name.parent"));
 		assertSame(item.name.getKey(), model.getFeature("MapFieldItem-name.key"));
 		assertSame(item.name.getValue(), model.getFeature("MapFieldItem-name.value"));
-		
+
 		assertTrue(item.name      .getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.string    .getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(item.integer   .getRelationType().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.name      , 378);
 		assertSerializedSame(item.nameLength, 384);
 		assertSerializedSame(item.string    , 380);
 		assertSerializedSame(item.integer   , 381);
-		
+
 		try
 		{
 			MapField.newMap(null, null);
@@ -188,35 +188,35 @@ public class MapFieldTest extends AbstractRuntimeTest
 			item.name.join(q, EN);
 			assertContains(q.search());
 		}
-		
+
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(5), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		try
 		{
 			item.name.getParent(Item.class);

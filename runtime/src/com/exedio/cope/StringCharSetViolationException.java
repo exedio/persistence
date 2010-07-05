@@ -33,12 +33,12 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class StringCharSetViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final StringField feature;
 	private final String value;
 	private final char character;
 	private final int position;
-	
+
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -53,7 +53,7 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 		this.character = character;
 		this.position = position;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -62,7 +62,7 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	{
 		return feature;
 	}
-	
+
 	/**
 	 * Returns the value, that was attempted to be written.
 	 */
@@ -70,12 +70,12 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	{
 		return value;
 	}
-	
+
 	public char getCharacter()
 	{
 		return character;
 	}
-	
+
 	public int getPosition()
 	{
 		return position;

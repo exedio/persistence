@@ -33,26 +33,26 @@ import com.exedio.cope.util.Interrupter;
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PasswordRecoveryItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(PasswordRecoveryTest.class, "MODEL");
 	}
-	
+
 	public PasswordRecoveryTest()
 	{
 		super(MODEL);
 	}
-	
+
 	PasswordRecoveryItem i;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
 	}
-	
+
 	public void testIt() throws Exception
 	{
 		// test model
@@ -72,26 +72,26 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 				i.password.getStorage(),
 				i.passwordRecovery,
 			}), i.TYPE.getDeclaredFeatures());
-		
+
 		assertEquals(i.TYPE, i.password.getType());
 		assertEquals(i.passwordRecovery.getTokenType(), i.passwordRecovery.getSecret().getType());
 		assertEquals(i.passwordRecovery.getTokenType(), i.passwordRecovery.getExpires().getType());
 		assertEquals("password", i.password.getName());
 		assertEquals("secret", i.passwordRecovery.getSecret().getName());
 		assertEquals("expires", i.passwordRecovery.getExpires().getName());
-		
+
 		assertEquals(list(), i.passwordRecovery.getSourceFeatures());
 		assertEquals(null, i.passwordRecovery.getSecret().getPattern());
 		assertEquals(i.passwordRecovery.getTokens(), i.passwordRecovery.getExpires().getPattern());
-		
+
 		assertSame(i.password, i.passwordRecovery.getPassword());
-		
+
 		assertFalse(i.password                       .isAnnotationPresent(Computed.class));
 		assertFalse(i.passwordRecovery               .isAnnotationPresent(Computed.class));
 		assertTrue (i.passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(i.passwordRecovery, 406);
-		
+
 		try
 		{
 			new PasswordRecovery(null);
@@ -101,13 +101,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		{
 			assertEquals("password", e.getMessage());
 		}
-		
+
 		// test persistence
 		final int EXPIRY_MILLIS = 60*1000;
-		
+
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
-		
+
 		final Date before = new Date();
 		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
@@ -116,24 +116,24 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final Date expires = token.getExpires();
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), expires);
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
-		
+
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret+1));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
-		
+
 		final String newPassword = i.redeemPasswordRecovery(tokenSecret);
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
-		
+
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
-		
+
 		model.commit();
 		assertEquals(0, i.purgePasswordRecovery(null));
 		model.startTransaction("PasswordRecoveryTest");
@@ -141,11 +141,11 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 	}
-	
+
 	public void testExpired() throws Exception
 	{
 		final int EXPIRY_MILLIS = 1;
-		
+
 		final Date before = new Date();
 		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
@@ -155,25 +155,25 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final Date expires = token.getExpires();
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), expires);
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
-		
+
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
-		
+
 		model.commit();
 		assertEquals(1, i.purgePasswordRecovery(null));
 		model.startTransaction("PasswordRecoveryTest");
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
-		
+
 		assertPurge(  0, 1);
 		assertPurge(  1, 1);
 		assertPurge(100, 2);
 		assertPurge(101, 2);
-		
+
 		try
 		{
 			i.issuePasswordRecovery(0);
@@ -193,7 +193,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
 	}
-	
+
 	public void assertPurge(final int tokenNumber, final int transactionNumber) throws Exception
 	{
 		final int EXPIRY_MILLIS = 1;

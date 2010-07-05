@@ -35,7 +35,7 @@ final class JavaConstructor extends JavaBehaviour
 	{
 		super(parent, modifiers, null, name);
 	}
-	
+
 	/**
 	 * See Java Language Specification 8.6.3
 	 * &quot;Constructor Modifiers&quot;
@@ -48,5 +48,5 @@ final class JavaConstructor extends JavaBehaviour
 		java.lang.reflect.Modifier.PROTECTED |
 		java.lang.reflect.Modifier.PRIVATE;
 	}
-	
+
 }

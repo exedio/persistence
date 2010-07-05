@@ -21,9 +21,9 @@ package com.exedio.cope;
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final NumberFunction[] multipliers;
-	
+
 	/**
 	 * Creates a new MultiplyView.
 	 * Instead of using this constructor directly,
@@ -38,7 +38,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 		super(multipliers, "multiply", PlusView.valueClass(multipliers));
 		this.multipliers = com.exedio.cope.misc.Arrays.copyOf(multipliers);
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

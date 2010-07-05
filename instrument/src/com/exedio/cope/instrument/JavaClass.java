@@ -39,7 +39,7 @@ import bsh.UtilEvalError;
 final class JavaClass extends JavaFeature
 {
 	final CopeNameSpace nameSpace;
-	
+
 	private final HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
 	private final ArrayList<JavaAttribute> attributeList = new ArrayList<JavaAttribute>();
 	final boolean isEnum;
@@ -64,30 +64,30 @@ final class JavaClass extends JavaFeature
 		this.classImplements = Collections.unmodifiableList(classImplements);
 		file.add(this);
 	}
-	
+
 	void add(final JavaAttribute a)
 	{
 		assert file.repository.isBuildStage();
-		
+
 		if(attributes.put(a.name, a)!=null)
 			throw new RuntimeException(name+'/'+a.name);
 		attributeList.add(a);
 	}
-	
+
 	JavaAttribute getAttribute(final String name)
 	{
 		assert !file.repository.isBuildStage();
-		
+
 		return attributes.get(name);
 	}
-	
+
 	List<JavaAttribute> getAttributes()
 	{
 		assert !file.repository.isBuildStage();
-		
+
 		return Collections.unmodifiableList(attributeList);
 	}
-	
+
 	/**
 	 * Constructs the fully qualified name of this class,
 	 * including package path.
@@ -110,12 +110,12 @@ final class JavaClass extends JavaFeature
 		}
 		return buf.toString();
 	}
-	
+
 	public final boolean isInterface()
 	{
 		return (modifier & Modifier.INTERFACE) > 0;
 	}
-	
+
 	@Override
 	public final int getAllowedModifiers()
 	{
@@ -128,38 +128,38 @@ final class JavaClass extends JavaFeature
 		Modifier.STATIC |
 		Modifier.ABSTRACT;
 	}
-	
+
 	void setDocComment(final String docComment)
 	{
 		assert this.docComment==null;
 		this.docComment = docComment;
 	}
-	
+
 	String getDocComment()
 	{
 		return docComment;
 	}
-	
+
 	void setClassEndPosition(final int classEndPosition)
 	{
 		assert file.repository.isBuildStage();
 		assert this.classEndPosition==-1;
 		assert classEndPosition>=0;
-		
+
 		this.classEndPosition = classEndPosition;
 	}
-	
+
 	int getClassEndPosition()
 	{
 		assert classEndPosition>=0;
-		
+
 		return classEndPosition;
 	}
-	
+
 	Object evaluate(final String s)
 	{
 		assert !file.repository.isBuildStage();
-		
+
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
@@ -172,16 +172,16 @@ final class JavaClass extends JavaFeature
 			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
 		}
 	}
-	
+
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		NS(final CopeNameSpace parent)
 		{
 			super(parent);
 		}
-		
+
 		@Override
 	   public Object getVariable(final String name) throws UtilEvalError
 	   {
@@ -192,31 +192,31 @@ final class JavaClass extends JavaFeature
 				//System.out.println("#####"+superResult+"--"+superResult.getClass());
 				return superResult;
 			}
-			
+
 			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
 			final JavaAttribute ja = getAttribute(name);
 			if(ja!=null)
 				return ja.evaluate();
-			
+
 			return Primitive.VOID;
 	   }
-	
+
 	}
-	
+
 	final HashMap<Object, JavaAttribute> javaAttributesByInstance = new HashMap<Object, JavaAttribute>();
-	
+
 	void registerInstance(final JavaAttribute attribute, final Object instance)
 	{
 		javaAttributesByInstance.put(instance, attribute);
 	}
-	
+
 	final JavaAttribute getAttributeByInstance(final Object instance)
 	{
 		final JavaAttribute result = javaAttributesByInstance.get(instance);
 		assert result!=null;
 		return result;
 	}
-	
+
 	@Override
 	public String toString()
 	{

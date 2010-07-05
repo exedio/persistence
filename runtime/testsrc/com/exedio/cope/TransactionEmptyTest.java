@@ -27,7 +27,7 @@ public class TransactionEmptyTest extends AbstractRuntimeTest
 		super(CacheIsolationTest.MODEL);
 		skipTransactionManagement();
 	}
-	
+
 	public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
@@ -84,7 +84,7 @@ public class TransactionEmptyTest extends AbstractRuntimeTest
 		model.rollback();
 		assertEquals(false, model.hasCurrentTransaction());
 		assertEquals(id+2, model.getNextTransactionId());
-		
+
 		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(startCommit, emptyCommit.getStartDate());

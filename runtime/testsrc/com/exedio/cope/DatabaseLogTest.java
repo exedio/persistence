@@ -28,7 +28,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 	{
 		super(MatchTest.MODEL);
 	}
-	
+
 	MatchItem item;
 
 	@Override
@@ -44,14 +44,14 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		model.setDatabaseListener(null);
 		super.tearDown();
 	}
-	
+
 	public void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
 		model.setTestDatabaseListener(l);
-		
+
 		assertEquals(null, model.getDatabaseListener());
-		
+
 		final DBL dbl = new DBL();
 		model.setDatabaseListener(dbl);
 		assertSame(dbl, model.getDatabaseListener());
@@ -61,7 +61,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		dbl.assertSql("select");
 		item.setText("string1");
 		dbl.assertSql("update");
-		
+
 		final DBL dbl2 = new DBL();
 		model.setDatabaseListener(dbl2);
 		assertSame(dbl2, model.getDatabaseListener());
@@ -72,7 +72,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		item.setText("string2");
 		dbl2.assertSql("update");
 		dbl.assertSqlEmpty();
-		
+
 		final DBL dbl3 = new DBL();
 		model.setDatabaseListener(dbl3);
 		assertSame(dbl3, model.getDatabaseListener());
@@ -84,7 +84,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		dbl3.assertSql("update");
 		dbl2.assertSqlEmpty();
 		dbl.assertSqlEmpty();
-		
+
 		model.setDatabaseListener(null);
 		assertNull(model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), item.TYPE);
@@ -93,14 +93,14 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		item.setText("string3");
 		dbl2.assertSqlEmpty();
 		dbl.assertSqlEmpty();
-		
+
 		model.setTestDatabaseListener(null);
 	}
-	
+
 	static final class DBL implements DatabaseListener
 	{
 		private String sql = null;
-		
+
 		public void onStatement(
 				String sql,
 				List<Object> parameters,
@@ -113,14 +113,14 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 			assertNotNull(sql);
 			this.sql = sql;
 		}
-		
+
 		void assertSql(final String sql)
 		{
 			assertNotNull(this.sql);
 			assertTrue(this.sql, this.sql.startsWith(sql));
 			this.sql = null;
 		}
-		
+
 		void assertSqlEmpty()
 		{
 			assertNull(this.sql);

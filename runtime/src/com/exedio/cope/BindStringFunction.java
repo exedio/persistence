@@ -30,7 +30,7 @@ public final class BindStringFunction extends BindFunction<String>
 	{
 		super(function, join);
 	}
-	
+
 	/**
 	 * Return this.
 	 * It makes no sense wrapping a BindFunction into another BindFunction,
@@ -41,57 +41,57 @@ public final class BindStringFunction extends BindFunction<String>
 	{
 		return this;
 	}
-	
+
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);
 	}
-	
+
 	public final LikeCondition startsWith(final String value)
 	{
 		return LikeCondition.startsWith(this, value);
 	}
-	
+
 	public final LikeCondition endsWith(final String value)
 	{
 		return LikeCondition.endsWith(this, value);
 	}
-	
+
 	public final LikeCondition contains(final String value)
 	{
 		return LikeCondition.contains(this, value);
 	}
-	
+
 	public final LengthView length()
 	{
 		return new LengthView(this);
 	}
-	
+
 	public final UppercaseView toUpperCase()
 	{
 		return new UppercaseView(this);
 	}
-	
+
 	public final Condition equalIgnoreCase(final String value)
 	{
 		return UppercaseView.equalIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition likeIgnoreCase(final String value)
 	{
 		return UppercaseView.likeIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition startsWithIgnoreCase(final String value)
 	{
 		return UppercaseView.startsWithIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition endsWithIgnoreCase(final String value)
 	{
 		return UppercaseView.endsWithIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition containsIgnoreCase(final String value)
 	{
 		return UppercaseView.containsIgnoreCase(this, value);

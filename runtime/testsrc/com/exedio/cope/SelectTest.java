@@ -32,7 +32,7 @@ public class SelectTest extends TestmodelTest
 {
 	protected EmptyItem someItem, someItem2;
 	protected AttributeItem item1, item2, item3, item4, item5, item;
-	
+
 	private AttributeItem newItem(
 			final String initialSomeString,
 			final String initialSomeNotNullString,
@@ -78,14 +78,14 @@ public class SelectTest extends TestmodelTest
 		final Collection result = query.search();
 		assertNotNull(query.toString());
 		final Iterator i = result.iterator();
-		
+
 		assertRow(i, "1z",     "1Z",     2, "someString9", 1, 4l, 2.1, true, someItem, AttributeItem.SomeEnum.enumValue1);
 		assertRow(i, "1zz",    "1ZZ",    3, "someString8", 3, 5l, 2.4, true, someItem, AttributeItem.SomeEnum.enumValue2);
 		assertRow(i, "1zzz",   "1ZZZ",   4, "someString7", 5, 7l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue3);
 		assertRow(i, "1zzzz",  "1ZZZZ",  5, "someString6", 4, 6l, 2.5, false, someItem2, AttributeItem.SomeEnum.enumValue2);
 		assertRow(i, "1zzzzz", "1ZZZZZ", 6, "someString5", 2, 3l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue3);
 	}
-	
+
 	private static final void assertRow(
 			final Iterator i,
 			final String someString,
@@ -105,5 +105,5 @@ public class SelectTest extends TestmodelTest
 				new Double(someNotNullDouble), new Boolean(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
 			(List<?>)i.next());
 	}
-	
+
 }

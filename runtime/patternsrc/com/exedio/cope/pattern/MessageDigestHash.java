@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 public final class MessageDigestHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final String DIGEST = "SHA-512";
 	private static final int SALT_LENGTH = 8;
 

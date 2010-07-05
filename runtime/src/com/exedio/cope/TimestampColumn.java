@@ -35,7 +35,7 @@ final class TimestampColumn extends Column
 		super(table, field, id, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -47,7 +47,7 @@ final class TimestampColumn extends Column
 	{
 		return null;
 	}
-	
+
 	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
@@ -56,7 +56,7 @@ final class TimestampColumn extends Column
 		//System.out.println("TimestampColumn.load "+columnIndex+" "+ts);
 		row.put(this, (ts!=null) ? Long.valueOf(ts.getTime()) : null);
 	}
-	
+
 	@Override
 	final String cacheToDatabase(final Object cache)
 	{
@@ -71,7 +71,7 @@ final class TimestampColumn extends Column
 			return df.format(new Date(((Long)cache).longValue()));
 		}
 	}
-	
+
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{

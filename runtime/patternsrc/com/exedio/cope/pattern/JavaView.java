@@ -28,22 +28,22 @@ import com.exedio.cope.Type;
 public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private Mount mount;
-	
+
 	private static final class Mount
 	{
 		final Method getter;
 		final Class valueType;
 		final java.lang.reflect.Type valueGenericType;
-		
+
 		Mount(final Type<? extends Item> type, final String name)
 		{
 			final String nameUpper =
 				name.length()==1
 				? Character.toString(Character.toUpperCase(name.charAt(0)))
 				: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
-			
+
 			final Class<?> javaClass = type.getJavaClass();
 			final Method getter;
 			try
@@ -60,14 +60,14 @@ public final class JavaView extends Pattern
 			this.valueGenericType = getter.getGenericReturnType();
 		}
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
 		this.mount = new Mount(getType(), getName());
 	}
-	
+
 	private Mount mount()
 	{
 		final Mount mount = this.mount;
@@ -75,17 +75,17 @@ public final class JavaView extends Pattern
 			throw new IllegalStateException("feature not mounted");
 		return mount;
 	}
-	
+
 	public Class getValueType()
 	{
 		return mount().valueType;
 	}
-	
+
 	public java.lang.reflect.Type getValueGenericType()
 	{
 		return mount().valueGenericType;
 	}
-	
+
 	public Object get(final Item item)
 	{
 		try

@@ -29,7 +29,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Integer defaultNextStart;
 	final Sequence defaultToNextSequence;
 	private final int minimum;
@@ -77,7 +77,7 @@ public final class IntegerField extends NumberField<Integer>
 			this.defaultToNextSequence = null;
 		}
 	}
-	
+
 	/**
 	 * Creates a new mandatory <tt>IntegerField</tt>.
 	 */
@@ -85,19 +85,19 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		this(false, false, false, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
-	
+
 	@Override
 	public IntegerField copy()
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
-	
+
 	@Override
 	public IntegerField toFinal()
 	{
 		return new IntegerField(true, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
-	
+
 	@Override
 	public IntegerField optional()
 	{
@@ -115,52 +115,52 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		return new IntegerField(isfinal, optional, false, defaultConstant, defaultNextStart, minimum, maximum);
 	}
-	
+
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
-	
+
 	public IntegerField defaultToNext(final int start)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
 	}
-	
+
 	public IntegerField range(final int minimum, final int maximum)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
-	
+
 	public IntegerField min(final int minimum)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, Integer.MAX_VALUE);
 	}
-	
+
 	public IntegerField max(final int maximum)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, Integer.MIN_VALUE, maximum);
 	}
-	
+
 	public boolean isDefaultNext()
 	{
 		return defaultNextStart!=null;
 	}
-	
+
 	public Integer getDefaultNextStart()
 	{
 		return defaultNextStart;
 	}
-	
+
 	public int getMinimum()
 	{
 		return minimum;
 	}
-	
+
 	public int getMaximum()
 	{
 		return maximum;
 	}
-	
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -172,7 +172,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		return (defaultNextStart==null) && super.isInitial();
 	}
-	
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
@@ -181,13 +181,13 @@ public final class IntegerField extends NumberField<Integer>
 			result.add(IntegerRangeViolationException.class);
 		return result;
 	}
-	
+
 	@Override
 	public Class getInitialType()
 	{
 		return optional ? Integer.class : int.class;
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
@@ -200,7 +200,7 @@ public final class IntegerField extends NumberField<Integer>
 		}
 		return result;
 	}
-	
+
 	@Override
 	void disconnect()
 	{
@@ -208,19 +208,19 @@ public final class IntegerField extends NumberField<Integer>
 			defaultToNextSequence.disconnect();
 		super.disconnect();
 	}
-	
+
 	@Override
 	Integer get(final Row row, final Query query)
 	{
 		return (Integer)row.get(getColumn());
 	}
-	
+
 	@Override
 	void set(final Row row, final Integer surface)
 	{
 		row.put(getColumn(), surface);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
@@ -228,10 +228,10 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-		
+
 		return get(item).intValue();
 	}
-	
+
 	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
@@ -250,17 +250,17 @@ public final class IntegerField extends NumberField<Integer>
 		if(valuePrimitive>maximum)
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
-	
+
 	public SequenceInfo getDefaultToNextInfo()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
-	
+
 	public int checkDefaultToNext()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().currentTransaction().getConnection()) : 0;
 	}
-	
+
 	@Override
 	public Condition equal(final Integer value)
 	{
@@ -275,7 +275,7 @@ public final class IntegerField extends NumberField<Integer>
 		else
 			return isNull();
 	}
-	
+
 	@Override
 	public Condition notEqual(final Integer value)
 	{

@@ -24,7 +24,7 @@ public class QueryCopyTest extends CopeAssert
 {
 	@SuppressWarnings("unused")
 	private static final Model MODEL = CompareConditionTest.MODEL; // mount types
-	
+
 	public void testSimple()
 	{
 		final Query query = CompareConditionItem.TYPE.newQuery();
@@ -36,7 +36,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(), query.getOrderByAscending());
 		assertEquals(0, query.getOffset());
 		assertEquals(-1, query.getLimit());
-		
+
 		final Query copy = new Query<String>(CompareConditionItem.string, query);
 		assertEquals(false, copy.isDistinct());
 		assertSame(CompareConditionItem.TYPE, copy.getType());
@@ -46,14 +46,14 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(), copy.getOrderByAscending());
 		assertEquals(0, copy.getOffset());
 		assertEquals(-1, copy.getLimit());
-		
+
 		query.setDistinct(true);
 		final Join joinQuery = query.join(CompareConditionItem.TYPE);
 		final Condition conditionQuery = CompareConditionItem.string.equal("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(CompareConditionItem.date, false);
 		query.setLimit(33, 44);
-		
+
 		assertEquals(true, query.isDistinct());
 		assertSame(CompareConditionItem.TYPE, query.getType());
 		assertEquals(list(joinQuery), query.getJoins());
@@ -62,7 +62,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
-		
+
 		assertEquals(false, copy.isDistinct());
 		assertSame(CompareConditionItem.TYPE, copy.getType());
 		assertEquals(list(), copy.getJoins());
@@ -72,7 +72,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(0, copy.getOffset());
 		assertEquals(-1, copy.getLimit());
 	}
-	
+
 	public void testAdvanced()
 	{
 		final Query query = CompareConditionItem.TYPE.newQuery();
@@ -84,14 +84,14 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(), query.getOrderByAscending());
 		assertEquals(0, query.getOffset());
 		assertEquals(-1, query.getLimit());
-		
+
 		query.setDistinct(true);
 		final Join joinQuery = query.join(CompareConditionItem.TYPE);
 		final Condition conditionQuery = CompareConditionItem.string.equal("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(CompareConditionItem.date, false);
 		query.setLimit(33, 44);
-		
+
 		assertEquals(true, query.isDistinct());
 		assertSame(CompareConditionItem.TYPE, query.getType());
 		assertEquals(list(joinQuery), query.getJoins());
@@ -100,7 +100,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
-		
+
 		final Query copy = new Query<String>(CompareConditionItem.string, query);
 		assertEquals(true, copy.isDistinct());
 		assertSame(CompareConditionItem.TYPE, copy.getType());
@@ -110,7 +110,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), copy.getOrderByAscending());
 		assertEquals(33, copy.getOffset());
 		assertEquals(44, copy.getLimit());
-		
+
 		copy.setDistinct(false);
 		final Join joinCopy = copy.join(CompareConditionItem.TYPE);
 		final Condition conditionCopy = CompareConditionItem.intx.equal(1);

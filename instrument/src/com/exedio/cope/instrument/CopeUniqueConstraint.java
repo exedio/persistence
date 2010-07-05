@@ -33,17 +33,17 @@ final class CopeUniqueConstraint extends CopeFeature
 	{
 		super(parent, javaAttribute);
 	}
-	
+
 	CopeAttribute[] getAttributes() throws InjectorParseException
 	{
 		final ArrayList<String> attributeList = new ArrayList<String>();
-		
+
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
 		for(final FunctionField attributeInstance : instance.getFields())
 			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
-		
+
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);
-		
+
 		final CopeAttribute[] result = new CopeAttribute[attributes.length];
 		for(int i = 0; i<attributes.length; i++ )
 		{

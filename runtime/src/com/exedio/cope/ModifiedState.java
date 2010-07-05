@@ -23,9 +23,9 @@ import java.util.Map;
 
 final class ModifiedState extends State
 {
-	
+
 	private Row row;
-	
+
 	ModifiedState( final Transaction transaction, final State original )
 	{
 		super(original.item, original.modificationCount);
@@ -71,7 +71,7 @@ final class ModifiedState extends State
 			throw e;
 		}
 	}
-	
+
 	@Override
 	Object store(final Column column)
 	{
@@ -97,5 +97,5 @@ final class ModifiedState extends State
 	{
 		return toString()+row.toString();
 	}
-	
+
 }

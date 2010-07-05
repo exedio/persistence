@@ -37,7 +37,7 @@ public class LimitedListFieldItem extends Item
 	static final IntegerField num2 = new IntegerField().optional();
 
 	static final IntegerField num3 = new IntegerField().optional();
-	
+
 	static final LimitedListField<Integer> nums = LimitedListField.newList(num1, num2, num3);
 
 	// implicit external source

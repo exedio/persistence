@@ -28,17 +28,17 @@ public final class This<E extends Item> extends Feature
 	implements Function<E>, ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	static final String NAME = "this";
-	
+
 	final Type<E> type;
-	
+
 	This(final Type<E> type)
 	{
 		assert type!=null;
 		this.type = type;
 	}
-	
+
 	@Override
 	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
@@ -46,29 +46,29 @@ public final class This<E extends Item> extends Feature
 		assert this.type == type;
 		assert NAME.equals(name);
 	}
-	
+
 	public E get(final Item item)
 	{
 		return type.cast(item);
 	}
-	
+
 	public Class<E> getValueClass()
 	{
 		return type.getJavaClass();
 	}
-	
+
 	@Deprecated // OK: for internal use within COPE only
 	public void check(final TC tc, final Join join)
 	{
 		tc.check(this, join);
 	}
-	
+
 	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
 		bf.appendPK(type, join);
 	}
-	
+
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
 	{
@@ -78,7 +78,7 @@ public final class This<E extends Item> extends Feature
 		final IntegerColumn column = selectType.getTable().primaryKey;
 		assert column.primaryKey;
 		columnHolder.value = column;
-		
+
 		final StringColumn typeColumn = column.table.typeColumn;
 		if(typeColumn!=null)
 		{
@@ -88,13 +88,13 @@ public final class This<E extends Item> extends Feature
 		else
 			typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
 	}
-	
+
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
 		bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
 	}
-	
+
 	@Deprecated // OK: for internal use within COPE only
 	public void appendParameter(final Statement bf, final E value)
 	{
@@ -105,7 +105,7 @@ public final class This<E extends Item> extends Feature
 	{
 		return type;
 	}
-	
+
 	public boolean needsCheckTypeColumn()
 	{
 		return type.supertype!=null && type.supertype.getTable().typeColumn!=null;
@@ -115,11 +115,11 @@ public final class This<E extends Item> extends Feature
 	{
 		if(!needsCheckTypeColumn())
 			throw new RuntimeException("no check for type column needed for " + this);
-		
+
 		final Model model = type.getModel();
 		return type.checkTypeColumn(model.currentTransaction().getConnection(), model.connect().executor);
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	/**
@@ -129,7 +129,7 @@ public final class This<E extends Item> extends Feature
 	{
 		return new IsNullCondition<E>(this, false);
 	}
-	
+
 	/**
 		* Note: a primary key can become null in queries using outer joins.
 		*/
@@ -137,57 +137,57 @@ public final class This<E extends Item> extends Feature
 	{
 		return new IsNullCondition<E>(this, true);
 	}
-	
+
 	public Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
-	
+
 	public Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
-	
+
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
-	
+
 	public CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(Operator.Less, this, value);
 	}
-	
+
 	public CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.LessEqual, this, value);
 	}
-	
+
 	public CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(Operator.Greater, this, value);
 	}
-	
+
 	public CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
 	}
-	
+
 	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
-	
+
 	public CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
@@ -202,17 +202,17 @@ public final class This<E extends Item> extends Feature
 	{
 		return new CompareFunctionCondition<E>(Operator.Less, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
@@ -222,7 +222,7 @@ public final class This<E extends Item> extends Feature
 	{
 		return new ExtremumAggregate<E>(this, true);
 	}
-	
+
 	public ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);
@@ -232,17 +232,17 @@ public final class This<E extends Item> extends Feature
 	{
 		return new BindItemFunction<E>(this, join);
 	}
-	
+
 	public CompareFunctionCondition equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
-	
+
 	public CompareFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
-	
+
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, false, type1);
@@ -267,7 +267,7 @@ public final class This<E extends Item> extends Feature
 	{
 		return new InstanceOfCondition<E>(this, false, types);
 	}
-	
+
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, true, type1);
@@ -294,7 +294,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	// ------------------- deprecated stuff -------------------
-	
+
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 	{
@@ -324,7 +324,7 @@ public final class This<E extends Item> extends Feature
 	{
 		return instanceOf(types);
 	}
-	
+
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1)
 	{

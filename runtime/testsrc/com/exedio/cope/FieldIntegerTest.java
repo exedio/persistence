@@ -22,7 +22,7 @@ package com.exedio.cope;
 public class FieldIntegerTest extends FieldTest
 {
 	static final Integer CONST = 1;
-	
+
 	public void testSomeInteger()
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
@@ -72,7 +72,7 @@ public class FieldIntegerTest extends FieldTest
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
-		
+
 		restartTransaction();
 		assertEquals(null, item.getSomeInteger());
 	}
@@ -90,15 +90,15 @@ public class FieldIntegerTest extends FieldTest
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName() + " for " + item.someInteger + '.', e.getMessage());
 		}
 	}
-	
+
 	public void testSomeNotNullInteger()
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());
-		
+
 		item.someNotNullInteger.set(item, Integer.valueOf(24));
 		assertEquals(24, item.getSomeNotNullInteger());
-		
+
 		item.someNotNullInteger.set(item, 22);
 		assertEquals(22, item.getSomeNotNullInteger());
 

@@ -21,7 +21,7 @@ package com.exedio.dsmf;
 public class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
-	
+
 	public PrimaryKeyConstraint(
 			final Table table,
 			final String name,
@@ -29,7 +29,7 @@ public class PrimaryKeyConstraint extends Constraint
 	{
 		this(table, name, true, primaryKeyColumn);
 	}
-	
+
 	PrimaryKeyConstraint(
 			final Table table,
 			final String name,
@@ -40,11 +40,11 @@ public class PrimaryKeyConstraint extends Constraint
 
 		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);
-		
+
 		this.primaryKeyColumn = primaryKeyColumn;
 		//System.out.println("-------------"+name+"-"+primaryKeyColumn);
 	}
-	
+
 	public final String getPrimaryKeyColumn()
 	{
 		return primaryKeyColumn;
@@ -59,7 +59,7 @@ public class PrimaryKeyConstraint extends Constraint
 			append(quoteName(primaryKeyColumn)).
 			append(')');
 	}
-	
+
 	@Override
 	public final void create(final StatementListener listener)
 	{
@@ -74,7 +74,7 @@ public class PrimaryKeyConstraint extends Constraint
 
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	@Override
 	public final void drop(final StatementListener listener)
 	{

@@ -44,14 +44,14 @@ import com.exedio.cope.reflect.FeatureField;
 public final class History extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	ItemField<?> eventParent = null;
 	PartOf<?> eventEvents = null;
 	final DateField eventDate = new DateField().toFinal().defaultToNow();
 	final StringField eventAuthor = new StringField().toFinal();
 	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
-	
+
 	ItemField<Event> featureEvent = null;
 	PartOf<Event> featureFeatures = null;
 	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.newField().toFinal();
@@ -66,7 +66,7 @@ public final class History extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		
+
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		eventEvents = PartOf.newPartOf(eventParent, eventDate);
 		final Features features = new Features();
@@ -76,7 +76,7 @@ public final class History extends Pattern
 		features.put("author", eventAuthor);
 		features.put("new", eventNew);
 		eventType = newSourceType(Event.class, features, "Event");
-		
+
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		featureFeatures = PartOf.newPartOf(featureEvent);
@@ -90,23 +90,23 @@ public final class History extends Pattern
 		features.put("new", featureNew);
 		featureType = newSourceType(Feature.class, features, "Feature");
 	}
-	
+
 	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
 	{
 		assert eventParent!=null;
 		return eventParent.as(parentClass);
 	}
-	
+
 	public PartOf getEventEvents()
 	{
 		return eventEvents;
 	}
-	
+
 	public DateField getEventDate()
 	{
 		return eventDate;
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getEventAuthor()} instead
 	 */
@@ -120,7 +120,7 @@ public final class History extends Pattern
 	{
 		return eventAuthor;
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getEventNew()} instead
 	 */
@@ -134,89 +134,89 @@ public final class History extends Pattern
 	{
 		return eventNew;
 	}
-	
+
 	public Type<Event> getEventType()
 	{
 		assert eventType!=null;
 		return eventType;
 	}
-	
+
 	public ItemField<Event> getFeatureEvent()
 	{
 		assert featureEvent!=null;
 		return featureEvent;
 	}
-	
+
 	public PartOf getFeatureFeatures()
 	{
 		return featureFeatures;
 	}
-	
+
 	public FeatureField getFeature()
 	{
 		return featureId;
 	}
-	
+
 	public StringField getFeatureId()
 	{
 		return featureId.getIdField();
 	}
-	
+
 	public UniqueConstraint getFeatureUniqueConstraint()
 	{
 		assert featureUnique!=null;
 		return featureUnique;
 	}
-	
+
 	public StringField getFeatureName()
 	{
 		return featureName;
 	}
-	
+
 	public StringField getFeatureOld()
 	{
 		return featureOld;
 	}
-	
+
 	public StringField getFeatureNew()
 	{
 		return featureNew;
 	}
-	
+
 	public Type<Feature> getFeatureType()
 	{
 		assert featureType!=null;
 		return featureType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("getEvents").
 			addComment("Returns the events of the history {0}.").
 			setReturn(Wrapper.genericExtends(List.class, Event.class)));
-		
+
 		result.add(
 			new Wrapper("createEvent").
 			addComment("Creates a new event for the history {0}.").
 			setReturn(Event.class).
 			addParameter(String.class, "author").
 			addParameter(boolean.class, "isNew"));
-			
+
 		result.add(
 			new Wrapper("getEventParent").
 			addComment("Returns the parent field of the event type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}EventParent").
 			setStatic());
-					
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public List<Event> getEvents(final Item item)
 	{
 		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
@@ -225,7 +225,7 @@ public final class History extends Pattern
 				new boolean []{ false,     false });
 		return q.search();
 	}
-	
+
 	public Event createEvent(final Item item, final String author, final boolean isNew)
 	{
 		return eventType.newItem(
@@ -244,22 +244,22 @@ public final class History extends Pattern
 		{
 			super(ap);
 		}
-		
+
 		public History getPattern()
 		{
 			return (History)getCopeType().getPattern();
 		}
-		
+
 		public Item getParent()
 		{
 			return getPattern().eventParent.get(this);
 		}
-		
+
 		public Date getDate()
 		{
 			return getPattern().eventDate.get(this);
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #getAuthor()} instead
 		 */
@@ -273,7 +273,7 @@ public final class History extends Pattern
 		{
 			return getPattern().eventAuthor.get(this);
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #isNew()} instead
 		 */
@@ -287,17 +287,17 @@ public final class History extends Pattern
 		{
 			return getPattern().eventNew.getMandatory(this);
 		}
-		
+
 		public List<? extends Feature> getFeatures()
 		{
 			final History pattern = getPattern();
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
-		
+
 		private static final SetValue cut(final StringField f, final Object o)
 		{
 			final String result;
-			
+
 			if(o!=null)
 			{
 				final String s = o.toString();
@@ -308,10 +308,10 @@ public final class History extends Pattern
 			{
 				result = null;
 			}
-			
+
 			return f.map(result);
 		}
-		
+
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			final History pattern = getPattern();
@@ -334,23 +334,23 @@ public final class History extends Pattern
 		{
 			super(ap);
 		}
-		
+
 		public History getPattern()
 		{
 			return (History)getCopeType().getPattern();
 		}
-		
+
 		public Event getEvent()
 		{
 			return getPattern().featureEvent.get(this);
 		}
-		
+
 		public com.exedio.cope.Feature getFeature()
 		{
 			final History pattern = getPattern();
 			return pattern.featureId.get(this);
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #getFeatureID()} instead
 		 */
@@ -359,28 +359,28 @@ public final class History extends Pattern
 		{
 			return getFeatureID();
 		}
-		
+
 		public String getFeatureID()
 		{
 			return getPattern().featureId.getId(this);
 		}
-		
+
 		public String getName()
 		{
 			return getPattern().featureName.get(this);
 		}
-		
+
 		public String getOld()
 		{
 			return getPattern().featureOld.get(this);
 		}
-		
+
 		public String getNew()
 		{
 			return getPattern().featureNew.get(this);
 		}
 	}
-	
+
 	public static final List<History> getHistories(final Type<?> type)
 	{
 		ArrayList<History> result = null;

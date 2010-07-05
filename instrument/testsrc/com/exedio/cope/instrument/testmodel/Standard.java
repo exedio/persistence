@@ -70,7 +70,7 @@ public class Standard extends Item
 
 	public static final EnumField<Enum1> mandatoryEnum = newEnumField(Enum1.class);
 	protected static final EnumField<Enum2> protectedEnum = newEnumField(Enum2.class).optional();
-	
+
 	public enum Enum1
 	{
 		ENUM1A, ENUM1B;
@@ -127,26 +127,26 @@ public class Standard extends Item
 	 * @cope.get boolean-as-is
 	 */
 	public static final BooleanField asIsBoolean = new BooleanField().optional();
-	
+
 	public static final StringField doubleUnique1 = new StringField().optional();
 	public static final IntegerField doubleUnique2 = new IntegerField().optional();
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
-	
+
 	/** @cope.ignore */
 	public static final StringField ignoreString = new StringField().optional();
-	
+
 	private static String brokenFunction()
 	{
 		return "broken";
 	}
-	
+
 	/**
 	 * @cope.ignore
 	 */
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
-	
+
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);
-	
+
 	public static final Media anyMedia = new Media().optional();
 	static final Media majorMedia = new Media().optional().contentTypeSub("major");
 	protected static final Media minorMedia = new Media().optional().contentType("major/minor");
@@ -158,7 +158,7 @@ public class Standard extends Item
 	 * @cope.set private
 	 */
 	public static final Media privateSetterMedia = new Media().optional();
-	
+
 	public static final Hash publicHash = new MessageDigestHash(5).optional();
 	private static final Hash privateHash = new MessageDigestHash(5).optional();
 	public static final Hash mandatoryHash = new MessageDigestHash(5);
@@ -166,7 +166,7 @@ public class Standard extends Item
 	 * @cope.set private
 	 */
 	public static final Hash privateSetterHash = new MessageDigestHash(5);
-	
+
 	/**
 	 * An upper-case attribute
 	 */
@@ -208,7 +208,7 @@ public class Standard extends Item
 		setPrivateString(null);
 		touchPrivateDate();
 	}
-	
+
 
    /**
 

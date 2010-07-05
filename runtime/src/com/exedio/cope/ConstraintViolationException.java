@@ -26,7 +26,7 @@ package com.exedio.cope;
 public abstract class ConstraintViolationException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Item item;
 
 	public ConstraintViolationException(final Item item, final Throwable cause)
@@ -34,9 +34,9 @@ public abstract class ConstraintViolationException extends RuntimeException
 		super(cause);
 		this.item = item;
 	}
-	
+
 	public abstract Feature getFeature();
-	
+
 	/**
 	 * Returns the item that was attempted to be modified.
 	 * Returns null, if the constraint violation occured on the creation of an item.
@@ -50,22 +50,22 @@ public abstract class ConstraintViolationException extends RuntimeException
 	{
 		return item!=null ? (" on " + item.getCopeID()) : "";
 	}
-	
+
 	@Override
 	public final String getMessage()
 	{
 		return getMessage(true);
 	}
-	
+
 	public final String getMessageWithoutFeature()
 	{
 		return getMessage(false);
 	}
-	
+
 	protected abstract String getMessage(boolean withFeature);
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #getItemText()} instead
 	 */

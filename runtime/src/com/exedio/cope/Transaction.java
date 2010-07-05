@@ -37,7 +37,7 @@ public final class Transaction
 	final long id;
 	final String name;
 	final long startDate;
-	
+
 	/**
 	 * index in array is {@link Type#cacheIdTransiently};
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
@@ -47,7 +47,7 @@ public final class Transaction
 	private final TIntHashSet[] invalidations;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
-	
+
 	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
 	{
 		this.model = model;
@@ -58,13 +58,13 @@ public final class Transaction
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
 		this.invalidations = new TIntHashSet[concreteTypeCount];
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
 	{
 		return o;
 	}
-	
+
 	/**
 	 * calling this method directly breaks Model.boundTransactions
 	 */
@@ -80,12 +80,12 @@ public final class Transaction
 		}
 		boundThread = Thread.currentThread();
 	}
-	
+
 	boolean assertBoundToCurrentThread()
 	{
 		return Thread.currentThread().equals(boundThread);
 	}
-	
+
 	/**
 	 * calling this method directly breaks Model.boundTransactions
 	 */
@@ -97,20 +97,20 @@ public final class Transaction
 		}
 		boundThread = null;
 	}
-	
+
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
-	
+
 	public boolean isClosed()
 	{
 		return closed;
 	}
-	
+
 	Entity getEntity(final Item item, final boolean present)
 	{
 		assert !closed : name;
-		
+
 		final Type type = item.type;
 		final int pk = item.pk;
 
@@ -153,7 +153,7 @@ public final class Transaction
 			return result;
 		}
 	}
-	
+
 	void removeEntity(final Item item)
 	{
 		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.cacheIdTransiently];
@@ -162,7 +162,7 @@ public final class Transaction
 			entityMap.remove( item.pk );
 		}
 	}
-	
+
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		if(!connect.queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
@@ -174,7 +174,7 @@ public final class Transaction
 			return connect.queryCache.search(this, query, totalOnly);
 		}
 	}
-	
+
 	private boolean isInvalidated(final Query<?> query)
 	{
 		if ( isInvalidated(query.type) )
@@ -194,28 +194,28 @@ public final class Transaction
 		}
 		return false;
 	}
-	
+
 	private boolean isInvalidated(final Type<?> type)
 	{
 		if(type==null)
 			throw new NullPointerException();
-		
+
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
 			final TIntHashSet invalidationsForType = invalidations[instanceType.cacheIdTransiently];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean isInvalidated( final Item item )
 	{
 		final TIntHashSet invalidationsForType = invalidations[item.type.cacheIdTransiently];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
-	
+
 	void addInvalidation(final Item item)
 	{
 		final int typeTransiently = item.type.cacheIdTransiently;
@@ -237,24 +237,24 @@ public final class Transaction
 			return null;
 		return entityMap.get(pk);
 	}
-	
+
 	Connection getConnection()
 	{
 		assert !closed : name;
 
 		if(connection!=null)
 			return connection;
-		
+
 		if(connectionPool!=null)
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
-		
+
 		return connection;
 	}
-	
+
 	/**
 	 * calling this method directly breaks model.openTransactions
 	 * @return whether this transaction had an associated database connection
@@ -291,7 +291,7 @@ public final class Transaction
 				connection = null;
 				connectionPool = null;
 			}
-			
+
 			closed = true;
 			unbindThread();
 		}
@@ -308,7 +308,7 @@ public final class Transaction
 					break;
 				}
 			}
-			
+
 			if(modified)
 				connect.invalidate(invalidations);
 		}
@@ -328,7 +328,7 @@ public final class Transaction
 				entityMap.clear();
 				entityMaps[typeTransiently] = null;
 			}
-			
+
 			final TIntHashSet invalidationSet = invalidations[typeTransiently];
 			if(invalidationSet!=null)
 			{
@@ -336,7 +336,7 @@ public final class Transaction
 				invalidations[typeTransiently] = null;
 			}
 		}
-		
+
 		return hadConnection;
 	}
 
@@ -344,33 +344,33 @@ public final class Transaction
 	{
 		return id;
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	public Date getStartDate()
 	{
 		return new Date(startDate);
 	}
-	
+
 	public Thread getBoundThread()
 	{
 		return boundThread;
 	}
-	
+
 	public void setQueryInfoEnabled(final boolean enabled)
 	{
 		this.queryInfos = enabled ? new ArrayList<QueryInfo>() : null;
 	}
-	
+
 	public List<QueryInfo> getQueryInfos()
 	{
 		final ArrayList<QueryInfo> queryInfos = this.queryInfos;
 		return queryInfos!=null ? Collections.unmodifiableList(queryInfos) : null;
 	}
-	
+
 	@Override
 	public String toString()
 	{

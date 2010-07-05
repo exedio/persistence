@@ -46,10 +46,10 @@ public class TypesBoundTest extends CopeAssert
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
-		
-		
+
+
 		final Type<AnItem> type = newType(AnItem.class);
-		
+
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));
 		try
@@ -78,19 +78,19 @@ public class TypesBoundTest extends CopeAssert
 		assertEquals("AnItem.this", type.getThis().getID());
 		assertEquals("AnItem.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
-		
+
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getFields());
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), type.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getFeatures());
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getDeclaredFeatures());
-		
+
 		assertSame(AnItem.intField, type.getFeature("intField"));
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
-		
+
 		try
 		{
 			type.isAssignableFrom(null);
@@ -101,8 +101,8 @@ public class TypesBoundTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 		assertTrue(type.isAssignableFrom(type));
-		
-		
+
+
 		// error if not mounted
 		final String modelMessage =
 			"model not set for type AnItem, " +
@@ -161,8 +161,8 @@ public class TypesBoundTest extends CopeAssert
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
-		
-		
+
+
 		final Model model = new Model(type);
 		assertSame(type, model.getType(type.getID()));
 		assertSame(model, type.getModel());
@@ -171,7 +171,7 @@ public class TypesBoundTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), type.getSubtypes());
 		assertEqualsUnmodifiable(list(type), type.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(type), type.getTypesOfInstances());
-		
+
 		try
 		{
 			new Model(type);
@@ -182,19 +182,19 @@ public class TypesBoundTest extends CopeAssert
 			assertEquals("type AnItem already mounted", e.getMessage());
 		}
 	}
-	
+
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final IntegerField intField = new IntegerField();
 		static final BooleanField boolField = new BooleanField();
-		
+
 		// test, that these fields do not become features of the type
 		final BooleanField notStatic = new BooleanField();
 		static BooleanField notFinal = new BooleanField();

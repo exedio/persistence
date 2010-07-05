@@ -79,7 +79,7 @@ public class ServletUtilTest extends CopeAssert
 				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"),
 				"nameNull", ", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
 	}
-	
+
 	@Deprecated
 	private static final void assertIt(
 			final Model model,
@@ -94,7 +94,7 @@ public class ServletUtilTest extends CopeAssert
 				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')',
 				token.getName());
 	}
-	
+
 	@Deprecated
 	private static final void assertIt(
 			final Model model,
@@ -110,7 +110,7 @@ public class ServletUtilTest extends CopeAssert
 				"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')',
 				token.getName());
 	}
-	
+
 	@Deprecated
 	private static final void assertFails(
 			final MockServlet servlet,
@@ -130,7 +130,7 @@ public class ServletUtilTest extends CopeAssert
 				message, e.getMessage());
 		}
 	}
-	
+
 	@Deprecated
 	private static final void assertFails(
 			final MockFilter filter,
@@ -151,16 +151,16 @@ public class ServletUtilTest extends CopeAssert
 					message, e.getMessage());
 		}
 	}
-	
+
 	private static class MockServlet implements Servlet
 	{
 		final ServletConfig config;
-		
+
 		MockServlet(final String model, final String name)
 		{
 			assert model!=null;
 			assert name!=null;
-			
+
 			this.config = new ServletConfig()
 			{
 				public ServletContext getServletContext()
@@ -215,14 +215,14 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 	}
-	
+
 	private static class MockFilter implements Filter
 	{
 		MockFilter()
 		{
 			// just make it package private
 		}
-		
+
 		public void destroy()
 		{
 			throw new RuntimeException();
@@ -288,7 +288,7 @@ public class ServletUtilTest extends CopeAssert
 	private static class MockServletContext implements ServletContext
 	{
 		final String model;
-		
+
 		MockServletContext(final String model)
 		{
 			this.model = model;

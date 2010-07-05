@@ -56,18 +56,18 @@ import java.util.List;
 public abstract class Pattern extends Feature
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private Features sourceFeaturesGather = new Features();
 	private List<Feature> sourceFeatureList = null;
-	
+
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
-	
+
 	protected final void addSource(final Feature feature, final String postfix)
 	{
 		addSource(feature, postfix, null);
 	}
-	
+
 	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
 	{
 		if(postfix==null)
@@ -82,12 +82,12 @@ public abstract class Pattern extends Feature
 		feature.registerPattern(this);
 		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
 	}
-	
+
 	private final class SourceFeatureAnnotationProxy implements AnnotatedElement
 	{
 		private final AnnotatedElement source;
 		final String postfix;
-		
+
 		SourceFeatureAnnotationProxy(final AnnotatedElement source, final String postfix)
 		{
 			this.source = source;
@@ -98,30 +98,30 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
-			
+
 			if(source==null)
 				return false;
-			
+
 			return source.isAnnotationPresent(annotationClass);
 		}
-		
+
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
-				
+
 				if(patternName==null && sourceName==null)
 					return null;
-				
+
 				final StringBuilder bf = new StringBuilder();
-				
+
 				bf.append(
 					patternName!=null
 					? patternName.value()
 					: Pattern.this.getName());
-				
+
 				if(sourceName!=null)
 				{
 					final String v = sourceName.value();
@@ -130,13 +130,13 @@ public abstract class Pattern extends Feature
 				}
 				else
 					bf.append('-').append(postfix);
-				
+
 				return annotationClass.cast(schemaName(bf.toString()));
 			}
-			
+
 			if(source==null)
 				return null;
-			
+
 			return source.getAnnotation(annotationClass);
 		}
 
@@ -149,17 +149,17 @@ public abstract class Pattern extends Feature
 		{
 			throw new RuntimeException(Pattern.this.toString());
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return Pattern.this.toString() + "-sourceFeatureAnnotations";
 		}
 	}
-	
-	
+
+
 	private boolean calledOnMount;
-	
+
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
@@ -169,14 +169,14 @@ public abstract class Pattern extends Feature
 	{
 		calledOnMount = true;
 	}
-	
+
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features)
 	{
 		return newSourceType(javaClass, features, null);
 	}
-	
+
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features,
@@ -202,12 +202,12 @@ public abstract class Pattern extends Feature
 		sourceTypesWhileGather.add(result);
 		return result;
 	}
-	
+
 	private final class SourceTypeAnnotationProxy implements AnnotatedElement
 	{
 		private final AnnotatedElement source;
 		final String postfix;
-		
+
 		SourceTypeAnnotationProxy(final AnnotatedElement source, final String postfix)
 		{
 			this.source = source;
@@ -218,20 +218,20 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
-			
+
 			if(source==null)
 				return false;
-			
+
 			return source.isAnnotationPresent(annotationClass);
 		}
-		
+
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
 				if(source!=null && source.getAnnotation(annotationClass)!=null)
 					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
-				
+
 				final Type<?> type = getType();
 				final CopeSchemaName typeName = type.getAnnotation(CopeSchemaName.class);
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
@@ -245,10 +245,10 @@ public abstract class Pattern extends Feature
 					));
 				}
 			}
-			
+
 			if(source==null)
 				return null;
-			
+
 			return source.getAnnotation(annotationClass);
 		}
 
@@ -261,28 +261,28 @@ public abstract class Pattern extends Feature
 		{
 			throw new RuntimeException(Pattern.this.toString());
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return Pattern.this.toString() + "-sourceTypeAnnotations";
 		}
 	}
-	
+
 	static final String newSourceTypeId(final String type, final String name, final String postfix)
 	{
 		final StringBuilder bf = new StringBuilder(type);
-		
+
 		bf.append('-').
 			append(name);
-		
+
 		if(postfix!=null)
 			bf.append('-').
 				append(postfix);
-		
+
 		return bf.toString();
 	}
-	
+
 	static final CopeSchemaName schemaName(final String value)
 	{
 		return new CopeSchemaName()
@@ -291,20 +291,20 @@ public abstract class Pattern extends Feature
 			{
 				return CopeSchemaName.class;
 			}
-			
+
 			public String value()
 			{
 				return value;
 			}
 		};
 	}
-	
+
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		initialize();
-		
+
 		calledOnMount = false;
 		onMount();
 		if(!calledOnMount)
@@ -312,7 +312,7 @@ public abstract class Pattern extends Feature
 
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
 		this.sourceFeaturesGather = null;
-		
+
 		this.sourceTypesWhileGather.trimToSize();
 		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
@@ -339,14 +339,14 @@ public abstract class Pattern extends Feature
 		assert sourceTypesWhileGather==null;
 		return sourceTypes;
 	}
-	
+
 	// Make non-final method from super class final
 	@Override
 	public final Type<? extends Item> getType()
 	{
 		return super.getType();
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
@@ -370,7 +370,7 @@ public abstract class Pattern extends Feature
 	{
 		return getSourceFields();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getSourceTypes()} instead
 	 */
@@ -379,7 +379,7 @@ public abstract class Pattern extends Feature
 	{
 		return getSourceTypes();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #addSource(Feature,String)} instead
 	 */
@@ -397,7 +397,7 @@ public abstract class Pattern extends Feature
 	{
 		return newSourceType(javaClass, features);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap,String)} instead
 	 */
@@ -406,7 +406,7 @@ public abstract class Pattern extends Feature
 	{
 		return newSourceType(javaClass, features, postfix);
 	}
-	
+
 	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
@@ -414,7 +414,7 @@ public abstract class Pattern extends Feature
 	{
 		return newSourceType(javaClass, new Features(features));
 	}
-	
+
 	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
@@ -434,7 +434,7 @@ public abstract class Pattern extends Feature
 	{
 		return newSourceType(javaClass, isAbstract, supertype, new Features(features), postfix);
 	}
-	
+
 	/**
 	 * @deprecated Override {@link #onMount()} instead
 	 */
@@ -443,7 +443,7 @@ public abstract class Pattern extends Feature
 	{
 		// empty default implementation
 	}
-	
+
 	/**
 	 * @deprecated Do not use this method anymore.
 	 */
@@ -459,7 +459,7 @@ public abstract class Pattern extends Feature
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * @deprecated For binary compatibility only, use {@link #addSource(Feature,String,AnnotatedElement)} instead.
 	 */

@@ -49,7 +49,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.toString());
 		}
 	}
-	
+
 	private static final void assertFails(final Properties.Source source, final String key, final String failureKey)
 	{
 		try
@@ -62,16 +62,16 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals(failureKey, e.getMessage());
 		}
 	}
-	
+
 	static class TestContext implements ServletContext
 	{
 		private final String prefix;
-		
+
 		TestContext(final String prefix)
 		{
 			this.prefix = prefix;
 		}
-		
+
 		public String getInitParameter(final String name)
 		{
 			if("com.exedio.cope.contextPrefix".equals(name))

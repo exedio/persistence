@@ -40,15 +40,15 @@ public abstract class FieldTest extends TestmodelTest
 		item = deleteOnTearDown(new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		item2 = deleteOnTearDown(new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue2));
 	}
-	
+
 	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
-	
+
 	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute, final Condition condition)
 	{
 		return new Query<R>(selectAttribute, condition).search();
 	}
-	
+
 }

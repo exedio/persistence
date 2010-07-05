@@ -32,14 +32,14 @@ public class RangeTest extends CopeAssert
 		assertEquals(new Range<Integer>(5, 5), new Range<Integer>(5, 5));
 		assertNotEquals(new Range<Integer>(5, 5), new Range<Integer>(6, 6));
 	}
-	
+
 	private static void assertEquals(final Range c1, final Range c2)
 	{
 		assertEquals((Object)c1, (Object)c2);
 		assertEquals((Object)c2, (Object)c1);
 		assertEquals(c1.hashCode(), c2.hashCode());
 	}
-	
+
 	private static void assertNotEquals(final Range c1, final Range c2)
 	{
 		assertTrue(!c1.equals(c2));

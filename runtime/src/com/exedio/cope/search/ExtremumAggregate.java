@@ -24,7 +24,7 @@ import com.exedio.cope.Function;
 public final class ExtremumAggregate<E> extends Aggregate<E>
 {
 	final boolean minimum;
-	
+
 	/**
 	 * Creates a new ExtremumAggregate.
 	 * Instead of using this constructor directly,
@@ -37,12 +37,12 @@ public final class ExtremumAggregate<E> extends Aggregate<E>
 		super(source, minimum?"min":"max", minimum?"min":"max");
 		this.minimum = minimum;
 	}
-	
+
 	public final boolean isMinimum()
 	{
 		return minimum;
 	}
-	
+
 	public final boolean isMaximum()
 	{
 		return !minimum;

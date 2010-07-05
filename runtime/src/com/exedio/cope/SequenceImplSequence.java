@@ -37,7 +37,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.connectionPool = connectionPool;
 		this.name = database.makeName(column.table.id + '_' + column.id + "_Seq");
 	}
-	
+
 	public void makeSchema(final Schema schema)
 	{
 		new Sequence(schema, name, start);
@@ -57,7 +57,7 @@ final class SequenceImplSequence implements SequenceImpl
 				connectionPool.put(connection);
 		}
 	}
-	
+
 	public int getNext()
 	{
 		Connection connection = null;
@@ -72,7 +72,7 @@ final class SequenceImplSequence implements SequenceImpl
 				connectionPool.put(connection);
 		}
 	}
-	
+
 	public void flush()
 	{
 		// empty

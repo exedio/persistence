@@ -44,11 +44,11 @@ public class MediaSubTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
-	
+
 	public void testIt() throws IOException
 	{
 		// test model
-		
+
 		assertEquals(false, item.image.isInitial());
 		assertEquals(false, item.image.isFinal());
 		assertEquals(false, item.image.isMandatory());
@@ -69,7 +69,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(Media.DEFAULT_LENGTH, body.getMaximumLength());
 		assertEquals(item.image, body.getPattern());
 		assertSame(item.image, Media.get(body));
-		
+
 		final StringField contentType = (StringField)item.image.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("image-minor", contentType.getName());
@@ -79,7 +79,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(30, contentType.getMaximumLength());
-		
+
 		final DateField lastModified = item.image.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
 		assertEquals("image-lastModified", lastModified.getName());
@@ -87,7 +87,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		
+
 		final CheckConstraint unison = item.image.getUnison();
 		assertSame(item.TYPE, unison.getType());
 		assertEquals("image-unison", unison.getName());
@@ -103,9 +103,9 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),     item.image.contentTypeEqual(null));
 		assertNotNull(item.image.bodyMismatchesContentType());
-		
+
 		// test persistence
-		
+
 		assertNull();
 
 		item.setImage(stream(data4), "image/image-minor");
@@ -149,7 +149,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		item.setImage((InputStream)null, null);
 		assertNull();
 	}
-	
+
 	private void assertNull()
 	{
 		assertTrue(item.isImageNull());
@@ -158,7 +158,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(null, item.getImageContentType());
 		assertEquals(null, item.getImageURL());
 	}
-	
+
 	private void assertContent(
 			final byte[] expectedData,
 			final String expectedContentType, final String expectedExtension)

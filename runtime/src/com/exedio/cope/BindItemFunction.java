@@ -22,7 +22,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	implements ItemFunction<E>
 {
 	final ItemFunction<E> itemFunction;
-	
+
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
@@ -33,12 +33,12 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		super(function, join);
 		this.itemFunction = function;
 	}
-	
+
 	public Type<E> getValueType()
 	{
 		return itemFunction.getValueType();
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -47,7 +47,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	{
 		itemFunction.appendType(bf, this.join);
 	}
-	
+
 	public boolean needsCheckTypeColumn()
 	{
 		return itemFunction.needsCheckTypeColumn();
@@ -57,19 +57,19 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	{
 		return itemFunction.checkTypeColumn();
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public CompareFunctionCondition equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
-	
+
 	public CompareFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
-	
+
 	/**
 	 * Return this.
 	 * It makes no sense wrapping a BindFunction into another BindFunction,
@@ -80,7 +80,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	{
 		return this;
 	}
-	
+
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, false, type1);
@@ -105,7 +105,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	{
 		return new InstanceOfCondition<E>(this, false, types);
 	}
-	
+
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, true, type1);
@@ -160,7 +160,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	{
 		return instanceOf(types);
 	}
-	
+
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1)
 	{

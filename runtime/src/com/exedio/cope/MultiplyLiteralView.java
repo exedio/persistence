@@ -21,10 +21,10 @@ package com.exedio.cope;
 public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final NumberFunction<E> left;
 	private final E right;
-	
+
 	/**
 	 * Creates a new MultiplyView.
 	 * Instead of using this constructor directly,
@@ -34,14 +34,14 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
 	{
 		super(new Function[]{left}, "multiply", left.getValueClass());
-		
+
 		if(right==null)
 			throw new NullPointerException("right");
-		
+
 		this.left = left;
 		this.right = right;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

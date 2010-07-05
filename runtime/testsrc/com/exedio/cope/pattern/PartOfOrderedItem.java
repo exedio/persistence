@@ -27,13 +27,13 @@ public class PartOfOrderedItem extends Item
 {
 	static final ItemField<PartOfContainerItem> container = newItemField(PartOfContainerItem.class, CASCADE).toFinal();
 	static final IntegerField order = new IntegerField();
-	
+
 	static final PartOf<PartOfContainerItem> partsOrdered = PartOf.newPartOf(container, order);
 
 	static final StringField partString = new StringField();
 	static final IntegerField partInteger = new IntegerField();
-	
-	
+
+
 	/**
 
 	 **

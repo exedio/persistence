@@ -41,10 +41,10 @@ import java.util.Arrays;
 public class MediaImageMagickFilter extends MediaFilter
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
 	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
-	
+
 	private static final String DEFAULT_COMMAND_BINARY = "convert";
 	// private static final String COMMAND_BINARY = "C:\\Programme\\ImageMagick-6.3.7-Q16\\convert.exe";
 
@@ -75,10 +75,10 @@ public class MediaImageMagickFilter extends MediaFilter
 			return convertCommand;
 		}
 	}
-	
-	
+
+
 	private static final HashMap<String,String> supportedContentTypes = new HashMap<String,String>();
-	
+
 	static
 	{
 		supportedContentTypes.put("image/jpeg",  ".jpg");
@@ -87,7 +87,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		supportedContentTypes.put("image/x-png", ".png");
 		supportedContentTypes.put("image/gif",   ".gif");
 	}
-	
+
 	private final Media source;
 	private final MediaImageioFilter fallback;
 	private final String outputContentType;
@@ -98,7 +98,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		this(source, fallback, "image/jpeg", options);
 	}
-	
+
 	public MediaImageMagickFilter(
 			final Media source,
 			final MediaImageioFilter fallback,
@@ -111,7 +111,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		this.outputContentType = outputContentType;
 		this.outputExtension = supportedContentTypes.get(outputContentType);
 		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
-		
+
 		if(fallback==null)
 			throw new RuntimeException(); // TODO test
 		if(outputContentType==null)
@@ -131,16 +131,16 @@ public class MediaImageMagickFilter extends MediaFilter
 			addComment("Returns the body of {0}.").
 			setReturn(byte[].class).
 			addThrows(IOException.class));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(supportedContentTypes.keySet());
 	}
-	
+
 	public final String getOutputContentType()
 	{
 		return outputContentType;
@@ -162,14 +162,14 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		if(!isEnabled())
 			return fallback.doGetIfModified(response, item);
-		
+
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return isNull;
-		
+
 		if(!supportedContentTypes.containsKey(contentType))
 			return notComputable;
-		
+
 		final File outFile = execute(item);
 
 		final long contentLength = outFile.length();
@@ -177,9 +177,9 @@ public class MediaImageMagickFilter extends MediaFilter
 			throw new RuntimeException(String.valueOf(contentLength));
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
-		
+
 		response.setContentType(outputContentType);
-		
+
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		FileInputStream body = null;
 		try
@@ -189,10 +189,10 @@ public class MediaImageMagickFilter extends MediaFilter
 			try
 			{
 				out = response.getOutputStream();
-	
+
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
-	
+
 				return delivered;
 			}
 			finally
@@ -213,14 +213,14 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		if(!isEnabled())
 			return fallback.get(item);
-		
+
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return null;
-		
+
 		if(!supportedContentTypes.containsKey(contentType))
 			return null;
-		
+
 		final File outFile = execute(item);
 
 		final long contentLength = outFile.length();
@@ -228,9 +228,9 @@ public class MediaImageMagickFilter extends MediaFilter
 			throw new RuntimeException(String.valueOf(contentLength));
 		if(contentLength>=Integer.MAX_VALUE)
 			throw new RuntimeException("too large");
-		
+
 		final byte[] result = new byte[(int)contentLength];
-		
+
 		FileInputStream body = null;
 		try
 		{
@@ -247,7 +247,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		return result;
 	}
-	
+
 	private final File execute(final Item item) throws IOException
 	{
 		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");
@@ -261,13 +261,13 @@ public class MediaImageMagickFilter extends MediaFilter
 		command[command.length-2] = inFile.getAbsolutePath();
 		command[command.length-1] = outFile.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
-		
+
 		final ProcessBuilder processBuilder = new ProcessBuilder(command);
-		
+
 		source.getBody(item, inFile);
 		final Process process = processBuilder.start();
 		try { process.waitFor(); } catch(InterruptedException e) { throw new RuntimeException(toString(), e); }
-		
+
 		// IMPLEMENTATION NOTE
 		// Without the following three lines each run of this code will leave
 		// three open file descriptors in the system. Using utility "lsof"
@@ -278,7 +278,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		process.getInputStream ().close();
 		process.getOutputStream().close();
 		process.getErrorStream ().close();
-		
+
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 			throw new RuntimeException(
@@ -294,14 +294,14 @@ public class MediaImageMagickFilter extends MediaFilter
 							"not \\Windows\\system32\\convert.exe is called)"
 						: ""
 					) );
-		
+
 		delete(inFile);
-		
+
 		return outFile;
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #isEnabled()} instead
 	 */
@@ -310,7 +310,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		return isEnabled();
 	}
-	
+
 	/**
 	 * @deprecated Is no longer supported and returns an empty string.
 	 */

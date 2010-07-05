@@ -63,11 +63,11 @@ import com.exedio.cope.misc.ServletUtil;
 public final class MediaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();
-	
+
 	@Override
 	public void init() throws ServletException
 	{
@@ -86,7 +86,7 @@ public final class MediaServlet extends HttpServlet
 					final String typeID = path.getType().getID();
 					final String pathName = path.getName();
 					pathes.put(typeID + '/' + pathName, path);
-					
+
 					final RedirectFrom typeRedirectFrom = getAnnotationRedirectFrom(type, path);
 					if(typeRedirectFrom!=null)
 					{
@@ -99,7 +99,7 @@ public final class MediaServlet extends HttpServlet
 						for(final String featureRedirectFromValue : featureRedirectFrom.value())
 						{
 							put(pathesRedirectFrom, typeID + '/' + featureRedirectFromValue, path);
-						
+
 							if(typeRedirectFrom!=null)
 							{
 								for(final String typeRedirectFromValue : typeRedirectFrom.value())
@@ -111,20 +111,20 @@ public final class MediaServlet extends HttpServlet
 			}
 		}
 	}
-	
+
 	private static final void put(final HashMap<String, MediaPath> map, final String key, final MediaPath value)
 	{
 		final MediaPath collision = map.put(key, value);
 		if(collision!=null)
 			throw new RuntimeException("colliding path " + key + ':' + value + '/' + collision);
 	}
-	
+
 	private static final RedirectFrom getAnnotationRedirectFrom(final Type<?> type, final MediaPath path)
 	{
 		final RedirectFrom result = type.getAnnotation(RedirectFrom.class);
 		if(result==null)
 			return result;
-		
+
 		if(path.isUrlGuessingPrevented())
 		{
 			System.out.println(
@@ -137,7 +137,7 @@ public final class MediaServlet extends HttpServlet
 					", but not for other medias of " + type.getID() + ".");
 			return null;
 		}
-		
+
 		return result;
 	}
 
@@ -159,10 +159,10 @@ public final class MediaServlet extends HttpServlet
 		final Media.Log log = serveContent(request, response);
 		log.increment();
 		serveError(response, log);
-		
+
 		// TODO make 500 error page without stack trace
 	}
-		
+
 	private void serveError(
 			final HttpServletResponse response,
 			final Media.Log log)
@@ -170,15 +170,15 @@ public final class MediaServlet extends HttpServlet
 	{
 		if(log.responseStatus==HttpServletResponse.SC_OK || log.responseStatus==HttpServletResponse.SC_MOVED_PERMANENTLY) // TODO introduce explicit boolean on Log
 			return;
-		
+
 		response.setStatus(log.responseStatus);
 		response.setContentType("text/html");
-		
+
 		PrintStream out = null;
 		try
 		{
 			out = new PrintStream(response.getOutputStream());
-			
+
 			switch(log.responseStatus)
 			{
 				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
@@ -193,7 +193,7 @@ public final class MediaServlet extends HttpServlet
 							"</body>\n" +
 							"</html>\n");
 					break;
-	
+
 				case HttpServletResponse.SC_NOT_FOUND:
 					out.print("<html>\n" +
 							"<head>\n" +
@@ -208,7 +208,7 @@ public final class MediaServlet extends HttpServlet
 							"</body>\n" +
 							"</html>\n");
 					break;
-				
+
 				default:
 					throw new RuntimeException(String.valueOf(log.responseStatus));
 			}
@@ -219,7 +219,7 @@ public final class MediaServlet extends HttpServlet
 				out.close();
 		}
 	}
-	
+
 	private Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -259,10 +259,10 @@ public final class MediaServlet extends HttpServlet
 					append(alt.getName()).
 					append(pathInfo.substring(slash2));
 				//System.out.println("location="+location);
-				
+
 				response.setStatus(response.SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
-				
+
 				return alt.redirectFrom;
 			}
 			return MediaPath.noSuchPath;
@@ -284,9 +284,9 @@ public final class MediaServlet extends HttpServlet
 			return path.exception;
 		}
 	}
-	
+
 	private static final String RESPONSE_LOCATION = "Location";
-	
+
 	private static void printHeader(final HttpServletRequest request, final String name)
 	{
 		final String value = request.getHeader(name);

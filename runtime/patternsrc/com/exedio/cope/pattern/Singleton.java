@@ -32,30 +32,30 @@ import com.exedio.cope.misc.ComputedElement;
 public final class Singleton extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final int THE_ONE = 42;
 	private static final Integer THE_ONE_OBJECT = Integer.valueOf(THE_ONE);
-	
+
 	private final IntegerField source =
 		new IntegerField().toFinal().unique().
 				defaultTo(THE_ONE_OBJECT).range(THE_ONE, THE_ONE+1);
-	
+
 	public Singleton()
 	{
 		addSource(source, "once", ComputedElement.get());
 	}
-	
+
 	public IntegerField getSource()
 	{
 		return source;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("instance").
 			addComment("Gets the single instance of {2}.").
@@ -63,10 +63,10 @@ public final class Singleton extends Pattern
 			setMethodWrapperPattern("instance").
 			setStatic().
 			setReturn(Wrapper.ClassVariable.class, "never returns null."));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public final <P extends Item> P instance(final Class<P> typeClass)
 	{
 		final Type<P> type = getType().as(typeClass);

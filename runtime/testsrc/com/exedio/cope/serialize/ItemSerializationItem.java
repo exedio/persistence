@@ -30,8 +30,8 @@ class ItemSerializationItem extends Item
 	static final StringField name = new StringField().optional();
 	static final StringField name2 = new StringField().optional();
 	static final ListField<String> list = ListField.newList(new StringField());
-	
-	
+
+
 	/**
 
 	 **

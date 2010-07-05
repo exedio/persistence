@@ -79,7 +79,7 @@ public class ServletUtilTest extends CopeAssert
 				new MockFilter(), new MockFilterConfig("com.exedio.cope.misc.ServletUtilTest#modelNull", "nameNull"),
 				"nameNull", ", init-param model: field com.exedio.cope.misc.ServletUtilTest#modelNull is null.");
 	}
-	
+
 	private static final void assertIt(
 			final Model model,
 			final String tokenName,
@@ -93,7 +93,7 @@ public class ServletUtilTest extends CopeAssert
 				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')',
 				token.getName());
 	}
-	
+
 	private static final void assertIt(
 			final Model model,
 			final String tokenName,
@@ -108,7 +108,7 @@ public class ServletUtilTest extends CopeAssert
 				"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')',
 				token.getName());
 	}
-	
+
 	private static final void assertFails(
 			final MockServlet servlet,
 			final String name,
@@ -127,7 +127,7 @@ public class ServletUtilTest extends CopeAssert
 				message, e.getMessage());
 		}
 	}
-	
+
 	private static final void assertFails(
 			final MockFilter filter,
 			final MockFilterConfig config,
@@ -147,16 +147,16 @@ public class ServletUtilTest extends CopeAssert
 					message, e.getMessage());
 		}
 	}
-	
+
 	private static class MockServlet implements Servlet
 	{
 		final ServletConfig config;
-		
+
 		MockServlet(final String model, final String name)
 		{
 			assert model!=null;
 			assert name!=null;
-			
+
 			this.config = new ServletConfig()
 			{
 				public ServletContext getServletContext()
@@ -211,14 +211,14 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException();
 		}
 	}
-	
+
 	private static class MockFilter implements Filter
 	{
 		MockFilter()
 		{
 			// just make it package private
 		}
-		
+
 		public void destroy()
 		{
 			throw new RuntimeException();
@@ -284,7 +284,7 @@ public class ServletUtilTest extends CopeAssert
 	private static class MockServletContext implements ServletContext
 	{
 		final String model;
-		
+
 		MockServletContext(final String model)
 		{
 			this.model = model;

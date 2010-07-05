@@ -26,7 +26,7 @@ public class ThumbnailMagickItem extends Item
 
 	static final MediaImageMagickThumbnail thumb = new MediaImageMagickThumbnail(file, 20, 30);
 	static final MediaImageMagickThumbnail thumbFull = new MediaImageMagickThumbnail(file, 20, 30).density(300).flatten("white");
-	
+
 	/**
 
 	 **

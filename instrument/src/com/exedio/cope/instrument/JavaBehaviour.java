@@ -32,19 +32,19 @@ import java.util.List;
  */
 abstract class JavaBehaviour extends JavaFeature
 {
-	
+
 	/**
 	 * Contains subsequently parameter types and names.
 	 */
 	protected final ArrayList<String> parameters=new ArrayList<String>();
-	
+
 	protected final List<String> unmodifiableParameters=Collections.unmodifiableList(parameters);
-	
+
 	/**
 	 * Contains all names given in the &quot;throws&quot; clause.
 	 */
 	private final ArrayList<String> throwables = new ArrayList<String>();
-	
+
 	JavaBehaviour(
 						final JavaClass parent,
 						final int modifiers,
@@ -55,21 +55,21 @@ abstract class JavaBehaviour extends JavaFeature
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);
 	}
-	
+
 	void addParameter(String paramtype, String paramname)
 	{
 		parameters.add(paramtype);
 		parameters.add(paramname);
 	}
-	
+
 	final List<String> getParameters()
 	{
 		return unmodifiableParameters;
 	}
-	
+
 	final void addThrowable(String throwable)
 	{
 		throwables.add(throwable);
 	}
-	
+
 }

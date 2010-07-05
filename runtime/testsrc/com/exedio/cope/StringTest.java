@@ -32,7 +32,7 @@ public class StringTest extends TestmodelTest
 	String emptyString;
 	StringItem item, item2;
 	int numberOfItems;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -43,7 +43,7 @@ public class StringTest extends TestmodelTest
 		item2 = deleteOnTearDown(new StringItem("StringTest2"));
 		numberOfItems = 2;
 	}
-	
+
 	public void testStrings()
 	{
 		// test model
@@ -69,18 +69,18 @@ public class StringTest extends TestmodelTest
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
 		assertEquals(null, item.min4Max8.getCharSet());
-		
+
 		assertEquals(6, item.exact6.getMinimumLength());
 		assertEquals(6, item.exact6.getMaximumLength());
 		assertEquals(null, item.exact6.getCharSet());
-		
+
 		assertEquals(0, item.lowercase.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.lowercase.getMaximumLength());
 		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharSet());
-		
+
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());
-		
+
 		{
 			final StringField orig = new StringField().optional();
 			assertEquals(false, orig.isFinal());
@@ -101,7 +101,7 @@ public class StringTest extends TestmodelTest
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
-			
+
 			final StringField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -116,7 +116,7 @@ public class StringTest extends TestmodelTest
 			assertNotNull(orig.getImplicitUniqueConstraint());
 			assertEquals(20, orig.getMinimumLength());
 			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
-			
+
 			final StringField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -130,14 +130,14 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, orig.isMandatory());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
-			
+
 			final StringField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(20, copy.getMaximumLength());
 		}
-		
+
 		assertWrongLength(-1, 20, "mimimum length must be positive, but was -1.");
 		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
 		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
@@ -202,13 +202,13 @@ public class StringTest extends TestmodelTest
 					e.getMessage());
 		}
 		item.min4.check("1234");
-		
+
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
 		item.setAny("123");
 		assertEquals("123", item.getAny());
-		
+
 		// standard tests
 		item.setAny(null);
 		assertString(item, item2, item.any);
@@ -217,7 +217,7 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.oracleNoCLOB);
 		assertString(item, item2, item.oracleCLOB);
 		assertStringSet(item, item.max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
-		
+
 		{
 			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));
 			numberOfItems++;
@@ -225,13 +225,13 @@ public class StringTest extends TestmodelTest
 			restartTransaction();
 			assertEquals(emptyString, itemEmptyInit.getAny());
 		}
-		
+
 		// mandatory
 		assertEquals("StringTest", item.getMandatory());
-	
+
 		item.setMandatory("someOtherString");
 		assertEquals("someOtherString", item.getMandatory());
-	
+
 		try
 		{
 			item.setMandatory(null);
@@ -245,7 +245,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
 		}
 		assertEquals("someOtherString", item.getMandatory());
-	
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -260,7 +260,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -275,7 +275,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		// mandatory and empty string
 		try
 		{
@@ -294,7 +294,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
 			assertEquals("someOtherString", item.getMandatory());
 		}
-		
+
 		StringItem item3 = null;
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
@@ -315,7 +315,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		// min4
 		try
 		{
@@ -512,7 +512,7 @@ public class StringTest extends TestmodelTest
 		assertEquals("123456", item.getExact6());
 		restartTransaction();
 		assertEquals("123456", item.getExact6());
-		
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -555,7 +555,7 @@ public class StringTest extends TestmodelTest
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		// lowercase
 		try
 		{
@@ -582,7 +582,7 @@ public class StringTest extends TestmodelTest
 		assertEquals("abcdef", item.getLowercase());
 		restartTransaction();
 		assertEquals("abcdef", item.getLowercase());
-		
+
 		model.checkUnsupportedConstraints();
 	}
 
@@ -599,7 +599,7 @@ public class StringTest extends TestmodelTest
 			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
 	}
-	
+
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
 	{
 		try
@@ -619,14 +619,14 @@ public class StringTest extends TestmodelTest
 		//System.err.println("---------------------"+length+"--start");
 		final char[] buf = new char[length];
 		//System.err.println("---------------------"+length+"--allocated");
-		
+
 		char val = 'A';
 		for(int i = 0; i<length; i+=segmentLength)
 			Arrays.fill(buf, i, Math.min(i+segmentLength, length), val++);
-		
+
 		final String lengthString = String.valueOf(length) + ':';
 		System.arraycopy(lengthString.toCharArray(), 0, buf, 0, Math.min(lengthString.length(), length));
-		
+
 		//System.err.println("---------------------"+length+"--copied");
 		final String result = new String(buf);
 		//System.err.println("---------------------"+length+"--stringed");
@@ -643,10 +643,10 @@ public class StringTest extends TestmodelTest
 		final String VALUE2 = VALUE+"2";
 		final String VALUE_UPPER = "SOMESTRING";
 		final String VALUE2_UPPER = "SOMESTRING2";
-		
+
 		final UppercaseView saup = sa.toUpperCase();
 		final LengthView saln = sa.length();
-		
+
 		assertEquals(null, sa.get(item));
 		assertEquals(null, saup.get(item));
 		assertEquals(null, saln.get(item));
@@ -654,7 +654,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(null, saup.get(item2));
 		assertEquals(null, saln.get(item2));
 		assertContains(item, item2, type.search(sa.isNull()));
-		
+
 		sa.set(item, VALUE);
 		assertEquals(VALUE, sa.get(item));
 		assertEquals(VALUE_UPPER, saup.get(item));
@@ -664,7 +664,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(VALUE2, sa.get(item2));
 		assertEquals(VALUE2_UPPER, saup.get(item2));
 		assertEquals(Integer.valueOf(VALUE2.length()), saln.get(item2));
-		
+
 		if(searchEnabled(sa))
 		{
 			assertContains(item, type.search(sa.equal(VALUE)));
@@ -673,18 +673,18 @@ public class StringTest extends TestmodelTest
 			assertContains(item, type.search(sa.like(VALUE)));
 			assertContains(item, item2, type.search(sa.like(VALUE+"%")));
 			assertContains(item2, type.search(sa.like(VALUE2+"%")));
-	
+
 			assertContains(item, type.search(saup.equal(VALUE_UPPER)));
 			assertContains(item2, type.search(saup.notEqual(VALUE_UPPER)));
 			assertContains(type.search(saup.equal(VALUE)));
 			assertContains(item, type.search(saup.like(VALUE_UPPER)));
 			assertContains(item, item2, type.search(saup.like(VALUE_UPPER+"%")));
 			assertContains(item2, type.search(saup.like(VALUE2_UPPER+"%")));
-			
+
 			assertContains(item, type.search(saln.equal(VALUE.length())));
 			assertContains(item2, type.search(saln.notEqual(VALUE.length())));
 			assertContains(type.search(saln.equal(VALUE.length()+2)));
-	
+
 			assertContains(VALUE, VALUE2, search(sa));
 			assertContains(VALUE, search(sa, sa.equal(VALUE)));
 			// TODO allow functions for select
@@ -695,7 +695,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(VALUE, sa.get(item));
 		assertEquals(VALUE_UPPER, saup.get(item));
 		assertEquals(Integer.valueOf(VALUE.length()), saln.get(item));
-		
+
 		{
 			sa.set(item, "");
 			assertEquals(emptyString, sa.get(item));
@@ -708,7 +708,7 @@ public class StringTest extends TestmodelTest
 				assertEquals(supports ? list(item) : list(), type.search(sa.equal("")));
 			}
 		}
-		
+
 		assertStringSet(item, sa, " trim "); // ensure that leading/trailing white space is not removed
 		assertStringSet(item, sa,
 			"Auml \u00c4; "
@@ -724,7 +724,7 @@ public class StringTest extends TestmodelTest
 			//+ "abreve \u0102; "
 			//+ "hebrew \u05d8 "
 			+ "euro \u20ac");
-		
+
 		// byte C5 in several encodings
 		assertStringSet(item, sa,
 			"Aringabove \u00c5;"       // ISO-8859-1/4/9/10 (Latin1/4/5/6)
@@ -734,7 +734,7 @@ public class StringTest extends TestmodelTest
 			+ "AlefHamzaBelow \u0625;" // ISO-8859-6 (Arabic)
 			+ "Epsilon \u0395;"        // ISO-8859-7 (Greek)
 			);
-		
+
 		// test SQL injection
 		// if SQL injection is not prevented properly,
 		// the following lines will throw a SQLException
@@ -755,11 +755,11 @@ public class StringTest extends TestmodelTest
 		assertEquals(null, saln.get(item2));
 		assertContains(item, item2, type.search(sa.isNull()));
 	}
-	
+
 	private void assertStringSet(final Item item, final StringField sa, final String value)
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
-		
+
 		final Type type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
@@ -770,7 +770,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(list(item), type.search(sa.equal(value)));
 			assertEquals(list(), type.search(sa.equal(value+"x")));
 		}
-		
+
 		// test length view
 		final Integer valueChars = value.length();
 		final String message;
@@ -785,17 +785,17 @@ public class StringTest extends TestmodelTest
 		assertEquals(message, valueChars, sa.length().get(item));
 		assertEquals(message, valueChars, new Query<Integer>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
 	}
-	
+
 	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
-	
+
 	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute, final Condition condition)
 	{
 		return new Query<Object>(selectAttribute, condition).search();
 	}
-	
+
 	// TODO should work without
 	private boolean searchEnabled(final StringField field)
 	{

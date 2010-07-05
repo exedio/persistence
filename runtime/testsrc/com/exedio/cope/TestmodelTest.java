@@ -27,12 +27,12 @@ import com.exedio.cope.testmodel.Main;
 public abstract class TestmodelTest extends AbstractRuntimeTest
 {
 	public static final Type[] modelTypes = Main.modelTypes;
-	
+
 	public TestmodelTest()
 	{
 		super(Main.model);
 	}
-	
+
 	protected void assertDataMime(final AttributeItem item,
 											final String contentType,
 											final byte[] data,
@@ -62,5 +62,5 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 		assertFalse(item1.getCopeID().equals(item2.getCopeID()));
 		assertFalse(item1.hashCode()==item2.hashCode());
 	}
-	
+
 }

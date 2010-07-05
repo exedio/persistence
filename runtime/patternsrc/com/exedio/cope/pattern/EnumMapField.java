@@ -31,7 +31,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Class<K> keyClass;
 	private final EnumMap<K, FunctionField<V>> fields;
 
@@ -47,12 +47,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 			fields.put(key, value);
 		}
 	}
-	
+
 	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
 	{
 		return new EnumMapField<K,V>(keyClass, value);
 	}
-	
+
 	public Class<K> getKeyClass()
 	{
 		return keyClass;
@@ -71,26 +71,26 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	{
 		return getField(key);
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final char KEY = 'k';
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
 			setReturn(Wrapper.TypeVariable1.class).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-		
+
 		result.add(
 			new Wrapper("set").
 			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
-		
+
 		return Collections.unmodifiableList(result);
 	}
 
@@ -107,7 +107,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		assertKey(key);
 		return fields.get(key).get(item);
 	}
-	
+
 	public void set(final Item item, final K key, final V value)
 	{
 		assertKey(key);

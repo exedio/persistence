@@ -78,20 +78,20 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("body[1]", e.getMessage());
 		}
-		
+
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
 		assertEquals(123, m.getNumber());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("R123:test-comment", m.toString());
 	}
-	
+
 	public void testCopy()
 	{
 		final String[] body = new String[]{"a", "b", "c"};
 		final Revision r = new Revision(5, "comment", body);
 		assertEquals(list("a", "b", "c"), r.getBody());
-		
+
 		body[0] = "x";
 		assertEquals(list("a", "b", "c"), r.getBody());
 	}

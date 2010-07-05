@@ -24,20 +24,20 @@ final class Intern
 	{
 		// prevent instantiation
 	}
-	
+
 	private static final boolean skip = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
-	
+
 	static
 	{
 		if(skip)
 			System.out.println("COPE: skipping String#intern()");
 	}
-	
+
 	static final String intern(final String s)
 	{
 		if(skip)
 			return s;
-		
+
 		final String result = s.intern();
 		//System.out.println("Model.intern >" + s + "< " + (result!=s ? "NEW" : "OLD"));
 		return result;

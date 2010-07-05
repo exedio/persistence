@@ -31,7 +31,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	InstanceOfAItem itema;
 	InstanceOfB1Item itemb1;
 	InstanceOfB2Item itemb2;
@@ -41,23 +41,23 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	InstanceOfRefItem reffb1;
 	InstanceOfRefItem reffb2;
 	InstanceOfRefItem reffc1;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		itema = deleteOnTearDown(new InstanceOfAItem("itema"));
 		itemb1 = deleteOnTearDown(new InstanceOfB1Item("itemb1"));
 		itemb2 = deleteOnTearDown(new InstanceOfB2Item("itemb2"));
 		itemc1 = deleteOnTearDown(new InstanceOfC1Item("itemc1"));
-		
+
 		reffa = deleteOnTearDown(new InstanceOfRefItem(itema));
 		reffb1 = deleteOnTearDown(new InstanceOfRefItem(itemb1));
 		reffb2 = deleteOnTearDown(new InstanceOfRefItem(itemb2));
 		reffc1 = deleteOnTearDown(new InstanceOfRefItem(itemc1));
 	}
-	
+
 	public void testIt()
 	{
 		// test ItemField#as
@@ -99,7 +99,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
 				e.getMessage());
 		}
-		
+
 		// test Type.getSubtypes()
 		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
 		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypes());
@@ -115,8 +115,8 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
-		
-		
+
+
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
@@ -137,9 +137,9 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(itema.TYPE));
 		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
 		assertCondition(reffc1, reffa.TYPE, reffa.ref.instanceOf(itemc1.TYPE));
-		
+
 		model.checkTypeColumns();
-		
+
 		// test self joins and inheritance
 		{
 			itemc1.setTextc1("textC1");
@@ -211,7 +211,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			assertEquals("types must not be empty", e.getMessage());
 		}
 	}
-	
+
 	public void testPolymorphicJoinCondition()
 	{
 		{
@@ -224,7 +224,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.refb2.equalTarget());
 			assertContains(q.search());
 		}
-		
+
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equalTarget());
@@ -258,7 +258,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			}
 		}
 	}
-	
+
 	@SuppressWarnings({"unchecked", "cast"})
 	public void testPolymorphicJoinConditionUnchecked()
 	{
@@ -268,7 +268,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			assertContains(q.search());
 		}
 	}
-	
+
 	public void testPolymorphicJoinCondition2()
 	{
 		{

@@ -106,7 +106,7 @@ public class AttributeItem extends Item
 	 * A mandatory boolean attribute
 	 */
 	public static final BooleanField someNotNullBoolean = new BooleanField();
-	
+
 	/**
 	 * An attribute referencing another persistent item
 	 */
@@ -131,7 +131,7 @@ public class AttributeItem extends Item
 	 * A data attribute.
 	 */
 	public static final Media someData = new Media().optional();
-	
+
 	/**
 	 * An enum for the persistent enumeration attribute {@link #someEnum}.
 	 */

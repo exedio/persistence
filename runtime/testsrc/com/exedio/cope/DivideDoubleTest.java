@@ -29,20 +29,20 @@ import static com.exedio.cope.DivideDoubleItem.numC;
 public class DivideDoubleTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(DivideDoubleTest.class, "MODEL");
 	}
-	
+
 	public DivideDoubleTest()
 	{
 		super(MODEL);
 	}
-	
+
 	DivideDoubleItem item;
 	DivideDoubleItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,7 +50,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new DivideDoubleItem(8.5, 2.5, 4.0));
 		item2 = deleteOnTearDown(new DivideDoubleItem(30.3, 4.4, 5.5));
 	}
-	
+
 	private static final double EPS = 0.000000000000005d;
 	private static final Double nA = Double.valueOf(8.5);
 	private static final Double nB = Double.valueOf(2.5);
@@ -58,7 +58,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 	private static final Double dAB = Double.valueOf(3.4);
 	private static final Double dAC = Double.valueOf(2.125);
 	private static final Double dBC = Double.valueOf(0.625);
-	
+
 	public void testSum()
 	{
 		// test model
@@ -71,19 +71,19 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(numA, numB), divideAB.getSources());
 		assertEqualsUnmodifiable(list(numA, numC), divideAC.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
-		
+
 		// test equals/hashCode
 		assertEquals(divideAB, divideAB);
 		assertEquals(divideAB, numA.divide(numB));
 		assertNotEquals(divideAB, numA.plus(numB));
 		assertNotEquals(divideAB, numA.multiply(numB));
 		assertNotEquals(divideAB, numB.divide(numA));
-		
+
 		// serialization
 		assertSerializedSame(divideAB, 382);
 		assertSerializedSame(divideAC, 382);
 		assertSerializedSame(divideBC, 382);
-		
+
 		// exceptions
 		try
 		{
@@ -117,7 +117,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(divideAB.equal(3.4)));
 		assertContains(item, TYPE.search(divideAC.between(2.125-EPS, 2.125+EPS)));
 		assertContains(item, TYPE.search(divideBC.equal(0.625)));
-		
+
 		// test null propagation
 		item.setNumA(null);
 

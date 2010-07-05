@@ -25,7 +25,7 @@ import com.exedio.cope.LongField;
 public class Sub extends Super
 {
 	public static final BooleanField subMandatory = new BooleanField();
-	
+
 	/**
 	 * @cope.initial
 	 */

@@ -26,7 +26,7 @@ public class NameSubItem extends NameLongItem
 	static final IntegerField integer = new IntegerField();
 	static final ItemField<NameSubItem> item = newItemField(NameSubItem.class);
 	static final UniqueConstraint integers = new UniqueConstraint(integer, item);
-	
+
 	@CopeSchemaName("uniqueY")
 	@CopeSchemaType(dialect="hsqldb", type="int") // instead of integer
 	static final IntegerField uniqueX = new IntegerField().unique();
@@ -36,7 +36,7 @@ public class NameSubItem extends NameLongItem
 	static final ItemField<NameSubItem> itemX = newItemField(NameSubItem.class);
 	@CopeSchemaName("integersY")
 	static final UniqueConstraint integersX = new UniqueConstraint(integerX, itemX);
-	
+
 	/**
 
 	 **

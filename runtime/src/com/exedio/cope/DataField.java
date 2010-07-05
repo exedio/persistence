@@ -38,49 +38,49 @@ import com.exedio.cope.util.Hex;
 public final class DataField extends Field<DataField.Value>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final long maximumLength;
 
 	public static final long DEFAULT_LENGTH = 10*1000*1000;
-	
+
 	private DataField(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
 		super(isfinal, optional, Value.class);
 		this.maximumLength = maximumLength;
-		
+
 		if(maximumLength<=0)
 			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
 	}
-	
+
 	public DataField()
 	{
 		this(false, false, DEFAULT_LENGTH);
 	}
-	
+
 	@Override
 	public DataField toFinal()
 	{
 		return new DataField(true, optional, maximumLength);
 	}
-	
+
 	@Override
 	public DataField optional()
 	{
 		return new DataField(isfinal, true, maximumLength);
 	}
-	
+
 	public DataField lengthMax(final long maximumLength)
 	{
 		return new DataField(isfinal, optional, maximumLength);
 	}
-	
+
 	public long getMaximumLength()
 	{
 		return maximumLength;
 	}
-	
+
 	// second initialization phase ---------------------------------------------------
-	
+
 	private Model model;
 	private BlobColumn column;
 	private int bufferSizeDefault = -1;
@@ -95,15 +95,15 @@ public final class DataField extends Field<DataField.Value>
 		column = new BlobColumn(table, this, name, optional, maximumLength);
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault.intValue(), maximumLength);
 		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit.intValue(), maximumLength);
-		
+
 		return column;
 	}
-	
+
 	private static final int toInt(final long l)
 	{
 		return min(Integer.MAX_VALUE, l);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if either i or l is negative
 	 */
@@ -113,59 +113,59 @@ public final class DataField extends Field<DataField.Value>
 			throw new IllegalArgumentException("i must not be negative, but was " + i);
 		if(l<0)
 			throw new IllegalArgumentException("l must not be negative, but was " + l);
-		
+
 		return i<=l ? i : (int)l;
 	}
-	
+
 	@Override
 	public Class getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("isNull").
 			addComment("Returns, whether there is no data for field {0}.").
 			setReturn(boolean.class));
-		
+
 		result.add(
 			new Wrapper("getLength").
 			addComment("Returns the length of the data of the data field {0}.").
 			setReturn(long.class));
-			
+
 		result.add(
 			new Wrapper("getArray").
 			addComment("Returns the value of the persistent field {0}."). // TODO better text
 			setReturn(byte[].class));
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Writes the data of this persistent data field into the given stream.").
 			addThrows(IOException.class).
 			addParameter(OutputStream.class));
-			
+
 		result.add(
 			new Wrapper("get").
 			addComment("Writes the data of this persistent data field into the given file.").
 			addThrows(IOException.class).
 			addParameter(File.class));
-		
+
 		if(!isfinal)
 		{
 			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			
+
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for the persistent field {0}."). // TODO better text
 				addThrows(exceptions).
 				addParameter(Value.class));
-			
+
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for the persistent field {0}."). // TODO better text
@@ -178,7 +178,7 @@ public final class DataField extends Field<DataField.Value>
 				addThrows(exceptions).
 				addThrows(IOException.class).
 				addParameter(InputStream.class));
-			
+
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for the persistent field {0}."). // TODO better text
@@ -186,10 +186,10 @@ public final class DataField extends Field<DataField.Value>
 				addThrows(IOException.class).
 				addParameter(File.class));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * Returns, whether there is no data for this field.
 	 */
@@ -207,7 +207,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		return column.loadLength(model.currentTransaction().getConnection(), model.connect().executor, item);
 	}
-	
+
 	/**
 	 * Returns the data of this persistent data field.
 	 * Returns null, if there is no data for this field.
@@ -218,7 +218,7 @@ public final class DataField extends Field<DataField.Value>
 		final byte[] array = getArray(item);
 		return array!=null ? new ArrayValue(array) : null;
 	}
-	
+
 	/**
 	 * Returns the data of this persistent data field.
 	 * Returns null, if there is no data for this field.
@@ -227,7 +227,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		return column.load(model.currentTransaction().getConnection(), model.connect().executor, item);
 	}
-	
+
 	/**
 	 * Reads data for this persistent data field
 	 * and writes it into the given stream.
@@ -240,10 +240,10 @@ public final class DataField extends Field<DataField.Value>
 	{
 		if(data==null)
 			throw new NullPointerException();
-		
+
 		column.load(model.currentTransaction().getConnection(), model.connect().executor, item, data, this);
 	}
-	
+
 	/**
 	 * Reads data for this persistent data field
 	 * and writes it into the given file.
@@ -256,7 +256,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		if(data==null)
 			throw new NullPointerException();
-		
+
 		if(!isNull(item))
 		{
 			FileOutputStream target = null;
@@ -273,7 +273,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 		// TODO maybe file should be deleted when field is null?
 	}
-	
+
 	/**
 	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
@@ -297,10 +297,10 @@ public final class DataField extends Field<DataField.Value>
 		{
 			checkNotNull(data, item);
 		}
-		
+
 		column.store(model.currentTransaction().getConnection(), model.connect().executor, item, data, this);
 	}
-	
+
 	/**
 	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
@@ -313,7 +313,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		set(item, toValue(data));
 	}
-	
+
 	/**
 	 * Provides data for this persistent data field.
 	 * Closes <data>data</data> after reading the contents of the stream.
@@ -329,7 +329,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		set(item, toValue(data));
 	}
-	
+
 	/**
 	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
@@ -344,7 +344,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		set(item, toValue(data));
 	}
-	
+
 	/**
 	 * Returns null, if <code>array</code> is null.
 	 */
@@ -352,7 +352,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		return array!=null ? new ArrayValue(array) : null;
 	}
-	
+
 	/**
 	 * Returns null, if <code>stream</code> is null.
 	 */
@@ -360,7 +360,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		return stream!=null ? new StreamValue(stream) : null;
 	}
-	
+
 	/**
 	 * Returns null, if <code>file</code> is null.
 	 */
@@ -368,22 +368,22 @@ public final class DataField extends Field<DataField.Value>
 	{
 		return file!=null ? new FileValue(file) : null;
 	}
-	
+
 	public SetValue map(final byte[] array)
 	{
 		return map(toValue(array));
 	}
-	
+
 	public SetValue map(final InputStream stream)
 	{
 		return map(toValue(stream));
 	}
-	
+
 	public SetValue map(final File file)
 	{
 		return map(toValue(file));
 	}
-	
+
 	@Override
 	final void checkNotNull(final Value value, final Item item) throws MandatoryViolationException
 	{
@@ -396,17 +396,17 @@ public final class DataField extends Field<DataField.Value>
 	{
 		copy(in, out, bufferSizeDefault, exceptionItem);
 	}
-	
+
 	final void copy(final InputStream in, final OutputStream out, final long length, final Item exceptionItem) throws IOException
 	{
 		if(length==0)
 			return;
-		
+
 		assert length>0;
-		
+
 		final byte[] b = new byte[min(bufferSizeLimit, length)];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
-		
+
 		final long maximumLength = this.maximumLength;
 		long transferredLength = 0;
 		for(int len = in.read(b); len>=0; len = in.read(b))
@@ -414,32 +414,32 @@ public final class DataField extends Field<DataField.Value>
 			transferredLength += len;
 			if(transferredLength>maximumLength)
 				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
-			
+
 			out.write(b, 0, len);
 		}
 	}
-	
+
 	static final byte[] copy(final InputStream in, final long length)
 	{
 		try
 		{
 			if(length==0)
 				return new byte[]{};
-			
+
 			if(length>Integer.MAX_VALUE)
 				throw new RuntimeException("byte array cannot be longer than int");
-			
+
 			assert length>0;
-			
+
 			final byte[] result = new byte[toInt(length)];
 			final int readBytes = in.read(result);
 			if(readBytes!=length)
 				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes);
-				
+
 			final int tooManyBytes = in.read(new byte[1]);
 			if(tooManyBytes!=-1)
 				throw new RuntimeException("expected " + length + " bytes, but got more.");
-			
+
 			in.close();
 			return result;
 		}
@@ -459,7 +459,7 @@ public final class DataField extends Field<DataField.Value>
 			}
 		}
 	}
-	
+
 	public abstract static class Value
 	{
 		/**
@@ -475,14 +475,14 @@ public final class DataField extends Field<DataField.Value>
 		 * {@link File#length()} or {@link HttpURLConnection#getContentLength()}.
 		 */
 		abstract long estimateLength();
-		
+
 		abstract byte[] asArray(DataField field, Item exceptionItem); // TODO put this directly into statement
-		
+
 		@Override
 		public abstract String toString();
-		
+
 		boolean exhausted = false;
-		
+
 		protected final void assertNotExhausted()
 		{
 			if(exhausted)
@@ -492,38 +492,38 @@ public final class DataField extends Field<DataField.Value>
 			exhausted = true;
 		}
 	}
-	
+
 	public final static class ArrayValue extends Value
 	{
 		final byte[] array;
-		
+
 		ArrayValue(final byte[] array)
 		{
 			this.array = array;
 
 			assert array!=null;
 		}
-		
+
 		@Override
 		long estimateLength()
 		{
 			return array.length;
 		}
-		
+
 		@Override
 		byte[] asArray(final DataField field, final Item exceptionItem)
 		{
 			assertNotExhausted();
 			return array;
 		}
-		
+
 		public byte[] asArray()
 		{
 			return array;
 		}
-		
+
 		private static final int TO_STRING_LIMIT = 10;
-		
+
 		@Override
 		public String toString()
 		{
@@ -535,15 +535,15 @@ public final class DataField extends Field<DataField.Value>
 				bf.append("...(").
 					append(array.length).
 					append(')');
-			
+
 			return bf.toString();
 		}
 	}
-	
+
 	abstract static class AbstractStreamValue extends Value
 	{
 		abstract InputStream openStream() throws IOException;
-		
+
 		@Override
 		final byte[] asArray(final DataField field, final Item exceptionItem)
 		{
@@ -578,67 +578,67 @@ public final class DataField extends Field<DataField.Value>
 			return baos.toByteArray();
 		}
 	}
-	
+
 	final static class StreamValue extends AbstractStreamValue
 	{
 		private final InputStream stream;
-		
+
 		StreamValue(final InputStream stream)
 		{
 			this.stream = stream;
 
 			assert stream!=null;
 		}
-		
+
 		@Override
 		long estimateLength()
 		{
 			return -1;
 		}
-		
+
 		@Override
 		InputStream openStream()
 		{
 			return stream;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "DataField.Value:" + stream.toString();
 		}
 	}
-	
+
 	final static class FileValue extends AbstractStreamValue
 	{
 		private final File file;
-		
+
 		FileValue(final File file)
 		{
 			this.file = file;
 
 			assert file!=null;
 		}
-		
+
 		@Override
 		long estimateLength()
 		{
 			return file.length();
 		}
-		
+
 		@Override
 		InputStream openStream() throws FileNotFoundException
 		{
 			return new FileInputStream(file);
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "DataField.Value:" + file.toString();
 		}
 	}
-	
+
 	public StartsWithCondition startsWith(final byte[] value)
 	{
 		return new StartsWithCondition(this, value);

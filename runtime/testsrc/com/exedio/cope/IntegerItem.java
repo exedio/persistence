@@ -28,18 +28,18 @@ public class IntegerItem extends Item
 	public static final IntegerField any = new IntegerField().optional();
 
 	public static final IntegerField mandatory = new IntegerField();
-	
+
 	public static final IntegerField min4 = new IntegerField().optional().min(4);
 	public static final IntegerField max4 = new IntegerField().optional().max(4);
 	public static final IntegerField min4Max8 = new IntegerField().optional().range(4, 8);
-	
+
 	IntegerItem(final Integer mandatory) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			IntegerItem.mandatory.map(mandatory),
 		});
 	}
-	
+
 	/**
 	 * @param dummy is a dummy
 	 */
@@ -50,7 +50,7 @@ public class IntegerItem extends Item
 			IntegerItem.max4.map(max4),
 		});
 	}
-	
+
 	/**
 
 	 **

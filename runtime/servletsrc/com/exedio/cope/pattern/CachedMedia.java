@@ -29,11 +29,11 @@ import com.exedio.cope.Item;
 public abstract class CachedMedia extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-	
+
 	@Override
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -58,12 +58,12 @@ public abstract class CachedMedia extends MediaPath
 			if(request.getQueryString()!=null)
 				return notAnItem;
 		}
-		
+
 		final long lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)
 			return doGetIfModified(response, item);
-		
+
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
@@ -74,18 +74,18 @@ public abstract class CachedMedia extends MediaPath
 		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 		//System.out.println("ifModifiedSince="+ifModifiedSince);
-		
+
 		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
 		if(mediaOffsetExpires>0)
 			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
-		
+
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			//System.out.println("not modified");
 			response.setStatus(response.SC_NOT_MODIFIED);
-			
+
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-			
+
 			return notModified;
 		}
 		else
@@ -93,9 +93,9 @@ public abstract class CachedMedia extends MediaPath
 			return doGetIfModified(response, item);
 		}
 	}
-	
+
 	public abstract long getLastModified(Item item);
-	
+
 	/**
 	 * This method does not get the request as a parameter,
 	 * because the response of a cached media must depend

@@ -30,13 +30,13 @@ public final class RevisionInfoCreate extends RevisionInfo
 			final Map<String, String> environment)
 	{
 		super(number, date, environment);
-		
+
 		if(number<0)
 			throw new IllegalArgumentException("number must be greater or equal zero, but was " + number);
 	}
-	
+
 	private static final String CREATE = "create";
-	
+
 	@Override
 	Properties getStore()
 	{
@@ -44,7 +44,7 @@ public final class RevisionInfoCreate extends RevisionInfo
 		store.setProperty(CREATE, Boolean.TRUE.toString());
 		return store;
 	}
-	
+
 	static final RevisionInfoCreate read(
 			final int number,
 			final Date date,
@@ -53,7 +53,7 @@ public final class RevisionInfoCreate extends RevisionInfo
 	{
 		if(p.getProperty(CREATE)==null)
 			return null;
-		
+
 		return new RevisionInfoCreate(
 				number,
 				date,

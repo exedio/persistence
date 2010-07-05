@@ -27,30 +27,30 @@ import com.exedio.cope.util.Properties;
 final class ClusterConfig
 {
 	private static final String SECRET_NAME = "cluster.secret";
-	
+
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;
 	static final byte MAGIC2 = 0x11;
 	static final byte MAGIC3 = 0x11;
-	
+
 	static final int KIND_PING       = 0x00110001;
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
-	
+
 	final int secret;
 	final int node;
 	final boolean log;
 	final int packetSize;
 	final InetAddress group;
 	final byte[] pingPayload;
-	
+
 	static ClusterConfig get(final ConnectProperties properties)
 	{
 		final Properties.Source context = properties.getContext();
 		final String secretString = context.get(SECRET_NAME);
 		if(secretString==null)
 			return null;
-		
+
 		final int secret;
 		try
 		{
@@ -60,10 +60,10 @@ final class ClusterConfig
 		{
 			throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
 		}
-		
+
 		return new ClusterConfig(secret, new Random().nextInt(), properties);
 	}
-	
+
 	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;

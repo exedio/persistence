@@ -25,20 +25,20 @@ public final class Join
 		INNER("join "),
 		OUTER_LEFT("left join "),
 		OUTER_RIGHT("right join ");
-		
+
 		final String sql;
-		
+
 		Kind(final String sql)
 		{
 			this.sql = sql;
 		}
 	}
-	
+
 	final int index;
 	private final Kind kind;
 	final Type<?> type;
 	private Condition condition;
-	
+
 	Join(final int index, final Kind kind, final Type type, final Condition condition)
 	{
 		this.index = index;
@@ -51,28 +51,28 @@ public final class Join
 		if(type==null)
 			throw new NullPointerException("type");
 	}
-	
+
 	public void setCondition(final Condition condition)
 	{
 		this.condition = condition;
 	}
-	
+
 	public Kind getKind()
 	{
 		return kind;
 	}
-	
+
 	public Type getType()
 	{
 		return type;
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof Join))
 			return false;
-		
+
 		final Join o = (Join)other;
 		return
 			index==o.index &&
@@ -80,7 +80,7 @@ public final class Join
 			type==o.type &&
 			condition==null ? o.condition==null : condition.equals(o.condition);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -90,7 +90,7 @@ public final class Join
 			type.hashCode() ^
 			(condition==null ? 0 : condition.hashCode());
 	}
-	
+
 	@Override
 	public String toString()
 	{
@@ -106,7 +106,7 @@ public final class Join
 			append(type).
 			append(' ').
 			append(getToStringAlias());
-	
+
 		if(condition!=null)
 		{
 			bf.append(" on ");
@@ -118,23 +118,23 @@ public final class Join
 	{
 		return String.valueOf(Character.toLowerCase(type.id.charAt(0))) + (index+1);
 	}
-	
+
 	void check(final TC tc)
 	{
 		final Condition condition = this.condition;
 		if(condition!=null)
 			condition.check(tc);
 	}
-	
+
 	void search(final Statement bf)
 	{
 		final Condition condition = this.condition;
-		
+
 		if(condition==null)
 		{
 			if(this.kind!=Join.Kind.INNER)
 				throw new RuntimeException("outer join must have join condition");
-			
+
 			bf.append(" cross join ");
 		}
 		else
@@ -142,9 +142,9 @@ public final class Join
 			bf.append(' ').
 				append(this.kind.sql);
 		}
-		
+
 		bf.appendTypeDefinition(this, this.type);
-		
+
 		if(condition!=null)
 		{
 			bf.append(" on ");

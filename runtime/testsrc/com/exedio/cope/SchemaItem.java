@@ -24,32 +24,32 @@ import com.exedio.cope.util.CharSet;
 class SchemaItem extends Item
 {
 	static final IntegerField nonFinalInteger = new IntegerField();
-	
+
 	static final StringField string = new StringField();
 	static final IntegerField integ = new IntegerField().range(-10, 10);
 	static final DoubleField doub = new DoubleField().range(-11.1, 11.1);
 	static final BooleanField bool = new BooleanField();
 	static final EnumField<SomeEnum> anEnum = newEnumField(SomeEnum.class);
 	static final ItemField<SchemaTargetItem> item = newItemField(SchemaTargetItem.class);
-	
+
 	static final StringField stringOpt = new StringField().optional();
 	static final IntegerField integOpt = new IntegerField().range(-10, 10).optional();
 	static final DoubleField doubOpt = new DoubleField().range(-11.1, 11.1).optional();
 	static final BooleanField boolOpt = new BooleanField().optional();
 	static final EnumField<SomeEnum> enumOpt = newEnumField(SomeEnum.class).optional();
 	static final ItemField<SchemaTargetItem> itemOpt = newItemField(SchemaTargetItem.class).optional();
-	
+
 	static final StringField uniqueString = new StringField().optional().unique();
 	static final UniqueConstraint doubleUnique = new UniqueConstraint(string, anEnum);
-	
+
 	static final StringField stringMin4 = new StringField().optional().lengthMin(4);
 	static final StringField stringMax4 = new StringField().optional().lengthMax(4);
 	static final StringField stringMin4Max8 = new StringField().optional().lengthRange(4, 8);
 	static final StringField stringExact6 = new StringField().optional().lengthExact(6);
 	static final StringField stringUpper6 = new StringField().optional().lengthExact(6).charSet(CharSet.ALPHA_UPPER);
-	
+
 	static final DataField data = new DataField().optional();
-	
+
 	/**
 
 	 **

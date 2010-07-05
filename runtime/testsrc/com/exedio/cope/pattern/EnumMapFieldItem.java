@@ -28,11 +28,11 @@ public class EnumMapFieldItem extends Item
 	{
 		DE, EN, PL;
 	}
-	
+
 	static final EnumMapField<Language, String> name = EnumMapField.newMap(Language.class, new StringField().optional());
-	
+
 	static final EnumMapField<Language, Integer> nameLength = EnumMapField.newMap(Language.class, new IntegerField().optional());
-	
+
 	/**
 
 	 **

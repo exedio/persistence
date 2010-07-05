@@ -25,12 +25,12 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 		super(CacheIsolationTest.MODEL);
 		skipTransactionManagement();
 	}
-	
+
 	private long commitWithoutConnectionStart;
 	private long commitWithConnectionStart;
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -41,7 +41,7 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 		rollbackWithoutConnectionStart = c.getRollbackWithoutConnection();
 		rollbackWithConnectionStart    = c.getRollbackWithConnection();
 	}
-	
+
 	public void testIt()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
@@ -59,13 +59,13 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 
 		model.commit();
 		assertIt(1, 1, 0, 0);
-		
+
 		model.startTransaction("emptyRollback");
 		assertIt(1, 1, 0, 0);
 
 		model.rollback();
 		assertIt(1, 1, 1, 0);
-		
+
 		model.startTransaction("nonemptyRollback");
 		new CacheIsolationItem("rollback");
 		assertIt(1, 1, 1, 0);
@@ -73,7 +73,7 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 		model.rollback();
 		assertIt(1, 1, 1, 1);
 	}
-	
+
 	private void assertIt(
 			final long commitWithoutConnection,
 			final long commitWithConnection,

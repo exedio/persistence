@@ -27,7 +27,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(TYPE, RawItem.TYPE);
-	
+
 	public RenamedPatternSchemaTest()
 	{
 		super(MODEL);
@@ -36,21 +36,21 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		
+
 		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
-		
+
 		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
 		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
 		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
 		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
-		
+
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
 		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
@@ -68,21 +68,21 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 	}
-	
+
 	private static class RawItem extends Item
 	{
 		@CopeSchemaName("zack")
 		static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
-		
+
 		static final RenamedSchemaPattern raw = new RenamedSchemaPattern();
-		
+
 		private RawItem(final com.exedio.cope.ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		private static final long serialVersionUID = 1l;
-		
+
 		static final com.exedio.cope.Type<RawItem> TYPE = com.exedio.cope.TypesBound.newType(RawItem.class);
 	}
 }

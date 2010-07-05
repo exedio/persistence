@@ -45,9 +45,9 @@ import com.exedio.cope.misc.Compare;
 public abstract class Item implements Serializable, Comparable<Item>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	static final char ID_SEPARATOR = '-';
-	
+
 	transient Type<? extends Item> type;
 
 	/**
@@ -55,7 +55,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * that is unique within the {@link #type} of this item.
 	 */
 	final int pk;
-	
+
 	/**
 	 * Returns a string unique for this item in all other items of the model.
 	 * For any item <tt>a</tt> in its model <tt>m</tt>
@@ -69,7 +69,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return type.id + ID_SEPARATOR + pk;
 	}
-	
+
 	/**
 	 * Returns the type of this item.
 	 * Never returns null.
@@ -108,16 +108,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return type.hashCode() ^ pk;
 	}
-	
+
 	public int compareTo(final Item other)
 	{
 		final int typeResult = type.compareTo(other.type);
 		if(typeResult!=0)
 			return typeResult;
-		
+
 		return Compare.compare(pk, other.pk);
 	}
-	
+
 	/**
 	 * Returns {@link #getCopeID()} as a default implementation
 	 * for all persistent classes.
@@ -153,7 +153,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return getEntity().getItem();
 	}
-	
+
 	protected Item(final SetValue... setValues)
 	{
 		this.type = TypesBound.forClass(getClass());
@@ -161,21 +161,21 @@ public abstract class Item implements Serializable, Comparable<Item>
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
-	
+
 	void doCreate(final LinkedHashMap<Field, Object> fieldValues)
 	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
-		
+
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, null);
 		entity.write(toBlobs(fieldValues, null));
-		
+
 		afterNewCopeItem();
 	}
-	
-	
+
+
 	/**
 	 * Is called after every item creation.
 	 * Override this method when needed.
@@ -185,7 +185,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		// empty default implementation
 	}
-	
+
 	/**
 	 * Activation constructor.
 	 * Is used for internal purposes only.
@@ -202,9 +202,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 		assert PK.isValid(pk) : pk;
 	}
-	
+
 	// serialization -------------
-	
+
 	/**
 	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
@@ -212,26 +212,26 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return type.isBound() ? this : new Serialized(type, pk);
 	}
-	
+
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
 		type = TypesBound.forClass(getClass());
 	}
-	
+
 	private static final class Serialized implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private final Type type;
 		private final int pk;
-		
+
 		Serialized(final Type type, final int pk)
 		{
 			this.type = type;
 			this.pk = pk;
 		}
-		
+
 		/**
 		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
@@ -240,7 +240,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			return type.activate(pk);
 		}
 	}
-	
+
 	public final <E> E get(final Function<E> function)
 	{
 		return function.get(this);
@@ -264,14 +264,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 			ClassCastException
 	{
 		type.assertBelongs(field);
-		
+
 		if(field.isfinal)
 			throw new FinalViolationException(field, field, this);
 
 		field.check(value, this);
 
 		type.checkUniqueConstraints(this, Collections.singletonMap(field, value));
-		
+
 		final Entity entity = getEntity();
 		entity.put(field, value);
 		type.checkCheckConstraints(this, entity, this);
@@ -300,7 +300,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		{
 			final Field field = e.getKey();
 			type.assertBelongs(field);
-			
+
 			if(field.isfinal)
 				throw new FinalViolationException(field, field, this);
 
@@ -313,7 +313,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		type.checkCheckConstraints(this, entity, this);
 		entity.write(toBlobs(fieldValues, this));
 	}
-	
+
 	public final void deleteCopeItem() throws IntegrityViolationException
 	{
 		checkDeleteCopeItem(new HashSet<Item>());
@@ -324,7 +324,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			throws IntegrityViolationException
 	{
 		toDelete.add(this);
-		
+
 		for(final ItemField<?> field : type.getReferences())
 		{
 			switch(field.getDeletePolicy())
@@ -352,11 +352,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 		}
 	}
-		
+
 	private final void deleteCopeItem(final HashSet<Item> toDelete)
 	{
 		toDelete.add(this);
-		
+
 		//final String tostring = toString();
 		//System.out.println("------------delete:"+tostring);
 		// TODO make sure, no item is deleted twice
@@ -392,7 +392,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		entity.delete();
 		entity.write(null);
 	}
-	
+
 	/**
 	 * Returns, whether the item does exist.
 	 * There are two possibilities, why an item could not exist:
@@ -413,9 +413,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 			return false;
 		}
 	}
-	
+
 	// activation/deactivation -----------------------------------------------------
-	
+
 	private final Entity getEntity()
 	{
 		return getEntity(true);
@@ -430,7 +430,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return type.getModel().currentTransaction().getEntityIfActive(type, pk);
 	}
-	
+
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
@@ -448,57 +448,57 @@ public abstract class Item implements Serializable, Comparable<Item>
 		}
 		return result;
 	}
-	
+
 	private static final void putField(final LinkedHashMap<Field, Object> result, final SetValue<?> setValue)
 	{
 		if(result.put((Field)setValue.settable, setValue.value)!=null)
 			throw new RuntimeException("duplicate field " + setValue.settable.toString());
 	}
-	
+
 	private static final <X> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
-	
+
 	private static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
-		
+
 		for(final Field field : fieldValues.keySet())
 		{
 			if(!(field instanceof DataField))
 				continue;
-			
+
 			final DataField.Value value = (DataField.Value)fieldValues.get(field);
 			final DataField df = (DataField)field;
 			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
 		}
 		return result;
 	}
-	
+
 	// convenience for subclasses --------------------------------------------------
-	
+
 	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
-	
+
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return new EnumField<E>(valueClass);
 	}
-	
+
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return TypesBound.newItemField(valueClass);
 	}
-	
+
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return TypesBound.newItemField(valueClass, policy);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #newEnumField(Class)}.
 	 */
@@ -507,7 +507,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return newEnumField(valueClass);
 	}
-	
+
 	/**
 	 * @deprecated Renamed to {@link #newItemField(Class)}.
 	 */
@@ -516,7 +516,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return newItemField(valueClass);
 	}
-	
+
 	/**
 	 * @deprecated Renamed to {@link #newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)}.
 	 */
@@ -525,7 +525,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return newItemField(valueClass, policy);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link TypesBound#newType(Class)} instead.
 	 */

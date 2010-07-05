@@ -26,7 +26,7 @@ public class MatchTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	MatchItem item;
 
 	@Override
@@ -35,7 +35,7 @@ public class MatchTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MatchItem());
 	}
-	
+
 	public void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");

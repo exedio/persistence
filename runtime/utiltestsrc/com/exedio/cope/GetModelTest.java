@@ -31,7 +31,7 @@ public class GetModelTest extends CopeAssert
 	public void testIt()
 	{
 		assertSame(modelOk, Cope.getModel("com.exedio.cope.GetModelTest#modelOk"));
-		
+
 		try
 		{
 			Cope.getModel("zick");
@@ -92,7 +92,7 @@ public class GetModelTest extends CopeAssert
 			assertEquals("field com.exedio.cope.GetModelTest#modelNoModel is not a model, but a java.lang.String.", e.getMessage());
 		}
 	}
-	
+
 	static class ModelOk extends Item
 	{
 	/**

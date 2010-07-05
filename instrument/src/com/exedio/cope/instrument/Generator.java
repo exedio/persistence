@@ -54,7 +54,7 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
-	
+
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = "It can be customized with the tags " +
@@ -97,7 +97,7 @@ final class Generator
 	 * All generated class features get this doccomment tag.
 	 */
 	static final String TAG_GENERATED = CopeFeature.TAG_PREFIX + "generated";
-	
+
 
 	private final JavaFile javaFile;
 	private final Writer o;
@@ -107,13 +107,13 @@ final class Generator
 	private final String finalArgPrefix;
 	private final boolean serialVersionUID;
 	private final boolean skipDeprecated;
-	
-	
+
+
 	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final Params params)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
-		
+
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
 		{
@@ -122,19 +122,19 @@ final class Generator
 		}
 		else
 			lineSeparator = systemLineSeparator;
-		
+
 		this.longJavadoc = params.longJavadoc;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.serialVersionUID = params.serialVersionUID;
 		this.skipDeprecated = !params.createDeprecated;
 	}
-	
+
 	void close() throws IOException
 	{
 		if(o!=null)
 			o.close();
 	}
-	
+
 	long getCRC()
 	{
 		return outputCRC.getValue();
@@ -157,7 +157,7 @@ final class Generator
 		else
 			return Character.toLowerCase(first) + s.substring(1);
 	}
-	
+
 	private void writeThrowsClause(final Collection<Class<? extends Throwable>> exceptions)
 	throws IOException
 	{
@@ -197,7 +197,7 @@ final class Generator
 	{
 		writeCommentFooter(null);
 	}
-	
+
 	private void writeCommentFooter(final String extraComment)
 	throws IOException
 	{
@@ -213,7 +213,7 @@ final class Generator
 		o.write("\t */");
 		o.write(lineSeparator);
 	}
-	
+
 	private static final String link(final String target)
 	{
 		return "{@link #" + target + '}';
@@ -227,7 +227,7 @@ final class Generator
 
 		final List<CopeFeature> initialFeatures = type.getInitialFeatures();
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
-		
+
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_INITIAL, type.name));
@@ -245,7 +245,7 @@ final class Generator
 			final ConstructorComment a = constructorException.getAnnotation(ConstructorComment.class);
 			if(a==null)
 				continue;
-			
+
 			o.write("\t * @throws ");
 			o.write(constructorException.getCanonicalName());
 			o.write(' ');
@@ -269,12 +269,12 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		
+
 		o.write('\t');
 		writeModifier(type.getInitialConstructorModifier());
 		o.write(type.name);
 		o.write('(');
-		
+
 		boolean first = true;
 		for(final CopeFeature feature : initialFeatures)
 		{
@@ -282,7 +282,7 @@ final class Generator
 				first = false;
 			else
 				o.write(',');
-			
+
 			o.write(lineSeparator);
 			o.write("\t\t\t\t");
 			o.write(finalArgPrefix);
@@ -290,7 +290,7 @@ final class Generator
 			o.write(' ');
 			o.write(feature.name);
 		}
-		
+
 		o.write(')');
 		o.write(lineSeparator);
 		writeThrowsClause(constructorExceptions);
@@ -313,7 +313,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
-	
+
 	private void writeGenericConstructor(final CopeType type)
 	throws IOException
 	{
@@ -326,7 +326,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC, type.name));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		
+
 		o.write('\t');
 		writeModifier(option.getModifier(type.allowSubtypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
@@ -340,13 +340,13 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
-	
+
 	private void writeActivationConstructor(final CopeType type)
 	throws IOException
 	{
 		if(type.isComposite)
 			return;
-		
+
 		final Option option = type.activationConstructorOption;
 		if(!option.exists)
 			return;
@@ -358,7 +358,7 @@ final class Generator
 		o.write("\t * @see " + ITEM + "#Item(" + ACTIVATION + ")");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		
+
 		final boolean allowSubtypes = type.allowSubtypes();
 		o.write('\t');
 		if(!allowSubtypes)
@@ -375,7 +375,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
-	
+
 	private void writeFeature(final CopeFeature feature)
 	throws InjectorParseException, IOException
 	{
@@ -385,7 +385,7 @@ final class Generator
 			final boolean deprecated = wrapper.isDeprecated();
 			if(deprecated && skipDeprecated)
 				continue;
-			
+
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
@@ -395,7 +395,7 @@ final class Generator
 									CopeFeature.TAG_PREFIX + modifierTag),
 						true)
 				: null;
-			
+
 			if(option!=null && !option.exists)
 				continue;
 
@@ -407,7 +407,7 @@ final class Generator
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
-			
+
 			final Object[] arguments = new String[]{
 					link(feature.name),
 					feature.name,
@@ -474,14 +474,14 @@ final class Generator
 						"in the comment of the field."
 					: null);
 			}
-			
+
 			if(deprecated)
 			{
 				o.write('\t');
 				o.write("@Deprecated");
 				o.write(lineSeparator);
 			}
-			
+
 			o.write('\t');
 			writeModifier(
 				(
@@ -533,7 +533,7 @@ final class Generator
 						first = false;
 					else
 						o.write(',');
-					
+
 					o.write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
@@ -602,7 +602,7 @@ final class Generator
 						first = false;
 					else
 						o.write(',');
-					
+
 					o.write(format(parameter.getName(), arguments));
 				}
 			}
@@ -613,7 +613,7 @@ final class Generator
 			o.write("\t}");
 		}
 	}
-	
+
 	private void writeName(final String methodName, final String featureName) throws IOException
 	{
 		for(int i = 0; i<methodName.length(); i++)
@@ -624,11 +624,11 @@ final class Generator
 				o.write(methodName.substring(i));
 				return;
 			}
-		
+
 		o.write(methodName);
 		o.write(featureName);
 	}
-	
+
 	private static final String toString(final Class c, final CopeFeature feature)
 	{
 		if(Wrapper.ClassVariable.class.equals(c))
@@ -640,12 +640,12 @@ final class Generator
 		else
 			return c.getCanonicalName();
 	}
-	
+
 	private static final String toStringType(final CopeFeature feature, final int number)
 	{
 		return Injector.getGenerics(feature.javaAttribute.type).get(number);
 	}
-	
+
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
@@ -654,17 +654,17 @@ final class Generator
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
 		{
 			bf.append(toString(a, feature));
-			
+
 			if(first)
 				first = false;
 			else
 				bf.append(',');
 		}
 		bf.append('>');
-		
+
 		return bf.toString();
 	}
-	
+
 	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
@@ -674,17 +674,17 @@ final class Generator
 		{
 			bf.append("? extends ");
 			bf.append(toString(a, feature));
-			
+
 			if(first)
 				first = false;
 			else
 				bf.append(',');
 		}
 		bf.append('>');
-		
+
 		return bf.toString();
 	}
-	
+
 	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
 	{
 		if(t instanceof Class)
@@ -696,7 +696,7 @@ final class Generator
 		else
 			throw new RuntimeException(t.toString());
 	}
-	
+
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
 	throws IOException, InjectorParseException
 	{
@@ -704,10 +704,10 @@ final class Generator
 				Injector.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
 		if(!option.exists)
 			return;
-		
+
 		final CopeAttribute[] attributes = constraint.getAttributes();
 		final String className = attributes[0].getParent().name;
-		
+
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
@@ -732,20 +732,20 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
-		
+
 		if(deprecated)
 		{
 			o.write('\t');
 			o.write("@Deprecated");
 			o.write(lineSeparator);
 		}
-		
+
 		o.write('\t');
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
 		o.write(className);
 		o.write(deprecated ? " findBy" : " for");
 		o.write(toCamelCase(constraint.name));
-		
+
 		o.write('(');
 		for(int i=0; i<attributes.length; i++)
 		{
@@ -779,32 +779,32 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private String getBoxedType(final CopeAttribute a)
 	{
 		return a.getBoxedType();
 	}
-	
+
 	private void writeSerialVersionUID() throws IOException
 	{
 		if(serialVersionUID)
 		{
 			writeCommentHeader();
 			writeCommentFooter();
-			
+
 			o.write('\t');
 			writeModifier(PRIVATE|STATIC|FINAL);
 			o.write("long serialVersionUID = 1l;");
 		}
 	}
-	
+
 	private void writeType(final CopeType type)
 	throws IOException
 	{
 		if(type.isComposite)
 			return;
-		
+
 		final Option option = type.typeOption;
 		if(option.exists)
 		{
@@ -813,7 +813,7 @@ final class Generator
 			o.write(format(TYPE, lowerCamelCase(type.name)));
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
-			
+
 			o.write('\t');
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			o.write(TYPE_NAME + '<');
@@ -822,11 +822,11 @@ final class Generator
 			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);
-	
+
 			o.write(';');
 		}
 	}
-	
+
 	void write() throws IOException, InjectorParseException
 	{
 		final String buffer = javaFile.buffer.toString();
@@ -856,7 +856,7 @@ final class Generator
 			writeInitialConstructor(type);
 			writeGenericConstructor(type);
 			writeActivationConstructor(type);
-			
+
 			for(final CopeFeature feature : type.getFeatures())
 			{
 				writeFeature(feature);
@@ -867,7 +867,7 @@ final class Generator
 						writeUniqueFinder((CopeUniqueConstraint)feature, true);
 				}
 			}
-			
+
 			writeSerialVersionUID();
 			writeType(type);
 		}
@@ -882,7 +882,7 @@ final class Generator
 			o.write(' ');
 		}
 	}
-	
+
 	private static boolean isKeyword(final String s)
 	{
 		return "for".equals(s); // TODO

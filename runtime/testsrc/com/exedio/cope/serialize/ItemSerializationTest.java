@@ -31,7 +31,7 @@ import com.exedio.cope.Model;
 public class ItemSerializationTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ItemSerializationItem.TYPE, ItemSerializationItem2.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(ItemSerializationTest.class, "MODEL");
@@ -41,25 +41,25 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private ItemSerializationItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
 		deleteOnTearDown(new ItemSerializationItem("nullus"));
 		item = deleteOnTearDown(new ItemSerializationItem("eins"));
 	}
-	
+
 	public void testItem()
 	{
 		final String id = item.getCopeID();
 		assertSame(item.TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
-		
+
 		final ItemSerializationItem readItem = reserialize(item, 112);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(item.TYPE, readItem.getCopeType());
@@ -69,12 +69,12 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 		assertNotSame(item, readItem);
 		assertSame(item, item.activeCopeItem());
 		assertSame(item, readItem.activeCopeItem());
-		
+
 		readItem.setName("zwei");
 		assertEquals("zwei", readItem.getName());
 		assertEquals("zwei", item.getName());
 	}
-	
+
 	public void testUnboundItem()
 	{
 		item.setList(Arrays.asList("zack"));
@@ -82,7 +82,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 			item.list.getRelationType().searchSingleton(item.listParent().equal(item));
 		final String id = unboundItem.getCopeID();
 		assertEquals(item.list.getRelationType(), unboundItem.getCopeType());
-		
+
 		final Item readItem = reserialize(unboundItem, 390);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(item.list.getRelationType(), readItem.getCopeType());

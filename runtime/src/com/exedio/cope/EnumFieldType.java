@@ -32,7 +32,7 @@ final class EnumFieldType<E extends Enum<E>>
 	final List<E> values;
 	final TIntObjectHashMap<E> numbersToValues;
 	final int[] ordinalsToNumbers;
-	
+
 	EnumFieldType(final Class<E> valueClass)
 	{
 		this.valueClass = valueClass;
@@ -42,12 +42,12 @@ final class EnumFieldType<E extends Enum<E>>
 		// TODO compute all this once for an Enum class, as in Composite.Type
 		final ArrayList<E> values = new ArrayList<E>();
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
-		
+
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
 			throw new RuntimeException("must have at least one enum value: " + valueClass);
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
-		
+
 		int schemaValue = 0;
 		for(final E e : enumConstants)
 		{
@@ -91,7 +91,7 @@ final class EnumFieldType<E extends Enum<E>>
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
 	}
-	
+
 	private static final <A extends Annotation> A getAnnotation(final Enum e, Class<A> annotationClass)
 	{
 		try
@@ -103,7 +103,7 @@ final class EnumFieldType<E extends Enum<E>>
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	boolean isValid(final E value)
 	{
 		if(value==null)
@@ -112,7 +112,7 @@ final class EnumFieldType<E extends Enum<E>>
 		final Class actualValueClass = value.getClass();
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
-	
+
 	int columnValue(final E value)
 	{
 		if(!isValid(value))
@@ -121,15 +121,15 @@ final class EnumFieldType<E extends Enum<E>>
 					", but was a " + value.getClass().getName());
 		return ordinalsToNumbers[value.ordinal()];
 	}
-	
-	
+
+
 	static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
 
 	@SuppressWarnings("unchecked")
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
 		assert valueClass!=null;
-		
+
 		synchronized(types)
 		{
 			EnumFieldType result = types.get(valueClass);

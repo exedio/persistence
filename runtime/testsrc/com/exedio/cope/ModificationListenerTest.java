@@ -29,9 +29,9 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 	{
 		super(MatchTest.MODEL);
 	}
-	
+
 	final TestListener l = new TestListener();
-	
+
 	public void testCommitListener()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -52,7 +52,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
-		
+
 		try
 		{
 			model.removeModificationListener(null);
@@ -64,7 +64,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
-		
+
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.currentTransaction();
@@ -83,13 +83,13 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		l.assertIt(null, null);
 		model.commit();
 		l.assertIt(list(item2), t3);
-		
+
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");
 		item1.setText("item1x");
 		l.assertIt(null, null);
 		model.commit();
 		l.assertIt(list(item1), t4);
-		
+
 		final Transaction t5 = model.startTransaction("CommitListenerTest5");
 		item1.setText("item1y");
 		item2.setText("item2y");
@@ -134,11 +134,11 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.addModificationListener(l1);
 		assertEquals(list(l1), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
-		
+
 		System.gc();
 		assertEquals(list(l1), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
-		
+
 		l1 = null;
 		System.gc();
 		assertEquals(0, model.getModificationListenersCleared());
@@ -153,36 +153,36 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		assertEquals(2, model.getModificationListenersCleared());
 		assertEquals(list(), model.getModificationListeners());
 		assertEquals(2, model.getModificationListenersCleared());
-		
+
 		model.startTransaction("CommitListenerTestX");
 	}
-	
+
 	private final class TestListener implements ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
 		Transaction transaction = null;
 		boolean exception = false;
-		
+
 		TestListener()
 		{
 			// make constructor non-private
 		}
-		
+
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
-			
+
 			assertTrue(transaction.getID()>=0);
 			assertNotNull(transaction.getName());
 			assertNotNull(transaction.getStartDate());
 			assertNull(transaction.getBoundThread());
 			assertTrue(transaction.isClosed());
-			
+
 			assertTrue(this.modifiedItems==null);
 			assertTrue(this.transaction==null);
-			
+
 			assertContains(model.getOpenTransactions());
 			try
 			{
@@ -193,17 +193,17 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			{
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}
-			
+
 			this.modifiedItems = modifiedItems;
 			this.transaction = transaction;
-			
+
 			if(exception)
 			{
 				exception = false;
 				throw new NullPointerException("ModificationListener exception");
 			}
 		}
-		
+
 		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
 		{
 			assertContainsList(expectedItems, modifiedItems);
@@ -219,7 +219,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		{
 			// make constructor non-private
 		}
-		
+
 		public void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction)
 		{
 			throw new RuntimeException();

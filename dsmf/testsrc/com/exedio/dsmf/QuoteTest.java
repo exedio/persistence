@@ -49,22 +49,22 @@ public class QuoteTest extends SchemaReadyTest
 
 		return result;
 	}
-	
+
 	public void testIt()
 	{
 		final Schema schema = getVerifiedSchema();
-		
+
 		final Table table = schema.getTable(TABLE);
 		assertNotNull(table);
 		assertEquals(TABLE, table.getName());
-		
+
 		final Column pk = table.getColumn(PK_COLUMN);
 		assertNotNull(pk);
 		assertSame(table, pk.getTable());
 		assertEquals(PK_COLUMN, pk.getName());
 		assertEquals(stringType, pk.getType());
 		assertEquals(null, table.getError());
-		
+
 		final PrimaryKeyConstraint pkc = (PrimaryKeyConstraint)table.getConstraint(PK_NAME);
 		assertNotNull(pkc);
 		assertSame(table, pkc.getTable());
@@ -85,7 +85,7 @@ public class QuoteTest extends SchemaReadyTest
 		assertEquals(FK_NAME, fkc.getName());
 		assertEquals(FK_COLUMN, fkc.getForeignKeyColumn());
 		assertEquals(null, fkc.getError());
-		
+
 		final UniqueConstraint unc = (UniqueConstraint)table.getConstraint(UNQ_NAME);
 		assertNotNull(unc);
 		assertSame(table, unc.getTable());
@@ -93,29 +93,29 @@ public class QuoteTest extends SchemaReadyTest
 		assertEquals("("+p(FK_COLUMN)+")", unc.getClause());
 		if(!postgresql)
 			assertEquals(null, unc.getError());
-		
+
 		final CheckConstraint ckc = (CheckConstraint)table.getConstraint(CHK_NAME);
 		assertNotNull(ckc);
 		assertSame(table, ckc.getTable());
 		assertEquals(CHK_NAME, ckc.getName());
 		assertEquals(p(FK_COLUMN)+" IS NOT NULL", ckc.getRequiredCondition());
 		assertEquals(supportsCheckConstraints ? null : "not supported", ckc.getError());
-		
+
 		if(supportsCheckConstraints)
 			ckc.drop();
 		fkc.drop(); // in mysql fk constraint must be dropped before unique constraint on the same column
 		unc.drop();
 		pkc.drop();
 		fk.drop();
-		
+
 		fk.create();
 		pkc.create();
 		fkc.create();
 		unc.create();
 		if(supportsCheckConstraints)
 			ckc.create();
-		
+
 		schema.drop();
 	}
-	
+
 }

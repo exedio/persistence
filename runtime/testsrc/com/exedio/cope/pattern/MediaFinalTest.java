@@ -42,15 +42,15 @@ public class MediaFinalTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private final byte[] data19 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71};
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
-	
+
 	public void testData() throws IOException
 	{
 		assertEquals(19, data19.length);
 		assertEquals(20, data20.length);
-		
+
 		// test model
 		final MediaFinalItem t = null;
 		assertEquals(true, t.file.isInitial());
@@ -71,7 +71,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(20, body.getMaximumLength());
 		assertEquals(t.file, body.getPattern());
 		assertSame(t.file, Media.get(body));
-		
+
 		final StringField contentType = (StringField)t.file.getContentType();
 		assertSame(t.TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
@@ -81,7 +81,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
 		assertEquals(t.file, contentType.getPattern());
-		
+
 		final DateField lastModified = t.file.getLastModified();
 		assertSame(t.TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
@@ -89,7 +89,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 		assertEquals(t.file, lastModified.getPattern());
-		
+
 		final CheckConstraint unison = t.file.getUnison();
 		assertSame(t.TYPE, unison.getType());
 		assertEquals("file-unison", unison.getName());
@@ -98,7 +98,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
-		
+
 		// test persistence
 		assertEquals(list(), t.TYPE.search());
 
@@ -107,7 +107,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
 		assertEquals(list(item), item.TYPE.search());
-		
+
 		try
 		{
 			item.file.set(item, (byte[])null, null);
@@ -119,7 +119,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
-		
+
 		try
 		{
 			item.file.set(item, (InputStream)null, null);
@@ -131,7 +131,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
-		
+
 		try
 		{
 			item.file.set(item, (File)null, null);
@@ -168,13 +168,13 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
-	
+
 	private final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
 		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
 		delete(tempFile);
 		assertFalse(tempFile.exists());
-		
+
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
 	}

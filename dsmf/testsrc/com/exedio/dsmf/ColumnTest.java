@@ -35,7 +35,7 @@ public class ColumnTest extends SchemaReadyTest
 
 		return result;
 	}
-	
+
 	public void testColumns()
 	{
 		// OK
@@ -55,7 +55,7 @@ public class ColumnTest extends SchemaReadyTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
-			
+
 			column.renameTo(COLUMN1X);
 		}
 		// COLUMN RENAMED

@@ -39,7 +39,7 @@ interface InjectionConsumer
 	 * @see JavaFile#getPackageName()
 	 */
 	void onPackage(JavaFile javafile) throws InjectorParseException;
-	
+
 	/**
 	 * Encountered an import statement.
 	 * Imports are also saved in JavaFile.imports.
@@ -47,13 +47,13 @@ interface InjectionConsumer
 	 * @see JavaFile#findTypeExternally(String)
 	 */
 	void onImport(String importname);
-	
+
 	/**
 	 * Encountered a class header.
 	 * Is also called for inner classes.
 	 */
 	void onClass(JavaClass cc) throws InjectorParseException;
-	
+
 	/**
 	 * Encountered the end of a class.
 	 * @param cc
@@ -61,7 +61,7 @@ interface InjectionConsumer
 	 * @see #onClass(JavaClass)
 	 */
 	void onClassEnd(JavaClass cc) throws InjectorParseException;
-	
+
 	/**
 	 * Encountered the header of a java method.
 	 * Is called additionally to
@@ -71,7 +71,7 @@ interface InjectionConsumer
 	 * contains all parsed information about the method
 	 */
 	void onBehaviourHeader(JavaBehaviour jb);
-	
+
 	/**
 	 * Encountered the header of a java attribute.
 	 * Is called additionally to
@@ -81,7 +81,7 @@ interface InjectionConsumer
 	 * contains all parsed information about the attribute
 	 */
 	void onAttributeHeader(JavaAttribute ja);
-	
+
 	/**
 	 * Called for attributes and methods.
 	 * Is called additionally to
@@ -92,7 +92,7 @@ interface InjectionConsumer
 	 * Is null, if there was none.
 	 */
 	void onClassFeature(JavaFeature cf, String doccomment) throws InjectorParseException;
-	
+
 	/**
 	 * Encountered a java documentation comment.
 	 * Is called for comments on class level only,
@@ -103,12 +103,12 @@ interface InjectionConsumer
 	 * and the doccomment itself should not appear in the output.
 	 */
 	boolean onDocComment(String doccomment);
-	
+
 	/**
 	 * Encountered a java documentation comment.
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
 	void onFileDocComment(String doccomment) throws InjectorParseException;
-	
+
 }

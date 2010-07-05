@@ -38,7 +38,7 @@ final class QueryCache
 	{
 		this.map = limit>0 ? new LRUMap(limit) : null;
 	}
-	
+
 	ArrayList<Object> search(
 			final Transaction transaction,
 			final Query<?> query,
@@ -67,20 +67,20 @@ final class QueryCache
 		{
 			hits++;
 			result.hits++;
-			
+
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
 				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
 		}
-		
+
 		return result.list;
 	}
-	
+
 	boolean isEnabled()
 	{
 		return map!=null;
 	}
-	
+
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final TIntArrayList invalidatedTypesTransientlyList = new TIntArrayList();
@@ -88,12 +88,12 @@ final class QueryCache
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			if(invalidations[typeTransiently]!=null)
 				invalidatedTypesTransientlyList.add(typeTransiently);
-		
+
 		if(map!=null && !invalidatedTypesTransientlyList.isEmpty())
 		{
 			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
 			long invalidationsCounter = 0;
-			
+
 			synchronized(map)
 			{
 				final Iterator<Value> values = map.values().iterator();
@@ -115,7 +115,7 @@ final class QueryCache
 			this.invalidations += invalidationsCounter;
 		}
 	}
-	
+
 	void clear()
 	{
 		if(map!=null)
@@ -126,11 +126,11 @@ final class QueryCache
 			}
 		}
 	}
-	
+
 	QueryCacheInfo getInfo()
 	{
 		final int level;
-		
+
 		if(map!=null)
 		{
 			synchronized(map)
@@ -140,15 +140,15 @@ final class QueryCache
 		}
 		else
 			level = 0;
-		
+
 		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, invalidations, level);
 	}
-	
+
 	QueryCacheHistogram[] getHistogram()
 	{
 		if(map==null)
 			return new QueryCacheHistogram[0];
-		
+
 		final Key[] keys;
 		final Value[] values;
 		synchronized(map)
@@ -163,17 +163,17 @@ final class QueryCache
 		int j = 0;
 		for(final Key key : keys)
 			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits);
-		
+
 		return result;
 	}
-	
+
 	private static final class Key
 	{
 		private final byte[] text;
 		private final int hashCode;
-		
+
 		private static final String CHARSET = "utf8";
-		
+
 		Key(final Query<? extends Object> query, final boolean totalOnly)
 		{
 			try
@@ -188,20 +188,20 @@ final class QueryCache
 
 			hashCode = Arrays.hashCode(text);
 		}
-		
+
 		@Override
 		public boolean equals(final Object other)
 		{
 			final Key o = (Key)other;
 			return Arrays.equals(text, o.text);
 		}
-		
+
 		@Override
 		public int hashCode()
 		{
 			return hashCode;
 		}
-		
+
 		String getText()
 		{
 			try
@@ -213,20 +213,20 @@ final class QueryCache
 				throw new RuntimeException(CHARSET, e);
 			}
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return getText();
 		}
 	}
-	
+
 	private static final class Value
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
 		volatile long hits = 0;
-		
+
 		Value(final Query<? extends Object> query, final ArrayList<Object> list)
 		{
 			final ArrayList<Join> joins = query.joins;
@@ -244,20 +244,20 @@ final class QueryCache
 			this.list = list;
 		}
 	}
-	
+
 	private static final class LRUMap extends LinkedHashMap<Key, Value>
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private final int maxSize;
 		volatile long replacements = 0;
-		
+
 		LRUMap(final int maxSize)
 		{
 			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
 			this.maxSize = maxSize;
 		}
-		
+
 		@Override
 		protected boolean removeEldestEntry(final Map.Entry<Key,Value> eldest)
 		{

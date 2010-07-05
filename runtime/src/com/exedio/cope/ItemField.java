@@ -26,7 +26,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 
@@ -54,7 +54,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		}
 		checkDefaultConstant();
 	}
-	
+
 	ItemField(final TypeFuture<E> valueTypeFuture)
 	{
 		this(false, false, false, valueTypeFuture, Item.FORBID);
@@ -70,19 +70,19 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, policy);
 	}
-	
+
 	@Override
 	public ItemField<E> toFinal()
 	{
 		return new ItemField<E>(true, optional, unique, valueTypeFuture, policy);
 	}
-	
+
 	@Override
 	public ItemField<E> optional()
 	{
 		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, policy);
 	}
-	
+
 	@Override
 	public ItemField<E> unique()
 	{
@@ -94,7 +94,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
 	}
-	
+
 	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
@@ -110,27 +110,27 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 					"expected a " + n + '<' + clazz.getName() +
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
-		
+
 		return (ItemField<X>)this;
 	}
-	
+
 	public DeletePolicy getDeletePolicy()
 	{
 		return policy;
 	}
-	
-	
+
+
 	private Type<E> valueType = null;
-	
+
 	void resolveValueType()
 	{
 		if(valueType!=null)
 			throw new RuntimeException();
-		
+
 		valueType = valueTypeFuture.get();
 		assert valueClass.equals(valueType.getJavaClass());
 	}
-	
+
 	/**
 	 * Returns the type of items, this field accepts instances of.
 	 */
@@ -141,12 +141,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		return valueType;
 	}
-	
-	
+
+
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
 	private StringColumn typeColumn = null;
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
@@ -158,15 +158,15 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			throw new RuntimeException(toString());
 		if(typeColumn!=null)
 			throw new RuntimeException(toString());
-		
+
 		final ItemColumn result = new ItemColumn(table, this, name, optional, valueType);
-		
+
 		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
 			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else
 			typeColumn = new TypeColumn(table, result, optional, typeColumnValues);
-		
+
 		connected = true;
 
 		return result;
@@ -185,7 +185,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		this.onlyPossibleValueType = null;
 		this.typeColumn = null;
 	}
-	
+
 	private Type<? extends E> getOnlyPossibleValueType()
 	{
 		if(!connected)
@@ -193,7 +193,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		return onlyPossibleValueType;
 	}
-	
+
 	StringColumn getTypeColumn()
 	{
 		if(!connected)
@@ -201,7 +201,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		return typeColumn;
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -214,7 +214,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn, join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -223,7 +223,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		bf.append(Statement.assertTypeColumn(getTypeColumn(), getValueType()), join);
 	}
-	
+
 	@Override
 	E get(final Row row, final Query query)
 	{
@@ -234,7 +234,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
 				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row + " --- query: " + query);
-			
+
 			return null;
 		}
 		else
@@ -243,32 +243,32 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			if(typeColumn!=null)
 			{
 				final String cellTypeID = (String)row.get(typeColumn);
-				
+
 				if(cellTypeID==null)
 					throw new RuntimeException("inconsistent type column on field " + toString());
-				
+
 				cellType = getValueType().getTypeOfInstance(cellTypeID);
-				
+
 				if(cellType==null)
 					throw new RuntimeException(cellTypeID);
 			}
 			else
 			{
 				cellType = getOnlyPossibleValueType();
-				
+
 				if(cellType==null)
 					throw new RuntimeException();
 			}
-			
+
 			return cellType.getItemObject(((Integer)cell).intValue());
 		}
 	}
-	
+
 	@Override
 	void set(final Row row, final E surface)
 	{
 		final StringColumn typeColumn = getTypeColumn();
-		
+
 		if(surface==null)
 		{
 			row.put(getColumn(), null);
@@ -283,17 +283,17 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 				row.put(typeColumn, valueItem.type.id);
 		}
 	}
-	
+
 	public boolean needsCheckTypeColumn()
 	{
 		return getTypeColumn()!=null;
 	}
-	
+
 	public int checkTypeColumn()
 	{
 		if(!needsCheckTypeColumn())
 			throw new RuntimeException("no check for type column needed for " + this);
-		
+
 		final Type type = getType();
 		final Model model = type.getModel();
 		final Connection connection = model.currentTransaction().getConnection();
@@ -302,7 +302,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		final Table valueTable = getValueType().getTable();
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
-		
+
 		final Statement bf = executor.newStatement(false);
 		bf.append("select count(*) from ").
 			append(table).append(' ').append(alias1).
@@ -316,37 +316,37 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			append(alias1).append('.').append(getTypeColumn()).
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);
-		
+
 		//System.out.println("CHECKA:"+bf.toString());
-		
+
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
-	
+
 	public static enum DeletePolicy
 	{
 		FORBID(),
 		NULLIFY(),
 		CASCADE();
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public CompareFunctionCondition equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
-	
+
 	public CompareFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
-	
+
 	@Override
 	public BindItemFunction<E> bind(final Join join)
 	{
 		return new BindItemFunction<E>(this, join);
 	}
-	
+
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, false, type1);
@@ -371,7 +371,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return new InstanceOfCondition<E>(this, false, types);
 	}
-	
+
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<E>(this, true, type1);
@@ -398,7 +398,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #as(Class)} instead
 	 */
@@ -416,7 +416,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return SchemaInfo.getTypeColumnName(this);
 	}
-	
+
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 	{
@@ -446,7 +446,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return instanceOf(types);
 	}
-	
+
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1)
 	{

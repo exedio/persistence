@@ -28,37 +28,37 @@ import com.exedio.cope.misc.Compare;
 public final class Price implements Serializable, Comparable<Price>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final double FACTOR_D = 100d;
 	private static final int    FACTOR_I = 100;
 	private static final double MIN_VALUE_D = Integer.MIN_VALUE/FACTOR_D;
 	private static final double MAX_VALUE_D = Integer.MAX_VALUE/FACTOR_D;
 	private static final BigDecimal MIN_VALUE_B = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
 	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
-	
+
 	public static final Price ZERO = new Price(0);
-	
+
 	final int store;
-	
+
 	Price(final int store)
 	{
 		this.store = store;
 	}
-	
+
 	public static Price storeOf(final int store)
 	{
 		// TODO reuse common small values
 		if(store==0)
 			return ZERO;
-		
+
 		return new Price(store);
 	}
-	
+
 	public static Price storeOf(final Integer store)
 	{
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
-	
+
 	public static Price valueOf(final double value)
 	{
 		// TODO reuse common small values
@@ -70,10 +70,10 @@ public final class Price implements Serializable, Comparable<Price>
 			throw new IllegalArgumentException("too small: " + value);
 		if(value>MAX_VALUE_D)
 			throw new IllegalArgumentException("too big: " + value);
-		
+
 		return storeOf(new BigDecimal(value).movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue()); // TODO manage without BigDecimal
 	}
-	
+
 	public static Price valueOf(final BigDecimal value)
 	{
 		// TODO reuse common small values
@@ -81,20 +81,20 @@ public final class Price implements Serializable, Comparable<Price>
 			throw new IllegalArgumentException("too small: " + value);
 		if(value.compareTo(MAX_VALUE_B)>0)
 			throw new IllegalArgumentException("too big: " + value);
-		
+
 		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
 	}
-	
+
 	public int store()
 	{
 		return store;
 	}
-	
+
 	public double doubleValue()
 	{
 		return store / FACTOR_D;
 	}
-	
+
 	public BigDecimal bigValue()
 	{
 		if(store%10==0)
@@ -108,51 +108,51 @@ public final class Price implements Serializable, Comparable<Price>
 		else
 			return BigDecimal.valueOf(store, 2);
 	}
-	
+
 	public Price add(final Price other)
 	{
 		// TODO shortcut for neutral element
 		return storeOf(store + other.store);
 	}
-	
+
 	public Price subtract(final Price other)
 	{
 		// TODO shortcut for neutral element
 		return storeOf(store - other.store);
 	}
-	
+
 	public Price multiply(final int other)
 	{
 		// TODO shortcut for neutral element
 		return storeOf(store * other);
 	}
-	
+
 	public Price multiply(final double other)
 	{
 		// TODO shortcut for neutral element
 		return valueOf(doubleValue() * other);
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof Price))
 			return false;
-		
+
 		return store==((Price)other).store;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return store ^ 827345123;
 	}
-	
+
 	public int compareTo(final Price other)
 	{
 		return Compare.compare(store, other.store);
 	}
-	
+
 	@Override
 	public String toString()
 	{

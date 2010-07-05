@@ -33,7 +33,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 	{
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setAlpha(5);
@@ -46,7 +46,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setBeta(4);
@@ -59,13 +59,13 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setGamma(7);
 		assertIt(102, 101, 103, 4, 5, 7, 7, item);
-		
+
 		item.setAlpha(3);
 		assertIt(102, 101, 103, 3, 5, 7, 7, item);
-		
+
 		item.setBeta(6);
 		assertIt(102, 101, 103, 3, 6, 7, 7, item);
 	}
@@ -74,7 +74,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 	{
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setEins(100);
@@ -87,7 +87,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setZwei(103);
@@ -100,13 +100,13 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setDrei(104);
 		assertIt(102, 101, 104, 4, 5, 6, 7, item);
-		
+
 		item.setEins(103);
 		assertIt(103, 101, 104, 4, 5, 6, 7, item);
-		
+
 		item.setZwei(100);
 		assertIt(103, 100, 104, 4, 5, 6, 7, item);
 	}
@@ -115,7 +115,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 	{
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setAlphaBeta(5, 4);
@@ -128,7 +128,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setBetaGamma(4, 6);
@@ -141,13 +141,13 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setAlphaBeta(6, 7);
 		assertIt(102, 101, 103, 6, 7, 6, 7, item);
-		
+
 		item.setAlphaBeta(4, 5);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setBetaGamma(8, 9);
 		assertIt(102, 101, 103, 4, 8, 9, 7, item);
 	}
@@ -156,7 +156,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 	{
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setEinsZwei(101, 102);
@@ -169,7 +169,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		try
 		{
 			item.setZweiDrei(103, 104);
@@ -182,17 +182,17 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setEinsZwei(106, 105);
 		assertIt(106, 105, 103, 4, 5, 6, 7, item);
-		
+
 		item.setEinsZwei(102, 101);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
-		
+
 		item.setZweiDrei(100, 105);
 		assertIt(102, 100, 105, 4, 5, 6, 7, item);
 	}
-	
+
 	public void testCreate()
 	{
 		try
@@ -208,7 +208,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 		}
 		assertEquals(list(), TYPE.search());
 	}
-	
+
 	public void testCreateSuper()
 	{
 		try
@@ -224,7 +224,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 		}
 		assertEquals(list(), TYPE.search());
 	}
-	
+
 	private static void assertIt(
 			final Integer eins,
 			final Integer zwei,

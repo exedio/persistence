@@ -37,9 +37,9 @@ final class CopeType
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
 	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
-	
+
 	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
-	
+
 	static final CopeType getCopeType(final JavaClass javaClass)
 	{
 		final CopeType result = copeTypeByJavaClass.get(javaClass);
@@ -59,7 +59,7 @@ final class CopeType
 
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
-	
+
 	public CopeType(final JavaClass javaClass, final boolean isComposite)
 		throws InjectorParseException
 	{
@@ -68,7 +68,7 @@ final class CopeType
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
 		copeTypeByJavaClass.put(javaClass, this);
-		
+
 		final String docComment = javaClass.getDocComment();
 		this.typeOption                  = new Option(Injector.findDocTagLine(docComment, TAG_TYPE),                   false);
 		this.initialConstructorOption    = new Option(Injector.findDocTagLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
@@ -78,7 +78,7 @@ final class CopeType
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
 	}
-	
+
 	public boolean isAbstract()
 	{
 		return javaClass.isAbstract();
@@ -88,20 +88,20 @@ final class CopeType
 	{
 		return javaClass.isInterface();
 	}
-	
+
 	private CopeType supertype;
 	private ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
-	
+
 	void endBuildStage()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
-		
+
 		if(isComposite)
 			return;
-		
+
 		final String extname = javaClass.classExtends;
-		
+
 		if(extname==null)
 		{
 			supertype = null;
@@ -125,58 +125,58 @@ final class CopeType
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
-		
+
 		subtypes.add(subtype);
 	}
-	
+
 	public CopeType getSuperclass()
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		
+
 		return supertype;
 	}
-	
+
 	public List<CopeType> getSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		
+
 		return subtypes;
 	}
-	
+
 	boolean allowSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 
 		return isAbstract() || !getSubtypes().isEmpty();
 	}
-	
+
 	public void register(final CopeFeature feature)
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		assert !javaClass.file.repository.isGenerateStage();
-		
+
 		features.add(feature);
 		final Object collision = featureMap.put(feature.name, feature);
 		assert collision==null : feature.name;
 	}
-	
+
 	public CopeFeature getFeature(final String name)
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		return featureMap.get(name);
 	}
-	
+
 	public List<CopeFeature> getFeatures()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		return Collections.unmodifiableList(features);
 	}
-	
+
 	public boolean hasInitialConstructor()
 	{
 		return initialConstructorOption.exists;
 	}
-	
+
 	public int getInitialConstructorModifier()
 	{
 		Visibility inheritedVisibility = visibility;
@@ -186,25 +186,25 @@ final class CopeType
 			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
 				inheritedVisibility = intialFeatureVisibility;
 		}
-		
+
 		return initialConstructorOption.getModifier(inheritedVisibility.modifier);
 	}
-	
+
 	private ArrayList<CopeFeature> initialFeatures = null;
 	private TreeSet<Class<? extends Throwable>> constructorExceptions = null;
-	
+
 	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
 		initialFeatures = new ArrayList<CopeFeature>();
 		constructorExceptions = new TreeSet<Class<? extends Throwable>>(CLASS_COMPARATOR);
-		
+
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
 		{
 			initialFeatures.addAll(superclass.getInitialFeatures());
 			constructorExceptions.addAll(superclass.getConstructorExceptions());
 		}
-		
+
 		for(final CopeFeature feature : getFeatures())
 		{
 			if(feature.isInitial())
@@ -244,7 +244,7 @@ final class CopeType
 			return c1.getName().compareTo(c2.getName());
 		}
 	};
-	
+
 	int getSerialVersionUID()
 	{
 		return name.hashCode();

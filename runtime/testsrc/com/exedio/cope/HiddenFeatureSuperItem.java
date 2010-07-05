@@ -23,7 +23,7 @@ class HiddenFeatureSuperItem extends Item
 	static final StringField nonHiddenSuper = new StringField().optional();
 	static final StringField hiddenSame = new StringField().optional();
 	static final StringField hiddenOther = new StringField().optional();
-	
+
 	/**
 
 	 **

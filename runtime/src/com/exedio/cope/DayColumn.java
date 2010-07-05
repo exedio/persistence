@@ -38,7 +38,7 @@ final class DayColumn extends Column
 	{
 		super(table, field, id, false, optional);
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -50,19 +50,19 @@ final class DayColumn extends Column
 	{
 		return null;
 	}
-	
+
 	static int getTransientNumber(final Day day)
 	{
 		return getTransientNumber(day.getYear(), day.getMonth(), day.getDay());
 	}
-	
+
 	private static int getTransientNumber(final java.sql.Date day)
 	{
 		final GregorianCalendar c = new GregorianCalendar();
 		c.setTime(day);
 		return getTransientNumber(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
 	}
-	
+
 	private static int getTransientNumber(final int year, final int month, final int day)
 	{
 		if(year<1000 || year>9999 || month<1 || month>12 || day<1 || day>31)
@@ -70,13 +70,13 @@ final class DayColumn extends Column
 
 		return (((year*12) + (month-1))*31) + (day-1);
 	}
-	
+
 	static Day getDay(final int transientNumber)
 	{
 		final int m = transientNumber / 31;
 		return new Day(m/12, (m%12)+1, (transientNumber%31)+1);
 	}
-	
+
 	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
@@ -85,7 +85,7 @@ final class DayColumn extends Column
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
 		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(loadedDate)) : null);
 	}
-	
+
 	@Override
 	final String cacheToDatabase(final Object cache)
 	{
@@ -99,7 +99,7 @@ final class DayColumn extends Column
 			return "{d '"+day.getYear()+'-'+nf.format(day.getMonth())+'-'+nf.format(day.getDay())+"'}";
 		}
 	}
-	
+
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{

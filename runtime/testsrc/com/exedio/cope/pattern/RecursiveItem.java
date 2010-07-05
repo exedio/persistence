@@ -24,22 +24,22 @@ public class RecursiveItem extends Item
 {
 	static final RecursivePattern testPattern = new RecursivePattern();
 	static final RecursivePattern testPattern2 = new RecursivePattern();
-	
+
 	void setTestPattern(final String value)
 	{
 		testPattern.set(this, value);
 	}
-	
+
 	boolean fetch()
 	{
 		return testPattern.fetch(this);
 	}
-	
+
 	MediaPath.Locator getTestPatternLocator()
 	{
 		return testPattern.getLocator(this);
 	}
-	
+
 	/**
 
 	 **

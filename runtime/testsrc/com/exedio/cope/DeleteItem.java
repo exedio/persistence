@@ -27,13 +27,13 @@ class DeleteItem extends Item
 
 	static final ItemField<DeleteItem> selfCascade = newItemField(DeleteItem.class, CASCADE).optional();
 	static final ItemField<DeleteItem> selfCascade2 = newItemField(DeleteItem.class, CASCADE).optional();
-	
+
 	static final ItemField<DeleteOtherItem> otherForbid = newItemField(DeleteOtherItem.class).optional();
 
 	static final ItemField<DeleteOtherItem> otherNullify = newItemField(DeleteOtherItem.class, NULLIFY);
 
 	static final ItemField<DeleteOtherItem> otherCascade = newItemField(DeleteOtherItem.class, CASCADE).optional();
-	
+
 
 	String name = null;
 
@@ -42,14 +42,14 @@ class DeleteItem extends Item
 		this();
 		this.name = name;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return name!=null ? name : getCopeID();
 	}
-	
-	
+
+
 	/**
 
 	 **

@@ -56,11 +56,11 @@ public abstract class InjectorTest extends InstrumentorTest
 		if(assertText)
 			testInjectionConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
-		
+
 		assertInjection();
 		injectionEvents = null;
 	}
-	
+
 	private InjectionEvent fetchEvent()
 	{
 		return injectionEvents.removeFirst();
@@ -70,7 +70,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}
-	
+
 	private String replaceLineBreaks(final String s)
 	{
 		if(s==null)
@@ -98,7 +98,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		if(!assertText)
 			throw new RuntimeException("assertText is false");
-		
+
 		final InjectionEvent event = fetchEvent();
 		if(!(event instanceof TextEvent))
 			throw new AssertionFailedError("expected text event >"+text+"<, but was "+event);
@@ -136,7 +136,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		return assertClass(className, classExtends, classImplements, null);
 	}
-	
+
 	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements, final JavaClass parent)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -149,14 +149,14 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertSame(parent, javaClass.parent);
 		return javaClass;
 	}
-	
+
 	protected void assertClassEnd(final JavaClass expectedJavaClass)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
 		assertSame(expectedJavaClass, javaClass);
 	}
-	
+
 	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -168,7 +168,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertEquals(modifier, javaBehaviour.modifier);
 		return javaBehaviour;
 	}
-	
+
 	protected JavaAttribute assertAttributeHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -178,7 +178,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertEquals(modifier, javaAttribute.modifier);
 		return javaAttribute;
 	}
-	
+
 	private void assertFeature(final String name, final String docComment, final JavaFeature expectedJavaFeature)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -188,7 +188,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		if(expectedJavaFeature!=null)
 			assertSame(expectedJavaFeature, javaFeature);
 	}
-	
+
 	protected void assertAttribute(final String name, final String docComment, final JavaAttribute expectedJavaAttribute)
 	{
 		if(expectedJavaAttribute==null)
@@ -196,7 +196,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertFeature(name, docComment, expectedJavaAttribute);
 		//System.out.println("---"+name+" >"+expectedJavaAttribute.getInitializerTokens()+"<");
 	}
-	
+
 	/**
 	 * TODO: InnerClassAttribute is non-sense, and should not be reported by the injector
 	 */
@@ -209,7 +209,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		assertFeature(name, docComment, null);
 	}
-	
+
 	protected void assertMethod(final String name, final String docComment, final JavaBehaviour jb)
 	{
 		if(jb==null)
@@ -242,7 +242,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			//System.out.println("new TextEvent("+text+")");
 		}
 	}
-	
+
 	private static class PackageEvent extends InjectionEvent
 	{
 		final JavaFile javafile;
@@ -252,7 +252,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.javafile = javafile;
 		}
 	}
-	
+
 	private static class ImportEvent extends InjectionEvent
 	{
 		final String importText;
@@ -262,7 +262,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.importText = importText;
 		}
 	}
-	
+
 	private static class DocCommentEvent extends InjectionEvent
 	{
 		final String docComment;
@@ -272,7 +272,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.docComment = docComment;
 		}
 	}
-	
+
 	private static class FileDocCommentEvent extends InjectionEvent
 	{
 		final String docComment;
@@ -282,7 +282,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.docComment = docComment;
 		}
 	}
-	
+
 	private static abstract class AbstractClassEvent extends InjectionEvent
 	{
 		final JavaClass javaClass;
@@ -292,7 +292,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.javaClass = javaClass;
 		}
 	}
-	
+
 	private static final class ClassEvent extends AbstractClassEvent
 	{
 		ClassEvent(final JavaClass javaClass)
@@ -300,7 +300,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			super(javaClass);
 		}
 	}
-	
+
 	private static final class ClassEndEvent extends AbstractClassEvent
 	{
 		ClassEndEvent(final JavaClass javaClass)
@@ -308,7 +308,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			super(javaClass);
 		}
 	}
-	
+
 	private static class BehaviourHeaderEvent extends InjectionEvent
 	{
 		final JavaBehaviour javaBehaviour;
@@ -317,14 +317,14 @@ public abstract class InjectorTest extends InstrumentorTest
 		{
 			this.javaBehaviour = javaBehaviour;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "BehaviourHeaderEvent("+javaBehaviour+")";
 		}
 	}
-	
+
 	private static class AttributeHeaderEvent extends InjectionEvent
 	{
 		final JavaAttribute javaAttribute;
@@ -333,14 +333,14 @@ public abstract class InjectorTest extends InstrumentorTest
 		{
 			this.javaAttribute = javaAttribute;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "AttributeHeaderEvent:"+javaAttribute.toString();
 		}
 	}
-	
+
 	private static class ClassFeatureEvent extends InjectionEvent
 	{
 		final JavaFeature javaFeature;
@@ -351,23 +351,23 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.javaFeature = javaFeature;
 			this.docComment = docComment;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "ClassFeatureEvent("+javaFeature+")";
 		}
 	}
-	
+
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
 		StringBuilder output;
-		
+
 		TestInjectionConsumer()
 		{
 			// make constructor non-private
 		}
-		
+
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{
 			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());

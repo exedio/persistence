@@ -37,7 +37,7 @@ public abstract class RevisionInfo
 	private final int number;
 	private final long date;
 	private final Map<String, String> environment;
-	
+
 	RevisionInfo(
 			final int number,
 			final Date date, final Map<String, String> environment)
@@ -46,27 +46,27 @@ public abstract class RevisionInfo
 			throw new NullPointerException("date");
 		if(environment==null)
 			throw new NullPointerException("environment");
-		
+
 		this.number = number;
 		this.date = date.getTime();
 		this.environment = environment;
 	}
-	
+
 	public final int getNumber()
 	{
 		return number;
 	}
-	
+
 	public final Date getDate()
 	{
 		return new Date(date);
 	}
-	
+
 	public final Map<String, String> getEnvironment()
 	{
 		return Collections.unmodifiableMap(environment);
 	}
-	
+
 	private static final String REVISION = "revision";
 	private static final String DATE = "dateUTC";
 	private static final String ENVIRONMENT_PREFIX = "env.";
@@ -75,7 +75,7 @@ public abstract class RevisionInfo
 	{
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
-	
+
 	Properties getStore()
 	{
 		final Properties store = new Properties();
@@ -84,13 +84,13 @@ public abstract class RevisionInfo
 			store.setProperty(REVISION, String.valueOf(number));
 
 		store.setProperty(DATE, df.format(date));
-		
+
 		for(final Map.Entry<String, String> e : environment.entrySet())
 			store.setProperty(ENVIRONMENT_PREFIX + e.getKey(), e.getValue());
-		
+
 		return store;
 	}
-	
+
 	private static final String[] DEPRECATED_ENVIRONMENT_KEYS = new String[]{
 				"database.name",
 				"database.version",
@@ -104,13 +104,13 @@ public abstract class RevisionInfo
 				"jdbc.url",
 				"jdbc.user"
 			};
-	
+
 	public static final RevisionInfo read(final byte[] bytes)
 	{
 		final Properties p = parse(bytes);
 		if(p==null)
 			return null;
-		
+
 		final String revisionString = p.getProperty(REVISION);
 		final int revision = revisionString!=null ? Integer.valueOf(revisionString) : -1;
 		final Date date;
@@ -135,7 +135,7 @@ public abstract class RevisionInfo
 			if(key.startsWith(ENVIRONMENT_PREFIX))
 				environment.put(key.substring(ENVIRONMENT_PREFIX.length()), p.getProperty(key));
 		}
-		
+
 		{
 			final RevisionInfoRevise i =
 				RevisionInfoRevise.read(revision, date, environment, p);
@@ -156,9 +156,9 @@ public abstract class RevisionInfo
 		}
 		return null;
 	}
-	
+
 	private static final String MAGIC = "migrationlogv01";
-	
+
 	public final byte[] toBytes()
 	{
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -173,9 +173,9 @@ public abstract class RevisionInfo
 		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
 		return baos.toByteArray();
 	}
-	
+
 	private static final String CHARSET = "latin1";
-	
+
 	public static final Properties parse(final byte[] info)
 	{
 		if(info.length<=MAGIC.length()+1)
@@ -183,7 +183,7 @@ public abstract class RevisionInfo
 
 		if(info[0]!='#')
 			return null;
-		
+
 		final byte[] magic;
 		try
 		{
@@ -196,7 +196,7 @@ public abstract class RevisionInfo
 		for(int i = 0; i<magic.length; i++)
 			if(info[i+1]!=magic[i])
 				return null;
-		
+
 		final Properties result = new Properties();
 		try
 		{
@@ -208,12 +208,12 @@ public abstract class RevisionInfo
 		}
 		return result;
 	}
-	
-	
+
+
 	final void insert(final Connection connection, final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-		
+
 		final Statement bf = executor.newStatement();
 		bf.append("insert into ").
 			append(dsmfDialect.quoteName(Revisions.TABLE_NAME)).
@@ -226,7 +226,7 @@ public abstract class RevisionInfo
 			append(',').
 			appendParameterBlob(toBytes()).
 			append(')');
-		
+
 		executor.update(connection, bf, true);
 	}
 }

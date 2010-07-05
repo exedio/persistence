@@ -27,13 +27,13 @@ public final class ActivationParameters
 {
 	final Type<?> type;
 	final int pk;
-	
+
 	ActivationParameters(final Type type, final int pk)
 	{
 		this.type = type;
 		this.pk = pk;
 	}
-	
+
 	/**
 	 * This method is equivalent to {@link Item#toString()}.
 	 */

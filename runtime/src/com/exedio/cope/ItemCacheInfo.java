@@ -38,7 +38,7 @@ public final class ItemCacheInfo
 	private final long ageMax;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
-	
+
 	ItemCacheInfo(
 			final Type type,
 			final int limit,
@@ -64,7 +64,7 @@ public final class ItemCacheInfo
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
 	}
-	
+
 	public Type getType()
 	{
 		return type;
@@ -95,47 +95,47 @@ public final class ItemCacheInfo
 	{
 		return misses;
 	}
-	
+
 	public long getConcurrentLoads()
 	{
 		return concurrentLoads;
 	}
-	
+
 	public int getReplacementRuns()
 	{
 		return replacementRuns;
 	}
-	
+
 	public int getReplacements()
 	{
 		return replacements;
 	}
-	
+
 	public Date getLastReplacementRun()
 	{
 		return lastReplacementRun!=0l ? new Date(lastReplacementRun) : null;
 	}
-	
+
 	public long getAgeAverageMillis()
 	{
 		return (level!=0) ? (ageSum / level) : 0l;
 	}
-	
+
 	public long getAgeMinMillis()
 	{
 		return ageMin;
 	}
-	
+
 	public long getAgeMaxMillis()
 	{
 		return ageMax;
 	}
-	
+
 	public long getInvalidationsOrdered()
 	{
 		return invalidationsOrdered;
 	}
-	
+
 	public long getInvalidationsDone()
 	{
 		return invalidationsDone;

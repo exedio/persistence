@@ -30,11 +30,11 @@ package com.exedio.cope;
 public final class NoSuchIDException extends Exception
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final String id;
 	private final boolean notAnID;
 	private final String detail;
-	
+
 	NoSuchIDException(final String id, final boolean notAnID, final String detail)
 	{
 		this.id = id;

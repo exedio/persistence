@@ -32,7 +32,7 @@ final class ConnectionPool
 	{
 		this.pool = pool;
 	}
-	
+
 	Connection get(final boolean autoCommit)
 	{
 		final Connection result = pool.get();
@@ -46,17 +46,17 @@ final class ConnectionPool
 		}
 		return result;
 	}
-	
+
 	void put(final Connection connection)
 	{
 		pool.put(connection);
 	}
-	
+
 	void flush()
 	{
 		pool.flush();
 	}
-	
+
 	Pool.Info getInfo()
 	{
 		return pool.getInfo();

@@ -33,7 +33,7 @@ import com.exedio.cope.Cope;
 
 public final class Main
 {
-	
+
 	public static void main(final String[] args)
 	{
 		try
@@ -56,20 +56,20 @@ public final class Main
 			throw new RuntimeException(Arrays.toString(args), e);
 		}
 	}
-	
+
 	Main()
 	{/* do not allow instantiation by public */}
-	
+
 	final void run(final File dir, final String[] args, final Params params) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		final ArrayList<File> files = new ArrayList<File>();
-		
+
 		for(int i=0; i<args.length; i++)
 			files.add(new File(dir, args[i]));
-		
+
 		run(files, params);
 	}
-		
+
 	final void run(final ArrayList<File> files, final Params params) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
@@ -85,10 +85,10 @@ public final class Main
 			if(runtimeVersion!=null && instrumentorVersion!=null && !runtimeVersion.equals(instrumentorVersion))
 				throw new RuntimeException("version of cope runtime library ("+runtimeVersion+") does dot match version of cope instrumentor: "+instrumentorVersion);
 		}
-		
+
 		if(files.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
-		
+
 		final JavaRepository repository = new JavaRepository();
 		final ArrayList<Injector> injectors = new ArrayList<Injector>(files.size());
 
@@ -101,14 +101,14 @@ public final class Main
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
 			if(!file.isFile())
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
-				
+
 			final Injector injector = new Injector(file, new Instrumentor(), repository);
 			injector.parseFile();
 			injectors.add(injector);
 		}
-		
+
 		repository.endBuildStage();
-		
+
 		for(final Injector injector : injectors)
 		{
 			final JavaFile javaFile = injector.javaFile;
@@ -126,17 +126,17 @@ public final class Main
 				}
 			}
 		}
-		
+
 		final Iterator<Injector> injectorsIter = injectors.iterator();
 		for(final File file : files)
 		{
 			final Injector injector = injectorsIter.next();
-			
+
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)file.length() + 100);
 			final Generator generator = new Generator(injector.javaFile, baos, params);
 			generator.write();
 			generator.close();
-			
+
 			if(injector.inputCRC!=generator.getCRC())
 			{
 				logInstrumented(file);
@@ -164,21 +164,21 @@ public final class Main
 	boolean verbose;
 	int skipped;
 	int instrumented;
-	
+
 	private void logSkipped(final File file)
 	{
 		if(verbose)
 			System.out.println("Skipped " + file);
-		
+
 		skipped++;
 	}
-	
+
 	private void logInstrumented(final File file)
 	{
 		if(verbose)
 			System.out.println("Instrumented " + file);
-		
+
 		instrumented++;
 	}
-	
+
 }

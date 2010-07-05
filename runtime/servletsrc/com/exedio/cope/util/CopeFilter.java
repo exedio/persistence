@@ -39,14 +39,14 @@ public final class CopeFilter implements Filter
 {
 	private ConnectToken connectToken = null;
 	private Model model;
-	
+
 	public void init(final FilterConfig config) throws ServletException
 	{
 		connectToken = ServletUtil.getConnectedModel(this, config);
 		model = connectToken.getModel();
 		System.out.println("deprecation warning: com.exedio.cope.util.CopeFilter is deprecated, use com.exedio.cope.misc.CopeFilter instead");
 	}
-	
+
 	private volatile boolean revised = false;
 
 	public void doFilter(
@@ -64,7 +64,7 @@ public final class CopeFilter implements Filter
 			model.reviseIfSupported();
 			revised = true;
 		}
-		
+
 		try
 		{
 			model.startTransaction("CopeFilter");
@@ -76,7 +76,7 @@ public final class CopeFilter implements Filter
 			model.rollbackIfNotCommitted();
 		}
 	}
-	
+
 	public void destroy()
 	{
 		connectToken.returnIt();

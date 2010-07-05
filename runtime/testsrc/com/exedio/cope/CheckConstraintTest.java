@@ -37,12 +37,12 @@ import com.exedio.dsmf.Table;
 public class CheckConstraintTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(CheckConstraintItem.TYPE, CheckConstraintSuperItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(CheckConstraintTest.class, "MODEL");
 	}
-	
+
 	public CheckConstraintTest()
 	{
 		super(MODEL);
@@ -94,10 +94,10 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 			list(
 				einsGreaterOrEqualZwei),
 			CheckConstraintSuperItem.TYPE.getCheckConstraints());
-		
+
 		assertEquals(alpha.less(beta), alphaLessBeta.getCondition());
 		assertEquals(eins.greaterOrEqual(zwei), einsGreaterOrEqualZwei.getCondition());
-		
+
 		try
 		{
 			new CheckConstraint(null);
@@ -125,31 +125,31 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		{
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}
-		
+
 		assertSerializedSame(alphaLessBeta, 393);
-		
+
 		// test schema
 		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
-			
+
 			final Table table = schema.getTable(getTableName(TYPE));
 			assertNotNull(table);
 			assertEquals(null, table.getError());
 			assertEquals(Schema.Color.OK, table.getParticularColor());
-			
+
 			final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
 			assertNotNull(superTable);
 			assertEquals(null, superTable.getError());
 			assertEquals(Schema.Color.OK, superTable.getParticularColor());
-			
+
 			assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
 			assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
-			
+
 			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
 		}
 	}
-	
+
 	private final String q(final IntegerField f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));

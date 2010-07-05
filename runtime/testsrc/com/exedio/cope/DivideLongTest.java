@@ -29,15 +29,15 @@ import static com.exedio.cope.DivideLongItem.numC;
 public class DivideLongTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
-	
+
 	public DivideLongTest()
 	{
 		super(MODEL);
 	}
-	
+
 	DivideLongItem item;
 	DivideLongItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -45,7 +45,7 @@ public class DivideLongTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new DivideLongItem(7, 9, 3));
 		item2 = deleteOnTearDown(new DivideLongItem(30, 4, 5));
 	}
-	
+
 	public void testSum()
 	{
 		// test model
@@ -58,7 +58,7 @@ public class DivideLongTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(numA, numB), divideAB.getSources());
 		assertEqualsUnmodifiable(list(numA, numC), divideAC.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
-		
+
 		// test equals/hashCode
 		assertEquals(divideAB, divideAB);
 		assertEquals(divideAB, numA.divide(numB));
@@ -80,7 +80,7 @@ public class DivideLongTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(divideAB.equal(0l)));
 		assertContains(item, TYPE.search(divideAC.equal(2l)));
 		assertContains(item, TYPE.search(divideBC.equal(3l)));
-		
+
 		// test null propagation
 		item.setNumA(null);
 

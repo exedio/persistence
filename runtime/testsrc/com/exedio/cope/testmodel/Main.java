@@ -35,10 +35,10 @@ public class Main
 		CollisionItem1.TYPE,
 		CollisionItem2.TYPE,
 	};
-	
+
 	public static final Model model = new Model(
 		modelTypes);
-	
+
 	static
 	{
 		model.enableSerialization(Main.class, "model");

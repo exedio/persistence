@@ -48,7 +48,7 @@ final class MysqlDialect extends Dialect
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * mysql supports placeholders in version 5.0.7 and higher
 	 */
@@ -71,7 +71,7 @@ final class MysqlDialect extends Dialect
 		info.setProperty("characterEncoding", "utf8");
 		info.setProperty("characterSetResults", "utf8");
 	}
-	
+
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
@@ -117,13 +117,13 @@ final class MysqlDialect extends Dialect
 		else
 			return "longtext character set utf8 binary";
 	}
-	
+
 	@Override
 	String getDayType()
 	{
 		return "DATE";
 	}
-	
+
 	@Override
 	String getDateTimestampType()
 	{
@@ -135,7 +135,7 @@ final class MysqlDialect extends Dialect
 		// This works with 4.1.6 and higher only
 		return null;
 	}
-	
+
 	@Override
 	String getBlobType(final long maximumLength)
 	{
@@ -148,14 +148,14 @@ final class MysqlDialect extends Dialect
 		else
 			return "LONGBLOB";
 	}
-	
+
 	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('x');
 		super.addBlobInStatementText(statementText, parameter);
 	}
-	
+
 	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
@@ -167,7 +167,7 @@ final class MysqlDialect extends Dialect
 			append(" DIV ").
 			append(divisor, join);
 	}
-	
+
 	@Override
 	LimitSupport getLimitSupport()
 	{
@@ -180,7 +180,7 @@ final class MysqlDialect extends Dialect
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
-		
+
 		bf.append(" limit ");
 
 		if(offset>0)
@@ -199,13 +199,13 @@ final class MysqlDialect extends Dialect
 		else
 			bf.append(Integer.toString(countInStatement));
 	}
-	
+
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException(bf.toString());
 	}
-	
+
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
@@ -215,7 +215,7 @@ final class MysqlDialect extends Dialect
 			appendParameter(function, value).
 			append("))");
 	}
-	
+
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
@@ -226,7 +226,7 @@ final class MysqlDialect extends Dialect
 			append("))=").
 			appendParameter(Hex.encodeUpper(value));
 	}
-	
+
 	@Override
 	protected String getClause(final String column, final CharSet set)
 	{
@@ -237,14 +237,14 @@ final class MysqlDialect extends Dialect
 			append('\'');
 		return bf.toString();
 	}
-	
+
 	@Override
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;
-		
+
 		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
 			final Statement bf = executor.newStatement();
@@ -270,7 +270,7 @@ final class MysqlDialect extends Dialect
 							{
 								if(bf.length()>0)
 									bf.append(", ");
-								
+
 								bf.append(metaData.getColumnName(i)).
 									append('=').
 									append(value.toString());
@@ -282,10 +282,10 @@ final class MysqlDialect extends Dialect
 				}
 			});
 		}
-		
+
 		return root;
 	}
-	
+
 	@Override
 	protected Integer nextSequence(
 			final Executor executor,
@@ -296,7 +296,7 @@ final class MysqlDialect extends Dialect
 		bf.append("INSERT INTO ").
 			append(dsmfDialect.quoteName(name)).
 			append(" () VALUES ()");
-		
+
 		return (int)(executor.insert(connection, bf, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
@@ -310,7 +310,7 @@ final class MysqlDialect extends Dialect
 			}
 		}).longValue() - 1);
 	}
-	
+
 	@Override
 	protected Integer getNextSequence(
 			final Executor executor,
@@ -322,7 +322,7 @@ final class MysqlDialect extends Dialect
 			append(dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
-		
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
@@ -336,13 +336,13 @@ final class MysqlDialect extends Dialect
 			}
 		});
 	}
-	
+
 	@Override
 	boolean supportsRandom()
 	{
 		return true;
 	}
-	
+
 	@Override
 	boolean subqueryRequiresAlias()
 	{

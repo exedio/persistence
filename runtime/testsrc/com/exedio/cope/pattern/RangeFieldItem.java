@@ -24,7 +24,7 @@ import com.exedio.cope.Item;
 public class RangeFieldItem extends Item
 {
 	static final RangeField<Integer> valid = RangeField.newRange(new IntegerField());
-	
+
 	/**
 
 	 **

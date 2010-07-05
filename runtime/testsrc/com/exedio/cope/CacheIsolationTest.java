@@ -23,15 +23,15 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 	public/*for web.xml*/ static final Model MODEL = new Model(CacheIsolationItem.TYPE);
 
 	CacheIsolationItem item, collisionItem;
-	
+
 	public CacheIsolationTest()
 	{
 		super(MODEL);
 	}
-	
+
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -39,7 +39,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new CacheIsolationItem("blub"));
 		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
-		
+
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheInfo();
@@ -47,7 +47,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 			setupInvalidationsDone    = ci[0].getInvalidationsDone();
 		}
 	}
-	
+
 	public void test() throws MandatoryViolationException
 	{
 		if(postgresql) return;
@@ -97,7 +97,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.startTransaction("just for tearDown");
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
-	
+
 	public void testRollback() throws MandatoryViolationException
 	{
 		assertInvalidations(0, 0);
@@ -142,7 +142,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 	public void testSearch() throws MandatoryViolationException
 	{
 		if ( ! model.supportsReadCommitted() ) return;
-		
+
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		assertInvalidations(0, 0);
 		model.commit();
@@ -173,7 +173,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.joinTransaction( txChange );
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
-	
+
 	private final void assertInvalidations(final int ordered, final int done)
 	{
 		final ItemCacheInfo[] ci = model.getItemCacheInfo();

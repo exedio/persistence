@@ -71,13 +71,13 @@ final class HsqldbDialect extends Dialect
 	{
 		return "varchar("+maxChars+")";
 	}
-	
+
 	@Override
 	String getDayType()
 	{
 		return "date";
 	}
-	
+
 	@Override
 	String getDateTimestampType()
 	{
@@ -89,7 +89,7 @@ final class HsqldbDialect extends Dialect
 	{
 		return "binary";
 	}
-	
+
 	@Override
 	int getBlobLengthFactor()
 	{
@@ -114,19 +114,19 @@ final class HsqldbDialect extends Dialect
 			append(' ').
 			appendParameter(limit!=Query.UNLIMITED ? limit : 0);
 	}
-	
+
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException(bf.toString());
 	}
-	
+
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		appendMatchClauseByLike(bf, function, value);
 	}
-	
+
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
@@ -137,13 +137,13 @@ final class HsqldbDialect extends Dialect
 			append(")=").
 			appendParameter(Hex.encodeLower(value));
 	}
-	
+
 	@Override
 	boolean fakesSupportReadCommitted()
 	{
 		return true;
 	}
-	
+
 	@Override
 	protected Integer nextSequence(
 			final Executor executor,
@@ -180,7 +180,7 @@ final class HsqldbDialect extends Dialect
 				append(dsmfDialect.quoteName(name)).
 				append(" FROM ").
 				append(TEMP_TABLE);
-				
+
 			result = executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
 				public Integer handle(final ResultSet resultSet) throws SQLException
@@ -210,7 +210,7 @@ final class HsqldbDialect extends Dialect
 		}
 		return result;
 	}
-	
+
 	@Override
 	protected Integer getNextSequence(
 			final Executor executor,
@@ -221,7 +221,7 @@ final class HsqldbDialect extends Dialect
 		bf.append("SELECT START_WITH" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
-		
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException

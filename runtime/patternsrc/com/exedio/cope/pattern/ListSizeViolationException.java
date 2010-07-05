@@ -36,11 +36,11 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class ListSizeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final AbstractListField feature;
 	private final int size;
 	private final int border;
-	
+
 	/**
 	 * Creates a new ListSizeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -54,7 +54,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 		this.size = size;
 		this.border = border;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -71,7 +71,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	{
 		return size;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{

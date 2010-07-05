@@ -47,7 +47,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 public class InitServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
@@ -72,7 +72,7 @@ public class InitServlet extends CopsServlet
 		}
 
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, UTF8);
-		
+
 		final Transaction tx1;
 		if(transaction)
 		{
@@ -91,7 +91,7 @@ public class InitServlet extends CopsServlet
 		}
 		else
 			tx1 = null;
-		
+
 		try
 		{
 			Init_Jspm.write(out, initialize, transaction);
@@ -120,30 +120,30 @@ public class InitServlet extends CopsServlet
 				final UniqueSingleItem item2 = new UniqueSingleItem();
 				item2.setUniqueString("item2");
 			}
-			
+
 			new UniqueFinalItem("item1");
 			new UniqueFinalItem("item2");
-			
+
 			new UniqueSingleNotNullItem("item1");
 			new UniqueSingleNotNullItem("item2");
-			
+
 			new UniqueDoubleItem("string1", 1);
 			new UniqueDoubleItem("string1", 2);
 			new UniqueDoubleItem("string2", 1);
 			new UniqueDoubleItem("string2", 2);
-			
+
 			final EmptyItem emptyItem1 = new EmptyItem();
 			final EmptyItem emptyItem2 = new EmptyItem();
 			new EmptyItem();
 			new EmptyItem2();
-			
+
 			final AttributeItem attributeItem1 = new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnum.enumValue1);
 			final AttributeItem attributeItem2 = new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnum.enumValue2);
 			final AttributeItem attributeItem3 = new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnum.enumValue2);
 			attributeItem1.setSomeData(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
 			attributeItem2.setSomeData(thisClass.getResourceAsStream("osorno.png"), "image/png");
 			attributeItem3.setSomeData(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
-			
+
 			final Date date = new Date(1087368238214l);
 			for(int i = 0; i<102; i++)
 			{
@@ -154,17 +154,17 @@ public class InitServlet extends CopsServlet
 				final StringItem item1 = new StringItem("Test Provider 1");
 				final StringItem item2 = new StringItem("Test Provider 2");
 				final StringItem item3 = new StringItem("Test Provider 3");
-				
+
 				item1.setAny("any1");
 				item1.setMin4("min4");
 				item1.setMax4("max4");
 				item1.setMin4Max8("min4max8");
-				
+
 				item2.setAny("any1");
 				item2.setMin4("min4");
 				item2.setMax4("max4");
 				item2.setMin4Max8("m4x8");
-				
+
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			{
@@ -175,10 +175,10 @@ public class InitServlet extends CopsServlet
 				item1a.setSelf(item1a);
 				item1b.setSelf(item1a);
 			}
-			
+
 			new FinalItem("finalString1", 1);
 			new FinalItem("finalString2", 2);
-			
+
 			new CollisionItem1(emptyItem1);
 			new CollisionItem1(emptyItem2);
 			new CollisionItem2(emptyItem1);

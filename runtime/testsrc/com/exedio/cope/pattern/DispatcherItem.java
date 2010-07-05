@@ -43,7 +43,7 @@ public class DispatcherItem extends Item implements Dispatchable
 		int dispatchLastSuccessElapsed = 0;
 		final ArrayList<Integer> dispatchFailureElapsed = new ArrayList<Integer>();
 		int notifyFinalFailureCount = 0;
-		
+
 		Log(final boolean fail)
 		{
 			this.fail = fail;
@@ -51,7 +51,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	}
 
 	static final Dispatcher toTarget = new Dispatcher();
-	
+
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
 		Assert.assertSame(toTarget, dispatcher);
@@ -69,7 +69,7 @@ public class DispatcherItem extends Item implements Dispatchable
 		}
 		log.dispatchLastSuccessElapsed = ((int)((nanoTime() - start) / 1000000));
 	}
-	
+
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
 		Assert.assertSame(toTarget, dispatcher);
@@ -77,14 +77,14 @@ public class DispatcherItem extends Item implements Dispatchable
 		Assert.assertEquals(IOException.class, cause.getClass());
 		logs.get(this).notifyFinalFailureCount++;
 	}
-	
+
 	DispatcherItem(final String body, final boolean fail)
 	{
 		this(body);
 		logs.put(this, new Log(fail));
 	}
-	
-	
+
+
 	/**
 
 	 **

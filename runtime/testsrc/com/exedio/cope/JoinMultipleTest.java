@@ -73,14 +73,14 @@ public class JoinMultipleTest extends TestmodelTest
 
 			query.setCondition(target1.code.equal(join1, "target1"));
 			assertEqualsUnmodifiable(list(source), query.search());
-			
+
 			assertEquals(
 					"select this from PointerItem " +
 					"join PointerTargetItem p1 on pointer=p1.PointerTargetItem.this " +
 					"join PointerTargetItem p2 on pointer2=p2.PointerTargetItem.this " +
 					"where p1.PointerTargetItem.code='target1'",
 					query.toString());
-			
+
 			// TODO test attributes with wrong join
 			// TODO test when join is falsely null
 			// TODO test with functions on joined types

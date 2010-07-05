@@ -47,30 +47,30 @@ import com.exedio.cope.misc.ComputedElement;
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final boolean isfinal;
 	private final boolean optional;
 	private final Class<E> valueClass;
-	
+
 	private final CompositeType<E> valueType;
 	private final Constructor<E> valueConstructor;
 	private final LinkedHashMap<String, FunctionField> templates;
 	private final List<FunctionField> templateList;
 	private final int componentSize;
-	
+
 	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
 	private HashMap<FunctionField, FunctionField> componentToTemplate = null;
 	private List<FunctionField> componentList = null;
 	private FunctionField mandatoryComponent = null;
 	private FunctionField isNullComponent = null;
 	private CheckConstraint unison = null;
-	
+
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
 		this.valueClass = valueClass;
-		
+
 		if(valueClass==null)
 			throw new NullPointerException("valueClass");
 		if(!Composite.class.isAssignableFrom(valueClass))
@@ -84,27 +84,27 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.templateList = valueType.templateList;
 		this.componentSize = valueType.componentSize;
 	}
-	
+
 	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)
 	{
 		return new CompositeField<E>(false, false, valueClass);
 	}
-	
+
 	public CompositeField<E> toFinal()
 	{
 		return new CompositeField<E>(true, optional, valueClass);
 	}
-	
+
 	public CompositeField<E> optional()
 	{
 		return new CompositeField<E>(isfinal, true, valueClass);
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		
+
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
 		final HashMap<FunctionField, FunctionField> componentToTemplate =
@@ -112,7 +112,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		FunctionField mandatoryComponent = null;
 		final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
 		final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
-		
+
 		for(Map.Entry<String, FunctionField> e : templates.entrySet())
 		{
 			final FunctionField template = e.getValue();
@@ -131,7 +131,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 		if(optional && mandatoryComponent==null)
 			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
-		
+
 		this.templateToComponent = templateToComponent;
 		this.componentToTemplate = componentToTemplate;
 		this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
@@ -140,7 +140,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		if(optional)
 			addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
 	}
-	
+
 	private FunctionField copy(final FunctionField template)
 	{
 		if(isfinal)
@@ -163,7 +163,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			throw new IllegalArgumentException(template + " is not a template of " + toString());
 		return result;
 	}
-	
+
 	public <X extends FunctionField> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")
@@ -172,33 +172,33 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			throw new IllegalArgumentException(component + " is not a component of " + toString());
 		return result;
 	}
-	
+
 	public List<FunctionField> getTemplates()
 	{
 		return templateList;
 	}
-	
+
 	public List<FunctionField> getComponents()
 	{
 		return componentList;
 	}
-	
+
 	public CheckConstraint getUnison()
 	{
 		return unison;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(valueClass));
-		
+
 		if(!isfinal)
 		{
 			result.add(
@@ -207,16 +207,16 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 				addThrows(getInitialExceptions()).
 				addParameter(valueClass));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public E get(final Item item)
 	{
 		if(mandatoryComponent!=null && mandatoryComponent.get(item)==null)
 			return null;
-		
+
 		final SetValue[] initargs = new SetValue[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
@@ -225,7 +225,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 		return newValue(initargs);
 	}
-	
+
 	public E newValue(final SetValue... initargs)
 	{
 		try
@@ -255,7 +255,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 				throw new RuntimeException(e);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void set(final Item item, final E value)
 	{
@@ -307,7 +307,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		return !optional;
 	}
-	
+
 	public Class<E> getValueClass()
 	{
 		return valueClass;
@@ -317,19 +317,19 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		return new SetValue<E>(this, value);
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
-	
+
 	public IsNullCondition isNull()
 	{
 		return isNullComponent.isNull();
 	}
-	
+
 	public IsNullCondition isNotNull()
 	{
 		return isNullComponent.isNotNull();
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

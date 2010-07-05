@@ -27,17 +27,17 @@ public final class QueryInfo
 {
 	private ArrayList<QueryInfo> childsLazilyInitialized;
 	final String text;
-	
+
 	QueryInfo(final String text)
 	{
 		this.text = text;
 	}
-	
+
 	public String getText()
 	{
 		return text;
 	}
-	
+
 	public Collection<QueryInfo> getChilds()
 	{
 		return
@@ -45,7 +45,7 @@ public final class QueryInfo
 			? Collections.<QueryInfo>emptyList()
 			: Collections.unmodifiableList(childsLazilyInitialized);
 	}
-	
+
 	void addChild(final QueryInfo newChild)
 	{
 		if(childsLazilyInitialized==null)
@@ -53,7 +53,7 @@ public final class QueryInfo
 
 		childsLazilyInitialized.add(newChild);
 	}
-	
+
 	public void print(final PrintStream o)
 	{
 		print(o, 0);

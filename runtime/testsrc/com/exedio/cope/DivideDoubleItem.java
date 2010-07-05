@@ -26,13 +26,13 @@ public class DivideDoubleItem extends Item
 	public static final DoubleField numB = new DoubleField().optional();
 
 	public static final DoubleField numC = new DoubleField().optional();
-	
+
 	public static final DivideView<Double> divideAB = numA.divide(numB);
-	
+
 	public static final DivideView<Double> divideAC = numA.divide(numC);
-	
+
 	public static final DivideView<Double> divideBC = numB.divide(numC);
-	
+
 	public DivideDoubleItem(final double initialNumA, final double initialNumB, final double initialNumC)
 	{
 		super(new SetValue[]{

@@ -23,7 +23,7 @@ import java.util.Locale;
 public final class UppercaseView extends StringView
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final StringFunction source;
 
 	/**
@@ -37,7 +37,7 @@ public final class UppercaseView extends StringView
 		super(new StringFunction[]{source}, "upper");
 		this.source = source;
 	}
-	
+
 	private static String toUpperCase(final String s)
 	{
 		return s.toUpperCase(Locale.ENGLISH); // TODO which locale ?
@@ -58,29 +58,29 @@ public final class UppercaseView extends StringView
 			append(source, join).
 			append(')');
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
-	
+
 	public static final Condition equalIgnoreCase(final StringFunction function, final String value)
 	{
 		return function.toUpperCase().equal(toUpperCase(value));
 	}
-	
+
 	public static final LikeCondition likeIgnoreCase(final StringFunction function, final String value)
 	{
 		return function.toUpperCase().like(toUpperCase(value));
 	}
-	
+
 	public static final LikeCondition startsWithIgnoreCase(final StringFunction function, final String value)
 	{
 		return LikeCondition.startsWith(function.toUpperCase(), toUpperCase(value));
 	}
-	
+
 	public static final LikeCondition endsWithIgnoreCase(final StringFunction function, final String value)
 	{
 		return LikeCondition.endsWith(function.toUpperCase(), toUpperCase(value));
 	}
-	
+
 	public static final LikeCondition containsIgnoreCase(final StringFunction function, final String value)
 	{
 		return LikeCondition.contains(function.toUpperCase(), toUpperCase(value));

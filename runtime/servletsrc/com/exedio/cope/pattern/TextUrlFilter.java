@@ -44,19 +44,19 @@ import com.exedio.cope.pattern.MediaFilter;
 public class TextUrlFilter extends MediaFilter
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Media raw;
 	private final String supportedContentType;
 	private final String encoding;
 	private final String pasteStart;
 	private final String pasteStop;
-	
+
 	private ItemField<? extends Item> pasteParent = null;
 	private final StringField pasteKey;
 	private UniqueConstraint pasteParentAndKey = null;
 	private final Media pasteValue;
 	private Type<Paste> pasteType = null;
-	
+
 	public TextUrlFilter(
 			final Media raw,
 			final String supportedContentType,
@@ -75,7 +75,7 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
 	}
-	
+
 	public final void addPaste(final Item item, final String key, final Media.Value value)
 	{
 		pasteType.newItem(
@@ -83,21 +83,21 @@ public class TextUrlFilter extends MediaFilter
 				this.pasteValue.map(value),
 				Cope.mapAndCast(this.pasteParent, item));
 	}
-	
+
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 				new Wrapper("addPaste").
 				addParameter(String.class, "key").
 				addParameter(Media.Value.class, "value"));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@Override
 	protected final void onMount()
 	{
@@ -113,24 +113,24 @@ public class TextUrlFilter extends MediaFilter
 		features.put("value", pasteValue);
 		this.pasteType = newSourceType(Paste.class, features);
 	}
-	
+
 	@Override
 	public final String getContentType(final Item item)
 	{
 		final String contentType = raw.getContentType(item);
 		return supportedContentType.equals(contentType) ? contentType : null;
 	}
-	
+
 	@Override
 	public final Log doGetIfModified(final HttpServletResponse response, final Item item) throws IOException
 	{
 		final String sourceContentType = raw.getContentType(item);
 		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))
 			return isNull;
-		
+
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, encoding);
-		
+
 		String tempString = srcString;
 		while(tempString.indexOf(pasteStart) > -1)
 		{
@@ -146,15 +146,15 @@ public class TextUrlFilter extends MediaFilter
 			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
 			tempString = sb.toString();
 		}
-		
+
 		response.setContentType(supportedContentType);
-		
+
 		final ByteArrayOutputStream body = new ByteArrayOutputStream(); // TODO do not use ByteArrayOutputStream, is non-sense
-		
+
 		body.write(tempString.getBytes(encoding));
-		
+
 		response.setContentLength(body.size());
-		
+
 		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
@@ -166,13 +166,13 @@ public class TextUrlFilter extends MediaFilter
 			out.close();
 		}
 	}
-	
+
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.singleton(supportedContentType);
 	}
-	
+
 	@Computed
 	private static final class Paste extends Item
 	{

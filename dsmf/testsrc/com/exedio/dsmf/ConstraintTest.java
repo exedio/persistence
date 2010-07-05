@@ -25,15 +25,15 @@ public class ConstraintTest extends SchemaReadyTest
 	private static final Class PK = PrimaryKeyConstraint.class;
 	private static final Class FK = ForeignKeyConstraint.class;
 	private static final Class UNIQUE = UniqueConstraint.class;
-	
+
 	private static final String TABLE = "ConstraintTable";
-	
+
 	private static final String NOT_NULL_COLUMN = "notNull";
 	private static final String NOT_NULL_NAME = "notNullId";
 
 	private static final String CHECK_COLUMN = "check";
 	private static final String CHECK_NAME = "check";
-	
+
 	private static final String PK_COLUMN = "primaryKey";
 	private static final String PK_NAME = "primaryKey_Pk"; // must have this value to work with mysql
 
@@ -59,14 +59,14 @@ public class ConstraintTest extends SchemaReadyTest
 		{
 			new Column(table, NOT_NULL_COLUMN, stringType);
 			new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-			
+
 			new Column(table, CHECK_COLUMN, intType);
 			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		}
-		
+
 		new Column(table, PK_COLUMN, stringType);
 		new PrimaryKeyConstraint(table, PK_NAME, PK_COLUMN);
-		
+
 		new Column(table, FK_COLUMN, stringType);
 		{
 			final Table targetTable = new Table(result, FK_TARGET_TABLE);
@@ -84,7 +84,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		return result;
 	}
-	
+
 	public void testConstraints()
 	{
 		final Schema schema = getVerifiedSchema();
@@ -93,7 +93,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertNotNull(table);
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
-		
+
 		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		if(!postgresql)
 			assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
@@ -104,16 +104,16 @@ public class ConstraintTest extends SchemaReadyTest
 			assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 			assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 		}
-		
+
 		table.getConstraint(FK_NAME).drop();
 		table.getConstraint(FK_NAME).create();
-		
+
 		if(supportsCheckConstraints)
 		{
 			table.getConstraint(CHECK_NAME).drop();
 			table.getConstraint(CHECK_NAME).create();
 		}
-		
+
 		table.getConstraint(PK_NAME).drop();
 		table.getConstraint(PK_NAME).create();
 		table.getConstraint(UNIQUE_SINGLE_NAME).drop();
@@ -127,7 +127,7 @@ public class ConstraintTest extends SchemaReadyTest
 		return
 			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
-	
+
 	private void assertPkConstraint(final Table table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
 	{
 		final PrimaryKeyConstraint constraint =
@@ -135,7 +135,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
 	}
-	
+
 	private void assertFkConstraint(final Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
@@ -145,7 +145,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(targetTable, constraint.getTargetTable());
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
-	
+
 	private void assertUniqueConstraint(final Table table, final String constraintName, final String clause)
 	{
 		final UniqueConstraint constraint =
@@ -153,7 +153,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertEquals(clause, constraint.getClause());
 	}
-	
+
 	private Constraint assertConstraint(final Table table, final Class constraintType, final String constraintName, final String requiredCondition)
 	{
 		final Constraint constraint = table.getConstraint(constraintName);

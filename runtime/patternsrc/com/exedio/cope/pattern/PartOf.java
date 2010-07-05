@@ -37,7 +37,7 @@ import com.exedio.cope.util.Cast;
 public final class PartOf<C extends Item> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final ItemField<C> container;
 	private final FunctionField order;
 
@@ -49,60 +49,60 @@ public final class PartOf<C extends Item> extends Pattern
 		if(order!=null)
 			addSource(order, "Order");
 	}
-	
+
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
 	{
 		return new PartOf<C>(container, null);
 	}
-	
+
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)
 	{
 		if(order==null)
 			throw new NullPointerException("order");
-		
+
 		return new PartOf<C>(container, order);
 	}
-	
+
 	public ItemField<C> getContainer()
 	{
 		return container;
 	}
-	
+
 	public FunctionField getOrder()
 	{
 		return order;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("getContainer").
 			addComment("Returns the container this item is part of by {0}.").
 			setReturn(container.getValueClass()));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public C getContainer(final Item part)
 	{
 		return container.get(part);
 	}
-	
+
 	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Query<P> q = type.newQuery(this.container.equal(container));
-		
+
 		final This typeThis = type.getThis(); // make search deterministic
 		if(order!=null)
 			q.setOrderBy(new Function[]{order, typeThis}, new boolean[]{true, true});
 		else
 			q.setOrderBy(typeThis, true);
-		
+
 		return q.search();
 	}
 
@@ -110,12 +110,12 @@ public final class PartOf<C extends Item> extends Pattern
 	{
 		return getParts(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container));
 	}
-	
+
 	// static convenience methods ---------------------------------
 
 	private static final HashMap<Type<?>, List<PartOf>> cacheForGetPartOfs = new HashMap<Type<?>, List<PartOf>>();
 	private static final HashMap<Type<?>, List<PartOf>> cacheForGetDeclaredPartOfs = new HashMap<Type<?>, List<PartOf>>();
-	
+
 	/**
 	 * Returns all part-of declarations where <tt>type</tt> or any of it's super types is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
@@ -133,7 +133,7 @@ public final class PartOf<C extends Item> extends Pattern
 	{
 		return getPartOfs(true, cacheForGetDeclaredPartOfs, type);
 	}
-	
+
 	private static final List<PartOf> getPartOfs(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
 	{
 		synchronized(cache)
@@ -143,9 +143,9 @@ public final class PartOf<C extends Item> extends Pattern
 				if(cachedResult!=null)
 					return cachedResult;
 			}
-			
+
 			final ArrayList<PartOf> resultModifiable = new ArrayList<PartOf>();
-			
+
 			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{
 				final Pattern pattern = field.getPattern();
@@ -153,7 +153,7 @@ public final class PartOf<C extends Item> extends Pattern
 					resultModifiable.add((PartOf)pattern);
 			}
 			resultModifiable.trimToSize();
-			
+
 			final List<PartOf> result =
 				!resultModifiable.isEmpty()
 				? Collections.unmodifiableList(resultModifiable)
@@ -162,7 +162,7 @@ public final class PartOf<C extends Item> extends Pattern
 			return result;
 		}
 	}
-	
+
 	/**
 	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
 	 * for {@link History}.
@@ -182,9 +182,9 @@ public final class PartOf<C extends Item> extends Pattern
 		}
 		return result;
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #getParts(Item)} instead
 	 */

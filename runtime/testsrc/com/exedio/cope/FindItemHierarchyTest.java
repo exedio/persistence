@@ -25,12 +25,12 @@ public class FindItemHierarchyTest extends AbstractRuntimeTest
 	{
 		super(HierarchyTest.MODEL);
 	}
-	
+
 	HierarchyFirstSub firstItem;
 	HierarchySecondSub secondItem;
 	HierarchySecondSub secondItem2;
 	HierarchyFirstSub firstItem2;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -40,7 +40,7 @@ public class FindItemHierarchyTest extends AbstractRuntimeTest
 		secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
 		firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
 	}
-	
+
 	public void testHierarchy()
 			throws NoSuchIDException
 	{

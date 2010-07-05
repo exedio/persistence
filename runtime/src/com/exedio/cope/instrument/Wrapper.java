@@ -30,11 +30,11 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 public final class Wrapper
 {
 	private final String name;
-	
+
 	public Wrapper(final String name)
 	{
 		this.name = name;
-		
+
 		if(name==null)
 			throw new NullPointerException("name");
 	}
@@ -43,43 +43,43 @@ public final class Wrapper
 	{
 		return name;
 	}
-	
-	
+
+
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
-	
+
 	public Wrapper setStatic()
 	{
 		return setStatic(true);
 	}
-	
+
 	public Wrapper setStatic(final boolean classToken)
 	{
 		isStatic = true;
 		hasStaticClassToken = classToken;
-		
+
 		return this;
 	}
-	
+
 	public boolean isStatic()
 	{
 		return isStatic;
 	}
-	
+
 	public boolean hasStaticClassToken()
 	{
 		return hasStaticClassToken;
 	}
-	
-	
+
+
 	private java.lang.reflect.Type returnType = null;
 	private String returnComment = null;
-	
+
 	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
 		return setReturn(type, null);
 	}
-	
+
 	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
 	{
 		if(type==null)
@@ -90,10 +90,10 @@ public final class Wrapper
 			throw new IllegalStateException("type must not be set twice");
 		if(comment!=null)
 			assertComment(comment);
-		
+
 		this.returnType = type;
 		this.returnComment = comment;
-		
+
 		return this;
 	}
 
@@ -106,15 +106,15 @@ public final class Wrapper
 	{
 		return returnComment;
 	}
-	
-	
+
+
 	static final class Parameter
 	{
 		private final java.lang.reflect.Type type;
 		private final String name;
 		private final String comment;
 		private final boolean vararg;
-		
+
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
@@ -129,7 +129,7 @@ public final class Wrapper
 				assertComment(comment);
 			if(vararg && !((Class)type).isArray())
 				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
-			
+
 			this.type = type;
 			this.name = name;
 			this.comment = comment;
@@ -156,29 +156,29 @@ public final class Wrapper
 			return vararg;
 		}
 	}
-	
+
 	private ArrayList<Parameter> parameters;
-	
+
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
 		return addParameter(type, "{1}", null);
 	}
-	
+
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
 	{
 		return addParameter(type, name, null);
 	}
-	
+
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
 	{
 		return addParameter(type, name, comment, false);
 	}
-	
+
 	public Wrapper addParameterVararg(final Class type, final String name)
 	{
 		return addParameter(type, name, null, true);
 	}
-	
+
 	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
 	{
 		final Parameter p = new Parameter(type, name, comment, vararg);
@@ -196,35 +196,35 @@ public final class Wrapper
 			? Collections.unmodifiableList(parameters)
 			: Collections.<Parameter>emptyList();
 	}
-	
-	
+
+
 	private LinkedHashMap<Class<? extends Throwable>, String> throwsClause;
-	
+
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
 		for(final Class<? extends Throwable> throwable : throwables)
 			addThrows(throwable, null);
-		
+
 		return this;
 	}
-	
+
 	public Wrapper addThrows(final Class<? extends Throwable> throwable)
 	{
 		return addThrows(throwable, null);
 	}
-	
+
 	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
 	{
 		if(throwable==null)
 			throw new NullPointerException("throwable");
 		if(comment!=null)
 			assertComment(comment);
-		
+
 		if(throwsClause==null)
 			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
-		
+
 		throwsClause.put(throwable, comment);
-		
+
 		return this;
 	}
 
@@ -235,36 +235,36 @@ public final class Wrapper
 			? Collections.unmodifiableMap(throwsClause)
 			: Collections.<Class<? extends Throwable>, String>emptyMap();
 	}
-	
-	
+
+
 	private String methodWrapperPattern;
-	
+
 	public Wrapper setMethodWrapperPattern(final String pattern)
 	{
 		this.methodWrapperPattern = pattern;
-		
+
 		return this;
 	}
-	
+
 	public String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;
 	}
-	
-	
+
+
 	private ArrayList<String> comments = null;
-	
+
 	public Wrapper addComment(final String comment)
 	{
 		assertComment(comment);
-		
+
 		if(comments==null)
 			comments = new ArrayList<String>();
 		comments.add(comment);
 
 		return this;
 	}
-	
+
 	public List<String> getComments()
 	{
 		return
@@ -272,30 +272,30 @@ public final class Wrapper
 			? Collections.unmodifiableList(comments)
 			: Collections.<String>emptyList();
 	}
-	
-	
+
+
 	private String deprecationComment = null;
-	
+
 	public Wrapper deprecate(final String comment)
 	{
 		assertComment(comment);
-		
+
 		deprecationComment = comment;
 
 		return this;
 	}
-	
+
 	public boolean isDeprecated()
 	{
 		return deprecationComment!=null;
 	}
-	
+
 	public String getDeprecationComment()
 	{
 		return deprecationComment;
 	}
-	
-	
+
+
 	static final void assertComment(final String comment)
 	{
 		if(comment==null)
@@ -305,22 +305,22 @@ public final class Wrapper
 		if(comment.startsWith("@"))
 			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
 	}
-	
-	
+
+
 	public class ClassVariable { /* OK, just a placeholder */ }
 	public class TypeVariable0 { /* OK, just a placeholder */ }
 	public class TypeVariable1 { /* OK, just a placeholder */ }
-	
+
 	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
 	{
 		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
 	}
-	
+
 	public static class ExtendsType implements java.lang.reflect.Type
 	{
 		private final Class rawType;
 		private final Class[] actualTypeArguments;
-		
+
 		ExtendsType(
 				final Class rawType,
 				final Class[] actualTypeArguments)
@@ -339,7 +339,7 @@ public final class Wrapper
 			return com.exedio.cope.misc.Arrays.copyOf(actualTypeArguments);
 		}
 	}
-	
+
 	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
 	{
 		return new ExtendsType(rawType, actualTypeArguments);

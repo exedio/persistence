@@ -34,15 +34,15 @@ import static com.exedio.cope.PlusLongItem.plusBC;
 public class PlusLongTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
-	
+
 	public PlusLongTest()
 	{
 		super(MODEL);
 	}
-	
+
 	PlusLongItem item;
 	PlusLongItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,7 +50,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new PlusLongItem(1l, 2l, 3l));
 		item2 = deleteOnTearDown(new PlusLongItem(3l, 4l, 5l));
 	}
-	
+
 	public void testSum()
 	{
 		// test model
@@ -78,7 +78,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(plusAB, numC), plusABaC.getSources());
 		assertEqualsUnmodifiable(list(numB), multiplyB9.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
-		
+
 		// test equals/hashCode
 		assertEquals(plusA9, plusA9);
 		assertEquals(plusAB, plusAB);
@@ -116,7 +116,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numA.plus(numB).equal(3l)));
 		assertContains(item, TYPE.search(numB.multiply(9l  ).equal(18l)));
 		assertContains(item, TYPE.search(numB.multiply(numC).equal(6l)));
-		
+
 		// test null propagation
 		item.setNumA(null);
 

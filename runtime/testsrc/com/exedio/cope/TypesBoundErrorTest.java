@@ -93,7 +93,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		{
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
-		
+
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -122,7 +122,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		{
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
-		
+
 		try
 		{
 			newType(BeforeNewNotStatic.class);
@@ -150,7 +150,7 @@ public class TypesBoundErrorTest extends CopeAssert
 					"but returns java.lang.String", e.getMessage());
 		}
 	}
-	
+
 	static class NoItem
 	{
 		NoItem()
@@ -158,73 +158,73 @@ public class TypesBoundErrorTest extends CopeAssert
 			// just a dummy constructor
 		}
 	}
-	
+
 	static class NoActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
 	}
-	
+
 	static class WrongActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		WrongActivationConstructor(final ActivationParameters ap)
 		{
 			super(new ActivationParameters(ap.type, ap.pk-1));
 		}
 	}
-	
+
 	static class NullFeature extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		static final Feature nullFeature = null;
 	}
-	
+
 	static class NonResolvingItemField extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		static final ItemField itemField = Item.newItemField(NullFeature.class);
-		
+
 		NonResolvingItemField(final ActivationParameters ap)
 		{
 			super(ap);
 		}
 	}
-	
+
 	static class BeforeNewNotStatic extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		@SuppressWarnings("unused")
 		private final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
 		{
 			return setValues;
 		}
-		
+
 		public BeforeNewNotStatic(final ActivationParameters ap)
 		{
 			super(ap);
 		}
 	}
-	
+
 	static class BeforeNewWrongReturn extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		@SuppressWarnings("unused")
 		private static final String beforeNewCopeItem(final SetValue[] setValues)
 		{
 			return "";
 		}
-		
+
 		BeforeNewWrongReturn(final ActivationParameters ap)
 		{
 			super(ap);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	private static final Class<Item> castItemClass(Class c)
 	{

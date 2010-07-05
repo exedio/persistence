@@ -30,7 +30,7 @@ public final class TransactionSlicer
 
 	private int bitsLeft;
 	private int sliceCount = 0;
-	
+
 	public TransactionSlicer(final Model model, final int bitesPerSlice)
 	{
 		this.model = model;
@@ -38,16 +38,16 @@ public final class TransactionSlicer
 		this.transaction = model.currentTransaction();
 		this.transactionName = transaction.getName();
 		this.bitsLeft = bitesPerSlice;
-		
+
 		if(bitesPerSlice<=0)
 			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
 	}
-	
+
 	public boolean biteOff()
 	{
 		if((--bitsLeft)>0)
 			return false;
-		
+
 		if(transaction!=model.currentTransaction())
 			throw new IllegalStateException("inconsistent transaction, expected " + transaction + ", but was " + model.currentTransaction());
 
@@ -60,7 +60,7 @@ public final class TransactionSlicer
 				: ("slice"+sliceCount));
 		return true;
 	}
-	
+
 	public int getSliceCount()
 	{
 		return sliceCount;

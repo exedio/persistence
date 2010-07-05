@@ -33,13 +33,13 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class Executor
 {
 	static final String NO_SUCH_ROW = "no such row";
-	
+
 	final Dialect dialect;
 	final boolean prepare;
 	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
 	volatile DatabaseListener listener = null;
-	
+
 	Executor(
 			final Dialect dialect,
 			final ConnectProperties properties)
@@ -48,26 +48,26 @@ final class Executor
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
-		
+
 		if(limitSupport==null)
 			throw new NullPointerException(dialect.toString());
 	}
-	
+
 	protected Statement newStatement()
 	{
 		return newStatement(true);
 	}
-	
+
 	protected Statement newStatement(final boolean qualifyTable)
 	{
 		return new Statement(this, qualifyTable);
 	}
-	
+
 	protected Statement newStatement(final Query<? extends Object> query)
 	{
 		return new Statement(this, query);
 	}
-	
+
 	static interface ResultSetHandler<R>
 	{
 		public R handle(ResultSet resultSet) throws SQLException;
@@ -79,7 +79,7 @@ final class Executor
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			
+
 			return resultSet.getInt(1);
 		}
 	};
@@ -101,11 +101,11 @@ final class Executor
 			final long nanoStart = takeTimes ? nanoTime() : 0;
 			final long nanoPrepared;
 			final long nanoExecuted;
-			
+
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				
+
 				nanoPrepared = takeTimes ? nanoTime() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
 			}
@@ -116,14 +116,14 @@ final class Executor
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				
+
 				nanoPrepared = takeTimes ? nanoTime() : 0;
 				resultSet = prepared.executeQuery();
 			}
 			nanoExecuted = takeTimes ? nanoTime() : 0;
 			final R result = resultSetHandler.handle(resultSet);
 			final long nanoResultRead = takeTimes ? nanoTime() : 0;
-			
+
 			if(resultSet!=null)
 			{
 				resultSet.close();
@@ -139,7 +139,7 @@ final class Executor
 				return result;
 
 			final long nanoEnd = takeTimes ? nanoTime() : 0;
-			
+
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
@@ -148,10 +148,10 @@ final class Executor
 						n2m(nanoExecuted-nanoPrepared),
 						n2m(nanoResultRead-nanoExecuted),
 						n2m(nanoEnd-nanoResultRead));
-			
+
 			if(queryInfo!=null)
 				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
-			
+
 			return result;
 		}
 		catch(SQLException e)
@@ -184,7 +184,7 @@ final class Executor
 			}
 		}
 	}
-	
+
 	int update(
 			final Connection connection,
 			final Statement statement, final boolean checkRows)
@@ -196,7 +196,7 @@ final class Executor
 			final DatabaseListener listener = this.listener;
 			final long nanoStart = listener!=null ? nanoTime() : 0;
 			final int rows;
-			
+
 			final long nanoPrepared;
 			if(!prepare)
 			{
@@ -214,7 +214,7 @@ final class Executor
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = prepared.executeUpdate();
 			}
-			
+
 			final long timeEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
@@ -250,7 +250,7 @@ final class Executor
 			}
 		}
 	}
-	
+
 	<R> R insert(
 			final Connection connection,
 			final Statement statement,
@@ -264,7 +264,7 @@ final class Executor
 			final String sqlText = statement.getText();
 			final DatabaseListener listener = this.listener;
 			final long nanoStart = listener!=null ? nanoTime() : 0;
-			
+
 			final long nanoPrepared;
 			if(!prepare)
 			{
@@ -282,7 +282,7 @@ final class Executor
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				prepared.executeUpdate();
 			}
-			
+
 			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
@@ -327,13 +327,13 @@ final class Executor
 			}
 		}
 	}
-	
+
 	private void makeQueryInfo(
 			final QueryInfo queryInfo, final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		queryInfo.addChild(statement.getQueryInfo());
-		
+
 		queryInfo.addChild(new QueryInfo(
 				"timing " +
 				numberFormat.format(end-start) + '/' +
@@ -342,14 +342,14 @@ final class Executor
 				numberFormat.format(resultRead-executed) + '/' +
 				numberFormat.format(end-resultRead) +
 				" (total/prepare/execute/readResult/close in ns)"));
-			
+
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
 			queryInfo.addChild(plan);
 	}
-	
+
 	private static DecimalFormat numberFormat;
-	
+
 	static
 	{
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
@@ -357,12 +357,12 @@ final class Executor
 		nfs.setGroupingSeparator('\'');
 		numberFormat = new DecimalFormat("", nfs);
 	}
-	
+
 	private static final long n2m(final long nanos)
 	{
 		return nanos/1000000;
 	}
-	
+
 	static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
@@ -372,26 +372,26 @@ final class Executor
 		// here.
 		return ((Number)sqlInteger).intValue();
 	}
-	
+
 	// TestDatabaseListener ------------------
-	
+
 	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
 	{
 		public void load(Connection connection, Item item)
 		{/* DOES NOTHING */}
-		
+
 		public void search(Connection connection, Query query, boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 
 	private volatile TestDatabaseListener testListener = noopTestListener;
 	private final Object testListenerLock = new Object();
-	
+
 	TestDatabaseListener testListener()
 	{
 		return this.testListener;
 	}
-	
+
 	TestDatabaseListener setTestListener(TestDatabaseListener testListener)
 	{
 		if(testListener==null)
@@ -403,7 +403,7 @@ final class Executor
 			result = this.testListener;
 			this.testListener = testListener;
 		}
-		
+
 		if(result==noopTestListener)
 			result = null;
 		return result;

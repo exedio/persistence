@@ -33,12 +33,12 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class DoubleRangeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final DoubleField feature;
 	private final double value;
 	private final boolean isTooSmall;
 	private final double border;
-	
+
 	/**
 	 * Creates a new DoubleRangeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -58,7 +58,7 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 		this.isTooSmall = isTooSmall;
 		this.border = border;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -67,7 +67,7 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 	{
 		return feature;
 	}
-	
+
 	/**
 	 * Returns the value, that was attempted to be written.
 	 */
@@ -75,7 +75,7 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 	{
 		return value;
 	}
-	
+
 	public boolean isTooSmall()
 	{
 		return isTooSmall;

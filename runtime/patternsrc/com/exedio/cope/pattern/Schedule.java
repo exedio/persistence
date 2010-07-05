@@ -48,19 +48,19 @@ import com.exedio.cope.util.Interrupter;
 public final class Schedule extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public enum Interval
 	{
 		DAILY,
 		WEEKLY,
 		MONTHLY;
 	}
-	
+
 	private final Locale locale;
-	
+
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
-	
+
 	ItemField<?> runParent = null;
 	PartOf<?> runRuns = null;
 	final DateField runFrom = new DateField().toFinal();
@@ -68,7 +68,7 @@ public final class Schedule extends Pattern
 	final DateField runRun = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal();
 	Type<Run> runType = null;
-	
+
 	/**
 	 * @deprecated Use {@link #Schedule(Locale)} instead.
 	 */
@@ -77,7 +77,7 @@ public final class Schedule extends Pattern
 	{
 		this(Locale.getDefault());
 	}
-	
+
 	/**
 	 * @param locale
 	 *        specifies the locale used for creating the {@link GregorianCalendar}
@@ -88,17 +88,17 @@ public final class Schedule extends Pattern
 	{
 		if(locale==null)
 			throw new NullPointerException("locale");
-		
+
 		this.locale = locale;
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
 	}
-	
+
 	public Locale getLocale()
 	{
 		return locale;
 	}
-	
+
 	@Override
 	public void onMount()
 	{
@@ -108,7 +108,7 @@ public final class Schedule extends Pattern
 			throw new ClassCastException(
 					"type of " + getID() + " must implement " + Scheduleable.class +
 					", but was " + type.getJavaClass().getName());
-		
+
 		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		runRuns = PartOf.newPartOf(runParent, runFrom);
 		final Features features = new Features();
@@ -120,58 +120,58 @@ public final class Schedule extends Pattern
 		features.put("elapsed", runElapsed);
 		runType = newSourceType(Run.class, features, "Run");
 	}
-	
+
 	public BooleanField getEnabled()
 	{
 		return enabled;
 	}
-	
+
 	public EnumField<Interval> getInterval()
 	{
 		return interval;
 	}
-	
+
 	public ItemField<?> getRunParent()
 	{
 		return runParent;
 	}
-	
+
 	public PartOf<?> getRunRuns()
 	{
 		return runRuns;
 	}
-	
+
 	public DateField getRunFrom()
 	{
 		return runFrom;
 	}
-	
+
 	public DateField getRunUntil()
 	{
 		return runUntil;
 	}
-	
+
 	public DateField getRunRun()
 	{
 		return runRun;
 	}
-	
+
 	public LongField getRunElapsed()
 	{
 		return runElapsed;
 	}
-	
+
 	public Type<Run> getRunType()
 	{
 		return runType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("isEnabled").
 			setReturn(boolean.class));
@@ -189,40 +189,40 @@ public final class Schedule extends Pattern
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
 			setStatic(false));
-				
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public boolean isEnabled(final Item item)
 	{
 		return this.enabled.getMandatory(item);
 	}
-	
+
 	public void setEnabled(final Item item, final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
-	
+
 	public Interval getInterval(final Item item)
 	{
 		return this.interval.get(item);
 	}
-	
+
 	public void setInterval(final Item item, final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
-	
+
 	public int run(final Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
 	}
-	
+
 	int run(final Interrupter interrupter, final Date now)
 	{
 		return run(getType(), interrupter, now);
 	}
-	
+
 	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
 	{
 		final This<P> typeThis = type.getThis();
@@ -240,8 +240,8 @@ public final class Schedule extends Pattern
 		cal.setTime(untilDaily);
 		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
 		final Date untilMonthly = cal.getTime();
-		
-		
+
+
 		final List<P> toRun;
 		try
 		{
@@ -265,17 +265,17 @@ public final class Schedule extends Pattern
 		{
 			model.rollbackIfNotCommitted();
 		}
-		
+
 		if(toRun.isEmpty())
 			return 0;
-		
+
 		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : DEFAULT_INTERRUPTER;
 		int result = 0;
 		for(final P item : toRun)
 		{
 			if(interrupter!=null && interrupter.isRequested())
 				return result;
-			
+
 			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
 			try
@@ -318,7 +318,7 @@ public final class Schedule extends Pattern
 		}
 		return result;
 	}
-	
+
 	private static final Interrupter DEFAULT_INTERRUPTER = new Interrupter()
 	{
 		public boolean isRequested()
@@ -326,50 +326,50 @@ public final class Schedule extends Pattern
 			return false;
 		}
 	};
-	
+
 	@Computed
 	public static final class Run extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		Run(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		public Schedule getPattern()
 		{
 			return (Schedule)getCopeType().getPattern();
 		}
-		
+
 		public Item getParent()
 		{
 			return getPattern().runParent.get(this);
 		}
-		
+
 		public Date getFrom()
 		{
 			return getPattern().runFrom.get(this);
 		}
-		
+
 		public Date getUntil()
 		{
 			return getPattern().runUntil.get(this);
 		}
-		
+
 		public Date getRun()
 		{
 			return getPattern().runRun.get(this);
 		}
-		
+
 		public long getElapsed()
 		{
 			return getPattern().runElapsed.getMandatory(this);
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #run(Interrupter)} instead.
 	 */

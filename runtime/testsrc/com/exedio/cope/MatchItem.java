@@ -23,14 +23,14 @@ class MatchItem extends Item
 {
 
 	static final StringField text = new StringField().optional();
-	
+
 	MatchItem(final String text)
 	{
 		this(new com.exedio.cope.SetValue[]{
 				MatchItem.text.map(text),
 		});
 	}
-	
+
 	/**
 
 	 **

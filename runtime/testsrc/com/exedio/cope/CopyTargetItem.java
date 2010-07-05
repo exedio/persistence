@@ -21,26 +21,26 @@ package com.exedio.cope;
 class CopyTargetItem extends Item
 {
 	static final StringField code = new StringField().unique();
-	
+
 	/**
 	 * @cope.initial
 	 */
 	static final StringField templateString = new StringField().toFinal().optional();
 	static final StringField otherString = new StringField();
-	
+
 	/**
 	 * @cope.initial
 	 */
 	static final ItemField<CopyValueItem> templateItem = newItemField(CopyValueItem.class).toFinal().optional();
 	static final ItemField<CopyValueItem> otherItem = newItemField(CopyValueItem.class);
-	
+
 	@Override
 	public String toString()
 	{
 		// for testing, that CopyViolation#getMessage does not call toString(), but getCopeID()
 		return "toString(" + getCopeID() + ')';
 	}
-	
+
 	/**
 
 	 **

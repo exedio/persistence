@@ -29,7 +29,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 	{
 		super(MatchTest.MODEL);
 	}
-	
+
 	MatchItem item;
 
 	@Override
@@ -38,62 +38,62 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MatchItem());
 	}
-	
+
 	private static final String Q1 = "select this from MatchItem where text='someString'";
 	private static final String C1 = "select count(*) from MatchItem where text='someString'";
 	private static final String Q2 = "select this from MatchItem where text='someString2'";
 	private static final String C2 = "select count(*) from MatchItem where text='someString2'";
-	
+
 	public void testQueryCache()
 	{
 		// start new transaction, otherwise query cache will not work,
 		// because type is invalidated.
 		restartTransaction();
-		
+
 		final boolean enabled = model.getConnectProperties().getQueryCacheLimit()>0;
 		assertEquals(list(), qch());
-		
+
 		final DBL l = new DBL();
 		model.setTestDatabaseListener(l);
 		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
 		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
-		
+
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 0, 0)) : list(), qch());
-		
+
 		q1.search();
 		assertEquals(enabled ? list() : list(sc(q1, false)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 0, 1)) : list(), qch());
-		
+
 		q2.search();
 		assertEquals(list(sc(q2, false)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
-		
+
 		q1.total();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
-		
+
 		q1.total();
 		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
-		
+
 		q2.total();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
-		
+
 		model.clearCache();
 		assertEquals(list(), qch());
-		
+
 		model.setTestDatabaseListener(null);
 	}
-	
+
 	private QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
 		return new QueryCacheHistogram(query, resultSize, hits);
@@ -113,13 +113,13 @@ public class QueryCacheTest extends AbstractRuntimeTest
 	{
 		final Query query;
 		final boolean totalOnly;
-		
+
 		SC(final Query query, final boolean totalOnly)
 		{
 			this.query = query;
 			this.totalOnly = totalOnly;
 		}
-		
+
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -128,7 +128,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 				query == o.query && // do not use equals !!!
 				totalOnly == o.totalOnly;
 		}
-		
+
 		@Override
 		public int hashCode()
 		{
@@ -144,16 +144,16 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			return (totalOnly ? "TOTAL " : "SEARCH ") + query.toString();
 		}
 	}
-	
+
 	private class DBL implements TestDatabaseListener
 	{
 		final ArrayList<SC> scs = new ArrayList<SC>();
-		
+
 		DBL()
 		{
 			// make constructor non-private
 		}
-		
+
 		public void load(Connection connection, Item item)
 		{
 			throw new RuntimeException();
@@ -163,7 +163,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		{
 			scs.add(new SC(query, totalOnly));
 		}
-		
+
 		void clear()
 		{
 			scs.clear();

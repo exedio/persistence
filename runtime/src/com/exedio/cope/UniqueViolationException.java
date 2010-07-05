@@ -35,9 +35,9 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class UniqueViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final UniqueConstraint feature;
-	
+
 	/**
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -49,7 +49,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 		super(item, null);
 		this.feature = feature;
 	}
-	
+
 	/**
 	 * Returns the violated constraint.
 	 */
@@ -67,7 +67,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	{
 		return feature;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{

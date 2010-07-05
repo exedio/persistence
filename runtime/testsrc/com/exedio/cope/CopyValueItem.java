@@ -21,14 +21,14 @@ package com.exedio.cope;
 class CopyValueItem extends Item
 {
 	static final StringField code = new StringField().unique();
-	
+
 	@Override
 	public String toString()
 	{
 		// for testing, that CopyViolation#getMessage does not call toString(), but getCopeID()
 		return "toString(" + getCopeID() + ')';
 	}
-	
+
 	/**
 
 	 **

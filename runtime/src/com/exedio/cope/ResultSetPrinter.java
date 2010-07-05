@@ -34,7 +34,7 @@ final class ResultSetPrinter
 	{
 		// prevent instantiation
 	}
-	
+
 	static void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -42,7 +42,7 @@ final class ResultSetPrinter
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
 	}
-	
+
 	static void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -50,7 +50,7 @@ final class ResultSetPrinter
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
-	
+
 	static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
 	{
 		public Void handle(final ResultSet resultSet) throws SQLException

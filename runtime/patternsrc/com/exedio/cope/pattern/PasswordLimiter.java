@@ -298,9 +298,9 @@ public final class PasswordLimiter extends Pattern
 			return getPattern().date.get(this);
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #purge(Interrupter)} instead.
 	 */

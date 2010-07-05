@@ -25,8 +25,8 @@ class JUnitTestItem extends Item
 {
 	static final IntegerField code = new IntegerField();
 	static final IntegerField next = new IntegerField().defaultToNext(1000);
-	
-	
+
+
 	/**
 
 	 **

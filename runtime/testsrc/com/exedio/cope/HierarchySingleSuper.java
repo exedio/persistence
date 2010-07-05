@@ -21,7 +21,7 @@ package com.exedio.cope;
 public abstract class HierarchySingleSuper extends Item
 {
 	public static final IntegerField superInt = new IntegerField().optional();
-	
+
 /**
 
 	 **

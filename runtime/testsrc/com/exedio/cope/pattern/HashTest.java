@@ -34,16 +34,16 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	HashItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new HashItem());
 	}
-	
+
 	public void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(
@@ -72,14 +72,14 @@ public class HashTest extends AbstractRuntimeTest
 		assertTrue(!item.checkExplicitExternal("bing"));
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item.TYPE.search(item.explicitExternal.isNotNull()));
-		
+
 		item.setExplicitExternalWrap("03affe01");
 		assertEquals("03affe01", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("03affe01"));
 		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
-		
+
 		item.setExplicitExternal("03affe02");
 		assertEquals("3403affe0243", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
@@ -88,7 +88,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
 	}
-	
+
 	public void testImplicitExternal()
 	{
 		assertEquals(item.TYPE, item.implicitExternal.getType());
@@ -102,7 +102,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(false, item.implicitExternal.isFinal());
 		assertContains(item.implicitExternal.getInitialExceptions());
 		assertTrue(item.implicitExternal.getStorage().isAnnotationPresent(Computed.class));
-		
+
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal(""));
@@ -128,7 +128,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(false, item.internal.isFinal());
 		assertContains(item.internal.getInitialExceptions());
 		assertTrue(item.internal.getStorage().isAnnotationPresent(Computed.class));
-		
+
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));
@@ -146,13 +146,13 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkInternal("0"));
 		assertFalse(item.checkInternal("03affe07"));
 		assertTrue(item.checkInternal("03affe08"));
-		
+
 		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("03affe09")}));
 		assertEquals("3403affe0943", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
-		
+
 		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("03affe10")));
 		assertEquals("3403affe1043", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));

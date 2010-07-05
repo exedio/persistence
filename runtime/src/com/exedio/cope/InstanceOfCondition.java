@@ -54,39 +54,39 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		this.not = not;
 		this.types = InstanceOfCondition.<E>cast(types);
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private final static <T extends Item> Type<T>[] cast(final Type[] o)
 	{
 		return o;
 	}
-	
+
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
 		this(function, not, new Type[]{type1});
 	}
-	
+
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		this(function, not, new Type[]{type1, type2});
 	}
-	
+
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		this(function, not, new Type[]{type1, type2, type3});
 	}
-	
+
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		this(function, not, new Type[]{type1, type2, type3, type4});
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	private void appendType(final Statement bf)
 	{
 		function.appendType(bf, null);
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
@@ -95,17 +95,17 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		if(not)
 			bf.append(" not");
 		bf.append(" in(");
-		
+
 		final TreeSet<String> typeIds = new TreeSet<String>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : types)
 		{
 			if(!type.isAssignableFrom(t))
 				throw new IllegalArgumentException("type " + type + " is not assignable from type " + t);
-			
+
 			for(final Type ti : t.getTypesOfInstances())
 				typeIds.add(ti.id);
 		}
-		
+
 		if(typeIds.isEmpty())
 			throw new RuntimeException("no concrete type for " + Arrays.toString(types));
 
@@ -116,12 +116,12 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				first = false;
 			else
 				bf.append(',');
-			
+
 			bf.appendParameter(id);
 		}
 		bf.append(')');
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -144,12 +144,12 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	{
 		if(!(other instanceof InstanceOfCondition))
 			return false;
-		
+
 		final InstanceOfCondition o = (InstanceOfCondition)other;
-		
+
 		return function.equals(o.function) && not==o.not && equals(types, o.types);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -160,19 +160,19 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		function.toString(bf, defaultType);
-		
+
 		if(not)
 			bf.append(" not");
-		
+
 		bf.append(" instanceOf ");
-		
+
 		if(types.length==1)
 			bf.append(types[0].toString());
 		else
 		{
 			bf.append('[').
 				append(types[0].toString());
-			
+
 			for(int i = 1; i<types.length; i++)
 			{
 				bf.append(", ").

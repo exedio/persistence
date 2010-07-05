@@ -105,7 +105,7 @@ public class FieldEnumTest extends FieldTest
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue2,
 			item.getSomeEnum());
-		
+
 		assertContains(item,
 				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item2,
@@ -140,7 +140,7 @@ public class FieldEnumTest extends FieldTest
 		{
 			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someEnum + '.', e.getMessage());
 		}
-		
+
 		try
 		{
 			item.set((FunctionField)item.someEnum, SomeEnum2.enumValue2);
@@ -151,7 +151,7 @@ public class FieldEnumTest extends FieldTest
 			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + item.someEnum + '.', e.getMessage());
 		}
 	}
-	
+
 	public void testNotNullSomeEnum()
 			throws MandatoryViolationException
 	{

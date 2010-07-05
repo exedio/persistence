@@ -42,7 +42,7 @@ import com.exedio.cope.misc.ComputedElement;
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
@@ -63,50 +63,50 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		this.initial = initial;
 		this.isFinal = isFinal;
 	}
-	
+
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2}));
 	}
-	
+
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2, source3}));
 	}
-	
+
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)
 	{
 		this(template2Sources(template, maximumSize));
 	}
-	
+
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new LimitedListField<E>(source1, source2);
 	}
-	
+
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new LimitedListField<E>(source1, source2, source3);
 	}
-	
+
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
 	{
 		return new LimitedListField<E>(template, maximumSize);
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;
 	}
-	
+
 	private final static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
-		
+
 		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
-		
+
 		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copy();
 
@@ -124,7 +124,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		return sources[0];
 	}
-	
+
 	@Override
 	public int getMaximumSize()
 	{
@@ -136,40 +136,40 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
-		
+
 		final Set<Class<? extends Throwable>> exceptions = sources[0].getInitialExceptions();
 		exceptions.add(ClassCastException.class);
 		exceptions.add(ListSizeViolationException.class);
-		
+
 		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public boolean isInitial()
 	{
 		return initial;
 	}
-	
+
 	public boolean isFinal()
 	{
 		return isFinal;
 	}
-	
+
 	public Class getInitialType()
 	{
 		return List.class;
 	}
-	
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = sources[0].getInitialExceptions();
@@ -177,7 +177,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			result.addAll(sources[i].getInitialExceptions());
 		return result;
 	}
-	
+
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -191,13 +191,13 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 		return result;
 	}
-	
+
 	private void assertValue(final Collection<?> value, final Item exceptionItem)
 	{
 		if(value.size()>sources.length)
 			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
 	}
-	
+
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 		throws
@@ -216,15 +216,15 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		for(; i<sources.length; i++)
 			setValues[i] = sources[i].map(null);
-		
+
 		item.set(setValues);
 	}
-	
+
 	public SetValue<Collection<E>> map(final Collection<E> value)
 	{
 		return new SetValue<Collection<E>>(this, value);
 	}
-	
+
 	public SetValue[] execute(final Collection value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);
@@ -236,15 +236,15 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		for(; i<sources.length; i++)
 			result[i] = Cope.mapAndCast(sources[i], null);
-		
+
 		return result;
 	}
-	
+
 	public Condition equal(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
-		
+
 		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].equal(it.next());
 
@@ -253,12 +253,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		return Cope.and(conditions);
 	}
-	
+
 	public Condition notEqual(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
-		
+
 		for(E v : value)
 		{
 			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
@@ -274,7 +274,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	public Condition contains(final E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
-		
+
 		for(int i = 0; i<sources.length; i++)
 			conditions[i] = sources[i].equal(value);
 

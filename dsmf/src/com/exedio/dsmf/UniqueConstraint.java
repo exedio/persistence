@@ -21,7 +21,7 @@ package com.exedio.dsmf;
 public class UniqueConstraint extends Constraint
 {
 	final String clause;
-	
+
 	public UniqueConstraint(
 			final Table table,
 			final String name,
@@ -40,11 +40,11 @@ public class UniqueConstraint extends Constraint
 
 		if(clause==null)
 			throw new RuntimeException(name);
-		
+
 		this.clause = clause;
 		//System.out.println("-------------"+name+"-"+clause);
 	}
-	
+
 	public final String getClause()
 	{
 		return clause;
@@ -58,7 +58,7 @@ public class UniqueConstraint extends Constraint
 			append(" unique").
 			append(clause);
 	}
-	
+
 	@Override
 	public final void create(final StatementListener listener)
 	{
@@ -72,7 +72,7 @@ public class UniqueConstraint extends Constraint
 
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	@Override
 	public final void drop(final StatementListener listener)
 	{

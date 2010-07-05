@@ -23,10 +23,10 @@ import java.util.Set;
 public final class DoubleField extends NumberField<Double>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
-	
+
 	private final double minimum;
 	private final double maximum;
 
@@ -38,15 +38,15 @@ public final class DoubleField extends NumberField<Double>
 		super(isfinal, optional, unique, Double.class, defaultConstant);
 		this.minimum = minimum;
 		this.maximum = maximum;
-		
+
 		assertLimit(minimum, "minimum");
 		assertLimit(maximum, "maximum");
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
-		
+
 		checkDefaultConstant();
 	}
-	
+
 	private static final void assertLimit(final double value, final String name)
 	{
 		if(Double.isInfinite(value))
@@ -54,7 +54,7 @@ public final class DoubleField extends NumberField<Double>
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException(name + " must not be NaN, but was " + value + '.');
 	}
-	
+
 	public DoubleField()
 	{
 		this(false, false, false, null, MIN, MAX);
@@ -65,19 +65,19 @@ public final class DoubleField extends NumberField<Double>
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
-	
+
 	@Override
 	public DoubleField toFinal()
 	{
 		return new DoubleField(true, optional, unique, defaultConstant, minimum, maximum);
 	}
-	
+
 	@Override
 	public DoubleField optional()
 	{
 		return new DoubleField(isfinal, true, unique, defaultConstant, minimum, maximum);
 	}
-	
+
 	@Override
 	public DoubleField unique()
 	{
@@ -89,37 +89,37 @@ public final class DoubleField extends NumberField<Double>
 	{
 		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
 	}
-	
+
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
-	
+
 	public DoubleField range(final double minimum, final double maximum)
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
-	
+
 	public DoubleField min(final double minimum)
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, MAX);
 	}
-	
+
 	public DoubleField max(final double maximum)
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, MIN, maximum);
 	}
-	
+
 	public double getMinimum()
 	{
 		return minimum;
 	}
-	
+
 	public double getMaximum()
 	{
 		return maximum;
 	}
-	
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
@@ -128,13 +128,13 @@ public final class DoubleField extends NumberField<Double>
 			result.add(DoubleRangeViolationException.class);
 		return result;
 	}
-	
+
 	@Override
 	public Class getInitialType()
 	{
 		return optional ? Double.class : double.class;
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
@@ -146,30 +146,30 @@ public final class DoubleField extends NumberField<Double>
 	{
 		return (Double)row.get(getColumn());
 	}
-	
+
 	@Override
 	void set(final Row row, final Double surface)
 	{
 		row.put(getColumn(), surface);
 	}
-	
+
 	@Override
 	void checkNotNull(final Double value, final Item exceptionItem) throws IntegerRangeViolationException
 	{
 		final double valuePrimitive = value.doubleValue();
-		
+
 		// TODO better exceptions
 		if(Double.isInfinite(valuePrimitive))
 			throw new RuntimeException(getID() + '#' + valuePrimitive);
 		if(Double.isNaN(valuePrimitive))
 			throw new RuntimeException(getID() + '#' + valuePrimitive);
-		
+
 		if(valuePrimitive<minimum)
 			throw new DoubleRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
 			throw new DoubleRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
@@ -177,10 +177,10 @@ public final class DoubleField extends NumberField<Double>
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-		
+
 		return get(item).doubleValue();
 	}
-	
+
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
@@ -195,7 +195,7 @@ public final class DoubleField extends NumberField<Double>
 			throw new RuntimeException(toString(), e);
 		}
 	}
-	
+
 	@Override
 	public Condition equal(final Double value)
 	{
@@ -210,7 +210,7 @@ public final class DoubleField extends NumberField<Double>
 		else
 			return isNull();
 	}
-	
+
 	@Override
 	public Condition notEqual(final Double value)
 	{

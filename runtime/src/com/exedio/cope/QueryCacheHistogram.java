@@ -24,7 +24,7 @@ public final class QueryCacheHistogram
 	private final String query;
 	private final int resultSize;
 	private final long hits;
-	
+
 	QueryCacheHistogram(
 			final String query,
 			final int resultSize,
@@ -32,12 +32,12 @@ public final class QueryCacheHistogram
 	{
 		if(query==null)
 			throw new NullPointerException();
-		
+
 		this.query = query;
 		this.resultSize = resultSize;
 		this.hits = hits;
 	}
-	
+
 	public String getQuery()
 	{
 		return query;
@@ -52,24 +52,24 @@ public final class QueryCacheHistogram
 	{
 		return hits;
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof QueryCacheHistogram))
 			return false;
-		
+
 		final QueryCacheHistogram o = (QueryCacheHistogram)other;
-		
+
 		return query.equals(o.query) && resultSize==o.resultSize && hits==o.hits;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return query.hashCode() ^ resultSize ^ ((int)hits) ^ 298742165;
 	}
-	
+
 	@Override
 	public String toString()
 	{

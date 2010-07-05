@@ -39,7 +39,7 @@ public final class LikeCondition extends Condition
 		if(value==null)
 			throw new NullPointerException("value");
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
@@ -47,7 +47,7 @@ public final class LikeCondition extends Condition
 			append(" like ").
 			appendParameter(function, value);
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -65,12 +65,12 @@ public final class LikeCondition extends Condition
 	{
 		if(!(other instanceof LikeCondition))
 			return false;
-		
+
 		final LikeCondition o = (LikeCondition)other;
-		
+
 		return function.equals(o.function) && value.equals(o.value);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -85,19 +85,19 @@ public final class LikeCondition extends Condition
 			append(toStringForValue(value, key)).
 			append('\'');
 	}
-	
+
 	public static final char WILDCARD = '%';
-	
+
 	public static final LikeCondition startsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, value + WILDCARD);
 	}
-	
+
 	public static final LikeCondition endsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + value);
 	}
-	
+
 	public static final LikeCondition contains(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + value + WILDCARD);

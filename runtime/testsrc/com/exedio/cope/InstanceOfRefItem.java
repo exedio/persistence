@@ -26,7 +26,7 @@ class InstanceOfRefItem extends Item
 	static final ItemField<InstanceOfAItem> ref = newItemField(InstanceOfAItem.class).toFinal();
 	static final StringField code = new StringField().toFinal().unique();
 	static final ItemField<InstanceOfB2Item> refb2 = newItemField(InstanceOfB2Item.class).optional();
-	
+
 	@Override
 	public final String toString()
 	{
@@ -37,7 +37,7 @@ class InstanceOfRefItem extends Item
 	{
 		this(ref, "->"+ref.getCode());
 	}
-	
+
 	/**
 
 	 **

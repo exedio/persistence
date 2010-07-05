@@ -30,18 +30,18 @@ public class DoubleTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
-	
+
 	private static final Condition TRUE  = Condition.TRUE;
 	private static final Condition FALSE = Condition.FALSE;
-	
+
 	private DoubleItem item;
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private DoubleItem item2;
 	private int numberOfItems;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,7 +50,7 @@ public class DoubleTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new DoubleItem(2202.02));
 		numberOfItems = 2;
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -83,7 +83,7 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(4.0, item.min4Max8.getMinimum());
 		assertEquals(8.0, item.min4Max8.getMaximum());
 		assertContains(DoubleRangeViolationException.class, item.min4Max8.getInitialExceptions());
-		
+
 		// test condition canonization
 		{
 			assertEquals(in(item.any), item.any.isNull());
@@ -108,7 +108,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(cc(Operator.GreaterEqual, item.any, 0.0), item.any.greaterOrEqual(0.0));
 			assertEquals(cc(Operator.GreaterEqual, item.any, MIN), item.any.greaterOrEqual(MIN));
 			assertEquals(cc(Operator.GreaterEqual, item.any, MAX), item.any.greaterOrEqual(MAX));
-			
+
 			assertEquals(in(item.mandatory), item.mandatory.isNull());
 			assertEquals(nn(item.mandatory), item.mandatory.isNotNull());
 			assertEquals(in(item.mandatory), item.mandatory.equal((Double)null));
@@ -207,7 +207,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(10.1, orig.getMinimum());
 			assertEquals(MAX, orig.getMaximum());
-			
+
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -222,7 +222,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertNotNull(orig.getImplicitUniqueConstraint());
 			assertEquals(20.2, orig.getMinimum());
 			assertEquals(MAX, orig.getMaximum());
-			
+
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -237,7 +237,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(MIN, orig.getMinimum());
 			assertEquals(30.3, orig.getMaximum());
-			
+
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -251,14 +251,14 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(true, orig.isMandatory());
 			assertEquals(10.1, orig.getMinimum());
 			assertEquals(20.2, orig.getMaximum());
-			
+
 			final DoubleField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(10.1, copy.getMinimum());
 			assertEquals(20.2, copy.getMaximum());
 		}
-		
+
 		assertIllegalRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
 		assertIllegalRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
 		assertIllegalRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
@@ -285,13 +285,13 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(new Double(1234.56), item.getAny());
 		item.setAny(123.45);
 		assertEquals(new Double(123.45), item.getAny());
-		
+
 		// mandatory
 		assertEquals(2201.01, item.getMandatory());
-	
+
 		item.setMandatory(52201.52);
 		assertEquals(52201.52, item.getMandatory());
-	
+
 		try
 		{
 			item.mandatory.set(item, null);
@@ -305,7 +305,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(52201.52, item.getMandatory());
-	
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -320,7 +320,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -335,7 +335,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		// min4
 		try
 		{
@@ -481,8 +481,8 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(new Double(8.0), item.getMin4Max8());
 		restartTransaction();
 		assertEquals(new Double(8.0), item.getMin4Max8());
-		
-		
+
+
 		model.checkUnsupportedConstraints();
 	}
 
@@ -499,7 +499,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals("expected a " + Double.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
 	}
-	
+
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
 		try

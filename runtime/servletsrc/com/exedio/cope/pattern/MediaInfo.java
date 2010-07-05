@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 public final class MediaInfo
 {
 	private final MediaPath path;
-	
+
 	private final int redirectFrom;
 	private final int exception;
 	private final int guessedUrl;
@@ -32,7 +32,7 @@ public final class MediaInfo
 	private final int notComputable;
 	private final int notModified;
 	private final int delivered;
-	
+
 	MediaInfo(
 			final MediaPath path,
 			final int redirectFrom,
@@ -73,7 +73,7 @@ public final class MediaInfo
 	{
 		return exception;
 	}
-	
+
 	public int getGuessedUrl()
 	{
 		return guessedUrl;

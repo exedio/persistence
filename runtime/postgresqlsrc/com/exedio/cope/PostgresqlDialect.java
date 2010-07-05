@@ -41,14 +41,14 @@ final class PostgresqlDialect extends Dialect
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
 				parameters,
 				new com.exedio.dsmf.PostgresqlDialect(),
 				"LENGTH");
-		
+
 		final EnvironmentInfo ei = parameters.environmentInfo;
 		// version 8 needed for savepoints
 		if(ei.getDatabaseMajorVersion()<8)
@@ -56,7 +56,7 @@ final class PostgresqlDialect extends Dialect
 		if(ei.getDriverMajorVersion()<8)
 			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + ei.getDriverVersionDescription());
 	}
-	
+
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
@@ -80,13 +80,13 @@ final class PostgresqlDialect extends Dialect
 	{
 		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
 	}
-	
+
 	@Override
 	String getDayType()
 	{
 		return "DATE";
 	}
-	
+
 	@Override
 	String getDateTimestampType()
 	{
@@ -98,7 +98,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		return (maximumLength<Integer.MAX_VALUE) ? "bytea" : null;
 	}
-	
+
 	@Override
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
@@ -142,27 +142,27 @@ final class PostgresqlDialect extends Dialect
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
-		
+
 		if(limit!=Query.UNLIMITED)
 			bf.append(" limit ").appendParameter(limit);
 
 		if(offset>0)
 			bf.append(" offset ").appendParameter(offset);
 	}
-	
+
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException();
 	}
-	
+
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		// TODO check for full text indexes
 		appendMatchClauseByLike(bf, function, value);
 	}
-	
+
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
@@ -173,7 +173,7 @@ final class PostgresqlDialect extends Dialect
 			append("),'hex')=").
 			appendParameter(Hex.encodeLower(value));
 	}
-	
+
 	@Override
 	boolean subqueryRequiresAlias()
 	{

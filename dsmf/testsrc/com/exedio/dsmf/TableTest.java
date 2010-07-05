@@ -24,7 +24,7 @@ public class TableTest extends SchemaReadyTest
 	private static final String TABLE1 = "SomeTable";
 	private static final String TABLE1X = "SomeTableWrong";
 	private static final String COLUMN1 = "someColumn";
-	
+
 	@Override
 	protected Schema getSchema()
 	{
@@ -55,7 +55,7 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
-			
+
 			table.renameTo(TABLE1X);
 		}
 		// TABLE RENAMED
@@ -112,7 +112,7 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(null, column.getError());
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
-			
+
 			table.drop();
 		}
 		// TABLE DROPPED

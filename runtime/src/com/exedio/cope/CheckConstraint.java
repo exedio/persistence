@@ -23,24 +23,24 @@ import static com.exedio.cope.Intern.intern;
 public final class CheckConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Condition condition;
-	
+
 	public CheckConstraint(final Condition condition)
 	{
 		if(condition==null)
 			throw new NullPointerException("condition");
 		if(condition instanceof Condition.Literal)
 			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition.toString());
-		
+
 		this.condition = condition;
 	}
-	
+
 	public Condition getCondition()
 	{
 		return condition;
 	}
-	
+
 	void check(final Item item, final Entity entity, final Item exceptionItem)
 	{
 		if(!condition.get(item))
@@ -49,12 +49,12 @@ public final class CheckConstraint extends Feature
 			throw new CheckViolationException(exceptionItem, this);
 		}
 	}
-	
+
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
 	{
 		final Statement statement = new Statement(table.database.dialect);
 		condition.append(statement);
-		
+
 		new com.exedio.dsmf.CheckConstraint(
 				dsmfTable,
 				intern(table.database.makeName(table.id + '_' + getSchemaName())),

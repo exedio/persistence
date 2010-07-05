@@ -31,7 +31,7 @@ import com.exedio.cope.util.Cast;
 public final class UniqueConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
@@ -43,7 +43,7 @@ public final class UniqueConstraint extends Feature
 		for(final FunctionField f : fields)
 			f.registerUniqueConstraint(this);
 	}
-	
+
 	/**
 	 * Is not public, because one should use {@link FunctionField#unique()} etc.
 	 */
@@ -51,29 +51,29 @@ public final class UniqueConstraint extends Feature
 	{
 		this(new FunctionField[]{field});
 	}
-	
+
 	public UniqueConstraint(final FunctionField field1, final FunctionField field2)
 	{
 		this(new FunctionField[]{field1, field2});
 	}
-	
+
 	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3)
 	{
 		this(new FunctionField[]{field1, field2, field3});
 	}
-	
+
 	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4)
 	{
 		this(new FunctionField[]{field1, field2, field3, field4});
 	}
-	
+
 	public List<FunctionField<?>> getFields()
 	{
 		return fieldList;
 	}
-	
+
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
-	
+
 	void connect(final Table table)
 	{
 		if(this.databaseID!=null)
@@ -99,10 +99,10 @@ public final class UniqueConstraint extends Feature
 	{
 		if(databaseID==null)
 			throw new RuntimeException();
-			
+
 		return databaseID;
 	}
-	
+
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -118,7 +118,7 @@ public final class UniqueConstraint extends Feature
 
 		new com.exedio.dsmf.UniqueConstraint(dsmfTable, getDatabaseID(), bf.toString());
 	}
-	
+
 	@Override
 	void toStringNotMounted(final StringBuilder bf)
 	{
@@ -131,7 +131,7 @@ public final class UniqueConstraint extends Feature
 		}
 		bf.append(')');
 	}
-	
+
 	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
@@ -146,7 +146,7 @@ public final class UniqueConstraint extends Feature
 		for(int i = 0; i<values.length; i++)
 			if(values[i]==null)
 				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
-		
+
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
 		for(int j = 0; fieldIter.hasNext(); j++)
@@ -154,7 +154,7 @@ public final class UniqueConstraint extends Feature
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}
-	
+
 	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
@@ -163,7 +163,7 @@ public final class UniqueConstraint extends Feature
 	{
 		return Cast.verboseCast(typeClass, search(values));
 	}
-	
+
 	void check(final Item item, final Map<? extends Field, ?> fieldValues)
 	{
 		field:
@@ -173,7 +173,7 @@ public final class UniqueConstraint extends Feature
 			{
 				final Object[] values = new Object[fields.length];
 				int i = 0;
-				
+
 				for(FunctionField<?> f : fields)
 				{
 					final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
@@ -181,18 +181,18 @@ public final class UniqueConstraint extends Feature
 						break field;
 					values[i++] = value;
 				}
-				
+
 				final Item collision = search(values);
 				if(collision!=null && (item==null || !item.equals(collision)))
 					throw new UniqueViolationException(this, item);
-				
+
 				break field;
 			}
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFields()}.
 	 */
@@ -201,7 +201,7 @@ public final class UniqueConstraint extends Feature
 	{
 		return getFields();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #search(Object[])} instead
 	 */
@@ -210,7 +210,7 @@ public final class UniqueConstraint extends Feature
 	{
 		return search(values);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #search(Class,Object[])} instead
 	 */

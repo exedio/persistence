@@ -31,7 +31,7 @@ import java.util.List;
 public class ExpectingDatabaseListener implements TestDatabaseListener
 {
 	private List<Call> expectedCalls = null;
-	
+
 	public void load(Connection connection, Item item)
 	{
 		if ( expectedCalls!=null )
@@ -53,23 +53,23 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 		return expectedCalls;
 	}
-	
+
 	public void expectNoCall()
 	{
 		if ( expectedCalls!=null ) throw new RuntimeException( expectedCalls.toString() );
 		expectedCalls = Collections.<Call>emptyList();
 	}
-	
+
 	public void expectLoad( Transaction tx, Item item )
 	{
 		getExpectedCalls().add( new LoadCall(tx, item) );
 	}
-	
+
 	public void expectSearch( Transaction tx, Type type )
 	{
 		getExpectedCalls().add( new SearchCall(tx, type) );
 	}
-	
+
 	public void verifyExpectations()
 	{
 		if ( expectedCalls==null ) throw new RuntimeException("no expectations set");
@@ -79,7 +79,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 		expectedCalls = null;
 	}
-	
+
 	Call nextExpectedCall()
 	{
 		if ( expectedCalls.isEmpty() )
@@ -88,7 +88,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 		return expectedCalls.remove(0);
 	}
-	
+
 	/**
 	 *	return true if the database was in expectation checking mode
 	 */
@@ -107,7 +107,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		{
 			this.tx = tx;
 		}
-		
+
 		/**
 		 * @param connection used in subclasses
 		 * @param item used in subclasses
@@ -116,7 +116,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		{
 			throw new RuntimeException( "load in "+toString() );
 		}
-		
+
 		/**
 		 * @param connection used in subclasses
 		 * @param query used in subclasses
@@ -125,7 +125,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		{
 			throw new RuntimeException( "search in "+toString() );
 		}
-		
+
 		void checkConnection( Connection connection )
 		{
 			if ( ! tx.getConnection().equals(connection) )
@@ -138,13 +138,13 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	static class LoadCall extends Call
 	{
 		final Item item;
-		
+
 		LoadCall( Transaction tx, Item item )
 		{
 			super( tx );
 			this.item = item;
 		}
-		
+
 		@Override
 		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final Item item)
 		{
@@ -154,24 +154,24 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 				throw new RuntimeException( "item mismatch in "+toString()+" (got "+item.getCopeID()+")" );
 			}
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "Load("+tx.getName()+"/"+item.getCopeID()+")";
 		}
 	}
-	
+
 	static class SearchCall extends Call
 	{
 		final Type type;
-		
+
 		SearchCall( Transaction tx, Type type )
 		{
 			super( tx );
 			this.type = type;
 		}
-		
+
 		@Override
 		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( Connection connection, Query query )
 		{
@@ -181,7 +181,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 				throw new RuntimeException( "search type mismatch in "+toString()+" (got "+query.getType()+")" );
 			}
 		}
-		
+
 		@Override
 		public String toString()
 		{

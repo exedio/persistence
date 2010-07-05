@@ -24,16 +24,16 @@ import com.exedio.cope.StringField;
 public class JavaViewItem extends Item
 {
 	static final StringField numberString = new StringField().optional();
-	
+
 	static final JavaView number = new JavaView();
 	static final JavaView numberPrimitive = new JavaView();
-	
+
 	Double getNumber()
 	{
 		final String s = getNumberString();
 		return s!=null ? new Double(Double.parseDouble(s)) : null;
 	}
-	
+
 	double getNumberPrimitive()
 	{
 		final String s = getNumberString();
@@ -41,7 +41,7 @@ public class JavaViewItem extends Item
 			throw new UnsupportedOperationException("numberPrimitive");
 		return Double.parseDouble(s);
 	}
-	
+
 /**
 
 	 **

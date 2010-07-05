@@ -49,7 +49,7 @@ public class CompositeTest extends CopeAssert
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		
+
 		try
 		{
 			new Value(null, 5, 0l, 0.0, false);
@@ -60,7 +60,7 @@ public class CompositeTest extends CopeAssert
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		
+
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals("1234", value.getString4());
 		assertEquals("defString", value.getStringDefault());
@@ -72,7 +72,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getLongOptional());
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
-		
+
 		try
 		{
 			value.setString4("12345");
@@ -92,7 +92,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getLongOptional());
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
-		
+
 		try
 		{
 			value.setString4(null);
@@ -112,7 +112,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getLongOptional());
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
-		
+
 		try
 		{
 			value.setIntMax4(5);
@@ -133,11 +133,11 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 	}
-	
+
 	public void testGetSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
-		
+
 		assertEquals("1234", value.getString4());
 		assertEquals("defString", value.getStringDefault());
 		assertEquals(4,      value.getIntMax4());
@@ -148,7 +148,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getLongOptional());
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
-		
+
 		assertEquals("1234",         value.get(Value.string4));
 		assertEquals(valueOf(4),     value.get(Value.intMax4));
 		assertEquals(valueOf(5l),    value.get(Value.longField));
@@ -198,13 +198,13 @@ public class CompositeTest extends CopeAssert
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
-		
-		
+
+
 		value.setIntOptional    (valueOf(44));
 		value.setLongOptional   (valueOf(55l));
 		value.setDoubleOptional (valueOf(66.0));
 		value.setBooleanOptional(valueOf(true));
-		
+
 		assertEquals("1234", value.getString4());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
@@ -265,11 +265,11 @@ public class CompositeTest extends CopeAssert
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
 	}
-	
+
 	public void testOverrideDefault()
 	{
 		final Value value = new Value("overrideDefault", false);
-		
+
 		assertEquals("1234", value.getString4());
 		assertEquals("overrideDefault", value.getStringDefault());
 		assertEquals("defStringOpt", value.getStringDefaultOptional());
@@ -282,11 +282,11 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 	}
-	
+
 	public void testOverrideDefaultOptional()
 	{
 		final Value value = new Value("overrideDefault", true);
-		
+
 		assertEquals("1234", value.getString4());
 		assertEquals("defString", value.getStringDefault());
 		assertEquals("overrideDefault", value.getStringDefaultOptional());
@@ -299,7 +299,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 	}
-	
+
 	public void testOverrideDefaultNull()
 	{
 		try
@@ -313,11 +313,11 @@ public class CompositeTest extends CopeAssert
 			assertSame(null, e.getItem());
 		}
 	}
-	
+
 	public void testOverrideDefaultNullOptional()
 	{
 		final Value value = new Value((String)null, true);
-		
+
 		assertEquals("1234", value.getString4());
 		assertEquals("defString", value.getStringDefault());
 		assertEquals(null,   value.getStringDefaultOptional());
@@ -330,11 +330,11 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 	}
-	
+
 	public void testWrong()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
-		
+
 		// get
 		try
 		{
@@ -381,7 +381,7 @@ public class CompositeTest extends CopeAssert
 		{
 			assertEquals("not a member", e.getMessage());
 		}
-		
+
 		// getMandatory
 		try
 		{
@@ -419,7 +419,7 @@ public class CompositeTest extends CopeAssert
 		{
 			assertEquals("not a member", e.getMessage());
 		}
-		
+
 		// set
 		try
 		{
@@ -467,7 +467,7 @@ public class CompositeTest extends CopeAssert
 			assertEquals("not a member", e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: testing bad api usage
 	public void testIt()
 	{
@@ -486,7 +486,7 @@ public class CompositeTest extends CopeAssert
 				e.getMessage());
 		}
 	}
-	
+
 	static final class Value extends Composite
 	{
 		public static final StringField string4 = new StringField().lengthMax(4);
@@ -496,12 +496,12 @@ public class CompositeTest extends CopeAssert
 		public static final LongField longField = new LongField();
 		public static final DoubleField doubleField = new DoubleField();
 		public static final BooleanField booleanField = new BooleanField();
-		
+
 		public static final IntegerField intOptional = new IntegerField().optional();
 		public static final LongField longOptional = new LongField().optional();
 		public static final DoubleField doubleOptional = new DoubleField().optional();
 		public static final BooleanField booleanOptional = new BooleanField().optional();
-		
+
 		Value(final String stringDefault, final boolean optional)
 		{
 			this(new com.exedio.cope.SetValue[]{
@@ -513,7 +513,7 @@ public class CompositeTest extends CopeAssert
 					Value.booleanField.map(false),
 			});
 		}
-		
+
 	/**
 
 	 **
@@ -793,7 +793,7 @@ public class CompositeTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 */
 	private static final long serialVersionUID = 1l;}
-	
+
 	static final class ValueX extends Composite
 	{
 		public static final  StringField  stringField = new  StringField();

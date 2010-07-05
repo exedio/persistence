@@ -63,9 +63,9 @@ class IntegerColumn extends Column
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
 		this.allowedValues = allowedValues;
-		
+
 		assert allowedValues.length>(optional?0:1) : id;
-		
+
 		// ensure, that allowedValues are unique and ordered
 		int current = Integer.MIN_VALUE;
 		for(int i = 0; i<allowedValues.length; i++)
@@ -80,17 +80,17 @@ class IntegerColumn extends Column
 	private static final int max(final int[] ints)
 	{
 		int result = 0;
-		
+
 		for(int i = 0; i<ints.length; i++)
 		{
 			final int inti = ints[i];
 			if(result<inti)
 				result = inti;
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Creates a primary key column.
 	 */
@@ -111,7 +111,7 @@ class IntegerColumn extends Column
 		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
-		
+
 		assert assertMembers();
 	}
 
@@ -122,7 +122,7 @@ class IntegerColumn extends Column
 		assert longInsteadOfInt || maximum<=Integer.MAX_VALUE;
 		return true;
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -151,7 +151,7 @@ class IntegerColumn extends Column
 			return '(' + quotedID + ">=" + minimum + ") AND (" + quotedID + "<=" + maximum + ')';
 		}
 	}
-	
+
 	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
@@ -175,19 +175,19 @@ class IntegerColumn extends Column
 				return ((Integer)cache).toString();
 		}
 	}
-	
+
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
 	}
-	
+
 	@Override
 	final Object getCheckValue()
 	{
 		return longInsteadOfInt ? (Object)Long.valueOf(1) : Integer.valueOf(1);
 	}
-	
+
 	private final Number convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
@@ -221,14 +221,14 @@ class IntegerColumn extends Column
 			append(quotedID).
 			append(") from ").
 			append(table.quotedID);
-			
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-				
+
 				final Object o = resultSet.getObject(1);
 				if(o!=null)
 				{

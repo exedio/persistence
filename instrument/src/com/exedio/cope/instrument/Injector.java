@@ -52,7 +52,7 @@ final class Injector
 	final char[] input;
 	int inputPosition = 0;
 	private final int inputLength;
-	
+
 	private final StringBuilder output;
 	private final InjectionConsumer consumer;
 	final String fileName;
@@ -66,7 +66,7 @@ final class Injector
 
 	private String docComment = null;
 	private boolean discardNextFeature = false;
-	
+
 	final JavaFile javaFile;
 
 	/**
@@ -99,19 +99,19 @@ final class Injector
 		final CRC32 crc32 = new CRC32();
 		crc32.update(inputBytes);
 		this.inputCRC = crc32.getValue();
-		
+
 		final Charset charset = Charset.defaultCharset(); // TODO make configurable
 		final CharsetDecoder decoder = charset.newDecoder();
 
 		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();
 		this.inputLength = input.length;
-		
+
 		this.consumer = consumer;
 		this.fileName = inputFile.getName();
 		this.javaFile = new JavaFile(repository);
 		this.output = javaFile.buffer;
 	}
-	
+
 	private char outbuf;
 	private boolean outbufvalid = false;
 
@@ -123,7 +123,7 @@ final class Injector
 				output.append(outbuf);
 			throw new EndException();
 		}
-			
+
 		final char c = input[inputPosition++];
 
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
@@ -541,18 +541,18 @@ final class Injector
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
-				
+
 				consumer.onClass(result);
 				result.setClassEndPosition(output.length());
 				consumer.onClassEnd(result);
 
 				discardNextFeature=false;
-				
+
 				if (collect_when_blocking)
 					write(getCollector());
 				if (do_block)
 					getCollector();
-				
+
 				return new JavaFeature[]{result};
 			}
 			else
@@ -784,7 +784,7 @@ final class Injector
 			throw new ParseException("class name expected.");
 		String classname = buf.toString();
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
-		
+
 		char imc;
 		char extendsOrImplements = '-';
 		String classExtends = null;
@@ -794,7 +794,7 @@ final class Injector
 			if(imc=='\0')
 			{
 				final String s = buf.toString();
-				
+
 				if("extends".equals(s))
 					extendsOrImplements = 'e';
 				else if("implements".equals(s))
@@ -817,17 +817,17 @@ final class Injector
 							throw new RuntimeException(String.valueOf(extendsOrImplements));
 					}
 				}
-				
+
 				//System.out.println("---------------"+s+"---"+extendsOrImplements+"---------------"+classExtends+"--------"+classImplements);
 			}
 		}
-		
+
 		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, false, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
 		discardNextFeature=false;
-		
+
 		if (collect_when_blocking)
 			write(getCollector());
 		if (do_block)
@@ -975,7 +975,7 @@ final class Injector
 							write(comment);
 						}
 						break;
-						
+
 					case '@':
 						parseAnnotation();
 						break;
@@ -995,7 +995,7 @@ final class Injector
 			throw new ParseException(e);
 		}
 	}
-	
+
 	private void parseAnnotation() throws EndException
 	{
 		final char nameToken = readToken();
@@ -1006,7 +1006,7 @@ final class Injector
 		final char bracketToken = readToken();
 		if(bracketToken!='(')
 			return; // TODO this is a bug, should push back the token
-		
+
 		while(readToken()!=')')
 			;
 	}
@@ -1014,23 +1014,23 @@ final class Injector
 	static final class EndException extends Exception
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 	}
 
 	private final class ParseException extends InjectorParseException
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		final int line;
 		final int column;
-		
+
 		private ParseException(final String message, final RuntimeException cause)
 		{
 			super(message, cause);
-			
+
 			final char[] input = Injector.this.input;
 			final int inputPosition = Injector.this.inputPosition;
-			
+
 			int line = 1;
 			int column = 0;
 			for(int i = 0; i<inputPosition; i++)
@@ -1121,7 +1121,7 @@ final class Injector
 		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;
 	}
-	
+
 	public static final String removeGenerics(final String s)
 	{
 		final int lt = s.indexOf('<');
@@ -1131,7 +1131,7 @@ final class Injector
 			final int gt = s.indexOf('>', lt);
 			if(gt<0)
 				throw new RuntimeException(s);
-				
+
 			//System.out.println("--------evaluate("+s+")"+gt);
 			if(gt<s.length())
 				return s.substring(0, lt) + s.substring(gt+1);
@@ -1148,11 +1148,11 @@ final class Injector
 		if(lt>=0)
 		{
 			final ArrayList<String> result = new ArrayList<String>();
-			
+
 			final int gt = s.indexOf('>', lt);
 			if(gt<0)
 				throw new RuntimeException(s);
-			
+
 			int lastcomma = lt;
 			for(int comma = s.indexOf(',', lt); comma>=0&&comma<gt; comma = s.indexOf(',', comma+1))
 			{
@@ -1160,7 +1160,7 @@ final class Injector
 				lastcomma = comma;
 			}
 			result.add(s.substring(lastcomma+1, gt).trim());
-			
+
 			return result;
 		}
 		else

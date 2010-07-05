@@ -36,12 +36,12 @@ class TestByteArrayInputStream extends InputStream
 {
 	private final ByteArrayInputStream in;
 	boolean closed = false;
-	
+
 	TestByteArrayInputStream(final byte[] buf)
 	{
 		this.in = new ByteArrayInputStream(buf);
 	}
-	
+
 	@Override
 	public int read() throws IOException
 	{
@@ -94,13 +94,13 @@ class TestByteArrayInputStream extends InputStream
 		super.close();
 		closed = true;
 	}
-	
+
 	private void assertOpen() throws IOException
 	{
 		if(closed)
 			throw new IOException("stream already closed");
 	}
-	
+
 	public void assertClosed()
 	{
 		Assert.assertEquals("stream still open", true, closed);

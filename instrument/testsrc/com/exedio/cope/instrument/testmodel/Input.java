@@ -30,7 +30,7 @@ public class Input extends Item
 	public static final StringField string = new StringField().toFinal();
 	public static final IntegerField integer = new IntegerField().toFinal();
 	public static final UniqueConstraint unique = new UniqueConstraint( string, integer );
-	
+
 /**
 
 	 **

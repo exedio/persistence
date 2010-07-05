@@ -26,7 +26,7 @@ final class ComputedInstance
 	@SuppressWarnings("unused")
 	private static final int source = 0;
 	private static final java.lang.reflect.Field instance;
-	
+
 	static
 	{
 		try
@@ -38,12 +38,12 @@ final class ComputedInstance
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	static Computed getAnnotation()
 	{
 		return instance.getAnnotation(Computed.class);
 	}
-	
+
 	private ComputedInstance()
 	{
 		// prevent instantiation

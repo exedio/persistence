@@ -28,14 +28,14 @@ import com.exedio.cope.TypesBound;
 public class DispatcherNoneItem extends Item
 {
 	static final Dispatcher wrong = new Dispatcher();
-	
+
 	@SuppressWarnings("unchecked") // because instrumentor fails on correct version
 	static final Type<?> newTypeAccessible(final Class javaClass)
 	{
 		return TypesBound.newType(javaClass);
 	}
-	
-	
+
+
 	/**
 
 	 **

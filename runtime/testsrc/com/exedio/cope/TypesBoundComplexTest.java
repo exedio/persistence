@@ -46,10 +46,10 @@ public class TypesBoundComplexTest extends CopeAssert
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
-		
-		
+
+
 		final Type<AnItem> type = newType(AnItem.class);
-		
+
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));
 		try
@@ -78,19 +78,19 @@ public class TypesBoundComplexTest extends CopeAssert
 		assertEquals("AnItem.this", type.getThis().getID());
 		assertEquals("AnItem.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
-		
+
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getFields());
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), type.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getFeatures());
 		assertEqualsUnmodifiable(list(type.getThis(), AnItem.intField, AnItem.boolField), type.getDeclaredFeatures());
-		
+
 		assertSame(AnItem.intField, type.getFeature("intField"));
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
-		
+
 		try
 		{
 			type.isAssignableFrom(null);
@@ -101,27 +101,27 @@ public class TypesBoundComplexTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 		assertTrue(type.isAssignableFrom(type));
-		
-		
+
+
 		final Type<AnotherItem> typO = newType(AnotherItem.class);
 		assertSame(typO, forClass(AnotherItem.class));
 		assertSame(typO, forClassUnchecked(AnotherItem.class));
 		assertEquals("AnotherItem", typO.getID());
 		assertEquals(AnotherItem.class, typO.getJavaClass());
 		assertEquals(true, typO.isBound());
-		
+
 		assertSame(typO, typO.getThis().getType());
 		assertEquals("AnotherItem.this", typO.getThis().getID());
 		assertEquals("AnotherItem.this", typO.getThis().toString());
 		assertEquals("this", typO.getThis().getName());
-		
+
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField, AnotherItem.doubleField, AnotherItem.itemField), typO.getFields());
 		assertEqualsUnmodifiable(list(AnotherItem.doubleField, AnotherItem.itemField), typO.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), typO.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), typO.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(typO.getThis(), AnItem.intField, AnItem.boolField, AnotherItem.doubleField, AnotherItem.itemField), typO.getFeatures());
 		assertEqualsUnmodifiable(list(typO.getThis(), AnotherItem.doubleField, AnotherItem.itemField), typO.getDeclaredFeatures());
-		
+
 		assertSame(AnItem.intField, typO.getFeature("intField"));
 		assertSame(AnItem.boolField, typO.getFeature("boolField"));
 		assertSame(AnotherItem.doubleField, typO.getFeature("doubleField"));
@@ -129,7 +129,7 @@ public class TypesBoundComplexTest extends CopeAssert
 		assertSame(null, typO.getDeclaredFeature("boolField"));
 		assertSame(AnotherItem.doubleField, typO.getDeclaredFeature("doubleField"));
 		assertSame(AnotherItem.itemField, typO.getDeclaredFeature("itemField"));
-		
+
 		try
 		{
 			typO.isAssignableFrom(null);
@@ -142,8 +142,8 @@ public class TypesBoundComplexTest extends CopeAssert
 		assertTrue(typO.isAssignableFrom(typO));
 		assertTrue(type.isAssignableFrom(typO));
 		assertFalse(typO.isAssignableFrom(type));
-		
-		
+
+
 		// error if not initialized
 		final String modelMessage =
 			"model not set for type AnItem, " +
@@ -269,8 +269,8 @@ public class TypesBoundComplexTest extends CopeAssert
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
-		
-		
+
+
 		final Model model = new Model(type, typO);
 		assertSame(type, AnotherItem.itemField.getValueType());
 		assertSame(type, model.getType(type.getID()));
@@ -288,29 +288,29 @@ public class TypesBoundComplexTest extends CopeAssert
 		assertEqualsUnmodifiable(list(type, typO), type.getTypesOfInstances());
 		assertEqualsUnmodifiable(list(typO), typO.getTypesOfInstances());
 	}
-	
+
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		protected AnItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final IntegerField intField = new IntegerField();
 		static final BooleanField boolField = new BooleanField();
 	}
-	
+
 	static class AnotherItem extends AnItem
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnotherItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final DoubleField doubleField = new DoubleField();
 		static final ItemField itemField = newItemField(AnItem.class);
 	}

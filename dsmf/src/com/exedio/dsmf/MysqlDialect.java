@@ -29,13 +29,13 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 public final class MysqlDialect extends Dialect
 {
 	final String primaryKeyColumnName;
-	
+
 	public MysqlDialect(final String primaryKeyColumnName)
 	{
 		super(null);
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
-	
+
 	private static final char QUOTE_CHARACTER = '`';
 
 	/**
@@ -100,7 +100,7 @@ public final class MysqlDialect extends Dialect
 				return null;
 		}
 	}
-	
+
 	final String unQuoteName(final String quotedName)
 	{
 		final int length = quotedName.length();
@@ -123,12 +123,12 @@ public final class MysqlDialect extends Dialect
 			{
 				if(!table.exists())
 					continue;
-				
+
 				{
 					final StringBuilder bf = new StringBuilder();
 					bf.append("show columns from ").
 						append(quoteName(table.name));
-					
+
 					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
@@ -163,7 +163,7 @@ public final class MysqlDialect extends Dialect
 					final StringBuilder bf = new StringBuilder();
 					bf.append("show create table ").
 						append(quoteName(table.name));
-					
+
 					schema.querySQL(bf.toString(), new ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
@@ -204,7 +204,7 @@ public final class MysqlDialect extends Dialect
 											//final String targetAttribute =
 											t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
-											
+
 											table.notifyExistentForeignKeyConstraint(name);
 										}
 										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
@@ -239,13 +239,13 @@ public final class MysqlDialect extends Dialect
 	{
 		bf.append(" engine=innodb");
 	}
-	
+
 	@Override
 	boolean needsTargetColumnName()
 	{
 		return true;
 	}
-	
+
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
@@ -297,7 +297,7 @@ public final class MysqlDialect extends Dialect
 			append(" drop primary key");
 		return bf.toString();
 	}
-	
+
 	@Override
 	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
 	{
@@ -308,7 +308,7 @@ public final class MysqlDialect extends Dialect
 			append(constraintName);
 		return bf.toString();
 	}
-	
+
 	@Override
 	public String dropUniqueConstraint(final String tableName, final String constraintName)
 	{
@@ -319,9 +319,9 @@ public final class MysqlDialect extends Dialect
 			append(constraintName);
 		return bf.toString();
 	}
-	
+
 	public static final String SEQUENCE_COLUMN = "x";
-	
+
 	@Override
 	public String createSequence(final String sequenceName, final int startWith)
 	{
@@ -331,7 +331,7 @@ public final class MysqlDialect extends Dialect
 			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB AUTO_INCREMENT=" + (startWith+1));
 		return bf.toString();
 	}
-	
+
 	@Override
 	public String dropSequence(final String sequenceName)
 	{
@@ -340,7 +340,7 @@ public final class MysqlDialect extends Dialect
 			append(sequenceName);
 		return bf.toString();
 	}
-	
+
 	@Override
 	public void deleteSchema(final Schema schema)
 	{
@@ -351,11 +351,11 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = schema.connectionProvider.getConnection();
 			sqlStatement = connection.createStatement();
-			
+
 			bf.setLength(0);
 			bf.append("set FOREIGN_KEY_CHECKS=0");
 			sqlStatement.executeUpdate(bf.toString());
-			
+
 			for(final Table table : schema.getTables())
 			{
 				bf.setLength(0);
@@ -363,18 +363,18 @@ public final class MysqlDialect extends Dialect
 					append(quoteName(table.name));
 				sqlStatement.executeUpdate(bf.toString());
 			}
-			
+
 			bf.setLength(0);
 			bf.append("set FOREIGN_KEY_CHECKS=1");
 			sqlStatement.executeUpdate(bf.toString());
-			
+
 			for(final Sequence sequence : schema.getSequences())
 			{
 				bf.setLength(0);
 				bf.append("truncate ").
 					append(quoteName(sequence.name));
 				sqlStatement.executeUpdate(bf.toString());
-				
+
 				final int startWith = sequence.startWith;
 				if(startWith!=0)
 				{

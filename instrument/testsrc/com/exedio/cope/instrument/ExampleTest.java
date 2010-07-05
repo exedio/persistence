@@ -434,12 +434,12 @@ public class ExampleTest extends InjectorTest
 				"\t}");
 		assertMethod("main", null, main);
 		assertText("\n\n");
-		
+
 		assertClassEnd(exampleClass);
 		assertText("}\n\nclass SecondExample extends Example");
 		final JavaClass secondExampleClass = assertClass("SecondExample", "Example", null);
 		assertText("{"+"void abstractMethod()");
-		
+
 		final JavaBehaviour abstractMethod2 =
 			assertBehaviourHeader(
 				"abstractMethod",

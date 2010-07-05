@@ -25,7 +25,7 @@ abstract class CopeAttribute extends CopeFeature
 	 */
 	@Deprecated
 	final String persistentType;
-	
+
 	CopeAttribute(
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
@@ -46,7 +46,7 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		return persistentType;
 	}
-	
+
 	/**
 	 * Returns, whether the persistent type is &quot;boxed&quot; into a native type.
 	 * This happens if the attribute is mandatory

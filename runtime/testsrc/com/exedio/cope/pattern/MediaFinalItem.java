@@ -37,8 +37,8 @@ public class MediaFinalItem extends Item
 	{
 		this(Media.toValue(fileBody, fileContentType));
 	}
-	
-	
+
+
 	/**
 
 	 **

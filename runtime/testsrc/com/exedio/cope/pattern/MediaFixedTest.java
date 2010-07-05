@@ -43,11 +43,11 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
-	
+
 	public void testIt() throws IOException
 	{
 		// test model
-		
+
 		assertEquals(false, item.photo.isInitial());
 		assertEquals(false, item.photo.isFinal());
 		assertEquals(false, item.photo.isMandatory());
@@ -78,7 +78,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		
+
 		final CheckConstraint unison = item.photo.getUnison();
 		assertSame(item.TYPE, unison.getType());
 		assertEquals("photo-unison", unison.getName());
@@ -87,12 +87,12 @@ public class MediaFixedTest extends AbstractRuntimeTest
 				lastModified.isNull   (),
 				lastModified.isNotNull()),
 				unison.getCondition());
-		
+
 		assertEquals(Condition.TRUE,        item.photo.contentTypeEqual("image/jpeg"));
 		assertEquals(Condition.FALSE,       item.photo.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), item.photo.contentTypeEqual(null));
 		assertNotNull(item.photo.bodyMismatchesContentType());
-		
+
 		// test persistence
 
 		assertNull();
@@ -104,7 +104,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		item.setPhoto(stream(data6), "image/jpeg");
 		assertStreamClosed();
 		assertContent(data6);
-		
+
 		try
 		{
 			item.setPhoto(stream(data4), "illegalContentType");
@@ -148,7 +148,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
 	}
-	
+
 	private void assertContent(final byte[] expectedData)
 	{
 		assertTrue(!item.isPhotoNull());

@@ -21,12 +21,12 @@ package com.exedio.cope;
 public class CreateTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(CreateSuperItem.TYPE, CreateItem.TYPE);
-	
+
 	public CreateTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void test()
 	{
 		{

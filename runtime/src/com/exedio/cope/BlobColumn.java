@@ -31,7 +31,7 @@ final class BlobColumn extends Column
 {
 	private final long maximumLength;
 	private final long lengthFactor;
-	
+
 	BlobColumn(
 			final Table table,
 			final Field field,
@@ -42,11 +42,11 @@ final class BlobColumn extends Column
 		super(table, field, id, false, optional);
 		this.maximumLength = maximumLength;
 		this.lengthFactor = table.database.dialect.getBlobLengthFactor();
-		
+
 		if(table.database.dialect.getBlobType(maximumLength)==null)
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -58,19 +58,19 @@ final class BlobColumn extends Column
 	{
 		return "LENGTH(" + quotedID + ")<=" + (maximumLength*lengthFactor);
 	}
-	
+
 	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 	{
 		throw new RuntimeException(id);
 	}
-	
+
 	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		throw new RuntimeException(id);
 	}
-	
+
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
@@ -82,7 +82,7 @@ final class BlobColumn extends Column
 	{
 		throw new RuntimeException(id);
 	}
-	
+
 
 	byte[] load(final Connection connection, final Executor executor, final Item item)
 	{
@@ -98,19 +98,19 @@ final class BlobColumn extends Column
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
-			
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<byte[]>()
 		{
 			public byte[] handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-				
+
 				return executor.dialect.getBytes(resultSet, 1);
 			}
 		});
 	}
-	
+
 	void load(final Connection connection, final Executor executor, final Item item, final OutputStream data, final DataField field)
 	{
 		final Table table = this.table;
@@ -124,21 +124,21 @@ final class BlobColumn extends Column
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
-		
+
 		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-				
+
 				executor.dialect.fetchBlob(resultSet, 1, item, data, field);
-				
+
 				return null;
 			}
 		});
 	}
-	
+
 	long loadLength(final Connection connection, final Executor executor, final Item item)
 	{
 		final Table table = this.table;
@@ -152,7 +152,7 @@ final class BlobColumn extends Column
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
-			
+
 		final long lengthFactor= this.lengthFactor;
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
@@ -160,11 +160,11 @@ final class BlobColumn extends Column
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-	
+
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					return -1l;
-	
+
 				long result = ((Number)o).longValue();
 				final long factor = lengthFactor;
 				if(factor!=1)
@@ -177,7 +177,7 @@ final class BlobColumn extends Column
 			}
 		});
 	}
-	
+
 	void store(
 			final Connection connection, final Executor executor, final Item item,
 			final DataField.Value data, final DataField field)
@@ -189,18 +189,18 @@ final class BlobColumn extends Column
 			append(" set ").
 			append(quotedID).
 			append('=');
-		
+
 		if(data!=null)
 			bf.appendParameterBlob(data.asArray(field, item));
 		else
 			bf.append("NULL");
-		
+
 		bf.append(" where ").
 			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
-		
+
 		//System.out.println("storing "+bf.toString());
 		executor.update(connection, bf, true);
 	}

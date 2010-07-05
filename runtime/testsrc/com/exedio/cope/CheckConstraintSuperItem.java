@@ -22,30 +22,30 @@ public class CheckConstraintSuperItem extends Item
 {
 	/** @cope.initial */
 	public static final IntegerField eins = new IntegerField().optional();
-	
+
 	/** @cope.initial */
 	public static final IntegerField zwei = new IntegerField().optional();
-	
+
 	/** @cope.initial */
 	public static final IntegerField drei = new IntegerField().optional();
-	
+
 	public static final CheckConstraint einsGreaterOrEqualZwei = new CheckConstraint(eins.greaterOrEqual(zwei));
-	
+
 	void setEinsZwei(final Integer eins, final Integer zwei)
 	{
 		set(
 			CheckConstraintSuperItem.eins.map(eins),
 			CheckConstraintSuperItem.zwei.map(zwei));
 	}
-	
+
 	void setZweiDrei(final Integer zwei, final Integer drei)
 	{
 		set(
 			CheckConstraintSuperItem.zwei.map(zwei),
 			CheckConstraintSuperItem.drei.map(drei));
 	}
-	
-	
+
+
 	/**
 
 	 **

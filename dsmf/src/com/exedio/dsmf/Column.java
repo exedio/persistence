@@ -25,7 +25,7 @@ public final class Column extends Node
 	final String name;
 	private final String requiredType;
 	private String existingType;
-		
+
 	public Column(final Table table, final String name, final String type)
 	{
 		this(table, name, type, true);
@@ -54,7 +54,7 @@ public final class Column extends Node
 		}
 		table.register(this);
 	}
-	
+
 	public final Table getTable()
 	{
 		return table;
@@ -106,22 +106,22 @@ public final class Column extends Node
 				particularColor = Color.OK;
 			}
 		}
-				
+
 		this.error = error;
 		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
 	}
-		
+
 	public final boolean required()
 	{
 		return requiredType!=null;
 	}
-	
+
 	public final boolean exists()
 	{
 		return existingType!=null;
 	}
-		
+
 	public final String getType()
 	{
 		if(requiredType!=null)
@@ -129,12 +129,12 @@ public final class Column extends Node
 		else
 			return existingType;
 	}
-		
+
 	public final void create()
 	{
 		create(null);
 	}
-	
+
 	public final void create(final StatementListener listener)
 	{
 		//System.out.println("createColumn:"+bf);
@@ -149,7 +149,7 @@ public final class Column extends Node
 	{
 		renameTo(newName, null);
 	}
-	
+
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
 		//System.err.println("renameColumn:"+bf);
@@ -160,12 +160,12 @@ public final class Column extends Node
 				quoteName(newName),
 				existingType), listener);
 	}
-	
+
 	public final void modify(final String newType)
 	{
 		modify(newType, null);
 	}
-	
+
 	public final void modify(final String newType, final StatementListener listener)
 	{
 		executeSQL(
@@ -179,7 +179,7 @@ public final class Column extends Node
 	{
 		drop(null);
 	}
-	
+
 	public final void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -191,7 +191,7 @@ public final class Column extends Node
 		//System.out.println("dropColumn:"+bf);
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	public final void update(final String value, final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -204,12 +204,12 @@ public final class Column extends Node
 
 		executeSQL(bf.toString(), listener);
 	}
-	
+
 	@Override
 	public final String toString()
 	{
 		return name;
 	}
-	
+
 }
-	
+

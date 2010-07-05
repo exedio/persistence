@@ -21,11 +21,11 @@ package com.exedio.cope;
 public abstract class HierarchySuper extends Item
 {
 	public static final IntegerField superInt = new IntegerField().unique();
-	
+
 	public static final StringField superString = new StringField().optional();
 
 	public static final UppercaseView superStringUpper = superString.toUpperCase();
-	
+
 /**
 
 	 **

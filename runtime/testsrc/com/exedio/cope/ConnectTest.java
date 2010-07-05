@@ -30,18 +30,18 @@ public class ConnectTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
 		assertEquals(dialect.supportsReadCommitted, model.supportsReadCommitted());
 	}
-	
+
 	public static final void assertEquals(final String expected, final String actual)
 	{
 		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
 	}
-	
+
 	public void testConnect()
 	{
 		final ConnectProperties defaultProps = getConnectProperties();
@@ -92,15 +92,15 @@ public class ConnectTest extends AbstractRuntimeTest
 			assertEquals("types must not be empty", e.getMessage());
 		}
 	}
-	
+
 	public void testDisconnect()
 	{
 		assertWithin(beforeModel, afterModel, model.getInitializeDate());
-		
+
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();
 		assertNotNull(p);
-		
+
 		model.disconnect();
 		assertFalse(model.isConnected());
 		try

@@ -27,7 +27,7 @@ public class JoinFunctionTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private JoinFunctionItemSingle single;
 	private JoinFunctionItem a1;
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
@@ -41,14 +41,14 @@ public class JoinFunctionTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		single = deleteOnTearDown(new JoinFunctionItemSingle("single"));
 		a1 = deleteOnTearDown(new JoinFunctionItem("a1", Integer.valueOf(1)));
 		a2 = deleteOnTearDown(new JoinFunctionItem("a2", Integer.valueOf(2)));
 		b1 = deleteOnTearDown(new JoinFunctionItem("b1", Integer.valueOf(1)));
 		b3 = deleteOnTearDown(new JoinFunctionItem("b3", Integer.valueOf(3)));
 	}
-	
+
 	public void testIt()
 	{
 		{

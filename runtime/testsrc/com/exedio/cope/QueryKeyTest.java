@@ -24,7 +24,7 @@ public class QueryKeyTest extends AbstractRuntimeTest
 	{
 		super(InstanceOfTest.MODEL);
 	}
-	
+
 	public void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
@@ -34,5 +34,5 @@ public class QueryKeyTest extends AbstractRuntimeTest
 		// test Query.Key#equals
 		assertContains(q.search());
 	}
-	
+
 }

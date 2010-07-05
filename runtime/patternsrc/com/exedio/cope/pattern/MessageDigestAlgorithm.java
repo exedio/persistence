@@ -32,15 +32,15 @@ import com.exedio.cope.util.MessageDigestUtil;
 public final class MessageDigestAlgorithm implements Hash.Algorithm
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final String digest;
 	private final int digestLength;
-	
+
 	private final int saltLength;
 	private java.util.Random saltSource;
-	
+
 	private final int iterations;
-	
+
 	/**
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
@@ -50,12 +50,12 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			final int iterations)
 	{
 		this.digest = digest;
-		
+
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 		this.digestLength = messageDigest.getDigestLength();
 		if(digestLength<=0)
 			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
-		
+
 		this.saltLength = saltLength;
 		this.saltSource = saltLength>0 ? new SecureRandom() : null;
 		this.iterations = iterations;
@@ -64,7 +64,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		if(iterations<1)
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
-	
+
 	/**
 	 * For tests only !!!
 	 */
@@ -72,12 +72,12 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	{
 		if(this.saltSource==null)
 			throw new RuntimeException();
-		
+
 		final java.util.Random result = this.saltSource;
 		this.saltSource = saltSource;
 		return result;
 	}
-	
+
 	public String name()
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -90,21 +90,21 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 				append(iterations);
 		return bf.toString();
 	}
-	
+
 	public int length()
 	{
 		return saltLength + digestLength;
 	}
-	
+
 	public byte[] hash(final byte[] plainText)
 	{
 		if(plainText==null)
 			throw new NullPointerException();
-		
+
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		
+
 		final byte[] result = new byte[saltLength + digestLength];
-		
+
 		// http://www.owasp.org/index.php/Hashing_Java
 		if(saltLength>0)
 		{
@@ -113,13 +113,13 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			messageDigest.update(salt);
 			System.arraycopy(salt, 0, result, 0, saltLength);
 		}
-		
+
 		messageDigest.update(plainText);
-		
+
 		try
 		{
 			messageDigest.digest(result, saltLength, digestLength);
-			
+
 			for(int i = 1; i<iterations; i++)
 			{
 				messageDigest.update(result, saltLength, digestLength);
@@ -130,26 +130,26 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		{
 			throw new RuntimeException(e);
 		}
-		
+
 		return result;
 	}
-	
+
 	public boolean check(final byte[] plainText, final byte[] hash)
 	{
 		if(plainText==null)
 			throw new NullPointerException();
 		if(hash==null)
 			throw new NullPointerException();
-		
+
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		
+
 		if(saltLength>0)
 			messageDigest.update(hash, 0, saltLength);
-		
+
 		messageDigest.update(plainText);
-		
+
 		final byte[] result = messageDigest.digest();
-		
+
 		try
 		{
 			for(int i = 1; i<iterations; i++)
@@ -162,18 +162,18 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		{
 			throw new RuntimeException(e);
 		}
-		
+
 		for(int i = 0; i<digestLength; i++)
 			if(result[i]!=hash[i+saltLength])
 				return false;
 		return true;
 	}
-	
+
 	public int getSaltLength()
 	{
 		return saltLength;
 	}
-	
+
 	public int getIterations()
 	{
 		return iterations;

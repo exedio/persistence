@@ -24,7 +24,7 @@ public class TransactionCounters
 	private final long commitWithConnection;
 	private final long rollbackWithoutConnection;
 	private final long rollbackWithConnection;
-	
+
 	TransactionCounters(
 			final long commitWithoutConnection,
 			final long commitWithConnection,

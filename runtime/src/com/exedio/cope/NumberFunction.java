@@ -26,7 +26,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	// convenience methods for conditions and views ---------------------------------
 
 	BindNumberFunction<E> bind(Join join);
-	
+
 	PlusLiteralView<E> plus(E value);
 	MultiplyLiteralView<E> multiply(E value);
 	PlusView<E> plus(NumberFunction<E> other);
@@ -35,9 +35,9 @@ public interface NumberFunction<E extends Number> extends Function<E>
 
 	SumAggregate<E> sum();
 	AverageAggregate<E> average();
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */

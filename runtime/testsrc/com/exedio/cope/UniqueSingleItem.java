@@ -26,7 +26,7 @@ public class UniqueSingleItem extends Item
 	public static final StringField uniqueString = new StringField().optional().unique();
 
 	public static final StringField otherString = new StringField().optional();
-	
+
 	public UniqueSingleItem(final String uniqueString)
 	{
 		this(new com.exedio.cope.SetValue[]{
@@ -41,7 +41,7 @@ public class UniqueSingleItem extends Item
 			UniqueSingleItem.otherString.map(otherString)
 		});
 	}
-	
+
 /**
 
 	 **

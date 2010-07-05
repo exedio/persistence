@@ -46,10 +46,10 @@ class StringColumn extends Column
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
 		this.allowedValues = null;
-		
+
 		assert minimumLength<=maximumLength;
 	}
-	
+
 	StringColumn(
 			final Table table,
 			final Field field,
@@ -67,24 +67,24 @@ class StringColumn extends Column
 			throw new RuntimeException(id);
 		for(int i = 0; i<allowedValues.length; i++)
 			allowedValues[i] = intern(allowedValues[i]);
-		
+
 		assert minimumLength<=maximumLength;
 	}
-	
+
 	private static final int maxLength(final String[] strings)
 	{
 		int result = 0;
-		
+
 		for(int i = 0; i<strings.length; i++)
 		{
 			final int length = strings[i].length();
 			if(result<length)
 				result = length;
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -154,7 +154,7 @@ class StringColumn extends Column
 	{
 		return cacheToDatabaseStatic(cache);
 	}
-	
+
 	final static String cacheToDatabaseStatic(final Object cache)
 	{
 		if(cache==null)
@@ -192,11 +192,11 @@ class StringColumn extends Column
 		assert cache==null || cache instanceof String;
 		return cache;
 	}
-	
+
 	@Override
 	final Object getCheckValue()
 	{
 		return "z";
 	}
-	
+
 }

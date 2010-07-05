@@ -36,26 +36,26 @@ import com.exedio.cope.misc.Computed;
 public class LimitedListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(LimitedListFieldTest.class, "MODEL");
 	}
-	
+
 	public LimitedListFieldTest()
 	{
 		super(MODEL);
 	}
 
 	LimitedListFieldItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new LimitedListFieldItem(1, 2, 3));
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -91,7 +91,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(false, item.nums.isInitial());
 		assertEquals(false, item.nums.isFinal());
 		assertContains(item.nums.getInitialExceptions());
-		
+
 		assertEquals(3, item.nums   .getMaximumSize());
 		assertEquals(2, item.dates  .getMaximumSize());
 		assertEquals(4, item.strings.getMaximumSize());
@@ -137,7 +137,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date0, date1, string0, string1, string2, string3),
 				item.TYPE.getDeclaredFields());
-		
+
 		assertFalse(item.num1.isAnnotationPresent(Computed.class));
 		assertFalse(item.num2.isAnnotationPresent(Computed.class));
 		assertFalse(item.num3.isAnnotationPresent(Computed.class));
@@ -147,7 +147,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertTrue (string1  .isAnnotationPresent(Computed.class));
 		assertTrue (string2  .isAnnotationPresent(Computed.class));
 		assertTrue (string3  .isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.nums   , 394);
 		assertSerializedSame(item.dates  , 395);
 		assertSerializedSame(item.strings, 397);
@@ -164,7 +164,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.nums.contains(i2)));
 		assertContains(item, item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item.TYPE.search(item.nums.contains(null)));
-		
+
 		item.setNums(listg(i3, i2, i1));
 		assertEquals(list(i3, i2, i1), item.getNums());
 		assertEquals(i3, item.getNum1());
@@ -208,34 +208,34 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.nums.contains(i2)));
 		assertContains(item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item, item.TYPE.search(item.nums.contains(null)));
-		
+
 		item.setNum1(i1);
 		item.setNum2(i2);
 		item.setNum3(i3);
 		assertEquals(list(i1, i2, i3), item.getNums());
-		
+
 		item.setNum1(null);
 		item.setNum2(i2);
 		item.setNum3(i3);
 		assertEquals(list(i2, i3), item.getNums());
-		
+
 		item.setNum1(i1);
 		item.setNum2(null);
 		item.setNum3(i3);
 		assertEquals(list(i1, i3), item.getNums());
-		
+
 		item.setNum1(null);
 		item.setNum2(null);
 		item.setNum3(null);
 		assertEquals(list(), item.getNums());
-		
+
 		final Date ts1 = new Date(8172541283976l);
 		final Date ts2 = new Date(3874656234632l);
 		item.setDates(listg(ts1, ts2));
 		assertEquals(list(ts1, ts2), item.getDates());
 		assertEquals(ts1, item.get(date0));
 		assertEquals(ts2, item.get(date1));
-		
+
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.get(string0));
@@ -256,21 +256,21 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.strings.contains("bello")));
 		assertContains(item, item.TYPE.search(item.strings.contains(null)));
 		assertContains(item.TYPE.search(item.strings.contains("zollo")));
-		
+
 		item.set(item.strings.map(listg("zicko", "zacko", "zocko")));
 		assertEquals(list("zicko", "zacko", "zocko"), item.getStrings());
 		assertEquals("zicko", item.get(string0));
 		assertEquals("zacko", item.get(string1));
 		assertEquals("zocko", item.get(string2));
 		assertEquals(null, item.get(string3));
-		
+
 		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.get(string0));
 		assertEquals("lets2", item2.get(string1));
 		assertEquals("lets3", item2.get(string2));
 		assertEquals("lets4", item2.get(string3));
-		
+
 		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string0));
@@ -344,7 +344,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			assertEquals("maximumSize must be greater 1, but was 1", e.getMessage());
 		}
 	}
-	
+
 	private final DateField assertDate(final Iterator i, final int num)
 	{
 		final DateField date = (DateField)i.next();

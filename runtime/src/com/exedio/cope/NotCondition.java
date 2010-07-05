@@ -35,10 +35,10 @@ public final class NotCondition extends Condition
 			throw new NullPointerException("argument");
 		if(argument instanceof Literal)
 			throw new IllegalArgumentException("argument must not be a literal");
-		
+
 		this.argument = argument;
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
@@ -46,7 +46,7 @@ public final class NotCondition extends Condition
 		argument.append(bf);
 		bf.append(')');
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -64,12 +64,12 @@ public final class NotCondition extends Condition
 	{
 		if(!(other instanceof NotCondition))
 			return false;
-		
+
 		final NotCondition o = (NotCondition)other;
-		
+
 		return argument.equals(o.argument);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

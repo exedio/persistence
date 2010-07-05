@@ -30,52 +30,52 @@ import com.exedio.cope.util.ModificationListener;
 public class CopeModelTestTest extends CopeModelTest
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
-	
+
 	public CopeModelTestTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void testNotEmpty()
 	{
 		assertBlank();
-		
+
 		final JUnitTestItem i1 = new JUnitTestItem(100);
 		final JUnitTestItem i2 = new JUnitTestItem(101);
 		final JUnitTestItem i3 = new JUnitTestItem(102);
 		final JUnitTestItem i4 = new JUnitTestItem(103);
-		
+
 		assertEquals("JUnitTestItem-0", i1.getCopeID());
 		assertEquals("JUnitTestItem-1", i2.getCopeID());
 		assertEquals("JUnitTestItem-2", i3.getCopeID());
 		assertEquals("JUnitTestItem-3", i4.getCopeID());
-		
+
 		assertEquals(1000, i1.getNext());
 		assertEquals(1001, i2.getNext());
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
 	}
-	
+
 	public void testFlushSequences()
 	{
 		assertBlank();
-		
+
 		final JUnitTestItem i1 = new JUnitTestItem(200);
 		assertEquals("JUnitTestItem-0", i1.getCopeID());
 		assertEquals(1000, i1.getNext());
 	}
-	
+
 	public void testNoTransaction()
 	{
 		assertBlank();
-		
+
 		model.commit();
 	}
-	
+
 	public void testDatabaseListener()
 	{
 		assertBlank();
-		
+
 		model.setDatabaseListener(new DatabaseListener(){
 
 			public void onStatement(
@@ -87,11 +87,11 @@ public class CopeModelTestTest extends CopeModelTest
 			}
 		});
 	}
-	
+
 	public void testModificationListener()
 	{
 		assertBlank();
-		
+
 		model.addModificationListener(new ModificationListener()
 		{
 			public void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction)
@@ -100,12 +100,12 @@ public class CopeModelTestTest extends CopeModelTest
 			}
 		});
 	}
-	
+
 	public void testLast()
 	{
 		assertBlank();
 	}
-	
+
 	private void assertBlank()
 	{
 		assertTrue(model.hasCurrentTransaction());

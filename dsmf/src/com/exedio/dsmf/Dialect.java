@@ -30,7 +30,7 @@ public abstract class Dialect
 	{
 		this.schema = schema;
 	}
-	
+
 	/**
 	 * Quotes a database name. This prevents the name from being interpreted as a SQL keyword.
 	 * This is usually done by enclosing the name with some (database specific) quotation characters.
@@ -40,20 +40,20 @@ public abstract class Dialect
 	{
 		if(name.indexOf('"')>=0)
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
-		
+
 		return '"' + name + '"';
 	}
-	
+
 	public boolean supportsCheckConstraints()
 	{
 		return true;
 	}
-	
+
 	public boolean supportsSequences()
 	{
 		return true;
 	}
-	
+
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
 	void verify(final Schema schema)
@@ -72,7 +72,7 @@ public abstract class Dialect
 					}
 				}
 			});
-		
+
 		schema.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -82,7 +82,7 @@ public abstract class Dialect
 						final String tableName = resultSet.getString("TABLE_NAME");
 						final String columnName = resultSet.getString("COLUMN_NAME");
 						final int dataType = resultSet.getInt("DATA_TYPE");
-						
+
 						final Table table = schema.getTable(tableName);
 						if(table!=null)
 						{
@@ -97,7 +97,7 @@ public abstract class Dialect
 				}
 			});
 	}
-	
+
 	/**
 	 * @param bf used in subclasses
 	 */
@@ -105,12 +105,12 @@ public abstract class Dialect
 	{
 		// empty default implementation
 	}
-	
+
 	boolean needsTargetColumnName()
 	{
 		return false;
 	}
-	
+
 	// derby needs a different syntax
 	public String renameTable(final String tableName, final String newTableName)
 	{
@@ -121,7 +121,7 @@ public abstract class Dialect
 			append(newTableName);
 		return bf.toString();
 	}
-	
+
 	public abstract String renameColumn(String tableName, String oldColumnName, String newColumnName, String columnType);
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
@@ -135,17 +135,17 @@ public abstract class Dialect
 			append(constraintName);
 		return bf.toString();
 	}
-	
+
 	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
 	{
 		return dropConstraint(tableName, constraintName);
 	}
-	
+
 	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
 	{
 		return dropConstraint(tableName, constraintName);
 	}
-	
+
 	public String dropUniqueConstraint(final String tableName, final String constraintName)
 	{
 		return dropConstraint(tableName, constraintName);
@@ -155,7 +155,7 @@ public abstract class Dialect
 	{
 		throw new RuntimeException("sequences not implemented: " + sequenceName + '(' + startWith + ')');
 	}
-	
+
 	public String dropSequence(final String sequenceName)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -163,7 +163,7 @@ public abstract class Dialect
 			append(sequenceName);
 		return bf.toString();
 	}
-	
+
 	/**
 	 * The default implementation just drops and re-creates the schema.
 	 * Subclasses are encouraged to provide a more efficient implementation.
@@ -173,7 +173,7 @@ public abstract class Dialect
 		schema.drop();
 		schema.create();
 	}
-	
+
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
@@ -185,7 +185,7 @@ public abstract class Dialect
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
 	}
-	
+
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */

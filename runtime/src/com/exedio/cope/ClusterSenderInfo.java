@@ -21,13 +21,13 @@ package com.exedio.cope;
 public final class ClusterSenderInfo
 {
 	private final long invalidationSplit;
-	
+
 	ClusterSenderInfo(
 			final long invalidationSplit)
 	{
 		this.invalidationSplit = invalidationSplit;
 	}
-	
+
 	public long getInvalidationSplit()
 	{
 		return invalidationSplit;

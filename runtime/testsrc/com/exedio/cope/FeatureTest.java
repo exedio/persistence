@@ -25,7 +25,7 @@ public class FeatureTest extends CopeAssert
 	public void testType()
 	{
 		final StringField f = new StringField().lengthRange(5, 8);
-		
+
 		try
 		{
 			f.getType();
@@ -57,11 +57,11 @@ public class FeatureTest extends CopeAssert
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
-		
+
 		final Features features = new Features();
 		features.put("featureName", f);
 		final Type<AnItem> t = new Type<AnItem>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
-		
+
 		assertSame(t, f.getType());
 		assertEquals("featureName", f.getName());
 		assertEquals("typeId.featureName", f.getID());
@@ -70,7 +70,7 @@ public class FeatureTest extends CopeAssert
 		assertEquals("featureName", toString(f, t));
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
-		
+
 		try
 		{
 			new Type<AnItem>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
@@ -81,18 +81,18 @@ public class FeatureTest extends CopeAssert
 			assertEquals("feature already mounted: typeId.featureName", e.getMessage());
 		}
 	}
-	
+
 	private static final String toString(final Feature f, final Type defaultType)
 	{
 		final StringBuilder bf = new StringBuilder();
 		f.toString(bf, defaultType);
 		return bf.toString();
 	}
-	
+
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnItem(final ActivationParameters ap)
 		{
 			super(ap);

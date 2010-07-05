@@ -67,7 +67,7 @@ public class SearchTest extends TestmodelTest
 		item.setSomeNotNullInteger(0);
 		assertCondition(item, item.TYPE, item.someNotNullInteger.equal(0));
 		assertCondition(item2, item.TYPE, item.someNotNullInteger.equal(0).not());
-		
+
 		assertContainsUnmodifiable(item, item2, item.TYPE.search());
 		assertContainsUnmodifiable(item, item2, item.TYPE.search(null));
 		assertCondition(item, item2,
@@ -80,7 +80,7 @@ public class SearchTest extends TestmodelTest
 				Cope.and(
 					item.someNotNullString.equal("someString"),
 					item.someNotNullString.equal("someString2")));
-		
+
 		// test Query#searchSingleton
 		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
 		assertEquals(item, item.TYPE.searchSingleton(item.someNotNullString.equal("someString")));
@@ -99,7 +99,7 @@ public class SearchTest extends TestmodelTest
 					"select this from AttributeItem order by this",
 				e.getMessage());
 		}
-		
+
 		// test Query#searchSingletonStrict
 		try
 		{
@@ -129,7 +129,7 @@ public class SearchTest extends TestmodelTest
 					"select this from AttributeItem order by this",
 				e.getMessage());
 		}
-		
+
 		// Condition.Literal.get
 		assertEquals(true,  Condition.TRUE .get(item));
 		assertEquals(false, Condition.FALSE.get(item));

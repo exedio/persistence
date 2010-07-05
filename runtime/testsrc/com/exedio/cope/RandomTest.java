@@ -30,7 +30,7 @@ public class RandomTest extends AbstractRuntimeTest
 	{
 		super(CompareConditionTest.MODEL);
 	}
-	
+
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	List<Long> expected5, expected6;
 	List expected6Sort;
@@ -58,17 +58,17 @@ public class RandomTest extends AbstractRuntimeTest
 				584196900561l);
 		expected6Sort = list(item2, item5, item1, item3, item4);
 	}
-	
+
 	public void testModel()
 	{
 		// test equals/hashCode
 		assertEquals(TYPE.random(5), TYPE.random(5));
 		assertNotEquals(TYPE.random(5), new Random(CompareFunctionConditionItem.TYPE, 5));
 		assertNotEquals(TYPE.random(5), TYPE.random(6));
-		
+
 		// test toString
 		assertEquals("CompareConditionItem.rand(5)", TYPE.random(5).toString());
-		
+
 		try
 		{
 			new Random(null, 5);
@@ -78,11 +78,11 @@ public class RandomTest extends AbstractRuntimeTest
 		{
 			assertEquals("type", e.getMessage());
 		}
-		
+
 		// start new transaction, otherwise query cache will not work,
 		// because type is invalidated.
 		restartTransaction();
-		
+
 		{
 			final Query<Double> q = new Query<Double>(TYPE.random(5));
 			q.setOrderBy(TYPE.getThis(), true);
@@ -99,7 +99,7 @@ public class RandomTest extends AbstractRuntimeTest
 			}
 			else
 				assertNotSupported(q);
-			
+
 			q.setSelect(TYPE.random(6));
 			assertEquals("select rand(6) from CompareConditionItem order by this", q.toString());
 			if(model.supportsRandom())
@@ -132,7 +132,7 @@ public class RandomTest extends AbstractRuntimeTest
 			else
 				assertNotSupported(q);
 		}
-		
+
 		assertSeed(Integer.MIN_VALUE);
 		assertSeed(Integer.MIN_VALUE+1);
 		assertSeed(Integer.MIN_VALUE+2);
@@ -151,7 +151,7 @@ public class RandomTest extends AbstractRuntimeTest
 		assertSeed(Integer.MAX_VALUE-1);
 		assertSeed(Integer.MAX_VALUE);
 	}
-	
+
 	private static final List<Long> toLong(final List<Double> l)
 	{
 		final ArrayList<Long> result = new ArrayList<Long>(l.size());
@@ -159,7 +159,7 @@ public class RandomTest extends AbstractRuntimeTest
 			result.add(Math.round(Math.floor(d.doubleValue()*1000000000000d)));
 		return result;
 	}
-	
+
 	private void assertSeed(final int seed)
 	{
 		final Query<Double> q = new Query<Double>(TYPE.random(seed));
@@ -170,7 +170,7 @@ public class RandomTest extends AbstractRuntimeTest
 			assertNotSupported(q);
 			return;
 		}
-		
+
 		final List<Double> result = q.search();
 		//System.out.println("random " + result + " seed " + seed);
 		for(final Double d : result)
@@ -181,17 +181,17 @@ public class RandomTest extends AbstractRuntimeTest
 		}
 		final HashSet<Double> set = new HashSet<Double>(result);
 		assertEquals(result.toString(), result.size(), set.size());
-		
+
 		assertEquals(result, q.search());
-		
+
 		model.clearCache();
 		assertEquals(result, q.search());
-		
+
 		restartTransaction();
 		model.clearCache();
 		assertEquals(result, q.search());
 	}
-	
+
 	private static void assertNotSupported(final Query q)
 	{
 		try

@@ -46,7 +46,7 @@ public class FieldDateTest extends FieldTest
 		item.setSomeDate(date);
 		final Date date2 = item.getSomeDate();
 		assertEquals(date, date2);
-		
+
 		// important, since Date is not immutable
 		assertNotSame(date, date2);
 		assertNotSame(date2, item.getSomeDate());
@@ -81,15 +81,15 @@ public class FieldDateTest extends FieldTest
 
 		item.setSomeDate(null);
 		assertEquals(null, item.getSomeDate());
-		
+
 		restartTransaction();
 		assertEquals(null, item.getSomeDate());
-		
+
 		final Date beforeTouch = new Date();
 		item.touchSomeDate();
 		final Date afterTouch = new Date();
 		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
-		
+
 		// special test of Model#getItem for items without any attributes
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
 	}
@@ -107,7 +107,7 @@ public class FieldDateTest extends FieldTest
 			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
 		}
 	}
-	
+
 	public void testOrder() throws MandatoryViolationException
 	{
 		Date[] dates = new Date[9];
@@ -155,7 +155,7 @@ public class FieldDateTest extends FieldTest
 			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
 		);
 	}
-	
+
 	public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
 	{
 		Date[] dates = new Date[9];
@@ -204,18 +204,18 @@ public class FieldDateTest extends FieldTest
 			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
 		);
 	}
-	
+
 	public void testDateColumnType()
 	{
 		assertEquals(dialect.dateTimestampType, model.connect().database.dialect.getDateTimestampType());
 	}
-	
+
 	public static String toString(final Date date)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		return date==null ? "NULL" : df.format(date);
 	}
-	
+
 	public static void assertEquals(final Date expectedDate, final Date actualDate)
 	{
 		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);

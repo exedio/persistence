@@ -23,13 +23,13 @@ import java.util.Map;
 final class CreatedState extends State
 {
 	private Row row = new Row();
-	
+
 	CreatedState(final Transaction transaction, final Item item)
 	{
 		super(item, 0);
 		transaction.addInvalidation(item);
 	}
-	
+
 	@Override
 	Object get(FunctionField field)
 	{
@@ -75,7 +75,7 @@ final class CreatedState extends State
 	{
 		return row.get(column);
 	}
-	
+
 	@Override
 	Row stealValues()
 	{
@@ -95,5 +95,5 @@ final class CreatedState extends State
 	{
 		return toString()+row.toString();
 	}
-	
+
 }

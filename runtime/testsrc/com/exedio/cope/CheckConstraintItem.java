@@ -22,32 +22,32 @@ public class CheckConstraintItem extends CheckConstraintSuperItem
 {
 	/** @cope.initial */
 	public static final IntegerField alpha = new IntegerField().optional();
-	
+
 	/** @cope.initial */
 	public static final IntegerField beta = new IntegerField().optional();
-	
+
 	/** @cope.initial */
 	public static final IntegerField gamma = new IntegerField().optional();
-	
+
 	/** @cope.initial */
 	public static final IntegerField delta = new IntegerField().optional();
-	
+
 	public static final CheckConstraint alphaLessBeta = new CheckConstraint(alpha.less(beta));
-	
+
 	void setAlphaBeta(final Integer alpha, final Integer beta)
 	{
 		set(
 			CheckConstraintItem.alpha.map(alpha),
 			CheckConstraintItem.beta.map(beta));
 	}
-	
+
 	void setBetaGamma(final Integer beta, final Integer gamma)
 	{
 		set(
 			CheckConstraintItem.beta.map(beta),
 			CheckConstraintItem.gamma.map(gamma));
 	}
-	
+
 	/**
 
 	 **

@@ -26,9 +26,9 @@ public class EnumSetFieldItem extends Item
 	{
 		DE, EN, PL;
 	}
-	
+
 	static final EnumSetField<Language> activeLanguage = EnumSetField.newSet(Language.class);
-	
+
 	/**
 
 	 **

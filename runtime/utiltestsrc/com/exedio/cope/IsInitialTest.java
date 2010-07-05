@@ -30,7 +30,7 @@ public class IsInitialTest extends TestCase
 		assertEquals(false, new DataField().optional().isInitial());
 		assertEquals(true,  new DataField().toFinal().isInitial());
 		assertEquals(true,  new DataField().toFinal().optional().isInitial());
-		
+
 		assertEquals(true,  new StringField().isInitial());
 		assertEquals(false, new StringField().optional().isInitial());
 		assertEquals(true,  new StringField().toFinal().isInitial());
@@ -39,7 +39,7 @@ public class IsInitialTest extends TestCase
 		assertEquals(false, new StringField().optional().defaultTo("hallo").isInitial());
 		assertEquals(false, new StringField().toFinal().defaultTo("hallo").isInitial());
 		assertEquals(false, new StringField().toFinal().optional().defaultTo("hallo").isInitial());
-		
+
 		assertEquals(true,  new DateField().isInitial());
 		assertEquals(false, new DateField().optional().isInitial());
 		assertEquals(true,  new DateField().toFinal().isInitial());

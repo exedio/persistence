@@ -28,25 +28,25 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 	{
 		super(CacheIsolationTest.MODEL);
 	}
-	
+
 	public void testIt()
 	{
 		final Transaction t1 = model.currentTransaction();
-		
+
 		final TransactionSlicer ts = new TransactionSlicer(model, 3);
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.currentTransaction());
-		
+
 		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.currentTransaction());
 		assertFalse(t1.isClosed());
-		
+
 		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.currentTransaction());
 		assertFalse(t1.isClosed());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.currentTransaction();
@@ -54,19 +54,19 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		assertEquals(t1.getName() + " slice1", t2.getName());
-		
+
 		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		assertSame(t2, model.currentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
-		
+
 		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		assertSame(t2, model.currentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.currentTransaction();
@@ -82,11 +82,11 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 	public void testEmpty()
 	{
 		final Transaction t1 = model.currentTransaction();
-		
+
 		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.currentTransaction());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.currentTransaction();
@@ -94,7 +94,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		assertEquals(t1.getName() + " slice1", t2.getName());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.currentTransaction();
@@ -105,7 +105,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		assertTrue(t2.isClosed());
 		assertFalse(t3.isClosed());
 		assertEquals(t1.getName() + " slice2", t3.getName());
-		
+
 		try
 		{
 			new TransactionSlicer(null, 0);
@@ -130,13 +130,13 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 	{
 		model.commit();
 		model.startTransaction(null);
-		
+
 		final Transaction t1 = model.currentTransaction();
-		
+
 		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.currentTransaction());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.currentTransaction();
@@ -144,7 +144,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		assertEquals("slice1", t2.getName());
-		
+
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.currentTransaction();

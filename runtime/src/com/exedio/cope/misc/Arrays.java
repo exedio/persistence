@@ -31,7 +31,7 @@ public final class Arrays
 		arraycopy(original, 0, copy, 0, l);
 		return copy;
 	}
-	
+
 	public static <T> T[] copyOf(final T[] original)
 	{
 		final int l = original.length;
@@ -50,7 +50,7 @@ public final class Arrays
 			throw new IllegalArgumentException("limit must be greater that zero, but was " + limit);
 		if(a==null||a.length<=limit)
 			return java.util.Arrays.toString(a);
-		
+
 		final StringBuilder bf = new StringBuilder();
 		bf.append('[');
 		for(int i = 0; i<limit; i++)
@@ -63,7 +63,7 @@ public final class Arrays
 			append(")]");
 		return bf.toString();
 	}
-	
+
 	private Arrays()
 	{
 		// prevent instantiation

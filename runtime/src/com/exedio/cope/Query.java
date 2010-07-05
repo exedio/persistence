@@ -32,7 +32,7 @@ import com.exedio.cope.Executor.ResultSetHandler;
 public final class Query<R>
 {
 	final static int UNLIMITED = -66;
-	
+
 	final Model model;
 	private Selectable<? extends R> selectSingle;
 	private Selectable[] selectsMulti;
@@ -45,15 +45,15 @@ public final class Query<R>
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
 	private Function[] orderBy = null;
 	private boolean[] orderAscending;
-	
+
 	private int offset = 0;
 	private int limit = UNLIMITED;
-	
+
 	public Query(final Selectable<? extends R> select)
 	{
 		this(select, (Condition)null);
 	}
-	
+
 	public Query(final Selectable<? extends R> select, final Condition condition)
 	{
 		this.selectSingle = select;
@@ -61,7 +61,7 @@ public final class Query<R>
 		this.model = this.type.getModel();
 		this.condition = replaceTrue(condition);
 	}
-	
+
 	/**
 	 * Copy Constructor
 	 */
@@ -79,7 +79,7 @@ public final class Query<R>
 		this.offset = query.offset;
 		this.limit = query.limit;
 	}
-	
+
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
 	{
 		if(select==null)
@@ -89,7 +89,7 @@ public final class Query<R>
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #newQuery(Selectable[], Type, Condition)} instead
 	 */
@@ -101,13 +101,13 @@ public final class Query<R>
 		this.type = type;
 		this.condition = replaceTrue(condition);
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
 	public static Query<List<Object>> newQuery(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		return new Query<List<Object>>(selects, type, condition);
 	}
-	
+
 	Selectable[] selects()
 	{
 		if(selectSingle!=null)
@@ -115,7 +115,7 @@ public final class Query<R>
 		else
 			return selectsMulti;
 	}
-	
+
 	public void setSelect(final Selectable<? extends R> select)
 	{
 		if(selectSingle==null)
@@ -123,7 +123,7 @@ public final class Query<R>
 		assert selectsMulti==null;
 		this.selectSingle = select;
 	}
-	
+
 	public void setSelects(final Selectable... selects)
 	{
 		final Selectable[] selectsCopy = checkAndCopy(selects);
@@ -132,7 +132,7 @@ public final class Query<R>
 		assert selectSingle==null;
 		this.selectsMulti = selectsCopy;
 	}
-	
+
 	private static final Selectable[] checkAndCopy(final Selectable[] selects)
 	{
 		if(selects.length<2)
@@ -142,27 +142,27 @@ public final class Query<R>
 				throw new NullPointerException("selects" + '[' + i + ']');
 		return com.exedio.cope.misc.Arrays.copyOf(selects);
 	}
-	
+
 	public boolean isDistinct()
 	{
 		return distinct;
 	}
-	
+
 	public void setDistinct(final boolean distinct)
 	{
 		this.distinct = distinct;
 	}
-	
+
 	public Type getType()
 	{
 		return type;
 	}
-	
+
 	public void setCondition(final Condition condition)
 	{
 		this.condition = replaceTrue(condition);
 	}
-	
+
 	public Condition getCondition()
 	{
 		return this.condition;
@@ -180,17 +180,17 @@ public final class Query<R>
 			? condition.and(narrowingCondition)
 			: narrowingCondition;
 	}
-	
+
 	private Join join(final Join join)
 	{
 		if(joins==null)
 			joins = new ArrayList<Join>();
-		
+
 		joins.add(join);
 
 		return join;
 	}
-	
+
 	/**
 	 * Does an inner join with the given type without any join condition.
 	 */
@@ -198,7 +198,7 @@ public final class Query<R>
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, null));
 	}
-	
+
 	/**
 	 * Does an inner join with the given type on the given join condition.
 	 */
@@ -206,22 +206,22 @@ public final class Query<R>
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, condition));
 	}
-	
+
 	public Join joinOuterLeft(final Type type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_LEFT, type, condition));
 	}
-	
+
 	public Join joinOuterRight(final Type type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_RIGHT, type, condition));
 	}
-	
+
 	public List<Join> getJoins()
 	{
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
-	
+
 	public List<Function> getOrderByFunctions()
 	{
 		return
@@ -229,42 +229,42 @@ public final class Query<R>
 			? Collections.<Function>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(orderBy));
 	}
-	
+
 	public List<Boolean> getOrderByAscending()
 	{
 		if(orderAscending==null)
 			return Collections.<Boolean>emptyList();
-		
+
 		final ArrayList<Boolean> result = new ArrayList<Boolean>(orderAscending.length);
 		for(int i = 0; i<orderAscending.length; i++)
 			result.add(orderAscending[i]);
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public void setOrderByThis(final boolean ascending)
 	{
 		this.orderBy = new Function[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
-	
+
 	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
-		
+
 		this.orderBy = new Function[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
-	
+
 	public void setOrderByAndThis(final Function orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
-		
+
 		this.orderBy = new Function[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
@@ -278,7 +278,7 @@ public final class Query<R>
 		for(int i = 0; i<orderBy.length; i++)
 			if(orderBy[i]==null)
 				throw new NullPointerException("orderBy" + '[' + i + ']');
-		
+
 		this.orderBy = com.exedio.cope.misc.Arrays.copyOf(orderBy);
 		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
@@ -287,12 +287,12 @@ public final class Query<R>
 	{
 		addOrderBy(orderBy, true);
 	}
-	
+
 	public void addOrderByDescending(final Function orderBy)
 	{
 		addOrderBy(orderBy, false);
 	}
-	
+
 	public void addOrderBy(final Function orderBy, final boolean ascending)
 	{
 		if(this.orderBy==null)
@@ -317,23 +317,23 @@ public final class Query<R>
 			this.orderAscending = result;
 		}
 	}
-	
+
 	public void resetOrderBy()
 	{
 		orderBy = null;
 		orderAscending = null;
 	}
-	
+
 	public int getOffset()
 	{
 		return offset;
 	}
-	
+
 	public int getLimit()
 	{
 		return limit!=UNLIMITED ? limit : -1;
 	}
-	
+
 	/**
 	 * @see #setLimit(int)
 	 * @param limit the maximum number of items to be found.
@@ -350,7 +350,7 @@ public final class Query<R>
 		this.offset = offset;
 		this.limit = limit;
 	}
-	
+
 	/**
 	 * @see #setLimit(int, int)
 	 * @throws IllegalArgumentException if offset is a negative value
@@ -363,7 +363,7 @@ public final class Query<R>
 		this.offset = offset;
 		this.limit = UNLIMITED;
 	}
-	
+
 	/**
 	 * Searches for items matching this query.
 	 * <p>
@@ -374,7 +374,7 @@ public final class Query<R>
 	public List<R> search()
 	{
 		final Transaction transaction = model.currentTransaction();
-		
+
 		if(limit==0 || condition==Condition.FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
@@ -382,10 +382,10 @@ public final class Query<R>
 				queryInfos.add(new QueryInfo("skipped search because " + (limit==0 ? "limit==0" : "condition==false")));
 			return Collections.<R>emptyList();
 		}
-		
+
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
-	
+
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
@@ -403,7 +403,7 @@ public final class Query<R>
 	public int total()
 	{
 		final Transaction transaction = model.currentTransaction();
-		
+
 		if(condition==Condition.FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
@@ -411,7 +411,7 @@ public final class Query<R>
 				queryInfos.add(new QueryInfo("skipped search because condition==false"));
 			return 0;
 		}
-		
+
 		final ArrayList<Object> result =
 			transaction.search(this, true);
 		assert result.size()==1;
@@ -421,10 +421,10 @@ public final class Query<R>
 	TC check()
 	{
 		final TC tc = new TC(this);
-		
+
 		for(final Selectable select : selects())
 			Cope.check(select, tc, null);
-		
+
 		if(condition!=null)
 			condition.check(tc);
 
@@ -433,11 +433,11 @@ public final class Query<R>
 			for(final Join join : joins)
 				join.check(tc);
 		}
-		
+
 		if(orderBy!=null)
 			for(Function ob : orderBy)
 				Cope.check(ob, tc, null);
-		
+
 		return tc;
 	}
 
@@ -459,27 +459,27 @@ public final class Query<R>
 	{
 		return new Result<R>(this);
 	}
-	
+
 	public static final class Result<R>
 	{
 		final List<R> data;
 		final int total;
 		final int offset;
 		final int limit;
-		
+
 		Result(final Query<R> query)
 		{
 			this.data = query.search();
 			final int dataSize = data.size();
 			this.offset = query.getOffset();
 			this.limit = query.getLimit();
-			
+
 			this.total =
 					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==-1)))
 					? (offset+dataSize)
 					: query.total();
 		}
-		
+
 		/**
 		 * Creates an empty Result.
 		 */
@@ -490,7 +490,7 @@ public final class Query<R>
 			this.offset = 0;
 			this.limit = -1;
 		}
-		
+
 		public Result(
 				final List<R> data,
 				final int total,
@@ -505,13 +505,13 @@ public final class Query<R>
 				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
 			if(limit<0)
 				throw new IllegalArgumentException("limit must not be negative, but was " + limit);
-			
+
 			this.data = data;
 			this.total = total;
 			this.offset = offset;
 			this.limit = limit;
 		}
-		
+
 		public Result(
 				final List<R> data,
 				final int total,
@@ -523,58 +523,58 @@ public final class Query<R>
 				throw new IllegalArgumentException("total must not be negative, but was " + total);
 			if(offset<0)
 				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
-			
+
 			this.data = data;
 			this.total = total;
 			this.offset = offset;
 			this.limit = -1;
 		}
-		
+
 		public List<R> getData()
 		{
 			return data;
 		}
-		
+
 		public int getTotal()
 		{
 			return total;
 		}
-		
+
 		public int getOffset()
 		{
 			return offset;
 		}
-		
+
 		public int getLimit()
 		{
 			return limit;
 		}
-		
+
 		@Override
 		public boolean equals(final Object other)
 		{
 			if(!(other instanceof Result))
 				return false;
-			
+
 			final Result o = (Result)other;
 
 			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);
 		}
-		
+
 		@Override
 		public int hashCode()
 		{
 			return total ^ (offset<<8) ^ (limit<<16) ^ data.hashCode();
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return data.toString() + '(' + total + ')';
 		}
-		
+
 		// ------------------- deprecated stuff -------------------
-		
+
 		/**
 		 * @deprecated Use {@link #getTotal()} instead
 		 */
@@ -584,12 +584,12 @@ public final class Query<R>
 			return getTotal();
 		}
 	}
-	
+
 	public static <R> Result<R> emptyResult()
 	{
 		return new Result<R>();
 	}
-	
+
 	/**
 	 * Searches equivalently to {@link #search()},
 	 * but assumes that the search result has at most one element.
@@ -619,7 +619,7 @@ public final class Query<R>
 						" for query: " + toString());
 		}
 	}
-	
+
 	/**
 	 * Searches equivalently to {@link #search()},
 	 * but assumes that the search result has exactly one element.
@@ -650,20 +650,20 @@ public final class Query<R>
 						" for query: " + toString());
 		}
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return toString(false, false);
 	}
-	
+
 	String toString(final boolean key, final boolean totalOnly)
 	{
 		final Type type = this.type;
 		final StringBuilder bf = new StringBuilder();
-		
+
 		bf.append("select ");
-		
+
 		if(distinct)
 			bf.append("distinct ");
 
@@ -678,7 +678,7 @@ public final class Query<R>
 			{
 				if(i>0)
 					bf.append(',');
-	
+
 				selects[i].toString(bf, type);
 			}
 		}
@@ -707,7 +707,7 @@ public final class Query<R>
 				{
 					if(i>0)
 						bf.append(", ");
-					
+
 					orderBy[i].toString(bf, type);
 					if(!orderAscending[i])
 						bf.append(" desc");
@@ -718,16 +718,16 @@ public final class Query<R>
 				bf.append(" offset '").
 					append(offset).
 					append('\'');
-			
+
 			if(limit!=UNLIMITED)
 				bf.append(" limit '").
 					append(limit).
 					append('\'');
 		}
-		
+
 		return bf.toString();
 	}
-	
+
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
 	{
 		return search(
@@ -736,12 +736,12 @@ public final class Query<R>
 				totalOnly,
 				transaction.queryInfos);
 	}
-	
+
 	private static final Condition replaceTrue(final Condition c)
 	{
 		return c==Condition.TRUE ? null : c;
 	}
-	
+
 	ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
@@ -749,7 +749,7 @@ public final class Query<R>
 			final ArrayList<QueryInfo> queryInfos)
 	{
 		executor.testListener().search(connection, this, totalOnly);
-		
+
 		final Dialect dialect = executor.dialect;
 		final Dialect.LimitSupport limitSupport = executor.limitSupport;
 		final int offset = this.offset;
@@ -761,22 +761,22 @@ public final class Query<R>
 
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this);
-		
+
 		if (totalOnly && distinct)
 		{
 			bf.append("select count(*) from ( ");
 		}
-		
+
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
-		
+
 		bf.append("select");
-		
+
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
 			dialect.appendLimitClause(bf, offset, limit);
-		
+
 		bf.append(' ');
-		
+
 		final Selectable[] selects = this.selects();
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
@@ -789,14 +789,14 @@ public final class Query<R>
 		{
 			if(distinct)
 				bf.append("distinct ");
-			
+
 			final Holder<Column> selectColumn = new Holder<Column>();
 			final Holder<Type  > selectType   = new Holder<Type  >();
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
 					bf.append(',');
-				
+
 				selectColumn.value = null;
 				selectType  .value = null;
 				bf.appendSelect(selects[i], null, selectColumn, selectType);
@@ -819,11 +819,11 @@ public final class Query<R>
 			bf.append(" where ");
 			this.condition.append(bf);
 		}
-		
+
 		if(!totalOnly)
 		{
 			final Function[] orderBy = this.orderBy;
-			
+
 			if(orderBy!=null)
 			{
 				final boolean[] orderAscending = this.orderAscending;
@@ -833,16 +833,16 @@ public final class Query<R>
 						bf.append(" order by ");
 					else
 						bf.append(',');
-					
+
 					bf.append(orderBy[i], (Join)null);
-					
+
 					if(!orderAscending[i])
 						bf.append(" desc");
 
 					// TODO break here, if already ordered by some unique function
 				}
 			}
-			
+
 			if(limitActive)
 			{
 				switch(limitSupport)
@@ -855,10 +855,10 @@ public final class Query<R>
 				}
 			}
 		}
-		
+
 		final Model model = this.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
-		
+
 		if(totalOnly && distinct)
 		{
 			bf.append(" )");
@@ -867,11 +867,11 @@ public final class Query<R>
 				bf.append(" as cope_total_distinct");
 			}
 		}
-		
+
 		QueryInfo queryInfo = null;
 		if(queryInfos!=null)
 			queryInfos.add(queryInfo = new QueryInfo(toString()));
-		
+
 		//System.out.println(bf.toString());
 
 		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
@@ -886,7 +886,7 @@ public final class Query<R>
 						throw new RuntimeException();
 					return null;
 				}
-				
+
 				if(offset>0 && limitSupport==Dialect.LimitSupport.NONE)
 				{
 					// TODO: ResultSet.relative
@@ -897,17 +897,17 @@ public final class Query<R>
 					for(int i = offset; i>0; i--)
 						resultSet.next();
 				}
-					
+
 				int i = ((limit==Query.UNLIMITED||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limit );
 				if(i<=0)
 					throw new RuntimeException(String.valueOf(limit));
-				
+
 				while(resultSet.next() && (--i)>=0)
 				{
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 					final Row dummyRow = new Row();
-						
+
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
 						final Selectable select;
@@ -919,7 +919,7 @@ public final class Query<R>
 								select0 = ((Aggregate)select0).getSource();
 							select = select0;
 						}
-						
+
 						final Object resultCell;
 						if(select instanceof FunctionField)
 						{
@@ -979,16 +979,16 @@ public final class Query<R>
 					if(resultRow!=null)
 						result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 				}
-				
+
 				return null;
 			}
 		});
 
 		return result;
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #searchAndTotal()} instead
 	 */
@@ -997,7 +997,7 @@ public final class Query<R>
 	{
 		return searchAndTotal();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #total()} instead
 	 */
@@ -1006,7 +1006,7 @@ public final class Query<R>
 	{
 		return total();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #searchSingleton()}.
 	 */

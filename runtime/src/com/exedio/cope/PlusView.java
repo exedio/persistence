@@ -21,9 +21,9 @@ package com.exedio.cope;
 public final class PlusView<E extends Number> extends NumberView<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final NumberFunction[] addends;
-	
+
 	static Class valueClass(final NumberFunction[] sources)
 	{
 		final Class result = sources[0].getValueClass();
@@ -47,7 +47,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 		super(addends, "plus", valueClass(addends));
 		this.addends = com.exedio.cope.misc.Arrays.copyOf(addends);
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

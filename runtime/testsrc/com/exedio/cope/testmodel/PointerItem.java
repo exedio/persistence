@@ -26,7 +26,7 @@ public class PointerItem extends Item
 {
 
 	public static final StringField code = new StringField();
-	
+
 	public static final ItemField<PointerTargetItem> pointer = newItemField(PointerTargetItem.class);
 
 	public static final ItemField<PointerTargetItem> pointer2 = newItemField(PointerTargetItem.class).optional();

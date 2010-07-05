@@ -32,11 +32,11 @@ public final class StringField extends FunctionField<String>
 	implements StringFunction
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final int minimumLength;
 	private final int maximumLength;
 	private final CharSet charSet;
-	
+
 	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
@@ -54,10 +54,10 @@ public final class StringField extends FunctionField<String>
 			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
 		if(minimumLength>maximumLength)
 			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
-		
+
 		checkDefaultConstant();
 	}
-	
+
 	/**
 	 * Creates a new mandatory <tt>StringField</tt>.
 	 */
@@ -65,25 +65,25 @@ public final class StringField extends FunctionField<String>
 	{
 		this(false, false, false, null, 0, DEFAULT_LENGTH, null);
 	}
-	
+
 	@Override
 	public StringField copy()
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	@Override
 	public StringField toFinal()
 	{
 		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	@Override
 	public StringField optional()
 	{
 		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	@Override
 	public StringField unique()
 	{
@@ -95,52 +95,52 @@ public final class StringField extends FunctionField<String>
 	{
 		return new StringField(isfinal, optional, false, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	public StringField defaultTo(final String defaultConstant)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	public StringField lengthMin(final int minimumLength)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, charSet);
 	}
-	
+
 	public StringField lengthMax(final int maximumLength)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, charSet);
 	}
-	
+
 	public StringField lengthExact(final int exactLength)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, charSet);
 	}
-	
+
 	public StringField charSet(final CharSet charSet)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
-	
+
 	public final int getMinimumLength()
 	{
 		return minimumLength;
 	}
-	
+
 	public final int getMaximumLength()
 	{
 		return maximumLength;
 	}
-	
+
 	public final CharSet getCharSet()
 	{
 		return charSet;
 	}
-	
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
@@ -150,22 +150,22 @@ public final class StringField extends FunctionField<String>
 			result.add(StringCharSetViolationException.class);
 		return result;
 	}
-	
+
 	private boolean convertEmptyStrings = false;
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
 		return new StringColumn(table, this, name, optional, minimumLength, maximumLength, charSet);
 	}
-	
+
 	@Override
 	String get(final Row row, final Query query)
 	{
 		return (String)row.get(getColumn());
 	}
-		
+
 	@Override
 	void set(final Row row, final String surface)
 	{
@@ -181,7 +181,7 @@ public final class StringField extends FunctionField<String>
 		}
 		row.put(getColumn(), cell);
 	}
-	
+
 	@Override
 	void checkNotNull(final String value, final Item exceptionItem)
 		throws
@@ -189,7 +189,7 @@ public final class StringField extends FunctionField<String>
 	{
 		if(convertEmptyStrings && value.length()==0 && !optional)
 			throw new MandatoryViolationException(this, this, exceptionItem);
-		
+
 		final int length = value.length();
 		if(length<minimumLength)
 			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
@@ -202,72 +202,72 @@ public final class StringField extends FunctionField<String>
 				throw new StringCharSetViolationException(this, exceptionItem, value, value.charAt(i), i);
 		}
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);
 	}
-	
+
 	public final LikeCondition startsWith(final String value)
 	{
 		return LikeCondition.startsWith(this, value);
 	}
-	
+
 	public final LikeCondition endsWith(final String value)
 	{
 		return LikeCondition.endsWith(this, value);
 	}
-	
+
 	public final LikeCondition contains(final String value)
 	{
 		return LikeCondition.contains(this, value);
 	}
-	
+
 	public final LengthView length()
 	{
 		return new LengthView(this);
 	}
-	
+
 	public final UppercaseView toUpperCase()
 	{
 		return new UppercaseView(this);
 	}
-	
+
 	public final Condition equalIgnoreCase(final String value)
 	{
 		return UppercaseView.equalIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition likeIgnoreCase(final String value)
 	{
 		return UppercaseView.likeIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition startsWithIgnoreCase(final String value)
 	{
 		return UppercaseView.startsWithIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition endsWithIgnoreCase(final String value)
 	{
 		return UppercaseView.endsWithIgnoreCase(this, value);
 	}
-	
+
 	public final LikeCondition containsIgnoreCase(final String value)
 	{
 		return UppercaseView.containsIgnoreCase(this, value);
 	}
-	
+
 	@Override
 	public BindStringFunction bind(final Join join)
 	{
 		return new BindStringFunction(this, join);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated use {@link #lengthMax(int)}.
 	 */
@@ -276,7 +276,7 @@ public final class StringField extends FunctionField<String>
 	{
 		return lengthMax(maximumLength);
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #toUpperCase()}
 	 */
@@ -285,7 +285,7 @@ public final class StringField extends FunctionField<String>
 	{
 		return toUpperCase();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #charSet(CharSet)} instead
 	 */
@@ -294,7 +294,7 @@ public final class StringField extends FunctionField<String>
 	{
 		return charSet(characterSet.getCharSet());
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getCharSet()} instead
 	 */

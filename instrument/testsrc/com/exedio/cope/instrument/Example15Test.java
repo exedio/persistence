@@ -60,7 +60,7 @@ public class Example15Test extends InjectorTest
 		final JavaBehaviour constructor =
 			assertBehaviourHeader("Example15", null, PUBLIC);
 		assertMethod("Example15", null, constructor);
-		
+
 		final JavaBehaviour setter =
 			assertBehaviourHeader("set", "void", PUBLIC);
 		assertMethod("set", null, setter);
@@ -76,11 +76,11 @@ public class Example15Test extends InjectorTest
 		final JavaClass colorClass = assertClass("Color", null, null, exampleClass);
 		assertClassEnd(colorClass);
 		assertInnerClassAttribute("Color", null);
-		
+
 		final JavaClass weekdayClass = assertClass("Weekday", null, null, exampleClass);
 		assertClassEnd(weekdayClass);
 		assertInnerClassAttribute("Weekday", null);
-		
+
 		final JavaBehaviour equalsMethod =
 			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be PUBLIC */);
 		assertMethod("equals", null, equalsMethod);

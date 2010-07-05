@@ -31,7 +31,7 @@ public class BatchTest extends SchemaTest
 		make(false, "create.sql");
 		make(false, "drop.sql");
 	}
-	
+
 	public void make(final boolean single, final String filename) throws Exception
 	{
 		final BufferedReader ps = new BufferedReader(new FileReader("dsmf/batchtest-"+filename));
@@ -62,5 +62,5 @@ public class BatchTest extends SchemaTest
 		ps.close();
 		System.out.println(filename+" "+(single?"single":"batch")+" : "+(end1-start1));
 	}
-	
+
 }

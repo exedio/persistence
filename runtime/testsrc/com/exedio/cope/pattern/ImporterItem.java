@@ -27,7 +27,7 @@ class ImporterItem extends Item
 	static final Importer<String> byCode = Importer.newImporter(code);
 	static final StringField description = new StringField();
 	static final StringField description2 = new StringField();
-	
+
 	/**
 
 	 **

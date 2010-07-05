@@ -35,7 +35,7 @@ final class JavaAttribute
 	implements InitializerConsumer
 {
 	private String docComment;
-	
+
 	private Object rtvalue = null;
 
 	JavaAttribute(
@@ -49,7 +49,7 @@ final class JavaAttribute
 		super(parent.file, parent, modifiers, type, name);
 		if (type == null)
 			throw new RuntimeException();
-		
+
 		parent.add(this);
 	}
 
@@ -79,20 +79,20 @@ final class JavaAttribute
 			| Modifier.TRANSIENT
 			| Modifier.VOLATILE;
 	}
-	
+
 	void setDocComment(final String docComment)
 	{
 		assert this.docComment==null;
 		this.docComment = docComment;
 	}
-	
+
 	String getDocComment()
 	{
 		return docComment;
 	}
-	
+
 	// --------------------
-	
+
 	private StringBuilder initializerBuf = new StringBuilder();
 	private String initializer = null;
 
@@ -100,7 +100,7 @@ final class JavaAttribute
 	{
 		initializerBuf.append(c);
 	}
-	
+
 	String getInitializer()
 	{
 		if(initializerBuf!=null)
@@ -109,21 +109,21 @@ final class JavaAttribute
 			initializer = initializerBuf.length()>0 ? initializerBuf.toString() : null;
 			initializerBuf = null;
 		}
-		
+
 		return initializer;
 	}
-	
+
 	Object evaluate()
 	{
 		assert !file.repository.isBuildStage();
-		
+
 		if(rtvalue==null)
 		{
 			rtvalue = parent.evaluate(getInitializer());
 			assert rtvalue!=null;
 			parent.registerInstance(this, rtvalue);
 		}
-		
+
 		return rtvalue;
 	}
 

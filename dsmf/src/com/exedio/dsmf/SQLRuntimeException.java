@@ -28,10 +28,10 @@ import java.sql.SQLException;
 public final class SQLRuntimeException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public SQLRuntimeException(final SQLException cause, final String statement)
 	{
 		super(statement, cause);
 	}
-	
+
 }

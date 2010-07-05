@@ -32,10 +32,10 @@ public class RevisionInfoTest extends CopeAssert
 {
 	private static final Date DATE = new Date(2874526134l);
 	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
-	
+
 	private String eol = null;
 	private HashMap<String, String> env = null;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -46,7 +46,7 @@ public class RevisionInfoTest extends CopeAssert
 		env.put("env2Key", "env2Value");
 		env.put("env3Key", "env3Value");
 	}
-	
+
 	public void testRevise()
 	{
 		final RevisionInfoRevise i =
@@ -74,7 +74,7 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals("sql5.1(56/24)", b.toString());
 		}
 		assertFalse(it.hasNext());
-		
+
 		assertEquals(map(
 				"revision", "5",
 				"dateUTC", DATE_STRING,
@@ -89,7 +89,7 @@ public class RevisionInfoTest extends CopeAssert
 				"body1.rows", "56",
 				"body1.elapsed", "24"),
 				reparse(i));
-		
+
 		{
 			final RevisionInfoRevise i2 = reread(i);
 			assertEquals(5, i2.getNumber());
@@ -112,7 +112,7 @@ public class RevisionInfoTest extends CopeAssert
 			}
 			assertFalse(it2.hasNext());
 		}
-		
+
 		try
 		{
 			new RevisionInfoRevise(0, null, null, null, (Body[])null);
@@ -177,7 +177,7 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals("body[0]", e.getMessage());
 		}
 		new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
-		
+
 		try
 		{
 			new Body(null, -1, -1);
@@ -216,7 +216,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		new Body("x", 0, 0);
 	}
-	
+
 	public void testCreate()
 	{
 		final RevisionInfoCreate i =
@@ -224,7 +224,7 @@ public class RevisionInfoTest extends CopeAssert
 		assertEquals(5, i.getNumber());
 		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
-		
+
 		assertEquals(map(
 				"revision", "5",
 				"dateUTC", DATE_STRING,
@@ -233,14 +233,14 @@ public class RevisionInfoTest extends CopeAssert
 				"env.env3Key", "env3Value",
 				"create", "true"),
 				reparse(i));
-		
+
 		{
 			final RevisionInfoCreate i2 = reread(i);
 			assertEquals(5, i2.getNumber());
 			assertEquals(DATE, i2.getDate());
 			assertEqualsUnmodifiable(env, i2.getEnvironment());
 		}
-		
+
 		try
 		{
 			new RevisionInfoCreate(-1, null, null);
@@ -270,7 +270,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		new RevisionInfoCreate(0, DATE, env);
 	}
-	
+
 	public void testMutex()
 	{
 		final RevisionInfoMutex i =
@@ -280,7 +280,7 @@ public class RevisionInfoTest extends CopeAssert
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 		assertEquals(78, i.getExpectedNumber());
 		assertEquals(72, i.getActualNumber());
-		
+
 		assertEquals(map(
 				"dateUTC", DATE_STRING,
 				"env.env1Key", "env1Value",
@@ -290,7 +290,7 @@ public class RevisionInfoTest extends CopeAssert
 				"mutex.expected", "78",
 				"mutex.actual", "72"),
 				reparse(i));
-		
+
 		{
 			final RevisionInfoMutex i2 = reread(i);
 			assertEquals(-1, i2.getNumber());
@@ -299,7 +299,7 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals(78, i2.getExpectedNumber());
 			assertEquals(72, i2.getActualNumber());
 		}
-		
+
 		try
 		{
 			new RevisionInfoMutex(null, null, -1, -1);
@@ -338,7 +338,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		new RevisionInfoMutex(DATE, env, 1, 0);
 	}
-	
+
 	public void testParse() throws UnsupportedEncodingException
 	{
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + eol + "key1=value1" + eol + "key2=value2").getBytes("latin1")));
@@ -356,7 +356,7 @@ public class RevisionInfoTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 	}
-	
+
 	private TreeMap<String, String> reparse(final RevisionInfo info)
 	{
 		final byte[] bytes = info.toBytes();
@@ -376,7 +376,7 @@ public class RevisionInfoTest extends CopeAssert
 			result.put((String)key, p.getProperty((String)key));
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private <X extends RevisionInfo> X reread(final X info)
 	{
@@ -393,7 +393,7 @@ public class RevisionInfoTest extends CopeAssert
 		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + eol));
 		return (X)RevisionInfo.read(bytes);
 	}
-	
+
 	public static final TreeMap<String, String> map(final String... s)
 	{
 		final TreeMap<String, String> result = new TreeMap<String, String>();

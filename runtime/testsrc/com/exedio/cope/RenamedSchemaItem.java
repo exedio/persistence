@@ -22,18 +22,18 @@ package com.exedio.cope;
 {
 	@CopeSchemaName("zackItem")
 	static final ItemField<RenamedSchemaTargetItem> item = newItemField(RenamedSchemaTargetItem.class).optional();
-	
+
 	@CopeSchemaName("zackUniqueSingle")
 	static final StringField uniqueSingle = new StringField().optional().unique();
-	
+
 	static final StringField uniqueDouble1 = new StringField();
 	static final IntegerField uniqueDouble2 = new IntegerField();
 	@CopeSchemaName("zackUniqueDouble")
 	static final UniqueConstraint uniqueDouble = new UniqueConstraint(uniqueDouble1, uniqueDouble2);
-	
+
 	@CopeSchemaName("zackString")
 	static final StringField string = new StringField().optional().lengthMax(4);
-	
+
 	/**
 
 	 **

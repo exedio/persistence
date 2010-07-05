@@ -26,34 +26,34 @@ import java.awt.image.DirectColorModel;
 public final class MediaThumbnail extends MediaImageioFilter
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final int boundX;
 	private final int boundY;
-	
+
 	private static final int MIN_BOUND = 5;
-	
+
 	public MediaThumbnail(final Media source, final int boundX, final int boundY)
 	{
 		super(source);
 		this.boundX = boundX;
 		this.boundY = boundY;
-		
+
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
 	}
-	
+
 	public int getBoundX()
 	{
 		return boundX;
 	}
-	
+
 	public int getBoundY()
 	{
 		return boundY;
 	}
-	
+
 	@Override
 	public BufferedImage filter(BufferedImage in)
 	{
@@ -78,19 +78,19 @@ public final class MediaThumbnail extends MediaImageioFilter
 		final int resultY = resultDim[1];
 		final double scaleX = ((double)resultX) / ((double)inX);
 		final double scaleY = ((double)resultY) / ((double)inY);
-		
+
 		final AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(scaleX, scaleY), AffineTransformOp.TYPE_BILINEAR);
 		final BufferedImage result = new BufferedImage(resultX, resultY, BufferedImage.TYPE_INT_RGB);
 		op.filter(in, result);
-		
+
 		return result;
 	}
-	
+
 	int[] boundingBox(final int x, final int y)
 	{
 		final int boundX = this.boundX;
 		final int boundY = this.boundY;
-		
+
 		final int resultY = (boundX * y) / x;
 		if(resultY<=boundY)
 			return new int[]{boundX, resultY};

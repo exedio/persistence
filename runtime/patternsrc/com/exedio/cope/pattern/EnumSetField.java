@@ -34,7 +34,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class EnumSetField<E extends Enum<E>> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
 
@@ -50,12 +50,12 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 			fields.put(key, value);
 		}
 	}
-	
+
 	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)
 	{
 		return new EnumSetField<K>(keyClass);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getElementClass()} instead
 	 */
@@ -81,16 +81,16 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		final char KEY = 'k';
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("contains").
 			setReturn(boolean.class).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-		
+
 		result.add(
 			new Wrapper("add").
 			addParameter(Wrapper.TypeVariable0.class));
-		
+
 		result.add(
 			new Wrapper("remove").
 			addParameter(Wrapper.TypeVariable0.class));
@@ -103,10 +103,10 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		result.add(
 			new Wrapper("set").
 			addParameter(valueType));
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	private void assertElement(final E element)
 	{
 		if(element==null)
@@ -120,19 +120,19 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		assertElement(element);
 		return fields.get(element).get(item);
 	}
-	
+
 	public void add(final Item item, final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, true);
 	}
-	
+
 	public void remove(final Item item, final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, false);
 	}
-	
+
 	public EnumSet<E> get(final Item item)
 	{
 		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
@@ -143,7 +143,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		}
 		return result;
 	}
-	
+
 	public void set(final Item item, final EnumSet<E> value)
 	{
 		final SetValue[] setValues = new SetValue[fields.size()];
@@ -152,7 +152,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 			setValues[i++] = fields.get(key).map(value.contains(key));
 		item.set(setValues);
 	}
-	
+
 	public Condition contains(final E element)
 	{
 		assertElement(element);

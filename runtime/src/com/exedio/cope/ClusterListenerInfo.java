@@ -32,7 +32,7 @@ public final class ClusterListenerInfo
 	private final long wrongSecret;
 	private final long fromMyself;
 	private final List<Node> nodes;
-	
+
 	ClusterListenerInfo(
 			final long exception,
 			final long missingMagic,
@@ -46,32 +46,32 @@ public final class ClusterListenerInfo
 		this.fromMyself = fromMyself;
 		this.nodes = Collections.unmodifiableList(nodes);
 	}
-	
+
 	public long getException()
 	{
 		return exception;
 	}
-	
+
 	public long getMissingMagic()
 	{
 		return missingMagic;
 	}
-	
+
 	public long getWrongSecret()
 	{
 		return wrongSecret;
 	}
-	
+
 	public long getFromMyself()
 	{
 		return fromMyself;
 	}
-	
+
 	public List<Node> getNodes()
 	{
 		return nodes;
 	}
-	
+
 	public static final class Node
 	{
 		private final int id;
@@ -81,7 +81,7 @@ public final class ClusterListenerInfo
 		private final SequenceChecker.Info pingInfo;
 		private final SequenceChecker.Info pongInfo;
 		private final SequenceChecker.Info invalidateInfo;
-		
+
 		public Node(
 				final int id,
 				final Date firstEncounter,
@@ -98,7 +98,7 @@ public final class ClusterListenerInfo
 			this.pingInfo = pingInfo;
 			this.pongInfo = pongInfo;
 			this.invalidateInfo = invalidateInfo;
-			
+
 			if(pingInfo==null)
 				throw new NullPointerException();
 			if(pongInfo==null)
@@ -106,42 +106,42 @@ public final class ClusterListenerInfo
 			if(invalidateInfo==null)
 				throw new NullPointerException();
 		}
-		
+
 		public int getID()
 		{
 			return id;
 		}
-		
+
 		public Date getFirstEncounter()
 		{
 			return new Date(firstEncounter);
 		}
-		
+
 		public InetAddress getAddress()
 		{
 			return address;
 		}
-		
+
 		public int getPort()
 		{
 			return port;
 		}
-		
+
 		public SequenceChecker.Info getPingInfo()
 		{
 			return pingInfo;
 		}
-		
+
 		public SequenceChecker.Info getPongInfo()
 		{
 			return pongInfo;
 		}
-		
+
 		public SequenceChecker.Info getInvalidateInfo()
 		{
 			return invalidateInfo;
 		}
-		
+
 		@Override
 		public String toString()
 		{

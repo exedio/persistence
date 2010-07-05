@@ -30,18 +30,18 @@ public class IntegerTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private static final int MIN = Integer.MIN_VALUE;
 	private static final int MAX = Integer.MAX_VALUE;
-	
+
 	private static final Condition TRUE  = Condition.TRUE;
 	private static final Condition FALSE = Condition.FALSE;
-	
+
 	private IntegerItem item;
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private IntegerItem item2;
 	private int numberOfItems;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,7 +50,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new IntegerItem(2202));
 		numberOfItems = 2;
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -83,7 +83,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(4, item.min4Max8.getMinimum());
 		assertEquals(8, item.min4Max8.getMaximum());
 		assertContains(IntegerRangeViolationException.class, item.min4Max8.getInitialExceptions());
-		
+
 		// test condition canonization
 		{
 			assertEquals(in(item.any), item.any.isNull());
@@ -108,7 +108,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(cc(Operator.GreaterEqual, item.any, 0), item.any.greaterOrEqual(0));
 			assertEquals(cc(Operator.GreaterEqual, item.any, MIN), item.any.greaterOrEqual(MIN));
 			assertEquals(cc(Operator.GreaterEqual, item.any, MAX), item.any.greaterOrEqual(MAX));
-			
+
 			assertEquals(in(item.mandatory), item.mandatory.isNull());
 			assertEquals(nn(item.mandatory), item.mandatory.isNotNull());
 			assertEquals(in(item.mandatory), item.mandatory.equal((Integer)null));
@@ -207,7 +207,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(10, orig.getMinimum());
 			assertEquals(MAX, orig.getMaximum());
-			
+
 			final IntegerField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -222,7 +222,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertNotNull(orig.getImplicitUniqueConstraint());
 			assertEquals(20, orig.getMinimum());
 			assertEquals(MAX, orig.getMaximum());
-			
+
 			final IntegerField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -237,7 +237,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(MIN, orig.getMinimum());
 			assertEquals(30, orig.getMaximum());
-			
+
 			final IntegerField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
@@ -251,14 +251,14 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(true, orig.isMandatory());
 			assertEquals(10, orig.getMinimum());
 			assertEquals(20, orig.getMaximum());
-			
+
 			final IntegerField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(10, copy.getMinimum());
 			assertEquals(20, copy.getMaximum());
 		}
-		
+
 		assertIllegalRange(0,  0,  "maximum must be greater than mimimum, but was 0 and 0.");
 		assertIllegalRange(22, 22, "maximum must be greater than mimimum, but was 22 and 22.");
 		assertIllegalRange(22, 21, "maximum must be greater than mimimum, but was 21 and 22.");
@@ -296,7 +296,7 @@ public class IntegerTest extends AbstractRuntimeTest
 					e.getMessage());
 		}
 		item.min4.check(4);
-		
+
 		// test conditions
 		assertEquals(item.any.equal(1), item.any.equal(1));
 		assertNotEquals(item.any.equal(1), item.any.equal(2));
@@ -310,13 +310,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(new Integer(1234), item.getAny());
 		item.setAny(123);
 		assertEquals(new Integer(123), item.getAny());
-		
+
 		// mandatory
 		assertEquals(2201, item.getMandatory());
-	
+
 		item.setMandatory(52201);
 		assertEquals(52201, item.getMandatory());
-	
+
 		try
 		{
 			item.mandatory.set(item, null);
@@ -330,7 +330,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(52201, item.getMandatory());
-	
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -345,7 +345,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
@@ -360,7 +360,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
-		
+
 		// min4
 		try
 		{
@@ -506,8 +506,8 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(new Integer(8), item.getMin4Max8());
 		restartTransaction();
 		assertEquals(new Integer(8), item.getMin4Max8());
-		
-		
+
+
 		model.checkUnsupportedConstraints();
 	}
 
@@ -524,7 +524,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
 	}
-	
+
 	void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		try

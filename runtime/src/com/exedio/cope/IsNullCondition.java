@@ -38,19 +38,19 @@ public final class IsNullCondition<E> extends Condition
 		this.function = function;
 		this.not = not;
 	}
-	
+
 	private final String sql()
 	{
 		return not ? " is not null" : " is null";
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
 		bf.append(function, null).
 			append(sql());
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -68,12 +68,12 @@ public final class IsNullCondition<E> extends Condition
 	{
 		if(!(other instanceof IsNullCondition))
 			return false;
-		
+
 		final IsNullCondition o = (IsNullCondition)other;
-		
+
 		return function.equals(o.function) && not==o.not;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

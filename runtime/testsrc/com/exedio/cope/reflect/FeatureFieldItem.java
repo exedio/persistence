@@ -39,7 +39,7 @@ public class FeatureFieldItem extends Item
 	@CopeSchemaName("featureNewname")
 	static final FeatureField<Feature> featureRenamed = FeatureField.newField().optional();
 	static final FeatureField<StringField> string = FeatureField.newField(StringField.class).optional();
-	
+
 	/**
 
 	 **

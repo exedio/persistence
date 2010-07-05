@@ -39,13 +39,13 @@ final class MediaServletItem extends Item
 
 	@Deprecated()
 	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
-	
+
 	static final MediaImageMagickThumbnail thumbnailMagick = new MediaImageMagickThumbnail(content, 150, 150);
 
 	static final MediaImageMagickThumbnail thumbnailMagickPng = new MediaImageMagickThumbnail(content, 150, 150).outputContentType("image/png");
 
 	static final MediaImageMagickThumbnail thumbnailMagickPngBlue = new MediaImageMagickThumbnail(content, 150, 150).outputContentType("image/png").flatten("blue");
-	
+
 	static final TextUrlFilter html = new TextUrlFilter(
 			content,
 			"text/html", "utf-8",
@@ -55,15 +55,15 @@ final class MediaServletItem extends Item
 
 	@PreventUrlGuessing()
 	static final MediaThumbnail tokened = new MediaThumbnail(content, 25, 25);
-	
+
 	static final MediaNameServer nameServer = new MediaNameServer(name);
-	
-	
+
+
 	MediaServletItem()
 	{
 		this((String)null);
 	}
-	
+
 	/**
 
 	 **

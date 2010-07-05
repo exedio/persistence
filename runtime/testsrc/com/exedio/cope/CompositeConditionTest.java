@@ -27,31 +27,31 @@ public class CompositeConditionTest extends CopeAssert
 {
 	private static final Condition TRUE  = Condition.TRUE;
 	private static final Condition FALSE = Condition.FALSE;
-	
+
 	private static final CompositeCondition.Operator AND = CompositeCondition.Operator.AND;
 	private static final CompositeCondition.Operator OR  = CompositeCondition.Operator.OR;
-	
+
 	public CompositeConditionTest()
 	{
 		super();
 	}
-	
+
 	public void testIt()
 	{
 		final Condition c1 = CompareConditionItem.doublex.equal(1d);
 		final Condition c2 = CompareConditionItem.doublex.equal(2d);
 		final Condition c3 = CompareConditionItem.doublex.equal(3d);
-		
+
 		assertEquals(TRUE, TRUE);
 		assertEquals(FALSE, FALSE);
 		assertFalse(TRUE.equals(FALSE));
 		assertFalse(FALSE.equals(TRUE));
-		
+
 		assertFalse(TRUE.equals(c1));
 		assertFalse(c1.equals(TRUE));
 		assertFalse(FALSE.equals(c1));
 		assertFalse(c1.equals(FALSE));
-		
+
 		try
 		{
 			new CompositeCondition(null, (Condition[])null);
@@ -215,7 +215,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertEquals(c1, Cope.and(listg(c1)));
 		assertEquals(c1, Cope.or(new Condition[]{c1}));
 		assertEquals(c1, Cope.or(listg(c1)));
-		
+
 		// test flattening of CompositeCondition
 		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
 		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
@@ -227,7 +227,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertEquals(new CompositeCondition(OR,  new CompositeCondition(AND, c1, c2), c3), c1.and(c2).or(c3));
 		assertEquals(new CompositeCondition(OR,  c1, new CompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
 	}
-	
+
 	public void testNot()
 	{
 		final Condition c1 = CompareConditionItem.doublex.equal(1d);
@@ -254,7 +254,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertEquals(new NotCondition(c1), c1.not());
 		assertSame(c1, c1.not().not());
 	}
-	
+
 	public void testNeutrumAbsolutum()
 	{
 		final Condition c1 = CompareConditionItem.doublex.equal(1d);
@@ -265,12 +265,12 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(c1, TRUE.and(c1));
 		assertSame(c1, c1.or(FALSE));
 		assertSame(c1, FALSE.or(c1));
-		
+
 		assertSame(FALSE, c1.and(FALSE));
 		assertSame(FALSE, FALSE.and(c1));
 		assertSame(TRUE,  c1.or(TRUE));
 		assertSame(TRUE,  TRUE.or(c1));
-		
+
 		assertSame(FALSE, TRUE.and(FALSE));
 		assertSame(FALSE, FALSE.and(TRUE));
 		assertSame(TRUE,  TRUE.or(FALSE));
@@ -319,7 +319,7 @@ public class CompositeConditionTest extends CopeAssert
 
 		assertSame(FALSE, Cope.and(TRUE, FALSE, TRUE));
 		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
-		
+
 		// Function.in
 		assertEquals(new CompositeCondition(OR, c1, c2), CompareConditionItem.doublex.in(1.0, 2.0));
 		assertEquals(new CompositeCondition(OR, c1, c2), CompareConditionItem.doublex.in(listg(1.0, 2.0)));
@@ -329,7 +329,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertEquals(c2, CompareConditionItem.doublex.in(listg(2.0)));
 		assertSame(FALSE, CompareConditionItem.doublex.in());
 		assertSame(FALSE, CompareConditionItem.doublex.in(CopeAssert.<Double>listg()));
-		
+
 		// Condition.valueOf
 		assertSame(Condition.TRUE,  Condition.valueOf(true));
 		assertSame(Condition.FALSE, Condition.valueOf(false));

@@ -26,7 +26,7 @@ public class CircleTest extends SchemaReadyTest
 	private static final String PK_COLUMN = "circlePrimaryKey";
 	private static final String PK_NAME1 = "circlePkId1";
 	private static final String PK_NAME2 = "circlePkId2";
-	
+
 	private static final String FK_COLUMN = "circleForeignKey";
 	private static final String FK_NAME1 = "circleForeignKeyId1";
 	private static final String FK_NAME2 = "circleForeignKeyId2";
@@ -47,7 +47,7 @@ public class CircleTest extends SchemaReadyTest
 
 		new PrimaryKeyConstraint(table1, PK_NAME1, PK_COLUMN);
 		new PrimaryKeyConstraint(table2, PK_NAME2, PK_COLUMN);
-		
+
 		new Column(table1, FK_COLUMN, stringType);
 		new Column(table2, FK_COLUMN, stringType);
 
@@ -59,17 +59,17 @@ public class CircleTest extends SchemaReadyTest
 
 		return result;
 	}
-	
+
 	public void testCircles()
 	{
 		final Schema schema = getVerifiedSchema();
-		
+
 		final Table table1 = schema.getTable(TABLE1);
 		final Table table2 = schema.getTable(TABLE2);
 		assertNotNull(table1);
 		assertNotNull(table2);
-		
+
 		schema.drop();
 	}
-	
+
 }

@@ -25,9 +25,9 @@ import java.util.Date;
 public abstract class Condition
 {
 	abstract void append(Statement statment);
-	
+
 	abstract boolean get(Item item);
-	
+
 	abstract void check(TC tc);
 
 	public final Condition not()
@@ -36,20 +36,20 @@ public abstract class Condition
 			return valueOf(!((Literal)this).value);
 		else if(this instanceof NotCondition)
 			return ((NotCondition)this).argument;
-		
+
 		return new NotCondition(this);
 	}
-	
+
 	public final Condition and(final Condition other)
 	{
 		return composite(CompositeCondition.Operator.AND, other);
 	}
-	
+
 	public final Condition or(final Condition other)
 	{
 		return composite(CompositeCondition.Operator.OR, other);
 	}
-	
+
 	private final Condition composite(final CompositeCondition.Operator operator, final Condition other)
 	{
 		if(this instanceof Literal)
@@ -66,7 +66,7 @@ public abstract class Condition
 			else
 				return compositeFlattening(operator, other);
 	}
-		
+
 	private static final Condition compositeLiteral(
 			final CompositeCondition.Operator operator,
 			final Literal literal,
@@ -74,17 +74,17 @@ public abstract class Condition
 	{
 		return operator.absorber==literal ? literal : other;
 	}
-	
+
 	private final Condition compositeFlattening(final CompositeCondition.Operator operator, final Condition other)
 	{
 		if(this instanceof CompositeCondition && ((CompositeCondition)this).operator==operator)
 		{
 			final CompositeCondition left = (CompositeCondition)this;
-			
+
 			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
 			{
 				final CompositeCondition right = (CompositeCondition)other;
-					
+
 				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
 				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
 				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
@@ -115,21 +115,21 @@ public abstract class Condition
 			}
 		}
 	}
-	
+
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
 	public static final Literal FALSE = new Literal(false, "FALSE");
-	
+
 	static class Literal extends Condition
 	{
 		final boolean value;
 		private final String name;
-		
+
 		Literal(final boolean value, final String name)
 		{
 			this.value = value;
 			this.name = name;
 		}
-		
+
 		@Override
 		void append(Statement statment)
 		{
@@ -145,7 +145,7 @@ public abstract class Condition
 			// hiding bugs.
 			if(item==null)
 				throw new NullPointerException();
-			
+
 			return value;
 		}
 
@@ -173,7 +173,7 @@ public abstract class Condition
 			bf.append(name);
 		}
 	}
-	
+
 	/**
 	 * Returns {@link #TRUE} if <tt>value</tt> is true,
 	 * otherwise {@link #FALSE}.
@@ -182,7 +182,7 @@ public abstract class Condition
 	{
 		return value ? TRUE : FALSE;
 	}
-	
+
 	@Override
 	public abstract boolean equals(Object o);
 	@Override
@@ -192,7 +192,7 @@ public abstract class Condition
 	{
 		return o1==null ? o2==null : o1.equals(o2);
 	}
-	
+
 	static final int hashCode(final Object o)
 	{
 		return o==null ? 0 : o.hashCode();
@@ -205,7 +205,7 @@ public abstract class Condition
 		toString(bf, false, null);
 		return bf.toString();
 	}
-	
+
 	abstract void toString(StringBuilder bf, boolean key, Type defaultType);
 
 	static final String toStringForValue(final Object o, final boolean key)

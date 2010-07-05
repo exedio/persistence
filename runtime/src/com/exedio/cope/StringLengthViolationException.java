@@ -33,12 +33,12 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class StringLengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final StringField feature;
 	private final String value;
 	private final boolean isTooShort;
 	private final int border;
-	
+
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -53,7 +53,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 		this.isTooShort = isTooShort;
 		this.border = border;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -70,7 +70,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	{
 		return value;
 	}
-	
+
 	public boolean isTooShort()
 	{
 		return isTooShort;
@@ -88,9 +88,9 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 			' ' + border + " characters, " +
 			"but was " + value.length() + '.';
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */

@@ -31,7 +31,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private DataMandatoryItem item;
 
 	@Override
@@ -40,13 +40,13 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new DataMandatoryItem(data4));
 	}
-	
+
 	public void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(false, data.isFinal());
 		assertEquals(true, data.isMandatory());
-		
+
 		// test persistence
 		assertData(data4, item.getDataArray());
 
@@ -82,7 +82,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 
 		item.setData(file(data6));
 		assertData(data6, item.getDataArray());
-		
+
 		try
 		{
 			item.setData((File)null);

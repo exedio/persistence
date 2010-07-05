@@ -30,10 +30,10 @@ import com.exedio.cope.util.Day;
 public final class DayField extends FunctionField<Day>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final boolean defaultNow;
 	private final boolean suspiciousForWrongDefaultNow;
-	
+
 	private DayField(
 			final boolean isfinal, final boolean optional, final boolean unique,
 			final Day defaultConstant, final boolean defaultNow)
@@ -46,30 +46,30 @@ public final class DayField extends FunctionField<Day>
 			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
 		checkDefaultConstant();
 	}
-	
+
 	public DayField()
 	{
 		this(false, false, false, null, false);
 	}
-	
+
 	@Override
 	public DayField copy()
 	{
 		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DayField toFinal()
 	{
 		return new DayField(true, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DayField optional()
 	{
 		return new DayField(isfinal, true, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DayField unique()
 	{
@@ -81,48 +81,48 @@ public final class DayField extends FunctionField<Day>
 	{
 		return new DayField(isfinal, optional, false, defaultConstant, defaultNow);
 	}
-	
+
 	public DayField defaultTo(final Day defaultConstant)
 	{
 		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	public DayField defaultToNow()
 	{
 		return new DayField(isfinal, optional, unique, defaultConstant, true);
 	}
-	
+
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		if(!isfinal)
 		{
 			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 			exceptions.remove(MandatoryViolationException.class); // cannot set null
-			
+
 			result.add(
 				new Wrapper("touch").
 				addComment("Sets today for the date field {0}.").
 				addThrows(exceptions));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@Override
 	public boolean isInitial()
 	{
 		return !defaultNow && super.isInitial();
 	}
-	
+
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
@@ -131,29 +131,29 @@ public final class DayField extends FunctionField<Day>
 					"WARNING: " +
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field " + type.getID() + '.' + name + ". " +
 					"This will not work as expected, use \"defaultToNow()\" instead.");
-		
+
 		super.mount(type, name, annotationSource);
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new DayColumn(table, this, name, optional);
 	}
-	
+
 	@Override
 	Day get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());
 	}
-		
+
 	@Override
 	void set(final Row row, final Day surface)
 	{
 		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));
 	}
-	
+
 	/**
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.

@@ -27,7 +27,7 @@ public final class ComputedElement
 	{
 		return ComputedInstance.get();
 	}
-	
+
 	private ComputedElement()
 	{
 		// prevent instantiation

@@ -37,7 +37,7 @@ import com.exedio.cope.util.Cast;
 public abstract class Field<E> extends Feature implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final boolean isfinal;
 	final boolean optional;
 	final Class<E> valueClass;
@@ -49,7 +49,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		this.valueClass = valueClass;
 		assert valueClass!=null;
 	}
-	
+
 	/**
 	 * Returns a new Field,
 	 * that differs from this Field
@@ -59,7 +59,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * @see #isFinal()
 	 */
 	public abstract Field<E> toFinal();
-	
+
 	/**
 	 * Returns a new Field,
 	 * that differs from this Field
@@ -69,7 +69,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * @see #isMandatory()
 	 */
 	public abstract Field<E> optional();
-	
+
 	/**
 	 * @see #toFinal()
 	 */
@@ -77,12 +77,12 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		return isfinal;
 	}
-	
+
 	public final boolean isMandatory()
 	{
 		return !optional;
 	}
-	
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -93,12 +93,12 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		return isfinal || !optional;
 	}
-	
+
 	public Class getInitialType()
 	{
 		return valueClass;
 	}
-	
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
@@ -108,12 +108,12 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			result.add(MandatoryViolationException.class);
 		return result;
 	}
-	
+
 	public final Class<E> getValueClass()
 	{
 		return valueClass;
 	}
-	
+
 	/**
 	 * @deprecated Use {@link Cast#castElements(Class, Collection)} instead
 	 */
@@ -127,22 +127,22 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		return new SetValue<E>(this, value);
 	}
-	
+
 	public final SetValue<E> mapNull()
 	{
 		return new SetValue<E>(this, null);
 	}
-	
+
 	public final SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue[]{ map(value) };
 	}
-	
+
 	public final void check(final E value) throws ConstraintViolationException
 	{
 		check(value, null);
 	}
-	
+
 	/**
 	 * Checks field values set by
 	 * {@link Item#set(FunctionField,Object)}
@@ -168,11 +168,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 						", but was a " + value.getClass().getName() +
 						" for " + toString() + '.');
 			}
-			
+
 			checkNotNull(valueClass.cast(value), exceptionItem);
 		}
 	}
-	
+
 	/**
 	 * Further checks non-null field values already checked by
 	 * {@link #check(Object, Item)}.
@@ -187,26 +187,26 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		// empty default implementation
 	}
-	
+
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
-	
+
 	final void connect(final Table table)
 	{
 		if(table==null)
 			throw new NullPointerException();
 		if(this.column!=null)
 			throw new RuntimeException();
-		
+
 		this.column = createColumn(table, getSchemaName(), optional);
 	}
-	
+
 	void disconnect()
 	{
 		this.column = null;
 	}
-	
+
 	final Column getColumn()
 	{
 		if(this.column==null)
@@ -214,13 +214,13 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 		return column;
 	}
-	
+
 	abstract Column createColumn(Table table, String name, boolean optional);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
 	 */
@@ -229,7 +229,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		return SchemaInfo.getColumnName(this);
 	}
-	
+
 	@Deprecated
 	public final List<Pattern> getPatterns()
 	{

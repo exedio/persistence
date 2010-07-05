@@ -24,7 +24,7 @@ class ConnectItem extends Item
 	static final ItemField<ConnectItem> itemFieldSelf = newItemField(ConnectItem.class);
 	static final StringField stringField = new StringField();
 	static final IntegerField integerField = new IntegerField().defaultToNext(1234);
-	
+
 	/**
 
 	 **

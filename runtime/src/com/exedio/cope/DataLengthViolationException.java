@@ -30,11 +30,11 @@ package com.exedio.cope;
 public final class DataLengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final DataField feature;
 	private final long length;
 	private final boolean lengthExact;
-	
+
 	/**
 	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -45,15 +45,15 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	public DataLengthViolationException(final DataField feature, final Item item, final long length, final boolean lengthExact)
 	{
 		super(item, null);
-		
+
 		if(length<feature.getMaximumLength())
 			throw new RuntimeException(feature.toString()+'/'+length+'/'+feature.getMaximumLength());
-		
+
 		this.feature = feature;
 		this.length = length;
 		this.lengthExact = lengthExact;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -72,7 +72,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	{
 		return length;
 	}
-	
+
 	/**
 	 * Returns, whether the value returned by {@link #getLength()}
 	 * is the exact length of the data attempted to be written (true)
@@ -82,7 +82,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	{
 		return lengthExact;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
@@ -93,9 +93,9 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"is too long" +
 			(withFeature ? (" for " + feature) : "");
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */

@@ -24,7 +24,7 @@ public final class Compare
 	{
 		// prevent instantiation
 	}
-	
+
 	public static int compare(final int left, final int right)
 	{
 		return (left<right ? -1 : (left==right ? 0 : 1));

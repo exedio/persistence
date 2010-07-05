@@ -59,7 +59,7 @@ public class TrimmerTest extends TestCase
 
 		assertTrim("Firs1Seco2dThird", "Firs1Seco2dThird", 18);
 		assertTrim("Fir1Se2dTh", "Firs1Seco2dThird", 10);
-		
+
 		assertTrim("1irs2ec3hi", "1irst2econd3hird", 10);
 		assertTrim("_irs_ec_hi", "_irst_econd_hird", 10);
 

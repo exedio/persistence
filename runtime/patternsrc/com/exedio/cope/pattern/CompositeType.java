@@ -37,7 +37,7 @@ final class CompositeType<X>
 	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
 	final List<FunctionField> templateList;
 	final int componentSize;
-	
+
 	private CompositeType(final Class<X> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
@@ -52,7 +52,7 @@ final class CompositeType<X>
 					valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
 		}
 		constructor.setAccessible(true);
-		
+
 		try
 		{
 			int position = 0;
@@ -62,7 +62,7 @@ final class CompositeType<X>
 					continue;
 				if(!Feature.class.isAssignableFrom(field.getType()))
 					continue;
-				
+
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
@@ -83,15 +83,15 @@ final class CompositeType<X>
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
 		this.componentSize = templates.size();
 	}
-	
+
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
-	
+
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
 		assert valueClass!=null;
-		
+
 		synchronized(types)
 		{
 			@SuppressWarnings("unchecked")

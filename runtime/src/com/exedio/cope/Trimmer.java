@@ -27,14 +27,14 @@ import java.util.ArrayList;
 final class Trimmer
 {
 	private final int maxLength;
-	
+
 	Trimmer(final int maxLength)
 	{
 		if(maxLength<=0)
 			throw new IllegalArgumentException("maxLength must be greater zero");
 		this.maxLength = maxLength;
 	}
-	
+
 	String trimString(final String longString)
 	{
 		if(longString.length()==0)
@@ -75,7 +75,7 @@ final class Trimmer
 				buf.setLength(0);
 			}
 		}
-		
+
 		final int expectedTrimPotential = longStringLength - maxLength;
 		//System.out.println("expected trim potential = "+expectedTrimPotential);
 
@@ -88,7 +88,7 @@ final class Trimmer
 			if(remainder>=0)
 				break;
 		}
-		
+
 		final StringBuilder result = new StringBuilder(longStringLength);
 		for(final String word : words)
 		{

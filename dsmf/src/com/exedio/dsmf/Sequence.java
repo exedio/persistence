@@ -24,16 +24,16 @@ public final class Sequence extends Node
 	final int startWith;
 	private final boolean required;
 	private boolean exists;
-	
+
 	public Sequence(final Schema schema, final String name, final int startWith)
 	{
 		this(schema, name, startWith, true);
 	}
-	
+
 	Sequence(final Schema schema, final String name, final int startWith, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider);
-		
+
 		if(name==null)
 			throw new RuntimeException();
 		if(!schema.dialect.supportsSequences())
@@ -46,7 +46,7 @@ public final class Sequence extends Node
 
 		schema.register(this);
 	}
-	
+
 	public String getName()
 	{
 		return name;
@@ -61,17 +61,17 @@ public final class Sequence extends Node
 	{
 		exists = true;
 	}
-	
+
 	public boolean required()
 	{
 		return required;
 	}
-	
+
 	public boolean exists()
 	{
 		return exists;
 	}
-		
+
 	@Override
 	void finish()
 	{
@@ -95,32 +95,32 @@ public final class Sequence extends Node
 			error = null;
 			particularColor = Color.OK;
 		}
-				
+
 		this.error = error;
 		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
 	}
-	
+
 	public void create()
 	{
 		create(null);
 	}
-	
+
 	public void create(final StatementListener listener)
 	{
 		executeSQL(dialect.createSequence(quoteName(name), startWith), listener);
 	}
-	
+
 	public void drop()
 	{
 		drop(null);
 	}
-	
+
 	public void drop(final StatementListener listener)
 	{
 		executeSQL(dialect.dropSequence(quoteName(name)), listener);
 	}
-	
+
 	@Override
 	public String toString()
 	{

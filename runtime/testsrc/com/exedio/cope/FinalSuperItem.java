@@ -21,7 +21,7 @@ package com.exedio.cope;
 public class FinalSuperItem extends Item
 {
 	public static final IntegerField superInt = new IntegerField().toFinal();
-	
+
 	/**
 
 	 **

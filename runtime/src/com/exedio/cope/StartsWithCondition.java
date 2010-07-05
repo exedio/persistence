@@ -24,7 +24,7 @@ public final class StartsWithCondition extends Condition
 {
 	public final DataField field;
 	public final byte[] value;
-	
+
 	/**
 	 * Creates a new StartsWithCondition.
 	 * Instead of using this constructor directly,
@@ -43,13 +43,13 @@ public final class StartsWithCondition extends Condition
 		if(value.length==0)
 			throw new IllegalArgumentException("value must not be empty");
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
 		bf.appendStartsWith(field, value);
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -57,37 +57,37 @@ public final class StartsWithCondition extends Condition
 		final byte[] v = field.getArray(item);
 		if(v==null || v.length<value.length)
 			return false;
-		
+
 		for(int i = 0; i<value.length; i++)
 			if(v[i]!=value[i])
 				return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	void check(final TC tc)
 	{
 		//Cope.check(field, tc, null); TODO
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof StartsWithCondition))
 			return false;
-		
+
 		final StartsWithCondition o = (StartsWithCondition)other;
-		
+
 		return field.equals(o.field) && Arrays.equals(value, o.value);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return field.hashCode() ^ Arrays.hashCode(value) ^ 1872643;
 	}
-	
+
 	@Override
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{

@@ -46,13 +46,13 @@ public class TypeCompareTest extends CopeAssert
 		{
 			assertEquals("model not set for type AnotherItem, probably you forgot to put this type into the model.", e.getMessage());
 		}
-		
+
 		new Model(type1, type2);
 		assertEquals(0, type1.compareTo(type1));
 		assertEquals(0, type2.compareTo(type2));
 		assertEquals(-1, type1.compareTo(type2));
 		assertEquals( 1, type2.compareTo(type1));
-		
+
 		final Type<AnotherModelItem> typeOtherModel = newType(AnotherModelItem.class);
 		try
 		{
@@ -72,7 +72,7 @@ public class TypeCompareTest extends CopeAssert
 		{
 			assertEquals("model not set for type AnotherModelItem, probably you forgot to put this type into the model.", e.getMessage());
 		}
-		
+
 		new Model(typeOtherModel);
 		try
 		{
@@ -93,40 +93,40 @@ public class TypeCompareTest extends CopeAssert
 			assertEquals("types are not comparable, because they do not belong to the same model: AnotherModelItem,AnItem", e.getMessage());
 		}
 	}
-	
+
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		protected AnItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final IntegerField intField = new IntegerField();
 	}
-	
+
 	static class AnotherItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnotherItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final IntegerField intField = new IntegerField();
 	}
-	
+
 	static class AnotherModelItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnotherModelItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final IntegerField intField = new IntegerField();
 	}
 }

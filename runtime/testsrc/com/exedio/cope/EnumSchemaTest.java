@@ -26,20 +26,20 @@ public class EnumSchemaTest extends CopeAssert
 {
 	public void testNormal()
 	{
-		
+
 		assertEquals(10, getColumnValue(Normal.Eins));
 		assertEquals(20, getColumnValue(Normal.Zwei));
 		assertEquals(30, getColumnValue(Normal.Drei));
 	}
-	
+
 	enum Normal
 	{
 		Eins, Zwei, Drei;
 	}
-	
+
 	public void testNormal2()
 	{
-		
+
 		assertEquals(10, getColumnValue(Normal2.Eins));
 		assertEquals(20, getColumnValue(Normal2.Zwei));
 
@@ -53,12 +53,12 @@ public class EnumSchemaTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 	}
-	
+
 	enum Normal2
 	{
 		Eins, Zwei;
 	}
-	
+
 	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
 	public void testUnchecked()
@@ -74,67 +74,67 @@ public class EnumSchemaTest extends CopeAssert
 			assertEquals("expected " + Normal2.class.getName() + ", but was a " + Normal.class.getName(), e.getMessage());
 		}
 	}
-	
+
 	public void testAnnotatedBefore()
 	{
-		
+
 		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
 		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedBefore.Drei));
 	}
-	
+
 	enum AnnotatedBefore
 	{
 		Eins,
 		@CopeSchemaValue(11) Zwei,
 		Drei;
 	}
-	
+
 	public void testAnnotatedAfter()
 	{
-		
+
 		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
 		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedAfter.Drei));
 	}
-	
+
 	enum AnnotatedAfter
 	{
 		Eins,
 		@CopeSchemaValue(19) Zwei,
 		Drei;
 	}
-	
+
 	public void testAnnotatedStart()
 	{
-		
+
 		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
 		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedStart.Drei));
 	}
-	
+
 	enum AnnotatedStart
 	{
 		@CopeSchemaValue(9) Eins,
 		Zwei,
 		Drei;
 	}
-	
+
 	public void testAnnotatedEnd()
 	{
-		
+
 		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
 		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
 		assertEquals(21, getColumnValue(AnnotatedEnd.Drei));
 	}
-	
+
 	enum AnnotatedEnd
 	{
 		Eins,
 		Zwei,
 		@CopeSchemaValue(21) Drei;
 	}
-	
+
 	public void testAnnotatedError()
 	{
 		try
@@ -210,69 +210,69 @@ public class EnumSchemaTest extends CopeAssert
 			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
 		}
 	}
-	
+
 	enum CollisionBefore
 	{
 		Eins,
 		@CopeSchemaValue(10) Zwei,
 		Drei;
 	}
-	
+
 	enum CollisionAfter
 	{
 		Eins,
 		@CopeSchemaValue(20) Zwei,
 		Drei;
 	}
-	
+
 	enum CollisionStart
 	{
 		@CopeSchemaValue(10) Eins,
 		Zwei,
 		Drei;
 	}
-	
+
 	enum CollisionEnd
 	{
 		Eins,
 		Zwei,
 		@CopeSchemaValue(20) Drei;
 	}
-	
+
 	enum OrderBefore
 	{
 		Eins,
 		@CopeSchemaValue(9) Zwei,
 		Drei;
 	}
-	
+
 	enum OrderAfter
 	{
 		Eins,
 		@CopeSchemaValue(21) Zwei,
 		Drei;
 	}
-	
+
 	enum OrderStart
 	{
 		@CopeSchemaValue(11) Eins,
 		Zwei,
 		Drei;
 	}
-	
+
 	enum OrderEnd
 	{
 		Eins,
 		Zwei,
 		@CopeSchemaValue(19) Drei;
 	}
-	
+
 	public void testSubclass()
 	{
 		assertEquals(1, getColumnValue(Subclass.Eins));
 		assertEquals(2, getColumnValue(Subclass.Zwei));
 	}
-	
+
 	enum Subclass
 	{
 		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },

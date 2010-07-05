@@ -23,7 +23,7 @@ class DataFinalItem extends Item
 {
 
 	static final DataField data = new DataField().toFinal().optional();
-	
+
 	/**
 
 	 **

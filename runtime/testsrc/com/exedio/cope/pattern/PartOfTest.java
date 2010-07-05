@@ -25,26 +25,26 @@ import com.exedio.cope.Model;
 public class PartOfTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PartOfItem.TYPE, PartOfOrderedItem.TYPE, PartOfContainerItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(PartOfTest.class, "MODEL");
 	}
-	
+
 	public PartOfTest()
 	{
 		super(MODEL);
 	}
 
 	PartOfContainerItem container;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		container = deleteOnTearDown(new PartOfContainerItem("container"));
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -88,7 +88,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
 		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
 		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
-		
+
 		assertEquals(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.TYPE));
 		assertEquals(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
@@ -126,26 +126,26 @@ public class PartOfTest extends AbstractRuntimeTest
 
 		// test persistence
 		assertEquals(list(), container.getParts());
-		
+
 		final PartOfItem part1 = container.addToParts("part1", 1);
 		assertEquals(container, part1.getPartsContainer());
 		assertEquals(list(part1), container.getParts());
 		assertEquals(list(part1), PartOfItem.parts.getParts(container));
-		
+
 		final PartOfItem part2 = container.addToParts("part2", 2);
 		assertEquals(container, part1.getPartsContainer());
 		assertEquals(container, part2.getPartsContainer());
 		assertEquals(list(part1, part2), container.getParts());
 		assertEquals(list(part1, part2), PartOfItem.parts.getParts(container));
-		
-		
+
+
 		assertEquals(list(), container.getPartsOrdered());
-		
+
 		final PartOfOrderedItem partOrdered1 = container.addToPartsOrdered(2, "part1", 1);
 		assertEquals(container, partOrdered1.getPartsOrderedContainer());
 		assertEquals(list(partOrdered1), container.getPartsOrdered());
 		assertEquals(list(partOrdered1), PartOfOrderedItem.partsOrdered.getParts(container));
-		
+
 		final PartOfOrderedItem partOrdered2 = container.addToPartsOrdered(1, "part2", 2);
 		assertEquals(container, partOrdered1.getPartsOrderedContainer());
 		assertEquals(container, partOrdered2.getPartsOrderedContainer());

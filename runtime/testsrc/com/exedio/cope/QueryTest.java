@@ -33,41 +33,41 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		super(DayFieldTest.MODEL);
 	}
-	
+
 	static final Day d1 = new Day(2006, 02, 19);
 	static final Day d2 = new Day(2006, 02, 20);
 	static final Day d3 = new Day(2006, 02, 21);
-	
+
 	public void testIt()
 	{
 		final Query q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
-		
+
 		q.narrow(DayItem.day.less(d1));
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(DayItem.day.less(d1), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
-		
+
 		q.narrow(DayItem.day.greater(d1));
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(DayItem.day.less(d1).and(DayItem.day.greater(d1)), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
-		
+
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
-		
+
 		assertEquals(c1, DayItem.day.equal(d1));
 		assertFalse(c1.equals(c2));
 		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 	}
-	
+
 	public void testSetSelect()
 	{
 		final Query<DayItem> q = DayItem.TYPE.newQuery(null);
-		
+
 		try
 		{
 			q.setSelects(new Selectable[]{DayItem.day});
@@ -87,7 +87,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("use setSelect instead", e.getMessage());
 		}
 	}
-	
+
 	public void testSetSelects()
 	{
 		try
@@ -99,10 +99,10 @@ public class QueryTest extends AbstractRuntimeTest
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
-		
+
 		final Query<List<Object>> q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
 		q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
-		
+
 		try
 		{
 			q.setSelects(new Selectable[]{DayItem.day});
@@ -113,7 +113,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad api usage
 	public void testSetSelectsUnchecked()
 	{
@@ -128,7 +128,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("use setSelects instead", e.getMessage());
 		}
 	}
-	
+
 	public void testLiterals()
 	{
 		final Condition c1 = DayItem.day.equal(d1);
@@ -136,53 +136,53 @@ public class QueryTest extends AbstractRuntimeTest
 		{
 			final Query q = DayItem.TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
-	
+
 			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
 			assertTrue(model.currentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
-			
+
 			q.narrow(c1);
 			assertSame(c1, q.getCondition());
-			
+
 			q.narrow(c2);
 			assertEquals(c1.and(c2), q.getCondition());
-			
+
 			q.narrow(FALSE);
 			assertSame(FALSE, q.getCondition());
-			
+
 			q.narrow(c1);
 			assertSame(FALSE, q.getCondition());
 		}
 		{
 			final Query q = DayItem.TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
-	
+
 			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
 			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
 			model.currentTransaction().setQueryInfoEnabled(false);
-			
+
 			model.currentTransaction().setQueryInfoEnabled(true);
 			assertEquals(0, q.total());
 			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
 			model.currentTransaction().setQueryInfoEnabled(false);
-			
+
 			q.setCondition(TRUE);
 			assertSame(null, q.getCondition());
-			
+
 			q.setCondition(c1);
 			assertSame(c1, q.getCondition());
-			
+
 			q.setCondition(FALSE);
 			assertSame(FALSE, q.getCondition());
 		}
 	}
-	
+
 	public void testResult()
 	{
 		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
 		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
-		
+
 		assertEquals(list(), Query.emptyResult().getData());
 		assertEquals(0, Query.emptyResult().getTotal());
 		assertEquals(0, Query.emptyResult().getOffset());
@@ -190,7 +190,7 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotSame(Query.emptyResult(), Query.emptyResult());
 		assertEquals(Query.emptyResult(), Query.emptyResult());
 		assertEquals(Query.emptyResult().hashCode(), Query.emptyResult().hashCode());
-		
+
 		deleteOnTearDown(new DayItem(d1));
 		deleteOnTearDown(new DayItem(d2));
 		deleteOnTearDown(new DayItem(d3));
@@ -207,7 +207,7 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotEqualsResult(r(0, 3), r(1, 4));
 		assertNotEqualsResult(r(0, 3), r(2, 3));
 		assertNotEqualsResult(r(0, 3), r(3, 3));
-		
+
 		{
 			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 0, 0);
 			assertEquals(list(d1), r.getData());
@@ -300,7 +300,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("limit must not be negative, but was -1", e.getMessage());
 		}
 	}
-	
+
 	private static Query.Result<Day> r(final int offset, final int limit)
 	{
 		final Query<Day> q = new Query<Day>(DayItem.day);
@@ -308,14 +308,14 @@ public class QueryTest extends AbstractRuntimeTest
 		q.setLimit(offset, limit);
 		return q.searchAndTotal();
 	}
-	
+
 	private static void assertEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
 	{
 		assertEquals(expected, actual);
 		assertEquals(actual, expected);
 		assertEquals(actual.hashCode(), expected.hashCode());
 	}
-	
+
 	private static void assertNotEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
 	{
 		assertFalse(expected.equals(actual));

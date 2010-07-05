@@ -29,45 +29,45 @@ public abstract class Node
 		OK("ok"),
 		WARNING("warning"),
 		ERROR("error");
-		
+
 		private final String style;
-		
+
 		Color(final String style)
 		{
 			this.style = style;
 		}
-		
+
 		Color max(final Color other)
 		{
 			return Color.class.getEnumConstants()[Math.max(ordinal(), other.ordinal())];
 		}
-		
+
 		Color min(final Color other)
 		{
 			return Color.class.getEnumConstants()[Math.min(ordinal(), other.ordinal())];
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return style;
 		}
 	}
-	
+
 	final Dialect dialect;
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
 	Color particularColor = null;
 	Color cumulativeColor = null;
-	
+
 	Node(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
 		if(dialect==null)
 			throw new NullPointerException("dialect");
 		if(connectionProvider==null)
 			throw new NullPointerException("connectionProvider");
-		
+
 		this.dialect = dialect;
 		this.connectionProvider = connectionProvider;
 	}
@@ -76,7 +76,7 @@ public abstract class Node
 	{
 		return dialect.quoteName(name);
 	}
-	
+
 	static final String GET_TABLES = "getTables";
 	static final String GET_COLUMNS = "getColumns";
 
@@ -151,7 +151,7 @@ public abstract class Node
 			}
 		}
 	}
-	
+
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
 		Connection connection = null;
@@ -200,7 +200,7 @@ public abstract class Node
 			}
 		}
 	}
-	
+
 	abstract void finish();
 
 	public final String getError()

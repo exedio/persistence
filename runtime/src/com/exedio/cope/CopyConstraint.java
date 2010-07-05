@@ -23,7 +23,7 @@ import java.util.Map;
 public final class CopyConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final ItemField target;
 	private final FunctionField copy;
 
@@ -41,7 +41,7 @@ public final class CopyConstraint extends Feature
 		this.target = target;
 		this.copy = copy;
 	}
-	
+
 	public ItemField getTarget()
 	{
 		return target;
@@ -51,14 +51,14 @@ public final class CopyConstraint extends Feature
 	{
 		return copy;
 	}
-	
+
 	private FunctionField template = null;
-	
+
 	public FunctionField getTemplate()
 	{
 		if(template!=null)
 			return template;
-		
+
 		final Feature feature = target.getValueType().getFeature(copy.getName());
 		if(feature==null)
 			throw new RuntimeException("not found on copy: " + this);
@@ -67,11 +67,11 @@ public final class CopyConstraint extends Feature
 		final FunctionField result = (FunctionField)feature;
 		if(!result.isfinal)
 			throw new RuntimeException("not final on copy: " + this + '/' + result);
-		
+
 		template = result;
 		return result;
 	}
-	
+
 	void check(final Map<Field, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
@@ -83,13 +83,13 @@ public final class CopyConstraint extends Feature
 				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private static final Condition notEqual(final FunctionField f1, final Function f2)
 	{
 		return f1.notEqual(f2);
 	}
-	
+
 	public int check()
 	{
 		final Query q = getType().newQuery();

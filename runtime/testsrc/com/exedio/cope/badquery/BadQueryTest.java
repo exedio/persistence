@@ -26,21 +26,21 @@ import com.exedio.cope.Query;
 public class BadQueryTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
-	
+
 	public BadQueryTest()
 	{
 		super(MODEL);
 	}
-	
+
 	QueryItem left1, left2, leftX;
 	SuperContainer middle1, middle2, middleX;
 	SubContainer right1, right2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		leftX = deleteOnTearDown(new QueryItem("leftX"));
 		left1 = deleteOnTearDown(new QueryItem("left1"));
 		left2 = deleteOnTearDown(new QueryItem("left2"));
@@ -50,7 +50,7 @@ public class BadQueryTest extends AbstractRuntimeTest
 		right1 = deleteOnTearDown(new SubContainer("right1", leftX, false, middle1));
 		right2 = deleteOnTearDown(new SubContainer("right2", leftX, false, middle2));
 	}
-	
+
 	public void testIt()
 	{
 		{
@@ -70,7 +70,7 @@ public class BadQueryTest extends AbstractRuntimeTest
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			assertContains(leftX, left1, left2, query.search());
 		}
-		
+
 		{
 			// without specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
@@ -92,5 +92,5 @@ public class BadQueryTest extends AbstractRuntimeTest
 			}
 		}
 	}
-	
+
 }

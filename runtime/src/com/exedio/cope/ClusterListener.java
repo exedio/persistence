@@ -37,17 +37,17 @@ final class ClusterListener implements Runnable
 	private final boolean log;
 	private final int port;
 	private final MulticastSocket socket;
-	
+
 	private final ClusterSender sender;
 	private final int typeLength;
 	private final ItemCache itemCache;
 	private final QueryCache queryCache;
-	
+
 	private final Thread thread;
 	private volatile boolean threadRun = true;
-	
+
 	ArrayList<Object> testSink = null;
-	
+
 	ClusterListener(
 			final ClusterConfig config, final ConnectProperties properties,
 			final ClusterSender sender,
@@ -76,12 +76,12 @@ final class ClusterListener implements Runnable
 			thread.setPriority(properties.clusterListenPriority.intValue());
 		thread.start();
 	}
-	
+
 	public void run()
 	{
 		final byte[] buf = new byte[config.packetSize];
 		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
-		
+
 		while(threadRun)
 		{
 			try
@@ -113,13 +113,13 @@ final class ClusterListener implements Runnable
 			}
 		}
 	}
-	
+
 	void handle(final DatagramPacket packet)
 	{
 		int pos = packet.getOffset();
 		final byte[] buf = packet.getData();
 		final int length = packet.getLength();
-		
+
 		if(buf[pos++]!=ClusterConfig.MAGIC0 ||
 			buf[pos++]!=ClusterConfig.MAGIC1 ||
 			buf[pos++]!=ClusterConfig.MAGIC2 ||
@@ -128,14 +128,14 @@ final class ClusterListener implements Runnable
 			missingMagic++;
 			return;
 		}
-		
+
 		if(config.secret!=unmarshal(pos, buf))
 		{
 			wrongSecret++;
 			return;
 		}
 		pos += 4;
-		
+
 		final int node = unmarshal(pos, buf);
 		if(config.node==node)
 		{
@@ -153,10 +153,10 @@ final class ClusterListener implements Runnable
 			case ClusterConfig.KIND_PONG:
 			{
 				final boolean ping = (kind==ClusterConfig.KIND_PING);
-				
+
 				final int sequence = unmarshal(pos, buf);
 				pos += 4;
-				
+
 				if(length!=config.packetSize)
 					throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
 				final byte[] pingPayload = config.pingPayload;
@@ -165,14 +165,14 @@ final class ClusterListener implements Runnable
 					if(pingPayload[pos]!=buf[pos])
 						throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
 				}
-				
+
 				if(node(node, packet).pingPong(ping, sequence))
 				{
 					if(log)
 						System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
 					break;
 				}
-				
+
 				if(testSink!=null)
 				{
 					testSink.add(ping ? "PING" : "PONG");
@@ -194,30 +194,30 @@ final class ClusterListener implements Runnable
 						System.out.println("COPE Cluster Listener invalidate duplicate " + sequence + " from " + packet.getAddress());
 					break;
 				}
-			
+
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
 				outer: while(pos<length)
 				{
 					final int typeIdTransiently = unmarshal(pos, buf);
 					pos += 4;
-					
+
 					final TIntHashSet set = new TIntHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
 					{
 						if(pos>=length)
 							break outer;
-						
+
 						final int pk = unmarshal(pos, buf);
 						pos += 4;
-						
+
 						if(pk==PK.NaPK)
 							break inner;
-						
+
 						set.add(pk);
 					}
 				}
-				
+
 				if(testSink!=null)
 				{
 					testSink.add(invalidations);
@@ -233,7 +233,7 @@ final class ClusterListener implements Runnable
 				throw new RuntimeException("illegal kind: " + kind);
 		}
 	}
-	
+
 	static int unmarshal(int pos, final byte[] buf)
 	{
 		return
@@ -242,7 +242,7 @@ final class ClusterListener implements Runnable
 			((buf[pos++] & 0xff)<<16) |
 			((buf[pos++] & 0xff)<<24) ;
 	}
-	
+
 	void close()
 	{
 		threadRun = false;
@@ -264,15 +264,15 @@ final class ClusterListener implements Runnable
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	// info
-	
+
 	private volatile long exception = 0;
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
 	private volatile long fromMyself = 0;
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
-	
+
 	private static class Node
 	{
 		final int id;
@@ -282,7 +282,7 @@ final class ClusterListener implements Runnable
 		final SequenceChecker pingSequenceChecker;
 		final SequenceChecker pongSequenceChecker;
 		final SequenceChecker invalidateSequenceChecker;
-		
+
 		Node(final int id, final DatagramPacket packet, final boolean log)
 		{
 			this.id = id;
@@ -295,17 +295,17 @@ final class ClusterListener implements Runnable
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
-		
+
 		boolean pingPong(final boolean ping, final int sequence)
 		{
 			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
 		}
-		
+
 		boolean invalidate(final int sequence)
 		{
 			return invalidateSequenceChecker.check(sequence);
 		}
-		
+
 		ClusterListenerInfo.Node getInfo()
 		{
 			return new ClusterListenerInfo.Node(
@@ -317,7 +317,7 @@ final class ClusterListener implements Runnable
 					invalidateSequenceChecker.getInfo());
 		}
 	}
-	
+
 	Node node(final int id, final DatagramPacket packet)
 	{
 		synchronized(nodes)
@@ -325,12 +325,12 @@ final class ClusterListener implements Runnable
 			Node result = nodes.get(id);
 			if(result!=null)
 				return result;
-			
+
 			nodes.put(id, result = new Node(id, packet, log));
 			return result;
 		}
 	}
-	
+
 	ClusterListenerInfo getInfo()
 	{
 		final Node[] ns;
@@ -341,7 +341,7 @@ final class ClusterListener implements Runnable
 		final ArrayList<ClusterListenerInfo.Node> infoNodes = new ArrayList<ClusterListenerInfo.Node>(ns.length);
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
-		
+
 		return new ClusterListenerInfo(exception, missingMagic, wrongSecret, fromMyself, infoNodes);
 	}
 }

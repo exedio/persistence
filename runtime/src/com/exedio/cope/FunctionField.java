@@ -34,12 +34,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
-	
+
 	FunctionField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
@@ -50,7 +50,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 				null;
 		this.defaultConstant = defaultConstant;
 	}
-	
+
 	final void checkDefaultConstant()
 	{
 		if(defaultConstant!=null)
@@ -74,12 +74,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			}
 		}
 	}
-	
+
 	public final E getDefaultConstant()
 	{
 		return defaultConstant;
 	}
-	
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -91,22 +91,22 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		return (defaultConstant==null) && super.isInitial();
 	}
-	
+
 	@Override
 	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
-		
+
 		if(unique)
 			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, null);
 	}
-	
+
 	final void checkValueClass(final Class<? extends Object> superClass)
 	{
 		if(!superClass.isAssignableFrom(valueClass))
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
-	
+
 	public abstract FunctionField<E> copy();
 
 	/**
@@ -118,7 +118,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return copy();
 	}
 
-	
+
 	/**
 	 * Returns a new FunctionField,
 	 * that differs from this FunctionField
@@ -128,12 +128,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @see #getImplicitUniqueConstraint()
 	 */
 	public abstract FunctionField<E> unique();
-	
+
 	public abstract FunctionField<E> nonUnique();
 
 	abstract E get(final Row row, final Query query);
 	abstract void set(final Row row, final E surface);
-	
+
 	private static final Entity getEntity(final Item item)
 	{
 		return getEntity(item, true);
@@ -149,16 +149,16 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		return valueClass;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		final Class initialType = getInitialType();
 		final boolean initialTypePrimitive = initialType.isPrimitive();
-		
+
 		final Wrapper get =
 			new Wrapper(initialTypePrimitive ? "getMandatory" : "get").
 			addComment("Returns the value of {0}.").
@@ -166,20 +166,20 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		if(initialTypePrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
-		
+
 		if(!isfinal)
 		{
 			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 			if(initialTypePrimitive)
 				exceptions.remove(MandatoryViolationException.class);
-			
+
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
 				addThrows(exceptions).
 				addParameter(initialType));
 		}
-			
+
 		if(unique)
 		{
 			result.add(
@@ -189,7 +189,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 				setStatic().
 				addParameter(initialType, "{1}", "shall be equal to field {0}.").
 				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
-			
+
 			result.add(
 				new Wrapper("searchUnique").
 				addComment("Finds a {2} by it''s {0}.").
@@ -199,18 +199,18 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 				deprecate("use for{0} instead.").
 				addParameter(initialType));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@Override
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);
-		
+
 		return Cast.verboseCast(valueClass, getEntity(item).get(this));
 	}
-	
+
 	@Override
 	public final void set(final Item item, final E value)
 	{
@@ -225,7 +225,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		tc.check(this, join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -234,7 +234,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		bf.append(getColumn(), join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -245,7 +245,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		bf.append(column, join);
 		columnHolder.value = column;
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -257,7 +257,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		final Column column = getColumn();
 		bf.appendParameter(column, dummyRow.get(column));
 	}
-	
+
 	/**
 	 * Returns the unique constraint of this field,
 	 * that has been created implicitly when creating this field.
@@ -280,7 +280,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
 	}
-	
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
@@ -289,12 +289,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			result.add(UniqueViolationException.class);
 		return result;
 	}
-	
+
 	final void registerUniqueConstraint(final UniqueConstraint constraint)
 	{
 		if(constraint==null)
 			throw new NullPointerException();
-		
+
 		if(uniqueConstraints==null)
 		{
 			uniqueConstraints = new ArrayList<UniqueConstraint>();
@@ -304,7 +304,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			if(uniqueConstraints.contains(constraint))
 				throw new RuntimeException(constraint.toString());
 		}
-		
+
 		uniqueConstraints.add(constraint);
 	}
 
@@ -335,102 +335,102 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 	// convenience methods for conditions and views ---------------------------------
-	
+
 	public final IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<E>(this, false);
 	}
-	
+
 	public final IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<E>(this, true);
 	}
-	
+
 	public Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
-	
+
 	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
-	
+
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public final Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
-	
+
 	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(Operator.Less, this, value);
 	}
-	
+
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.LessEqual, this, value);
 	}
-	
+
 	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(Operator.Greater, this, value);
 	}
-	
+
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
 	}
-	
+
 	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
-	
+
 	public final CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Less, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
 	}
-	
+
 	public final ExtremumAggregate<E> min()
 	{
 		return new ExtremumAggregate<E>(this, true);
 	}
-	
+
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);

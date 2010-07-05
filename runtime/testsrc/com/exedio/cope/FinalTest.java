@@ -21,24 +21,24 @@ package com.exedio.cope;
 public final class FinalTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(FinalSuperItem.TYPE, FinalSubItem.TYPE, FinalSubNoneItem.TYPE);
-	
+
 	public FinalTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void test()
 	{
 		deleteOnTearDown(new FinalSubItem(1, 11));
 		deleteOnTearDown(new FinalSubNoneItem(2, 22));
-		
+
 		restartTransaction();
 		model.clearCache();
-		
+
 		final FinalSubItem item1c = FinalSubItem.TYPE.searchSingleton(null);
 		assertEquals(1, item1c.getSuperInt());
 		assertEquals(11, item1c.getSubInt());
-		
+
 		final FinalSubNoneItem item2c = FinalSubNoneItem.TYPE.searchSingleton(null);
 		assertEquals(2, item2c.getSuperInt());
 		assertEquals(22, item2c.getSubIntNone());

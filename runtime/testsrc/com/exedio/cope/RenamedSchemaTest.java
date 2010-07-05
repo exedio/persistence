@@ -37,7 +37,7 @@ import com.exedio.dsmf.Table;
 public class RenamedSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(TYPE, RenamedSchemaTargetItem.TYPE);
-	
+
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
@@ -46,14 +46,14 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		
+
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
-		
+
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -66,11 +66,11 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
-		
+
 		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
-		
+
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
-		
+
 		final List<Sequence> sequences = schema.getSequences();
 		if(SchemaInfo.supportsSequences(model) && model.getConnectProperties().cluster.booleanValue())
 		{
@@ -81,12 +81,12 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		else
 			assertEquals(list(), sequences);
 	}
-	
+
 	private final String q(final Field f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
-	
+
 	private final String l(final StringField f)
 	{
 		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';

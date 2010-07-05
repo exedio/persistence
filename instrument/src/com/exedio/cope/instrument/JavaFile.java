@@ -41,11 +41,11 @@ final class JavaFile
 	 * thus can be used in build stage.
 	 */
 	private final CopeNameSpace externalNameSpace;
-	
+
 	final CopeNameSpace nameSpace;
-	
+
 	private String packagename;
-	
+
 	/**
 	 * Distiguishes two stages in life cycle of this object:
 	 * getting imports via addImport and finding types via findType.
@@ -53,34 +53,34 @@ final class JavaFile
 	 * @see #findTypeExternally(String)
 	 */
 	private boolean buildStageForImports = true;
-	
+
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<JavaClass>();
-	
+
 	final StringBuilder buffer = new StringBuilder();
 
 	public JavaFile(final JavaRepository repository)
 	{
 		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace);
 		this.nameSpace = new CopeNameSpace(repository.nameSpace);
-		
+
 		this.repository = repository;
 		repository.add(this);
 	}
-	
+
 	void add(JavaClass javaClass)
 	{
 		assert repository.isBuildStage();
 		classes.add(javaClass);
 		repository.add(javaClass);
 	}
-	
+
 	List<JavaClass> getClasses()
 	{
 		assert !repository.isBuildStage();
 		return Collections.unmodifiableList(classes);
 	}
-	
+
 	/**
 	 * Sets the package of this file.
 	 * Necessary, since the package is not known at construction time.
@@ -94,12 +94,12 @@ final class JavaFile
 			throw new RuntimeException();
 		if(this.packagename!=null)
 			throw new InjectorParseException("only one package statement allowed.");
-		
+
 		this.packagename=packagename;
 		nameSpace.importPackage(packagename);
 		externalNameSpace.importPackage(packagename);
 	}
-	
+
 	/**
 	 * Gets the value of the package statement encountered
 	 * in this java file.
@@ -109,7 +109,7 @@ final class JavaFile
 	{
 		return packagename;
 	}
-	
+
 	/**
 	 * Adds the value of an import statement.
 	 */
@@ -118,7 +118,7 @@ final class JavaFile
 	{
 		if(!buildStageForImports)
 			throw new RuntimeException();
-		
+
 		if(importname.endsWith(".*"))
 		{
 			final String packageName = importname.substring(0,importname.length()-2);
@@ -131,13 +131,13 @@ final class JavaFile
 			externalNameSpace.importClass(importname);
 		}
 	}
-	
+
 	public final Class findTypeExternally(final String typename)
 	{
 		//System.out.println("findtype: >"+typename+"<");
-		
+
 		buildStageForImports=false;
-		
+
 		try
 		{
 			return externalNameSpace.getClass(Injector.removeGenerics(typename));
@@ -147,5 +147,5 @@ final class JavaFile
 			throw new RuntimeException(typename, e);
 		}
 	}
-	
+
 }

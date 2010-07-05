@@ -27,36 +27,36 @@ final class RevisionInfoMutex extends RevisionInfo
 	static final int NUMBER = -1;
 	private final int expectedNumber;
 	private final int actualNumber;
-	
+
 	RevisionInfoMutex(
 			final Date date, final Map<String, String> environment,
 			final int expectedNumber, final int actualNumber)
 	{
 		super(NUMBER, date, environment);
-		
+
 		if(expectedNumber<0)
 			throw new IllegalArgumentException("expectedNumber must be greater or equal zero, but was " + expectedNumber);
 		if(actualNumber>=expectedNumber)
 			throw new IllegalArgumentException("expectedNumber must be greater than " + actualNumber + ", but was " + expectedNumber);
-		
+
 		this.expectedNumber = expectedNumber;
 		this.actualNumber = actualNumber;
 	}
-	
+
 	int getExpectedNumber()
 	{
 		return expectedNumber;
 	}
-	
+
 	int getActualNumber()
 	{
 		return actualNumber;
 	}
-	
+
 	private static final String MUTEX    = "mutex";
 	private static final String EXPECTED = "mutex.expected";
 	private static final String ACTUAL   = "mutex.actual";
-	
+
 	@Override
 	Properties getStore()
 	{
@@ -66,7 +66,7 @@ final class RevisionInfoMutex extends RevisionInfo
 		store.setProperty(ACTUAL,   String.valueOf(actualNumber));
 		return store;
 	}
-	
+
 	static final RevisionInfoMutex read(
 			final Date date,
 			final Map<String, String> environment,
@@ -74,7 +74,7 @@ final class RevisionInfoMutex extends RevisionInfo
 	{
 		if(p.getProperty(MUTEX)==null)
 			return null;
-		
+
 		return new RevisionInfoMutex(
 				date,
 				environment,

@@ -35,26 +35,26 @@ import com.exedio.cope.misc.Computed;
 public class PriceFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(PriceFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(PriceFieldTest.class, "MODEL");
 	}
-	
+
 	public PriceFieldTest()
 	{
 		super(MODEL);
 	}
 
 	PriceFieldItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new PriceFieldItem(storeOf(555), storeOf(7777)));
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -93,57 +93,57 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(item.finalPrice, item.finalPrice.getInt().getPattern());
 		assertEquals(item.optionalPrice, item.optionalPrice.getInt().getPattern());
 		assertEquals(item.bigPrice, item.bigPrice.getInt().getPattern());
-		
+
 		assertEquals(true, item.finalPrice.isInitial());
 		assertEquals(true, item.finalPrice.isFinal());
 		assertEquals(Price.class, item.finalPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.finalPrice.getInitialExceptions());
-		
+
 		assertEquals(false, item.optionalPrice.isInitial());
 		assertEquals(false, item.optionalPrice.isFinal());
 		assertEquals(Price.class, item.optionalPrice.getInitialType());
 		assertContains(item.optionalPrice.getInitialExceptions());
-		
+
 		assertEquals(true, item.bigPrice.isInitial());
 		assertEquals(false, item.bigPrice.isFinal());
 		assertEquals(Price.class, item.bigPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
-		
+
 		assertTrue(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.   finalPrice, 388);
 		assertSerializedSame(item.optionalPrice, 391);
 		assertSerializedSame(item.     bigPrice, 386);
-		
+
 		// test persistence
 		assertEquals("finalPrice_int", SchemaInfo.getColumnName(item.finalPrice.getInt()));
-		
+
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
-		
+
 		item.setOptionalPrice(storeOf(333));
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(storeOf(333), item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
-		
+
 		item.setOptionalPrice(storeOf(-444));
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(storeOf(-444), item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
-		
+
 		item.setOptionalPrice(null);
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
-		
+
 		item.setBigPrice(storeOf(5000));
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(5000), item.getBigPrice());
-		
+
 		try
 		{
 			item.setBigPrice(storeOf(4999));
@@ -159,7 +159,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
 		assertEquals(storeOf(5000), item.getBigPrice());
-		
+
 		try
 		{
 			item.setBigPrice(null);
@@ -198,7 +198,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			assertEquals(item.bigPrice.getInt(), e.getFeature()); // TODO should be price itself, not the int
 			assertEquals(null, e.getItem());
 		}
-		
+
 		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue[]{
 				item.finalPrice.map(storeOf(567)),
 				item.bigPrice.map(storeOf(5001)),
@@ -206,7 +206,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());
 		assertEquals(storeOf(5001), item2.getBigPrice());
-		
+
 		try
 		{
 			item2.finalPrice.set(item2, null);

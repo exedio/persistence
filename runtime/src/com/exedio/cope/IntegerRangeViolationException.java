@@ -33,12 +33,12 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class IntegerRangeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final IntegerField feature;
 	private final int value;
 	private final boolean isTooSmall;
 	private final int border;
-	
+
 	/**
 	 * Creates a new RangeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -58,7 +58,7 @@ public final class IntegerRangeViolationException extends ConstraintViolationExc
 		this.isTooSmall = isTooSmall;
 		this.border = border;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -67,7 +67,7 @@ public final class IntegerRangeViolationException extends ConstraintViolationExc
 	{
 		return feature;
 	}
-	
+
 	/**
 	 * Returns the value, that was attempted to be written.
 	 */
@@ -75,7 +75,7 @@ public final class IntegerRangeViolationException extends ConstraintViolationExc
 	{
 		return value;
 	}
-	
+
 	public boolean isTooSmall()
 	{
 		return isTooSmall;

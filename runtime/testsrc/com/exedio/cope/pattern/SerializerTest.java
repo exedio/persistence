@@ -32,26 +32,26 @@ import com.exedio.cope.misc.Computed;
 public class SerializerTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SerializerItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(SerializerTest.class, "MODEL");
 	}
-	
+
 	public SerializerTest()
 	{
 		super(MODEL);
 	}
 
 	SerializerItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new SerializerItem());
 	}
-	
+
 	public void testSerializer()
 	{
 		// test model
@@ -81,7 +81,7 @@ public class SerializerTest extends AbstractRuntimeTest
 
 		assertEquals(item.integer, item.integer.getSource().getPattern());
 		assertEquals(item.map, item.map.getSource().getPattern());
-		
+
 		assertEquals(false, item.integer.isInitial());
 		assertEquals(false, item.integer.isFinal());
 		assertEquals(Integer.class, item.integer.getInitialType());
@@ -90,18 +90,18 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(false, item.map.isFinal());
 		assertEquals(Map.class, item.map.getInitialType());
 		assertContains(item.map.getInitialExceptions());
-		
+
 		assertFalse(item.integer            .isAnnotationPresent(Computed.class));
 		assertFalse(item.map                .isAnnotationPresent(Computed.class));
 		assertTrue (item.integer.getSource().isAnnotationPresent(Computed.class));
 		assertTrue (item.map    .getSource().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.integer, 385);
 		assertSerializedSame(item.map    , 381);
-		
+
 		// test persistence
 		assertEquals("integer_data", SchemaInfo.getColumnName(item.integer.getSource()));
-		
+
 		final HashMap<String, String> map1 = new HashMap<String, String>();
 		map1.put("key1a", "value1a");
 		map1.put("key1b", "value1b");
@@ -111,14 +111,14 @@ public class SerializerTest extends AbstractRuntimeTest
 
 		assertEquals(null, item.getInteger());
 		assertEquals(null, item.getMap());
-		
+
 		item.setInteger(11);
 		assertEquals(new Integer(11), item.getInteger());
 
 		item.setMap(map1);
 		assertEquals(map1, item.getMap());
 		assertNotSame(map1, item.getMap());
-		
+
 		item.set(
 				item.integer.map(22),
 				item.map.map(map2)
@@ -126,11 +126,11 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(new Integer(22), item.getInteger());
 		assertEquals(map2, item.getMap());
 		assertNotSame(map2, item.getMap());
-		
+
 		item.setInteger(null);
 		assertNull(item.getInteger());
 		assertEquals(map2, item.getMap());
-		
+
 		item.setMap(null);
 		assertNull(item.getInteger());
 		assertNull(item.getMap());
@@ -142,7 +142,7 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(new Integer(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
-		
+
 		final SerializerItem item3 = deleteOnTearDown(SerializerItem.TYPE.newItem(
 				item.integer.map(44),
 				item.map.map(map2)
@@ -151,5 +151,5 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(map2, item3.getMap());
 		assertNotSame(map2, item3.getMap());
 	}
-	
+
 }

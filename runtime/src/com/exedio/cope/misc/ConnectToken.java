@@ -37,7 +37,7 @@ public final class ConnectToken
 	private final boolean didConnect;
 	private volatile boolean returned = false;
 	private final Object returnedLock = new Object();
-	
+
 	ConnectToken(
 			final Manciple manciple,
 			final Model model,
@@ -48,7 +48,7 @@ public final class ConnectToken
 		assert manciple!=null;
 		assert model!=null;
 		assert id>=0;
-		
+
 		this.manciple = manciple;
 		this.model = model;
 		this.id = id;
@@ -75,27 +75,27 @@ public final class ConnectToken
 	{
 		return name;
 	}
-	
+
 	public boolean didConnect()
 	{
 		return didConnect;
 	}
-	
+
 	public boolean isReturned()
 	{
 		return returned;
 	}
-	
+
 	public boolean returnIt()
 	{
 		synchronized(returnedLock)
 		{
 			if(returned)
 				throw new IllegalStateException("connect token " + id + " already returned");
-			
+
 			returned = true;
 		}
-		
+
 		return manciple.returnIt(this);
 	}
 
@@ -104,12 +104,12 @@ public final class ConnectToken
 		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();
 		private int nextId = 0;
 		private final Object lock = new Object();
-		
+
 		Manciple()
 		{
 			// make constructor non-private
 		}
-		
+
 		ConnectToken issue(
 				final Model model,
 				final com.exedio.cope.ConnectProperties properties,
@@ -122,7 +122,7 @@ public final class ConnectToken
 					model.connect(properties);
 				else
 					model.getConnectProperties().ensureEquality(properties);
-					
+
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
 				tokens.add(result);
 
@@ -134,7 +134,7 @@ public final class ConnectToken
 				return result;
 			}
 		}
-		
+
 		boolean returnIt(final ConnectToken token)
 		{
 			synchronized(lock)
@@ -164,9 +164,9 @@ public final class ConnectToken
 			return Collections.unmodifiableList(Arrays.asList(result));
 		}
 	}
-	
+
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
-	
+
 	private static final Manciple manciple(final Model model)
 	{
 		synchronized(manciples)
@@ -180,7 +180,7 @@ public final class ConnectToken
 			return result;
 		}
 	}
-	
+
 	/**
 	 * Connects the model to the database described in the properties,
 	 * if the model is not already connected.

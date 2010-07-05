@@ -28,7 +28,7 @@ import com.exedio.dsmf.Constraint;
 
 public class ItemTest extends TestmodelTest
 {
-	
+
 	/**
 	 * Test getType, ID, equals, hashCode etc.
 	 */
@@ -39,7 +39,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
-		
+
 		assertInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
 		final EmptyItem item1 = new EmptyItem();
 		assertEquals("EmptyItem-0", item1.getCopeID());
@@ -52,7 +52,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(EmptyItem.TYPE, item1.getCopeType());
 		assertEquals(EmptyItem.TYPE, item2.getCopeType());
 		assertEquals(EmptyItem2.TYPE, item3.getCopeType());
-		
+
 		assertSame(item1, item1.TYPE.cast(item1));
 		try
 		{
@@ -98,7 +98,7 @@ public class ItemTest extends TestmodelTest
 		assertFalse(item1.equals("hello"));
 		assertFalse(item1.equals(Integer.valueOf(1)));
 		assertFalse(item1.equals(Boolean.TRUE));
-		
+
 		assertEquals( 0, item1.compareTo(item1));
 		assertEquals( 1, item2.compareTo(item1));
 		assertEquals( 1, item3.compareTo(item1));
@@ -108,7 +108,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(-1, item1.compareTo(item3));
 		assertEquals(-1, item2.compareTo(item3));
 		assertEquals( 0, item3.compareTo(item3));
-		
+
 		assertSame(item1, item1.get(item1.TYPE.getThis()));
 		assertSame(item1, item1.TYPE.getThis().get(item1));
 		assertContains(item1, item1.TYPE.search(item1.TYPE.getThis().equal(item1)));
@@ -125,7 +125,7 @@ public class ItemTest extends TestmodelTest
 		assertNotEquals(item4, item5);
 		assertNotEquals(item4, item6);
 		assertNotEquals(item5, item6);
-		
+
 		assertDelete(item1);
 		assertDelete(item2);
 		assertDelete(item3);
@@ -133,7 +133,7 @@ public class ItemTest extends TestmodelTest
 		assertDelete(item5);
 		assertDelete(item6);
 	}
-	
+
 	public void testCheckDatabase()
 	{
 		model.checkSchema();
@@ -159,7 +159,7 @@ public class ItemTest extends TestmodelTest
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 	}
-	
+
 	public void testItemCreation()
 	{
 		final EmptyItem item1 = EmptyItem.TYPE.newItem();
@@ -171,7 +171,7 @@ public class ItemTest extends TestmodelTest
 			AttributeItem.someNotNullBoolean.map(false),
 			AttributeItem.someNotNullItem.map(item1),
 			AttributeItem.someNotNullEnum.map(AttributeItem.SomeEnum.enumValue3));
-		
+
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());
 		assertEquals(60l, item2.getSomeNotNullLong());

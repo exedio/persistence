@@ -33,7 +33,7 @@ package com.exedio.cope;
 public final class IntegrityViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final ItemField feature;
 
 	/**
@@ -45,10 +45,10 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	IntegrityViolationException(final ItemField feature, final Item item)
 	{
 		super(item, null);
-		
+
 		if(item==null)
 			throw new NullPointerException();
-		
+
 		this.feature = feature;
 	}
 
@@ -61,15 +61,15 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	{
 		return feature;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
 		return "integrity violation on deletion of " + getItem().getCopeID() + (withFeature ? (" because of " + feature) : "");
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */

@@ -35,19 +35,19 @@ import com.exedio.cope.misc.Computed;
 public class FeatureFieldTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(FeatureFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(FeatureFieldTest.class, "MODEL");
 	}
-	
+
 	public FeatureFieldTest()
 	{
 		super(MODEL);
 	}
 
 	FeatureFieldItem item;
-	
+
 	public void testIt()
 	{
 		// test model
@@ -73,9 +73,9 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.feature.getType());
 		assertEquals("feature", item.feature.getName());
 		assertTrue(item.feature.getIdField().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(FeatureFieldItem.feature, 389);
-		
+
 		assertEqualsUnmodifiable(item.TYPE.getFeatures(), item.feature.getValues());
 		assertEqualsUnmodifiable(list(
 				string1, string2, string3,
@@ -84,7 +84,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				item.featureOptional.getIdField(),
 				item.featureRenamed.getIdField(),
 				item.string.getIdField()), item.string.getValues());
-		
+
 		try
 		{
 			FeatureField.newField(null);
@@ -94,41 +94,41 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("valueClass", e.getMessage());
 		}
-		
+
 		// test persistence
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
-		
+
 		item = deleteOnTearDown(new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2));
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		item.setFeatureOptional(integer1);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(integer1, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		item.setFeatureOptional(null);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		item.setString(string2);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(string2, item.getString());
-		
+
 		item.setString(null);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		try
 		{
 			item.setFeature(null);
@@ -143,7 +143,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		try
 		{
 			item.featureFinal.set(item, integer1);
@@ -158,7 +158,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
-		
+
 		item.feature.getIdField().set(item, "zack");
 		try
 		{
@@ -170,7 +170,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			assertEquals("zack", e.getMessage());
 		}
 		item.setFeature(string1);
-		
+
 		item.string.getIdField().set(item, integer1.getID());
 		try
 		{

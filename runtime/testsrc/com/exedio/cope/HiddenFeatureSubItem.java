@@ -21,7 +21,7 @@ package com.exedio.cope;
 class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
 	static final StringField nonHiddenSub = new StringField().optional();
-	
+
 	/**
 	 * @cope.get none
 	 * @cope.set none
@@ -33,7 +33,7 @@ class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 * @cope.set none
 	 */
 	static final IntegerField hiddenOther = new IntegerField().optional();
-	
+
 	/**
 
 	 **

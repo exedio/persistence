@@ -29,7 +29,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private DeleteItem item;
 	private DeleteOtherItem other;
 
@@ -39,7 +39,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
-		
+
 		assertSame(Item.FORBID, item.selfForbid.getDeletePolicy());
 		assertSame(Item.FORBID, item.otherForbid.getDeletePolicy());
 
@@ -48,7 +48,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		item = new DeleteItem("item");
 		item.setOtherForbid(other);
 		assertDeleteFails(other, item.otherForbid);
-		
+
 		// other item
 		DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
@@ -63,7 +63,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			item.setSelfForbid(null);
 		}
 		assertDelete(item);
-		
+
 		// indirect forbid
 		item = new DeleteItem("itemb");
 		item2.setSelfCascade(item);
@@ -76,7 +76,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDelete(item2);
 		assertDelete(item);
 	}
-	
+
 	public void testNullify()
 	{
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
@@ -120,14 +120,14 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertEquals(other, item.getOtherNullify());
 		assertDelete(other);
 		assertEquals(null, item.getOtherNullify());
-		
+
 		// other item
 		DeleteItem item2 = new DeleteItem("item");
 		item.setSelfNullify(item2);
 		assertEquals(item2, item.getSelfNullify());
 		assertDelete(item2);
 		assertEquals(null, item.getSelfNullify());
-		
+
 		// same item
 		item.setSelfNullify(item);
 		assertDelete(item);
@@ -145,7 +145,7 @@ public class DeleteTest extends AbstractRuntimeTest
 
 		assertDelete(item3);
 	}
-	
+
 	public void testCascade()
 	{
 		assertSame(Item.CASCADE, item.selfCascade.getDeletePolicy());
@@ -181,7 +181,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertTrue(item3.existsCopeItem());
 		assertTrue(!item4.existsCopeItem());
 		assertDelete(item3);
-		
+
 		// other item
 		item = new DeleteItem("item");
 		item2 = new DeleteItem("item2");
@@ -203,7 +203,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertTrue(!item6.existsCopeItem());
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
-		
+
 		// other item with diamond
 		item = new DeleteItem("item");
 		item2 = new DeleteItem("item2");
@@ -227,7 +227,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
 	}
-	
+
 	public void testAtomicity()
 	{
 		final DeleteItem todelete = deleteOnTearDown(new DeleteItem("todelete"));
@@ -235,15 +235,15 @@ public class DeleteTest extends AbstractRuntimeTest
 		final DeleteItem middle1 = deleteOnTearDown(new DeleteItem("middle1"));
 		middle1.setSelfCascade(todelete);
 		middle1.setSelfNullify(todelete);
-		
+
 		final DeleteItem middle2 = deleteOnTearDown(new DeleteItem("middle2"));
 		middle2.setSelfCascade(todelete);
 		middle2.setSelfNullify(todelete);
-		
+
 		final DeleteItem middle3 = deleteOnTearDown(new DeleteItem("middle3"));
 		middle3.setSelfCascade(todelete);
 		middle3.setSelfNullify(todelete);
-		
+
 		final DeleteItem item = deleteOnTearDown(new DeleteItem("forbid"));
 		item.setSelfForbid(middle2);
 
@@ -257,19 +257,19 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertEquals(todelete, middle3.getSelfNullify());
 		assertTrue(item.existsCopeItem());
 	}
-	
+
 	public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = deleteOnTearDown(new DeleteItem("item1"));
 		DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
-		
+
 		// test Model.getItem
 		assertSame(item, item.TYPE.getModel().getItem(item.getCopeID()));
-		
+
 		// test Item.get(ItemAttribute)
 		item.setSelfNullify(item2);
 		assertSame(item2, item.getSelfNullify());
-		
+
 		// test Query.search
 		final Query query1 = item.TYPE.newQuery(null);
 		query1.setOrderByThis(true);
@@ -291,7 +291,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	public void testRevise()
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getConnectProperties().getSource());
-		
+
 		assertNull(model.getRevisions());
 		try
 		{

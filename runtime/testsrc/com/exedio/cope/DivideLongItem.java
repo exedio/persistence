@@ -26,13 +26,13 @@ public class DivideLongItem extends Item
 	public static final LongField numB = new LongField().optional();
 
 	public static final LongField numC = new LongField().optional();
-	
+
 	public static final DivideView<Long> divideAB = numA.divide(numB);
-	
+
 	public static final DivideView<Long> divideAC = numA.divide(numC);
-	
+
 	public static final DivideView<Long> divideBC = numB.divide(numC);
-	
+
 	public DivideLongItem(final long initialNumA, final long initialNumB, final long initialNumC)
 	{
 		super(new SetValue[]{

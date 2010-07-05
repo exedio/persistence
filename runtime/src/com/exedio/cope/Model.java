@@ -43,30 +43,30 @@ public final class Model implements Serializable
 {
 	private Revisions revisions; // TODO make final
 	private final Object reviseLock = new Object();
-	
+
 	final Types types;
 	private final long initializeDate;
 	final ModificationListeners modificationListeners;
-	
+
 	private final Object connectLock = new Object();
 	private Connect connect;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
-	
+
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
-	
+
 	private volatile long transactionsCommitWithoutConnection = 0;
 	private volatile long transactionsCommitWithConnection = 0;
 	private volatile long transactionsRollbackWithoutConnection = 0;
 	private volatile long transactionsRollbackWithConnection = 0;
-	
+
 	public Model(final Type... types)
 	{
 		this((Revisions)null, types);
 	}
-	
+
 	public Model(final Revisions revisions, final Type... types)
 	{
 		this.revisions = revisions;
@@ -74,17 +74,17 @@ public final class Model implements Serializable
 		this.initializeDate = System.currentTimeMillis();
 		this.modificationListeners = new ModificationListeners(this.types);
 	}
-	
+
 	public boolean containsTypeSet(final Type... typeSet)
 	{
 		return types.containsTypeSet(typeSet);
 	}
-	
+
 	public Map<Feature, Feature> getHiddenFeatures()
 	{
 		return types.getHiddenFeatures();
 	}
-	
+
 	/**
 	 * Connects this model to the database described in the properties.
 	 *
@@ -99,26 +99,26 @@ public final class Model implements Serializable
 		{
 			if(this.connect!=null)
 				throw new IllegalStateException("model already been connected");
-			
+
 			this.connect = new Connect(types, revisions, properties);
 			types.connect(connect.database);
 		}
 	}
-	
+
 	public void disconnect()
 	{
 		synchronized(connectLock)
 		{
 			if(this.connect==null)
 				throw new IllegalStateException("model not yet connected, use Model#connect");
-			
+
 			final Connect connect = this.connect;
 			this.connect = null;
 			types.disconnect();
 			connect.close();
 		}
 	}
-	
+
 	Connect connect()
 	{
 		final Connect connect = this.connect;
@@ -126,7 +126,7 @@ public final class Model implements Serializable
 			throw new IllegalStateException("model not yet connected, use Model#connect");
 		return connect;
 	}
-	
+
 	private final void assertRevisionEnabled()
 	{
 		if(revisions==null)
@@ -137,7 +137,7 @@ public final class Model implements Serializable
 	{
 		return revisions;
 	}
-	
+
 	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
 	{
 		if(revisions==null)
@@ -153,7 +153,7 @@ public final class Model implements Serializable
 	public void revise()
 	{
 		assertRevisionEnabled();
-		
+
 		synchronized(reviseLock)
 		{
 			connect.revise(revisions);
@@ -164,7 +164,7 @@ public final class Model implements Serializable
 	{
 		if(revisions==null)
 			return;
-		
+
 		revise();
 	}
 
@@ -173,17 +173,17 @@ public final class Model implements Serializable
 		assertRevisionEnabled();
 		return connect().getRevisionLogs(revisions);
 	}
-	
+
 	public boolean isConnected()
 	{
 		return this.connect!=null;
 	}
-	
+
 	public ConnectProperties getConnectProperties()
 	{
 		return connect().properties;
 	}
-	
+
 	public Date getConnectDate()
 	{
 		final Connect connect = this.connect;
@@ -191,17 +191,17 @@ public final class Model implements Serializable
 			return null;
 		return new Date(connect.date);
 	}
-	
+
 	public List<Type<?>> getTypes()
 	{
 		return types.typeList;
 	}
-	
+
 	public List<Type<?>> getTypesSortedByHierarchy()
 	{
 		return types.typeListSorted;
 	}
-	
+
 	public List<Type<?>> getConcreteTypes()
 	{
 		return types.concreteTypeList;
@@ -214,7 +214,7 @@ public final class Model implements Serializable
 	{
 		return types.getType(id);
 	}
-	
+
 	/**
 	 * @see Feature#getID()
 	 */
@@ -222,17 +222,17 @@ public final class Model implements Serializable
 	{
 		return types.getFeature(id);
 	}
-	
+
 	public Date getInitializeDate()
 	{
 		return new Date(initializeDate);
 	}
-	
+
 	public boolean nullsAreSortedLow()
 	{
 		return connect().dialect.nullsAreSortedLow();
 	}
-	
+
 	/**
 	 * Returns, whether the database can store empty strings.
 	 * <p>
@@ -250,7 +250,7 @@ public final class Model implements Serializable
 	{
 		return connect().supportsEmptyStrings();
 	}
-	
+
 	/**
 	 * @see Random
 	 */
@@ -258,17 +258,17 @@ public final class Model implements Serializable
 	{
 		return connect().dialect.supportsRandom();
 	}
-	
+
 	public DatabaseListener getDatabaseListener()
 	{
 		return connect().executor.listener;
 	}
-	
+
 	public void setDatabaseListener(final DatabaseListener listener)
 	{
 		connect().executor.listener = listener;
 	}
-	
+
 	/**
 	 * @return the listener previously registered for this model
 	 */
@@ -276,7 +276,7 @@ public final class Model implements Serializable
 	{
 		return connect().executor.setTestListener(listener);
 	}
-	
+
 	public void createSchema()
 	{
 		connect().database.createSchema();
@@ -317,7 +317,7 @@ public final class Model implements Serializable
 		final Transaction tx = currentTransactionIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
-		
+
 		connect().deleteSchema();
 	}
 
@@ -337,7 +337,7 @@ public final class Model implements Serializable
 		connect().database.tearDownSchema();
 		clearCache();
 	}
-	
+
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		connect().database.tearDownSchemaConstraints(types);
@@ -364,7 +364,7 @@ public final class Model implements Serializable
 	{
 		return types.getItem(id);
 	}
-	
+
 	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
@@ -374,42 +374,42 @@ public final class Model implements Serializable
 	{
 		return modificationListeners.getCleared();
 	}
-	
+
 	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
 	}
-	
+
 	public void removeModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.remove(listener);
 	}
-	
+
 	public List<SequenceInfo> getSequenceInfo()
 	{
 		return connect().database.getSequenceInfo();
 	}
-	
+
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
 		return connect().itemCache.getInfo();
 	}
-	
+
 	public QueryCacheInfo getQueryCacheInfo()
 	{
 		return connect().queryCache.getInfo();
 	}
-	
+
 	public QueryCacheHistogram[] getQueryCacheHistogram()
 	{
 		return connect().queryCache.getHistogram();
 	}
-	
+
 	public Pool.Info getConnectionPoolInfo()
 	{
 		return connect().connectionPool.getInfo();
 	}
-	
+
 	public EnvironmentInfo getEnvironmentInfo()
 	{
 		return connect().database.dialectParameters.environmentInfo;
@@ -430,9 +430,9 @@ public final class Model implements Serializable
 			return null;
 		return c.getInfo();
 	}
-	
+
 	// ----------------------- transaction
-	
+
 	/**
 	 * @throws IllegalStateException
 	 *    if there is already a transaction bound
@@ -443,7 +443,7 @@ public final class Model implements Serializable
 	{
 		return startTransaction(null);
 	}
-	
+
 	/**
 	 * @param name
 	 * 	a name for the transaction, useful for debugging.
@@ -467,12 +467,12 @@ public final class Model implements Serializable
 					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(previousTransaction.getStartDate()) +
 					" bound to current thread");
 		}
-		
+
 		final long id;
 		final long startDate = System.currentTimeMillis();
 		id = nextTransactionId.getAndIncrement();
 		lastTransactionStartDate = startDate;
-		
+
 		final Transaction result = new Transaction(this, types.concreteTypeCount, id, name, startDate);
 		setTransaction( result );
 		synchronized(openTransactions)
@@ -481,18 +481,18 @@ public final class Model implements Serializable
 		}
 		return result;
 	}
-	
+
 	public long getNextTransactionId()
 	{
 		return nextTransactionId.get();
 	}
-	
+
 	public Date getLastTransactionStartDate()
 	{
 		final long lastTransactionStartDate = this.lastTransactionStartDate;
 		return lastTransactionStartDate!=Long.MIN_VALUE ? new Date(lastTransactionStartDate) : null;
 	}
-	
+
 	public Transaction leaveTransaction()
 	{
 		Transaction tx = currentTransaction();
@@ -500,14 +500,14 @@ public final class Model implements Serializable
 		setTransaction( null );
 		return tx;
 	}
-	
+
 	public void joinTransaction( Transaction tx )
 	{
 		if ( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		setTransaction(tx);
 	}
-	
+
 	public boolean hasCurrentTransaction()
 	{
 		return currentTransactionIfBound()!=null;
@@ -527,14 +527,14 @@ public final class Model implements Serializable
 		assert result.assertBoundToCurrentThread();
 		return result;
 	}
-	
+
 	private Transaction currentTransactionIfBound()
 	{
 		final Transaction result = boundTransactions.get();
 		assert result==null || result.assertBoundToCurrentThread();
 		return result;
 	}
-	
+
 	private void setTransaction(final Transaction transaction)
 	{
 		if(transaction!=null)
@@ -545,19 +545,19 @@ public final class Model implements Serializable
 		else
 			boundTransactions.remove();
 	}
-	
+
 	public void rollback()
 	{
 		commitOrRollback(true);
 	}
-	
+
 	public void rollbackIfNotCommitted()
 	{
 		final Transaction t = currentTransactionIfBound();
 		if( t!=null )
 			rollback();
 	}
-	
+
 	public void commit()
 	{
 		commitOrRollback(false);
@@ -566,14 +566,14 @@ public final class Model implements Serializable
 	private void commitOrRollback(final boolean rollback)
 	{
 		final Transaction tx = currentTransaction();
-		
+
 		synchronized(openTransactions)
 		{
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
 		final boolean hadConnection = tx.commitOrRollback(rollback);
-		
+
 		if(hadConnection)
 			if(rollback)
 				transactionsRollbackWithConnection++;
@@ -593,7 +593,7 @@ public final class Model implements Serializable
 	{
 		return connect().supportsReadCommitted;
 	}
-	
+
 	/**
 	 * Returns the collection of open {@link Transaction}s
 	 * on this model.
@@ -611,7 +611,7 @@ public final class Model implements Serializable
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
-	
+
 	public TransactionCounters getTransactionCounters()
 	{
 		return new TransactionCounters(
@@ -620,13 +620,13 @@ public final class Model implements Serializable
 				transactionsRollbackWithoutConnection,
 				transactionsRollbackWithConnection);
 	}
-	
+
 	public void clearCache()
 	{
 		connect().itemCache.clear();
 		connect().queryCache.clear();
 	}
-	
+
 	/**
 	 * @see ItemFunction#checkTypeColumn()
 	 */
@@ -634,22 +634,22 @@ public final class Model implements Serializable
 	{
 		types.checkTypeColumns();
 	}
-	
+
 	public void checkUnsupportedConstraints()
 	{
 		connect().database.makeSchema().checkUnsupportedConstraints();
 	}
-	
+
 	public boolean isClusterNetworkEnabled()
 	{
 		return connect().clusterSender!=null;
 	}
-	
+
 	public void pingClusterNetwork()
 	{
 		pingClusterNetwork(1);
 	}
-	
+
 	public void pingClusterNetwork(final int count)
 	{
 		final ClusterSender clusterSender = connect().clusterSender;
@@ -657,16 +657,16 @@ public final class Model implements Serializable
 			throw new IllegalStateException("cluster network not enabled");
 		clusterSender.ping(count);
 	}
-	
+
 	public static final boolean isLoggingEnabled()
 	{
 		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
 	}
-	
+
 	// serialization -------------
-	
+
 	private static final long serialVersionUID = 1l;
-	
+
 	private Serialized serialized = null;
 
 	public void enableSerialization(final Class<?> type, final String name)
@@ -681,7 +681,7 @@ public final class Model implements Serializable
 		final Object other = serialized.resolveModel();
 		if(this!=other)
 			throw new IllegalArgumentException("enableSerialization does not resolve to itself " + serialized.toString());
-		
+
 		this.serialized = serialized;
 	}
 
@@ -692,10 +692,10 @@ public final class Model implements Serializable
 	{
 		if(serialized==null)
 			throw new NotSerializableException(getClass().getName() + " (can be fixed by calling method enableSerialization(Class,String))");
-		
+
 		return serialized;
 	}
-	
+
 	@Override
 	public String toString()
 	{
@@ -709,16 +709,16 @@ public final class Model implements Serializable
 	private static final class Serialized implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private final Class<?> type;
 		private final String name;
-		
+
 		Serialized(final Class<?> type, final String name)
 		{
 			this.type = type;
 			this.name = name;
 		}
-		
+
 		/**
 		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
@@ -726,13 +726,13 @@ public final class Model implements Serializable
 		{
 			return resolveModel();
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return type.getName() + '#' + name;
 		}
-		
+
 		Object resolveModel()
 		{
 			final java.lang.reflect.Field field;
@@ -756,20 +756,20 @@ public final class Model implements Serializable
 			{
 				throw new IllegalArgumentException("accessing " + field.toString(), e);
 			}
-			
+
 			if(result==null)
 				throw new IllegalArgumentException(toString() + " is null.");
 			if(!(result instanceof Model))
 				throw new IllegalArgumentException(toString() + " is not a model, but " + result.getClass().getName() + '.');
-			
+
 			return result;
 		}
-		
+
 		private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
 	 */
@@ -778,7 +778,7 @@ public final class Model implements Serializable
 	{
 		return getItemCacheInfo();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
 	 */
@@ -787,7 +787,7 @@ public final class Model implements Serializable
 	{
 		return getQueryCacheHistogram();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
 	 */
@@ -796,7 +796,7 @@ public final class Model implements Serializable
 	{
 		return getQueryCacheInfo();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #revise()} instead
 	 */
@@ -814,7 +814,7 @@ public final class Model implements Serializable
 	{
 		reviseIfSupported();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getRevisionLogs()} instead
 	 */
@@ -823,7 +823,7 @@ public final class Model implements Serializable
 	{
 		return getRevisionLogs();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getModificationListenersCleared()} instead
 	 */
@@ -832,7 +832,7 @@ public final class Model implements Serializable
 	{
 		return getModificationListenersCleared();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #connect(ConnectProperties)}.
 	 */
@@ -841,7 +841,7 @@ public final class Model implements Serializable
 	{
 		connect(properties);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getItem(String)} instead
 	 */
@@ -850,7 +850,7 @@ public final class Model implements Serializable
 	{
 		return getItem(id);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getType(String)} instead
 	 */
@@ -859,7 +859,7 @@ public final class Model implements Serializable
 	{
 		return getType(id);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getFeature(String)} instead
 	 */
@@ -868,7 +868,7 @@ public final class Model implements Serializable
 	{
 		return getFeature(id);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #createSchema()} instead
 	 */
@@ -940,7 +940,7 @@ public final class Model implements Serializable
 	{
 		tearDownSchemaConstraints(types);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(int)}.
 	 */
@@ -949,7 +949,7 @@ public final class Model implements Serializable
 	{
 		this(new Revisions(revisionNumber), types);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[])}.
 	 */
@@ -958,7 +958,7 @@ public final class Model implements Serializable
 	{
 		this(new Revisions(revisions), types);
 	}
-	
+
 	/**
 	 * @deprecated Not supported anymore. This method does nothing.
 	 */
@@ -967,7 +967,7 @@ public final class Model implements Serializable
 	{
 		// does nothing
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getConnectProperties()} instead
 	 */
@@ -976,7 +976,7 @@ public final class Model implements Serializable
 	{
 		return getConnectProperties();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getEnvironmentInfo()} and {@link EnvironmentInfo#asProperties()} instead.
 	 */
@@ -985,7 +985,7 @@ public final class Model implements Serializable
 	{
 		return getEnvironmentInfo().asProperties();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #currentTransaction()} instead
 	 */
@@ -994,7 +994,7 @@ public final class Model implements Serializable
 	{
 		return currentTransaction();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link SchemaInfo#supportsCheckConstraints(Model)} instead
 	 */
@@ -1003,7 +1003,7 @@ public final class Model implements Serializable
 	{
 		return SchemaInfo.supportsCheckConstraints(this);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link SchemaInfo#supportsSequences(Model)} instead
 	 */

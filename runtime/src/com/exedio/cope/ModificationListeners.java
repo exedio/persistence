@@ -35,12 +35,12 @@ final class ModificationListeners
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
 	private int cleared = 0;
-	
+
 	ModificationListeners(final Types types)
 	{
 		this.types = types;
 	}
-	
+
 	List<ModificationListener> get()
 	{
 		synchronized(list)
@@ -48,7 +48,7 @@ final class ModificationListeners
 			final int size = list.size();
 			if(size==0)
 				return Collections.<ModificationListener>emptyList();
-			
+
 			// make a copy to avoid ConcurrentModificationViolations
 			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
 			int cleared = 0;
@@ -63,10 +63,10 @@ final class ModificationListeners
 				else
 					result.add(listener);
 			}
-			
+
 			if(cleared>0)
 				this.cleared += cleared;
-			
+
 			return Collections.unmodifiableList(result);
 		}
 	}
@@ -78,19 +78,19 @@ final class ModificationListeners
 			return cleared;
 		}
 	}
-	
+
 	void add(final ModificationListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener");
-		
+
 		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
 		synchronized(list)
 		{
 			list.add(ref);
 		}
 	}
-	
+
 	void remove(final ModificationListener listener)
 	{
 		if(listener==null)
@@ -114,14 +114,14 @@ final class ModificationListeners
 				this.cleared += cleared;
 		}
 	}
-	
+
 	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
 	{
 		final List<ModificationListener> commitListeners = get();
 		if(!commitListeners.isEmpty())
 		{
 			ArrayList<Item> modifiedItems = null;
-			
+
 			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
 			{
 				final TIntHashSet invalidationSet = invalidations[typeTransiently];
@@ -129,12 +129,12 @@ final class ModificationListeners
 				{
 					if(modifiedItems==null)
 						modifiedItems = new ArrayList<Item>();
-					
+
 					for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
 						modifiedItems.add(types.getConcreteType(typeTransiently).activate(i.next()));
 				}
 			}
-			
+
 			if(modifiedItems!=null && !modifiedItems.isEmpty())
 			{
 				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);

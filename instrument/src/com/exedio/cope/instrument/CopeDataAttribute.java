@@ -29,5 +29,5 @@ final class CopeDataAttribute extends CopeAttribute
 	{
 		super(parent, javaAttribute, "byte[]");
 	}
-	
+
 }

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class DataSubItem extends DataItem
 {
-	
+
 /**
 
 	 **

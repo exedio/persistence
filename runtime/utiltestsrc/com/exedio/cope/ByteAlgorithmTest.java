@@ -49,7 +49,7 @@ public class ByteAlgorithmTest extends CopeAssert
 				return "name";
 			}
 		};
-		
+
 		try
 		{
 			new Hash(a, "nixus");

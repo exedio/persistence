@@ -21,7 +21,7 @@ package com.exedio.cope;
 class UniqueHierarchySuperItem extends Item
 {
 	static final StringField superField = new StringField();
-	
+
 	@Override
 	public String toString()
 	{

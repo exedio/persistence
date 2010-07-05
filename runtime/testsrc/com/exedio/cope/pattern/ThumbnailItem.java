@@ -25,7 +25,7 @@ public class ThumbnailItem extends Item
 	static final Media file = new Media().optional().lengthMax(2000);
 
 	static final MediaThumbnail thumb = new MediaThumbnail(file, 20, 30);
-	
+
 	/**
 
 	 **

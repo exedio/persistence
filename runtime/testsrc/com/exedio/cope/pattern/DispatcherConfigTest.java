@@ -23,7 +23,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class DispatcherConfigTest extends CopeAssert
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
-	
+
 	public void testIt()
 	{
 		assertEquals(3, config.getFailureLimit());

@@ -31,11 +31,11 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX;
 	final Date date = CompareFunctionConditionItem.date;
 	final Day day = CompareFunctionConditionItem.day;
-	
+
 	private Date date(final long offset)
 	{
 		return new Date(date.getTime()+offset);
@@ -62,7 +62,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		item4.setRightItem(item3);
 		item5.setRightItem(item3);
 	}
-	
+
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
@@ -78,8 +78,8 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		assertEquals("CompareFunctionConditionItem.leftString<=CompareFunctionConditionItem.rightString", item1.leftString.lessOrEqual(item1.rightString).toString());
 		assertEquals("CompareFunctionConditionItem.leftString>CompareFunctionConditionItem.rightString",  item1.leftString.greater(item1.rightString).toString());
 		assertEquals("CompareFunctionConditionItem.leftString>=CompareFunctionConditionItem.rightString", item1.leftString.greaterOrEqual(item1.rightString).toString());
-		
-		
+
+
 		// equal
 		assertCondition(item3, item1.TYPE, item1.leftString.equal(item1.rightString));
 		assertCondition(item3, item1.TYPE, item1.leftInt.equal(item1.rightInt));

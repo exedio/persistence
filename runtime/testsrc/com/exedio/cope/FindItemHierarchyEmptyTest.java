@@ -24,10 +24,10 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeTest
 	{
 		super(HierarchyEmptyTest.MODEL);
 	}
-	
+
 	HierarchyEmptySub subItem;
 	HierarchyEmptySuper superItem;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -35,7 +35,7 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeTest
 		subItem = deleteOnTearDown(new HierarchyEmptySub(0));
 		superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 	}
-	
+
 	public void test() throws NoSuchIDException
 	{
 		assertSame(subItem, model.getItem("HierarchyEmptySub-0")); // important to test with zero as well

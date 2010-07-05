@@ -45,10 +45,10 @@ public abstract class CopeAssert extends TestCase
 	{
 		if(expected==null && actual==null)
 			return;
-		
+
 		assertNotNull("expected null, but was " + actual, expected);
 		assertNotNull("expected " + expected + ", but was null", actual);
-		
+
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
 				!actual.containsAll(expected))
@@ -129,12 +129,12 @@ public abstract class CopeAssert extends TestCase
 	{
 		return Arrays.asList(o);
 	}
-	
+
 	public static final <T> List<T> listg(final T... o)
 	{
 		return Arrays.asList(o);
 	}
-	
+
 	public static final Map<Object, Object> map()
 	{
 		return Collections.<Object, Object>emptyMap();
@@ -167,7 +167,7 @@ public abstract class CopeAssert extends TestCase
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {/*OK*/}
-		
+
 		if(!c.isEmpty())
 		{
 			final Object o = c.iterator().next();
@@ -205,11 +205,11 @@ public abstract class CopeAssert extends TestCase
 			}
 			catch(UnsupportedOperationException e) {/*OK*/}
 		}
-		
+
 		if(c instanceof List)
 		{
 			final List<T> l = (List<T>)c;
-			
+
 			if(!l.isEmpty())
 			{
 				try
@@ -221,13 +221,13 @@ public abstract class CopeAssert extends TestCase
 			}
 		}
 	}
-	
+
 	public static final void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
 	}
-	
+
 	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
 		assertUnmodifiable(actual.keySet());
@@ -235,9 +235,9 @@ public abstract class CopeAssert extends TestCase
 		assertUnmodifiable(actual.entrySet());
 		assertEquals(expected, actual);
 	}
-	
+
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
-	
+
 	public static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
@@ -249,22 +249,22 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedBefore.after(actual));
 		assertTrue(message, !expectedAfter.before(actual));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static final <S> S reserialize(final S value, final int expectedSize)
 	{
 		if(value==null)
 			throw new NullPointerException();
-		
+
 		try
 		{
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			final ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(value);
 			oos.close();
-			
+
 			assertEquals(expectedSize, bos.size());
-	
+
 			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
 			final Object result = ois.readObject();
 			ois.close();
@@ -279,7 +279,7 @@ public abstract class CopeAssert extends TestCase
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public static final <R> R waitForKey(final R o)
 	{
 		System.out.println("WAITING FOR KEY");

@@ -28,26 +28,26 @@ final class Sequence
 	private final int start;
 	private final int minimum;
 	private final int maximum;
-	
+
 	private SequenceImpl impl;
 	private IntegerColumn column = null;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
-	
+
 	Sequence(final Feature feature, final int start, final int minimum, final int maximum)
 	{
 		if(feature==null)
 			throw new NullPointerException();
 		if(start<minimum || start>maximum)
 			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
-		
+
 		this.feature = feature;
 		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
 	}
-	
+
 	void connect(final Database database, final IntegerColumn column)
 	{
 		if(impl!=null)
@@ -55,7 +55,7 @@ final class Sequence
 		impl = database.newSequenceImpl(start, column);
 		this.column = column;
 	}
-	
+
 	void disconnect()
 	{
 		if(impl==null)
@@ -63,7 +63,7 @@ final class Sequence
 		impl = null;
 		column = null;
 	}
-	
+
 	private SequenceImpl impl()
 	{
 		final SequenceImpl impl = this.impl;
@@ -80,13 +80,13 @@ final class Sequence
 	int next()
 	{
 		final int result = impl().next();
-		
+
 		if(result<minimum || result>maximum)
 			throw new RuntimeException("sequence overflow to " + result + " in " + feature);
 		if((count++)==0)
 			first = result;
 		last = result;
-		
+
 		return result;
 	}
 
@@ -114,7 +114,7 @@ final class Sequence
 		final Integer maxO = column.max(connection, column.table.database.executor);
 		if(maxO==null)
 			return 0;
-		
+
 		final int max = maxO.intValue();
 		final int current = impl().getNext();
 		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);

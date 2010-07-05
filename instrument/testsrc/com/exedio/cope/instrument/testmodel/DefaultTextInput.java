@@ -21,7 +21,7 @@ package com.exedio.cope.instrument.testmodel;
 
 public class DefaultTextInput extends Input
 {
-	
+
 /**
 
 	 **

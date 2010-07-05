@@ -22,7 +22,7 @@ package com.exedio.cope;
 class ReviseItem1 extends Item
 {
 	static final StringField field5 = new StringField();
-	
+
 	/**
 
 	 **

@@ -43,7 +43,7 @@ public class ConnectTokenTest extends CopeAssert
 		}
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
-		
+
 		final com.exedio.cope.ConnectProperties props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
 
 		final Date before1 = new Date();
@@ -59,7 +59,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals("token1Name", token1.getName());
 		assertEquals(true, token1.didConnect());
 		assertEquals(false, token1.isReturned());
-		
+
 		final Date before2 = new Date();
 		final ConnectToken token2 = ConnectToken.issue(model,
 				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource())/* not the same but equal */,
@@ -75,7 +75,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals("token2Name", token2.getName());
 		assertEquals(false, token2.didConnect());
 		assertEquals(false, token2.isReturned());
-		
+
 		{
 			final File dpf = ConnectProperties.getDefaultPropertyFile();
 			final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
@@ -104,8 +104,8 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(token2), ConnectToken.getTokens(model));
 		assertEquals(true, token1.isReturned());
 		assertEquals(false, token2.isReturned());
-		
-		
+
+
 		assertEquals(true, token2.returnIt());
 		try
 		{
@@ -120,7 +120,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
 		assertEquals(true, token1.isReturned());
 		assertEquals(true, token2.isReturned());
-		
+
 		try
 		{
 			token1.returnIt();

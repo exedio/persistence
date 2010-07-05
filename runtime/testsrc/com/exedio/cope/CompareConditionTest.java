@@ -31,11 +31,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	static final Date date = new Date(1087365298214l);
 	static final Day day = new Day(2007, 4, 28);
-	
+
 	private Date date(final long offset)
 	{
 		return new Date(date.getTime()+offset);
@@ -62,7 +62,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		item4.setItem(item4);
 		item5.setItem(item5);
 	}
-	
+
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
@@ -78,8 +78,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals("CompareConditionItem.string<='string3'", item1.string.lessOrEqual("string3").toString());
 		assertEquals("CompareConditionItem.string>'string3'",  item1.string.greater("string3").toString());
 		assertEquals("CompareConditionItem.string>='string3'", item1.string.greaterOrEqual("string3").toString());
-		
-		
+
+
 		// isNull
 		assertCondition(itemX, item1.TYPE, item1.string.isNull());
 		assertCondition(itemX, item1.TYPE, item1.intx.isNull());
@@ -167,7 +167,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, item1.TYPE, item1.enumx.greaterOrEqual(YEnum.V3));
 		assertCondition(item3, item4, item5, item1.TYPE, item1.item.greaterOrEqual(item3));
 		assertCondition(item3, item4, item5, itemX, item1.TYPE, item1.TYPE.getThis().greaterOrEqual(item3));
-		
+
 		// between
 		assertCondition(item2, item3, item4, item1.TYPE, item1.string.between("string2", "string4"));
 		assertCondition(item2, item3, item4, item1.TYPE, item1.intx.between(2, 4));
@@ -178,7 +178,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item2, item3, item4, item1.TYPE, item1.enumx.between(YEnum.V2, YEnum.V4));
 		assertCondition(item2, item3, item4, item1.TYPE, item1.item.between(item2, item4));
 		assertCondition(item2, item3, item4, item1.TYPE, item1.TYPE.getThis().between(item2, item4));
-		
+
 		// in
 		assertCondition(item1, item3, item1.TYPE, item1.string.in(listg("string1", "string3", "stringNone")));
 		assertCondition(item1, item3, item1.TYPE, item1.intx.in(listg(1, 3, 25)));
@@ -189,7 +189,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, item1.TYPE, item1.enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX)));
 		assertCondition(item1, item3, item1.TYPE, item1.item.in(listg(item1, item3)));
 		assertCondition(item1, item3, item1.TYPE, item1.TYPE.getThis().in(listg(item1, item3)));
-		
+
 		// min
 		assertEquals("select min(" + item1.string.getName() + ") from " + item1.TYPE, new Query<String>(item1.string.min()).toString());
 		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());

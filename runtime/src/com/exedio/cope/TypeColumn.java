@@ -21,7 +21,7 @@ package com.exedio.cope;
 final class TypeColumn extends StringColumn
 {
 	private final String itemColumnQuotedID;
-	
+
 	TypeColumn(
 			final Table table,
 			final ItemColumn itemColumn,
@@ -31,34 +31,34 @@ final class TypeColumn extends StringColumn
 		super(table, null, itemColumn.id + "Type"/* not equal to "name"! */, optional, allowedValues);
 		this.itemColumnQuotedID = itemColumn.quotedID;
 	}
-	
+
 	@Override
 	String getCheckConstraintIfNotNull()
 	{
 		final String superResult = super.getCheckConstraintIfNotNull();
 		if(!optional)
 			return superResult;
-		
+
 		assert superResult!=null;
 		return "(" + superResult + ") AND (" + itemColumnQuotedID + " IS NOT NULL)";
 	}
-	
+
 	@Override
 	String getCheckConstraintIfNull()
 	{
 		if(super.getCheckConstraintIfNull()!=null)
 			throw new RuntimeException(); // not implemented
-		
+
 		return itemColumnQuotedID + " IS NULL";
 	}
-	
+
 	/*@Override
 	String getCheckConstraintIgnoringMandatory()
 	{
 		final String superResult = super.getCheckConstraintIgnoringMandatory();
 		if(!optional)
 			return superResult;
-		
+
 		assert superResult!=null;
 		return
 			"(" + superResult + ") AND (" +

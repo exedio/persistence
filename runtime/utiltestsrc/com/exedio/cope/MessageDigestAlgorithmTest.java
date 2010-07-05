@@ -56,7 +56,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			assertEquals("iterations must be at least one, but was 0", e.getMessage());
 		}
 	}
-	
+
 	public void testSalted()
 	{
 		final MessageDigestAlgorithm a =
@@ -65,10 +65,10 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
 		assertEquals(5, a.getIterations());
-		
+
 		// TODO test hash and check
 	}
-	
+
 	public void testSaltedMinimal()
 	{
 		final MessageDigestAlgorithm a =
@@ -77,10 +77,10 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(65, a.length());
 		assertEquals(1, a.getSaltLength());
 		assertEquals(2, a.getIterations());
-		
+
 		// TODO test hash and check
 	}
-	
+
 	public void testUnsalted()
 	{
 		final MessageDigestAlgorithm a =
@@ -90,7 +90,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(0, a.getSaltLength());
 		assertEquals(5, a.getIterations());
 	}
-	
+
 	public void testNoniterated()
 	{
 		final MessageDigestAlgorithm a =
@@ -100,7 +100,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(8, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 	}
-	
+
 	public void testUnsaltedNoniterated()
 	{
 		final MessageDigestAlgorithm a =

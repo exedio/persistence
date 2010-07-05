@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 class ConnectTokenItem extends Item
 {
 	static final StringField name = new StringField();
-	
+
 	/**
 
 	 **

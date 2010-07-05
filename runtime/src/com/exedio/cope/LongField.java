@@ -27,30 +27,30 @@ public final class LongField extends NumberField<Long>
 		super(isfinal, optional, unique, Long.class, defaultConstant);
 		checkDefaultConstant();
 	}
-	
+
 	public LongField()
 	{
 		this(false, false, false, null);
 	}
-	
+
 	@Override
 	public LongField copy()
 	{
 		return new LongField(isfinal, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public LongField toFinal()
 	{
 		return new LongField(true, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public LongField optional()
 	{
 		return new LongField(isfinal, true, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public LongField unique()
 	{
@@ -62,36 +62,36 @@ public final class LongField extends NumberField<Long>
 	{
 		return new LongField(isfinal, optional, false, defaultConstant);
 	}
-	
+
 	public LongField defaultTo(final Long defaultConstant)
 	{
 		return new LongField(isfinal, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public Class getInitialType()
 	{
 		return optional ? Long.class : long.class;
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
-	
+
 	@Override
 	Long get(final Row row, final Query query)
 	{
 		return (Long)row.get(getColumn());
 	}
-		
+
 	@Override
 	void set(final Row row, final Long surface)
 	{
 		row.put(getColumn(), surface);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
@@ -99,10 +99,10 @@ public final class LongField extends NumberField<Long>
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-		
+
 		return get(item).longValue();
 	}
-	
+
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,

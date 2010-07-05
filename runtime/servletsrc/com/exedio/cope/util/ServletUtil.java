@@ -37,7 +37,7 @@ public final class ServletUtil
 	{
 		// prevent instantiation
 	}
-	
+
 	/**
 	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
 	 */
@@ -47,7 +47,7 @@ public final class ServletUtil
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(servlet));
 	}
-	
+
 	/**
 	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
 	 */
@@ -57,7 +57,7 @@ public final class ServletUtil
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(filter, config));
 	}
-	
+
 	/**
 	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
 	 */
@@ -66,7 +66,7 @@ public final class ServletUtil
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.connect(model, config, name));
 	}
-	
+
 	/**
 	 * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
 	 */
@@ -75,12 +75,12 @@ public final class ServletUtil
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.connect(model, config, name));
 	}
-	
+
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
 		return com.exedio.cope.misc.ServletUtil.getPropertyContext(context);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

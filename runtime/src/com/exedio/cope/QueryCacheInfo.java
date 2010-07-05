@@ -25,7 +25,7 @@ public final class QueryCacheInfo
 	private final long replacements;
 	private final long invalidations;
 	private final int level;
-	
+
 	QueryCacheInfo(
 			final long hits,
 			final long misses,
@@ -64,24 +64,24 @@ public final class QueryCacheInfo
 	{
 		return level;
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof QueryCacheInfo))
 			return false;
-		
+
 		final QueryCacheInfo o = (QueryCacheInfo)other;
-		
+
 		return hits==o.hits && misses==o.misses && replacements==o.replacements && invalidations==o.invalidations && level==o.level;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return ((int)hits) ^ ((int)misses) ^ ((int)replacements) ^ ((int)invalidations) ^ level ^ 938675923;
 	}
-	
+
 	@Override
 	public String toString()
 	{

@@ -28,11 +28,11 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 	{
 		super(PlusDoubleTest.MODEL);
 	}
-	
+
 	PlusDoubleItem item1;
 	PlusDoubleItem item2;
 	PlusDoubleItem item3;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -41,9 +41,9 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new PlusDoubleItem(2.2, 1.1, -1000.99));
 		item3 = deleteOnTearDown(new PlusDoubleItem(6.6, 2.2, -1000.99));
 	}
-	
+
 	private static final double EPS = 0.000000000000001d;
-	
+
 	public void testSumOrder()
 	{
 		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);

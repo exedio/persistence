@@ -39,21 +39,21 @@ abstract class Dialect
 	protected static final int TWOPOW16 = 1<<16;
 	protected static final int TWOPOW24 = 1<<24;
 	protected static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
-	
+
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
 	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
-	
+
 	private final boolean nullsAreSortedLow;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final String stringLength;
-	
+
 	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect, final String stringLength)
 	{
 		this.nullsAreSortedLow = parameters.nullsAreSortedLow;
 		this.dsmfDialect = dsmfDialect;
 		this.stringLength = stringLength;
 	}
-	
+
 	/**
 	 * @param info used in subclasses
 	 */
@@ -61,9 +61,9 @@ abstract class Dialect
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
-	
+
 	protected static final String EXPLAIN_PLAN = "explain plan";
-	
+
 	/**
 	 * @param statement used in subclasses
 	 * @param connection used in subclasses
@@ -73,7 +73,7 @@ abstract class Dialect
 	{
 		return null;
 	}
-	
+
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
 		return resultSet.getBytes(columnIndex);
@@ -111,7 +111,7 @@ abstract class Dialect
 			}
 		}
 	}
-	
+
 	boolean nullsAreSortedLow()
 	{
 		return nullsAreSortedLow;
@@ -121,7 +121,7 @@ abstract class Dialect
 	{
 		return true;
 	}
-	
+
 	boolean supportsRandom()
 	{
 		return false;
@@ -131,7 +131,7 @@ abstract class Dialect
 	{
 		return false;
 	}
-	
+
 	boolean subqueryRequiresAlias()
 	{
 		return false;
@@ -145,14 +145,14 @@ abstract class Dialect
 	{
 		return 1;
 	}
-	
+
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');
 		Hex.append(statementText, parameter, parameter.length);
 		statementText.append('\'');
 	}
-	
+
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
 			final NumberFunction<E> dividend,
@@ -168,7 +168,7 @@ abstract class Dialect
 	abstract String getDoubleType();
 	abstract String getStringType(int maxChars);
 	abstract String getDayType();
-	
+
 	/**
 	 * Returns a column type suitable for storing timestamps
 	 * with milliseconds resolution.
@@ -178,9 +178,9 @@ abstract class Dialect
 	 */
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
-	
+
 	abstract LimitSupport getLimitSupport();
-	
+
 	static enum LimitSupport
 	{
 		NONE,
@@ -201,7 +201,7 @@ abstract class Dialect
 	 *        Is always positive (greater zero).
 	 */
 	abstract void appendLimitClause(Statement bf, int offset, int limit);
-	
+
 	/**
 	 * Same as {@link #appendLimitClause(Statement, int, int)}.
 	 * Is used for {@link LimitSupport#CLAUSES_AROUND} only,
@@ -210,16 +210,16 @@ abstract class Dialect
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
-	
+
 	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
-	
+
 	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);
-	
+
 	/**
 	 * Returns null, if the dialect does not support clauses for CharacterSet.
 	 */
@@ -229,10 +229,10 @@ abstract class Dialect
 			throw new NullPointerException();
 		if(set==null)
 			throw new NullPointerException();
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * @param schema used in subclasses
 	 */
@@ -240,7 +240,7 @@ abstract class Dialect
 	{
 		// empty default implementation
 	}
-	
+
 	/**
 	 * @param executor used in subclasses
 	 * @param connection used in subclasses
@@ -252,7 +252,7 @@ abstract class Dialect
 	{
 		throw new RuntimeException("sequences not implemented: " + name);
 	}
-	
+
 	/**
 	 * @param executor used in subclasses
 	 * @param connection used in subclasses

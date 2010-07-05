@@ -51,10 +51,10 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
-		
-		
+
+
 		final Type<AnItem> type = newType(AnItem.class);
-		
+
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));
 		assertEquals("AnItemAnn", type.getID());
@@ -65,7 +65,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertEquals("AnItemAnn.this", type.getThis().getID());
 		assertEquals("AnItemAnn.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
-		
+
 		assertEquals("intFieldAnn", AnItem.intField.getName());
 		assertEquals(null, type.getFeature("intField"));
 		assertEquals("boolField", AnItem.boolField.getName());
@@ -73,7 +73,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intFieldAnn"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
-		
+
 		assertTestAnnotation("AnItemAnnVal", type);
 		assertTestAnnotation2Null(type);
 		assertTestAnnotation("intFieldAnnVal",  AnItem.intField);
@@ -84,7 +84,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertTestAnnotationNull(AnItem.setField.getRelationType());
 		assertTestAnnotationNull(AnItem.setField.getElement());
 	}
-	
+
 	@CopeID("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
 	static class AnItem extends Item
@@ -95,19 +95,19 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		{
 			super(setValues);
 		}
-		
+
 		private AnItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		@CopeID("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")
 		static final IntegerField intField = new IntegerField();
-		
+
 		@TestAnnotation2
 		static final BooleanField boolField = new BooleanField();
-		
+
 		@TestAnnotation("setFieldAnnVal")
 		static final SetField<String> setField = SetField.newSet(new StringField());
 	}

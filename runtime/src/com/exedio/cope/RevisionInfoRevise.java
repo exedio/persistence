@@ -30,13 +30,13 @@ public final class RevisionInfoRevise extends RevisionInfo
 {
 	private final String comment;
 	private final Body[] body;
-	
+
 	public static final class Body
 	{
 		private final String sql;
 		private final int rows;
 		private final long elapsed;
-		
+
 		public Body(final String sql, final int rows, final long elapsed)
 		{
 			if(sql==null)
@@ -47,27 +47,27 @@ public final class RevisionInfoRevise extends RevisionInfo
 				throw new IllegalArgumentException("rows must be greater or equal zero, but was " + rows);
 			if(elapsed<0)
 				throw new IllegalArgumentException("elapsed must be greater or equal zero, but was " + elapsed);
-			
+
 			this.sql = sql;
 			this.rows = rows;
 			this.elapsed = elapsed;
 		}
-		
+
 		public String getSQL()
 		{
 			return sql;
 		}
-		
+
 		public int getRows()
 		{
 			return rows;
 		}
-		
+
 		public long getElapsed()
 		{
 			return elapsed;
 		}
-		
+
 		void fillStore(final int index, final Properties store)
 		{
 			final String bodyPrefix = "body" + index + '.';
@@ -75,7 +75,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 			store.setProperty(bodyPrefix + "rows", String.valueOf(rows));
 			store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 		}
-		
+
 		static final Body read(final int index, final Properties p)
 		{
 			final String bodyPrefix = "body" + index + '.';
@@ -87,21 +87,21 @@ public final class RevisionInfoRevise extends RevisionInfo
 					Integer.valueOf(p.getProperty(bodyPrefix + "rows")),
 					Long   .valueOf(p.getProperty(bodyPrefix + "elapsed")));
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return sql + '(' + rows + '/' + elapsed + ')';
 		}
 	}
-	
+
 	public RevisionInfoRevise(
 			final int number,
 			final Date date, final Map<String, String> environment,
 			final String comment, final Body... body)
 	{
 		super(number, date, environment);
-		
+
 		if(number<=0)
 			throw new IllegalArgumentException("number must be greater zero, but was " + number);
 		if(comment==null)
@@ -110,7 +110,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 			throw new NullPointerException("body");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
-		
+
 		// make a copy to avoid modifications afterwards
 		final Body[] bodyCopy = new Body[body.length];
 		for(int i = 0; i<body.length; i++)
@@ -120,23 +120,23 @@ public final class RevisionInfoRevise extends RevisionInfo
 				throw new NullPointerException("body" + '[' + i + ']');
 			bodyCopy[i] = b;
 		}
-		
+
 		this.comment = comment;
 		this.body = bodyCopy;
 	}
-	
+
 	public String getComment()
 	{
 		return comment;
 	}
-	
+
 	public List<Body> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));
 	}
-	
+
 	private static final String COMMENT = "comment";
-	
+
 	@Override
 	Properties getStore()
 	{
@@ -146,7 +146,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 			body[i].fillStore(i, store);
 		return store;
 	}
-	
+
 	static final RevisionInfoRevise read(
 			final int number,
 			final Date date,
@@ -156,7 +156,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		final String comment = p.getProperty(COMMENT);
 		if(comment==null)
 			return null;
-		
+
 		final ArrayList<Body> body = new ArrayList<Body>();
 		for(int i = 0; ; i++)
 		{
@@ -165,7 +165,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 				break;
 			body.add(b);
 		}
-				
+
 		return new RevisionInfoRevise(
 				number,
 				date,

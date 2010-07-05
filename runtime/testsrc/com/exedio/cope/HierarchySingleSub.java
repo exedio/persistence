@@ -23,8 +23,8 @@ public class HierarchySingleSub extends HierarchySingleSuper
 
 	public static final StringField subString = new StringField().optional();
 	public static final ItemField<HierarchySuper> hierarchySuper = newItemField(HierarchySuper.class).optional();
-	
-	
+
+
 	public HierarchySingleSub(final int initialSuperInt, final String subString)
 	{
 		super(new com.exedio.cope.SetValue[]{

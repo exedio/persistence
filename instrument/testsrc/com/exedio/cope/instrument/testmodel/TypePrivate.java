@@ -44,8 +44,8 @@ public class TypePrivate extends Item
 	{
 		System.out.println(TYPE);
 	}
-	
-	
+
+
 	/**
 
 	 **

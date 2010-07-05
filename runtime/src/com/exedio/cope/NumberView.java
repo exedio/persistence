@@ -29,7 +29,7 @@ public abstract class NumberView<E extends Number> extends View<E>
 	implements NumberFunction<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);
@@ -65,13 +65,13 @@ public abstract class NumberView<E extends Number> extends View<E>
 		else
 			return ((Number)value).toString();
 	}
-	
+
 	@Override
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
 		bf.appendParameter((Number)value);
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
@@ -79,22 +79,22 @@ public abstract class NumberView<E extends Number> extends View<E>
 	{
 		return new BindNumberFunction<E>(this, join);
 	}
-	
+
 	public final PlusLiteralView<E> plus(final E value)
 	{
 		return new PlusLiteralView<E>(this, value);
 	}
-	
+
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{
 		return new MultiplyLiteralView<E>(this, value);
 	}
-	
+
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
 		return new PlusView<E>(new NumberFunction[]{this, other});
 	}
-	
+
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)
 	{
 		return new MultiplyView<E>(new NumberFunction[]{this, other});
@@ -114,9 +114,9 @@ public abstract class NumberView<E extends Number> extends View<E>
 	{
 		return new AverageAggregate<E>(this);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */

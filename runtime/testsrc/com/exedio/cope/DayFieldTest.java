@@ -25,7 +25,7 @@ import com.exedio.cope.util.Day;
 public class DayFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(DayFieldTest.class, "MODEL");
@@ -34,12 +34,12 @@ public class DayFieldTest extends AbstractRuntimeTest
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
-	
+
 	public DayFieldTest()
 	{
 		super(MODEL);
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -117,7 +117,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(optionalDay, item.getOptionalDay());
 		restartTransaction();
 		assertEquals(optionalDay, item.getOptionalDay());
-		
+
 		item.touchOptionalDay();
 		assertEquals(new Day(), item.getOptionalDay());
 
@@ -126,7 +126,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(null, item.getOptionalDay());
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
@@ -140,12 +140,12 @@ public class DayFieldTest extends AbstractRuntimeTest
 			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.day + '.', e.getMessage());
 		}
 	}
-	
+
 	protected static List<? extends Day> search(final DayField selectField)
 	{
 		return search(selectField, null);
 	}
-	
+
 	protected static List<? extends Day> search(final DayField selectField, final Condition condition)
 	{
 		return new Query<Day>(selectField, condition).search();

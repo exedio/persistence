@@ -24,7 +24,7 @@ import com.exedio.cope.Item;
 class QueryAggregatorItem extends Item
 {
 	static final IntegerField intx = new IntegerField();
-	
+
 	/**
 
 	 **

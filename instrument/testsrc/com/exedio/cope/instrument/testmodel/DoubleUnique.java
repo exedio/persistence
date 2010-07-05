@@ -29,7 +29,7 @@ public class DoubleUnique extends Item
 	public static final StringField string = new StringField().toFinal();
 	public static final ItemField<SubTarget> item = newItemField(SubTarget.class, CASCADE).toFinal();
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
-	
+
 
 /**
 

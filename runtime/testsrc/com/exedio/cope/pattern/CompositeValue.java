@@ -30,17 +30,17 @@ public final class CompositeValue extends Composite
 	{
 		anEnumConstant1, anEnumConstant2;
 	}
-	
+
 	public static final StringField aString = new StringField();
 	public static final IntegerField anInt = new IntegerField();
 	public static final EnumField<AnEnumClass> anEnum = newEnumField(AnEnumClass.class);
 	public static final ItemField<CompositeOptionalItem> anItem = newItemField(CompositeOptionalItem.class);
-	
+
 	// test, that these fields do not become fields of the composite value
 	final transient BooleanField notStatic = new BooleanField();
 	static BooleanField notFinal = new BooleanField();
 	static final Object noFeature = new BooleanField();
-	
+
 	/**
 
 	 **

@@ -39,7 +39,7 @@ import com.exedio.cope.pattern.ListField;
 public class ModelSerializationTest extends CopeAssert
 {
 	private static final Model model = new Model(ModelSerializationItem.TYPE);
-	
+
 	@SuppressWarnings("unused")
 	private final Model modelNonStatic = null;
 	@SuppressWarnings("unused")
@@ -48,7 +48,7 @@ public class ModelSerializationTest extends CopeAssert
 	private static final Model modelNull = null;
 	@SuppressWarnings("unused")
 	private static final String modelWrong = "wrong";
-	
+
 	public void test() throws IOException
 	{
 		assertNotSerializable(model, Model.class);
@@ -62,7 +62,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
 		assertNotNull(model.toString());
-		
+
 		try
 		{
 			model.enableSerialization(null, null);
@@ -144,11 +144,11 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals("enableSerialization does not resolve to itself com.exedio.cope.CacheIsolationTest#MODEL", e.getMessage());
 		}
-		
+
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
 		assertNotSerializable(AnItem.TYPE, Type.class);
-		
+
 		model.enableSerialization(ModelSerializationTest.class, "model");
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
@@ -161,7 +161,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
 		assertEquals(ModelSerializationTest.class.getName() + "#model", model.toString());
-		
+
 		try
 		{
 			model.enableSerialization(ModelSerializationItem.class, "modelx");
@@ -182,7 +182,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
 	}
-	
+
 	private static final void assertNotSerializable(final Serializable value, final Class exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -202,19 +202,19 @@ public class ModelSerializationTest extends CopeAssert
 		}
 		oos.close();
 	}
-	
+
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private AnItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
-		
+
 		static final StringField field = new StringField();
 		static final ListField<String> pattern = ListField.newList(new StringField());
-		
+
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 	}
 }

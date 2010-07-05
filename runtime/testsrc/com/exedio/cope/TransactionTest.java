@@ -31,7 +31,7 @@ public class TransactionTest extends TestmodelTest
 	{
 		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -39,34 +39,34 @@ public class TransactionTest extends TestmodelTest
 		someItem = deleteOnTearDown(new EmptyItem());
 		item = deleteOnTearDown(newItem("someString"));
 	}
-	
+
 	private Transaction createTransaction(final String name)
 	{
 		return model.startTransaction(name);
 	}
-	
+
 	private void commit()
 	{
 		model.commit();
 	}
-	
+
 	private void rollback()
 	{
 		model.rollback();
 	}
-	
+
 	private void assertSomeString(final AttributeItem actualItem, final String someString)
 	{
 		assertEquals(someString, actualItem.getSomeString());
 		assertTrue(actualItem.TYPE.search(actualItem.someString.equal(someString)).contains(actualItem));
 		assertFalse(actualItem.TYPE.search(actualItem.someString.equal("X"+someString)).contains(actualItem));
 	}
-	
+
 	private void assertSomeString(final String someString)
 	{
 		assertSomeString(item, someString);
 	}
-	
+
 	private void assertNotExists(final AttributeItem actualItem)
 	{
 		assertTrue(!actualItem.existsCopeItem());
@@ -104,7 +104,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(actualItem.equals(actualItem));
 		actualItem.hashCode(); // test, that hashCode works
 	}
-	
+
 	public void testCommitChange()
 	{
 		assertSomeString(null);
@@ -122,7 +122,7 @@ public class TransactionTest extends TestmodelTest
 		createTransaction("testCommitChange2");
 		assertSomeString(null);
 	}
-	
+
 	public void testCommitCreate()
 	{
 		item.setSomeString("someString");
@@ -130,7 +130,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(itemx, null);
 		assertTrue(itemx.existsCopeItem());
 		commit();
-		
+
 		createTransaction("testCommitCreate1");
 		assertSomeString(itemx, null);
 		assertTrue(itemx.existsCopeItem());
@@ -143,14 +143,14 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(itemx, "someStringX");
 		assertSomeString(itemy, "someStringY");
 		commit();
-		
+
 		createTransaction("testCommitCreate2");
 		assertSomeString(itemx, "someStringX");
 		assertSomeString(itemy, "someStringY");
 		assertTrue(itemx.existsCopeItem());
 		assertTrue(itemy.existsCopeItem());
 	}
-	
+
 	public void testCommitDelete()
 	{
 		final AttributeItem itemx = newItem("someStringX");
@@ -159,7 +159,7 @@ public class TransactionTest extends TestmodelTest
 		itemx.deleteCopeItem();
 		assertNotExists(itemx);
 		commit();
-		
+
 		createTransaction("testCommitDelete1");
 		assertNotExists(itemx);
 		final AttributeItem itemy = newItem("someStringY");
@@ -174,12 +174,12 @@ public class TransactionTest extends TestmodelTest
 		itemy.deleteCopeItem();
 		assertNotExists(itemy);
 		commit();
-		
+
 		createTransaction("testCommitDelete3");
 		assertNotExists(itemx);
 		assertNotExists(itemy);
 	}
-	
+
 	public void testRollbackChange()
 	{
 		commit();
@@ -209,7 +209,7 @@ public class TransactionTest extends TestmodelTest
 	public void testRollbackCreate()
 	{
 		commit();
-		
+
 		createTransaction("testRollbackCreate1");
 		assertContains(item.TYPE.search(item.someNotNullString.equal("someStringX")));
 		assertContains(item.TYPE.search(item.someNotNullString.equal("someStringY")));
@@ -219,7 +219,7 @@ public class TransactionTest extends TestmodelTest
 		assertContains(item.TYPE.search(item.someNotNullString.equal("someStringY")));
 		assertTrue(itemx.existsCopeItem());
 		rollback();
-		
+
 		createTransaction("testRollbackCreate2");
 		assertContains(itemx.TYPE.search(itemx.someNotNullString.equal("someStringX")));
 		assertContains(item.TYPE.search(item.someNotNullString.equal("someStringY")));
@@ -235,7 +235,7 @@ public class TransactionTest extends TestmodelTest
 		assertContains(itemx.TYPE.search(itemx.someNotNullString.equal("someStringX")));
 		assertContains(itemy, itemy.TYPE.search(itemx.someNotNullString.equal("someStringY")));
 		rollback();
-		
+
 		createTransaction("testRollbackCreate3");
 		assertContains(itemx.TYPE.search(itemx.someNotNullString.equal("someStringX")));
 		assertContains(itemy.TYPE.search(itemx.someNotNullString.equal("someStringY")));
@@ -255,7 +255,7 @@ public class TransactionTest extends TestmodelTest
 		itemx.deleteCopeItem();
 		assertNotExists(itemx);
 		rollback();
-		
+
 		createTransaction("testRollbackDelete2");
 		assertTrue(itemx.existsCopeItem());
 		assertEquals("someString", item.getSomeNotNullString());
@@ -271,7 +271,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(item.existsCopeItem());
 		assertEquals("someString", item.getSomeNotNullString());
 	}
-	
+
 	public void xxtestIsolation() // TODO enable testIsolation
 	{
 		if ( ! model.supportsReadCommitted() ) return;
@@ -282,10 +282,10 @@ public class TransactionTest extends TestmodelTest
 
 		activate(t1);
 		assertSomeString(null);
-		
+
 		activate(t2);
 		assertSomeString(null);
-		
+
 		activate(t1);
 		assertSomeString(null);
 		item.setSomeString("someString");

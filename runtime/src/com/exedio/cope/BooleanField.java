@@ -22,7 +22,7 @@ package com.exedio.cope;
 public final class BooleanField extends FunctionField<Boolean>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	static final int[] ALLOWED_VALUES = {0, 1};
 
 	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
@@ -30,30 +30,30 @@ public final class BooleanField extends FunctionField<Boolean>
 		super(isfinal, optional, unique, Boolean.class, defaultConstant);
 		checkDefaultConstant();
 	}
-	
+
 	public BooleanField()
 	{
 		this(false, false, false, null);
 	}
-	
+
 	@Override
 	public BooleanField copy()
 	{
 		return new BooleanField(isfinal, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public BooleanField toFinal()
 	{
 		return new BooleanField(true, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public BooleanField optional()
 	{
 		return new BooleanField(isfinal, true, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public BooleanField unique()
 	{
@@ -65,24 +65,24 @@ public final class BooleanField extends FunctionField<Boolean>
 	{
 		return new BooleanField(isfinal, optional, false, defaultConstant);
 	}
-	
+
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
 		return new BooleanField(isfinal, optional, unique, defaultConstant);
 	}
-	
+
 	@Override
 	public Class getInitialType()
 	{
 		return optional ? Boolean.class : boolean.class;
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, this, name, optional, ALLOWED_VALUES);
 	}
-	
+
 	@Override
 	Boolean get(final Row row, final Query query)
 	{
@@ -102,16 +102,16 @@ public final class BooleanField extends FunctionField<Boolean>
 			}
 		}
 	}
-	
+
 	static final Integer FALSE = Integer.valueOf(0);
 	static final Integer TRUE = Integer.valueOf(1);
-		
+
 	@Override
 	void set(final Row row, final Boolean surface)
 	{
 		row.put(getColumn(), surface==null ? null : surface.booleanValue() ? TRUE : FALSE);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
@@ -119,10 +119,10 @@ public final class BooleanField extends FunctionField<Boolean>
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-		
+
 		return get(item).booleanValue();
 	}
-	
+
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,

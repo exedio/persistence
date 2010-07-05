@@ -39,7 +39,7 @@ public abstract class SchemaTest extends TestCase
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
-	
+
 	static final File getDefaultPropertyFile()
 	{
 		String result = System.getProperty("com.exedio.cope.properties");
@@ -60,17 +60,17 @@ public abstract class SchemaTest extends TestCase
 			super(getSource(getDefaultPropertyFile()), getSystemPropertySource());
 		}
 	}
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		final Properties config = new Properties();
 		final String url = config.databaseUrl.stringValue();
 		final String user = config.databaseUser.stringValue();
 		final String password = config.databasePassword.stringValue();
-		
+
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
@@ -109,13 +109,13 @@ public abstract class SchemaTest extends TestCase
 		}
 		else
 			throw new RuntimeException(url);
-		
+
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		connection1 = DriverManager.getConnection(url, user, password);
 		connection2 = DriverManager.getConnection(url, user, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
 	}
-	
+
 	@Override
 	public void tearDown() throws Exception
 	{
@@ -126,11 +126,11 @@ public abstract class SchemaTest extends TestCase
 
 		super.tearDown();
 	}
-	
+
 	private static final class SimpleConnectionProvider implements ConnectionProvider
 	{
 		final ArrayList<Connection> connections;
-		
+
 		SimpleConnectionProvider(final List<Connection> connections) throws SQLException
 		{
 			this.connections = new ArrayList<Connection>(connections);
@@ -150,15 +150,15 @@ public abstract class SchemaTest extends TestCase
 			connections.add(connection);
 		}
 	}
-	
+
 	protected final Schema newSchema()
 	{
 		return new Schema(dialect, provider);
 	}
-	
+
 	protected final String p(final String name)
 	{
 		return dialect.quoteName(name);
 	}
-	
+
 }

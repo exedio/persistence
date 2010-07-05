@@ -36,9 +36,9 @@ public final class ScheduleItem extends Item implements Scheduleable
 {
 	static final Schedule report = new Schedule(Locale.GERMAN);
 	static final BooleanField fail = new BooleanField().defaultTo(false);
-	
+
 	private static final ArrayList<Log> logs = new ArrayList<Log>();
-	
+
 	public void run(final Schedule schedule, final Date from, final Date until, final Interrupter interrupter)
 	{
 		assertSame(this.report, schedule);
@@ -47,14 +47,14 @@ public final class ScheduleItem extends Item implements Scheduleable
 		if(getFail())
 			throw new RuntimeException("schedule test failure");
 	}
-	
+
 	void assertLogs(final List<Log> expected)
 	{
 		assertEquals(expected, logs);
 		logs.clear();
 	}
-	
-	
+
+
 	/**
 
 	 **

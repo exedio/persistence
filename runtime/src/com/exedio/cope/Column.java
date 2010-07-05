@@ -34,7 +34,7 @@ abstract class Column
 	final String quotedID;
 	final boolean primaryKey;
 	final boolean optional;
-	
+
 	Column(
 			final Table table,
 			final Field field,
@@ -51,18 +51,18 @@ abstract class Column
 		this.optional = optional;
 		table.addColumn(this);
 	}
-	
+
 	abstract String getDatabaseType();
-	
+
 	abstract String getCheckConstraintIfNotNull();
 	String getCheckConstraintIfNull()
 	{
 		if(!optional)
 			throw new IllegalStateException(table.id + '.' + id);
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public final String toString()
 	{
@@ -100,7 +100,7 @@ abstract class Column
 		}
 		else
 			databaseType = getDatabaseType();
-		
+
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseType);
 
 		final String checkNotNull = getCheckConstraintIfNotNull();
@@ -113,7 +113,7 @@ abstract class Column
 		else
 		{
 			final String checkConstraint;
-			
+
 			if(optional)
 			{
 				final String checkNull = getCheckConstraintIfNull();
@@ -144,5 +144,5 @@ abstract class Column
 				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
 		}
 	}
-		
+
 }

@@ -28,22 +28,22 @@ import com.exedio.cope.Model;
 public class JavaViewTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(JavaViewItem.TYPE, JavaViewItem2.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(JavaViewTest.class, "MODEL");
 	}
-	
+
 	private static final Double d2 = new Double(2.25d);
-	
+
 	public JavaViewTest()
 	{
 		super(MODEL);
 	}
-	
+
 	JavaViewItem item;
 	JavaViewItem2 item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -51,7 +51,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new JavaViewItem());
 		item2 = deleteOnTearDown(new JavaViewItem2());
 	}
-	
+
 	public void testNumber()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
@@ -67,7 +67,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		assertEquals(null, item.numberString.getPattern());
 		assertEquals(Double.class, item.number.getValueType());
 		assertEquals(Double.class, item.number.getValueGenericType());
-		
+
 		assertSerializedSame(item.number         , 380);
 		assertSerializedSame(item.numberPrimitive, 389);
 
@@ -97,14 +97,14 @@ public class JavaViewTest extends AbstractRuntimeTest
 			assertEquals(UnsupportedOperationException.class, cause2.getClass());
 			assertEquals("numberPrimitive", cause2.getMessage());
 		}
-		
+
 		item.setNumberString("2.25");
 		assertEquals("2.25", item.getNumberString());
 		assertEquals(d2, item.getNumber());
 		assertEquals(d2, item.number.get(item));
 		assertEquals(2.25, item.getNumberPrimitive());
 		assertEquals(2.25, item.numberPrimitive.get(item));
-		
+
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
@@ -132,7 +132,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			assertEquals(UnsupportedOperationException.class, cause2.getClass());
 			assertEquals("numberPrimitive", cause2.getMessage());
 		}
-		
+
 		try
 		{
 			item.number.get(null);

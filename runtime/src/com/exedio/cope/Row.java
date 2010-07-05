@@ -26,25 +26,25 @@ import java.util.HashMap;
  */
 final class Row
 {
-	
+
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final HashMap<Column, Object> impl;
-	
+
 	Row()
 	{
 		impl = new HashMap<Column, Object>();
 	}
-	
+
 	Row(final Row row)
 	{
 		impl = new HashMap<Column, Object>(row.impl);
 	}
-	
+
 	Object get(final Column column)
 	{
 		return impl.get(column);
 	}
-	
+
 	void put(final Column column, final Object value)
 	{
 		if(value!=null)
@@ -52,11 +52,11 @@ final class Row
 		else
 			impl.remove(column);
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return impl.toString();
 	}
-	
+
 }

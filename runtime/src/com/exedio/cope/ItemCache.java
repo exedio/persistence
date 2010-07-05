@@ -33,11 +33,11 @@ final class ItemCache
 	 * Index of array is {@link Type#cacheIdTransiently}.
 	 */
 	private final Cachlet[] cachlets;
-	
+
 	ItemCache(final List<Type<?>> types, final int limit)
 	{
 		final int l = types.size();
-		
+
 		final int[] weights = new int[l];
 		int weightSum = 0;
 		for(int i = 0; i<l; i++)
@@ -50,7 +50,7 @@ final class ItemCache
 			weights[i] = weight;
 			weightSum += weight;
 		}
-		
+
 		cachlets = new Cachlet[l];
 		for(int i=0; i<l; i++)
 		{
@@ -58,7 +58,7 @@ final class ItemCache
 			cachlets[i] = (iLimit>0) ? new Cachlet(types.get(i), iLimit) : null;
 		}
 	}
-	
+
 	WrittenState getState(final Transaction connectionSource, final Item item)
 	{
 		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
@@ -66,7 +66,7 @@ final class ItemCache
 		WrittenState state = null;
 		if(cachlet!=null)
 			state = cachlet.get(item.pk);
-		
+
 		if ( state==null )
 		{
 			state = item.type.getModel().connect().database.load(connectionSource.getConnection(), item);
@@ -74,10 +74,10 @@ final class ItemCache
 			if(cachlet!=null)
 				cachlet.put(state);
 		}
-		
+
 		return state;
 	}
-	
+
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
@@ -91,7 +91,7 @@ final class ItemCache
 			}
 		}
 	}
-	
+
 	void clear()
 	{
 		for(final Cachlet cachlet : cachlets)
@@ -104,17 +104,17 @@ final class ItemCache
 	ItemCacheInfo[] getInfo()
 	{
 		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
-		
+
 		for(int i = 0; i<cachlets.length; i++)
 		{
 			final Cachlet cachlet = cachlets[i];
 			if(cachlet!=null)
 				result.add(cachlet.getInfo());
 		}
-		
+
 		return result.toArray(new ItemCacheInfo[result.size()]);
 	}
-	
+
 	private static final class Cachlet
 	{
 		private final Type type;
@@ -133,12 +133,12 @@ final class ItemCache
 		{
 			assert !type.isAbstract;
 			assert limit>0;
-			
+
 			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<WrittenState>();
 		}
-		
+
 		WrittenState get(final int pk)
 		{
 			final WrittenState result;
@@ -157,7 +157,7 @@ final class ItemCache
 
 			return result;
 		}
-		
+
 		void put(final WrittenState state)
 		{
 			synchronized(map)
@@ -194,24 +194,24 @@ final class ItemCache
 					lastReplacementRun = now;
 				}
 			}
-			
+
 		}
-		
+
 		void invalidate(final TIntHashSet invalidatedPKs)
 		{
 			synchronized(map)
 			{
 				final int mapSizeBefore = map.size();
-				
+
 				// TODO implement and use a removeAll
 				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
 					map.remove(i.next());
-				
+
 				invalidationsOrdered += invalidatedPKs.size();
 				invalidationsDone    += (mapSizeBefore - map.size());
 			}
 		}
-		
+
 		void clear()
 		{
 			synchronized(map)
@@ -219,7 +219,7 @@ final class ItemCache
 				map.clear();
 			}
 		}
-		
+
 		ItemCacheInfo getInfo()
 		{
 			final long now = System.currentTimeMillis();
@@ -246,7 +246,7 @@ final class ItemCache
 						ageMax = age;
 				}
 			}
-			
+
 			return new ItemCacheInfo(
 				type,
 				limit, level,

@@ -24,13 +24,13 @@ import com.exedio.cope.StringField;
 class SuperItem extends Item
 {
 	static final StringField code = new StringField().toFinal();
-	
+
 	@Override
 	public String toString()
 	{
 		return getCode();
 	}
-	
+
 	/**
 
 	 **

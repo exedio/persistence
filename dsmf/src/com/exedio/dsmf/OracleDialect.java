@@ -60,7 +60,7 @@ public final class OracleDialect extends Dialect
 					return "TIMESTAMP(3)";
 				else if("NCLOB".equals(typeName))
 					return "NCLOB";
-				
+
 				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
 			}
 			case Types.VARCHAR:
@@ -90,13 +90,13 @@ public final class OracleDialect extends Dialect
 				first = false;
 			else
 				bf.append(',');
-			
+
 			bf.append(quoteName((String)i.next()));
 		}
 		bf.append(')');
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
-	
+
 	@Override
 	void verify(final Schema schema)
 	{
@@ -114,7 +114,7 @@ public final class OracleDialect extends Dialect
 					}
 				}
 			});
-		
+
 		schema.querySQL(
 				"select " +
 				"uc.TABLE_NAME," +

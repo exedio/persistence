@@ -25,7 +25,7 @@ public class JoinFunctionItemSingle extends Item
 	 */
 	public static final StringField name = new StringField();
 
-	
+
 /**
 
 	 **

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertSame;
 class CreateSuperItem extends Item
 {
 	static final StringField text = new StringField();
-	
+
 	@SuppressWarnings("unused")
 	private static final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
 	{
@@ -35,13 +35,13 @@ class CreateSuperItem extends Item
 		setValues[0] = text.map(((String)setValues[0].value) + ".preCreateSuper");
 		return setValues;
 	}
-	
+
 	@Override
 	protected void afterNewCopeItem()
 	{
 		setText(getText() + ".postCreateSuper");
 	}
-	
+
 	/**
 
 	 **

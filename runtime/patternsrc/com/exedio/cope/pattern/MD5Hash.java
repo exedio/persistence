@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 public final class MD5Hash extends Hash
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private static final String HASH = "MD5";
 
 	/**

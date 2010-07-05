@@ -28,12 +28,12 @@ enum Visibility
 	PRIVATE(Modifier.PRIVATE);
 
 	final int modifier;
-	
+
 	Visibility(final int modifier)
 	{
 		this.modifier = modifier;
 	}
-	
+
 	static Visibility fromModifier(final int modifier)
 	{
 		switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))

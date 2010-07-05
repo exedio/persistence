@@ -28,7 +28,7 @@ final class PK
 	{
 		// prevent instantiation
 	}
-	
+
 	static boolean isValid(final int pk)
 	{
 		return pk>=MIN_VALUE;

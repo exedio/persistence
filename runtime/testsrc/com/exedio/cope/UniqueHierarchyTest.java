@@ -26,7 +26,7 @@ package com.exedio.cope;
 public class UniqueHierarchyTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(UniqueHierarchySuperItem.TYPE, UniqueHierarchySubItem.TYPE);
-	
+
 	public UniqueHierarchyTest()
 	{
 		super(MODEL);
@@ -36,7 +36,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 	{
 		assertEquals(list(), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());
-		
+
 		final UniqueHierarchySubItem item = deleteOnTearDown(new UniqueHierarchySubItem("super1", "sub1"));
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
@@ -58,7 +58,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		deleteOnTearDown(item2);
 		assertEquals(list(item, item2), UniqueHierarchySuperItem.TYPE.search(null, UniqueHierarchySuperItem.TYPE.getThis(), true));
 		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, item.TYPE.getThis(), true));
-		
+
 		try
 		{
 			item2.setSubField("sub1");
@@ -70,7 +70,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 			assertEquals(item2, e.getItem());
 		}
 		assertEquals("sub2", item2.getSubField());
-		
+
 		// test setting the value already set
 		item.setSubField("sub1");
 		assertEquals("sub1", item.getSubField());

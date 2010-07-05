@@ -39,7 +39,7 @@ public class EmptyItem extends Item
 	 * This tests, that there are no name collisions.
 	 */
 	boolean pk;
-	
+
 	/**
 
 	 **

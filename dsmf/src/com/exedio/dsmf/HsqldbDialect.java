@@ -53,7 +53,7 @@ public final class HsqldbDialect extends Dialect
 				return null;
 		}
 	}
-	
+
 	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_TABLE_CONSTRAINTS";
 	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_CHECK_CONSTRAINTS";
 	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
@@ -76,9 +76,9 @@ public final class HsqldbDialect extends Dialect
 						final String constraintName = resultSet.getString(1);
 						final String constraintType = resultSet.getString(2);
 						final String tableName = resultSet.getString(3);
-						
+
 						final Table table = schema.notifyExistentTable(tableName);
-						
+
 						if("CHECK".equals(constraintType))
 						{
 							final String tablePrefix = quoteName(tableName)+'.';
@@ -100,7 +100,7 @@ public final class HsqldbDialect extends Dialect
 							bf.append("select COLUMN_NAME from " + SYSTEM_INDEXINFO + " where INDEX_NAME like 'SYS_IDX_").
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
-							
+
 							schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 								{
 									public void run(final ResultSet resultSet) throws SQLException

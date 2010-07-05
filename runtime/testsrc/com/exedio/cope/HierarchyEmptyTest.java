@@ -30,7 +30,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	public void testHierarchy()
 			throws IntegrityViolationException, UniqueViolationException
 	{
@@ -65,7 +65,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertEquals(null, HierarchyEmptySuper.TYPE.getFeature("zack"));
 		assertFalse(HierarchyEmptySuper.TYPE.isAbstract());
 		assertEquals(HierarchyEmptySuper.TYPE, HierarchyEmptySuper.superInt.getType());
-		
+
 		// model HierarchyEmptySub
 		assertEquals(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getSubtypes());
@@ -94,33 +94,33 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 
 		// test persistence
 		assertCheckModificationCounters();
-		
+
 		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
 		assertCheckModificationCounters();
 		assertEquals(0, subItem.getSuperInt());
-		
+
 		subItem.setSuperInt(2);
 		assertCheckModificationCounters();
 		assertEquals(2, subItem.getSuperInt());
-		
+
 		if(!noJoinParentheses) assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
 		assertEquals(list(subItem), subItem.TYPE.search(null));
 		if(!noJoinParentheses) assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
-		
+
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 		assertCheckModificationCounters();
 		assertEquals(3, superItem.getSuperInt());
-		
+
 		superItem.setSuperInt(4);
 		assertCheckModificationCounters();
 		assertEquals(4, superItem.getSuperInt());
-		
+
 		assertEquals(list(superItem), superItem.TYPE.search(superItem.superInt.equal(4)));
 		assertEquals(list(subItem), superItem.TYPE.search(superItem.superInt.equal(2)));
 		assertContains(superItem, subItem, superItem.TYPE.search(null));
 		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
 	}
-	
+
 	public void testModel()
 	{
 		model.checkSchema();
@@ -137,7 +137,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		}
-		
+
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySub.TYPE,
 				HierarchyEmptySuper.TYPE
@@ -150,7 +150,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 				HierarchyEmptySub.TYPE,
 				HierarchyEmptySuper.TYPE
 			), model.getConcreteTypes());
-		
+
 		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
@@ -160,11 +160,11 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		}
 		else
 			assertEquals(0, itemCacheInfo.length);
-		
+
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 	}
-	
+
 }

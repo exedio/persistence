@@ -35,17 +35,17 @@ import com.exedio.cope.StringField;
 public class ImporterTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ImporterItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(ImporterTest.class, "MODEL");
 	}
-	
+
 	public ImporterTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -70,7 +70,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals(list(), byCode.getSourceFeatures());
 		assertEquals(list(), byCode.getSourceTypes());
 		assertSerializedSame(byCode, 380);
-		
+
 		try
 		{
 			Importer.newImporter(null);
@@ -107,17 +107,17 @@ public class ImporterTest extends AbstractRuntimeTest
 		{
 			assertEquals("key must be unique", e.getMessage());
 		}
-		
+
 		// test persistence
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
-		
+
 		final ImporterItem itemA = deleteOnTearDown(
 			importByCode("codeA", description.map("descA"), description2.map("desc2A")));
 		assertEquals(list(itemA), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
 		assertEquals("desc2A", itemA.getDescription2());
-		
+
 		final ImporterItem itemB = deleteOnTearDown(
 			importByCode("codeB", description.map("descB"), description2.map("desc2B")));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
@@ -127,7 +127,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("codeB",  itemB.getCode());
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
-		
+
 		assertEquals(itemA,
 			importByCode("codeA", description.map("descAx"), description2.map("desc2Ax")));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
@@ -137,7 +137,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("codeB",  itemB.getCode());
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
-		
+
 		final ArrayList<SetValue> list = new ArrayList<SetValue>();
 		list.add(description.map("descBl"));
 		list.add(description2.map("desc2Bl"));

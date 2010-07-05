@@ -29,12 +29,12 @@ import com.exedio.cope.misc.Computed;
 public final class SingletonTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SingletonItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(SingletonTest.class, "MODEL");
 	}
-	
+
 	public SingletonTest()
 	{
 		super(MODEL);
@@ -69,17 +69,17 @@ public final class SingletonTest extends AbstractRuntimeTest
 		assertEquals("einzigartig",     item.einzigartig.getName());
 
 		assertEquals(item.einzigartig, item.einzigartig.getSource().getPattern());
-		
+
 		assertFalse(item.einzigartig.            isAnnotationPresent(Computed.class));
 		assertTrue (item.einzigartig.getSource().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.einzigartig, 387);
-		
+
 		// test persistence
 		assertEquals("einzigartig_once", SchemaInfo.getColumnName(item.einzigartig.getSource()));
-		
+
 		assertEquals(list(), item.TYPE.search());
-		
+
 		final SingletonItem theOne = deleteOnTearDown(SingletonItem.instance());
 		assertEquals(list(theOne), item.TYPE.search());
 		assertEquals(null, theOne.getInteger());

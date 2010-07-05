@@ -25,12 +25,12 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	implements NumberFunction<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	protected NumberField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
@@ -38,17 +38,17 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	{
 		return new BindNumberFunction<E>(this, join);
 	}
-	
+
 	public final PlusLiteralView<E> plus(final E value)
 	{
 		return new PlusLiteralView<E>(this, value);
 	}
-	
+
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{
 		return new MultiplyLiteralView<E>(this, value);
 	}
-	
+
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
 		return new PlusView<E>(new NumberFunction[]{this, other});
@@ -75,7 +75,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	}
 
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */

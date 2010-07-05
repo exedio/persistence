@@ -24,38 +24,38 @@ import java.lang.reflect.AnnotatedElement;
 class RenamedSchemaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final IntegerField sourceFeature;
 
 	final StringField sourceTypeField = new StringField();
 	private Type<?> sourceType = null;
-	
+
 	final StringField sourceTypePostfixField = new StringField();
 	private Type<?> sourceTypePostfix = null;
-	
+
 	RenamedSchemaPattern()
 	{
 		this.sourceFeature = new IntegerField();
 		addSource(sourceFeature, "sourceFeature", new AnnotationSource("sourceFeature"));
 	}
-	
+
 	private static final class AnnotationSource implements AnnotatedElement
 	{
 		final String name;
-		
+
 		AnnotationSource(final String name)
 		{
 			this.name = name;
 		}
-		
+
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(TestAnnotation.class==annotationClass)
 				return true;
-			
+
 			return false;
 		}
-		
+
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(TestAnnotation.class==annotationClass)
@@ -66,63 +66,63 @@ class RenamedSchemaPattern extends Pattern
 					{
 						return TestAnnotation.class;
 					}
-					
+
 					public String value()
 					{
 						return name + "-TestAnnotation";
 					}
 				});
 			}
-			
+
 			return null;
 		}
-		
+
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException();
 		}
-		
+
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException();
 		}
 	};
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		
+
 		final Features features = new Features();
 		features.put("field", sourceTypeField);
 		this.sourceType = newSourceType(SourceType.class, features);
-		
+
 		features.clear();
 		features.put("field", sourceTypePostfixField);
 		this.sourceTypePostfix = newSourceType(SourceType.class, features, "tail");
 	}
-	
+
 	Type<?> getSourceType()
 	{
 		if(sourceType==null)
 			throw new IllegalStateException();
-		
+
 		return sourceType;
 	}
-	
+
 	Type<?> getSourceTypePostfix()
 	{
 		if(sourceTypePostfix==null)
 			throw new IllegalStateException();
-		
+
 		return sourceTypePostfix;
 	}
-	
+
 	@TestAnnotation("sourceType-TestAnnotation")
 	static final class SourceType extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private SourceType(final ActivationParameters ap)
 		{
 			super(ap);

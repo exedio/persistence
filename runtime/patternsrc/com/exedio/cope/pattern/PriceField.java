@@ -36,16 +36,16 @@ import com.exedio.cope.misc.ComputedElement;
 public final class PriceField extends Pattern implements Settable<Price>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final IntegerField integer;
 	private final boolean isfinal;
 	private final boolean optional;
-	
+
 	public PriceField()
 	{
 		this(new IntegerField());
 	}
-	
+
 	private PriceField(final IntegerField integer)
 	{
 		this.integer = integer;
@@ -53,58 +53,58 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.isfinal = integer.isFinal();
 		this.optional = !integer.isMandatory();
 	}
-	
+
 	public PriceField toFinal()
 	{
 		return new PriceField(integer.toFinal());
 	}
-	
+
 	public PriceField optional()
 	{
 		return new PriceField(integer.optional());
 	}
-	
+
 	public PriceField min(final int minimum)
 	{
 		return new PriceField(integer.min(minimum));
 	}
-	
+
 	public IntegerField getInt()
 	{
 		return integer;
 	}
-	
+
 	public boolean isInitial()
 	{
 		return integer.isInitial();
 	}
-	
+
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
-	
+
 	public Class getInitialType()
 	{
 		return Price.class;
 	}
-	
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return integer.getInitialExceptions();
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Price.class));
-		
+
 		if(!isfinal)
 		{
 			result.add(
@@ -113,35 +113,35 @@ public final class PriceField extends Pattern implements Settable<Price>
 				addThrows(getInitialExceptions()).
 				addParameter(Price.class));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public Price get(final Item item)
 	{
 		return Price.storeOf(integer.get(item));
 	}
-	
+
 	public void set(final Item item, final Price value)
 	{
 		if(isfinal)
 			throw new FinalViolationException(this, this, item);
 		if(value==null && !optional)
 			throw new MandatoryViolationException(this, this, item);
-		
+
 		integer.set(item, value!=null ? value.store : null);
 	}
-	
+
 	public SetValue<Price> map(final Price value)
 	{
 		return new SetValue<Price>(this, value);
 	}
-	
+
 	public SetValue[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw new MandatoryViolationException(this, this, exceptionItem);
-		
+
 		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
 	}
 }

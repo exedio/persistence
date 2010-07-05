@@ -26,16 +26,16 @@ class EnumItem extends Item
 		status2,
 		status3;
 	}
-	
+
 	static final EnumField<Status> status = newEnumField(Status.class);
-	
+
 	static enum Single
 	{
 		single;
 	}
-	
+
 	static final EnumField<Single> single = newEnumField(Single.class).optional();
-	
+
 	/**
 
 	 **

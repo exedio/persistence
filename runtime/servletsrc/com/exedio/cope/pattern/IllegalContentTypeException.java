@@ -24,10 +24,10 @@ import com.exedio.cope.Item;
 public final class IllegalContentTypeException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Media feature;
 	private final String contentType;
-	
+
 	/**
 	 * Creates a new IllegalContentTypeException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -39,13 +39,13 @@ public final class IllegalContentTypeException extends ConstraintViolationExcept
 		this.feature = feature;
 		this.contentType = contentType;
 	}
-	
+
 	@Override
 	public Media getFeature()
 	{
 		return feature;
 	}
-	
+
 	public String getContentType()
 	{
 		return contentType;

@@ -32,19 +32,19 @@ import com.exedio.cope.StringField;
 final class MediaCustom extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final StringField source;
 
 	MediaCustom(final StringField source)
 	{
 		this.source = source;
 	}
-	
+
 	StringField getSource()
 	{
 		return source;
 	}
-	
+
 	@Override
 	public String getContentType(final Item item)
 	{
@@ -58,7 +58,7 @@ final class MediaCustom extends MediaPath
 	{
 		throw new RuntimeException();
 	}
-	
+
 	@Override
 	public Condition isNull()
 	{

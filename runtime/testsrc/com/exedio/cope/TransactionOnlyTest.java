@@ -27,7 +27,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 	{
 		super(CacheIsolationTest.MODEL);
 	}
-	
+
 	public void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
@@ -65,7 +65,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		}
 		assertEquals(tx, model.currentTransaction());
 	}
-	
+
 	public void testJoinClosed()
 	{
 		Transaction tx = model.currentTransaction();
@@ -83,17 +83,17 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		model.startTransaction("just for tearDown");
 		assertEquals( "just for tearDown", model.currentTransaction().getName() );
 	}
-	
+
 	static class IllegalStateExceptionReference
 	{
 		IllegalStateException e = null;
 	}
-	
+
 	public void testJoinMultiple() throws InterruptedException
 	{
 		final Transaction tx = model.currentTransaction();
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
-		
+
 		final Thread t2 = new Thread(new Runnable(){
 			public void run()
 			{
@@ -112,7 +112,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertNotNull(rer.e);
 		assertEquals("transaction already bound to other thread: " + Thread.currentThread().getId(), rer.e.getMessage());
 	}
-	
+
 	public void testTransactionLifecycle()
 	{
 		final Transaction copeTest = model.currentTransaction();
@@ -121,13 +121,13 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertSame(Thread.currentThread(), copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( copeTest );
-		
+
 		model.leaveTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
 		assertSame(null, copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( null );
-		
+
 		final Date before = new Date();
 		final Transaction tx1 = model.startTransaction( "tx1" );
 		final Date after = new Date();
@@ -140,7 +140,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( tx1 );
-		
+
 		model.leaveTransaction();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
 		assertSame(null, copeTest.getBoundThread());
@@ -148,7 +148,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( null );
-		
+
 		model.joinTransaction( copeTest );
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
 		assertSame(Thread.currentThread(), copeTest.getBoundThread());
@@ -156,7 +156,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( copeTest );
-		
+
 		model.commit();
 		assertContains( tx1, model.getOpenTransactions() );
 		assertSame(null, copeTest.getBoundThread());
@@ -164,7 +164,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( null );
-		
+
 		model.joinTransaction( tx1 );
 		assertContains( tx1, model.getOpenTransactions() );
 		assertSame(null, copeTest.getBoundThread());
@@ -172,7 +172,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( tx1 );
-		
+
 		model.rollback();
 		assertContains( model.getOpenTransactions() );
 		assertSame(null, copeTest.getBoundThread());
@@ -180,10 +180,10 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( true, tx1.isClosed() );
 		assertCurrentTransaction( null );
-		
+
 		model.startTransaction( "forTearDown" );
 	}
-	
+
 	private void assertCurrentTransaction( Transaction tx )
 	{
 		assertEquals( tx!=null, model.hasCurrentTransaction() );

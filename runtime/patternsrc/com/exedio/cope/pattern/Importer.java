@@ -33,9 +33,9 @@ import com.exedio.cope.util.Cast;
 public final class Importer<E extends Object> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final FunctionField<E> key;
-	
+
 	private Importer(final FunctionField<E> key)
 	{
 		if(key==null)
@@ -46,26 +46,26 @@ public final class Importer<E extends Object> extends Pattern
 			throw new IllegalArgumentException("key must be mandatory");
 		if(key.getImplicitUniqueConstraint()==null)
 			throw new IllegalArgumentException("key must be unique");
-		
+
 		this.key = key;
 	}
-	
+
 	public static final <E> Importer<E> newImporter(final FunctionField<E> key)
 	{
 		return new Importer<E>(key);
 	}
-	
+
 	public FunctionField<E> getKey()
 	{
 		return key;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("doImport").
 			setMethodWrapperPattern("import{0}").
@@ -82,10 +82,10 @@ public final class Importer<E extends Object> extends Pattern
 			addParameter(key.getInitialType(), "keyValue").
 			addParameter(Wrapper.genericExtends(List.class, SetValue.class), "setValues").
 			setStatic());
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
 			final E keyValue,
@@ -93,7 +93,7 @@ public final class Importer<E extends Object> extends Pattern
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
-	
+
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
 			final E keyValue,
@@ -103,7 +103,7 @@ public final class Importer<E extends Object> extends Pattern
 			throw new NullPointerException("keyValue");
 		if(setValues==null)
 			throw new NullPointerException("setValues");
-		
+
 		final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
 		if(existent!=null)
 		{

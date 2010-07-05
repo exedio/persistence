@@ -36,7 +36,7 @@ public class FieldItemTest extends FieldTest
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getReferences());
 		assertSerializedSame(item.someItem, 377);
-		
+
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
 		assertEquals(someItem, item.getSomeItem());
@@ -71,7 +71,7 @@ public class FieldItemTest extends FieldTest
 		{
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
-		
+
 		final EmptyItem2 wrongItem = deleteOnTearDown(new EmptyItem2());
 		try
 		{
@@ -83,7 +83,7 @@ public class FieldItemTest extends FieldTest
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
 	}
-	
+
 	public void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{
@@ -127,7 +127,7 @@ public class FieldItemTest extends FieldTest
 			assertEquals("mandatory violation for " + item.someNotNullItem, e.getMessage());
 		}
 	}
-	
+
 	public void testIntegrity()
 	{
 		final EmptyItem2 target = deleteOnTearDown(new EmptyItem2());

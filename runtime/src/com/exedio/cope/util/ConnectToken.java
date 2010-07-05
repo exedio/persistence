@@ -32,7 +32,7 @@ import com.exedio.cope.Model;
 public final class ConnectToken
 {
 	private final com.exedio.cope.misc.ConnectToken ct;
-	
+
 	ConnectToken(
 			final com.exedio.cope.misc.ConnectToken ct)
 	{
@@ -58,22 +58,22 @@ public final class ConnectToken
 	{
 		return ct.getName();
 	}
-	
+
 	public boolean didConnect()
 	{
 		return ct.didConnect();
 	}
-	
+
 	public boolean isReturned()
 	{
 		return ct.isReturned();
 	}
-	
+
 	public boolean returnIt()
 	{
 		return ct.returnIt();
 	}
-	
+
 	public static final ConnectToken issue(
 			final Model model,
 			final com.exedio.cope.ConnectProperties properties,
@@ -89,16 +89,16 @@ public final class ConnectToken
 			result.add(new ConnectToken(ct));
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof ConnectToken))
 			return false;
-		
+
 		return this.ct == ((ConnectToken)other).ct;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

@@ -34,11 +34,11 @@ public class AbstractWebTest extends TestCase
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		
+
 		post("console/schema.html", "schema.create");
 		post("init.jsp", "INIT");
 	}
-	
+
 	private static final void post(final String url, final String button) throws Exception
 	{
 		final byte[] content = new String(button + "=true").getBytes("UTF8");
@@ -54,23 +54,23 @@ public class AbstractWebTest extends TestCase
 		con.getOutputStream().write(content);
 		final int responseCode = con.getResponseCode();
 		final String responseMessage = con.getResponseMessage();
-		
+
 		con.disconnect();
 		//System.out.println("test tomcat connect " + (System.currentTimeMillis() - start) + "ms");
 		if(responseCode!=200)
 			throw new IOException("expected http response 200 (OK), but was " + responseCode + ' ' + '(' + responseMessage + ')');
 	}
-	
+
 	@Override
 	public void tearDown() throws Exception
 	{
 		post("console/schema.html", "DROP");
 		super.tearDown();
 	}
-	
-	
+
+
 	// ----------------------------------- adapted from CopeAssert
-	
+
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
 	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)

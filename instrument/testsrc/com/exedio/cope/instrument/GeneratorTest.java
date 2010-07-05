@@ -57,21 +57,21 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 public class GeneratorTest extends InstrumentorTest
 {
 	public static final int VARARGS = 0x00000080;
-	
+
 	final static Class STRING = String.class;
 	final static Class DOUBLE = Double.class;
 	final static Class BYTE_ARRAY = byte[].class;
 	final static Class INPUT_STREAM = InputStream.class;
 	final static Class OUTPUT_STREAM = OutputStream.class;
 	final static Class IO_EXCEPTION = IOException.class;
-	
+
 	final static Class SET_VALUE_ARRAY = SetValue[].class;
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class LENGTH_VIOLATION = StringLengthViolationException.class;
 	final static Class DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
 	final static Class ACTIVATION = ActivationParameters.class;
-	
+
 	final static Class STANDARD = Standard.class;
 	final static Class TYPE_NONE = TypeNone.class;
 	final static Class TYPE_PRIVATE = TypePrivate.class;
@@ -183,7 +183,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "getAsIsBoolean");
 		assertMethod(STANDARD, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
-		
+
 		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
@@ -192,7 +192,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertNoMethod(STANDARD, "getIgnoreString");
 		assertNoMethod(STANDARD, "setIgnoreString", new Class[]{STRING});
-		
+
 		assertMethod(STANDARD, "get", DOUBLE, FINAL);
 		assertMethod(STANDARD, "set", new Class[]{DOUBLE}, FINAL, new Class[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
 		assertMethod(STANDARD, "forDefaultFeature", new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
@@ -283,7 +283,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "setXMLReader", new Class[]{STRING}, FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getXMLReader", STRING, FINAL);
-		
+
 		assertField(STANDARD, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
@@ -311,7 +311,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);
 	}
-	
+
 	public void testHierarchy()
 	{
 		assertConstructor(SUPER, new Class[]{
@@ -349,7 +349,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(INPUT_SUB2, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(INPUT_SUB2, new Class[]{ACTIVATION}, PRIVATE);
 	}
-	
+
 	void assertField(
 			final Class javaClass, final String name,
 			final Class returnType, final int modifiers)
@@ -366,7 +366,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(returnType, field.getType());
 		assertEquals(modifiers, field.getModifiers());
 	}
-	
+
 	void assertNoField(final Class javaClass, final String name)
 	{
 		try
@@ -384,7 +384,7 @@ public class GeneratorTest extends InstrumentorTest
 	{
 		assertMethod(javaClass, name, null, returnType, modifiers, new Class[]{});
 	}
-	
+
 	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers)
 	{
 		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers, new Class[]{});
@@ -441,7 +441,7 @@ public class GeneratorTest extends InstrumentorTest
 	{
 		assertConstructor(javaClass, parameterTypes, modifiers, new Class[]{});
 	}
-	
+
 	void assertConstructor(
 			final Class<?> javaClass, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
 	{

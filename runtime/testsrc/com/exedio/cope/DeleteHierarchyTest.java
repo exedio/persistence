@@ -27,7 +27,7 @@ public class DeleteHierarchyTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -37,7 +37,7 @@ public class DeleteHierarchyTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(DeleteHierarchySource.target), DeleteHierarchyTargetSuper.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(), DeleteHierarchyTargetSub.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(DeleteHierarchySource.target), DeleteHierarchyTargetSub.TYPE.getReferences());
-		
+
 		// test persistence
 		final DeleteHierarchyTargetSub target = new DeleteHierarchyTargetSub("target");
 		final DeleteHierarchySource source = new DeleteHierarchySource(target);

@@ -36,7 +36,7 @@ final class DialectParameters
 	final boolean supportsTransactionIsolationLevel;
 	final EnvironmentInfo environmentInfo;
 	final boolean nullsAreSortedLow;
-	
+
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
 		this.properties = properties;
@@ -60,11 +60,11 @@ final class DialectParameters
 			throw new SQLRuntimeException(e, "getMetaData");
 		}
 	}
-	
+
 	Map<String, String> getRevisionEnvironment()
 	{
 		final HashMap<String, String> store = new HashMap<String, String>();
-		
+
 		try
 		{
 			store.put("hostname", InetAddress.getLocalHost().getHostName());
@@ -73,7 +73,7 @@ final class DialectParameters
 		{
 			// do not put in hostname
 		}
-		
+
 		store.put("jdbc.url",  properties.getDatabaseUrl());
 		store.put("jdbc.user", properties.getDatabaseUser());
 		store.put("database.name",    environmentInfo.getDatabaseProductName());
@@ -84,7 +84,7 @@ final class DialectParameters
 		store.put("driver.version", environmentInfo.getDriverVersion());
 		store.put("driver.version.major", String.valueOf(environmentInfo.getDriverMajorVersion()));
 		store.put("driver.version.minor", String.valueOf(environmentInfo.getDriverMinorVersion()));
-		
+
 		return store;
 	}
 }

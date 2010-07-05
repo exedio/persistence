@@ -32,31 +32,31 @@ import com.exedio.cope.pattern.History.Feature;
 public class HistoryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(HistoryTest.class, "MODEL");
 	}
-	
+
 	public HistoryTest()
 	{
 		super(MODEL);
 	}
 
 	HistoryItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new HistoryItem());
 	}
-	
+
 	public void testIt()
 	{
 		final Type<?> eventType = item.audit.getEventType();
 		final Type<?> featureType = item.audit.getFeatureType();
-		
+
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
@@ -154,23 +154,23 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertTrue(!eventType.isAssignableFrom(featureType));
 		assertTrue(!item.TYPE.isAssignableFrom(eventType));
 		assertTrue(!eventType.isAssignableFrom(item.TYPE));
-		
+
 		assertSame(HistoryItem.class, item.auditEventParent().getValueClass());
 		assertSame(HistoryItem.TYPE, item.auditEventParent().getValueType());
 		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
 		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
-		
+
 		assertSame(item.auditEventParent(), item.audit.getEventEvents().getContainer());
 		assertSame(item.audit.getEventDate(), item.audit.getEventEvents().getOrder());
 		assertSame(item.audit.getFeatureEvent(), item.audit.getFeatureFeatures().getContainer());
 		assertSame(null, item.audit.getFeatureFeatures().getOrder());
-		
+
 		assertTrue(  eventType.isAnnotationPresent(Computed.class));
 		assertTrue(featureType.isAnnotationPresent(Computed.class));
-		
+
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
-		
+
 		List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
 		assertEquals(1, historyPartOfs.size());
 		PartOf eventPartOf = historyPartOfs.get(0);
@@ -181,14 +181,14 @@ public class HistoryTest extends AbstractRuntimeTest
 		PartOf featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
-		
+
 		assertSerializedSame(HistoryItem.audit, 377);
-		
+
 		// test persistence
 		assertEquals("id", SchemaInfo.getColumnName(HistoryItem.audit.getFeatureId()));
-		
+
 		assertEquals(list(), item.getAuditEvents());
-		
+
 		final Date before1 = new Date();
 		History.Event event1 = item.createAuditEvent("author1", true);
 		final Date after1 = new Date();
@@ -199,7 +199,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(true, event1.isNew());
 		assertEquals(list(), event1.getFeatures());
 		assertEqualsUnmodifiable(list(event1), item.getAuditEvents());
-		
+
 		final Feature feature11 = event1.createFeature(item.amount, "Amount", new Double(1.1), new Double(2.2));
 		assertSame(item.audit, feature11.getPattern());
 		assertEquals(event1, feature11.getEvent());
@@ -209,7 +209,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals("1.1", feature11.getOld());
 		assertEquals("2.2", feature11.getNew());
 		assertEquals(list(feature11), event1.getFeatures());
-		
+
 		final Feature feature12 = event1.createFeature(item.comment, "Comment", "blub", "blah");
 		assertSame(item.audit, feature12.getPattern());
 		assertEquals(event1, feature12.getEvent());
@@ -219,7 +219,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals("blub", feature12.getOld());
 		assertEquals("blah", feature12.getNew());
 		assertEquals(list(feature11, feature12), event1.getFeatures());
-		
+
 		final Date before2 = new Date();
 		History.Event event2 = item.createAuditEvent("author2", false);
 		final Date after2 = new Date();
@@ -232,7 +232,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(event2, event1), item.getAuditEvents());
 		assertEquals(event1, event1);
 		assertTrue(!event1.equals(event2));
-		
+
 		// test string length exceeded
 		final String LONG_STRING_BASE = "01234567890123456789012345678901234567890123456789012345678901234567890123456";
 		final String LONG_STRING_SHORT = LONG_STRING_BASE + "...";
@@ -240,7 +240,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		final Feature feature21 = event2.createFeature(item.comment, "Short", LONG_STRING, "newValue");
 		assertEquals(LONG_STRING_SHORT, feature21.getOld());
 		assertEquals("newValue", feature21.getNew());
-		
+
 		final Feature feature22 = event2.createFeature(item.amount, "Short", "oldValue", LONG_STRING);
 		assertEquals("oldValue", feature22.getOld());
 		assertEquals(LONG_STRING_SHORT, feature22.getNew());

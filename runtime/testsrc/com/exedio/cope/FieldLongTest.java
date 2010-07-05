@@ -22,7 +22,7 @@ package com.exedio.cope;
 public class FieldLongTest extends FieldTest
 {
 	static final Long CONST = 1l;
-	
+
 	public void testSomeLong()
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
@@ -37,10 +37,10 @@ public class FieldLongTest extends FieldTest
 
 		item.someLong.set(item, Long.valueOf(22));
 		assertEquals(Long.valueOf(22), item.getSomeLong());
-		
+
 		item.someLong.set(item, 22l);
 		assertEquals(Long.valueOf(22), item.getSomeLong());
-		
+
 		item.setSomeLong(Long.valueOf(11));
 		assertEquals(Long.valueOf(11), item.getSomeLong());
 		assertEquals(Long.valueOf(11), item.someLong.get(item));
@@ -73,7 +73,7 @@ public class FieldLongTest extends FieldTest
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
-		
+
 		restartTransaction();
 		assertEquals(null, item.getSomeLong());
 	}
@@ -91,7 +91,7 @@ public class FieldLongTest extends FieldTest
 			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
 		}
 	}
-	
+
 	public void testSomeNotNullLong()
 	{
 		assertEquals(item.TYPE, item.someNotNullLong.getType());

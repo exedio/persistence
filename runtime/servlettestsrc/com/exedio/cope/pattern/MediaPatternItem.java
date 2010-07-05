@@ -23,17 +23,17 @@ import com.exedio.cope.Item;
 final class MediaPatternItem extends Item
 {
 	static final MediaPattern pattern = new MediaPattern();
-	
+
 	void setSourceFeature(final byte[] body, final String contentType)
 	{
 		pattern.setSourceFeature(this, body, contentType);
 	}
-	
+
 	void addSourceItem(final byte[] body, final String contentType)
 	{
 		pattern.addSourceItem(this, body, contentType);
 	}
-	
+
 	/**
 
 	 **

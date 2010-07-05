@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
 public abstract class Super extends Item
 {
 	public static final StringField superMandatory = new StringField().lengthExact(5);
-	
+
 	/**
 	 * @cope.initial
 	 */

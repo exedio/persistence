@@ -29,7 +29,7 @@ import com.exedio.cope.Model;
 public class ThumbnailTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(ThumbnailTest.class, "MODEL");
@@ -39,10 +39,10 @@ public class ThumbnailTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	private ThumbnailItem item, jpg, png, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -57,7 +57,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");
 	}
-	
+
 	public void testThumbs() throws IOException
 	{
 		// test model
@@ -81,12 +81,12 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
-		
+
 		assertEquals(item.file.isNull(), item.thumb.isNull());
 		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
-		
+
 		assertSerializedSame(item.thumb, 381);
-		
+
 		try
 		{
 			new MediaThumbnail(null, 80, 80);
@@ -114,46 +114,46 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		{
 			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
 		}
-		
+
 		// test sizing algorithm
 		assertBB(40, 60, 20, 30);
 		assertBB(40, 50, 20, 25);
 		assertBB(30, 60, 15, 30);
 		assertBB(20, 30, 20, 30);
 		assertBB(10, 10, 20, 20);
-		
+
 		// test content type
 		assertEquals("image/jpeg", jpg.getThumbContentType());
 		assertEquals("image/jpeg", png.getThumbContentType());
 		assertEquals("image/jpeg", gif.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
-		
+
 		// test url
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
 		assertEquals(null, txt.getThumbURL());
 		assertEquals(null, emp.getThumbURL());
-		
+
 		// test url fallback
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURL());
-		
+
 		assertContains(emp, item.TYPE.search(item.file.isNull()));
 		assertContains(jpg, png, gif, txt, item.TYPE.search(item.file.isNotNull()));
 		assertContains(emp , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
 		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
-		
+
 		// test get
 		assertNotNull(jpg.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 	}
-	
+
 	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
 	{
 		final int[] bb = item.thumb.boundingBox(srcX, srcY);

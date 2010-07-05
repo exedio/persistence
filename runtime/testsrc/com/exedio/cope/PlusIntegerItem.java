@@ -26,9 +26,9 @@ public class PlusIntegerItem extends Item
 	public static final IntegerField numB = new IntegerField().optional();
 
 	public static final IntegerField numC = new IntegerField().optional();
-	
+
 	public static final PlusLiteralView<Integer> plusA9 = new PlusLiteralView<Integer>(numA, new Integer(9));
-	
+
 	public static final PlusView<Integer> plusAB = numA.plus(numB);
 
 	public static final PlusView<Integer> plusAC = numA.plus(numC);
@@ -38,11 +38,11 @@ public class PlusIntegerItem extends Item
 	public static final PlusView<Integer> plusABC = Cope.plus(numA, numB, numC);
 
 	public static final PlusView<Integer> plusABaC = plusAB.plus(numC);
-	
+
 	public static final MultiplyLiteralView<Integer> multiplyB9 = new MultiplyLiteralView<Integer>(numB, new Integer(9));
-	
+
 	public static final MultiplyView<Integer> multiplyBC = numB.multiply(numC);
-	
+
 	public PlusIntegerItem(final int initialNumA, final int initialNumB, final int initialNumC)
 	{
 		super(new SetValue[]{

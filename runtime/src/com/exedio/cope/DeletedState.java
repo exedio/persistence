@@ -28,7 +28,7 @@ final class DeletedState extends State
 		super(original.item, original.modificationCount);
 		transaction.addInvalidation(item);
 	}
-	
+
 	@Override
 	Object get(final FunctionField field)
 	{
@@ -40,7 +40,7 @@ final class DeletedState extends State
 	{
 		throw new NoSuchItemException(item);
 	}
-	
+
 	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
@@ -77,7 +77,7 @@ final class DeletedState extends State
 					append('=').
 					appendParameter(this.modificationCount);
 			}
-			
+
 			//System.out.println("deleting "+bf.toString());
 
 			executor.update(connection, bf, true);
@@ -114,5 +114,5 @@ final class DeletedState extends State
 	{
 		return toString();
 	}
-	
+
 }

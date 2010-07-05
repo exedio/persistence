@@ -24,8 +24,8 @@ package com.exedio.cope;
 class DataMandatoryItem extends Item
 {
 	static final DataField data = new DataField();
-	
-	
+
+
 	/**
 
 	 **

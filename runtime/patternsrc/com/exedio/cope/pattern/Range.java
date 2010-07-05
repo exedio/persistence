@@ -29,21 +29,21 @@ public final class Range<E>
 			throw new NullPointerException("optional from not yet implemented");
 		if(to==null)
 			throw new NullPointerException("optional to not yet implemented");
-		
+
 		this.from = from;
 		this.to = to;
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof Range))
 			return false;
-		
+
 		final Range o = (Range)other;
 		return from.equals(o.from) && to.equals(o.to);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

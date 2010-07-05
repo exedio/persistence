@@ -31,16 +31,16 @@ import com.exedio.cope.Query.Result;
 public final class QueryAggregator<R>
 {
 	private final static int UNLIMITED = -77;
-	
+
 	private final List<Query<? extends R>> queries;
 	private int offset = 0;
 	private int limit = -1;
-	
+
 	public QueryAggregator(final List<Query<? extends R>> queries)
 	{
 		this.queries = queries;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
 			final Query<? extends R> query1,
@@ -48,7 +48,7 @@ public final class QueryAggregator<R>
 	{
 		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
 			final Query<? extends R> query1,
@@ -57,12 +57,12 @@ public final class QueryAggregator<R>
 	{
 		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2, query3));
 	}
-	
+
 	public List<Query<? extends R>> getQueries()
 	{
 		return queries;
 	}
-	
+
 	/**
 	 * @see Query#getOffset()
 	 */
@@ -70,7 +70,7 @@ public final class QueryAggregator<R>
 	{
 		return offset;
 	}
-	
+
 	/**
 	 * @see Query#getLimit()
 	 */
@@ -78,7 +78,7 @@ public final class QueryAggregator<R>
 	{
 		return limit!=UNLIMITED ? limit : -1;
 	}
-	
+
 	/**
 	 * @see Query#setLimit(int,int)
 	 */
@@ -92,7 +92,7 @@ public final class QueryAggregator<R>
 		this.offset = offset;
 		this.limit = limit;
 	}
-	
+
 	/**
 	 * @see Query#setLimit(int)
 	 */
@@ -113,10 +113,10 @@ public final class QueryAggregator<R>
 		for(final Query q : queries)
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
-		
+
 		List<R> data = null;
 		int total = 0;
-		
+
 		final Iterator<Query<? extends R>> i = queries.iterator();
 		{
 			Query<? extends R> first = null;
@@ -134,7 +134,7 @@ public final class QueryAggregator<R>
 			}
 			if(first==null)
 				return result(Collections.<R>emptyList(), total);
-			
+
 			data = new ArrayList<R>(search(first, offset-totalBeforeFirst));
 		}
 		{
@@ -155,9 +155,9 @@ public final class QueryAggregator<R>
 			}
 			if(last==null)
 				return result(unmodifiableList(data), total);
-			
+
 			assert limit!=UNLIMITED;
-			
+
 			final int nowLimit = limit+offset-totalBeforeLast;
 			if(nowLimit>0)
 			{
@@ -166,25 +166,25 @@ public final class QueryAggregator<R>
 				last.setLimit(0);
 			}
 		}
-		
+
 		while(i.hasNext())
 			total += i.next().total();
-		
+
 		return result(unmodifiableList(data), total);
 	}
-	
+
 	private List<? extends R> search(final Query<? extends R> query, final int offset)
 	{
 		if(limit!=UNLIMITED)
 			query.setLimit(offset, limit);
 		else
 			query.setLimit(offset);
-		
+
 		final List<? extends R> result = query.search();
 		query.setLimit(0);
 		return result;
 	}
-	
+
 	private Query.Result<R> result(final List<R> data, final int total)
 	{
 		return

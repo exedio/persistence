@@ -48,13 +48,13 @@ public final class MatchCondition extends Condition
 		if(value==null)
 			throw new NullPointerException("value");
 	}
-	
+
 	@Override
 	void append(final Statement bf)
 	{
 		bf.appendMatch(function, value);
 	}
-	
+
 	@Override
 	boolean get(final Item item)
 	{
@@ -72,12 +72,12 @@ public final class MatchCondition extends Condition
 	{
 		if(!(other instanceof MatchCondition))
 			return false;
-		
+
 		final MatchCondition o = (MatchCondition)other;
-		
+
 		return function.equals(o.function) && value.equals(o.value);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{

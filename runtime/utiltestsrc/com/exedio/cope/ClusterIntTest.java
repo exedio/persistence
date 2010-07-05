@@ -26,36 +26,36 @@ public class ClusterIntTest extends TestCase
 {
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
-	
+
 	@Override
 	protected void setUp()
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);
 	}
-	
+
 	@Override
 	protected void tearDown()
 	{
 		buf = null;
 	}
-	
-	
+
+
 	public void testInt()
 	{
 		assertEquals(7, m(3, 0x456789ab));
 		assertBuf(FILL, FILL, FILL, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45);
 		assertEquals(Integer.toHexString(um(3)), 0x456789ab, um(3));
 	}
-	
+
 	public void testIntNegative()
 	{
 		assertEquals(7, m(3, 0xab896745));
 		assertBuf(FILL, FILL, FILL, (byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab);
 		assertEquals(0xab896745, um(3));
 	}
-	
-	
+
+
 	private void assertBuf(final byte... expectedData)
 	{
 		int i = 0;
@@ -64,12 +64,12 @@ public class ClusterIntTest extends TestCase
 		for(; i<buf.length; i++)
 			assertEquals(String.valueOf(i), FILL, buf[i]);
 	}
-	
+
 	private int m(final int pos, final int i)
 	{
 		return ClusterSender.marshal(pos, buf, i);
 	}
-	
+
 	private int um(final int pos)
 	{
 		return ClusterListener.unmarshal(pos, buf);

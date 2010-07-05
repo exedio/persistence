@@ -40,25 +40,25 @@ public class ReviseTest extends CopeAssert
 	private static final Revisions revisions5 = new Revisions(
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 	);
-	
+
 	private static final Model model5 = new Model(revisions5, ReviseItem1.TYPE);
-	
-	
+
+
 	private static final Revisions revisions7Missing = new Revisions(
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 		);
-	
+
 	private static final Model model7 = new Model(revisions7Missing, ReviseItem2.TYPE);
-	
+
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
 	{
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
-	
+
 	private String hostname;
 	private com.exedio.cope.ConnectProperties props;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -70,23 +70,23 @@ public class ReviseTest extends CopeAssert
 	String jdbcUrl;
 	String jdbcUser;
 	EnvironmentInfo info;
-	
+
 	public void testRevise() throws ParseException
 	{
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();
-		
+
 		assertSame(revisions5, model5.getRevisions());
-		
+
 		model5.connect(props);
 		model5.tearDownSchema();
 
 		info = model5.getEnvironmentInfo();
-		
+
 		final Date createBefore = new Date();
 		model5.createSchema();
 		final Date createAfter = new Date();
-		
+
 		assertSchema(model5.getVerifiedSchema(), false, false);
 		final Date createDate;
 		{
@@ -95,7 +95,7 @@ public class ReviseTest extends CopeAssert
 			assertEquals(1, logs.size());
 		}
 		model5.disconnect();
-		
+
 		assertSame(revisions7Missing, model7.getRevisions());
 
 		model7.connect(props);
@@ -121,7 +121,7 @@ public class ReviseTest extends CopeAssert
 			assertCreate(createDate, logs, 5);
 			assertEquals(1, logs.size());
 		}
-		
+
 		final String blah =
 			" blub blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
@@ -157,7 +157,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
-		
+
 		// test, that revision is not executed again,
 		// causing a SQLException because column does already exist
 		model7.revise();
@@ -169,7 +169,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
-		
+
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
@@ -192,7 +192,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
-		
+
 		try
 		{
 			model7.reviseIfSupported();
@@ -209,10 +209,10 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
-		
+
 		model7.tearDownSchema();
 	}
-	
+
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
 	{
 		final Table table = schema.getTable(filterTableName(("ReviseItem")));
@@ -226,7 +226,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(true, columnThis.required());
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
-		
+
 		if(props.itemCacheConcurrentModificationDetection.booleanValue())
 		{
 			final Column columnCatch = columns.next();
@@ -235,13 +235,13 @@ public class ReviseTest extends CopeAssert
 			assertEquals(true, columnCatch.exists());
 			assertNotNull(columnCatch.getType());
 		}
-		
+
 		final Column column5 = columns.next();
 		assertEquals("field5", column5.getName());
 		assertEquals(true, column5.required());
 		assertEquals(true, column5.exists());
 		assertNotNull(column5.getType());
-		
+
 		if(model2)
 		{
 			final Column column6 = columns.next();
@@ -262,15 +262,15 @@ public class ReviseTest extends CopeAssert
 			assertEquals(revised, column7.exists());
 			assertNotNull(column7.getType());
 		}
-		
+
 		assertFalse(columns.hasNext());
-		
+
 		final Table revisionTable = schema.getTable("while");
 		assertEquals("while", revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
 	}
-	
+
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
@@ -284,12 +284,12 @@ public class ReviseTest extends CopeAssert
 		assertEquals(14, logProps.size());
 		return date;
 	}
-	
+
 	private final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
-	
+
 	private final Date assertRevise(final Date before, final Date after, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
 		final Revision revision = revisions.getList().get(revisionsIndex);
@@ -311,12 +311,12 @@ public class ReviseTest extends CopeAssert
 		assertEquals(14 + (3*revision.body.length), logProps.size());
 		return date;
 	}
-	
+
 	private final void assertRevise(final Date date, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
 		assertEquals(date, assertRevise(date, date, revisions, revisionsIndex, logs, number));
 	}
-	
+
 	private final void assertRevisionEnvironment(final Properties p)
 	{
 		assertNotNull(hostname);
@@ -339,22 +339,22 @@ public class ReviseTest extends CopeAssert
 		assertEquals(valueOf(info.getDriverMajorVersion()), p.getProperty("env.driver.version.major"));
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
 	}
-	
+
 	private static final Properties parse(final byte[] log)
 	{
 		return RevisionInfo.parse(log);
 	}
-	
+
 	private static final void assertMinInt(final int expectedMinimum, final String actual)
 	{
 		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
 	}
-	
+
 	final String filterTableName(final String name)
 	{
 		return props.filterTableName(name);
 	}
-	
+
 	private void setRevisions(final Revisions revisions)
 	{
 		final ConnectProperties c = model7.getConnectProperties();

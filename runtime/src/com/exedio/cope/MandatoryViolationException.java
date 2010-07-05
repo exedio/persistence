@@ -37,9 +37,9 @@ import com.exedio.cope.instrument.ConstructorComment;
 public final class MandatoryViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Feature feature;
-	
+
 	/**
 	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -52,7 +52,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
 		this.feature = feature;
 	}
-	
+
 	/**
 	 * Returns the feature, that was attempted to be written.
 	 */
@@ -67,9 +67,9 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	{
 		return "mandatory violation" + getItemPhrase() + (withFeature ? (" for " + feature) : "");
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */

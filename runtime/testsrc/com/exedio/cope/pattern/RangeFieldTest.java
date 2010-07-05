@@ -30,19 +30,19 @@ import com.exedio.cope.instrument.Wrapper;
 public class RangeFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(RangeFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(RangeFieldTest.class, "MODEL");
 	}
-	
+
 	public RangeFieldTest()
 	{
 		super(MODEL);
 	}
-	
+
 	RangeFieldItem item;
-	
+
 	public void testIt()
 	{
 		// test model
@@ -66,44 +66,44 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals("valid-to",   item.valid.getTo().getName());
 		assertEquals("valid",     item.valid.getName());
 		assertEquals(item.valid, item.valid.getFrom().getPattern());
-		
+
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
 		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		assertSerializedSame(item.valid, 383);
-		
+
 		// test persistence
 		item = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(3, 5)));
-		
+
 		assertEquals(new Range<Integer>(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
-		
+
 		item.setValidFrom(8);
 		assertEquals(new Range<Integer>(8, 5), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
-		
+
 		item.setValidTo(9);
 		assertEquals(new Range<Integer>(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
-		
+
 		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(4, 4)));
 		assertEquals(new Range<Integer>(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
-		
+
 		assertContains(       item.TYPE.search(item.valid.contains(3)));
 		assertContains(item2, item.TYPE.search(item.valid.contains(4)));
 		assertContains(       item.TYPE.search(item.valid.contains(5)));
-		
+
 		assertContains(      item.TYPE.search(item.valid.contains(7)));
 		assertContains(item, item.TYPE.search(item.valid.contains(8)));
 		assertContains(item, item.TYPE.search(item.valid.contains(9)));
 		assertContains(      item.TYPE.search(item.valid.contains(10)));
-		
+
 		try
 		{
 			RangeField.newRange(new IntegerField().unique());

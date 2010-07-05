@@ -38,7 +38,7 @@ public final class ServletUtil
 	{
 		// prevent instantiation
 	}
-	
+
 	private interface Config
 	{
 		String getInitParameter(String name);
@@ -69,7 +69,7 @@ public final class ServletUtil
 			}
 		};
 	}
-	
+
 	private static final Config wrap(final FilterConfig config)
 	{
 		return new Config()
@@ -92,7 +92,7 @@ public final class ServletUtil
 			}
 		};
 	}
-	
+
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
 	throws ServletException
 	{
@@ -100,7 +100,7 @@ public final class ServletUtil
 				wrap(servlet.getServletConfig()),
 				servlet);
 	}
-	
+
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
@@ -108,7 +108,7 @@ public final class ServletUtil
 				wrap(config),
 				filter);
 	}
-	
+
 	private static final ConnectToken getConnectedModel(
 					final Config config,
 					final Object nameObject)
@@ -118,7 +118,7 @@ public final class ServletUtil
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
 		final String name = config.getName();
 		final ServletContext context = config.getServletContext();
-		
+
 		final String description =
 					config.getKind() + ' ' +
 					'"' + name + '"' + ' ' +
@@ -139,7 +139,7 @@ public final class ServletUtil
 			modelName = initParam;
 			modelNameSource = "init-param";
 		}
-		
+
 		final Model result;
 		try
 		{
@@ -151,7 +151,7 @@ public final class ServletUtil
 		}
 		return connect(result, config, description);
 	}
-	
+
 	/**
 	 * Connects the model using the properties from
 	 * the file <tt>cope.properties</tt>
@@ -164,23 +164,23 @@ public final class ServletUtil
 	{
 		return connect(model, wrap(config), name);
 	}
-	
+
 	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
 	{
 		return connect(model, wrap(config), name);
 	}
-	
+
 	private static final ConnectToken connect(final Model model, final Config config, final String name)
 	{
 		final String propertiesInitParam = config.getInitParameter("cope.properties");
 		final String propertiesFile = propertiesInitParam!=null ? propertiesInitParam : "WEB-INF/cope.properties";
-		
+
 		final ServletContext context = config.getServletContext();
 		return ConnectToken.issue(model,
 			new com.exedio.cope.ConnectProperties(
 				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
 	}
-	
+
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
 		final String prefix =
@@ -190,7 +190,7 @@ public final class ServletUtil
 					{
 						return context.getInitParameter(prefix!=null ? (prefix+key) : key);
 					}
-					
+
 					public Collection<String> keySet()
 					{
 						return null;
@@ -211,7 +211,7 @@ public final class ServletUtil
 					}
 				};
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

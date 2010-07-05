@@ -28,7 +28,7 @@ public class HistoryItem extends Item
 	static final StringField comment = new StringField().optional();
 
 	static final History audit = new History();
-	
+
 	/**
 
 	 **

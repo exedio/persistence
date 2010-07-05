@@ -30,13 +30,13 @@ final class Option
 	static final String TEXT_VISIBILITY_PUBLIC = "public";
 	static final String TEXT_BOOLEAN_AS_IS = "boolean-as-is";
 	static final String TEXT_NON_FINAL = "non-final";
-	
+
 	final boolean exists;
 	final Visibility visibility;
 	final String suffix;
 	final boolean booleanAsIs;
 	final boolean isFinal;
-	
+
 	Option(final String optionString, final boolean allowFinal)
 	{
 		if(optionString==null)
@@ -104,12 +104,12 @@ final class Option
 	{
 		if(!exists)
 			throw new RuntimeException();
-		
+
 		final int visibilityModifier =
 			visibility!=null
 			? visibility.modifier
 			: inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
-		
+
 		if(isFinal)
 			return visibilityModifier | Modifier.FINAL;
 		else

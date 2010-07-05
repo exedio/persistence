@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class DateField extends FunctionField<Date>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final boolean defaultNow;
 	private final boolean suspiciousForWrongDefaultNow;
 
@@ -46,30 +46,30 @@ public final class DateField extends FunctionField<Date>
 			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
 		checkDefaultConstant();
 	}
-	
+
 	public DateField()
 	{
 		this(false, false, false, null, false);
 	}
-	
+
 	@Override
 	public DateField copy()
 	{
 		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DateField toFinal()
 	{
 		return new DateField(true, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DateField optional()
 	{
 		return new DateField(isfinal, true, unique, defaultConstant, defaultNow);
 	}
-	
+
 	@Override
 	public DateField unique()
 	{
@@ -81,42 +81,42 @@ public final class DateField extends FunctionField<Date>
 	{
 		return new DateField(isfinal, optional, false, defaultConstant, defaultNow);
 	}
-	
+
 	public DateField defaultTo(final Date defaultConstant)
 	{
 		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
 	}
-	
+
 	public DateField defaultToNow()
 	{
 		return new DateField(isfinal, optional, unique, defaultConstant, true);
 	}
-	
+
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		if(!isfinal)
 		{
 			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 			exceptions.remove(MandatoryViolationException.class); // cannot set null
-			
+
 			result.add(
 				new Wrapper("touch").
 				addComment("Sets the current date for the date field {0}."). // TODO better text
 				addThrows(exceptions));
 		}
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -128,7 +128,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		return !defaultNow && super.isInitial();
 	}
-	
+
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
@@ -137,10 +137,10 @@ public final class DateField extends FunctionField<Date>
 					"WARNING: " +
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + type.getID() + '.' + name + ". " +
 					"This will not work as expected, use \"defaultToNow()\" instead.");
-		
+
 		super.mount(type, name, annotationSource);
 	}
-	
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
@@ -149,20 +149,20 @@ public final class DateField extends FunctionField<Date>
 				? (Column)new TimestampColumn(table, this, name, optional)
 				: (Column)new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
-	
+
 	@Override
 	Date get(final Row row, final Query query)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());
 	}
-		
+
 	@Override
 	void set(final Row row, final Date surface)
 	{
 		row.put(getColumn(), surface==null ? null : Long.valueOf(surface.getTime()));
 	}
-	
+
 	/**
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.

@@ -27,7 +27,7 @@ final class SequenceImplMax implements SequenceImpl
 	private final IntegerColumn column;
 	private final int start;
 	private final ConnectionPool connectionPool;
-	
+
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock = new Object();
@@ -38,12 +38,12 @@ final class SequenceImplMax implements SequenceImpl
 		this.start = start;
 		this.connectionPool = connectionPool;
 	}
-	
+
 	public void makeSchema(final Schema schema)
 	{
 		// empty
 	}
-	
+
 	public int next()
 	{
 		synchronized(lock)
@@ -59,12 +59,12 @@ final class SequenceImplMax implements SequenceImpl
 				result = current!=null ? (current.intValue() + 1) : start;
 				computed = true;
 			}
-			
+
 			next = result + 1;
 			return result;
 		}
 	}
-	
+
 	public int getNext()
 	{
 		synchronized(lock)
@@ -79,11 +79,11 @@ final class SequenceImplMax implements SequenceImpl
 				final Integer current = current();
 				result = current!=null ? (current.intValue() + 1) : start;
 			}
-			
+
 			return result;
 		}
 	}
-	
+
 	private Integer current()
 	{
 		Connection connection = null;
@@ -98,7 +98,7 @@ final class SequenceImplMax implements SequenceImpl
 				connectionPool.put(connection);
 		}
 	}
-	
+
 	public void flush()
 	{
 		synchronized(lock)

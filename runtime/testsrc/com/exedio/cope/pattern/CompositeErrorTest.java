@@ -97,7 +97,7 @@ public class CompositeErrorTest extends CopeAssert
 			assertEquals("final fields not supported: " + FinalField.class.getName() + "#finalField", e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
@@ -111,55 +111,55 @@ public class CompositeErrorTest extends CopeAssert
 			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
-	
+
 	static class NoConstructor extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 	}
-	
+
 	static class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private NoFields(final SetValue[] setValues)
 		{
 			super(setValues);
 		}
 	}
-	
+
 	static class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private NullField(final SetValue[] setValues)
 		{
 			super(setValues);
 		}
-		
+
 		static final Field nullField = null;
 	}
-	
+
 	static class PatternField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private PatternField(final SetValue[] setValues)
 		{
 			super(setValues);
 		}
-		
+
 		static final Feature patternField = MapField.newMap(new StringField(), new StringField());
 	}
-	
+
 	static class FinalField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private FinalField(final SetValue[] setValues)
 		{
 			super(setValues);
 		}
-		
+
 		static final BooleanField finalField = new BooleanField().toFinal();
 	}
 }

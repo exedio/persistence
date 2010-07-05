@@ -35,12 +35,12 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 	{
 		super(PlusIntegerTest.MODEL);
 	}
-	
+
 	boolean nullsLow;
 	PlusIntegerItem item0;
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -50,13 +50,13 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		item1 = new PlusIntegerItem(2, 12,   null);
 		item2 = new PlusIntegerItem(3, 13,   null);
 	}
-	
+
 	public void testIt()
 	{
 		assertOrder(list(item0, item1, item2), numA);
 		assertOrder(list(item0, item1, item2), numC, numA);
 		assertOrder(list(item0, item1, item2), numA, numC);
-		
+
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB);
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numA);
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numC);

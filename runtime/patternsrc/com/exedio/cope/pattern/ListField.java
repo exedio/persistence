@@ -39,7 +39,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class ListField<E> extends AbstractListField<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private ItemField<?> parent = null;
 	private final IntegerField order;
 	private UniqueConstraint uniqueConstraint = null;
@@ -57,18 +57,18 @@ public final class ListField<E> extends AbstractListField<E>
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 	}
-	
+
 	public static final <E> ListField<E> newList(final FunctionField<E> element)
 	{
 		return new ListField<E>(element);
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		
+
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, order);
 		final Features features = new Features();
@@ -78,28 +78,28 @@ public final class ListField<E> extends AbstractListField<E>
 		features.put("element", element);
 		this.relationType = newSourceType(PatternItem.class, features);
 	}
-	
+
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return parent.as(parentClass);
 	}
-	
+
 	public ItemField<?> getParent()
 	{
 		return parent;
 	}
-	
+
 	public IntegerField getOrder()
 	{
 		return order;
 	}
-	
+
 	public UniqueConstraint getUniqueConstraint()
 	{
 		assert uniqueConstraint!=null;
 		return uniqueConstraint;
 	}
-	
+
 	@Override
 	public FunctionField<E> getElement()
 	{
@@ -111,23 +111,23 @@ public final class ListField<E> extends AbstractListField<E>
 		assert relationType!=null;
 		return relationType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
-		
+
 		result.add(
 			new Wrapper("getQuery").
 			addComment("Returns a query for the value of {0}.").
 			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
-		
+
 		result.add(
 			new Wrapper("getDistinctParents").
 			addComment("Returns the items, for which field list {0} contains the given element.").
@@ -135,33 +135,33 @@ public final class ListField<E> extends AbstractListField<E>
 			setStatic().
 			setMethodWrapperPattern("getDistinctParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
-			
+
 		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
 		exceptions.add(ClassCastException.class);
-		
+
 		result.add(
 			new Wrapper("add").
 			setMethodWrapperPattern("addTo{0}").
 			addComment("Adds a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.TypeVariable0.class));
-				
+
 		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-			
+
 		result.add(
 			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
-				
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	/**
 	 * @see #getQuery(Item)
 	 */
@@ -170,7 +170,7 @@ public final class ListField<E> extends AbstractListField<E>
 	{
 		return getQuery(item).search();
 	}
-	
+
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
@@ -193,7 +193,7 @@ public final class ListField<E> extends AbstractListField<E>
 		q.setDistinct(true);
 		return q.search();
 	}
-	
+
 	public void add(final Item item, final E value)
 	{
 		final Query<Integer> q = new Query<Integer>(this.order.max(), Cope.equalAndCast(this.parent, item));
@@ -204,13 +204,13 @@ public final class ListField<E> extends AbstractListField<E>
 				this.order.map(newOrder),
 				this.element.map(value));
 	}
-	
+
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item), this.order, true).iterator();
 		final Iterator<? extends E> expected = value.iterator();
-		
+
 		for(int order = 0; ; order++)
 		{
 			if(!actual.hasNext())

@@ -61,38 +61,38 @@ final class JavaRepository
 	 * for which a new BshClassManager must be created.
 	 */
 	final CopeNameSpace externalNameSpace = new CopeNameSpace(null);
-	
+
 	// reusing externalNameSpace is more efficient than another root nameSpace
 	final CopeNameSpace nameSpace = new NS(externalNameSpace);
 
 	final Interpreter interpreter = new Interpreter();
-	
+
 	static enum Stage
 	{
 		BUILD,
 		BETWEEN,
 		GENERATE;
 	}
-	
+
 	Stage stage = Stage.BUILD;
-	
+
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<String, JavaClass>();
 	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<String, JavaClass>();
-	
+
 	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
-	
+
 	void endBuildStage()
 	{
 		assert stage==Stage.BUILD;
 		stage = Stage.BETWEEN;
-		
+
 		// TODO put this into a new class CopeType
 		for(final JavaClass javaClass : javaClassByFullName.values())
 		{
 			if(javaClass.isInterface())
 				continue;
-			
+
 			final boolean isItem = isItem(javaClass);
 			final boolean isComposite = isComposite(javaClass);
 			if(isItem||isComposite)
@@ -104,7 +104,7 @@ final class JavaRepository
 					final int modifier = javaAttribute.modifier;
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 						continue feature;
-					
+
 					final String docComment = javaAttribute.getDocComment();
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
@@ -112,7 +112,7 @@ final class JavaRepository
 					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
 					if(typeClass==null)
 						continue feature;
-					
+
 					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 					{
 						if(
@@ -146,13 +146,13 @@ final class JavaRepository
 				}
 			}
 		}
-		
+
 		stage = Stage.GENERATE;
 
 		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
 	}
-	
+
 	boolean isBuildStage()
 	{
 		return stage==Stage.BUILD;
@@ -162,7 +162,7 @@ final class JavaRepository
 	{
 		return stage==Stage.GENERATE;
 	}
-	
+
 	boolean isItem(JavaClass javaClass)
 	{
 		//System.out.println("--------------"+javaClass.getFullName());
@@ -171,7 +171,7 @@ final class JavaRepository
 			final String classExtends = javaClass.classExtends;
 			if(classExtends==null)
 				return false;
-			
+
 			//System.out.println("--------------**"+javaClass.getFullName());
 			{
 				final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
@@ -192,17 +192,17 @@ final class JavaRepository
 			return false;
 		}
 	}
-	
+
 	boolean isComposite(JavaClass javaClass)
 	{
 		final String classExtends = javaClass.classExtends;
 		if(classExtends==null)
 			return false;
-		
+
 		final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
 		if(extendsClass!=null)
 			return Composite.class.isAssignableFrom(extendsClass);
-		
+
 		return false;
 	}
 
@@ -211,73 +211,73 @@ final class JavaRepository
 		assert stage==Stage.BUILD;
 		files.add(file);
 	}
-	
+
 	final List<JavaFile> getFiles()
 	{
 		assert stage==Stage.GENERATE;
 		return files;
 	}
-	
+
 	void add(final JavaClass javaClass)
 	{
 		assert stage==Stage.BUILD;
-		
+
 		//final JavaClass previous =
 		javaClassBySimpleName.put(javaClass.name, javaClass);
-		
+
 		//if(previous!=null) System.out.println("collision:"+previous.getFullName()+','+javaClass.getFullName());
-		
+
 		if(javaClassByFullName.put(javaClass.getFullName(), javaClass)!=null)
 			throw new RuntimeException(javaClass.getFullName());
 	}
-	
+
 	final JavaClass getJavaClass(final String name)
 	{
 		return (name.indexOf('.')<0) ? javaClassBySimpleName.get(name) : javaClassByFullName.get(name);
 	}
-	
+
 	void add(final CopeType copeType)
 	{
 		assert stage==Stage.BETWEEN;
-		
+
 		if(copeTypeByJavaClass.put(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
 		//System.out.println("--------- put cope type: "+name);
 	}
-	
+
 	CopeType getCopeType(final String className)
 	{
 		assert stage==Stage.BETWEEN || stage==Stage.GENERATE;
-		
+
 		final JavaClass javaClass = getJavaClass(className);
 		if(javaClass==null)
 			throw new RuntimeException("no java class for "+className);
-		
+
 		final CopeType result = copeTypeByJavaClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
-		
+
 		return result;
 	}
 
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		NS(final CopeNameSpace parent)
 		{
 			super(parent);
 		}
-		
+
 		@Override
 		public Class getClass(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
-			
+
 			final Class superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
-			
+
 			final JavaClass javaClass = getJavaClass(name);
 			if(javaClass!=null)
 			{
@@ -301,16 +301,16 @@ final class JavaRepository
 					return define(cf);
 				}
 			}
-			
+
 			return null;
 		}
-		
+
 		private final Class define(final ClassFile cf)
 		{
 			return ClassInjector.createExplicit(
 					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
 		}
-		
+
 		private final void addDelegateConstructor(final ClassFile cf, final Modifiers modifiers, final TypeDesc... args)
 		{
 			final MethodInfo creator = cf.addConstructor(modifiers, args);
@@ -322,7 +322,7 @@ final class JavaRepository
 			cb.returnVoid();
 		}
 	}
-	
+
 	// BEWARE
 	// The name of this enum and its only enum value
 	// must match the names used in the hack of the beanshell.

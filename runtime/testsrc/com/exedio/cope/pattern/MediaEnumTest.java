@@ -44,11 +44,11 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
-	
+
 	public void testIt() throws IOException
 	{
 		// test model
-		
+
 		assertEquals(false, item.sheet.isInitial());
 		assertEquals(false, item.sheet.isFinal());
 		assertEquals(false, item.sheet.isMandatory());
@@ -70,7 +70,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(5000, body.getMaximumLength());
 		assertEquals(item.sheet, body.getPattern());
 		assertSame(item.sheet, Media.get(body));
-		
+
 		final IntegerField contentType = (IntegerField)item.sheet.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("sheet-contentType", contentType.getName());
@@ -78,7 +78,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
-		
+
 		final DateField lastModified = item.sheet.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
 		assertEquals("sheet-lastModified", lastModified.getName());
@@ -86,7 +86,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		
+
 		final CheckConstraint unison = item.sheet.getUnison();
 		assertSame(item.TYPE, unison.getType());
 		assertEquals("sheet-unison", unison.getName());
@@ -95,13 +95,13 @@ public class MediaEnumTest extends AbstractRuntimeTest
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
-		
+
 		assertEquals(contentType.equal(0),  item.sheet.contentTypeEqual("application/pdf"));
 		assertEquals(contentType.equal(1),  item.sheet.contentTypeEqual("image/png"));
 		assertEquals(Condition.FALSE,       item.sheet.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), item.sheet.contentTypeEqual(null));
 		assertNotNull(item.sheet.bodyMismatchesContentType());
-		
+
 		// test persistence
 
 		assertNull();
@@ -147,7 +147,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		item.setSheet((InputStream)null, null);
 		assertNull();
 	}
-	
+
 	private void assertNull()
 	{
 		assertTrue(item.isSheetNull());
@@ -157,7 +157,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(null, item.sheet.getContentType().get(item));
 		assertEquals(null, item.getSheetURL());
 	}
-	
+
 	private void assertContent(
 			final byte[] expectedData,
 			final String expectedContentType,

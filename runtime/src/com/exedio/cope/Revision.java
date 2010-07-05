@@ -28,7 +28,7 @@ public final class Revision
 	final int number;
 	final String comment;
 	final String[] body;
-	
+
 	public Revision(final int number, final String comment, final String... body)
 	{
 		if(number<=0)
@@ -39,7 +39,7 @@ public final class Revision
 			throw new NullPointerException("body");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
-		
+
 		// make a copy to avoid modifications afterwards
 		final String[] bodyCopy = new String[body.length];
 		for(int i = 0; i<body.length; i++)
@@ -59,25 +59,25 @@ public final class Revision
 	{
 		return number;
 	}
-	
+
 	public String getComment()
 	{
 		return comment;
 	}
-	
+
 	public List<String> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return String.valueOf('R') + number + ':' + comment;
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link RevisionInfo#parse(byte[])} instead
 	 */
@@ -86,7 +86,7 @@ public final class Revision
 	{
 		return RevisionInfo.parse(info);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getNumber()} instead
 	 */

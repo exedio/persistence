@@ -30,5 +30,5 @@ public class InstrumentorTest extends TestCase
 	{
 		return Arrays.asList(o);
 	}
-	
+
 }

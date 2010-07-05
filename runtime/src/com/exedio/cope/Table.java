@@ -67,14 +67,14 @@ final class Table
 			: null;
 		database.addTable(this);
 	}
-	
+
 	private List<Column> columns = null;
 	private List<Column> allColumnsModifiable = new ArrayList<Column>();
 	private List<Column> allColumns = null;
 
 	private List<UniqueConstraint> uniqueConstraints = null;
 	private List< CheckConstraint>  checkConstraints = null;
-	
+
 	/**
 	 * The column name for the primary key.
 	 * The value "this" prevents name collisions
@@ -134,7 +134,7 @@ final class Table
 	{
 		allColumnsModifiable.add(column);
 	}
-	
+
 	/**
 	 * Returns &quot;payload&quot; columns of this type only,
 	 * excluding primary key column
@@ -146,10 +146,10 @@ final class Table
 	{
 		if(columns==null)
 			throw new RuntimeException();
-		
+
 		return columns;
 	}
-	
+
 	/**
 	 * Returns all columns of this type,
 	 * including primary key column.
@@ -160,10 +160,10 @@ final class Table
 	{
 		if(allColumns==null)
 			throw new RuntimeException();
-		
+
 		return allColumns;
 	}
-	
+
 	void setUniqueConstraints(final List<UniqueConstraint> uniqueConstraints)
 	{
 		if(uniqueConstraints==null)
@@ -175,15 +175,15 @@ final class Table
 
 		this.uniqueConstraints = uniqueConstraints;
 	}
-	
+
 	List<UniqueConstraint> getUniqueConstraints()
 	{
 		if(uniqueConstraints==null)
 			throw new RuntimeException();
-		
+
 		return uniqueConstraints;
 	}
-	
+
 	void setCheckConstraints(final List<CheckConstraint> checkConstraints)
 	{
 		if(checkConstraints==null)
@@ -195,15 +195,15 @@ final class Table
 
 		this.checkConstraints = checkConstraints;
 	}
-	
+
 	List<CheckConstraint> getCheckConstraints()
 	{
 		if(checkConstraints==null)
 			throw new RuntimeException();
-		
+
 		return checkConstraints;
 	}
-	
+
 	final void finish()
 	{
 		final ArrayList<Column> columns = new ArrayList<Column>();
@@ -213,22 +213,22 @@ final class Table
 			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id) && modificationCount!=column)
 				columns.add(column);
 		}
-		
+
 		this.columns = Collections.unmodifiableList(columns);
 		allColumns = Collections.unmodifiableList(allColumnsModifiable);
 		allColumnsModifiable = null;
 	}
-	
+
 	@Override
 	public final String toString()
 	{
 		return id;
 	}
-	
+
 	void makeSchema(final Schema schema)
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower, database.properties.getTableOption(this));
-		
+
 		for(final Column c : getAllColumns())
 			c.makeSchema(result);
 
@@ -238,7 +238,7 @@ final class Table
 		for(final CheckConstraint cc : getCheckConstraints())
 			cc.makeSchema(this, result);
 	}
-	
+
 	int count(final Connection connection, final Executor executor)
 	{
 		final Statement bf = executor.newStatement();
@@ -251,7 +251,7 @@ final class Table
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-	
+
 				return convertSQLResult(resultSet.getObject(1));
 			}
 		});

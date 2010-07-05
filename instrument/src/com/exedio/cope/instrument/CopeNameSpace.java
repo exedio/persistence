@@ -29,12 +29,12 @@ import bsh.NameSpace;
 class CopeNameSpace extends NameSpace
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	CopeNameSpace(final CopeNameSpace parent)
 	{
 		super(parent, "zack");
 	}
-	
+
 	/**
 	 * Override default imports of standard NameSpace,
 	 * to make it conform to a javac compiler run.
@@ -51,43 +51,43 @@ class CopeNameSpace extends NameSpace
 		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
 		return super.get(name, interpreter);
 	}
-	
+
 	public Class getClass(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getClass(\""+name+"\")");
 		return super.getClass(name);
 	}
-	
+
 	public Object getVariable(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\")");
 		return super.getVariable(name);
 	}
-	
+
 	public Object getVariable(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\","+recurse+")");
 		return super.getVariable(name, recurse);
 	}
-	
+
 	protected Variable getVariableImpl(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariableImpl(\""+name+"\","+recurse+")");
 		return super.getVariableImpl(name, recurse);
 	}
-	
+
 	protected Variable getImportedVar(final String name) throws bsh.UtilEvalError
 	{
 		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
 		return super.getImportedVar(name);
 	}
-	
+
 	public String[] getVariableNames()
 	{
 		System.out.println("++++++++++++++++getVariableNames()");
 		return super.getVariableNames();
 	}
-	
+
 	public Variable[] getDeclaredVariables()
 	{
 		System.out.println("++++++++++++++++getDeclaredVariables()");

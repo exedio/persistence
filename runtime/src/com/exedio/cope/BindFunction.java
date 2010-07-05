@@ -27,7 +27,7 @@ public class BindFunction<E> implements Function<E>
 {
 	final Function<E> function;
 	final Join join;
-	
+
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
@@ -37,11 +37,11 @@ public class BindFunction<E> implements Function<E>
 	{
 		assert function!=null;
 		assert join!=null;
-		
+
 		this.function = function;
 		this.join = join;
 	}
-	
+
 	public final E get(final Item item)
 	{
 		return function.get(item);
@@ -60,7 +60,7 @@ public class BindFunction<E> implements Function<E>
 	{
 		function.check(tc, this.join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -69,7 +69,7 @@ public class BindFunction<E> implements Function<E>
 	{
 		function.append(bf, this.join);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -78,7 +78,7 @@ public class BindFunction<E> implements Function<E>
 	{
 		function.appendSelect(bf, this.join, columnHolder, typeHolder);
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -87,23 +87,23 @@ public class BindFunction<E> implements Function<E>
 	{
 		bf.appendParameter(function, value);
 	}
-	
+
 	public final Type<? extends Item> getType()
 	{
 		return function.getType();
 	}
-	
+
 	@Override
 	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof BindFunction))
 			return false;
-		
+
 		final BindFunction o = (BindFunction)other;
-		
+
 		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}
-	
+
 	@Override
 	public final int hashCode()
 	{
@@ -115,71 +115,71 @@ public class BindFunction<E> implements Function<E>
 	{
 		return join.getToStringAlias() + '.' + function.toString();
 	}
-	
+
 	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(join.getToStringAlias()).
 			append('.');
 		function.toString(bf, defaultType);
 	}
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public final IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<E>(this, false);
 	}
-	
+
 	public final IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<E>(this, true);
 	}
-	
+
 	public final Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
-	
+
 	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
-	
+
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public final Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
-	
+
 	public final Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
-	
+
 	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(Operator.Less, this, value);
 	}
-	
+
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.LessEqual, this, value);
 	}
-	
+
 	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(Operator.Greater, this, value);
 	}
-	
+
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
 	}
-	
+
 	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
@@ -189,27 +189,27 @@ public class BindFunction<E> implements Function<E>
 	{
 		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Less, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 	}
-	
+
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
@@ -219,7 +219,7 @@ public class BindFunction<E> implements Function<E>
 	{
 		return new ExtremumAggregate<E>(this, true);
 	}
-	
+
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);

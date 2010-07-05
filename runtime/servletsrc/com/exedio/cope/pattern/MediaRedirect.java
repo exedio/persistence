@@ -51,7 +51,7 @@ import com.exedio.cope.Item;
 public final class MediaRedirect extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final MediaPath target;
 
 	/**
@@ -65,12 +65,12 @@ public final class MediaRedirect extends MediaPath
 
 		this.target = target;
 	}
-	
+
 	public MediaPath getTarget()
 	{
 		return target;
 	}
-	
+
 	@Override
 	public String getContentType(final Item item)
 	{
@@ -78,7 +78,7 @@ public final class MediaRedirect extends MediaPath
 	}
 
 	private static final String RESPONSE_LOCATION = "Location";
-	
+
 	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -87,7 +87,7 @@ public final class MediaRedirect extends MediaPath
 		final Locator locator = target.getLocator(item);
 		if(locator==null)
 			return isNull;
-		
+
 		final StringBuilder location = new StringBuilder();
 		location.
 			append(request.getScheme()).
@@ -98,7 +98,7 @@ public final class MediaRedirect extends MediaPath
 			append('/');
 		locator.appendPath(location);
 		//System.out.println("location="+location);
-		
+
 		response.setStatus(response.SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location.toString());
 		return delivered;

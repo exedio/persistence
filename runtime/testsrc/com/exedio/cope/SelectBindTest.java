@@ -33,9 +33,9 @@ public class SelectBindTest extends AbstractRuntimeTest
 	{
 		super(CompareConditionTest.MODEL);
 	}
-	
+
 	protected CompareConditionItem item1, item2;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -56,10 +56,10 @@ public class SelectBindTest extends AbstractRuntimeTest
 					"join CompareConditionItem c1 on c1.string>string " +
 					"order by string desc",
 					q.toString());
-			
+
 			final Collection<List<Object>> result = q.search();
 			final Iterator<List<Object>> i = result.iterator();
-			
+
 			assertEqualsUnmodifiable(list("string1", 1), i.next());
 		}
 		{
@@ -72,10 +72,10 @@ public class SelectBindTest extends AbstractRuntimeTest
 					"join CompareConditionItem c1 on c1.string>string " +
 					"order by string desc",
 					q.toString());
-			
+
 			final Collection<List<Object>> result = q.search();
 			final Iterator<List<Object>> i = result.iterator();
-			
+
 			assertEqualsUnmodifiable(list("string1", 1, "string2", 2), i.next());
 		}
 		{
@@ -90,10 +90,10 @@ public class SelectBindTest extends AbstractRuntimeTest
 					"join CompareConditionItem c2 on c2.string>string " +
 					"order by string desc",
 					q.toString());
-			
+
 			final Collection<List<Object>> result = q.search();
 			final Iterator<List<Object>> i = result.iterator();
-			
+
 			assertEqualsUnmodifiable(list("string1", 1, "string2", 2, "string2", 2), i.next());
 		}
 		{

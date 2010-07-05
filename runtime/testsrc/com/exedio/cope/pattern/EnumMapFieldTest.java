@@ -24,7 +24,7 @@ import com.exedio.cope.Model;
 public class EnumMapFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(EnumMapFieldTest.class, "MODEL");
@@ -33,14 +33,14 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
 	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
 	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
-	
+
 	public EnumMapFieldTest()
 	{
 		super(MODEL);
 	}
-	
+
 	EnumMapFieldItem item, itemX;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -48,7 +48,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new EnumMapFieldItem());
 		itemX = deleteOnTearDown(new EnumMapFieldItem());
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -77,7 +77,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
-		
+
 		assertSerializedSame(item.name      , 386);
 		assertSerializedSame(item.nameLength, 392);
 
@@ -93,35 +93,35 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(5), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
 		assertEquals(new Integer(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-		
+
 		try
 		{
 			item.getName(null);
@@ -141,7 +141,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			assertEquals("key", e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
@@ -164,7 +164,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
 		}
 	}
-	
+
 	enum X
 	{
 		A, B, C;

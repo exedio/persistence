@@ -29,12 +29,12 @@ import com.exedio.cope.Selectable;
 public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PolymorphicBoundSelectSuperItem.TYPE, PolymorphicBoundSelectSubItem.TYPE);
-	
+
 	public PolymorphicBoundSelectTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void testItemField()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = deleteOnTearDown(new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null));
@@ -53,7 +53,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 			return;
 		assertEquals(list(list(subItem, null)), q.search());
 	}
-	
+
 	public void testThis()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = deleteOnTearDown(new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null));

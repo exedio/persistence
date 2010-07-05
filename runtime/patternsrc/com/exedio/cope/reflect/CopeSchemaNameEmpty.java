@@ -28,7 +28,7 @@ final class CopeSchemaNameEmpty
 	{
 		return instance;
 	}
-	
+
 	private static final CopeSchemaName instance = new CopeSchemaName()
 		{
 			public Class<? extends Annotation> annotationType()
@@ -41,7 +41,7 @@ final class CopeSchemaNameEmpty
 				return "";
 			}
 		};
-	
+
 	private CopeSchemaNameEmpty()
 	{
 		// prevent instantiation

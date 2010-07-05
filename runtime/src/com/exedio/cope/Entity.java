@@ -24,23 +24,23 @@ final class Entity
 {
 	private final Transaction transaction;
 	private State state;
-	
+
 	Entity( final Transaction transaction, final State state )
 	{
 		this.transaction = transaction;
 		this.state = state;
 	}
-	
+
 	Object get(final FunctionField field)
 	{
 		return state.get(field);
 	}
-	
+
 	<E> void put(final FunctionField<E> field, final E value)
 	{
 		state = state.put(transaction, field, value);
 	}
-	
+
 	@SuppressWarnings("unchecked") // TODO dont know how
 	void put(final Map<Field, Object> fieldValues)
 	{
@@ -53,32 +53,32 @@ final class Entity
 				assert f instanceof DataField;
 		}
 	}
-	
+
 	void write(final Map<BlobColumn, byte[]> blobs) throws UniqueViolationException
 	{
 		state = state.write(transaction, blobs);
 	}
-	
+
 	void delete()
 	{
 		state = state.delete( transaction );
 	}
-	
+
 	Item getItem()
 	{
 		return state.item;
 	}
-	
+
 	boolean exists()
 	{
 		return state.exists();
 	}
-	
+
 	void discard()
 	{
 		state.discard(transaction);
 	}
-	
+
 	@Override
 	public String toString()
 	{

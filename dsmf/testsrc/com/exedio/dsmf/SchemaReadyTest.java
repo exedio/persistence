@@ -34,7 +34,7 @@ public abstract class SchemaReadyTest extends SchemaTest
 	public void tearDown() throws Exception
 	{
 		getSchema().tearDown();
-		
+
 		super.tearDown();
 	}
 

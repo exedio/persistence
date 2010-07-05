@@ -27,7 +27,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	void appendType(Statement bf, Join join);
-	
+
 	/**
 	 * @see #checkTypeColumn()
 	 */
@@ -37,20 +37,20 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @see #needsCheckTypeColumn()
 	 */
 	int checkTypeColumn();
-	
+
 	// convenience methods for conditions and views ---------------------------------
 
 	BindItemFunction<E> bind(Join join);
-	
+
 	CompareFunctionCondition equalTarget();
 	CompareFunctionCondition equalTarget(Join targetJoin);
-	
+
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
 	InstanceOfCondition<E> instanceOf(final Type[] types);
-	
+
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
@@ -82,7 +82,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 */
 	@Deprecated
 	InstanceOfCondition<E> typeIn(final Type[] types);
-	
+
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type)}.
 	 */

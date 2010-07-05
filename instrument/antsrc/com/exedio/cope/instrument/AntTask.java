@@ -44,7 +44,7 @@ public final class AntTask extends Task
 	{
 		fileSetsOrLists.add(fileList);
 	}
-	
+
 	public void setLongJavadoc(final boolean longJavadoc)
 	{
 		params.longJavadoc = longJavadoc;
@@ -54,7 +54,7 @@ public final class AntTask extends Task
 	{
 		params.finalArgs = finalArgs;
 	}
-	
+
 	public void setSerialVersionUID(final boolean serialVersionUID)
 	{
 		params.serialVersionUID = serialVersionUID;
@@ -78,13 +78,13 @@ public final class AntTask extends Task
 			final Project project = getProject();
 			final ArrayList<File> sourcefiles = new ArrayList<File>();
 			final HashSet<File> sourcefileSet = new HashSet<File>();
-			
+
 			for(final Iterator i = fileSetsOrLists.iterator(); i.hasNext(); )
 			{
 				final Object fileSetOrList = i.next();
 				final File dir;
 				final String[] fileNames;
-				
+
 				if(fileSetOrList instanceof FileSet)
 				{
 					final FileSet fileSet = (FileSet)fileSetOrList;

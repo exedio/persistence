@@ -25,21 +25,21 @@ import com.exedio.cope.StringField;
 class RecursivePattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final Media media = new Media().optional();
 	final StringField fetch = new StringField().optional();
-	
+
 	RecursivePattern()
 	{
 		addSource(media, "media");
 		addSource(fetch, "fetch");
 	}
-	
+
 	void set(final Item item, final String value)
 	{
 		fetch.set(item, value);
 	}
-	
+
 	boolean fetch(final Item item)
 	{
 		final String f = fetch.get(item);
@@ -48,7 +48,7 @@ class RecursivePattern extends Pattern
 		media.set(item, new byte[]{3, 5, 7, 9}, f);
 		return true;
 	}
-	
+
 	MediaPath.Locator getLocator(final Item item)
 	{
 		return media.getLocator(item);

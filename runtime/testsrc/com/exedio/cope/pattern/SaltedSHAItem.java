@@ -33,22 +33,22 @@ public class SaltedSHAItem extends Item
 	static final Hash passwordLatin = new MessageDigestHash(1, "ISO-8859-1").optional();
 	/** @cope.set none */
 	static final MessageDigestHash passwordMandatory = new MessageDigestHash(1);
-	
+
 	void setPassword(final String password)
 	{
 		set(SaltedSHAItem.password, password, 61654632);
 	}
-	
+
 	void setPasswordLatin(final String password)
 	{
 		set(SaltedSHAItem.passwordLatin, password, 61654632);
 	}
-	
+
 	void setPasswordMandatory(final String password)
 	{
 		set(SaltedSHAItem.passwordMandatory, password, 61654632);
 	}
-	
+
 	private void set(final Hash hash, final String password, final long seed)
 	{
 		final Random newRandom = new Random(seed);

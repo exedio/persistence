@@ -33,16 +33,16 @@ import com.exedio.cope.misc.ServletUtil;
 public class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public static final Model model = new Model(MediaServletItem.TYPE, MediaPatternItem.TYPE);
-	
+
 	private ConnectToken connectToken = null;
-	
+
 	@Override
 	public void init() throws ServletException
 	{
 		super.init();
-		
+
 		final byte[] textValue;
 		try
 		{
@@ -52,18 +52,18 @@ public class InitServlet extends HttpServlet
 		{
 			throw new RuntimeException(e);
 		}
-		
+
 		final Class thisClass = InitServlet.class;
 		connectToken = ServletUtil.connect(model, getServletConfig(), thisClass.getName());
 		model.createSchema();
 		try
 		{
 			model.startTransaction(thisClass.getName());
-			
+
 			final MediaServletItem text = new MediaServletItem();
 			assertID("MediaServletItem-0", text);
 			text.setContent(textValue, "text/plain");
-				
+
 			final MediaServletItem empty = new MediaServletItem();
 			assertID("MediaServletItem-1", empty);
 
@@ -78,14 +78,14 @@ public class InitServlet extends HttpServlet
 			final MediaServletItem unknown = new MediaServletItem();
 			assertID("MediaServletItem-4", unknown);
 			unknown.setContent(textValue, "unknownma/unknownmi");
-			
+
 			final MediaServletItem nameOk = new MediaServletItem("media item 1");
 			assertID("MediaServletItem-5", nameOk);
 			final MediaServletItem nameNull = new MediaServletItem(null);
 			assertID("MediaServletItem-6", nameNull);
 			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
 			assertID("MediaServletItem-7", nameError);
-			
+
 			final MediaServletItem gif = new MediaServletItem();
 			assertID("MediaServletItem-8", gif);
 			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif");
@@ -111,12 +111,12 @@ public class InitServlet extends HttpServlet
 			html.setContent(thisClass.getResourceAsStream("filter.html"), "text/html");
 			html.addHtmlPaste("small", Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
 			html.addHtmlPaste("tree",  Media.toValue(thisClass.getResourceAsStream("tree.jpg"),  "image/jpeg"));
-			
+
 			final MediaPatternItem pattern = new MediaPatternItem();
 			pattern.setSourceFeature(textValue, "text/plain");
 			pattern.addSourceItem(textValue, "text/plain");
 			pattern.addSourceItem(textValue, "text/plain");
-			
+
 			model.commit();
 		}
 		catch(IOException e)
@@ -136,13 +136,13 @@ public class InitServlet extends HttpServlet
 		connectToken = null;
 		super.destroy();
 	}
-	
+
 	private static final void assertID(final String id, final MediaServletItem item)
 	{
 		if(!id.equals(item.getCopeID()))
 			throw new RuntimeException(item.getCopeID());
 	}
-	
+
 	@Override
 	protected final void doGet(
 			final HttpServletRequest request,

@@ -38,14 +38,14 @@ final class Types
 	final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
-	
+
 	Types(final Model model, final Type[] types)
 	{
 		if(types==null)
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
-		
+
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
 		assert types.length==explicitTypesSorted.length;
@@ -53,7 +53,7 @@ final class Types
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypes)
 			addTypeIncludingGenerated(type, typesL, 10);
-		
+
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : typesL)
 		{
@@ -62,12 +62,12 @@ final class Types
 				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			if(!type.isAbstract)
 				concreteTypes.add(type);
-			
+
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(featuresByID.put(feature.getID(), feature)!=null)
 					throw new IllegalArgumentException("duplicate feature id \"" + feature.getID() + '"');
 		}
-		
+
 		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypesSorted)
 			addTypeIncludingGenerated(type, typesSorted, 10);
@@ -97,10 +97,10 @@ final class Types
 					parametersMap.get(valueType).addReference(ff);
 				}
 		}
-		
+
 		for(final Type<?> type : typesSorted)
 			type.mount(model, parametersMap.get(type));
-		
+
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
@@ -108,14 +108,14 @@ final class Types
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
-		
+
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
-		
+
 		for(final Type<?> type : typesSorted)
 			type.testActivation();
 	}
-	
+
 	private static final Type<?>[] sort(final Type<?>[] types)
 	{
 		final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
@@ -136,7 +136,7 @@ final class Types
 					throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
 				stack.add(type);
 			}
-			
+
 			for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
 			{
 				final Type type = j.previous();
@@ -152,24 +152,24 @@ final class Types
 		}
 		if(!done.equals(typeSet))
 			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
-		
+
 		//System.out.println("<--------------------"+result);
 		return result.toArray(new Type[result.size()]);
 	}
-	
+
 	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)
 	{
 		hopCount--;
 		if(hopCount<0)
 			throw new RuntimeException();
-		
+
 		result.add(type);
 		for(final Feature f : type.getDeclaredFeatures())
 			if(f instanceof Pattern)
 				for(final Type<?> generatedType : ((Pattern)f).getSourceTypes())
 					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
-	
+
 	static final class MountParameters
 	{
 		final Type type;
@@ -179,7 +179,7 @@ final class Types
 		private ArrayList<Type> subtypesTransitively;
 		private ArrayList<Type> typesOfInstances;
 		private ArrayList<ItemField> references;
-		
+
 		MountParameters(final Type type, final int orderIdTransiently, final int cacheIdTransiently)
 		{
 			this.type = type;
@@ -187,14 +187,14 @@ final class Types
 			this.cacheIdTransiently = cacheIdTransiently;
 			assert (cacheIdTransiently<0) == type.isAbstract;
 		}
-		
+
 		void addSubtype(final Type type)
 		{
 			if(subtypes==null)
 				subtypes = new ArrayList<Type>();
 			subtypes.add(type);
 		}
-		
+
 		void addSubtypeTransitively(final Type type)
 		{
 			if(subtypesTransitively==null)
@@ -206,46 +206,46 @@ final class Types
 			if(!type.isAbstract)
 				typesOfInstances.add(type);
 		}
-		
+
 		void recurse(final HashMap<Type, MountParameters> parametersMap, final MountParameters target, int hopCount)
 		{
 			hopCount--;
 			if(hopCount<0)
 				throw new RuntimeException();
-			
+
 			target.addSubtypeTransitively(type);
 			if(subtypes!=null)
 				for(final Type type : subtypes)
 					parametersMap.get(type).recurse(parametersMap, target, hopCount);
 		}
-		
+
 		void addReference(final ItemField reference)
 		{
 			if(references==null)
 				references = new ArrayList<ItemField>();
 			references.add(reference);
 		}
-		
+
 		List<Type> getSubtypes()
 		{
 			return finish(subtypes);
 		}
-		
+
 		List<Type> getSubtypesTransitively()
 		{
 			return finish(subtypesTransitively);
 		}
-		
+
 		List<Type> getTypesOfInstances()
 		{
 			return finish(typesOfInstances);
 		}
-		
+
 		List<ItemField> getReferences()
 		{
 			return finish(references);
 		}
-		
+
 		private static <X> List<X> finish(final ArrayList<X> list)
 		{
 			if(list==null)
@@ -265,7 +265,7 @@ final class Types
 			}
 		}
 	}
-	
+
 	boolean containsTypeSet(final Type... typeSet)
 	{
 		if(typeSet==null)
@@ -275,11 +275,11 @@ final class Types
 		for(int i = 0; i<typeSet.length; i++)
 			if(typeSet[i]==null)
 				throw new NullPointerException("typeSet[" + i + ']');
-		
+
 		final HashSet<Type> typesAsSet = new HashSet<Type>(Arrays.asList(typesSorted));
 		if(typesAsSet.containsAll(Arrays.asList(typeSet)))
 			return true;
-		
+
 		for(final Type t : typeSet)
 			if(typesAsSet.contains(t))
 			{
@@ -291,7 +291,7 @@ final class Types
 						first = false;
 					else
 						bf.append(", ");
-					
+
 					final boolean n = typesAsSet.contains(tx);
 					if(n)
 						bf.append('[');
@@ -302,10 +302,10 @@ final class Types
 
 				throw new IllegalArgumentException(bf.toString());
 			}
-		
+
 		return false;
 	}
-	
+
 	Map<Feature, Feature> getHiddenFeatures()
 	{
 		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
@@ -314,12 +314,12 @@ final class Types
 			final Type st = t.getSupertype();
 			if(st==null)
 				continue;
-			
+
 			for(final Feature f : t.getDeclaredFeatures())
 			{
 				if(f instanceof This)
 					continue;
-				
+
 				final Feature hidden = st.getFeature(f.getName());
 				if(hidden!=null)
 				{
@@ -330,22 +330,22 @@ final class Types
 		}
 		return result;
 	}
-	
+
 	Type getType(final String id)
 	{
 		return typesByID.get(id);
 	}
-	
+
 	Feature getFeature(final String id)
 	{
 		return featuresByID.get(id);
 	}
-	
+
 	Type getConcreteType(final int transientNumber)
 	{
 		return concreteTypes[transientNumber];
 	}
-	
+
 	Item getItem(final String id) throws NoSuchIDException
 	{
 		final int pos = id.lastIndexOf(Item.ID_SEPARATOR);
@@ -358,7 +358,7 @@ final class Types
 			throw new NoSuchIDException(id, true, "type <" + typeID + "> does not exist");
 		if(type.isAbstract)
 			throw new NoSuchIDException(id, true, "type is abstract");
-		
+
 		final String pkString = id.substring(pos+1);
 		if(pkString.length()>1 && pkString.charAt(0)=='0')
 			throw new NoSuchIDException(id, true, "has leading zeros");
@@ -378,13 +378,13 @@ final class Types
 		if(pkLong>=2147483648l)
 			throw new NoSuchIDException(id, true, "does not fit in 31 bit");
 		final int pk = (int)pkLong;
-		
+
 		final Item result = type.getItemObject(pk);
 		if(!result.existsCopeItem())
 			throw new NoSuchIDException(id, false, "item <" + pkLong + "> does not exist");
 		return result;
 	}
-	
+
 	void checkTypeColumns()
 	{
 		for(final Type<?> t : typesSorted)
@@ -395,7 +395,7 @@ final class Types
 					checkTypeColumn((ItemField)a);
 		}
 	}
-	
+
 	private static final void checkTypeColumn(final ItemFunction f)
 	{
 		if(f.needsCheckTypeColumn())
@@ -405,13 +405,13 @@ final class Types
 				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
 		}
 	}
-	
+
 	void connect(final Database db)
 	{
 		for(final Type type : typesSorted)
 			type.connect(db);
 	}
-	
+
 	void disconnect()
 	{
 		for(final Type type : typesSorted)

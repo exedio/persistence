@@ -35,27 +35,27 @@ abstract class JavaFeature
 	 * Is never null.
 	 */
 	final JavaFile file;
-	
+
 	/**
 	 * The class, which contains this feature.
 	 * Is null for top-level (not inner) classes.
 	 */
 	final JavaClass parent;
-	
+
 	/**
 	 * The modifier of this feature.
 	 * @see java.lang.reflect.Modifier
 	 */
 	final int modifier;
-	
+
 	/**
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.
 	 */
 	final String type;
-	
+
 	final String name;
-	
+
 	JavaFeature(
 							final JavaFile file,
 							final JavaClass parent,
@@ -69,13 +69,13 @@ abstract class JavaFeature
 		this.modifier=modifier;
 		this.type=type;
 		this.name=name;
-		
+
 		if(file==null)
 			throw new RuntimeException();
-		
+
 		if(parent!=null && file!=parent.file) // JavaFile objects are flyweight
 			throw new RuntimeException();
-		
+
 		int over=modifier&~getAllowedModifiers();
 		if(over!=0)
 			throw new InjectorParseException(
@@ -90,22 +90,22 @@ abstract class JavaFeature
 	 * of feature.
 	 */
 	abstract int getAllowedModifiers();
-	
+
 	final boolean isStatic()
 	{
 		return (modifier & Modifier.STATIC) > 0;
 	}
-	
+
 	final boolean isAbstract()
 	{
 		return (modifier & Modifier.ABSTRACT) > 0;
 	}
-	
+
 	final Visibility getVisibility()
 	{
 		return Visibility.fromModifier(modifier);
 	}
-	
+
 	@Override
 	public String toString()
 	{

@@ -47,7 +47,7 @@ public class JoinTest extends TestmodelTest
 		// test conditions
 		assertEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer.equalTarget());
 		assertNotEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer2.equalTarget());
-		
+
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());

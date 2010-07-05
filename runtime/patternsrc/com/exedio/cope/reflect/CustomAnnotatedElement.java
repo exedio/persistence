@@ -41,21 +41,21 @@ final class CustomAnnotatedElement
 			if(annotationMap.put(a.annotationType(), a)!=null)
 				throw new IllegalArgumentException("duplicate " + a.annotationType());
 		}
-		
+
 		return new AnnotationSource(Arrays.copyOf(annotations), annotationMap);
 	}
-	
+
 	private static final class AnnotationSource implements AnnotatedElement
 	{
 		private final Annotation[] annotations;
 		private final HashMap<Class, Annotation> annotationMap;
-		
+
 		AnnotationSource(final Annotation[] annotations, final HashMap<Class, Annotation> annotationMap)
 		{
 			this.annotations = annotations;
 			this.annotationMap = annotationMap;
 		}
-		
+
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return annotationMap.containsKey(annotationClass);
@@ -75,14 +75,14 @@ final class CustomAnnotatedElement
 		{
 			return Arrays.copyOf(annotations);
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return java.util.Arrays.toString(annotations);
 		}
 	}
-	
+
 	private CustomAnnotatedElement()
 	{
 		// prevent instantiation

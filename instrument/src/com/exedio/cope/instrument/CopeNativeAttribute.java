@@ -44,11 +44,11 @@ final class CopeNativeAttribute extends CopeAttribute
 		throws InjectorParseException
 	{
 		super(parent, javaAttribute, getPersistentType(typeClass));
-		
+
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = toNativeTypeMapping.get(this.typeClass);
 	}
-	
+
 	private static final Class normalizeTypeClass(final Class typeClass)
 	{
 		if(StringFunction.class.isAssignableFrom(typeClass))
@@ -71,7 +71,7 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	private static final HashMap<Class, String> toPersistentTypeMapping = new HashMap<Class, String>(3);
 	private static final HashMap<Class, String> toNativeTypeMapping = new HashMap<Class, String>(3);
-	
+
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
 	{
 		if(persistentType.isPrimitive())
@@ -87,7 +87,7 @@ final class CopeNativeAttribute extends CopeAttribute
 			toNativeTypeMapping.put(typeClass, nativeType.getName());
 		}
 	}
-	
+
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
 	{
 		fillNativeTypeMap(typeClass, persistentType, null);
@@ -103,14 +103,14 @@ final class CopeNativeAttribute extends CopeAttribute
 		fillNativeTypeMap(DateField.class,       Date.class);
 		fillNativeTypeMap(DayField.class,        Day.class);
 	}
-	
+
 	@Override
 	@Deprecated
 	public final String getBoxedType()
 	{
 		return isBoxed() ? nativeType : persistentType;
 	}
-	
+
 	@Override
 	@Deprecated
 	public final boolean isBoxed()

@@ -31,7 +31,7 @@ import com.exedio.cope.pattern.Hash;
 public class WrapHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	public WrapHash(final StringField storage)
 	{
 		super(storage, ALGORITHM);
@@ -41,7 +41,7 @@ public class WrapHash extends Hash
 	{
 		super(ALGORITHM);
 	}
-	
+
 	private static final Algorithm ALGORITHM = new Algorithm()
 	{
 		public String name()
@@ -53,12 +53,12 @@ public class WrapHash extends Hash
 		{
 			return 6;
 		}
-		
+
 		public byte[] hash(final byte[] plainText)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
-			
+
 			final String x;
 			try
 			{
@@ -80,14 +80,14 @@ public class WrapHash extends Hash
 			assert result.length==length();
 			return result;
 		}
-		
+
 		public boolean check(final byte[] plainText, final byte[] hash)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 			if(hash==null)
 				throw new NullPointerException();
-			
+
 			return Arrays.equals(hash(plainText), hash);
 		}
 	};

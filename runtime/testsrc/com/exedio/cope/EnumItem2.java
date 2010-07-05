@@ -25,10 +25,10 @@ public class EnumItem2 extends Item
 		state1,
 		state2;
 	}
-	
+
 	public static final EnumField<Status> status = newEnumField(Status.class);
-	
-	
+
+
 	/**
 
 	 **

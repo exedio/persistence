@@ -36,7 +36,7 @@ final class Statement
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
-	
+
 	Statement(final Executor executor, final boolean qualifyTable)
 	{
 		if(executor==null)
@@ -50,7 +50,7 @@ final class Statement
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 	}
-	
+
 	Statement(final Dialect dialect)
 	{
 		this.dialect = dialect;
@@ -70,14 +70,14 @@ final class Statement
 		this.dialect = executor.dialect;
 		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
-		
+
 		this.tc = query.check();
-		
+
 		// TODO: implementation is far from optimal
 		// TODO: do all the rest in this constructor with TC
-		
+
 		final ArrayList<JoinType> joinTypes = new ArrayList<JoinType>();
-		
+
 		joinTypes.add(new JoinType(null, query.type));
 		for(final Join join : query.getJoins())
 			joinTypes.add(new JoinType(join, join.type));
@@ -110,9 +110,9 @@ final class Statement
 				}
 			}
 		}
-		
+
 		HashSet<Table> ambiguousTables = null;
-		
+
 		for(final Map.Entry<Table, Object> entry : tableToJoinTables.entrySet())
 		{
 			final Table table = entry.getKey();
@@ -132,11 +132,11 @@ final class Statement
 			}
 		}
 		//System.out.println("-------"+joinTables.keySet().toString());
-		
+
 		this.qualifyTable = joinTables.size()>1;
 		this.ambiguousTables = ambiguousTables;
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: tableToJoinTables contains both JoinTable and List<JoinTable>
 	private static final ArrayList<JoinTable> castJoinTable(final Object o)
 	{
@@ -148,20 +148,20 @@ final class Statement
 		this.text.append(text);
 		return this;
 	}
-		
+
 	Statement append(final char text)
 	{
 		this.text.append(text);
 		return this;
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
 	Statement append(final Selectable select, final Join join)
 	{
 		select.append(this, join);
 		return this;
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: Selectable.appendSelect is for internal use within COPE only
 	Statement appendSelect(final Selectable<?> select, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
 	{
@@ -173,14 +173,14 @@ final class Statement
 	{
 		return append(type.getTable().primaryKey, join);
 	}
-		
+
 	Statement append(final Table table)
 	{
 		this.text.append(table.quotedID);
-			
+
 		return this;
 	}
-		
+
 	/**
 	 * Check correctness of type column.
 	 * If type column is inconsistent,
@@ -201,15 +201,15 @@ final class Statement
 			append('=').
 			appendParameter(type.id);
 		}
-			
+
 		return this;
 	}
-		
+
 	Statement append(final Column column)
 	{
 		return append(column, (Join)null);
 	}
-	
+
 	Statement append(final Column column, final Join join)
 	{
 		if(qualifyTable)
@@ -220,17 +220,17 @@ final class Statement
 		}
 		this.text.
 			append(column.quotedID);
-			
+
 		return this;
 	}
-		
+
 	@SuppressWarnings("deprecation") // OK: Function.appendParameter is for internal use within COPE only
 	<E> Statement appendParameter(final Function<E> function, final E value)
 	{
 		function.appendParameter(this, value);
 		return this;
 	}
-	
+
 	Statement appendParameterBlob(final byte[] data)
 	{
 		if(data!=null)
@@ -251,9 +251,9 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	private static final char QUESTION_MARK = '?';
-	
+
 	Statement appendParameter(final Column column, final Object value)
 	{
 		if(parameters==null)
@@ -265,7 +265,7 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	Statement appendParameter(final int value)
 	{
 		if(parameters==null)
@@ -277,7 +277,7 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	Statement appendParameter(final Number value)
 	{
 		if(parameters==null)
@@ -289,7 +289,7 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	Statement appendParameter(final String value)
 	{
 		if(parameters==null)
@@ -301,21 +301,21 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	Statement appendParameters(final Statement other)
 	{
 		assert (parameters==null) == (other.parameters==null);
 
 		if(parameters!=null) // otherwise no prepared statements are used
 			parameters.addAll(other.parameters);
-		
+
 		return this;
 	}
-	
+
 	Statement appendLength()
 	{
 		this.text.append(dialect.stringLength);
-		
+
 		return this;
 	}
 
@@ -354,7 +354,7 @@ final class Statement
 		{
 			final String text = this.text.toString();
 			final StringBuilder result = new StringBuilder();
-			
+
 			int lastPos = 0;
 			final Iterator pi = parameters.iterator();
 			for(int pos = text.indexOf(QUESTION_MARK); pos>=0&&pi.hasNext(); pos = text.indexOf(QUESTION_MARK, lastPos))
@@ -366,61 +366,61 @@ final class Statement
 				lastPos = pos+1;
 			}
 			result.append(text.substring(lastPos));
-			
+
 			return result.toString();
 		}
 	}
-	
+
 	// join aliases
-	
+
 	private static class JoinTable
 	{
 		final Join join;
 		final Table table;
 
 		String alias = null;
-		
+
 		JoinTable(final Join join, final Table table)
 		{
 			if(table==null)
 				throw new NullPointerException();
-			
+
 			this.join = join;
 			this.table = table;
 		}
-		
+
 		@Override
 		public int hashCode()
 		{
 			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
 		}
-		
+
 		@Override
 		public boolean equals(final Object other)
 		{
 			final JoinTable o = (JoinTable)other;
 			return join==o.join && table==o.table;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return (join==null?"-":join.type.id) + '/' + table.id + '>' + (alias==null?"-":alias);
 		}
 	}
-	
+
 	private static class JoinType
 	{
 		final Join join;
 		final Type type;
-		
+
 		JoinType(final Join join, final Type type)
 		{
 			this.join = join;
 			this.type = type;
 		}
 	}
-	
+
 	Statement appendTableDefinition(final Join join, final Table table)
 	{
 		append(table.quotedID);
@@ -432,7 +432,7 @@ final class Statement
 		}
 		return this;
 	}
-	
+
 	void appendTypeDefinition(final Join join, final Type type)
 	{
 		final Type supertype = type.supertype;
@@ -448,7 +448,7 @@ final class Statement
 				{
 					if(superTables==null)
 						superTables = new ArrayList<Table>();
-					
+
 					superTables.add(iTable);
 				}
 			}
@@ -473,7 +473,7 @@ final class Statement
 			append(')');
 		}
 	}
-	
+
 	private JoinTable getJoinTable(final Join join, final Table table)
 	{
 		return joinTables!=null ? joinTables.get(new JoinTable(join, table)) : null;
@@ -497,7 +497,7 @@ final class Statement
 			return table.quotedID;
 		}
 	}
-	
+
 	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)
 	{
 		if(tc==null)
@@ -505,15 +505,15 @@ final class Statement
 		else
 			return tc;
 	}
-	
+
 	List<Object> getParameters()
 	{
 		if(parameters==null)
 			return null;
-		
+
 		return Collections.unmodifiableList(parameters);
 	}
-	
+
 	QueryInfo getQueryInfo()
 	{
 		final QueryInfo result = new QueryInfo(text.toString());

@@ -23,15 +23,15 @@ public abstract class Constraint extends Node
 	public enum Type
 	{
 		PrimaryKey(false), ForeignKey(true), Unique(false), Check(false);
-		
+
 		final boolean secondPhase;
-		
+
 		Type(final boolean secondPhase)
 		{
 			this.secondPhase = secondPhase;
 		}
 	}
-	
+
 	final Table table;
 	final String name;
 	final Type type;
@@ -39,7 +39,7 @@ public abstract class Constraint extends Node
 	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
-		
+
 	Constraint(
 			final Table table,
 			final String name,
@@ -48,7 +48,7 @@ public abstract class Constraint extends Node
 			final String condition)
 	{
 		super(table.dialect, table.connectionProvider);
-		
+
 		if(name==null)
 			throw new RuntimeException(table.name);
 		if(type==null)
@@ -68,27 +68,27 @@ public abstract class Constraint extends Node
 		}
 		table.register(this);
 	}
-	
+
 	public final Table getTable()
 	{
 		return table;
 	}
-	
+
 	public final String getName()
 	{
 		return name;
 	}
-	
+
 	public final Type getType()
 	{
 		return type;
 	}
-	
+
 	public final String getRequiredCondition()
 	{
 		return requiredCondition;
 	}
-	
+
 	final void notifyExists()
 	{
 		exists = true;
@@ -98,7 +98,7 @@ public abstract class Constraint extends Node
 	{
 		assert !exists;
 		assert existingCondition==null;
-		
+
 		exists = true;
 		this.existingCondition = condition;
 	}
@@ -174,33 +174,33 @@ public abstract class Constraint extends Node
 	{
 		return exists;
 	}
-	
+
 	@Override
 	public final String toString()
 	{
 		return name;
 	}
-	
+
 	public boolean isSupported()
 	{
 		return true;
 	}
-	
+
 	public int check()
 	{
 		throw new RuntimeException("no yet implemented"); // TODO
 	}
-	
+
 	public final void create()
 	{
 		create(null);
 	}
-	
+
 	public final void drop()
 	{
 		drop(null);
 	}
-	
+
 	abstract void createInTable(StringBuilder bf);
 	public abstract void create(StatementListener listener);
 	public abstract void drop(StatementListener listener);

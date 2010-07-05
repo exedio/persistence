@@ -23,7 +23,7 @@ class DayItem extends Item
 	static final DayField day = new DayField();
 	static final DayField optionalDay = new DayField().optional();
 
-	
+
 	/**
 
 	 **

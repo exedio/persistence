@@ -43,7 +43,7 @@ public class ArraysTest extends TestCase
 		assertEquals("[20, 21, ... (3)]", str(new byte[]{20, 21, 22}, 2));
 		assertEquals("[20, ... (3)]", str(new byte[]{20, 21, 22}, 1));
 	}
-	
+
 	private static final String str(final byte[] a, final int limit)
 	{
 		return Arrays.toString(a, limit);

@@ -32,11 +32,11 @@ public class PlusIntegerOrderTest extends CopeModelTest
 	{
 		super(PlusIntegerTest.MODEL);
 	}
-	
+
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
 	PlusIntegerItem item3;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -45,7 +45,7 @@ public class PlusIntegerOrderTest extends CopeModelTest
 		item2 = new PlusIntegerItem(2, 1, -1000);
 		item3 = new PlusIntegerItem(6, 2, -1000);
 	}
-	
+
 	public void testSumOrder()
 	{
 		assertEquals(valueOf(    7), item1.getPlusAB());

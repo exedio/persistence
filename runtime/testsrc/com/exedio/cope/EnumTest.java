@@ -26,15 +26,15 @@ public class EnumTest extends AbstractRuntimeTest
 
 	EnumItem item;
 	EnumItem2 item2;
-	
+
 	private static final EnumItem.Status status1 = EnumItem.Status.status1;
 	private static final EnumItem2.Status state1 = EnumItem2.Status.state1;
-	
+
 	public EnumTest()
 	{
 		super(MODEL);
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -47,7 +47,7 @@ public class EnumTest extends AbstractRuntimeTest
 	{
 		assertEquals(EnumItem.Status.class, item.status.getValueClass());
 		assertEquals(EnumItem2.Status.class, item2.status.getValueClass());
-		
+
 		assertSame(item.status, item.status.as(EnumItem.Status.class));
 		try
 		{
@@ -61,16 +61,16 @@ public class EnumTest extends AbstractRuntimeTest
 					"but was a " + EnumField.class.getName() + '<' + EnumItem.Status.class.getName() + '>',
 				e.getMessage());
 		}
-		
+
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
-		
+
 		assertEquals(null, item.getSingle());
 		item.setSingle(Single.single);
 		assertEquals(Single.single, item.getSingle());
 		item.setSingle(null);
 		assertEquals(null, item.getSingle());
-		
+
 		{
 			final EnumField<Single> wrong = item.newEnumField(Single.class);
 			final Features features = new Features();

@@ -49,7 +49,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
-	
+
 	public void testIt() throws IOException
 	{
 		{
@@ -57,9 +57,9 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			assertSame(dataValue, Media.toValue(dataValue, "zack").getBody());
 			assertSame("zack",    Media.toValue(dataValue, "zack").getContentType());
 		}
-		
+
 		// test model
-		
+
 		assertEquals(false, item.file.isInitial());
 		assertEquals(false, item.file.isFinal());
 		assertEquals(false, item.file.isMandatory());
@@ -79,7 +79,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(20, body.getMaximumLength());
 		assertEquals(item.file, body.getPattern());
 		assertSame(item.file, Media.get(body));
-		
+
 		final StringField contentType = (StringField)item.file.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
@@ -89,7 +89,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
-		
+
 		final DateField lastModified = item.file.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
@@ -107,18 +107,18 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
-		
+
 		assertEqualsUnmodifiable(list(body, contentType, lastModified, unison), item.file.getSourceFeatures());
-		
+
 		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));
 		assertNotNull(item.file.bodyMismatchesContentType());
-		
+
 		// test persistence
 		assertEquals("file_body", SchemaInfo.getColumnName(item.file.getBody()));
 		assertEquals("file_contentType", SchemaInfo.getColumnName(item.file.getContentType()));
 		assertEquals("file_lastModified", SchemaInfo.getColumnName(item.file.getLastModified()));
-		
+
 		assertNull();
 		assertContains(item, item.TYPE.search(item.file.isNull()));
 		assertContains(item.TYPE.search(item.file.isNotNull()));
@@ -201,7 +201,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			item.setFile(data20, "empty-major/empty-minor");
 			final Date after = new Date();
 			assertContent(data20, before, after, "empty-major/empty-minor", "");
-			
+
 			// byte[]
 			try
 			{
@@ -232,7 +232,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
-			
+
 			// file
 			try
 			{
@@ -263,7 +263,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
-			
+
 			// stream
 			try
 			{
@@ -312,7 +312,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFileURL());
 		assertEquals(null, item.getFileLocator());
 	}
-	
+
 	private void assertContent(
 			final byte[] expectedData,
 			final Date before, final Date after,
@@ -333,17 +333,17 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		item.getFileLocator().appendPath(bf);
 		assertEquals(path, bf.toString());
 	}
-	
+
 	private final void assertDataFile(final byte[] expectedData) throws IOException
 	{
 		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
 		delete(tempFile);
 		assertFalse(tempFile.exists());
-		
+
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
 	}
-	
+
 	private void assertExtension(final String contentType, final String extension)
 		throws IOException
 	{

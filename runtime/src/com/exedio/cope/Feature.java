@@ -36,32 +36,32 @@ public abstract class Feature implements Serializable
 {
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mount = null;
-	
+
 	private static final class Mount
 	{
 		final Type<? extends Item> type;
 		final String name;
 		final String id;
 		private final AnnotatedElement annotationSource;
-		
+
 		Mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
 			assert type!=null;
 			assert name!=null;
-			
+
 			this.type = type;
 			this.name = intern(name);
 			this.id =   intern(type.id + '.' + name);
 			this.annotationSource = annotationSource;
 		}
-		
+
 		boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return
 				annotationSource!=null &&
 				annotationSource.isAnnotationPresent(annotationClass);
 		}
-		
+
 		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 		{
 			return
@@ -69,13 +69,13 @@ public abstract class Feature implements Serializable
 				? annotationSource.getAnnotation(annotationClass)
 				: null;
 		}
-		
+
 		void toString(final StringBuilder bf, final Type defaultType)
 		{
 			bf.append((defaultType==type) ? name : id);
 		}
 	}
-	
+
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
@@ -86,17 +86,17 @@ public abstract class Feature implements Serializable
 			if(i>=0)
 				throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
-		
+
 		if(this.mount!=null)
 			throw new IllegalStateException("feature already mounted: " + mount.id);
 		this.mount = new Mount(type, name, annotationSource);
-		
+
 		type.registerMounted(this);
-		
+
 		this.pattern = this.patternUntilMount;
 		this.patternUntilMount = null;
 	}
-	
+
 	private final Mount mount()
 	{
 		final Mount mount = this.mount;
@@ -104,22 +104,22 @@ public abstract class Feature implements Serializable
 			throw new IllegalStateException("feature not mounted");
 		return mount;
 	}
-	
+
 	final boolean isMounted()
 	{
 		return mount!=null;
 	}
-	
+
 	public Type<? extends Item> getType()
 	{
 		return mount().type;
 	}
-	
+
 	public final String getName()
 	{
 		return mount().name;
 	}
-	
+
 	/**
 	 * @see Model#getFeature(String)
 	 */
@@ -127,7 +127,7 @@ public abstract class Feature implements Serializable
 	{
 		return mount().id;
 	}
-	
+
 	/**
 	 * @see Class#isAnnotationPresent(Class)
 	 */
@@ -135,7 +135,7 @@ public abstract class Feature implements Serializable
 	{
 		return mount().isAnnotationPresent(annotationClass);
 	}
-	
+
 	/**
 	 * @see Class#getAnnotation(Class)
 	 */
@@ -143,7 +143,7 @@ public abstract class Feature implements Serializable
 	{
 		return mount().getAnnotation(annotationClass);
 	}
-	
+
 	final String getSchemaName()
 	{
 		final CopeSchemaName annotation =
@@ -153,17 +153,17 @@ public abstract class Feature implements Serializable
 			? annotation.value()
 			: getName();
 	}
-	
+
 	public List<Wrapper> getWrappers()
 	{
 		return Collections.<Wrapper>emptyList();
 	}
-	
+
 	void toStringNotMounted(final StringBuilder bf)
 	{
 		bf.append(super.toString());
 	}
-	
+
 	@Override
 	public final String toString()
 	{
@@ -179,7 +179,7 @@ public abstract class Feature implements Serializable
 			return bf.toString();
 		}
 	}
-	
+
 	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
 		final Mount mount = this.mount;
@@ -188,25 +188,25 @@ public abstract class Feature implements Serializable
 		else
 			toStringNotMounted(bf);
 	}
-	
+
 	// patterns ------------------
-	
+
 	private Pattern patternUntilMount = null;
 	private Pattern pattern = null;
-	
+
 	final void registerPattern(final Pattern pattern)
 	{
 		if(isMounted())
 			throw new RuntimeException("registerPattern must be called before mounting the feature.");
 		if(pattern==null)
 			throw new NullPointerException();
-		
+
 		if(patternUntilMount!=null)
 			throw new IllegalStateException("feature has already registered pattern " + this.patternUntilMount + " and tried to register a new one: " + pattern);
-		
+
 		this.patternUntilMount = pattern;
 	}
-	
+
 	/**
 	 * @see Pattern#getSourceFields()
 	 */
@@ -219,7 +219,7 @@ public abstract class Feature implements Serializable
 
 		return pattern;
 	}
-	
+
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;
@@ -235,20 +235,20 @@ public abstract class Feature implements Serializable
 
 		return new Serialized(mount);
 	}
-	
+
 	private static final class Serialized implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
-		
+
 		private final Type type;
 		private final String name;
-		
+
 		Serialized(final Mount mount)
 		{
 			this.type = mount.type;
 			this.name = mount.name;
 		}
-		
+
 		/**
 		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */

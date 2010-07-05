@@ -26,12 +26,12 @@ public final class SequenceInfo
 	private final int start;
 	private final int minimum;
 	private final int maximum;
-	
+
 	private final boolean known;
 	private final int count;
 	private final int first;
 	private final int last;
-	
+
 	SequenceInfo(
 			final Feature feature,
 			final int start,
@@ -45,13 +45,13 @@ public final class SequenceInfo
 		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
-		
+
 		this.known = true;
 		this.count = count;
 		this.first = first;
 		this.last = last;
 	}
-	
+
 	public SequenceInfo(
 			final Feature feature,
 			final int start,
@@ -62,43 +62,43 @@ public final class SequenceInfo
 		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
-		
+
 		this.known = false;
 		this.count = 0;
 		this.first = 0;
 		this.last = 0;
 	}
-	
+
 	public Feature getFeature()
 	{
 		return feature;
 	}
-	
+
 	public int getStart()
 	{
 		return start;
 	}
-	
+
 	public int getMinimum()
 	{
 		return minimum;
 	}
-	
+
 	public int getMaximum()
 	{
 		return maximum;
 	}
-	
+
 	public int getCount()
 	{
 		return count;
 	}
-	
+
 	public boolean isKnown()
 	{
 		return known;
 	}
-	
+
 	/**
 	 * Returns the first primary key number generated for the type since the startup of the application.
 	 */
@@ -106,10 +106,10 @@ public final class SequenceInfo
 	{
 		if(!known)
 			throw new IllegalStateException("not known");
-		
+
 		return first;
 	}
-	
+
 	/**
 	 * Returns the last primary key number generated for the type.
 	 */
@@ -117,7 +117,7 @@ public final class SequenceInfo
 	{
 		if(!known)
 			throw new IllegalStateException("not known");
-		
+
 		return last;
 	}
 }

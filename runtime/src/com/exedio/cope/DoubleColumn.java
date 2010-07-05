@@ -25,7 +25,7 @@ final class DoubleColumn extends Column
 {
 	final double minimum;
 	final double maximum;
-	
+
 	DoubleColumn(
 			final Table table,
 			final Field field,
@@ -37,13 +37,13 @@ final class DoubleColumn extends Column
 		super(table, field, id, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
-		
+
 		assert !Double.isInfinite(minimum) : minimum;
 		assert !Double.isInfinite(maximum) : maximum;
 		assert !Double.isNaN(minimum) : minimum;
 		assert !Double.isNaN(maximum) : maximum;
 	}
-	
+
 	@Override
 	final String getDatabaseType()
 	{
@@ -55,7 +55,7 @@ final class DoubleColumn extends Column
 	{
 		if(table.database.oracle)
 			return null;
-		
+
 		return '(' + quotedID + ">=" + minimum + ") AND (" + quotedID + "<=" + maximum + ')';
 	}
 
@@ -79,7 +79,7 @@ final class DoubleColumn extends Column
 			return (Double)sqlDouble;
 		}
 	}
-	
+
 	@Override
 	final String cacheToDatabase(final Object cache)
 	{
@@ -88,14 +88,14 @@ final class DoubleColumn extends Column
 		else
 			return ((Double)cache).toString();
 	}
-	
+
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		assert cache==null || cache instanceof Double;
 		return cache;
 	}
-	
+
 	@Override
 	Object getCheckValue()
 	{

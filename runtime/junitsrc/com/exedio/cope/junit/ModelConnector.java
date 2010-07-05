@@ -26,12 +26,12 @@ final class ModelConnector implements Runnable
 	private static Model createdSchema = null;
 	private static boolean registeredDropSchemaHook = false;
 	private static final Object lock = new Object();
-	
+
 	private ModelConnector()
 	{
 		// prevent instantiation
 	}
-	
+
 	static void connectAndCreate(final Model model, final ConnectProperties properties)
 	{
 		synchronized(lock)
@@ -47,7 +47,7 @@ final class ModelConnector implements Runnable
 				model.getConnectProperties().ensureEquality(properties);
 		}
 	}
-	
+
 	static void dropAndDisconnect()
 	{
 		synchronized(lock)
@@ -59,7 +59,7 @@ final class ModelConnector implements Runnable
 			}
 		}
 	}
-	
+
 	private static void dropAndDisconnectIfNeeded()
 	{
 		synchronized(lock)
@@ -72,7 +72,7 @@ final class ModelConnector implements Runnable
 			}
 		}
 	}
-	
+
 	public void run()
 	{
 		dropAndDisconnectIfNeeded();

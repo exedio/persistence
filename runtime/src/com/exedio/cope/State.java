@@ -38,25 +38,25 @@ abstract class State
 
 		assert PK.isValid(pk) : pk;
 	}
-	
+
 	abstract Object get(FunctionField field);
-	
+
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
-	
+
 	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
-	
-	
+
+
 	abstract Object store(final Column column);
 
 	abstract State delete( Transaction transaction );
-	
+
 	void discard( final Transaction transaction )
 	{
 		transaction.removeEntity( item );
 	}
-	
+
 	abstract Row stealValues();
-	
+
 	abstract boolean exists();
 
 	@Override

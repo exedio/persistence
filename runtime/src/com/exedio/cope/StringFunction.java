@@ -51,7 +51,7 @@ public interface StringFunction extends Function<String>
 	 * contains the given parameter.
 	 */
 	LikeCondition contains(String value);
-	
+
 	LengthView length();
 	UppercaseView toUpperCase();
 	Condition equalIgnoreCase(String value);

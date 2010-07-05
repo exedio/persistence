@@ -30,12 +30,12 @@ import com.exedio.cope.util.ModificationListener;
 public abstract class CopeModelTest extends CopeAssert
 {
 	protected final Model model;
-	
+
 	protected CopeModelTest(final Model model)
 	{
 		this.model = model;
 	}
-	
+
 	/**
 	 * Override this method to provide your own connect properties
 	 * to method {@link #setUp()} for connecting.
@@ -44,7 +44,7 @@ public abstract class CopeModelTest extends CopeAssert
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -53,7 +53,7 @@ public abstract class CopeModelTest extends CopeAssert
 		model.startTransaction("tx:" + getClass().getName());
 		model.checkEmptySchema();
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
@@ -65,9 +65,9 @@ public abstract class CopeModelTest extends CopeAssert
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated
 	 * Not needed anymore, since {@link #tearDown()}

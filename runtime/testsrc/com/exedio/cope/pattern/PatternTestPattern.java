@@ -33,60 +33,60 @@ import com.exedio.cope.ItemField.DeletePolicy;
 class PatternTestPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	final StringField ownString = new StringField();
 	@TestAnnotation("ownIntAnn")
 	final IntegerField ownInt = new IntegerField();
 	@TestAnnotation("ownItemAnn")
 	private ItemField<PatternTestTypeItem> ownItem;
-	
+
 	private Type<PatternTestTypeItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
 
 	@TestAnnotation("superTypeStringAnn")
 	final StringField superTypeString = new StringField();
 	static final String SUPER_TYPE_STRING = "string";
-	
+
 	final BooleanField superTypeBoolean = new BooleanField();
 	static final String SUPER_TYPE_BOOLEAN = "boolean";
-	
+
 	private Type<PatternTestTypeItem> subType = null;
 	static final String SUBTYPE_POSTFIX = "SubType";
-	
+
 	@TestAnnotation("subTypeIntegerAnn")
 	final IntegerField subTypeInteger = new IntegerField();
 	static final String SUBTYPE_INTEGER= "integer";
-	
+
 	PatternTestPattern()
 	{
 		addSource(ownString, "ownString", af("ownString"));
 		addSource(ownInt, "ownInt", af("ownInt"));
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		
+
 		//Create the super type.
 		final Features features = new Features();
 		features.put(SUPER_TYPE_STRING, this.superTypeString, af("superTypeString"));
 		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, af("superTypeBoolean"));
 		this.superType = newSourceType(PatternTestTypeItem.class, true, null, features, SUPER_TYPE_POSTFIX);
-		
+
 		//Create sub type
 		features.clear();
 		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
 		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
-		
+
 		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "ownItem", af("ownItem"));
 	}
-	
+
 	ItemField<PatternTestTypeItem> getOwnItem()
 	{
 		return ownItem;
 	}
-	
+
 	public Type<PatternTestTypeItem> getSuperType()
 	{
 		return superType;
@@ -96,7 +96,7 @@ class PatternTestPattern extends Pattern
 	{
 		return subType;
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK test deprecated api
 	private AnnotatedElement af(final String name)
 	{

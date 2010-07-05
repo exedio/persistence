@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 public class DynamicModelLocalizationItem extends Item
 {
 	static final StringField isoCode = new StringField().toFinal().lengthExact(2);
-	
+
 	/**
 
 	 **

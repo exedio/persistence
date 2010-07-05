@@ -28,9 +28,9 @@ public class DistinctTest extends AbstractRuntimeTest
 	{
 		super(PlusIntegerTest.MODEL);
 	}
-	
+
 	PlusIntegerItem item1, item2, item3, item4;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -41,14 +41,14 @@ public class DistinctTest extends AbstractRuntimeTest
 		item4 = deleteOnTearDown(new PlusIntegerItem(1, 4, 0));
 		item4 = deleteOnTearDown(new PlusIntegerItem(2, 4, 0));
 	}
-	
+
 	public void testDistinctSingle()
 	{
 		{
 			final Query<Integer> q = new Query<Integer>(item1.numB, item1.TYPE, null);
 			assertContains(2, 3, 4, 4, 4, q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(2, 3, 4, q.search());
 			assertEquals(3, q.total());
@@ -57,7 +57,7 @@ public class DistinctTest extends AbstractRuntimeTest
 			q.setDistinct(false);
 			assertContains(null, 3, 4, 4, 4, q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(null, 3, 4, q.search());
 			assertEquals(3, q.total());
@@ -66,13 +66,13 @@ public class DistinctTest extends AbstractRuntimeTest
 			q.setDistinct(false);
 			assertContains(null, 3, 4, 4, null, q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(null, 3, 4, q.search());
 			assertEquals(3, q.total());
 		}
 	}
-	
+
 	public void testDistinctMulti()
 	{
 		{
@@ -85,7 +85,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(2, 4),
 				q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(
 					list(1, 2),
@@ -94,7 +94,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(2, 4),
 				q.search());
 			assertEquals(4, q.total());
-			
+
 			item1.setNumA(null);
 			q.setDistinct(false);
 			assertContains(
@@ -105,7 +105,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(2, 4),
 				q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(
 					list(null, 2),
@@ -114,7 +114,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(2, 4),
 				q.search());
 			assertEquals(4, q.total());
-			
+
 			item4.setNumA(null);
 			q.setDistinct(false);
 			assertContains(
@@ -125,7 +125,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(null, 4),
 				q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(
 					list(null, 2),
@@ -134,7 +134,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(null, 4),
 				q.search());
 			assertEquals(4, q.total());
-			
+
 			item1.setNumB(null);
 			q.setDistinct(false);
 			assertContains(
@@ -145,7 +145,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(null, 4),
 				q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(
 					list(null, null),
@@ -154,7 +154,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(null, 4),
 				q.search());
 			assertEquals(4, q.total());
-			
+
 			item4.setNumB(null);
 			q.setDistinct(false);
 			assertContains(
@@ -165,7 +165,7 @@ public class DistinctTest extends AbstractRuntimeTest
 					list(null, null),
 				q.search());
 			assertEquals(5, q.total());
-			
+
 			q.setDistinct(true);
 			assertContains(
 					list(null, null),

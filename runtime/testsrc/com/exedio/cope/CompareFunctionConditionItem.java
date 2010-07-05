@@ -32,7 +32,7 @@ class CompareFunctionConditionItem extends Item
 	{
 		V1, V2, V3, V4, V5;
 	}
-	
+
 	static final ItemField<CompareFunctionConditionItem> leftItem = newItemField(CompareFunctionConditionItem.class, NULLIFY);
 	static final ItemField<CompareFunctionConditionItem> rightItem = newItemField(CompareFunctionConditionItem.class, NULLIFY);
 
@@ -54,7 +54,7 @@ class CompareFunctionConditionItem extends Item
 		this(leftString, "string3", leftInt, 3, leftLong, 13l, leftDouble, 2.3, leftDate, date, leftDay, day, leftEnum, XEnum.V3);
 		setLeftItem(this);
 	}
-	
+
 	/**
 
 	 **

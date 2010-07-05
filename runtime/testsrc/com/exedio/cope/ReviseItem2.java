@@ -25,7 +25,7 @@ class ReviseItem2 extends Item
 	static final StringField field6 = new StringField();
 	static final StringField field6b = new StringField();
 	static final StringField field7 = new StringField();
-	
+
 	/**
 
 	 **

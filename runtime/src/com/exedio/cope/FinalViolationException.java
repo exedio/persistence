@@ -30,9 +30,9 @@ package com.exedio.cope;
 public final class FinalViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Feature feature;
-	
+
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
@@ -41,15 +41,15 @@ public final class FinalViolationException extends ConstraintViolationException
 	public FinalViolationException(final Feature feature, final Settable settable, final Item item)
 	{
 		super(item, null);
-		
+
 		if(feature!=settable)
 			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
 		if(item==null)
 			throw new NullPointerException();
-		
+
 		this.feature = feature;
 	}
-	
+
 	/**
 	 * Returns the feature, that was attempted to be written.
 	 */
@@ -58,15 +58,15 @@ public final class FinalViolationException extends ConstraintViolationException
 	{
 		return feature;
 	}
-	
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
 		return "final violation" + getItemPhrase() + (withFeature ? (" for " + feature) : "");
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */

@@ -36,9 +36,9 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		
+
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
-		
+
 		suite.addTestSuite( CapabilitiesTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
 		suite.addTestSuite( TestGetModelTest.class );
@@ -65,7 +65,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
-		
+
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
 		suite.addTestSuite( FieldDoubleTest.class );
@@ -75,7 +75,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FieldItemTest.class );
 		suite.addTestSuite( FieldEnumTest.class );
 		suite.addTestSuite( FieldMediaTest.class );
-		
+
 		suite.addTestSuite( DeleteTest.class );
 		suite.addTestSuite( DeleteHierarchyTest.class );
 		suite.addTestSuite( NameTest.class );
@@ -147,7 +147,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
-		
+
 		return suite;
 	}
 
@@ -166,14 +166,14 @@ public class PackageTest extends TestCase
 				collectModels((Test)e.nextElement(), models);
 		}
 	}
-	
+
 	static HashMap<Model, ConnectProperties> getModels(final Test test)
 	{
 		final HashMap<Model, ConnectProperties> models = new HashMap<Model, ConnectProperties>();
 		collectModels(test, models);
 		return models;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		final HashMap<Model, ConnectProperties> models = getModels(PackageTest.suite());

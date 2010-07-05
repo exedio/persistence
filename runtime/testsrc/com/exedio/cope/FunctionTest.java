@@ -26,7 +26,7 @@ public class FunctionTest extends TestmodelTest
 {
 	StringItem item1;
 	StringItem item2;
-	
+
 	private final StringItem newItem(final String min4, final String max4) throws Exception
 	{
 		final StringItem result = deleteOnTearDown(new StringItem("FunctionTest"));
@@ -34,7 +34,7 @@ public class FunctionTest extends TestmodelTest
 		result.setMax4(max4);
 		return result;
 	}
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -42,7 +42,7 @@ public class FunctionTest extends TestmodelTest
 		item1 = newItem("5ffff", "4ddd");
 		item2 = newItem("6ggggg", "2b");
 	}
-	
+
 	public void testFunctions()
 	{
 		assertSerializedSame(item1.min4Upper, 375);
@@ -50,7 +50,7 @@ public class FunctionTest extends TestmodelTest
 		assertSerializedSame(item1.min4UpperLength, 381);
 		assertSerializedSame(item1.max4UpperLength, 381);
 		assertSerializedSame(item1.min4AndMax4UpperLength, 388);
-		
+
 		assertEquals("5ffff", item1.getMin4());
 		assertEquals("5FFFF", item1.getMin4Upper());
 		assertEquals(Integer.valueOf(5), item1.getMin4UpperLength());
@@ -66,14 +66,14 @@ public class FunctionTest extends TestmodelTest
 		assertEquals("2B", item2.getMax4Upper());
 		assertEquals(Integer.valueOf(2), item2.getMax4UpperLength());
 		assertEquals(Integer.valueOf(8), item2.getMin4AndMax4UpperLength());
-		
+
 		assertContains(item1, item1.TYPE.search(item1.min4.equal("5ffff")));
 		assertContains(item1, item1.TYPE.search(item1.min4Upper.equal("5FFFF")));
 		assertContains(item1, item1.TYPE.search(item1.min4UpperLength.equal(5)));
 		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().equal(5)));
 		assertContains(item1, item1.TYPE.search(item1.min4AndMax4UpperLength.equal(9)));
 		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().plus(item1.max4Upper.length()).equal(9)));
-		
+
 		assertContains(
 				list("5ffff",  "5FFFF",  Integer.valueOf(5), "4ddd", "4DDD", Integer.valueOf(4), Integer.valueOf(9), Integer.valueOf(9)),
 				list("6ggggg", "6GGGGG", Integer.valueOf(6), "2b",   "2B",   Integer.valueOf(2), Integer.valueOf(8), Integer.valueOf(8)),

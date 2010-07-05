@@ -24,12 +24,12 @@ import com.exedio.cope.Model;
 public class RecursiveTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(RecursiveItem.TYPE);
-	
+
 	public RecursiveTest()
 	{
 		super(MODEL);
 	}
-	
+
 	public void testIt()
 	{
 		// type
@@ -52,10 +52,10 @@ public class RecursiveTest extends AbstractRuntimeTest
 					RecursiveItem.testPattern2.fetch
 				),
 				RecursiveItem.TYPE.getFeatures());
-		
+
 		assertSame(RecursiveItem.testPattern, RecursiveItem.TYPE.getFeature("testPattern"));
 		assertSame(RecursiveItem.testPattern2, RecursiveItem.TYPE.getFeature("testPattern2"));
-		
+
 		assertEqualsUnmodifiable(list(
 					RecursiveItem.testPattern.media,
 					RecursiveItem.testPattern.fetch
@@ -64,7 +64,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 					RecursiveItem.testPattern2.media,
 					RecursiveItem.testPattern2.fetch
 				), RecursiveItem.testPattern2.getSourceFeatures());
-		
+
 		assertSame(RecursiveItem.testPattern,  RecursiveItem.testPattern .media.getPattern());
 		assertSame(RecursiveItem.testPattern,  RecursiveItem.testPattern .fetch.getPattern());
 		assertSame(RecursiveItem.testPattern2, RecursiveItem.testPattern2.media.getPattern());
@@ -75,7 +75,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertSame(RecursiveItem.testPattern2.media, RecursiveItem.testPattern2.media.getBody        ().getPattern());
 		assertSame(RecursiveItem.testPattern2.media, RecursiveItem.testPattern2.media.getContentType ().getPattern());
 		assertSame(RecursiveItem.testPattern2.media, RecursiveItem.testPattern2.media.getLastModified().getPattern());
-		
+
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern .media.getType());
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern .fetch.getType());
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getType());
@@ -86,7 +86,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getBody        ().getType());
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getContentType ().getType());
 		assertSame(RecursiveItem.TYPE, RecursiveItem.testPattern2.media.getLastModified().getType());
-		
+
 		assertSame("testPattern-media" , RecursiveItem.testPattern .media.getName());
 		assertSame("testPattern-fetch" , RecursiveItem.testPattern .fetch.getName());
 		assertSame("testPattern2-media", RecursiveItem.testPattern2.media.getName());
@@ -97,7 +97,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertSame("testPattern2-media-body"        , RecursiveItem.testPattern2.media.getBody        ().getName());
 		assertSame("testPattern2-media-contentType" , RecursiveItem.testPattern2.media.getContentType ().getName());
 		assertSame("testPattern2-media-lastModified", RecursiveItem.testPattern2.media.getLastModified().getName());
-		
+
 		assertSame("RecursiveItem.testPattern-media" , RecursiveItem.testPattern .media.getID());
 		assertSame("RecursiveItem.testPattern-fetch" , RecursiveItem.testPattern .fetch.getID());
 		assertSame("RecursiveItem.testPattern2-media", RecursiveItem.testPattern2.media.getID());
@@ -108,27 +108,27 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertSame("RecursiveItem.testPattern2-media-body"        , RecursiveItem.testPattern2.media.getBody        ().getID());
 		assertSame("RecursiveItem.testPattern2-media-contentType" , RecursiveItem.testPattern2.media.getContentType ().getID());
 		assertSame("RecursiveItem.testPattern2-media-lastModified", RecursiveItem.testPattern2.media.getLastModified().getID());
-		
+
 		assertTestAnnotationNull(PatternTestItem.testPattern.ownString);
 		assertTestAnnotationNull(PatternTestItem.testPattern2.ownString);
 		assertTestAnnotation("ownIntAnn",  PatternTestItem.testPattern.ownInt);
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern.getOwnItem());
 		assertTestAnnotation("ownIntAnn",  PatternTestItem.testPattern2.ownInt);
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
-		
+
 		final RecursiveItem item = deleteOnTearDown(new RecursiveItem());
 		assertEquals(null, item.testPattern.getLocator(item));
-		
+
 		assertFalse(item.fetch());
 		assertEquals(null, item.testPattern.getLocator(item));
-		
+
 		item.setTestPattern("image/png");
 		assertEquals(null, item.testPattern.getLocator(item));
-		
+
 		assertTrue(item.fetch());
 		assertEquals("RecursiveItem/testPattern-media/RecursiveItem-0.png", item.testPattern.getLocator(item).toString());
 	}
-	
+
 	@Deprecated
 	public void testDeprecated()
 	{

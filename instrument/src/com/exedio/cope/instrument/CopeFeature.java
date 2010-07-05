@@ -39,7 +39,7 @@ class CopeFeature
 	final String docComment;
 	final boolean initial;
 	private Feature value;
-	
+
 	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		this.parent = parent;
@@ -50,28 +50,28 @@ class CopeFeature
 
 		this.docComment = javaAttribute.getDocComment();
 		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
-		
+
 		parent.register(this);
 	}
-	
+
 	final JavaClass getParent()
 	{
 		return javaAttribute.parent;
 	}
-	
+
 	final Feature getInstance()
 	{
 		if(value==null)
 			value = (Feature)javaAttribute.evaluate();
-		
+
 		return value;
 	}
-	
+
 	final boolean isInitial()
 	{
 		if(initial)
 			return true;
-		
+
 		final Feature instance = getInstance();
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
@@ -87,7 +87,7 @@ class CopeFeature
 			result.remove(MandatoryViolationException.class);
 		return result;
 	}
-	
+
 	final boolean isDefault()
 	{
 		return "defaultFeature".equals(name);

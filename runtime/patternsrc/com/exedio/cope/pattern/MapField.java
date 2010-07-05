@@ -39,7 +39,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class MapField<K,V> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private ItemField<? extends Item> parent = null;
 	private final FunctionField<K> key;
 	private UniqueConstraint uniqueConstraint = null;
@@ -59,18 +59,18 @@ public final class MapField<K,V> extends Pattern
 		if(value.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("value must not be unique");
 	}
-	
+
 	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new MapField<K,V>(key, value);
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		
+
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final Features features = new Features();
@@ -80,17 +80,17 @@ public final class MapField<K,V> extends Pattern
 		features.put("value", value);
 		this.relationType = newSourceType(PatternItem.class, features);
 	}
-	
+
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return parent.as(parentClass);
 	}
-	
+
 	public ItemField<?> getParent()
 	{
 		return parent;
 	}
-	
+
 	public FunctionField<K> getKey()
 	{
 		return key;
@@ -101,7 +101,7 @@ public final class MapField<K,V> extends Pattern
 		assert uniqueConstraint!=null;
 		return uniqueConstraint;
 	}
-	
+
 	public FunctionField<V> getValue()
 	{
 		return value;
@@ -112,36 +112,36 @@ public final class MapField<K,V> extends Pattern
 		assert relationType!=null;
 		return relationType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final char KEY = 'k';
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
 			setReturn(Wrapper.TypeVariable1.class).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-		
+
 		result.add(
 			new Wrapper("set").
 			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
-		
+
 		result.add(
 			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
-			
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public V get(final Item item, final K key)
 	{
 		final Item relationItem = uniqueConstraint.search(item, key);
@@ -150,7 +150,7 @@ public final class MapField<K,V> extends Pattern
 		else
 			return null;
 	}
-	
+
 	public void set(final Item item, final K key, final V value)
 	{
 		final Item relationItem = uniqueConstraint.search(item, key);
@@ -181,7 +181,7 @@ public final class MapField<K,V> extends Pattern
 	{
 		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
 	}
-	
+
 	public Join join(final Query q, final K key)
 	{
 		return q.joinOuterLeft(

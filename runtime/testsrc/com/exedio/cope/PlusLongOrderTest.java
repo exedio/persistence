@@ -28,11 +28,11 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 	{
 		super(PlusLongTest.MODEL);
 	}
-	
+
 	PlusLongItem item1;
 	PlusLongItem item2;
 	PlusLongItem item3;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
@@ -41,7 +41,7 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new PlusLongItem(2l, 1l, -1000l));
 		item3 = deleteOnTearDown(new PlusLongItem(6l, 2l, -1000l));
 	}
-	
+
 	public void testSumOrder()
 	{
 		assertEquals(l7, item1.getPlusAB());

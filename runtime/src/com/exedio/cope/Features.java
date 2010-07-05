@@ -31,13 +31,13 @@ public final class Features
 	private final LinkedHashMap<String, Feature> map;
 	private final HashSet<Feature> set;
 	private HashMap<Feature, AnnotatedElement> annotationSources = null;
-	
+
 	public Features()
 	{
 		map = new LinkedHashMap<String, Feature>();
 		set = new HashSet<Feature>();
 	}
-	
+
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
 	{
 		if(name==null)
@@ -54,7 +54,7 @@ public final class Features
 			throw new IllegalArgumentException("already contains the name >" + name + '<');
 		if(set.contains(feature))
 			throw new IllegalArgumentException("already contains the feature >" + feature.toString() + '<');
-		
+
 		map.put(name, feature);
 		set.add(feature);
 		if(annotationSource!=null)
@@ -65,12 +65,12 @@ public final class Features
 				throw new RuntimeException();
 		}
 	}
-	
+
 	public void put(final String name, final Feature feature)
 	{
 		put(name, feature, null);
 	}
-	
+
 	public void clear()
 	{
 		map.clear();
@@ -78,30 +78,30 @@ public final class Features
 		if(annotationSources!=null)
 			annotationSources.clear();
 	}
-	
+
 	int size()
 	{
 		return map.size();
 	}
-	
+
 	private AnnotatedElement getAnnotationSource(final Feature feature)
 	{
 		if(annotationSources==null)
 			return null;
-		
+
 		return annotationSources.get(feature);
 	}
-	
+
 	void mount(final Type<?> type)
 	{
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
 	}
-	
+
 	List<Feature> mountPattern(final Type<?> type, final String name)
 	{
 		final ArrayList<Feature> result = new ArrayList<Feature>();
-		
+
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
 			final Feature source = entry.getValue();
@@ -117,9 +117,9 @@ public final class Features
 
 		return Type.finish(result);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	@Deprecated
 	Features(final LinkedHashMap<String, Feature> map)
 	{
@@ -128,7 +128,7 @@ public final class Features
 		if(map.size()!=set.size())
 			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
 	}
-	
+
 	/**
 	 * @deprecated For binary compatibility only, use {@link #put(String,Feature,AnnotatedElement)} instead.
 	 */

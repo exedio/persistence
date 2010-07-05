@@ -43,7 +43,7 @@ import com.exedio.cope.util.Cast;
 public final class SetField<E> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private ItemField<?> parent = null;
 	private final FunctionField<E> element;
 	private UniqueConstraint uniqueConstraint = null;
@@ -59,18 +59,18 @@ public final class SetField<E> extends Pattern
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 	}
-	
+
 	public static final <E> SetField<E> newSet(final FunctionField<E> element)
 	{
 		return new SetField<E>(element);
 	}
-	
+
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		
+
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, element);
 		final Features features = new Features();
@@ -79,17 +79,17 @@ public final class SetField<E> extends Pattern
 		features.put("uniqueConstraint", uniqueConstraint);
 		this.relationType = newSourceType(PatternItem.class, features);
 	}
-	
+
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return parent.as(parentClass);
 	}
-	
+
 	public ItemField<?> getParent()
 	{
 		return parent;
 	}
-	
+
 	public FunctionField<E> getElement()
 	{
 		return element;
@@ -100,29 +100,29 @@ public final class SetField<E> extends Pattern
 		assert uniqueConstraint!=null;
 		return uniqueConstraint;
 	}
-	
+
 	public Type<?> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;
 	}
-	
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		
+
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(Set.class, Wrapper.TypeVariable0.class)));
-		
+
 		result.add(
 			new Wrapper("getQuery").
 			addComment("Returns a query for the value of {0}.").
 			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
-		
+
 		result.add(
 			new Wrapper("getParents").
 			addComment("Returns the items, for which field set {0} contains the given element.").
@@ -130,18 +130,18 @@ public final class SetField<E> extends Pattern
 			setStatic().
 			setMethodWrapperPattern("getParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
-		
+
 		final String MODIFICATION_RETURN =
 			"<tt>true</tt> if the field set changed as a result of the call.";
 		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
 		exceptions.add(ClassCastException.class);
-		
+
 		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-		
+
 		result.add(
 			new Wrapper("add").
 			addComment("Adds a new element to {0}.").
@@ -149,7 +149,7 @@ public final class SetField<E> extends Pattern
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			setReturn(boolean.class, MODIFICATION_RETURN));
-			
+
 		result.add(
 			new Wrapper("remove").
 			addComment("Removes an element from {0}.").
@@ -157,22 +157,22 @@ public final class SetField<E> extends Pattern
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			setReturn(boolean.class, MODIFICATION_RETURN));
-				
+
 		result.add(
 			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
-		
+
 		return Collections.unmodifiableList(result);
 	}
-	
+
 	public Set<E> get(final Item item)
 	{
 		return Collections.unmodifiableSet(new HashSet<E>(getQuery(item).search()));
 	}
-	
+
 	public Query<E> getQuery(final Item item)
 	{
 		return new Query<E>(element, Cope.equalAndCast(this.parent, item));
@@ -186,7 +186,7 @@ public final class SetField<E> extends Pattern
 	{
 		return new Query<P>(this.parent.as(parentClass), this.element.equal(element)).search();
 	}
-	
+
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
@@ -226,11 +226,11 @@ public final class SetField<E> extends Pattern
 	{
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
 		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
-		
+
 		for(final Item tupel : this.relationType.search(Cope.equalAndCast(this.parent, item)))
 		{
 			final Object element = this.element.get(tupel);
-			
+
 			if(toCreateSet.contains(element))
 				toCreateSet.remove(element);
 			else
@@ -264,7 +264,7 @@ public final class SetField<E> extends Pattern
 			}
 		}
 	}
-	
+
 	public void setAndCast(final Item item, final Collection<?> value)
 	{
 		set(item, Cast.castElements(element.getValueClass(), value));

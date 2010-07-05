@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 final class CopeObjectAttribute extends CopeAttribute
 {
-	
+
 	public CopeObjectAttribute(
 			final CopeType parent,
 			final JavaAttribute javaAttribute)
@@ -28,7 +28,7 @@ final class CopeObjectAttribute extends CopeAttribute
 	{
 		super(parent, javaAttribute, getPersistentType(javaAttribute));
 	}
-	
+
 	private static final String getPersistentType(final JavaAttribute javaAttribute)
 	{
 		final String type = javaAttribute.type;
@@ -38,7 +38,7 @@ final class CopeObjectAttribute extends CopeAttribute
 		final int gt = type.indexOf('>', lt);
 		if(gt<0)
 			throw new RuntimeException("type " + type + " does not contain '<'");
-		
+
 		return type.substring(lt+1, gt);
 	}
 

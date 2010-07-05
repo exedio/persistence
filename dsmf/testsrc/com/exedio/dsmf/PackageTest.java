@@ -29,7 +29,7 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		
+
 		suite.addTestSuite(TableTest.class);
 		suite.addTestSuite(ColumnTest.class);
 		suite.addTestSuite(ConstraintTest.class);
@@ -37,7 +37,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(QuoteTest.class);
 
 		suite.addTestSuite(SQLInjectionTest.class);
-		
+
 		//suite.addTestSuite(BatchTest.class);
 
 		return suite;

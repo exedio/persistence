@@ -32,7 +32,7 @@ public final class Table extends Node
 	final String options;
 	private final boolean required;
 	private boolean exists;
-	
+
 	private boolean defensive = false;
 
 	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
@@ -45,16 +45,16 @@ public final class Table extends Node
 	{
 		this(schema, name, options, true);
 	}
-	
+
 	public Table(final Schema schema, final String name)
 	{
 		this(schema, name, null, true);
 	}
-	
+
 	Table(final Schema schema, final String name, final String options, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider);
-		
+
 		if(name==null)
 			throw new RuntimeException();
 
@@ -66,12 +66,12 @@ public final class Table extends Node
 
 		schema.register(this);
 	}
-	
+
 	public final void makeDefensive()
 	{
 		defensive = true;
 	}
-	
+
 	public final String getName()
 	{
 		return name;
@@ -88,7 +88,7 @@ public final class Table extends Node
 			throw new RuntimeException("duplicate column name in table " + name + ": " + column.name);
 		columnList.add(column);
 	}
-	
+
 	final void register(final Constraint constraint)
 	{
 		if(constraintMap.put(constraint.name, constraint)!=null)
@@ -96,12 +96,12 @@ public final class Table extends Node
 		constraintList.add(constraint);
 		schema.register(constraint);
 	}
-	
+
 	final void notifyExists()
 	{
 		exists = true;
 	}
-	
+
 	final Column notifyExistentColumn(final String columnName, final String existingType)
 	{
 		Column result = columnMap.get(columnName);
@@ -112,11 +112,11 @@ public final class Table extends Node
 
 		return result;
 	}
-	
+
 	final Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
-		
+
 		if(result==null)
 			result = new CheckConstraint(this, constraintName, false, condition);
 		else
@@ -124,7 +124,7 @@ public final class Table extends Node
 
 		return result;
 	}
-	
+
 	final Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
 		Constraint result = constraintMap.get(constraintName);
@@ -133,64 +133,64 @@ public final class Table extends Node
 			result = new PrimaryKeyConstraint(this, constraintName, false, null);
 		else
 			result.notifyExists();
-		
+
 		return result;
 	}
-	
+
 	final Constraint notifyExistentForeignKeyConstraint(final String constraintName)
 	{
 		Constraint result = constraintMap.get(constraintName);
-		
+
 		if(result==null)
 			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
 		else
 			result.notifyExists();
-		
+
 		return result;
 	}
-	
+
 	final Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
-		
+
 		if(result==null)
 			result = new UniqueConstraint(this, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
-		
+
 		return result;
 	}
-	
+
 	public final boolean required()
 	{
 		return required;
 	}
-	
+
 	public final boolean exists()
 	{
 		return exists;
 	}
-		
+
 	public final Collection<Column> getColumns()
 	{
 		return columnList;
 	}
-		
+
 	public final Column getColumn(final String columnName)
 	{
 		return columnMap.get(columnName);
 	}
-		
+
 	public final Collection<Constraint> getConstraints()
 	{
 		return constraintList;
 	}
-		
+
 	public final Constraint getConstraint(final String constraintName)
 	{
 		return constraintMap.get(constraintName);
 	}
-		
+
 	@Override
 	void finish()
 	{
@@ -214,11 +214,11 @@ public final class Table extends Node
 			error = null;
 			particularColor = Color.OK;
 		}
-				
+
 		this.error = error;
 		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
-			
+
 		for(final Column column : columnList)
 		{
 			column.finish();
@@ -231,12 +231,12 @@ public final class Table extends Node
 			cumulativeColor = cumulativeColor.max(constraint.cumulativeColor);
 		}
 	}
-	
+
 	public final void create()
 	{
 		create(null);
 	}
-	
+
 	public final void create(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -252,12 +252,12 @@ public final class Table extends Node
 				firstColumn = false;
 			else
 				bf.append(',');
-			
+
 			bf.append(quoteName(column.name)).
 				append(' ').
 				append(column.getType());
 		}
-		
+
 		for(final Constraint c : constraintList)
 		{
 			if(!c.type.secondPhase)
@@ -274,7 +274,7 @@ public final class Table extends Node
 			bf.append(' ').
 				append(options);
 		}
-			
+
 		//System.out.println("createTable:"+bf.toString());
 		if(defensive)
 		{
@@ -289,14 +289,14 @@ public final class Table extends Node
 		}
 		else
 			executeSQL(bf.toString(), listener);
-			
+
 	}
-	
+
 	public final void drop()
 	{
 		drop(null);
 	}
-	
+
 	public final void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -318,7 +318,7 @@ public final class Table extends Node
 			executeSQL(bf.toString(), listener);
 
 	}
-	
+
 	final void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
@@ -327,7 +327,7 @@ public final class Table extends Node
 				constraint.create(listener);
 		}
 	}
-	
+
 	final void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
@@ -336,7 +336,7 @@ public final class Table extends Node
 				constraint.drop(listener);
 		}
 	}
-	
+
 	final void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
@@ -355,17 +355,17 @@ public final class Table extends Node
 			}
 		}
 	}
-	
+
 	public final void renameTo(final String newName)
 	{
 		renameTo(newName, null);
 	}
-	
+
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
 		executeSQL(dialect.renameTable(quoteName(name), quoteName(newName)), listener);
 	}
-	
+
 	public final void checkUnsupportedConstraints()
 	{
 		for(final Constraint c : getConstraints())
@@ -382,5 +382,5 @@ public final class Table extends Node
 	{
 		return name;
 	}
-	
+
 }

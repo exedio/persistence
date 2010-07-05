@@ -35,7 +35,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 public abstract class Composite implements Serializable
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Object[] values;
 
 	protected Composite(final SetValue... setValues)
@@ -48,14 +48,14 @@ public abstract class Composite implements Serializable
 			final Integer position = type.templatePositions.get(v.settable);
 			if(position==null)
 				throw new IllegalArgumentException("not a member");
-			
+
 			values[position.intValue()] = v.value;
 			valueSet[position.intValue()] = true;
 		}
 		for(int i = 0; i<valueSet.length; i++)
 			if(!valueSet[i])
 				values[i] = type.templateList.get(i).getDefaultConstant();
-		
+
 		int i = 0;
 		for(final FunctionField ff : type.templateList)
 			check(ff, values[i++]);
@@ -66,54 +66,54 @@ public abstract class Composite implements Serializable
 	{
 		field.check(value);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public final <X> X get(final FunctionField<X> member)
 	{
 		return (X)values[position(member)];
 	}
-	
+
 	public final int getMandatory(final IntegerField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
-		
+
 		return (Integer)values[position(member)];
 	}
-	
+
 	public final long getMandatory(final LongField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
-		
+
 		return (Long)values[position(member)];
 	}
-	
+
 	public final double getMandatory(final DoubleField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
-		
+
 		return (Double)values[position(member)];
 	}
-	
+
 	public final boolean getMandatory(final BooleanField member)
 	{
 		if(!member.isMandatory())
 			throw new IllegalArgumentException("member is not mandatory");
-		
+
 		return (Boolean)values[position(member)];
 	}
-	
+
 	public final <X> void set(final FunctionField<X> member, final X value)
 	{
 		member.check(value);
 		values[position(member)] = value;
 	}
-	
-	
+
+
 	private transient CompositeType<?> typeIfSet = null;
-	
+
 	private final CompositeType<?> type()
 	{
 		CompositeType<?> typeIfSet = this.typeIfSet;
@@ -138,31 +138,31 @@ public abstract class Composite implements Serializable
 	{
 		if(this==other)
 			return true;
-		
+
 		return
 			other!=null &&
 			getClass().equals(other.getClass()) &&
 			Arrays.equals(values, ((Composite)other).values);
 	}
-	
+
 	@Override
 	public final int hashCode()
 	{
 		return getClass().hashCode() ^ Arrays.hashCode(values);
 	}
-	
+
 	// convenience for subclasses --------------------------------------------------
-	
+
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return Item.newEnumField(valueClass);
 	}
-	
+
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return Item.newItemField(valueClass);
 	}
-	
+
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return Item.newItemField(valueClass, policy);

@@ -147,7 +147,7 @@ public final class PostgresqlDialect extends Dialect
 	{
 		bf.append(" without oids");
 	}
-	
+
 	// same as oracle
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)

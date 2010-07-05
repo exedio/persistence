@@ -31,7 +31,7 @@ public final class SetValueUtil
 			? list.toArray(list.toArray(new SetValue[list.size()]))
 			: null;
 	}
-	
+
 	private SetValueUtil()
 	{
 		// prevent instantiation

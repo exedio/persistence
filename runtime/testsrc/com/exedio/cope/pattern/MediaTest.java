@@ -30,7 +30,7 @@ import com.exedio.cope.misc.Computed;
 public final class MediaTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MediaItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(MediaTest.class, "MODEL");
@@ -40,18 +40,18 @@ public final class MediaTest extends AbstractRuntimeTest
 	{
 		super(MODEL);
 	}
-	
+
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
 	protected MediaItem item;
-	
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
-	
+
 	public void testData() throws IOException
 	{
 		assertEquals(0, data0.length);
@@ -60,7 +60,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(8, data8.length);
 		assertEquals(20, data20.length);
 		assertEquals(21, data21.length);
-		
+
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
 				item.name,
@@ -98,20 +98,20 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertSame(item.photo, item.foto.getTarget());
 		assertEquals(item.photo.isNull(), item.foto.isNull());
 		assertEquals(item.photo.isNotNull(), item.foto.isNotNull());
-		
+
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 
 		item.setPhoto(data4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
 		assertEquals(mediaRootUrl + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
-		
+
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
-		
+
 		// token
-		
+
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertFalse(item.photo.isUrlGuessingPrevented());
 		assertTrue(item.tokened.isUrlGuessingPrevented());
@@ -127,34 +127,34 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedURL());
 		assertEquals(               "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() + "/name.jpg?t=cbefb774d68037711a58", item.getTokenedURL("name"));
-		
+
 		// custom
 		assertEquals(item.TYPE, item.custom.getType());
 		assertEquals("custom", item.custom.getName());
 		assertSame(item.name, item.custom.getSource());
 		assertEquals("text/plain", item.getCustomContentType());
 		assertEquals(mediaRootUrl + "MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomURL());
-		
+
 		assertFalse(item.file.isAnnotationPresent(Computed.class));
 		assertTrue(item.file.getBody        ().isAnnotationPresent(Computed.class));
 		assertTrue(item.file.getContentType ().isAnnotationPresent(Computed.class));
 		assertTrue(item.file.getLastModified().isAnnotationPresent(Computed.class));
-		
+
 		assertSerializedSame(item.file,   372);
 		assertSerializedSame(item.image,  373);
 		assertSerializedSame(item.photo,  373);
 		assertSerializedSame(item.foto,   372);
 		assertSerializedSame(item.sheet,  373);
 		assertSerializedSame(item.custom, 374);
-		
+
 
 		// logs -----------------------------------------------
-		
+
 		assertEquals(0, item.photo.noSuchItem.get());
 		assertEquals(0, item.photo.isNull.get());
 		assertEquals(0, item.photo.notModified.get());
 		assertEquals(0, item.photo.delivered.get());
-		
+
 		item.photo.noSuchItem.increment();
 		assertEquals(1, item.photo.noSuchItem.get());
 		assertEquals(0, item.photo.isNull.get());
@@ -170,7 +170,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
 	}
-	
+
 	@Deprecated
 	public void testDeprecated()
 	{

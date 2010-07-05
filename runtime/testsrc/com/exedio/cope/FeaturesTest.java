@@ -26,7 +26,7 @@ public class FeaturesTest extends TestCase
 {
 	private Features features;
 	private AnnotatedElement annotationSource;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -34,7 +34,7 @@ public class FeaturesTest extends TestCase
 		features = new Features();
 		annotationSource = getClass().getDeclaredField("annotationSource");
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
@@ -42,7 +42,7 @@ public class FeaturesTest extends TestCase
 		annotationSource = null;
 		super.tearDown();
 	}
-	
+
 	public void testIt()
 	{
 		final BooleanField zick = new BooleanField();
@@ -51,7 +51,7 @@ public class FeaturesTest extends TestCase
 		features.put("zack", zack);
 		final BooleanField zock = new BooleanField();
 		features.put("zock", zock, annotationSource);
-		
+
 		try
 		{
 			features.put(null, null);
@@ -71,7 +71,7 @@ public class FeaturesTest extends TestCase
 			assertEquals("feature", e.getMessage());
 		}
 	}
-	
+
 	public void testAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
@@ -81,7 +81,7 @@ public class FeaturesTest extends TestCase
 		final BooleanField zock = new BooleanField();
 		features.put("zock", zock, (AnnotatedElement)null);
 	}
-	
+
 	public void testDuplicateName()
 	{
 		final BooleanField zick = new BooleanField();
@@ -96,11 +96,11 @@ public class FeaturesTest extends TestCase
 		{
 			assertEquals("already contains the name >zick<", e.getMessage());
 		}
-		
+
 		features.clear();
 		features.put("zick", zack);
 	}
-	
+
 	public void testDuplicateFeature()
 	{
 		final BooleanField zick = new BooleanField();
@@ -115,7 +115,7 @@ public class FeaturesTest extends TestCase
 			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
 		}
 	}
-	
+
 	public void testDuplicateFeatureWithAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
@@ -129,7 +129,7 @@ public class FeaturesTest extends TestCase
 		{
 			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
 		}
-		
+
 		features.clear();
 		features.put("zack", zick, annotationSource);
 	}

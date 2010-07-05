@@ -23,21 +23,21 @@ import java.util.Arrays;
 public class CopyTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
-	
+
 	static
 	{
 		MODEL.enableSerialization(CopyTest.class, "MODEL");
 	}
-	
+
 	public CopyTest()
 	{
 		super(MODEL);
 	}
-	
+
 	CopyValueItem value1, value2, valueX;
 	CopyTargetItem target1, target2, targetN;
 	CopySourceItem self1, self2, selfN;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -52,7 +52,7 @@ public class CopyTest extends AbstractRuntimeTest
 		self2 = deleteOnTearDown(new CopySourceItem(null, null, null, null, value2));
 		selfN = deleteOnTearDown(new CopySourceItem(null, null, null, null, null));
 	}
-	
+
 	public void testIt()
 	{
 		// test model
@@ -91,7 +91,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals("templateItemCopyFromTarget", CopySourceItem.templateItemCopyFromTarget.getName());
 		assertEquals("selfTemplateItem", CopySourceItem.selfTemplateItem.getName());
 		assertEquals("selfTemplateItemCopyFromTarget", CopySourceItem.selfTemplateItemCopyFromTarget.getName());
-		
+
 		assertEqualsUnmodifiable(
 				list(CopySourceItem.templateStringCopyFromTarget, CopySourceItem.templateItemCopyFromTarget, CopySourceItem.selfTemplateItemCopyFromTarget),
 				CopySourceItem.TYPE.getDeclaredCopyConstraints());
@@ -104,7 +104,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(null, CopySourceItem.templateString.getPattern());
 		assertEquals(null, CopySourceItem.templateItem.getPattern());
 		assertEquals(null, CopySourceItem.selfTemplateItem.getPattern());
-		
+
 		assertEquals(true, CopySourceItem.templateString.isInitial());
 		assertEquals(true, CopySourceItem.templateString.isFinal());
 		assertEquals(String.class, CopySourceItem.templateString.getInitialType());
@@ -117,23 +117,23 @@ public class CopyTest extends AbstractRuntimeTest
 		assertContains(
 				FinalViolationException.class,
 				CopySourceItem.templateItem.getInitialExceptions());
-		
+
 		assertSame(CopySourceItem.targetItem, CopySourceItem.templateStringCopyFromTarget.getTarget());
 		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItemCopyFromTarget.getTarget());
 		assertSame(CopySourceItem.selfTargetItem, CopySourceItem.selfTemplateItemCopyFromTarget.getTarget());
-		
+
 		assertSame(CopyTargetItem.templateString, CopySourceItem.templateStringCopyFromTarget.getTemplate());
 		assertSame(CopyTargetItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getTemplate());
 		assertSame(CopySourceItem.selfTemplateItem,   CopySourceItem.selfTemplateItemCopyFromTarget.getTemplate());
-		
+
 		assertSame(CopySourceItem.templateString, CopySourceItem.templateStringCopyFromTarget.getCopy());
 		assertSame(CopySourceItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getCopy());
 		assertSame(CopySourceItem.selfTemplateItem,   CopySourceItem.selfTemplateItemCopyFromTarget.getCopy());
-		
+
 		assertSerializedSame(CopySourceItem.templateStringCopyFromTarget  , 392);
 		assertSerializedSame(CopySourceItem.templateItemCopyFromTarget    , 390);
 		assertSerializedSame(CopySourceItem.selfTemplateItemCopyFromTarget, 394);
-		
+
 		try
 		{
 			new CopyConstraint(null, null);
@@ -170,11 +170,11 @@ public class CopyTest extends AbstractRuntimeTest
 		{
 			assertEquals("copy must be final", e.getMessage());
 		}
-		
+
 		// test persistence
 		assertContains(self1, self2, selfN, CopySourceItem.TYPE.search());
 		check();
-		
+
 		final CopySourceItem source1 = deleteOnTearDown(new CopySourceItem(target1, "template1", value1, self1, value1));
 		assertEquals(target1, source1.getTargetItem());
 		assertEquals("template1", source1.getTemplateString());
@@ -183,7 +183,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(self1, source1.getSelfTargetItem());
 		assertEquals(value1, source1.getSelfTemplateItem());
 		check();
-		
+
 		final CopySourceItem source2 = deleteOnTearDown(new CopySourceItem(target2, "template2", value2, self2, value2));
 		assertEquals(target2, source2.getTargetItem());
 		assertEquals("template2", source2.getTemplateString());
@@ -192,7 +192,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(self2, source2.getSelfTargetItem());
 		assertEquals(value2, source2.getSelfTemplateItem());
 		check();
-		
+
 		final CopySourceItem sourceN = deleteOnTearDown(new CopySourceItem(targetN, null, null, selfN, null));
 		assertEquals(targetN, sourceN.getTargetItem());
 		assertEquals(null, sourceN.getTemplateString());
@@ -201,7 +201,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(selfN, sourceN.getSelfTargetItem());
 		assertEquals(null, sourceN.getSelfTemplateItem());
 		check();
-		
+
 		final CopySourceItem sourceNT = deleteOnTearDown(new CopySourceItem(null, "templateN", value2, null, value1));
 		assertEquals(null, sourceNT.getTargetItem());
 		assertEquals("templateN", sourceNT.getTemplateString());
@@ -210,7 +210,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(null, sourceNT.getSelfTargetItem());
 		assertEquals(value1, sourceNT.getSelfTemplateItem());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(target2, "template1", value2, null, null);
@@ -232,7 +232,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(target2, null, value2, null, null);
@@ -254,7 +254,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(target2, "template2", value1, null, null);
@@ -276,7 +276,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(target2, "template2", null, null, null);
@@ -298,7 +298,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(targetN, "template1", value2, null, null);
@@ -320,7 +320,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
-		
+
 		try
 		{
 			new CopySourceItem(targetN, null, value1, null, null);
@@ -343,7 +343,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		check();
 	}
-	
+
 	private static final void check()
 	{
 		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());

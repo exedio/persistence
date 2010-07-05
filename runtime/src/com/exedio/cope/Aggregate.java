@@ -37,12 +37,12 @@ public abstract class Aggregate<E> implements Selectable<E>
 			throw new NullPointerException("name");
 		if(sqlName==null)
 			throw new NullPointerException("sqlName");
-		
+
 		this.source = source;
 		this.name = name;
 		this.sqlPrefix = sqlName + '(';
 	}
-	
+
 	public final Function<E> getSource()
 	{
 		return source;
@@ -57,7 +57,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	{
 		return source.getType();
 	}
-	
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -88,24 +88,24 @@ public abstract class Aggregate<E> implements Selectable<E>
 			appendSelect(source, join, columnHolder, typeHolder).
 			append(')');
 	}
-	
+
 	@Override
 	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof Aggregate))
 			return false;
-		
+
 		final Aggregate a = (Aggregate)other;
-		
+
 		return name.equals(a.name) && source.equals(a.source);
 	}
-	
+
 	@Override
 	public final int hashCode()
 	{
 		return name.hashCode() ^ source.hashCode();
 	}
-	
+
 	@Override
 	public final String toString()
 	{

@@ -37,32 +37,32 @@ public abstract class Cope
 	{
 		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
 	}
-	
+
 	public static final <E> Condition notEqual(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
-	
+
 	public static final Condition and(final List<? extends Condition> conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
 	}
-	
+
 	public static final Condition and(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
 	}
-	
+
 	public static final Condition or(final List<? extends Condition> conditions)
 	{
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}
-	
+
 	public static final Condition or(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}
-	
+
 	private static final Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
 	{
 		if(conditions==null)
@@ -78,14 +78,14 @@ public abstract class Cope
 				return new CompositeCondition(operator, conditions);
 		}
 	}
-	
+
 	private static final Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
 	{
 		if(conditions==null)
 			throw new NullPointerException("conditions");
-		
+
 		int filtered = 0;
-		
+
 		for(int i = 0; i<conditions.length; i++)
 		{
 			final Condition c = conditions[i];
@@ -114,10 +114,10 @@ public abstract class Cope
 			for(final Condition c : conditions)
 				if(operator.identity!=c)
 					filteredConditions[j++] = c;
-			
+
 			assert j==filteredConditions.length;
 		}
-		
+
 		switch(filteredConditions.length)
 		{
 			case 0:
@@ -128,7 +128,7 @@ public abstract class Cope
 				return new CompositeCondition(operator, filteredConditions);
 		}
 	}
-	
+
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return new PlusView<E>(new NumberFunction[]{addend1, addend2});
@@ -148,12 +148,12 @@ public abstract class Cope
 	{
 		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
 	}
-	
+
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
 		return new SetValue<X>(a, Cast.verboseCast(a.getValueClass(), o));
 	}
-	
+
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
@@ -175,7 +175,7 @@ public abstract class Cope
 	{
 		return function.equal(verboseCast(function.getValueClass(), value));
 	}
-	
+
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
@@ -186,7 +186,7 @@ public abstract class Cope
 	{
 		return function.notEqual(verboseCast(function.getValueClass(), value));
 	}
-	
+
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
@@ -208,7 +208,7 @@ public abstract class Cope
 	{
 		return function.lessOrEqual(verboseCast(function.getValueClass(), value));
 	}
-	
+
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
@@ -219,7 +219,7 @@ public abstract class Cope
 	{
 		return function.greater(verboseCast(function.getValueClass(), value));
 	}
-	
+
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
@@ -230,15 +230,15 @@ public abstract class Cope
 	{
 		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
 	}
-	
+
 	@SuppressWarnings("deprecation") // OK: Selectable.check is for internal use within COPE only
 	static void check(final Selectable select, final TC tc, final Join join)
 	{
 		select.check(tc, join);
 	}
-	
+
 	private static final char DIVIDER = '#';
-	
+
 	public static Model getModel(final String name)
 	{
 		final int pos = name.indexOf(DIVIDER);
@@ -266,7 +266,7 @@ public abstract class Cope
 		{
 			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
 		}
-		
+
 		final Object result;
 		try
 		{
@@ -276,20 +276,20 @@ public abstract class Cope
 		{
 			throw new IllegalArgumentException("accessing " + field.toString(), e);
 		}
-		
+
 		if(result==null)
 			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is null.");
 		if(!(result instanceof Model))
 			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is not a model, but a " + result.getClass().getName() + '.');
-		
+
 		return (Model)result;
 	}
-	
+
 	public static final void main(final String[] args)
 	{
 		if(args.length!=2)
 			throw new RuntimeException("must have two arguments, model and action");
-		
+
 		final Model model = getModel(args[0]);
 		model.connect(new ConnectProperties(ConnectProperties.getSystemPropertySource()));
 		final String action = args[1];
@@ -303,7 +303,7 @@ public abstract class Cope
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
 		model.disconnect();
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

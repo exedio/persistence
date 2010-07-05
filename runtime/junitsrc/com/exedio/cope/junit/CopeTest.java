@@ -37,17 +37,17 @@ public abstract class CopeTest extends CopeAssert
 {
 	public final Model model;
 	public final boolean exclusive;
-	
+
 	private boolean manageTransactions = true;
 	private boolean testMethodFinished = false;
 	private ArrayList<Item> deleteOnTearDown = null;
-	
-	
+
+
 	protected CopeTest(final Model model)
 	{
 		this(model, false);
 	}
-	
+
 	/**
 	 * @param exclusive
 	 * if true, the database schema for the model will be created before each test
@@ -59,18 +59,18 @@ public abstract class CopeTest extends CopeAssert
 		this.model = model;
 		this.exclusive = exclusive;
 	}
-	
+
 	protected final void skipTransactionManagement()
 	{
 		manageTransactions = false;
 	}
-	
+
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
 		deleteOnTearDown.add(item);
 		return item;
 	}
-	
+
 	protected final void printConnectionPoolCounter()
 	{
 		final PoolCounter connectionPoolCounter = model.getConnectionPoolInfo().getCounter();
@@ -82,7 +82,7 @@ public abstract class CopeTest extends CopeAssert
 			System.out.println("ConnectionPool:["+pool.getIdleLimit()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
 		}
 	}
-	
+
 	@Override
 	public void runBare() throws Throwable
 	{
@@ -114,7 +114,7 @@ public abstract class CopeTest extends CopeAssert
 			}
 		}
 	}
-	
+
 	/**
 	 * Override this method to provide your own connect properties
 	 * to method {@link #setUp()} for connecting.
@@ -123,7 +123,7 @@ public abstract class CopeTest extends CopeAssert
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -145,7 +145,7 @@ public abstract class CopeTest extends CopeAssert
 			model.checkEmptySchema();
 		}
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
@@ -241,21 +241,21 @@ public abstract class CopeTest extends CopeAssert
 		}
 		super.tearDown();
 	}
-	
+
 	protected boolean testCompletedSuccessfully()
 	{
 		return testMethodFinished;
 	}
-	
+
 	protected void restartTransaction()
 	{
 		final String oldName = model.currentTransaction().getName();
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #getConnectProperties()} instead
 	 */

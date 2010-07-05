@@ -21,12 +21,12 @@ package com.exedio.cope;
 public final class CopyViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final CopyConstraint feature;
 	private final Object expectedValue;
 	private final Object actualValue;
 	private final Item targetItem;
-	
+
 	public CopyViolationException(final Item targetItem, final CopyConstraint feature, final Object expectedValue, final Object actualValue)
 	{
 		super(null, null);
@@ -35,7 +35,7 @@ public final class CopyViolationException extends ConstraintViolationException
 		this.actualValue = actualValue;
 		this.targetItem = targetItem;
 	}
-	
+
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
@@ -59,7 +59,7 @@ public final class CopyViolationException extends ConstraintViolationException
 	{
 		return targetItem;
 	}
-	
+
 	private static final String toString(final Object s)
 	{
 		return s!=null ? ('\'' + (s instanceof Item ? ((Item)s).getCopeID() : s.toString()) + '\'') : "null";

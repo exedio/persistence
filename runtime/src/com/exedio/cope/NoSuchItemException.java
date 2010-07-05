@@ -21,22 +21,22 @@ package com.exedio.cope;
 public class NoSuchItemException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final Item item;
-	
+
 	NoSuchItemException(final Item item)
 	{
 		this.item = item;
-		
+
 		if(item==null)
 			throw new NullPointerException();
 	}
-	
+
 	public Item getItem()
 	{
 		return item;
 	}
-	
+
 	@Override
 	public String getMessage()
 	{

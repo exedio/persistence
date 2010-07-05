@@ -26,13 +26,13 @@ public class DivideIntegerItem extends Item
 	public static final IntegerField numB = new IntegerField().optional();
 
 	public static final IntegerField numC = new IntegerField().optional();
-	
+
 	public static final DivideView<Integer> divideAB = numA.divide(numB);
-	
+
 	public static final DivideView<Integer> divideAC = numA.divide(numC);
-	
+
 	public static final DivideView<Integer> divideBC = numB.divide(numC);
-	
+
 	public DivideIntegerItem(final int initialNumA, final int initialNumB, final int initialNumC)
 	{
 		super(new SetValue[]{

@@ -33,7 +33,7 @@ public final class Schema extends Node
 	private final ArrayList<Sequence> sequenceList = new ArrayList<Sequence>();
 	private final HashMap<String, Constraint> requiredConstraintMap = new HashMap<String, Constraint>();
 	private boolean verified = false;
-	
+
 	public Schema(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
 		super(dialect, connectionProvider);
@@ -45,7 +45,7 @@ public final class Schema extends Node
 			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
-	
+
 	final Table notifyExistentTable(final String tableName)
 	{
 		Table result = tableMap.get(tableName);
@@ -56,24 +56,24 @@ public final class Schema extends Node
 
 		return result;
 	}
-	
+
 	public Table getTable(final String name)
 	{
 		return tableMap.get(name);
 	}
-	
+
 	public List<Table> getTables()
 	{
 		return tableList;
 	}
-	
+
 	final void register(final Sequence sequence)
 	{
 		if(sequenceMap.put(sequence.name, sequence)!=null)
 			throw new RuntimeException("duplicate sequence name in schema: " + sequence.name);
 		sequenceList.add(sequence);
 	}
-	
+
 	final Sequence notifyExistentSequence(final String sequenceName)
 	{
 		Sequence result = sequenceMap.get(sequenceName);
@@ -84,32 +84,32 @@ public final class Schema extends Node
 
 		return result;
 	}
-	
+
 	public Sequence getSequence(final String name)
 	{
 		return sequenceMap.get(name);
 	}
-	
+
 	public List<Sequence> getSequences()
 	{
 		return sequenceList;
 	}
-	
+
 	final void register(final Constraint constraint)
 	{
 		if(!constraint.required())
 			return;
-		
+
 		if(requiredConstraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in schema : " + constraint.name);
 	}
-	
+
 	public void verify()
 	{
 		if(verified)
 			throw new RuntimeException("alread verified");
 		verified = true;
-		
+
 		dialect.verify(this);
 		finish();
 	}
@@ -119,7 +119,7 @@ public final class Schema extends Node
 	{
 		assert particularColor==null;
 		assert cumulativeColor==null;
-		
+
 		particularColor = Color.OK;
 
 		cumulativeColor = particularColor;
@@ -134,26 +134,26 @@ public final class Schema extends Node
 			cumulativeColor = cumulativeColor.max(sequence.cumulativeColor);
 		}
 	}
-	
+
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
-	
+
 	public final void create()
 	{
 		create(null);
 	}
-	
+
 	public final void create(final StatementListener listener)
 	{
 		//final long time = System.currentTimeMillis();
 		for(final Sequence s : sequenceList)
 			s.create(listener);
-	
+
 		for(final Table t : tableList)
 			t.create(listener);
-	
+
 		for(final Table t : tableList)
 			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
-	
+
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
@@ -163,7 +163,7 @@ public final class Schema extends Node
 	{
 		drop(null);
 	}
-	
+
 	public final void drop(final StatementListener listener)
 	{
 		//final long time = System.currentTimeMillis();
@@ -178,12 +178,12 @@ public final class Schema extends Node
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
-	
+
 	public final void tearDown()
 	{
 		tearDown(null);
 	}
-	
+
 	public final void tearDown(final StatementListener listener)
 	{
 		for(final Sequence sequence : sequenceList)
@@ -207,7 +207,7 @@ public final class Schema extends Node
 		tearDownForeignKeys(listener);
 		tearDownTables(listener);
 	}
-	
+
 	private final void tearDownForeignKeys(final StatementListener listener)
 	{
 		for(final Table table : tableList)
@@ -223,7 +223,7 @@ public final class Schema extends Node
 			}
 		}
 	}
-		
+
 	private final void tearDownTables(final StatementListener listener)
 	{
 		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
@@ -233,7 +233,7 @@ public final class Schema extends Node
 		do
 		{
 			deleted = false;
-			
+
 			for(Iterator<Table> i = tablesToDelete.iterator(); i.hasNext(); )
 			{
 				try
@@ -262,7 +262,7 @@ public final class Schema extends Node
 	{
 		createConstraints(types, null);
 	}
-	
+
 	public final void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(final Table t : tableList)
@@ -275,7 +275,7 @@ public final class Schema extends Node
 	{
 		dropConstraints(types, null);
 	}
-	
+
 	public final void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
@@ -283,12 +283,12 @@ public final class Schema extends Node
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(types, false, listener);
 	}
-	
+
 	public final void tearDownConstraints(final EnumSet<Constraint.Type> types)
 	{
 		tearDownConstraints(types, null);
 	}
-	
+
 	public final void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
@@ -297,7 +297,7 @@ public final class Schema extends Node
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().tearDownConstraints(types, false, listener);
 	}
-	
+
 	public final void checkUnsupportedConstraints()
 	{
 		for(final Table t : getTables())

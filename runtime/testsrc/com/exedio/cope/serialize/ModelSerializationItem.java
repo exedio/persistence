@@ -29,8 +29,8 @@ class ModelSerializationItem extends Item
 	 */
 	static final StringField name = new StringField().optional();
 	static final ListField<String> list = ListField.newList(new StringField());
-	
-	
+
+
 	/**
 
 	 **

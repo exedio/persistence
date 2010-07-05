@@ -44,25 +44,25 @@ public final class SchemaInfo
 			throw new NullPointerException("name");
 		if(name.length()==0)
 			throw new IllegalArgumentException("name must not be empty");
-		
+
 		return model.connect().dialect.dsmfDialect.quoteName(name);
 	}
-	
+
 	public static boolean supportsCheckConstraints(final Model model)
 	{
 		return model.connect().database.dsmfDialect.supportsCheckConstraints();
 	}
-	
+
 	public static boolean supportsNativeDate(final Model model)
 	{
 		return model.connect().supportsNativeDate();
 	}
-	
+
 	public static boolean supportsSequences(final Model model)
 	{
 		return model.connect().dialect.dsmfDialect.supportsSequences();
 	}
-	
+
 	/**
 	 * Returns the name of database table for the type.
 	 * If not configured otherwise
@@ -73,7 +73,7 @@ public final class SchemaInfo
 	{
 		return type.table.idLower;
 	}
-	
+
 	/**
 	 * Returns the name of primary key column in the database for the type.
 	 * If not configured otherwise
@@ -83,7 +83,7 @@ public final class SchemaInfo
 	{
 		return type.table.primaryKey.id;
 	}
-	
+
 	/**
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
@@ -101,7 +101,7 @@ public final class SchemaInfo
 
 		return table.typeColumn.id;
 	}
-	
+
 	/**
 	 * Returns the name of database column for the field.
 	 * If not configured otherwise
@@ -112,7 +112,7 @@ public final class SchemaInfo
 	{
 		return field.getColumn().id;
 	}
-	
+
 	/**
 	 * Returns the name of type column in the database for the field.
 	 * If not configured otherwise
@@ -132,7 +132,7 @@ public final class SchemaInfo
 
 		return typeColumn.id;
 	}
-	
+
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.
@@ -141,9 +141,9 @@ public final class SchemaInfo
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #getColumnValue(Enum)} instead.
 	 */

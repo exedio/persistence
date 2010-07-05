@@ -99,7 +99,7 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
 		assertEquals(new Double(2.5), item.someNotNullDouble.get(item));
 		assertEquals(2.5, item.someNotNullDouble.getMandatory(item), 0.0);
-		
+
 		item.someNotNullDouble.set(item, 2.9);
 		assertEquals(2.9, item.getSomeNotNullDouble(), 0.0);
 

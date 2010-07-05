@@ -21,10 +21,10 @@ package com.exedio.cope;
 public final class DivideView<E extends Number> extends NumberView<E>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final NumberFunction<E> dividend;
 	private final NumberFunction<E> divisor;
-	
+
 	/**
 	 * Creates a new MultiplyView.
 	 * Instead of using this constructor directly,
@@ -34,11 +34,11 @@ public final class DivideView<E extends Number> extends NumberView<E>
 	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
 	{
 		super(new NumberFunction[]{dividend, divisor}, "divide", dividend.getValueClass());
-		
+
 		this.dividend = dividend;
 		this.divisor = divisor;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

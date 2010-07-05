@@ -30,28 +30,28 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
-	
+
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
 	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
 	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
-	
+
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
-	
+
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
-	
+
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
-	
+
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
 	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
-	
+
 	final BooleanField cluster                    = new BooleanField("cluster",     false);
 	final BooleanField clusterLog                 = new BooleanField("cluster.log", true);
 	final IntField     clusterSendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
@@ -61,22 +61,22 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final IntField     clusterListenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
 	final StringField  clusterGroup               = new  StringField("cluster.group",               "230.0.0.1");
 	final IntField     clusterPacketSize          = new     IntField("cluster.packetSize",          1400, 32);
-	
+
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
-	
+
 	private final Constructor<? extends Dialect> dialect;
 
 	public ConnectProperties()
 	{
 		this(getDefaultPropertyFile(), null);
 	}
-	
+
 	public ConnectProperties(final Source context)
 	{
 		this(getDefaultPropertyFile(), context);
 	}
-	
+
 	public static final File getDefaultPropertyFile()
 	{
 		String result = System.getProperty("com.exedio.cope.properties");
@@ -100,13 +100,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		this(getSource(properties, sourceDescription), context);
 	}
-	
+
 	public ConnectProperties(final Source source, final Source context)
 	{
 		super(source, context);
 
 		final String dialectCodeRaw = this.dialectCode.stringValue();
-		
+
 		final String dialectCode;
 		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
@@ -121,20 +121,20 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		else
 			dialectCode = dialectCodeRaw;
-			
+
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
 		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
-		
+
 		ensureValidity("x-build");
 	}
-	
+
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
 	{
 		if(dialectCode.length()<=2)
 			throw new RuntimeException("dialect from " + sourceDescription + " must have at least two characters, but was " + dialectCode);
-		
+
 		final String dialectName =
 			"com.exedio.cope." +
 			Character.toUpperCase(dialectCode.charAt(0)) +
@@ -165,7 +165,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.");
 		}
 	}
-	
+
 	Dialect createDialect(final DialectParameters parameters)
 	{
 		try
@@ -185,7 +185,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException(dialect.toGenericString(), e);
 		}
 	}
-	
+
 	public String getDialect()
 	{
 		return dialect.getDeclaringClass().getName();
@@ -205,27 +205,27 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return databasePassword.stringValue();
 	}
-	
+
 	public boolean getDatabaseDontSupportPreparedStatements()
 	{
 		return databaseDontSupportPreparedStatements.booleanValue();
 	}
-	
+
 	public boolean getDatabaseDontSupportEmptyStrings()
 	{
 		return databaseDontSupportEmptyStrings.booleanValue();
 	}
-	
+
 	public boolean getDatabaseDontSupportLimit()
 	{
 		return databaseDontSupportLimit.booleanValue();
 	}
-	
+
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return databaseDontSupportNativeDate.booleanValue();
 	}
-	
+
 	String filterTableName(final String tableName)
 	{
 		return
@@ -233,42 +233,42 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
 	}
-	
+
 	String getTableOption(final Table table)
 	{
 		return databaseTableOptions.getValue(table.id);
 	}
-	
+
 	public boolean getFulltextIndex()
 	{
 		return fulltextIndex.booleanValue();
 	}
-	
+
 	public int getConnectionPoolIdleInitial()
 	{
 		return connectionPoolIdleInitial.intValue();
 	}
-	
+
 	public int getConnectionPoolIdleLimit()
 	{
 		return connectionPoolIdleLimit.intValue();
 	}
-	
+
 	public int getItemCacheLimit()
 	{
 		return itemCacheLimit.intValue();
 	}
-	
+
 	public int getQueryCacheLimit()
 	{
 		return queryCacheLimit.intValue();
 	}
-	
+
 	public String getMediaRootUrl()
 	{
 		return mediaRooturl.stringValue();
 	}
-	
+
 	/**
 	 * Returns the offset, the Expires http header of media
 	 * is set into the future.
@@ -283,9 +283,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return mediaOffsetExpires.intValue();
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Has been renamed to {@link #getDialect()}.
 	 */
@@ -294,7 +294,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return getDialect();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #getItemCacheLimit()}.
 	 */
@@ -303,7 +303,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return getItemCacheLimit();
 	}
-	
+
 	/**
 	 * @deprecated renamed to {@link #getQueryCacheLimit()}.
 	 */
@@ -312,7 +312,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return getQueryCacheLimit();
 	}
-	
+
 	/**
 	 * @deprecated
 	 * Not supported anymore.
@@ -323,7 +323,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return false;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * Not supported anymore.
