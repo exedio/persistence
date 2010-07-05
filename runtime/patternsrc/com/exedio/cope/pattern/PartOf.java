@@ -170,7 +170,7 @@ public final class PartOf<C extends Item> extends Pattern
 	public static final List<PartOf> getPartOfs(final Pattern pattern)
 	{
 		final ArrayList<PartOf> result = new ArrayList<PartOf>();
-		for(PartOf partOf : PartOf.getPartOfs(pattern.getType()))
+		for(final PartOf partOf : PartOf.getPartOfs(pattern.getType()))
 		{
 			if (pattern.getSourceTypes().contains(partOf.getType()) ||
 					( pattern.getType().getPattern()!=null &&

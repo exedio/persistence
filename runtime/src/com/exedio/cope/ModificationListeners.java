@@ -130,7 +130,7 @@ final class ModificationListeners
 					if(modifiedItems==null)
 						modifiedItems = new ArrayList<Item>();
 
-					for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
+					for(final TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
 						modifiedItems.add(types.getConcreteType(typeTransiently).activate(i.next()));
 				}
 			}
@@ -144,7 +144,7 @@ final class ModificationListeners
 					{
 						listener.onModifyingCommit(modifiedItemsUnmodifiable, transaction);
 					}
-					catch(RuntimeException e)
+					catch(final RuntimeException e)
 					{
 						if(Model.isLoggingEnabled())
 							System.err.println(

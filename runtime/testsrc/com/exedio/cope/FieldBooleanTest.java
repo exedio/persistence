@@ -47,7 +47,7 @@ public class FieldBooleanTest extends FieldTest
 			item.someBoolean.getMandatory(item);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someBoolean+" is not mandatory", e.getMessage());
 		}
@@ -89,7 +89,7 @@ public class FieldBooleanTest extends FieldTest
 			item.set((FunctionField)item.someBoolean, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someBoolean + '.', e.getMessage());
 		}

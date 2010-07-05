@@ -118,7 +118,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(0, null, null, null, (Body[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("date", e.getMessage());
 		}
@@ -127,7 +127,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(0, DATE, null, null, (Body[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("environment", e.getMessage());
 		}
@@ -136,7 +136,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(0, DATE, env, null, (Body[])null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("number must be greater zero, but was 0", e.getMessage());
 		}
@@ -145,7 +145,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(1, DATE, env, null, (Body[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("comment", e.getMessage());
 		}
@@ -154,7 +154,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(1, DATE, env, "comment", (Body[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("body", e.getMessage());
 		}
@@ -163,7 +163,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{});
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("body must not be empty", e.getMessage());
 		}
@@ -172,7 +172,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{null});
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("body[0]", e.getMessage());
 		}
@@ -183,7 +183,7 @@ public class RevisionInfoTest extends CopeAssert
 			new Body(null, -1, -1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("sql", e.getMessage());
 		}
@@ -192,7 +192,7 @@ public class RevisionInfoTest extends CopeAssert
 			new Body("", -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("sql must not be empty", e.getMessage());
 		}
@@ -201,7 +201,7 @@ public class RevisionInfoTest extends CopeAssert
 			new Body("x", -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("rows must be greater or equal zero, but was -1", e.getMessage());
 		}
@@ -210,7 +210,7 @@ public class RevisionInfoTest extends CopeAssert
 			new Body("x", 0, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("elapsed must be greater or equal zero, but was -1", e.getMessage());
 		}
@@ -246,7 +246,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoCreate(-1, null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("date", e.getMessage());
 		}
@@ -255,7 +255,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoCreate(-1, DATE, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("environment", e.getMessage());
 		}
@@ -264,7 +264,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoCreate(-1, DATE, env);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("number must be greater or equal zero, but was -1", e.getMessage());
 		}
@@ -305,7 +305,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoMutex(null, null, -1, -1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("date", e.getMessage());
 		}
@@ -314,7 +314,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoMutex(DATE, null, -1, -1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("environment", e.getMessage());
 		}
@@ -323,7 +323,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoMutex(DATE, env, -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expectedNumber must be greater or equal zero, but was -1", e.getMessage());
 		}
@@ -332,7 +332,7 @@ public class RevisionInfoTest extends CopeAssert
 			new RevisionInfoMutex(DATE, env, 0, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expectedNumber must be greater than 0, but was 0", e.getMessage());
 		}
@@ -351,7 +351,7 @@ public class RevisionInfoTest extends CopeAssert
 			RevisionInfo.parse(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -365,7 +365,7 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			bytesString = new String(bytes, "latin1");
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -386,7 +386,7 @@ public class RevisionInfoTest extends CopeAssert
 		{
 			bytesString = new String(bytes, "latin1");
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}

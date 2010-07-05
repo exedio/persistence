@@ -89,7 +89,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		{
 			new DivideView<Double>(null, numA);
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -98,7 +98,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 			new DivideView<Double>(numA, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("sources[1]", e.getMessage());
 		}

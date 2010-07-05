@@ -97,7 +97,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			new PasswordRecovery(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("password", e.getMessage());
 		}
@@ -179,7 +179,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			i.issuePasswordRecovery(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
@@ -188,7 +188,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			i.redeemPasswordRecovery(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}

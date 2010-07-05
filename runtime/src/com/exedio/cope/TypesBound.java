@@ -96,7 +96,7 @@ public final class TypesBound
 				features.put(featureName, feature, (AnnotatedElement)field);
 			}
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(javaClass.getName(), e);
 		}

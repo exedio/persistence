@@ -68,7 +68,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("type", e.getMessage());
 		}
@@ -77,7 +77,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationItem.class, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("name", e.getMessage());
 		}
@@ -86,7 +86,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationItem.class, "model");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationItem.class.getName() + "#model does not exist.", e.getMessage());
 		}
@@ -95,7 +95,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationTest.class, "modelx");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationTest.class.getName() + "#modelx does not exist.", e.getMessage());
 		}
@@ -104,7 +104,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationTest.class, "modelNonStatic");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationTest.class.getName() + "#modelNonStatic is not static final.", e.getMessage());
 		}
@@ -113,7 +113,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationTest.class, "modelNonFinal");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationTest.class.getName() + "#modelNonFinal is not static final.", e.getMessage());
 		}
@@ -122,7 +122,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationTest.class, "modelNull");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationTest.class.getName() + "#modelNull is null.", e.getMessage());
 		}
@@ -131,7 +131,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationTest.class, "modelWrong");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(ModelSerializationTest.class.getName() + "#modelWrong is not a model, but java.lang.String.", e.getMessage());
 		}
@@ -140,7 +140,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(CacheIsolationTest.class, "MODEL");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("enableSerialization does not resolve to itself com.exedio.cope.CacheIsolationTest#MODEL", e.getMessage());
 		}
@@ -167,7 +167,7 @@ public class ModelSerializationTest extends CopeAssert
 			model.enableSerialization(ModelSerializationItem.class, "modelx");
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("enableSerialization already been called for " + ModelSerializationTest.class.getName() + "#model", e.getMessage());
 		}
@@ -192,7 +192,7 @@ public class ModelSerializationTest extends CopeAssert
 			oos.writeObject(value);
 			fail();
 		}
-		catch(NotSerializableException e)
+		catch(final NotSerializableException e)
 		{
 			assertEquals(
 					exceptionMessage==Model.class

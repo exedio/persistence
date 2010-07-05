@@ -142,7 +142,7 @@ final class JavaFile
 		{
 			return externalNameSpace.getClass(Injector.removeGenerics(typename));
 		}
-		catch(UtilEvalError e)
+		catch(final UtilEvalError e)
 		{
 			throw new RuntimeException(typename, e);
 		}

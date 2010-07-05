@@ -84,7 +84,7 @@ public class InitServlet extends CopsServlet
 				// make transaction connected
 				Main.model.checkSchema();
 			}
-			catch(SQLRuntimeException e)
+			catch(final SQLRuntimeException e)
 			{
 				// ignore
 			}
@@ -96,7 +96,7 @@ public class InitServlet extends CopsServlet
 		{
 			Init_Jspm.write(out, initialize, transaction);
 		}
-		catch(InterruptedException e)
+		catch(final InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -184,7 +184,7 @@ public class InitServlet extends CopsServlet
 			new CollisionItem2(emptyItem1);
 			new CollisionItem2(emptyItem2);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

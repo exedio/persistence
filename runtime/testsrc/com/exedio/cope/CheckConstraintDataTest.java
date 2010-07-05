@@ -39,7 +39,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setAlpha(5);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(alphaLessBeta, e.getFeature());
@@ -52,7 +52,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setBeta(4);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(alphaLessBeta, e.getFeature());
@@ -80,7 +80,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setEins(100);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(einsGreaterOrEqualZwei, e.getFeature());
@@ -93,7 +93,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setZwei(103);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(einsGreaterOrEqualZwei, e.getFeature());
@@ -121,7 +121,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setAlphaBeta(5, 4);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(alphaLessBeta, e.getFeature());
@@ -134,7 +134,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setBetaGamma(4, 6);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(alphaLessBeta, e.getFeature());
@@ -162,7 +162,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setEinsZwei(101, 102);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(einsGreaterOrEqualZwei, e.getFeature());
@@ -175,7 +175,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			item.setZweiDrei(103, 104);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
 			assertSame(einsGreaterOrEqualZwei, e.getFeature());
@@ -200,7 +200,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7));
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(null, e.getItem());
 			assertSame(alphaLessBeta, e.getFeature());
@@ -216,7 +216,7 @@ public class CheckConstraintDataTest extends AbstractRuntimeTest
 			new CheckConstraintItem(101, 102, 103, 4, 5, 6, 7);
 			fail();
 		}
-		catch(CheckViolationException e)
+		catch(final CheckViolationException e)
 		{
 			assertSame(null, e.getItem());
 			assertSame(einsGreaterOrEqualZwei, e.getFeature());

@@ -36,7 +36,7 @@ final class PostgresqlDialect extends Dialect
 		{
 			Class.forName(Driver.class.getName());
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -112,7 +112,7 @@ final class PostgresqlDialect extends Dialect
 			if(source!=null)
 				field.copy(source, data, item);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -124,7 +124,7 @@ final class PostgresqlDialect extends Dialect
 				{
 					source.close();
 				}
-				catch(IOException e)
+				catch(final IOException e)
 				{/*IGNORE*/}
 			}
 		}

@@ -77,7 +77,7 @@ public class TrimmerTest extends TestCase
 			new Trimmer(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("maxLength must be greater zero", e.getMessage());
 		}
@@ -87,7 +87,7 @@ public class TrimmerTest extends TestCase
 			nt.trimString(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -96,7 +96,7 @@ public class TrimmerTest extends TestCase
 			nt.trimString("");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("longString must not be empty", e.getMessage());
 		}

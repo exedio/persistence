@@ -453,7 +453,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		{
 			set(item, DataField.toValue(body), contentType);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}

@@ -67,7 +67,7 @@ public class FieldItemTest extends FieldTest
 			item.set((FunctionField)item.someItem, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
@@ -78,7 +78,7 @@ public class FieldItemTest extends FieldTest
 			item.set((FunctionField)item.someItem, wrongItem);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
@@ -104,7 +104,7 @@ public class FieldItemTest extends FieldTest
 			item.setSomeNotNullItem(null);
 			fail();
 		}
-		catch (MandatoryViolationException e)
+		catch (final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullItem, e.getFeature());
@@ -119,7 +119,7 @@ public class FieldItemTest extends FieldTest
 			new AttributeItem("someString", 5, 6l, 2.2, true, null, AttributeItem.SomeEnum.enumValue1);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullItem, e.getFeature());

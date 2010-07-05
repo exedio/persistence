@@ -43,7 +43,7 @@ final class MysqlDialect extends Dialect
 		{
 			Class.forName(Driver.class.getName());
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}

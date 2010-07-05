@@ -271,7 +271,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			item2.setFeatures(manufacturer, colorBlue);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("dynamic model mismatch: enum value " + colorBlue + " has type " + color + ", but must be " + manufacturer, e.getMessage());
 		}
@@ -284,7 +284,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			akkuTime.getFieldEnum();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was INTEGER", e.getMessage());
 		}
@@ -293,7 +293,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			memory.getFieldEnum();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was STRING", e.getMessage());
 		}
@@ -302,7 +302,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			bluetooth.getFieldEnum();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was BOOLEAN", e.getMessage());
 		}
@@ -311,7 +311,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			length.getFieldEnum();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was DOUBLE", e.getMessage());
 		}
@@ -320,7 +320,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			item2.setFeatures(weight, "510");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
 		}
@@ -332,7 +332,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			item.getFeatures(weight);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("dynamic type mismatch: field has type organizer, but item has cellPhone", e.getMessage());
 		}
@@ -341,7 +341,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			item.setFeatures(weight, 510);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("dynamic type mismatch: field has type organizer, but item has cellPhone", e.getMessage());
 		}
@@ -353,7 +353,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			cellPhone.addStringField("tooMuch");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"Capacity for STRING exceeded, " +
@@ -386,7 +386,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			akkuTime.getEnumValues();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
@@ -395,7 +395,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			akkuTime.getEnumValue(null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
@@ -404,7 +404,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			akkuTime.addEnumValue(null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
@@ -482,7 +482,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 			item3.setSmallType(cellPhone);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("dynamic model mismatch: new type has model DynamicModelItem.features, but must be DynamicModelItem.small", e.getMessage());
 		}

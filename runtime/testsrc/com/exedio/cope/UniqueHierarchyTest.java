@@ -46,7 +46,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 			new UniqueHierarchySubItem("super2", "sub1");
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
@@ -64,7 +64,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 			item2.setSubField("sub1");
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());

@@ -257,7 +257,7 @@ public final class Revisions
 		{
 			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(con, executor);
 		}
-		catch(SQLRuntimeException e)
+		catch(final SQLRuntimeException e)
 		{
 			throw new IllegalStateException(
 					"Revision mutex set: " +

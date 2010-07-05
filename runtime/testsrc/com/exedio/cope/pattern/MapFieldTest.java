@@ -128,7 +128,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
@@ -137,7 +137,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(new StringField().unique(), null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must not be unique", e.getMessage());
 		}
@@ -146,7 +146,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(new StringField(), null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("value", e.getMessage());
 		}
@@ -155,7 +155,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			MapField.newMap(new StringField(), new StringField().unique());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("value must not be unique", e.getMessage());
 		}
@@ -222,7 +222,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 			item.name.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}

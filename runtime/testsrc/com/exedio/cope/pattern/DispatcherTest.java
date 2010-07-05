@@ -79,9 +79,9 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(true, item.TYPE.isBound());
 		assertEquals(null, item.TYPE.getPattern());
 
-		List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
+		final List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
 		assertEquals(1, partOfs.size());
-		PartOf partOf = partOfs.get(0);
+		final PartOf partOf = partOfs.get(0);
 		assertSame(runType, partOf.getType());
 		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
 		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());
@@ -148,7 +148,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"type of DispatcherNoneItem.wrong must implement " + Dispatchable.class +
@@ -205,7 +205,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), null);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherItem.class.getName(), e.getMessage());
 		}
@@ -214,7 +214,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			DispatcherItem.toTarget.dispatch(HashItem.class, null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("config", e.getMessage());
 		}

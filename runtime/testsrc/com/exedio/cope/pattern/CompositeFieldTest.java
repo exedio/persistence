@@ -224,7 +224,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			uno.of(oItem.code);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("CompositeOptionalItem.code is not a template of CompositeOptionalItem.uno", e.getMessage());
 		}
@@ -233,7 +233,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			uno.getTemplate(oItem.code);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("CompositeOptionalItem.code is not a component of CompositeOptionalItem.uno", e.getMessage());
 		}
@@ -242,7 +242,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			uno.getTemplate(duo.of(aString));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("CompositeOptionalItem.duo-aString is not a component of CompositeOptionalItem.uno", e.getMessage());
 		}
@@ -263,7 +263,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				second.newValue();
 				fail();
 			}
-			catch(MandatoryViolationException e)
+			catch(final MandatoryViolationException e)
 			{
 				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
 			}
@@ -272,7 +272,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				second.newValue(CompositeValue.aString.map(null));
 				fail();
 			}
-			catch(MandatoryViolationException e)
+			catch(final MandatoryViolationException e)
 			{
 				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
 			}
@@ -281,7 +281,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 				second.newValue(CompositeItem.code.map("firstString1"));
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("not a member", e.getMessage());
 			}
@@ -292,7 +292,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			aString.isAnnotationPresent(Computed.class);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
 		}
@@ -351,7 +351,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			item.setEins(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation on CompositeItem-0 for CompositeItem.eins-aString", e.getMessage()); // TODO feature should be CompositeItem.eins
 		}
@@ -362,7 +362,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 					null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation for CompositeItem.zwei-aString", e.getMessage()); // TODO feature should be CompositeItem.zwei
 		}
@@ -371,7 +371,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			fItem.first.set(fItem, null);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}
@@ -380,7 +380,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			fItem.first.set(fItem, new CompositeValue("finalViolation", 1, AnEnumClass.anEnumConstant1, target1));
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}

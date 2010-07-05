@@ -57,7 +57,7 @@ public final class IntegerField extends NumberField<Integer>
 			{
 				check(defaultNextStart, null);
 			}
-			catch(ConstraintViolationException e)
+			catch(final ConstraintViolationException e)
 			{
 				// BEWARE
 				// Must not make exception e available to public,

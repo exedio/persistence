@@ -89,7 +89,7 @@ public final class PriceTest extends CopeAssert
 			valueOf((Integer.MAX_VALUE/100d) + 0.01);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("too big: 2.147483648E7", e.getMessage());
 		}
@@ -98,7 +98,7 @@ public final class PriceTest extends CopeAssert
 			valueOf((Integer.MIN_VALUE/100d) - 0.01);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("too small: -2.1474836490000002E7", e.getMessage());
 		}
@@ -107,7 +107,7 @@ public final class PriceTest extends CopeAssert
 			valueOf(Double.NaN);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("NaN not allowed", e.getMessage());
 		}
@@ -116,7 +116,7 @@ public final class PriceTest extends CopeAssert
 			valueOf(Double.NEGATIVE_INFINITY);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
@@ -125,7 +125,7 @@ public final class PriceTest extends CopeAssert
 			valueOf(Double.POSITIVE_INFINITY);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
@@ -163,7 +163,7 @@ public final class PriceTest extends CopeAssert
 			valueOf(bd(Integer.MAX_VALUE, 2).add(bd(1, 2)));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("too big: 21474836.48", e.getMessage());
 		}
@@ -172,7 +172,7 @@ public final class PriceTest extends CopeAssert
 			valueOf(bd(Integer.MIN_VALUE, 2).subtract(bd(1, 2)));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("too small: -21474836.49", e.getMessage());
 		}
@@ -181,7 +181,7 @@ public final class PriceTest extends CopeAssert
 			valueOf((BigDecimal)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}

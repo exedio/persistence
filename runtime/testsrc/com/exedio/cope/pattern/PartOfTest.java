@@ -101,7 +101,7 @@ public class PartOfTest extends AbstractRuntimeTest
 			PartOf.newPartOf(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("feature", e.getMessage());
 		}
@@ -110,7 +110,7 @@ public class PartOfTest extends AbstractRuntimeTest
 			PartOf.newPartOf(null, new IntegerField());
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("feature", e.getMessage());
 		}
@@ -119,7 +119,7 @@ public class PartOfTest extends AbstractRuntimeTest
 			PartOf.newPartOf(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("order", e.getMessage());
 		}

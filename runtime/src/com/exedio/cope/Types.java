@@ -137,7 +137,7 @@ final class Types
 				stack.add(type);
 			}
 
-			for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
+			for(final ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
 			{
 				final Type type = j.previous();
 				//System.out.println("-------------------------------) "+type.getID());
@@ -368,7 +368,7 @@ final class Types
 		{
 			pkLong = Long.parseLong(pkString);
 		}
-		catch(NumberFormatException e)
+		catch(final NumberFormatException e)
 		{
 			throw new NoSuchIDException(id, e, pkString);
 		}

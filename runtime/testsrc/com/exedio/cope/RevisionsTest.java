@@ -29,7 +29,7 @@ public class RevisionsTest extends CopeAssert
 			new Revisions(-1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("revision number must not be negative, but was -1", e.getMessage());
 		}
@@ -38,7 +38,7 @@ public class RevisionsTest extends CopeAssert
 			new Revisions((Revision[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("revisions", e.getMessage());
 		}
@@ -47,7 +47,7 @@ public class RevisionsTest extends CopeAssert
 			new Revisions(new Revision[]{});
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("revisions must not be empty", e.getMessage());
 		}
@@ -56,7 +56,7 @@ public class RevisionsTest extends CopeAssert
 			new Revisions(new Revision(1, "revision1", "nonsensesql1"), null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("revisions[1]", e.getMessage());
 		}
@@ -68,7 +68,7 @@ public class RevisionsTest extends CopeAssert
 					);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent revision number at index 1, expected 7, but was 6", e.getMessage());
 		}
@@ -88,7 +88,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 0 to 8, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -97,7 +97,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 1 to 8, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -106,7 +106,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(3);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 3 to 8, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -115,7 +115,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(4);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 4 to 8, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -128,7 +128,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(9);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 8, but was 9", e.getMessage());
 		}
@@ -137,7 +137,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(10);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 8, but was 10", e.getMessage());
 		}
@@ -159,7 +159,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(3);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 2, but was 3", e.getMessage());
 		}
@@ -168,7 +168,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(4);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 2, but was 4", e.getMessage());
 		}
@@ -185,7 +185,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 0 to 5, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -194,7 +194,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 1 to 5, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -203,7 +203,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(3);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 3 to 5, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -212,7 +212,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(4);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 4 to 5, but declared revisions allow from 5 only", e.getMessage());
 		}
@@ -222,7 +222,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(6);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 5, but was 6", e.getMessage());
 		}
@@ -231,7 +231,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(7);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 5, but was 7", e.getMessage());
 		}
@@ -249,7 +249,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 0, but was 1", e.getMessage());
 		}
@@ -258,7 +258,7 @@ public class RevisionsTest extends CopeAssert
 			rs.getListToRun(2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot revise backwards, expected 0, but was 2", e.getMessage());
 		}

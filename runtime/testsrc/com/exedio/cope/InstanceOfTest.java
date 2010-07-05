@@ -67,7 +67,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
@@ -80,7 +80,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
@@ -92,7 +92,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"expected a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + ">, " +
@@ -197,7 +197,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			itema.TYPE.getThis().instanceOf((Type[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("types", e.getMessage());
 		}
@@ -206,7 +206,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			itema.TYPE.getThis().instanceOf(new Type[]{});
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("types must not be empty", e.getMessage());
 		}
@@ -233,7 +233,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(
 						"InstanceOfB2Item.this does not belong to a type of the query: " +
@@ -249,7 +249,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(
 						"InstanceOfAItem.this does not belong to a type of the query: " +
@@ -286,7 +286,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			itemb2.TYPE.search(itemb2.TYPE.getThis().notInstanceOf((Type)itemb1.TYPE));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
@@ -295,7 +295,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			reffa.TYPE.search(reffa.refb2.notInstanceOf((Type)itemb1.TYPE));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
@@ -304,7 +304,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			itemb1.TYPE.search(itemb1.TYPE.getThis().notInstanceOf((Type)itema.TYPE));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("type InstanceOfB1Item is not assignable from type InstanceOfAItem", e.getMessage());
 		}

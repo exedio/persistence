@@ -53,7 +53,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 			data.set(item, data6);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -65,7 +65,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 			item.set(data.map(data6));
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -77,7 +77,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 			data.set(item, stream(data6));
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -89,7 +89,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 			data.set(item, file(data6));
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());

@@ -47,7 +47,7 @@ public class SearchTest extends TestmodelTest
 			illegalQuery.search();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
@@ -56,7 +56,7 @@ public class SearchTest extends TestmodelTest
 			illegalQuery.total();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
@@ -91,7 +91,7 @@ public class SearchTest extends TestmodelTest
 			q.searchSingleton();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"expected result of size one or less, " +
@@ -106,7 +106,7 @@ public class SearchTest extends TestmodelTest
 			assertEquals(null, item.TYPE.searchSingletonStrict(item.someNotNullString.equal("someStringx")));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"expected result of size one, " +
@@ -121,7 +121,7 @@ public class SearchTest extends TestmodelTest
 			q.searchSingletonStrict();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"expected result of size one, " +
@@ -138,7 +138,7 @@ public class SearchTest extends TestmodelTest
 			Condition.TRUE.get(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -147,7 +147,7 @@ public class SearchTest extends TestmodelTest
 			Condition.FALSE.get(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}

@@ -167,14 +167,14 @@ public final class UniqueConstraint extends Feature
 	void check(final Item item, final Map<? extends Field, ?> fieldValues)
 	{
 		field:
-		for(FunctionField testField : fields)
+		for(final FunctionField testField : fields)
 		{
 			if(fieldValues.containsKey(testField))
 			{
 				final Object[] values = new Object[fields.length];
 				int i = 0;
 
-				for(FunctionField<?> f : fields)
+				for(final FunctionField<?> f : fields)
 				{
 					final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
 					if(value==null)

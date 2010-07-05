@@ -83,7 +83,7 @@ public class BadQueryTest extends AbstractRuntimeTest
 				query.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				// TODO
 				// should not happen, since SuperContainer.this is not ambiguous

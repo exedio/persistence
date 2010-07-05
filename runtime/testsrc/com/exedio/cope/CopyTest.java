@@ -139,7 +139,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopyConstraint(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("target", e.getMessage());
 		}
@@ -148,7 +148,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopyConstraint(Item.newItemField(CopyValueItem.class), null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("copy", e.getMessage());
 		}
@@ -157,7 +157,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopyConstraint(Item.newItemField(CopyValueItem.class), new StringField());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("target must be final", e.getMessage());
 		}
@@ -166,7 +166,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopyConstraint(Item.newItemField(CopyValueItem.class).toFinal(), new StringField());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("copy must be final", e.getMessage());
 		}
@@ -216,7 +216,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(target2, "template1", value2, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -238,7 +238,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(target2, null, value2, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -260,7 +260,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(target2, "template2", value1, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -282,7 +282,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(target2, "template2", null, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -304,7 +304,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(targetN, "template1", value2, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -326,7 +326,7 @@ public class CopyTest extends AbstractRuntimeTest
 			new CopySourceItem(targetN, null, value1, null, null);
 			fail();
 		}
-		catch(CopyViolationException e)
+		catch(final CopyViolationException e)
 		{
 			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());

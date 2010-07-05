@@ -47,7 +47,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		{
 			return DriverManager.getConnection(url, info);
 		}
-		catch(SQLException ex)
+		catch(final SQLException ex)
 		{
 			throw new SQLRuntimeException(ex, "create");
 		}
@@ -67,7 +67,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
 			return true;
 		}
-		catch(SQLException ex)
+		catch(final SQLException ex)
 		{
 			System.out.println("warning: pooled connection invalid: " + ex.getMessage());
 			return false;
@@ -80,7 +80,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		{
 			return !e.isClosed();
 		}
-		catch(SQLException ex)
+		catch(final SQLException ex)
 		{
 			throw new SQLRuntimeException(ex, "isClosed");
 		}
@@ -92,7 +92,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		{
 			e.close();
 		}
-		catch(SQLException ex)
+		catch(final SQLException ex)
 		{
 			throw new SQLRuntimeException(ex, "close");
 		}

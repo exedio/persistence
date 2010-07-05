@@ -43,19 +43,19 @@ public class CopeTest extends TestCase
 			final Test test = (Test)m.invoke(null, (Object[])null);
 			suite.addTest(test);
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new RuntimeException(e);
 		}
-		catch(InvocationTargetException e)
+		catch(final InvocationTargetException e)
 		{
 			throw new RuntimeException(e.getTargetException());
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(e);
 		}

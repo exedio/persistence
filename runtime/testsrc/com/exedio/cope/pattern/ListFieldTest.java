@@ -211,7 +211,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			ListField.newList(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -220,7 +220,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			ListField.newList(new StringField().toFinal());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("element must not be final", e.getMessage());
 		}
@@ -229,7 +229,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			ListField.newList(new StringField().unique());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("element must not be unique", e.getMessage());
 		}
@@ -253,7 +253,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			q.search();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q, e.getMessage());
 		}
@@ -262,7 +262,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			q.total();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
 		}
@@ -428,7 +428,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.setDates(listg(date1, null, date2));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
@@ -454,7 +454,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.strings.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -463,7 +463,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.dates.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -472,7 +472,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.items.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -481,7 +481,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.strings.getDistinctParents(Item.class, "hallo");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -490,7 +490,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.dates.getDistinctParents(Item.class, new Date());
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -499,7 +499,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 			item.items.getDistinctParents(Item.class, item);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}

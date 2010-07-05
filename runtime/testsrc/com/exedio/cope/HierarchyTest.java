@@ -237,7 +237,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			firstItem.get(secondItem.firstSubString);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -246,7 +246,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			secondItem.firstSubString.get(firstItem);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -255,7 +255,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			firstItem.set(secondItem.firstSubString, "zack");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -264,7 +264,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			firstItem.set(secondItem.firstSubString.map("zack"));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -273,7 +273,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			firstItem.TYPE.newItem(secondItem.firstSubString.map("zack"));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -282,7 +282,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			HierarchySuper.TYPE.newItem();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot create item of abstract type HierarchySuper", e.getMessage());
 		}
@@ -429,7 +429,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			model.checkEmptySchema();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("there are 4 items left for table HierarchySuper", e.getMessage());
 		}
@@ -444,7 +444,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			model.deleteSchema();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}

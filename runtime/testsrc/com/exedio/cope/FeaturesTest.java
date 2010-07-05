@@ -57,7 +57,7 @@ public class FeaturesTest extends TestCase
 			features.put(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("name", e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class FeaturesTest extends TestCase
 			features.put("zick", null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("feature", e.getMessage());
 		}
@@ -92,7 +92,7 @@ public class FeaturesTest extends TestCase
 			features.put("zick", zack);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("already contains the name >zick<", e.getMessage());
 		}
@@ -110,7 +110,7 @@ public class FeaturesTest extends TestCase
 			features.put("zack", zick);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
 		}
@@ -125,7 +125,7 @@ public class FeaturesTest extends TestCase
 			features.put("zack", zick, annotationSource);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
 		}

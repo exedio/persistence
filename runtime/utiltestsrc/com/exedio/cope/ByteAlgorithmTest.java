@@ -55,7 +55,7 @@ public class ByteAlgorithmTest extends CopeAssert
 			new Hash(a, "nixus");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
 			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());

@@ -190,7 +190,7 @@ public final class DoubleField extends NumberField<Double>
 		{
 			set(item, Double.valueOf(value));
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}

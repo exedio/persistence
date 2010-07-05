@@ -171,14 +171,14 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
 
-		List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
+		final List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
 		assertEquals(1, historyPartOfs.size());
-		PartOf eventPartOf = historyPartOfs.get(0);
+		final PartOf eventPartOf = historyPartOfs.get(0);
 		assertSame(eventType, eventPartOf.getType());
 		assertEquals(list(eventPartOf), PartOf.getPartOfs(HistoryItem.audit));
-		List<PartOf> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
+		final List<PartOf> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
 		assertEquals(1, eventPartOfs.size());
-		PartOf featurePartOf = eventPartOfs.get(0);
+		final PartOf featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
 
@@ -190,7 +190,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(list(), item.getAuditEvents());
 
 		final Date before1 = new Date();
-		History.Event event1 = item.createAuditEvent("author1", true);
+		final History.Event event1 = item.createAuditEvent("author1", true);
 		final Date after1 = new Date();
 		assertSame(item.audit, event1.getPattern());
 		assertEquals(item, event1.getParent());
@@ -221,7 +221,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(list(feature11, feature12), event1.getFeatures());
 
 		final Date before2 = new Date();
-		History.Event event2 = item.createAuditEvent("author2", false);
+		final History.Event event2 = item.createAuditEvent("author2", false);
 		final Date after2 = new Date();
 		assertSame(item.audit, event2.getPattern());
 		assertEquals(item, event2.getParent());

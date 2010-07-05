@@ -84,7 +84,7 @@ public final class OracleDialect extends Dialect
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		boolean first = true;
-		for(Iterator i = columns.iterator(); i.hasNext(); )
+		for(final Iterator i = columns.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;

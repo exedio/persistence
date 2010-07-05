@@ -94,7 +94,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	 */
 	public boolean clearExpectedCalls()
 	{
-		boolean result = expectedCalls!=null;
+		final boolean result = expectedCalls!=null;
 		expectedCalls = null;
 		return result;
 	}

@@ -162,7 +162,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			SetField.newSet(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -171,7 +171,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			SetField.newSet(new StringField().toFinal());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("element must not be final", e.getMessage());
 		}
@@ -180,7 +180,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			SetField.newSet(new StringField().unique());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("element must not be unique", e.getMessage());
 		}
@@ -361,7 +361,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			item.setDates(listg(date1, null, date2));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
@@ -373,7 +373,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			item.strings.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -382,7 +382,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			item.dates.getParent(Item.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -391,7 +391,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			item.strings.getParents(Item.class, "hallo");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -400,7 +400,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			item.dates.getParents(Item.class, new Date());
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
@@ -408,9 +408,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 	public void testMultipleItems() throws Exception
 	{
-		String rot = "hellrot";
-		String blau = "blau";
-		String gelb = "gelb";
+		final String rot = "hellrot";
+		final String blau = "blau";
+		final String gelb = "gelb";
 
 		item.setStrings(listg(rot, blau));
 		assertContainsUnmodifiable(rot, blau, item.getStrings());

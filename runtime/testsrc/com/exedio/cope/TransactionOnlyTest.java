@@ -37,7 +37,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 			model.startTransaction("nested");
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(
 					"tried to start a new transaction with name >nested<, " +
@@ -53,7 +53,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 			model.startTransaction(null);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(
 					"tried to start a new transaction without a name, " +
@@ -68,14 +68,14 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 
 	public void testJoinClosed()
 	{
-		Transaction tx = model.currentTransaction();
+		final Transaction tx = model.currentTransaction();
 		model.commit();
 		try
 		{
 			model.joinTransaction( tx );
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot join closed transaction " + tx.id, e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 				{
 					model.joinTransaction(tx);
 				}
-				catch(IllegalStateException e)
+				catch(final IllegalStateException e)
 				{
 					rer.e = e;
 				}
@@ -194,7 +194,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 				model.currentTransaction();
 				fail();
 			}
-			catch(IllegalStateException e)
+			catch(final IllegalStateException e)
 			{
 				assertEquals( "there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage() );
 			}

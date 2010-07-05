@@ -110,7 +110,7 @@ public abstract class Node
 			}
 			resultSetHandler.run(resultSet);
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, statement);
 		}
@@ -122,7 +122,7 @@ public abstract class Node
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -133,7 +133,7 @@ public abstract class Node
 				{
 					resultSet.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -144,7 +144,7 @@ public abstract class Node
 				{
 					connectionProvider.putConnection(connection);
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -169,7 +169,7 @@ public abstract class Node
 				//System.out.println("  ("+rows+")");
 			}
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			//System.out.println("  -> "+e.getMessage());
 			throw new SQLRuntimeException(e, statement);
@@ -182,7 +182,7 @@ public abstract class Node
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -193,7 +193,7 @@ public abstract class Node
 				{
 					connectionProvider.putConnection(connection);
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}

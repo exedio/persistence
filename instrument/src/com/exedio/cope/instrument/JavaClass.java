@@ -94,14 +94,14 @@ final class JavaClass extends JavaFeature
 	 */
 	public String getFullName()
 	{
-		StringBuilder buf=new StringBuilder();
+		final StringBuilder buf=new StringBuilder();
 		final String packagename = file.getPackageName();
 		if(packagename!=null)
 		{
 			buf.append(packagename);
 			buf.append('.');
 		}
-		int pos=buf.length();
+		final int pos=buf.length();
 		for(JavaClass i=this; i!=null; i=i.parent)
 		{
 			if(i!=this)
@@ -167,7 +167,7 @@ final class JavaClass extends JavaFeature
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
-		catch(EvalError e) // TODO method should throw this
+		catch(final EvalError e) // TODO method should throw this
 		{
 			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
 		}

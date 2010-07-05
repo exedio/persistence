@@ -31,7 +31,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("javaClass", e.getMessage());
 		}
@@ -40,7 +40,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
 		}
@@ -49,7 +49,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(castItemClass(NoItem.class));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
 		}
@@ -58,7 +58,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(NoActivationConstructor.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
 					NoActivationConstructor.class.getName() +
@@ -71,7 +71,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			new Model(wrongActivationConstructor);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("WrongActivationConstructor/" + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
@@ -80,7 +80,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(WrongActivationConstructor.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
@@ -89,7 +89,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(NullFeature.class);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
@@ -99,7 +99,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			NonResolvingItemField.itemField.getValueType();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
 		}
@@ -109,7 +109,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			NonResolvingItemField.itemField.getValueType();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("valueType of NonResolvingItemField.itemField not yet resolved: " + NullFeature.class.getName(), e.getMessage());
 		}
@@ -118,7 +118,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			new Model(nonResolvingItemField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
@@ -128,7 +128,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(BeforeNewNotStatic.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"method beforeNewCopeItem(SetValue[]) " +
@@ -141,7 +141,7 @@ public class TypesBoundErrorTest extends CopeAssert
 			newType(BeforeNewWrongReturn.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"method beforeNewCopeItem(SetValue[]) " +

@@ -76,7 +76,7 @@ abstract class JavaFeature
 		if(parent!=null && file!=parent.file) // JavaFile objects are flyweight
 			throw new RuntimeException();
 
-		int over=modifier&~getAllowedModifiers();
+		final int over=modifier&~getAllowedModifiers();
 		if(over!=0)
 			throw new InjectorParseException(
 			"modifier(s) "+java.lang.reflect.Modifier.toString(over)+

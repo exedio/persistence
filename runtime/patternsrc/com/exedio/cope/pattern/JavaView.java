@@ -50,7 +50,7 @@ public final class JavaView extends Pattern
 			{
 				getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null);
 			}
-			catch(NoSuchMethodException e)
+			catch(final NoSuchMethodException e)
 			{
 				throw new RuntimeException("no suitable getter method found for java view "+name, e);
 			}
@@ -92,11 +92,11 @@ public final class JavaView extends Pattern
 		{
 			return mount().getter.invoke(item, (Object[])null);
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}
-		catch(InvocationTargetException e)
+		catch(final InvocationTargetException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}

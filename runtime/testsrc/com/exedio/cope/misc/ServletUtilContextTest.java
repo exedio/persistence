@@ -57,7 +57,7 @@ public class ServletUtilContextTest extends CopeAssert
 			source.get(key);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(failureKey, e.getMessage());
 		}

@@ -143,7 +143,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(stream(data4), "illegalContentType");
 				fail();
 			}
-			catch(IllegalContentTypeException e)
+			catch(final IllegalContentTypeException e)
 			{
 				assertStreamClosed();
 				assertSame(item.file, e.getFeature());
@@ -208,7 +208,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(data21, "empty-major-long/empty-minor-long");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -223,7 +223,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				new MediaItem(Media.toValue(data21, "empty-major-long/empty-minor-long"));
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -239,7 +239,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(file(data21), "empty-major-long/empty-minor-long");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -254,7 +254,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				new MediaItem(Media.toValue(file(data21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -270,7 +270,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(stream(data21), "empty-major-long/empty-minor-long");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -286,7 +286,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				new MediaItem(Media.toValue(stream(data21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(final DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());

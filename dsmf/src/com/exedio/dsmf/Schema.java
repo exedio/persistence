@@ -168,11 +168,11 @@ public final class Schema extends Node
 	{
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().drop(listener);
-		for(ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
+		for(final ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
 			i.previous().drop(listener);
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
@@ -192,7 +192,7 @@ public final class Schema extends Node
 			{
 				sequence.drop(listener);
 			}
-			catch(SQLRuntimeException e2)
+			catch(final SQLRuntimeException e2)
 			{
 				// ignored in teardown
 				//System.err.println("failed:"+e2.getMessage());
@@ -216,7 +216,7 @@ public final class Schema extends Node
 			{
 				table.tearDownConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 			}
-			catch(SQLRuntimeException e2)
+			catch(final SQLRuntimeException e2)
 			{
 				// ignored in teardown
 				//System.err.println("failed:"+e2.getMessage());
@@ -234,7 +234,7 @@ public final class Schema extends Node
 		{
 			deleted = false;
 
-			for(Iterator<Table> i = tablesToDelete.iterator(); i.hasNext(); )
+			for(final Iterator<Table> i = tablesToDelete.iterator(); i.hasNext(); )
 			{
 				try
 				{
@@ -247,7 +247,7 @@ public final class Schema extends Node
 					// remember there was at least one table deleted
 					deleted = true;
 				}
-				catch(SQLRuntimeException e2)
+				catch(final SQLRuntimeException e2)
 				{
 					// ignored in teardown
 					//System.err.println("failed:"+e2.getMessage());
@@ -278,9 +278,9 @@ public final class Schema extends Node
 
 	public final void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(types, true, listener);
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(types, false, listener);
 	}
 
@@ -292,9 +292,9 @@ public final class Schema extends Node
 	public final void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().tearDownConstraints(types, true, listener);
-		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().tearDownConstraints(types, false, listener);
 	}
 

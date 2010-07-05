@@ -33,7 +33,7 @@ public class DispatcherConfigTest extends CopeAssert
 			new Dispatcher.Config(0, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("failureLimit must be greater zero, but was 0.", e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class DispatcherConfigTest extends CopeAssert
 			new Dispatcher.Config(-10, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("failureLimit must be greater zero, but was -10.", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class DispatcherConfigTest extends CopeAssert
 			new Dispatcher.Config(1000, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("searchSize must be greater zero, but was 0.", e.getMessage());
 		}
@@ -60,7 +60,7 @@ public class DispatcherConfigTest extends CopeAssert
 			new Dispatcher.Config(1000, -10);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
 		}

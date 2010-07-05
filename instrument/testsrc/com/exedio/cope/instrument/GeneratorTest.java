@@ -359,7 +359,7 @@ public class GeneratorTest extends InstrumentorTest
 		{
 			field = javaClass.getDeclaredField(name);
 		}
-		catch(NoSuchFieldException e)
+		catch(final NoSuchFieldException e)
 		{
 			throw new AssertionError(e);
 		}
@@ -374,7 +374,7 @@ public class GeneratorTest extends InstrumentorTest
 			javaClass.getDeclaredField(name);
 			fail("field " + name + " exists.");
 		}
-		catch(NoSuchFieldException e)
+		catch(final NoSuchFieldException e)
 		{
 			// success
 		}
@@ -409,7 +409,7 @@ public class GeneratorTest extends InstrumentorTest
 		{
 			method = javaClass.getDeclaredMethod(name, parameterTypes);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new AssertionError(e);
 		}
@@ -430,7 +430,7 @@ public class GeneratorTest extends InstrumentorTest
 			javaClass.getDeclaredMethod(name, parameterTypes);
 			fail("method " + name + " exists.");
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			// success
 		}
@@ -450,7 +450,7 @@ public class GeneratorTest extends InstrumentorTest
 		{
 			constructor = javaClass.getDeclaredConstructor(parameterTypes);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new AssertionError(e);
 		}

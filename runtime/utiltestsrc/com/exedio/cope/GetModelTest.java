@@ -37,7 +37,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("zick");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("does not contain '#', but was zick", e.getMessage());
 		}
@@ -47,7 +47,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("com.exedio.cope.GetModelTestX#modelNotExists");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("class com.exedio.cope.GetModelTestX does not exist.", e.getMessage());
 		}
@@ -57,7 +57,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("com.exedio.cope.GetModelTest#modelNotExists");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field modelNotExists in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
 		}
@@ -67,7 +67,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("com.exedio.cope.GetModelTest#modelPrivate");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field modelPrivate in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
 		}
@@ -77,7 +77,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("com.exedio.cope.GetModelTest#modelNull");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field com.exedio.cope.GetModelTest#modelNull is null.", e.getMessage());
 		}
@@ -87,7 +87,7 @@ public class GetModelTest extends CopeAssert
 			Cope.getModel("com.exedio.cope.GetModelTest#modelNoModel");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field com.exedio.cope.GetModelTest#modelNoModel is not a model, but a java.lang.String.", e.getMessage());
 		}

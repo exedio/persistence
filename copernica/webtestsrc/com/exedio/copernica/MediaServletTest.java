@@ -300,7 +300,7 @@ public class MediaServletTest extends TestCase
 	private String getContentAsString( final InputStream is ) throws IOException
 	{
 		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		String s;
 		while ( (s=br.readLine())!=null )
 		{
@@ -504,8 +504,8 @@ public class MediaServletTest extends TestCase
 
 	private String lines( final String... lines )
 	{
-		StringBuilder builder = new StringBuilder();
-		for ( String line: lines )
+		final StringBuilder builder = new StringBuilder();
+		for ( final String line: lines )
 		{
 			builder.append( line );
 			builder.append( '\n' );

@@ -146,7 +146,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			dialectClassRaw = Class.forName(dialectName);
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " not found.");
 		}
@@ -160,7 +160,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			return dialectClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.");
 		}
@@ -172,15 +172,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			return this.dialect.newInstance(parameters);
 		}
-		catch(InstantiationException e)
+		catch(final InstantiationException e)
 		{
 			throw new RuntimeException(dialect.toGenericString(), e);
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(dialect.toGenericString(), e);
 		}
-		catch(InvocationTargetException e)
+		catch(final InvocationTargetException e)
 		{
 			throw new RuntimeException(dialect.toGenericString(), e);
 		}

@@ -54,7 +54,7 @@ final class ClusterSender
 		{
 			this.socket = new DatagramSocket(properties.clusterSendSourcePort.intValue());
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.intValue()), e);
 		}
@@ -126,7 +126,7 @@ final class ClusterSender
 				send(packetSize, buf);
 			}
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -211,7 +211,7 @@ final class ClusterSender
 			if(packetCount>1)
 				invalidationSplit += (packetCount-1);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

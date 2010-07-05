@@ -61,7 +61,7 @@ final class Connect
 					properties.getDatabasePassword());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "create");
 		}
@@ -74,7 +74,7 @@ final class Connect
 					probeConnection.close();
 					probeConnection = null;
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					throw new SQLRuntimeException(e, "close");
 				}

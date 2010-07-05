@@ -122,7 +122,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(servlet);
 			fail();
 		}
-		catch(ServletException e)
+		catch(final ServletException e)
 		{
 			assertEquals(
 				"servlet \"" + name + "\" " +
@@ -143,7 +143,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(filter, config);
 			fail();
 		}
-		catch(ServletException e)
+		catch(final ServletException e)
 		{
 			assertEquals(
 				"filter \"" + name + "\" " +

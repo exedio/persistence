@@ -113,7 +113,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 			new TransactionSlicer(null, 0);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertNull(e.getMessage());
 		}
@@ -122,7 +122,7 @@ public class TransactionSlicerTest extends AbstractRuntimeTest
 			new TransactionSlicer(model, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("bitesPerSlice must be positive, but was 0", e.getMessage());
 		}

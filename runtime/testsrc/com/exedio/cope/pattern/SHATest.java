@@ -189,7 +189,7 @@ public class SHATest extends AbstractRuntimeTest
 			item.setPasswordMandatory(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.passwordMandatory.getStorage(), e.getFeature());
 		}

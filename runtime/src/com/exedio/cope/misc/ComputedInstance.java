@@ -31,7 +31,7 @@ public final class ComputedInstance
 		{
 			instance = ComputedInstance.class.getDeclaredField("source");
 		}
-		catch(NoSuchFieldException e)
+		catch(final NoSuchFieldException e)
 		{
 			throw new RuntimeException(e);
 		}

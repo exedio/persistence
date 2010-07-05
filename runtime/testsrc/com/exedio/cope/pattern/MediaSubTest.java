@@ -121,7 +121,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 			item.setImage(stream(data4), "illegalContentType");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.image, e.getFeature());
@@ -136,7 +136,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 			item.setImage(stream(data4), "text/html");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.image, e.getFeature());

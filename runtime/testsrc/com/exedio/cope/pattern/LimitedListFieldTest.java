@@ -182,7 +182,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.setNums(listg(i2, i1, i3, i1));
 			fail();
 		}
-		catch(ListSizeViolationException e)
+		catch(final ListSizeViolationException e)
 		{
 			assertSame(item.nums, e.getFeature());
 			assertEquals(4, e.getSize());
@@ -284,7 +284,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.nums.equal(listg(i1, i2, i3, i4));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("3", e.getMessage());
 		}
@@ -293,7 +293,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.dates.equal(listg(ts1, ts2, ts1));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("2", e.getMessage());
 		}
@@ -302,7 +302,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.strings.equal(listg("one", "two", "three", "four", "five"));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("4", e.getMessage());
 		}
@@ -312,7 +312,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.nums.notEqual(listg(i1, i2, i3, i4));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("3", e.getMessage());
 		}
@@ -321,7 +321,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.dates.notEqual(listg(ts1, ts2, ts1));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("2", e.getMessage());
 		}
@@ -330,7 +330,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			item.strings.notEqual(listg("one", "two", "three", "four", "five"));
 			fail();
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch(final ArrayIndexOutOfBoundsException e)
 		{
 			assertEquals("4", e.getMessage());
 		}
@@ -339,7 +339,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 			LimitedListField.newList(new StringField(), 1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("maximumSize must be greater 1, but was 1", e.getMessage());
 		}

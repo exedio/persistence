@@ -149,7 +149,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			item.setBigPrice(storeOf(4999));
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item.bigPrice.getInt(), e.getFeature());
 			assertEquals(item, e.getItem());
@@ -165,7 +165,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			item.setBigPrice(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.bigPrice, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -181,7 +181,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			});
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.bigPrice, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -193,7 +193,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			});
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.bigPrice.getInt(), e.getFeature()); // TODO should be price itself, not the int
 			assertEquals(null, e.getItem());
@@ -212,7 +212,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			item2.finalPrice.set(item2, null);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item2.finalPrice, e.getFeature());
 			assertEquals(item2, e.getItem());

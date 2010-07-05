@@ -72,7 +72,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 			item.setUniqueString( collisionItem.getUniqueString() );
 			fail();
 		}
-		catch ( UniqueViolationException e )
+		catch ( final UniqueViolationException e )
 		{
 			// fine
 		}
@@ -125,7 +125,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		assertInvalidations(2, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
-		Transaction txCheck = model.startTransaction( "check" );
+		final Transaction txCheck = model.startTransaction( "check" );
 		if ( model.supportsReadCommitted() )
 		{
 			listener.expectNoCall();
@@ -147,7 +147,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
-		Transaction txChange = model.startTransaction("change");
+		final Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setTestDatabaseListener(listener));
@@ -158,7 +158,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
 		listener.verifyExpectations();
 		model.leaveTransaction();
-		Transaction txSearch = model.startTransaction("search");
+		final Transaction txSearch = model.startTransaction("search");
 		// TODO:
 		// model.getDatabase().expectNoCall();
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );

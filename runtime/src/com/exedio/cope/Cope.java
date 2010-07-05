@@ -252,7 +252,7 @@ public abstract class Cope
 		{
 			clazz = Class.forName(className);
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new IllegalArgumentException("class " + className + " does not exist.", e);
 		}
@@ -262,7 +262,7 @@ public abstract class Cope
 		{
 			field = clazz.getField(fieldName);
 		}
-		catch(NoSuchFieldException e)
+		catch(final NoSuchFieldException e)
 		{
 			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
 		}
@@ -272,7 +272,7 @@ public abstract class Cope
 		{
 			result = field.get(null);
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new IllegalArgumentException("accessing " + field.toString(), e);
 		}

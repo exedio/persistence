@@ -225,7 +225,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.integerFifty.defaultToNext(88);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
 		}
@@ -234,7 +234,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.integerNext.defaultTo(99);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
 		}
@@ -243,7 +243,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.integerNext.min(10002);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
@@ -257,7 +257,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.dateEight.defaultToNow();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
 		}
@@ -266,7 +266,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.dateNow.defaultTo(new Date(444));
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
 		}
@@ -275,7 +275,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			DefaultToItem.dayNow.defaultTo(new Day(2010, 1, 13));
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
 		}
@@ -284,7 +284,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			new StringField().lengthMax(3).defaultTo("1234");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			//e.printStackTrace();
 			assertEquals(

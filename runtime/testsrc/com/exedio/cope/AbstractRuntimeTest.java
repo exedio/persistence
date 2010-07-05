@@ -160,7 +160,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		mediaRootUrl = null;
 
-		for(Iterator i = files.iterator(); i.hasNext(); )
+		for(final Iterator i = files.iterator(); i.hasNext(); )
 			delete((File)i.next());
 		files.clear();
 
@@ -197,7 +197,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			s = new FileOutputStream(result);
 			s.write(data);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -209,7 +209,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 				{
 					s.close();
 				}
-				catch(IOException e)
+				catch(final IOException e)
 				{
 					throw new RuntimeException(e);
 				}
@@ -265,7 +265,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(expectedData.length, actualFile.length());
 
 			final byte[] actualData = new byte[(int)actualFile.length()];
-			FileInputStream in = new FileInputStream(actualFile);
+			final FileInputStream in = new FileInputStream(actualFile);
 			in.read(actualData);
 			in.close();
 
@@ -295,7 +295,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			item.deleteCopeItem();
 			fail();
 		}
-		catch(IntegrityViolationException e)
+		catch(final IntegrityViolationException e)
 		{
 			assertEquals(attribute, e.getFeature());
 			assertEquals(attribute, e.getFeature());
@@ -312,7 +312,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			model.getItem(id);
 			fail();
 		}
-		catch(NoSuchIDException e)
+		catch(final NoSuchIDException e)
 		{
 			assertEquals("no such id <" + id + ">, " + detail, e.getMessage());
 			assertEquals(notAnID, e.notAnID());
@@ -536,7 +536,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			info.getFirst();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("not known", e.getMessage());
 		}
@@ -545,7 +545,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			info.getLast();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("not known", e.getMessage());
 		}
@@ -633,7 +633,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			type.checkModificationCounter();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("no check for modification counter needed for " + type, e.getMessage());
 		}

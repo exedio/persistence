@@ -74,7 +74,7 @@ public class RandomTest extends AbstractRuntimeTest
 			new Random(null, 5);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("type", e.getMessage());
 		}
@@ -198,7 +198,7 @@ public class RandomTest extends AbstractRuntimeTest
 		{
 			q.search();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("random not supported by this dialect", e.getMessage());
 		}

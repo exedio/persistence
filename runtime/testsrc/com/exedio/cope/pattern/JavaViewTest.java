@@ -79,7 +79,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.getNumberPrimitive();
 			fail();
 		}
-		catch(UnsupportedOperationException e)
+		catch(final UnsupportedOperationException e)
 		{
 			assertEquals("numberPrimitive", e.getMessage());
 		}
@@ -88,7 +88,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.numberPrimitive.get(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
@@ -114,7 +114,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.getNumberPrimitive();
 			fail();
 		}
-		catch(UnsupportedOperationException e)
+		catch(final UnsupportedOperationException e)
 		{
 			assertEquals("numberPrimitive", e.getMessage());
 		}
@@ -123,7 +123,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.numberPrimitive.get(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
@@ -138,7 +138,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.number.get(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -147,7 +147,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 			item.number.get(item2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("object is not an instance of declaring class", e.getMessage());
 		}

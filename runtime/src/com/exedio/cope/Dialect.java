@@ -93,7 +93,7 @@ abstract class Dialect
 				source = blob.getBinaryStream();
 				field.copy(source, data, blob.length(), item);
 			}
-			catch(IOException e)
+			catch(final IOException e)
 			{
 				throw new RuntimeException(field.toString(), e);
 			}
@@ -105,7 +105,7 @@ abstract class Dialect
 					{
 						source.close();
 					}
-					catch(IOException e)
+					catch(final IOException e)
 					{/*IGNORE*/}
 				}
 			}

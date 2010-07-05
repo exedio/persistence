@@ -40,7 +40,7 @@ final class ConnectionPool
 		{
 			result.setAutoCommit(autoCommit);
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}

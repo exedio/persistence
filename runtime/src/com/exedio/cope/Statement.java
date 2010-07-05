@@ -121,7 +121,7 @@ final class Statement
 			{
 				final ArrayList list = (ArrayList)value;
 				int aliasNumber = 0;
-				for(Iterator j = list.iterator(); j.hasNext(); )
+				for(final Iterator j = list.iterator(); j.hasNext(); )
 				{
 					final JoinTable joinType = (JoinTable)j.next();
 					joinType.alias = table.id + (aliasNumber++);
@@ -518,7 +518,7 @@ final class Statement
 	{
 		final QueryInfo result = new QueryInfo(text.toString());
 		if(parameters!=null)
-			for(Object p : parameters)
+			for(final Object p : parameters)
 				result.addChild(new QueryInfo(p.toString()));
 		return result;
 	}

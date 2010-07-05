@@ -127,7 +127,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			item.getName(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
@@ -136,7 +136,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			item.setName(null, "hallo");
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
@@ -150,7 +150,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			((EnumMapField)item.name).get(item, X.A);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
 		}
@@ -159,7 +159,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			((EnumMapField)item.name).set(item, X.A, "hallo");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
 		}

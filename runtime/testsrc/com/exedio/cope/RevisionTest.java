@@ -29,7 +29,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(-1, null, (String[])null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("number must be greater zero", e.getMessage());
 		}
@@ -38,7 +38,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(0, null, (String[])null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("number must be greater zero", e.getMessage());
 		}
@@ -47,7 +47,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(1, null, (String[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("comment", e.getMessage());
 		}
@@ -56,7 +56,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(1, "some comment", (String[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("body", e.getMessage());
 		}
@@ -65,7 +65,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(1, "some comment", new String[0]);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("body must not be empty", e.getMessage());
 		}
@@ -74,7 +74,7 @@ public class RevisionTest extends CopeAssert
 			new Revision(1, "some comment", "hallo", null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("body[1]", e.getMessage());
 		}

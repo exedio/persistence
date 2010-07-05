@@ -58,7 +58,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			item.setData((byte[])null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -73,7 +73,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			item.setData((InputStream)null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -88,7 +88,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			item.setData((File)null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
@@ -100,7 +100,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			new DataMandatoryItem((byte[])null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());
@@ -112,7 +112,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			new DataMandatoryItem(new SetValue[0]);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());

@@ -73,7 +73,7 @@ public class QueryTest extends AbstractRuntimeTest
 			q.setSelects(new Selectable[]{DayItem.day});
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
@@ -82,7 +82,7 @@ public class QueryTest extends AbstractRuntimeTest
 			q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("use setSelect instead", e.getMessage());
 		}
@@ -95,7 +95,7 @@ public class QueryTest extends AbstractRuntimeTest
 			newQuery(new Selectable[]{DayItem.day}, DayItem.TYPE, null);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class QueryTest extends AbstractRuntimeTest
 			q.setSelects(new Selectable[]{DayItem.day});
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
@@ -123,7 +123,7 @@ public class QueryTest extends AbstractRuntimeTest
 			q.setSelect(DayItem.TYPE.getThis());
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("use setSelects instead", e.getMessage());
 		}
@@ -241,7 +241,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(null, -1, -1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("data", e.getMessage());
 		}
@@ -250,7 +250,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(null, -1, -1, -1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("data", e.getMessage());
 		}
@@ -259,7 +259,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(listg(d1), -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("total must not be negative, but was -1", e.getMessage());
 		}
@@ -268,7 +268,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(listg(d1), -1, -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("total must not be negative, but was -1", e.getMessage());
 		}
@@ -277,7 +277,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(listg(d1), 0, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
 		}
@@ -286,7 +286,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(listg(d1), 0, -1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
 		}
@@ -295,7 +295,7 @@ public class QueryTest extends AbstractRuntimeTest
 			new Query.Result<Day>(listg(d1), 0, 0, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must not be negative, but was -1", e.getMessage());
 		}

@@ -107,12 +107,12 @@ public final class AntTask extends Task
 
 			(new Main()).run(sourcefiles, params);
 		}
-		catch(Exception e)
+		catch(final Exception e)
 		{
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-		catch(AssertionError e)
+		catch(final AssertionError e)
 		{
 			e.printStackTrace();
 			throw new BuildException(e);

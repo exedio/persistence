@@ -38,7 +38,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 			forClass(AnItem.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
@@ -47,7 +47,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 			forClassUnchecked(AnItem.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}

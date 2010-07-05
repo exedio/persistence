@@ -49,7 +49,7 @@ public class FieldLongTest extends FieldTest
 			item.someLong.getMandatory(item);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someLong+" is not mandatory", e.getMessage());
 		}
@@ -86,7 +86,7 @@ public class FieldLongTest extends FieldTest
 			item.set((FunctionField)item.someLong, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
 		}

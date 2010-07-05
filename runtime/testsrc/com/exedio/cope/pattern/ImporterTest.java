@@ -76,7 +76,7 @@ public class ImporterTest extends AbstractRuntimeTest
 			Importer.newImporter(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
@@ -85,7 +85,7 @@ public class ImporterTest extends AbstractRuntimeTest
 			Importer.newImporter(new StringField());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must be final", e.getMessage());
 		}
@@ -94,7 +94,7 @@ public class ImporterTest extends AbstractRuntimeTest
 			Importer.newImporter(new StringField().toFinal().optional());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must be mandatory", e.getMessage());
 		}
@@ -103,7 +103,7 @@ public class ImporterTest extends AbstractRuntimeTest
 			Importer.newImporter(new StringField().toFinal());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must be unique", e.getMessage());
 		}

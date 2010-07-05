@@ -166,7 +166,7 @@ public class PatternTest extends AbstractRuntimeTest
 			superType.isAssignableFrom(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -196,7 +196,7 @@ public class PatternTest extends AbstractRuntimeTest
 					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("cannot create item of abstract type PatternTestItem-testPattern-UperType", e.getMessage());
 		}

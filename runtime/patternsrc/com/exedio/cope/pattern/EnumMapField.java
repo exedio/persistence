@@ -40,7 +40,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		this.keyClass = keyClass;
 		this.fields = new EnumMap<K, FunctionField<V>>(keyClass);
 
-		for(K key : keyClass.getEnumConstants())
+		for(final K key : keyClass.getEnumConstants())
 		{
 			final FunctionField<V> value = valueTemplate.copy();
 			addSource(value, key.name());

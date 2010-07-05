@@ -76,7 +76,7 @@ public abstract class CopeTest extends CopeAssert
 		final PoolCounter connectionPoolCounter = model.getConnectionPoolInfo().getCounter();
 
 		System.out.println("ConnectionPool: "+connectionPoolCounter.getGetCounter()+", "+connectionPoolCounter.getPutCounter());
-		for(Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )
+		for(final Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 			System.out.println("ConnectionPool:["+pool.getIdleLimit()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
@@ -105,7 +105,7 @@ public abstract class CopeTest extends CopeAssert
 				{
 					tearDown();
 				}
-				catch(Exception e)
+				catch(final Exception e)
 				{
 					System.err.println("--------------------- additional exception in tearDown --------------------");
 					e.printStackTrace();
@@ -156,9 +156,9 @@ public abstract class CopeTest extends CopeAssert
 			{
 				model.startTransaction( "started by tearDown" );
 			}
-			Transaction current = model.currentTransaction();
+			final Transaction current = model.currentTransaction();
 			ArrayList<Transaction> openTransactions = null;
-			for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
+			for(final Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
 			{
 				if ( ! nextTransaction.equals(current) )
 				{
@@ -178,13 +178,13 @@ public abstract class CopeTest extends CopeAssert
 					if(!deleteOnTearDown.isEmpty())
 					{
 						RuntimeException deleteException = null;
-						for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+						for(final ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
 						{
 							try
 							{
 								i.previous().deleteCopeItem();
 							}
-							catch(RuntimeException e)
+							catch(final RuntimeException e)
 							{
 								if(deleteException==null && testMethodFinished)
 								{
@@ -201,7 +201,7 @@ public abstract class CopeTest extends CopeAssert
 					deleteOnTearDown = null;
 					model.checkEmptySchema();
 				}
-				catch ( RuntimeException e )
+				catch ( final RuntimeException e )
 				{
 					if ( testMethodFinished )
 					{

@@ -113,7 +113,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 			item.file.set(item, (byte[])null, null);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
@@ -125,7 +125,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 			item.file.set(item, (InputStream)null, null);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
@@ -137,7 +137,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 			item.file.set(item, (File)null, null);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());

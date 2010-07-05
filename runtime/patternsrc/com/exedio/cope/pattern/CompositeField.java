@@ -113,7 +113,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
 		final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
 
-		for(Map.Entry<String, FunctionField> e : templates.entrySet())
+		for(final Map.Entry<String, FunctionField> e : templates.entrySet())
 		{
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
@@ -232,19 +232,19 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		{
 			return valueConstructor.newInstance(new Object[]{initargs});
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			throw new RuntimeException(e);
 		}
-		catch(InstantiationException e)
+		catch(final InstantiationException e)
 		{
 			throw new RuntimeException(e);
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(e);
 		}
-		catch(InvocationTargetException e)
+		catch(final InvocationTargetException e)
 		{
 			final Throwable cause = e.getCause();
 			if(cause instanceof ConstraintViolationException)

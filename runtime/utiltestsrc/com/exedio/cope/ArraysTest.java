@@ -31,7 +31,7 @@ public class ArraysTest extends TestCase
 			str(null, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
 		}

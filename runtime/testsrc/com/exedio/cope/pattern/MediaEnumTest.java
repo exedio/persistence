@@ -119,7 +119,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 			item.setSheet(stream(data4), "illegalContentType");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.sheet, e.getFeature());
@@ -134,7 +134,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 			item.setSheet(stream(data4), "image/jpeg");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.sheet, e.getFeature());

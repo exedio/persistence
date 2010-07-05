@@ -48,7 +48,7 @@ public class FieldDoubleTest extends FieldTest
 			item.someDouble.getMandatory(item);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someDouble+" is not mandatory", e.getMessage());
 		}
@@ -84,7 +84,7 @@ public class FieldDoubleTest extends FieldTest
 			item.set((FunctionField)item.someDouble, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDouble + '.', e.getMessage());
 		}

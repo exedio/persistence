@@ -43,7 +43,7 @@ public class CompositeTest extends CopeAssert
 			new Value("12345", 5, 0l, 0.0, false);
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			// TODO make a nice exception message with feature name
 			assertSame(Value.string4, e.getFeature());
@@ -55,7 +55,7 @@ public class CompositeTest extends CopeAssert
 			new Value(null, 5, 0l, 0.0, false);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
@@ -78,7 +78,7 @@ public class CompositeTest extends CopeAssert
 			value.setString4("12345");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
@@ -98,7 +98,7 @@ public class CompositeTest extends CopeAssert
 			value.setString4(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
@@ -118,7 +118,7 @@ public class CompositeTest extends CopeAssert
 			value.setIntMax4(5);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertSame(Value.intMax4, e.getFeature());
 			assertSame(null, e.getItem());
@@ -167,7 +167,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.intOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -176,7 +176,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.longOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -185,7 +185,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.doubleOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -194,7 +194,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.booleanOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -233,7 +233,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.intOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -242,7 +242,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.longOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -251,7 +251,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.doubleOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -260,7 +260,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(Value.booleanOptional);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
 		}
@@ -307,7 +307,7 @@ public class CompositeTest extends CopeAssert
 			new Value((String)null, false);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertSame(Value.stringDefault, e.getFeature());
 			assertSame(null, e.getItem());
@@ -341,7 +341,7 @@ public class CompositeTest extends CopeAssert
 			value.get(ValueX.stringField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -350,7 +350,7 @@ public class CompositeTest extends CopeAssert
 			value.get(ValueX.intField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -359,7 +359,7 @@ public class CompositeTest extends CopeAssert
 			value.get(ValueX.longField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -368,7 +368,7 @@ public class CompositeTest extends CopeAssert
 			value.get(ValueX.doubleField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -377,7 +377,7 @@ public class CompositeTest extends CopeAssert
 			value.get(ValueX.booleanField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -388,7 +388,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(ValueX.intField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -397,7 +397,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(ValueX.longField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -406,7 +406,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(ValueX.doubleField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -415,7 +415,7 @@ public class CompositeTest extends CopeAssert
 			value.getMandatory(ValueX.booleanField);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -426,7 +426,7 @@ public class CompositeTest extends CopeAssert
 			value.set(ValueX.stringField, "77s");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -435,7 +435,7 @@ public class CompositeTest extends CopeAssert
 			value.set(ValueX.intField, valueOf(7));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -444,7 +444,7 @@ public class CompositeTest extends CopeAssert
 			value.set(ValueX.longField, valueOf(7l));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -453,7 +453,7 @@ public class CompositeTest extends CopeAssert
 			value.set(ValueX.doubleField, valueOf(7.7));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -462,7 +462,7 @@ public class CompositeTest extends CopeAssert
 			value.set(ValueX.booleanField, valueOf(true));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("not a member", e.getMessage());
 		}
@@ -477,7 +477,7 @@ public class CompositeTest extends CopeAssert
 			value.set((FunctionField)Value.booleanOptional, "");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"expected a java.lang.Boolean, " +

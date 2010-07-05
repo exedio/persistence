@@ -58,12 +58,12 @@ final class CreatedState extends State
 			type.getModel().connect().database.store(transaction.getConnection(), this, false, blobs);
 			return new WrittenState(this);
 		}
-		catch ( RuntimeException e )
+		catch ( final RuntimeException e )
 		{
 			discard( transaction );
 			throw e;
 		}
-		catch ( Error e )
+		catch ( final Error e )
 		{
 			discard( transaction );
 			throw e;

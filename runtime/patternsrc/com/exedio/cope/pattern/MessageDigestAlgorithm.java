@@ -126,7 +126,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 				messageDigest.digest(result, saltLength, digestLength);
 			}
 		}
-		catch(DigestException e)
+		catch(final DigestException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -158,7 +158,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 				messageDigest.digest(result, 0, result.length);
 			}
 		}
-		catch(DigestException e)
+		catch(final DigestException e)
 		{
 			throw new RuntimeException(e);
 		}

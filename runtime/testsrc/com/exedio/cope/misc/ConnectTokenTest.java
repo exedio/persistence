@@ -37,7 +37,7 @@ public class ConnectTokenTest extends CopeAssert
 			model.getConnectProperties();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
@@ -88,7 +88,7 @@ public class ConnectTokenTest extends CopeAssert
 				ConnectToken.issue(model, props2, "tokenXName");
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(
 						"inconsistent initialization for database.user between " + props.getSource() +
@@ -117,7 +117,7 @@ public class ConnectTokenTest extends CopeAssert
 			model.getConnectProperties();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
@@ -131,7 +131,7 @@ public class ConnectTokenTest extends CopeAssert
 			token1.returnIt();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("connect token 0 already returned", e.getMessage());
 		}

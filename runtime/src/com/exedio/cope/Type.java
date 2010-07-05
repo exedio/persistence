@@ -303,7 +303,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			return null;
 		}
@@ -329,14 +329,14 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				for(final Method m : beforeNewItemMethods)
 					setValues = (SetValue[])m.invoke(null, (Object)setValues);
 			}
-			catch(InvocationTargetException e)
+			catch(final InvocationTargetException e)
 			{
 				final Throwable cause = e.getCause();
 				if(cause instanceof RuntimeException)
 					throw (RuntimeException)cause;
 				throw new RuntimeException(id, e);
 			}
-			catch(IllegalAccessException e)
+			catch(final IllegalAccessException e)
 			{
 				throw new RuntimeException(id, e);
 			}
@@ -1069,15 +1069,15 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			return activationConstructor.newInstance(ap);
 		}
-		catch(InstantiationException e)
+		catch(final InstantiationException e)
 		{
 			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
-		catch(InvocationTargetException e)
+		catch(final InvocationTargetException e)
 		{
 			throw new RuntimeException(id + '/' + javaClass.getName(), e);
 		}
@@ -1090,7 +1090,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			result = javaClass.getDeclaredConstructor(ActivationParameters.class);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
 					javaClass.getName() + " does not have an activation constructor " +

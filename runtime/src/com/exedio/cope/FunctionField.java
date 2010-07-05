@@ -59,7 +59,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			{
 				check(defaultConstant, null);
 			}
-			catch(ConstraintViolationException e)
+			catch(final ConstraintViolationException e)
 			{
 				// BEWARE
 				// Must not make exception e available to public,

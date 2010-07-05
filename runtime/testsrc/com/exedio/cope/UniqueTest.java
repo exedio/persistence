@@ -91,7 +91,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			nullItem1.forUniqueString(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
@@ -104,7 +104,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			nullItem2.forUniqueString(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
@@ -117,7 +117,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			nullItem2.forUniqueString(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
@@ -130,7 +130,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			nullItem2.forUniqueString(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
@@ -153,7 +153,7 @@ public class UniqueTest extends AbstractRuntimeTest
 				item2.setUniqueString("uniqueString");
 				fail();
 			}
-			catch(UniqueViolationException e)
+			catch(final UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals(item2, e.getItem());
@@ -170,7 +170,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			new UniqueSingleItem("uniqueString");
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
@@ -183,7 +183,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			new UniqueSingleItem("uniqueString", "otherString");
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
@@ -196,7 +196,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			new UniqueSingleItem("uniqueString", null);
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
@@ -206,7 +206,7 @@ public class UniqueTest extends AbstractRuntimeTest
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
-		Item otheritem = model.getItem(item.getCopeID());
+		final Item otheritem = model.getItem(item.getCopeID());
 		assertNotSame(item, otheritem);
 		assertTrue(otheritem.isActiveCopeItem());
 		assertTrue(!item.isActiveCopeItem());
@@ -294,7 +294,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
@@ -325,7 +325,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			item.set(item.uniqueFinalString, "zapp");
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item.uniqueFinalString, e.getFeature());
 			assertEquals(item.uniqueFinalString, e.getFeature());
@@ -358,7 +358,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			item.setUniqueNotNullString(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -374,7 +374,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			new UniqueSingleNotNullItem(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -386,7 +386,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			UniqueSingleNotNullItem.TYPE.newItem(item.uniqueNotNullString.map(null));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -449,7 +449,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			new UniqueDoubleItem("b", 1);
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -464,7 +464,7 @@ public class UniqueTest extends AbstractRuntimeTest
 				);
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -477,7 +477,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			b2.setInteger(1);
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(b2, e.getItem());
@@ -490,7 +490,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			b2.set(b2.integer.map(1));
 			fail();
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(b2, e.getItem());

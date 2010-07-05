@@ -48,7 +48,7 @@ public class EnumSchemaTest extends CopeAssert
 			getColumnValue((Normal2)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class EnumSchemaTest extends CopeAssert
 			getColumnValue(((EnumField)normal), (Enum)Normal.Eins);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expected " + Normal2.class.getName() + ", but was a " + Normal.class.getName(), e.getMessage());
 		}
@@ -142,7 +142,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(CollisionBefore.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(CollisionBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.", e.getMessage());
 		}
@@ -151,7 +151,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(CollisionAfter.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(CollisionAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.", e.getMessage());
 		}
@@ -160,7 +160,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(CollisionStart.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(CollisionStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 10.", e.getMessage());
 		}
@@ -169,7 +169,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(CollisionEnd.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(CollisionEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 20.", e.getMessage());
 		}
@@ -178,7 +178,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderBefore.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
 		}
@@ -187,7 +187,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderAfter.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
 		}
@@ -196,7 +196,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderStart.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
 		}
@@ -205,7 +205,7 @@ public class EnumSchemaTest extends CopeAssert
 			Item.newEnumField(OrderEnd.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
 		}

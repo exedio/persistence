@@ -145,7 +145,7 @@ public final class ServletUtil
 		{
 			result = Cope.getModel(modelName);
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}

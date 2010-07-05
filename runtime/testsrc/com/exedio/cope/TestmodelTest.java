@@ -42,7 +42,7 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 		{
 			item.setSomeData(new ByteArrayInputStream(data), contentType);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

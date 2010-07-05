@@ -71,7 +71,7 @@ public class Hash extends Pattern implements Settable<String>
 		{
 			encode("test");
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new IllegalArgumentException(e);
 		}
@@ -142,7 +142,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	private static StringField newStorage(final Algorithm algorithm)
 	{
-		StringField result =
+		final StringField result =
 			new StringField().
 				charSet(CharSet.HEX_LOWER).
 				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
@@ -161,7 +161,7 @@ public class Hash extends Pattern implements Settable<String>
 				throw new NullPointerException();
 			return Hex.encodeLower(resultBytes);
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(encoding, e);
 		}
@@ -178,7 +178,7 @@ public class Hash extends Pattern implements Settable<String>
 		{
 			return algorithm.check(encode(plainText), Hex.decodeLower(hash));
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(encoding, e);
 		}

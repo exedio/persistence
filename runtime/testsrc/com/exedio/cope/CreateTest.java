@@ -46,7 +46,7 @@ public class CreateTest extends AbstractRuntimeTest
 			new CreateItem("fail");
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -56,7 +56,7 @@ public class CreateTest extends AbstractRuntimeTest
 			new CreateItem(CreateSuperItem.text.map("fail"));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -66,7 +66,7 @@ public class CreateTest extends AbstractRuntimeTest
 			CreateItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -89,7 +89,7 @@ public class CreateTest extends AbstractRuntimeTest
 			new CreateSuperItem("fail");
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -99,7 +99,7 @@ public class CreateTest extends AbstractRuntimeTest
 			new CreateSuperItem(CreateSuperItem.text.map("fail"));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -109,7 +109,7 @@ public class CreateTest extends AbstractRuntimeTest
 			CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());

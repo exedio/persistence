@@ -135,7 +135,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 			item.set((FunctionField)item.day, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.day + '.', e.getMessage());
 		}

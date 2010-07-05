@@ -443,7 +443,7 @@ public final class DataField extends Field<DataField.Value>
 			in.close();
 			return result;
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -453,7 +453,7 @@ public final class DataField extends Field<DataField.Value>
 			{
 				in.close();
 			}
-			catch(IOException e)
+			catch(final IOException e)
 			{
 				throw new RuntimeException(e);
 			}
@@ -557,7 +557,7 @@ public final class DataField extends Field<DataField.Value>
 				stream.close();
 				stream = null;
 			}
-			catch(IOException e)
+			catch(final IOException e)
 			{
 				throw new RuntimeException(field.toString(), e);
 			}
@@ -569,7 +569,7 @@ public final class DataField extends Field<DataField.Value>
 					{
 						stream.close();
 					}
-					catch(IOException e)
+					catch(final IOException e)
 					{
 						// IGNORE, because already in exception
 					}

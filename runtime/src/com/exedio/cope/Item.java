@@ -388,7 +388,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 					break;
 			}
 		}
-		Entity entity = getEntity();
+		final Entity entity = getEntity();
 		entity.delete();
 		entity.write(null);
 	}
@@ -408,7 +408,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		{
 			return getEntity().exists();
 		}
-		catch ( NoSuchItemException e )
+		catch ( final NoSuchItemException e )
 		{
 			return false;
 		}

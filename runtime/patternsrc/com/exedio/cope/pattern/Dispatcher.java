@@ -270,7 +270,7 @@ public final class Dispatcher extends Pattern
 						model.commit();
 						result++;
 					}
-					catch(Exception cause)
+					catch(final Exception cause)
 					{
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						model.rollbackIfNotCommitted();
@@ -282,7 +282,7 @@ public final class Dispatcher extends Pattern
 						{
 							out = new PrintStream(baos, false, ENCODING);
 						}
-						catch(UnsupportedEncodingException e)
+						catch(final UnsupportedEncodingException e)
 						{
 							throw new RuntimeException(ENCODING, e);
 						}
@@ -429,7 +429,7 @@ public final class Dispatcher extends Pattern
 			{
 				return new String(getPattern().runFailure.get(this).asArray(), ENCODING);
 			}
-			catch(UnsupportedEncodingException e)
+			catch(final UnsupportedEncodingException e)
 			{
 				throw new RuntimeException(ENCODING, e);
 			}

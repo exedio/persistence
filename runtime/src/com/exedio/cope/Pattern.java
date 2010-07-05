@@ -454,7 +454,7 @@ public abstract class Pattern extends Feature
 		{
 			return getClass().getDeclaredField(name);
 		}
-		catch(NoSuchFieldException e)
+		catch(final NoSuchFieldException e)
 		{
 			throw new RuntimeException(e);
 		}

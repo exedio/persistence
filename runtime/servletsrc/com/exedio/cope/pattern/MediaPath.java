@@ -309,7 +309,7 @@ public abstract class MediaPath extends Pattern
 			}
 			return Hex.encodeLower(digestShrink);
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -449,7 +449,7 @@ public abstract class MediaPath extends Pattern
 			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
 			return result;
 		}
-		catch(NoSuchIDException e)
+		catch(final NoSuchIDException e)
 		{
 			return e.notAnID() ? notAnItem : noSuchItem;
 		}

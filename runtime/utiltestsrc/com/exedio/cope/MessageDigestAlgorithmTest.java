@@ -32,7 +32,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("NIXUS", -1, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
@@ -42,7 +42,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", -1, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			new MessageDigestAlgorithm("SHA-512", 0, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("iterations must be at least one, but was 0", e.getMessage());
 		}

@@ -69,8 +69,8 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 	{
 		assertEquals(list(q1, q2, q3), ag.getQueries());
 		{
-			Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
-			Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
+			final Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
+			final Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
 			final QueryAggregator agBad = QueryAggregator.get(q1Bad, q2Bad);
 			agBad.setLimit(1, 2);
 			assertEquals(list(item1, item2), agBad.searchAndTotal().getData());
@@ -80,7 +80,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 			{
 				agBad.searchAndTotal();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
 			}
@@ -89,7 +89,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 			{
 				agBad.searchAndTotal();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
 			}
@@ -99,7 +99,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 			ag.setLimit(-1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 			ag.setLimit(0, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must not be negative, but was -1", e.getMessage());
 		}
@@ -117,7 +117,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 			ag.setLimit(-1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
 		}

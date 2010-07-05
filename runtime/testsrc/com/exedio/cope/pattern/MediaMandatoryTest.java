@@ -104,7 +104,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			item.setFile((byte[])null, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.file, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -116,7 +116,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			item.setFile((InputStream)null, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.file, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -128,7 +128,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			item.setFile((File)null, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.file, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -145,7 +145,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			new MediaMandatoryItem(null, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.file, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -157,7 +157,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			new MediaMandatoryItem();
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.file.getBody(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(null, e.getItem());
@@ -169,7 +169,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			new MediaMandatoryItem(data20, null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("if body is not null, content type must also be not null", e.getMessage());
 		}
@@ -180,7 +180,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 			new MediaMandatoryItem(null, "major/minor");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("if body is null, content type must also be null", e.getMessage());
 		}

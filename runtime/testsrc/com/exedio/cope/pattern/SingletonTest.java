@@ -43,7 +43,7 @@ public final class SingletonTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		SingletonItem item = null;
+		final SingletonItem item = null;
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
 				item.integer,

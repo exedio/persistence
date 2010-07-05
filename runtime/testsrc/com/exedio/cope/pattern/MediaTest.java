@@ -179,7 +179,7 @@ public final class MediaTest extends AbstractRuntimeTest
 			new MediaRedirect(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("target", e.getMessage());
 		}

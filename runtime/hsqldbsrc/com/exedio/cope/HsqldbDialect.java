@@ -36,7 +36,7 @@ final class HsqldbDialect extends Dialect
 		{
 			Class.forName(jdbcDriver.class.getName());
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -155,7 +155,7 @@ final class HsqldbDialect extends Dialect
 		{
 			connection.setAutoCommit(false);
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
@@ -204,7 +204,7 @@ final class HsqldbDialect extends Dialect
 		{
 			connection.commit();
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "commit");
 		}

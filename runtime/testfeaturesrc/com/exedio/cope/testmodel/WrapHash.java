@@ -64,7 +64,7 @@ public class WrapHash extends Hash
 			{
 				x = new String(plainText, "utf8");
 			}
-			catch(UnsupportedEncodingException e)
+			catch(final UnsupportedEncodingException e)
 			{
 				throw new RuntimeException(e);
 			}

@@ -176,7 +176,7 @@ public final class DateField extends FunctionField<Date>
 		{
 			set(item, new Date()); // TODO: make a more efficient implementation
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}

@@ -118,7 +118,7 @@ public abstract class RevisionInfo
 		{
 			date = df.parse(p.getProperty(DATE));
 		}
-		catch(ParseException e)
+		catch(final ParseException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -166,7 +166,7 @@ public abstract class RevisionInfo
 		{
 			getStore().store(baos, MAGIC);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
 		}
@@ -189,7 +189,7 @@ public abstract class RevisionInfo
 		{
 			magic = MAGIC.getBytes(CHARSET);
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(CHARSET, e);
 		}
@@ -202,7 +202,7 @@ public abstract class RevisionInfo
 		{
 			result.load(new ByteArrayInputStream(info));
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

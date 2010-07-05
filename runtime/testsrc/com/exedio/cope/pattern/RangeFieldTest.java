@@ -109,7 +109,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 			RangeField.newRange(new IntegerField().unique());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("unique borderTemplate is not supported", e.getMessage());
 		}

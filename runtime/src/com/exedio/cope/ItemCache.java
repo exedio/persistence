@@ -171,7 +171,7 @@ final class ItemCache
 				{
 					final long now = System.currentTimeMillis();
 					long ageSum = 0;
-					for(TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
+					for(final TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final WrittenState currentState = i.value();
@@ -181,7 +181,7 @@ final class ItemCache
 					final long age = ageSum / mapSize;
 					final long ageLimit = (limit * age) / mapSize;
 					final long timeLimit = now-ageLimit;
-					for(TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
+					for(final TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final WrittenState currentState = i.value();
@@ -204,7 +204,7 @@ final class ItemCache
 				final int mapSizeBefore = map.size();
 
 				// TODO implement and use a removeAll
-				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+				for(final TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
 					map.remove(i.next());
 
 				invalidationsOrdered += invalidatedPKs.size();

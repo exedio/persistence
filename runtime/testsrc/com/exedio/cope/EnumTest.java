@@ -54,7 +54,7 @@ public class EnumTest extends AbstractRuntimeTest
 			item.status.as(EnumItem2.Status.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 					"expected a " + EnumField.class.getName() + '<' + EnumItem2.Status.class.getName() + ">, " +
@@ -80,7 +80,7 @@ public class EnumTest extends AbstractRuntimeTest
 				new Type<EnumItem>(EnumItem.class, EnumItem.class, false, "Wrong", null, false, null, features);
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(
 						"mandatory enum field is not allowed on valueClass with one enum value only: " +

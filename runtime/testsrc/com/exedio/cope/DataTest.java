@@ -138,7 +138,7 @@ public class DataTest extends AbstractRuntimeTest
 			DataField.min(-1, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("i must not be negative, but was -1", e.getMessage());
 		}
@@ -147,7 +147,7 @@ public class DataTest extends AbstractRuntimeTest
 			DataField.min(0, -1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("l must not be negative, but was -1", e.getMessage());
 		}
@@ -182,7 +182,7 @@ public class DataTest extends AbstractRuntimeTest
 			new DataField().lengthMax(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("maximum length must be greater zero, but was 0.", e.getMessage());
 		}
@@ -191,7 +191,7 @@ public class DataTest extends AbstractRuntimeTest
 			new DataField().lengthMax(-10);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}
@@ -208,7 +208,7 @@ public class DataTest extends AbstractRuntimeTest
 			new StartsWithCondition(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("field", e.getMessage());
 		}
@@ -217,7 +217,7 @@ public class DataTest extends AbstractRuntimeTest
 			new StartsWithCondition(item.data, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("value", e.getMessage());
 		}
@@ -226,7 +226,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.data.startsWith(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("value", e.getMessage());
 		}
@@ -236,7 +236,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.data.startsWith(data0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("value must not be empty", e.getMessage());
 		}
@@ -313,7 +313,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData((OutputStream)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -322,7 +322,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData((File)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -347,7 +347,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(data11);
 			fail();
 		}
-		catch(DataLengthViolationException e)
+		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -362,7 +362,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(stream(data11));
 			fail();
 		}
-		catch(DataLengthViolationException e)
+		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -377,7 +377,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(file(data11));
 			fail();
 		}
-		catch(DataLengthViolationException e)
+		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -396,7 +396,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData(value4);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("Value already exhausted: DataField.Value:aa7af817. Each DataField.Value can be used for at most one setter action.", e.getMessage());
 		}
@@ -440,7 +440,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.set(DataItem.data10.map(data11));
 			fail();
 		}
-		catch(DataLengthViolationException e)
+		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -456,7 +456,7 @@ public class DataTest extends AbstractRuntimeTest
 			DataItem.TYPE.newItem(DataItem.data10.map(data11));
 			fail();
 		}
-		catch(DataLengthViolationException e)
+		catch(final DataLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -485,7 +485,7 @@ public class DataTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + item.data + '.', e.getMessage());
 		}
@@ -498,7 +498,7 @@ public class DataTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}

@@ -137,7 +137,7 @@ public class OrderByTest extends TestmodelTest
 				query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true});
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("orderBy and ascending must have same length, but was 2 and 1", e.getMessage());
 			}
@@ -146,7 +146,7 @@ public class OrderByTest extends TestmodelTest
 				query.setOrderBy(new Function[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
 				fail();
 			}
-			catch(NullPointerException e)
+			catch(final NullPointerException e)
 			{
 				assertEquals("orderBy[1]", e.getMessage());
 			}
@@ -155,7 +155,7 @@ public class OrderByTest extends TestmodelTest
 				query.setOrderBy(null, true);
 				fail();
 			}
-			catch(NullPointerException e)
+			catch(final NullPointerException e)
 			{
 				assertEquals("orderBy", e.getMessage());
 			}
@@ -169,7 +169,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(-1, 10);
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("offset must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.getOffset());
@@ -180,7 +180,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(-1);
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("offset must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.getOffset());
@@ -191,7 +191,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(0, -1);
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("limit must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.getOffset());
@@ -269,7 +269,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(limit, query2.getLimit());
 
 			final ArrayList<String> expected = new ArrayList<String>(expectedOrder.size());
-			for(Iterator<? extends Object> i = expectedOrder.iterator(); i.hasNext(); )
+			for(final Iterator<? extends Object> i = expectedOrder.iterator(); i.hasNext(); )
 				expected.add(((AttributeItem)i.next()).getSomeNotNullString());
 
 			assertEquals(expected, query2.search());

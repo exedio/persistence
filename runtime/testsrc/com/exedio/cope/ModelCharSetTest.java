@@ -30,7 +30,7 @@ public class ModelCharSetTest extends CopeAssert
 			new Type<AnItem>(AnItem.class, AnItem.class, false, "Zack.Zick123", null, false, null, new Features());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("id >Zack.Zick123< of type contains illegal character >.< at position 4", e.getMessage());
 		}
@@ -45,7 +45,7 @@ public class ModelCharSetTest extends CopeAssert
 			fs.put("Zack.Zick123", f);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("name >Zack.Zick123< contains illegal character >.< at position 4", e.getMessage());
 		}
@@ -60,7 +60,7 @@ public class ModelCharSetTest extends CopeAssert
 			f.mount(t, "Zack.Zick123", null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("name >Zack.Zick123< of feature in type Type123 contains illegal character >.< at position 4", e.getMessage());
 		}

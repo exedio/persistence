@@ -149,7 +149,7 @@ final class Injector
 	{
 		do_block = false;
 		start_block = false;
-		String s = collector.toString();
+		final String s = collector.toString();
 		collector.setLength(0);
 		//System.out.println("  collector: >"+s+"<");
 		return s;
@@ -351,7 +351,7 @@ final class Injector
 			switch (c)
 			{
 				case '/' :
-					int i = readComment();
+					final int i = readComment();
 					if (i >= 0)
 						c = (char)i;
 					else
@@ -524,12 +524,12 @@ final class Injector
 			else if ("interface".equals(bufs))
 			{
 				modifiers |= Modifier.INTERFACE;
-				JavaClass[] jcarray = { parseClass(parent, modifiers)};
+				final JavaClass[] jcarray = { parseClass(parent, modifiers)};
 				return jcarray;
 			}
 			else if ("class".equals(bufs))
 			{
-				JavaClass[] jcarray = { parseClass(parent, modifiers)};
+				final JavaClass[] jcarray = { parseClass(parent, modifiers)};
 				return jcarray;
 			}
 			else if ("enum".equals(bufs))
@@ -562,7 +562,7 @@ final class Injector
 				break;
 			}
 
-			char c = readToken();
+			final char c = readToken();
 			if (c != '\0')
 			{
 				if (parent == null)
@@ -625,7 +625,7 @@ final class Injector
 						featurename)
 					: new JavaMethod(parent, modifiers, featuretype, featurename);
 			parseBehaviour(jb);
-			JavaFeature[] jbarray = { jb };
+			final JavaFeature[] jbarray = { jb };
 			return jbarray;
 		}
 		else // it's an attribute
@@ -782,7 +782,7 @@ final class Injector
 	{
 		if (readToken() != '\0')
 			throw new ParseException("class name expected.");
-		String classname = buf.toString();
+		final String classname = buf.toString();
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
 
 		char imc;
@@ -860,7 +860,7 @@ final class Injector
 					}
 					break;
 				case '\0' :
-					JavaFeature[] jfarray = parseFeature(jc);
+					final JavaFeature[] jfarray = parseFeature(jc);
 					for (int i = 0; i < jfarray.length; i++)
 						consumer.onClassFeature(jfarray[i], docComment);
 					discardNextFeature=false;
@@ -906,7 +906,7 @@ final class Injector
 				{
 					c = readToken();
 				}
-				catch (EndException e)
+				catch (final EndException e)
 				{
 					return;
 				}
@@ -919,7 +919,7 @@ final class Injector
 				switch (c)
 				{
 					case '\0' :
-						String bufs = buf.toString();
+						final String bufs = buf.toString();
 						if ("package".equals(bufs))
 						{
 							c = readToken();
@@ -946,7 +946,7 @@ final class Injector
 							}
 							else
 							{
-								String importstring = buf.toString();
+								final String importstring = buf.toString();
 								//System.out.println("import >"+importstring+"<");
 								javaFile.addImport(importstring);
 								consumer.onImport(importstring);
@@ -986,11 +986,11 @@ final class Injector
 				}
 			}
 		}
-		catch (EndException e)
+		catch (final EndException e)
 		{
 			throw new ParseException("Unexpected End-of-File.");
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			throw new ParseException(e);
 		}
@@ -1100,7 +1100,7 @@ final class Injector
 		if(doccomment==null)
 			return null;
 
-		String s = '@' + tagname + ' ';
+		final String s = '@' + tagname + ' ';
 		int start = doccomment.indexOf(s);
 		if (start < 0)
 			return null;
@@ -1117,7 +1117,7 @@ final class Injector
 					break li;
 			}
 		}
-		String result = doccomment.substring(start, end).trim();
+		final String result = doccomment.substring(start, end).trim();
 		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;
 	}

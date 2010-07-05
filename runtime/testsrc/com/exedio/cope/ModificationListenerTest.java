@@ -46,7 +46,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			model.addModificationListener(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("listener", e.getMessage());
 		}
@@ -58,7 +58,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			model.removeModificationListener(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("listener", e.getMessage());
 		}
@@ -189,7 +189,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 				model.currentTransaction();
 				fail();
 			}
-			catch(IllegalStateException e)
+			catch(final IllegalStateException e)
 			{
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}

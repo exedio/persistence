@@ -180,7 +180,7 @@ final class QueryCache
 			{
 				text = query.toString(true, totalOnly).getBytes(CHARSET);
 			}
-			catch(UnsupportedEncodingException e)
+			catch(final UnsupportedEncodingException e)
 			{
 				throw new RuntimeException(CHARSET, e);
 			}
@@ -208,7 +208,7 @@ final class QueryCache
 			{
 				return new String(text, CHARSET);
 			}
-			catch(UnsupportedEncodingException e)
+			catch(final UnsupportedEncodingException e)
 			{
 				throw new RuntimeException(CHARSET, e);
 			}

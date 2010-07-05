@@ -42,7 +42,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			quoteName(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("model", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			quoteName(model, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("name", e.getMessage());
 		}
@@ -60,7 +60,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			quoteName(model, "");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("name must not be empty", e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			quoteName(model, "\"`");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
 		}
@@ -90,7 +90,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			getTypeColumnName(InstanceOfB2Item.TYPE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("no type column for InstanceOfB2Item", e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			getTypeColumnName(InstanceOfRefItem.refb2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}

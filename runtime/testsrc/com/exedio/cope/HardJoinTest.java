@@ -174,7 +174,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -185,7 +185,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -201,7 +201,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -212,7 +212,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -231,7 +231,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -242,7 +242,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				q.search();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}

@@ -40,17 +40,17 @@ public final class Main
 		{
 			(new Main()).run(new File("."), args, new Params());
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			e.printStackTrace();
 			throw e;
 		}
-		catch(IllegalParameterException e)
+		catch(final IllegalParameterException e)
 		{
 			e.printStackTrace();
 			throw new RuntimeException(Arrays.toString(args), e);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			e.printStackTrace();
 			throw new RuntimeException(Arrays.toString(args), e);

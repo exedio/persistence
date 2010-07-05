@@ -282,7 +282,7 @@ public final class Table extends Node
 			{
 				executeSQL(bf.toString(), listener);
 			}
-			catch(SQLRuntimeException e)
+			catch(final SQLRuntimeException e)
 			{
 				// ignore it in defensive mode
 			}
@@ -309,7 +309,7 @@ public final class Table extends Node
 			{
 				executeSQL(bf.toString(), listener);
 			}
-			catch(SQLRuntimeException e)
+			catch(final SQLRuntimeException e)
 			{
 				// ignore it in defensive mode
 			}
@@ -347,7 +347,7 @@ public final class Table extends Node
 				{
 					constraint.drop(listener);
 				}
-				catch(SQLRuntimeException e2)
+				catch(final SQLRuntimeException e2)
 				{
 					// ignored in teardown
 					//System.err.println("failed:"+e2.getMessage());

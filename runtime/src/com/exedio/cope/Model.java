@@ -495,7 +495,7 @@ public final class Model implements Serializable
 
 	public Transaction leaveTransaction()
 	{
-		Transaction tx = currentTransaction();
+		final Transaction tx = currentTransaction();
 		tx.unbindThread();
 		setTransaction( null );
 		return tx;
@@ -740,7 +740,7 @@ public final class Model implements Serializable
 			{
 				field = type.getDeclaredField(name);
 			}
-			catch(NoSuchFieldException e)
+			catch(final NoSuchFieldException e)
 			{
 				throw new IllegalArgumentException(toString() + " does not exist.", e);
 			}
@@ -752,7 +752,7 @@ public final class Model implements Serializable
 			{
 				result = field.get(null);
 			}
-			catch(IllegalAccessException e)
+			catch(final IllegalAccessException e)
 			{
 				throw new IllegalArgumentException("accessing " + field.toString(), e);
 			}

@@ -148,7 +148,7 @@ public final class CompositeCondition extends Condition
 				final Condition[] result = new Condition[values.length];
 
 				int i = 0;
-				for(E value : values)
+				for(final E value : values)
 					result[i++] = function.equal(value);
 
 				return new CompositeCondition(Operator.OR, result);
@@ -167,7 +167,7 @@ public final class CompositeCondition extends Condition
 				final Condition[] result = new Condition[values.size()];
 
 				int i = 0;
-				for(E value : values)
+				for(final E value : values)
 					result[i++] = function.equal(value);
 
 				return new CompositeCondition(Operator.OR, result);

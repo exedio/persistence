@@ -435,7 +435,7 @@ public final class Query<R>
 		}
 
 		if(orderBy!=null)
-			for(Function ob : orderBy)
+			for(final Function ob : orderBy)
 				Cope.check(ob, tc, null);
 
 		return tc;

@@ -55,7 +55,7 @@ public class ClusterTest extends CopeAssert
 		{
 			context = defaultProperties.getContext();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("no context available", e.getMessage());
 		}
@@ -557,7 +557,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid ping, expected length 44, but was 40", e.getMessage());
 			}
@@ -572,7 +572,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid ping, expected length 44, but was 43", e.getMessage());
 			}
@@ -587,7 +587,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid ping, expected length 44, but was 45", e.getMessage());
 			}
@@ -602,7 +602,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid ping, expected length 44, but was 48", e.getMessage());
 			}
@@ -615,7 +615,7 @@ public class ClusterTest extends CopeAssert
 			um(buf);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("invalid ping, at position 36 expected 47, but was 35", e.getMessage());
 		}
@@ -627,7 +627,7 @@ public class ClusterTest extends CopeAssert
 			um(buf);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("invalid ping, at position 28 expected 40, but was 29", e.getMessage());
 		}
@@ -665,7 +665,7 @@ public class ClusterTest extends CopeAssert
 			cs.ping(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("count must be greater than zero, but was 0", e.getMessage());
 		}
@@ -708,7 +708,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid pong, expected length 44, but was 40", e.getMessage());
 			}
@@ -723,7 +723,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid pong, expected length 44, but was 43", e.getMessage());
 			}
@@ -738,7 +738,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid pong, expected length 44, but was 45", e.getMessage());
 			}
@@ -753,7 +753,7 @@ public class ClusterTest extends CopeAssert
 				um(buf2);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(final RuntimeException e)
 			{
 				assertEquals("invalid pong, expected length 44, but was 48", e.getMessage());
 			}
@@ -766,7 +766,7 @@ public class ClusterTest extends CopeAssert
 			um(buf);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("invalid pong, at position 36 expected 47, but was 35", e.getMessage());
 		}
@@ -778,7 +778,7 @@ public class ClusterTest extends CopeAssert
 			um(buf);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("invalid pong, at position 28 expected 40, but was 29", e.getMessage());
 		}
@@ -787,7 +787,7 @@ public class ClusterTest extends CopeAssert
 
 	private static void assertContains(final TIntHashSet actual, final int... expected)
 	{
-		for(int i : expected)
+		for(final int i : expected)
 			assertTrue(actual.contains(i));
 		assertEquals(expected.length, actual.size());
 	}

@@ -56,7 +56,7 @@ final class ClusterConfig
 		{
 			secret = Integer.valueOf(secretString);
 		}
-		catch(NumberFormatException e)
+		catch(final NumberFormatException e)
 		{
 			throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
 		}
@@ -74,7 +74,7 @@ final class ClusterConfig
 		{
 			this.group = InetAddress.getByName(properties.clusterGroup.stringValue());
 		}
-		catch(UnknownHostException e)
+		catch(final UnknownHostException e)
 		{
 			throw new RuntimeException(properties.clusterGroup.stringValue(), e);
 		}

@@ -277,7 +277,7 @@ public final class Transaction
 					else
 						connection.commit();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					throw new SQLRuntimeException(e, rollback ? "rollback" : "commit");
 				}

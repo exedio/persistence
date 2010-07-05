@@ -43,7 +43,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		this.elementClass = keyClass;
 		this.fields = new EnumMap<E, BooleanField>(keyClass);
 
-		for(E key : keyClass.getEnumConstants())
+		for(final E key : keyClass.getEnumConstants())
 		{
 			final BooleanField value = new BooleanField().defaultTo(false);
 			addSource(value, key.name());

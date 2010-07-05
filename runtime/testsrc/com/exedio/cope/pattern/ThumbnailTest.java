@@ -92,7 +92,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 			new MediaThumbnail(null, 80, 80);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("source", e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 			new MediaThumbnail(item.file, 4, 80);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("boundX must be 5 or greater, but was 4", e.getMessage());
 		}
@@ -110,7 +110,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 			new MediaThumbnail(item.file, 80, 4);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
 		}

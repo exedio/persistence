@@ -90,7 +90,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			FeatureField.newField(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("valueClass", e.getMessage());
 		}
@@ -134,7 +134,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			item.setFeature(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.feature, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -149,7 +149,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			item.featureFinal.set(item, integer1);
 			fail();
 		}
-		catch(FinalViolationException e)
+		catch(final FinalViolationException e)
 		{
 			assertEquals(item.featureFinal, e.getFeature());
 			assertEquals(item, e.getItem());
@@ -165,7 +165,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			item.getFeature();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("zack", e.getMessage());
 		}
@@ -177,7 +177,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			item.getString();
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
 		}

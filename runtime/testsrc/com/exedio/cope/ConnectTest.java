@@ -54,7 +54,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.connect(defaultProps);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("model already been connected", e.getMessage());
 		}
@@ -63,7 +63,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.connect(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("properties", e.getMessage());
 		}
@@ -78,7 +78,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			new Model((Type[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("types", e.getMessage());
 		}
@@ -87,7 +87,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			new Model(new Type[]{});
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("types must not be empty", e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.getConnectProperties();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
@@ -119,7 +119,7 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.disconnect();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}

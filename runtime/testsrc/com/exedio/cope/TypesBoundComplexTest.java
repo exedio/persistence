@@ -33,7 +33,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			forClass(AnItem.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			forClassUnchecked(AnItem.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class " + AnItem.class.getName(), e.getMessage());
 		}
@@ -57,7 +57,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			forClass(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			forClassUnchecked(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
@@ -96,7 +96,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.isAssignableFrom(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -135,7 +135,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.isAssignableFrom(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -153,7 +153,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getModel();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -162,7 +162,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getReferences();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -171,7 +171,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getDeclaredReferences();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -180,7 +180,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getSubtypes();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -189,7 +189,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getSubtypesTransitively();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -198,7 +198,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			type.getTypesOfInstances();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessage, e.getMessage());
 		}
@@ -208,7 +208,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			AnotherItem.itemField.getValueType();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("valueType of AnotherItem.itemField not yet resolved: " + AnItem.class.getName(), e.getMessage());
 		}
@@ -220,7 +220,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getModel();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -229,7 +229,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getReferences();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -238,7 +238,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getDeclaredReferences();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -247,7 +247,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getSubtypes();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -256,7 +256,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getSubtypesTransitively();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}
@@ -265,7 +265,7 @@ public class TypesBoundComplexTest extends CopeAssert
 			typO.getTypesOfInstances();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(modelMessageO, e.getMessage());
 		}

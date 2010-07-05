@@ -117,7 +117,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			new Schedule(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("locale", e.getMessage());
 		}
@@ -182,7 +182,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			run(date("2008/03/18-00:00:00.000"));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(final RuntimeException e)
 		{
 			assertEquals("schedule test failure", e.getMessage());
 		}
@@ -345,7 +345,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		{
 			return df.parse(s);
 		}
-		catch(ParseException e)
+		catch(final ParseException e)
 		{
 			throw new RuntimeException(e);
 		}

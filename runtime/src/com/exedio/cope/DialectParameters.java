@@ -55,7 +55,7 @@ final class DialectParameters
 				throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
 			this.nullsAreSortedLow = nullsAreSortedLow;
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "getMetaData");
 		}
@@ -69,7 +69,7 @@ final class DialectParameters
 		{
 			store.put("hostname", InetAddress.getLocalHost().getHostName());
 		}
-		catch(UnknownHostException e)
+		catch(final UnknownHostException e)
 		{
 			// do not put in hostname
 		}

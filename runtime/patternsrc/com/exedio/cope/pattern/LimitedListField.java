@@ -54,7 +54,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		boolean initial = false;
 		boolean isFinal = false;
 		int i = 0;
-		for(FunctionField<E> source : sources)
+		for(final FunctionField<E> source : sources)
 		{
 			addSource(source, String.valueOf(i++), ComputedElement.get());
 			initial = initial || source.isInitial();
@@ -211,7 +211,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
-		for(Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
+		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
 		for(; i<sources.length; i++)
@@ -245,7 +245,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
-		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
+		for(final Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].equal(it.next());
 
 		for(; i<sources.length; i++)
@@ -259,7 +259,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
-		for(E v : value)
+		for(final E v : value)
 		{
 			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
 			i++;

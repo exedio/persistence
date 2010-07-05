@@ -61,7 +61,7 @@ final class ClusterListener implements Runnable
 			this.socket = new MulticastSocket(port);
 			socket.joinGroup(config.group);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -93,7 +93,7 @@ final class ClusterListener implements Runnable
 					return;
 				handle(packet);
 	      }
-			catch(SocketException e)
+			catch(final SocketException e)
 			{
 				if(threadRun)
 				{
@@ -106,7 +106,7 @@ final class ClusterListener implements Runnable
 						System.out.println("COPE Cluster Listener graceful shutdown: " + e.getMessage());
 				}
 			}
-			catch(Exception e)
+			catch(final Exception e)
 			{
 				exception++;
 				e.printStackTrace();
@@ -250,7 +250,7 @@ final class ClusterListener implements Runnable
 		{
 			socket.leaveGroup(config.group);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -259,7 +259,7 @@ final class ClusterListener implements Runnable
 		{
 			thread.join();
 		}
-		catch(InterruptedException e)
+		catch(final InterruptedException e)
 		{
 			throw new RuntimeException(e);
 		}

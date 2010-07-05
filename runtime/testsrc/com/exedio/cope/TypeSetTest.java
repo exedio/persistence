@@ -31,7 +31,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet((Type[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("typeSet", e.getMessage());
 		}
@@ -40,7 +40,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet(new Type[]{});
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("typeSet is empty", e.getMessage());
 		}
@@ -49,7 +49,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet(new Type[]{null});
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("typeSet[0]", e.getMessage());
 		}
@@ -62,7 +62,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet(ItemX.TYPE, Item1.TYPE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent type set: ItemX, [Item1]", e.getMessage());
 		}
@@ -71,7 +71,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet(ItemX.TYPE, Item1.TYPE, Item2.TYPE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent type set: ItemX, [Item1], [Item2]", e.getMessage());
 		}
@@ -80,7 +80,7 @@ public class TypeSetTest extends CopeAssert
 			m.containsTypeSet(ItemX.TYPE, Item2.TYPE, Item1.TYPE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent type set: ItemX, [Item2], [Item1]", e.getMessage());
 		}

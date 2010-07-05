@@ -50,7 +50,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDeleteFails(other, item.otherForbid);
 
 		// other item
-		DeleteItem item2 = new DeleteItem("item2");
+		final DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
 		item.setSelfForbid(item2);
 		assertDeleteFails(item2, item.selfForbid);
@@ -67,7 +67,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		// indirect forbid
 		item = new DeleteItem("itemb");
 		item2.setSelfCascade(item);
-		DeleteItem item3 = new DeleteItem("item3");
+		final DeleteItem item3 = new DeleteItem("item3");
 		item3.setSelfForbid(item2);
 		assertDeleteFails(item, item.selfForbid, item2);
 
@@ -89,7 +89,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			Item.newItemField(Item.class, null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("is not a subclass of " + Item.class.getName() + " but Item itself", e.getMessage());
 		}
@@ -98,7 +98,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			Item.newItemField(DeleteItem.class, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("policy", e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			Item.newItemField(DeleteItem.class, Item.NULLIFY).toFinal();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("final item field cannot have delete policy nullify", e.getMessage());
 		}
@@ -136,7 +136,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		item = new DeleteItem("itemb");
 		item2 = new DeleteItem("item2b");
 		item2.setSelfCascade(item);
-		DeleteItem item3 = new DeleteItem("item3b");
+		final DeleteItem item3 = new DeleteItem("item3b");
 		item3.setSelfNullify(item2);
 		assertEquals(item2, item3.getSelfNullify());
 		assertDelete(item);
@@ -261,7 +261,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = deleteOnTearDown(new DeleteItem("item1"));
-		DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
+		final DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
 
 		// test Model.getItem
 		assertSame(item, item.TYPE.getModel().getItem(item.getCopeID()));
@@ -298,7 +298,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			model.revise();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
@@ -307,7 +307,7 @@ public class DeleteTest extends AbstractRuntimeTest
 			model.getRevisionLogs();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}

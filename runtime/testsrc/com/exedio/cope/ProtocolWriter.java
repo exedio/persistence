@@ -39,7 +39,7 @@ public class ProtocolWriter extends AbstractRuntimeTest
 			final java.util.Properties databaseInfo = model.getEnvironmentInfo().asProperties();
 			final java.util.Properties prefixed = new java.util.Properties();
 			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
-			for(Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
+			for(final Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
 			{
 				final String name = (String)i.next();
 				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));

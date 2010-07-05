@@ -297,7 +297,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.mandatory.set(item, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -312,7 +312,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			new DoubleItem((Double)null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -327,7 +327,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			new DoubleItem(new SetValue[]{});
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -342,7 +342,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMin4(3.9);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4, e.getFeature());
@@ -370,7 +370,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMax4(4.1);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -393,7 +393,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			new DoubleItem(4.1, (Date)null);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -414,7 +414,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -434,7 +434,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMin4Max8(3.9);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -465,7 +465,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMin4Max8(8.1);
 			fail();
 		}
-		catch(DoubleRangeViolationException e)
+		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -494,7 +494,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.set((FunctionField)item.any, "hallo");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Double.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
@@ -507,7 +507,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			new DoubleField().optional().range(minimum, maximum);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}

@@ -388,7 +388,7 @@ public final class MysqlDialect extends Dialect
 				}
 			}
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, bf.toString());
 		}
@@ -400,7 +400,7 @@ public final class MysqlDialect extends Dialect
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -413,7 +413,7 @@ public final class MysqlDialect extends Dialect
 					// because foreign key constraints are disabled
 					connection.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}

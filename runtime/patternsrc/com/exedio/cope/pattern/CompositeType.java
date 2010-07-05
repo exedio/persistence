@@ -45,7 +45,7 @@ final class CompositeType<X>
 		{
 			constructor = valueClass.getDeclaredConstructor(SetValue[].class);
 		}
-		catch(NoSuchMethodException e)
+		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
 					valueClass.getName() + " does not have a constructor " +
@@ -76,7 +76,7 @@ final class CompositeType<X>
 				templatePositions.put(template, position++);
 			}
 		}
-		catch(IllegalAccessException e)
+		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(valueClass.getName(), e);
 		}

@@ -102,7 +102,7 @@ public class FieldDateTest extends FieldTest
 			item.set((FunctionField)item.someDate, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
 		}
@@ -110,7 +110,7 @@ public class FieldDateTest extends FieldTest
 
 	public void testOrder() throws MandatoryViolationException
 	{
-		Date[] dates = new Date[9];
+		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
 		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
@@ -127,7 +127,7 @@ public class FieldDateTest extends FieldTest
 		item2.setSomeDate( dates[3] );
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
-		StringBuilder message = new StringBuilder();
+		final StringBuilder message = new StringBuilder();
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		for ( int i=0; i<dates.length; i++ )
 		{
@@ -158,7 +158,7 @@ public class FieldDateTest extends FieldTest
 
 	public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
 	{
-		Date[] dates = new Date[9];
+		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
 		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
@@ -177,7 +177,7 @@ public class FieldDateTest extends FieldTest
 		item2.setSomeDate( dates[3] );
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
-		StringBuilder message = new StringBuilder();
+		final StringBuilder message = new StringBuilder();
 		for ( int i=0; i<dates.length; i++ )
 		{
 			if ( i!=0 ) message.append( "; " );

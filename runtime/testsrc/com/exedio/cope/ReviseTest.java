@@ -111,7 +111,7 @@ public class ReviseTest extends CopeAssert
 			model7.reviseIfSupported();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("attempt to revise from 5 to 7, but declared revisions allow from 6 only", e.getMessage());
 		}
@@ -180,7 +180,7 @@ public class ReviseTest extends CopeAssert
 		{
 			model7.reviseIfSupported();
 		}
-		catch(SQLRuntimeException e)
+		catch(final SQLRuntimeException e)
 		{
 			assertEquals("nonsense statement causing a test failure", e.getMessage());
 		}
@@ -197,7 +197,7 @@ public class ReviseTest extends CopeAssert
 		{
 			model7.reviseIfSupported();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("Revision mutex set: Either a revision is currently underway, or a revision has failed unexpectedly.", e.getMessage());
 		}

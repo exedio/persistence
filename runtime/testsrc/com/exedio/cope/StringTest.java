@@ -166,7 +166,7 @@ public class StringTest extends TestmodelTest
 			item.mandatory.check(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -177,7 +177,7 @@ public class StringTest extends TestmodelTest
 			item.mandatory.check("");
 			assert supports;
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
 			assertEquals(item.mandatory, e.getFeature());
@@ -189,7 +189,7 @@ public class StringTest extends TestmodelTest
 			item.min4.check("123");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item.min4, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -237,7 +237,7 @@ public class StringTest extends TestmodelTest
 			item.setMandatory(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -252,7 +252,7 @@ public class StringTest extends TestmodelTest
 			new StringItem((String)null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -267,7 +267,7 @@ public class StringTest extends TestmodelTest
 			new StringItem(new SetValue[]{});
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -285,7 +285,7 @@ public class StringTest extends TestmodelTest
 			else
 				fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
 			assertEquals(item.mandatory, e.getFeature());
@@ -306,7 +306,7 @@ public class StringTest extends TestmodelTest
 			else
 				fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
 			assertEquals(item3.mandatory, e.getFeature());
@@ -322,7 +322,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4("123");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4, e.getFeature());
@@ -350,7 +350,7 @@ public class StringTest extends TestmodelTest
 			item.setMax4("12345");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -373,7 +373,7 @@ public class StringTest extends TestmodelTest
 			new StringItem("12345", (Date)null);
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -394,7 +394,7 @@ public class StringTest extends TestmodelTest
 			);
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -414,7 +414,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4Max8("123");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -445,7 +445,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4Max8("123456789");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -468,7 +468,7 @@ public class StringTest extends TestmodelTest
 			item.setExact6("12345");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -496,7 +496,7 @@ public class StringTest extends TestmodelTest
 			item.setExact6("1234567");
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -519,7 +519,7 @@ public class StringTest extends TestmodelTest
 			new StringItem("1234567", 40);
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -541,7 +541,7 @@ public class StringTest extends TestmodelTest
 			);
 			fail();
 		}
-		catch(StringLengthViolationException e)
+		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -562,7 +562,7 @@ public class StringTest extends TestmodelTest
 			item.setLowercase("abcABC");
 			fail();
 		}
-		catch(StringCharSetViolationException e)
+		catch(final StringCharSetViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.lowercase, e.getFeature());
@@ -594,7 +594,7 @@ public class StringTest extends TestmodelTest
 			item.set((FunctionField)item.any, Integer.valueOf(10));
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
@@ -607,7 +607,7 @@ public class StringTest extends TestmodelTest
 			new StringField().optional().lengthRange(minimumLength, maximumLength);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -778,7 +778,7 @@ public class StringTest extends TestmodelTest
 		{
 			message = value+'('+valueChars+','+value.getBytes("utf8").length+')';
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}

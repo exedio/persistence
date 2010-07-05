@@ -157,7 +157,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			item.containsActiveLanguage(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -166,7 +166,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			item.addActiveLanguage(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -175,7 +175,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			item.removeActiveLanguage(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -184,7 +184,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			item.setActiveLanguage(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -193,7 +193,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			item.activeLanguage.contains(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("element", e.getMessage());
 		}
@@ -207,7 +207,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			((EnumSetField)item.activeLanguage).contains(item, X.A);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
 		}
@@ -216,7 +216,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			((EnumSetField)item.activeLanguage).add(item, X.A);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
 		}
@@ -225,7 +225,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			((EnumSetField)item.activeLanguage).remove(item, X.A);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
 		}
@@ -234,7 +234,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 			((EnumSetField)item.activeLanguage).contains(X.A);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
 		}

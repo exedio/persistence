@@ -31,7 +31,7 @@ public class FeatureTest extends CopeAssert
 			f.getType();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
 		}
@@ -40,7 +40,7 @@ public class FeatureTest extends CopeAssert
 			f.getName();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
 		}
@@ -49,7 +49,7 @@ public class FeatureTest extends CopeAssert
 			f.getID();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
 		}
@@ -76,7 +76,7 @@ public class FeatureTest extends CopeAssert
 			new Type<AnItem>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("feature already mounted: typeId.featureName", e.getMessage());
 		}

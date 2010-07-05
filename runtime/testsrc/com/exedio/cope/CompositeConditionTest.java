@@ -57,7 +57,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(null, (Condition[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("operator", e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class CompositeConditionTest extends CopeAssert
 			Cope.and((Condition[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions", e.getMessage());
 		}
@@ -75,7 +75,7 @@ public class CompositeConditionTest extends CopeAssert
 			Cope.and((List<Condition>)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions", e.getMessage());
 		}
@@ -84,7 +84,7 @@ public class CompositeConditionTest extends CopeAssert
 			Cope.or((Condition[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions", e.getMessage());
 		}
@@ -93,7 +93,7 @@ public class CompositeConditionTest extends CopeAssert
 			Cope.or((List<Condition>)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions", e.getMessage());
 		}
@@ -106,7 +106,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(AND);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions must not be empty", e.getMessage());
 		}
@@ -115,7 +115,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(AND, Collections.<Condition>emptyList());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions must not be empty", e.getMessage());
 		}
@@ -124,7 +124,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions must not be empty", e.getMessage());
 		}
@@ -133,7 +133,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR, Collections.<Condition>emptyList());
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions must not be empty", e.getMessage());
 		}
@@ -142,7 +142,7 @@ public class CompositeConditionTest extends CopeAssert
 			Cope.and(new Condition[]{null});
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions[0]", e.getMessage());
 		}
@@ -151,7 +151,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(AND, listg((Condition)null));
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions[0]", e.getMessage());
 		}
@@ -160,7 +160,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR, (Condition)null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions[0]", e.getMessage());
 		}
@@ -169,7 +169,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR, listg((Condition)null));
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("conditions[0]", e.getMessage());
 		}
@@ -178,7 +178,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(AND, Condition.TRUE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
@@ -187,7 +187,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(AND, listg(Condition.TRUE));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
@@ -196,7 +196,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR, Condition.TRUE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
@@ -205,7 +205,7 @@ public class CompositeConditionTest extends CopeAssert
 			new CompositeCondition(OR, listg(Condition.TRUE));
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
@@ -236,7 +236,7 @@ public class CompositeConditionTest extends CopeAssert
 			new NotCondition(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("argument", e.getMessage());
 		}
@@ -245,7 +245,7 @@ public class CompositeConditionTest extends CopeAssert
 			new NotCondition(Condition.TRUE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("argument must not be a literal", e.getMessage());
 		}

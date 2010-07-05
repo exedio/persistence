@@ -272,7 +272,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.mandatory.check(null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -283,7 +283,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.min4.check(3);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item.min4, e.getFeature());
 			assertEquals(null, e.getItem());
@@ -322,7 +322,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.mandatory.set(item, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -337,7 +337,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			new IntegerItem((Integer)null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -352,7 +352,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			new IntegerItem(new SetValue[]{});
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.mandatory, e.getFeature());
@@ -367,7 +367,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4(3);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4, e.getFeature());
@@ -395,7 +395,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMax4(5);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -418,7 +418,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			new IntegerItem(5, (Date)null);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -439,7 +439,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -459,7 +459,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4Max8(3);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -490,7 +490,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4Max8(9);
 			fail();
 		}
-		catch(IntegerRangeViolationException e)
+		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -519,7 +519,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.set((FunctionField)item.any, "hallo");
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
 		}
@@ -532,7 +532,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			new IntegerField().optional().range(minimum, maximum);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}

@@ -110,7 +110,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 			item.setPhoto(stream(data4), "illegalContentType");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.photo, e.getFeature());
@@ -125,7 +125,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 			item.setPhoto(stream(data4), "image/png");
 			fail();
 		}
-		catch(IllegalContentTypeException e)
+		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
 			assertSame(item.photo, e.getFeature());

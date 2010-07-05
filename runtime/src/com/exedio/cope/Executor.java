@@ -154,7 +154,7 @@ final class Executor
 
 			return result;
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, statement.toString());
 		}
@@ -166,7 +166,7 @@ final class Executor
 				{
 					resultSet.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -177,7 +177,7 @@ final class Executor
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -231,7 +231,7 @@ final class Executor
 				throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
 			return rows;
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, statement.toString());
 		}
@@ -243,7 +243,7 @@ final class Executor
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -297,7 +297,7 @@ final class Executor
 			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
 			return generatedKeysHandler.handle(generatedKeysResultSet);
 		}
-		catch(SQLException e)
+		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, statement.toString());
 		}
@@ -309,7 +309,7 @@ final class Executor
 				{
 					generatedKeysResultSet.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}
@@ -320,7 +320,7 @@ final class Executor
 				{
 					sqlStatement.close();
 				}
-				catch(SQLException e)
+				catch(final SQLException e)
 				{
 					// exception is already thrown
 				}

@@ -103,7 +103,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 			new CheckConstraint(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("condition", e.getMessage());
 		}
@@ -112,7 +112,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 			new CheckConstraint(Condition.TRUE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("literal condition makes no sense, but was Condition.TRUE", e.getMessage());
 		}
@@ -121,7 +121,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 			new CheckConstraint(Condition.FALSE);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}

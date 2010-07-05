@@ -59,7 +59,7 @@ public class ItemTest extends TestmodelTest
 			item1.TYPE.cast(item3);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + item3.TYPE.getJavaClass().getName(), e.getMessage());
 		}
@@ -70,7 +70,7 @@ public class ItemTest extends TestmodelTest
 			item1.TYPE.as(EmptyItem2.class);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
 		}

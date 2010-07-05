@@ -200,7 +200,7 @@ public final class SetField<E> extends Pattern
 			);
 			return true;
 		}
-		catch(UniqueViolationException e)
+		catch(final UniqueViolationException e)
 		{
 			assert uniqueConstraint==e.getFeature();
 			return false;

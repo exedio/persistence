@@ -272,7 +272,7 @@ public final class MediaServlet extends HttpServlet
 		{
 			return path.doGet(request, response, pathInfo, slash2+1);
 		}
-		catch(Exception e)
+		catch(final Exception e)
 		{
 			System.out.println("--------MediaServlet-----");
 			System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));

@@ -48,7 +48,7 @@ public class InitServlet extends HttpServlet
 		{
 			textValue = "This is an example file\nfor testing media data.\n".getBytes("utf8");
 		}
-		catch(UnsupportedEncodingException e)
+		catch(final UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -119,7 +119,7 @@ public class InitServlet extends HttpServlet
 
 			model.commit();
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

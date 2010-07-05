@@ -35,7 +35,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("valueClass", e.getMessage());
 		}
@@ -44,7 +44,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(NoConstructor.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
 					NoConstructor.class.getName() +
@@ -56,7 +56,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(NoFields.class);
 			//fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("", e.getMessage());
 		}
@@ -65,7 +65,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(NullField.class);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
 		}
@@ -74,7 +74,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(PatternField.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
 		}
@@ -83,7 +83,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(Composite.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("is not a subclass of " + Composite.class.getName() + " but Composite itself", e.getMessage());
 		}
@@ -92,7 +92,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite(FinalField.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("final fields not supported: " + FinalField.class.getName() + "#finalField", e.getMessage());
 		}
@@ -106,7 +106,7 @@ public class CompositeErrorTest extends CopeAssert
 			CompositeField.newComposite((Class)CompositeErrorTest.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}

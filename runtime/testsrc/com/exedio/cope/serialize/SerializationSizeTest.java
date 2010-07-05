@@ -176,7 +176,7 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 
 			return bos.size();
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}

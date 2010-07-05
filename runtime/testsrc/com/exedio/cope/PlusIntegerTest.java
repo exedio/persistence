@@ -94,7 +94,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		{
 			new PlusLiteralView<Integer>(null, 6);
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -103,7 +103,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 			new PlusLiteralView<Integer>(numA, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("right", e.getMessage());
 		}
@@ -111,7 +111,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		{
 			new MultiplyLiteralView<Integer>(null, 6);
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -120,7 +120,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 			new MultiplyLiteralView<Integer>(numA, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("right", e.getMessage());
 		}

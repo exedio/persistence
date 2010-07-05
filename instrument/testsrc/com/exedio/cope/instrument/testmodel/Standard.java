@@ -200,7 +200,7 @@ public class Standard extends Item
 			setPrivateSetterMedia((File)null, null);
 			setPrivateSetterMedia((InputStream)null, null);
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
