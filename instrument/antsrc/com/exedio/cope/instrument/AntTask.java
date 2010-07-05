@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -79,9 +78,8 @@ public final class AntTask extends Task
 			final ArrayList<File> sourcefiles = new ArrayList<File>();
 			final HashSet<File> sourcefileSet = new HashSet<File>();
 
-			for(final Iterator i = fileSetsOrLists.iterator(); i.hasNext(); )
+			for(final Object fileSetOrList : fileSetsOrLists)
 			{
-				final Object fileSetOrList = i.next();
 				final File dir;
 				final String[] fileNames;
 
@@ -97,9 +95,9 @@ public final class AntTask extends Task
 					dir = fileList.getDir(project);
 					fileNames = fileList.getFiles(project);
 				}
-				for(int j = 0; j<fileNames.length; j++)
+				for(final String fileName : fileNames)
 				{
-					final File file = new File(dir, fileNames[j]);
+					final File file = new File(dir, fileName);
 					if(sourcefileSet.add(file))
 						sourcefiles.add(file);
 				}

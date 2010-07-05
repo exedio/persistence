@@ -95,8 +95,8 @@ public abstract class View<E> extends Feature
 	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
-		for(int i = 0; i<sources.length; i++)
-			sources[i].check(tc, join);
+		for(final Function<?> source : sources)
+			source.check(tc, join);
 	}
 
 	@Override
@@ -195,8 +195,8 @@ public abstract class View<E> extends Feature
 	{
 		int result = name.hashCode();
 
-		for(int i = 0; i<sources.length; i++)
-			result = (31*result) + sources[i].hashCode(); // may not be commutative
+		for(final Function<?> source : sources)
+			result = (31*result) + source.hashCode(); // may not be commutative
 
 		return result;
 	}

@@ -719,12 +719,12 @@ final class Generator
 			o.write(" instead.");
 			o.write(lineSeparator);
 		}
-		for(int i=0; i<attributes.length; i++)
+		for(final CopeAttribute attribute : attributes)
 		{
 			o.write("\t * @param ");
-			o.write(attributes[i].name);
+			o.write(attribute.name);
 			o.write(' ');
-			o.write(format(FINDER_UNIQUE_PARAMETER, link(attributes[i].name)));
+			o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
 			o.write(lineSeparator);
 		}
 		o.write("\t * @return ");

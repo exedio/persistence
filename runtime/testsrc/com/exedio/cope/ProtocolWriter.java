@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Iterator;
 
 public class ProtocolWriter extends AbstractRuntimeTest
 {
@@ -39,9 +38,9 @@ public class ProtocolWriter extends AbstractRuntimeTest
 			final java.util.Properties databaseInfo = model.getEnvironmentInfo().asProperties();
 			final java.util.Properties prefixed = new java.util.Properties();
 			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
-			for(final Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
+			for(final Object nameObject : databaseInfo.keySet())
 			{
-				final String name = (String)i.next();
+				final String name = (String)nameObject;
 				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 			}
 			final ConnectProperties p = model.getConnectProperties();

@@ -75,9 +75,9 @@ class StringColumn extends Column
 	{
 		int result = 0;
 
-		for(int i = 0; i<strings.length; i++)
+		for(final String string : strings)
 		{
-			final int length = strings[i].length();
+			final int length = string.length();
 			if(result<length)
 				result = length;
 		}

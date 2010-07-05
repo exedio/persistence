@@ -123,17 +123,17 @@ final class Types
 		//System.out.println(">--------------------"+Arrays.asList(types));
 
 		final ArrayList<Type> result = new ArrayList<Type>();
-		for(int i = 0; i<types.length; i++)
+		for(final Type<?> type2 : types)
 		{
 			final ArrayList<Type> stack = new ArrayList<Type>();
 
 			//System.out.println("------------------------------ "+types[i].getID());
 
-			for(Type type = types[i]; type!=null; type=type.supertype)
+			for(Type type = type2; type!=null; type=type.supertype)
 			{
 				//System.out.println("-------------------------------> "+type.getID());
 				if(!typeSet.contains(type))
-					throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
+					throw new RuntimeException("type "+type.id+ " is supertype of " + type2.id + " but not part of the model");
 				stack.add(type);
 			}
 

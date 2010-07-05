@@ -861,8 +861,8 @@ final class Injector
 					break;
 				case '\0' :
 					final JavaFeature[] jfarray = parseFeature(jc);
-					for (int i = 0; i < jfarray.length; i++)
-						consumer.onClassFeature(jfarray[i], docComment);
+					for(final JavaFeature jf : jfarray)
+						consumer.onClassFeature(jf, docComment);
 					discardNextFeature=false;
 					docComment = null;
 					scheduleBlock(true);

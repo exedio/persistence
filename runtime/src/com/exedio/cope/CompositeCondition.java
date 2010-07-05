@@ -77,8 +77,8 @@ public final class CompositeCondition extends Condition
 	boolean get(final Item item)
 	{
 		final boolean absorber = operator.absorber.value;
-		for(int i = 0; i<conditions.length; i++)
-			if(conditions[i].get(item)==absorber)
+		for(final Condition condition : conditions)
+			if(condition.get(item)==absorber)
 				return absorber;
 		return operator.identity.value;
 	}
@@ -86,8 +86,8 @@ public final class CompositeCondition extends Condition
 	@Override
 	void check(final TC tc)
 	{
-		for(int i = 0; i<conditions.length; i++)
-			conditions[i].check(tc);
+		for(final Condition condition : conditions)
+			condition.check(tc);
 	}
 
 	@Override
@@ -115,8 +115,8 @@ public final class CompositeCondition extends Condition
 	{
 		int result = operator.hashCode();
 
-		for(int i = 0; i<conditions.length; i++)
-			result = (31*result) + conditions[i].hashCode(); // may not be commutative
+		for(final Condition condition : conditions)
+			result = (31*result) + condition.hashCode(); // may not be commutative
 
 		return result;
 	}

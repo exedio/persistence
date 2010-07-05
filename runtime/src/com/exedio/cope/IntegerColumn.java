@@ -68,11 +68,11 @@ class IntegerColumn extends Column
 
 		// ensure, that allowedValues are unique and ordered
 		int current = Integer.MIN_VALUE;
-		for(int i = 0; i<allowedValues.length; i++)
+		for(final int allowedValue : allowedValues)
 		{
-			if(current>=allowedValues[i])
+			if(current>=allowedValue)
 				throw new RuntimeException();
-			current = allowedValues[i];
+			current = allowedValue;
 		}
 		assert assertMembers();
 	}
@@ -81,9 +81,8 @@ class IntegerColumn extends Column
 	{
 		int result = 0;
 
-		for(int i = 0; i<ints.length; i++)
+		for(final int inti : ints)
 		{
-			final int inti = ints[i];
 			if(result<inti)
 				result = inti;
 		}

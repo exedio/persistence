@@ -236,8 +236,8 @@ public final class Query<R>
 			return Collections.<Boolean>emptyList();
 
 		final ArrayList<Boolean> result = new ArrayList<Boolean>(orderAscending.length);
-		for(int i = 0; i<orderAscending.length; i++)
-			result.add(orderAscending[i]);
+		for(final boolean b : orderAscending)
+			result.add(b);
 		return Collections.unmodifiableList(result);
 	}
 

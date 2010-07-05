@@ -105,9 +105,8 @@ final class ItemCache
 	{
 		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
 
-		for(int i = 0; i<cachlets.length; i++)
+		for(final Cachlet cachlet : cachlets)
 		{
-			final Cachlet cachlet = cachlets[i];
 			if(cachlet!=null)
 				result.add(cachlet.getInfo());
 		}

@@ -183,9 +183,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		final ArrayList<E> result = new ArrayList<E>(sources.length);
 
-		for(int i = 0; i<sources.length; i++)
+		for(final FunctionField<E> source : sources)
 		{
-			final E value = sources[i].get(item);
+			final E value = source.get(item);
 			if(value!=null)
 				result.add(value);
 		}

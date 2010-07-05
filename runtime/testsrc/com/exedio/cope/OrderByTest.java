@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -269,8 +268,8 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(limit, query2.getLimit());
 
 			final ArrayList<String> expected = new ArrayList<String>(expectedOrder.size());
-			for(final Iterator<? extends Object> i = expectedOrder.iterator(); i.hasNext(); )
-				expected.add(((AttributeItem)i.next()).getSomeNotNullString());
+			for(final Object object : expectedOrder)
+				expected.add(((AttributeItem)object).getSomeNotNullString());
 
 			assertEquals(expected, query2.search());
 		}

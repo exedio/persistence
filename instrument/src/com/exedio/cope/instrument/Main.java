@@ -64,8 +64,8 @@ public final class Main
 	{
 		final ArrayList<File> files = new ArrayList<File>();
 
-		for(int i=0; i<args.length; i++)
-			files.add(new File(dir, args[i]));
+		for(final String arg : args)
+			files.add(new File(dir, arg));
 
 		run(files, params);
 	}

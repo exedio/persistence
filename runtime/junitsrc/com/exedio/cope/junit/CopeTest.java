@@ -20,7 +20,6 @@ package com.exedio.cope.junit;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import com.exedio.cope.ConnectProperties;
@@ -76,9 +75,8 @@ public abstract class CopeTest extends CopeAssert
 		final PoolCounter connectionPoolCounter = model.getConnectionPoolInfo().getCounter();
 
 		System.out.println("ConnectionPool: "+connectionPoolCounter.getGetCounter()+", "+connectionPoolCounter.getPutCounter());
-		for(final Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )
+		for(final PoolCounter.Pool pool : connectionPoolCounter.getPools())
 		{
-			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 			System.out.println("ConnectionPool:["+pool.getIdleLimit()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
 		}
 	}

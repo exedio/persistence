@@ -301,9 +301,9 @@ public abstract class MediaPath extends Pattern
 			final byte[] digest = messageDigest.digest();
 			final byte[] digestShrink = new byte[10];
 			int j = 0;
-			for(int i = 0; i<digest.length; i++)
+			for(final byte b : digest)
 			{
-				digestShrink[j++] ^= digest[i];
+				digestShrink[j++] ^= b;
 				if(j>=digestShrink.length)
 					j = 0;
 			}

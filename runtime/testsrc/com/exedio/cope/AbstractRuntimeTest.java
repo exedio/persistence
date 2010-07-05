@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeTest;
@@ -160,8 +159,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		mediaRootUrl = null;
 
-		for(final Iterator i = files.iterator(); i.hasNext(); )
-			delete((File)i.next());
+		for(final File file : files)
+			delete(file);
 		files.clear();
 
 		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
