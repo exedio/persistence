@@ -232,7 +232,7 @@ public class Hash extends Pattern implements Settable<String>
 		
 		result.add(
 			new Wrapper("blind").
-			addComment("Wastes (almost) as much cpu cycles, as a call to '{@link #check'{3}'(String)}' would have needed.").
+			addComment("Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.").
 			addComment("Needed to prevent Timing Attacks.").
 			setStatic().
 			addParameter(String.class));
