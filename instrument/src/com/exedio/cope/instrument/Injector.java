@@ -57,7 +57,7 @@ final class Injector
 	private final InjectionConsumer consumer;
 	final String fileName;
 
-	private final StringBuilder buf = new StringBuilder();
+	private final StringBuilder bufTokenizer = new StringBuilder();
 
 	private boolean do_block = false;
 	private boolean start_block = false;
@@ -222,16 +222,12 @@ final class Injector
 
 	private char tokenBuf = '\0';
 	private String commentBuf = null;
-	private String comment = null;
 
 	/**
 	 * Splits the character stream into tokens.
 	 * This tokenizer works only outside of method bodys.
-	 * @return '\0' for multiple character token in buf,
-	 * 'c' for comment token in comment,
-	 * else for single character token.
 	 */
-	private char readToken() throws EndException
+	private Token readToken() throws EndException
 	{
 		char c;
 
@@ -240,18 +236,18 @@ final class Injector
 			c = tokenBuf;
 			tokenBuf = '\0';
 			//System.out.println("<<"+c+">>");
-			return c;
+			return new CharToken(c);
 		}
 
 		if (commentBuf != null)
 		{
-			comment = commentBuf;
+			final CommentToken result = new CommentToken(commentBuf);
 			commentBuf = null;
 			//System.out.println("<<"+comment+">>");
-			return 'c';
+			return result;
 		}
 
-		buf.setLength(0);
+		bufTokenizer.setLength(0);
 
 		while (true)
 		{
@@ -267,28 +263,28 @@ final class Injector
 					readComment();
 					if (commentcollector)
 						flushOutbuf();
-					if (buf.length() > 0)
+					if (bufTokenizer.length() > 0)
 					{
 						if (commentcollector)
 							commentBuf = getCollector();
 						//System.out.println("<"+buf+">");
-						return '\0';
+						return new StringToken(bufTokenizer.toString());
 					}
 					if (commentcollector)
 					{
-						comment = getCollector();
+						final String comment = getCollector();
 						//System.out.println("<<"+comment+">>");
-						return 'c';
+						return new CommentToken(comment);
 					}
 					break;
 				case ' ' :
 				case '\t' :
 				case '\n' :
 				case '\r' :
-					if (buf.length() > 0)
+					if (bufTokenizer.length() > 0)
 					{
 						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return '\0';
+						return new StringToken(bufTokenizer.toString());
 					}
 					break;
 				case '{' :
@@ -299,20 +295,20 @@ final class Injector
 				case '=' :
 				case ',' :
 				case '@' :
-					if (buf.length() > 0)
+					if (bufTokenizer.length() > 0)
 					{
 						tokenBuf = c;
 						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return '\0';
+						return new StringToken(bufTokenizer.toString());
 					}
 					//System.out.println("<<"+c+">>");
-					return c;
+					return new CharToken(c);
 				case '<' :
-					buf.append(c);
+					bufTokenizer.append(c);
 					while(true)
 					{
 						c = read();
-						buf.append(c);
+						bufTokenizer.append(c);
 						if(c=='>')
 							break;
 					}
@@ -321,7 +317,7 @@ final class Injector
 				default :
 					if (!do_block && start_block)
 						do_block = true;
-					buf.append(c);
+					bufTokenizer.append(c);
 					//System.out.println("df||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 			}
@@ -339,7 +335,7 @@ final class Injector
 	 * the delimiter, which terminated the attribute initializer
 	 * (';' or ',') or '}' for methods.
 	 */
-	private char parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
+	private CharToken parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
 		throws EndException, ParseException
 	{
 		//System.out.println("    body("+(attribute?"attribute":"method")+")");
@@ -370,7 +366,7 @@ final class Injector
 					bracketdepth--;
 					//System.out.print("<("+bracketdepth+")>");
 					if (bracketdepth == 0 && !attribute)
-						return '}';
+						return new CharToken('}');
 					if (bracketdepth < 0)
 						throw new ParseException("';' expected.");
 					if(tokenConsumer!=null)
@@ -382,12 +378,12 @@ final class Injector
 					// since then the test in the '}' branch would have
 					// already terminated the loop
 					if (bracketdepth == 0)
-						return ';';
+						return new CharToken(';');
 					c = read();
 					break;
 				case ',' :
 					if (bracketdepth == 0)
-						return ',';
+						return new CharToken(',');
 					if(tokenConsumer!=null)
 						tokenConsumer.addToInitializer(c);
 					c = read();
@@ -453,7 +449,6 @@ final class Injector
 					}
 					else
 					{
-						buf.append(c);
 						while(true)
 						{
 							if(tokenConsumer!=null)
@@ -481,10 +476,10 @@ final class Injector
 	 * if null, there is no containing class, and
 	 * the feature must be a class itself.
 	 */
-	private JavaFeature[] parseFeature(final JavaClass parent)
+	private JavaFeature[] parseFeature(final JavaClass parent, final StringToken bufs)
 		throws IOException, EndException, InjectorParseException
 	{
-		return parseFeature(parent, buf.toString());
+		return parseFeature(parent, bufs.value);
 	}
 
 	/**
@@ -498,6 +493,7 @@ final class Injector
 	{
 		int modifiers = 0;
 
+		String featuretype;
 		while (true)
 		{
 			//System.out.println("bufs >"+bufs+"<");
@@ -534,10 +530,11 @@ final class Injector
 			}
 			else if ("enum".equals(bufs))
 			{
-				if(readToken()!='\0')
+				final Token nameToken = readToken();
+				if(!(nameToken instanceof StringToken))
 					throw new ParseException("enum name expected");
-				final String enumName = buf.toString();
-				if(readToken()!='{')
+				final String enumName = ((StringToken)nameToken).value;
+				if(!readToken().contains('{'))
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
@@ -559,17 +556,18 @@ final class Injector
 			{
 				if (parent == null)
 					throw new ParseException("'class' or 'interface' expected.");
+				featuretype = bufs;
 				break;
 			}
 
-			final char c = readToken();
-			if (c != '\0')
+			final Token c = readToken();
+			if(!(c instanceof StringToken))
 			{
 				if (parent == null)
 					throw new ParseException("'class' or 'interface' expected.");
 				else
 				{
-					if (c == '{' && modifiers == Modifier.STATIC)
+					if(c.contains('{') && modifiers == Modifier.STATIC)
 					{
 						// this is a static initializer
 						if (collect_when_blocking)
@@ -586,16 +584,15 @@ final class Injector
 					}
 				}
 			}
-			bufs = buf.toString();
+			bufs = ((StringToken)c).value;
 		}
-		String featuretype = buf.toString();
 		String featurename;
 
-		char c = readToken();
+		Token c = readToken();
 
-		if (c != '\0')
+		if(!(c instanceof StringToken))
 		{
-			if (c == '(') // it's a constructor !
+			if(c.contains('(')) // it's a constructor !
 			{
 				featurename = featuretype;
 				featuretype = null;
@@ -612,11 +609,11 @@ final class Injector
 		}
 		else
 		{
-			featurename = buf.toString();
+			featurename = ((StringToken)c).value;
 			c = readToken();
 		}
 
-		if (c == '(') // it's a method/constructor
+		if(c.contains('(')) // it's a method/constructor
 		{
 			final JavaBehaviour jb =
 				(featuretype == null)
@@ -639,23 +636,23 @@ final class Injector
 	private void parseBehaviour(final JavaBehaviour jb)
 		throws EndException, ParseException
 	{
-		char c = readToken();
+		Token c = readToken();
 		// parsing parameter list
 		while (true)
 		{
 			String parametertype;
-			if (c == ')')
+			if(c.contains(')'))
 			{
 				break;
 			}
-			else if (c == '\0')
+			else if(c instanceof StringToken)
 			{
-				parametertype = buf.toString();
+				parametertype = ((StringToken)c).value;
 				if ("final".equals(parametertype))
 				{
 					c = readToken();
-					if (c == '\0')
-						parametertype = buf.toString();
+					if (c instanceof StringToken)
+						parametertype = ((StringToken)c).value;
 					else
 						throw new ParseException("parameter type expected.");
 				}
@@ -663,17 +660,17 @@ final class Injector
 			else
 				throw new ParseException("')' expected.");
 			c = readToken();
-			if (c != '\0')
+			if(!(c instanceof StringToken))
 				throw new ParseException("parameter name expected.");
 			//System.out.println("addParameter("+parametertype+", "+buf.toString()+")");
-			jb.addParameter(parametertype, buf.toString());
+			jb.addParameter(parametertype, ((StringToken)c).value);
 			c = readToken();
-			if (c == ',')
+			if(c.contains(','))
 			{
 				c = readToken();
 				continue;
 			}
-			else if (c == ')')
+			else if(c.contains(')'))
 			{
 				break;
 			}
@@ -684,7 +681,9 @@ final class Injector
 		c = readToken();
 		ti : while (true)
 		{
-			switch (c)
+			if(c instanceof CharToken)
+			{
+			switch(((CharToken)c).value)
 			{
 				case '{' :
 					if (collect_when_blocking)
@@ -703,25 +702,27 @@ final class Injector
 					}
 					flushOutbuf();
 					break ti;
-				case '\0' :
-					if (buf.toString().equals("throws"))
+				default :
+					throw new ParseException("'{' expected.");
+			}
+			}
+			else
+			{
+					if(((StringToken)c).value.equals("throws"))
 					{
 						do
 						{
 							c = readToken();
-							if (c == '\0')
-								jb.addThrowable(buf.toString());
+							if(c instanceof StringToken)
+								jb.addThrowable(((StringToken)c).value);
 							else
 								throw new ParseException("class name expected.");
 							c = readToken();
 						}
-						while (c == ',');
+						while(c.contains(','));
 					}
 					else
 						throw new ParseException("'throws' expected.");
-					break;
-				default :
-					throw new ParseException("'{' expected.");
 			}
 		}
 		if (do_block)
@@ -732,7 +733,7 @@ final class Injector
 		}
 	}
 
-	private JavaAttribute[] parseAttribute(JavaAttribute ja, char c)
+	private JavaAttribute[] parseAttribute(JavaAttribute ja, Token c)
 		throws EndException, InjectorParseException
 	{
 		consumer.onAttributeHeader(ja);
@@ -744,7 +745,7 @@ final class Injector
 		while (true)
 		{
 
-			switch (c)
+			switch(((CharToken)c).value)
 			{
 				case ';' :
 					if (collect_when_blocking)
@@ -758,9 +759,9 @@ final class Injector
 					return jaarray;
 				case ',' :
 					c = readToken();
-					if (c != '\0')
+					if(!(c instanceof StringToken))
 						throw new ParseException("attribute name expected.");
-					ja = new JavaAttribute(ja, buf.toString());
+					ja = new JavaAttribute(ja, ((StringToken)c).value);
 					commaSeparatedAttributes.add(ja);
 					//if(!do_block) ja.print(System.out);
 					c = readToken();
@@ -780,20 +781,21 @@ final class Injector
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, InjectorParseException
 	{
-		if (readToken() != '\0')
+		final Token classnameToken = readToken();
+		if(!(classnameToken instanceof StringToken))
 			throw new ParseException("class name expected.");
-		final String classname = buf.toString();
+		final String classname = ((StringToken)classnameToken).value;
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
 
-		char imc;
+		Token imc;
 		char extendsOrImplements = '-';
 		String classExtends = null;
 		final ArrayList<String> classImplements = new ArrayList<String>();
-		while((imc=readToken()) != '{')
+		while(!(imc=readToken()).contains('{'))
 		{
-			if(imc=='\0')
+			if(imc instanceof StringToken)
 			{
-				final String s = buf.toString();
+				final String s = ((StringToken)imc).value;
 
 				if("extends".equals(s))
 					extendsOrImplements = 'e';
@@ -836,12 +838,10 @@ final class Injector
 		scheduleBlock(true);
 		ml : while (true)
 		{
-			switch (readToken())
+			final Token token = readToken();
+			if(token instanceof CommentToken)
 			{
-				case '}' :
-					getCollector();
-					break ml;
-				case 'c' :
+				final String comment = ((CommentToken)token).comment;
 					if (comment.startsWith("/**"))
 					{
 						docComment = comment;
@@ -858,15 +858,23 @@ final class Injector
 						write(comment);
 						scheduleBlock(true);
 					}
-					break;
-				case '\0' :
-					final JavaFeature[] jfarray = parseFeature(jc);
+			}
+			else if(token instanceof StringToken)
+			{
+					final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
 					for(final JavaFeature jf : jfarray)
 						consumer.onClassFeature(jf, docComment);
 					discardNextFeature=false;
 					docComment = null;
 					scheduleBlock(true);
-					break;
+			}
+			else
+			{
+			switch(((CharToken)token).value)
+			{
+				case '}' :
+					getCollector();
+					break ml;
 				case ';' :
 					// javac (but not jikes) accepts semicolons on class level,
 					// so do we.
@@ -887,6 +895,7 @@ final class Injector
 				default :
 					throw new ParseException("class member expected.");
 			}
+			}
 		}
 
 		jc.setClassEndPosition(output.length());
@@ -898,7 +907,7 @@ final class Injector
 	{
 		try
 		{
-			char c;
+			Token c;
 			while (true)
 			{
 				scheduleBlock(true);
@@ -916,51 +925,50 @@ final class Injector
 				if (do_block)
 					getCollector();
 
-				switch (c)
+				if(c instanceof StringToken)
 				{
-					case '\0' :
-						final String bufs = buf.toString();
+						final String bufs = ((StringToken)c).value;
 						if ("package".equals(bufs))
 						{
 							c = readToken();
-							if (c != '\0')
+							if(!(c instanceof StringToken))
 								throw new ParseException("package name expected.");
-							javaFile.setPackage(buf.toString());
+							javaFile.setPackage(((StringToken)c).value);
 							consumer.onPackage(javaFile);
-							//System.out.println("package >"+buf.toString()+"<");
+							//System.out.println("package >"+((StringToken)c).value+"<");
 							c = readToken();
-							if (c != ';')
+							if(!c.contains(';'))
 								throw new ParseException("';' expected.");
 						}
 						else if ("import".equals(bufs))
 						{
 							c = readToken();
-							if (c != '\0')
+							if(!(c instanceof StringToken))
 								throw new ParseException("class name expected.");
-							if("static".equals(buf.toString()))
+							if("static".equals(((StringToken)c).value))
 							{
 								c = readToken();
-								if (c != '\0')
+								if(!(c instanceof StringToken))
 									throw new ParseException("static import expected.");
-								//System.out.println("---------"+buf.toString());
 							}
 							else
 							{
-								final String importstring = buf.toString();
+								final String importstring = ((StringToken)c).value;
 								//System.out.println("import >"+importstring+"<");
 								javaFile.addImport(importstring);
 								consumer.onImport(importstring);
 							}
 							c = readToken();
-							if (c != ';')
+							if(!c.contains(';'))
 								throw new ParseException("';' expected.");
 						}
 						else
 							parseFeature(null, bufs);
 						// null says, its a top-level class
-						break;
-
-					case 'c' :
+				}
+				else if(c instanceof CommentToken)
+				{
+					final String comment = ((CommentToken)c).comment;
 						if (comment.startsWith("/**"))
 						{
 							docComment = comment;
@@ -974,8 +982,11 @@ final class Injector
 							//System.out.println("comment: "+comment);
 							write(comment);
 						}
-						break;
-
+				}
+				else
+				{
+				switch(((CharToken)c).value)
+				{
 					case '@':
 						parseAnnotation();
 						break;
@@ -983,6 +994,7 @@ final class Injector
 					default :
 						//System.out.println("bufc >" + c + "<");
 						break;
+				}
 				}
 			}
 		}
@@ -998,16 +1010,16 @@ final class Injector
 
 	private void parseAnnotation() throws EndException
 	{
-		final char nameToken = readToken();
-		if(nameToken!='\0')
+		final Token nameToken = readToken();
+		if(!(nameToken instanceof StringToken))
 			throw new ParseException("expected name of annotation");
 		//System.out.println("---------name of annotation-------"+buf);
 
-		final char bracketToken = readToken();
-		if(bracketToken!='(')
+		final Token bracketToken = readToken();
+		if(!bracketToken.contains('('))
 			return; // TODO this is a bug, should push back the token
 
-		while(readToken()!=')')
+		while(!readToken().contains(')'))
 			;
 	}
 
@@ -1167,4 +1179,91 @@ final class Injector
 			return Collections.emptyList();
 	}
 
+	static abstract class Token
+	{
+		abstract boolean contains(char c);
+
+		@Override
+		public abstract String toString();
+
+		/**
+		 * @deprecated for debugging only, should never be used in committed code
+		 */
+		@Deprecated
+		final Token print()
+		{
+			System.out.println("+++++"+this);
+			return this;
+		}
+	}
+
+	static final class CharToken extends Token
+	{
+		final char value;
+
+		CharToken(final char value)
+		{
+			this.value = value;
+			if(value=='\0')
+				throw new IllegalArgumentException();
+			if(value=='c')
+				throw new IllegalArgumentException();
+		}
+
+		@Override
+		boolean contains(final char c)
+		{
+			return c==value;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "char(" + value + ')';
+		}
+	}
+
+	static final class StringToken extends Token
+	{
+		final String value;
+
+		StringToken(final String value)
+		{
+			this.value = value;
+		}
+
+		@Override
+		boolean contains(final char c)
+		{
+			return false;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "string(" + value + ')';
+		}
+	}
+
+	static final class CommentToken extends Token
+	{
+		final String comment;
+
+		CommentToken(final String comment)
+		{
+			this.comment = comment;
+		}
+
+		@Override
+		boolean contains(final char c)
+		{
+			return false;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "comment(" + comment + ')';
+		}
+	}
 }
