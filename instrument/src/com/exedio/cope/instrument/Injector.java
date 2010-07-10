@@ -530,10 +530,7 @@ final class Injector
 			}
 			else if ("enum".equals(bufs))
 			{
-				final Token nameToken = readToken();
-				if(!(nameToken instanceof StringToken))
-					throw new ParseException("enum name expected");
-				final String enumName = ((StringToken)nameToken).value;
+				final String enumName = readToken().getString("enum name expected");
 				if(!readToken().contains('{'))
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
@@ -651,19 +648,14 @@ final class Injector
 				if ("final".equals(parametertype))
 				{
 					c = readToken();
-					if (c instanceof StringToken)
-						parametertype = ((StringToken)c).value;
-					else
-						throw new ParseException("parameter type expected.");
+					parametertype = c.getString("parameter type expected.");
 				}
 			}
 			else
 				throw new ParseException("')' expected.");
 			c = readToken();
-			if(!(c instanceof StringToken))
-				throw new ParseException("parameter name expected.");
 			//System.out.println("addParameter("+parametertype+", "+buf.toString()+")");
-			jb.addParameter(parametertype, ((StringToken)c).value);
+			jb.addParameter(parametertype, c.getString("parameter name expected."));
 			c = readToken();
 			if(c.contains(','))
 			{
@@ -713,10 +705,7 @@ final class Injector
 					do
 					{
 						c = readToken();
-						if(c instanceof StringToken)
-							jb.addThrowable(((StringToken)c).value);
-						else
-							throw new ParseException("class name expected.");
+						jb.addThrowable(c.getString("class name expected."));
 						c = readToken();
 					}
 					while(c.contains(','));
@@ -758,9 +747,7 @@ final class Injector
 					return jaarray;
 				case ',' :
 					c = readToken();
-					if(!(c instanceof StringToken))
-						throw new ParseException("attribute name expected.");
-					ja = new JavaAttribute(ja, ((StringToken)c).value);
+					ja = new JavaAttribute(ja, c.getString("attribute name expected."));
 					commaSeparatedAttributes.add(ja);
 					//if(!do_block) ja.print(System.out);
 					c = readToken();
@@ -780,10 +767,7 @@ final class Injector
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, InjectorParseException
 	{
-		final Token classnameToken = readToken();
-		if(!(classnameToken instanceof StringToken))
-			throw new ParseException("class name expected.");
-		final String classname = ((StringToken)classnameToken).value;
+		final String classname = readToken().getString("class name expected.");
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
 
 		Token imc;
@@ -930,9 +914,7 @@ final class Injector
 					if ("package".equals(bufs))
 					{
 						c = readToken();
-						if(!(c instanceof StringToken))
-							throw new ParseException("package name expected.");
-						javaFile.setPackage(((StringToken)c).value);
+						javaFile.setPackage(c.getString("package name expected."));
 						consumer.onPackage(javaFile);
 						//System.out.println("package >"+((StringToken)c).value+"<");
 						c = readToken();
@@ -1009,9 +991,7 @@ final class Injector
 
 	private void parseAnnotation() throws EndException
 	{
-		final Token nameToken = readToken();
-		if(!(nameToken instanceof StringToken))
-			throw new ParseException("expected name of annotation");
+		readToken().getString("expected name of annotation");
 		//System.out.println("---------name of annotation-------"+buf);
 
 		final Token bracketToken = readToken();
@@ -1178,9 +1158,14 @@ final class Injector
 			return Collections.emptyList();
 	}
 
-	static abstract class Token
+	abstract class Token
 	{
 		abstract boolean contains(char c);
+
+		String getString(final String message) throws ParseException
+		{
+			throw new ParseException(message);
+		}
 
 		@Override
 		public abstract String toString();
@@ -1196,7 +1181,7 @@ final class Injector
 		}
 	}
 
-	static final class CharToken extends Token
+	final class CharToken extends Token
 	{
 		final char value;
 
@@ -1222,7 +1207,7 @@ final class Injector
 		}
 	}
 
-	static final class StringToken extends Token
+	final class StringToken extends Token
 	{
 		final String value;
 
@@ -1238,13 +1223,19 @@ final class Injector
 		}
 
 		@Override
+		String getString(final String message)
+		{
+			return value;
+		}
+
+		@Override
 		public String toString()
 		{
 			return "string(" + value + ')';
 		}
 	}
 
-	static final class CommentToken extends Token
+	final class CommentToken extends Token
 	{
 		final String comment;
 
