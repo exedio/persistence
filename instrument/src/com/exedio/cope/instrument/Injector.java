@@ -589,15 +589,15 @@ final class Injector
 		if(!(c instanceof StringToken))
 		{
 			c.expect('('); // it's a constructor !
-				featurename = featuretype;
-				featuretype = null;
-				if (!parent.name.equals(featurename))
-					throw new ParseException(
-						"constructor '"
-							+ featurename
-							+ "' must have the classes name '"
-							+ parent.name
-							+ '\'');
+			featurename = featuretype;
+			featuretype = null;
+			if (!parent.name.equals(featurename))
+				throw new ParseException(
+					"constructor '"
+						+ featurename
+						+ "' must have the classes name '"
+						+ parent.name
+						+ '\'');
 		}
 		else
 		{
