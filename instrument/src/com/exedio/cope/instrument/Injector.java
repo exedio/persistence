@@ -683,46 +683,46 @@ final class Injector
 		{
 			if(c instanceof CharToken)
 			{
-			switch(((CharToken)c).value)
-			{
-				case '{' :
-					if (collect_when_blocking)
-					{
-						output.append(getCollector());
-						consumer.onBehaviourHeader(jb);
-					}
-					parseBody(false, null);
-					flushOutbuf();
-					break ti;
-				case ';' :
-					if (collect_when_blocking)
-					{
-						output.append(getCollector());
-						consumer.onBehaviourHeader(jb);
-					}
-					flushOutbuf();
-					break ti;
-				default :
-					throw new ParseException("'{' expected.");
-			}
+				switch(((CharToken)c).value)
+				{
+					case '{' :
+						if (collect_when_blocking)
+						{
+							output.append(getCollector());
+							consumer.onBehaviourHeader(jb);
+						}
+						parseBody(false, null);
+						flushOutbuf();
+						break ti;
+					case ';' :
+						if (collect_when_blocking)
+						{
+							output.append(getCollector());
+							consumer.onBehaviourHeader(jb);
+						}
+						flushOutbuf();
+						break ti;
+					default :
+						throw new ParseException("'{' expected.");
+				}
 			}
 			else
 			{
-					if(((StringToken)c).value.equals("throws"))
+				if(((StringToken)c).value.equals("throws"))
+				{
+					do
 					{
-						do
-						{
-							c = readToken();
-							if(c instanceof StringToken)
-								jb.addThrowable(((StringToken)c).value);
-							else
-								throw new ParseException("class name expected.");
-							c = readToken();
-						}
-						while(c.contains(','));
+						c = readToken();
+						if(c instanceof StringToken)
+							jb.addThrowable(((StringToken)c).value);
+						else
+							throw new ParseException("class name expected.");
+						c = readToken();
 					}
-					else
-						throw new ParseException("'throws' expected.");
+					while(c.contains(','));
+				}
+				else
+					throw new ParseException("'throws' expected.");
 			}
 		}
 		if (do_block)
@@ -744,7 +744,6 @@ final class Injector
 
 		while (true)
 		{
-
 			switch(((CharToken)c).value)
 			{
 				case ';' :
@@ -842,59 +841,59 @@ final class Injector
 			if(token instanceof CommentToken)
 			{
 				final String comment = ((CommentToken)token).comment;
-					if (comment.startsWith("/**"))
-					{
-						docComment = comment;
-						//System.out.println("docComment: "+docComment);
-						final boolean onDocCommentResult = consumer.onDocComment(docComment);
-						discardNextFeature = !onDocCommentResult;
-						if(onDocCommentResult)
-							output.append(docComment);
-						scheduleBlock(onDocCommentResult);
-					}
-					else
-					{
-						//System.out.println("comment: "+comment);
-						write(comment);
-						scheduleBlock(true);
-					}
+				if (comment.startsWith("/**"))
+				{
+					docComment = comment;
+					//System.out.println("docComment: "+docComment);
+					final boolean onDocCommentResult = consumer.onDocComment(docComment);
+					discardNextFeature = !onDocCommentResult;
+					if(onDocCommentResult)
+						output.append(docComment);
+					scheduleBlock(onDocCommentResult);
+				}
+				else
+				{
+					//System.out.println("comment: "+comment);
+					write(comment);
+					scheduleBlock(true);
+				}
 			}
 			else if(token instanceof StringToken)
 			{
-					final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
-					for(final JavaFeature jf : jfarray)
-						consumer.onClassFeature(jf, docComment);
-					discardNextFeature=false;
-					docComment = null;
-					scheduleBlock(true);
+				final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
+				for(final JavaFeature jf : jfarray)
+					consumer.onClassFeature(jf, docComment);
+				discardNextFeature=false;
+				docComment = null;
+				scheduleBlock(true);
 			}
 			else
 			{
-			switch(((CharToken)token).value)
-			{
-				case '}' :
-					getCollector();
-					break ml;
-				case ';' :
-					// javac (but not jikes) accepts semicolons on class level,
-					// so do we.
-					getCollector();
-					break;
-				case '{' :
-					// this is an object initializer as defined
-					// in Java Language Specification D.1.3
-					if (collect_when_blocking)
-						write(getCollector());
-					flushOutbuf();
-					parseBody(false, null);
-					scheduleBlock(true);
-					break;
-				case '@':
-					parseAnnotation();
-					break;
-				default :
-					throw new ParseException("class member expected.");
-			}
+				switch(((CharToken)token).value)
+				{
+					case '}' :
+						getCollector();
+						break ml;
+					case ';' :
+						// javac (but not jikes) accepts semicolons on class level,
+						// so do we.
+						getCollector();
+						break;
+					case '{' :
+						// this is an object initializer as defined
+						// in Java Language Specification D.1.3
+						if (collect_when_blocking)
+							write(getCollector());
+						flushOutbuf();
+						parseBody(false, null);
+						scheduleBlock(true);
+						break;
+					case '@':
+						parseAnnotation();
+						break;
+					default :
+						throw new ParseException("class member expected.");
+				}
 			}
 		}
 
@@ -927,74 +926,74 @@ final class Injector
 
 				if(c instanceof StringToken)
 				{
-						final String bufs = ((StringToken)c).value;
-						if ("package".equals(bufs))
+					final String bufs = ((StringToken)c).value;
+					if ("package".equals(bufs))
+					{
+						c = readToken();
+						if(!(c instanceof StringToken))
+							throw new ParseException("package name expected.");
+						javaFile.setPackage(((StringToken)c).value);
+						consumer.onPackage(javaFile);
+						//System.out.println("package >"+((StringToken)c).value+"<");
+						c = readToken();
+						if(!c.contains(';'))
+							throw new ParseException("';' expected.");
+					}
+					else if ("import".equals(bufs))
+					{
+						c = readToken();
+						if(!(c instanceof StringToken))
+							throw new ParseException("class name expected.");
+						if("static".equals(((StringToken)c).value))
 						{
 							c = readToken();
 							if(!(c instanceof StringToken))
-								throw new ParseException("package name expected.");
-							javaFile.setPackage(((StringToken)c).value);
-							consumer.onPackage(javaFile);
-							//System.out.println("package >"+((StringToken)c).value+"<");
-							c = readToken();
-							if(!c.contains(';'))
-								throw new ParseException("';' expected.");
-						}
-						else if ("import".equals(bufs))
-						{
-							c = readToken();
-							if(!(c instanceof StringToken))
-								throw new ParseException("class name expected.");
-							if("static".equals(((StringToken)c).value))
-							{
-								c = readToken();
-								if(!(c instanceof StringToken))
-									throw new ParseException("static import expected.");
-							}
-							else
-							{
-								final String importstring = ((StringToken)c).value;
-								//System.out.println("import >"+importstring+"<");
-								javaFile.addImport(importstring);
-								consumer.onImport(importstring);
-							}
-							c = readToken();
-							if(!c.contains(';'))
-								throw new ParseException("';' expected.");
+								throw new ParseException("static import expected.");
 						}
 						else
-							parseFeature(null, bufs);
-						// null says, its a top-level class
+						{
+							final String importstring = ((StringToken)c).value;
+							//System.out.println("import >"+importstring+"<");
+							javaFile.addImport(importstring);
+							consumer.onImport(importstring);
+						}
+						c = readToken();
+						if(!c.contains(';'))
+							throw new ParseException("';' expected.");
+					}
+					else
+						parseFeature(null, bufs);
+					// null says, its a top-level class
 				}
 				else if(c instanceof CommentToken)
 				{
 					final String comment = ((CommentToken)c).comment;
-						if (comment.startsWith("/**"))
-						{
-							docComment = comment;
-							//System.out.println ("file level docComment: "+docComment);
-							consumer.onFileDocComment(docComment);
-							output.append(docComment);
-							docComment = null; // Mark docComment as handled...
-						}
-						else
-						{
-							//System.out.println("comment: "+comment);
-							write(comment);
-						}
+					if (comment.startsWith("/**"))
+					{
+						docComment = comment;
+						//System.out.println ("file level docComment: "+docComment);
+						consumer.onFileDocComment(docComment);
+						output.append(docComment);
+						docComment = null; // Mark docComment as handled...
+					}
+					else
+					{
+						//System.out.println("comment: "+comment);
+						write(comment);
+					}
 				}
 				else
 				{
-				switch(((CharToken)c).value)
-				{
-					case '@':
-						parseAnnotation();
-						break;
+					switch(((CharToken)c).value)
+					{
+						case '@':
+							parseAnnotation();
+							break;
 
-					default :
-						//System.out.println("bufc >" + c + "<");
-						break;
-				}
+						default :
+							//System.out.println("bufc >" + c + "<");
+							break;
+					}
 				}
 			}
 		}
