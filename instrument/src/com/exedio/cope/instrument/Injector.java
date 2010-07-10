@@ -486,7 +486,7 @@ final class Injector
 	 * The same as parseFeature(JavaClass) but the first token has
 	 * already been fetched from the input stream.
 	 * @param bufs the first token of the class feature.
-	 * @see #parseFeature(JavaClass)
+	 * @see #parseFeature(JavaClass,StringToken)
 	 */
 	private JavaFeature[] parseFeature(final JavaClass parent, String bufs)
 		throws IOException, EndException, InjectorParseException
