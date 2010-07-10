@@ -103,7 +103,7 @@ abstract class JavaFeature
 
 	final Visibility getVisibility()
 	{
-		return Visibility.fromModifier(modifier);
+		return Visibility.forModifier(modifier);
 	}
 
 	@Override
