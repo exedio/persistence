@@ -119,14 +119,14 @@ final class Injector
 	{
 		if(inputPosition>=inputLength)
 		{
-			if (output != null && !do_block && outbufvalid && !discardNextFeature)
+			if(!do_block && outbufvalid && !discardNextFeature)
 				output.append(outbuf);
 			throw new EndException();
 		}
 
 		final char c = input[inputPosition++];
 
-		if (output != null && !do_block && outbufvalid && !discardNextFeature)
+		if(!do_block && outbufvalid && !discardNextFeature)
 			output.append(outbuf);
 
 		if (do_block && collect_when_blocking)
@@ -166,8 +166,7 @@ final class Injector
 			}
 			else
 			{
-				if (output != null)
-					output.append(outbuf);
+				output.append(outbuf);
 			}
 			outbufvalid = false;
 		}
@@ -175,8 +174,7 @@ final class Injector
 
 	private void write(final String s)
 	{
-		if (output != null)
-			output.append(s);
+		output.append(s);
 	}
 
 	/**
