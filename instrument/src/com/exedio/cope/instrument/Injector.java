@@ -976,10 +976,6 @@ final class Injector
 		{
 			throw new ParseException("Unexpected End-of-File.");
 		}
-		catch (final RuntimeException e)
-		{
-			throw new ParseException(e);
-		}
 	}
 
 	private void parseAnnotation() throws EndException
@@ -1008,9 +1004,9 @@ final class Injector
 		final int line;
 		final int column;
 
-		private ParseException(final String message, final RuntimeException cause)
+		ParseException(final String message)
 		{
-			super(message, cause);
+			super(message);
 
 			final char[] input = Injector.this.input;
 			final int inputPosition = Injector.this.inputPosition;
@@ -1031,18 +1027,6 @@ final class Injector
 			}
 			this.line = line;
 			this.column = column;
-		}
-
-		ParseException(final String message)
-		{
-			//super("["+positionLine+':'+positionColumn+']'+' '+message);
-			this(message, null);
-		}
-
-		ParseException(final RuntimeException cause)
-		{
-			//super("["+positionLine+':'+positionColumn+']'+' '+message);
-			this(null, cause);
 		}
 
 		@Override
