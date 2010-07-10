@@ -531,8 +531,7 @@ final class Injector
 			else if ("enum".equals(bufs))
 			{
 				final String enumName = readToken().getString("enum name expected");
-				if(!readToken().contains('{'))
-					throw new ParseException("'{' expected");
+				readToken().expect('{');
 				parseBody(false, null);
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
 
@@ -589,8 +588,7 @@ final class Injector
 
 		if(!(c instanceof StringToken))
 		{
-			if(c.contains('(')) // it's a constructor !
-			{
+			c.expect('('); // it's a constructor !
 				featurename = featuretype;
 				featuretype = null;
 				if (!parent.name.equals(featurename))
@@ -600,9 +598,6 @@ final class Injector
 							+ "' must have the classes name '"
 							+ parent.name
 							+ '\'');
-			}
-			else
-				throw new ParseException("'(' expected.");
 		}
 		else
 		{
@@ -918,8 +913,7 @@ final class Injector
 						consumer.onPackage(javaFile);
 						//System.out.println("package >"+((StringToken)c).value+"<");
 						c = readToken();
-						if(!c.contains(';'))
-							throw new ParseException("';' expected.");
+						c.expect(';');
 					}
 					else if ("import".equals(bufs))
 					{
@@ -940,8 +934,7 @@ final class Injector
 							consumer.onImport(importstring);
 						}
 						c = readToken();
-						if(!c.contains(';'))
-							throw new ParseException("';' expected.");
+						c.expect(';');
 					}
 					else
 						parseFeature(null, bufs);
@@ -1161,6 +1154,12 @@ final class Injector
 	abstract class Token
 	{
 		abstract boolean contains(char c);
+
+		void expect(final char c)
+		{
+			if(!contains(c))
+				throw new ParseException("'" + c + "' expected");
+		}
 
 		String getString(final String message) throws ParseException
 		{
