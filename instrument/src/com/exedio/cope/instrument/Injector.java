@@ -673,7 +673,7 @@ final class Injector
 					case '{' :
 						if (collect_when_blocking)
 						{
-							output.append(getCollector());
+							write(getCollector());
 							consumer.onBehaviourHeader(jb);
 						}
 						parseBody(false, null);
@@ -682,7 +682,7 @@ final class Injector
 					case ';' :
 						if (collect_when_blocking)
 						{
-							output.append(getCollector());
+							write(getCollector());
 							consumer.onBehaviourHeader(jb);
 						}
 						flushOutbuf();
@@ -825,7 +825,7 @@ final class Injector
 					final boolean onDocCommentResult = consumer.onDocComment(docComment);
 					discardNextFeature = !onDocCommentResult;
 					if(onDocCommentResult)
-						output.append(docComment);
+						write(docComment);
 					scheduleBlock(onDocCommentResult);
 				}
 				else
@@ -946,7 +946,7 @@ final class Injector
 						docComment = comment;
 						//System.out.println ("file level docComment: "+docComment);
 						consumer.onFileDocComment(docComment);
-						output.append(docComment);
+						write(docComment);
 						docComment = null; // Mark docComment as handled...
 					}
 					else
