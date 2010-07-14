@@ -38,7 +38,7 @@ public class DeleteHierarchyTargetSub extends DeleteHierarchyTargetSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			DeleteHierarchyTargetSub.code.map(code),
+			com.exedio.cope.DeleteHierarchyTargetSuper.code.map(code),
 		});
 	}/**
 

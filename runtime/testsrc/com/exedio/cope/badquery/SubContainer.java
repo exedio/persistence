@@ -49,9 +49,9 @@ public class SubContainer extends SuperContainer
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			SubContainer.code.map(code),
-			SubContainer.queryItem.map(queryItem),
-			SubContainer.superflag.map(superflag),
+			com.exedio.cope.badquery.SuperItem.code.map(code),
+			com.exedio.cope.badquery.SuperContainer.queryItem.map(queryItem),
+			com.exedio.cope.badquery.SuperContainer.superflag.map(superflag),
 			SubContainer.superContainer.map(superContainer),
 		});
 	}/**

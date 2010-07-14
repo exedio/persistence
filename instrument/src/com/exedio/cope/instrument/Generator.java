@@ -301,7 +301,11 @@ final class Generator
 		for(final CopeFeature feature : initialFeatures)
 		{
 			o.write("\t\t\t");
-			o.write(type.name);
+			final CopeType parent = feature.parent;
+			if(parent==type)
+				o.write(type.name);
+			else
+				o.write(parent.javaClass.getFullName());
 			o.write('.');
 			o.write(feature.name);
 			o.write(".map(");

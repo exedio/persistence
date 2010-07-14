@@ -41,7 +41,7 @@ class QueryItem extends SuperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			QueryItem.code.map(code),
+			com.exedio.cope.badquery.SuperItem.code.map(code),
 		});
 	}/**
 

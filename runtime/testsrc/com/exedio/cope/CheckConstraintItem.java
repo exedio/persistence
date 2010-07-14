@@ -72,9 +72,9 @@ public class CheckConstraintItem extends CheckConstraintSuperItem
 				final java.lang.Integer delta)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			CheckConstraintItem.eins.map(eins),
-			CheckConstraintItem.zwei.map(zwei),
-			CheckConstraintItem.drei.map(drei),
+			com.exedio.cope.CheckConstraintSuperItem.eins.map(eins),
+			com.exedio.cope.CheckConstraintSuperItem.zwei.map(zwei),
+			com.exedio.cope.CheckConstraintSuperItem.drei.map(drei),
 			CheckConstraintItem.alpha.map(alpha),
 			CheckConstraintItem.beta.map(beta),
 			CheckConstraintItem.gamma.map(gamma),

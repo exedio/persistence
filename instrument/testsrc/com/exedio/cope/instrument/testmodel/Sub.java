@@ -56,8 +56,8 @@ public class Sub extends Super
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			Sub.superMandatory.map(superMandatory),
-			Sub.superInitial.map(superInitial),
+			com.exedio.cope.instrument.testmodel.Super.superMandatory.map(superMandatory),
+			com.exedio.cope.instrument.testmodel.Super.superInitial.map(superInitial),
 			Sub.subMandatory.map(subMandatory),
 			Sub.subInitial.map(subInitial),
 		});

@@ -45,9 +45,9 @@ class ConnectItem2 extends ConnectItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			ConnectItem2.itemField.map(itemField),
-			ConnectItem2.itemFieldSelf.map(itemFieldSelf),
-			ConnectItem2.stringField.map(stringField),
+			com.exedio.cope.ConnectItem.itemField.map(itemField),
+			com.exedio.cope.ConnectItem.itemFieldSelf.map(itemFieldSelf),
+			com.exedio.cope.ConnectItem.stringField.map(stringField),
 		});
 	}/**
 

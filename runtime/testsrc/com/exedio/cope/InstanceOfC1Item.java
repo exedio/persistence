@@ -41,7 +41,7 @@ class InstanceOfC1Item extends InstanceOfB1Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			InstanceOfC1Item.code.map(code),
+			com.exedio.cope.InstanceOfAItem.code.map(code),
 		});
 	}/**
 
