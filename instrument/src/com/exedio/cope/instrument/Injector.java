@@ -145,6 +145,16 @@ final class Injector
 		this.collect_when_blocking = collect_when_blocking;
 	}
 
+	private boolean do_block()
+	{
+		return do_block;
+	}
+
+	private boolean collect_when_blocking()
+	{
+		return collect_when_blocking;
+	}
+
 	private String getCollector()
 	{
 		do_block = false;
@@ -539,9 +549,9 @@ final class Injector
 
 				discardNextFeature=false;
 
-				if (collect_when_blocking)
+				if(collect_when_blocking())
 					write(getCollector());
-				if (do_block)
+				if(do_block())
 					getCollector();
 
 				return new JavaFeature[]{result};
@@ -564,7 +574,7 @@ final class Injector
 					if(c.contains('{') && modifiers == Modifier.STATIC)
 					{
 						// this is a static initializer
-						if (collect_when_blocking)
+						if(collect_when_blocking())
 							write(getCollector());
 						flushOutbuf();
 						parseBody(false, null);
@@ -671,7 +681,7 @@ final class Injector
 				switch(((CharToken)c).value)
 				{
 					case '{' :
-						if (collect_when_blocking)
+						if(collect_when_blocking())
 						{
 							write(getCollector());
 							consumer.onBehaviourHeader(jb);
@@ -680,7 +690,7 @@ final class Injector
 						flushOutbuf();
 						break ti;
 					case ';' :
-						if (collect_when_blocking)
+						if(collect_when_blocking())
 						{
 							write(getCollector());
 							consumer.onBehaviourHeader(jb);
@@ -707,7 +717,7 @@ final class Injector
 					throw new ParseException("'throws' expected.");
 			}
 		}
-		if (do_block)
+		if(do_block())
 			getCollector();
 		else
 		{
@@ -729,10 +739,10 @@ final class Injector
 			switch(((CharToken)c).value)
 			{
 				case ';' :
-					if (collect_when_blocking)
+					if(collect_when_blocking())
 						write(getCollector());
 					flushOutbuf();
-					if (do_block)
+					if(do_block())
 						getCollector();
 					final JavaAttribute[] jaarray =
 						new JavaAttribute[commaSeparatedAttributes.size()];
@@ -746,7 +756,7 @@ final class Injector
 					c = readToken();
 					break;
 				case '=' :
-					if (collect_when_blocking)
+					if(collect_when_blocking())
 						write(getCollector());
 					c = parseBody(true, ja);
 					flushOutbuf();
@@ -806,9 +816,9 @@ final class Injector
 		consumer.onClass(jc);
 		discardNextFeature=false;
 
-		if (collect_when_blocking)
+		if(collect_when_blocking())
 			write(getCollector());
-		if (do_block)
+		if(do_block())
 			getCollector();
 
 		scheduleBlock(true);
@@ -859,7 +869,7 @@ final class Injector
 					case '{' :
 						// this is an object initializer as defined
 						// in Java Language Specification D.1.3
-						if (collect_when_blocking)
+						if(collect_when_blocking())
 							write(getCollector());
 						flushOutbuf();
 						parseBody(false, null);
@@ -896,9 +906,9 @@ final class Injector
 					return;
 				}
 
-				if (collect_when_blocking)
+				if(collect_when_blocking())
 					write(getCollector());
-				if (do_block)
+				if(do_block())
 					getCollector();
 
 				if(c instanceof StringToken)
