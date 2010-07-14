@@ -102,7 +102,8 @@ public final class Main
 			if(!file.isFile())
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
-			final Injector injector = new Injector(file, new Instrumentor(), repository);
+			final JavaFile javaFile = new JavaFile(repository);
+			final Injector injector = new Injector(file, new Instrumentor(), javaFile);
 			injector.parseFile();
 			injectors.add(injector);
 		}

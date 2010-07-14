@@ -79,7 +79,7 @@ final class Injector
 	 * @see InjectionConsumer
 	 */
 	public Injector(final File inputFile,
-								final InjectionConsumer consumer, final JavaRepository repository)
+								final InjectionConsumer consumer, final JavaFile javaFile)
 		throws IOException
 	{
 		final byte[] inputBytes = new byte[(int)inputFile.length()];
@@ -108,7 +108,7 @@ final class Injector
 
 		this.consumer = consumer;
 		this.fileName = inputFile.getName();
-		this.javaFile = new JavaFile(repository);
+		this.javaFile = javaFile;
 		this.output = javaFile.buffer;
 	}
 

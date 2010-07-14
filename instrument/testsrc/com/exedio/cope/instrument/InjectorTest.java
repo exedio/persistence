@@ -52,7 +52,8 @@ public abstract class InjectorTest extends InstrumentorTest
 		injectionEvents = new LinkedList<InjectionEvent>();
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
-		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
+		final JavaFile javaFile = new JavaFile(repository);
+		final Injector injector = new Injector(inputFile, testInjectionConsumer, javaFile);
 		if(assertText)
 			testInjectionConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
