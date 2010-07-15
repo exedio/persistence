@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 
-final class Instrumentor implements InjectionConsumer
+final class Instrumentor implements ParseConsumer
 {
 
 	/**

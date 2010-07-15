@@ -369,7 +369,7 @@ final class Generator
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
 				modifierTag!=null
-				? new Option(Injector.findDocTagLine(
+				? new Option(Parser.findDocTagLine(
 									feature.docComment,
 									CopeFeature.TAG_PREFIX + modifierTag),
 						true)
@@ -622,7 +622,7 @@ final class Generator
 
 	private static final String toStringType(final CopeFeature feature, final int number)
 	{
-		return Injector.getGenerics(feature.javaAttribute.type).get(number);
+		return Parser.getGenerics(feature.javaAttribute.type).get(number);
 	}
 
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)
@@ -680,7 +680,7 @@ final class Generator
 	throws InjectorParseException
 	{
 		final Option option = new Option(
-				Injector.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
+				Parser.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
 		if(!option.exists)
 			return;
 

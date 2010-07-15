@@ -32,7 +32,7 @@ import bsh.UtilEvalError;
 /**
  * Represents a class parsed by the java parser.
  * Is an inner class, if parent is not null.
- * @see Injector
+ * @see Parser
  *
  * @author Ralf Wiebicke
  */
@@ -163,7 +163,7 @@ final class JavaClass extends JavaFeature
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
-			final Object result = file.repository.interpreter.eval(Injector.removeGenerics(s), nameSpace);
+			final Object result = file.repository.interpreter.eval(Parser.removeGenerics(s), nameSpace);
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}

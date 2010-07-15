@@ -93,7 +93,7 @@ public final class Main
 			throw new IllegalParameterException("nothing to do.");
 
 		final JavaRepository repository = new JavaRepository();
-		final ArrayList<Injector> injectors = new ArrayList<Injector>(files.size());
+		final ArrayList<Parser> parsers = new ArrayList<Parser>(files.size());
 
 		this.verbose = params.verbose;
 		instrumented = 0;
@@ -106,16 +106,16 @@ public final class Main
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
 			final JavaFile javaFile = new JavaFile(repository);
-			final Injector injector = new Injector(new Tokenizer(file, javaFile), new Instrumentor(), javaFile);
-			injector.parseFile();
-			injectors.add(injector);
+			final Parser parser = new Parser(new Tokenizer(file, javaFile), new Instrumentor(), javaFile);
+			parser.parseFile();
+			parsers.add(parser);
 		}
 
 		repository.endBuildStage();
 
-		for(final Injector injector : injectors)
+		for(final Parser parser : parsers)
 		{
-			final JavaFile javaFile = injector.javaFile;
+			final JavaFile javaFile = parser.javaFile;
 			for(final JavaClass javaClass : javaFile.getClasses())
 			{
 				final CopeType type = CopeType.getCopeType(javaClass);
@@ -131,16 +131,16 @@ public final class Main
 			}
 		}
 
-		final Iterator<Injector> injectorsIter = injectors.iterator();
+		final Iterator<Parser> parsersIter = parsers.iterator();
 		for(final File file : files)
 		{
-			final Injector injector = injectorsIter.next();
+			final Parser parser = parsersIter.next();
 
 			final StringBuilder baos = new StringBuilder((int)file.length() + 100);
-			final Generator generator = new Generator(injector.javaFile, baos, params);
+			final Generator generator = new Generator(parser.javaFile, baos, params);
 			generator.write();
 
-			if(!equal(injector.tokenizer.input, baos))
+			if(!equal(parser.tokenizer.input, baos))
 			{
 				logInstrumented(file);
 				delete(file);

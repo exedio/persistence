@@ -39,8 +39,8 @@ import java.util.List;
  * initializers.
  *
  * To use the parser, provide an implementation of the
- * InjectionConsumer interface to the constructor.
- * @see InjectionConsumer
+ * ParseConsumer interface to the constructor.
+ * @see ParseConsumer
  *
  * @author Ralf Wiebicke
  */

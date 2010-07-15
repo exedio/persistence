@@ -42,15 +42,15 @@ import com.exedio.cope.instrument.Tokenizer.Token;
  * initializers.
  *
  * To use the parser, provide an implementation of the
- * InjectionConsumer interface to the constructor.
- * @see InjectionConsumer
+ * ParseConsumer interface to the constructor.
+ * @see ParseConsumer
  *
  * @author Ralf Wiebicke
  */
-final class Injector
+final class Parser
 {
 	final Tokenizer tokenizer;
-	private final InjectionConsumer consumer;
+	private final ParseConsumer consumer;
 
 	private String docComment = null;
 
@@ -63,10 +63,10 @@ final class Injector
 	 * @param consumer
 	 * an implementation of InjectionConsumer,
 	 * listening to parsed elements of the input stream.
-	 * @see InjectionConsumer
+	 * @see ParseConsumer
 	 */
-	public Injector(final Tokenizer tokenizer,
-								final InjectionConsumer consumer, final JavaFile javaFile)
+	public Parser(final Tokenizer tokenizer,
+								final ParseConsumer consumer, final JavaFile javaFile)
 	{
 		this.tokenizer = tokenizer;
 		this.consumer = consumer;

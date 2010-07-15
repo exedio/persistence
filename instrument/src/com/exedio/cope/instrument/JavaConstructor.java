@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 
 /**
  * Represents a constructor of a class parsed by the java parser.
- * @see Injector
+ * @see Parser
  *
  * @author Ralf Wiebicke
  */

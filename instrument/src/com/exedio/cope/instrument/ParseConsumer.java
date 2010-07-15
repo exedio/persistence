@@ -22,7 +22,7 @@ package com.exedio.cope.instrument;
 
 /**
  * Implementors of this interface get the results of the
- * {@link Injector java parser}.
+ * {@link Parser java parser}.
  * <p>
  * An implementation may write to the ouput stream of the
  * java parser. Therefore, the interface of each method
@@ -31,7 +31,7 @@ package com.exedio.cope.instrument;
  *
  * @author Ralf Wiebicke
  */
-interface InjectionConsumer
+interface ParseConsumer
 {
 	/**
 	 * Encountered a package statement.

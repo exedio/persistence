@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
  * java parser.
  * Contains additional information about this attribute
  * described in the doccomment of this attribute.
- * @see Injector
+ * @see Parser
  *
  * @author Ralf Wiebicke
  */
