@@ -159,6 +159,11 @@ final class Injector
 		return s;
 	}
 
+	private void discardNextFeature(final boolean b)
+	{
+		discardNextFeature = b;
+	}
+
 	private void flushOutbuf()
 	{
 		if (outbufvalid)
@@ -541,7 +546,7 @@ final class Injector
 				result.setClassEndPosition(output.length());
 				consumer.onClassEnd(result);
 
-				discardNextFeature=false;
+				discardNextFeature(false);
 
 				if(collect_when_blocking())
 					write(getCollector());
@@ -808,7 +813,7 @@ final class Injector
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
-		discardNextFeature=false;
+		discardNextFeature(false);
 
 		if(collect_when_blocking())
 			write(getCollector());
@@ -827,7 +832,7 @@ final class Injector
 					docComment = comment;
 					//System.out.println("docComment: "+docComment);
 					final boolean onDocCommentResult = consumer.onDocComment(docComment);
-					discardNextFeature = !onDocCommentResult;
+					discardNextFeature(!onDocCommentResult);
 					if(onDocCommentResult)
 						write(docComment);
 					scheduleBlock(onDocCommentResult);
@@ -844,7 +849,7 @@ final class Injector
 				final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
 				for(final JavaFeature jf : jfarray)
 					consumer.onClassFeature(jf, docComment);
-				discardNextFeature=false;
+				discardNextFeature(false);
 				docComment = null;
 				scheduleBlock(true);
 			}
