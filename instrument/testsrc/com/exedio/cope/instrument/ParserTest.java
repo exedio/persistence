@@ -372,55 +372,55 @@ public abstract class ParserTest extends InstrumentorTest
 		public void onPackage(final JavaFile javaFile) throws ParserException
 		{
 			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());
-			addInjectionEvent(new PackageEvent(javaFile));
+			addParseEvent(new PackageEvent(javaFile));
 		}
 
 		public void onImport(final String importname)
 		{
-			addInjectionEvent(new ImportEvent(importname));
+			addParseEvent(new ImportEvent(importname));
 		}
 
 		public void onClass(final JavaClass cc)
 		{
-			addInjectionEvent(new ClassEvent(cc));
+			addParseEvent(new ClassEvent(cc));
 		}
 
 		public void onClassEnd(final JavaClass cc)
 		{
-			addInjectionEvent(new ClassEndEvent(cc));
+			addParseEvent(new ClassEndEvent(cc));
 		}
 
 		public void onBehaviourHeader(final JavaBehaviour jb)
 		{
-			addInjectionEvent(new BehaviourHeaderEvent(jb));
+			addParseEvent(new BehaviourHeaderEvent(jb));
 		}
 
 		public void onAttributeHeader(final JavaAttribute ja)
 		{
-			addInjectionEvent(new AttributeHeaderEvent(ja));
+			addParseEvent(new AttributeHeaderEvent(ja));
 		}
 
 		public void onClassFeature(final JavaFeature cf, final String doccomment)
 		{
 			//System.out.println("onClassFeature("+cf.name+" "+doccomment+")");
-			addInjectionEvent(new ClassFeatureEvent(cf, doccomment));
+			addParseEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 
 		public boolean onDocComment(final String doccomment)
 		{
-			addInjectionEvent(new DocCommentEvent(doccomment));
+			addParseEvent(new DocCommentEvent(doccomment));
 			return doccomment.indexOf("DO_DISCARD")<0;
 		}
 
 		public void onFileDocComment(final String doccomment)
 		{
-			addInjectionEvent(new FileDocCommentEvent(doccomment));
+			addParseEvent(new FileDocCommentEvent(doccomment));
 		}
 
-		private void addInjectionEvent(final ParseEvent injectionEvent)
+		private void addParseEvent(final ParseEvent parseEvent)
 		{
 			flushOutput();
-			parseEvents.add(injectionEvent);
+			parseEvents.add(parseEvent);
 		}
 
 		private void flushOutput()
