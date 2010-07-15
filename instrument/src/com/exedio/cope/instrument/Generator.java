@@ -96,7 +96,7 @@ final class Generator
 
 
 	private final JavaFile javaFile;
-	private final Writer o;
+	private final Writer output;
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
@@ -107,7 +107,7 @@ final class Generator
 	Generator(final JavaFile javaFile, final Writer outputWriter, final Params params)
 	{
 		this.javaFile = javaFile;
-		this.o = outputWriter;
+		this.output = outputWriter;
 
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
@@ -126,8 +126,8 @@ final class Generator
 
 	void close() throws IOException
 	{
-		if(o!=null)
-			o.close();
+		if(output!=null)
+			output.close();
 	}
 
 	private static final String toCamelCase(final String name)
@@ -833,13 +833,13 @@ final class Generator
 			{
 				assert previousClassEndPosition<=classEndPosition;
 				if(previousClassEndPosition<classEndPosition)
-					o.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
+					output.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
 
 				writeClassFeatures(type);
 				previousClassEndPosition = classEndPosition;
 			}
 		}
-		o.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
+		output.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
 	}
 
 	private void writeClassFeatures(final CopeType type)
@@ -884,11 +884,11 @@ final class Generator
 
 	private void write(final String s) throws IOException
 	{
-		o.write(s);
+		output.write(s);
 	}
 
 	private void write(final char c) throws IOException
 	{
-		o.write(c);
+		output.write(c);
 	}
 }
