@@ -59,7 +59,7 @@ final class Parser
 	/**
 	 * Constructs a new java parser.
 	 * @param consumer
-	 * an implementation of InjectionConsumer,
+	 * an implementation of ParseConsumer,
 	 * listening to parsed elements of the input stream.
 	 * @see ParseConsumer
 	 */
