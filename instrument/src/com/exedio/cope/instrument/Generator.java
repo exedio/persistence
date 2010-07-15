@@ -25,8 +25,6 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
@@ -96,7 +94,7 @@ final class Generator
 
 
 	private final JavaFile javaFile;
-	private final Writer output;
+	private final StringBuilder output;
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
@@ -104,7 +102,7 @@ final class Generator
 	private final boolean skipDeprecated;
 
 
-	Generator(final JavaFile javaFile, final Writer output, final Params params)
+	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
 	{
 		this.javaFile = javaFile;
 		this.output = output;
@@ -122,12 +120,6 @@ final class Generator
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.serialVersionUID = params.serialVersionUID;
 		this.skipDeprecated = !params.createDeprecated;
-	}
-
-	void close() throws IOException
-	{
-		if(output!=null)
-			output.close();
 	}
 
 	private static final String toCamelCase(final String name)
@@ -149,7 +141,6 @@ final class Generator
 	}
 
 	private void writeThrowsClause(final Collection<Class<? extends Throwable>> exceptions)
-	throws IOException
 	{
 		if(!exceptions.isEmpty())
 		{
@@ -170,7 +161,6 @@ final class Generator
 	}
 
 	private void writeCommentHeader()
-	throws IOException
 	{
 		write("/**");
 		write(lineSeparator);
@@ -183,13 +173,11 @@ final class Generator
 	}
 
 	private void writeCommentFooter()
-	throws IOException
 	{
 		writeCommentFooter(null);
 	}
 
 	private void writeCommentFooter(final String extraComment)
-	throws IOException
 	{
 		write("\t * @" + TAG_GENERATED + ' ');
 		write(GENERATED);
@@ -210,7 +198,6 @@ final class Generator
 	}
 
 	private void writeInitialConstructor(final CopeType type)
-	throws IOException
 	{
 		if(!type.hasInitialConstructor())
 			return;
@@ -309,7 +296,6 @@ final class Generator
 	}
 
 	private void writeGenericConstructor(final CopeType type)
-	throws IOException
 	{
 		final Option option = type.genericConstructorOption;
 		if(!option.exists)
@@ -336,7 +322,6 @@ final class Generator
 	}
 
 	private void writeActivationConstructor(final CopeType type)
-	throws IOException
 	{
 		if(type.isComposite)
 			return;
@@ -371,7 +356,7 @@ final class Generator
 	}
 
 	private void writeFeature(final CopeFeature feature)
-	throws InjectorParseException, IOException
+	throws InjectorParseException
 	{
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
@@ -608,7 +593,7 @@ final class Generator
 		}
 	}
 
-	private void writeName(final String methodName, final String featureName) throws IOException
+	private void writeName(final String methodName, final String featureName)
 	{
 		for(int i = 0; i<methodName.length(); i++)
 			if(Character.isUpperCase(methodName.charAt(i)))
@@ -692,7 +677,7 @@ final class Generator
 	}
 
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
-	throws IOException, InjectorParseException
+	throws InjectorParseException
 	{
 		final Option option = new Option(
 				Injector.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
@@ -780,7 +765,7 @@ final class Generator
 		return a.getBoxedType();
 	}
 
-	private void writeSerialVersionUID() throws IOException
+	private void writeSerialVersionUID()
 	{
 		if(serialVersionUID)
 		{
@@ -794,7 +779,6 @@ final class Generator
 	}
 
 	private void writeType(final CopeType type)
-	throws IOException
 	{
 		if(type.isComposite)
 			return;
@@ -821,7 +805,7 @@ final class Generator
 		}
 	}
 
-	void write() throws IOException, InjectorParseException
+	void write() throws InjectorParseException
 	{
 		final String buffer = javaFile.buffer.toString();
 		int previousClassEndPosition = 0;
@@ -833,17 +817,17 @@ final class Generator
 			{
 				assert previousClassEndPosition<=classEndPosition;
 				if(previousClassEndPosition<classEndPosition)
-					output.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
+					output.append(buffer, previousClassEndPosition, classEndPosition);
 
 				writeClassFeatures(type);
 				previousClassEndPosition = classEndPosition;
 			}
 		}
-		output.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
+		output.append(buffer, previousClassEndPosition, buffer.length());
 	}
 
 	private void writeClassFeatures(final CopeType type)
-			throws IOException, InjectorParseException
+			throws InjectorParseException
 	{
 		if(!type.isInterface())
 		{
@@ -867,7 +851,7 @@ final class Generator
 		}
 	}
 
-	private void writeModifier(final int modifier) throws IOException
+	private void writeModifier(final int modifier)
 	{
 		final String modifierString = Modifier.toString(modifier);
 		if(modifierString.length()>0)
@@ -882,13 +866,13 @@ final class Generator
 		return "for".equals(s); // TODO
 	}
 
-	private void write(final String s) throws IOException
+	private void write(final String s)
 	{
-		output.write(s);
+		output.append(s);
 	}
 
-	private void write(final char c) throws IOException
+	private void write(final char c)
 	{
-		output.write(c);
+		output.append(c);
 	}
 }

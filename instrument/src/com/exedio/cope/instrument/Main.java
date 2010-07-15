@@ -24,7 +24,6 @@ import static com.exedio.cope.util.SafeFile.delete;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -137,10 +136,9 @@ public final class Main
 		{
 			final Injector injector = injectorsIter.next();
 
-			final StringWriter baos = new StringWriter((int)file.length() + 100);
+			final StringBuilder baos = new StringBuilder((int)file.length() + 100);
 			final Generator generator = new Generator(injector.javaFile, baos, params);
 			generator.write();
-			generator.close();
 
 			if(!equal(injector.input, baos))
 			{
@@ -148,7 +146,7 @@ public final class Main
 				delete(file);
 				final Charset charset = Charset.defaultCharset(); // TODO make configurable
 				final CharsetEncoder decoder = charset.newEncoder();
-				final ByteBuffer out = decoder.encode(CharBuffer.wrap(toCharBuffer(baos.getBuffer())));
+				final ByteBuffer out = decoder.encode(CharBuffer.wrap(toCharBuffer(baos)));
 				final FileOutputStream o = new FileOutputStream(file);
 				try
 				{
@@ -169,9 +167,8 @@ public final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean equal(final char[] a, final StringWriter b)
+	private static boolean equal(final char[] a, final StringBuilder bf)
 	{
-		final StringBuffer bf = b.getBuffer();
 		if(a.length!=bf.length())
 			return false;
 
@@ -182,7 +179,7 @@ public final class Main
 		return true;
 	}
 
-	private static CharBuffer toCharBuffer(final StringBuffer bf)
+	private static CharBuffer toCharBuffer(final StringBuilder bf)
 	{
 		final int length = bf.length();
 		final char[] chars = new char[length];
