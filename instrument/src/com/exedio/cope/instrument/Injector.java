@@ -370,7 +370,7 @@ final class Injector
 					if (bracketdepth == 0 && !attribute)
 						return new CharToken('}');
 					if (bracketdepth < 0)
-						throw new ParseException("';' expected.");
+						throw newParseException("';' expected.");
 					if(tokenConsumer!=null)
 						tokenConsumer.addToInitializer(c);
 					c = read();
@@ -553,7 +553,7 @@ final class Injector
 			else
 			{
 				if (parent == null)
-					throw new ParseException("'class' or 'interface' expected.");
+					throw newParseException("'class' or 'interface' expected.");
 				featuretype = bufs;
 				break;
 			}
@@ -562,7 +562,7 @@ final class Injector
 			if(!(c instanceof StringToken))
 			{
 				if (parent == null)
-					throw new ParseException("'class' or 'interface' expected.");
+					throw newParseException("'class' or 'interface' expected.");
 				else
 				{
 					if(c.contains('{') && modifiers == Modifier.STATIC)
@@ -578,7 +578,7 @@ final class Injector
 					}
 					else
 					{
-						throw new ParseException("modifier expected.");
+						throw newParseException("modifier expected.");
 					}
 				}
 			}
@@ -594,7 +594,7 @@ final class Injector
 			featurename = featuretype;
 			featuretype = null;
 			if (!parent.name.equals(featurename))
-				throw new ParseException(
+				throw newParseException(
 					"constructor '"
 						+ featurename
 						+ "' must have the classes name '"
@@ -649,7 +649,7 @@ final class Injector
 				}
 			}
 			else
-				throw new ParseException("')' expected.");
+				throw newParseException("')' expected.");
 			c = readToken();
 			//System.out.println("addParameter("+parametertype+", "+buf.toString()+")");
 			jb.addParameter(parametertype, c.getString("parameter name expected."));
@@ -664,7 +664,7 @@ final class Injector
 				break;
 			}
 			else
-				throw new ParseException("')' expected.");
+				throw newParseException("')' expected.");
 		}
 		// parsing throws clauses
 		c = readToken();
@@ -692,7 +692,7 @@ final class Injector
 						flushOutbuf();
 						break ti;
 					default :
-						throw new ParseException("'{' expected.");
+						throw newParseException("'{' expected.");
 				}
 			}
 			else
@@ -708,7 +708,7 @@ final class Injector
 					while(c.contains(','));
 				}
 				else
-					throw new ParseException("'throws' expected.");
+					throw newParseException("'throws' expected.");
 			}
 		}
 		if(do_block())
@@ -756,7 +756,7 @@ final class Injector
 					flushOutbuf();
 					break;
 				default :
-					throw new ParseException("';', '=' or ',' expected, but was '" + c + '\'');
+					throw newParseException("';', '=' or ',' expected, but was '" + c + '\'');
 			}
 		}
 	}
@@ -786,10 +786,10 @@ final class Injector
 					switch(extendsOrImplements)
 					{
 						case '-':
-							throw new ParseException("expected extends or implements");
+							throw newParseException("expected extends or implements");
 						case 'e':
 							if(classExtends!=null)
-								throw new ParseException("more than one type in extends clause");
+								throw newParseException("more than one type in extends clause");
 							classExtends = s;
 							break;
 						case 'i':
@@ -873,7 +873,7 @@ final class Injector
 						parseAnnotation();
 						break;
 					default :
-						throw new ParseException("class member expected.");
+						throw newParseException("class member expected.");
 				}
 			}
 		}
@@ -921,12 +921,12 @@ final class Injector
 					{
 						c = readToken();
 						if(!(c instanceof StringToken))
-							throw new ParseException("class name expected.");
+							throw newParseException("class name expected.");
 						if("static".equals(((StringToken)c).value))
 						{
 							c = readToken();
 							if(!(c instanceof StringToken))
-								throw new ParseException("static import expected.");
+								throw newParseException("static import expected.");
 						}
 						else
 						{
@@ -976,7 +976,7 @@ final class Injector
 		}
 		catch (final EndException e)
 		{
-			throw new ParseException("Unexpected End-of-File.");
+			throw newParseException("Unexpected End-of-File.");
 		}
 	}
 
@@ -997,6 +997,11 @@ final class Injector
 	{
 		private static final long serialVersionUID = 1l;
 
+	}
+
+	private ParseException newParseException(final String message)
+	{
+		return new ParseException(message);
 	}
 
 	private final class ParseException extends InjectorParseException
