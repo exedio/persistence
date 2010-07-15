@@ -31,7 +31,7 @@ public class ExampleAnnTest extends ParserTest
 	}
 
 	@Override
-	public void assertInjection()
+	public void assertParse()
 	{
 		assertPackage("com.exedio.cope.instrument");
 

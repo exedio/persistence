@@ -33,7 +33,7 @@ public class Example15Test extends ParserTest
 	}
 
 	@Override
-	public void assertInjection()
+	public void assertParse()
 	{
 		assertPackage("com.exedio.cope.instrument");
 

@@ -29,7 +29,7 @@ public class ExampleTest extends ParserTest
 	}
 
 	@Override
-	public void assertInjection()
+	public void assertParse()
 	{
 		assertText(
 			"/*\nSome initial test comment. \n"

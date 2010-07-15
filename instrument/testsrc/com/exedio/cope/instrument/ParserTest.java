@@ -42,7 +42,7 @@ public abstract class ParserTest extends InstrumentorTest
 	LinkedList<ParseEvent> parseEvents;
 	private TestParseConsumer testParseConsumer;
 
-	public abstract void assertInjection();
+	public abstract void assertParse();
 
 	public void testInjection()
 		throws IOException, ParserException
@@ -58,7 +58,7 @@ public abstract class ParserTest extends InstrumentorTest
 			testParseConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
 
-		assertInjection();
+		assertParse();
 		parseEvents = null;
 	}
 
