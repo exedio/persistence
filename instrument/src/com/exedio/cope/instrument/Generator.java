@@ -153,32 +153,32 @@ final class Generator
 	{
 		if(!exceptions.isEmpty())
 		{
-			o.write("\t\t\tthrows");
+			write("\t\t\tthrows");
 			boolean first = true;
 			for(final Class e : exceptions)
 			{
 				if(first)
 					first = false;
 				else
-					o.write(',');
-				o.write(lineSeparator);
-				o.write("\t\t\t\t");
-				o.write(e.getCanonicalName());
+					write(',');
+				write(lineSeparator);
+				write("\t\t\t\t");
+				write(e.getCanonicalName());
 			}
-			o.write(lineSeparator);
+			write(lineSeparator);
 		}
 	}
 
 	private void writeCommentHeader()
 	throws IOException
 	{
-		o.write("/**");
-		o.write(lineSeparator);
+		write("/**");
+		write(lineSeparator);
 		if(longJavadoc)
 		{
-			o.write(lineSeparator);
-			o.write("\t **");
-			o.write(lineSeparator);
+			write(lineSeparator);
+			write("\t **");
+			write(lineSeparator);
 		}
 	}
 
@@ -191,17 +191,17 @@ final class Generator
 	private void writeCommentFooter(final String extraComment)
 	throws IOException
 	{
-		o.write("\t * @" + TAG_GENERATED + ' ');
-		o.write(GENERATED);
-		o.write(lineSeparator);
+		write("\t * @" + TAG_GENERATED + ' ');
+		write(GENERATED);
+		write(lineSeparator);
 		if(extraComment!=null)
 		{
-			o.write("\t *       ");
-			o.write(extraComment);
-			o.write(lineSeparator);
+			write("\t *       ");
+			write(extraComment);
+			write(lineSeparator);
 		}
-		o.write("\t */");
-		o.write(lineSeparator);
+		write("\t */");
+		write(lineSeparator);
 	}
 
 	private static final String link(final String target)
@@ -219,16 +219,16 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_INITIAL, type.name));
-		o.write(lineSeparator);
+		write("\t * ");
+		write(format(CONSTRUCTOR_INITIAL, type.name));
+		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			o.write("\t * @param ");
-			o.write(feature.name);
-			o.write(' ');
-			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
-			o.write(lineSeparator);
+			write("\t * @param ");
+			write(feature.name);
+			write(' ');
+			write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
+			write(lineSeparator);
 		}
 		for(final Class<?> constructorException : constructorExceptions)
 		{
@@ -236,9 +236,9 @@ final class Generator
 			if(a==null)
 				continue;
 
-			o.write("\t * @throws ");
-			o.write(constructorException.getCanonicalName());
-			o.write(' ');
+			write("\t * @throws ");
+			write(constructorException.getCanonicalName());
+			write(' ');
 
 			boolean first = true;
 			final StringBuilder initialAttributesBuf = new StringBuilder();
@@ -255,15 +255,15 @@ final class Generator
 			}
 
 			final String pattern = a.value();
-			o.write(format(pattern, initialAttributesBuf.toString()));
-			o.write(lineSeparator);
+			write(format(pattern, initialAttributesBuf.toString()));
+			write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
 
-		o.write('\t');
+		write('\t');
 		writeModifier(type.getInitialConstructorModifier());
-		o.write(type.name);
-		o.write('(');
+		write(type.name);
+		write('(');
 
 		boolean first = true;
 		for(final CopeFeature feature : initialFeatures)
@@ -271,41 +271,41 @@ final class Generator
 			if(first)
 				first = false;
 			else
-				o.write(',');
+				write(',');
 
-			o.write(lineSeparator);
-			o.write("\t\t\t\t");
-			o.write(finalArgPrefix);
-			o.write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
-			o.write(' ');
-			o.write(feature.name);
+			write(lineSeparator);
+			write("\t\t\t\t");
+			write(finalArgPrefix);
+			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
+			write(' ');
+			write(feature.name);
 		}
 
-		o.write(')');
-		o.write(lineSeparator);
+		write(')');
+		write(lineSeparator);
 		writeThrowsClause(constructorExceptions);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\tthis(new " + SET_VALUE + "[]{");
-		o.write(lineSeparator);
+		write("\t{");
+		write(lineSeparator);
+		write("\t\tthis(new " + SET_VALUE + "[]{");
+		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			o.write("\t\t\t");
+			write("\t\t\t");
 			final CopeType parent = feature.parent;
 			if(parent==type)
-				o.write(type.name);
+				write(type.name);
 			else
-				o.write(parent.javaClass.getFullName());
-			o.write('.');
-			o.write(feature.name);
-			o.write(".map(");
-			o.write(feature.name);
-			o.write("),");
-			o.write(lineSeparator);
+				write(parent.javaClass.getFullName());
+			write('.');
+			write(feature.name);
+			write(".map(");
+			write(feature.name);
+			write("),");
+			write(lineSeparator);
 		}
-		o.write("\t\t});");
-		o.write(lineSeparator);
-		o.write("\t}");
+		write("\t\t});");
+		write(lineSeparator);
+		write("\t}");
 	}
 
 	private void writeGenericConstructor(final CopeType type)
@@ -316,23 +316,23 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC, type.name));
-		o.write(lineSeparator);
+		write("\t * ");
+		write(format(CONSTRUCTOR_GENERIC, type.name));
+		write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
-		o.write('\t');
+		write('\t');
 		writeModifier(option.getModifier(type.allowSubtypes() ? PROTECTED : PRIVATE));
-		o.write(type.name);
-		o.write('(');
-		o.write(finalArgPrefix);
-		o.write(SET_VALUE + "<?>... setValues)");
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\tsuper(setValues);");
-		o.write(lineSeparator);
-		o.write("\t}");
+		write(type.name);
+		write('(');
+		write(finalArgPrefix);
+		write(SET_VALUE + "<?>... setValues)");
+		write(lineSeparator);
+		write("\t{");
+		write(lineSeparator);
+		write("\t\tsuper(setValues);");
+		write(lineSeparator);
+		write("\t}");
 	}
 
 	private void writeActivationConstructor(final CopeType type)
@@ -346,28 +346,28 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		o.write("\t * ");
-		o.write(CONSTRUCTOR_ACTIVATION);
-		o.write(lineSeparator);
-		o.write("\t * @see " + ITEM + "#Item(" + ACTIVATION + ")");
-		o.write(lineSeparator);
+		write("\t * ");
+		write(CONSTRUCTOR_ACTIVATION);
+		write(lineSeparator);
+		write("\t * @see " + ITEM + "#Item(" + ACTIVATION + ")");
+		write(lineSeparator);
 		writeCommentFooter();
 
 		final boolean allowSubtypes = type.allowSubtypes();
-		o.write('\t');
+		write('\t');
 		if(!allowSubtypes)
-			o.write("@SuppressWarnings(\"unused\") ");
+			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(allowSubtypes ? PROTECTED : PRIVATE));
-		o.write(type.name);
-		o.write('(');
-		o.write(finalArgPrefix);
-		o.write(ACTIVATION + " ap)");
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\tsuper(ap);");
-		o.write(lineSeparator);
-		o.write("\t}");
+		write(type.name);
+		write('(');
+		write(finalArgPrefix);
+		write(ACTIVATION + " ap)");
+		write(lineSeparator);
+		write("\t{");
+		write(lineSeparator);
+		write("\t\tsuper(ap);");
+		write(lineSeparator);
+		write("\t}");
 	}
 
 	private void writeFeature(final CopeFeature feature)
@@ -411,29 +411,29 @@ final class Generator
 				writeCommentHeader();
 				for(final String comment : wrapper.getComments())
 				{
-					o.write("\t * ");
-					o.write(format(comment, arguments));
-					o.write(lineSeparator);
+					write("\t * ");
+					write(format(comment, arguments));
+					write(lineSeparator);
 				}
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
 					final String comment = parameter.getComment();
 					if(comment!=null)
 					{
-						o.write("\t * @param ");
-						o.write(format(parameter.getName(), arguments));
-						o.write(' ');
-						o.write(format(comment, arguments));
-						o.write(lineSeparator);
+						write("\t * @param ");
+						write(format(parameter.getName(), arguments));
+						write(' ');
+						write(format(comment, arguments));
+						write(lineSeparator);
 					}
 				}
 				{
 					final String comment = wrapper.getReturnComment();
 					if(comment!=null)
 					{
-						o.write("\t * @return ");
-						o.write(format(comment, arguments));
-						o.write(lineSeparator);
+						write("\t * @return ");
+						write(format(comment, arguments));
+						write(lineSeparator);
 					}
 				}
 				for(final Map.Entry<Class<? extends Throwable>, String> e : throwsClause.entrySet())
@@ -441,18 +441,18 @@ final class Generator
 					final String comment = e.getValue();
 					if(comment!=null)
 					{
-						o.write("\t * @throws ");
-						o.write(e.getKey().getCanonicalName());
-						o.write(' ');
-						o.write(format(comment, arguments));
-						o.write(lineSeparator);
+						write("\t * @throws ");
+						write(e.getKey().getCanonicalName());
+						write(' ');
+						write(format(comment, arguments));
+						write(lineSeparator);
 					}
 				}
 				if(deprecated)
 				{
-					o.write("\t * @deprecated ");
-					o.write(format(wrapper.getDeprecationComment(), arguments));
-					o.write(lineSeparator);
+					write("\t * @deprecated ");
+					write(format(wrapper.getDeprecationComment(), arguments));
+					write(lineSeparator);
 				}
 				writeCommentFooter(
 					modifierTag!=null
@@ -471,12 +471,12 @@ final class Generator
 
 			if(deprecated)
 			{
-				o.write('\t');
-				o.write("@Deprecated");
-				o.write(lineSeparator);
+				write('\t');
+				write("@Deprecated");
+				write(lineSeparator);
 			}
 
-			o.write('\t');
+			write('\t');
 			writeModifier(
 				(
 					option!=null
@@ -486,39 +486,39 @@ final class Generator
 				|
 				(isStatic ? STATIC : 0)
 			);
-			o.write(toString(methodReturnType, feature));
+			write(toString(methodReturnType, feature));
 			if(option!=null && useIs && option.booleanAsIs)
 			{
-				o.write(" is");
-				o.write(featureNameCamelCase);
+				write(" is");
+				write(featureNameCamelCase);
 			}
 			else
 			{
-				o.write(' ');
+				write(' ');
 				if(pattern!=null)
 				{
 					if(feature.isDefault())
 					{
 						final String x = format(pattern, "", "");
 						if(!isKeyword(x))
-							o.write(x);
+							write(x);
 						else
-							o.write(format(pattern, featureNameCamelCase, feature.name));
+							write(format(pattern, featureNameCamelCase, feature.name));
 					}
 					else
-						o.write(format(pattern, featureNameCamelCase, feature.name));
+						write(format(pattern, featureNameCamelCase, feature.name));
 				}
 				else
 				{
 					if(feature.isDefault() && !isKeyword(methodName))
-						o.write(methodName);
+						write(methodName);
 					else
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
 			if(option!=null)
-				o.write(option.suffix);
-			o.write('(');
+				write(option.suffix);
+			write('(');
 			{
 				boolean first = true;
 				for(final Wrapper.Parameter parameter : parameters)
@@ -526,54 +526,54 @@ final class Generator
 					if(first)
 						first = false;
 					else
-						o.write(',');
+						write(',');
 
-					o.write(finalArgPrefix);
+					write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
-						o.write(((Class)parameter.getType()).getComponentType().getCanonicalName());
-						o.write("...");
+						write(((Class)parameter.getType()).getComponentType().getCanonicalName());
+						write("...");
 					}
 					else
 					{
-						o.write(toString(parameter.getType(), feature));
+						write(toString(parameter.getType(), feature));
 					}
-					o.write(' ');
-					o.write(format(parameter.getName(), arguments));
+					write(' ');
+					write(format(parameter.getName(), arguments));
 				}
 			}
-			o.write(')');
-			o.write(lineSeparator);
+			write(')');
+			write(lineSeparator);
 			writeThrowsClause(throwsClause.keySet());
-			o.write("\t{");
-			o.write(lineSeparator);
-			o.write("\t\t");
+			write("\t{");
+			write(lineSeparator);
+			write("\t\t");
 			if(!methodReturnType.equals(void.class))
-				o.write("return ");
+				write("return ");
 		if(feature.parent.isComposite)
 		{
-			o.write(methodName);
-			o.write('(');
+			write(methodName);
+			write('(');
 			{
-				o.write(feature.parent.name);
-				o.write('.');
-				o.write(feature.name);
+				write(feature.parent.name);
+				write('.');
+				write(feature.name);
 				for(final Wrapper.Parameter parameter : parameters)
 				{
-					o.write(',');
-					o.write(format(parameter.getName(), arguments));
+					write(',');
+					write(format(parameter.getName(), arguments));
 				}
 			}
-			o.write(')');
+			write(')');
 		}
 		else
 		{
-			o.write(feature.parent.name);
-			o.write('.');
-			o.write(feature.name);
-			o.write('.');
-			o.write(methodName);
-			o.write('(');
+			write(feature.parent.name);
+			write('.');
+			write(feature.name);
+			write('.');
+			write(methodName);
+			write('(');
 			{
 				boolean first = true;
 				if(isStatic)
@@ -581,30 +581,30 @@ final class Generator
 					if(wrapper.hasStaticClassToken())
 					{
 						first = false;
-						o.write(feature.parent.name);
-						o.write(".class");
+						write(feature.parent.name);
+						write(".class");
 					}
 				}
 				else
 				{
 					first = false;
-					o.write("this");
+					write("this");
 				}
 				for(final Wrapper.Parameter parameter : parameters)
 				{
 					if(first)
 						first = false;
 					else
-						o.write(',');
+						write(',');
 
-					o.write(format(parameter.getName(), arguments));
+					write(format(parameter.getName(), arguments));
 				}
 			}
-			o.write(')');
+			write(')');
 		}
-			o.write(';');
-			o.write(lineSeparator);
-			o.write("\t}");
+			write(';');
+			write(lineSeparator);
+			write("\t}");
 		}
 	}
 
@@ -613,14 +613,14 @@ final class Generator
 		for(int i = 0; i<methodName.length(); i++)
 			if(Character.isUpperCase(methodName.charAt(i)))
 			{
-				o.write(methodName.substring(0, i));
-				o.write(featureName);
-				o.write(methodName.substring(i));
+				write(methodName.substring(0, i));
+				write(featureName);
+				write(methodName.substring(i));
 				return;
 			}
 
-		o.write(methodName);
-		o.write(featureName);
+		write(methodName);
+		write(featureName);
 	}
 
 	private static final String toString(final Class c, final CopeFeature feature)
@@ -703,75 +703,75 @@ final class Generator
 		final String className = attributes[0].getParent().name;
 
 		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
-		o.write(lineSeparator);
+		write("\t * ");
+		write(format(FINDER_UNIQUE, lowerCamelCase(className)));
+		write(lineSeparator);
 		if(deprecated)
 		{
-			o.write("\t * @deprecated use for");
-			o.write(toCamelCase(constraint.name));
-			o.write(" instead.");
-			o.write(lineSeparator);
+			write("\t * @deprecated use for");
+			write(toCamelCase(constraint.name));
+			write(" instead.");
+			write(lineSeparator);
 		}
 		for(final CopeAttribute attribute : attributes)
 		{
-			o.write("\t * @param ");
-			o.write(attribute.name);
-			o.write(' ');
-			o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
-			o.write(lineSeparator);
+			write("\t * @param ");
+			write(attribute.name);
+			write(' ');
+			write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
+			write(lineSeparator);
 		}
-		o.write("\t * @return ");
-		o.write(FINDER_UNIQUE_RETURN);
-		o.write(lineSeparator);
+		write("\t * @return ");
+		write(FINDER_UNIQUE_RETURN);
+		write(lineSeparator);
 
 		writeCommentFooter();
 
 		if(deprecated)
 		{
-			o.write('\t');
-			o.write("@Deprecated");
-			o.write(lineSeparator);
+			write('\t');
+			write("@Deprecated");
+			write(lineSeparator);
 		}
 
-		o.write('\t');
+		write('\t');
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
-		o.write(className);
-		o.write(deprecated ? " findBy" : " for");
-		o.write(toCamelCase(constraint.name));
+		write(className);
+		write(deprecated ? " findBy" : " for");
+		write(toCamelCase(constraint.name));
 
-		o.write('(');
+		write('(');
 		for(int i=0; i<attributes.length; i++)
 		{
 			if(i>0)
-				o.write(',');
+				write(',');
 			final CopeAttribute attribute = attributes[i];
-			o.write(finalArgPrefix);
-			o.write(getBoxedType(attribute));
-			o.write(' ');
-			o.write(attribute.name);
+			write(finalArgPrefix);
+			write(getBoxedType(attribute));
+			write(' ');
+			write(attribute.name);
 		}
-		o.write(')');
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\treturn ");
+		write(')');
+		write(lineSeparator);
+		write("\t{");
+		write(lineSeparator);
+		write("\t\treturn ");
 
-		o.write(attributes[0].parent.name);
-		o.write('.');
-		o.write(constraint.name);
-		o.write(".search(");
-		o.write(className);
-		o.write(".class,");
-		o.write(attributes[0].name);
+		write(attributes[0].parent.name);
+		write('.');
+		write(constraint.name);
+		write(".search(");
+		write(className);
+		write(".class,");
+		write(attributes[0].name);
 		for(int i = 1; i<attributes.length; i++)
 		{
-			o.write(',');
-			o.write(attributes[i].name);
+			write(',');
+			write(attributes[i].name);
 		}
-		o.write(");");
-		o.write(lineSeparator);
-		o.write("\t}");
+		write(");");
+		write(lineSeparator);
+		write("\t}");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -787,9 +787,9 @@ final class Generator
 			writeCommentHeader();
 			writeCommentFooter();
 
-			o.write('\t');
+			write('\t');
 			writeModifier(PRIVATE|STATIC|FINAL);
-			o.write("long serialVersionUID = 1l;");
+			write("long serialVersionUID = 1l;");
 		}
 	}
 
@@ -803,21 +803,21 @@ final class Generator
 		if(option.exists)
 		{
 			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(TYPE, lowerCamelCase(type.name)));
-			o.write(lineSeparator);
+			write("\t * ");
+			write(format(TYPE, lowerCamelCase(type.name)));
+			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
-			o.write('\t');
+			write('\t');
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			o.write(TYPE_NAME + '<');
-			o.write(type.name);
-			o.write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
-			o.write(type.name);
-			o.write(".class)");
-			o.write(lineSeparator);
+			write(TYPE_NAME + '<');
+			write(type.name);
+			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
+			write(type.name);
+			write(".class)");
+			write(lineSeparator);
 
-			o.write(';');
+			write(';');
 		}
 	}
 
@@ -872,13 +872,23 @@ final class Generator
 		final String modifierString = Modifier.toString(modifier);
 		if(modifierString.length()>0)
 		{
-			o.write(modifierString);
-			o.write(' ');
+			write(modifierString);
+			write(' ');
 		}
 	}
 
 	private static boolean isKeyword(final String s)
 	{
 		return "for".equals(s); // TODO
+	}
+
+	private void write(final String s) throws IOException
+	{
+		o.write(s);
+	}
+
+	private void write(final char c) throws IOException
+	{
+		o.write(c);
 	}
 }
