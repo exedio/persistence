@@ -21,10 +21,14 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.SafeFile.delete;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -133,19 +137,22 @@ public final class Main
 		{
 			final Injector injector = injectorsIter.next();
 
-			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)file.length() + 100);
+			final StringWriter baos = new StringWriter((int)file.length() + 100);
 			final Generator generator = new Generator(injector.javaFile, baos, params);
 			generator.write();
 			generator.close();
 
-			if(injector.inputCRC!=generator.getCRC())
+			if(!equal(injector.input, baos))
 			{
 				logInstrumented(file);
 				delete(file);
+				final Charset charset = Charset.defaultCharset(); // TODO make configurable
+				final CharsetEncoder decoder = charset.newEncoder();
+				final ByteBuffer out = decoder.encode(CharBuffer.wrap(toCharBuffer(baos.getBuffer())));
 				final FileOutputStream o = new FileOutputStream(file);
 				try
 				{
-					baos.writeTo(o);
+					o.getChannel().write(out);
 				}
 				finally
 				{
@@ -160,6 +167,27 @@ public final class Main
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
+	}
+
+	private static boolean equal(final char[] a, final StringWriter b)
+	{
+		final StringBuffer bf = b.getBuffer();
+		if(a.length!=bf.length())
+			return false;
+
+		for(int i = 0; i<a.length; i++)
+			if(a[i]!=bf.charAt(i))
+				return false;
+
+		return true;
+	}
+
+	private static CharBuffer toCharBuffer(final StringBuffer bf)
+	{
+		final int length = bf.length();
+		final char[] chars = new char[length];
+		bf.getChars(0, length, chars, 0);
+		return CharBuffer.wrap(chars);
 	}
 
 	boolean verbose;

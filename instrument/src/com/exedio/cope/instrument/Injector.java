@@ -29,7 +29,6 @@ import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.zip.CRC32;
 
 /**
  * Implements a modifying java parser.
@@ -48,7 +47,6 @@ import java.util.zip.CRC32;
  */
 final class Injector
 {
-	final long inputCRC;
 	final char[] input;
 	int inputPosition = 0;
 	private final int inputLength;
@@ -96,10 +94,6 @@ final class Injector
 			if(fis!=null)
 				fis.close();
 		}
-		final CRC32 crc32 = new CRC32();
-		crc32.update(inputBytes);
-		this.inputCRC = crc32.getValue();
-
 		final Charset charset = Charset.defaultCharset(); // TODO make configurable
 		final CharsetDecoder decoder = charset.newDecoder();
 

@@ -25,9 +25,7 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -35,8 +33,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
-import java.util.zip.CRC32;
-import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -101,7 +97,6 @@ final class Generator
 
 	private final JavaFile javaFile;
 	private final Writer o;
-	private final CRC32 outputCRC = new CRC32();
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
@@ -109,10 +104,10 @@ final class Generator
 	private final boolean skipDeprecated;
 
 
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final Params params)
+	Generator(final JavaFile javaFile, final Writer outputWriter, final Params params)
 	{
 		this.javaFile = javaFile;
-		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
+		this.o = outputWriter;
 
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
@@ -133,11 +128,6 @@ final class Generator
 	{
 		if(o!=null)
 			o.close();
-	}
-
-	long getCRC()
-	{
-		return outputCRC.getValue();
 	}
 
 	private static final String toCamelCase(final String name)
