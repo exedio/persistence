@@ -104,10 +104,10 @@ final class Generator
 	private final boolean skipDeprecated;
 
 
-	Generator(final JavaFile javaFile, final Writer outputWriter, final Params params)
+	Generator(final JavaFile javaFile, final Writer output, final Params params)
 	{
 		this.javaFile = javaFile;
-		this.output = outputWriter;
+		this.output = output;
 
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
