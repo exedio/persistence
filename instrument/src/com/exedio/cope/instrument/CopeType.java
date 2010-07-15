@@ -61,7 +61,7 @@ final class CopeType
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
 
 	public CopeType(final JavaClass javaClass, final boolean isComposite)
-		throws InjectorParseException
+		throws ParserException
 	{
 		this.javaClass = javaClass;
 		this.isComposite = isComposite;

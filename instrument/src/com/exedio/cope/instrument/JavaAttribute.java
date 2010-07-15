@@ -43,7 +43,7 @@ final class JavaAttribute
 		final int modifiers,
 		final String type,
 		final String name)
-		throws InjectorParseException
+		throws ParserException
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);
@@ -60,7 +60,7 @@ final class JavaAttribute
 	 * Needed for comma separated attributes.
 	 */
 	JavaAttribute(final JavaAttribute ja, final String name)
-		throws InjectorParseException
+		throws ParserException
 	{
 		this(ja.parent, ja.modifier, ja.type, name);
 	}

@@ -29,7 +29,7 @@ final class JavaMethod extends JavaBehaviour
 {
 
 	public JavaMethod(final JavaClass parent, final int modifiers, final String type, final String name)
-	throws InjectorParseException
+	throws ParserException
 	{
 		// parent must not be null
 		super(parent, modifiers, type, name);

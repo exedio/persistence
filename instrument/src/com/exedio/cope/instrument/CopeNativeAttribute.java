@@ -41,7 +41,7 @@ final class CopeNativeAttribute extends CopeAttribute
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
 			final Class typeClass)
-		throws InjectorParseException
+		throws ParserException
 	{
 		super(parent, javaAttribute, getPersistentType(typeClass));
 

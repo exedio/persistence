@@ -43,7 +43,7 @@ final class Instrumentor implements ParseConsumer
 	private String lastFileDocComment = null;
 
 	public void onPackage(final JavaFile javafile)
-	throws InjectorParseException
+	throws ParserException
 	{
 		// nothing to do here
 	}
@@ -54,7 +54,7 @@ final class Instrumentor implements ParseConsumer
 	}
 
 	public void onClass(final JavaClass jc)
-			throws InjectorParseException
+			throws ParserException
 	{
 		//System.out.println("onClass("+jc.getName()+")");
 
@@ -69,7 +69,7 @@ final class Instrumentor implements ParseConsumer
 	}
 
 	public void onClassEnd(final JavaClass javaClass)
-	throws InjectorParseException
+	throws ParserException
 	{
 		if(class_state!=javaClass)
 			throw new RuntimeException();
@@ -87,7 +87,7 @@ final class Instrumentor implements ParseConsumer
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)
-	throws InjectorParseException
+	throws ParserException
 	{
 		//System.out.println("onClassFeature("+jf.name+" "+docComment+")");
 		if(jf instanceof JavaAttribute)
@@ -104,7 +104,7 @@ final class Instrumentor implements ParseConsumer
 	}
 
 	public void onFileDocComment(final String docComment)
-	throws InjectorParseException
+	throws ParserException
 	{
 		//System.out.println("onFileDocComment("+docComment+")");
 

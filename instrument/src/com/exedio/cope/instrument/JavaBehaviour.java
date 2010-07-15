@@ -50,7 +50,7 @@ abstract class JavaBehaviour extends JavaFeature
 						final int modifiers,
 						final String type,
 						final String name)
-	throws InjectorParseException
+	throws ParserException
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);

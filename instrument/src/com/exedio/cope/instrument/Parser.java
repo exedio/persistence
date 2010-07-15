@@ -140,7 +140,7 @@ final class Parser
 	 * the feature must be a class itself.
 	 */
 	private JavaFeature[] parseFeature(final JavaClass parent, final StringToken bufs)
-		throws IOException, EndException, InjectorParseException
+		throws IOException, EndException, ParserException
 	{
 		return parseFeature(parent, bufs.value);
 	}
@@ -152,7 +152,7 @@ final class Parser
 	 * @see #parseFeature(JavaClass,Tokenizer.StringToken)
 	 */
 	private JavaFeature[] parseFeature(final JavaClass parent, String bufs)
-		throws IOException, EndException, InjectorParseException
+		throws IOException, EndException, ParserException
 	{
 		int modifiers = 0;
 
@@ -381,7 +381,7 @@ final class Parser
 	}
 
 	private JavaAttribute[] parseAttribute(JavaAttribute ja, Token c)
-		throws EndException, InjectorParseException
+		throws EndException, ParserException
 	{
 		consumer.onAttributeHeader(ja);
 
@@ -423,7 +423,7 @@ final class Parser
 	}
 
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
-		throws IOException, EndException, InjectorParseException
+		throws IOException, EndException, ParserException
 	{
 		final String classname = readToken().getString("class name expected.");
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
@@ -544,7 +544,7 @@ final class Parser
 		return jc;
 	}
 
-	public void parseFile() throws IOException, InjectorParseException
+	public void parseFile() throws IOException, ParserException
 	{
 		try
 		{

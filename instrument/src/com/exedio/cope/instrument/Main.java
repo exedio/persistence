@@ -63,7 +63,7 @@ public final class Main
 	Main()
 	{/* do not allow instantiation by public */}
 
-	final void run(final File dir, final String[] args, final Params params) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final File dir, final String[] args, final Params params) throws IllegalParameterException, ParserException, IOException
 	{
 		final ArrayList<File> files = new ArrayList<File>();
 
@@ -73,7 +73,7 @@ public final class Main
 		run(files, params);
 	}
 
-	final void run(final ArrayList<File> files, final Params params) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> files, final Params params) throws IllegalParameterException, ParserException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();

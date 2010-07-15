@@ -27,21 +27,21 @@ package com.exedio.cope.instrument;
  *
  * @author Ralf Wiebicke
  */
-class InjectorParseException extends RuntimeException
+class ParserException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
 
-	protected InjectorParseException(final String message)
+	protected ParserException(final String message)
 	{
 		super(message);
 	}
 
-	protected InjectorParseException(final RuntimeException cause)
+	protected ParserException(final RuntimeException cause)
 	{
 		super(cause);
 	}
 
-	protected InjectorParseException(final String message, final RuntimeException cause)
+	protected ParserException(final String message, final RuntimeException cause)
 	{
 		super(message, cause);
 	}

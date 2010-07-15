@@ -28,7 +28,7 @@ import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
 public class ResolveImportTest extends InstrumentorTest
 {
 
-	public void testImports() throws InjectorParseException
+	public void testImports() throws ParserException
 	{
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile file = new JavaFile(repository);

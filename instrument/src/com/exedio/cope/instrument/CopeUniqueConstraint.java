@@ -34,7 +34,7 @@ final class CopeUniqueConstraint extends CopeFeature
 		super(parent, javaAttribute);
 	}
 
-	CopeAttribute[] getAttributes() throws InjectorParseException
+	CopeAttribute[] getAttributes() throws ParserException
 	{
 		final ArrayList<String> attributeList = new ArrayList<String>();
 
@@ -49,9 +49,9 @@ final class CopeUniqueConstraint extends CopeFeature
 		{
 			final CopeFeature feature = parent.getFeature(attributes[i]);
 			if(feature==null)
-				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" not found.");
+				throw new ParserException("attribute >"+attributes[i]+"< in unique constraint "+name+" not found.");
 			if(!(feature instanceof CopeAttribute))
-				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" is not an attribute, but "+feature.getClass().getName());
+				throw new ParserException("attribute >"+attributes[i]+"< in unique constraint "+name+" is not an attribute, but "+feature.getClass().getName());
 			final CopeAttribute attribute = (CopeAttribute)feature;
 			result[i] = attribute;
 		}

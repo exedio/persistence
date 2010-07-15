@@ -31,7 +31,7 @@ final class JavaConstructor extends JavaBehaviour
 						final JavaClass parent,
 						final int modifiers,
 						final String name)
-	throws InjectorParseException
+	throws ParserException
 	{
 		super(parent, modifiers, null, name);
 	}

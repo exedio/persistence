@@ -55,7 +55,7 @@ final class JavaClass extends JavaFeature
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final boolean isEnum, final String simpleName,
 			final String classExtends, final List<String> classImplements)
-	throws InjectorParseException
+	throws ParserException
 	{
 		super(file, parent, modifiers, null, simpleName);
 		this.nameSpace = new NS(file.nameSpace);

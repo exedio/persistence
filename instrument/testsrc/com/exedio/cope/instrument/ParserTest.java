@@ -45,7 +45,7 @@ public abstract class ParserTest extends InstrumentorTest
 	public abstract void assertInjection();
 
 	public void testInjection()
-		throws IOException, InjectorParseException
+		throws IOException, ParserException
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
@@ -369,7 +369,7 @@ public abstract class ParserTest extends InstrumentorTest
 			// make constructor non-private
 		}
 
-		public void onPackage(final JavaFile javaFile) throws InjectorParseException
+		public void onPackage(final JavaFile javaFile) throws ParserException
 		{
 			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());
 			addInjectionEvent(new PackageEvent(javaFile));

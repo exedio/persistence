@@ -356,7 +356,7 @@ final class Generator
 	}
 
 	private void writeFeature(final CopeFeature feature)
-	throws InjectorParseException
+	throws ParserException
 	{
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
@@ -677,7 +677,7 @@ final class Generator
 	}
 
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
-	throws InjectorParseException
+	throws ParserException
 	{
 		final Option option = new Option(
 				Parser.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
@@ -805,7 +805,7 @@ final class Generator
 		}
 	}
 
-	void write() throws InjectorParseException
+	void write() throws ParserException
 	{
 		final String buffer = javaFile.buffer.toString();
 		int previousClassEndPosition = 0;
@@ -827,7 +827,7 @@ final class Generator
 	}
 
 	private void writeClassFeatures(final CopeType type)
-			throws InjectorParseException
+			throws ParserException
 	{
 		if(!type.isInterface())
 		{

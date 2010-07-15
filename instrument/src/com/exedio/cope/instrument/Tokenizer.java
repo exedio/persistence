@@ -476,7 +476,7 @@ final class Tokenizer
 		return new ParseException(message);
 	}
 
-	final class ParseException extends InjectorParseException
+	final class ParseException extends ParserException
 	{
 		private static final long serialVersionUID = 1l;
 

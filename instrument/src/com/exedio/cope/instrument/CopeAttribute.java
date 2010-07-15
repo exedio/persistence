@@ -30,7 +30,7 @@ abstract class CopeAttribute extends CopeFeature
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
 			final String persistentType)
-		throws InjectorParseException
+		throws ParserException
 	{
 		super(parent, javaAttribute);
 		this.persistentType = persistentType;

@@ -38,7 +38,7 @@ interface ParseConsumer
 	 * This method is guaranteed to be called at most once.
 	 * @see JavaFile#getPackageName()
 	 */
-	void onPackage(JavaFile javafile) throws InjectorParseException;
+	void onPackage(JavaFile javafile) throws ParserException;
 
 	/**
 	 * Encountered an import statement.
@@ -52,7 +52,7 @@ interface ParseConsumer
 	 * Encountered a class header.
 	 * Is also called for inner classes.
 	 */
-	void onClass(JavaClass cc) throws InjectorParseException;
+	void onClass(JavaClass cc) throws ParserException;
 
 	/**
 	 * Encountered the end of a class.
@@ -60,7 +60,7 @@ interface ParseConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	void onClassEnd(JavaClass cc) throws InjectorParseException;
+	void onClassEnd(JavaClass cc) throws ParserException;
 
 	/**
 	 * Encountered the header of a java method.
@@ -91,7 +91,7 @@ interface ParseConsumer
 	 * the doccomment associated to this feature.
 	 * Is null, if there was none.
 	 */
-	void onClassFeature(JavaFeature cf, String doccomment) throws InjectorParseException;
+	void onClassFeature(JavaFeature cf, String doccomment) throws ParserException;
 
 	/**
 	 * Encountered a java documentation comment.
@@ -109,6 +109,6 @@ interface ParseConsumer
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	void onFileDocComment(String doccomment) throws InjectorParseException;
+	void onFileDocComment(String doccomment) throws ParserException;
 
 }
