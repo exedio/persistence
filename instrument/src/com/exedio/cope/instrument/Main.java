@@ -146,7 +146,7 @@ public final class Main
 				delete(file);
 				final Charset charset = Charset.defaultCharset(); // TODO make configurable
 				final CharsetEncoder decoder = charset.newEncoder();
-				final ByteBuffer out = decoder.encode(CharBuffer.wrap(toCharBuffer(baos)));
+				final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
 				final FileOutputStream o = new FileOutputStream(file);
 				try
 				{
@@ -177,14 +177,6 @@ public final class Main
 				return false;
 
 		return true;
-	}
-
-	private static CharBuffer toCharBuffer(final StringBuilder bf)
-	{
-		final int length = bf.length();
-		final char[] chars = new char[length];
-		bf.getChars(0, length, chars, 0);
-		return CharBuffer.wrap(chars);
 	}
 
 	boolean verbose;
