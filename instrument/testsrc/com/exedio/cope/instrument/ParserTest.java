@@ -53,10 +53,10 @@ public abstract class ParserTest extends InstrumentorTest
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser injector = new Parser(new Tokenizer(inputFile, javaFile), testParseConsumer, javaFile);
+		final Parser parser = new Parser(new Tokenizer(inputFile, javaFile), testParseConsumer, javaFile);
 		if(assertText)
-			testParseConsumer.output = injector.javaFile.buffer;
-		injector.parseFile();
+			testParseConsumer.output = parser.javaFile.buffer;
+		parser.parseFile();
 
 		assertParse();
 		parseEvents = null;
