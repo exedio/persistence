@@ -39,7 +39,7 @@ public abstract class ParserTest extends InstrumentorTest
 		this.lineSeparator = System.getProperty("line.separator");
 	}
 
-	LinkedList<InjectionEvent> injectionEvents;
+	LinkedList<ParseEvent> injectionEvents;
 	private TestInjectionConsumer testInjectionConsumer;
 
 	public abstract void assertInjection();
@@ -49,7 +49,7 @@ public abstract class ParserTest extends InstrumentorTest
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
-		injectionEvents = new LinkedList<InjectionEvent>();
+		injectionEvents = new LinkedList<ParseEvent>();
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
@@ -62,7 +62,7 @@ public abstract class ParserTest extends InstrumentorTest
 		injectionEvents = null;
 	}
 
-	private InjectionEvent fetchEvent()
+	private ParseEvent fetchEvent()
 	{
 		return injectionEvents.removeFirst();
 	}
@@ -100,7 +100,7 @@ public abstract class ParserTest extends InstrumentorTest
 		if(!assertText)
 			throw new RuntimeException("assertText is false");
 
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		if(!(event instanceof TextEvent))
 			throw new AssertionFailedError("expected text event >"+text+"<, but was "+event);
 		final String actualText = ((TextEvent)event).text;
@@ -109,19 +109,19 @@ public abstract class ParserTest extends InstrumentorTest
 
 	protected void assertPackage(final String packageName)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		assertEquals(packageName, ((PackageEvent)event).javafile.getPackageName());
 	}
 
 	protected void assertImport(final String importText)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		assertEquals(importText, ((ImportEvent)event).importText);
 	}
 
 	protected void assertDocComment(final String docComment)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		if(!(event instanceof DocCommentEvent))
 			throw new AssertionFailedError("expected docComment event >"+docComment+"<, but was "+event);
 		assertEquals(replaceLineBreaks(docComment), ((DocCommentEvent)event).docComment);
@@ -129,7 +129,7 @@ public abstract class ParserTest extends InstrumentorTest
 
 	protected void assertFileDocComment(final String docComment)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		assertEquals(replaceLineBreaks(docComment), ((FileDocCommentEvent)event).docComment);
 	}
 
@@ -140,7 +140,7 @@ public abstract class ParserTest extends InstrumentorTest
 
 	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements, final JavaClass parent)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		if(!(event instanceof ClassEvent))
 			throw new RuntimeException(event.toString());
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
@@ -153,14 +153,14 @@ public abstract class ParserTest extends InstrumentorTest
 
 	protected void assertClassEnd(final JavaClass expectedJavaClass)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
 		assertSame(expectedJavaClass, javaClass);
 	}
 
 	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		if(!(event instanceof BehaviourHeaderEvent))
 			throw new AssertionFailedError("expected BehaviourHeader event >"+name+"<, but was "+event);
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
@@ -172,7 +172,7 @@ public abstract class ParserTest extends InstrumentorTest
 
 	protected JavaAttribute assertAttributeHeader(final String name, final String type, final int modifier)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
 		assertEquals(name, javaAttribute.name);
 		assertEquals(type, javaAttribute.type);
@@ -182,7 +182,7 @@ public abstract class ParserTest extends InstrumentorTest
 
 	private void assertFeature(final String name, final String docComment, final JavaFeature expectedJavaFeature)
 	{
-		final InjectionEvent event = fetchEvent();
+		final ParseEvent event = fetchEvent();
 		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
 		assertEquals(name, javaFeature.name);
 		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
@@ -224,16 +224,16 @@ public abstract class ParserTest extends InstrumentorTest
 	}
 
 
-	private static class InjectionEvent
+	private static class ParseEvent
 	{
-		InjectionEvent()
+		ParseEvent()
 		{
 			// make constructor non-private
 		}
 		// just a common super class
 	}
 
-	private static class TextEvent extends InjectionEvent
+	private static class TextEvent extends ParseEvent
 	{
 		final String text;
 
@@ -244,7 +244,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class PackageEvent extends InjectionEvent
+	private static class PackageEvent extends ParseEvent
 	{
 		final JavaFile javafile;
 
@@ -254,7 +254,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class ImportEvent extends InjectionEvent
+	private static class ImportEvent extends ParseEvent
 	{
 		final String importText;
 
@@ -264,7 +264,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class DocCommentEvent extends InjectionEvent
+	private static class DocCommentEvent extends ParseEvent
 	{
 		final String docComment;
 
@@ -274,7 +274,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class FileDocCommentEvent extends InjectionEvent
+	private static class FileDocCommentEvent extends ParseEvent
 	{
 		final String docComment;
 
@@ -284,7 +284,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static abstract class AbstractClassEvent extends InjectionEvent
+	private static abstract class AbstractClassEvent extends ParseEvent
 	{
 		final JavaClass javaClass;
 
@@ -310,7 +310,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class BehaviourHeaderEvent extends InjectionEvent
+	private static class BehaviourHeaderEvent extends ParseEvent
 	{
 		final JavaBehaviour javaBehaviour;
 
@@ -326,7 +326,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class AttributeHeaderEvent extends InjectionEvent
+	private static class AttributeHeaderEvent extends ParseEvent
 	{
 		final JavaAttribute javaAttribute;
 
@@ -342,7 +342,7 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class ClassFeatureEvent extends InjectionEvent
+	private static class ClassFeatureEvent extends ParseEvent
 	{
 		final JavaFeature javaFeature;
 		final String docComment;
@@ -417,7 +417,7 @@ public abstract class ParserTest extends InstrumentorTest
 			addInjectionEvent(new FileDocCommentEvent(doccomment));
 		}
 
-		private void addInjectionEvent(final InjectionEvent injectionEvent)
+		private void addInjectionEvent(final ParseEvent injectionEvent)
 		{
 			flushOutput();
 			injectionEvents.add(injectionEvent);
