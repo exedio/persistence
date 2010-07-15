@@ -39,7 +39,7 @@ public abstract class ParserTest extends InstrumentorTest
 		this.lineSeparator = System.getProperty("line.separator");
 	}
 
-	LinkedList<ParseEvent> injectionEvents;
+	LinkedList<ParseEvent> parseEvents;
 	private TestInjectionConsumer testInjectionConsumer;
 
 	public abstract void assertInjection();
@@ -49,7 +49,7 @@ public abstract class ParserTest extends InstrumentorTest
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
-		injectionEvents = new LinkedList<ParseEvent>();
+		parseEvents = new LinkedList<ParseEvent>();
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
@@ -59,12 +59,12 @@ public abstract class ParserTest extends InstrumentorTest
 		injector.parseFile();
 
 		assertInjection();
-		injectionEvents = null;
+		parseEvents = null;
 	}
 
 	private ParseEvent fetchEvent()
 	{
-		return injectionEvents.removeFirst();
+		return parseEvents.removeFirst();
 	}
 
 	private String format(final String s)
@@ -420,14 +420,14 @@ public abstract class ParserTest extends InstrumentorTest
 		private void addInjectionEvent(final ParseEvent injectionEvent)
 		{
 			flushOutput();
-			injectionEvents.add(injectionEvent);
+			parseEvents.add(injectionEvent);
 		}
 
 		private void flushOutput()
 		{
 			if(assertText && output.length()>0)
 			{
-				injectionEvents.add(new TextEvent(output.toString()));
+				parseEvents.add(new TextEvent(output.toString()));
 				output.setLength(0);
 			}
 		}
