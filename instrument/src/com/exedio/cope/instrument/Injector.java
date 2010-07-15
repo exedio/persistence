@@ -19,16 +19,18 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.exedio.cope.instrument.Tokenizer.CharToken;
+import com.exedio.cope.instrument.Tokenizer.CommentToken;
+import com.exedio.cope.instrument.Tokenizer.EndException;
+import com.exedio.cope.instrument.Tokenizer.ParseException;
+import com.exedio.cope.instrument.Tokenizer.StringToken;
+import com.exedio.cope.instrument.Tokenizer.Token;
 
 /**
  * Implements a modifying java parser.
@@ -47,23 +49,10 @@ import java.util.List;
  */
 final class Injector
 {
-	final char[] input;
-	int inputPosition = 0;
-	private final int inputLength;
-
-	private final StringBuilder output;
+	final Tokenizer tokenizer;
 	private final InjectionConsumer consumer;
-	final String fileName;
-
-	private final StringBuilder bufTokenizer = new StringBuilder();
-
-	private boolean do_block = false;
-	private boolean start_block = false;
-	private boolean collect_when_blocking = false;
-	private final StringBuilder collector = new StringBuilder();
 
 	private String docComment = null;
-	private boolean discardNextFeature = false;
 
 	final JavaFile javaFile;
 
@@ -76,159 +65,48 @@ final class Injector
 	 * listening to parsed elements of the input stream.
 	 * @see InjectionConsumer
 	 */
-	public Injector(final File inputFile,
+	public Injector(final Tokenizer tokenizer,
 								final InjectionConsumer consumer, final JavaFile javaFile)
-		throws IOException
 	{
-		final byte[] inputBytes = new byte[(int)inputFile.length()];
-		FileInputStream fis = null;
-		try
-		{
-			fis = new FileInputStream(inputFile);
-			final int readBytes = fis.read(inputBytes);
-			if(readBytes!=inputBytes.length)
-				throw new RuntimeException(inputFile.getAbsolutePath() + '(' + readBytes + ')');
-		}
-		finally
-		{
-			if(fis!=null)
-				fis.close();
-		}
-		final Charset charset = Charset.defaultCharset(); // TODO make configurable
-		final CharsetDecoder decoder = charset.newDecoder();
-
-		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();
-		this.inputLength = input.length;
-
+		this.tokenizer = tokenizer;
 		this.consumer = consumer;
-		this.fileName = inputFile.getName();
 		this.javaFile = javaFile;
-		this.output = javaFile.buffer;
-	}
-
-	private char outbuf;
-	private boolean outbufvalid = false;
-
-	private final char read() throws EndException
-	{
-		if(inputPosition>=inputLength)
-		{
-			if(!do_block && outbufvalid && !discardNextFeature)
-				output.append(outbuf);
-			throw new EndException();
-		}
-
-		final char c = input[inputPosition++];
-
-		if(!do_block && outbufvalid && !discardNextFeature)
-			output.append(outbuf);
-
-		if (do_block && collect_when_blocking)
-			collector.append(outbuf);
-		outbuf = c;
-		outbufvalid = true;
-		//System.out.print((char)c);
-		return c;
 	}
 
 	private void scheduleBlock(final boolean collect_when_blocking)
 	{
-		if (do_block || collector.length() > 0)
-			throw new IllegalArgumentException();
-		start_block = true;
-		this.collect_when_blocking = collect_when_blocking;
+		tokenizer.scheduleBlock(collect_when_blocking);
 	}
 
 	private boolean do_block()
 	{
-		return do_block;
+		return tokenizer.do_block();
 	}
 
 	private boolean collect_when_blocking()
 	{
-		return collect_when_blocking;
+		return tokenizer.collect_when_blocking();
 	}
 
 	private String getCollector()
 	{
-		do_block = false;
-		start_block = false;
-		final String s = collector.toString();
-		collector.setLength(0);
-		//System.out.println("  collector: >"+s+"<");
-		return s;
+		return tokenizer.getCollector();
 	}
 
 	private void discardNextFeature(final boolean b)
 	{
-		discardNextFeature = b;
+		tokenizer.discardNextFeature(b);
 	}
 
 	private void flushOutbuf()
 	{
-		if (outbufvalid)
-		{
-			if (do_block)
-			{
-				if (collect_when_blocking)
-					collector.append(outbuf);
-			}
-			else
-			{
-				output.append(outbuf);
-			}
-			outbufvalid = false;
-		}
+		tokenizer.flushOutbuf();
 	}
 
 	private void write(final String s)
 	{
-		output.append(s);
+		tokenizer.write(s);
 	}
-
-	/**
-	 * Reads a comment.
-	 * Is started after the initial '/' character.
-	 * If the next character is either '/' or '*',
-	 * the rest of the comment is read, and a value of -1 is returned.
-	 * If not, there is no comment,
-	 * and this next character is returned, casted to int.
-	 */
-	private int readComment() throws EndException
-	{
-		char x;
-		switch (x = read())
-		{
-			case '*' :
-				if (read() == '*')
-				{
-					// definitly a doc comment, see Java Lang. Spec. 3.7.
-					//System.out.println("this is a '/** .. */' doc-comment");
-				}
-				//System.out.println("this is a '/* .. */' comment");
-				while (true)
-				{
-					if (read() != '*')
-						continue;
-					char c;
-					while ((c = read()) == '*');
-					if (c == '/')
-						break;
-				}
-				break;
-			case '/' :
-				//System.out.println("this is a '//' comment");
-				do;
-				while (read() != '\n');
-				break;
-			default :
-				return x;
-		}
-		return -1;
-	}
-
-	private char tokenBuf = '\0';
-	private String commentBuf = null;
 
 	/**
 	 * Splits the character stream into tokens.
@@ -236,99 +114,7 @@ final class Injector
 	 */
 	private Token readToken() throws EndException
 	{
-		char c;
-
-		if (tokenBuf != '\0')
-		{
-			c = tokenBuf;
-			tokenBuf = '\0';
-			//System.out.println("<<"+c+">>");
-			return new CharToken(c);
-		}
-
-		if (commentBuf != null)
-		{
-			final CommentToken result = new CommentToken(commentBuf);
-			commentBuf = null;
-			//System.out.println("<<"+comment+">>");
-			return result;
-		}
-
-		bufTokenizer.setLength(0);
-
-		while (true)
-		{
-			switch (c = read())
-			{
-				case '/' :
-					boolean commentcollector = false;
-					if (!do_block && start_block)
-					{
-						do_block = true;
-						commentcollector = true;
-					}
-					readComment();
-					if (commentcollector)
-						flushOutbuf();
-					if (bufTokenizer.length() > 0)
-					{
-						if (commentcollector)
-							commentBuf = getCollector();
-						//System.out.println("<"+buf+">");
-						return new StringToken(bufTokenizer.toString());
-					}
-					if (commentcollector)
-					{
-						final String comment = getCollector();
-						//System.out.println("<<"+comment+">>");
-						return new CommentToken(comment);
-					}
-					break;
-				case ' ' :
-				case '\t' :
-				case '\n' :
-				case '\r' :
-					if (bufTokenizer.length() > 0)
-					{
-						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(bufTokenizer.toString());
-					}
-					break;
-				case '{' :
-				case '}' :
-				case '(' :
-				case ')' :
-				case ';' :
-				case '=' :
-				case ',' :
-				case '@' :
-					if (bufTokenizer.length() > 0)
-					{
-						tokenBuf = c;
-						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(bufTokenizer.toString());
-					}
-					//System.out.println("<<"+c+">>");
-					return new CharToken(c);
-				case '<' :
-					bufTokenizer.append(c);
-					while(true)
-					{
-						c = read();
-						bufTokenizer.append(c);
-						if(c=='>')
-							break;
-					}
-					//System.out.println("gn||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-					break;
-				default :
-					if (!do_block && start_block)
-						do_block = true;
-					bufTokenizer.append(c);
-					//System.out.println("df||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-					break;
-			}
-		}
+		return tokenizer.readToken();
 	}
 
 	/**
@@ -345,135 +131,7 @@ final class Injector
 	private CharToken parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
 		throws EndException, ParseException
 	{
-		//System.out.println("    body("+(attribute?"attribute":"method")+")");
-
-		int bracketdepth = (attribute ? 0 : 1);
-		char c = read();
-		while (true)
-		{
-			switch (c)
-			{
-				case '/' :
-					final int i = readComment();
-					if (i >= 0)
-						c = (char)i;
-					else
-						c = read();
-					break;
-				case '{' :
-				case '(' :
-					bracketdepth++;
-					//System.out.print("<("+bracketdepth+")>");
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					c = read();
-					break;
-				case '}' :
-				case ')' :
-					bracketdepth--;
-					//System.out.print("<("+bracketdepth+")>");
-					if (bracketdepth == 0 && !attribute)
-						return new CharToken('}');
-					if (bracketdepth < 0)
-						throw newParseException("';' expected.");
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					c = read();
-					break;
-				case ';' :
-					// dont have to test for "attribute" here
-					// since then the test in the '}' branch would have
-					// already terminated the loop
-					if (bracketdepth == 0)
-						return new CharToken(';');
-					c = read();
-					break;
-				case ',' :
-					if (bracketdepth == 0)
-						return new CharToken(',');
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					c = read();
-					break;
-					// ignore brackets inside of literal String's
-				case '"' :
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					il : while (true)
-					{
-						switch (c=read())
-						{
-							case '"' :
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-								break il;
-							case '\\' :
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-								final char escapedChar = read();
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(escapedChar);
-								break; // ignore escaped characters for tokenConsumer.addToken()
-							default:
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-						}
-					}
-					c = read();
-					break;
-					// ignore brackets inside of literal characters
-				case '\'' :
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					il : while (true)
-					{
-						switch(c = read())
-						{
-							case '\'' :
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-								break il;
-							case '\\' :
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-								final char escapedChar = read();
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(escapedChar);
-								break; // ignore escaped characters for tokenConsumer.addToken()
-							default:
-								if(tokenConsumer!=null)
-									tokenConsumer.addToInitializer(c);
-						}
-					}
-					c = read();
-					break;
-				case '<' :
-					if(bracketdepth>0)
-					{
-						if(tokenConsumer!=null)
-							tokenConsumer.addToInitializer(c);
-						c = read();
-					}
-					else
-					{
-						while(true)
-						{
-							if(tokenConsumer!=null)
-								tokenConsumer.addToInitializer(c);
-							c = read();
-							if(c=='>')
-								break;
-						}
-						//System.out.println("gb||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-					}
-					break;
-				default :
-					if(tokenConsumer!=null)
-						tokenConsumer.addToInitializer(c);
-					c = read();
-					break;
-			}
-		}
+		return tokenizer.parseBody(attribute, tokenConsumer);
 	}
 
 	/**
@@ -543,7 +201,7 @@ final class Injector
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
 
 				consumer.onClass(result);
-				result.setClassEndPosition(output.length());
+				result.setClassEndPosition(tokenizer.outputLength());
 				consumer.onClassEnd(result);
 
 				discardNextFeature(false);
@@ -883,7 +541,7 @@ final class Injector
 			}
 		}
 
-		jc.setClassEndPosition(output.length());
+		jc.setClassEndPosition(tokenizer.outputLength());
 		consumer.onClassEnd(jc);
 		return jc;
 	}
@@ -998,63 +656,9 @@ final class Injector
 			;
 	}
 
-	static final class EndException extends Exception
-	{
-		private static final long serialVersionUID = 1l;
-
-	}
-
 	private ParseException newParseException(final String message)
 	{
-		return new ParseException(message);
-	}
-
-	private final class ParseException extends InjectorParseException
-	{
-		private static final long serialVersionUID = 1l;
-
-		final int line;
-		final int column;
-
-		ParseException(final String message)
-		{
-			super(message);
-
-			final char[] input = Injector.this.input;
-			final int inputPosition = Injector.this.inputPosition;
-
-			int line = 1;
-			int column = 0;
-			for(int i = 0; i<inputPosition; i++)
-			{
-				if(input[i]=='\n')
-				{
-					line++;
-					column = -1;
-				}
-				else
-				{
-					column++;
-				}
-			}
-			this.line = line;
-			this.column = column;
-		}
-
-		@Override
-		public String getMessage()
-		{
-			return
-				"("
-				+ fileName
-				+ ':'
-				+ line
-				+ ':'
-				+ column
-				+ ')'
-				+ ' '
-				+ super.getMessage();
-		}
+		return tokenizer.newParseException(message);
 	}
 
 	public final static boolean hasTag(final String doccomment, final String tagname)
@@ -1145,110 +749,5 @@ final class Injector
 		}
 		else
 			return Collections.emptyList();
-	}
-
-	abstract class Token
-	{
-		abstract boolean contains(char c);
-
-		void expect(final char c)
-		{
-			if(!contains(c))
-				throw new ParseException("'" + c + "' expected");
-		}
-
-		String getString(final String message) throws ParseException
-		{
-			throw new ParseException(message);
-		}
-
-		@Override
-		public abstract String toString();
-
-		/**
-		 * @deprecated for debugging only, should never be used in committed code
-		 */
-		@Deprecated
-		final Token print()
-		{
-			System.out.println("+++++"+this);
-			return this;
-		}
-	}
-
-	final class CharToken extends Token
-	{
-		final char value;
-
-		CharToken(final char value)
-		{
-			this.value = value;
-			if(value=='\0')
-				throw new IllegalArgumentException();
-			if(value=='c')
-				throw new IllegalArgumentException();
-		}
-
-		@Override
-		boolean contains(final char c)
-		{
-			return c==value;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "char(" + value + ')';
-		}
-	}
-
-	final class StringToken extends Token
-	{
-		final String value;
-
-		StringToken(final String value)
-		{
-			this.value = value;
-		}
-
-		@Override
-		boolean contains(final char c)
-		{
-			return false;
-		}
-
-		@Override
-		String getString(final String message)
-		{
-			return value;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "string(" + value + ')';
-		}
-	}
-
-	final class CommentToken extends Token
-	{
-		final String comment;
-
-		CommentToken(final String comment)
-		{
-			this.comment = comment;
-		}
-
-		@Override
-		boolean contains(final char c)
-		{
-			return false;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "comment(" + comment + ')';
-		}
 	}
 }

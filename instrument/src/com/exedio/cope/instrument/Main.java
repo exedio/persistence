@@ -106,7 +106,7 @@ public final class Main
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
 			final JavaFile javaFile = new JavaFile(repository);
-			final Injector injector = new Injector(file, new Instrumentor(), javaFile);
+			final Injector injector = new Injector(new Tokenizer(file, javaFile), new Instrumentor(), javaFile);
 			injector.parseFile();
 			injectors.add(injector);
 		}
@@ -140,7 +140,7 @@ public final class Main
 			final Generator generator = new Generator(injector.javaFile, baos, params);
 			generator.write();
 
-			if(!equal(injector.input, baos))
+			if(!equal(injector.tokenizer.input, baos))
 			{
 				logInstrumented(file);
 				delete(file);
