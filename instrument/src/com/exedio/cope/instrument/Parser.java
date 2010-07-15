@@ -58,8 +58,6 @@ final class Parser
 
 	/**
 	 * Constructs a new java parser.
-	 * @param inputFile
-	 * the input stream to be parsed.
 	 * @param consumer
 	 * an implementation of InjectionConsumer,
 	 * listening to parsed elements of the input stream.
@@ -151,7 +149,7 @@ final class Parser
 	 * The same as parseFeature(JavaClass) but the first token has
 	 * already been fetched from the input stream.
 	 * @param bufs the first token of the class feature.
-	 * @see #parseFeature(JavaClass,StringToken)
+	 * @see #parseFeature(JavaClass,Tokenizer.StringToken)
 	 */
 	private JavaFeature[] parseFeature(final JavaClass parent, String bufs)
 		throws IOException, EndException, InjectorParseException
