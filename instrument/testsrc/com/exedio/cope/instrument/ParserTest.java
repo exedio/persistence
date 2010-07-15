@@ -26,13 +26,13 @@ import java.util.LinkedList;
 
 import junit.framework.AssertionFailedError;
 
-public abstract class InjectorTest extends InstrumentorTest
+public abstract class ParserTest extends InstrumentorTest
 {
 	private final String resourceName;
 	final boolean assertText;
 	private final String lineSeparator;
 
-	protected InjectorTest(final String resourceName, final boolean assertText)
+	protected ParserTest(final String resourceName, final boolean assertText)
 	{
 		this.resourceName = resourceName;
 		this.assertText = assertText;
@@ -47,7 +47,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	public void testInjection()
 		throws IOException, InjectorParseException
 	{
-		final File inputFile = new File(InjectorTest.class.getResource(resourceName).getFile());
+		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
 		injectionEvents = new LinkedList<InjectionEvent>();
 		testInjectionConsumer = new TestInjectionConsumer();

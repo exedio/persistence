@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PUBLIC;
 
-public class Example15Test extends InjectorTest
+public class Example15Test extends ParserTest
 {
 	// TODO spaces in generics
 	// TODO constructor with generics

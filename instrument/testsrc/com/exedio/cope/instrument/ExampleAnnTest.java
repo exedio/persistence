@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PUBLIC;
 
-public class ExampleAnnTest extends InjectorTest
+public class ExampleAnnTest extends ParserTest
 {
 	// TODO annotations
 

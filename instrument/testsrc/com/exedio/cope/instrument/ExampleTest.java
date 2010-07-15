@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
-public class ExampleTest extends InjectorTest
+public class ExampleTest extends ParserTest
 {
 
 	public ExampleTest()
