@@ -40,7 +40,7 @@ public abstract class ParserTest extends InstrumentorTest
 	}
 
 	LinkedList<ParseEvent> parseEvents;
-	private TestParseConsumer testInjectionConsumer;
+	private TestParseConsumer testParseConsumer;
 
 	public abstract void assertInjection();
 
@@ -50,12 +50,12 @@ public abstract class ParserTest extends InstrumentorTest
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
 		parseEvents = new LinkedList<ParseEvent>();
-		testInjectionConsumer = new TestParseConsumer();
+		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser injector = new Parser(new Tokenizer(inputFile, javaFile), testInjectionConsumer, javaFile);
+		final Parser injector = new Parser(new Tokenizer(inputFile, javaFile), testParseConsumer, javaFile);
 		if(assertText)
-			testInjectionConsumer.output = injector.javaFile.buffer;
+			testParseConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
 
 		assertInjection();
