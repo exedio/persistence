@@ -40,7 +40,7 @@ public abstract class ParserTest extends InstrumentorTest
 	}
 
 	LinkedList<ParseEvent> parseEvents;
-	private TestInjectionConsumer testInjectionConsumer;
+	private TestParseConsumer testInjectionConsumer;
 
 	public abstract void assertInjection();
 
@@ -50,7 +50,7 @@ public abstract class ParserTest extends InstrumentorTest
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
 		parseEvents = new LinkedList<ParseEvent>();
-		testInjectionConsumer = new TestInjectionConsumer();
+		testInjectionConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
 		final Parser injector = new Parser(new Tokenizer(inputFile, javaFile), testInjectionConsumer, javaFile);
@@ -360,11 +360,11 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private class TestInjectionConsumer implements ParseConsumer
+	private class TestParseConsumer implements ParseConsumer
 	{
 		StringBuilder output;
 
-		TestInjectionConsumer()
+		TestParseConsumer()
 		{
 			// make constructor non-private
 		}
