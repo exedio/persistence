@@ -44,7 +44,7 @@ public abstract class ParserTest extends InstrumentorTest
 
 	public abstract void assertParse();
 
-	public void testInjection()
+	public void testIt()
 		throws IOException, ParserException
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
@@ -199,7 +199,7 @@ public abstract class ParserTest extends InstrumentorTest
 	}
 
 	/**
-	 * TODO: InnerClassAttribute is non-sense, and should not be reported by the injector
+	 * TODO: InnerClassAttribute is non-sense, and should not be reported by the parser
 	 */
 	protected void assertInnerClassAttribute(final String name, final String docComment)
 	{
