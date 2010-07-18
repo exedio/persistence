@@ -53,7 +53,7 @@ final class Tokenizer
 	private final StringBuilder output;
 	final String fileName;
 
-	private final StringBuilder bufTokenizer = new StringBuilder();
+	private final StringBuilder buf = new StringBuilder();
 
 	private boolean do_block = false;
 	private boolean start_block = false;
@@ -243,7 +243,7 @@ final class Tokenizer
 			return result;
 		}
 
-		bufTokenizer.setLength(0);
+		buf.setLength(0);
 
 		while (true)
 		{
@@ -259,12 +259,12 @@ final class Tokenizer
 					readComment();
 					if (commentcollector)
 						flushOutbuf();
-					if (bufTokenizer.length() > 0)
+					if (buf.length() > 0)
 					{
 						if (commentcollector)
 							commentBuf = getCollector();
 						//System.out.println("<"+buf+">");
-						return new StringToken(bufTokenizer.toString());
+						return new StringToken(buf.toString());
 					}
 					if (commentcollector)
 					{
@@ -277,10 +277,10 @@ final class Tokenizer
 				case '\t' :
 				case '\n' :
 				case '\r' :
-					if (bufTokenizer.length() > 0)
+					if (buf.length() > 0)
 					{
 						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(bufTokenizer.toString());
+						return new StringToken(buf.toString());
 					}
 					break;
 				case '{' :
@@ -291,20 +291,20 @@ final class Tokenizer
 				case '=' :
 				case ',' :
 				case '@' :
-					if (bufTokenizer.length() > 0)
+					if (buf.length() > 0)
 					{
 						tokenBuf = c;
 						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(bufTokenizer.toString());
+						return new StringToken(buf.toString());
 					}
 					//System.out.println("<<"+c+">>");
 					return new CharToken(c);
 				case '<' :
-					bufTokenizer.append(c);
+					buf.append(c);
 					while(true)
 					{
 						c = read();
-						bufTokenizer.append(c);
+						buf.append(c);
 						if(c=='>')
 							break;
 					}
@@ -313,7 +313,7 @@ final class Tokenizer
 				default :
 					if (!do_block && start_block)
 						do_block = true;
-					bufTokenizer.append(c);
+					buf.append(c);
 					//System.out.println("df||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 			}
