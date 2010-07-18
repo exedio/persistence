@@ -264,7 +264,7 @@ final class Tokenizer
 						if (commentcollector)
 							commentBuf = getCollector();
 						//System.out.println("<"+buf+">");
-						return new StringToken(buf.toString());
+						return new StringToken();
 					}
 					if (commentcollector)
 					{
@@ -280,7 +280,7 @@ final class Tokenizer
 					if (buf.length() > 0)
 					{
 						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(buf.toString());
+						return new StringToken();
 					}
 					break;
 				case '{' :
@@ -295,7 +295,7 @@ final class Tokenizer
 					{
 						tokenBuf = c;
 						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken(buf.toString());
+						return new StringToken();
 					}
 					//System.out.println("<<"+c+">>");
 					return new CharToken(c);
@@ -673,9 +673,10 @@ final class Tokenizer
 	{
 		final String value;
 
-		StringToken(final String value)
+		@SuppressWarnings("synthetic-access")
+		StringToken()
 		{
-			this.value = value;
+			this.value = buf.toString();
 		}
 
 		@Override
