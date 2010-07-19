@@ -32,7 +32,7 @@
 		<!-- Non-serializable class has a serializable inner class -->
 		<Bug pattern="SE_BAD_FIELD_INNER_CLASS" />
 		<Or>
-			<Class name="com.exedio.cope.instrument.Tokenizer$ParseException" />
+			<Class name="com.exedio.cope.instrument.Lexer$ParseException" />
 			<Class name="com.exedio.cope.instrument.JavaClass$NS" />
 			<Class name="com.exedio.cope.instrument.JavaRepository$NS" />
 		</Or>
@@ -181,12 +181,12 @@
 		<!-- Useless control flow -->
 		<!-- TODO -->
 		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
-		<Method classname="com.exedio.cope.instrument.Tokenizer" name="readComment" />
+		<Method classname="com.exedio.cope.instrument.Lexer" name="readComment" />
 	</Match>
 	<Match>
 		<!-- Method uses the same code for two switch clauses -->
 		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
-		<Method classname="com.exedio.cope.instrument.Tokenizer" name="parseClass" />
+		<Method classname="com.exedio.cope.instrument.Lexer" name="parseClass" />
 	</Match>
 	<Match>
 		<!-- Inefficient use of keySet iterator instead of entrySet iterator -->
