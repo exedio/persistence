@@ -53,7 +53,7 @@ public abstract class ParserTest extends InstrumentorTest
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser parser = new Parser(new Tokenizer(inputFile, javaFile), testParseConsumer, javaFile);
+		final Parser parser = new Parser(new Lexer(inputFile, javaFile), testParseConsumer, javaFile);
 		if(assertText)
 			testParseConsumer.output = parser.javaFile.buffer;
 		parser.parseFile();

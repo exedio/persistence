@@ -44,7 +44,7 @@ import java.util.List;
  *
  * @author Ralf Wiebicke
  */
-final class Tokenizer
+final class Lexer
 {
 	final char[] input;
 	int inputPosition = 0;
@@ -67,7 +67,7 @@ final class Tokenizer
 	 * @param inputFile
 	 * the input stream to be parsed.
 	 */
-	public Tokenizer(final File inputFile,
+	public Lexer(final File inputFile,
 							final JavaFile javaFile)
 		throws IOException
 	{
@@ -487,8 +487,8 @@ final class Tokenizer
 		{
 			super(message);
 
-			final char[] input = Tokenizer.this.input;
-			final int inputPosition = Tokenizer.this.inputPosition;
+			final char[] input = Lexer.this.input;
+			final int inputPosition = Lexer.this.inputPosition;
 
 			int line = 1;
 			int column = 0;

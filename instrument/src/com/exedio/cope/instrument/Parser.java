@@ -25,12 +25,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.instrument.Tokenizer.CharToken;
-import com.exedio.cope.instrument.Tokenizer.CommentToken;
-import com.exedio.cope.instrument.Tokenizer.EndException;
-import com.exedio.cope.instrument.Tokenizer.ParseException;
-import com.exedio.cope.instrument.Tokenizer.StringToken;
-import com.exedio.cope.instrument.Tokenizer.Token;
+import com.exedio.cope.instrument.Lexer.CharToken;
+import com.exedio.cope.instrument.Lexer.CommentToken;
+import com.exedio.cope.instrument.Lexer.EndException;
+import com.exedio.cope.instrument.Lexer.ParseException;
+import com.exedio.cope.instrument.Lexer.StringToken;
+import com.exedio.cope.instrument.Lexer.Token;
 
 /**
  * Implements a modifying java parser.
@@ -49,7 +49,7 @@ import com.exedio.cope.instrument.Tokenizer.Token;
  */
 final class Parser
 {
-	final Tokenizer tokenizer;
+	final Lexer tokenizer;
 	private final ParseConsumer consumer;
 
 	private String docComment = null;
@@ -63,7 +63,7 @@ final class Parser
 	 * listening to parsed elements of the input stream.
 	 * @see ParseConsumer
 	 */
-	public Parser(final Tokenizer tokenizer,
+	public Parser(final Lexer tokenizer,
 								final ParseConsumer consumer, final JavaFile javaFile)
 	{
 		this.tokenizer = tokenizer;
@@ -149,7 +149,7 @@ final class Parser
 	 * The same as parseFeature(JavaClass) but the first token has
 	 * already been fetched from the input stream.
 	 * @param bufs the first token of the class feature.
-	 * @see #parseFeature(JavaClass,Tokenizer.StringToken)
+	 * @see #parseFeature(JavaClass,Lexer.StringToken)
 	 */
 	private JavaFeature[] parseFeature(final JavaClass parent, String bufs)
 		throws IOException, EndException, ParserException
