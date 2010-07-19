@@ -140,7 +140,7 @@ public final class Main
 			final Generator generator = new Generator(parser.javaFile, baos, params);
 			generator.write();
 
-			if(!equal(parser.tokenizer.input, baos))
+			if(!equal(parser.lexer.input, baos))
 			{
 				logInstrumented(file);
 				delete(file);

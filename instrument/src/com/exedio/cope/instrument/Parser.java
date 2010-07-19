@@ -49,7 +49,7 @@ import com.exedio.cope.instrument.Lexer.Token;
  */
 final class Parser
 {
-	final Lexer tokenizer;
+	final Lexer lexer;
 	private final ParseConsumer consumer;
 
 	private String docComment = null;
@@ -63,47 +63,47 @@ final class Parser
 	 * listening to parsed elements of the input stream.
 	 * @see ParseConsumer
 	 */
-	public Parser(final Lexer tokenizer,
+	public Parser(final Lexer lexer,
 								final ParseConsumer consumer, final JavaFile javaFile)
 	{
-		this.tokenizer = tokenizer;
+		this.lexer = lexer;
 		this.consumer = consumer;
 		this.javaFile = javaFile;
 	}
 
 	private void scheduleBlock(final boolean collect_when_blocking)
 	{
-		tokenizer.scheduleBlock(collect_when_blocking);
+		lexer.scheduleBlock(collect_when_blocking);
 	}
 
 	private boolean do_block()
 	{
-		return tokenizer.do_block();
+		return lexer.do_block();
 	}
 
 	private boolean collect_when_blocking()
 	{
-		return tokenizer.collect_when_blocking();
+		return lexer.collect_when_blocking();
 	}
 
 	private String getCollector()
 	{
-		return tokenizer.getCollector();
+		return lexer.getCollector();
 	}
 
 	private void discardNextFeature(final boolean b)
 	{
-		tokenizer.discardNextFeature(b);
+		lexer.discardNextFeature(b);
 	}
 
 	private void flushOutbuf()
 	{
-		tokenizer.flushOutbuf();
+		lexer.flushOutbuf();
 	}
 
 	private void write(final String s)
 	{
-		tokenizer.write(s);
+		lexer.write(s);
 	}
 
 	/**
@@ -112,7 +112,7 @@ final class Parser
 	 */
 	private Token readToken() throws EndException
 	{
-		return tokenizer.readToken();
+		return lexer.readToken();
 	}
 
 	/**
@@ -129,7 +129,7 @@ final class Parser
 	private CharToken parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
 		throws EndException, ParseException
 	{
-		return tokenizer.parseBody(attribute, tokenConsumer);
+		return lexer.parseBody(attribute, tokenConsumer);
 	}
 
 	/**
@@ -199,7 +199,7 @@ final class Parser
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
 
 				consumer.onClass(result);
-				result.setClassEndPosition(tokenizer.outputLength());
+				result.setClassEndPosition(lexer.outputLength());
 				consumer.onClassEnd(result);
 
 				discardNextFeature(false);
@@ -539,7 +539,7 @@ final class Parser
 			}
 		}
 
-		jc.setClassEndPosition(tokenizer.outputLength());
+		jc.setClassEndPosition(lexer.outputLength());
 		consumer.onClassEnd(jc);
 		return jc;
 	}
@@ -656,7 +656,7 @@ final class Parser
 
 	private ParseException newParseException(final String message)
 	{
-		return tokenizer.newParseException(message);
+		return lexer.newParseException(message);
 	}
 
 	public final static boolean hasTag(final String doccomment, final String tagname)
