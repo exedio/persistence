@@ -238,7 +238,7 @@ final class Parser
 		c = lexer.readToken();
 
 		// parsing throws clauses
-		if(c instanceof StringToken && ((StringToken)c).value.equals("throws"))
+		if(c.contains("throws"))
 		{
 			do
 			{

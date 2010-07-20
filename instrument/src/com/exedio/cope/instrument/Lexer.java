@@ -519,6 +519,7 @@ final class Lexer
 	abstract class Token
 	{
 		abstract boolean contains(char c);
+		abstract boolean contains(String s);
 
 		void expect(final char c)
 		{
@@ -565,6 +566,12 @@ final class Lexer
 		}
 
 		@Override
+		boolean contains(final String s)
+		{
+			return false;
+		}
+
+		@Override
 		public String toString()
 		{
 			return "char(" + value + ')';
@@ -585,6 +592,12 @@ final class Lexer
 		boolean contains(final char c)
 		{
 			return false;
+		}
+
+		@Override
+		boolean contains(final String s)
+		{
+			return value.equals(s);
 		}
 
 		@Override
@@ -611,6 +624,12 @@ final class Lexer
 
 		@Override
 		boolean contains(final char c)
+		{
+			return false;
+		}
+
+		@Override
+		boolean contains(final String s)
 		{
 			return false;
 		}
