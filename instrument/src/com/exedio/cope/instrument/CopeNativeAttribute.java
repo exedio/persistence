@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
@@ -101,6 +102,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		fillNativeTypeMap(DoubleField.class,     Double.class,  double.class);
 		fillNativeTypeMap(StringFunction.class,  String.class);
 		fillNativeTypeMap(DateField.class,       Date.class);
+		fillNativeTypeMap(DataField.class,       byte[].class);
 		fillNativeTypeMap(DayField.class,        Day.class);
 	}
 

@@ -122,6 +122,7 @@ final class JavaRepository
 							BooleanField.class.equals(typeClass) ||
 							DateField.class.equals(typeClass) ||
 							DayField.class.equals(typeClass) ||
+							DataField.class.equals(typeClass) ||
 							StringFunction.class.isAssignableFrom(typeClass))
 						{
 							new CopeNativeAttribute(type, javaAttribute, typeClass);
@@ -131,10 +132,6 @@ final class JavaRepository
 							ItemField.class.equals(typeClass))
 						{
 							new CopeObjectAttribute(type, javaAttribute);
-						}
-						else if(DataField.class.equals(typeClass))
-						{
-							new CopeDataAttribute(type, javaAttribute);
 						}
 						else
 							throw new RuntimeException(typeClass.toString());
