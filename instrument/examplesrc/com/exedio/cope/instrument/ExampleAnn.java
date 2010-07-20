@@ -74,9 +74,6 @@ public class ExampleAnn
 	}
 	
 	@Override
-	public boolean equals(Object o)
-	{
-		return true;
-	}
+	public boolean equals = true;
 
 }

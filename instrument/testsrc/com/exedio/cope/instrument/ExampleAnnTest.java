@@ -77,9 +77,9 @@ public class ExampleAnnTest extends ParserTest
 		assertClassEnd(weekdayClass);
 		assertInnerClassAttribute("Weekday", null);
 
-		final JavaBehaviour equalsMethod =
-			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be PUBLIC */);
-		assertMethod("equals", null, equalsMethod);
+		final JavaField equalsMethod =
+			assertFieldHeader("equals", "boolean", 0 /* TODO should be PUBLIC */);
+		assertField("equals", null, equalsMethod);
 
 		assertClassEnd(exampleClass);
 	}
