@@ -33,21 +33,13 @@ import org.cojen.util.ClassInjector;
 import bsh.Interpreter;
 import bsh.UtilEvalError;
 
-import com.exedio.cope.BooleanField;
-import com.exedio.cope.DataField;
-import com.exedio.cope.DateField;
-import com.exedio.cope.DayField;
-import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LongField;
-import com.exedio.cope.NumberFunction;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
 
@@ -116,25 +108,15 @@ final class JavaRepository
 					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 					{
 						if(
-							NumberFunction.class.isAssignableFrom(typeClass) ||
-							LongField.class.equals(typeClass) ||
-							DoubleField.class.equals(typeClass) ||
-							BooleanField.class.equals(typeClass) ||
-							DateField.class.equals(typeClass) ||
-							DayField.class.equals(typeClass) ||
-							DataField.class.equals(typeClass) ||
-							StringFunction.class.isAssignableFrom(typeClass))
-						{
-							new CopeNativeAttribute(type, javaAttribute, typeClass);
-						}
-						else if(
 							EnumField.class.equals(typeClass)||
 							ItemField.class.equals(typeClass))
 						{
 							new CopeObjectAttribute(type, javaAttribute);
 						}
 						else
-							throw new RuntimeException(typeClass.toString());
+						{
+							new CopeNativeAttribute(type, javaAttribute, typeClass);
+						}
 					}
 					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
 						new CopeUniqueConstraint(type, javaAttribute);
