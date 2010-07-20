@@ -47,7 +47,7 @@ import java.util.List;
 final class Lexer
 {
 	final char[] input;
-	int inputPosition = 0;
+	private int inputPosition = 0;
 	private final int inputLength;
 
 	private final StringBuilder output;
@@ -471,7 +471,7 @@ final class Lexer
 
 	ParseException newParseException(final String message)
 	{
-		return new ParseException(message);
+		return new ParseException(message, inputPosition);
 	}
 
 	final class ParseException extends ParserException
@@ -481,12 +481,11 @@ final class Lexer
 		final int line;
 		final int column;
 
-		ParseException(final String message)
+		ParseException(final String message, final int inputPosition)
 		{
 			super(message);
 
 			final char[] input = Lexer.this.input;
-			final int inputPosition = Lexer.this.inputPosition;
 
 			int line = 1;
 			int column = 0;
@@ -619,12 +618,12 @@ final class Lexer
 		void expect(final char c)
 		{
 			if(!contains(c))
-				throw new ParseException("'" + c + "' expected");
+				throw newParseException("'" + c + "' expected");
 		}
 
 		String getString(final String message) throws ParseException
 		{
-			throw new ParseException(message);
+			throw newParseException(message);
 		}
 
 		@Override
