@@ -184,11 +184,6 @@
 		<Method classname="com.exedio.cope.instrument.Lexer" name="readComment" />
 	</Match>
 	<Match>
-		<!-- Method uses the same code for two switch clauses -->
-		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
-		<Method classname="com.exedio.cope.instrument.Lexer" name="parseClass" />
-	</Match>
-	<Match>
 		<!-- Inefficient use of keySet iterator instead of entrySet iterator -->
 		<Bug pattern="WMI_WRONG_MAP_ITERATOR" />
 		<Or>
