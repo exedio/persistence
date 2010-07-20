@@ -167,13 +167,13 @@ public final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean equal(final char[] a, final StringBuilder bf)
+	private static boolean equal(final char[] input, final StringBuilder bf)
 	{
-		if(a.length!=bf.length())
+		if(input.length!=bf.length())
 			return false;
 
-		for(int i = 0; i<a.length; i++)
-			if(a[i]!=bf.charAt(i))
+		for(int i = 0; i<input.length; i++)
+			if(input[i]!=bf.charAt(i))
 				return false;
 
 		return true;
