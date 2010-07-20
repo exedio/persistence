@@ -32,7 +32,7 @@ class CopeFeature
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
 	final CopeType parent;
-	final JavaField javaAttribute;
+	final JavaField javaField;
 	final String name;
 	final int modifier;
 	final Visibility visibility;
@@ -40,15 +40,15 @@ class CopeFeature
 	final boolean initial;
 	private Feature value;
 
-	CopeFeature(final CopeType parent, final JavaField javaAttribute)
+	CopeFeature(final CopeType parent, final JavaField javaField)
 	{
 		this.parent = parent;
-		this.javaAttribute = javaAttribute;
-		this.name = javaAttribute.name;
-		this.modifier = javaAttribute.modifier;
-		this.visibility = javaAttribute.getVisibility();
+		this.javaField = javaField;
+		this.name = javaField.name;
+		this.modifier = javaField.modifier;
+		this.visibility = javaField.getVisibility();
 
-		this.docComment = javaAttribute.getDocComment();
+		this.docComment = javaField.getDocComment();
 		this.initial = Tags.has(docComment, TAG_INITIAL);
 
 		parent.register(this);
@@ -56,13 +56,13 @@ class CopeFeature
 
 	final JavaClass getParent()
 	{
-		return javaAttribute.parent;
+		return javaField.parent;
 	}
 
 	final Feature getInstance()
 	{
 		if(value==null)
-			value = (Feature)javaAttribute.evaluate();
+			value = (Feature)javaField.evaluate();
 
 		return value;
 	}

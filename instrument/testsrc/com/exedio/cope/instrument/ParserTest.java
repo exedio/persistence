@@ -170,10 +170,10 @@ public abstract class ParserTest extends InstrumentorTest
 		return javaBehaviour;
 	}
 
-	protected JavaField assertAttributeHeader(final String name, final String type, final int modifier)
+	protected JavaField assertFieldHeader(final String name, final String type, final int modifier)
 	{
 		final ParseEvent event = fetchEvent();
-		final JavaField javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
+		final JavaField javaAttribute = ((FieldHeaderEvent)event).javaField;
 		assertEquals(name, javaAttribute.name);
 		assertEquals(type, javaAttribute.type);
 		assertEquals(modifier, javaAttribute.modifier);
@@ -190,7 +190,7 @@ public abstract class ParserTest extends InstrumentorTest
 			assertSame(expectedJavaFeature, javaFeature);
 	}
 
-	protected void assertAttribute(final String name, final String docComment, final JavaField expectedJavaAttribute)
+	protected void assertField(final String name, final String docComment, final JavaField expectedJavaAttribute)
 	{
 		if(expectedJavaAttribute==null)
 			throw new NullPointerException();
@@ -326,19 +326,19 @@ public abstract class ParserTest extends InstrumentorTest
 		}
 	}
 
-	private static class AttributeHeaderEvent extends ParseEvent
+	private static class FieldHeaderEvent extends ParseEvent
 	{
-		final JavaField javaAttribute;
+		final JavaField javaField;
 
-		AttributeHeaderEvent(final JavaField javaAttribute)
+		FieldHeaderEvent(final JavaField javaField)
 		{
-			this.javaAttribute = javaAttribute;
+			this.javaField = javaField;
 		}
 
 		@Override
 		public String toString()
 		{
-			return "AttributeHeaderEvent:"+javaAttribute.toString();
+			return "FieldHeaderEvent:"+javaField.toString();
 		}
 	}
 
@@ -395,9 +395,9 @@ public abstract class ParserTest extends InstrumentorTest
 			addParseEvent(new BehaviourHeaderEvent(jb));
 		}
 
-		public void onAttributeHeader(final JavaField ja)
+		public void onFieldHeader(final JavaField ja)
 		{
-			addParseEvent(new AttributeHeaderEvent(ja));
+			addParseEvent(new FieldHeaderEvent(ja));
 		}
 
 		public void onClassFeature(final JavaFeature cf, final String doccomment)

@@ -44,16 +44,16 @@ public class Example15Test extends ParserTest
 		final JavaClass exampleClass = assertClass("Example15", null, null);
 
 		final JavaField name =
-			assertAttributeHeader("name", "String", PRIVATE);
-		assertAttribute("name", null, name);
+			assertFieldHeader("name", "String", PRIVATE);
+		assertField("name", null, name);
 
 		final JavaField dates =
-			assertAttributeHeader("dates", "HashSet<Date>", PUBLIC);
-		assertAttribute("dates", null, dates);
+			assertFieldHeader("dates", "HashSet<Date>", PUBLIC);
+		assertField("dates", null, dates);
 
 		final JavaField primes =
-			assertAttributeHeader("primes", "HashMap<Integer, Boolean>", 0);
-		assertAttribute("primes", null, primes);
+			assertFieldHeader("primes", "HashMap<Integer, Boolean>", 0);
+		assertField("primes", null, primes);
 
 		final JavaBehaviour constructor =
 			assertBehaviourHeader("Example15", null, PUBLIC);

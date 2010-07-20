@@ -220,9 +220,9 @@ final class Parser
 		}
 		else // it's an attribute
 		{
-			final JavaField ja =
+			final JavaField field =
 				new JavaField(parent, modifiers, featuretype, featurename);
-			return parseAttribute(ja, c);
+			return parseField(field, c);
 		}
 	}
 
@@ -318,13 +318,13 @@ final class Parser
 		}
 	}
 
-	private JavaField[] parseAttribute(JavaField ja, Token c)
+	private JavaField[] parseField(JavaField field, Token c)
 		throws EndException, ParserException
 	{
-		consumer.onAttributeHeader(ja);
+		consumer.onFieldHeader(field);
 
-		final ArrayList<JavaField> commaSeparatedAttributes = new ArrayList<JavaField>();
-		commaSeparatedAttributes.add(ja);
+		final ArrayList<JavaField> commaSeparatedFields = new ArrayList<JavaField>();
+		commaSeparatedFields.add(field);
 		//if(!do_block) ja.print(System.out);
 
 		while (true)
@@ -338,20 +338,20 @@ final class Parser
 					if(lexer.do_block())
 						lexer.getCollector();
 					final JavaField[] jaarray =
-						new JavaField[commaSeparatedAttributes.size()];
-					commaSeparatedAttributes.toArray(jaarray);
+						new JavaField[commaSeparatedFields.size()];
+					commaSeparatedFields.toArray(jaarray);
 					return jaarray;
 				case ',' :
 					c = lexer.readToken();
-					ja = new JavaField(ja, c.getString("attribute name expected."));
-					commaSeparatedAttributes.add(ja);
+					field = new JavaField(field, c.getString("attribute name expected."));
+					commaSeparatedFields.add(field);
 					//if(!do_block) ja.print(System.out);
 					c = lexer.readToken();
 					break;
 				case '=' :
 					if(lexer.collect_when_blocking())
 						lexer.write(lexer.getCollector());
-					c = lexer.parseBody(true, ja);
+					c = lexer.parseBody(true, field);
 					lexer.flushOutbuf();
 					break;
 				default :

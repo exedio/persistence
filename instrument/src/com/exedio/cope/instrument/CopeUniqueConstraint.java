@@ -29,9 +29,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 final class CopeUniqueConstraint extends CopeFeature
 {
-	CopeUniqueConstraint(final CopeType parent, final JavaField javaAttribute)
+	CopeUniqueConstraint(final CopeType parent, final JavaField javaField)
 	{
-		super(parent, javaAttribute);
+		super(parent, javaField);
 	}
 
 	CopeAttribute[] getAttributes() throws ParserException
@@ -40,7 +40,7 @@ final class CopeUniqueConstraint extends CopeFeature
 
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
 		for(final FunctionField attributeInstance : instance.getFields())
-			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
+			attributeList.add(javaField.parent.getFieldByInstance(attributeInstance).name);
 
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);
 

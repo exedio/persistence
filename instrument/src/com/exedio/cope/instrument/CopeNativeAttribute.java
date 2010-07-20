@@ -40,11 +40,11 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	public CopeNativeAttribute(
 			final CopeType parent,
-			final JavaField javaAttribute,
+			final JavaField javaField,
 			final Class typeClass)
 		throws ParserException
 	{
-		super(parent, javaAttribute, getPersistentType(typeClass));
+		super(parent, javaField, getPersistentType(typeClass));
 
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = toNativeTypeMapping.get(this.typeClass);

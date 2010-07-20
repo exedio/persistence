@@ -23,15 +23,15 @@ final class CopeObjectAttribute extends CopeAttribute
 
 	public CopeObjectAttribute(
 			final CopeType parent,
-			final JavaField javaAttribute)
+			final JavaField javaField)
 		throws ParserException
 	{
-		super(parent, javaAttribute, getPersistentType(javaAttribute));
+		super(parent, javaField, getPersistentType(javaField));
 	}
 
-	private static final String getPersistentType(final JavaField javaAttribute)
+	private static final String getPersistentType(final JavaField javaField)
 	{
-		final String type = javaAttribute.type;
+		final String type = javaField.type;
 		final int lt = type.indexOf('<');
 		if(lt<0)
 			throw new RuntimeException("type " + type + " does not contain '<'");

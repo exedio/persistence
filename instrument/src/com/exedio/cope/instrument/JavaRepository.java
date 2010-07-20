@@ -91,17 +91,17 @@ final class JavaRepository
 			{
 				final CopeType type = new CopeType(javaClass, isComposite);
 
-				feature: for(final JavaField javaAttribute : javaClass.getAttributes())
+				feature: for(final JavaField javaField : javaClass.getFields())
 				{
-					final int modifier = javaAttribute.modifier;
+					final int modifier = javaField.modifier;
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 						continue feature;
 
-					final String docComment = javaAttribute.getDocComment();
+					final String docComment = javaField.getDocComment();
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
-					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
+					final Class typeClass = javaField.file.findTypeExternally(javaField.type);
 					if(typeClass==null)
 						continue feature;
 
@@ -111,17 +111,17 @@ final class JavaRepository
 							EnumField.class.equals(typeClass)||
 							ItemField.class.equals(typeClass))
 						{
-							new CopeObjectAttribute(type, javaAttribute);
+							new CopeObjectAttribute(type, javaField);
 						}
 						else
 						{
-							new CopeNativeAttribute(type, javaAttribute, typeClass);
+							new CopeNativeAttribute(type, javaField, typeClass);
 						}
 					}
 					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-						new CopeUniqueConstraint(type, javaAttribute);
+						new CopeUniqueConstraint(type, javaField);
 					else if(Feature.class.isAssignableFrom(typeClass))
-						new CopeFeature(type, javaAttribute);
+						new CopeFeature(type, javaField);
 				}
 			}
 		}

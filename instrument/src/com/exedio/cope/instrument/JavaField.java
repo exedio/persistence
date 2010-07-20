@@ -59,10 +59,10 @@ final class JavaField
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */
-	JavaField(final JavaField ja, final String name)
+	JavaField(final JavaField template, final String name)
 		throws ParserException
 	{
-		this(ja.parent, ja.modifier, ja.type, name);
+		this(template.parent, template.modifier, template.type, name);
 	}
 
 	/**

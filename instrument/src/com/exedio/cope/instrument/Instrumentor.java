@@ -81,7 +81,7 @@ final class Instrumentor implements ParseConsumer
 		// nothing to do here
 	}
 
-	public void onAttributeHeader(final JavaField ja)
+	public void onFieldHeader(final JavaField ja)
 	{
 		// nothing to do here
 	}

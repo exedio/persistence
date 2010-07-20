@@ -80,7 +80,7 @@ interface ParseConsumer
 	 * @param ja
 	 * contains all parsed information about the attribute
 	 */
-	void onAttributeHeader(JavaField ja);
+	void onFieldHeader(JavaField ja);
 
 	/**
 	 * Called for attributes and methods.
