@@ -19,8 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.ArrayList;
-
 /**
  * Represents a behavioral feature of a class parsed by the java parser.
  * May be either a method or a constructor.
@@ -30,11 +28,6 @@ import java.util.ArrayList;
  */
 abstract class JavaBehaviour extends JavaFeature
 {
-	/**
-	 * Contains all names given in the &quot;throws&quot; clause.
-	 */
-	private final ArrayList<String> throwables = new ArrayList<String>();
-
 	JavaBehaviour(
 						final JavaClass parent,
 						final int modifiers,
@@ -44,10 +37,5 @@ abstract class JavaBehaviour extends JavaFeature
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);
-	}
-
-	final void addThrowable(final String throwable)
-	{
-		throwables.add(throwable);
 	}
 }

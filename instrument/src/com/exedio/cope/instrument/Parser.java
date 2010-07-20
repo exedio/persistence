@@ -237,8 +237,17 @@ final class Parser
 		}
 		// parsing throws clauses
 		c = lexer.readToken();
-		ti : while (true)
 		{
+			if(c instanceof StringToken && ((StringToken)c).value.equals("throws"))
+			{
+				do
+				{
+					c = lexer.readToken();
+					c = lexer.readToken();
+				}
+				while(c.contains(','));
+			}
+
 			if(c instanceof CharToken)
 			{
 				switch(((CharToken)c).value)
@@ -251,7 +260,7 @@ final class Parser
 						}
 						lexer.parseBody(false, null);
 						lexer.flushOutbuf();
-						break ti;
+						break;
 					case ';' :
 						if(lexer.collect_when_blocking())
 						{
@@ -259,26 +268,13 @@ final class Parser
 							consumer.onBehaviourHeader(jb);
 						}
 						lexer.flushOutbuf();
-						break ti;
+						break;
 					default :
 						throw lexer.newParseException("'{' expected.");
 				}
 			}
 			else
-			{
-				if(((StringToken)c).value.equals("throws"))
-				{
-					do
-					{
-						c = lexer.readToken();
-						jb.addThrowable(c.getString("class name expected."));
-						c = lexer.readToken();
-					}
-					while(c.contains(','));
-				}
-				else
-					throw lexer.newParseException("'throws' expected.");
-			}
+				throw lexer.newParseException("'{' expected.");
 		}
 		if(lexer.do_block())
 			lexer.getCollector();
