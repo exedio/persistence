@@ -49,7 +49,7 @@ class CopeFeature
 		this.visibility = javaAttribute.getVisibility();
 
 		this.docComment = javaAttribute.getDocComment();
-		this.initial = Tags.hasTag(docComment, TAG_INITIAL);
+		this.initial = Tags.has(docComment, TAG_INITIAL);
 
 		parent.register(this);
 	}

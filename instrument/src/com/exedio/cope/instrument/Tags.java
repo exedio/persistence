@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 
 final class Tags
 {
-	static boolean hasTag(final String doccomment, final String tagname)
+	static boolean has(final String doccomment, final String tagname)
 	{
 		if(doccomment==null)
 			return false;
@@ -39,7 +39,7 @@ final class Tags
 	 * @param tagname the tag name without the '@' prefix
 	 * @return the first line following the tag
 	 */
-	static String findDocTagLine(final String doccomment, final String tagname)
+	static String getLine(final String doccomment, final String tagname)
 	{
 		if(doccomment==null)
 			return null;

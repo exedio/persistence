@@ -70,10 +70,10 @@ final class CopeType
 		copeTypeByJavaClass.put(javaClass, this);
 
 		final String docComment = javaClass.getDocComment();
-		this.typeOption                  = new Option(Tags.findDocTagLine(docComment, TAG_TYPE),                   false);
-		this.initialConstructorOption    = new Option(Tags.findDocTagLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
-		this.genericConstructorOption    = new Option(Tags.findDocTagLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
-		this.activationConstructorOption = new Option(Tags.findDocTagLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
+		this.typeOption                  = new Option(Tags.getLine(docComment, TAG_TYPE),                   false);
+		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
+		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
+		this.activationConstructorOption = new Option(Tags.getLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
