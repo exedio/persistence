@@ -591,49 +591,4 @@ final class Parser
 		while(!lexer.readToken().contains(')'))
 			;
 	}
-
-	public final static boolean hasTag(final String doccomment, final String tagname)
-	{
-		if(doccomment==null)
-			return false;
-
-		final String s = '@' + tagname;
-		final int pos = doccomment.indexOf(s);
-		if(pos<0)
-			return false;
-		if(pos+s.length()==doccomment.length())
-			return true;
-		return Character.isWhitespace(doccomment.charAt(pos+s.length()));
-	}
-
-	/**
-	 * @param tagname the tag name without the '@' prefix
-	 * @return the first line following the tag
-	 */
-	public final static String findDocTagLine(final String doccomment, final String tagname)
-	{
-		if(doccomment==null)
-			return null;
-
-		final String s = '@' + tagname + ' ';
-		int start = doccomment.indexOf(s);
-		if (start < 0)
-			return null;
-		start += s.length();
-
-		int end;
-		li : for (end = start; end < doccomment.length(); end++)
-		{
-			switch (doccomment.charAt(end))
-			{
-				case '\n' :
-				case '\r' :
-				case '*' :
-					break li;
-			}
-		}
-		final String result = doccomment.substring(start, end).trim();
-		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
-		return result;
-	}
 }

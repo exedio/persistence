@@ -369,7 +369,7 @@ final class Generator
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
 				modifierTag!=null
-				? new Option(Parser.findDocTagLine(
+				? new Option(Tags.findDocTagLine(
 									feature.docComment,
 									CopeFeature.TAG_PREFIX + modifierTag),
 						true)
@@ -680,7 +680,7 @@ final class Generator
 	throws ParserException
 	{
 		final Option option = new Option(
-				Parser.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
+				Tags.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
 		if(!option.exists)
 			return;
 
