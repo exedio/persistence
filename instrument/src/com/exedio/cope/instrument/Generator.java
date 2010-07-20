@@ -622,7 +622,7 @@ final class Generator
 
 	private static final String toStringType(final CopeFeature feature, final int number)
 	{
-		return Parser.getGenerics(feature.javaAttribute.type).get(number);
+		return Generics.getGenerics(feature.javaAttribute.type).get(number);
 	}
 
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)
