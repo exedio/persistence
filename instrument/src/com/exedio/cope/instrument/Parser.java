@@ -71,67 +71,6 @@ final class Parser
 		this.javaFile = javaFile;
 	}
 
-	private void scheduleBlock(final boolean collect_when_blocking)
-	{
-		lexer.scheduleBlock(collect_when_blocking);
-	}
-
-	private boolean do_block()
-	{
-		return lexer.do_block();
-	}
-
-	private boolean collect_when_blocking()
-	{
-		return lexer.collect_when_blocking();
-	}
-
-	private String getCollector()
-	{
-		return lexer.getCollector();
-	}
-
-	private void discardNextFeature(final boolean b)
-	{
-		lexer.discardNextFeature(b);
-	}
-
-	private void flushOutbuf()
-	{
-		lexer.flushOutbuf();
-	}
-
-	private void write(final String s)
-	{
-		lexer.write(s);
-	}
-
-	/**
-	 * Splits the character stream into tokens.
-	 * This tokenizer works only outside of method bodys.
-	 */
-	private Token readToken() throws EndException
-	{
-		return lexer.readToken();
-	}
-
-	/**
-	 * Parses a method body or an attribute initializer,
-	 * depending on the parameter.
-	 * For method bodys, the input stream must be directly behind
-	 * the first opening curly bracket of the body.
-	 * For attribute initializers, the input stream must be directly
-	 * behind the '='.
-	 * @return
-	 * the delimiter, which terminated the attribute initializer
-	 * (';' or ',') or '}' for methods.
-	 */
-	private CharToken parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
-		throws EndException, ParseException
-	{
-		return lexer.parseBody(attribute, tokenConsumer);
-	}
-
 	/**
 	 * Parses a class feature. May be an attribute, a method or a inner
 	 * class. May even be a normal class, in this case parent==null.
@@ -193,53 +132,53 @@ final class Parser
 			}
 			else if ("enum".equals(bufs))
 			{
-				final String enumName = readToken().getString("enum name expected");
-				readToken().expect('{');
-				parseBody(false, null);
+				final String enumName = lexer.readToken().getString("enum name expected");
+				lexer.readToken().expect('{');
+				lexer.parseBody(false, null);
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
 
 				consumer.onClass(result);
 				result.setClassEndPosition(lexer.outputLength());
 				consumer.onClassEnd(result);
 
-				discardNextFeature(false);
+				lexer.discardNextFeature(false);
 
-				if(collect_when_blocking())
-					write(getCollector());
-				if(do_block())
-					getCollector();
+				if(lexer.collect_when_blocking())
+					lexer.write(lexer.getCollector());
+				if(lexer.do_block())
+					lexer.getCollector();
 
 				return new JavaFeature[]{result};
 			}
 			else
 			{
 				if (parent == null)
-					throw newParseException("'class' or 'interface' expected.");
+					throw lexer.newParseException("'class' or 'interface' expected.");
 				featuretype = bufs;
 				break;
 			}
 
-			final Token c = readToken();
+			final Token c = lexer.readToken();
 			if(!(c instanceof StringToken))
 			{
 				if (parent == null)
-					throw newParseException("'class' or 'interface' expected.");
+					throw lexer.newParseException("'class' or 'interface' expected.");
 				else
 				{
 					if(c.contains('{') && modifiers == Modifier.STATIC)
 					{
 						// this is a static initializer
-						if(collect_when_blocking())
-							write(getCollector());
-						flushOutbuf();
-						parseBody(false, null);
-						scheduleBlock(true);
+						if(lexer.collect_when_blocking())
+							lexer.write(lexer.getCollector());
+						lexer.flushOutbuf();
+						lexer.parseBody(false, null);
+						lexer.scheduleBlock(true);
 						docComment = null;
 						return new JavaClass[0];
 					}
 					else
 					{
-						throw newParseException("modifier expected.");
+						throw lexer.newParseException("modifier expected.");
 					}
 				}
 			}
@@ -247,7 +186,7 @@ final class Parser
 		}
 		String featurename;
 
-		Token c = readToken();
+		Token c = lexer.readToken();
 
 		if(!(c instanceof StringToken))
 		{
@@ -255,7 +194,7 @@ final class Parser
 			featurename = featuretype;
 			featuretype = null;
 			if (!parent.name.equals(featurename))
-				throw newParseException(
+				throw lexer.newParseException(
 					"constructor '"
 						+ featurename
 						+ "' must have the classes name '"
@@ -265,7 +204,7 @@ final class Parser
 		else
 		{
 			featurename = ((StringToken)c).value;
-			c = readToken();
+			c = lexer.readToken();
 		}
 
 		if(c.contains('(')) // it's a method/constructor
@@ -291,7 +230,7 @@ final class Parser
 	private void parseBehaviour(final JavaBehaviour jb)
 		throws EndException, ParseException
 	{
-		Token c = readToken();
+		Token c = lexer.readToken();
 		// parsing parameter list
 		while (true)
 		{
@@ -305,19 +244,19 @@ final class Parser
 				parametertype = ((StringToken)c).value;
 				if ("final".equals(parametertype))
 				{
-					c = readToken();
+					c = lexer.readToken();
 					parametertype = c.getString("parameter type expected.");
 				}
 			}
 			else
-				throw newParseException("')' expected.");
-			c = readToken();
+				throw lexer.newParseException("')' expected.");
+			c = lexer.readToken();
 			//System.out.println("addParameter("+parametertype+", "+buf.toString()+")");
 			jb.addParameter(parametertype, c.getString("parameter name expected."));
-			c = readToken();
+			c = lexer.readToken();
 			if(c.contains(','))
 			{
-				c = readToken();
+				c = lexer.readToken();
 				continue;
 			}
 			else if(c.contains(')'))
@@ -325,10 +264,10 @@ final class Parser
 				break;
 			}
 			else
-				throw newParseException("')' expected.");
+				throw lexer.newParseException("')' expected.");
 		}
 		// parsing throws clauses
-		c = readToken();
+		c = lexer.readToken();
 		ti : while (true)
 		{
 			if(c instanceof CharToken)
@@ -336,24 +275,24 @@ final class Parser
 				switch(((CharToken)c).value)
 				{
 					case '{' :
-						if(collect_when_blocking())
+						if(lexer.collect_when_blocking())
 						{
-							write(getCollector());
+							lexer.write(lexer.getCollector());
 							consumer.onBehaviourHeader(jb);
 						}
-						parseBody(false, null);
-						flushOutbuf();
+						lexer.parseBody(false, null);
+						lexer.flushOutbuf();
 						break ti;
 					case ';' :
-						if(collect_when_blocking())
+						if(lexer.collect_when_blocking())
 						{
-							write(getCollector());
+							lexer.write(lexer.getCollector());
 							consumer.onBehaviourHeader(jb);
 						}
-						flushOutbuf();
+						lexer.flushOutbuf();
 						break ti;
 					default :
-						throw newParseException("'{' expected.");
+						throw lexer.newParseException("'{' expected.");
 				}
 			}
 			else
@@ -362,18 +301,18 @@ final class Parser
 				{
 					do
 					{
-						c = readToken();
+						c = lexer.readToken();
 						jb.addThrowable(c.getString("class name expected."));
-						c = readToken();
+						c = lexer.readToken();
 					}
 					while(c.contains(','));
 				}
 				else
-					throw newParseException("'throws' expected.");
+					throw lexer.newParseException("'throws' expected.");
 			}
 		}
-		if(do_block())
-			getCollector();
+		if(lexer.do_block())
+			lexer.getCollector();
 		else
 		{
 			//jb.print(System.out);
@@ -394,30 +333,30 @@ final class Parser
 			switch(((CharToken)c).value)
 			{
 				case ';' :
-					if(collect_when_blocking())
-						write(getCollector());
-					flushOutbuf();
-					if(do_block())
-						getCollector();
+					if(lexer.collect_when_blocking())
+						lexer.write(lexer.getCollector());
+					lexer.flushOutbuf();
+					if(lexer.do_block())
+						lexer.getCollector();
 					final JavaAttribute[] jaarray =
 						new JavaAttribute[commaSeparatedAttributes.size()];
 					commaSeparatedAttributes.toArray(jaarray);
 					return jaarray;
 				case ',' :
-					c = readToken();
+					c = lexer.readToken();
 					ja = new JavaAttribute(ja, c.getString("attribute name expected."));
 					commaSeparatedAttributes.add(ja);
 					//if(!do_block) ja.print(System.out);
-					c = readToken();
+					c = lexer.readToken();
 					break;
 				case '=' :
-					if(collect_when_blocking())
-						write(getCollector());
-					c = parseBody(true, ja);
-					flushOutbuf();
+					if(lexer.collect_when_blocking())
+						lexer.write(lexer.getCollector());
+					c = lexer.parseBody(true, ja);
+					lexer.flushOutbuf();
 					break;
 				default :
-					throw newParseException("';', '=' or ',' expected, but was '" + c + '\'');
+					throw lexer.newParseException("';', '=' or ',' expected, but was '" + c + '\'');
 			}
 		}
 	}
@@ -425,14 +364,14 @@ final class Parser
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, ParserException
 	{
-		final String classname = readToken().getString("class name expected.");
+		final String classname = lexer.readToken().getString("class name expected.");
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
 
 		Token imc;
 		char extendsOrImplements = '-';
 		String classExtends = null;
 		final ArrayList<String> classImplements = new ArrayList<String>();
-		while(!(imc=readToken()).contains('{'))
+		while(!(imc=lexer.readToken()).contains('{'))
 		{
 			if(imc instanceof StringToken)
 			{
@@ -447,10 +386,10 @@ final class Parser
 					switch(extendsOrImplements)
 					{
 						case '-':
-							throw newParseException("expected extends or implements");
+							throw lexer.newParseException("expected extends or implements");
 						case 'e':
 							if(classExtends!=null)
-								throw newParseException("more than one type in extends clause");
+								throw lexer.newParseException("more than one type in extends clause");
 							classExtends = s;
 							break;
 						case 'i':
@@ -469,17 +408,17 @@ final class Parser
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
-		discardNextFeature(false);
+		lexer.discardNextFeature(false);
 
-		if(collect_when_blocking())
-			write(getCollector());
-		if(do_block())
-			getCollector();
+		if(lexer.collect_when_blocking())
+			lexer.write(lexer.getCollector());
+		if(lexer.do_block())
+			lexer.getCollector();
 
-		scheduleBlock(true);
+		lexer.scheduleBlock(true);
 		ml : while (true)
 		{
-			final Token token = readToken();
+			final Token token = lexer.readToken();
 			if(token instanceof CommentToken)
 			{
 				final String comment = ((CommentToken)token).comment;
@@ -488,16 +427,16 @@ final class Parser
 					docComment = comment;
 					//System.out.println("docComment: "+docComment);
 					final boolean onDocCommentResult = consumer.onDocComment(docComment);
-					discardNextFeature(!onDocCommentResult);
+					lexer.discardNextFeature(!onDocCommentResult);
 					if(onDocCommentResult)
-						write(docComment);
-					scheduleBlock(onDocCommentResult);
+						lexer.write(docComment);
+					lexer.scheduleBlock(onDocCommentResult);
 				}
 				else
 				{
 					//System.out.println("comment: "+comment);
-					write(comment);
-					scheduleBlock(true);
+					lexer.write(comment);
+					lexer.scheduleBlock(true);
 				}
 			}
 			else if(token instanceof StringToken)
@@ -505,36 +444,36 @@ final class Parser
 				final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
 				for(final JavaFeature jf : jfarray)
 					consumer.onClassFeature(jf, docComment);
-				discardNextFeature(false);
+				lexer.discardNextFeature(false);
 				docComment = null;
-				scheduleBlock(true);
+				lexer.scheduleBlock(true);
 			}
 			else
 			{
 				switch(((CharToken)token).value)
 				{
 					case '}' :
-						getCollector();
+						lexer.getCollector();
 						break ml;
 					case ';' :
 						// javac (but not jikes) accepts semicolons on class level,
 						// so do we.
-						getCollector();
+						lexer.getCollector();
 						break;
 					case '{' :
 						// this is an object initializer as defined
 						// in Java Language Specification D.1.3
-						if(collect_when_blocking())
-							write(getCollector());
-						flushOutbuf();
-						parseBody(false, null);
-						scheduleBlock(true);
+						if(lexer.collect_when_blocking())
+							lexer.write(lexer.getCollector());
+						lexer.flushOutbuf();
+						lexer.parseBody(false, null);
+						lexer.scheduleBlock(true);
 						break;
 					case '@':
 						parseAnnotation();
 						break;
 					default :
-						throw newParseException("class member expected.");
+						throw lexer.newParseException("class member expected.");
 				}
 			}
 		}
@@ -551,43 +490,43 @@ final class Parser
 			Token c;
 			while (true)
 			{
-				scheduleBlock(true);
+				lexer.scheduleBlock(true);
 				try
 				{
-					c = readToken();
+					c = lexer.readToken();
 				}
 				catch (final EndException e)
 				{
 					return;
 				}
 
-				if(collect_when_blocking())
-					write(getCollector());
-				if(do_block())
-					getCollector();
+				if(lexer.collect_when_blocking())
+					lexer.write(lexer.getCollector());
+				if(lexer.do_block())
+					lexer.getCollector();
 
 				if(c instanceof StringToken)
 				{
 					final String bufs = ((StringToken)c).value;
 					if ("package".equals(bufs))
 					{
-						c = readToken();
+						c = lexer.readToken();
 						javaFile.setPackage(c.getString("package name expected."));
 						consumer.onPackage(javaFile);
 						//System.out.println("package >"+((StringToken)c).value+"<");
-						c = readToken();
+						c = lexer.readToken();
 						c.expect(';');
 					}
 					else if ("import".equals(bufs))
 					{
-						c = readToken();
+						c = lexer.readToken();
 						if(!(c instanceof StringToken))
-							throw newParseException("class name expected.");
+							throw lexer.newParseException("class name expected.");
 						if("static".equals(((StringToken)c).value))
 						{
-							c = readToken();
+							c = lexer.readToken();
 							if(!(c instanceof StringToken))
-								throw newParseException("static import expected.");
+								throw lexer.newParseException("static import expected.");
 						}
 						else
 						{
@@ -596,7 +535,7 @@ final class Parser
 							javaFile.addImport(importstring);
 							consumer.onImport(importstring);
 						}
-						c = readToken();
+						c = lexer.readToken();
 						c.expect(';');
 					}
 					else
@@ -611,13 +550,13 @@ final class Parser
 						docComment = comment;
 						//System.out.println ("file level docComment: "+docComment);
 						consumer.onFileDocComment(docComment);
-						write(docComment);
+						lexer.write(docComment);
 						docComment = null; // Mark docComment as handled...
 					}
 					else
 					{
 						//System.out.println("comment: "+comment);
-						write(comment);
+						lexer.write(comment);
 					}
 				}
 				else
@@ -637,26 +576,21 @@ final class Parser
 		}
 		catch (final EndException e)
 		{
-			throw newParseException("Unexpected End-of-File.");
+			throw lexer.newParseException("Unexpected End-of-File.");
 		}
 	}
 
 	private void parseAnnotation() throws EndException
 	{
-		readToken().getString("expected name of annotation");
+		lexer.readToken().getString("expected name of annotation");
 		//System.out.println("---------name of annotation-------"+buf);
 
-		final Token bracketToken = readToken();
+		final Token bracketToken = lexer.readToken();
 		if(!bracketToken.contains('('))
 			return; // TODO this is a bug, should push back the token
 
-		while(!readToken().contains(')'))
+		while(!lexer.readToken().contains(')'))
 			;
-	}
-
-	private ParseException newParseException(final String message)
-	{
-		return lexer.newParseException(message);
 	}
 
 	public final static boolean hasTag(final String doccomment, final String tagname)
