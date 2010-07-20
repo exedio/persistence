@@ -25,9 +25,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Implements a modifying java parser.
@@ -517,96 +514,6 @@ final class Lexer
 				+ ' '
 				+ super.getMessage();
 		}
-	}
-
-	public final static boolean hasTag(final String doccomment, final String tagname)
-	{
-		if(doccomment==null)
-			return false;
-
-		final String s = '@' + tagname;
-		final int pos = doccomment.indexOf(s);
-		if(pos<0)
-			return false;
-		if(pos+s.length()==doccomment.length())
-			return true;
-		return Character.isWhitespace(doccomment.charAt(pos+s.length()));
-	}
-
-	/**
-	 * @param tagname the tag name without the '@' prefix
-	 * @return the first line following the tag
-	 */
-	public final static String findDocTagLine(final String doccomment, final String tagname)
-	{
-		if(doccomment==null)
-			return null;
-
-		final String s = '@' + tagname + ' ';
-		int start = doccomment.indexOf(s);
-		if (start < 0)
-			return null;
-		start += s.length();
-
-		int end;
-		li : for (end = start; end < doccomment.length(); end++)
-		{
-			switch (doccomment.charAt(end))
-			{
-				case '\n' :
-				case '\r' :
-				case '*' :
-					break li;
-			}
-		}
-		final String result = doccomment.substring(start, end).trim();
-		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
-		return result;
-	}
-
-	public static final String removeGenerics(final String s)
-	{
-		final int lt = s.indexOf('<');
-		//System.out.println("--------evaluate("+s+")"+lt);
-		if(lt>=0)
-		{
-			final int gt = s.indexOf('>', lt);
-			if(gt<0)
-				throw new RuntimeException(s);
-
-			//System.out.println("--------evaluate("+s+")"+gt);
-			if(gt<s.length())
-				return s.substring(0, lt) + s.substring(gt+1);
-			else
-				return s.substring(0, lt);
-		}
-		else
-			return s;
-	}
-
-	public static final List<String> getGenerics(final String s)
-	{
-		final int lt = s.indexOf('<');
-		if(lt>=0)
-		{
-			final ArrayList<String> result = new ArrayList<String>();
-
-			final int gt = s.indexOf('>', lt);
-			if(gt<0)
-				throw new RuntimeException(s);
-
-			int lastcomma = lt;
-			for(int comma = s.indexOf(',', lt); comma>=0&&comma<gt; comma = s.indexOf(',', comma+1))
-			{
-				result.add(s.substring(lastcomma+1, comma).trim());
-				lastcomma = comma;
-			}
-			result.add(s.substring(lastcomma+1, gt).trim());
-
-			return result;
-		}
-		else
-			return Collections.emptyList();
 	}
 
 	abstract class Token
