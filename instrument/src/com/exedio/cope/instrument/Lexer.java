@@ -51,9 +51,13 @@ final class Lexer
 	private final int inputLength;
 
 	private final StringBuilder output;
+	private char outbuf;
+	private boolean outbufvalid = false;
 	final String fileName;
 
 	private final StringBuilder buf = new StringBuilder();
+	private char tokenBuf = '\0';
+	private String commentBuf = null;
 
 	private boolean do_block = false;
 	private boolean start_block = false;
@@ -94,9 +98,6 @@ final class Lexer
 		this.fileName = inputFile.getName();
 		this.output = javaFile.buffer;
 	}
-
-	private char outbuf;
-	private boolean outbufvalid = false;
 
 	private final char read() throws EndException
 	{
@@ -215,9 +216,6 @@ final class Lexer
 		}
 		return -1;
 	}
-
-	private char tokenBuf = '\0';
-	private String commentBuf = null;
 
 	/**
 	 * Splits the character stream into tokens.
