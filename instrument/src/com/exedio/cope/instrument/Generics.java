@@ -25,7 +25,7 @@ import java.util.List;
 
 final class Generics
 {
-	static String removeGenerics(final String s)
+	static String remove(final String s)
 	{
 		final int lt = s.indexOf('<');
 		//System.out.println("--------evaluate("+s+")"+lt);
@@ -45,7 +45,7 @@ final class Generics
 			return s;
 	}
 
-	static List<String> getGenerics(final String s)
+	static List<String> get(final String s)
 	{
 		final int lt = s.indexOf('<');
 		if(lt>=0)

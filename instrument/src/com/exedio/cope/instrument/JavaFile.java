@@ -140,7 +140,7 @@ final class JavaFile
 
 		try
 		{
-			return externalNameSpace.getClass(Generics.removeGenerics(typename));
+			return externalNameSpace.getClass(Generics.remove(typename));
 		}
 		catch(final UtilEvalError e)
 		{

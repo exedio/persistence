@@ -163,7 +163,7 @@ final class JavaClass extends JavaFeature
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
-			final Object result = file.repository.interpreter.eval(Generics.removeGenerics(s), nameSpace);
+			final Object result = file.repository.interpreter.eval(Generics.remove(s), nameSpace);
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
