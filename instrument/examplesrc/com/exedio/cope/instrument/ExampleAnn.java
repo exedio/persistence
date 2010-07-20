@@ -25,7 +25,10 @@ import java.util.HashSet;
 @SuppressWarnings("unchecked")
 public class ExampleAnn
 {
+	@SuppressWarnings("unchecked")
 	private String name;
+	@  SuppressWarnings
+	( "unchecked" )
 	public HashSet<Date> dates;
 	HashMap<Integer, Boolean> primes = new HashMap();
 
