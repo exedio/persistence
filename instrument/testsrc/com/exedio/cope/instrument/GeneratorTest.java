@@ -156,6 +156,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getProtectedEnum", Enum2.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "setProtectedEnum", new Class[]{Enum2.class}, PROTECTED|FINAL);
 
+		assertMethod(STANDARD, "getInlineA", int.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInlineA", new Class[]{int.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getInlineB", int.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInlineB", new Class[]{int.class}, PUBLIC|FINAL);
+
 		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE|FINAL);
 		assertMethod(STANDARD, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
 
