@@ -231,39 +231,9 @@ final class Parser
 	{
 		Token c = lexer.readToken();
 		// parsing parameter list
-		while (true)
+		while(!c.contains(')'))
 		{
-			String parametertype;
-			if(c.contains(')'))
-			{
-				break;
-			}
-			else if(c instanceof StringToken)
-			{
-				parametertype = ((StringToken)c).value;
-				if ("final".equals(parametertype))
-				{
-					c = lexer.readToken();
-					parametertype = c.getString("parameter type expected.");
-				}
-			}
-			else
-				throw lexer.newParseException("')' expected.");
 			c = lexer.readToken();
-			//System.out.println("addParameter("+parametertype+", "+buf.toString()+")");
-			jb.addParameter(parametertype, c.getString("parameter name expected."));
-			c = lexer.readToken();
-			if(c.contains(','))
-			{
-				c = lexer.readToken();
-				continue;
-			}
-			else if(c.contains(')'))
-			{
-				break;
-			}
-			else
-				throw lexer.newParseException("')' expected.");
 		}
 		// parsing throws clauses
 		c = lexer.readToken();

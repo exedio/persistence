@@ -20,8 +20,6 @@
 package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Represents a behavioral feature of a class parsed by the java parser.
@@ -32,14 +30,6 @@ import java.util.List;
  */
 abstract class JavaBehaviour extends JavaFeature
 {
-
-	/**
-	 * Contains subsequently parameter types and names.
-	 */
-	protected final ArrayList<String> parameters=new ArrayList<String>();
-
-	protected final List<String> unmodifiableParameters=Collections.unmodifiableList(parameters);
-
 	/**
 	 * Contains all names given in the &quot;throws&quot; clause.
 	 */
@@ -56,20 +46,8 @@ abstract class JavaBehaviour extends JavaFeature
 		super(parent.file, parent, modifiers, type, name);
 	}
 
-	void addParameter(final String paramtype, final String paramname)
-	{
-		parameters.add(paramtype);
-		parameters.add(paramname);
-	}
-
-	final List<String> getParameters()
-	{
-		return unmodifiableParameters;
-	}
-
 	final void addThrowable(final String throwable)
 	{
 		throwables.add(throwable);
 	}
-
 }
