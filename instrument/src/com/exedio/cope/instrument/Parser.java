@@ -237,45 +237,45 @@ final class Parser
 		}
 		// parsing throws clauses
 		c = lexer.readToken();
-		{
-			if(c instanceof StringToken && ((StringToken)c).value.equals("throws"))
-			{
-				do
-				{
-					c = lexer.readToken();
-					c = lexer.readToken();
-				}
-				while(c.contains(','));
-			}
 
-			if(c instanceof CharToken)
+		if(c instanceof StringToken && ((StringToken)c).value.equals("throws"))
+		{
+			do
 			{
-				switch(((CharToken)c).value)
-				{
-					case '{' :
-						if(lexer.collect_when_blocking())
-						{
-							lexer.write(lexer.getCollector());
-							consumer.onBehaviourHeader(jb);
-						}
-						lexer.parseBody(false, null);
-						lexer.flushOutbuf();
-						break;
-					case ';' :
-						if(lexer.collect_when_blocking())
-						{
-							lexer.write(lexer.getCollector());
-							consumer.onBehaviourHeader(jb);
-						}
-						lexer.flushOutbuf();
-						break;
-					default :
-						throw lexer.newParseException("'{' expected.");
-				}
+				c = lexer.readToken();
+				c = lexer.readToken();
 			}
-			else
-				throw lexer.newParseException("'{' expected.");
+			while(c.contains(','));
 		}
+
+		if(c instanceof CharToken)
+		{
+			switch(((CharToken)c).value)
+			{
+				case '{' :
+					if(lexer.collect_when_blocking())
+					{
+						lexer.write(lexer.getCollector());
+						consumer.onBehaviourHeader(jb);
+					}
+					lexer.parseBody(false, null);
+					lexer.flushOutbuf();
+					break;
+				case ';' :
+					if(lexer.collect_when_blocking())
+					{
+						lexer.write(lexer.getCollector());
+						consumer.onBehaviourHeader(jb);
+					}
+					lexer.flushOutbuf();
+					break;
+				default :
+					throw lexer.newParseException("'{' expected.");
+			}
+		}
+		else
+			throw lexer.newParseException("'{' expected.");
+
 		if(lexer.do_block())
 			lexer.getCollector();
 		else
