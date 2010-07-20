@@ -46,7 +46,7 @@ import java.util.List;
  */
 final class Lexer
 {
-	final char[] input;
+	private final char[] input;
 	private int inputPosition = 0;
 	private final int inputLength;
 
@@ -471,7 +471,7 @@ final class Lexer
 
 	ParseException newParseException(final String message)
 	{
-		return new ParseException(message, inputPosition);
+		return new ParseException(message, input, inputPosition);
 	}
 
 	final class ParseException extends ParserException
@@ -481,11 +481,9 @@ final class Lexer
 		final int line;
 		final int column;
 
-		ParseException(final String message, final int inputPosition)
+		ParseException(final String message, final char[] input, final int inputPosition)
 		{
 			super(message);
-
-			final char[] input = Lexer.this.input;
 
 			int line = 1;
 			int column = 0;
@@ -715,6 +713,18 @@ final class Lexer
 		{
 			return "comment(" + comment + ')';
 		}
+	}
+
+	boolean inputEqual(final StringBuilder bf)
+	{
+		if(input.length!=bf.length())
+			return false;
+
+		for(int i = 0; i<input.length; i++)
+			if(input[i]!=bf.charAt(i))
+				return false;
+
+		return true;
 	}
 
 	int outputLength()

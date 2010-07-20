@@ -140,7 +140,7 @@ public final class Main
 			final Generator generator = new Generator(parser.javaFile, baos, params);
 			generator.write();
 
-			if(!equal(parser.lexer.input, baos))
+			if(!parser.lexer.inputEqual(baos))
 			{
 				logInstrumented(file);
 				delete(file);
@@ -165,18 +165,6 @@ public final class Main
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
-	}
-
-	private static boolean equal(final char[] input, final StringBuilder bf)
-	{
-		if(input.length!=bf.length())
-			return false;
-
-		for(int i = 0; i<input.length; i++)
-			if(input[i]!=bf.charAt(i))
-				return false;
-
-		return true;
 	}
 
 	boolean verbose;
