@@ -25,7 +25,6 @@
 			<Class name="com.exedio.cope.pattern.Hash" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
-			<Class name="com.exedio.cope.console.ConsoleServlet" />
 		</Or>
 	</Match>
 	<Match>
@@ -121,15 +120,6 @@
 		</Or>
 	</Match>
 	<Match>
-		<Or>
-			<!-- A prepared statement is generated from a nonconstant String -->
-			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
-			<!-- Method may fail to close database resource on exception  -->
-			<Bug pattern="ODR_OPEN_DATABASE_RESOURCE_EXCEPTION_PATH" />
-		</Or>
-		<Class name="com.exedio.cope.console.HistoryPurge" />
-	</Match>
-	<Match>
 		<!-- Consider returning a zero length array rather than null -->
 		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
 		<Or>
@@ -163,7 +153,6 @@
 			<Bug pattern="MSF_MUTABLE_SERVLET_FIELD" />
 		</Or>
 		<Or>
-			<Class name="com.exedio.cope.console.ConsoleServlet" />
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
 	</Match>
@@ -189,19 +178,6 @@
 		<Or>
 			<Class name="com.exedio.cope.Type" />
 			<Class name="com.exedio.cope.Item" />
-			<Class name="com.exedio.cope.console.EnvironmentCop" />
-			<Class name="com.exedio.cope.console.Environment_Jspm" />
 		</Or>
-	</Match>
-	<Match>
-		<Or>
-			<!-- Using notify() rather than notifyAll() -->
-			<Bug pattern="NO_NOTIFY_NOT_NOTIFYALL" />
-			<!-- Unconditional wait -->
-			<Bug pattern="UW_UNCOND_WAIT" />
-			<!-- Wait not in loop -->
-			<Bug pattern="WA_NOT_IN_LOOP" />
-		</Or>
-		<Class name="com.exedio.cope.console.HistoryThread" />
 	</Match>
 </FindBugsFilter>
