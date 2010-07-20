@@ -28,7 +28,7 @@ abstract class CopeAttribute extends CopeFeature
 
 	CopeAttribute(
 			final CopeType parent,
-			final JavaAttribute javaAttribute,
+			final JavaField javaAttribute,
 			final String persistentType)
 		throws ParserException
 	{

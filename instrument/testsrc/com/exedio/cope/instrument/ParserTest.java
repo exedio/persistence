@@ -170,10 +170,10 @@ public abstract class ParserTest extends InstrumentorTest
 		return javaBehaviour;
 	}
 
-	protected JavaAttribute assertAttributeHeader(final String name, final String type, final int modifier)
+	protected JavaField assertAttributeHeader(final String name, final String type, final int modifier)
 	{
 		final ParseEvent event = fetchEvent();
-		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
+		final JavaField javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
 		assertEquals(name, javaAttribute.name);
 		assertEquals(type, javaAttribute.type);
 		assertEquals(modifier, javaAttribute.modifier);
@@ -190,7 +190,7 @@ public abstract class ParserTest extends InstrumentorTest
 			assertSame(expectedJavaFeature, javaFeature);
 	}
 
-	protected void assertAttribute(final String name, final String docComment, final JavaAttribute expectedJavaAttribute)
+	protected void assertAttribute(final String name, final String docComment, final JavaField expectedJavaAttribute)
 	{
 		if(expectedJavaAttribute==null)
 			throw new NullPointerException();
@@ -328,9 +328,9 @@ public abstract class ParserTest extends InstrumentorTest
 
 	private static class AttributeHeaderEvent extends ParseEvent
 	{
-		final JavaAttribute javaAttribute;
+		final JavaField javaAttribute;
 
-		AttributeHeaderEvent(final JavaAttribute javaAttribute)
+		AttributeHeaderEvent(final JavaField javaAttribute)
 		{
 			this.javaAttribute = javaAttribute;
 		}
@@ -395,7 +395,7 @@ public abstract class ParserTest extends InstrumentorTest
 			addParseEvent(new BehaviourHeaderEvent(jb));
 		}
 
-		public void onAttributeHeader(final JavaAttribute ja)
+		public void onAttributeHeader(final JavaField ja)
 		{
 			addParseEvent(new AttributeHeaderEvent(ja));
 		}

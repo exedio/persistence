@@ -23,13 +23,13 @@ final class CopeObjectAttribute extends CopeAttribute
 
 	public CopeObjectAttribute(
 			final CopeType parent,
-			final JavaAttribute javaAttribute)
+			final JavaField javaAttribute)
 		throws ParserException
 	{
 		super(parent, javaAttribute, getPersistentType(javaAttribute));
 	}
 
-	private static final String getPersistentType(final JavaAttribute javaAttribute)
+	private static final String getPersistentType(final JavaField javaAttribute)
 	{
 		final String type = javaAttribute.type;
 		final int lt = type.indexOf('<');

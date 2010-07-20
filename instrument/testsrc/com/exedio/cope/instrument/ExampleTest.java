@@ -53,21 +53,21 @@ public class ExampleTest extends ParserTest
 		final JavaClass exampleClass = assertClass("Example", null, new String[]{"Runnable"});
 		assertText("{\n  ");
 
-		final JavaAttribute name =
+		final JavaField name =
 			assertAttributeHeader("name", "String", Modifier.PRIVATE);
 		assertText("private String name;");
 		assertAttribute("name", null, name);
 		assertEquals(null, name.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute type =
+		final JavaField type =
 			assertAttributeHeader("type", "Integer", Modifier.PRIVATE);
 		assertText("private Integer type=new Integer(5);");
 		assertAttribute("type", null, type);
 		assertEquals("new Integer(5)", type.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute qualifiers =
+		final JavaField qualifiers =
 			assertAttributeHeader(
 				"qualifiers",
 				"Integer[]",
@@ -77,7 +77,7 @@ public class ExampleTest extends ParserTest
 		assertEquals(null, qualifiers.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute hallo = assertAttributeHeader("hallo", "String", 0);
+		final JavaField hallo = assertAttributeHeader("hallo", "String", 0);
 		assertText("String hallo=\"hallo\";");
 		assertAttribute("hallo", null, hallo);
 		assertEquals("\"hallo\"", hallo.getInitializer());
@@ -85,7 +85,7 @@ public class ExampleTest extends ParserTest
 
 		assertDocComment("/**TestCommentCommaSeparated123*/");
 		assertText("/**TestCommentCommaSeparated123*/\n  ");
-		final JavaAttribute commaSeparated1 =
+		final JavaField commaSeparated1 =
 			assertAttributeHeader("commaSeparated1", "int", 0);
 		assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;");
 		assertAttribute(
@@ -103,7 +103,7 @@ public class ExampleTest extends ParserTest
 
 		assertDocComment("/**TestCommentCommaSeparated456*/");
 		assertText("/**TestCommentCommaSeparated456*/\n  ");
-		final JavaAttribute commaSeparated4 =
+		final JavaField commaSeparated4 =
 			assertAttributeHeader("commaSeparated4", "int", 0);
 		assertText("int commaSeparated4=80,commaSeparated5,commaSeparated6=200;");
 		assertAttribute(
@@ -121,42 +121,42 @@ public class ExampleTest extends ParserTest
 			" \n\n  // these attributes test the ability of the parser\n"
 				+ "  // to skip more complex (ugly) attribute initializers\n  ");
 
-		final JavaAttribute uglyAttribute1 =
+		final JavaField uglyAttribute1 =
 			assertAttributeHeader("uglyAttribute1", "String", 0);
 		assertText("String   uglyAttribute1=\"some'Thing{some\\\"Thing;Else\";");
 		assertAttribute("uglyAttribute1", null, uglyAttribute1);
 		assertEquals("\"some'Thing{some\\\"Thing;Else\"", uglyAttribute1.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute2 =
+		final JavaField uglyAttribute2 =
 			assertAttributeHeader("uglyAttribute2", "char", 0);
 		assertText("char     uglyAttribute2=';';");
 		assertAttribute("uglyAttribute2", null, uglyAttribute2);
 		assertEquals("';'", uglyAttribute2.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute3 =
+		final JavaField uglyAttribute3 =
 			assertAttributeHeader("uglyAttribute3", "char", 0);
 		assertText("char     uglyAttribute3='{';");
 		assertAttribute("uglyAttribute3", null, uglyAttribute3);
 		assertEquals("'{'", uglyAttribute3.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute4 =
+		final JavaField uglyAttribute4 =
 			assertAttributeHeader("uglyAttribute4", "char", 0);
 		assertText("char     uglyAttribute4='\"';");
 		assertAttribute("uglyAttribute4", null, uglyAttribute4);
 		assertEquals("'\"'", uglyAttribute4.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute5 =
+		final JavaField uglyAttribute5 =
 			assertAttributeHeader("uglyAttribute5", "char", 0);
 		assertText("char     uglyAttribute5='\\\'';");
 		assertAttribute("uglyAttribute5", null, uglyAttribute5);
 		assertEquals("'\\\''", uglyAttribute5.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute6 =
+		final JavaField uglyAttribute6 =
 			assertAttributeHeader("uglyAttribute6", "String[]", 0);
 		assertText(
 			"String[] uglyAttribute6=\n"
@@ -168,13 +168,13 @@ public class ExampleTest extends ParserTest
 		assertEquals("'\\\''", uglyAttribute5.getInitializer());
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute7 =
+		final JavaField uglyAttribute7 =
 			assertAttributeHeader("uglyAttribute7", "char[]", 0);
 		assertText("char[]   uglyAttribute7={';','{','\"','\\\''};");
 		assertAttribute("uglyAttribute7", null, uglyAttribute7);
 		assertText("\n  ");
 
-		final JavaAttribute uglyAttribute8 =
+		final JavaField uglyAttribute8 =
 			assertAttributeHeader("uglyAttribute8", "Runnable", 0);
 		assertText(
 			"Runnable uglyAttribute8=new Runnable()\n"
@@ -217,7 +217,7 @@ public class ExampleTest extends ParserTest
 		final JavaClass drinnerClass = assertClass("Drinner", null, new String[]{"Runnable"}, innerClass);
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 
-		final JavaAttribute someDrinnerBoolean =
+		final JavaField someDrinnerBoolean =
 			assertAttributeHeader("someDrinnerBoolean", "boolean", 0);
 		assertText("boolean someDrinnerBoolean=true;");
 		assertAttribute("someDrinnerBoolean", null, someDrinnerBoolean);
@@ -236,7 +236,7 @@ public class ExampleTest extends ParserTest
 		assertInnerClassAttribute("Drinner", null);
 		assertText("}\n\n\t ");
 
-		final JavaAttribute someInnerBoolean =
+		final JavaField someInnerBoolean =
 			assertAttributeHeader("someInnerBoolean", "boolean", 0);
 		assertText("boolean someInnerBoolean=true;");
 		assertAttribute("someInnerBoolean", null, someInnerBoolean);
@@ -345,7 +345,7 @@ public class ExampleTest extends ParserTest
 		assertText("\n\t\n\t");
 
 		assertDocComment("/** DO_DISCARD */");
-		final JavaAttribute discardAttribute =
+		final JavaField discardAttribute =
 			assertAttributeHeader("discardAttribute", "int", 0);
 		assertAttribute("discardAttribute", "/** DO_DISCARD */", discardAttribute);
 		assertText("\n\t\n\t");

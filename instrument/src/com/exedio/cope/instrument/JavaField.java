@@ -30,7 +30,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Ralf Wiebicke
  */
-final class JavaAttribute
+final class JavaField
 	extends JavaFeature
 	implements InitializerConsumer
 {
@@ -38,7 +38,7 @@ final class JavaAttribute
 
 	private Object rtvalue = null;
 
-	JavaAttribute(
+	JavaField(
 		final JavaClass parent,
 		final int modifiers,
 		final String type,
@@ -59,7 +59,7 @@ final class JavaAttribute
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */
-	JavaAttribute(final JavaAttribute ja, final String name)
+	JavaField(final JavaField ja, final String name)
 		throws ParserException
 	{
 		this(ja.parent, ja.modifier, ja.type, name);

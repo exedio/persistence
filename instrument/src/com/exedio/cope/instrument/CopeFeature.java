@@ -32,7 +32,7 @@ class CopeFeature
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
 	final CopeType parent;
-	final JavaAttribute javaAttribute;
+	final JavaField javaAttribute;
 	final String name;
 	final int modifier;
 	final Visibility visibility;
@@ -40,7 +40,7 @@ class CopeFeature
 	final boolean initial;
 	private Feature value;
 
-	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute)
+	CopeFeature(final CopeType parent, final JavaField javaAttribute)
 	{
 		this.parent = parent;
 		this.javaAttribute = javaAttribute;

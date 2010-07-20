@@ -91,7 +91,7 @@ final class JavaRepository
 			{
 				final CopeType type = new CopeType(javaClass, isComposite);
 
-				feature: for(final JavaAttribute javaAttribute : javaClass.getAttributes())
+				feature: for(final JavaField javaAttribute : javaClass.getAttributes())
 				{
 					final int modifier = javaAttribute.modifier;
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))

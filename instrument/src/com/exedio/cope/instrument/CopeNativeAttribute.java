@@ -40,7 +40,7 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	public CopeNativeAttribute(
 			final CopeType parent,
-			final JavaAttribute javaAttribute,
+			final JavaField javaAttribute,
 			final Class typeClass)
 		throws ParserException
 	{

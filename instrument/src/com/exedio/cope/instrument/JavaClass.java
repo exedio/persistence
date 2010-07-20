@@ -40,8 +40,8 @@ final class JavaClass extends JavaFeature
 {
 	final CopeNameSpace nameSpace;
 
-	private final HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
-	private final ArrayList<JavaAttribute> attributeList = new ArrayList<JavaAttribute>();
+	private final HashMap<String, JavaField> attributes = new HashMap<String, JavaField>();
+	private final ArrayList<JavaField> attributeList = new ArrayList<JavaField>();
 	final boolean isEnum;
 	final String classExtends;
 	final List<String> classImplements;
@@ -65,7 +65,7 @@ final class JavaClass extends JavaFeature
 		file.add(this);
 	}
 
-	void add(final JavaAttribute a)
+	void add(final JavaField a)
 	{
 		assert file.repository.isBuildStage();
 
@@ -74,14 +74,14 @@ final class JavaClass extends JavaFeature
 		attributeList.add(a);
 	}
 
-	JavaAttribute getAttribute(final String name)
+	JavaField getAttribute(final String name)
 	{
 		assert !file.repository.isBuildStage();
 
 		return attributes.get(name);
 	}
 
-	List<JavaAttribute> getAttributes()
+	List<JavaField> getAttributes()
 	{
 		assert !file.repository.isBuildStage();
 
@@ -194,7 +194,7 @@ final class JavaClass extends JavaFeature
 			}
 
 			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
-			final JavaAttribute ja = getAttribute(name);
+			final JavaField ja = getAttribute(name);
 			if(ja!=null)
 				return ja.evaluate();
 
@@ -203,16 +203,16 @@ final class JavaClass extends JavaFeature
 
 	}
 
-	final HashMap<Object, JavaAttribute> javaAttributesByInstance = new HashMap<Object, JavaAttribute>();
+	final HashMap<Object, JavaField> javaAttributesByInstance = new HashMap<Object, JavaField>();
 
-	void registerInstance(final JavaAttribute attribute, final Object instance)
+	void registerInstance(final JavaField attribute, final Object instance)
 	{
 		javaAttributesByInstance.put(instance, attribute);
 	}
 
-	final JavaAttribute getAttributeByInstance(final Object instance)
+	final JavaField getAttributeByInstance(final Object instance)
 	{
-		final JavaAttribute result = javaAttributesByInstance.get(instance);
+		final JavaField result = javaAttributesByInstance.get(instance);
 		assert result!=null;
 		return result;
 	}

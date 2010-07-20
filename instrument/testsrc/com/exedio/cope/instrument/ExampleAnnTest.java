@@ -41,15 +41,15 @@ public class ExampleAnnTest extends ParserTest
 
 		final JavaClass exampleClass = assertClass("ExampleAnn", null, null);
 
-		final JavaAttribute name =
+		final JavaField name =
 			assertAttributeHeader("name", "String", PRIVATE);
 		assertAttribute("name", null, name);
 
-		final JavaAttribute dates =
+		final JavaField dates =
 			assertAttributeHeader("dates", "HashSet<Date>", PUBLIC);
 		assertAttribute("dates", null, dates);
 
-		final JavaAttribute primes =
+		final JavaField primes =
 			assertAttributeHeader("primes", "HashMap<Integer, Boolean>", 0);
 		assertAttribute("primes", null, primes);
 

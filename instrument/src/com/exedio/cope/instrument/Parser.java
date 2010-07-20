@@ -220,8 +220,8 @@ final class Parser
 		}
 		else // it's an attribute
 		{
-			final JavaAttribute ja =
-				new JavaAttribute(parent, modifiers, featuretype, featurename);
+			final JavaField ja =
+				new JavaField(parent, modifiers, featuretype, featurename);
 			return parseAttribute(ja, c);
 		}
 	}
@@ -318,12 +318,12 @@ final class Parser
 		}
 	}
 
-	private JavaAttribute[] parseAttribute(JavaAttribute ja, Token c)
+	private JavaField[] parseAttribute(JavaField ja, Token c)
 		throws EndException, ParserException
 	{
 		consumer.onAttributeHeader(ja);
 
-		final ArrayList<JavaAttribute> commaSeparatedAttributes = new ArrayList<JavaAttribute>();
+		final ArrayList<JavaField> commaSeparatedAttributes = new ArrayList<JavaField>();
 		commaSeparatedAttributes.add(ja);
 		//if(!do_block) ja.print(System.out);
 
@@ -337,13 +337,13 @@ final class Parser
 					lexer.flushOutbuf();
 					if(lexer.do_block())
 						lexer.getCollector();
-					final JavaAttribute[] jaarray =
-						new JavaAttribute[commaSeparatedAttributes.size()];
+					final JavaField[] jaarray =
+						new JavaField[commaSeparatedAttributes.size()];
 					commaSeparatedAttributes.toArray(jaarray);
 					return jaarray;
 				case ',' :
 					c = lexer.readToken();
-					ja = new JavaAttribute(ja, c.getString("attribute name expected."));
+					ja = new JavaField(ja, c.getString("attribute name expected."));
 					commaSeparatedAttributes.add(ja);
 					//if(!do_block) ja.print(System.out);
 					c = lexer.readToken();

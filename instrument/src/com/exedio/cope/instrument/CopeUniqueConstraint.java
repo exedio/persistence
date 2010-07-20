@@ -29,7 +29,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 final class CopeUniqueConstraint extends CopeFeature
 {
-	CopeUniqueConstraint(final CopeType parent, final JavaAttribute javaAttribute)
+	CopeUniqueConstraint(final CopeType parent, final JavaField javaAttribute)
 	{
 		super(parent, javaAttribute);
 	}
