@@ -219,8 +219,6 @@ final class Lexer
 	 */
 	Token readToken() throws EndException
 	{
-		char c;
-
 		if(tokenBuf!=null)
 		{
 			final CharToken result = tokenBuf;
@@ -238,6 +236,7 @@ final class Lexer
 		}
 
 		final StringBuilder buf = new StringBuilder();
+		char c;
 
 		while (true)
 		{
