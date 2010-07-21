@@ -383,21 +383,21 @@ final class Parser
 			final Token token = lexer.readToken();
 			if(token instanceof CommentToken)
 			{
-				final String comment = ((CommentToken)token).comment;
-				if (comment.startsWith("/**"))
+				final CommentToken comment = (CommentToken)token;
+				if(comment.isDocumentation())
 				{
-					docComment = (CommentToken)token;
+					docComment = comment;
 					//System.out.println("docComment: "+docComment);
 					final boolean onDocCommentResult = consumer.onDocComment(docComment);
 					lexer.discardNextFeature(!onDocCommentResult);
 					if(onDocCommentResult)
-						lexer.write(docComment.comment);
+						lexer.write(comment.comment);
 					lexer.scheduleBlock(onDocCommentResult);
 				}
 				else
 				{
 					//System.out.println("comment: "+comment);
-					lexer.write(comment);
+					lexer.write(comment.comment);
 					lexer.scheduleBlock(true);
 				}
 			}
@@ -506,19 +506,19 @@ final class Parser
 				}
 				else if(c instanceof CommentToken)
 				{
-					final String comment = ((CommentToken)c).comment;
-					if (comment.startsWith("/**"))
+					final CommentToken comment = (CommentToken)c;
+					if(comment.isDocumentation())
 					{
-						docComment = (CommentToken)c;
+						docComment = comment;
 						//System.out.println ("file level docComment: "+docComment);
-						consumer.onFileDocComment(docComment.comment);
-						lexer.write(docComment.comment);
+						consumer.onFileDocComment(comment.comment);
+						lexer.write(comment.comment);
 						docComment = null; // Mark docComment as handled...
 					}
 					else
 					{
 						//System.out.println("comment: "+comment);
-						lexer.write(comment);
+						lexer.write(comment.comment);
 					}
 				}
 				else

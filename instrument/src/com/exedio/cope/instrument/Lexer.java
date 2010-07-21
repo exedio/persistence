@@ -606,6 +606,11 @@ final class Lexer
 			return false;
 		}
 
+		boolean isDocumentation()
+		{
+			return comment.startsWith("/**");
+		}
+
 		@Override
 		public String toString()
 		{
