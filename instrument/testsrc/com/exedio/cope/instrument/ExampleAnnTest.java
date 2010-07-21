@@ -69,11 +69,11 @@ public class ExampleAnnTest extends ParserTest
 			assertBehaviourHeader("getPrimes", "HashMap<Integer, Boolean>", 0);
 		assertMethod("getPrimes", null, getPrimes);
 
-		final JavaClass colorClass = assertClass("Color", null, null, exampleClass);
+		final JavaClass colorClass = assertClass("Color", null, exampleClass);
 		assertClassEnd(colorClass);
 		assertInnerClassAttribute("Color", null);
 
-		final JavaClass weekdayClass = assertClass("Weekday", null, null, exampleClass);
+		final JavaClass weekdayClass = assertClass("Weekday", null, exampleClass);
 		assertClassEnd(weekdayClass);
 		assertInnerClassAttribute("Weekday", null);
 

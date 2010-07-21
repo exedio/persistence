@@ -44,7 +44,6 @@ final class JavaClass extends JavaFeature
 	private final ArrayList<JavaField> fieldList = new ArrayList<JavaField>();
 	final boolean isEnum;
 	final String classExtends;
-	final List<String> classImplements;
 	private String docComment;
 	private int classEndPosition = -1;
 
@@ -54,14 +53,13 @@ final class JavaClass extends JavaFeature
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final boolean isEnum, final String simpleName,
-			final String classExtends, final List<String> classImplements)
+			final String classExtends)
 	throws ParserException
 	{
 		super(file, parent, modifiers, null, simpleName);
 		this.nameSpace = new NS(file.nameSpace);
 		this.isEnum = isEnum;
 		this.classExtends = classExtends;
-		this.classImplements = Collections.unmodifiableList(classImplements);
 		file.add(this);
 	}
 

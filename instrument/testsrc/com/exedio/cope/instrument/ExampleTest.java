@@ -50,7 +50,7 @@ public class ExampleTest extends ParserTest
 				+ "	See OCL spec 5.4.1. for details.\n*/";
 		assertFileDocComment(fileDocComment);
 		assertText(fileDocComment+"\npublic abstract class Example implements Runnable\n");
-		final JavaClass exampleClass = assertClass("Example", null, new String[]{"Runnable"});
+		final JavaClass exampleClass = assertClass("Example", null);
 		assertText("{\n  ");
 
 		final JavaField name =
@@ -211,10 +211,10 @@ public class ExampleTest extends ParserTest
 		assertField("uglyAttribute8", null, uglyAttribute8);
 		assertText("\n  // end of ugly attributes\n  \n\n  ");
 
-		final JavaClass innerClass = assertClass("Inner", null, new String[]{"Runnable"}, exampleClass);
+		final JavaClass innerClass = assertClass("Inner", null, exampleClass);
 		assertText("class Inner implements Runnable\n  {\n\t ");
 
-		final JavaClass drinnerClass = assertClass("Drinner", null, new String[]{"Runnable"}, innerClass);
+		final JavaClass drinnerClass = assertClass("Drinner", null, innerClass);
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 
 		final JavaField someDrinnerBoolean =
@@ -255,7 +255,7 @@ public class ExampleTest extends ParserTest
 		assertInnerClassAttribute("Inner", null);
 
 		assertText("}  \n\n  ");
-		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", new String[]{"java.io.Serializable", "Cloneable"}, exampleClass);
+		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", exampleClass);
 		assertText("static class InnerSub extends ExampleTest implements java.io.Serializable, Cloneable\n  {\n  ");
 		assertClassEnd(subClass);
 		assertInnerClassAttribute("InnerSub", null);

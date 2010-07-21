@@ -22,7 +22,6 @@ package com.exedio.cope.instrument;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import com.exedio.cope.instrument.Lexer.CharToken;
 import com.exedio.cope.instrument.Lexer.CommentToken;
@@ -134,7 +133,7 @@ final class Parser
 				final String enumName = lexer.readToken().getString("enum name expected");
 				lexer.readToken().expect('{');
 				lexer.parseBody(false, null);
-				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
+				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null);
 
 				consumer.onClass(result);
 				result.setClassEndPosition(lexer.outputLength());
@@ -335,7 +334,6 @@ final class Parser
 		Token imc;
 		char extendsOrImplements = '-';
 		String classExtends = null;
-		final ArrayList<String> classImplements = new ArrayList<String>();
 		while(!(imc=lexer.readToken()).contains('{'))
 		{
 			if(imc instanceof StringToken)
@@ -358,7 +356,6 @@ final class Parser
 							classExtends = s;
 							break;
 						case 'i':
-							classImplements.add(s);
 							break;
 						default:
 							throw new RuntimeException(String.valueOf(extendsOrImplements));
@@ -369,7 +366,7 @@ final class Parser
 			}
 		}
 
-		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, false, classname, classExtends, classImplements);
+		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, false, classname, classExtends);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);

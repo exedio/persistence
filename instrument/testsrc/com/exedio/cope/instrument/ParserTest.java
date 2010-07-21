@@ -20,8 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import junit.framework.AssertionFailedError;
@@ -133,12 +131,12 @@ public abstract class ParserTest extends InstrumentorTest
 		assertEquals(replaceLineBreaks(docComment), ((FileDocCommentEvent)event).docComment);
 	}
 
-	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements)
+	protected JavaClass assertClass(final String className, final String classExtends)
 	{
-		return assertClass(className, classExtends, classImplements, null);
+		return assertClass(className, classExtends, null);
 	}
 
-	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements, final JavaClass parent)
+	protected JavaClass assertClass(final String className, final String classExtends, final JavaClass parent)
 	{
 		final ParseEvent event = fetchEvent();
 		if(!(event instanceof ClassEvent))
@@ -146,7 +144,6 @@ public abstract class ParserTest extends InstrumentorTest
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.name);
 		assertEquals(classExtends, javaClass.classExtends);
-		assertEquals(classImplements==null ? Collections.EMPTY_LIST : Arrays.asList(classImplements), javaClass.classImplements);
 		assertSame(parent, javaClass.parent);
 		return javaClass;
 	}
