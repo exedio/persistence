@@ -53,7 +53,7 @@ final class Lexer
 	final String fileName;
 
 	private CharToken tokenBuf = null;
-	private String commentBuf = null;
+	private CommentToken commentBuf = null;
 
 	private boolean do_block = false;
 	private boolean start_block = false;
@@ -224,7 +224,7 @@ final class Lexer
 
 		if (commentBuf != null)
 		{
-			final CommentToken result = new CommentToken(commentBuf);
+			final CommentToken result = commentBuf;
 			commentBuf = null;
 			return result;
 		}
@@ -249,7 +249,7 @@ final class Lexer
 					if (buf.length() > 0)
 					{
 						if (commentcollector)
-							commentBuf = getCollector();
+							commentBuf = new CommentToken(getCollector());
 						return new StringToken(buf);
 					}
 					if (commentcollector)
