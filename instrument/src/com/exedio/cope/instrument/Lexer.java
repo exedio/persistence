@@ -245,10 +245,7 @@ final class Lexer
 						return new StringToken(buf);
 					}
 					if (commentcollector)
-					{
-						final String comment = getCollector();
-						return new CommentToken(comment);
-					}
+						return new CommentToken(getCollector());
 					break;
 				case ' ' :
 				case '\t' :
