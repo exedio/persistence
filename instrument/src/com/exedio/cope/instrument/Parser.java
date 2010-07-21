@@ -405,7 +405,7 @@ final class Parser
 			{
 				final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
 				for(final JavaFeature jf : jfarray)
-					consumer.onClassFeature(jf, docComment!=null ? docComment.comment : null);
+					consumer.onClassFeature(jf, docComment);
 				lexer.discardNextFeature(false);
 				docComment = null;
 				lexer.scheduleBlock(true);

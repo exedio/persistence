@@ -88,12 +88,12 @@ final class Instrumentor implements ParseConsumer
 		// nothing to do here
 	}
 
-	public void onClassFeature(final JavaFeature jf, final String docComment)
+	public void onClassFeature(final JavaFeature jf, final CommentToken docComment)
 	throws ParserException
 	{
 		//System.out.println("onClassFeature("+jf.name+" "+docComment+")");
-		if(jf instanceof JavaField)
-			((JavaField)jf).setDocComment(docComment);
+		if(docComment!=null && jf instanceof JavaField)
+			((JavaField)jf).setDocComment(docComment.comment);
 	}
 
 	public boolean onDocComment(final CommentToken docComment)

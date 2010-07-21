@@ -399,10 +399,10 @@ public abstract class ParserTest extends InstrumentorTest
 			addParseEvent(new FieldHeaderEvent(ja));
 		}
 
-		public void onClassFeature(final JavaFeature cf, final String doccomment)
+		public void onClassFeature(final JavaFeature cf, final CommentToken doccomment)
 		{
 			//System.out.println("onClassFeature("+cf.name+" "+doccomment+")");
-			addParseEvent(new ClassFeatureEvent(cf, doccomment));
+			addParseEvent(new ClassFeatureEvent(cf, doccomment!=null ? doccomment.comment : null));
 		}
 
 		public boolean onDocComment(final CommentToken doccommentToken)

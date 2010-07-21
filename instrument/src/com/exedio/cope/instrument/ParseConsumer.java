@@ -92,7 +92,7 @@ interface ParseConsumer
 	 * the doccomment associated to this feature.
 	 * Is null, if there was none.
 	 */
-	void onClassFeature(JavaFeature cf, String doccomment) throws ParserException;
+	void onClassFeature(JavaFeature cf, CommentToken doccomment) throws ParserException;
 
 	/**
 	 * Encountered a java documentation comment.
