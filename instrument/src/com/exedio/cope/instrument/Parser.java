@@ -50,7 +50,7 @@ final class Parser
 	final Lexer lexer;
 	private final ParseConsumer consumer;
 
-	private String docComment = null;
+	private CommentToken docComment = null;
 
 	final JavaFile javaFile;
 
@@ -386,12 +386,12 @@ final class Parser
 				final String comment = ((CommentToken)token).comment;
 				if (comment.startsWith("/**"))
 				{
-					docComment = comment;
+					docComment = (CommentToken)token;
 					//System.out.println("docComment: "+docComment);
 					final boolean onDocCommentResult = consumer.onDocComment(docComment);
 					lexer.discardNextFeature(!onDocCommentResult);
 					if(onDocCommentResult)
-						lexer.write(docComment);
+						lexer.write(docComment.comment);
 					lexer.scheduleBlock(onDocCommentResult);
 				}
 				else
@@ -405,7 +405,7 @@ final class Parser
 			{
 				final JavaFeature[] jfarray = parseFeature(jc, (StringToken)token);
 				for(final JavaFeature jf : jfarray)
-					consumer.onClassFeature(jf, docComment);
+					consumer.onClassFeature(jf, docComment!=null ? docComment.comment : null);
 				lexer.discardNextFeature(false);
 				docComment = null;
 				lexer.scheduleBlock(true);
@@ -509,10 +509,10 @@ final class Parser
 					final String comment = ((CommentToken)c).comment;
 					if (comment.startsWith("/**"))
 					{
-						docComment = comment;
+						docComment = (CommentToken)c;
 						//System.out.println ("file level docComment: "+docComment);
-						consumer.onFileDocComment(docComment);
-						lexer.write(docComment);
+						consumer.onFileDocComment(docComment.comment);
+						lexer.write(docComment.comment);
 						docComment = null; // Mark docComment as handled...
 					}
 					else

@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.instrument.Lexer.CommentToken;
 
 /**
  * Implementors of this interface get the results of the
@@ -102,7 +103,7 @@ interface ParseConsumer
 	 * if false is returned, the next class feature is ignored,
 	 * and the doccomment itself should not appear in the output.
 	 */
-	boolean onDocComment(String doccomment);
+	boolean onDocComment(CommentToken doccomment);
 
 	/**
 	 * Encountered a java documentation comment.

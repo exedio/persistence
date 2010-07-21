@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import com.exedio.cope.instrument.Lexer.CommentToken;
+
 import junit.framework.AssertionFailedError;
 
 public abstract class ParserTest extends InstrumentorTest
@@ -403,8 +405,9 @@ public abstract class ParserTest extends InstrumentorTest
 			addParseEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 
-		public boolean onDocComment(final String doccomment)
+		public boolean onDocComment(final CommentToken doccommentToken)
 		{
+			final String doccomment = doccommentToken.comment;
 			addParseEvent(new DocCommentEvent(doccomment));
 			return doccomment.indexOf("DO_DISCARD")<0;
 		}
