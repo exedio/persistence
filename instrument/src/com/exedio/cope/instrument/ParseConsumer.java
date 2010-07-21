@@ -66,7 +66,7 @@ interface ParseConsumer
 	/**
 	 * Encountered the header of a java method.
 	 * Is called additionally to
-	 * {@link #onClassFeature(JavaFeature, String)}.
+	 * {@link #onClassFeature(JavaFeature, Lexer.CommentToken)}.
 	 *
 	 * @param jb
 	 * contains all parsed information about the method
@@ -76,7 +76,7 @@ interface ParseConsumer
 	/**
 	 * Encountered the header of a java attribute.
 	 * Is called additionally to
-	 * {@link #onClassFeature(JavaFeature, String)}.
+	 * {@link #onClassFeature(JavaFeature, Lexer.CommentToken)}.
 	 *
 	 * @param ja
 	 * contains all parsed information about the attribute
