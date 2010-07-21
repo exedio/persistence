@@ -52,7 +52,6 @@ final class Lexer
 	private boolean outbufvalid = false;
 	final String fileName;
 
-	private final StringBuilder buf = new StringBuilder();
 	private char tokenBuf = '\0';
 	private String commentBuf = null;
 
@@ -238,7 +237,7 @@ final class Lexer
 			return result;
 		}
 
-		buf.setLength(0);
+		final StringBuilder buf = new StringBuilder();
 
 		while (true)
 		{
@@ -259,7 +258,7 @@ final class Lexer
 						if (commentcollector)
 							commentBuf = getCollector();
 						//System.out.println("<"+buf+">");
-						return new StringToken();
+						return new StringToken(buf);
 					}
 					if (commentcollector)
 					{
@@ -275,7 +274,7 @@ final class Lexer
 					if (buf.length() > 0)
 					{
 						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken();
+						return new StringToken(buf);
 					}
 					break;
 				case '{' :
@@ -290,7 +289,7 @@ final class Lexer
 					{
 						tokenBuf = c;
 						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
-						return new StringToken();
+						return new StringToken(buf);
 					}
 					//System.out.println("<<"+c+">>");
 					return new CharToken(c);
@@ -582,8 +581,7 @@ final class Lexer
 	{
 		final String value;
 
-		@SuppressWarnings("synthetic-access")
-		StringToken()
+		StringToken(final StringBuilder buf)
 		{
 			this.value = buf.toString();
 		}
