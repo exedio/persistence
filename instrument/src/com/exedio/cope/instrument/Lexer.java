@@ -226,6 +226,7 @@ final class Lexer
 
 		while (true)
 		{
+			final int start = inputPosition;
 			switch (c = read())
 			{
 				case '/' :
@@ -236,16 +237,17 @@ final class Lexer
 						commentcollector = true;
 					}
 					readComment();
+					final int end = inputPosition;
 					if (commentcollector)
 						flushOutbuf();
 					if (buf.length() > 0)
 					{
 						if (commentcollector)
-							tokenBuf = new CommentToken(getCollector());
+							tokenBuf = new CommentToken(getCollector(), start, end);
 						return new StringToken(buf);
 					}
 					if (commentcollector)
-						return new CommentToken(getCollector());
+						return new CommentToken(getCollector(), start, end);
 					break;
 				case ' ' :
 				case '\t' :
@@ -583,9 +585,13 @@ final class Lexer
 	{
 		final String comment;
 
-		CommentToken(final String comment)
+		CommentToken(final String comment, final int start, final int end)
 		{
 			this.comment = comment;
+			@SuppressWarnings("synthetic-access")
+			final String compareTo = new String(input, start, end-start);
+			if(!comment.equals(compareTo))
+				throw new RuntimeException(comment + "---" + compareTo);
 		}
 
 		@Override
