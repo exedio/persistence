@@ -113,7 +113,6 @@ final class Lexer
 			collector.append(outbuf);
 		outbuf = c;
 		outbufvalid = true;
-		//System.out.print((char)c);
 		return c;
 	}
 
@@ -141,7 +140,6 @@ final class Lexer
 		start_block = false;
 		final String s = collector.toString();
 		collector.setLength(0);
-		//System.out.println("  collector: >"+s+"<");
 		return s;
 	}
 
@@ -189,9 +187,7 @@ final class Lexer
 				if (read() == '*')
 				{
 					// definitly a doc comment, see Java Lang. Spec. 3.7.
-					//System.out.println("this is a '/** .. */' doc-comment");
 				}
-				//System.out.println("this is a '/* .. */' comment");
 				while (true)
 				{
 					if (read() != '*')
@@ -203,7 +199,7 @@ final class Lexer
 				}
 				break;
 			case '/' :
-				//System.out.println("this is a '//' comment");
+				// this is a '//' comment
 				do;
 				while (read() != '\n');
 				break;
@@ -223,7 +219,6 @@ final class Lexer
 		{
 			final CharToken result = tokenBuf;
 			tokenBuf = null;
-			//System.out.println("<<"+c+">>");
 			return result;
 		}
 
@@ -231,7 +226,6 @@ final class Lexer
 		{
 			final CommentToken result = new CommentToken(commentBuf);
 			commentBuf = null;
-			//System.out.println("<<"+comment+">>");
 			return result;
 		}
 
@@ -256,13 +250,11 @@ final class Lexer
 					{
 						if (commentcollector)
 							commentBuf = getCollector();
-						//System.out.println("<"+buf+">");
 						return new StringToken(buf);
 					}
 					if (commentcollector)
 					{
 						final String comment = getCollector();
-						//System.out.println("<<"+comment+">>");
 						return new CommentToken(comment);
 					}
 					break;
@@ -271,10 +263,7 @@ final class Lexer
 				case '\n' :
 				case '\r' :
 					if (buf.length() > 0)
-					{
-						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 						return new StringToken(buf);
-					}
 					break;
 				case '{' :
 				case '}' :
@@ -287,10 +276,8 @@ final class Lexer
 					if (buf.length() > 0)
 					{
 						tokenBuf = new CharToken(c);
-						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 						return new StringToken(buf);
 					}
-					//System.out.println("<<"+c+">>");
 					return new CharToken(c);
 				case '<' :
 					buf.append(c);
@@ -301,13 +288,11 @@ final class Lexer
 						if(c=='>')
 							break;
 					}
-					//System.out.println("gn||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 				default :
 					if (!do_block && start_block)
 						do_block = true;
 					buf.append(c);
-					//System.out.println("df||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 			}
 		}
@@ -327,8 +312,6 @@ final class Lexer
 	CharToken parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
 		throws EndException, ParseException
 	{
-		//System.out.println("    body("+(attribute?"attribute":"method")+")");
-
 		int bracketdepth = (attribute ? 0 : 1);
 		char c = read();
 		while (true)
@@ -345,7 +328,6 @@ final class Lexer
 				case '{' :
 				case '(' :
 					bracketdepth++;
-					//System.out.print("<("+bracketdepth+")>");
 					if(tokenConsumer!=null)
 						tokenConsumer.addToInitializer(c);
 					c = read();
@@ -353,7 +335,6 @@ final class Lexer
 				case '}' :
 				case ')' :
 					bracketdepth--;
-					//System.out.print("<("+bracketdepth+")>");
 					if (bracketdepth == 0 && !attribute)
 						return new CharToken('}');
 					if (bracketdepth < 0)
@@ -446,7 +427,6 @@ final class Lexer
 							if(c=='>')
 								break;
 						}
-						//System.out.println("gb||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					}
 					break;
 				default :
