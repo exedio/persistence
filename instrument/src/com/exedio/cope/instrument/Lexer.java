@@ -52,7 +52,7 @@ final class Lexer
 	private boolean outbufvalid = false;
 	final String fileName;
 
-	private char tokenBuf = '\0';
+	private CharToken tokenBuf = null;
 	private String commentBuf = null;
 
 	private boolean do_block = false;
@@ -221,12 +221,12 @@ final class Lexer
 	{
 		char c;
 
-		if (tokenBuf != '\0')
+		if(tokenBuf!=null)
 		{
-			c = tokenBuf;
-			tokenBuf = '\0';
+			final CharToken result = tokenBuf;
+			tokenBuf = null;
 			//System.out.println("<<"+c+">>");
-			return new CharToken(c);
+			return result;
 		}
 
 		if (commentBuf != null)
@@ -287,7 +287,7 @@ final class Lexer
 				case '@' :
 					if (buf.length() > 0)
 					{
-						tokenBuf = c;
+						tokenBuf = new CharToken(c);
 						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 						return new StringToken(buf);
 					}
