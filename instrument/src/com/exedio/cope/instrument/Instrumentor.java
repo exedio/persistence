@@ -96,11 +96,11 @@ final class Instrumentor implements ParseConsumer
 			((JavaField)jf).setDocComment(docComment);
 	}
 
-	public boolean onDocComment(final CommentToken docCommentToken)
+	public boolean onDocComment(final CommentToken docComment)
 	{
 		//System.out.println("onDocComment("+docComment+")");
 
-		return !docCommentToken.isSkipped();
+		return !docComment.isSkipped();
 	}
 
 	public void onFileDocComment(final String docComment)
