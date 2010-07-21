@@ -170,7 +170,7 @@
 		<!-- Useless control flow -->
 		<!-- TODO -->
 		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
-		<Method classname="com.exedio.cope.instrument.Lexer" name="readComment" />
+		<And><Class name="com.exedio.cope.instrument.Lexer" /><Method name="readComment" /></And>
 	</Match>
 	<Match>
 		<!-- Inefficient use of keySet iterator instead of entrySet iterator -->
