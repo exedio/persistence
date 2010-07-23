@@ -140,6 +140,8 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new NullPointerException();
 		if(hash==null)
 			throw new NullPointerException();
+		if(hash.length!=(saltLength+digestLength))
+			throw new IllegalArgumentException(String.valueOf(hash.length));
 
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
 

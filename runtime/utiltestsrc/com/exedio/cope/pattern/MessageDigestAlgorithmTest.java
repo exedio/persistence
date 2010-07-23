@@ -244,6 +244,15 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+		try
+		{
+			algorithm.check(new byte[]{1, 2, 3}, new byte[]{1, 2, 3});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("3", e.getMessage());
+		}
 	}
 
 	private static void assertDigest(

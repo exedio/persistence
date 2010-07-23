@@ -209,6 +209,7 @@ public class Hash extends Pattern implements Settable<String>
 		 * Returns whether the given plain text matches the given hash.
 		 * @param plainText the text to be hashed. Is never null.
 		 * @param hash the hash of plainText. Is never null.
+		 * @throws IllegalArgumentException if hash.length!={@link #length()}.
 		 */
 		boolean check(byte[] plainText, byte[] hash);
 	}
