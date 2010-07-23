@@ -30,7 +30,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(FindItemPatternTest.class);
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
-		suite.addTestSuite(SaltedIteratedSHATest.class);
+		suite.addTestSuite(MessageDigestHashTest.class);
 		suite.addTestSuite(PartOfTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);

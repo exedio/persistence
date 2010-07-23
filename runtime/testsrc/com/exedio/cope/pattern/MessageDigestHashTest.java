@@ -25,30 +25,30 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 
-public class SaltedIteratedSHATest extends AbstractRuntimeTest
+public class MessageDigestHashTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(SaltedIteratedSHAItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(MessageDigestHashItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(SaltedIteratedSHATest.class, "MODEL");
+		MODEL.enableSerialization(MessageDigestHashTest.class, "MODEL");
 	}
 
 	private static final String EMPTY_HASH = "aeab417a9b5a7cf314339787d765de2fa913946ad6786572c9a4f22d16339411057e7a27c94421f5e6471998cc5a6301029f5272243a8dee889dd23fcd45410658556608a18f0d91";
 
-	public SaltedIteratedSHATest()
+	public MessageDigestHashTest()
 	{
 		super(MODEL);
 	}
 
-	SaltedIteratedSHAItem item;
+	MessageDigestHashItem item;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		final Random byMandatory = ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(new Random(2345l));
-		item = deleteOnTearDown(new SaltedIteratedSHAItem("musso"));
+		item = deleteOnTearDown(new MessageDigestHashItem("musso"));
 		((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(byMandatory);
 	}
 
