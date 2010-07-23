@@ -94,7 +94,17 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(2, a.getIterations());
 
 		assertDigestNull(a);
-		// TODO test hash and check
+		assertDigest(a,
+			"",
+			"ae22459d30b999761147500ba024599289ffcd989eedd67b0cb8f6aca5c6f145738515e4d611fc2498c73c2dc73227de4dbb810203e3dcff4393d4b1cd9f6a962d");
+		assertDigest(a,
+			"knollo",
+			"aebbcf91ef48b0956eac8fe9eccc650dd9e74e345ed995e156af7023d14443ff08953e3f97c147bc17200fc2c63f2f986917ab755340c735b522114a11aa940af4");
+		assertDigest(a,
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo",
+			"ae38e71ccfe981521397d4392ba5931148d99718a127495cdd96ebe2091756ef16511e8ef4a6ea907813e44ff8535fce2c710d82cb55e1d4ea15a0757a80409177");
 	}
 
 	public void testUnsalted()
@@ -107,6 +117,17 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(5, a.getIterations());
 
 		assertDigestNull(a);
+		assertDigest(a,
+			"",
+			"c73b8a5d581bdcf828e2ab92dfb119cfc439b81a956de76dd02b5664cd5bb6f8b861e7ee1a4edac44295e1b9d28828e83efb620cb2e21aae575e3286424ea92f");
+		assertDigest(a,
+			"knollo",
+			"0af3af1b4414ebb1e3a1b394d5304e54572c07b3ad15b937fde7612b31c22f661048c28470a14b3a78ad0bf43113c5831ce20f08b12cad710beca273894ab01c");
+		assertDigest(a,
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo",
+			"33fc82fac82a7c602149d0888b807d94d00a1c44d60dc092a2357ded829e37b9c5440c2ef07d72431ab37f2eaa26b2fee1144d9a9b501e3d4b25875e47689e6b");
 	}
 
 	public void testNoniterated()
