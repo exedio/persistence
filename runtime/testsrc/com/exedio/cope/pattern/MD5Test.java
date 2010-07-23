@@ -49,6 +49,11 @@ public class MD5Test extends AbstractRuntimeTest
 		item = deleteOnTearDown(new MD5Item("musso"));
 	}
 
+	// reference example from http://de.wikipedia.org/wiki/MD5
+	// duplicated in  MessageDigestAlgorithmTest
+	private static final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
+	private static final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
+
 	public void testMD5()
 	{
 		assertEquals(Arrays.asList(
@@ -91,11 +96,6 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(null));
 		assertContains(item.TYPE.search(item.password.isNull()));
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
-
-		// reference example from http://de.wikipedia.org/wiki/MD5
-		// duplicated in  MessageDigestAlgorithmTest
-		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
-		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.password.hash(upper));
 		assertEquals("7e716d0e702df0505fc72e2b89467910", item.password.hash(lower));
