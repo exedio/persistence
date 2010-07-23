@@ -118,15 +118,6 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.password.isNull()));
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
-		item.setPasswordMD5("12345678901234567890123456789012");
-		assertEquals("12345678901234567890123456789012", item.getPasswordMD5());
-		assertTrue(!item.checkPassword(upper));
-		assertTrue(!item.checkPassword(lower));
-		assertTrue(!item.checkPassword(""));
-		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.isNull()));
-		assertContains(item, item.TYPE.search(item.password.isNotNull()));
-
 		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordMD5());
