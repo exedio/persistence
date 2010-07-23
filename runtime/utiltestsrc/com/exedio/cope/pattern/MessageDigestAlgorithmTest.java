@@ -264,7 +264,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 
 		final Random newRandom = new Random(61654632);
 		final SecureRandom prepared = (algorithm.getSaltLength()>0) ? (SecureRandom)algorithm.setSaltSource(newRandom) : null;
-		assertEquals(Hex.encodeLower(algorithm.hash(plainTextBytes)), expectedHash);
+		assertEquals(expectedHash, Hex.encodeLower(algorithm.hash(plainTextBytes)));
 		if(algorithm.getSaltLength()>0)
 			assertSame(newRandom, algorithm.setSaltSource(prepared));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
