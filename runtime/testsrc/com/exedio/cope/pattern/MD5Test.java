@@ -33,8 +33,6 @@ public class MD5Test extends AbstractRuntimeTest
 		MODEL.enableSerialization(MD5Test.class, "MODEL");
 	}
 
-	private static final String EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e";
-
 	public MD5Test()
 	{
 		super(MODEL);
@@ -55,6 +53,7 @@ public class MD5Test extends AbstractRuntimeTest
 	private static final String FRANK = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 	private static final String FRANZ_MD5 = "a3cca2b2aa1e3b5b3b5aad99a8529074";
 	private static final String FRANK_MD5 = "7e716d0e702df0505fc72e2b89467910";
+	private static final String EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e";
 
 	public void testMD5()
 	{
