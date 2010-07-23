@@ -250,5 +250,14 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
+
+		try
+		{
+			assertFalse(algorithm.check((plainText+"x").getBytes("utf8"), Hex.decodeLower(expectedHash)));
+		}
+		catch(final UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
