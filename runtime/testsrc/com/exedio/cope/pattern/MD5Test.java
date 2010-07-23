@@ -44,7 +44,7 @@ public class MD5Test extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MD5Item("musso"));
+		item = deleteOnTearDown(new MD5Item(FRANK));
 	}
 
 	// reference example from http://de.wikipedia.org/wiki/MD5
@@ -85,9 +85,9 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(FRANK_MD5, item.password.hash(FRANK));
 		assertEquals(EMPTY_MD5, item.password.hash(""));
 
-		assertEquals("780e05d22aa148f225ea2d9f0e97b109", item.getPasswordMD5());
-		assertTrue(item.checkPassword("musso"));
-		assertTrue(!item.checkPassword("mussx"));
+		assertEquals(FRANK_MD5, item.getPasswordMD5());
+		assertTrue(item.checkPassword(FRANK));
+		assertTrue(!item.checkPassword(FRANZ));
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
 		assertContains(item.TYPE.search(item.password.isNull()));
@@ -95,8 +95,8 @@ public class MD5Test extends AbstractRuntimeTest
 
 		item.setPassword("");
 		assertEquals(EMPTY_MD5, item.getPasswordMD5());
-		assertTrue(!item.checkPassword("musso"));
-		assertTrue(!item.checkPassword("mussx"));
+		assertTrue(!item.checkPassword(FRANZ));
+		assertTrue(!item.checkPassword(FRANK));
 		assertTrue(item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
 		assertContains(item.TYPE.search(item.password.isNull()));
