@@ -81,6 +81,10 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals("utf8", item.password.getEncoding());
 		assertEquals(1, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
 
+		assertEquals(FRANZ_MD5, item.password.hash(FRANZ));
+		assertEquals(FRANK_MD5, item.password.hash(FRANK));
+		assertEquals(EMPTY_MD5, item.password.hash(""));
+
 		assertEquals("780e05d22aa148f225ea2d9f0e97b109", item.getPasswordMD5());
 		assertTrue(item.checkPassword("musso"));
 		assertTrue(!item.checkPassword("mussx"));
@@ -97,9 +101,6 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(null));
 		assertContains(item.TYPE.search(item.password.isNull()));
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
-
-		assertEquals(FRANZ_MD5, item.password.hash(FRANZ));
-		assertEquals(FRANK_MD5, item.password.hash(FRANK));
 
 		item.setPassword(FRANZ);
 		assertEquals(FRANZ_MD5, item.getPasswordMD5());
