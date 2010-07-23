@@ -70,7 +70,27 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(8, a.getSaltLength());
 		assertEquals(5, a.getIterations());
 
-		// TODO test hash and check
+
+		try
+		{
+			a.hash(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertDigest(a,
+			"",
+			"aeab417a9b5a7cf314339787d765de2fa913946ad6786572c9a4f22d16339411057e7a27c94421f5e6471998cc5a6301029f5272243a8dee889dd23fcd45410658556608a18f0d91");
+		assertDigest(a,
+			"knollo",
+			"aeab417a9b5a7cf39a91d054d056ff387266c789c26ccff7677c01cca150b1575db3db8bca64f7d027a606f692cb3f6e6ff3cfac5c4c458007a9fac9db7b877707f300f0a904ec4a");
+		assertDigest(a,
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo",
+			"aeab417a9b5a7cf3868ff1153f6d0807b9e4e859112e559cb1c0ae0de8e00c9046e0722338d820408267487d618d5c5edbdeedf53d6fbd9949896dd92e38bcd386c2f651886b79db");
 	}
 
 	public void testSaltedMinimal()
