@@ -33,7 +33,7 @@ public class MD5Test extends AbstractRuntimeTest
 		MODEL.enableSerialization(MD5Test.class, "MODEL");
 	}
 
-	private static final String EMPTY_HASH = "d41d8cd98f00b204e9800998ecf8427e";
+	private static final String EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e";
 
 	public MD5Test()
 	{
@@ -91,7 +91,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		item.setPassword("");
-		assertEquals(EMPTY_HASH, item.getPasswordMD5());
+		assertEquals(EMPTY_MD5, item.getPasswordMD5());
 		assertTrue(!item.checkPassword("musso"));
 		assertTrue(!item.checkPassword("mussx"));
 		assertTrue(item.checkPassword(""));
@@ -122,7 +122,7 @@ public class MD5Test extends AbstractRuntimeTest
 
 		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("");
-		assertEquals(EMPTY_HASH, item.getPasswordMD5());
+		assertEquals(EMPTY_MD5, item.getPasswordMD5());
 		assertTrue(!item.checkPassword(FRANZ));
 		assertTrue(!item.checkPassword(FRANK));
 		assertTrue(item.checkPassword(""));
