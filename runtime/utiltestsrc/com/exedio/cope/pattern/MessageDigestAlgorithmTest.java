@@ -205,6 +205,24 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+		try
+		{
+			algorithm.check(null, new byte[]{1, 2, 3});
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			algorithm.check(new byte[]{1, 2, 3}, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	private static void assertDigest(
