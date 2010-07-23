@@ -22,7 +22,7 @@ public final class MD5Hash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final String HASH = "MD5";
+	private static final String DIGEST = "MD5";
 
 	/**
 	 * @deprecated
@@ -32,7 +32,7 @@ public final class MD5Hash extends Hash
 	@Deprecated
 	public MD5Hash(final String encoding)
 	{
-		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
+		super(new MessageDigestAlgorithm(DIGEST, 0, 1), encoding);
 	}
 
 	/**
@@ -43,6 +43,6 @@ public final class MD5Hash extends Hash
 	@Deprecated
 	public MD5Hash()
 	{
-		super(new MessageDigestAlgorithm(HASH, 0, 1));
+		super(new MessageDigestAlgorithm(DIGEST, 0, 1));
 	}
 }

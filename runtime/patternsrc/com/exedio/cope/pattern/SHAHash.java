@@ -22,7 +22,7 @@ public final class SHAHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final String HASH = "SHA-512";
+	private static final String DIGEST = "SHA-512";
 
 	/**
 	 * @deprecated
@@ -32,7 +32,7 @@ public final class SHAHash extends Hash
 	@Deprecated
 	public SHAHash(final String encoding)
 	{
-		super(new MessageDigestAlgorithm(HASH, 0, 1), encoding);
+		super(new MessageDigestAlgorithm(DIGEST, 0, 1), encoding);
 	}
 
 	/**
@@ -43,6 +43,6 @@ public final class SHAHash extends Hash
 	@Deprecated
 	public SHAHash()
 	{
-		super(new MessageDigestAlgorithm(HASH, 0, 1));
+		super(new MessageDigestAlgorithm(DIGEST, 0, 1));
 	}
 }
