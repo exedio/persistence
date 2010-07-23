@@ -70,16 +70,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(8, a.getSaltLength());
 		assertEquals(5, a.getIterations());
 
-
-		try
-		{
-			a.hash(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertDigestNull(a);
 		assertDigest(a,
 			"",
 			"aeab417a9b5a7cf314339787d765de2fa913946ad6786572c9a4f22d16339411057e7a27c94421f5e6471998cc5a6301029f5272243a8dee889dd23fcd45410658556608a18f0d91");
@@ -102,6 +93,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(1, a.getSaltLength());
 		assertEquals(2, a.getIterations());
 
+		assertDigestNull(a);
 		// TODO test hash and check
 	}
 
@@ -113,6 +105,8 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(64, a.length());
 		assertEquals(0, a.getSaltLength());
 		assertEquals(5, a.getIterations());
+
+		assertDigestNull(a);
 	}
 
 	public void testNoniterated()
@@ -124,15 +118,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(8, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 
-		try
-		{
-			a.hash(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertDigestNull(a);
 		assertDigest(a,
 			"",
 			"aeab417a9b5a7cf379c224f53a48f3ba32de8c9f5e12a2d78e281665c88b4addfe9c5357e1edd5f74ce7b0a2822dbb4a4274627d5e87bc8f24db5999b18dfe812bb037e1196bb4bc");
@@ -155,15 +141,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(0, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 
-		try
-		{
-			a.hash(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertDigestNull(a);
 		assertDigest(a,
 			"",
 			"cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e");
@@ -194,15 +172,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(0, a.getSaltLength());
 		assertEquals(1, a.getIterations());
 
-		try
-		{
-			a.hash(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertDigestNull(a);
 		assertDigest(a,
 			"",
 			"d41d8cd98f00b204e9800998ecf8427e");
@@ -222,6 +192,19 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertDigest(a,
 			"Frank jagt im komplett verwahrlosten Taxi quer durch Bayern",
 			"7e716d0e702df0505fc72e2b89467910");
+	}
+
+	private static void assertDigestNull(final MessageDigestAlgorithm algorithm)
+	{
+		try
+		{
+			algorithm.hash(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	private static void assertDigest(
