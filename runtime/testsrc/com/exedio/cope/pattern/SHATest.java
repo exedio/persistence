@@ -127,6 +127,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("knollo");
 		assertEquals("1835861e09d3f89ee0f3f0e875366cad0d1877615ad322be2fff1135eb8e6f1ee1f55ce00edd17ae1c2ad89a96e676dfb106a0a8e78a7ea71e3ac373a5426af6", item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(null));
@@ -134,6 +135,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertTrue(item.checkPassword("knollo"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -202,6 +204,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 
 		// reference example from http://de.wikipedia.org/wiki/Secure_Hash_Algorithm
+		// duplicated in  MessageDigestAlgorithmTest
 		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 
@@ -235,6 +238,7 @@ public class SHATest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.password.isNull()));
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordSHA512());
 		assertTrue(!item.checkPassword(upper));
