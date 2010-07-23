@@ -130,6 +130,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("knollo");
 		assertEquals("aeab417a9b5a7cf385decb666a4d572c9962e9c042e0fc33718b2cbabc28a866c35594f6c17596dedb0437dedb652eb2854d9645e7aa80926538923763b733f8ad00747248df9ade", item.getPasswordSHA512s8());
 		assertTrue(!item.checkPassword(null));
@@ -137,6 +138,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertTrue(item.checkPassword("knollo"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -178,6 +180,7 @@ public class SaltedSHATest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
 		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPasswordMandatory("");
 		assertEquals(EMPTY_HASH, item.getPasswordMandatorySHA512s8());
 		assertTrue(!item.checkPasswordMandatory("musso"));

@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
-import com.exedio.cope.pattern.MessageDigestAlgorithm;
 import com.exedio.cope.util.Hex;
 
 public class MessageDigestAlgorithmTest extends CopeAssert
@@ -102,6 +103,27 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
 		assertEquals(1, a.getIterations());
+
+		try
+		{
+			a.hash(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertDigest(a,
+			"",
+			"aeab417a9b5a7cf379c224f53a48f3ba32de8c9f5e12a2d78e281665c88b4addfe9c5357e1edd5f74ce7b0a2822dbb4a4274627d5e87bc8f24db5999b18dfe812bb037e1196bb4bc");
+		assertDigest(a,
+			"knollo",
+			"aeab417a9b5a7cf385decb666a4d572c9962e9c042e0fc33718b2cbabc28a866c35594f6c17596dedb0437dedb652eb2854d9645e7aa80926538923763b733f8ad00747248df9ade");
+		assertDigest(a,
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo",
+			"aeab417a9b5a7cf39904017f7a5e22767e17c88ec0b1442490df10531c7806f803b07dac383380623df954bef6ce5da18fdc82d1baf7146fbd3e95be7c00acf08c4062f624510b20");
 	}
 
 	public void testUnsaltedNoniterated()
@@ -198,7 +220,11 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		}
 		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
 
+		final Random newRandom = new Random(61654632);
+		final SecureRandom prepared = (algorithm.getSaltLength()>0) ? (SecureRandom)algorithm.setSaltSource(newRandom) : null;
 		assertEquals(Hex.encodeLower(algorithm.hash(plainTextBytes)), expectedHash);
+		if(algorithm.getSaltLength()>0)
+			assertSame(newRandom, algorithm.setSaltSource(prepared));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
