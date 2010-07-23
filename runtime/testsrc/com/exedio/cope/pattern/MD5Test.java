@@ -127,6 +127,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword("12345678901234567890123456789012"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("knollo");
 		assertEquals("ad373a47d81949f466552edf29499b32", item.getPasswordMD5());
 		assertTrue(!item.checkPassword(null));
@@ -134,6 +135,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertTrue(item.checkPassword("knollo"));
 		assertContains(item.TYPE.search(item.password.isNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -202,6 +204,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
 
 		// reference example from http://de.wikipedia.org/wiki/MD5
+		// duplicated in  MessageDigestAlgorithmTest
 		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 
@@ -235,6 +238,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.password.isNull()));
 		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
+		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordMD5());
 		assertTrue(!item.checkPassword(upper));

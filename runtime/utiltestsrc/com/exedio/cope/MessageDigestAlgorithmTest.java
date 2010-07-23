@@ -141,6 +141,45 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			"90b30ef9902ae4c4c691d2d78c2f8fa0aa785afbc5545286b310f68e91dd2299c84a2484f0419fc5eaa7de598940799e1091c4948926ae1c9488dddae180bb80");
 	}
 
+	public void testUnsaltedNoniteratedMD5()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("MD5", 0, 1);
+		assertEquals("MD5", a.name());
+		assertEquals(16, a.length());
+		assertEquals(0, a.getSaltLength());
+		assertEquals(1, a.getIterations());
+
+		try
+		{
+			a.hash(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertDigest(a,
+			"",
+			"d41d8cd98f00b204e9800998ecf8427e");
+		assertDigest(a,
+			"knollo",
+			"ad373a47d81949f466552edf29499b32");
+		assertDigest(a,
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo",
+			"6ce62d0dbd8e8b3f453ba742c102cd0b");
+
+		// reference example from http://de.wikipedia.org/wiki/MD5
+		assertDigest(a,
+			"Franz jagt im komplett verwahrlosten Taxi quer durch Bayern",
+			"a3cca2b2aa1e3b5b3b5aad99a8529074");
+		assertDigest(a,
+			"Frank jagt im komplett verwahrlosten Taxi quer durch Bayern",
+			"7e716d0e702df0505fc72e2b89467910");
+	}
+
 	private static void assertDigest(
 			final MessageDigestAlgorithm algorithm,
 			final String plainText,
