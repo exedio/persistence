@@ -54,9 +54,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
 				item.password,
-				item.password.getStorage(),
-				item.passwordMandatory,
-				item.passwordMandatory.getStorage()),
+				item.password.getStorage()),
 			item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.password.getType());
@@ -65,46 +63,34 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.password.getStorage().getType());
 		assertEquals("password-MD5", item.password.getStorage().getName());
 		assertEquals(false, item.password.getStorage().isFinal());
-		assertEquals(false, item.password.getStorage().isMandatory());
+		assertEquals(true, item.password.getStorage().isMandatory());
 		assertEquals(32, item.password.getStorage().getMinimumLength());
 		assertEquals(32, item.password.getStorage().getMaximumLength());
 		assertEquals(item.password, item.password.getStorage().getPattern());
-		assertEquals(false, item.password.isInitial());
+		assertEquals(true, item.password.isInitial());
 		assertEquals(false, item.password.isFinal());
-		assertEquals(false, item.password.isMandatory());
+		assertEquals(true, item.password.isMandatory());
 		assertEquals(String.class, item.password.getInitialType());
-		assertContains(item.password.getInitialExceptions());
+		assertContains(MandatoryViolationException.class, item.password.getInitialExceptions());
 		assertEquals("utf8", item.password.getEncoding());
 		assertEquals(1, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
 
-		assertEquals(item.TYPE, item.passwordMandatory.getType());
-		assertEquals("passwordMandatory", item.passwordMandatory.getName());
-		assertEquals("MD5", item.passwordMandatory.getAlgorithmName());
-		assertEquals(item.passwordMandatory, item.passwordMandatory.getStorage().getPattern());
-		assertEquals(true, item.passwordMandatory.isInitial());
-		assertEquals(false, item.passwordMandatory.isFinal());
-		assertEquals(true, item.passwordMandatory.isMandatory());
-		assertEquals(String.class, item.passwordMandatory.getInitialType());
-		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
-		assertEquals("utf8", item.passwordMandatory.getEncoding());
-		assertEquals(1, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
+		assertEquals("780e05d22aa148f225ea2d9f0e97b109", item.getPasswordMD5());
+		assertTrue(item.checkPassword("musso"));
+		assertTrue(!item.checkPassword("mussx"));
+		assertTrue(!item.checkPassword(""));
+		assertTrue(!item.checkPassword(null));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
-		assertEquals("780e05d22aa148f225ea2d9f0e97b109", item.getPasswordMandatoryMD5());
-		assertTrue(item.checkPasswordMandatory("musso"));
-		assertTrue(!item.checkPasswordMandatory("mussx"));
-		assertTrue(!item.checkPasswordMandatory(""));
-		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
-
-		item.setPasswordMandatory("");
-		assertEquals(EMPTY_HASH, item.getPasswordMandatoryMD5());
-		assertTrue(!item.checkPasswordMandatory("musso"));
-		assertTrue(!item.checkPasswordMandatory("mussx"));
-		assertTrue(item.checkPasswordMandatory(""));
-		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
+		item.setPassword("");
+		assertEquals(EMPTY_HASH, item.getPasswordMD5());
+		assertTrue(!item.checkPassword("musso"));
+		assertTrue(!item.checkPassword("mussx"));
+		assertTrue(item.checkPassword(""));
+		assertTrue(!item.checkPassword(null));
+		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(item, item.TYPE.search(item.password.isNotNull()));
 
 		// reference example from http://de.wikipedia.org/wiki/MD5
 		// duplicated in  MessageDigestAlgorithmTest
