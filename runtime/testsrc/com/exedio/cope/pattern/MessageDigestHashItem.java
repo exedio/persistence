@@ -36,22 +36,22 @@ public class MessageDigestHashItem extends Item
 
 	void setPassword(final String password)
 	{
-		set(MessageDigestHashItem.password, password, 61654632);
+		set(MessageDigestHashItem.password, password);
 	}
 
 	void setPasswordLatin(final String password)
 	{
-		set(MessageDigestHashItem.passwordLatin, password, 61654632);
+		set(MessageDigestHashItem.passwordLatin, password);
 	}
 
 	void setPasswordMandatory(final String password)
 	{
-		set(MessageDigestHashItem.passwordMandatory, password, 61654632);
+		set(MessageDigestHashItem.passwordMandatory, password);
 	}
 
-	private void set(final Hash hash, final String password, final long seed)
+	private void set(final Hash hash, final String password)
 	{
-		final Random newRandom = new Random(seed);
+		final Random newRandom = new Random(61654632);
 		final SecureRandom before =
 			(SecureRandom)((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(newRandom);
 		hash.set(this, password);
