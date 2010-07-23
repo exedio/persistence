@@ -32,6 +32,14 @@ public final class Arrays
 		return copy;
 	}
 
+	public static byte[] copyOf(final byte[] original)
+	{
+		final int l = original.length;
+		final byte[] copy = new byte[l];
+		arraycopy(original, 0, copy, 0, l);
+		return copy;
+	}
+
 	public static <T> T[] copyOf(final T[] original)
 	{
 		final int l = original.length;

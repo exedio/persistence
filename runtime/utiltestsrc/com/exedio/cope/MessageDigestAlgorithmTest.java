@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.pattern.MessageDigestAlgorithm;
 import com.exedio.cope.util.Hex;
 
@@ -154,7 +155,12 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		{
 			throw new RuntimeException(e);
 		}
+		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
+
 		assertEquals(Hex.encodeLower(algorithm.hash(plainTextBytes)), expectedHash);
+		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
+
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
+		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 	}
 }
