@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Random;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
@@ -271,7 +270,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		}
 		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
 
-		final Random newRandom = new Random(61654632);
+		final MockSecureRandom newRandom = new MockSecureRandom();
 		final SecureRandom prepared = (algorithm.getSaltLength()>0) ? (SecureRandom)algorithm.setSaltSource(newRandom) : null;
 		assertEquals(expectedHash, Hex.encodeLower(algorithm.hash(plainTextBytes)));
 		if(algorithm.getSaltLength()>0)
