@@ -36,7 +36,6 @@ final class MockSecureRandom extends SecureRandom
 	MockSecureRandom(final MessageDigestAlgorithm algorithm)
 	{
 		this.bytesLength = algorithm.getSaltLength();
-		assertTrue(bytesLength>0);
 	}
 
 	@Override
@@ -53,6 +52,7 @@ final class MockSecureRandom extends SecureRandom
 	@Override
 	synchronized public void nextBytes(final byte[] bytes)
 	{
+		assertTrue(bytesLength>0);
 		assertEquals(bytesLength, bytes.length);
 
 		if(nextBytesDone)

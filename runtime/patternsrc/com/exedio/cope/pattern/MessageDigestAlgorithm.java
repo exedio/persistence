@@ -70,9 +70,6 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	 */
 	java.util.Random setSaltSource(final java.util.Random saltSource)
 	{
-		if(this.saltSource==null)
-			throw new RuntimeException();
-
 		final java.util.Random result = this.saltSource;
 		this.saltSource = saltSource;
 		return result;
