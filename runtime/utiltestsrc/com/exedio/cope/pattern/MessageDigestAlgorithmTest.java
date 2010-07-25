@@ -270,8 +270,8 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		}
 		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
 
-		final MockSecureRandom newRandom = new MockSecureRandom();
-		final SecureRandom prepared = (algorithm.getSaltLength()>0) ? (SecureRandom)algorithm.setSaltSource(newRandom) : null;
+		final MockSecureRandom newRandom = (algorithm.getSaltLength()>0) ? new MockSecureRandom(algorithm) : null;
+		final SecureRandom prepared = (newRandom!=null) ? (SecureRandom)algorithm.setSaltSource(newRandom) : null;
 		assertEquals(expectedHash, Hex.encodeLower(algorithm.hash(plainTextBytes)));
 		if(algorithm.getSaltLength()>0)
 			assertSame(newRandom, algorithm.setSaltSource(prepared));

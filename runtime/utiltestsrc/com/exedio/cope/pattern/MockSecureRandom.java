@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -26,8 +29,15 @@ final class MockSecureRandom extends SecureRandom
 	private static final long serialVersionUID = 1l;
 
 	private final Random source = new Random(61654632);
+	private final int bytesLength;
 	private boolean setSeedDone = false;
 	private boolean nextBytesDone = false;
+
+	MockSecureRandom(final MessageDigestAlgorithm algorithm)
+	{
+		this.bytesLength = algorithm.getSaltLength();
+		assertTrue(bytesLength>0);
+	}
 
 	@Override
 	synchronized public void setSeed(final long seed)
@@ -43,6 +53,8 @@ final class MockSecureRandom extends SecureRandom
 	@Override
 	synchronized public void nextBytes(final byte[] bytes)
 	{
+		assertEquals(bytesLength, bytes.length);
+
 		if(nextBytesDone)
 			throw new RuntimeException("exhausted");
 		else
