@@ -124,7 +124,8 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 
 	private void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
 	{
-		assertEquals(mediaRootUrl + prefix + item.getCopeID() + postfix, path.getURL(item));
-		assertEquals(               prefix + item.getCopeID() + postfix, path.getLocator(item).getPath());
+		final String pathInfo = prefix + item.getCopeID() + postfix;
+		assertEquals(mediaRootUrl + pathInfo, path.getURL(item));
+		assertEquals(pathInfo, path.getLocator(item).getPath());
 	}
 }
