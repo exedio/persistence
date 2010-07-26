@@ -22,21 +22,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.security.SecureRandom;
-import java.util.Random;
+
+import com.exedio.cope.misc.Arrays;
 
 final class MockSecureRandom extends SecureRandom
 {
 	private static final long serialVersionUID = 1l;
 
-	private final Random source = new Random(61654632);
-	private final int bytesLength;
+	private byte[] nextBytesExpected = null;
 	private boolean setSeedDone = false;
 	private boolean nextBytesDone = false;
-
-	MockSecureRandom(final MessageDigestAlgorithm algorithm)
-	{
-		this.bytesLength = algorithm.getSaltLength();
-	}
 
 	@Override
 	synchronized public void setSeed(final long seed)
@@ -52,15 +47,24 @@ final class MockSecureRandom extends SecureRandom
 	@Override
 	synchronized public void nextBytes(final byte[] bytes)
 	{
-		assertTrue(bytesLength>0);
-		assertEquals(bytesLength, bytes.length);
+		assertTrue(nextBytesExpected!=null);
+		assertEquals(nextBytesExpected.length, bytes.length);
 
 		if(nextBytesDone)
 			throw new RuntimeException("exhausted");
 		else
 			nextBytesDone = true;
 
-		source.nextBytes(bytes);
+		System.arraycopy(nextBytesExpected, 0, bytes, 0, bytes.length);
+		nextBytesExpected = null;
+	}
+
+	synchronized void expectNextBytes(final byte[] bytes)
+	{
+		assertTrue(bytes!=null);
+		assertTrue(nextBytesExpected==null);
+
+		nextBytesExpected = Arrays.copyOf(bytes);
 	}
 
 	// all others do fail
