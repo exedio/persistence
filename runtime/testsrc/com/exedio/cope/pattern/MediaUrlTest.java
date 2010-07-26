@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
+import static com.exedio.cope.pattern.MediaUrlItem.name;
+import static com.exedio.cope.pattern.MediaUrlItem.photo;
+import static com.exedio.cope.pattern.MediaUrlItem.tokened;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -50,24 +55,24 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.name,
-				item.photo,
-				item.photo.getBody(),
-				item.photo.getLastModified(),
-				item.photo.getUnison(),
-				item.tokened,
-				item.tokened.getBody(),
-				item.tokened.getContentType(),
-				item.tokened.getLastModified(),
-				item.tokened.getUnison(),
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				name,
+				photo,
+				photo.getBody(),
+				photo.getLastModified(),
+				photo.getUnison(),
+				tokened,
+				tokened.getBody(),
+				tokened.getContentType(),
+				tokened.getLastModified(),
+				tokened.getUnison(),
+			}), TYPE.getFeatures());
 
 		// token
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertFalse(item.photo.isUrlGuessingPrevented());
-		assertTrue(item.tokened.isUrlGuessingPrevented());
+		assertFalse(photo.isUrlGuessingPrevented());
+		assertTrue(tokened.isUrlGuessingPrevented());
 		assertEquals(null, item.getTokenedURL());
 		assertEquals(null, item.getTokenedLocator());
 		item.setTokened(data4, "image/jpeg");
@@ -80,7 +85,5 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + item.getCopeID() +      ".jpg?t=2e5e2a171aedcfc0d04f", item.getTokenedURL());
 		assertEquals(               "MediaUrlItem/tokened/" + item.getCopeID() +      ".jpg?t=2e5e2a171aedcfc0d04f", item.getTokenedLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + item.getCopeID() + "/name.jpg?t=2e5e2a171aedcfc0d04f", item.getTokenedURL("name"));
-
-		// custom
 	}
 }
