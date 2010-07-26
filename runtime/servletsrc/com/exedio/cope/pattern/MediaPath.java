@@ -205,18 +205,6 @@ public abstract class MediaPath extends Pattern
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
-	 * @param name is ignored
-	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlText(MediaPath)} instead.
-	 */
-	@Deprecated public final String getNamedURL(final Item item, final String name)
-	{
-		return getURL(item);
-	}
-
-	/**
-	 * Returns a URL the content of this media path is available under,
-	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if there is no such content.
 	 */
 	public final String getURL(final Item item)
 	{
@@ -501,5 +489,16 @@ public abstract class MediaPath extends Pattern
 		{
 			return counter;
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @param name is ignored
+	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlText(MediaPath)} instead.
+	 */
+	@Deprecated public final String getNamedURL(final Item item, final String name)
+	{
+		return getURL(item);
 	}
 }
