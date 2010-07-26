@@ -68,8 +68,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				tokened.getUnison(),
 			}), TYPE.getFeatures());
 
-		// token
-
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertFalse(photo.isUrlGuessingPrevented());
 		assertTrue(tokened.isUrlGuessingPrevented());
