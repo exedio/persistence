@@ -116,6 +116,12 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, false, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
+	@Override
+	public IntegerField noDefault()
+	{
+		return new IntegerField(isfinal, optional, unique, null, null, minimum, maximum);
+	}
+
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);

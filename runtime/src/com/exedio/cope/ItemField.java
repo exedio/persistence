@@ -95,6 +95,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
 	}
 
+	@Override
+	public ItemField<E> noDefault()
+	{
+		return copy(); // no defaults for item fields
+	}
+
 	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)

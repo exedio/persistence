@@ -145,14 +145,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		if(isfinal)
 			if(optional)
-				return (FunctionField)template.toFinal().optional();
+				return (FunctionField)template.noDefault().toFinal().optional();
 			else
-				return (FunctionField)template.toFinal();
+				return (FunctionField)template.noDefault().toFinal();
 		else
 			if(optional)
-				return (FunctionField)template.optional();
+				return (FunctionField)template.noDefault().optional();
 			else
-				return template.copy();
+				return template.noDefault();
 	}
 
 	public <X extends FunctionField> X of(final X template)

@@ -90,6 +90,12 @@ public final class DoubleField extends NumberField<Double>
 		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
 	}
 
+	@Override
+	public DoubleField noDefault()
+	{
+		return new DoubleField(isfinal, optional, unique, null, minimum, maximum);
+	}
+
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
 		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);

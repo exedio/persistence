@@ -18,9 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.CompositeDefaultItem.field;
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Model;
 
 public class CompositeDefaultTest extends AbstractRuntimeTest
@@ -39,21 +37,13 @@ public class CompositeDefaultTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		try
-		{
-			new CompositeDefaultItem();
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			// TODO this is a bug
-			assertSame(field.getUnison(), e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		final CompositeDefaultItem isDefault =
+			deleteOnTearDown(new CompositeDefaultItem());
+		assertNull(isDefault.getField());
 
 		final CompositeDefaultItem isNull =
 			deleteOnTearDown(new CompositeDefaultItem(null));
-		assertNull("normalValue", isNull.getField());
+		assertNull(isNull.getField());
 
 		final CompositeDefaultItem isNotNull =
 			deleteOnTearDown(new CompositeDefaultItem(new CompositeDefaultValue("normalValue")));

@@ -82,6 +82,12 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, false, defaultConstant, defaultNow);
 	}
 
+	@Override
+	public DateField noDefault()
+	{
+		return new DateField(isfinal, optional, unique, null, false);
+	}
+
 	public DateField defaultTo(final Date defaultConstant)
 	{
 		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);

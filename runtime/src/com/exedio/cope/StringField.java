@@ -96,6 +96,12 @@ public final class StringField extends FunctionField<String>
 		return new StringField(isfinal, optional, false, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
+	@Override
+	public StringField noDefault()
+	{
+		return new StringField(isfinal, optional, unique, null, minimumLength, maximumLength, charSet);
+	}
+
 	public StringField defaultTo(final String defaultConstant)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);

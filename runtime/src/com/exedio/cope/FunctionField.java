@@ -130,6 +130,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public abstract FunctionField<E> unique();
 
 	public abstract FunctionField<E> nonUnique();
+	public abstract FunctionField<E> noDefault();
 
 	abstract E get(final Row row, final Query query);
 	abstract void set(final Row row, final E surface);
