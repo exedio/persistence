@@ -31,7 +31,6 @@ final class MockSecureRandom extends SecureRandom
 
 	private byte[] nextBytesExpected = null;
 	private boolean setSeedDone = false;
-	private boolean nextBytesDone = false;
 
 	@Override
 	synchronized public void setSeed(final long seed)
@@ -49,11 +48,6 @@ final class MockSecureRandom extends SecureRandom
 	{
 		assertTrue(nextBytesExpected!=null);
 		assertEquals(nextBytesExpected.length, bytes.length);
-
-		if(nextBytesDone)
-			throw new RuntimeException("exhausted");
-		else
-			nextBytesDone = true;
 
 		System.arraycopy(nextBytesExpected, 0, bytes, 0, bytes.length);
 		nextBytesExpected = null;

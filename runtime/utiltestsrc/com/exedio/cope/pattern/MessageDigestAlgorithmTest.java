@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.util.Random;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
@@ -49,6 +49,25 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		{
 			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
 		}
+		final MessageDigestAlgorithm a = new MessageDigestAlgorithm("SHA-512", 0, 1);
+		try
+		{
+			a.salt(0, new Random());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("saltLength inconsistent to saltSource", e.getMessage());
+		}
+		try
+		{
+			a.salt(1, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("saltLength inconsistent to saltSource", e.getMessage());
+		}
 		try
 		{
 			new MessageDigestAlgorithm("SHA-512", 0, 0);
@@ -63,7 +82,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testSalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 8, 5);
+			new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
@@ -86,7 +105,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testSaltedMinimal()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 1, 2);
+			new MessageDigestAlgorithm("SHA-512", 2).salt(1, new MockSecureRandom());
 		assertEquals("SHA512s1i2", a.name());
 		assertEquals(65, a.length());
 		assertEquals(1, a.getSaltLength());
@@ -132,7 +151,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testNoniterated()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 8, 1);
+			new MessageDigestAlgorithm("SHA-512", 1).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
@@ -270,14 +289,10 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		}
 		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
 
-		final MockSecureRandom newRandom = new MockSecureRandom();
-		final int saltLength = algorithm.getSaltLength();
-		if(saltLength>0)
-			newRandom.expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3".substring(0, saltLength*2)));
-		final SecureRandom prepared = (SecureRandom)algorithm.setSaltSource(newRandom);
+		final MockSecureRandom saltSource = (MockSecureRandom)algorithm.getSaltSource();
+		if(saltSource!=null)
+			saltSource.expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3".substring(0, algorithm.getSaltLength()*2)));
 		assertEquals(expectedHash, Hex.encodeLower(algorithm.hash(plainTextBytes)));
-		if(saltLength>0)
-			assertSame(newRandom, algorithm.setSaltSource(prepared));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
