@@ -129,12 +129,14 @@ public abstract class MediaPath extends Pattern
 	public final class Locator
 	{
 		private final Item item;
+		private final String text;
 		private final String extension;
 		private final String secret;
 
-		Locator(final Item item, final String extension, final String secret)
+		Locator(final Item item, final String text, final String extension, final String secret)
 		{
 			this.item = item;
+			this.text = text;
 			this.extension = extension;
 			this.secret = secret;
 		}
@@ -151,6 +153,9 @@ public abstract class MediaPath extends Pattern
 			bf.append(getUrlPath()).
 				append(item.getCopeID());
 
+			if(text!=null)
+				bf.append('/').append(text);
+
 			if(extension!=null)
 				bf.append(extension);
 
@@ -163,6 +168,9 @@ public abstract class MediaPath extends Pattern
 		{
 			bf.append(getUrlPath()).
 				append(item.getCopeID());
+
+			if(text!=null)
+				bf.append('/').append(text);
 
 			if(extension!=null)
 				bf.append(extension);
@@ -182,7 +190,19 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
-		return new Locator(item, contentTypeToExtension.get(contentType), makeUrlToken(item));
+		return new Locator(item, makeUrlText(item), contentTypeToExtension.get(contentType), makeUrlToken(item));
+	}
+
+	/**
+	 * Returns a URL the content of this media path is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if there is no such content.
+	 * @param name is ignored
+	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlText(MediaPath)} instead.
+	 */
+	@Deprecated public final String getNamedURL(final Item item, final String name)
+	{
+		return getURL(item);
 	}
 
 	/**
@@ -191,17 +211,6 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 */
 	public final String getURL(final Item item)
-	{
-		return getNamedURL(item, null);
-	}
-
-	/**
-	 * Returns a URL the content of this media path is available under,
-	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if there is no such content.
-	 * @param name a redundant file name (without extension) to be put into the url
-	 */
-	public final String getNamedURL(final Item item, final String name)
 	{
 		final String contentType = getContentType(item);
 
@@ -213,12 +222,9 @@ public abstract class MediaPath extends Pattern
 		bf.append(getUrlPath()).
 			append(item.getCopeID());
 
-		if (name!=null && name.length()>0)
-		{
-			final String nameNatural = encodeNaturalLanguageSegment(name);
-			if (nameNatural.length()>0)
-				bf.append('/').append(nameNatural);
-		}
+		final String text = makeUrlText(item);
+		if(text!=null)
+			bf.append('/').append(text);
 
 		final String extension = contentTypeToExtension.get(contentType);
 		if(extension!=null)
@@ -232,46 +238,24 @@ public abstract class MediaPath extends Pattern
 		return bf.toString();
 	}
 
-	private static final char NATURAL_PLACE_HOLDER = '-';
-
-	private static final String encodeNaturalLanguageSegment(final String s)
+	private final String makeUrlText(final Item item)
 	{
-		if(s==null)
+		if(!(item instanceof MediaUrlTextProvider))
 			return null;
 
-		final int l = s.length();
+		final String result = ((MediaUrlTextProvider)item).getMediaUrlText(this);
+		if(result==null || result.length()==0)
+			return null;
+
+		final int l = result.length();
 		for(int i = 0; i<l; i++)
 		{
-			final char c = s.charAt(i);
+			final char c = result.charAt(i);
 			if(!(('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')))
-			{
-				final StringBuilder bf = new StringBuilder(l);
-				if(i>0)
-					bf.append(s.substring(0, i));
-				boolean skipped = false;
-				for(; i<l; i++)
-				{
-					final char c2 = s.charAt(i);
-					if(('0'<=c2&&c2<='9')||('a'<=c2&&c2<='z')||('A'<=c2&&c2<='Z'))
-					{
-						if(skipped)
-						{
-							bf.append(NATURAL_PLACE_HOLDER);
-							skipped = false;
-						}
-						bf.append(c2);
-					}
-					else
-					{
-						skipped = true;
-					}
-				}
-				if(bf.length()==1 && bf.charAt(0)==NATURAL_PLACE_HOLDER)
-					return "";
-				return bf.toString();
-			}
+				throw new IllegalArgumentException(result);
 		}
-		return s;
+
+		return result;
 	}
 
 	static final String URL_TOKEN = "t";
