@@ -19,9 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
-import static com.exedio.cope.pattern.MediaUrlItem.name;
+import static com.exedio.cope.pattern.MediaUrlItem.file;
+import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
+import static com.exedio.cope.pattern.MediaUrlItem.name;
 
 import java.util.Arrays;
 
@@ -66,31 +68,59 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				fotoSecure.getBody(),
 				fotoSecure.getLastModified(),
 				fotoSecure.getUnison(),
+				file,
+				file.getBody(),
+				file.getLastModified(),
+				file.getUnison(),
+				fileSecure,
+				fileSecure.getBody(),
+				fileSecure.getLastModified(),
+				fileSecure.getUnison(),
 			}), TYPE.getFeatures());
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertFalse(foto.isUrlGuessingPrevented());
+		assertFalse(file.isUrlGuessingPrevented());
 		assertTrue(fotoSecure.isUrlGuessingPrevented());
+		assertTrue(fileSecure.isUrlGuessingPrevented());
 		assertEquals(null, named.getFotoSecureURL());
 		assertEquals(null, named.getFotoSecureLocator());
 		assertEquals(null, anond.getFotoSecureURL());
 		assertEquals(null, anond.getFotoSecureLocator());
+		assertEquals(null, named.getFileSecureURL());
+		assertEquals(null, named.getFileSecureLocator());
+		assertEquals(null, anond.getFileSecureURL());
+		assertEquals(null, anond.getFileSecureLocator());
 
 		named.setFoto(data4, "image/jpeg");
 		named.setFotoSecure(data4, "image/jpeg");
 		anond.setFoto(data4, "image/jpeg");
 		anond.setFotoSecure(data4, "image/jpeg");
+		named.setFile(data4, "foo/bar");
+		named.setFileSecure(data4, "foo/bar");
+		anond.setFile(data4, "foo/bar");
+		anond.setFileSecure(data4, "foo/bar");
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertEquals(mediaRootUrl + "MediaUrlItem/foto/" + named.getCopeID() + ".jpg", named.getFotoURL());
 		assertEquals(               "MediaUrlItem/foto/" + named.getCopeID() + ".jpg", named.getFotoLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/foto/" + anond.getCopeID() + ".jpg", anond.getFotoURL());
 		assertEquals(               "MediaUrlItem/foto/" + anond.getCopeID() + ".jpg", anond.getFotoLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/file/" + named.getCopeID(), named.getFileURL());
+		assertEquals(               "MediaUrlItem/file/" + named.getCopeID(), named.getFileLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/file/" + anond.getCopeID(), anond.getFileURL());
+		assertEquals(               "MediaUrlItem/file/" + anond.getCopeID(), anond.getFileLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + named.getCopeID() +      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0", fotoSecure.getURL(named));
 		assertEquals(               "MediaUrlItem/fotoSecure/" + named.getCopeID() +      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0", named.getFotoSecureLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + named.getCopeID() + "/name.jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0", named.getFotoSecureURL());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1", fotoSecure.getURL(anond));
 		assertEquals(               "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1", anond.getFotoSecureLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1", anond.getFotoSecureURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + named.getCopeID() +      "?t=MediaUrlItem.fileSecure-MediaUrlItem-0", fileSecure.getURL(named));
+		assertEquals(               "MediaUrlItem/fileSecure/" + named.getCopeID() +      "?t=MediaUrlItem.fileSecure-MediaUrlItem-0", named.getFileSecureLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + named.getCopeID() + "/name?t=MediaUrlItem.fileSecure-MediaUrlItem-0", named.getFileSecureURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=MediaUrlItem.fileSecure-MediaUrlItem-1", fileSecure.getURL(anond));
+		assertEquals(               "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=MediaUrlItem.fileSecure-MediaUrlItem-1", anond.getFileSecureLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=MediaUrlItem.fileSecure-MediaUrlItem-1", anond.getFileSecureURL());
 
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
@@ -98,11 +128,21 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertEquals(               "MediaUrlItem/foto/" + named.getCopeID() + ".jpg", named.getFotoLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/foto/" + anond.getCopeID() + ".jpg", anond.getFotoURL());
 		assertEquals(               "MediaUrlItem/foto/" + anond.getCopeID() + ".jpg", anond.getFotoLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/file/" + named.getCopeID(), named.getFileURL());
+		assertEquals(               "MediaUrlItem/file/" + named.getCopeID(), named.getFileLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/file/" + anond.getCopeID(), anond.getFileURL());
+		assertEquals(               "MediaUrlItem/file/" + anond.getCopeID(), anond.getFileLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + named.getCopeID() +      ".jpg?t=c156b63cb8a39ae5f16c", fotoSecure.getURL(named));
 		assertEquals(               "MediaUrlItem/fotoSecure/" + named.getCopeID() +      ".jpg?t=c156b63cb8a39ae5f16c", named.getFotoSecureLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + named.getCopeID() + "/name.jpg?t=c156b63cb8a39ae5f16c", named.getFotoSecureURL());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=f3da9d7e6856a2f9df6c", fotoSecure.getURL(anond));
 		assertEquals(               "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=f3da9d7e6856a2f9df6c", anond.getFotoSecureLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/fotoSecure/" + anond.getCopeID() +      ".jpg?t=f3da9d7e6856a2f9df6c", anond.getFotoSecureURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + named.getCopeID() +      "?t=91f7b44e250a56f61ae9", fileSecure.getURL(named));
+		assertEquals(               "MediaUrlItem/fileSecure/" + named.getCopeID() +      "?t=91f7b44e250a56f61ae9", named.getFileSecureLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + named.getCopeID() + "/name?t=91f7b44e250a56f61ae9", named.getFileSecureURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=faf24676503317102086", fileSecure.getURL(anond));
+		assertEquals(               "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=faf24676503317102086", anond.getFileSecureLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/fileSecure/" + anond.getCopeID() +      "?t=faf24676503317102086", anond.getFileSecureURL());
 	}
 }
