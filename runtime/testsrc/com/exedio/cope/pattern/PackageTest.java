@@ -52,6 +52,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
+		suite.addTestSuite(CompositeDefaultTest.class);
 		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
