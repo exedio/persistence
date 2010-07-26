@@ -84,11 +84,6 @@ public final class MediaTest extends AbstractRuntimeTest
 				item.sheet.getContentType(),
 				item.sheet.getLastModified(),
 				item.sheet.getUnison(),
-				item.tokened,
-				item.tokened.getBody(),
-				item.tokened.getContentType(),
-				item.tokened.getLastModified(),
-				item.tokened.getUnison(),
 				item.custom,
 			}), item.TYPE.getFeatures());
 
@@ -109,24 +104,6 @@ public final class MediaTest extends AbstractRuntimeTest
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
-
-		// token
-
-		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertFalse(item.photo.isUrlGuessingPrevented());
-		assertTrue(item.tokened.isUrlGuessingPrevented());
-		assertEquals(null, item.getTokenedURL());
-		assertEquals(null, item.getTokenedLocator());
-		item.setTokened(data4, "image/jpeg");
-		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedURL());
-		assertEquals(               "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedLocator().getPath());
-		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() + "/name.jpg?t=MediaItem.tokened-MediaItem-0", item.getTokenedURL("name"));
-		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
-		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedURL());
-		assertEquals(               "MediaItem/tokened/" + item.getCopeID() +      ".jpg?t=cbefb774d68037711a58", item.getTokenedLocator().getPath());
-		assertEquals(mediaRootUrl + "MediaItem/tokened/" + item.getCopeID() + "/name.jpg?t=cbefb774d68037711a58", item.getTokenedURL("name"));
 
 		// custom
 		assertEquals(item.TYPE, item.custom.getType());

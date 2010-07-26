@@ -41,6 +41,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MapFieldTest.class);
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);
+		suite.addTestSuite(MediaUrlTest.class);
 		suite.addTestSuite(MediaDefaultTest.class);
 		suite.addTestSuite(MediaEnumTest.class);
 		suite.addTestSuite(MediaFixedTest.class);
