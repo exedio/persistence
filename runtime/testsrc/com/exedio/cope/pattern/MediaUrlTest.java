@@ -64,7 +64,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				foto.getUnison(),
 				fotoSecure,
 				fotoSecure.getBody(),
-				fotoSecure.getContentType(),
 				fotoSecure.getLastModified(),
 				fotoSecure.getUnison(),
 			}), TYPE.getFeatures());
