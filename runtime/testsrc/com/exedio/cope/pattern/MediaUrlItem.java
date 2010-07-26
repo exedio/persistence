@@ -38,13 +38,6 @@ public class MediaUrlItem extends Item
 		});
 	}
 
-	MediaUrlItem(final Media.Value file)
-	{
-		this(new com.exedio.cope.SetValue[]{
-			MediaItem.file.map(file),
-		});
-	}
-
 	final String getTokenedURL(final String name)
 	{
 		return MediaUrlItem.tokened.getNamedURL(this, name);
