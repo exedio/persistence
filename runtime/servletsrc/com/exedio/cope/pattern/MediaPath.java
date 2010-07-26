@@ -133,7 +133,11 @@ public abstract class MediaPath extends Pattern
 		private final String extension;
 		private final String secret;
 
-		Locator(final Item item, final String text, final String extension, final String secret)
+		Locator(
+				final Item item,
+				final String text,
+				final String extension,
+				final String secret)
 		{
 			this.item = item;
 			this.text = text;
@@ -190,7 +194,11 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
-		return new Locator(item, makeUrlText(item), contentTypeToExtension.get(contentType), makeUrlToken(item));
+		return new Locator(
+				item,
+				makeUrlText(item),
+				contentTypeToExtension.get(contentType),
+				makeUrlToken(item));
 	}
 
 	/**
