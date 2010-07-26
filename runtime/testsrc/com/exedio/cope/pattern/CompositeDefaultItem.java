@@ -24,6 +24,13 @@ final class CompositeDefaultItem extends Item
 {
 	static final CompositeField<CompositeDefaultValue> field = CompositeField.newComposite(CompositeDefaultValue.class).optional();
 
+	CompositeDefaultItem(final CompositeDefaultValue field)
+	{
+		this(new com.exedio.cope.SetValue[]{
+				CompositeDefaultItem.field.map(field),
+		});
+	}
+
 
 	/**
 

@@ -50,5 +50,14 @@ public class CompositeDefaultTest extends AbstractRuntimeTest
 			assertSame(field.getUnison(), e.getFeature());
 			assertSame(null, e.getItem());
 		}
+
+		final CompositeDefaultItem isNull =
+			deleteOnTearDown(new CompositeDefaultItem(null));
+		assertNull("normalValue", isNull.getField());
+
+		final CompositeDefaultItem isNotNull =
+			deleteOnTearDown(new CompositeDefaultItem(new CompositeDefaultValue("normalValue")));
+		assertEquals("normalValue", isNotNull.getField().getNormal());
+		assertEquals(5, isNotNull.getField().getDeflt());
 	}
 }
