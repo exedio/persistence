@@ -43,13 +43,14 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	protected MediaUrlItem named;
+	protected MediaUrlItem named, anond;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		named = deleteOnTearDown(new MediaUrlItem("name"));
+		anond = deleteOnTearDown(new MediaUrlItem(null));
 	}
 
 	public void testIt()
@@ -73,22 +74,36 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertTrue(tokened.isUrlGuessingPrevented());
 		assertEquals(null, named.getTokenedURL());
 		assertEquals(null, named.getTokenedLocator());
+		assertEquals(null, anond.getTokenedURL());
+		assertEquals(null, anond.getTokenedLocator());
 
 		named.setPhoto(data4, "image/jpeg");
 		named.setTokened(data4, "image/jpeg");
+		anond.setPhoto(data4, "image/jpeg");
+		anond.setTokened(data4, "image/jpeg");
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertEquals(mediaRootUrl + "MediaUrlItem/photo/" + named.getCopeID() + ".jpg", named.getPhotoURL());
 		assertEquals(               "MediaUrlItem/photo/" + named.getCopeID() + ".jpg", named.getPhotoLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/photo/" + anond.getCopeID() + ".jpg", anond.getPhotoURL());
+		assertEquals(               "MediaUrlItem/photo/" + anond.getCopeID() + ".jpg", anond.getPhotoLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + named.getCopeID() +      ".jpg?t=MediaUrlItem.tokened-MediaUrlItem-0", tokened.getURL(named));
 		assertEquals(               "MediaUrlItem/tokened/" + named.getCopeID() +      ".jpg?t=MediaUrlItem.tokened-MediaUrlItem-0", named.getTokenedLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + named.getCopeID() + "/name.jpg?t=MediaUrlItem.tokened-MediaUrlItem-0", named.getTokenedURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.tokened-MediaUrlItem-1", tokened.getURL(anond));
+		assertEquals(               "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.tokened-MediaUrlItem-1", anond.getTokenedLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=MediaUrlItem.tokened-MediaUrlItem-1", anond.getTokenedURL());
 
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertEquals(mediaRootUrl + "MediaUrlItem/photo/" + named.getCopeID() + ".jpg", named.getPhotoURL());
 		assertEquals(               "MediaUrlItem/photo/" + named.getCopeID() + ".jpg", named.getPhotoLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/photo/" + anond.getCopeID() + ".jpg", anond.getPhotoURL());
+		assertEquals(               "MediaUrlItem/photo/" + anond.getCopeID() + ".jpg", anond.getPhotoLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + named.getCopeID() +      ".jpg?t=2e5e2a171aedcfc0d04f", tokened.getURL(named));
 		assertEquals(               "MediaUrlItem/tokened/" + named.getCopeID() +      ".jpg?t=2e5e2a171aedcfc0d04f", named.getTokenedLocator().getPath());
 		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + named.getCopeID() + "/name.jpg?t=2e5e2a171aedcfc0d04f", named.getTokenedURL());
+		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=dd337c78638aee10a4d8", tokened.getURL(anond));
+		assertEquals(               "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=dd337c78638aee10a4d8", anond.getTokenedLocator().getPath());
+		assertEquals(mediaRootUrl + "MediaUrlItem/tokened/" + anond.getCopeID() +      ".jpg?t=dd337c78638aee10a4d8", anond.getTokenedURL());
 	}
 }
