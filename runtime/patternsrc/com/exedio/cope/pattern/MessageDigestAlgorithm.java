@@ -49,6 +49,19 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			final int saltLength,
 			final int iterations)
 	{
+		this(
+			digest,
+			saltLength,
+			saltLength>0 ? new SecureRandom() : null,
+			iterations);
+	}
+
+	private MessageDigestAlgorithm(
+			final String digest,
+			final int saltLength,
+			final java.util.Random saltSource,
+			final int iterations)
+	{
 		this.digest = digest;
 
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
@@ -57,10 +70,12 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
 
 		this.saltLength = saltLength;
-		this.saltSource = saltLength>0 ? new SecureRandom() : null;
+		this.saltSource = saltSource;
 		this.iterations = iterations;
 		if(saltLength<0)
 			throw new IllegalArgumentException("saltLength must be at least zero, but was " + saltLength);
+		if((saltLength>0)!=(saltSource!=null))
+			throw new IllegalArgumentException("saltLength inconsistent to saltSource");
 		if(iterations<1)
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
