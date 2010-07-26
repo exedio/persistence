@@ -126,6 +126,13 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 	{
 		final String pathInfo = prefix + item.getCopeID() + postfix;
 		assertEquals(mediaRootUrl + pathInfo, path.getURL(item));
-		assertEquals(pathInfo, path.getLocator(item).getPath());
+
+		final MediaPath.Locator locator = path.getLocator(item);
+		assertEquals(pathInfo, locator.getPath());
+		assertEquals(pathInfo, locator.toString());
+
+		final StringBuilder bf = new StringBuilder();
+		locator.appendPath(bf);
+		assertEquals(pathInfo, bf.toString());
 	}
 }
