@@ -131,6 +131,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public abstract FunctionField<E> nonUnique();
 	public abstract FunctionField<E> noDefault();
+	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
 	abstract E get(final Row row, final Query query);
 	abstract void set(final Row row, final E surface);

@@ -102,6 +102,19 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	/**
+	 * @deprecated defaults make no sense for ItemField
+	 */
+	@Deprecated
+	@Override
+	public ItemField<E> defaultTo(final E defaultConstant)
+	{
+		if(defaultConstant!=null)
+			throw new IllegalArgumentException("no defaults for item fields");
+
+		return copy(); // no defaults for item fields
+	}
+
+	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
