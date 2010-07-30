@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
+import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
@@ -68,16 +69,22 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, name.getField(DE).getDefaultConstant());
 		assertEqualsUnmodifiable(list(name.getField(DE), name.getField(EN), name.getField(PL)), name.getSourceFeatures());
 
+		assertEquals("defaultDE", defaults.getField(DE).getDefaultConstant());
+		assertEquals(null, defaults.getField(EN).getDefaultConstant());
+		assertEquals(null, defaults.getField(PL).getDefaultConstant());
+
 		assertEqualsUnmodifiable(
 				list(
 						TYPE.getThis(),
 						name, name.getField(DE), name.getField(EN), name.getField(PL),
-						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL)),
+						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
+						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
 				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
 						name.getField(DE), name.getField(EN), name.getField(PL),
-						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL)),
+						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
+						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
 				TYPE.getFields());
 
 		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
@@ -91,6 +98,9 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
+		assertEquals("defaultDE", item.getDefaults(DE));
+		assertEquals(null, item.getDefaults(EN));
+		assertEquals(null, item.getDefaults(PL));
 
 		item.setName(DE, "nameDE");
 		assertEquals("nameDE", item.getName(DE));
