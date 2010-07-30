@@ -37,7 +37,10 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	private final EnumMap<K, FunctionField<V>> fields;
 	private final EnumMap<K, V> defaultConstant;
 
-	private EnumMapField(final Class<K> keyClass, final FunctionField<V> valueTemplate, final EnumMap<K, V> defaultConstant)
+	private EnumMapField(
+			final Class<K> keyClass,
+			final FunctionField<V> valueTemplate,
+			final EnumMap<K, V> defaultConstant)
 	{
 		this.keyClass = keyClass;
 		this.valueTemplate = valueTemplate;
@@ -52,7 +55,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		}
 	}
 
-	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
+	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(
+			final Class<K> keyClass,
+			final FunctionField<V> value)
 	{
 		return new EnumMapField<K,V>(keyClass, value, new EnumMap<K, V>(keyClass));
 	}
