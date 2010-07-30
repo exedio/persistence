@@ -61,6 +61,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		assertEquals("name-DE", item.name.getField(DE).getName());
 		assertSame(item.TYPE, item.name.getField(DE).getType());
 		assertEquals(item.name, item.name.getField(DE).getPattern());
+		assertEquals(null, item.name.getField(DE).getDefaultConstant());
 		assertEqualsUnmodifiable(list(item.name.getField(DE), item.name.getField(EN), item.name.getField(PL)), item.name.getSourceFeatures());
 
 		assertEqualsUnmodifiable(
