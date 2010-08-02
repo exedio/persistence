@@ -32,7 +32,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
@@ -179,9 +178,10 @@ public final class PasswordRecovery extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
-		final Date now = new Date();
-		final Query<Token> query = tokenType.newQuery(this.expires.less(now));
-		return Delete.delete(query, "PasswordRecovery#purge " + getID(), interrupter);
+		return Delete.delete(
+				tokenType.newQuery(this.expires.less(new Date())),
+				"PasswordRecovery#purge " + getID(),
+				interrupter);
 	}
 
 	@Computed

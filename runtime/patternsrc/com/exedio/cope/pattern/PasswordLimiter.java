@@ -233,9 +233,11 @@ public final class PasswordLimiter extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
-		final Query<Refusal> query = refusalType.newQuery(
-				this.date.less(new Date(System.currentTimeMillis()-period)));
-		return Delete.delete(query, "PasswordLimiter#purge " + getID(), interrupter);
+		return Delete.delete(
+				refusalType.newQuery(
+						this.date.less(new Date(System.currentTimeMillis()-period))),
+				"PasswordLimiter#purge " + getID(),
+				interrupter);
 	}
 
 	@Computed
