@@ -29,12 +29,12 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Interrupter;
 
 public final class PasswordLimiter extends Pattern
@@ -235,42 +235,7 @@ public final class PasswordLimiter extends Pattern
 	{
 		final Query<Refusal> query = refusalType.newQuery(
 				this.date.less(new Date(System.currentTimeMillis()-period)));
-		final int LIMIT = 100;
-		final Model model = getType().getModel();
-		int result = 0;
-		for(int transaction = 0; transaction<30; transaction++)
-		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
-
-			try
-			{
-				model.startTransaction("PasswordLimiter#purge " + getID() + " #" + transaction);
-
-				query.setLimit(0, LIMIT);
-				final List<Refusal> refusals = query.search();
-				final int refusalsSize = refusals.size();
-				if(refusalsSize==0)
-					return result;
-				for(final Refusal refusal : refusals)
-					refusal.deleteCopeItem();
-				result += refusalsSize;
-				if(refusalsSize<LIMIT)
-				{
-					model.commit();
-					return result;
-				}
-
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-		}
-
-		System.out.println("Aborting PasswordLimiter#purge " + getID() + " after " + result);
-		return result;
+		return Delete.delete(query, "PasswordLimiter#purge " + getID(), interrupter);
 	}
 
 	@Computed

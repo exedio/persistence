@@ -31,12 +31,12 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Interrupter;
 
 public final class PasswordRecovery extends Pattern
@@ -179,44 +179,9 @@ public final class PasswordRecovery extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
-		final int LIMIT = 100;
 		final Date now = new Date();
 		final Query<Token> query = tokenType.newQuery(this.expires.less(now));
-		final Model model = getType().getModel();
-		int result = 0;
-		for(int transaction = 0; transaction<30; transaction++)
-		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
-
-			try
-			{
-				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
-
-				query.setLimit(0, LIMIT);
-				final List<Token> tokens = query.search();
-				final int tokensSize = tokens.size();
-				if(tokensSize==0)
-					return result;
-				for(final Token token : tokens)
-					token.deleteCopeItem();
-				result += tokensSize;
-				if(tokensSize<LIMIT)
-				{
-					model.commit();
-					return result;
-				}
-
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-		}
-
-		System.out.println("Aborting PasswordRecovery#purge " + getID() + " after " + result);
-		return result;
+		return Delete.delete(query, "PasswordRecovery#purge " + getID(), interrupter);
 	}
 
 	@Computed
