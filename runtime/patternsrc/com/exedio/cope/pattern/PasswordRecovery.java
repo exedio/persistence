@@ -181,6 +181,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		final int LIMIT = 100;
 		final Date now = new Date();
+		final Query<Token> query = tokenType.newQuery(this.expires.less(now));
 		final Model model = getType().getModel();
 		int result = 0;
 		for(int transaction = 0; transaction<30; transaction++)
@@ -192,7 +193,6 @@ public final class PasswordRecovery extends Pattern
 			{
 				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
 
-				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
 				query.setLimit(0, LIMIT);
 				final List<Token> tokens = query.search();
 				final int tokensSize = tokens.size();
