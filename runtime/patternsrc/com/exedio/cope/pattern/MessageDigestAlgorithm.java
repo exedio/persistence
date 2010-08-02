@@ -206,6 +206,23 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		return true;
 	}
 
+	public boolean compatibleTo(final Hash.Algorithm other)
+	{
+		if(this==other)
+			return true;
+		if(other==null)
+			throw new NullPointerException();
+		if(!(other instanceof MessageDigestAlgorithm))
+			return false;
+
+		final MessageDigestAlgorithm o = (MessageDigestAlgorithm)other;
+		return
+			digest.equals(o.digest) &&
+			digestLength==o.digestLength &&
+			saltLength==o.saltLength &&
+			iterations==o.iterations;
+	}
+
 	public int getSaltLength()
 	{
 		return saltLength;

@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add Hash.Algorithm.compatibleTo
 * add EnumMapField.defaultTo
 * instrumented constructors qualify features by declaring class,
 	avoids warnings in eclipse,

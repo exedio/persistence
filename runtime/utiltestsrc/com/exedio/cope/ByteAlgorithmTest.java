@@ -48,6 +48,11 @@ public class ByteAlgorithmTest extends CopeAssert
 			{
 				return "name";
 			}
+
+			public boolean compatibleTo(final Hash.Algorithm other)
+			{
+				throw new RuntimeException();
+			}
 		};
 
 		try

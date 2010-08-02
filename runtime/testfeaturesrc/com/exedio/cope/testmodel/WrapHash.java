@@ -90,5 +90,10 @@ public class WrapHash extends Hash
 
 			return Arrays.equals(hash(plainText), hash);
 		}
+
+		public boolean compatibleTo(final Algorithm other)
+		{
+			throw new RuntimeException();
+		}
 	};
 }

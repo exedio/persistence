@@ -212,6 +212,13 @@ public class Hash extends Pattern implements Settable<String>
 		 * @throws IllegalArgumentException if hash.length!={@link #length()}.
 		 */
 		boolean check(byte[] plainText, byte[] hash);
+
+		/**
+		 * Returns whether this algorithm can consistently check
+		 * hash values created by the given algorithm.
+		 * @throws NullPointerException if other is null
+		 */
+		boolean compatibleTo(Algorithm other);
 	}
 
 	public final Hash optional()

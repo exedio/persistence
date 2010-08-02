@@ -79,6 +79,26 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		}
 	}
 
+	public void testCompatibleTo()
+	{
+		final MessageDigestAlgorithm a =
+			new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom());
+		assertTrue(a.compatibleTo(a));
+		assertTrue( a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("MD5",     5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 5).salt(7, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 4).salt(8, new MockSecureRandom())));
+		try
+		{
+			a.compatibleTo(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
 	public void testSalted()
 	{
 		final MessageDigestAlgorithm a =
