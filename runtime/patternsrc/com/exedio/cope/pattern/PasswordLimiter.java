@@ -233,6 +233,8 @@ public final class PasswordLimiter extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
+		final Query<Refusal> query = refusalType.newQuery(
+				this.date.less(new Date(System.currentTimeMillis()-period)));
 		final int LIMIT = 100;
 		final Model model = getType().getModel();
 		int result = 0;
@@ -245,8 +247,6 @@ public final class PasswordLimiter extends Pattern
 			{
 				model.startTransaction("PasswordLimiter#purge " + getID() + " #" + transaction);
 
-				final Query<Refusal> query = refusalType.newQuery(
-						this.date.less(new Date(System.currentTimeMillis()-period)));
 				query.setLimit(0, LIMIT);
 				final List<Refusal> refusals = query.search();
 				final int refusalsSize = refusals.size();
