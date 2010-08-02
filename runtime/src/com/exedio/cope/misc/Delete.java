@@ -45,14 +45,14 @@ public final class Delete
 				model.startTransaction(transactionName + '#' + transaction);
 
 				query.setLimit(0, LIMIT);
-				final List<? extends Item> tokens = query.search();
-				final int tokensSize = tokens.size();
-				if(tokensSize==0)
+				final List<? extends Item> items = query.search();
+				final int itemsSize = items.size();
+				if(itemsSize==0)
 					return result;
-				for(final Item token : tokens)
-					token.deleteCopeItem();
-				result += tokensSize;
-				if(tokensSize<LIMIT)
+				for(final Item item : items)
+					item.deleteCopeItem();
+				result += itemsSize;
+				if(itemsSize<LIMIT)
 				{
 					model.commit();
 					return result;
