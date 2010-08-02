@@ -29,7 +29,7 @@ public final class Delete
 {
 	public static int delete(
 			final Query<? extends Item> query,
-			final String name,
+			final String transactionName,
 			final Interrupter interrupter)
 	{
 		final int LIMIT = 100;
@@ -42,7 +42,7 @@ public final class Delete
 
 			try
 			{
-				model.startTransaction(name + '#' + transaction);
+				model.startTransaction(transactionName + '#' + transaction);
 
 				query.setLimit(0, LIMIT);
 				final List<? extends Item> tokens = query.search();
@@ -66,7 +66,7 @@ public final class Delete
 			}
 		}
 
-		System.out.println("Aborting " + name + " after " + result);
+		System.out.println("Aborting " + transactionName + " after " + result);
 		return result;
 	}
 
