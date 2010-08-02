@@ -221,6 +221,11 @@ public class Hash extends Pattern implements Settable<String>
 		boolean compatibleTo(Algorithm other);
 	}
 
+	public final Hash toFinal()
+	{
+		return new Hash(storage.toFinal(), algorithm, encoding);
+	}
+
 	public final Hash optional()
 	{
 		return new Hash(storage.optional(), algorithm, encoding);
@@ -245,12 +250,14 @@ public class Hash extends Pattern implements Settable<String>
 			setStatic(false).
 			addParameter(String.class));
 
-		final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-		result.add(
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(String.class));
+		final boolean isNotFinal = !isFinal();
+		final Set<Class<? extends Throwable>> exceptions = isNotFinal ? getInitialExceptions() : null;
+		if(isNotFinal)
+			result.add(
+				new Wrapper("set").
+				addComment("Sets a new value for {0}.").
+				addThrows(exceptions).
+				addParameter(String.class));
 
 		final String algorithmName = algorithm.name();
 		result.add(
@@ -259,12 +266,13 @@ public class Hash extends Pattern implements Settable<String>
 			addComment("Returns the encoded hash value for hash {0}.").
 			setReturn(String.class));
 
-		result.add(
-			new Wrapper("setHash").
-			setMethodWrapperPattern("set{0}" + algorithmName).
-			addComment("Sets the encoded hash value for hash {0}.").
-			addThrows(exceptions).
-			addParameter(String.class));
+		if(isNotFinal)
+			result.add(
+				new Wrapper("setHash").
+				setMethodWrapperPattern("set{0}" + algorithmName).
+				addComment("Sets the encoded hash value for hash {0}.").
+				addThrows(exceptions).
+				addParameter(String.class));
 
 		return Collections.unmodifiableList(result);
 	}
