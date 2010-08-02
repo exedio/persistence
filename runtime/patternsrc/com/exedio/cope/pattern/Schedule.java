@@ -44,6 +44,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.Interrupters;
 
 public final class Schedule extends Pattern
 {
@@ -269,7 +270,7 @@ public final class Schedule extends Pattern
 		if(toRun.isEmpty())
 			return 0;
 
-		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : DEFAULT_INTERRUPTER;
+		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : Interrupters.VAIN_INTERRUPTER;
 		int result = 0;
 		for(final P item : toRun)
 		{
@@ -318,14 +319,6 @@ public final class Schedule extends Pattern
 		}
 		return result;
 	}
-
-	private static final Interrupter DEFAULT_INTERRUPTER = new Interrupter()
-	{
-		public boolean isRequested()
-		{
-			return false;
-		}
-	};
 
 	@Computed
 	public static final class Run extends Item

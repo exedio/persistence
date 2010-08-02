@@ -28,7 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.Interrupters;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
@@ -202,14 +202,8 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			tokens.add(i.issuePasswordRecovery(EXPIRY_MILLIS));
 		sleepLongerThan( EXPIRY_MILLIS );
 		model.commit();
-		final Interrupter interrupter = new Interrupter(){
-			public boolean isRequested()
-			{
-				return false;
-			}
-		};
 		final long t = model.getNextTransactionId();
-		assertEquals(tokenNumber, i.purgePasswordRecovery(interrupter));
+		assertEquals(tokenNumber, i.purgePasswordRecovery(Interrupters.VAIN_INTERRUPTER));
 		assertEquals(t+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("PasswordRecoveryTest");
 		for(final Token token : tokens)
