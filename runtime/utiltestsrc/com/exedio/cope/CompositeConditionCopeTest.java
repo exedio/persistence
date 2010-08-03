@@ -38,6 +38,16 @@ public class CompositeConditionCopeTest extends CopeAssert
 		super();
 	}
 
+	private static void assertSameAnd(final Condition expected,	final Condition... actual)
+	{
+		assertSame(expected, and(actual));
+	}
+
+	private static void assertSameOr(final Condition expected, final Condition... actual)
+	{
+		assertSame(expected, or(actual));
+	}
+
 	public void testIt()
 	{
 		final Condition c1 = field.equal(1d);
@@ -106,47 +116,47 @@ public class CompositeConditionCopeTest extends CopeAssert
 		final Condition c2 = field.equal(2d);
 
 		// and/or
-		assertSame(c1, and(c1, TRUE));
-		assertSame(c1, and(TRUE, c1));
+		assertSameAnd(c1, c1, TRUE);
+		assertSameAnd(c1, TRUE, c1);
 		assertEquals(new CompositeCondition(AND, c1, c2), and(TRUE, c1, c2));
 		assertEquals(new CompositeCondition(AND, c1, c2), and(c1, TRUE, c2));
 		assertEquals(new CompositeCondition(AND, c1, c2), and(c1, c2, TRUE));
-		assertSame(c1, and(TRUE, TRUE, c1));
-		assertSame(c1, and(TRUE, c1, TRUE));
-		assertSame(c1, and(c1, TRUE, TRUE));
-		assertSame(TRUE, and(TRUE, TRUE, TRUE));
+		assertSameAnd(c1, TRUE, TRUE, c1);
+		assertSameAnd(c1, TRUE, c1, TRUE);
+		assertSameAnd(c1, c1, TRUE, TRUE);
+		assertSameAnd(TRUE, TRUE, TRUE, TRUE);
 
-		assertSame(c1, or(c1, FALSE));
-		assertSame(c1, or(FALSE, c1));
+		assertSameOr(c1, c1, FALSE);
+		assertSameOr(c1, FALSE, c1);
 		assertEquals(new CompositeCondition(OR, c1, c2), or(FALSE, c1, c2));
 		assertEquals(new CompositeCondition(OR, c1, c2), or(c1, FALSE, c2));
 		assertEquals(new CompositeCondition(OR, c1, c2), or(c1, c2, FALSE));
-		assertSame(c1, or(FALSE, FALSE, c1));
-		assertSame(c1, or(FALSE, c1, FALSE));
-		assertSame(c1, or(c1, FALSE, FALSE));
-		assertSame(FALSE, or(FALSE, FALSE, FALSE));
+		assertSameOr(c1, FALSE, FALSE, c1);
+		assertSameOr(c1, FALSE, c1, FALSE);
+		assertSameOr(c1, c1, FALSE, FALSE);
+		assertSameOr(FALSE, FALSE, FALSE, FALSE);
 
-		assertSame(FALSE, and(c1, FALSE));
-		assertSame(FALSE, and(FALSE, c1));
-		assertSame(FALSE, and(FALSE, c1, c2));
-		assertSame(FALSE, and(c1, FALSE, c2));
-		assertSame(FALSE, and(c1, c2, FALSE));
-		assertSame(FALSE, and(FALSE, FALSE, c1));
-		assertSame(FALSE, and(FALSE, c1, FALSE));
-		assertSame(FALSE, and(c1, FALSE, FALSE));
-		assertSame(FALSE, and(FALSE, FALSE, FALSE));
+		assertSameAnd(FALSE, c1, FALSE);
+		assertSameAnd(FALSE, FALSE, c1);
+		assertSameAnd(FALSE, FALSE, c1, c2);
+		assertSameAnd(FALSE, c1, FALSE, c2);
+		assertSameAnd(FALSE, c1, c2, FALSE);
+		assertSameAnd(FALSE, FALSE, FALSE, c1);
+		assertSameAnd(FALSE, FALSE, c1, FALSE);
+		assertSameAnd(FALSE, c1, FALSE, FALSE);
+		assertSameAnd(FALSE, FALSE, FALSE, FALSE);
 
-		assertSame(TRUE, or(c1, TRUE));
-		assertSame(TRUE, or(TRUE, c1));
-		assertSame(TRUE, or(TRUE, c1, c2));
-		assertSame(TRUE, or(c1, TRUE, c2));
-		assertSame(TRUE, or(c1, c2, TRUE));
-		assertSame(TRUE, or(TRUE, TRUE, c1));
-		assertSame(TRUE, or(TRUE, c1, TRUE));
-		assertSame(TRUE, or(c1, TRUE, TRUE));
-		assertSame(TRUE, or(TRUE, TRUE, TRUE));
+		assertSameOr(TRUE, c1, TRUE);
+		assertSameOr(TRUE, TRUE, c1);
+		assertSameOr(TRUE, TRUE, c1, c2);
+		assertSameOr(TRUE, c1, TRUE, c2);
+		assertSameOr(TRUE, c1, c2, TRUE);
+		assertSameOr(TRUE, TRUE, TRUE, c1);
+		assertSameOr(TRUE, TRUE, c1, TRUE);
+		assertSameOr(TRUE, c1, TRUE, TRUE);
+		assertSameOr(TRUE, TRUE, TRUE, TRUE);
 
-		assertSame(FALSE, and(TRUE, FALSE, TRUE));
-		assertSame(TRUE,  or(FALSE, TRUE, FALSE));
+		assertSameAnd(FALSE, TRUE, FALSE, TRUE);
+		assertSameOr (TRUE,  FALSE, TRUE, FALSE);
 	}
 }
