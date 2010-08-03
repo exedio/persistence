@@ -38,47 +38,6 @@ public class CompositeConditionCopeTest extends CopeAssert
 		super();
 	}
 
-	private static void assertNullPointerException(final Condition[] conditions, final String expectedMessage)
-	{
-		final List<Condition> conditionsList = conditions!=null ? Arrays.asList(conditions) : null;
-		try
-		{
-			and(conditions);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			and(conditionsList);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			or(conditions);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			or(conditionsList);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-	}
-
 	public void testIt()
 	{
 		assertNullPointerException(null, "conditions");
@@ -174,5 +133,46 @@ public class CompositeConditionCopeTest extends CopeAssert
 		assertEquals(expected.toString(), actual.toString());
 		assertEquals(expected, actual);
 		assertNotSame(expected, actual);
+	}
+
+	private static void assertNullPointerException(final Condition[] conditions, final String expectedMessage)
+	{
+		final List<Condition> conditionsList = conditions!=null ? Arrays.asList(conditions) : null;
+		try
+		{
+			and(conditions);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(expectedMessage, e.getMessage());
+		}
+		try
+		{
+			and(conditionsList);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(expectedMessage, e.getMessage());
+		}
+		try
+		{
+			or(conditions);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(expectedMessage, e.getMessage());
+		}
+		try
+		{
+			or(conditionsList);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(expectedMessage, e.getMessage());
+		}
 	}
 }
