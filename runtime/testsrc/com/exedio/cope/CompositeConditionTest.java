@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CompositeConditionItem.doublex;
+import static com.exedio.cope.CompositeConditionItem.field;
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
@@ -38,9 +38,9 @@ public class CompositeConditionTest extends CopeAssert
 
 	public void testIt()
 	{
-		final Condition c1 = doublex.equal(1d);
-		final Condition c2 = doublex.equal(2d);
-		final Condition c3 = doublex.equal(3d);
+		final Condition c1 = field.equal(1d);
+		final Condition c2 = field.equal(2d);
+		final Condition c3 = field.equal(3d);
 
 		assertEquals(TRUE, TRUE);
 		assertEquals(FALSE, FALSE);
@@ -230,7 +230,7 @@ public class CompositeConditionTest extends CopeAssert
 
 	public void testNot()
 	{
-		final Condition c1 = doublex.equal(1d);
+		final Condition c1 = field.equal(1d);
 		try
 		{
 			new NotCondition(null);
@@ -257,8 +257,8 @@ public class CompositeConditionTest extends CopeAssert
 
 	public void testNeutrumAbsolutum()
 	{
-		final Condition c1 = doublex.equal(1d);
-		final Condition c2 = doublex.equal(2d);
+		final Condition c1 = field.equal(1d);
+		final Condition c2 = field.equal(2d);
 
 		// Condition.and/or
 		assertSame(c1, c1.and(TRUE));
@@ -321,14 +321,14 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
 
 		// Function.in
-		assertEquals(new CompositeCondition(OR, c1, c2), doublex.in(1.0, 2.0));
-		assertEquals(new CompositeCondition(OR, c1, c2), doublex.in(listg(1.0, 2.0)));
-		assertEquals(c1, doublex.in(1.0));
-		assertEquals(c1, doublex.in(listg(1.0)));
-		assertEquals(c2, doublex.in(2.0));
-		assertEquals(c2, doublex.in(listg(2.0)));
-		assertSame(FALSE, doublex.in());
-		assertSame(FALSE, doublex.in(CopeAssert.<Double>listg()));
+		assertEquals(new CompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
+		assertEquals(new CompositeCondition(OR, c1, c2), field.in(listg(1.0, 2.0)));
+		assertEquals(c1, field.in(1.0));
+		assertEquals(c1, field.in(listg(1.0)));
+		assertEquals(c2, field.in(2.0));
+		assertEquals(c2, field.in(listg(2.0)));
+		assertSame(FALSE, field.in());
+		assertSame(FALSE, field.in(CopeAssert.<Double>listg()));
 
 		// Condition.valueOf
 		assertSame(Condition.TRUE,  Condition.valueOf(true));
