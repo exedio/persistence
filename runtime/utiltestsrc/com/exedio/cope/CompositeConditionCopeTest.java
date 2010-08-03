@@ -108,9 +108,9 @@ public class CompositeConditionCopeTest extends CopeAssert
 		// and/or
 		assertSameAnd(c1, c1, TRUE);
 		assertSameAnd(c1, TRUE, c1);
-		assertEquals(new CompositeCondition(AND, c1, c2), and(TRUE, c1, c2));
-		assertEquals(new CompositeCondition(AND, c1, c2), and(c1, TRUE, c2));
-		assertEquals(new CompositeCondition(AND, c1, c2), and(c1, c2, TRUE));
+		assertEqualsAnd(new CompositeCondition(AND, c1, c2), TRUE, c1, c2);
+		assertEqualsAnd(new CompositeCondition(AND, c1, c2), c1, TRUE, c2);
+		assertEqualsAnd(new CompositeCondition(AND, c1, c2), c1, c2, TRUE);
 		assertSameAnd(c1, TRUE, TRUE, c1);
 		assertSameAnd(c1, TRUE, c1, TRUE);
 		assertSameAnd(c1, c1, TRUE, TRUE);
@@ -118,9 +118,9 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertSameOr(c1, c1, FALSE);
 		assertSameOr(c1, FALSE, c1);
-		assertEquals(new CompositeCondition(OR, c1, c2), or(FALSE, c1, c2));
-		assertEquals(new CompositeCondition(OR, c1, c2), or(c1, FALSE, c2));
-		assertEquals(new CompositeCondition(OR, c1, c2), or(c1, c2, FALSE));
+		assertEqualsOr(new CompositeCondition(OR, c1, c2), FALSE, c1, c2);
+		assertEqualsOr(new CompositeCondition(OR, c1, c2), c1, FALSE, c2);
+		assertEqualsOr(new CompositeCondition(OR, c1, c2), c1, c2, FALSE);
 		assertSameOr(c1, FALSE, FALSE, c1);
 		assertSameOr(c1, FALSE, c1, FALSE);
 		assertSameOr(c1, c1, FALSE, FALSE);
@@ -158,5 +158,22 @@ public class CompositeConditionCopeTest extends CopeAssert
 	private static void assertSameOr(final Condition expected, final Condition... actual)
 	{
 		assertSame(expected, or(actual));
+	}
+
+	private static void assertEqualsAnd(final Condition expected,	final Condition... actual)
+	{
+		assertEqualsCondition(expected, and(actual));
+	}
+
+	private static void assertEqualsOr(final Condition expected, final Condition... actual)
+	{
+		assertEqualsCondition(expected, or(actual));
+	}
+
+	private static void assertEqualsCondition(final Condition expected, final Condition actual)
+	{
+		assertEquals(expected.toString(), actual.toString());
+		assertEquals(expected, actual);
+		assertNotSame(expected, actual);
 	}
 }
