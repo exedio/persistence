@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 class CompositeConditionItem extends Item
 {
 	/** @cope.initial */ static final DoubleField doublex = new DoubleField().optional();
