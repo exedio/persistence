@@ -68,15 +68,7 @@ public abstract class Cope
 		if(conditions==null)
 			throw new NullPointerException("conditions");
 
-		switch(conditions.size())
-		{
-			case 0:
-				return operator.identity;
-			case 1:
-				return conditions.get(0);
-			default:
-				return new CompositeCondition(operator, conditions);
-		}
+		return composite(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
 
 	private static final Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)

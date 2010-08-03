@@ -26,6 +26,7 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -153,21 +154,25 @@ public class CompositeConditionCopeTest extends CopeAssert
 	private static void assertSameAnd(final Condition expected,	final Condition... actual)
 	{
 		assertSame(expected, and(actual));
+		assertSame(expected, and(Arrays.asList(actual)));
 	}
 
 	private static void assertSameOr(final Condition expected, final Condition... actual)
 	{
 		assertSame(expected, or(actual));
+		assertSame(expected, or(Arrays.asList(actual)));
 	}
 
 	private static void assertEqualsAnd(final Condition expected,	final Condition... actual)
 	{
 		assertEqualsCondition(expected, and(actual));
+		assertEqualsCondition(expected, and(Arrays.asList(actual)));
 	}
 
 	private static void assertEqualsOr(final Condition expected, final Condition... actual)
 	{
 		assertEqualsCondition(expected, or(actual));
+		assertEqualsCondition(expected, or(Arrays.asList(actual)));
 	}
 
 	private static void assertEqualsCondition(final Condition expected, final Condition actual)
