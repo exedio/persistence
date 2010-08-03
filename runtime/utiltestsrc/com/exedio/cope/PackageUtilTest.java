@@ -38,6 +38,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite( MessageDigestAlgorithmTest.class );
 		suite.addTestSuite( ByteAlgorithmTest.class );
 		suite.addTestSuite( CompositeConditionTest.class );
+		suite.addTestSuite( CompositeConditionCopeTest.class );
 		return suite;
 	}
 }

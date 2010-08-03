@@ -18,14 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CompositeConditionItem.field;
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
+import static com.exedio.cope.CompositeConditionItem.field;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 
 import java.util.Collections;
-import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -63,46 +62,6 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.and((Condition[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions", e.getMessage());
-		}
-		try
-		{
-			Cope.and((List<Condition>)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions", e.getMessage());
-		}
-		try
-		{
-			Cope.or((Condition[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions", e.getMessage());
-		}
-		try
-		{
-			Cope.or((List<Condition>)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions", e.getMessage());
-		}
-		assertSame(TRUE, Cope.and(new Condition[0]));
-		assertSame(TRUE, Cope.and(Collections.<Condition>emptyList()));
-		assertSame(FALSE, Cope.or(new Condition[0]));
-		assertSame(FALSE, Cope.or(Collections.<Condition>emptyList()));
-		try
-		{
 			new CompositeCondition(AND);
 			fail();
 		}
@@ -136,15 +95,6 @@ public class CompositeConditionTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("conditions must not be empty", e.getMessage());
-		}
-		try
-		{
-			Cope.and(new Condition[]{null});
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[0]", e.getMessage());
 		}
 		try
 		{
@@ -210,12 +160,6 @@ public class CompositeConditionTest extends CopeAssert
 			assertEquals("conditions[0] must not be a literal", e.getMessage());
 		}
 
-		// test composites with a single subcondition
-		assertEquals(c1, Cope.and(new Condition[]{c1}));
-		assertEquals(c1, Cope.and(listg(c1)));
-		assertEquals(c1, Cope.or(new Condition[]{c1}));
-		assertEquals(c1, Cope.or(listg(c1)));
-
 		// test flattening of CompositeCondition
 		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
 		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
@@ -275,50 +219,6 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(FALSE, FALSE.and(TRUE));
 		assertSame(TRUE,  TRUE.or(FALSE));
 		assertSame(TRUE,  FALSE.or(TRUE));
-
-		// Cope.and/or
-		assertSame(c1, Cope.and(c1, TRUE));
-		assertSame(c1, Cope.and(TRUE, c1));
-		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(TRUE, c1, c2));
-		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(c1, TRUE, c2));
-		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(c1, c2, TRUE));
-		assertSame(c1, Cope.and(TRUE, TRUE, c1));
-		assertSame(c1, Cope.and(TRUE, c1, TRUE));
-		assertSame(c1, Cope.and(c1, TRUE, TRUE));
-		assertSame(TRUE, Cope.and(TRUE, TRUE, TRUE));
-
-		assertSame(c1, Cope.or(c1, FALSE));
-		assertSame(c1, Cope.or(FALSE, c1));
-		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(FALSE, c1, c2));
-		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(c1, FALSE, c2));
-		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(c1, c2, FALSE));
-		assertSame(c1, Cope.or(FALSE, FALSE, c1));
-		assertSame(c1, Cope.or(FALSE, c1, FALSE));
-		assertSame(c1, Cope.or(c1, FALSE, FALSE));
-		assertSame(FALSE, Cope.or(FALSE, FALSE, FALSE));
-
-		assertSame(FALSE, Cope.and(c1, FALSE));
-		assertSame(FALSE, Cope.and(FALSE, c1));
-		assertSame(FALSE, Cope.and(FALSE, c1, c2));
-		assertSame(FALSE, Cope.and(c1, FALSE, c2));
-		assertSame(FALSE, Cope.and(c1, c2, FALSE));
-		assertSame(FALSE, Cope.and(FALSE, FALSE, c1));
-		assertSame(FALSE, Cope.and(FALSE, c1, FALSE));
-		assertSame(FALSE, Cope.and(c1, FALSE, FALSE));
-		assertSame(FALSE, Cope.and(FALSE, FALSE, FALSE));
-
-		assertSame(TRUE, Cope.or(c1, TRUE));
-		assertSame(TRUE, Cope.or(TRUE, c1));
-		assertSame(TRUE, Cope.or(TRUE, c1, c2));
-		assertSame(TRUE, Cope.or(c1, TRUE, c2));
-		assertSame(TRUE, Cope.or(c1, c2, TRUE));
-		assertSame(TRUE, Cope.or(TRUE, TRUE, c1));
-		assertSame(TRUE, Cope.or(TRUE, c1, TRUE));
-		assertSame(TRUE, Cope.or(c1, TRUE, TRUE));
-		assertSame(TRUE, Cope.or(TRUE, TRUE, TRUE));
-
-		assertSame(FALSE, Cope.and(TRUE, FALSE, TRUE));
-		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
 
 		// Function.in
 		assertEquals(new CompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
