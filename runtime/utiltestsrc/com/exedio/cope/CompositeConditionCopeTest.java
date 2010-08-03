@@ -44,11 +44,10 @@ public class CompositeConditionCopeTest extends CopeAssert
 		final Condition c2 = field.equal(2d);
 
 		assertNullPointerException(null, "conditions");
+		assertNullPointerException(new Condition[]{null}, "conditions[0]");
 
 		assertSameAnd(TRUE,  new Condition[0]);
 		assertSameOr (FALSE, new Condition[0]);
-
-		assertNullPointerException(new Condition[]{null}, "conditions[0]");
 
 		// test composites with a single subcondition
 		assertSameAnd(c1, c1);
