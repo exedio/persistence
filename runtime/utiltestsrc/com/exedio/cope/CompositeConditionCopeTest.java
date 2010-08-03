@@ -40,8 +40,6 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 	public void testIt()
 	{
-		final Condition c1 = field.equal(1d);
-
 		try
 		{
 			and((Condition[])null);
@@ -90,6 +88,8 @@ public class CompositeConditionCopeTest extends CopeAssert
 		{
 			assertEquals("conditions[0]", e.getMessage());
 		}
+
+		final Condition c1 = field.equal(1d);
 
 		// test composites with a single subcondition
 		assertSameAnd(c1, c1);
