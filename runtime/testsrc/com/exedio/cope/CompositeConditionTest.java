@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CompareConditionItem.doublex;
+import static com.exedio.cope.CompositeConditionItem.doublex;
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
