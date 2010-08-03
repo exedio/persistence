@@ -183,7 +183,10 @@ public final class CompositeCondition extends Condition
 		final Condition.Literal absorber;
 		final Condition.Literal identity;
 
-		private Operator(final String sql, final Condition.Literal absorber, final Condition.Literal identity)
+		private Operator(
+				final String sql,
+				final Condition.Literal absorber,
+				final Condition.Literal identity)
 		{
 			this.sql = sql;
 			this.absorber = absorber;
