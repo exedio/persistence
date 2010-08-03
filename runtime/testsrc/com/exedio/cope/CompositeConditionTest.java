@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.doublex;
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,9 +29,6 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionTest extends CopeAssert
 {
-	private static final Condition TRUE  = Condition.TRUE;
-	private static final Condition FALSE = Condition.FALSE;
-
 	private static final CompositeCondition.Operator AND = CompositeCondition.Operator.AND;
 	private static final CompositeCondition.Operator OR  = CompositeCondition.Operator.OR;
 
