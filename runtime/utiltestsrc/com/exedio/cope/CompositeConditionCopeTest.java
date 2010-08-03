@@ -45,6 +45,7 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertNullPointerException(null, "conditions");
 		assertNullPointerException(new Condition[]{null}, "conditions[0]");
+		assertNullPointerException(new Condition[]{c1, null, c2}, "conditions[1]");
 
 		assertSameAnd(TRUE,  new Condition[0]);
 		assertSameOr (FALSE, new Condition[0]);
