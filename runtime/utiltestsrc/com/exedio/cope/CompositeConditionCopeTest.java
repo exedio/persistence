@@ -44,7 +44,7 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		try
 		{
-			Cope.and((Condition[])null);
+			and((Condition[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
