@@ -180,13 +180,13 @@ public final class CompositeCondition extends Condition
 		OR (" or ",  TRUE, FALSE);
 
 		final String sql;
-		final Condition.Literal absorber;
-		final Condition.Literal identity;
+		final Literal absorber;
+		final Literal identity;
 
 		private Operator(
 				final String sql,
-				final Condition.Literal absorber,
-				final Condition.Literal identity)
+				final Literal absorber,
+				final Literal identity)
 		{
 			this.sql = sql;
 			this.absorber = absorber;
