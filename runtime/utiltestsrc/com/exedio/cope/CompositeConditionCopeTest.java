@@ -27,7 +27,6 @@ import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
@@ -79,10 +78,8 @@ public class CompositeConditionCopeTest extends CopeAssert
 		{
 			assertEquals("conditions", e.getMessage());
 		}
-		assertSame(TRUE, and(new Condition[0]));
-		assertSame(TRUE, and(Collections.<Condition>emptyList()));
-		assertSame(FALSE, or(new Condition[0]));
-		assertSame(FALSE, or(Collections.<Condition>emptyList()));
+		assertSameAnd(TRUE,  new Condition[0]);
+		assertSameOr (FALSE, new Condition[0]);
 
 		try
 		{
@@ -95,10 +92,8 @@ public class CompositeConditionCopeTest extends CopeAssert
 		}
 
 		// test composites with a single subcondition
-		assertEquals(c1, and(new Condition[]{c1}));
-		assertEquals(c1, and(listg(c1)));
-		assertEquals(c1, or(new Condition[]{c1}));
-		assertEquals(c1, or(listg(c1)));
+		assertSameAnd(c1, c1);
+		assertSameOr (c1, c1);
 	}
 
 	public void testNeutrumAbsolutum()
