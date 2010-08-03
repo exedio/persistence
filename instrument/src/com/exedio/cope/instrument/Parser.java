@@ -192,8 +192,8 @@ final class Parser
 			featurename = featuretype;
 			featuretype = null;
 			if (!parent.name.equals(featurename))
-				throw lexer.newParseException(
-					"constructor '"
+				System.out.println(
+					"WARNING: constructor '"
 						+ featurename
 						+ "' must have the classes name '"
 						+ parent.name
