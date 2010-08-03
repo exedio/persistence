@@ -30,11 +30,6 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionTest extends CopeAssert
 {
-	public CompositeConditionTest()
-	{
-		super();
-	}
-
 	public void testIt()
 	{
 		final Condition c1 = field.equal(1d);
