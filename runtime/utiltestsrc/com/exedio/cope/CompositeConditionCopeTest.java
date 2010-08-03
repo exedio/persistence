@@ -38,16 +38,6 @@ public class CompositeConditionCopeTest extends CopeAssert
 		super();
 	}
 
-	private static void assertSameAnd(final Condition expected,	final Condition... actual)
-	{
-		assertSame(expected, and(actual));
-	}
-
-	private static void assertSameOr(final Condition expected, final Condition... actual)
-	{
-		assertSame(expected, or(actual));
-	}
-
 	public void testIt()
 	{
 		final Condition c1 = field.equal(1d);
@@ -158,5 +148,15 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertSameAnd(FALSE, TRUE, FALSE, TRUE);
 		assertSameOr (TRUE,  FALSE, TRUE, FALSE);
+	}
+
+	private static void assertSameAnd(final Condition expected,	final Condition... actual)
+	{
+		assertSame(expected, and(actual));
+	}
+
+	private static void assertSameOr(final Condition expected, final Condition... actual)
+	{
+		assertSame(expected, or(actual));
 	}
 }
