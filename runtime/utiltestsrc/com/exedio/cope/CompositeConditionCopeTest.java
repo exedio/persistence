@@ -40,6 +40,9 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 	public void testIt()
 	{
+		final Condition c1 = field.equal(1d);
+		final Condition c2 = field.equal(2d);
+
 		assertNullPointerException(null, "conditions");
 
 		assertSameAnd(TRUE,  new Condition[0]);
@@ -47,19 +50,10 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertNullPointerException(new Condition[]{null}, "conditions[0]");
 
-		final Condition c1 = field.equal(1d);
-
 		// test composites with a single subcondition
 		assertSameAnd(c1, c1);
 		assertSameOr (c1, c1);
-	}
 
-	public void testNeutrumAbsolutum()
-	{
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
-
-		// and/or
 		assertSameAnd(c1, c1, TRUE);
 		assertSameAnd(c1, TRUE, c1);
 		assertEqualsAnd(new CompositeCondition(AND, c1, c2), TRUE, c1, c2);
