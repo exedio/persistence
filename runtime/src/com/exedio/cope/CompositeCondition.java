@@ -53,7 +53,7 @@ public final class CompositeCondition extends Condition
 			if(c==null)
 				throw new NullPointerException("conditions" + '[' + i + ']');
 			if(c instanceof Literal)
-				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal");
+				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal, but was " + c);
 		}
 
 

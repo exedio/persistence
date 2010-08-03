@@ -125,7 +125,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("conditions[0] must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
 		}
 		try
 		{
@@ -134,7 +134,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("conditions[0] must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
 		}
 		try
 		{
@@ -143,7 +143,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("conditions[0] must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
 		}
 		try
 		{
@@ -152,7 +152,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("conditions[0] must not be a literal", e.getMessage());
+			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
 		}
 
 		// test flattening of CompositeCondition
