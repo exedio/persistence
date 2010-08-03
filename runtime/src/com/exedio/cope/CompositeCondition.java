@@ -49,9 +49,10 @@ public final class CompositeCondition extends Condition
 			throw new IllegalArgumentException("conditions must not be empty");
 		for(int i = 0; i<conditions.length; i++)
 		{
-			if(conditions[i]==null)
+			final Condition c = conditions[i];
+			if(c==null)
 				throw new NullPointerException("conditions" + '[' + i + ']');
-			if(conditions[i] instanceof Literal)
+			if(c instanceof Literal)
 				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal");
 		}
 
