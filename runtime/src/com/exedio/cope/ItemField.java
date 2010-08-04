@@ -143,8 +143,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	void resolveValueType()
 	{
-		if(valueType!=null)
+		if(!isMounted())
 			throw new RuntimeException();
+		if(valueType!=null)
+			throw new RuntimeException(getID());
 
 		valueType = valueTypeFuture.get();
 		assert valueClass.equals(valueType.getJavaClass());
