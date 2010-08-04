@@ -357,7 +357,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		assert this==parameters.type;
 
 		if(this.mount!=null)
-			throw new IllegalStateException("type " + id + " already mounted");
+			throw new RuntimeException(id);
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.cacheIdTransiently>=0)
@@ -365,6 +365,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 		this.mount = new Mount<T>(model, id, parameters);
 		this.cacheIdTransiently = parameters.cacheIdTransiently;
+	}
+
+	void assertNotMounted()
+	{
+		if(mount!=null)
+			throw new IllegalStateException("type " + id + " already mounted");
 	}
 
 	private Mount<T> mount()

@@ -45,6 +45,8 @@ final class Types
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
+		for(final Type<?> type : types)
+			type.assertNotMounted();
 
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
@@ -53,6 +55,9 @@ final class Types
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypes)
 			addTypeIncludingGenerated(type, typesL, 10);
+
+		for(final Type<?> type : typesL)
+			type.assertNotMounted();
 
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : typesL)
