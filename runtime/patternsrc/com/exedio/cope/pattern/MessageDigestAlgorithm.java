@@ -37,7 +37,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	private final int digestLength;
 
 	private final int saltLength;
-	private java.util.Random saltSource;
+	private final SecureRandom saltSource;
 
 	private final int iterations;
 
@@ -69,7 +69,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	private MessageDigestAlgorithm(
 			final String digest,
 			final int saltLength,
-			final java.util.Random saltSource,
+			final SecureRandom saltSource,
 			final int iterations)
 	{
 		this.digest = digest;
@@ -90,7 +90,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 
-	MessageDigestAlgorithm salt(final int length, final java.util.Random source)
+	MessageDigestAlgorithm salt(final int length, final SecureRandom source)
 	{
 		return new MessageDigestAlgorithm(digest, length, source, iterations);
 	}
@@ -98,19 +98,9 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	/**
 	 * For tests only !!!
 	 */
-	java.util.Random getSaltSource()
+	SecureRandom getSaltSource()
 	{
 		return saltSource;
-	}
-
-	/**
-	 * For tests only !!!
-	 */
-	java.util.Random setSaltSource(final java.util.Random saltSource)
-	{
-		final java.util.Random result = this.saltSource;
-		this.saltSource = saltSource;
-		return result;
 	}
 
 	public String name()

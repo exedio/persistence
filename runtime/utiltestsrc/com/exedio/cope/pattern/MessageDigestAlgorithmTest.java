@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
@@ -52,7 +52,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		final MessageDigestAlgorithm a = new MessageDigestAlgorithm("SHA-512", 0, 1);
 		try
 		{
-			a.salt(0, new Random());
+			a.salt(0, new SecureRandom());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.Hex;
 
 public class MessageDigestHashTest extends AbstractRuntimeTest
 {
@@ -48,11 +48,9 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		final Random byFinal     = ((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).setSaltSource(new Random(2345l));
-		final Random byMandatory = ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(new Random(2345l));
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
 		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
-		((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).setSaltSource(byFinal    );
-		((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(byMandatory);
 	}
 
 	public void testMD5()
@@ -188,6 +186,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
 		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
 
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
 		try
 		{
 			item.passwordFinal.set(item, "finalox");
