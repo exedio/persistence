@@ -56,16 +56,6 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			iterations);
 	}
 
-	/**
-	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	MessageDigestAlgorithm(
-			final String digest,
-			final int iterations)
-	{
-		this(digest, 0, null, iterations);
-	}
-
 	private MessageDigestAlgorithm(
 			final String digest,
 			final int saltLength,

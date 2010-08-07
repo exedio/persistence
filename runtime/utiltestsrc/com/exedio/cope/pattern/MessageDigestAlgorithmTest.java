@@ -82,12 +82,12 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testCompatibleTo()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom());
+			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertTrue(a.compatibleTo(a));
-		assertTrue( a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("MD5",     5).salt(8, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 5).salt(7, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 4).salt(8, new MockSecureRandom())));
+		assertTrue( a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("MD5",     0, 5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(7, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 4).salt(8, new MockSecureRandom())));
 		try
 		{
 			a.compatibleTo(null);
@@ -102,7 +102,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testSalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 5).salt(8, new MockSecureRandom());
+			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
@@ -125,7 +125,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testSaltedMinimal()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 2).salt(1, new MockSecureRandom());
+			new MessageDigestAlgorithm("SHA-512", 0, 2).salt(1, new MockSecureRandom());
 		assertEquals("SHA512s1i2", a.name());
 		assertEquals(65, a.length());
 		assertEquals(1, a.getSaltLength());
@@ -171,7 +171,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 	public void testNoniterated()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 1).salt(8, new MockSecureRandom());
+			new MessageDigestAlgorithm("SHA-512", 0, 1).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
