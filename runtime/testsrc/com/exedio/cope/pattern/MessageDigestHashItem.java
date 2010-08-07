@@ -18,22 +18,18 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-import java.util.Random;
-
-import org.junit.Assert;
-
 import com.exedio.cope.Item;
+import com.exedio.cope.util.Hex;
 
 public class MessageDigestHashItem extends Item
 {
 	/** @cope.set none */
-	static final Hash password = new MessageDigestHash(5).optional();
+	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional();
 	/** @cope.set none */
-	static final Hash passwordLatin = new MessageDigestHash(5, "ISO-8859-1").optional();
-	static final Hash passwordFinal = new MessageDigestHash(5).toFinal();
+	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()), "ISO-8859-1").optional();
+	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).toFinal();
 	/** @cope.set none */
-	static final MessageDigestHash passwordMandatory = new MessageDigestHash(5);
+	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()));
 
 	void setPassword(final String password)
 	{
@@ -52,11 +48,8 @@ public class MessageDigestHashItem extends Item
 
 	private void set(final Hash hash, final String password)
 	{
-		final Random newRandom = new Random(61654632);
-		final SecureRandom before =
-			(SecureRandom)((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(newRandom);
+		((MockSecureRandom2)((MessageDigestAlgorithm)hash.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
 		hash.set(this, password);
-		Assert.assertSame(newRandom, ((MessageDigestAlgorithm)hash.getAlgorithm()).setSaltSource(before));
 	}
 
 	/**
