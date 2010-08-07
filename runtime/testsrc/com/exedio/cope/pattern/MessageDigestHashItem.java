@@ -24,12 +24,12 @@ import com.exedio.cope.util.Hex;
 public class MessageDigestHashItem extends Item
 {
 	/** @cope.set none */
-	static final Hash password = new MessageDigestHash(5).saltSource(8, new MockSecureRandom2()).optional();
+	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional();
 	/** @cope.set none */
-	static final Hash passwordLatin = new MessageDigestHash(5, "ISO-8859-1").saltSource(8, new MockSecureRandom2()).optional();
-	static final Hash passwordFinal = new MessageDigestHash(5).saltSource(8, new MockSecureRandom2()).toFinal();
+	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()), "ISO-8859-1").optional();
+	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).toFinal();
 	/** @cope.set none */
-	static final MessageDigestHash passwordMandatory = new MessageDigestHash(5).saltSource(8, new MockSecureRandom2());
+	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()));
 
 	void setPassword(final String password)
 	{

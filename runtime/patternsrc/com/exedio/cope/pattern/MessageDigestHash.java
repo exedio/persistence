@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-
 public final class MessageDigestHash extends Hash
 {
 	private static final long serialVersionUID = 1l;
@@ -35,15 +33,5 @@ public final class MessageDigestHash extends Hash
 	public MessageDigestHash(final int iterations)
 	{
 		super(new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations));
-	}
-
-	private MessageDigestHash(final MessageDigestAlgorithm algorithm, final String encoding)
-	{
-		super(algorithm, encoding);
-	}
-
-	public MessageDigestHash saltSource(final int length, final SecureRandom source) // TODO remove
-	{
-		return new MessageDigestHash(((MessageDigestAlgorithm)getAlgorithm()).salt(length, source), getEncoding());
 	}
 }

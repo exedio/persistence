@@ -90,7 +90,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 
-	MessageDigestAlgorithm salt(final int length, final SecureRandom source)
+	public MessageDigestAlgorithm salt(final int length, final SecureRandom source)
 	{
 		return new MessageDigestAlgorithm(digest, length, source, iterations);
 	}
