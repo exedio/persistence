@@ -434,6 +434,7 @@
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="webapp" value="junitwebapp" />
 					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
+					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
