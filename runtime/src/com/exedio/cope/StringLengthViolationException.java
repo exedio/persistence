@@ -78,14 +78,32 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 		final int len = value.length();
 		final int min = feature.getMinimumLength();
 		final int max = feature.getMaximumLength();
-		return
-			"length violation" + getItemPhrase() +
-			", '" + value + "' is too " +
-			((len<min)?"short":"long") +
-			(withFeature ? (" for "+ feature) : "") +
-			", must be " + ((min==max) ? "exactly" : ("at " + ((len<min)?"least":"most"))) +
-			' ' + ((len<min)?min:max) + " characters, " +
-			"but was " + len + '.';
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append("length violation").
+			append(getItemPhrase()).
+			append(", '").
+			append(value).
+			append("' is too ").
+			append((len<min)?"short":"long");
+
+		if(withFeature)
+			bf.append(" for ").
+				append(feature);
+		bf.append(", must be ");
+
+		if(min==max)
+			bf.append("exactly");
+		else
+			bf.append("at ").
+				append((len<min)?"least":"most");
+
+		bf.append(' ').
+			append((len<min)?min:max).
+			append(" characters, but was ").
+			append(len).append('.');
+
+		return bf.toString();
 	}
 
 	// ------------------- deprecated stuff -------------------
