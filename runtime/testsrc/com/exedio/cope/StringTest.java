@@ -478,7 +478,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'12345' is too short for " + item.exact6 + ", " +
-					"must be at least 6 characters, but was 5.",
+					"must be exactly 6 characters, but was 5.",
 					e.getMessage());
 		}
 		assertEquals(null, item.getExact6());
@@ -506,7 +506,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals("123456", item.getExact6());
@@ -529,7 +529,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
@@ -551,7 +551,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());

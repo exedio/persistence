@@ -36,8 +36,6 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 	private final StringField feature;
 	private final String value;
-	private final boolean isTooShort;
-	private final int border;
 
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
@@ -45,13 +43,11 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public StringLengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
+	public StringLengthViolationException(final StringField feature, final Item item, final String value)
 	{
 		super(item, null);
 		this.feature = feature;
 		this.value = value;
-		this.isTooShort = isTooShort;
-		this.border = border;
 	}
 
 	/**
@@ -73,23 +69,35 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 	public boolean isTooShort()
 	{
-		return isTooShort;
+		return value.length()<feature.getMinimumLength();
 	}
 
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
+		final int len = value.length();
+		final int min = feature.getMinimumLength();
+		final int max = feature.getMaximumLength();
 		return
 			"length violation" + getItemPhrase() +
 			", '" + value + "' is too " +
-			(isTooShort?"short":"long") +
+			((len<min)?"short":"long") +
 			(withFeature ? (" for "+ feature) : "") +
-			", must be at " + (isTooShort?"least":"most") +
-			' ' + border + " characters, " +
-			"but was " + value.length() + '.';
+			", must be " + ((min==max) ? "exactly" : ("at " + ((len<min)?"least":"most"))) +
+			' ' + ((len<min)?min:max) + " characters, " +
+			"but was " + len + '.';
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #StringLengthViolationException(StringField, Item, String)} instead.
+	 */
+	@Deprecated
+	public StringLengthViolationException(final StringField feature, final Item item, final String value, @SuppressWarnings("unused") final boolean isTooShort, @SuppressWarnings("unused") final int border)
+	{
+		this(feature, item, value);
+	}
 
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.

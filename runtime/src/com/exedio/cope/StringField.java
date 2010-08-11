@@ -198,10 +198,8 @@ public final class StringField extends FunctionField<String>
 			throw new MandatoryViolationException(this, this, exceptionItem);
 
 		final int length = value.length();
-		if(length<minimumLength)
-			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
-		if(length>maximumLength)
-			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
+		if(length<minimumLength||length>maximumLength)
+			throw new StringLengthViolationException(this, exceptionItem, value);
 		if(charSet!=null)
 		{
 			final int i = charSet.indexOfNotContains(value);
