@@ -86,10 +86,10 @@ public final class Features
 
 	private AnnotatedElement getAnnotationSource(final Feature feature)
 	{
-		if(annotationSources==null)
-			return null;
-
-		return annotationSources.get(feature);
+		return
+			(annotationSources!=null)
+			? annotationSources.get(feature)
+			: null;
 	}
 
 	void mount(final Type<?> type)
