@@ -30,17 +30,17 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite( TrimmerTest.class );
-		suite.addTestSuite( IsInitialTest.class );
-		suite.addTestSuite( GetModelTest.class );
-		suite.addTestSuite( ClusterTest.class );
-		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( ArraysTest.class );
-		suite.addTestSuite( MessageDigestAlgorithmTest.class );
-		suite.addTestSuite( ByteAlgorithmTest.class );
-		suite.addTestSuite( CompositeConditionTest.class );
-		suite.addTestSuite( CompositeConditionCopeTest.class );
-		suite.addTestSuite( SetValueUtilTest.class );
+		suite.addTestSuite(TrimmerTest.class);
+		suite.addTestSuite(IsInitialTest.class);
+		suite.addTestSuite(GetModelTest.class);
+		suite.addTestSuite(ClusterTest.class);
+		suite.addTestSuite(ClusterIntTest.class);
+		suite.addTestSuite(ArraysTest.class);
+		suite.addTestSuite(MessageDigestAlgorithmTest.class);
+		suite.addTestSuite(ByteAlgorithmTest.class);
+		suite.addTestSuite(CompositeConditionTest.class);
+		suite.addTestSuite(CompositeConditionCopeTest.class);
+		suite.addTestSuite(SetValueUtilTest.class);
 		return suite;
 	}
 }
