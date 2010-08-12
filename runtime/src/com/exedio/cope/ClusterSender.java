@@ -24,7 +24,6 @@ import gnu.trove.TIntIterator;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -51,14 +50,7 @@ final class ClusterSender
 	{
 		this.config = config;
 		this.destinationPort = properties.clusterSendDestinationPort.intValue();
-		try
-		{
-			this.socket = properties.getClusterSendSocket();
-		}
-		catch(final SocketException e)
-		{
-			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.intValue()), e);
-		}
+		this.socket = properties.getClusterSendSocket();
 		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];
 			pingPongTemplate[0] = ClusterConfig.MAGIC0;

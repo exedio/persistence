@@ -267,12 +267,21 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return queryCacheLimit.intValue();
 	}
 
-	DatagramSocket getClusterSendSocket() throws SocketException
+	DatagramSocket getClusterSendSocket()
 	{
-		return
-			clusterSendSourcePortAuto.booleanValue()
-			? new DatagramSocket()
-			: new DatagramSocket(clusterSendSourcePort.intValue());
+		try
+		{
+			return
+				clusterSendSourcePortAuto.booleanValue()
+				? new DatagramSocket()
+				: new DatagramSocket(clusterSendSourcePort.intValue());
+		}
+		catch(final SocketException e)
+		{
+			throw new RuntimeException(
+					String.valueOf(clusterSendSourcePort.intValue()) + '/' +
+					String.valueOf(clusterSendSourcePort.intValue()), e);
+		}
 	}
 
 	void setClusterListenPriority(final Thread thread)
