@@ -72,8 +72,7 @@ final class ClusterListener implements Runnable
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
 		thread.setDaemon(true);
-		if(properties.clusterListenPrioritySet.booleanValue())
-			thread.setPriority(properties.clusterListenPriority.intValue());
+		properties.setClusterListenPriority(thread);
 		thread.start();
 	}
 

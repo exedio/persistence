@@ -275,6 +275,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			: new DatagramSocket(clusterSendSourcePort.intValue());
 	}
 
+	void setClusterListenPriority(final Thread thread)
+	{
+		if(clusterListenPrioritySet.booleanValue())
+			thread.setPriority(clusterListenPriority.intValue());
+	}
+
 	public String getMediaRootUrl()
 	{
 		return mediaRooturl.stringValue();
