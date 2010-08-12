@@ -187,9 +187,9 @@ public class ItemTest extends TestmodelTest
 					AttributeItem.someNotNullString.map("someGenericString2"));
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("duplicate field AttributeItem.someNotNullString", e.getMessage());
+			assertEquals("SetValues contain duplicate settable AttributeItem.someNotNullString", e.getMessage());
 		}
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 
@@ -200,9 +200,9 @@ public class ItemTest extends TestmodelTest
 					AttributeItem.someNotNullString.map("someGenericString"));
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("duplicate field AttributeItem.someNotNullString", e.getMessage());
+			assertEquals("SetValues contain duplicate settable AttributeItem.someNotNullString", e.getMessage());
 		}
 		assertContains(item2, AttributeItem.TYPE.search());
 
