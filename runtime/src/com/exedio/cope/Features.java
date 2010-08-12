@@ -46,7 +46,7 @@ public final class Features
 		{
 			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
 			if(i>=0)
-			throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
+				throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 		if(feature==null)
 			throw new NullPointerException("feature");
