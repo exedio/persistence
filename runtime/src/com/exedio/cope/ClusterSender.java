@@ -24,6 +24,7 @@ import gnu.trove.TIntIterator;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -52,9 +53,9 @@ final class ClusterSender
 		this.destinationPort = properties.clusterSendDestinationPort.intValue();
 		try
 		{
-			this.socket = new DatagramSocket(properties.clusterSendSourcePort.intValue());
+			this.socket = properties.getClusterSendSocket();
 		}
-		catch(final IOException e)
+		catch(final SocketException e)
 		{
 			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.intValue()), e);
 		}
