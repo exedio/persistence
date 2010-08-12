@@ -95,7 +95,10 @@ public final class Features
 	void mount(final Type<?> type)
 	{
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
-			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
+		{
+			final Feature feature = entry.getValue();
+			feature.mount(type, entry.getKey(), getAnnotationSource(feature));
+		}
 	}
 
 	List<Feature> mountPattern(final Type<?> type, final String name)
