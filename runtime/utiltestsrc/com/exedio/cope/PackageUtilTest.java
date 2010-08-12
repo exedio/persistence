@@ -22,6 +22,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.exedio.cope.misc.SetValueUtilTest;
 import com.exedio.cope.pattern.MessageDigestAlgorithmTest;
 
 public class PackageUtilTest extends TestCase
@@ -39,6 +40,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite( ByteAlgorithmTest.class );
 		suite.addTestSuite( CompositeConditionTest.class );
 		suite.addTestSuite( CompositeConditionCopeTest.class );
+		suite.addTestSuite( SetValueUtilTest.class );
 		return suite;
 	}
 }

@@ -18,32 +18,32 @@
 
 package com.exedio.cope.misc;
 
-import java.util.List;
+import static com.exedio.cope.misc.SetValueUtil.getFirst;
+
+import java.util.ArrayList;
 
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
+import com.exedio.cope.StringField;
+import com.exedio.cope.junit.CopeAssert;
 
-public final class SetValueUtil
+public class SetValueUtilTest extends CopeAssert
 {
-	public static SetValue[] toArray(final List<? extends SetValue> list)
+	public void testGetFirst()
 	{
-		return
-			list!=null
-			? list.toArray(list.toArray(new SetValue[list.size()]))
-			: null;
-	}
+		final StringField f1 = new StringField();
+		final StringField f2 = new StringField();
+		final ArrayList<SetValue> l = new ArrayList<SetValue>();
 
-	@SuppressWarnings("unchecked")
-	public static <E> E getFirst(final List<SetValue> setValues, final Settable<E> settable)
-	{
-		for(final SetValue setValue : setValues)
-			if(settable==setValue.settable)
-				return (E)setValue.value;
-		return null;
-	}
+		l.add(f1.map("value1a"));
+		assertEquals("value1a", getFirst(l, f1));
+		assertEquals(null, getFirst(l, f2));
 
-	private SetValueUtil()
-	{
-		// prevent instantiation
+		l.add(f1.map("value1b"));
+		assertEquals("value1a", getFirst(l, f1));
+		assertEquals(null, getFirst(l, f2));
+
+		l.add(f2.map("value2"));
+		assertEquals("value1a", getFirst(l, f1));
+		assertEquals("value2", getFirst(l, f2));
 	}
 }
