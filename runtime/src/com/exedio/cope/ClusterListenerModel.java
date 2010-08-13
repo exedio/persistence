@@ -20,37 +20,30 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 
-import java.util.ArrayList;
-
-final class ClusterListenerMock extends ClusterListener
+abstract class ClusterListenerModel extends ClusterListener
 {
-	ArrayList<Object> testSink = null;
-	private boolean closed = false;
+	private final ClusterSender sender;
+	private final Connect connect;
 
-	ClusterListenerMock(
+	ClusterListenerModel(
 			final ClusterConfig config,
-			final int typeLength)
+			final ClusterSender sender,
+			final int typeLength, final Connect connect)
 	{
 		super(config, typeLength);
+		this.sender = sender;
+		this.connect = connect;
 	}
 
 	@Override
 	final void invalidate(final TIntHashSet[] invalidations)
 	{
-		testSink.add(invalidations);
+		connect.invalidate(invalidations, false);
 	}
 
 	@Override
 	final void pong()
 	{
-		testSink.add("PONG");
-	}
-
-	@Override
-	void close()
-	{
-		if(closed)
-			throw new RuntimeException();
-		closed = true;
+		sender.pong();
 	}
 }

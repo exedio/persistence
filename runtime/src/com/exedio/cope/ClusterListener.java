@@ -32,23 +32,15 @@ abstract class ClusterListener
 {
 	private final ClusterConfig config;
 	private final boolean log;
-
-	private final ClusterSender sender;
 	private final int typeLength;
-	private final Connect connect;
-
-	ArrayList<Object> testSink = null;
 
 	ClusterListener(
 			final ClusterConfig config,
-			final ClusterSender sender,
-			final int typeLength, final Connect connect)
+			final int typeLength)
 	{
 		this.config = config;
 		this.log = config.log;
-		this.sender = sender;
 		this.typeLength = typeLength;
-		this.connect = connect;
 	}
 
 	final void handle(final DatagramPacket packet)
@@ -111,12 +103,7 @@ abstract class ClusterListener
 				}
 
 				if(ping)
-				{
-					if(testSink!=null)
-						testSink.add("PONG");
-					else
-						sender.pong();
-				}
+					pong();
 				break;
 			}
 			case ClusterConfig.KIND_INVALIDATE:
@@ -153,10 +140,7 @@ abstract class ClusterListener
 					}
 				}
 
-				if(testSink!=null)
-					testSink.add(invalidations);
-				else
-					connect.invalidate(invalidations, false);
+				invalidate(invalidations);
 
 				break;
 			}
@@ -174,6 +158,8 @@ abstract class ClusterListener
 			((buf[pos++] & 0xff)<<24) ;
 	}
 
+	abstract void invalidate(TIntHashSet[] invalidations);
+	abstract void pong();
 	abstract void close();
 
 	// info

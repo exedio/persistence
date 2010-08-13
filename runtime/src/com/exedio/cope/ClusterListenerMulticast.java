@@ -23,7 +23,7 @@ import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
-final class ClusterListenerMulticast extends ClusterListener implements Runnable
+final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
 	private final ClusterConfig config;
 	private final boolean log;

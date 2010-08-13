@@ -39,7 +39,7 @@ public class ClusterTest extends CopeAssert
 	private ClusterConfig csc;
 	private ClusterConfig clc;
 	private ClusterSenderMock cs;
-	private ClusterListener cl;
+	private ClusterListenerMock cl;
 
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
@@ -87,7 +87,7 @@ public class ClusterTest extends CopeAssert
 		csc = new ClusterConfig(SECRET, 0x11224433, properties);
 		clc = new ClusterConfig(SECRET, 0x11224434, properties);
 		cs = new ClusterSenderMock(csc);
-		cl = new ClusterListenerMock(clc, cs, 4);
+		cl = new ClusterListenerMock(clc, 4);
 	}
 
 	@Override
