@@ -38,7 +38,7 @@ final class ClusterListenerMulticast extends ClusterListener implements Runnable
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
-		super(config, properties, sender, typeLength, connect);
+		super(config, sender, typeLength, connect);
 		this.config = config;
 		this.log = config.log;
 		this.port = properties.clusterListenPort.intValue();

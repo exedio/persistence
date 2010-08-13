@@ -87,7 +87,7 @@ public class ClusterTest extends CopeAssert
 		csc = new ClusterConfig(SECRET, 0x11224433, properties);
 		clc = new ClusterConfig(SECRET, 0x11224434, properties);
 		cs = new ClusterSenderMock(csc);
-		cl = new ClusterListenerMock(clc, properties, cs, 4);
+		cl = new ClusterListenerMock(clc, cs, 4);
 	}
 
 	@Override

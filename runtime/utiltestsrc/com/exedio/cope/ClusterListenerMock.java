@@ -23,11 +23,11 @@ final class ClusterListenerMock extends ClusterListener
 	private boolean closed = false;
 
 	ClusterListenerMock(
-			final ClusterConfig config, final ConnectProperties properties,
+			final ClusterConfig config,
 			final ClusterSender sender,
 			final int typeLength)
 	{
-		super(config, properties, sender, typeLength, null);
+		super(config, sender, typeLength, null);
 	}
 
 	@Override

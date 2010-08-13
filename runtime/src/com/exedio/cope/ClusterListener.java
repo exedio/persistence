@@ -21,10 +21,8 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,8 +32,6 @@ abstract class ClusterListener
 {
 	private final ClusterConfig config;
 	private final boolean log;
-	private final int port;
-	private final MulticastSocket socket;
 
 	private final ClusterSender sender;
 	private final int typeLength;
@@ -44,22 +40,12 @@ abstract class ClusterListener
 	ArrayList<Object> testSink = null;
 
 	ClusterListener(
-			final ClusterConfig config, final ConnectProperties properties,
+			final ClusterConfig config,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
 		this.config = config;
 		this.log = config.log;
-		this.port = properties.clusterListenPort.intValue();
-		try
-		{
-			this.socket = new MulticastSocket(port);
-			socket.joinGroup(config.group);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
 		this.sender = sender;
 		this.typeLength = typeLength;
 		this.connect = connect;
