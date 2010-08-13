@@ -36,11 +36,10 @@ final class ClusterSenderMock extends ClusterSender
 	{
 		if(closed)
 			throw new IOException();
-		{
-			final byte[] bufCopy = new byte[length];
-			System.arraycopy(buf, 0, bufCopy, 0, length);
-			testSink.add(bufCopy);
-		}
+
+		final byte[] bufCopy = new byte[length];
+		System.arraycopy(buf, 0, bufCopy, 0, length);
+		testSink.add(bufCopy);
 	}
 
 	@Override

@@ -39,11 +39,9 @@ final class ClusterSenderMulticast extends ClusterSender
 	@Override
 	void send(final int length, final byte[] buf) throws IOException
 	{
-		{
-			final DatagramPacket packet =
-				new DatagramPacket(buf, length, config.group, destinationPort);
-			socket.send(packet);
-		}
+		final DatagramPacket packet =
+			new DatagramPacket(buf, length, config.group, destinationPort);
+		socket.send(packet);
 	}
 
 	@Override
