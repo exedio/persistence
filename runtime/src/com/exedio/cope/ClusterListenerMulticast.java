@@ -56,6 +56,8 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		thread.setDaemon(true);
 		properties.setClusterListenPriority(thread);
 		thread.start();
+		if(log)
+			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " started.");
 	}
 
 	public void run()
@@ -68,10 +70,19 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			try
 			{
 				if(!threadRun)
+				{
+					logTerminate();
 					return;
+				}
+
 				socket.receive(packet);
+
 				if(!threadRun)
+				{
+					logTerminate();
 					return;
+				}
+
 				handle(packet);
 	      }
 			catch(final SocketException e)
@@ -84,7 +95,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Listener Multicast graceful shutdown: " + e.getMessage());
+						System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " gracefully terminates: " + e.getMessage());
 				}
 			}
 			catch(final Exception e)
@@ -93,6 +104,13 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				e.printStackTrace();
 			}
 		}
+		logTerminate();
+	}
+
+	private void logTerminate()
+	{
+		if(log)
+			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " terminates.");
 	}
 
 	@Override
