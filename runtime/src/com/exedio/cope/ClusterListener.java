@@ -124,13 +124,11 @@ abstract class ClusterListener
 					break;
 				}
 
-				if(testSink!=null)
+				if(ping)
 				{
-					testSink.add(ping ? "PING" : "PONG");
-				}
-				else
-				{
-					if(ping)
+					if(testSink!=null)
+						testSink.add("PONG");
+					else
 						sender.pong();
 				}
 				break;

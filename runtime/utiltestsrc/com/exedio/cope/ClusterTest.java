@@ -545,7 +545,7 @@ public class ClusterTest extends CopeAssert
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 
 		assertEquals(
-				"PING",
+				"PONG",
 				umi(buf));
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 
@@ -695,9 +695,7 @@ public class ClusterTest extends CopeAssert
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 
-		assertEquals(
-				"PONG",
-				umi(buf));
+		ume(buf);
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 
 		{
