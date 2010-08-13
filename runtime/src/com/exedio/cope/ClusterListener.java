@@ -42,7 +42,6 @@ abstract class ClusterListener
 	private final ItemCache itemCache;
 	private final QueryCache queryCache;
 
-
 	ArrayList<Object> testSink = null;
 
 	ClusterListener(

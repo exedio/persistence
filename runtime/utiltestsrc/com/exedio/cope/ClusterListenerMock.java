@@ -18,13 +18,9 @@
 
 package com.exedio.cope;
 
-
 final class ClusterListenerMock extends ClusterListener
 {
 	private boolean closed = false;
-
-
-
 
 	ClusterListenerMock(
 			final ClusterConfig config, final ConnectProperties properties,

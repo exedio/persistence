@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.net.SocketException;
-import java.util.ArrayList;
 
 final class ClusterListenerMulticast extends ClusterListener implements Runnable
 {
@@ -31,11 +30,8 @@ final class ClusterListenerMulticast extends ClusterListener implements Runnable
 	private final int port;
 	private final MulticastSocket socket;
 
-
 	private final Thread thread;
 	private volatile boolean threadRun = true;
-
-	ArrayList<Object> testSink = null;
 
 	ClusterListenerMulticast(
 			final ClusterConfig config, final ConnectProperties properties,
