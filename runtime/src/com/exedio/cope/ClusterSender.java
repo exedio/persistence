@@ -22,16 +22,11 @@ import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-final class ClusterSender
+abstract class ClusterSender
 {
 	private final ClusterConfig config;
-	private final int destinationPort;
-	private final DatagramSocket socket;
 
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
@@ -44,13 +39,10 @@ final class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ArrayList<byte[]> testSink = null;
 
-	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
+	ClusterSender(final ClusterConfig config)
 	{
 		this.config = config;
-		this.destinationPort = properties.clusterSendDestinationPort.intValue();
-		this.socket = properties.getClusterSendSocket();
 		{
 			final byte[] pingPongTemplate = new byte[config.packetSize];
 			pingPongTemplate[0] = ClusterConfig.MAGIC0;
@@ -88,12 +80,12 @@ final class ClusterSender
 		}
 	}
 
-	void ping(final int count)
+	final void ping(final int count)
 	{
 		pingPong(ClusterConfig.KIND_PING, pingSequence, count);
 	}
 
-	void pong()
+	final void pong()
 	{
 		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
 	}
@@ -128,7 +120,7 @@ final class ClusterSender
 	// info
 	private volatile long invalidationSplit = 0;
 
-	void invalidate(final TIntHashSet[] invalidations)
+	final void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int packetSize = config.packetSize;
 		final int length;
@@ -210,23 +202,9 @@ final class ClusterSender
 		}
 	}
 
-	private void send(final int length, final byte[] buf) throws IOException
-	{
-		if(testSink!=null)
-		{
-			final byte[] bufCopy = new byte[length];
-			System.arraycopy(buf, 0, bufCopy, 0, length);
-			testSink.add(bufCopy);
-		}
-		else
-		{
-			final DatagramPacket packet =
-				new DatagramPacket(buf, length, config.group, destinationPort);
-			socket.send(packet);
-		}
-	}
+	abstract void send(final int length, final byte[] buf) throws IOException;
 
-	static int marshal(int pos, final byte[] buf, final int i)
+	final static int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
 		buf[pos++] = (byte)((i>>> 8) & 0xff);
@@ -235,13 +213,10 @@ final class ClusterSender
 		return pos;
 	}
 
-	ClusterSenderInfo getInfo()
+	final ClusterSenderInfo getInfo()
 	{
 		return new ClusterSenderInfo(invalidationSplit);
 	}
 
-	void close()
-	{
-		socket.close();
-	}
+	abstract void close();
 }

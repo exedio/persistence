@@ -39,7 +39,7 @@ final class Connect
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
-	final ClusterSender clusterSender;
+	final ClusterSenderMulticast clusterSender;
 	final ClusterListener clusterListener;
 
 	final boolean supportsReadCommitted;
@@ -104,7 +104,7 @@ final class Connect
 			final ClusterConfig config = ClusterConfig.get(properties);
 			if(config!=null)
 			{
-				this.clusterSender   = new ClusterSender  (config, properties);
+				this.clusterSender   = new ClusterSenderMulticast(config, properties);
 				this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
 			}
 			else

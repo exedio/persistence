@@ -38,7 +38,7 @@ public class ClusterTest extends CopeAssert
 	private ConnectProperties properties;
 	private ClusterConfig csc;
 	private ClusterConfig clc;
-	private ClusterSender cs;
+	private ClusterSenderMock cs;
 	private ClusterListener cl;
 
 	private static final int SECRET = 0x88776655;
@@ -86,7 +86,7 @@ public class ClusterTest extends CopeAssert
 			);
 		csc = new ClusterConfig(SECRET, 0x11224433, properties);
 		clc = new ClusterConfig(SECRET, 0x11224434, properties);
-		cs = new ClusterSender(csc, properties);
+		cs = new ClusterSenderMock(csc);
 		cl = new ClusterListener(clc, properties, cs, 4, null, null);
 	}
 
