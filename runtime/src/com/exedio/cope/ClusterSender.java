@@ -201,8 +201,6 @@ abstract class ClusterSender
 		}
 	}
 
-	abstract void send(final int length, final byte[] buf) throws IOException;
-
 	final static int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
@@ -217,5 +215,6 @@ abstract class ClusterSender
 		return new ClusterSenderInfo(invalidationSplit);
 	}
 
+	abstract void send(final int length, final byte[] buf) throws IOException;
 	abstract void close();
 }
