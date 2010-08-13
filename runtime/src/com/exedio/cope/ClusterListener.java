@@ -25,13 +25,12 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import com.exedio.cope.util.SequenceChecker;
 
-final class ClusterListener implements Runnable
+abstract class ClusterListener
 {
 	private final ClusterConfig config;
 	private final boolean log;
@@ -43,8 +42,6 @@ final class ClusterListener implements Runnable
 	private final ItemCache itemCache;
 	private final QueryCache queryCache;
 
-	private final Thread thread;
-	private volatile boolean threadRun = true;
 
 	ArrayList<Object> testSink = null;
 
@@ -69,51 +66,9 @@ final class ClusterListener implements Runnable
 		this.typeLength = typeLength;
 		this.itemCache = itemCache;
 		this.queryCache = queryCache;
-		thread = new Thread(this);
-		thread.setName("COPE Cluster Listener");
-		thread.setDaemon(true);
-		properties.setClusterListenPriority(thread);
-		thread.start();
 	}
 
-	public void run()
-	{
-		final byte[] buf = new byte[config.packetSize];
-		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
-
-		while(threadRun)
-		{
-			try
-			{
-				if(!threadRun)
-					return;
-				socket.receive(packet);
-				if(!threadRun)
-					return;
-				handle(packet);
-	      }
-			catch(final SocketException e)
-			{
-				if(threadRun)
-				{
-					exception++;
-					e.printStackTrace();
-				}
-				else
-				{
-					if(log)
-						System.out.println("COPE Cluster Listener graceful shutdown: " + e.getMessage());
-				}
-			}
-			catch(final Exception e)
-			{
-				exception++;
-				e.printStackTrace();
-			}
-		}
-	}
-
-	void handle(final DatagramPacket packet)
+	final void handle(final DatagramPacket packet)
 	{
 		int pos = packet.getOffset();
 		final byte[] buf = packet.getData();
@@ -233,7 +188,7 @@ final class ClusterListener implements Runnable
 		}
 	}
 
-	static int unmarshal(int pos, final byte[] buf)
+	static final int unmarshal(int pos, final byte[] buf)
 	{
 		return
 			((buf[pos++] & 0xff)    ) |
@@ -242,37 +197,17 @@ final class ClusterListener implements Runnable
 			((buf[pos++] & 0xff)<<24) ;
 	}
 
-	void close()
-	{
-		threadRun = false;
-		try
-		{
-			socket.leaveGroup(config.group);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		socket.close();
-		try
-		{
-			thread.join();
-		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
+	abstract void close();
 
 	// info
 
-	private volatile long exception = 0;
+	volatile long exception = 0;
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
 	private volatile long fromMyself = 0;
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
 
-	private static class Node
+	private static final class Node
 	{
 		final int id;
 		final long firstEncounter;
@@ -317,7 +252,7 @@ final class ClusterListener implements Runnable
 		}
 	}
 
-	Node node(final int id, final DatagramPacket packet)
+	final Node node(final int id, final DatagramPacket packet)
 	{
 		synchronized(nodes)
 		{
@@ -330,7 +265,7 @@ final class ClusterListener implements Runnable
 		}
 	}
 
-	ClusterListenerInfo getInfo()
+	final ClusterListenerInfo getInfo()
 	{
 		final Node[] ns;
 		synchronized(nodes)
