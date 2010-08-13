@@ -39,7 +39,6 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-
 	ClusterSender(final ClusterConfig config)
 	{
 		this.config = config;

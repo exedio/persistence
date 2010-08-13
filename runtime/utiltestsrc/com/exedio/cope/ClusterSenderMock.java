@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 final class ClusterSenderMock extends ClusterSender
 {
-	boolean closed = false;
+	private boolean closed = false;
 	ArrayList<byte[]> testSink = null;
 
 	ClusterSenderMock(final ClusterConfig config)
@@ -31,7 +31,8 @@ final class ClusterSenderMock extends ClusterSender
 		super(config);
 	}
 
-	@Override void send(final int length, final byte[] buf) throws IOException
+	@Override
+	void send(final int length, final byte[] buf) throws IOException
 	{
 		if(closed)
 			throw new IOException();

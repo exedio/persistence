@@ -28,10 +28,6 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int destinationPort;
 	private final DatagramSocket socket;
 
-
-
-
-
 	ClusterSenderMulticast(final ClusterConfig config, final ConnectProperties properties)
 	{
 		super(config);
@@ -40,7 +36,8 @@ final class ClusterSenderMulticast extends ClusterSender
 		this.socket = properties.getClusterSendSocket();
 	}
 
-	@Override void send(final int length, final byte[] buf) throws IOException
+	@Override
+	void send(final int length, final byte[] buf) throws IOException
 	{
 		{
 			final DatagramPacket packet =
