@@ -27,7 +27,7 @@ final class ClusterListenerMock extends ClusterListener
 			final ClusterSender sender,
 			final int typeLength)
 	{
-		super(config, properties, sender, typeLength, null, null);
+		super(config, properties, sender, typeLength, null);
 	}
 
 	@Override

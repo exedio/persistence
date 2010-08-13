@@ -39,15 +39,14 @@ abstract class ClusterListener
 
 	private final ClusterSender sender;
 	private final int typeLength;
-	private final ItemCache itemCache;
-	private final QueryCache queryCache;
+	private final Connect connect;
 
 	ArrayList<Object> testSink = null;
 
 	ClusterListener(
 			final ClusterConfig config, final ConnectProperties properties,
 			final ClusterSender sender,
-			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
+			final int typeLength, final Connect connect)
 	{
 		this.config = config;
 		this.log = config.log;
@@ -63,8 +62,7 @@ abstract class ClusterListener
 		}
 		this.sender = sender;
 		this.typeLength = typeLength;
-		this.itemCache = itemCache;
-		this.queryCache = queryCache;
+		this.connect = connect;
 	}
 
 	final void handle(final DatagramPacket packet)
@@ -177,8 +175,7 @@ abstract class ClusterListener
 				}
 				else
 				{
-					itemCache.invalidate(invalidations);
-					queryCache.invalidate(invalidations);
+					connect.invalidate(invalidations, false);
 				}
 				break;
 			}

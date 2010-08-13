@@ -105,7 +105,7 @@ final class Connect
 			if(config!=null)
 			{
 				this.clusterSender   = new ClusterSenderMulticast(config, properties);
-				this.clusterListener = new ClusterListenerMulticast(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
+				this.clusterListener = new ClusterListenerMulticast(config, properties, clusterSender, types.concreteTypeCount, this);
 			}
 			else
 			{
@@ -144,11 +144,11 @@ final class Connect
 		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
-	void invalidate(final TIntHashSet[] invalidations)
+	void invalidate(final TIntHashSet[] invalidations, final boolean propagateToCluster)
 	{
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
-		if(clusterSender!=null)
+		if(propagateToCluster && clusterSender!=null)
 			clusterSender.invalidate(invalidations);
 	}
 

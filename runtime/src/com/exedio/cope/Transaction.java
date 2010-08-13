@@ -310,7 +310,7 @@ public final class Transaction
 			}
 
 			if(modified)
-				connect.invalidate(invalidations);
+				connect.invalidate(invalidations, true);
 		}
 
 		// notify ModificationListeners
