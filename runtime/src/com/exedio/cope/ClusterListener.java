@@ -79,31 +79,14 @@ abstract class ClusterListener
 		switch(kind)
 		{
 			case ClusterConfig.KIND_PING:
+			{
+				if(handlePingPong(packet, pos, node, true))
+					pong();
+				break;
+			}
 			case ClusterConfig.KIND_PONG:
 			{
-				final boolean ping = (kind==ClusterConfig.KIND_PING);
-
-				final int sequence = unmarshal(pos, buf);
-				pos += 4;
-
-				if(length!=config.packetSize)
-					throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
-				final byte[] pingPayload = config.pingPayload;
-				for(; pos<length; pos++)
-				{
-					if(pingPayload[pos]!=buf[pos])
-						throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
-				}
-
-				if(node(node, packet).pingPong(ping, sequence))
-				{
-					if(log)
-						System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
-					break;
-				}
-
-				if(ping)
-					pong();
+				handlePingPong(packet, pos, node, false);
 				break;
 			}
 			case ClusterConfig.KIND_INVALIDATE:
@@ -147,6 +130,32 @@ abstract class ClusterListener
 			default:
 				throw new RuntimeException("illegal kind: " + kind);
 		}
+	}
+
+	private boolean handlePingPong(final DatagramPacket packet, int pos, final int node, final boolean ping)
+	{
+		final byte[] buf = packet.getData();
+		final int length = packet.getLength();
+		final int sequence = unmarshal(pos, buf);
+		pos += 4;
+
+		if(length!=config.packetSize)
+			throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
+		final byte[] pingPayload = config.pingPayload;
+		for(; pos<length; pos++)
+		{
+			if(pingPayload[pos]!=buf[pos])
+				throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
+		}
+
+		if(node(node, packet).pingPong(ping, sequence))
+		{
+			if(log)
+				System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
+			return false;
+		}
+
+		return true;
 	}
 
 	static final int unmarshal(int pos, final byte[] buf)
