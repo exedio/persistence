@@ -170,13 +170,10 @@ abstract class ClusterListener
 				}
 
 				if(testSink!=null)
-				{
 					testSink.add(invalidations);
-				}
 				else
-				{
 					connect.invalidate(invalidations, false);
-				}
+
 				break;
 			}
 			default:
