@@ -140,22 +140,27 @@ abstract class ClusterListener
 		pos += 4;
 
 		if(length!=config.packetSize)
-			throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
+			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + config.packetSize + ", but was " + length);
 		final byte[] pingPayload = config.pingPayload;
 		for(; pos<length; pos++)
 		{
 			if(pingPayload[pos]!=buf[pos])
-				throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
+				throw new RuntimeException("invalid " + pingString(ping) + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
 		}
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{
 			if(log)
-				System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
+				System.out.println("COPE Cluster Listener " + pingString(ping) + " duplicate " + sequence + " from " + packet.getAddress());
 			return false;
 		}
 
 		return true;
+	}
+
+	private static String pingString(final boolean ping)
+	{
+		return ping ? "ping" : "pong";
 	}
 
 	static final int unmarshal(int pos, final byte[] buf)
