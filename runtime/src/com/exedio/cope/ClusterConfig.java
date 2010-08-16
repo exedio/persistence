@@ -39,7 +39,6 @@ final class ClusterConfig
 	final int secret;
 	final int node;
 	final boolean log;
-	final int packetSize;
 	final byte[] pingPayload;
 
 	static ClusterConfig get(final ConnectProperties properties)
@@ -70,10 +69,9 @@ final class ClusterConfig
 		this.secret = secret;
 		this.node = node;
 		this.log = properties.log.booleanValue();
-		this.packetSize = properties.packetSize.intValue() & (~3);
 		{
 			final Random r = new Random(secret);
-			final byte[] pingPayload = new byte[packetSize];
+			final byte[] pingPayload = new byte[properties.packetSize];
 			for(int pos = 20; pos<pingPayload.length; pos++)
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;

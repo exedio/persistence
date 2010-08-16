@@ -43,7 +43,7 @@ abstract class ClusterSender
 	{
 		this.config = config;
 		{
-			final byte[] pingPongTemplate = new byte[config.packetSize];
+			final byte[] pingPongTemplate = new byte[config.properties.packetSize];
 			pingPongTemplate[0] = ClusterConfig.MAGIC0;
 			pingPongTemplate[1] = ClusterConfig.MAGIC1;
 			pingPongTemplate[2] = ClusterConfig.MAGIC2;
@@ -57,9 +57,9 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 
-			for(; pos<config.packetSize; pos++)
+			for(; pos<config.properties.packetSize; pos++)
 				pingPongTemplate[pos] = config.pingPayload[pos];
-			assert pos==config.packetSize : pos;
+			assert pos==config.properties.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
 		}
 		{
@@ -95,7 +95,7 @@ abstract class ClusterSender
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 
 		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
-		final int packetSize = config.packetSize;
+		final int packetSize = config.properties.packetSize;
 
 		final byte[] buf = new byte[packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
@@ -121,7 +121,7 @@ abstract class ClusterSender
 
 	final void invalidate(final TIntHashSet[] invalidations)
 	{
-		final int packetSize = config.packetSize;
+		final int packetSize = config.properties.packetSize;
 		final int length;
 		{
 			int pos = 0;

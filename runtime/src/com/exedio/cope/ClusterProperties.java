@@ -45,9 +45,10 @@ final class ClusterProperties extends Properties
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
-	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
+	private final IntField     packetSizeField     = new     IntField("cluster.packetSize",          1400, 32);
 
 	final InetAddress sendAddress, listenAddress;
+	final int packetSize;
 
 	ClusterProperties(final Source source)
 	{
@@ -55,6 +56,7 @@ final class ClusterProperties extends Properties
 
 		this.sendAddress   = getAddress(sendAddressField);
 		this.listenAddress = getAddress(listenAddressField);
+		this.packetSize = packetSizeField.intValue() & (~3);
 	}
 
 	private InetAddress getAddress(final StringField field)

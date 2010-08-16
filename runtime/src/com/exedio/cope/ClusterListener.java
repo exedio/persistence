@@ -139,8 +139,8 @@ abstract class ClusterListener
 		final int sequence = unmarshal(pos, buf);
 		pos += 4;
 
-		if(length!=config.packetSize)
-			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + config.packetSize + ", but was " + length);
+		if(length!=config.properties.packetSize)
+			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + config.properties.packetSize + ", but was " + length);
 		final byte[] pingPayload = config.pingPayload;
 		for(; pos<length; pos++)
 		{
