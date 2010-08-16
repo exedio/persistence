@@ -49,13 +49,19 @@ final class ClusterProperties extends Properties
 	{
 		super(source, null);
 
+		this.address = getAddress(addressField);
+	}
+
+	private InetAddress getAddress(final StringField field)
+	{
+		final String value = field.stringValue();
 		try
 		{
-			this.address = InetAddress.getByName(addressField.stringValue());
+			return InetAddress.getByName(value);
 		}
 		catch(final UnknownHostException e)
 		{
-			throw new RuntimeException(addressField.stringValue(), e);
+			throw new RuntimeException(value, e);
 		}
 	}
 
