@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterConfig.KIND_INVALIDATE;
-import static com.exedio.cope.ClusterConfig.KIND_PING;
-import static com.exedio.cope.ClusterConfig.KIND_PONG;
-import static com.exedio.cope.ClusterConfig.MAGIC0;
-import static com.exedio.cope.ClusterConfig.MAGIC1;
-import static com.exedio.cope.ClusterConfig.MAGIC2;
-import static com.exedio.cope.ClusterConfig.MAGIC3;
+import static com.exedio.cope.ClusterConstants.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterConstants.KIND_PING;
+import static com.exedio.cope.ClusterConstants.KIND_PONG;
+import static com.exedio.cope.ClusterConstants.MAGIC0;
+import static com.exedio.cope.ClusterConstants.MAGIC1;
+import static com.exedio.cope.ClusterConstants.MAGIC2;
+import static com.exedio.cope.ClusterConstants.MAGIC3;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
@@ -92,7 +92,7 @@ abstract class ClusterSender
 
 	final void pong()
 	{
-		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
+		pingPong(KIND_PONG, pongSequence, 1);
 	}
 
 	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
