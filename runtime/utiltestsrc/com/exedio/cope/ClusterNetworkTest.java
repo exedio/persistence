@@ -63,7 +63,7 @@ public class ClusterNetworkTest extends CopeAssert
 							return "false";
 						else if(!multicast && key.equals("cluster.multicast"))
 							return "false";
-						else if(!multicast && key.equals("cluster.group"))
+						else if(!multicast && key.equals("cluster.address"))
 							return "127.0.0.1";
 						else if(!multicast && key.equals("cluster.sendDestinationPort"))
 							return String.valueOf(sendPort);

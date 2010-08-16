@@ -40,10 +40,10 @@ final class ClusterProperties extends Properties
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
-	private final StringField  groupField          = new  StringField("cluster.group",               "230.0.0.1");
+	private final StringField  addressField        = new  StringField("cluster.address",             "230.0.0.1");
 	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
-	final InetAddress group;
+	final InetAddress address;
 
 	ClusterProperties(final Source source)
 	{
@@ -51,11 +51,11 @@ final class ClusterProperties extends Properties
 
 		try
 		{
-			this.group = InetAddress.getByName(groupField.stringValue());
+			this.address = InetAddress.getByName(addressField.stringValue());
 		}
 		catch(final UnknownHostException e)
 		{
-			throw new RuntimeException(groupField.stringValue(), e);
+			throw new RuntimeException(addressField.stringValue(), e);
 		}
 	}
 
@@ -84,7 +84,7 @@ final class ClusterProperties extends Properties
 			if(multicast.booleanValue())
 			{
 				final MulticastSocket result = new MulticastSocket(port);
-				result.joinGroup(group);
+				result.joinGroup(address);
 				return result;
 			}
 			else
