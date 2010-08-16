@@ -101,7 +101,7 @@ public class ClusterNetworkTest extends CopeAssert
 		assertIt(1);
 	}
 
-	private static void assertIt(final int fromMyself)
+	private static void assertIt(final int pingA)
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
@@ -116,20 +116,20 @@ public class ClusterNetworkTest extends CopeAssert
 		assertEquals(0, listenerB.getMissingMagic());
 		assertEquals(0, listenerA.getWrongSecret());
 		assertEquals(0, listenerB.getWrongSecret());
-		assertEquals(fromMyself, listenerA.getFromMyself());
-		assertEquals(fromMyself, listenerB.getFromMyself());
+		assertEquals(pingA, listenerA.getFromMyself());
+		assertEquals(pingA, listenerB.getFromMyself());
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
-		assertEquals((fromMyself==0) ? 0 : 1, nodesA.size());
-		assertEquals((fromMyself==0) ? 0 : 1, nodesB.size());
-		if(fromMyself>0)
+		assertEquals((pingA==0) ? 0 : 1, nodesA.size());
+		assertEquals((pingA==0) ? 0 : 1, nodesB.size());
+		if(pingA>0)
 		{
 			final ClusterListenerInfo.Node nodeA = nodesA.get(0);
 			final ClusterListenerInfo.Node nodeB = nodesB.get(0);
 			assertIt(0, 0, 0, 0, 0, 0, nodeA.getPingInfo());
-			assertIt(fromMyself, 0, 0, 0, 0, 0, nodeB.getPingInfo());
-			assertIt(fromMyself, 0, 0, 0, 0, 0, nodeA.getPongInfo());
+			assertIt(pingA, 0, 0, 0, 0, 0, nodeB.getPingInfo());
+			assertIt(pingA, 0, 0, 0, 0, 0, nodeA.getPongInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeB.getPongInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeA.getInvalidateInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeB.getInvalidateInfo());
