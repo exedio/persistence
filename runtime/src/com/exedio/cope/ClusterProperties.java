@@ -21,8 +21,10 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -34,10 +36,10 @@ final class ClusterProperties extends Properties
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
 	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
-	        final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
+	private final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
-	        final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
+	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
 	private final StringField  groupField          = new  StringField("cluster.group",               "230.0.0.1");
 	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
@@ -71,6 +73,28 @@ final class ClusterProperties extends Properties
 			throw new RuntimeException(
 					String.valueOf(sendSourcePort.intValue()) + '/' +
 					String.valueOf(sendSourcePort.intValue()), e);
+		}
+	}
+
+	DatagramSocket getListenSocket()
+	{
+		final int port = listenPort.intValue();
+		try
+		{
+			if(multicast.booleanValue())
+			{
+				final MulticastSocket result = new MulticastSocket(port);
+				result.joinGroup(group);
+				return result;
+			}
+			else
+			{
+				return new DatagramSocket(port);
+			}
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException(e);
 		}
 	}
 

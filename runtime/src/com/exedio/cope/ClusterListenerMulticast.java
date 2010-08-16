@@ -41,24 +41,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		super(config, sender, typeLength, connect);
 		this.config = config;
 		this.log = config.log;
-		final int port = config.properties.listenPort.intValue();
-		try
-		{
-			if(config.properties.multicast.booleanValue())
-			{
-				final MulticastSocket multicastSocket = new MulticastSocket(port);
-				this.socket = multicastSocket;
-				multicastSocket.joinGroup(config.properties.group);
-			}
-			else
-			{
-				this.socket = new DatagramSocket(port);
-			}
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
+		this.socket = config.properties.getListenSocket();
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
 		thread.setDaemon(true);
