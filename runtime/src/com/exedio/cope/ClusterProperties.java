@@ -109,6 +109,11 @@ final class ClusterProperties extends Properties
 		return secret.intValue();
 	}
 
+	int createNode()
+	{
+		return new Random().nextInt();
+	}
+
 	int copyPingPayload(int pos, final byte[] destination)
 	{
 		for(; pos<packetSize; pos++)

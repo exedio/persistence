@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Random;
-
 import com.exedio.cope.util.Properties;
 
 final class ClusterConfig
@@ -43,7 +41,7 @@ final class ClusterConfig
 		if(!clusterProperties.isEnabled())
 			return null;
 
-		return new ClusterConfig(new Random().nextInt(), clusterProperties);
+		return new ClusterConfig(clusterProperties.createNode(), clusterProperties);
 	}
 
 	ClusterConfig(final int node, final ClusterProperties properties)
