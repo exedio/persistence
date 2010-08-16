@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
-import static com.exedio.cope.CompositeConditionItem.field;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 
@@ -32,6 +31,7 @@ public class CompositeConditionTest extends CopeAssert
 {
 	public void testIt()
 	{
+		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
 		final Condition c2 = field.equal(2d);
 		final Condition c3 = field.equal(3d);
@@ -169,6 +169,7 @@ public class CompositeConditionTest extends CopeAssert
 
 	public void testNot()
 	{
+		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
 		try
 		{
@@ -196,6 +197,7 @@ public class CompositeConditionTest extends CopeAssert
 
 	public void testNeutrumAbsolutum()
 	{
+		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
 		final Condition c2 = field.equal(2d);
 

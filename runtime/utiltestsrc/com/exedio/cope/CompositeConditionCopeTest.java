@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
-import static com.exedio.cope.CompositeConditionItem.field;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
@@ -35,6 +34,7 @@ public class CompositeConditionCopeTest extends CopeAssert
 {
 	public void testIt()
 	{
+		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
 		final Condition c2 = field.equal(2d);
 
