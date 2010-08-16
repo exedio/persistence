@@ -135,6 +135,8 @@ public class ClusterNetworkTest extends CopeAssert
 		{
 			final ClusterListenerInfo.Node nodeA = nodesA.get(0);
 			final ClusterListenerInfo.Node nodeB = nodesB.get(0);
+			assertEquals(senderA.getNodeID(), nodeB.getID());
+			assertEquals(senderB.getNodeID(), nodeA.getID());
 			assertIt(pingB, 0, 0, 0, 0, 0, nodeA.getPingInfo());
 			assertIt(pingA, 0, 0, 0, 0, 0, nodeB.getPingInfo());
 			assertIt(pingA, 0, 0, 0, 0, 0, nodeA.getPongInfo());

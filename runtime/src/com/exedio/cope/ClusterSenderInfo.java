@@ -20,12 +20,23 @@ package com.exedio.cope;
 
 public final class ClusterSenderInfo
 {
+	private final int nodeID;
 	private final long invalidationSplit;
 
 	ClusterSenderInfo(
+			final int nodeID,
 			final long invalidationSplit)
 	{
+		this.nodeID = nodeID;
 		this.invalidationSplit = invalidationSplit;
+	}
+
+	/**
+	 * @see ClusterListenerInfo.Node#getID()
+	 */
+	public int getNodeID()
+	{
+		return nodeID;
 	}
 
 	public long getInvalidationSplit()

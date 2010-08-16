@@ -212,7 +212,7 @@ abstract class ClusterSender
 
 	final ClusterSenderInfo getInfo()
 	{
-		return new ClusterSenderInfo(invalidationSplit);
+		return new ClusterSenderInfo(config.node, invalidationSplit);
 	}
 
 	abstract void send(final int length, final byte[] buf) throws IOException;

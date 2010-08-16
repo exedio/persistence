@@ -107,6 +107,9 @@ public final class ClusterListenerInfo
 				throw new NullPointerException();
 		}
 
+		/**
+		 * Returns the {@link ClusterSenderInfo#getNodeID() id} of the node.
+		 */
 		public int getID()
 		{
 			return id;
