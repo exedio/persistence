@@ -31,20 +31,13 @@ final class ClusterConfig
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
 
-	final ClusterProperties properties;
-
-	static ClusterConfig get(final ConnectProperties properties)
+	static ClusterProperties get(final ConnectProperties properties)
 	{
 		final Properties.Source context = properties.getContext();
 		final ClusterProperties clusterProperties = new ClusterProperties(context);
 		if(!clusterProperties.isEnabled())
 			return null;
 
-		return new ClusterConfig(clusterProperties);
-	}
-
-	ClusterConfig(final ClusterProperties properties)
-	{
-		this.properties = properties;
+		return clusterProperties;
 	}
 }

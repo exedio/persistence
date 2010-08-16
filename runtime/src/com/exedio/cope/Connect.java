@@ -101,11 +101,11 @@ final class Connect
 
 		if(properties.cluster.booleanValue())
 		{
-			final ClusterConfig config = ClusterConfig.get(properties);
-			if(config!=null)
+			final ClusterProperties clusterProperties = ClusterConfig.get(properties);
+			if(clusterProperties!=null)
 			{
-				this.clusterSender   = new ClusterSenderMulticast(config);
-				this.clusterListener = new ClusterListenerMulticast(config, clusterSender, types.concreteTypeCount, this);
+				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
+				this.clusterListener = new ClusterListenerMulticast(clusterProperties, clusterSender, types.concreteTypeCount, this);
 			}
 			else
 			{

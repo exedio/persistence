@@ -24,23 +24,23 @@ import java.net.DatagramSocket;
 
 final class ClusterSenderMulticast extends ClusterSender
 {
-	private final ClusterConfig config;
+	private final ClusterProperties properties;
 	private final int destinationPort;
 	private final DatagramSocket socket;
 
-	ClusterSenderMulticast(final ClusterConfig config)
+	ClusterSenderMulticast(final ClusterProperties properties)
 	{
-		super(config);
-		this.config = config;
-		this.destinationPort = config.properties.sendDestinationPort.intValue();
-		this.socket = config.properties.getSendSocket();
+		super(properties);
+		this.properties = properties;
+		this.destinationPort = properties.sendDestinationPort.intValue();
+		this.socket = properties.getSendSocket();
 	}
 
 	@Override
 	void send(final int length, final byte[] buf) throws IOException
 	{
 		final DatagramPacket packet =
-			new DatagramPacket(buf, length, config.properties.sendAddress, destinationPort);
+			new DatagramPacket(buf, length, properties.sendAddress, destinationPort);
 		socket.send(packet);
 	}
 

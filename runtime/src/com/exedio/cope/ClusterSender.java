@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 abstract class ClusterSender
 {
-	private final ClusterConfig config;
+	private final ClusterProperties properties;
 
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
@@ -39,26 +39,26 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ClusterSender(final ClusterConfig config)
+	ClusterSender(final ClusterProperties properties)
 	{
-		this.config = config;
+		this.properties = properties;
 		{
-			final byte[] pingPongTemplate = new byte[config.properties.packetSize];
+			final byte[] pingPongTemplate = new byte[properties.packetSize];
 			pingPongTemplate[0] = ClusterConfig.MAGIC0;
 			pingPongTemplate[1] = ClusterConfig.MAGIC1;
 			pingPongTemplate[2] = ClusterConfig.MAGIC2;
 			pingPongTemplate[3] = ClusterConfig.MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, pingPongTemplate, config.properties.getSecret());
-			pos = marshal(pos, pingPongTemplate, config.properties.node);
+			pos = marshal(pos, pingPongTemplate, properties.getSecret());
+			pos = marshal(pos, pingPongTemplate, properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 
-			pos = config.properties.copyPingPayload(pos, pingPongTemplate);
-			assert pos==config.properties.packetSize : pos;
+			pos = properties.copyPingPayload(pos, pingPongTemplate);
+			assert pos==properties.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
 		}
 		{
@@ -68,8 +68,8 @@ abstract class ClusterSender
 			invalidateTemplate[2] = ClusterConfig.MAGIC2;
 			invalidateTemplate[3] = ClusterConfig.MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, invalidateTemplate, config.properties.getSecret());
-			pos = marshal(pos, invalidateTemplate, config.properties.node);
+			pos = marshal(pos, invalidateTemplate, properties.getSecret());
+			pos = marshal(pos, invalidateTemplate, properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, invalidateTemplate, ClusterConfig.KIND_INVALIDATE);
 			assert pos==SEQUENCE;
@@ -94,7 +94,7 @@ abstract class ClusterSender
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 
 		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
-		final int packetSize = config.properties.packetSize;
+		final int packetSize = properties.packetSize;
 
 		final byte[] buf = new byte[packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
@@ -120,7 +120,7 @@ abstract class ClusterSender
 
 	final void invalidate(final TIntHashSet[] invalidations)
 	{
-		final int packetSize = config.properties.packetSize;
+		final int packetSize = properties.packetSize;
 		final int length;
 		{
 			int pos = 0;
@@ -211,7 +211,7 @@ abstract class ClusterSender
 
 	final ClusterSenderInfo getInfo()
 	{
-		return new ClusterSenderInfo(config.properties.node, invalidationSplit);
+		return new ClusterSenderInfo(properties.node, invalidationSplit);
 	}
 
 	abstract void send(final int length, final byte[] buf) throws IOException;

@@ -28,10 +28,10 @@ final class ClusterListenerMock extends ClusterListener
 	private boolean closed = false;
 
 	ClusterListenerMock(
-			final ClusterConfig config,
+			final ClusterProperties properties,
 			final int typeLength)
 	{
-		super(config, typeLength);
+		super(properties, typeLength);
 	}
 
 	@Override

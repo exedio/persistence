@@ -28,7 +28,7 @@ import com.exedio.cope.util.Properties;
 public class ClusterSenderMulticastTest extends CopeAssert
 {
 	private ClusterProperties properties;
-	private ClusterConfig csc;
+	private ClusterProperties csc;
 	private ClusterSenderMulticast cs;
 
 	private static final int SECRET = 0x88776655;
@@ -63,7 +63,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 					}
 				}
 			);
-		csc = new ClusterConfig(properties);
+		csc = properties;
 		cs = new ClusterSenderMulticast(csc);
 	}
 

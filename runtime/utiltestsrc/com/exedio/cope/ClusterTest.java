@@ -34,8 +34,8 @@ import com.exedio.cope.util.Properties;
  */
 public class ClusterTest extends CopeAssert
 {
-	private ClusterConfig csc;
-	private ClusterConfig clc;
+	private ClusterProperties csc;
+	private ClusterProperties clc;
 	private ClusterSenderMock cs;
 	private ClusterListenerMock cl;
 
@@ -80,8 +80,8 @@ public class ClusterTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		csc = new ClusterConfig(getProperties(0x11224433));
-		clc = new ClusterConfig(getProperties(0x11224434));
+		csc = getProperties(0x11224433);
+		clc = getProperties(0x11224434);
 		cs = new ClusterSenderMock(csc);
 		cl = new ClusterListenerMock(clc, 4);
 	}
@@ -96,7 +96,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSet()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
@@ -163,7 +163,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitBeforeTypeSingle()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
@@ -215,7 +215,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitBeforeType()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
@@ -269,7 +269,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAtType()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
@@ -320,7 +320,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
@@ -371,7 +371,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
@@ -422,7 +422,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
 		assertEqualsBytes(bufs[0],
@@ -472,7 +472,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterAfterTypeCollapse()
 	{
-		assertEquals(PACKET_SIZE, csc.properties.packetSize);
+		assertEquals(PACKET_SIZE, csc.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});

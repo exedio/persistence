@@ -26,9 +26,9 @@ final class ClusterSenderMock extends ClusterSender
 	private boolean closed = false;
 	ArrayList<byte[]> testSink = null;
 
-	ClusterSenderMock(final ClusterConfig config)
+	ClusterSenderMock(final ClusterProperties properties)
 	{
-		super(config);
+		super(properties);
 	}
 
 	@Override

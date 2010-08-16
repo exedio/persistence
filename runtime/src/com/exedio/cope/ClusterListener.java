@@ -30,20 +30,20 @@ import com.exedio.cope.util.SequenceChecker;
 
 abstract class ClusterListener
 {
-	private final ClusterConfig config;
+	private final ClusterProperties properties;
 	private final int secret;
 	private final int localNode;
 	private final boolean log;
 	private final int typeLength;
 
 	ClusterListener(
-			final ClusterConfig config,
+			final ClusterProperties properties,
 			final int typeLength)
 	{
-		this.config = config;
-		this.secret = config.properties.getSecret();
-		this.localNode = config.properties.node;
-		this.log = config.properties.log.booleanValue();
+		this.properties = properties;
+		this.secret = properties.getSecret();
+		this.localNode = properties.node;
+		this.log = properties.log.booleanValue();
 		this.typeLength = typeLength;
 	}
 
@@ -143,7 +143,7 @@ abstract class ClusterListener
 		final int sequence = unmarshal(pos, buf);
 		pos += 4;
 
-		pos = config.properties.checkPingPayload(pos, buf, length, ping);
+		pos = properties.checkPingPayload(pos, buf, length, ping);
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{

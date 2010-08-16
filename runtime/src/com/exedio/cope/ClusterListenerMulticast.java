@@ -36,19 +36,19 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private volatile boolean threadRun = true;
 
 	ClusterListenerMulticast(
-			final ClusterConfig config,
+			final ClusterProperties properties,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
-		super(config, sender, typeLength, connect);
-		this.log = config.properties.log.booleanValue();
-		this.packetSize = config.properties.packetSize;
-		this.address = config.properties.listenAddress;
-		this.socket = config.properties.getListenSocket();
+		super(properties, sender, typeLength, connect);
+		this.log = properties.log.booleanValue();
+		this.packetSize = properties.packetSize;
+		this.address = properties.listenAddress;
+		this.socket = properties.getListenSocket();
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
 		thread.setDaemon(true);
-		config.properties.setListenPriority(thread);
+		properties.setListenPriority(thread);
 		thread.start();
 		if(log)
 			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " started.");
