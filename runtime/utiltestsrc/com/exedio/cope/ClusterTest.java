@@ -34,7 +34,6 @@ import com.exedio.cope.util.Properties;
  */
 public class ClusterTest extends CopeAssert
 {
-	private ClusterProperties properties;
 	private ClusterConfig csc;
 	private ClusterConfig clc;
 	private ClusterSenderMock cs;
@@ -43,11 +42,9 @@ public class ClusterTest extends CopeAssert
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
 
-	@Override
-	protected void setUp() throws Exception
+	private ClusterProperties getProperties(final int node)
 	{
-		super.setUp();
-		properties = new ClusterProperties(
+		return new ClusterProperties(
 				new Properties.Source()
 				{
 					public String get(final String key)
@@ -56,6 +53,10 @@ public class ClusterTest extends CopeAssert
 							return "47";
 						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
+						else if(key.equals("cluster.nodeAuto"))
+							return "false";
+						else if(key.equals("cluster.node"))
+							return String.valueOf(node);
 						else if(key.equals("cluster.log"))
 							return "false";
 						else
@@ -73,8 +74,14 @@ public class ClusterTest extends CopeAssert
 					}
 				}
 			);
-		csc = new ClusterConfig(0x11224433, properties);
-		clc = new ClusterConfig(0x11224434, properties);
+	}
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		csc = new ClusterConfig(getProperties(0x11224433));
+		clc = new ClusterConfig(getProperties(0x11224434));
 		cs = new ClusterSenderMock(csc);
 		cl = new ClusterListenerMock(clc, 4);
 	}

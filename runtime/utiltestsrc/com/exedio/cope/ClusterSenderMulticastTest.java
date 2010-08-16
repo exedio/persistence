@@ -63,7 +63,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 					}
 				}
 			);
-		csc = new ClusterConfig(0x11224433, properties);
+		csc = new ClusterConfig(properties);
 		cs = new ClusterSenderMulticast(csc);
 	}
 

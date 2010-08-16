@@ -41,6 +41,8 @@ final class ClusterProperties extends Properties
 	 * a value of 0 disables cluster invalidation at all
 	 */
 	private final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
+	private final BooleanField nodeAuto            = new BooleanField("cluster.nodeAuto" , true);
+	private final IntField     node                = new     IntField("cluster.node"     , 0, MIN_VALUE);
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
@@ -111,7 +113,13 @@ final class ClusterProperties extends Properties
 
 	int createNode()
 	{
-		return new Random().nextInt();
+		if(nodeAuto.booleanValue())
+			return new Random().nextInt();
+
+		final int result = node.intValue();
+		if(result==0)
+			throw new IllegalArgumentException(); // must not be left at default value
+		return result;
 	}
 
 	int copyPingPayload(int pos, final byte[] destination)

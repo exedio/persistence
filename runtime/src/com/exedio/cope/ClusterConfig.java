@@ -41,13 +41,13 @@ final class ClusterConfig
 		if(!clusterProperties.isEnabled())
 			return null;
 
-		return new ClusterConfig(clusterProperties.createNode(), clusterProperties);
+		return new ClusterConfig(clusterProperties);
 	}
 
-	ClusterConfig(final int node, final ClusterProperties properties)
+	ClusterConfig(final ClusterProperties properties)
 	{
 		this.properties = properties;
-		this.node = node;
+		this.node = properties.createNode();
 		if(properties.log.booleanValue())
 			System.out.println("COPE Cluster Network node id: " + node);
 	}
