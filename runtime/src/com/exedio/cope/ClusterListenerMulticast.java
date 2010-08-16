@@ -21,13 +21,15 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
-	private final ClusterConfig config;
 	private final boolean log;
+	private final int packetSize;
+	private final InetAddress address;
 	private final DatagramSocket socket;
 
 	private final Thread thread;
@@ -39,8 +41,9 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final int typeLength, final Connect connect)
 	{
 		super(config, sender, typeLength, connect);
-		this.config = config;
 		this.log = config.log;
+		this.packetSize = config.packetSize;
+		this.address = config.properties.listenAddress;
 		this.socket = config.properties.getListenSocket();
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
@@ -53,7 +56,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	public void run()
 	{
-		final byte[] buf = new byte[config.packetSize];
+		final byte[] buf = new byte[packetSize];
 		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
 
 		while(threadRun)
@@ -112,7 +115,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			try
 			{
-				((MulticastSocket)socket).leaveGroup(config.properties.listenAddress);
+				((MulticastSocket)socket).leaveGroup(address);
 			}
 			catch(final IOException e)
 			{
