@@ -79,14 +79,6 @@ public class ClusterNetworkTest extends CopeAssert
 	}
 
 	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		modelA.connect(getProperties());
-		modelB.connect(getProperties());
-	}
-
-	@Override
 	protected void tearDown() throws Exception
 	{
 		modelB.disconnect();
@@ -96,6 +88,9 @@ public class ClusterNetworkTest extends CopeAssert
 
 	public void testPing() throws InterruptedException
 	{
+		modelA.connect(getProperties());
+		modelB.connect(getProperties());
+
 		assertEquals("Connect Properties Context", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context", modelB.getConnectProperties().getContext().getDescription());
 		assertIt(0, 0);
