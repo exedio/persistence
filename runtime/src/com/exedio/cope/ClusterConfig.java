@@ -52,7 +52,7 @@ final class ClusterConfig
 	ClusterConfig(final int node, final ClusterProperties properties)
 	{
 		this.properties = properties;
-		this.secret = properties.secret.intValue();
+		this.secret = properties.getSecret();
 		this.node = node;
 		this.log = properties.log.booleanValue();
 		{

@@ -39,7 +39,7 @@ final class ClusterProperties extends Properties
 	/**
 	 * a value of 0 disables cluster invalidation at all
 	 */
-	        final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
+	private final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
@@ -91,8 +91,19 @@ final class ClusterProperties extends Properties
 		return secret.intValue()!=0;
 	}
 
+	int getSecret()
+	{
+		if(!isEnabled())
+			throw new IllegalStateException("is disabled");
+
+		return secret.intValue();
+	}
+
 	DatagramSocket getSendSocket()
 	{
+		if(!isEnabled())
+			throw new IllegalStateException("is disabled");
+
 		try
 		{
 			return
@@ -110,6 +121,9 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket getListenSocket()
 	{
+		if(!isEnabled())
+			throw new IllegalStateException("is disabled");
+
 		final int port = listenPort.intValue();
 		try
 		{
@@ -132,6 +146,9 @@ final class ClusterProperties extends Properties
 
 	void setListenPriority(final Thread thread)
 	{
+		if(!isEnabled())
+			throw new IllegalStateException("is disabled");
+
 		if(listenPrioritySet.booleanValue())
 			thread.setPriority(listenPriority.intValue());
 	}
