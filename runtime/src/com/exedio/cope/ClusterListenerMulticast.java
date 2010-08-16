@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
@@ -28,7 +29,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final ClusterConfig config;
 	private final boolean log;
 	private final int port;
-	private final MulticastSocket socket;
+	private final DatagramSocket socket;
 
 	private final Thread thread;
 	private volatile boolean threadRun = true;
@@ -44,8 +45,16 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.port = config.properties.listenPort.intValue();
 		try
 		{
-			this.socket = new MulticastSocket(port);
-			socket.joinGroup(config.group);
+			if(config.properties.multicast.booleanValue())
+			{
+				final MulticastSocket multicastSocket = new MulticastSocket(port);
+				this.socket = multicastSocket;
+				multicastSocket.joinGroup(config.group);
+			}
+			else
+			{
+				this.socket = new DatagramSocket(port);
+			}
 		}
 		catch(final IOException e)
 		{
@@ -117,13 +126,16 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	void close()
 	{
 		threadRun = false;
-		try
+		if(socket instanceof MulticastSocket)
 		{
-			socket.leaveGroup(config.group);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
+			try
+			{
+				((MulticastSocket)socket).leaveGroup(config.group);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 		socket.close();
 		try

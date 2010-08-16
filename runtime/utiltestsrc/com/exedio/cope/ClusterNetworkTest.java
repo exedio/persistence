@@ -28,7 +28,7 @@ import com.exedio.cope.util.SequenceChecker;
 
 public class ClusterNetworkTest extends CopeAssert
 {
-	private ConnectProperties getProperties()
+	private ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
 	{
 		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
 		final Properties.Source source = defaultProperties.getSourceObject();
@@ -61,13 +61,24 @@ public class ClusterNetworkTest extends CopeAssert
 							return "1234";
 						else if(key.equals("cluster.log"))
 							return "false";
+						else if(!multicast && key.equals("cluster.multicast"))
+							return "false";
+						else if(!multicast && key.equals("cluster.group"))
+							return "127.0.0.1";
+						else if(!multicast && key.equals("cluster.sendDestinationPort"))
+							return String.valueOf(sendPort);
+						else if(!multicast && key.equals("cluster.listenPort"))
+							return String.valueOf(listenPort);
 						else
 							return null;
 					}
 
 					public String getDescription()
 					{
-						return "Connect Properties Context";
+						return
+							multicast
+							? "Connect Properties Context (multicast)"
+							: ("Connect Properties Context (" + sendPort + '>' + listenPort + ")");
 					}
 
 					public Collection<String> keySet()
@@ -88,27 +99,49 @@ public class ClusterNetworkTest extends CopeAssert
 
 	public void testMulticast() throws InterruptedException
 	{
-		modelA.connect(getProperties());
-		modelB.connect(getProperties());
+		modelA.connect(getProperties(true, -1, -1));
+		modelB.connect(getProperties(true, -1, -1));
 
-		assertEquals("Connect Properties Context", modelA.getConnectProperties().getContext().getDescription());
-		assertEquals("Connect Properties Context", modelB.getConnectProperties().getContext().getDescription());
-		assertIt(0, 0);
-
-		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
-		assertIt(1, 0);
+		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
+		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
+		assertIt(true, 0, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(2, 0);
+		assertIt(true, 1, 0);
+
+		modelA.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(true, 2, 0);
 
 		modelB.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(2, 1);
+		assertIt(true, 2, 1);
 	}
 
-	private static void assertIt(final int pingA, final int pingB)
+	public void testSinglecast() throws InterruptedException
+	{
+		modelA.connect(getProperties(false, 14446, 14447));
+		modelB.connect(getProperties(false, 14447, 14446));
+
+		assertEquals("Connect Properties Context (14446>14447)", modelA.getConnectProperties().getContext().getDescription());
+		assertEquals("Connect Properties Context (14447>14446)", modelB.getConnectProperties().getContext().getDescription());
+		assertIt(false, 0, 0);
+
+		modelA.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(false, 1, 0);
+
+		modelA.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(false, 2, 0);
+
+		modelB.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(false, 2, 1);
+	}
+
+	private static void assertIt(final boolean multicast, final int pingA, final int pingB)
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
@@ -123,8 +156,8 @@ public class ClusterNetworkTest extends CopeAssert
 		assertEquals(0, listenerB.getMissingMagic());
 		assertEquals(0, listenerA.getWrongSecret());
 		assertEquals(0, listenerB.getWrongSecret());
-		assertEquals(pingA+pingB, listenerA.getFromMyself());
-		assertEquals(pingA+pingB, listenerB.getFromMyself());
+		assertEquals(multicast ? (pingA+pingB) : 0, listenerA.getFromMyself());
+		assertEquals(multicast ? (pingA+pingB) : 0, listenerB.getFromMyself());
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
