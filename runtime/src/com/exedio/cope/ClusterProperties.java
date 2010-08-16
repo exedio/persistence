@@ -35,21 +35,23 @@ final class ClusterProperties extends Properties
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
+	private final StringField  sendAddressField    = new  StringField("cluster.sendAddress",         "230.0.0.1");
 	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
+	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       "230.0.0.1");
 	private final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
-	private final StringField  addressField        = new  StringField("cluster.address",             "230.0.0.1");
 	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
-	final InetAddress address;
+	final InetAddress sendAddress, listenAddress;
 
 	ClusterProperties(final Source source)
 	{
 		super(source, null);
 
-		this.address = getAddress(addressField);
+		this.sendAddress   = getAddress(sendAddressField);
+		this.listenAddress = getAddress(listenAddressField);
 	}
 
 	private InetAddress getAddress(final StringField field)
@@ -90,7 +92,7 @@ final class ClusterProperties extends Properties
 			if(multicast.booleanValue())
 			{
 				final MulticastSocket result = new MulticastSocket(port);
-				result.joinGroup(address);
+				result.joinGroup(listenAddress);
 				return result;
 			}
 			else
