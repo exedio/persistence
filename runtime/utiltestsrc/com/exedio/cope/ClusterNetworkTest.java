@@ -20,9 +20,11 @@ package com.exedio.cope;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.SequenceChecker;
 
 public class ClusterNetworkTest extends CopeAssert
 {
@@ -116,6 +118,39 @@ public class ClusterNetworkTest extends CopeAssert
 		assertEquals(0, listenerB.getWrongSecret());
 		assertEquals(fromMyself, listenerA.getFromMyself());
 		assertEquals(fromMyself, listenerB.getFromMyself());
+
+		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
+		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
+		assertEquals((fromMyself==0) ? 0 : 1, nodesA.size());
+		assertEquals((fromMyself==0) ? 0 : 1, nodesB.size());
+		if(fromMyself>0)
+		{
+			final ClusterListenerInfo.Node nodeA = nodesA.get(0);
+			final ClusterListenerInfo.Node nodeB = nodesB.get(0);
+			assertIt(0, 0, 0, 0, 0, 0, nodeA.getPingInfo());
+			assertIt(fromMyself, 0, 0, 0, 0, 0, nodeB.getPingInfo());
+			assertIt(fromMyself, 0, 0, 0, 0, 0, nodeA.getPongInfo());
+			assertIt(0, 0, 0, 0, 0, 0, nodeB.getPongInfo());
+			assertIt(0, 0, 0, 0, 0, 0, nodeA.getInvalidateInfo());
+			assertIt(0, 0, 0, 0, 0, 0, nodeB.getInvalidateInfo());
+		}
+	}
+
+	private static final void assertIt(
+			final int inOrder,
+			final int outOfOrder,
+			final int duplicate,
+			final int lost,
+			final int late,
+			final int pending,
+			final SequenceChecker.Info actual)
+	{
+		assertEquals(inOrder   , actual.getInOrder());
+		assertEquals(outOfOrder, actual.getOutOfOrder());
+		assertEquals(duplicate , actual.getDuplicate());
+		assertEquals(lost      , actual.getLost());
+		assertEquals(late      , actual.getLate());
+		assertEquals(pending   , actual.getPending());
 	}
 
 	static class TypeA extends Item
