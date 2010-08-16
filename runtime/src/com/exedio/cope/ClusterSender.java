@@ -58,7 +58,7 @@ abstract class ClusterSender
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 
 			for(; pos<config.properties.packetSize; pos++)
-				pingPongTemplate[pos] = config.pingPayload[pos];
+				pingPongTemplate[pos] = config.properties.pingPayload[pos];
 			assert pos==config.properties.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
 		}

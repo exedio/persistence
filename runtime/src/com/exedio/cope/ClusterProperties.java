@@ -28,6 +28,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import com.exedio.cope.util.Properties;
 
@@ -54,6 +55,7 @@ final class ClusterProperties extends Properties
 
 	final InetAddress sendAddress, listenAddress;
 	final int packetSize;
+	final byte[] pingPayload;
 
 	ClusterProperties(final Source source)
 	{
@@ -64,12 +66,20 @@ final class ClusterProperties extends Properties
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);
 			this.packetSize = packetSizeField.intValue() & (~3);
+			{
+				final Random r = new Random(secret.intValue());
+				final byte[] pingPayload = new byte[this.packetSize];
+				for(int pos = 20; pos<pingPayload.length; pos++)
+					pingPayload[pos] = (byte)(r.nextInt()>>8);
+				this.pingPayload = pingPayload;
+			}
 		}
 		else
 		{
 			this.sendAddress   = null;
 			this.listenAddress = null;
 			this.packetSize = MIN_VALUE;
+			this.pingPayload = null;
 		}
 	}
 

@@ -143,7 +143,7 @@ abstract class ClusterListener
 
 		if(length!=config.properties.packetSize)
 			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + config.properties.packetSize + ", but was " + length);
-		final byte[] pingPayload = config.pingPayload;
+		final byte[] pingPayload = config.properties.pingPayload;
 		for(; pos<length; pos++)
 		{
 			if(pingPayload[pos]!=buf[pos])
