@@ -94,14 +94,22 @@ public class ClusterNetworkTest extends CopeAssert
 	{
 		assertEquals("Connect Properties Context", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context", modelB.getConnectProperties().getContext().getDescription());
-		assertIt(0);
+		assertIt(0, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(1);
+		assertIt(1, 0);
+
+		modelA.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(2, 0);
+
+		modelB.pingClusterNetwork();
+		sleepLongerThan(50);
+		assertIt(2, 1);
 	}
 
-	private static void assertIt(final int pingA)
+	private static void assertIt(final int pingA, final int pingB)
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
@@ -116,8 +124,8 @@ public class ClusterNetworkTest extends CopeAssert
 		assertEquals(0, listenerB.getMissingMagic());
 		assertEquals(0, listenerA.getWrongSecret());
 		assertEquals(0, listenerB.getWrongSecret());
-		assertEquals(pingA, listenerA.getFromMyself());
-		assertEquals(pingA, listenerB.getFromMyself());
+		assertEquals(pingA+pingB, listenerA.getFromMyself());
+		assertEquals(pingA+pingB, listenerB.getFromMyself());
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
@@ -127,10 +135,10 @@ public class ClusterNetworkTest extends CopeAssert
 		{
 			final ClusterListenerInfo.Node nodeA = nodesA.get(0);
 			final ClusterListenerInfo.Node nodeB = nodesB.get(0);
-			assertIt(0, 0, 0, 0, 0, 0, nodeA.getPingInfo());
+			assertIt(pingB, 0, 0, 0, 0, 0, nodeA.getPingInfo());
 			assertIt(pingA, 0, 0, 0, 0, 0, nodeB.getPingInfo());
 			assertIt(pingA, 0, 0, 0, 0, 0, nodeA.getPongInfo());
-			assertIt(0, 0, 0, 0, 0, 0, nodeB.getPongInfo());
+			assertIt(pingB, 0, 0, 0, 0, 0, nodeB.getPongInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeA.getInvalidateInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeB.getInvalidateInfo());
 		}
