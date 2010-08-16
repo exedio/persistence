@@ -54,6 +54,8 @@ public class ClusterTest extends CopeAssert
 					{
 						if(key.equals("cluster.packetSize"))
 							return "47";
+						else if(key.equals("cluster.secret"))
+							return String.valueOf(SECRET);
 						else if(key.equals("cluster.log"))
 							return "false";
 						else
@@ -71,8 +73,8 @@ public class ClusterTest extends CopeAssert
 					}
 				}
 			);
-		csc = new ClusterConfig(SECRET, 0x11224433, properties);
-		clc = new ClusterConfig(SECRET, 0x11224434, properties);
+		csc = new ClusterConfig(0x11224433, properties);
+		clc = new ClusterConfig(0x11224434, properties);
 		cs = new ClusterSenderMock(csc);
 		cl = new ClusterListenerMock(clc, 4);
 	}

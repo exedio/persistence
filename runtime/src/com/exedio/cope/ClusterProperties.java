@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
+import static java.lang.Integer.MIN_VALUE;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -35,6 +36,10 @@ final class ClusterProperties extends Properties
 	private static final String MULTICAST_ADDRESS = "230.0.0.1";
 	private static final int    MULTICAST_PORT = 14446;
 
+	/**
+	 * a value of 0 disables cluster invalidation at all
+	 */
+	        final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
@@ -54,9 +59,18 @@ final class ClusterProperties extends Properties
 	{
 		super(source, null);
 
-		this.sendAddress   = getAddress(sendAddressField);
-		this.listenAddress = getAddress(listenAddressField);
-		this.packetSize = packetSizeField.intValue() & (~3);
+		if(isEnabled())
+		{
+			this.sendAddress   = getAddress(sendAddressField);
+			this.listenAddress = getAddress(listenAddressField);
+			this.packetSize = packetSizeField.intValue() & (~3);
+		}
+		else
+		{
+			this.sendAddress   = null;
+			this.listenAddress = null;
+			this.packetSize = MIN_VALUE;
+		}
 	}
 
 	private InetAddress getAddress(final StringField field)
@@ -70,6 +84,11 @@ final class ClusterProperties extends Properties
 		{
 			throw new RuntimeException(value, e);
 		}
+	}
+
+	boolean isEnabled()
+	{
+		return secret.intValue()!=0;
 	}
 
 	DatagramSocket getSendSocket()

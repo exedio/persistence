@@ -44,6 +44,8 @@ public class ClusterSenderMulticastTest extends CopeAssert
 					{
 						if(key.equals("cluster.packetSize"))
 							return "47";
+						else if(key.equals("cluster.secret"))
+							return String.valueOf(SECRET);
 						else if(key.equals("cluster.log"))
 							return "false";
 						else
@@ -61,7 +63,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 					}
 				}
 			);
-		csc = new ClusterConfig(SECRET, 0x11224433, properties);
+		csc = new ClusterConfig(0x11224433, properties);
 		cs = new ClusterSenderMulticast(csc);
 	}
 
