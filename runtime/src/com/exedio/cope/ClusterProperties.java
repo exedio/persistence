@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Thread.MAX_PRIORITY;
+import static java.lang.Thread.MIN_PRIORITY;
+
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
@@ -31,7 +34,7 @@ final class ClusterProperties extends Properties
 	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
 	        final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
-	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
+	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	        final StringField  group               = new  StringField("cluster.group",               "230.0.0.1");
 	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
