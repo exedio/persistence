@@ -25,15 +25,15 @@ import com.exedio.cope.util.Properties;
 
 final class ClusterProperties extends Properties
 {
-	        final BooleanField clusterLog                 = new BooleanField("cluster.log", true);
-	private final BooleanField clusterSendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
-	private final IntField     clusterSendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
-	        final IntField     clusterSendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
-	        final IntField     clusterListenPort          = new     IntField("cluster.listenPort",          14446, 1);
-	private final BooleanField clusterListenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
-	private final IntField     clusterListenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
-	        final StringField  clusterGroup               = new  StringField("cluster.group",               "230.0.0.1");
-	        final IntField     clusterPacketSize          = new     IntField("cluster.packetSize",          1400, 32);
+	        final BooleanField log                 = new BooleanField("cluster.log", true);
+	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
+	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
+	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
+	        final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
+	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
+	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
+	        final StringField  group               = new  StringField("cluster.group",               "230.0.0.1");
+	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
 
 	ClusterProperties(final Source source)
@@ -41,26 +41,26 @@ final class ClusterProperties extends Properties
 		super(source, null);
 	}
 
-	DatagramSocket getClusterSendSocket()
+	DatagramSocket getSendSocket()
 	{
 		try
 		{
 			return
-				clusterSendSourcePortAuto.booleanValue()
+				sendSourcePortAuto.booleanValue()
 				? new DatagramSocket()
-				: new DatagramSocket(clusterSendSourcePort.intValue());
+				: new DatagramSocket(sendSourcePort.intValue());
 		}
 		catch(final SocketException e)
 		{
 			throw new RuntimeException(
-					String.valueOf(clusterSendSourcePort.intValue()) + '/' +
-					String.valueOf(clusterSendSourcePort.intValue()), e);
+					String.valueOf(sendSourcePort.intValue()) + '/' +
+					String.valueOf(sendSourcePort.intValue()), e);
 		}
 	}
 
-	void setClusterListenPriority(final Thread thread)
+	void setListenPriority(final Thread thread)
 	{
-		if(clusterListenPrioritySet.booleanValue())
-			thread.setPriority(clusterListenPriority.intValue());
+		if(listenPrioritySet.booleanValue())
+			thread.setPriority(listenPriority.intValue());
 	}
 }

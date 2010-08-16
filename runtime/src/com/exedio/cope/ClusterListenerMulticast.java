@@ -41,7 +41,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		super(config, sender, typeLength, connect);
 		this.config = config;
 		this.log = config.log;
-		this.port = config.properties.clusterListenPort.intValue();
+		this.port = config.properties.listenPort.intValue();
 		try
 		{
 			this.socket = new MulticastSocket(port);
@@ -54,7 +54,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		thread = new Thread(this);
 		thread.setName("COPE Cluster Listener");
 		thread.setDaemon(true);
-		config.properties.setClusterListenPriority(thread);
+		config.properties.setListenPriority(thread);
 		thread.start();
 		if(log)
 			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " started.");
