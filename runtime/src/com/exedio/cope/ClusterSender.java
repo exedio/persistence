@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterConfig.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterConfig.KIND_PING;
+import static com.exedio.cope.ClusterConfig.KIND_PONG;
+import static com.exedio.cope.ClusterConfig.MAGIC0;
+import static com.exedio.cope.ClusterConfig.MAGIC1;
+import static com.exedio.cope.ClusterConfig.MAGIC2;
+import static com.exedio.cope.ClusterConfig.MAGIC3;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
@@ -44,10 +51,10 @@ abstract class ClusterSender
 		this.properties = properties;
 		{
 			final byte[] pingPongTemplate = new byte[properties.packetSize];
-			pingPongTemplate[0] = ClusterConfig.MAGIC0;
-			pingPongTemplate[1] = ClusterConfig.MAGIC1;
-			pingPongTemplate[2] = ClusterConfig.MAGIC2;
-			pingPongTemplate[3] = ClusterConfig.MAGIC3;
+			pingPongTemplate[0] = MAGIC0;
+			pingPongTemplate[1] = MAGIC1;
+			pingPongTemplate[2] = MAGIC2;
+			pingPongTemplate[3] = MAGIC3;
 			int pos = 4;
 			pos = marshal(pos, pingPongTemplate, properties.getSecret());
 			pos = marshal(pos, pingPongTemplate, properties.node);
@@ -63,15 +70,15 @@ abstract class ClusterSender
 		}
 		{
 			final byte[] invalidateTemplate = new byte[INVALIDATE_TEMPLATE_SIZE];
-			invalidateTemplate[0] = ClusterConfig.MAGIC0;
-			invalidateTemplate[1] = ClusterConfig.MAGIC1;
-			invalidateTemplate[2] = ClusterConfig.MAGIC2;
-			invalidateTemplate[3] = ClusterConfig.MAGIC3;
+			invalidateTemplate[0] = MAGIC0;
+			invalidateTemplate[1] = MAGIC1;
+			invalidateTemplate[2] = MAGIC2;
+			invalidateTemplate[3] = MAGIC3;
 			int pos = 4;
 			pos = marshal(pos, invalidateTemplate, properties.getSecret());
 			pos = marshal(pos, invalidateTemplate, properties.node);
 			assert pos==KIND;
-			pos = marshal(pos, invalidateTemplate, ClusterConfig.KIND_INVALIDATE);
+			pos = marshal(pos, invalidateTemplate, KIND_INVALIDATE);
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
@@ -80,7 +87,7 @@ abstract class ClusterSender
 
 	final void ping(final int count)
 	{
-		pingPong(ClusterConfig.KIND_PING, pingSequence, count);
+		pingPong(KIND_PING, pingSequence, count);
 	}
 
 	final void pong()
@@ -93,7 +100,7 @@ abstract class ClusterSender
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 
-		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
+		assert kind==KIND_PING||kind==KIND_PONG : kind;
 		final int packetSize = properties.packetSize;
 
 		final byte[] buf = new byte[packetSize];

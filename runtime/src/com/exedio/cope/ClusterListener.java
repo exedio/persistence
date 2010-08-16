@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterConfig.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterConfig.KIND_PING;
+import static com.exedio.cope.ClusterConfig.KIND_PONG;
+import static com.exedio.cope.ClusterConfig.MAGIC0;
+import static com.exedio.cope.ClusterConfig.MAGIC1;
+import static com.exedio.cope.ClusterConfig.MAGIC2;
+import static com.exedio.cope.ClusterConfig.MAGIC3;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
 
@@ -53,10 +60,10 @@ abstract class ClusterListener
 		final byte[] buf = packet.getData();
 		final int length = packet.getLength();
 
-		if(buf[pos++]!=ClusterConfig.MAGIC0 ||
-			buf[pos++]!=ClusterConfig.MAGIC1 ||
-			buf[pos++]!=ClusterConfig.MAGIC2 ||
-			buf[pos++]!=ClusterConfig.MAGIC3)
+		if(buf[pos++]!=MAGIC0 ||
+			buf[pos++]!=MAGIC1 ||
+			buf[pos++]!=MAGIC2 ||
+			buf[pos++]!=MAGIC3)
 		{
 			missingMagic++;
 			return;
@@ -82,18 +89,18 @@ abstract class ClusterListener
 		pos += 4;
 		switch(kind)
 		{
-			case ClusterConfig.KIND_PING:
+			case KIND_PING:
 			{
 				if(handlePingPong(packet, pos, node, true))
 					pong();
 				break;
 			}
-			case ClusterConfig.KIND_PONG:
+			case KIND_PONG:
 			{
 				handlePingPong(packet, pos, node, false);
 				break;
 			}
-			case ClusterConfig.KIND_INVALIDATE:
+			case KIND_INVALIDATE:
 			{
 				final int sequence = unmarshal(pos, buf);
 				pos += 4;
