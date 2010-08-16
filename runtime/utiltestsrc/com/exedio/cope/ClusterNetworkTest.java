@@ -28,13 +28,11 @@ import com.exedio.cope.util.SequenceChecker;
 
 public class ClusterNetworkTest extends CopeAssert
 {
-	@Override
-	protected void setUp() throws Exception
+	private ConnectProperties getProperties()
 	{
-		super.setUp();
 		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
 		final Properties.Source source = defaultProperties.getSourceObject();
-		final ConnectProperties properties = new ConnectProperties(
+		return new ConnectProperties(
 				new Properties.Source()
 				{
 					public String get(final String key)
@@ -78,8 +76,14 @@ public class ClusterNetworkTest extends CopeAssert
 					}
 				}
 			);
-		modelA.connect(properties);
-		modelB.connect(properties);
+	}
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		modelA.connect(getProperties());
+		modelB.connect(getProperties());
 	}
 
 	@Override
