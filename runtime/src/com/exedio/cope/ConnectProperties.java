@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.Locale;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
@@ -55,15 +53,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
 
 	        final BooleanField cluster                    = new BooleanField("cluster",     false);
-	        final BooleanField clusterLog                 = new BooleanField("cluster.log", true);
-	private final BooleanField clusterSendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
-	private final IntField     clusterSendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
-	        final IntField     clusterSendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
-	        final IntField     clusterListenPort          = new     IntField("cluster.listenPort",          14446, 1);
-	private final BooleanField clusterListenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
-	private final IntField     clusterListenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
-	        final StringField  clusterGroup               = new  StringField("cluster.group",               "230.0.0.1");
-	        final IntField     clusterPacketSize          = new     IntField("cluster.packetSize",          1400, 32);
 
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
@@ -265,29 +254,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getQueryCacheLimit()
 	{
 		return queryCacheLimit.intValue();
-	}
-
-	DatagramSocket getClusterSendSocket()
-	{
-		try
-		{
-			return
-				clusterSendSourcePortAuto.booleanValue()
-				? new DatagramSocket()
-				: new DatagramSocket(clusterSendSourcePort.intValue());
-		}
-		catch(final SocketException e)
-		{
-			throw new RuntimeException(
-					String.valueOf(clusterSendSourcePort.intValue()) + '/' +
-					String.valueOf(clusterSendSourcePort.intValue()), e);
-		}
-	}
-
-	void setClusterListenPriority(final Thread thread)
-	{
-		if(clusterListenPrioritySet.booleanValue())
-			thread.setPriority(clusterListenPriority.intValue());
 	}
 
 	public String getMediaRootUrl()

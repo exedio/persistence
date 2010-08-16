@@ -37,6 +37,7 @@ final class ClusterConfig
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
 
+	final ClusterProperties properties;
 	final int secret;
 	final int node;
 	final boolean log;
@@ -61,11 +62,14 @@ final class ClusterConfig
 			throw new RuntimeException(SECRET_NAME + " must be a valid integer, but was >" + secretString + '<', e);
 		}
 
-		return new ClusterConfig(secret, new Random().nextInt(), properties);
+		final ClusterProperties clusterProperties = new ClusterProperties(context);
+
+		return new ClusterConfig(secret, new Random().nextInt(), clusterProperties);
 	}
 
-	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
+	ClusterConfig(final int secret, final int node, final ClusterProperties properties)
 	{
+		this.properties = properties;
 		this.secret = secret;
 		this.node = node;
 		this.log = properties.clusterLog.booleanValue();

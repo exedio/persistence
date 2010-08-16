@@ -28,12 +28,12 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int destinationPort;
 	private final DatagramSocket socket;
 
-	ClusterSenderMulticast(final ClusterConfig config, final ConnectProperties properties)
+	ClusterSenderMulticast(final ClusterConfig config)
 	{
 		super(config);
 		this.config = config;
-		this.destinationPort = properties.clusterSendDestinationPort.intValue();
-		this.socket = properties.getClusterSendSocket();
+		this.destinationPort = config.properties.clusterSendDestinationPort.intValue();
+		this.socket = config.properties.getClusterSendSocket();
 	}
 
 	@Override

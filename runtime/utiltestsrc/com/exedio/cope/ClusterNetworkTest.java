@@ -41,8 +41,6 @@ public class ClusterNetworkTest extends CopeAssert
 					{
 						if(key.equals("cluster"))
 							return "true";
-						else if(key.equals("cluster.log"))
-							return "false";
 						else
 							return source.get(key);
 					}
@@ -63,8 +61,10 @@ public class ClusterNetworkTest extends CopeAssert
 					{
 						if(key.equals("cluster.secret"))
 							return "1234";
+						else if(key.equals("cluster.log"))
+							return "false";
 						else
-							throw new RuntimeException(key);
+							return null;
 					}
 
 					public String getDescription()

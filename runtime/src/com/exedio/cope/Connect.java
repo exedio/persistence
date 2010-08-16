@@ -104,8 +104,8 @@ final class Connect
 			final ClusterConfig config = ClusterConfig.get(properties);
 			if(config!=null)
 			{
-				this.clusterSender   = new ClusterSenderMulticast(config, properties);
-				this.clusterListener = new ClusterListenerMulticast(config, properties, clusterSender, types.concreteTypeCount, this);
+				this.clusterSender   = new ClusterSenderMulticast(config);
+				this.clusterListener = new ClusterListenerMulticast(config, clusterSender, types.concreteTypeCount, this);
 			}
 			else
 			{

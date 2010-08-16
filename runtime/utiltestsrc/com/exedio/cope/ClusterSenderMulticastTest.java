@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Collection;
@@ -28,7 +27,7 @@ import com.exedio.cope.util.Properties;
 
 public class ClusterSenderMulticastTest extends CopeAssert
 {
-	private ConnectProperties properties;
+	private ClusterProperties properties;
 	private ClusterConfig csc;
 	private ClusterSenderMulticast cs;
 
@@ -38,18 +37,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
-		final Properties.Source source = defaultProperties.getSourceObject();
-		Properties.Source context = null;
-		try
-		{
-			context = defaultProperties.getContext();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
-		properties = new ConnectProperties(
+		properties = new ClusterProperties(
 				new Properties.Source()
 				{
 					public String get(final String key)
@@ -59,23 +47,22 @@ public class ClusterSenderMulticastTest extends CopeAssert
 						else if(key.equals("cluster.log"))
 							return "false";
 						else
-							return source.get(key);
+							return null;
 					}
 
 					public String getDescription()
 					{
-						return source.getDescription();
+						return "Cluster Properties";
 					}
 
 					public Collection<String> keySet()
 					{
-						return source.keySet();
+						return null;
 					}
-				},
-				context
+				}
 			);
 		csc = new ClusterConfig(SECRET, 0x11224433, properties);
-		cs = new ClusterSenderMulticast(csc, properties);
+		cs = new ClusterSenderMulticast(csc);
 	}
 
 	@Override
