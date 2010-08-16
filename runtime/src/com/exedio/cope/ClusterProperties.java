@@ -66,7 +66,16 @@ final class ClusterProperties extends Properties
 
 		if(isEnabled())
 		{
-			this.node = createNode();
+			if(nodeAuto.booleanValue())
+			{
+				this.node = new Random().nextInt();
+			}
+			else
+			{
+				this.node = nodeField.intValue();
+				if(node==0)
+					throw new IllegalArgumentException(); // must not be left at default value
+			}
 			if(log.booleanValue())
 				System.out.println("COPE Cluster Network node id: " + node);
 
@@ -115,17 +124,6 @@ final class ClusterProperties extends Properties
 			throw new IllegalStateException("is disabled");
 
 		return secret.intValue();
-	}
-
-	private int createNode()
-	{
-		if(nodeAuto.booleanValue())
-			return new Random().nextInt();
-
-		final int result = nodeField.intValue();
-		if(result==0)
-			throw new IllegalArgumentException(); // must not be left at default value
-		return result;
 	}
 
 	int copyPingPayload(int pos, final byte[] destination)
