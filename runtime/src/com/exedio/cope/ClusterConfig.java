@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Random;
 
 import com.exedio.cope.util.Properties;
@@ -42,7 +40,6 @@ final class ClusterConfig
 	final int node;
 	final boolean log;
 	final int packetSize;
-	final InetAddress group;
 	final byte[] pingPayload;
 
 	static ClusterConfig get(final ConnectProperties properties)
@@ -74,14 +71,6 @@ final class ClusterConfig
 		this.node = node;
 		this.log = properties.log.booleanValue();
 		this.packetSize = properties.packetSize.intValue() & (~3);
-		try
-		{
-			this.group = InetAddress.getByName(properties.group.stringValue());
-		}
-		catch(final UnknownHostException e)
-		{
-			throw new RuntimeException(properties.group.stringValue(), e);
-		}
 		{
 			final Random r = new Random(secret);
 			final byte[] pingPayload = new byte[packetSize];

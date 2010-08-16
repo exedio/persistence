@@ -48,7 +48,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				final MulticastSocket multicastSocket = new MulticastSocket(port);
 				this.socket = multicastSocket;
-				multicastSocket.joinGroup(config.group);
+				multicastSocket.joinGroup(config.properties.group);
 			}
 			else
 			{
@@ -129,7 +129,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			try
 			{
-				((MulticastSocket)socket).leaveGroup(config.group);
+				((MulticastSocket)socket).leaveGroup(config.properties.group);
 			}
 			catch(final IOException e)
 			{

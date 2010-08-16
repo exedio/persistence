@@ -40,7 +40,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	void send(final int length, final byte[] buf) throws IOException
 	{
 		final DatagramPacket packet =
-			new DatagramPacket(buf, length, config.group, destinationPort);
+			new DatagramPacket(buf, length, config.properties.group, destinationPort);
 		socket.send(packet);
 	}
 

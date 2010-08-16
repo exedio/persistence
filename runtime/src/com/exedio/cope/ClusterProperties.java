@@ -22,7 +22,9 @@ import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 import com.exedio.cope.util.Properties;
 
@@ -36,13 +38,23 @@ final class ClusterProperties extends Properties
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	        final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
-	        final StringField  group               = new  StringField("cluster.group",               "230.0.0.1");
+	private final StringField  groupField          = new  StringField("cluster.group",               "230.0.0.1");
 	        final IntField     packetSize          = new     IntField("cluster.packetSize",          1400, 32);
 
+	final InetAddress group;
 
 	ClusterProperties(final Source source)
 	{
 		super(source, null);
+
+		try
+		{
+			this.group = InetAddress.getByName(groupField.stringValue());
+		}
+		catch(final UnknownHostException e)
+		{
+			throw new RuntimeException(groupField.stringValue(), e);
+		}
 	}
 
 	DatagramSocket getSendSocket()
