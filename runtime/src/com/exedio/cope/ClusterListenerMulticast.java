@@ -41,7 +41,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final int typeLength, final Connect connect)
 	{
 		super(config, sender, typeLength, connect);
-		this.log = config.log;
+		this.log = config.properties.log.booleanValue();
 		this.packetSize = config.properties.packetSize;
 		this.address = config.properties.listenAddress;
 		this.socket = config.properties.getListenSocket();

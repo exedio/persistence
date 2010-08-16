@@ -35,7 +35,6 @@ final class ClusterConfig
 
 	final ClusterProperties properties;
 	final int node;
-	final boolean log;
 	final byte[] pingPayload;
 
 	static ClusterConfig get(final ConnectProperties properties)
@@ -52,7 +51,6 @@ final class ClusterConfig
 	{
 		this.properties = properties;
 		this.node = node;
-		this.log = properties.log.booleanValue();
 		{
 			final Random r = new Random(properties.getSecret());
 			final byte[] pingPayload = new byte[properties.packetSize];
@@ -60,7 +58,7 @@ final class ClusterConfig
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}
-		if(log)
+		if(properties.log.booleanValue())
 			System.out.println("COPE Cluster Network node id: " + node);
 	}
 }

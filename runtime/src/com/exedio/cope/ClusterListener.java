@@ -41,7 +41,7 @@ abstract class ClusterListener
 	{
 		this.config = config;
 		this.secret = config.properties.getSecret();
-		this.log = config.log;
+		this.log = config.properties.log.booleanValue();
 		this.typeLength = typeLength;
 	}
 
