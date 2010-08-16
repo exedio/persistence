@@ -86,7 +86,7 @@ public class ClusterNetworkTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testPing() throws InterruptedException
+	public void testMulticast() throws InterruptedException
 	{
 		modelA.connect(getProperties());
 		modelB.connect(getProperties());
