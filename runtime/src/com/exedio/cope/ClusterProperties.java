@@ -142,7 +142,7 @@ final class ClusterProperties extends Properties
 		return pos;
 	}
 
-	int checkPingPayload(int pos, final byte[] buf, final int length, final boolean ping)
+	void checkPingPayload(int pos, final byte[] buf, final int length, final boolean ping)
 	{
 		if(length!=packetSize)
 			throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", expected length " + packetSize + ", but was " + length);
@@ -150,7 +150,6 @@ final class ClusterProperties extends Properties
 		for(; pos<length; pos++)
 			if(pingPayload[pos]!=buf[pos])
 				throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
-		return pos;
 	}
 
 	DatagramSocket getSendSocket()

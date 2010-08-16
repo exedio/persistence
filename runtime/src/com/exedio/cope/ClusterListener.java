@@ -143,7 +143,7 @@ abstract class ClusterListener
 		final int sequence = unmarshal(pos, buf);
 		pos += 4;
 
-		pos = properties.checkPingPayload(pos, buf, length, ping);
+		properties.checkPingPayload(pos, buf, length, ping);
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{

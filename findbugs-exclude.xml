@@ -58,7 +58,7 @@
 	<Match>
 		<!-- Random object created and used only once -->
 		<Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
-		<Class name="com.exedio.cope.ClusterConfig" />
+		<Class name="com.exedio.cope.ClusterProperties" />
 	</Match>
 	<Match>
 		<!-- May expose internal representation by returning reference to mutable object -->
