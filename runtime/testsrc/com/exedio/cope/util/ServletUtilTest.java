@@ -432,7 +432,7 @@ public class ServletUtilTest extends CopeAssert
 
 		public String getContextPath()
 		{
-			throw new RuntimeException();
+			return "contextPath";
 		}
 	}
 
