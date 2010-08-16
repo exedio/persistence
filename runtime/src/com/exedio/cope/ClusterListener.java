@@ -32,6 +32,7 @@ abstract class ClusterListener
 {
 	private final ClusterConfig config;
 	private final int secret;
+	private final int localNode;
 	private final boolean log;
 	private final int typeLength;
 
@@ -41,6 +42,7 @@ abstract class ClusterListener
 	{
 		this.config = config;
 		this.secret = config.properties.getSecret();
+		this.localNode = config.properties.node;
 		this.log = config.properties.log.booleanValue();
 		this.typeLength = typeLength;
 	}
@@ -68,7 +70,7 @@ abstract class ClusterListener
 		pos += 4;
 
 		final int node = unmarshal(pos, buf);
-		if(config.properties.node==node)
+		if(localNode==node)
 		{
 			fromMyself++;
 			return;
