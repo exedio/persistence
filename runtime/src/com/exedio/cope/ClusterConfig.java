@@ -34,7 +34,6 @@ final class ClusterConfig
 	static final int KIND_INVALIDATE = 0x00120001;
 
 	final ClusterProperties properties;
-	final int secret;
 	final int node;
 	final boolean log;
 	final byte[] pingPayload;
@@ -52,11 +51,10 @@ final class ClusterConfig
 	ClusterConfig(final int node, final ClusterProperties properties)
 	{
 		this.properties = properties;
-		this.secret = properties.getSecret();
 		this.node = node;
 		this.log = properties.log.booleanValue();
 		{
-			final Random r = new Random(secret);
+			final Random r = new Random(properties.getSecret());
 			final byte[] pingPayload = new byte[properties.packetSize];
 			for(int pos = 20; pos<pingPayload.length; pos++)
 				pingPayload[pos] = (byte)(r.nextInt()>>8);

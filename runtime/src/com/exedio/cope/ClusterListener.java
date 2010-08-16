@@ -31,6 +31,7 @@ import com.exedio.cope.util.SequenceChecker;
 abstract class ClusterListener
 {
 	private final ClusterConfig config;
+	private final int secret;
 	private final boolean log;
 	private final int typeLength;
 
@@ -39,6 +40,7 @@ abstract class ClusterListener
 			final int typeLength)
 	{
 		this.config = config;
+		this.secret = config.properties.getSecret();
 		this.log = config.log;
 		this.typeLength = typeLength;
 	}
@@ -58,7 +60,7 @@ abstract class ClusterListener
 			return;
 		}
 
-		if(config.secret!=unmarshal(pos, buf))
+		if(secret!=unmarshal(pos, buf))
 		{
 			wrongSecret++;
 			return;
