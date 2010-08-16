@@ -28,7 +28,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 {
 	private final ClusterConfig config;
 	private final boolean log;
-	private final int port;
 	private final DatagramSocket socket;
 
 	private final Thread thread;
@@ -42,7 +41,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		super(config, sender, typeLength, connect);
 		this.config = config;
 		this.log = config.log;
-		this.port = config.properties.listenPort.intValue();
+		final int port = config.properties.listenPort.intValue();
 		try
 		{
 			if(config.properties.multicast.booleanValue())
