@@ -32,13 +32,16 @@ import com.exedio.cope.util.Properties;
 
 final class ClusterProperties extends Properties
 {
+	private static final String MULTICAST_ADDRESS = "230.0.0.1";
+	private static final int    MULTICAST_PORT = 14446;
+
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
-	private final StringField  sendAddressField    = new  StringField("cluster.sendAddress",         "230.0.0.1");
-	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
-	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       "230.0.0.1");
-	private final IntField     listenPort          = new     IntField("cluster.listenPort",          14446, 1);
+	private final StringField  sendAddressField    = new  StringField("cluster.sendAddress",         MULTICAST_ADDRESS);
+	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", MULTICAST_PORT, 1);
+	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       MULTICAST_ADDRESS);
+	private final IntField     listenPort          = new     IntField("cluster.listenPort",          MULTICAST_PORT, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
