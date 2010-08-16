@@ -36,7 +36,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		properties = new ClusterProperties(
+		properties = ClusterProperties.get(
 				new Properties.Source()
 				{
 					public String get(final String key)

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.Properties;
-
 final class ClusterConfig
 {
 	static final byte MAGIC0 = (byte)0xc0;
@@ -30,14 +28,4 @@ final class ClusterConfig
 	static final int KIND_PING       = 0x00110001;
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
-
-	static ClusterProperties get(final ConnectProperties properties)
-	{
-		final Properties.Source context = properties.getContext();
-		final ClusterProperties clusterProperties = new ClusterProperties(context);
-		if(!clusterProperties.isEnabled())
-			return null;
-
-		return clusterProperties;
-	}
 }

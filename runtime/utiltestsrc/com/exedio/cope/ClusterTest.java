@@ -44,7 +44,7 @@ public class ClusterTest extends CopeAssert
 
 	private ClusterProperties getProperties(final int node)
 	{
-		return new ClusterProperties(
+		return ClusterProperties.get(
 				new Properties.Source()
 				{
 					public String get(final String key)

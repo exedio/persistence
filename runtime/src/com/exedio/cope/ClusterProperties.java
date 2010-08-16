@@ -34,6 +34,15 @@ import com.exedio.cope.util.Properties;
 
 final class ClusterProperties extends Properties
 {
+	static ClusterProperties get(final Properties.Source source)
+	{
+		final ClusterProperties clusterProperties = new ClusterProperties(source);
+		if(!clusterProperties.isEnabled())
+			return null;
+
+		return clusterProperties;
+	}
+
 	private static final String MULTICAST_ADDRESS = "230.0.0.1";
 	private static final int    MULTICAST_PORT = 14446;
 
@@ -60,7 +69,7 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	ClusterProperties(final Source source)
+	private ClusterProperties(final Source source)
 	{
 		super(source, null);
 
@@ -113,7 +122,7 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	boolean isEnabled()
+	private boolean isEnabled()
 	{
 		return secret.intValue()!=0;
 	}

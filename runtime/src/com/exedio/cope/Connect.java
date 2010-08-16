@@ -101,7 +101,7 @@ final class Connect
 
 		if(properties.cluster.booleanValue())
 		{
-			final ClusterProperties clusterProperties = ClusterConfig.get(properties);
+			final ClusterProperties clusterProperties = ClusterProperties.get(properties.getContext());
 			if(clusterProperties!=null)
 			{
 				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
