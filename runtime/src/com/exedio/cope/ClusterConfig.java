@@ -32,7 +32,6 @@ final class ClusterConfig
 	static final int KIND_INVALIDATE = 0x00120001;
 
 	final ClusterProperties properties;
-	final int node;
 
 	static ClusterConfig get(final ConnectProperties properties)
 	{
@@ -47,8 +46,5 @@ final class ClusterConfig
 	ClusterConfig(final ClusterProperties properties)
 	{
 		this.properties = properties;
-		this.node = properties.createNode();
-		if(properties.log.booleanValue())
-			System.out.println("COPE Cluster Network node id: " + node);
 	}
 }

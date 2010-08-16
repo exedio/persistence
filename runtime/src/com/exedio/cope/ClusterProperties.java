@@ -42,7 +42,7 @@ final class ClusterProperties extends Properties
 	 */
 	private final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
 	private final BooleanField nodeAuto            = new BooleanField("cluster.nodeAuto" , true);
-	private final IntField     node                = new     IntField("cluster.node"     , 0, MIN_VALUE);
+	private final IntField     nodeField           = new     IntField("cluster.node"     , 0, MIN_VALUE);
 	        final BooleanField log                 = new BooleanField("cluster.log", true);
 	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
@@ -55,6 +55,7 @@ final class ClusterProperties extends Properties
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
 	private final IntField     packetSizeField     = new     IntField("cluster.packetSize",          1400, 32);
 
+	final int node;
 	final InetAddress sendAddress, listenAddress;
 	final int packetSize;
 	private final byte[] pingPayload;
@@ -65,6 +66,10 @@ final class ClusterProperties extends Properties
 
 		if(isEnabled())
 		{
+			this.node = createNode();
+			if(log.booleanValue())
+				System.out.println("COPE Cluster Network node id: " + node);
+
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);
 			this.packetSize = packetSizeField.intValue() & (~3);
@@ -78,6 +83,7 @@ final class ClusterProperties extends Properties
 		}
 		else
 		{
+			this.node = 0;
 			this.sendAddress   = null;
 			this.listenAddress = null;
 			this.packetSize = MIN_VALUE;
@@ -111,12 +117,12 @@ final class ClusterProperties extends Properties
 		return secret.intValue();
 	}
 
-	int createNode()
+	private int createNode()
 	{
 		if(nodeAuto.booleanValue())
 			return new Random().nextInt();
 
-		final int result = node.intValue();
+		final int result = nodeField.intValue();
 		if(result==0)
 			throw new IllegalArgumentException(); // must not be left at default value
 		return result;

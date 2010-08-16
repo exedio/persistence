@@ -50,7 +50,7 @@ abstract class ClusterSender
 			pingPongTemplate[3] = ClusterConfig.MAGIC3;
 			int pos = 4;
 			pos = marshal(pos, pingPongTemplate, config.properties.getSecret());
-			pos = marshal(pos, pingPongTemplate, config.node);
+			pos = marshal(pos, pingPongTemplate, config.properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			assert pos==SEQUENCE;
@@ -69,7 +69,7 @@ abstract class ClusterSender
 			invalidateTemplate[3] = ClusterConfig.MAGIC3;
 			int pos = 4;
 			pos = marshal(pos, invalidateTemplate, config.properties.getSecret());
-			pos = marshal(pos, invalidateTemplate, config.node);
+			pos = marshal(pos, invalidateTemplate, config.properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, invalidateTemplate, ClusterConfig.KIND_INVALIDATE);
 			assert pos==SEQUENCE;
@@ -211,7 +211,7 @@ abstract class ClusterSender
 
 	final ClusterSenderInfo getInfo()
 	{
-		return new ClusterSenderInfo(config.node, invalidationSplit);
+		return new ClusterSenderInfo(config.properties.node, invalidationSplit);
 	}
 
 	abstract void send(final int length, final byte[] buf) throws IOException;

@@ -68,7 +68,7 @@ abstract class ClusterListener
 		pos += 4;
 
 		final int node = unmarshal(pos, buf);
-		if(config.node==node)
+		if(config.properties.node==node)
 		{
 			fromMyself++;
 			return;
