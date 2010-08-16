@@ -28,7 +28,7 @@ import com.exedio.cope.util.Properties;
 public class ClusterSenderMulticastTest extends CopeAssert
 {
 	private ClusterProperties properties;
-	private ClusterSenderMulticast cs;
+	private ClusterSenderMulticast sender;
 
 	private static final int SECRET = 0x88776655;
 
@@ -62,26 +62,26 @@ public class ClusterSenderMulticastTest extends CopeAssert
 					}
 				}
 			);
-		cs = new ClusterSenderMulticast(properties);
+		sender = new ClusterSenderMulticast(properties);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		cs.close();
+		sender.close();
 		super.tearDown();
 	}
 
 	public void testIt() throws IOException
 	{
 		final byte[] b = new byte[]{10, 10, 10, 10, 10, 10, 10};
-		cs.send(b.length, b);
-		cs.send(b.length, b);
+		sender.send(b.length, b);
+		sender.send(b.length, b);
 
-		cs.close();
+		sender.close();
 		try
 		{
-			cs.send(b.length, b);
+			sender.send(b.length, b);
 			fail();
 		}
 		catch(final SocketException e)
