@@ -57,8 +57,7 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 
-			for(; pos<config.properties.packetSize; pos++)
-				pingPongTemplate[pos] = config.properties.pingPayload[pos];
+			pos = config.properties.copyPingPayload(pos, pingPongTemplate);
 			assert pos==config.properties.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
 		}

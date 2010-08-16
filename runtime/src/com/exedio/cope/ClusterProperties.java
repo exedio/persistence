@@ -55,7 +55,7 @@ final class ClusterProperties extends Properties
 
 	final InetAddress sendAddress, listenAddress;
 	final int packetSize;
-	final byte[] pingPayload;
+	private final byte[] pingPayload;
 
 	ClusterProperties(final Source source)
 	{
@@ -107,6 +107,24 @@ final class ClusterProperties extends Properties
 			throw new IllegalStateException("is disabled");
 
 		return secret.intValue();
+	}
+
+	int copyPingPayload(int pos, final byte[] destination)
+	{
+		for(; pos<packetSize; pos++)
+			destination[pos] = pingPayload[pos];
+		return pos;
+	}
+
+	int checkPingPayload(int pos, final byte[] buf, final int length, final boolean ping)
+	{
+		if(length!=packetSize)
+			throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", expected length " + packetSize + ", but was " + length);
+		final byte[] pingPayload = this.pingPayload;
+		for(; pos<length; pos++)
+			if(pingPayload[pos]!=buf[pos])
+				throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
+		return pos;
 	}
 
 	DatagramSocket getSendSocket()

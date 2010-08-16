@@ -141,14 +141,7 @@ abstract class ClusterListener
 		final int sequence = unmarshal(pos, buf);
 		pos += 4;
 
-		if(length!=config.properties.packetSize)
-			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + config.properties.packetSize + ", but was " + length);
-		final byte[] pingPayload = config.properties.pingPayload;
-		for(; pos<length; pos++)
-		{
-			if(pingPayload[pos]!=buf[pos])
-				throw new RuntimeException("invalid " + pingString(ping) + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
-		}
+		pos = config.properties.checkPingPayload(pos, buf, length, ping);
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{
@@ -160,7 +153,7 @@ abstract class ClusterListener
 		return true;
 	}
 
-	private static String pingString(final boolean ping)
+	static String pingString(final boolean ping)
 	{
 		return ping ? "ping" : "pong";
 	}
