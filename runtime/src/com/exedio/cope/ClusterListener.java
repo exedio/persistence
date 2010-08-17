@@ -258,6 +258,12 @@ abstract class ClusterListener
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
 
-		return new ClusterListenerInfo(getReceiveBufferSize(), exception, missingMagic, wrongSecret, fromMyself, infoNodes);
+		return new ClusterListenerInfo(
+				getReceiveBufferSize(),
+				exception,
+				missingMagic,
+				wrongSecret,
+				fromMyself,
+				infoNodes);
 	}
 }
