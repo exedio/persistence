@@ -61,6 +61,8 @@ public class ClusterNetworkTest extends CopeAssert
 							return "1234";
 						else if(key.equals("cluster.log"))
 							return "false";
+						else if(key.equals("cluster.listenThreads"))
+							return "2";
 						else if(!multicast && key.equals("cluster.multicast"))
 							return "false";
 						else if(!multicast && (key.equals("cluster.sendAddress")||key.equals("cluster.listenAddress")))

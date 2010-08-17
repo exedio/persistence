@@ -59,6 +59,7 @@ final class ClusterProperties extends Properties
 	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", MULTICAST_PORT, 1);
 	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       MULTICAST_ADDRESS);
 	private final IntField     listenPort          = new     IntField("cluster.listenPort",          MULTICAST_PORT, 1);
+	private final IntField     listenThreads       = new     IntField("cluster.listenThreads",       1, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
@@ -170,6 +171,11 @@ final class ClusterProperties extends Properties
 					String.valueOf(sendSourcePort.intValue()) + '/' +
 					String.valueOf(sendSourcePort.intValue()), e);
 		}
+	}
+
+	int getListenThreads()
+	{
+		return listenThreads.intValue();
 	}
 
 	DatagramSocket getListenSocket()

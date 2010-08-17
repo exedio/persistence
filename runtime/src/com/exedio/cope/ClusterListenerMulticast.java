@@ -25,14 +25,14 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
-final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
+final class ClusterListenerMulticast extends ClusterListenerModel
 {
 	private final boolean log;
 	private final int packetSize;
 	private final InetAddress address;
 	private final DatagramSocket socket;
 
-	private final Thread thread;
+	private final Thread[] threads;
 	private volatile boolean threadRun = true;
 
 	ClusterListenerMulticast(
@@ -45,15 +45,28 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.socket = properties.getListenSocket();
-		thread = new Thread(this);
-		thread.setName("COPE Cluster Listener");
-		thread.setDaemon(true);
-		properties.setListenPriority(thread);
-		thread.start();
-		if(log)
-			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " started.");
+
+		this.threads = new Thread[properties.getListenThreads()];
+		for(int i = 0; i<threads.length; i++)
+		{
+			final Runner thread = new Runner();
+			thread.setName("COPE Cluster Listener " + (i+1) + '/' + threads.length);
+			thread.setDaemon(true);
+			properties.setListenPriority(thread);
+			threads[i] = thread;
+		}
+		for(final Thread thread : threads)
+		{
+			thread.start();
+			if(log)
+				System.out.println(thread.getName() + " (" + thread.getId() + ") started.");
+		}
 	}
 
+	class Runner extends Thread
+	{
+		@SuppressWarnings("synthetic-access")
+		@Override
 	public void run()
 	{
 		final byte[] buf = new byte[packetSize];
@@ -89,7 +102,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " gracefully terminates: " + e.getMessage());
+						System.out.println(getName() + " (" + getId() + ") gracefully terminates: " + e.getMessage());
 				}
 			}
 			catch(final Exception e)
@@ -101,10 +114,12 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		logTerminate();
 	}
 
+		@SuppressWarnings("synthetic-access")
 	private void logTerminate()
 	{
 		if(log)
-			System.out.println("COPE Cluster Listener Multicast thread " + thread.getId() + " terminates.");
+			System.out.println(getName() + " (" + getId() + ") terminates.");
+	}
 	}
 
 	@Override
@@ -123,13 +138,17 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 		}
 		socket.close();
-		try
+
+		for(final Thread thread : threads)
 		{
-			thread.join();
-		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(e);
+			try
+			{
+				thread.join();
+			}
+			catch(final InterruptedException e)
+			{
+				throw new RuntimeException(thread.getName() + '(' + thread.getId() + ')', e);
+			}
 		}
 	}
 }
