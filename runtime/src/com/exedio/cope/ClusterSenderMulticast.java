@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 final class ClusterSenderMulticast extends ClusterSender
 {
@@ -49,6 +50,32 @@ final class ClusterSenderMulticast extends ClusterSender
 	int getLocalPort()
 	{
 		return socket.getLocalPort();
+	}
+
+	@Override
+	int getSendBufferSize()
+	{
+		try
+		{
+			return socket.getSendBufferSize();
+		}
+		catch(final SocketException e)
+		{
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	int getTrafficClass()
+	{
+		try
+		{
+			return socket.getTrafficClass();
+		}
+		catch(final SocketException e)
+		{
+			throw new RuntimeException();
+		}
 	}
 
 	@Override

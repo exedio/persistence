@@ -49,6 +49,18 @@ final class ClusterSenderMock extends ClusterSender
 	}
 
 	@Override
+	int getSendBufferSize()
+	{
+		return 123457;
+	}
+
+	@Override
+	int getTrafficClass()
+	{
+		return 123458;
+	}
+
+	@Override
 	void close()
 	{
 		if(closed)

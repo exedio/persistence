@@ -57,6 +57,10 @@ final class ClusterProperties extends Properties
 	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
 	private final StringField  sendAddressField    = new  StringField("cluster.sendAddress",         MULTICAST_ADDRESS);
 	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", MULTICAST_PORT, 1);
+	private final BooleanField sendBufferDefault   = new BooleanField("cluster.sendBufferDefault"  , true);
+	private final IntField     sendBuffer          = new     IntField("cluster.sendBuffer"         , 50000, 1);
+	private final BooleanField sendTrafficDefault  = new BooleanField("cluster.sendTrafficDefault" , true);
+	private final IntField     sendTraffic         = new     IntField("cluster.sendTraffic"        , 0, 0);
 	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       MULTICAST_ADDRESS);
 	private final IntField     listenPort          = new     IntField("cluster.listenPort",          MULTICAST_PORT, 1);
 	private final IntField     listenThreads       = new     IntField("cluster.listenThreads",       1, 1);
@@ -160,10 +164,15 @@ final class ClusterProperties extends Properties
 
 		try
 		{
-			return
+			final DatagramSocket result =
 				sendSourcePortAuto.booleanValue()
 				? new DatagramSocket()
 				: new DatagramSocket(sendSourcePort.intValue());
+			if(!sendBufferDefault.booleanValue())
+				result.setSendBufferSize(sendBuffer.intValue());
+			if(!sendTrafficDefault.booleanValue())
+				result.setTrafficClass(sendTraffic.intValue());
+			return result;
 		}
 		catch(final SocketException e)
 		{
