@@ -218,9 +218,10 @@ abstract class ClusterSender
 
 	final ClusterSenderInfo getInfo()
 	{
-		return new ClusterSenderInfo(properties.node, invalidationSplit);
+		return new ClusterSenderInfo(properties.node, getLocalPort(), invalidationSplit);
 	}
 
 	abstract void send(final int length, final byte[] buf) throws IOException;
+	abstract int getLocalPort();
 	abstract void close();
 }

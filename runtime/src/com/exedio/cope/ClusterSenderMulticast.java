@@ -46,6 +46,12 @@ final class ClusterSenderMulticast extends ClusterSender
 	}
 
 	@Override
+	int getLocalPort()
+	{
+		return socket.getLocalPort();
+	}
+
+	@Override
 	void close()
 	{
 		socket.close();

@@ -21,13 +21,16 @@ package com.exedio.cope;
 public final class ClusterSenderInfo
 {
 	private final int nodeID;
+	private final int localPort;
 	private final long invalidationSplit;
 
 	ClusterSenderInfo(
 			final int nodeID,
+			final int localPort,
 			final long invalidationSplit)
 	{
 		this.nodeID = nodeID;
+		this.localPort = localPort;
 		this.invalidationSplit = invalidationSplit;
 	}
 
@@ -37,6 +40,11 @@ public final class ClusterSenderInfo
 	public int getNodeID()
 	{
 		return nodeID;
+	}
+
+	public int getLocalPort()
+	{
+		return localPort;
 	}
 
 	public long getInvalidationSplit()

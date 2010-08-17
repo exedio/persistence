@@ -871,6 +871,7 @@ public class ClusterTest extends CopeAssert
 			final long[][] listenerNodes)
 	{
 		final ClusterSenderInfo senderInfo = cs.getInfo();
+		assertEquals(123456, senderInfo.getLocalPort());
 		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit());
 
 		final ClusterListenerInfo listenerInfo = cl.getInfo();

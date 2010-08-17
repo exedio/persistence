@@ -43,6 +43,12 @@ final class ClusterSenderMock extends ClusterSender
 	}
 
 	@Override
+	int getLocalPort()
+	{
+		return 123456;
+	}
+
+	@Override
 	void close()
 	{
 		if(closed)
