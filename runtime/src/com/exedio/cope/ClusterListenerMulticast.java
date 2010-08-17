@@ -63,64 +63,64 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		}
 	}
 
-		public void run()
+	public void run()
+	{
+		final byte[] buf = new byte[packetSize];
+		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
+
+		while(threadRun)
 		{
-			final byte[] buf = new byte[packetSize];
-			final DatagramPacket packet = new DatagramPacket(buf, buf.length);
-
-			while(threadRun)
+			try
 			{
-				try
+				if(!threadRun)
 				{
-					if(!threadRun)
-					{
-						logTerminate();
-						return;
-					}
-
-					socket.receive(packet);
-
-					if(!threadRun)
-					{
-						logTerminate();
-						return;
-					}
-
-					handle(packet);
-		      }
-				catch(final SocketException e)
-				{
-					if(threadRun)
-					{
-						exception++;
-						e.printStackTrace();
-					}
-					else
-					{
-						if(log)
-						{
-							final Thread t = Thread.currentThread();
-							System.out.println(t.getName() + " (" + t.getId() + ") gracefully terminates: " + e.getMessage());
-						}
-					}
+					logTerminate();
+					return;
 				}
-				catch(final Exception e)
+
+				socket.receive(packet);
+
+				if(!threadRun)
+				{
+					logTerminate();
+					return;
+				}
+
+				handle(packet);
+	      }
+			catch(final SocketException e)
+			{
+				if(threadRun)
 				{
 					exception++;
 					e.printStackTrace();
 				}
+				else
+				{
+					if(log)
+					{
+						final Thread t = Thread.currentThread();
+						System.out.println(t.getName() + " (" + t.getId() + ") gracefully terminates: " + e.getMessage());
+					}
+				}
 			}
-			logTerminate();
-		}
-
-		private void logTerminate()
-		{
-			if(log)
+			catch(final Exception e)
 			{
-				final Thread t = Thread.currentThread();
-				System.out.println(t.getName() + " (" + t.getId() + ") terminates.");
+				exception++;
+				e.printStackTrace();
 			}
 		}
+		logTerminate();
+	}
+
+	private void logTerminate()
+	{
+		if(log)
+		{
+			final Thread t = Thread.currentThread();
+			System.out.println(t.getName() + " (" + t.getId() + ") terminates.");
+		}
+	}
 
 	@Override
 	void close()
