@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
-import static java.lang.Integer.MIN_VALUE;
 
 import java.io.IOException;
 import java.net.DatagramSocket;

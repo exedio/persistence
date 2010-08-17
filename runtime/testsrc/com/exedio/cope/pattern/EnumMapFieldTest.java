@@ -19,9 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
+import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
-import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
