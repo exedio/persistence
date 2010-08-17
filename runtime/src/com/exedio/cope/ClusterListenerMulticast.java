@@ -67,59 +67,59 @@ final class ClusterListenerMulticast extends ClusterListenerModel
 	{
 		@SuppressWarnings("synthetic-access")
 		@Override
-	public void run()
-	{
-		final byte[] buf = new byte[packetSize];
-		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
-
-		while(threadRun)
+		public void run()
 		{
-			try
+			final byte[] buf = new byte[packetSize];
+			final DatagramPacket packet = new DatagramPacket(buf, buf.length);
+
+			while(threadRun)
 			{
-				if(!threadRun)
+				try
 				{
-					logTerminate();
-					return;
-				}
+					if(!threadRun)
+					{
+						logTerminate();
+						return;
+					}
 
-				socket.receive(packet);
+					socket.receive(packet);
 
-				if(!threadRun)
+					if(!threadRun)
+					{
+						logTerminate();
+						return;
+					}
+
+					handle(packet);
+		      }
+				catch(final SocketException e)
 				{
-					logTerminate();
-					return;
+					if(threadRun)
+					{
+						exception++;
+						e.printStackTrace();
+					}
+					else
+					{
+						if(log)
+							System.out.println(getName() + " (" + getId() + ") gracefully terminates: " + e.getMessage());
+					}
 				}
-
-				handle(packet);
-	      }
-			catch(final SocketException e)
-			{
-				if(threadRun)
+				catch(final Exception e)
 				{
 					exception++;
 					e.printStackTrace();
 				}
-				else
-				{
-					if(log)
-						System.out.println(getName() + " (" + getId() + ") gracefully terminates: " + e.getMessage());
-				}
 			}
-			catch(final Exception e)
-			{
-				exception++;
-				e.printStackTrace();
-			}
+			logTerminate();
 		}
-		logTerminate();
-	}
 
 		@SuppressWarnings("synthetic-access")
-	private void logTerminate()
-	{
-		if(log)
-			System.out.println(getName() + " (" + getId() + ") terminates.");
-	}
+		private void logTerminate()
+		{
+			if(log)
+				System.out.println(getName() + " (" + getId() + ") terminates.");
+		}
 	}
 
 	@Override
