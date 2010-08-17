@@ -25,14 +25,14 @@ import java.net.DatagramSocket;
 final class ClusterSenderMulticast extends ClusterSender
 {
 	private final ClusterProperties properties;
-	private final int destinationPort;
+	private final int port;
 	private final DatagramSocket socket;
 
 	ClusterSenderMulticast(final ClusterProperties properties)
 	{
 		super(properties);
 		this.properties = properties;
-		this.destinationPort = properties.sendDestinationPort.intValue();
+		this.port = properties.sendDestinationPort.intValue();
 		this.socket = properties.getSendSocket();
 	}
 
@@ -40,7 +40,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	void send(final int length, final byte[] buf) throws IOException
 	{
 		final DatagramPacket packet =
-			new DatagramPacket(buf, length, properties.sendAddress, destinationPort);
+			new DatagramPacket(buf, length, properties.sendAddress, port);
 		socket.send(packet);
 	}
 
