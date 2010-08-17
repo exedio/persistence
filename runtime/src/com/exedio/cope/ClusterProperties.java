@@ -153,7 +153,7 @@ final class ClusterProperties extends Properties
 				throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
 	}
 
-	DatagramSocket getSendSocket()
+	DatagramSocket newSendSocket()
 	{
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
@@ -178,7 +178,7 @@ final class ClusterProperties extends Properties
 		return listenThreads.intValue();
 	}
 
-	DatagramSocket getListenSocket()
+	DatagramSocket newListenSocket()
 	{
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");

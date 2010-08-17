@@ -45,7 +45,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.log = properties.log.booleanValue();
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
-		this.socket = properties.getListenSocket();
+		this.socket = properties.newListenSocket();
 
 		this.threads = new Thread[properties.getListenThreads()];
 		for(int i = 0; i<threads.length; i++)
