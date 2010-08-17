@@ -47,6 +47,12 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
+	int getReceiveBufferSize()
+	{
+		return 234567;
+	}
+
+	@Override
 	void close()
 	{
 		if(closed)

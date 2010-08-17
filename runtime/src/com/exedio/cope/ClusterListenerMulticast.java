@@ -31,6 +31,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final int packetSize;
 	private final InetAddress address;
 	private final DatagramSocket socket;
+	private final int receiveBufferSize;
 
 	private final Thread[] threads;
 	private volatile boolean threadRun = true;
@@ -46,6 +47,14 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.socket = properties.newListenSocket();
+		try
+		{
+			this.receiveBufferSize = socket.getReceiveBufferSize();
+		}
+		catch(final SocketException e)
+		{
+			throw new RuntimeException(e);
+		}
 
 		this.threads = new Thread[properties.getListenThreads()];
 		for(int i = 0; i<threads.length; i++)
@@ -121,6 +130,12 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final Thread t = Thread.currentThread();
 			System.out.println(t.getName() + " (" + t.getId() + ") terminates.");
 		}
+	}
+
+	@Override
+	int getReceiveBufferSize()
+	{
+		return receiveBufferSize;
 	}
 
 	@Override

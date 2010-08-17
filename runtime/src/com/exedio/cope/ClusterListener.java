@@ -178,6 +178,7 @@ abstract class ClusterListener
 
 	abstract void invalidate(TIntHashSet[] invalidations);
 	abstract void pong();
+	abstract int getReceiveBufferSize();
 	abstract void close();
 
 	// info
@@ -257,6 +258,6 @@ abstract class ClusterListener
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
 
-		return new ClusterListenerInfo(exception, missingMagic, wrongSecret, fromMyself, infoNodes);
+		return new ClusterListenerInfo(getReceiveBufferSize(), exception, missingMagic, wrongSecret, fromMyself, infoNodes);
 	}
 }

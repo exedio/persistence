@@ -27,6 +27,7 @@ import com.exedio.cope.util.SequenceChecker;
 
 public final class ClusterListenerInfo
 {
+	private final int receiveBufferSize;
 	private final long exception;
 	private final long missingMagic;
 	private final long wrongSecret;
@@ -34,17 +35,24 @@ public final class ClusterListenerInfo
 	private final List<Node> nodes;
 
 	ClusterListenerInfo(
+			final int receiveBufferSize,
 			final long exception,
 			final long missingMagic,
 			final long wrongSecret,
 			final long fromMyself,
 			final List<Node> nodes)
 	{
+		this.receiveBufferSize = receiveBufferSize;
 		this.exception = exception;
 		this.missingMagic = missingMagic;
 		this.wrongSecret = wrongSecret;
 		this.fromMyself = fromMyself;
 		this.nodes = Collections.unmodifiableList(nodes);
+	}
+
+	public int getReceiveBufferSize()
+	{
+		return receiveBufferSize;
 	}
 
 	public long getException()

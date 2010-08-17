@@ -877,6 +877,7 @@ public class ClusterTest extends CopeAssert
 		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit());
 
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
+		assertEquals(234567, listenerInfo.getReceiveBufferSize());
 		assertEquals(0, listenerInfo.getException());
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
 		assertEquals(listenerWrongSecret, listenerInfo.getWrongSecret());
