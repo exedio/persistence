@@ -223,4 +223,10 @@ public class ClusterNetworkTest extends CopeAssert
 
 	static final Model modelA = new Model(TypeA.TYPE);
 	static final Model modelB = new Model(TypeB.TYPE);
+
+	static
+	{
+		modelA.enableSerialization(ClusterNetworkTest.class, "modelA");
+		modelB.enableSerialization(ClusterNetworkTest.class, "modelB");
+	}
 }

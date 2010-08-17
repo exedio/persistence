@@ -37,6 +37,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	ClusterListenerMulticast(
 			final ClusterProperties properties,
+			final String name,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
@@ -50,7 +51,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		for(int i = 0; i<threads.length; i++)
 		{
 			final Thread thread = new Thread(this);
-			thread.setName("COPE Cluster Listener " + (i+1) + '/' + threads.length);
+			thread.setName("COPE Cluster Listener " + name + ' ' + (i+1) + '/' + threads.length);
 			thread.setDaemon(true);
 			properties.setListenPriority(thread);
 			threads[i] = thread;
