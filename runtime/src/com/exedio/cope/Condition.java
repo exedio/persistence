@@ -153,7 +153,7 @@ public abstract class Condition
 		@Override
 		void check(final TC tc)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(name);
 		}
 
 		@Override
