@@ -35,6 +35,7 @@ public final class ConnectToken
 	final int id;
 	private final long issueDate = System.currentTimeMillis();
 	final String name;
+	private final boolean conditional;
 	private final boolean didConnect;
 	private volatile boolean returned = false;
 	private final Object returnedLock = new Object();
@@ -44,6 +45,7 @@ public final class ConnectToken
 			final Model model,
 			final int id,
 			final String name,
+			final boolean conditional,
 			final boolean didConnect)
 	{
 		assert manciple!=null;
@@ -54,6 +56,7 @@ public final class ConnectToken
 		this.model = model;
 		this.id = id;
 		this.name = name;
+		this.conditional = conditional;
 		this.didConnect = didConnect;
 
 		if(Model.isLoggingEnabled())
@@ -66,6 +69,8 @@ public final class ConnectToken
 				bf.append(" (").
 					append(name).
 					append(')');
+			if(conditional)
+				bf.append(" conditional");
 			if(didConnect)
 				bf.append(" CONNECT");
 			System.out.println(bf.toString());
@@ -90,6 +95,11 @@ public final class ConnectToken
 	public String getName()
 	{
 		return name;
+	}
+
+	public boolean wasConditional()
+	{
+		return conditional;
 	}
 
 	public boolean didConnect()
@@ -139,7 +149,7 @@ public final class ConnectToken
 				else
 					model.getConnectProperties().ensureEquality(properties);
 
-				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
+				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false, connect);
 				tokens.add(result);
 				return result;
 			}
@@ -154,7 +164,7 @@ public final class ConnectToken
 				if(tokens.isEmpty())
 					return null;
 
-				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false);
+				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, true, false);
 				tokens.add(result);
 				return result;
 			}
