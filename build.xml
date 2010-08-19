@@ -255,10 +255,11 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.servlet.compile" depends="runtime.core.compile">
+	<target name="runtime.servlet.compile" depends="runtime.core.compile, runtime.pattern.compile">
 		<compile srcdir="runtime/servletsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
