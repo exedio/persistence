@@ -18,6 +18,10 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.ConnectToken.getTokens;
+import static com.exedio.cope.misc.ConnectToken.issue;
+import static com.exedio.cope.util.Properties.getSystemPropertySource;
+
 import java.io.File;
 import java.util.Date;
 import java.util.Properties;
@@ -34,27 +38,27 @@ public class ConnectTokenTest extends CopeAssert
 	{
 		assertNotConnected();
 
-		final ConnectProperties props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
 
 		final Date before0 = new Date();
-		final ConnectToken token0 = ConnectToken.issue(model, props, "token0Name");
+		final ConnectToken token0 = issue(model, props, "token0Name");
 		final Date after0 = new Date();
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		final Date connectDate = model.getConnectDate();
 		assertWithin(before0, after0, connectDate);
-		assertEqualsUnmodifiable(list(token0), ConnectToken.getTokens(model));
+		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", true, false, token0);
 
 		final Date before1 = new Date();
-		final ConnectToken token1 = ConnectToken.issue(model,
-				new ConnectProperties(ConnectProperties.getSystemPropertySource())/* not the same but equal */,
+		final ConnectToken token1 = issue(model,
+				new ConnectProperties(getSystemPropertySource())/* not the same but equal */,
 				"token1Name");
 		final Date after1 = new Date();
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
-		assertEqualsUnmodifiable(list(token0, token1), ConnectToken.getTokens(model));
+		assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, token1);
 
@@ -65,7 +69,7 @@ public class ConnectTokenTest extends CopeAssert
 			final ConnectProperties props2 = new ConnectProperties(dp, "ConnectTokenTestChangedProps", ConnectProperties.getSystemPropertySource());
 			try
 			{
-				ConnectToken.issue(model, props2, "tokenXName");
+				issue(model, props2, "tokenXName");
 				fail();
 			}
 			catch(final IllegalArgumentException e)
@@ -78,14 +82,14 @@ public class ConnectTokenTest extends CopeAssert
 			assertTrue(model.isConnected());
 			assertSame(props, model.getConnectProperties());
 			assertEquals(connectDate, model.getConnectDate());
-			assertEqualsUnmodifiable(list(token0, token1), ConnectToken.getTokens(model));
+			assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
 		}
 
 		assertEquals(false, token0.returnIt());
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
-		assertEqualsUnmodifiable(list(token1), ConnectToken.getTokens(model));
+		assertEqualsUnmodifiable(list(token1), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", true,  true,  token0);
 		assertToken(1, before1, after1, "token1Name", false, false, token1);
 
@@ -122,7 +126,7 @@ public class ConnectTokenTest extends CopeAssert
 			assertEquals("model not yet connected, use Model#connect", e.getMessage());
 		}
 		assertNull(model.getConnectDate());
-		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
+		assertEqualsUnmodifiable(list(), getTokens(model));
 	}
 
 	private void assertToken(
