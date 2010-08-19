@@ -265,6 +265,7 @@ public final class ConnectToken
 	 * that the model is not disconnected while doing those things.
 	 * <p>
 	 * Tokens returned by this method always do have {@link #didConnect()}==false.
+	 * @see #wasConditional()
 	 */
 	public static final ConnectToken issueIfConnected(
 			final Model model,
