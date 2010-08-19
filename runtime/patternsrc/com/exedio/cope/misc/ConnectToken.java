@@ -55,6 +55,12 @@ public final class ConnectToken
 		this.id = id;
 		this.name = name;
 		this.didConnect = didConnect;
+
+		if(Model.isLoggingEnabled())
+			System.out.println(
+					"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
+					": issued " + id + (name!=null ? (" (" + name + ')') : "") +
+					(didConnect ? " CONNECT" : ""));
 	}
 
 	public Model getModel()
@@ -126,12 +132,6 @@ public final class ConnectToken
 
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
 				tokens.add(result);
-
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") +
-							(connect ? " CONNECT" : ""));
 				return result;
 			}
 		}
@@ -147,11 +147,6 @@ public final class ConnectToken
 
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false);
 				tokens.add(result);
-
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : ""));
 				return result;
 			}
 		}
