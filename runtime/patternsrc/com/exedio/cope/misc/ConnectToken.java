@@ -31,7 +31,7 @@ import com.exedio.cope.Model;
 public final class ConnectToken
 {
 	private final Manciple manciple;
-	final Model model;
+	private final Model model;
 	private final int id;
 	private final long issueDate = System.currentTimeMillis();
 	private final String name;
@@ -77,19 +77,25 @@ public final class ConnectToken
 		}
 	}
 
-	void logReturn(final boolean disconnect)
+	void onReturn(final boolean disconnect)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ConnectToken ").
-			append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
-			append(": returned ").append(id);
-		if(name!=null)
-			bf.append(" (").
-				append(name).
-				append(')');
 		if(disconnect)
-			bf.append(" DISCONNECT");
-		System.out.println(bf.toString());
+			model.disconnect();
+
+		if(Model.isLoggingEnabled())
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("ConnectToken ").
+				append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+				append(": returned ").append(id);
+			if(name!=null)
+				bf.append(" (").
+					append(name).
+					append(')');
+			if(disconnect)
+				bf.append(" DISCONNECT");
+			System.out.println(bf.toString());
+		}
 	}
 
 	public Model getModel()
@@ -192,12 +198,7 @@ public final class ConnectToken
 				final boolean removed = tokens.remove(token);
 				assert removed;
 				final boolean disconnect = tokens.isEmpty();
-				if(disconnect)
-					token.model.disconnect();
-
-				if(Model.isLoggingEnabled())
-					token.logReturn(disconnect);
-
+				token.onReturn(disconnect);
 				return disconnect;
 			}
 		}
