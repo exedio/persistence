@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
 public final class ConnectToken
@@ -197,7 +198,7 @@ public final class ConnectToken
 	 */
 	public static final ConnectToken issue(
 			final Model model,
-			final com.exedio.cope.ConnectProperties properties,
+			final ConnectProperties properties,
 			final String tokenName)
 	{
 		return manciple(model).issue(model, properties, tokenName);
