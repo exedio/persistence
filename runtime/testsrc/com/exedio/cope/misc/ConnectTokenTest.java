@@ -32,18 +32,7 @@ public class ConnectTokenTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertFalse(model.isConnected());
-		try
-		{
-			model.getConnectProperties();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
-		}
-		assertNull(model.getConnectDate());
-		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
+		assertNotConnected();
 
 		final ConnectProperties props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 
@@ -112,18 +101,7 @@ public class ConnectTokenTest extends CopeAssert
 
 
 		assertEquals(true, token2.returnIt());
-		assertFalse(model.isConnected());
-		try
-		{
-			model.getConnectProperties();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
-		}
-		assertNull(model.getConnectDate());
-		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
+		assertNotConnected();
 		assertEquals(true, token1.isReturned());
 		assertEquals(true, token2.isReturned());
 
@@ -136,7 +114,7 @@ public class ConnectTokenTest extends CopeAssert
 		{
 			assertEquals("connect token 0 already returned", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
+		assertNotConnected();
 		assertSame(model, token1.getModel());
 		assertSame(model, token2.getModel());
 		assertEquals(0, token1.getID());
@@ -149,5 +127,21 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals(false, token2.didConnect());
 		assertEquals(true, token1.isReturned());
 		assertEquals(true, token2.isReturned());
+	}
+
+	private void assertNotConnected()
+	{
+		assertFalse(model.isConnected());
+		try
+		{
+			model.getConnectProperties();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+		}
+		assertNull(model.getConnectDate());
+		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
 	}
 }
