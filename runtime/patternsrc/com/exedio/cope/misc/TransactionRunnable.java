@@ -18,21 +18,47 @@
 
 package com.exedio.cope.misc;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.Model;
 
-public class PackageTest extends TestCase
+public class TransactionRunnable implements Runnable
 {
-	public static Test suite()
+	private final Model model;
+	private final Runnable runnable;
+	private final String name;
+
+	public TransactionRunnable(
+			final Model model,
+			final Runnable runnable)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(ServletUtilTest.class);
-		suite.addTestSuite(ServletUtilContextTest.class);
-		suite.addTestSuite(TransactionSlicerTest.class);
-		suite.addTestSuite(TransactionRunnableTest.class);
-		suite.addTestSuite(QueryAggregatorTest.class);
-		return suite;
+		this(model, runnable, null);
+	}
+
+	public TransactionRunnable(
+			final Model model,
+			final Runnable runnable,
+			final String name)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+		if(runnable==null)
+			throw new NullPointerException("runnable");
+
+		this.model = model;
+		this.runnable = runnable;
+		this.name = name;
+	}
+
+	public void run()
+	{
+		try
+		{
+			model.startTransaction(name);
+			runnable.run();
+			model.commit();
+		}
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
 	}
 }
