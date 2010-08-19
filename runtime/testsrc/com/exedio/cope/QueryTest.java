@@ -179,7 +179,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertSame(null, q.getCondition());
 
 			q.narrow(TRUE);
-			assertSame(TRUE, q.getCondition()); // TODO bug, should be null
+			assertSame(null, q.getCondition());
 		}
 	}
 

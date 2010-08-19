@@ -178,7 +178,7 @@ public final class Query<R>
 		condition =
 			condition!=null
 			? condition.and(narrowingCondition)
-			: narrowingCondition;
+			: replaceTrue(narrowingCondition);
 	}
 
 	private Join join(final Join join)
