@@ -197,9 +197,9 @@ public final class ConnectToken
 			{
 				final boolean removed = tokens.remove(token);
 				assert removed;
-				final boolean disconnect = tokens.isEmpty();
-				token.onReturn(disconnect);
-				return disconnect;
+				final boolean result = tokens.isEmpty();
+				token.onReturn(result);
+				return result;
 			}
 		}
 
