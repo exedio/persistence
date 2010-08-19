@@ -79,10 +79,17 @@ public final class ConnectToken
 
 	void logReturn(final boolean disconnect)
 	{
-		System.out.println(
-				"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-				": returned " + id + (name!=null ? (" (" + name + ')') : "") +
-				(disconnect ? " DISCONNECT" : ""));
+		final StringBuilder bf = new StringBuilder();
+		bf.append("ConnectToken ").
+			append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+			append(": returned ").append(id);
+		if(name!=null)
+			bf.append(" (").
+				append(name).
+				append(')');
+		if(disconnect)
+			bf.append(" DISCONNECT");
+		System.out.println(bf.toString());
 	}
 
 	public Model getModel()
