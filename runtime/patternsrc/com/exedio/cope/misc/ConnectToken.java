@@ -32,9 +32,9 @@ public final class ConnectToken
 {
 	private final Manciple manciple;
 	final Model model;
-	final int id;
+	private final int id;
 	private final long issueDate = System.currentTimeMillis();
-	final String name;
+	private final String name;
 	private final boolean conditional;
 	private final boolean didConnect;
 	private volatile boolean returned = false;
@@ -75,6 +75,14 @@ public final class ConnectToken
 				bf.append(" CONNECT");
 			System.out.println(bf.toString());
 		}
+	}
+
+	void logReturn(final boolean disconnect)
+	{
+		System.out.println(
+				"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
+				": returned " + id + (name!=null ? (" (" + name + ')') : "") +
+				(disconnect ? " DISCONNECT" : ""));
 	}
 
 	public Model getModel()
@@ -181,10 +189,8 @@ public final class ConnectToken
 					token.model.disconnect();
 
 				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(token.model), Character.MAX_RADIX) +
-							": returned " + token.id + (token.name!=null ? (" (" + token.name + ')') : "") +
-							(disconnect ? " DISCONNECT" : ""));
+					token.logReturn(disconnect);
+
 				return disconnect;
 			}
 		}
