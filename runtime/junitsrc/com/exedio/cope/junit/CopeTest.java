@@ -66,6 +66,8 @@ public abstract class CopeTest extends CopeAssert
 
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
+		if(item==null)
+			throw new NullPointerException();
 		deleteOnTearDown.add(item);
 		return item;
 	}
