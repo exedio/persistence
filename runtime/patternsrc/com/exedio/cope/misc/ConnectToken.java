@@ -113,7 +113,7 @@ public final class ConnectToken
 
 		ConnectToken issue(
 				final Model model,
-				final com.exedio.cope.ConnectProperties properties,
+				final ConnectProperties properties,
 				final String tokenName)
 		{
 			synchronized(lock)
@@ -132,6 +132,26 @@ public final class ConnectToken
 							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
 							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") +
 							(connect ? " CONNECT" : ""));
+				return result;
+			}
+		}
+
+		ConnectToken issueIfConnected(
+				final Model model,
+				final String tokenName)
+		{
+			synchronized(lock)
+			{
+				if(tokens.isEmpty())
+					return null;
+
+				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false);
+				tokens.add(result);
+
+				if(Model.isLoggingEnabled())
+					System.out.println(
+							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
+							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : ""));
 				return result;
 			}
 		}
@@ -202,6 +222,23 @@ public final class ConnectToken
 			final String tokenName)
 	{
 		return manciple(model).issue(model, properties, tokenName);
+	}
+
+	/**
+	 * Issues a ConnectToken, if the model is already connected.
+	 * Otherwise the method returns null.
+	 * <p>
+	 * Usually you may want to use this method, if you want to do something
+	 * if the model is already connected, but in that case with a guarantee,
+	 * that the model is not disconnected while doing those things.
+	 * <p>
+	 * Tokens returned by this method always do have {@link #didConnect()}==false.
+	 */
+	public static final ConnectToken issueIfConnected(
+			final Model model,
+			final String tokenName)
+	{
+		return manciple(model).issueIfConnected(model, tokenName);
 	}
 
 	/**

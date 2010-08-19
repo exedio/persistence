@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
+import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.util.Properties.getSystemPropertySource;
 
 import java.io.File;
@@ -36,6 +37,9 @@ public class ConnectTokenTest extends CopeAssert
 
 	public void testIt()
 	{
+		assertNotConnected();
+
+		assertEquals(null, issueIfConnected(model, "isNull"));
 		assertNotConnected();
 
 		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
@@ -85,19 +89,40 @@ public class ConnectTokenTest extends CopeAssert
 			assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
 		}
 
+		final Date before2 = new Date();
+		final ConnectToken token2 = issueIfConnected(model, "token2Name");
+		final Date after2 = new Date();
+		assertTrue(model.isConnected());
+		assertSame(props, model.getConnectProperties());
+		assertEquals(connectDate, model.getConnectDate());
+		assertEqualsUnmodifiable(list(token0, token1, token2), getTokens(model));
+		assertToken(0, before0, after0, "token0Name", true,  false, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, token1);
+		assertToken(2, before2, after2, "token2Name", false, false, token2);
+
 		assertEquals(false, token0.returnIt());
+		assertTrue(model.isConnected());
+		assertSame(props, model.getConnectProperties());
+		assertEquals(connectDate, model.getConnectDate());
+		assertEqualsUnmodifiable(list(token1, token2), getTokens(model));
+		assertToken(0, before0, after0, "token0Name", true,  true,  token0);
+		assertToken(1, before1, after1, "token1Name", false, false, token1);
+		assertToken(2, before2, after2, "token2Name", false, false, token2);
+
+		assertEquals(false, token2.returnIt());
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token1), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", true,  true,  token0);
 		assertToken(1, before1, after1, "token1Name", false, false, token1);
-
+		assertToken(2, before2, after2, "token2Name", false, true,  token2);
 
 		assertEquals(true, token1.returnIt());
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, true, token1);
+		assertToken(2, before2, after2, "token2Name", false, true,  token2);
 
 		try
 		{
@@ -111,6 +136,13 @@ public class ConnectTokenTest extends CopeAssert
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, true, token1);
+		assertToken(2, before2, after2, "token2Name", false, true, token2);
+
+		assertEquals(null, issueIfConnected(model, "isNull"));
+		assertNotConnected();
+		assertToken(0, before0, after0, "token0Name", true,  true, token0);
+		assertToken(1, before1, after1, "token1Name", false, true, token1);
+		assertToken(2, before2, after2, "token2Name", false, true, token2);
 	}
 
 	private void assertNotConnected()
