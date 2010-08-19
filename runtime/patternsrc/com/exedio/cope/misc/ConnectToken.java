@@ -57,10 +57,19 @@ public final class ConnectToken
 		this.didConnect = didConnect;
 
 		if(Model.isLoggingEnabled())
-			System.out.println(
-					"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-					": issued " + id + (name!=null ? (" (" + name + ')') : "") +
-					(didConnect ? " CONNECT" : ""));
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("ConnectToken ").
+				append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+				append(": issued ").append(id);
+			if(name!=null)
+				bf.append(" (").
+					append(name).
+					append(')');
+			if(didConnect)
+				bf.append(" CONNECT");
+			System.out.println(bf.toString());
+		}
 	}
 
 	public Model getModel()
