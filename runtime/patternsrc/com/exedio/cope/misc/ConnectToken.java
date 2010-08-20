@@ -51,6 +51,7 @@ public final class ConnectToken
 		assert manciple!=null;
 		assert model!=null;
 		assert id>=0;
+		assert !(conditional && didConnect) : name;
 
 		this.manciple = manciple;
 		this.model = model;
