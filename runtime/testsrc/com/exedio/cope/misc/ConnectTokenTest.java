@@ -179,6 +179,5 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals(conditional, token.wasConditional());
 		assertEquals(didConnect, token.didConnect());
 		assertEquals(isReturned, token.isReturned());
-
 	}
 }
