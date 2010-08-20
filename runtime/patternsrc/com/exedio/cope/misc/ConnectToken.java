@@ -151,6 +151,19 @@ public final class ConnectToken
 		return manciple.returnIt(this);
 	}
 
+	@Override
+	public String toString()
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+			append('/').append(id);
+		if(name!=null)
+			bf.append('(').
+				append(name).
+				append(')');
+		return bf.toString();
+	}
+
 	private static final class Manciple
 	{
 		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();

@@ -53,6 +53,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertWithin(before0, after0, connectDate);
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
+		assertEquals(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) + "/0(token0Name)", token0.toString());
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
