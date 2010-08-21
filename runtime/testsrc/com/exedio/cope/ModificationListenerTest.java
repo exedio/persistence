@@ -32,7 +32,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	public void testCommitListener()
+	public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
