@@ -30,7 +30,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		super(MatchTest.MODEL);
 	}
 
-	final TestListener l = new TestListener();
+	final MockListener l = new MockListener();
 
 	public void testCommitListener()
 	{
@@ -157,13 +157,13 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.startTransaction("CommitListenerTestX");
 	}
 
-	private final class TestListener implements ModificationListener
+	private final class MockListener implements ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
 		Transaction transaction = null;
 		boolean exception = false;
 
-		TestListener()
+		MockListener()
 		{
 			// make constructor non-private
 		}
