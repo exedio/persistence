@@ -37,6 +37,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ClusterIntTest.class);
 		suite.addTestSuite(ClusterSenderMulticastTest.class);
 		suite.addTestSuite(ClusterNetworkPingTest.class);
+		suite.addTestSuite(ClusterNetworkChangeListenerTest.class);
 		suite.addTestSuite(ClusterNetworkModificationListenerTest.class);
 		suite.addTestSuite(ArraysTest.class);
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);

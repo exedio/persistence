@@ -21,9 +21,9 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.ChangeListener;
 
-public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
+public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
 	@Override
 	protected void tearDown() throws Exception
@@ -45,11 +45,11 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 
 		final MockListener listenerA = new MockListener(modelA);
 		final MockListener listenerB = new MockListener(modelB);
-		modelA.addModificationListener(listenerA);
-		modelB.addModificationListener(listenerB);
+		modelA.addChangeListener(listenerA);
+		modelB.addChangeListener(listenerB);
 
 		final Transaction transactionA =
-			modelA.startTransaction("ClusterNetworkModificationListenerTest#transactionA");
+			modelA.startTransaction("ClusterNetworkChangeListenerTest#transactionA");
 		final TypeA itemA = new TypeA();
 		listenerA.assertIt(null, null);
 		listenerB.assertIt(null, null);
@@ -58,7 +58,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 		listenerB.assertIt(null, null); // this is a serious problem, but we cannot fix it with thw current API
 	}
 
-	private final class MockListener implements ModificationListener
+	private final class MockListener implements ChangeListener
 	{
 		final Model model;
 		Collection<Item> modifiedItems = null;
@@ -102,7 +102,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 			if(exception)
 			{
 				exception = false;
-				throw new NullPointerException("ModificationListener exception");
+				throw new NullPointerException("ChangeListener exception");
 			}
 		}
 

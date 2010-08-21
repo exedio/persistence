@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.util.ChangeListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Constraint;
@@ -46,6 +47,7 @@ public final class Model implements Serializable
 
 	final Types types;
 	private final long initializeDate;
+	final ChangeListeners changeListeners;
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
@@ -72,6 +74,7 @@ public final class Model implements Serializable
 		this.revisions = revisions;
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
+		this.changeListeners = new ChangeListeners(this.types);
 		this.modificationListeners = new ModificationListeners(this.types);
 	}
 
@@ -365,9 +368,19 @@ public final class Model implements Serializable
 		return types.getItem(id);
 	}
 
+	public List<ChangeListener> getChangeListeners()
+	{
+		return changeListeners.get();
+	}
+
 	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
+	}
+
+	public int getChangeListenersCleared()
+	{
+		return changeListeners.getCleared();
 	}
 
 	public int getModificationListenersCleared()
@@ -375,9 +388,19 @@ public final class Model implements Serializable
 		return modificationListeners.getCleared();
 	}
 
+	public void addChangeListener(final ChangeListener listener)
+	{
+		changeListeners.add(listener);
+	}
+
 	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
+	}
+
+	public void removeChangeListener(final ChangeListener listener)
+	{
+		changeListeners.remove(listener);
 	}
 
 	public void removeModificationListener(final ModificationListener listener)
