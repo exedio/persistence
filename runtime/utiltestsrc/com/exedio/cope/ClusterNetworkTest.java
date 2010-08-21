@@ -99,6 +99,11 @@ public abstract class ClusterNetworkTest extends CopeAssert
 
 	static class TypeA extends Item
 	{
+		TypeA()
+		{
+			super(new SetValue[]{});
+		}
+
 		private TypeA(final ActivationParameters ap)
 		{
 			super(ap);
