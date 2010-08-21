@@ -16,22 +16,36 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope;
 
-import java.util.Collection;
+import java.util.Date;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.TransactionInfo;
-
-/**
- * TODO:
- * ModificationListener are not yet triggered in clustered mode
- * if transactions are commited on remote nodes.
- */
-public interface ChangeListener
+public final class TransactionInfo
 {
-	/**
-	 * @param transaction the committed transaction
-	 */
-	void onModifyingCommit(Collection<Item> modifiedItems, TransactionInfo transaction);
+	private final long id;
+	private final String name;
+	private final long startDate;
+
+	TransactionInfo(final Transaction transaction)
+	{
+		this.id = transaction.getID();
+		this.name = transaction.getName();
+		this.startDate = transaction.getStartDate().getTime();
+
+	}
+
+	public long getID()
+	{
+		return id;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public Date getStartDate()
+	{
+		return new Date(startDate);
+	}
 }

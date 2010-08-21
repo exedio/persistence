@@ -62,7 +62,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	{
 		final Model model;
 		Collection<Item> modifiedItems = null;
-		Transaction transaction = null;
+		TransactionInfo transaction = null;
 		boolean exception = false;
 
 		MockListener(final Model model)
@@ -70,7 +70,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			this.model = model;
 		}
 
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final TransactionInfo transaction)
 		{
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
@@ -79,8 +79,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertTrue(transaction.getID()>=0);
 			assertNotNull(transaction.getName());
 			assertNotNull(transaction.getStartDate());
-			assertNull(transaction.getBoundThread());
-			assertTrue(transaction.isClosed());
 
 			assertTrue(this.modifiedItems==null);
 			assertTrue(this.transaction==null);
@@ -109,7 +107,20 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
 		{
 			assertContainsList(expectedItems, modifiedItems);
-			assertSame(expectedTransaction, transaction);
+
+			if(expectedTransaction!=null)
+			{
+				assertEquals(expectedTransaction.getID(), transaction.getID());
+				assertEquals(expectedTransaction.getName(), transaction.getName());
+				assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
+				assertNull(expectedTransaction.getBoundThread());
+				assertTrue(expectedTransaction.isClosed());
+			}
+			else
+			{
+				assertNull(transaction);
+			}
+
 			modifiedItems = null;
 			transaction = null;
 		}
