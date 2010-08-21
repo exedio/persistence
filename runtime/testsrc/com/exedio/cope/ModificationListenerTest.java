@@ -130,7 +130,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		assertEquals(0, model.getModificationListenersCleared());
 
 		// test weakness
-		FailModificationListener l1 = new FailModificationListener();
+		FailListener l1 = new FailListener();
 		model.addModificationListener(l1);
 		assertEquals(list(l1), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
@@ -145,9 +145,9 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		assertEquals(list(), model.getModificationListeners());
 		assertEquals(1, model.getModificationListenersCleared());
 
-		final FailModificationListener l2 = new FailModificationListener();
+		final FailListener l2 = new FailListener();
 		model.addModificationListener(l2);
-		model.addModificationListener(new FailModificationListener());
+		model.addModificationListener(new FailListener());
 		System.gc();
 		model.removeModificationListener(l2);
 		assertEquals(2, model.getModificationListenersCleared());
@@ -213,9 +213,9 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailModificationListener implements ModificationListener
+	private final class FailListener implements ModificationListener
 	{
-		FailModificationListener()
+		FailListener()
 		{
 			// make constructor non-private
 		}
