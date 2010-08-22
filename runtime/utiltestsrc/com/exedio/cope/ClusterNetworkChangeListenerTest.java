@@ -44,8 +44,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Context (14446>14447)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (14447>14446)", modelB.getConnectProperties().getContext().getDescription());
 
-		final MockListener listenerA = new MockListener(modelA);
-		final MockListener listenerB = new MockListener(modelB);
+		final MockListener listenerA = new MockListener(modelA, modelB);
+		final MockListener listenerB = new MockListener(modelB, modelA);
 		modelA.addChangeListener(listenerA);
 		modelB.addChangeListener(listenerB);
 
@@ -63,12 +63,14 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	private final class MockListener implements ChangeListener
 	{
 		final Model model;
+		final Model otherModel;
 		Collection<Item> modifiedItems = null;
 		TransactionInfo transaction = null;
 
-		MockListener(final Model model)
+		MockListener(final Model model, final Model otherModel)
 		{
 			this.model = model;
+			this.otherModel = otherModel;
 		}
 
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final TransactionInfo transaction)
@@ -108,6 +110,15 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			assertNotNull(transaction);
 			assertEquals(false, transaction.isRemote());
+			try
+			{
+				transaction.getNode();
+				fail();
+			}
+			catch(final IllegalStateException e)
+			{
+				assertEquals("not available", e.getMessage());
+			}
 			assertEquals(expectedTransaction.getID(), transaction.getID());
 			assertEquals(expectedTransaction.getName(), transaction.getName());
 			assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
@@ -129,6 +140,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			assertNotNull(transaction);
 			assertEquals(true, transaction.isRemote());
+			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), transaction.getNode());
 			try
 			{
 				transaction.getID();

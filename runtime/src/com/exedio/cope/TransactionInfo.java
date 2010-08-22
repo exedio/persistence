@@ -23,6 +23,7 @@ import java.util.Date;
 public final class TransactionInfo
 {
 	private final boolean remote;
+	private final int node;
 	private final long id;
 	private final String name;
 	private final long startDate;
@@ -30,14 +31,16 @@ public final class TransactionInfo
 	TransactionInfo(final Transaction transaction)
 	{
 		this.remote = false;
+		this.node = 0;
 		this.id = transaction.getID();
 		this.name = transaction.getName();
 		this.startDate = transaction.getStartDate().getTime();
 	}
 
-	TransactionInfo()
+	TransactionInfo(final int node)
 	{
 		this.remote = true;
+		this.node = node;
 		this.id = 0;
 		this.name = null;
 		this.startDate = 0;
@@ -46,6 +49,14 @@ public final class TransactionInfo
 	public boolean isRemote()
 	{
 		return remote;
+	}
+
+	public int getNode()
+	{
+		if(!remote)
+			throw new IllegalStateException("not available");
+
+		return node;
 	}
 
 	/**
