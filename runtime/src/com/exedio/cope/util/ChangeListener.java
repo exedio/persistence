@@ -25,8 +25,5 @@ import com.exedio.cope.TransactionInfo;
 
 public interface ChangeListener
 {
-	/**
-	 * @param transaction the committed transaction
-	 */
 	void onModifyingCommit(Collection<Item> modifiedItems, TransactionInfo transaction);
 }
