@@ -35,7 +35,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		super.tearDown();
 	}
 
-	public void testSinglecast()
+	public void testSinglecast() throws InterruptedException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));
@@ -56,6 +56,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerB.assertEmpty();
 		modelA.commit();
 		listenerA.assertLocal(listg(itemA), transactionA);
+		sleepLongerThan(50);
 		listenerB.assertRemote(listg("TypeB-0"));
 	}
 
