@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerB.assertEmpty();
 		modelA.commit();
 		listenerA.assertLocal(listg(itemA), transactionA);
-		listenerB.assertEmpty(); // this is a serious problem, but we cannot fix it with thw current API
+		listenerB.assertRemote(listg("TypeB-0"));
 	}
 
 	private final class MockListener implements ChangeListener
@@ -75,10 +76,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
-
-			assertTrue(transaction.getID()>=0);
-			assertNotNull(transaction.getName());
-			assertNotNull(transaction.getStartDate());
 
 			assertTrue(this.modifiedItems==null);
 			assertTrue(this.transaction==null);
@@ -112,13 +109,59 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction)
 		{
+			assertNotNull(modifiedItems);
 			assertContainsList(expectedItems, modifiedItems);
+
 			assertNotNull(transaction);
+			assertEquals(false, transaction.isRemote());
 			assertEquals(expectedTransaction.getID(), transaction.getID());
 			assertEquals(expectedTransaction.getName(), transaction.getName());
 			assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
+
+			modifiedItems = null;
+			transaction = null;
+		}
+
+		void assertRemote(final List<String> expectedItems)
+		{
+			assertNotNull(modifiedItems);
+
+			final ArrayList<String> modifiedItemIds = new ArrayList<String>();
+			for(final Item item : modifiedItems)
+				modifiedItemIds.add(item.getCopeID());
+			assertContainsList(expectedItems, modifiedItemIds);
+
+			assertNotNull(transaction);
+			assertEquals(true, transaction.isRemote());
+			try
+			{
+				transaction.getID();
+				fail();
+			}
+			catch(final IllegalStateException e)
+			{
+				assertEquals("not available", e.getMessage());
+			}
+			try
+			{
+				transaction.getName();
+				fail();
+			}
+			catch(final IllegalStateException e)
+			{
+				assertEquals("not available", e.getMessage());
+			}
+			try
+			{
+				transaction.getStartDate();
+				fail();
+			}
+			catch(final IllegalStateException e)
+			{
+				assertEquals("not available", e.getMessage());
+			}
 
 			modifiedItems = null;
 			transaction = null;

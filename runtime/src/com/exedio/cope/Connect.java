@@ -48,7 +48,8 @@ final class Connect
 			final String name,
 			final Types types,
 			final Revisions revisions,
-			final ConnectProperties properties)
+			final ConnectProperties properties,
+			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
 
@@ -106,7 +107,7 @@ final class Connect
 			if(clusterProperties!=null)
 			{
 				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
-				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this);
+				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this, changeListeners);
 			}
 			else
 			{

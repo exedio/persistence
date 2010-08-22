@@ -40,9 +40,9 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final ClusterProperties properties,
 			final String name,
 			final ClusterSender sender,
-			final int typeLength, final Connect connect)
+			final int typeLength, final Connect connect, final ChangeListeners changeListeners)
 	{
-		super(properties, sender, typeLength, connect);
+		super(properties, sender, typeLength, connect, changeListeners);
 		this.log = properties.log.booleanValue();
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;

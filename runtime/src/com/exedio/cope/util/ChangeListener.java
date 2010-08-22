@@ -23,11 +23,6 @@ import java.util.Collection;
 import com.exedio.cope.Item;
 import com.exedio.cope.TransactionInfo;
 
-/**
- * TODO:
- * ModificationListener are not yet triggered in clustered mode
- * if transactions are commited on remote nodes.
- */
 public interface ChangeListener
 {
 	/**
