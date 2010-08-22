@@ -51,11 +51,11 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		final Transaction transactionA =
 			modelA.startTransaction("ClusterNetworkChangeListenerTest#transactionA");
 		final TypeA itemA = new TypeA();
-		listenerA.assertIt(null, null);
-		listenerB.assertIt(null, null);
+		listenerA.assertEmpty();
+		listenerB.assertEmpty();
 		modelA.commit();
-		listenerA.assertIt(list(itemA), transactionA);
-		listenerB.assertIt(null, null); // this is a serious problem, but we cannot fix it with thw current API
+		listenerA.assertLocal(listg(itemA), transactionA);
+		listenerB.assertEmpty(); // this is a serious problem, but we cannot fix it with thw current API
 	}
 
 	private final class MockListener implements ChangeListener
@@ -104,22 +104,21 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 		}
 
-		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
+		void assertEmpty()
+		{
+			assertNull(modifiedItems);
+			assertNull(transaction);
+		}
+
+		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction)
 		{
 			assertContainsList(expectedItems, modifiedItems);
-
-			if(expectedTransaction!=null)
-			{
-				assertEquals(expectedTransaction.getID(), transaction.getID());
-				assertEquals(expectedTransaction.getName(), transaction.getName());
-				assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
-				assertNull(expectedTransaction.getBoundThread());
-				assertTrue(expectedTransaction.isClosed());
-			}
-			else
-			{
-				assertNull(transaction);
-			}
+			assertNotNull(transaction);
+			assertEquals(expectedTransaction.getID(), transaction.getID());
+			assertEquals(expectedTransaction.getName(), transaction.getName());
+			assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
+			assertNull(expectedTransaction.getBoundThread());
+			assertTrue(expectedTransaction.isClosed());
 
 			modifiedItems = null;
 			transaction = null;
