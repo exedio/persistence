@@ -316,7 +316,7 @@ public final class Transaction
 		// notify ChangeListeners
 		if(!rollback)
 		{
-			model.changeListeners.invalidate(invalidations, this);
+			model.changeListeners.invalidate(invalidations, new TransactionInfo(this));
 			model.modificationListeners.invalidate(invalidations, this);
 		}
 

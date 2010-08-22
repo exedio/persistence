@@ -115,7 +115,7 @@ final class ChangeListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
+	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
 	{
 		final List<ChangeListener> commitListeners = get();
 		if(!commitListeners.isEmpty())
@@ -138,7 +138,6 @@ final class ChangeListeners
 			if(modifiedItems!=null && !modifiedItems.isEmpty())
 			{
 				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				final TransactionInfo transactionInfo = new TransactionInfo(transaction);
 				for(final ChangeListener listener : commitListeners)
 				{
 					try
