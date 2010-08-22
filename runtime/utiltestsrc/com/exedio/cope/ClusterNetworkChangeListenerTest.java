@@ -65,7 +65,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		final Model model;
 		Collection<Item> modifiedItems = null;
 		TransactionInfo transaction = null;
-		boolean exception = false;
 
 		MockListener(final Model model)
 		{
@@ -94,12 +93,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			this.modifiedItems = modifiedItems;
 			this.transaction = transaction;
-
-			if(exception)
-			{
-				exception = false;
-				throw new NullPointerException("ChangeListener exception");
-			}
 		}
 
 		void assertEmpty()
