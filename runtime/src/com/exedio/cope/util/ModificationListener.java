@@ -28,8 +28,8 @@ public interface ModificationListener
 	/**
 	 * @deprecated
 	 * ModificationListener are not yet triggered in clustered mode
-	 * if transactions are commited on remote nodes.
-	 * Use {@link ChangeListener} instead.
+	 * if transactions are committed on remote nodes.
+	 * Use {@link com.exedio.cope.ChangeListener} instead.
 	 * @param transaction the committed transaction
 	 */
 	@Deprecated
