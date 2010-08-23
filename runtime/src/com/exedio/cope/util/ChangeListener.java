@@ -22,5 +22,5 @@ import com.exedio.cope.ChangeEvent;
 
 public interface ChangeListener
 {
-	void onModifyingCommit(ChangeEvent event);
+	void onChange(ChangeEvent event);
 }

@@ -167,7 +167,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onModifyingCommit(final ChangeEvent event)
+		public void onChange(final ChangeEvent event)
 		{
 			final Collection<Item> modifiedItems = event.getModifiedItems();
 
@@ -229,7 +229,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onModifyingCommit(final ChangeEvent event)
+		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();
 		}

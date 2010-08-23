@@ -72,7 +72,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			this.otherModel = otherModel;
 		}
 
-		public void onModifyingCommit(final ChangeEvent event)
+		public void onChange(final ChangeEvent event)
 		{
 			assertNotNull(event);
 			final Collection<Item> modifiedItems = event.getModifiedItems();

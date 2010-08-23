@@ -128,7 +128,7 @@ final class ChangeListeners
 				{
 					try
 					{
-						listener.onModifyingCommit(event);
+						listener.onChange(event);
 					}
 					catch(final RuntimeException e)
 					{
