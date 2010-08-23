@@ -24,8 +24,8 @@ import java.util.List;
 
 public final class ChangeEvent
 {
-	final List<Item> modifiedItems;
-	final TransactionInfo transactionInfo;
+	private final List<Item> modifiedItems;
+	private final TransactionInfo transactionInfo;
 
 	ChangeEvent(final List<Item> modifiedItems, final TransactionInfo transactionInfo)
 	{
