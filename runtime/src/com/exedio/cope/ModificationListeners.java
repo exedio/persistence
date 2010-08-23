@@ -22,6 +22,7 @@ import gnu.trove.TIntHashSet;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,7 +30,6 @@ import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
 
-@Deprecated
 final class ModificationListeners
 {
 	private final Types types;
@@ -128,7 +128,7 @@ final class ModificationListeners
 				{
 					try
 					{
-						listener.onModifyingCommit(modifiedItemsUnmodifiable, transaction);
+						onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
 					}
 					catch(final RuntimeException e)
 					{
@@ -140,5 +140,11 @@ final class ModificationListeners
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void onModifyingCommit(final ModificationListener listener, final Collection<Item> modifiedItems, final Transaction transaction)
+	{
+		listener.onModifyingCommit(modifiedItems, transaction);
 	}
 }

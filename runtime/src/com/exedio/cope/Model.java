@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -46,7 +47,6 @@ public final class Model implements Serializable
 	final Types types;
 	private final long initializeDate;
 	final ChangeListeners changeListeners;
-	@Deprecated
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
@@ -74,7 +74,7 @@ public final class Model implements Serializable
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners(this.types);
-		this.modificationListeners = newModificationListeners(this.types);
+		this.modificationListeners = new ModificationListeners(this.types);
 	}
 
 	public boolean containsTypeSet(final Type... typeSet)
@@ -372,7 +372,7 @@ public final class Model implements Serializable
 		return changeListeners.get();
 	}
 
-	@Deprecated public List<com.exedio.cope.util.ModificationListener> getModificationListeners()
+	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
 	}
@@ -382,7 +382,7 @@ public final class Model implements Serializable
 		return changeListeners.getCleared();
 	}
 
-	@Deprecated public int getModificationListenersCleared()
+	public int getModificationListenersCleared()
 	{
 		return modificationListeners.getCleared();
 	}
@@ -392,7 +392,7 @@ public final class Model implements Serializable
 		changeListeners.add(listener);
 	}
 
-	@Deprecated public void addModificationListener(final com.exedio.cope.util.ModificationListener listener)
+	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
 	}
@@ -402,7 +402,7 @@ public final class Model implements Serializable
 		changeListeners.remove(listener);
 	}
 
-	@Deprecated public void removeModificationListener(final com.exedio.cope.util.ModificationListener listener)
+	public void removeModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.remove(listener);
 	}
@@ -1033,11 +1033,5 @@ public final class Model implements Serializable
 	public boolean supportsSequences()
 	{
 		return SchemaInfo.supportsSequences(this);
-	}
-
-	@SuppressWarnings("deprecation")
-	private static ModificationListeners newModificationListeners(final Types types)
-	{
-		return new ModificationListeners(types);
 	}
 }

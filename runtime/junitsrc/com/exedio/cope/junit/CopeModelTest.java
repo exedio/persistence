@@ -22,6 +22,7 @@ import com.exedio.cope.ChangeListener;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.ModificationListener;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -62,16 +63,10 @@ public abstract class CopeModelTest extends CopeAssert
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);
-		tearDownModificationListeners();
+		for(final ModificationListener ml : model.getModificationListeners())
+			model.removeModificationListener(ml);
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
-	}
-
-	@SuppressWarnings("deprecation")
-	private void tearDownModificationListeners()
-	{
-		for(final com.exedio.cope.util.ModificationListener ml : model.getModificationListeners())
-			model.removeModificationListener(ml);
 	}
 
 	// ------------------- deprecated stuff -------------------

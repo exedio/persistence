@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
+import com.exedio.cope.util.ModificationListener;
+
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
 	public ModificationListenerTest()
@@ -30,7 +32,6 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	@Deprecated
 	public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -156,7 +157,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.startTransaction("CommitListenerTestX");
 	}
 
-	@Deprecated private final class MockListener implements com.exedio.cope.util.ModificationListener
+	private final class MockListener implements ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
 		Transaction transaction = null;
@@ -167,6 +168,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			assertTrue(modifiedItems!=null);
@@ -212,13 +214,14 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Deprecated private final class FailListener implements com.exedio.cope.util.ModificationListener
+	private final class FailListener implements ModificationListener
 	{
 		FailListener()
 		{
 			// make constructor non-private
 		}
 
+		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			throw new RuntimeException();
