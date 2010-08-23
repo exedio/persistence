@@ -53,24 +53,27 @@ public final class ChangeEvent
 
 	/**
 	 * @throws IllegalStateException is that information is not available
+	 * @see Transaction#getID()
 	 */
-	public long getID()
+	public long getTransactionID()
 	{
 		return transactionInfo.getID();
 	}
 
 	/**
 	 * @throws IllegalStateException is that information is not available
+	 * @see Transaction#getName()
 	 */
-	public String getName()
+	public String getTransactionName()
 	{
 		return transactionInfo.getName();
 	}
 
 	/**
 	 * @throws IllegalStateException is that information is not available
+	 * @see Transaction#getStartDate()
 	 */
-	public Date getStartDate()
+	public Date getTransactionStartDate()
 	{
 		return transactionInfo.getStartDate();
 	}

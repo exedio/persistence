@@ -117,9 +117,9 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			{
 				assertEquals("not available", e.getMessage());
 			}
-			assertEquals(expectedTransaction.getID(), event.getID());
-			assertEquals(expectedTransaction.getName(), event.getName());
-			assertEquals(expectedTransaction.getStartDate(), event.getStartDate());
+			assertEquals(expectedTransaction.getID(), event.getTransactionID());
+			assertEquals(expectedTransaction.getName(), event.getTransactionName());
+			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
 
@@ -140,7 +140,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), event.getOriginClusterNodeID());
 			try
 			{
-				event.getID();
+				event.getTransactionID();
 				fail();
 			}
 			catch(final IllegalStateException e)
@@ -149,7 +149,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			try
 			{
-				event.getName();
+				event.getTransactionName();
 				fail();
 			}
 			catch(final IllegalStateException e)
@@ -158,7 +158,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			try
 			{
-				event.getStartDate();
+				event.getTransactionStartDate();
 				fail();
 			}
 			catch(final IllegalStateException e)

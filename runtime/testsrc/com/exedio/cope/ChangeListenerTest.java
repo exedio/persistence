@@ -175,9 +175,9 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
 
-			assertTrue(event.getID()>=0);
-			assertNotNull(event.getName());
-			assertNotNull(event.getStartDate());
+			assertTrue(event.getTransactionID()>=0);
+			assertNotNull(event.getTransactionName());
+			assertNotNull(event.getTransactionStartDate());
 
 			assertTrue(this.event==null);
 
@@ -206,9 +206,9 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			if(expectedTransaction!=null)
 			{
 				assertContainsList(expectedItems, event.getModifiedItems());
-				assertEquals(expectedTransaction.getID(), event.getID());
-				assertEquals(expectedTransaction.getName(), event.getName());
-				assertEquals(expectedTransaction.getStartDate(), event.getStartDate());
+				assertEquals(expectedTransaction.getID(), event.getTransactionID());
+				assertEquals(expectedTransaction.getName(), event.getTransactionName());
+				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
 				assertNull(expectedTransaction.getBoundThread());
 				assertTrue(expectedTransaction.isClosed());
 			}
