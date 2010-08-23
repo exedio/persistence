@@ -21,6 +21,8 @@ package com.exedio.cope.junit;
 import java.util.Collection;
 import java.util.List;
 
+import com.exedio.cope.ChangeEvent;
+import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
@@ -88,12 +90,26 @@ public class CopeModelTestTest extends CopeModelTest
 		});
 	}
 
+	public void testChangeListener()
+	{
+		assertBlank();
+
+		model.addChangeListener(new ChangeListener()
+		{
+			public void onChange(final ChangeEvent event)
+			{
+				throw new RuntimeException();
+			}
+		});
+	}
+
 	public void testModificationListener()
 	{
 		assertBlank();
 
 		model.addModificationListener(new ModificationListener()
 		{
+			@Deprecated
 			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{
 				throw new RuntimeException();
@@ -112,6 +128,7 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
 		model.checkEmptySchema();
 		assertEquals(null, model.getDatabaseListener());
+		assertEquals(list(), model.getChangeListeners());
 		assertEquals(list(), model.getModificationListeners());
 	}
 }

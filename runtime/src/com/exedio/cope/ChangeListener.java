@@ -16,22 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope;
 
-import java.util.Collection;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.Transaction;
-
-public interface ModificationListener
+public interface ChangeListener
 {
-	/**
-	 * @deprecated
-	 * ModificationListener are not yet triggered in clustered mode
-	 * if transactions are committed on remote nodes.
-	 * Use {@link com.exedio.cope.ChangeListener} instead.
-	 * @param transaction the committed transaction
-	 */
-	@Deprecated
-	void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction);
+	void onChange(ChangeEvent event);
 }

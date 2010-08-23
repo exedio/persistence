@@ -130,6 +130,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CacheIsolationTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
+		suite.addTestSuite( ChangeListenerTest.class );
 		suite.addTestSuite( ModificationListenerTest.class );
 		suite.addTestSuite( RevisionTest.class );
 		suite.addTestSuite( RevisionsTest.class );

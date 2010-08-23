@@ -46,6 +46,7 @@ public final class Model implements Serializable
 
 	final Types types;
 	private final long initializeDate;
+	final ChangeListeners changeListeners;
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
@@ -72,6 +73,7 @@ public final class Model implements Serializable
 		this.revisions = revisions;
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
+		this.changeListeners = new ChangeListeners(this.types);
 		this.modificationListeners = new ModificationListeners(this.types);
 	}
 
@@ -100,7 +102,7 @@ public final class Model implements Serializable
 			if(this.connect!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connect = new Connect(toString(), types, revisions, properties);
+			this.connect = new Connect(toString(), types, revisions, properties, changeListeners);
 			types.connect(connect.database);
 		}
 	}
@@ -365,9 +367,19 @@ public final class Model implements Serializable
 		return types.getItem(id);
 	}
 
+	public List<ChangeListener> getChangeListeners()
+	{
+		return changeListeners.get();
+	}
+
 	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
+	}
+
+	public int getChangeListenersCleared()
+	{
+		return changeListeners.getCleared();
 	}
 
 	public int getModificationListenersCleared()
@@ -375,9 +387,19 @@ public final class Model implements Serializable
 		return modificationListeners.getCleared();
 	}
 
+	public void addChangeListener(final ChangeListener listener)
+	{
+		changeListeners.add(listener);
+	}
+
 	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
+	}
+
+	public void removeChangeListener(final ChangeListener listener)
+	{
+		changeListeners.remove(listener);
 	}
 
 	public void removeModificationListener(final ModificationListener listener)

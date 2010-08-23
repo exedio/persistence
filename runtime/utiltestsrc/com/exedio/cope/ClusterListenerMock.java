@@ -35,7 +35,7 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
-	final void invalidate(final TIntHashSet[] invalidations)
+	final void invalidate(final int node, final TIntHashSet[] invalidations)
 	{
 		testSink.add(invalidations);
 	}

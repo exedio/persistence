@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -346,7 +349,7 @@ final class Types
 		return featuresByID.get(id);
 	}
 
-	Type getConcreteType(final int transientNumber)
+	private Type getConcreteType(final int transientNumber)
 	{
 		return concreteTypes[transientNumber];
 	}
@@ -421,5 +424,24 @@ final class Types
 	{
 		for(final Type type : typesSorted)
 			type.disconnect();
+	}
+
+	ArrayList<Item> activate(final TIntHashSet[] invalidations)
+	{
+		ArrayList<Item> result = null;
+
+		for(int type = 0; type<invalidations.length; type++)
+		{
+			final TIntHashSet set = invalidations[type];
+			if(set!=null)
+			{
+				if(result==null)
+					result = new ArrayList<Item>();
+
+				for(final TIntIterator i = set.iterator(); i.hasNext(); )
+					result.add(getConcreteType(type).activate(i.next()));
+			}
+		}
+		return result;
 	}
 }

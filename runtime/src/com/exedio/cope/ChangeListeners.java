@@ -22,39 +22,36 @@ import gnu.trove.TIntHashSet;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
-
-final class ModificationListeners
+final class ChangeListeners
 {
 	private final Types types;
-	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
+	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
 
-	ModificationListeners(final Types types)
+	ChangeListeners(final Types types)
 	{
 		this.types = types;
 	}
 
-	List<ModificationListener> get()
+	List<ChangeListener> get()
 	{
 		synchronized(list)
 		{
 			final int size = list.size();
 			if(size==0)
-				return Collections.<ModificationListener>emptyList();
+				return Collections.<ChangeListener>emptyList();
 
 			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
+			final ArrayList<ChangeListener> result = new ArrayList<ChangeListener>(size);
 			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
+			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
-				final ModificationListener listener = i.next().get();
+				final ChangeListener listener = i.next().get();
 				if(listener==null)
 				{
 					i.remove();
@@ -79,19 +76,19 @@ final class ModificationListeners
 		}
 	}
 
-	void add(final ModificationListener listener)
+	void add(final ChangeListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener");
 
-		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
+		final WeakReference<ChangeListener> ref = new WeakReference<ChangeListener>(listener);
 		synchronized(list)
 		{
 			list.add(ref);
 		}
 	}
 
-	void remove(final ModificationListener listener)
+	void remove(final ChangeListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener");
@@ -99,9 +96,9 @@ final class ModificationListeners
 		synchronized(list)
 		{
 			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
+			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
-				final ModificationListener l = i.next().get();
+				final ChangeListener l = i.next().get();
 				if(l==null)
 				{
 					i.remove();
@@ -115,36 +112,31 @@ final class ModificationListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
+	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
 	{
-		final List<ModificationListener> listeners = get();
+		final List<ChangeListener> listeners = get();
 		if(!listeners.isEmpty())
 		{
-			final ArrayList<Item> modifiedItems = types.activate(invalidations);
-			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			final ArrayList<Item> items = types.activate(invalidations);
+			if(items!=null && !items.isEmpty())
 			{
-				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				for(final ModificationListener listener : listeners)
+				final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+				final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
+				for(final ChangeListener listener : listeners)
 				{
 					try
 					{
-						onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
+						listener.onChange(event);
 					}
 					catch(final RuntimeException e)
 					{
 						if(Model.isLoggingEnabled())
 							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
+									"Suppressing exception from change listener " + listener.getClass().getName() +
 									':' + e.getClass().getName() + ' ' + e.getMessage());
 					}
 				}
 			}
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private static void onModifyingCommit(final ModificationListener listener, final Collection<Item> modifiedItems, final Transaction transaction)
-	{
-		listener.onModifyingCommit(modifiedItems, transaction);
 	}
 }

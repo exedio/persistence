@@ -134,7 +134,7 @@ abstract class ClusterListener
 					}
 				}
 
-				invalidate(invalidations);
+				invalidate(node, invalidations);
 
 				break;
 			}
@@ -176,7 +176,7 @@ abstract class ClusterListener
 			((buf[pos++] & 0xff)<<24) ;
 	}
 
-	abstract void invalidate(TIntHashSet[] invalidations);
+	abstract void invalidate(int node, TIntHashSet[] invalidations);
 	abstract void pong();
 	abstract int getReceiveBufferSize();
 	abstract void close();

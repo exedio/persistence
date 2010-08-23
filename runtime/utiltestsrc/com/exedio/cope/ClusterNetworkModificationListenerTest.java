@@ -30,6 +30,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 	{
 		modelB.rollbackIfNotCommitted();
 		modelA.rollbackIfNotCommitted();
+		modelA.tearDownSchema();
 		super.tearDown();
 	}
 
@@ -62,13 +63,13 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 		final Model model;
 		Collection<Item> modifiedItems = null;
 		Transaction transaction = null;
-		boolean exception = false;
 
 		MockListener(final Model model)
 		{
 			this.model = model;
 		}
 
+		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			assertTrue(modifiedItems!=null);
@@ -97,12 +98,6 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 
 			this.modifiedItems = modifiedItems;
 			this.transaction = transaction;
-
-			if(exception)
-			{
-				exception = false;
-				throw new NullPointerException("ModificationListener exception");
-			}
 		}
 
 		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)

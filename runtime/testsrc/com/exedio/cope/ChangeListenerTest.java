@@ -21,11 +21,9 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
-
-public class ModificationListenerTest extends AbstractRuntimeTest
+public class ChangeListenerTest extends AbstractRuntimeTest
 {
-	public ModificationListenerTest()
+	public ChangeListenerTest()
 	{
 		super(MatchTest.MODEL);
 	}
@@ -34,36 +32,36 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertEqualsUnmodifiable(list(), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
-		model.addModificationListener(l);
-		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		model.addChangeListener(l);
+		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		try
 		{
-			model.addModificationListener(null);
+			model.addChangeListener(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("listener", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		try
 		{
-			model.removeModificationListener(null);
+			model.removeChangeListener(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("listener", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
@@ -125,42 +123,41 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
 
-		model.removeModificationListener(l);
-		assertEqualsUnmodifiable(list(), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		model.removeChangeListener(l);
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		// test weakness
 		FailListener l1 = new FailListener();
-		model.addModificationListener(l1);
-		assertEquals(list(l1), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		model.addChangeListener(l1);
+		assertEquals(list(l1), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		System.gc();
-		assertEquals(list(l1), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersCleared());
+		assertEquals(list(l1), model.getChangeListeners());
+		assertEquals(0, model.getChangeListenersCleared());
 
 		l1 = null;
 		System.gc();
-		assertEquals(0, model.getModificationListenersCleared());
-		assertEquals(list(), model.getModificationListeners());
-		assertEquals(1, model.getModificationListenersCleared());
+		assertEquals(0, model.getChangeListenersCleared());
+		assertEquals(list(), model.getChangeListeners());
+		assertEquals(1, model.getChangeListenersCleared());
 
 		final FailListener l2 = new FailListener();
-		model.addModificationListener(l2);
-		model.addModificationListener(new FailListener());
+		model.addChangeListener(l2);
+		model.addChangeListener(new FailListener());
 		System.gc();
-		model.removeModificationListener(l2);
-		assertEquals(2, model.getModificationListenersCleared());
-		assertEquals(list(), model.getModificationListeners());
-		assertEquals(2, model.getModificationListenersCleared());
+		model.removeChangeListener(l2);
+		assertEquals(2, model.getChangeListenersCleared());
+		assertEquals(list(), model.getChangeListeners());
+		assertEquals(2, model.getChangeListenersCleared());
 
 		model.startTransaction("CommitListenerTestX");
 	}
 
-	private final class MockListener implements ModificationListener
+	private final class MockListener implements ChangeListener
 	{
-		Collection<Item> modifiedItems = null;
-		Transaction transaction = null;
+		ChangeEvent event = null;
 		boolean exception = false;
 
 		MockListener()
@@ -168,21 +165,19 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Deprecated
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
+		public void onChange(final ChangeEvent event)
 		{
-			assertTrue(modifiedItems!=null);
-			assertTrue(!modifiedItems.isEmpty());
-			assertUnmodifiable(modifiedItems);
+			final Collection<Item> items = event.getItems();
 
-			assertTrue(transaction.getID()>=0);
-			assertNotNull(transaction.getName());
-			assertNotNull(transaction.getStartDate());
-			assertNull(transaction.getBoundThread());
-			assertTrue(transaction.isClosed());
+			assertTrue(items!=null);
+			assertTrue(!items.isEmpty());
+			assertUnmodifiable(items);
 
-			assertTrue(this.modifiedItems==null);
-			assertTrue(this.transaction==null);
+			assertTrue(event.getTransactionID()>=0);
+			assertNotNull(event.getTransactionName());
+			assertNotNull(event.getTransactionStartDate());
+
+			assertTrue(this.event==null);
 
 			assertContains(model.getOpenTransactions());
 			try
@@ -195,34 +190,44 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}
 
-			this.modifiedItems = modifiedItems;
-			this.transaction = transaction;
+			this.event = event;
 
 			if(exception)
 			{
 				exception = false;
-				throw new NullPointerException("ModificationListener exception");
+				throw new NullPointerException("ChangeListener exception");
 			}
 		}
 
 		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
 		{
-			assertContainsList(expectedItems, modifiedItems);
-			assertSame(expectedTransaction, transaction);
-			modifiedItems = null;
-			transaction = null;
+			if(expectedTransaction!=null)
+			{
+				assertContainsList(expectedItems, event.getItems());
+				assertEquals(expectedTransaction.getID(), event.getTransactionID());
+				assertEquals(expectedTransaction.getName(), event.getTransactionName());
+				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
+				assertNull(expectedTransaction.getBoundThread());
+				assertTrue(expectedTransaction.isClosed());
+			}
+			else
+			{
+				assertNull(expectedItems);
+				assertNull(event);
+			}
+
+			event = null;
 		}
 	}
 
-	private final class FailListener implements ModificationListener
+	private final class FailListener implements ChangeListener
 	{
 		FailListener()
 		{
 			// make constructor non-private
 		}
 
-		@Deprecated
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
+		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();
 		}

@@ -24,21 +24,24 @@ abstract class ClusterListenerModel extends ClusterListener
 {
 	private final ClusterSender sender;
 	private final Connect connect;
+	private final ChangeListeners changeListeners;
 
 	ClusterListenerModel(
 			final ClusterProperties properties,
 			final ClusterSender sender,
-			final int typeLength, final Connect connect)
+			final int typeLength, final Connect connect, final ChangeListeners changeListeners)
 	{
 		super(properties, typeLength);
 		this.sender = sender;
 		this.connect = connect;
+		this.changeListeners = changeListeners;
 	}
 
 	@Override
-	final void invalidate(final TIntHashSet[] invalidations)
+	final void invalidate(final int node, final TIntHashSet[] invalidations)
 	{
 		connect.invalidate(invalidations, false);
+		changeListeners.invalidate(invalidations, new TransactionInfo(node));
 	}
 
 	@Override
