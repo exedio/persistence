@@ -18,12 +18,9 @@
 
 package com.exedio.cope.util;
 
-import java.util.Collection;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.TransactionInfo;
+import com.exedio.cope.ChangeEvent;
 
 public interface ChangeListener
 {
-	void onModifyingCommit(Collection<Item> modifiedItems, TransactionInfo transaction);
+	void onModifyingCommit(ChangeEvent event);
 }

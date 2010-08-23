@@ -64,8 +64,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	{
 		final Model model;
 		final Model otherModel;
-		Collection<Item> modifiedItems = null;
-		TransactionInfo transaction = null;
+		ChangeEvent event = null;
 
 		MockListener(final Model model, final Model otherModel)
 		{
@@ -73,14 +72,15 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			this.otherModel = otherModel;
 		}
 
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final TransactionInfo transaction)
+		public void onModifyingCommit(final ChangeEvent event)
 		{
+			assertNotNull(event);
+			final Collection<Item> modifiedItems = event.getModifiedItems();
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
 
-			assertTrue(this.modifiedItems==null);
-			assertTrue(this.transaction==null);
+			assertTrue(this.event==null);
 
 			assertContains(model.getOpenTransactions());
 			try
@@ -93,57 +93,54 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}
 
-			this.modifiedItems = modifiedItems;
-			this.transaction = transaction;
+			this.event = event;
 		}
 
 		void assertEmpty()
 		{
-			assertNull(modifiedItems);
-			assertNull(transaction);
+			assertNull(event);
 		}
 
 		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction)
 		{
-			assertNotNull(modifiedItems);
-			assertContainsList(expectedItems, modifiedItems);
+			assertNotNull(event);
+			assertContainsList(expectedItems, event.getModifiedItems());
 
-			assertNotNull(transaction);
-			assertEquals(false, transaction.isRemote());
+
+			assertEquals(false, event.isRemote());
 			try
 			{
-				transaction.getNode();
+				event.getNode();
 				fail();
 			}
 			catch(final IllegalStateException e)
 			{
 				assertEquals("not available", e.getMessage());
 			}
-			assertEquals(expectedTransaction.getID(), transaction.getID());
-			assertEquals(expectedTransaction.getName(), transaction.getName());
-			assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
+			assertEquals(expectedTransaction.getID(), event.getID());
+			assertEquals(expectedTransaction.getName(), event.getName());
+			assertEquals(expectedTransaction.getStartDate(), event.getStartDate());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
 
-			modifiedItems = null;
-			transaction = null;
+			event = null;
 		}
 
 		void assertRemote(final List<String> expectedItems)
 		{
-			assertNotNull(modifiedItems);
+			assertNotNull(event);
 
 			final ArrayList<String> modifiedItemIds = new ArrayList<String>();
-			for(final Item item : modifiedItems)
+			for(final Item item : event.getModifiedItems())
 				modifiedItemIds.add(item.getCopeID());
 			assertContainsList(expectedItems, modifiedItemIds);
 
-			assertNotNull(transaction);
-			assertEquals(true, transaction.isRemote());
-			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), transaction.getNode());
+
+			assertEquals(true, event.isRemote());
+			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), event.getNode());
 			try
 			{
-				transaction.getID();
+				event.getID();
 				fail();
 			}
 			catch(final IllegalStateException e)
@@ -152,7 +149,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			try
 			{
-				transaction.getName();
+				event.getName();
 				fail();
 			}
 			catch(final IllegalStateException e)
@@ -161,7 +158,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			try
 			{
-				transaction.getStartDate();
+				event.getStartDate();
 				fail();
 			}
 			catch(final IllegalStateException e)
@@ -169,8 +166,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				assertEquals("not available", e.getMessage());
 			}
 
-			modifiedItems = null;
-			transaction = null;
+			event = null;
 		}
 	}
 }

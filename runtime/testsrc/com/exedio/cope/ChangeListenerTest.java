@@ -159,8 +159,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	private final class MockListener implements ChangeListener
 	{
-		Collection<Item> modifiedItems = null;
-		TransactionInfo transaction = null;
+		ChangeEvent event = null;
 		boolean exception = false;
 
 		MockListener()
@@ -168,18 +167,19 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final TransactionInfo transaction)
+		public void onModifyingCommit(final ChangeEvent event)
 		{
+			final Collection<Item> modifiedItems = event.getModifiedItems();
+
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
 
-			assertTrue(transaction.getID()>=0);
-			assertNotNull(transaction.getName());
-			assertNotNull(transaction.getStartDate());
+			assertTrue(event.getID()>=0);
+			assertNotNull(event.getName());
+			assertNotNull(event.getStartDate());
 
-			assertTrue(this.modifiedItems==null);
-			assertTrue(this.transaction==null);
+			assertTrue(this.event==null);
 
 			assertContains(model.getOpenTransactions());
 			try
@@ -192,8 +192,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}
 
-			this.modifiedItems = modifiedItems;
-			this.transaction = transaction;
+			this.event = event;
 
 			if(exception)
 			{
@@ -204,23 +203,22 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
 		{
-			assertContainsList(expectedItems, modifiedItems);
-
 			if(expectedTransaction!=null)
 			{
-				assertEquals(expectedTransaction.getID(), transaction.getID());
-				assertEquals(expectedTransaction.getName(), transaction.getName());
-				assertEquals(expectedTransaction.getStartDate(), transaction.getStartDate());
+				assertContainsList(expectedItems, event.getModifiedItems());
+				assertEquals(expectedTransaction.getID(), event.getID());
+				assertEquals(expectedTransaction.getName(), event.getName());
+				assertEquals(expectedTransaction.getStartDate(), event.getStartDate());
 				assertNull(expectedTransaction.getBoundThread());
 				assertTrue(expectedTransaction.isClosed());
 			}
 			else
 			{
-				assertNull(transaction);
+				assertNull(expectedItems);
+				assertNull(event);
 			}
 
-			modifiedItems = null;
-			transaction = null;
+			event = null;
 		}
 	}
 
@@ -231,7 +229,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final TransactionInfo transactionInfo)
+		public void onModifyingCommit(final ChangeEvent event)
 		{
 			throw new RuntimeException();
 		}

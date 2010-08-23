@@ -138,11 +138,12 @@ final class ChangeListeners
 			if(modifiedItems!=null && !modifiedItems.isEmpty())
 			{
 				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
+				final ChangeEvent event = new ChangeEvent(modifiedItemsUnmodifiable, transactionInfo);
 				for(final ChangeListener listener : commitListeners)
 				{
 					try
 					{
-						listener.onModifyingCommit(modifiedItemsUnmodifiable, transactionInfo);
+						listener.onModifyingCommit(event);
 					}
 					catch(final RuntimeException e)
 					{

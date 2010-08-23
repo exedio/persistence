@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public final class TransactionInfo
+final class TransactionInfo
 {
 	private final boolean remote;
 	private final int node;
@@ -46,12 +46,12 @@ public final class TransactionInfo
 		this.startDate = 0;
 	}
 
-	public boolean isRemote()
+	boolean isRemote()
 	{
 		return remote;
 	}
 
-	public int getNode()
+	int getNode()
 	{
 		if(!remote)
 			throw new IllegalStateException("not available");
@@ -59,28 +59,19 @@ public final class TransactionInfo
 		return node;
 	}
 
-	/**
-	 * @throws IllegalStateException is that information is not available
-	 */
-	public long getID()
+	long getID()
 	{
 		assertLocal();
 		return id;
 	}
 
-	/**
-	 * @throws IllegalStateException is that information is not available
-	 */
-	public String getName()
+	String getName()
 	{
 		assertLocal();
 		return name;
 	}
 
-	/**
-	 * @throws IllegalStateException is that information is not available
-	 */
-	public Date getStartDate()
+	Date getStartDate()
 	{
 		assertLocal();
 		return new Date(startDate);
