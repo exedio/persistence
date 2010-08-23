@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ChangeListener;
-
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
 	public ChangeListenerTest()

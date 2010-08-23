@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
-
-import com.exedio.cope.ChangeEvent;
+package com.exedio.cope;
 
 public interface ChangeListener
 {

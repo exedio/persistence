@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ChangeListener;
-
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
 	@Override

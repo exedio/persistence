@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.util.ChangeListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.Constraint;
