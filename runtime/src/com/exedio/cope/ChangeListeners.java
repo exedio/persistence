@@ -114,15 +114,15 @@ final class ChangeListeners
 
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
 	{
-		final List<ChangeListener> commitListeners = get();
-		if(!commitListeners.isEmpty())
+		final List<ChangeListener> listeners = get();
+		if(!listeners.isEmpty())
 		{
 			final ArrayList<Item> items = types.activate(invalidations);
 			if(items!=null && !items.isEmpty())
 			{
 				final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
 				final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
-				for(final ChangeListener listener : commitListeners)
+				for(final ChangeListener listener : listeners)
 				{
 					try
 					{
