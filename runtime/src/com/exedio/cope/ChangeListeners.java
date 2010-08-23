@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -120,21 +119,7 @@ final class ChangeListeners
 		final List<ChangeListener> commitListeners = get();
 		if(!commitListeners.isEmpty())
 		{
-			ArrayList<Item> modifiedItems = null;
-
-			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
-			{
-				final TIntHashSet invalidationSet = invalidations[typeTransiently];
-				if(invalidationSet!=null)
-				{
-					if(modifiedItems==null)
-						modifiedItems = new ArrayList<Item>();
-
-					for(final TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-						modifiedItems.add(types.getConcreteType(typeTransiently).activate(i.next()));
-				}
-			}
-
+			final ArrayList<Item> modifiedItems = types.activate(invalidations);
 			if(modifiedItems!=null && !modifiedItems.isEmpty())
 			{
 				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
