@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
 
+@Deprecated
 final class ModificationListeners
 {
 	private final Types types;

@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
-
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
 	public ModificationListenerTest()
@@ -32,6 +30,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
+	@Deprecated
 	public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -157,7 +156,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.startTransaction("CommitListenerTestX");
 	}
 
-	private final class MockListener implements ModificationListener
+	@Deprecated private final class MockListener implements com.exedio.cope.util.ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
 		Transaction transaction = null;
@@ -213,7 +212,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailListener implements ModificationListener
+	@Deprecated private final class FailListener implements com.exedio.cope.util.ModificationListener
 	{
 		FailListener()
 		{

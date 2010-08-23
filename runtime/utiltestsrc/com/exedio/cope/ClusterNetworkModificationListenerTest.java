@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-import com.exedio.cope.util.ModificationListener;
-
 public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 {
 	@Override
@@ -34,6 +32,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 		super.tearDown();
 	}
 
+	@Deprecated
 	public void testSinglecast()
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
@@ -58,7 +57,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 		listenerB.assertIt(null, null); // this is a serious problem, but we cannot fix it with thw current API
 	}
 
-	private final class MockListener implements ModificationListener
+	@Deprecated private final class MockListener implements com.exedio.cope.util.ModificationListener
 	{
 		final Model model;
 		Collection<Item> modifiedItems = null;

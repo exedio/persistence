@@ -20,14 +20,17 @@ package com.exedio.cope.util;
 
 import java.util.Collection;
 
+import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Item;
 import com.exedio.cope.Transaction;
 
 /**
- * TODO:
- * ModificationListener are not yet triggered in clustered mode
+ * @deprecated
+ * ModificationListener are not triggered in clustered mode
  * if transactions are commited on remote nodes.
+ * Use {@link ChangeListener} instead.
  */
+@Deprecated
 public interface ModificationListener
 {
 	/**

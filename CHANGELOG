@@ -10,6 +10,7 @@ The items are sorted inversely, i.e. lastest items are on top
 * replace ModificationListener mechanism by ChangeListener
 	- listener receives ChangeEvent instead Collection<Item> and Transaction
 	- works with remote transactions within clusters as well
+	- ModificationListener deprecated, but still works as before
 * add ConnectToken#wasConditional
 * add ConnectToken#issueIfConnected
 * add TransactionRunnable

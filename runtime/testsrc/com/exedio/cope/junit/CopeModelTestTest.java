@@ -25,7 +25,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.util.ModificationListener;
 
 public class CopeModelTestTest extends CopeModelTest
 {
@@ -88,11 +87,12 @@ public class CopeModelTestTest extends CopeModelTest
 		});
 	}
 
+	@Deprecated
 	public void testModificationListener()
 	{
 		assertBlank();
 
-		model.addModificationListener(new ModificationListener()
+		model.addModificationListener(new com.exedio.cope.util.ModificationListener()
 		{
 			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{
@@ -112,6 +112,12 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
 		model.checkEmptySchema();
 		assertEquals(null, model.getDatabaseListener());
-		assertEquals(list(), model.getModificationListeners());
+		assertEquals(list(), getModificationListeners());
+	}
+
+	@SuppressWarnings("deprecation")
+	private List<com.exedio.cope.util.ModificationListener> getModificationListeners()
+	{
+		return model.getModificationListeners();
 	}
 }

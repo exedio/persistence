@@ -317,7 +317,7 @@ public final class Transaction
 		if(!rollback)
 		{
 			model.changeListeners.invalidate(invalidations, new TransactionInfo(this));
-			model.modificationListeners.invalidate(invalidations, this);
+			invalidateModificationListeners(invalidations);
 		}
 
 		// cleanup
@@ -341,6 +341,12 @@ public final class Transaction
 		}
 
 		return hadConnection;
+	}
+
+	@SuppressWarnings("deprecation")
+	private void invalidateModificationListeners(final TIntHashSet[] invalidations)
+	{
+		model.modificationListeners.invalidate(invalidations, this);
 	}
 
 	public long getID()
