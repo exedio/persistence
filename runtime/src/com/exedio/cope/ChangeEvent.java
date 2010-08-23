@@ -43,6 +43,9 @@ public final class ChangeEvent
 		return transactionInfo.isRemote();
 	}
 
+	/**
+	 * @see ClusterSenderInfo#getNodeID()
+	 */
 	public int getNode()
 	{
 		return transactionInfo.getNode();
