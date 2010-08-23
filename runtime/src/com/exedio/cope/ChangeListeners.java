@@ -132,7 +132,7 @@ final class ChangeListeners
 					{
 						if(Model.isLoggingEnabled())
 							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
+									"Suppressing exception from change listener " + listener.getClass().getName() +
 									':' + e.getClass().getName() + ' ' + e.getMessage());
 					}
 				}
