@@ -117,11 +117,11 @@ final class ChangeListeners
 		final List<ChangeListener> commitListeners = get();
 		if(!commitListeners.isEmpty())
 		{
-			final ArrayList<Item> modifiedItems = types.activate(invalidations);
-			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			final ArrayList<Item> items = types.activate(invalidations);
+			if(items!=null && !items.isEmpty())
 			{
-				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				final ChangeEvent event = new ChangeEvent(modifiedItemsUnmodifiable, transactionInfo);
+				final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+				final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
 				for(final ChangeListener listener : commitListeners)
 				{
 					try

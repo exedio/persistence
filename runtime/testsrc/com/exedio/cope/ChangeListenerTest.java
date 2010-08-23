@@ -167,11 +167,11 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 		public void onChange(final ChangeEvent event)
 		{
-			final Collection<Item> modifiedItems = event.getModifiedItems();
+			final Collection<Item> items = event.getItems();
 
-			assertTrue(modifiedItems!=null);
-			assertTrue(!modifiedItems.isEmpty());
-			assertUnmodifiable(modifiedItems);
+			assertTrue(items!=null);
+			assertTrue(!items.isEmpty());
+			assertUnmodifiable(items);
 
 			assertTrue(event.getTransactionID()>=0);
 			assertNotNull(event.getTransactionName());
@@ -203,7 +203,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		{
 			if(expectedTransaction!=null)
 			{
-				assertContainsList(expectedItems, event.getModifiedItems());
+				assertContainsList(expectedItems, event.getItems());
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());

@@ -24,18 +24,18 @@ import java.util.List;
 
 public final class ChangeEvent
 {
-	private final List<Item> modifiedItems;
+	private final List<Item> items;
 	private final TransactionInfo transactionInfo;
 
-	ChangeEvent(final List<Item> modifiedItems, final TransactionInfo transactionInfo)
+	ChangeEvent(final List<Item> items, final TransactionInfo transactionInfo)
 	{
-		this.modifiedItems = modifiedItems;
+		this.items = items;
 		this.transactionInfo = transactionInfo;
 	}
 
-	public Collection<Item> getModifiedItems()
+	public Collection<Item> getItems()
 	{
-		return modifiedItems;
+		return items;
 	}
 
 	public boolean isRemote()

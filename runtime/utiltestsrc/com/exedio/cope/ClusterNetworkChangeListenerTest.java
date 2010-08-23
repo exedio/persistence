@@ -73,10 +73,10 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		public void onChange(final ChangeEvent event)
 		{
 			assertNotNull(event);
-			final Collection<Item> modifiedItems = event.getModifiedItems();
-			assertTrue(modifiedItems!=null);
-			assertTrue(!modifiedItems.isEmpty());
-			assertUnmodifiable(modifiedItems);
+			final Collection<Item> items = event.getItems();
+			assertTrue(items!=null);
+			assertTrue(!items.isEmpty());
+			assertUnmodifiable(items);
 
 			assertTrue(this.event==null);
 
@@ -102,7 +102,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction)
 		{
 			assertNotNull(event);
-			assertContainsList(expectedItems, event.getModifiedItems());
+			assertContainsList(expectedItems, event.getItems());
 
 
 			assertEquals(false, event.isRemote());
@@ -128,10 +128,10 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		{
 			assertNotNull(event);
 
-			final ArrayList<String> modifiedItemIds = new ArrayList<String>();
-			for(final Item item : event.getModifiedItems())
-				modifiedItemIds.add(item.getCopeID());
-			assertContainsList(expectedItems, modifiedItemIds);
+			final ArrayList<String> itemIds = new ArrayList<String>();
+			for(final Item item : event.getItems())
+				itemIds.add(item.getCopeID());
+			assertContainsList(expectedItems, itemIds);
 
 
 			assertEquals(true, event.isRemote());
