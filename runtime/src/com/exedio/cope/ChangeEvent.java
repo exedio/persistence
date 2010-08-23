@@ -46,7 +46,7 @@ public final class ChangeEvent
 	/**
 	 * @see ClusterSenderInfo#getNodeID()
 	 */
-	public int getNode()
+	public int getOriginClusterNodeID()
 	{
 		return transactionInfo.getNode();
 	}
