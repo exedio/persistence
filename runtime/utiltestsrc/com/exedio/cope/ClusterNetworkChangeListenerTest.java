@@ -113,7 +113,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getOriginClusterNodeID();
 				fail();
 			}
-			catch(final IllegalStateException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("not available", e.getMessage());
 			}
@@ -143,7 +143,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionID();
 				fail();
 			}
-			catch(final IllegalStateException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("not available", e.getMessage());
 			}
@@ -152,7 +152,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionName();
 				fail();
 			}
-			catch(final IllegalStateException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("not available", e.getMessage());
 			}
@@ -161,7 +161,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionStartDate();
 				fail();
 			}
-			catch(final IllegalStateException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals("not available", e.getMessage());
 			}

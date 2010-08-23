@@ -54,7 +54,7 @@ final class TransactionInfo
 	int getNode()
 	{
 		if(!remote)
-			throw new IllegalStateException("not available");
+			throw new IllegalArgumentException("not available");
 
 		return node;
 	}
@@ -80,6 +80,6 @@ final class TransactionInfo
 	private void assertLocal()
 	{
 		if(remote)
-			throw new IllegalStateException("not available");
+			throw new IllegalArgumentException("not available");
 	}
 }
