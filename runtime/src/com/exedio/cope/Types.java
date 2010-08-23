@@ -430,16 +430,16 @@ final class Types
 	{
 		ArrayList<Item> result = null;
 
-		for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+		for(int type = 0; type<invalidations.length; type++)
 		{
-			final TIntHashSet invalidationSet = invalidations[typeTransiently];
-			if(invalidationSet!=null)
+			final TIntHashSet set = invalidations[type];
+			if(set!=null)
 			{
 				if(result==null)
 					result = new ArrayList<Item>();
 
-				for(final TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-					result.add(getConcreteType(typeTransiently).activate(i.next()));
+				for(final TIntIterator i = set.iterator(); i.hasNext(); )
+					result.add(getConcreteType(type).activate(i.next()));
 			}
 		}
 		return result;
