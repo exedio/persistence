@@ -46,9 +46,9 @@ public final class ChangeEvent
 	/**
 	 * @see ClusterSenderInfo#getNodeID()
 	 */
-	public int getOriginClusterNodeID()
+	public int getRemoteNodeID()
 	{
-		return transactionInfo.getNode();
+		return transactionInfo.getRemoteNodeID();
 	}
 
 	/**
@@ -76,5 +76,16 @@ public final class ChangeEvent
 	public Date getTransactionStartDate()
 	{
 		return transactionInfo.getStartDate();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getRemoteNodeID()} instead
+	 */
+	@Deprecated
+	public int getOriginClusterNodeID()
+	{
+		return getRemoteNodeID();
 	}
 }

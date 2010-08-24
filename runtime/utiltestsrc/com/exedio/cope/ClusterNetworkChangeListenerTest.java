@@ -108,7 +108,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(false, event.isRemote());
 			try
 			{
-				event.getOriginClusterNodeID();
+				event.getRemoteNodeID();
 				fail();
 			}
 			catch(final IllegalArgumentException e)
@@ -135,7 +135,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 
 			assertEquals(true, event.isRemote());
-			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), event.getOriginClusterNodeID());
+			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
 			try
 			{
 				event.getTransactionID();

@@ -51,7 +51,7 @@ final class TransactionInfo
 		return remote;
 	}
 
-	int getNode()
+	int getRemoteNodeID()
 	{
 		if(!remote)
 			throw new IllegalArgumentException("not available");
