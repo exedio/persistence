@@ -55,7 +55,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 		listenerB.assertIt(null, null);
 		modelA.commit();
 		listenerA.assertIt(list(itemA), transactionA);
-		listenerB.assertIt(null, null); // this is a serious problem, but we cannot fix it with thw current API
+		listenerB.assertIt(null, null); // this is a serious problem, but we cannot fix it without changing API incompatibly
 	}
 
 	private final class MockListener implements ModificationListener
