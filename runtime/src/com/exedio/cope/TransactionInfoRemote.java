@@ -18,35 +18,49 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import java.util.Date;
 
-abstract class ClusterListenerModel extends ClusterListener
+final class TransactionInfoRemote extends TransactionInfo
 {
-	private final ClusterSender sender;
-	private final Connect connect;
-	private final ChangeListeners changeListeners;
+	private final int remoteNode;
 
-	ClusterListenerModel(
-			final ClusterProperties properties,
-			final ClusterSender sender,
-			final int typeLength, final Connect connect, final ChangeListeners changeListeners)
+	TransactionInfoRemote(final int remoteNode)
 	{
-		super(properties, typeLength);
-		this.sender = sender;
-		this.connect = connect;
-		this.changeListeners = changeListeners;
+		this.remoteNode = remoteNode;
 	}
 
 	@Override
-	final void invalidate(final int node, final TIntHashSet[] invalidations)
+	boolean isRemote()
 	{
-		connect.invalidate(invalidations, false);
-		changeListeners.invalidate(invalidations, new TransactionInfoRemote(node));
+		return true;
 	}
 
 	@Override
-	final void pong()
+	int getRemoteNodeID()
 	{
-		sender.pong();
+		return remoteNode;
+	}
+
+	@Override
+	long getID()
+	{
+		throw newRemoteException();
+	}
+
+	@Override
+	String getName()
+	{
+		throw newRemoteException();
+	}
+
+	@Override
+	Date getStartDate()
+	{
+		throw newRemoteException();
+	}
+
+	private IllegalArgumentException newRemoteException()
+	{
+		return new IllegalArgumentException("remote");
 	}
 }

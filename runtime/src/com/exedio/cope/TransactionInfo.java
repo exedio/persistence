@@ -20,66 +20,11 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-final class TransactionInfo
+abstract class TransactionInfo
 {
-	private final boolean remote;
-	private final int remoteNode;
-	private final long id;
-	private final String name;
-	private final long startDate;
-
-	TransactionInfo(final Transaction transaction)
-	{
-		this.remote = false;
-		this.remoteNode = 0;
-		this.id = transaction.getID();
-		this.name = transaction.getName();
-		this.startDate = transaction.getStartDate().getTime();
-	}
-
-	TransactionInfo(final int remoteNode)
-	{
-		this.remote = true;
-		this.remoteNode = remoteNode;
-		this.id = 0;
-		this.name = null;
-		this.startDate = 0;
-	}
-
-	boolean isRemote()
-	{
-		return remote;
-	}
-
-	int getRemoteNodeID()
-	{
-		if(!remote)
-			throw new IllegalArgumentException("not remote");
-
-		return remoteNode;
-	}
-
-	long getID()
-	{
-		assertNotRemote();
-		return id;
-	}
-
-	String getName()
-	{
-		assertNotRemote();
-		return name;
-	}
-
-	Date getStartDate()
-	{
-		assertNotRemote();
-		return new Date(startDate);
-	}
-
-	private void assertNotRemote()
-	{
-		if(remote)
-			throw new IllegalArgumentException("remote");
-	}
+	abstract boolean isRemote();
+	abstract int getRemoteNodeID();
+	abstract long getID();
+	abstract String getName();
+	abstract Date getStartDate();
 }
