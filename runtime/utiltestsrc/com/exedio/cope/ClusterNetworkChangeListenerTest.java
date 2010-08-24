@@ -113,7 +113,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("not available", e.getMessage());
+				assertEquals("not remote", e.getMessage());
 			}
 			assertEquals(expectedTransaction.getID(), event.getTransactionID());
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
@@ -143,7 +143,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("not available", e.getMessage());
+				assertEquals("remote", e.getMessage());
 			}
 			try
 			{
@@ -152,7 +152,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("not available", e.getMessage());
+				assertEquals("remote", e.getMessage());
 			}
 			try
 			{
@@ -161,7 +161,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("not available", e.getMessage());
+				assertEquals("remote", e.getMessage());
 			}
 
 			event = null;

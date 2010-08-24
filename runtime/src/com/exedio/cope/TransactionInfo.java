@@ -54,32 +54,32 @@ final class TransactionInfo
 	int getRemoteNodeID()
 	{
 		if(!remote)
-			throw new IllegalArgumentException("not available");
+			throw new IllegalArgumentException("not remote");
 
 		return remoteNode;
 	}
 
 	long getID()
 	{
-		assertLocal();
+		assertNotRemote();
 		return id;
 	}
 
 	String getName()
 	{
-		assertLocal();
+		assertNotRemote();
 		return name;
 	}
 
 	Date getStartDate()
 	{
-		assertLocal();
+		assertNotRemote();
 		return new Date(startDate);
 	}
 
-	private void assertLocal()
+	private void assertNotRemote()
 	{
 		if(remote)
-			throw new IllegalArgumentException("not available");
+			throw new IllegalArgumentException("remote");
 	}
 }
