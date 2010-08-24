@@ -61,13 +61,13 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	private final class MockListener implements ChangeListener
 	{
 		final Model model;
-		final Model otherModel;
+		final Model remoteModel;
 		ChangeEvent event = null;
 
-		MockListener(final Model model, final Model otherModel)
+		MockListener(final Model model, final Model remoteModel)
 		{
 			this.model = model;
-			this.otherModel = otherModel;
+			this.remoteModel = remoteModel;
 		}
 
 		public void onChange(final ChangeEvent event)
@@ -135,7 +135,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 
 			assertEquals(true, event.isRemote());
-			assertEquals(otherModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
+			assertEquals(remoteModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
 			try
 			{
 				event.getTransactionID();
