@@ -42,25 +42,25 @@ final class TransactionInfoRemote extends TransactionInfo
 	}
 
 	@Override
-	long getID()
+	long getID() throws ChangeEvent.NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
 	@Override
-	String getName()
+	String getName() throws ChangeEvent.NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
 	@Override
-	Date getStartDate()
+	Date getStartDate() throws ChangeEvent.NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
-	private IllegalArgumentException newRemoteException()
+	private ChangeEvent.NotAvailableException newRemoteException()
 	{
-		return new IllegalArgumentException("remote");
+		return new ChangeEvent.NotAvailableException("remote");
 	}
 }

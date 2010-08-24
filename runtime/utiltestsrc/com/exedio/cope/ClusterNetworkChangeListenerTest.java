@@ -33,7 +33,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		super.tearDown();
 	}
 
-	public void testSinglecast() throws InterruptedException
+	public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));
@@ -99,7 +99,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertNull(event);
 		}
 
-		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction)
+		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
 		{
 			assertNotNull(event);
 			assertContainsList(expectedItems, event.getItems());
@@ -111,7 +111,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getRemoteNodeID();
 				fail();
 			}
-			catch(final IllegalArgumentException e)
+			catch(final ChangeEvent.NotAvailableException e)
 			{
 				assertEquals("not remote", e.getMessage());
 			}
@@ -124,7 +124,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			event = null;
 		}
 
-		void assertRemote(final List<String> expectedItems)
+		void assertRemote(final List<String> expectedItems) throws ChangeEvent.NotAvailableException
 		{
 			assertNotNull(event);
 
@@ -141,7 +141,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionID();
 				fail();
 			}
-			catch(final IllegalArgumentException e)
+			catch(final ChangeEvent.NotAvailableException e)
 			{
 				assertEquals("remote", e.getMessage());
 			}
@@ -150,7 +150,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionName();
 				fail();
 			}
-			catch(final IllegalArgumentException e)
+			catch(final ChangeEvent.NotAvailableException e)
 			{
 				assertEquals("remote", e.getMessage());
 			}
@@ -159,7 +159,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 				event.getTransactionStartDate();
 				fail();
 			}
-			catch(final IllegalArgumentException e)
+			catch(final ChangeEvent.NotAvailableException e)
 			{
 				assertEquals("remote", e.getMessage());
 			}

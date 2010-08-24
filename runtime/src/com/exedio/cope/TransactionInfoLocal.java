@@ -40,9 +40,9 @@ final class TransactionInfoLocal extends TransactionInfo
 	}
 
 	@Override
-	int getRemoteNodeID()
+	int getRemoteNodeID() throws ChangeEvent.NotAvailableException
 	{
-		throw new IllegalArgumentException("not remote");
+		throw new ChangeEvent.NotAvailableException("not remote");
 	}
 
 	@Override

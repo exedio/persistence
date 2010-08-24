@@ -23,8 +23,8 @@ import java.util.Date;
 abstract class TransactionInfo
 {
 	abstract boolean isRemote();
-	abstract int getRemoteNodeID();
-	abstract long getID();
-	abstract String getName();
-	abstract Date getStartDate();
+	abstract int getRemoteNodeID() throws ChangeEvent.NotAvailableException;
+	abstract long getID() throws ChangeEvent.NotAvailableException;
+	abstract String getName() throws ChangeEvent.NotAvailableException;
+	abstract Date getStartDate() throws ChangeEvent.NotAvailableException;
 }

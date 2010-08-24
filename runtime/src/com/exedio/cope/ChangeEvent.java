@@ -44,38 +44,49 @@ public final class ChangeEvent
 	}
 
 	/**
+	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see ClusterSenderInfo#getNodeID()
 	 */
-	public int getRemoteNodeID()
+	public int getRemoteNodeID() throws ChangeEvent.NotAvailableException
 	{
 		return transactionInfo.getRemoteNodeID();
 	}
 
 	/**
-	 * @throws IllegalStateException is that information is not available
+	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see Transaction#getID()
 	 */
-	public long getTransactionID()
+	public long getTransactionID() throws ChangeEvent.NotAvailableException
 	{
 		return transactionInfo.getID();
 	}
 
 	/**
-	 * @throws IllegalStateException is that information is not available
+	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see Transaction#getName()
 	 */
-	public String getTransactionName()
+	public String getTransactionName() throws ChangeEvent.NotAvailableException
 	{
 		return transactionInfo.getName();
 	}
 
 	/**
-	 * @throws IllegalStateException is that information is not available
+	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see Transaction#getStartDate()
 	 */
-	public Date getTransactionStartDate()
+	public Date getTransactionStartDate() throws ChangeEvent.NotAvailableException
 	{
 		return transactionInfo.getStartDate();
+	}
+
+	public static final class NotAvailableException extends Exception
+	{
+		private static final long serialVersionUID = 1l;
+
+		NotAvailableException(final String message)
+		{
+			super(message);
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -84,7 +95,7 @@ public final class ChangeEvent
 	 * @deprecated Use {@link #getRemoteNodeID()} instead
 	 */
 	@Deprecated
-	public int getOriginClusterNodeID()
+	public int getOriginClusterNodeID() throws ChangeEvent.NotAvailableException
 	{
 		return getRemoteNodeID();
 	}

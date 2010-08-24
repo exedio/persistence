@@ -30,7 +30,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	public void testIt()
+	public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertEquals(0, model.getChangeListenersCleared());
@@ -173,9 +173,16 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertTrue(!items.isEmpty());
 			assertUnmodifiable(items);
 
-			assertTrue(event.getTransactionID()>=0);
-			assertNotNull(event.getTransactionName());
-			assertNotNull(event.getTransactionStartDate());
+			try
+			{
+				assertTrue(event.getTransactionID()>=0);
+				assertNotNull(event.getTransactionName());
+				assertNotNull(event.getTransactionStartDate());
+			}
+			catch(final ChangeEvent.NotAvailableException e)
+			{
+				throw new RuntimeException(e);
+			}
 
 			assertTrue(this.event==null);
 
@@ -199,7 +206,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			}
 		}
 
-		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction)
+		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
 		{
 			if(expectedTransaction!=null)
 			{
