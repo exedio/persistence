@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -38,8 +39,7 @@ public final class ConnectToken
 	private final boolean conditional;
 	private final boolean didConnect;
 	private final boolean log;
-	private volatile boolean returned = false;
-	private final Object returnedLock = new Object();
+	private final AtomicBoolean returned = new AtomicBoolean(false);
 
 	ConnectToken(
 			final Manciple manciple,
@@ -137,31 +137,21 @@ public final class ConnectToken
 
 	public boolean isReturned()
 	{
-		return returned;
+		return returned.get();
 	}
 
 	public boolean returnIt()
 	{
-		synchronized(returnedLock)
-		{
-			if(returned)
-				throw new IllegalStateException("connect token " + id + " already returned");
-
-			returned = true;
-		}
+		if(returned.getAndSet(true))
+			throw new IllegalStateException("connect token " + id + " already returned");
 
 		return manciple.returnIt(this);
 	}
 
 	public boolean returnItConditionally()
 	{
-		synchronized(returnedLock)
-		{
-			if(returned)
-				return false;
-
-			returned = true;
-		}
+		if(returned.getAndSet(true))
+			return false;
 
 		return manciple.returnIt(this);
 	}
