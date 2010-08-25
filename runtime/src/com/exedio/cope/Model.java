@@ -680,9 +680,13 @@ public final class Model implements Serializable
 		clusterSender.ping(count);
 	}
 
+	/**
+	 * @deprecated Use {@link ConnectProperties#isLoggingEnabled()} instead, always returns false.
+	 */
+	@Deprecated
 	public static final boolean isLoggingEnabled()
 	{
-		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
+		return false;
 	}
 
 	// serialization -------------

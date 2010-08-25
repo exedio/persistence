@@ -37,6 +37,7 @@ public final class ConnectToken
 	private final String name;
 	private final boolean conditional;
 	private final boolean didConnect;
+	private final boolean log;
 	private volatile boolean returned = false;
 	private final Object returnedLock = new Object();
 
@@ -59,8 +60,9 @@ public final class ConnectToken
 		this.name = name;
 		this.conditional = conditional;
 		this.didConnect = didConnect;
+		this.log = model.getConnectProperties().isLoggingEnabled();
 
-		if(Model.isLoggingEnabled())
+		if(log)
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").
@@ -83,7 +85,7 @@ public final class ConnectToken
 		if(disconnect)
 			model.disconnect();
 
-		if(Model.isLoggingEnabled())
+		if(log)
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").

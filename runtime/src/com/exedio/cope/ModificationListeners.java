@@ -115,7 +115,7 @@ final class ModificationListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
+	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction, final boolean log)
 	{
 		final List<ModificationListener> listeners = get();
 		if(!listeners.isEmpty())
@@ -132,7 +132,7 @@ final class ModificationListeners
 					}
 					catch(final RuntimeException e)
 					{
-						if(Model.isLoggingEnabled())
+						if(log)
 							System.err.println(
 									"Suppressing exception from modification listener " + listener.getClass().getName() +
 									':' + e.getClass().getName() + ' ' + e.getMessage());

@@ -41,7 +41,7 @@ abstract class ClusterListenerModel extends ClusterListener
 	final void invalidate(final int node, final TIntHashSet[] invalidations)
 	{
 		connect.invalidate(invalidations, false);
-		changeListeners.invalidate(invalidations, new TransactionInfoRemote(node));
+		changeListeners.invalidate(invalidations, new TransactionInfoRemote(node), connect.log);
 	}
 
 	@Override

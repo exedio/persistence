@@ -222,7 +222,7 @@ public final class Revisions
 		}
 	}
 
-	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
+	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment, final boolean log)
 	{
 		Connection con = null;
 		try
@@ -233,7 +233,7 @@ public final class Revisions
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 			if(!revisionsToRun.isEmpty())
-				revise(con, executor, environment, revisionsToRun, actualNumber);
+				revise(con, executor, environment, revisionsToRun, actualNumber, log);
 		}
 		finally
 		{
@@ -250,7 +250,8 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment,
 			final List<Revision> revisionsToRun,
-			final int actualNumber)
+			final int actualNumber,
+			final boolean log)
 	{
 		final Date date = new Date();
 		try
@@ -272,7 +273,7 @@ public final class Revisions
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 			{
 				final String sql = body[bodyIndex];
-				if(Model.isLoggingEnabled())
+				if(log)
 					System.out.println("COPE revising " + number + ':' + sql);
 				final Statement bf = executor.newStatement();
 				bf.append(sql);

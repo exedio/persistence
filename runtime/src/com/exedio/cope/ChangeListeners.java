@@ -112,7 +112,7 @@ final class ChangeListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
+	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo, final boolean log)
 	{
 		final List<ChangeListener> listeners = get();
 		if(!listeners.isEmpty())
@@ -130,7 +130,7 @@ final class ChangeListeners
 					}
 					catch(final RuntimeException e)
 					{
-						if(Model.isLoggingEnabled())
+						if(log)
 							System.err.println(
 									"Suppressing exception from change listener " + listener.getClass().getName() +
 									':' + e.getClass().getName() + ' ' + e.getMessage());

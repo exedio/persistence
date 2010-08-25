@@ -25,6 +25,8 @@ import java.util.Locale;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
+	private final BooleanField log = new BooleanField("log", true);
+
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
@@ -156,6 +158,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.");
 		}
+	}
+
+	public boolean isLoggingEnabled()
+	{
+		return log.booleanValue();
 	}
 
 	Dialect createDialect(final DialectParameters parameters)

@@ -33,6 +33,7 @@ final class Connect
 {
 	final long date = System.currentTimeMillis();
 	final ConnectProperties properties;
+	final boolean log;
 	final Dialect dialect;
 	final ConnectionPool connectionPool;
 	final Executor executor;
@@ -52,6 +53,7 @@ final class Connect
 			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
+		this.log = properties.isLoggingEnabled();
 
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
@@ -168,7 +170,7 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
-		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
+		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
