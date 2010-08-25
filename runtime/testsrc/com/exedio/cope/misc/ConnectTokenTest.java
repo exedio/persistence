@@ -204,6 +204,27 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 	}
 
+	public void testNullName()
+	{
+		assertNotConnected();
+
+		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+		final Date before0 = new Date();
+		final ConnectToken token0 = issue(model, props, null);
+		final Date after0 = new Date();
+		assertTrue(model.isConnected());
+		assertSame(props, model.getConnectProperties());
+		final Date connectDate = model.getConnectDate();
+		assertWithin(before0, after0, connectDate);
+		assertEqualsUnmodifiable(list(token0), getTokens(model));
+		assertToken(0, before0, after0, null, false, true, false, token0);
+		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0", token0.toString());
+
+		assertEquals(true, token0.returnIt());
+		assertNotConnected();
+		assertToken(0, before0, after0, null, false, true,  true, token0);
+	}
+
 	private void assertNotConnected()
 	{
 		assertFalse(model.isConnected());
