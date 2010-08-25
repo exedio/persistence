@@ -64,7 +64,7 @@ public final class ConnectToken
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").
-				append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+				append(model.toString()).
 				append(": issued ").append(id);
 			if(name!=null)
 				bf.append(" (").
@@ -87,7 +87,7 @@ public final class ConnectToken
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").
-				append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+				append(model.toString()).
 				append(": returned ").append(id);
 			if(name!=null)
 				bf.append(" (").
@@ -168,7 +168,7 @@ public final class ConnectToken
 	public String toString()
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX)).
+		bf.append(model.toString()).
 			append('/').append(id);
 		if(name!=null)
 			bf.append('(').
