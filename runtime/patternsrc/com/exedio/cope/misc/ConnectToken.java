@@ -151,6 +151,19 @@ public final class ConnectToken
 		return manciple.returnIt(this);
 	}
 
+	public boolean returnItConditionally()
+	{
+		synchronized(returnedLock)
+		{
+			if(returned)
+				return false;
+
+			returned = true;
+		}
+
+		return manciple.returnIt(this);
+	}
+
 	@Override
 	public String toString()
 	{

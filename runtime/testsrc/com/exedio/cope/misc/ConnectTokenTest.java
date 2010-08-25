@@ -146,6 +146,35 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(2, before2, after2, "token2Name", true,  false, true, token2);
 	}
 
+	public void testConditionally()
+	{
+		assertNotConnected();
+
+		assertEquals(null, issueIfConnected(model, "isNull"));
+		assertNotConnected();
+
+		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+
+		final Date before0 = new Date();
+		final ConnectToken token0 = issue(model, props, "token0Name");
+		final Date after0 = new Date();
+		assertTrue(model.isConnected());
+		assertSame(props, model.getConnectProperties());
+		final Date connectDate = model.getConnectDate();
+		assertWithin(before0, after0, connectDate);
+		assertEqualsUnmodifiable(list(token0), getTokens(model));
+		assertToken(3, before0, after0, "token0Name", false, true, false, token0);
+		assertEquals(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) + "/3(token0Name)", token0.toString());
+
+		assertEquals(true, token0.returnItConditionally());
+		assertNotConnected();
+		assertToken(3, before0, after0, "token0Name", false, true,  true, token0);
+
+		assertEquals(false, token0.returnItConditionally());
+		assertNotConnected();
+		assertToken(3, before0, after0, "token0Name", false, true,  true, token0);
+	}
+
 	private void assertNotConnected()
 	{
 		assertFalse(model.isConnected());
