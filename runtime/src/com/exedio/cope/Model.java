@@ -680,15 +680,6 @@ public final class Model implements Serializable
 		clusterSender.ping(count);
 	}
 
-	/**
-	 * @deprecated Use {@link ConnectProperties#isLoggingEnabled()} instead, always returns false.
-	 */
-	@Deprecated
-	public static final boolean isLoggingEnabled()
-	{
-		return false;
-	}
-
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;
@@ -1037,5 +1028,14 @@ public final class Model implements Serializable
 	public boolean supportsSequences()
 	{
 		return SchemaInfo.supportsSequences(this);
+	}
+
+	/**
+	 * @deprecated Use {@link ConnectProperties#isLoggingEnabled()} instead, always returns false.
+	 */
+	@Deprecated
+	public static final boolean isLoggingEnabled()
+	{
+		return false;
 	}
 }
