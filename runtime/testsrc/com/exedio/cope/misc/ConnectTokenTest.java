@@ -163,8 +163,8 @@ public class ConnectTokenTest extends CopeAssert
 		final Date connectDate = model.getConnectDate();
 		assertWithin(before0, after0, connectDate);
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
-		assertToken(3, before0, after0, "token0Name", false, true, false, token0);
-		assertEquals(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) + "/3(token0Name)", token0.toString());
+		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
+		assertEquals(Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) + "/0(token0Name)", token0.toString());
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
@@ -175,28 +175,28 @@ public class ConnectTokenTest extends CopeAssert
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
 		assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
-		assertToken(3, before0, after0, "token0Name", false, true,  false, token0);
-		assertToken(4, before1, after1, "token1Name", false, false, false, token1);
+		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 
 		assertEquals(false, token1.returnItConditionally());
 		assertTrue(model.isConnected());
-		assertToken(3, before0, after0, "token0Name", false, true,  false, token0);
-		assertToken(4, before1, after1, "token1Name", false, false, true,  token1);
+		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, true,  token1);
 
 		assertEquals(false, token1.returnItConditionally());
 		assertTrue(model.isConnected());
-		assertToken(3, before0, after0, "token0Name", false, true,  false, token0);
-		assertToken(4, before1, after1, "token1Name", false, false, true,  token1);
+		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, true,  token1);
 
 		assertEquals(true, token0.returnItConditionally());
 		assertNotConnected();
-		assertToken(3, before0, after0, "token0Name", false, true,  true, token0);
-		assertToken(4, before1, after1, "token1Name", false, false, true, token1);
+		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 
 		assertEquals(false, token0.returnItConditionally());
 		assertNotConnected();
-		assertToken(3, before0, after0, "token0Name", false, true,  true, token0);
-		assertToken(4, before1, after1, "token1Name", false, false, true, token1);
+		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
+		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 	}
 
 	private void assertNotConnected()

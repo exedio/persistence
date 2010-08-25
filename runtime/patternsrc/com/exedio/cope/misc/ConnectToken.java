@@ -230,6 +230,8 @@ public final class ConnectToken
 				assert removed;
 				final boolean result = tokens.isEmpty();
 				token.onReturn(result);
+				if(result)
+					nextId = 0;
 				return result;
 			}
 		}
