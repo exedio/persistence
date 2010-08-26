@@ -109,6 +109,7 @@ public class TextUrlFilter extends MediaFilter
 		features.put("key", pasteKey);
 		features.put("parentAndKey", pasteParentAndKey);
 		features.put("value", pasteValue);
+		features.put("pastes", PartOf.newPartOf(pasteParent, pasteKey));
 		this.pasteType = newSourceType(Paste.class, features);
 	}
 
