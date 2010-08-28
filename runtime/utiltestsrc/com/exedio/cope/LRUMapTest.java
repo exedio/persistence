@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class LRUMapTest extends TestCase
 
 	public void testIt()
 	{
-		final LRUMap<String, String> map = new LRUMap<String, String>(4);
+		final LRUMap<String, String> map = new LRUMap<String, String>(3);
 		assertIt(map, new String[]{}, new String[]{});
 
 		map.put("key1", "val1");
@@ -66,11 +67,48 @@ public class LRUMapTest extends TestCase
 
 		assertEquals("val2", map.get("key2"));
 		assertIt(map, new String[]{"key1", "key3", "key2"}, new String[]{"val1", "val3", "val2"});
+
+		map.put("key4", "val4");
+		assertIt(map, new String[]{"key3", "key2", "key4"}, new String[]{"val3", "val2", "val4"});
 	}
 
 	private static void assertIt(final LRUMap<String, String> map, final String[] keys, final String[] values)
 	{
 		assertEquals(Arrays.asList(keys),   Arrays.asList(map.keySet().toArray(new String[map.size()])));
 		assertEquals(Arrays.asList(values), Arrays.asList(map.values().toArray(new String[map.size()])));
+	}
+
+	public void testPerformance()
+	{
+		assertPerformance(new HashMap<String, String>());
+		assertPerformance(new LRUMap<String, String>(200000));
+		assertPerformance(new HashMap<String, String>());
+		assertPerformance(new LRUMap<String, String>(200000));
+		assertPerformance(new HashMap<String, String>());
+		assertPerformance(new LRUMap<String, String>(200000));
+		final long start = System.currentTimeMillis();
+		{
+			for(int i = 0; i<100000; i++)
+				System.currentTimeMillis();
+			final long end = System.currentTimeMillis();
+			System.out.println("time: " + (end-start));
+		}
+		{
+			for(int i = 0; i<100000; i++)
+				System.currentTimeMillis();
+			final long end = System.currentTimeMillis();
+			System.out.println("time: " + (end-start));
+		}
+	}
+
+	private static void assertPerformance(final HashMap<String, String> map)
+	{
+		for(int i = 0; i<100000; i++)
+			map.put("key"+i, "val"+i);
+		final long start = System.currentTimeMillis();
+		for(int i = 0; i<100000; i++)
+			map.get("key"+i);
+		final long end = System.currentTimeMillis();
+		System.out.println(map.getClass().getName() + ": " + (end-start));
 	}
 }
