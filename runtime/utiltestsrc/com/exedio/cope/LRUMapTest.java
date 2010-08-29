@@ -51,6 +51,28 @@ public class LRUMapTest extends TestCase
 		}
 	}
 
+	private static final class DateMap<K, V> extends HashMap<K, V>
+	{
+		private static final long serialVersionUID = 1l;
+
+		private long date;
+
+		/**
+		 * make non-private
+		 */
+		DateMap()
+		{
+			super();
+		}
+
+		@Override
+		public V get(final Object key)
+		{
+			date = System.currentTimeMillis();
+			return super.get(key);
+		}
+	}
+
 	public void testIt()
 	{
 		final LRUMap<String, String> map = new LRUMap<String, String>(3);
@@ -80,24 +102,18 @@ public class LRUMapTest extends TestCase
 
 	public void testPerformance()
 	{
-		assertPerformance(new HashMap<String, String>());
-		assertPerformance(new LRUMap<String, String>(200000));
-		assertPerformance(new HashMap<String, String>());
-		assertPerformance(new LRUMap<String, String>(200000));
-		assertPerformance(new HashMap<String, String>());
-		assertPerformance(new LRUMap<String, String>(200000));
-		final long start = System.currentTimeMillis();
+		for(int j = 0; j<8; j++)
 		{
-			for(int i = 0; i<100000; i++)
-				System.currentTimeMillis();
-			final long end = System.currentTimeMillis();
-			System.out.println("time: " + (end-start));
-		}
-		{
-			for(int i = 0; i<100000; i++)
-				System.currentTimeMillis();
-			final long end = System.currentTimeMillis();
-			System.out.println("time: " + (end-start));
+			assertPerformance(new HashMap<String, String>());
+			assertPerformance(new LRUMap<String, String>(200000));
+			assertPerformance(new DateMap<String, String>());
+			final long start = System.currentTimeMillis();
+			{
+				for(int i = 0; i<100000; i++)
+					System.currentTimeMillis();
+				final long end = System.currentTimeMillis();
+				System.out.println(" time: " + (end-start));
+			}
 		}
 	}
 
@@ -105,10 +121,10 @@ public class LRUMapTest extends TestCase
 	{
 		for(int i = 0; i<100000; i++)
 			map.put("key"+i, "val"+i);
-		final long start = System.currentTimeMillis();
+		final long start = System.nanoTime();
 		for(int i = 0; i<100000; i++)
 			map.get("key"+i);
-		final long end = System.currentTimeMillis();
-		System.out.println(map.getClass().getName() + ": " + (end-start));
+		final long end = System.nanoTime();
+		System.out.print(' ' + map.getClass().getSimpleName() + ": " + ((end-start)/1000000));
 	}
 }
