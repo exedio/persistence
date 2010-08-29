@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntObjectHashMap;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -108,11 +110,27 @@ public class LRUMapTest extends TestCase
 			assertPerformance(new HashMap<Integer, String>());
 			assertPerformance(new LRUMap <Integer, String>(200000));
 			assertPerformance(new DateMap<Integer, String>());
+			assertPerformance(new TIntObjectHashMap<String>());
 			System.out.println();
 		}
 	}
 
 	private static void assertPerformance(final HashMap<Integer, String> map)
+	{
+		System.out.print(' ' + map.getClass().getSimpleName() + ":");
+		final long startMem = mem();
+		for(int i = 0; i<100000; i++)
+			map.put(i, "val"+i);
+		final long endMem = mem();
+		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
+		final long start = System.nanoTime();
+		for(int i = 0; i<100000; i++)
+			map.get(i);
+		final long end = System.nanoTime();
+		System.out.print(" " + ((end-start)/1000000) + "ms");
+	}
+
+	private static void assertPerformance(final TIntObjectHashMap<String> map)
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
 		final long startMem = mem();
