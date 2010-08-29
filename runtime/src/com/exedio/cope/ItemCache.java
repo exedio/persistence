@@ -193,7 +193,6 @@ final class ItemCache
 					lastReplacementRun = now;
 				}
 			}
-
 		}
 
 		void invalidate(final TIntHashSet invalidatedPKs)
