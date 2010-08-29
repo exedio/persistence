@@ -107,24 +107,28 @@ public class LRUMapTest extends TestCase
 			assertPerformance(new HashMap<String, String>());
 			assertPerformance(new LRUMap<String, String>(200000));
 			assertPerformance(new DateMap<String, String>());
-			final long start = System.currentTimeMillis();
-			{
-				for(int i = 0; i<100000; i++)
-					System.currentTimeMillis();
-				final long end = System.currentTimeMillis();
-				System.out.println(" time: " + (end-start));
-			}
+			System.out.println();
 		}
 	}
 
 	private static void assertPerformance(final HashMap<String, String> map)
 	{
+		System.out.print(' ' + map.getClass().getSimpleName() + ":");
+		final long startMem = mem();
 		for(int i = 0; i<100000; i++)
 			map.put("key"+i, "val"+i);
+		final long endMem = mem();
+		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
 		for(int i = 0; i<100000; i++)
 			map.get("key"+i);
 		final long end = System.nanoTime();
-		System.out.print(' ' + map.getClass().getSimpleName() + ": " + ((end-start)/1000000));
+		System.out.print(" " + ((end-start)/1000000) + "ms");
+	}
+
+	private static long mem()
+	{
+		System.gc();
+		return Runtime.getRuntime().freeMemory();
 	}
 }
