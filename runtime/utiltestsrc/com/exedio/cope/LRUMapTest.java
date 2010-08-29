@@ -55,6 +55,7 @@ public class LRUMapTest extends TestCase
 	{
 		private static final long serialVersionUID = 1l;
 
+		@SuppressWarnings("unused")
 		private long date;
 
 		/**
