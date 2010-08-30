@@ -30,7 +30,9 @@ public final class CompositeCondition extends Condition
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.size()==0</tt>
 	 */
-	public CompositeCondition(final Operator operator, final List<? extends Condition> conditions)
+	public CompositeCondition(
+			final Operator operator,
+			final List<? extends Condition> conditions)
 	{
 		this(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
@@ -39,7 +41,9 @@ public final class CompositeCondition extends Condition
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
 	 */
-	public CompositeCondition(final Operator operator, final Condition... conditions)
+	public CompositeCondition(
+			final Operator operator,
+			final Condition... conditions)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator");

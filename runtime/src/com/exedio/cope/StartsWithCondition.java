@@ -31,7 +31,9 @@ public final class StartsWithCondition extends Condition
 	 * you may want to use the more convenient wrapper method
 	 * {@link DataField#startsWith(byte[])}.
 	 */
-	public StartsWithCondition(final DataField field, final byte[] value)
+	public StartsWithCondition(
+			final DataField field,
+			final byte[] value)
 	{
 		this.field = field;
 		this.value = value;

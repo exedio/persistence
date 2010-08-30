@@ -41,7 +41,10 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	 * @see ItemFunction#notInstanceOf(Type, Type, Type, Type)
 	 * @see ItemFunction#notInstanceOf(Type[])
 	 */
-	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
+	public InstanceOfCondition(
+			final ItemFunction<E> function,
+			final boolean not,
+			final Type[] types)
 	{
 		if(function==null)
 			throw new NullPointerException("function");

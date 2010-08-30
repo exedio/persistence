@@ -38,7 +38,9 @@ public final class MatchCondition extends Condition
 	/**
 	 * Creates a new MatchCondition. EXPERIMENTAL!!!
 	 */
-	public MatchCondition(final StringFunction function, final String value)
+	public MatchCondition(
+			final StringFunction function,
+			final String value)
 	{
 		this.function = function;
 		this.value = value;

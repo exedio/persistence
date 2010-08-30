@@ -35,7 +35,10 @@ public final class CompareFunctionCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Function)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Function)
 	 */
-	public CompareFunctionCondition(final Operator operator, final Function<E> left, final Function<? extends E> right)
+	public CompareFunctionCondition(
+			final Operator operator,
+			final Function<E> left,
+			final Function<? extends E> right)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator");
