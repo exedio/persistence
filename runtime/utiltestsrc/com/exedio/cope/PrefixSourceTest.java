@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties.Source;
 
 public class PrefixSourceTest extends CopeAssert

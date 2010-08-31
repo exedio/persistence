@@ -27,6 +27,7 @@ import java.util.Map;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
