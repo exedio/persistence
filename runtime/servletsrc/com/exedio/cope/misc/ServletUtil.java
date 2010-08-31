@@ -184,8 +184,6 @@ public final class ServletUtil
 
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		final String prefix =
-			context.getInitParameter("com.exedio.cope.contextPrefix");
 		return PrefixSource.wrap(new Properties.Source(){
 					public String get(final String key)
 					{
@@ -210,7 +208,7 @@ public final class ServletUtil
 							"of '" + context.getContextPath() + '\''
 							;
 					}
-				}, prefix);
+				}, context.getInitParameter("com.exedio.cope.contextPrefix"));
 	}
 
 	// ------------------- deprecated stuff -------------------
