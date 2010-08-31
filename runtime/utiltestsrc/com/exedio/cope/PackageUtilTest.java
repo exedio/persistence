@@ -32,6 +32,7 @@ public class PackageUtilTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(LRUMapTest.class);
 		suite.addTestSuite(TrimmerTest.class);
+		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
 		suite.addTestSuite(ClusterTest.class);

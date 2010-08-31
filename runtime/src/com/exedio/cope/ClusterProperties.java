@@ -36,7 +36,7 @@ final class ClusterProperties extends Properties
 {
 	static ClusterProperties get(final Properties.Source source)
 	{
-		final ClusterProperties clusterProperties = new ClusterProperties(source);
+		final ClusterProperties clusterProperties = new ClusterProperties(new PrefixSource(source, "cluster."));
 		if(!clusterProperties.isEnabled())
 			return null;
 
@@ -49,27 +49,27 @@ final class ClusterProperties extends Properties
 	/**
 	 * a value of 0 disables cluster invalidation at all
 	 */
-	private final IntField     secret              = new     IntField("cluster.secret", 0, MIN_VALUE);
-	private final BooleanField nodeAuto            = new BooleanField("cluster.nodeAuto" , true);
-	private final IntField     nodeField           = new     IntField("cluster.node"     , 0, MIN_VALUE);
-	        final BooleanField log                 = new BooleanField("cluster.log", true);
-	private final BooleanField sendSourcePortAuto  = new BooleanField("cluster.sendSourcePortAuto" , true);
-	private final IntField     sendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
-	private final StringField  sendAddressField    = new  StringField("cluster.sendAddress",         MULTICAST_ADDRESS);
-	        final IntField     sendDestinationPort = new     IntField("cluster.sendDestinationPort", MULTICAST_PORT, 1);
-	private final BooleanField sendBufferDefault   = new BooleanField("cluster.sendBufferDefault"  , true);
-	private final IntField     sendBuffer          = new     IntField("cluster.sendBuffer"         , 50000, 1);
-	private final BooleanField sendTrafficDefault  = new BooleanField("cluster.sendTrafficDefault" , true);
-	private final IntField     sendTraffic         = new     IntField("cluster.sendTraffic"        , 0, 0);
-	private final StringField  listenAddressField  = new  StringField("cluster.listenAddress",       MULTICAST_ADDRESS);
-	private final IntField     listenPort          = new     IntField("cluster.listenPort",          MULTICAST_PORT, 1);
-	private final BooleanField listenBufferDefault = new BooleanField("cluster.listenBufferDefault", true);
-	private final IntField     listenBuffer        = new     IntField("cluster.listenBuffer"       , 50000, 1);
-	private final IntField     listenThreads       = new     IntField("cluster.listenThreads",       1, 1);
-	private final BooleanField listenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
-	private final IntField     listenPriority      = new     IntField("cluster.listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
-	private final BooleanField multicast           = new BooleanField("cluster.multicast",           true);
-	private final IntField     packetSizeField     = new     IntField("cluster.packetSize",          1400, 32);
+	private final IntField     secret              = new     IntField("secret", 0, MIN_VALUE);
+	private final BooleanField nodeAuto            = new BooleanField("nodeAuto" , true);
+	private final IntField     nodeField           = new     IntField("node"     , 0, MIN_VALUE);
+	        final BooleanField log                 = new BooleanField("log", true);
+	private final BooleanField sendSourcePortAuto  = new BooleanField("sendSourcePortAuto" , true);
+	private final IntField     sendSourcePort      = new     IntField("sendSourcePort"     , 14445, 1);
+	private final StringField  sendAddressField    = new  StringField("sendAddress",         MULTICAST_ADDRESS);
+	        final IntField     sendDestinationPort = new     IntField("sendDestinationPort", MULTICAST_PORT, 1);
+	private final BooleanField sendBufferDefault   = new BooleanField("sendBufferDefault"  , true);
+	private final IntField     sendBuffer          = new     IntField("sendBuffer"         , 50000, 1);
+	private final BooleanField sendTrafficDefault  = new BooleanField("sendTrafficDefault" , true);
+	private final IntField     sendTraffic         = new     IntField("sendTraffic"        , 0, 0);
+	private final StringField  listenAddressField  = new  StringField("listenAddress",       MULTICAST_ADDRESS);
+	private final IntField     listenPort          = new     IntField("listenPort",          MULTICAST_PORT, 1);
+	private final BooleanField listenBufferDefault = new BooleanField("listenBufferDefault", true);
+	private final IntField     listenBuffer        = new     IntField("listenBuffer"       , 50000, 1);
+	private final IntField     listenThreads       = new     IntField("listenThreads",       1, 1);
+	private final BooleanField listenPrioritySet   = new BooleanField("listenPrioritySet",   false);
+	private final IntField     listenPriority      = new     IntField("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
+	private final BooleanField multicast           = new BooleanField("multicast",           true);
+	private final IntField     packetSizeField     = new     IntField("packetSize",          1400, 32);
 
 	final int node;
 	final InetAddress sendAddress, listenAddress;
