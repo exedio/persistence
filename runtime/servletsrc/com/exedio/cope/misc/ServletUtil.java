@@ -205,10 +205,10 @@ public final class ServletUtil
 					{
 						return
 							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + context.getContextPath() + '\''
-							;
+							"of '" + context.getContextPath() + '\'';
 					}
-				}, context.getInitParameter("com.exedio.cope.contextPrefix"));
+				},
+				context.getInitParameter("com.exedio.cope.contextPrefix"));
 	}
 
 	// ------------------- deprecated stuff -------------------
