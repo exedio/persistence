@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
 public final class ServletUtil
@@ -185,10 +186,10 @@ public final class ServletUtil
 	{
 		final String prefix =
 			context.getInitParameter("com.exedio.cope.contextPrefix");
-		return new Properties.Source(){
+		return PrefixSource.wrap(new Properties.Source(){
 					public String get(final String key)
 					{
-						return context.getInitParameter(prefix!=null ? (prefix+key) : key);
+						return context.getInitParameter(key);
 					}
 
 					public Collection<String> keySet()
@@ -206,10 +207,10 @@ public final class ServletUtil
 					{
 						return
 							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + context.getContextPath() + '\'' +
-							(prefix!=null ? (" with prefix '"+prefix+'\'') : "");
+							"of '" + context.getContextPath() + '\''
+							;
 					}
-				};
+				}, prefix);
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -39,7 +39,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' with prefix 'prfx.'", s.toString());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' (prefix prfx.)", s.getDescription());
 		}
 		{
 			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null));
