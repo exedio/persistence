@@ -68,6 +68,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals("prefix./val", ps.get(""));
 		assertEquals(null, ps.get("none"));
+		assertEquals(null, ps.get(null));
 		assertEqualsUnmodifiable(list("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 	}
@@ -81,6 +82,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals("prefix./val", ps.get(""));
 		assertEquals(null, ps.get("none"));
+		assertEquals(null, ps.get(null));
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 	}
