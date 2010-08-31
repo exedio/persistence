@@ -103,7 +103,7 @@ final class DayColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillis());
+		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillisFrom());
 	}
 
 	@Override
