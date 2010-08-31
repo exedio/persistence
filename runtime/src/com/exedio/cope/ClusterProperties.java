@@ -36,7 +36,7 @@ final class ClusterProperties extends Properties
 {
 	static ClusterProperties get(final Properties.Source source)
 	{
-		final ClusterProperties clusterProperties = new ClusterProperties(new PrefixSource(source, "cluster."));
+		final ClusterProperties clusterProperties = new ClusterProperties(source);
 		if(!clusterProperties.isEnabled())
 			return null;
 

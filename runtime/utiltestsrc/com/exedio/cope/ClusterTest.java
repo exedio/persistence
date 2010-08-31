@@ -49,15 +49,15 @@ public class ClusterTest extends CopeAssert
 				{
 					public String get(final String key)
 					{
-						if(key.equals("cluster.packetSize"))
+						if(key.equals("packetSize"))
 							return "47";
-						else if(key.equals("cluster.secret"))
+						else if(key.equals("secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("cluster.nodeAuto"))
+						else if(key.equals("nodeAuto"))
 							return "false";
-						else if(key.equals("cluster.node"))
+						else if(key.equals("node"))
 							return String.valueOf(node);
-						else if(key.equals("cluster.log"))
+						else if(key.equals("log"))
 							return "false";
 						else
 							return null;
