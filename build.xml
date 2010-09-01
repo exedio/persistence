@@ -350,7 +350,11 @@
 	</target>
 	
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument suppressUnusedWarningOnPrivateActivationConstructor="true" finalArgs="true" createDeprecated="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				createDeprecated="true"
+				verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
@@ -534,7 +538,10 @@
 	</target>
 	
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument suppressUnusedWarningOnPrivateActivationConstructor="true" finalArgs="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
 				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
@@ -727,7 +734,11 @@
 	</target>
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument suppressUnusedWarningOnPrivateActivationConstructor="true" finalArgs="true" createDeprecated="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				createDeprecated="true"
+				verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
 			</fileset>
