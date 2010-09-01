@@ -98,6 +98,7 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
+	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean skipDeprecated;
 
@@ -118,6 +119,7 @@ final class Generator
 
 		this.longJavadoc = params.longJavadoc;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
+		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
 		this.skipDeprecated = !params.createDeprecated;
 	}
@@ -340,7 +342,7 @@ final class Generator
 
 		final boolean allowSubtypes = type.allowSubtypes();
 		write('\t');
-		if(!allowSubtypes)
+		if(suppressUnusedWarningOnPrivateActivationConstructor && !allowSubtypes)
 			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(allowSubtypes ? PROTECTED : PRIVATE));
 		write(type.name);
