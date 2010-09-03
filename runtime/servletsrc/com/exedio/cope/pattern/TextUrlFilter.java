@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -215,16 +214,13 @@ public class TextUrlFilter extends MediaFilter
 
 		response.setContentType(supportedContentType);
 
-		final ByteArrayOutputStream body = new ByteArrayOutputStream(); // TODO do not use ByteArrayOutputStream, is non-sense
-
-		body.write(tempString.getBytes(encoding));
-
-		response.setContentLength(body.size());
+		final byte[] body = tempString.getBytes(encoding);
+		response.setContentLength(body.length);
 
 		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			body.writeTo(out);
+			out.write(body);
 			return delivered;
 		}
 		finally
