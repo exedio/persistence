@@ -46,8 +46,8 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new TextUrlFilterItem());
 	}
 
-	private static final String URL1 = "media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
-	private static final String URL2 = "media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
+	private static final String URL1 = "/junitwebapp/media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
+	private static final String URL2 = "/junitwebapp/media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
 
 	public void testIt() throws IOException
 	{
