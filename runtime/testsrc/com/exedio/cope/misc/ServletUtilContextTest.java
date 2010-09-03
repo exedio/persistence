@@ -29,14 +29,14 @@ import javax.servlet.ServletContext;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.PrefixSource;
-import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Properties.Source;
 
 public class ServletUtilContextTest extends CopeAssert
 {
 	public void testIt()
 	{
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
+			final Source s = ServletUtil.getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
@@ -45,7 +45,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("/", "root."));
+			final Source s = ServletUtil.getPropertyContext(new TestContext("/", "root."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "root.p3");
@@ -54,7 +54,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("ding", "ding."));
+			final Source s = ServletUtil.getPropertyContext(new TestContext("ding", "ding."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "ding.p3");
@@ -63,7 +63,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null, ""));
+			final Source s = ServletUtil.getPropertyContext(new TestContext(null, ""));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
@@ -73,7 +73,7 @@ public class ServletUtilContextTest extends CopeAssert
 		}
 	}
 
-	private static final void assertFails(final Properties.Source source, final String key, final String failureKey)
+	private static final void assertFails(final Source source, final String key, final String failureKey)
 	{
 		try
 		{
