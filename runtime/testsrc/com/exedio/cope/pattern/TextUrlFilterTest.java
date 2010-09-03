@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.TextUrlFilterItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletOutputStream;
 
@@ -97,14 +98,14 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		@Override
 		public void setContentLength(final int len)
 		{
-			/*try
+			try
 			{
 				assertEquals(body.getBytes("utf8").length, len);
 			}
 			catch(final UnsupportedEncodingException e)
 			{
 				throw new RuntimeException(e);
-			}*/
+			}
 		}
 
 		@Override
