@@ -95,11 +95,11 @@ public final class SchemaInfo
 	 */
 	public static String getTypeColumnName(final Type type)
 	{
-		final Table table = type.table;
-		if(table.typeColumn==null)
+		final StringColumn typeColumn = type.table.typeColumn;
+		if(typeColumn==null)
 			throw new IllegalArgumentException("no type column for " + type);
 
-		return table.typeColumn.id;
+		return typeColumn.id;
 	}
 
 	/**
@@ -121,11 +121,11 @@ public final class SchemaInfo
 	 */
 	public static String getModificationCounterColumnName(final Type type)
 	{
-		final Table table = type.table;
-		if(table.modificationCount==null)
+		final IntegerColumn modificationCount = type.table.modificationCount;
+		if(modificationCount==null)
 			throw new IllegalArgumentException("no modification counter column for " + type);
 
-		return table.modificationCount.id;
+		return modificationCount.id;
 	}
 
 	/**
