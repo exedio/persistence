@@ -40,7 +40,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' (prefix prfx.)", s.getDescription());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of '/testContextPath' (prefix prfx.)", s.getDescription());
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
@@ -48,8 +48,8 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("prfx.p1"));
 			assertEquals("v2", s.get("prfx.p2"));
 			assertFails(s, "prfx.p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.getDescription());
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.toString());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of '/testContextPath'", s.getDescription());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of '/testContextPath'", s.toString());
 		}
 	}
 
@@ -109,7 +109,7 @@ public class ServletUtilContextTest extends CopeAssert
 
 		public String getContextPath()
 		{
-			return "testContextPath";
+			return "/testContextPath";
 		}
 
 		public Enumeration getInitParameterNames()
