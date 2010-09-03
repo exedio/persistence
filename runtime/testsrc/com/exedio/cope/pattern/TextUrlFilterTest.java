@@ -46,11 +46,12 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new TextUrlFilterItem());
 	}
 
-	private static final String URL1 = "/junitwebapp/media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
-	private static final String URL2 = "/junitwebapp/media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
-
 	public void testIt() throws IOException
 	{
+		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
+		final String URL1 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
+		final String URL2 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
+
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, item));
 
 		item.setFertigRaw("<eins>(uno)<zwei>");
