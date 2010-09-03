@@ -40,7 +40,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of '/testContextPath' (prefix testContextPath.)", s.getDescription());
+			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.getDescription());
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
@@ -48,7 +48,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "root.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of '/' (prefix root.)", s.getDescription());
+			assertEquals("ServletContext '/' (prefix root.)", s.getDescription());
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
@@ -56,7 +56,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "ding.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'ding' (prefix ding.)", s.getDescription());
+			assertEquals("ServletContext 'ding' (prefix ding.)", s.getDescription());
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
@@ -64,8 +64,8 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'null'", s.getDescription());
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'null'", s.toString());
+			assertEquals("ServletContext 'null'", s.getDescription());
+			assertEquals("ServletContext 'null'", s.toString());
 		}
 	}
 

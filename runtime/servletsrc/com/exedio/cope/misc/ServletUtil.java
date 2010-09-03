@@ -214,9 +214,7 @@ public final class ServletUtil
 					@Override
 					public String toString()
 					{
-						return
-							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + contextPath + '\'';
+						return "ServletContext '" + contextPath + '\'';
 					}
 				},
 				prefix);
