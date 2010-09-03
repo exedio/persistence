@@ -95,11 +95,11 @@ public final class SchemaInfo
 	 */
 	public static String getTypeColumnName(final Type type)
 	{
-		final StringColumn typeColumn = type.table.typeColumn;
-		if(typeColumn==null)
+		final StringColumn column = type.table.typeColumn;
+		if(column==null)
 			throw new IllegalArgumentException("no type column for " + type);
 
-		return typeColumn.id;
+		return column.id;
 	}
 
 	/**
@@ -121,11 +121,11 @@ public final class SchemaInfo
 	 */
 	public static String getModificationCounterColumnName(final Type type)
 	{
-		final IntegerColumn modificationCount = type.table.modificationCount;
-		if(modificationCount==null)
+		final IntegerColumn column = type.table.modificationCount;
+		if(column==null)
 			throw new IllegalArgumentException("no modification counter column for " + type);
 
-		return modificationCount.id;
+		return column.id;
 	}
 
 	/**
@@ -152,11 +152,11 @@ public final class SchemaInfo
 	 */
 	public static String getTypeColumnName(final ItemField field)
 	{
-		final Column typeColumn = field.getTypeColumn();
-		if(typeColumn==null)
+		final Column column = field.getTypeColumn();
+		if(column==null)
 			throw new IllegalArgumentException("no type column for " + field);
 
-		return typeColumn.id;
+		return column.id;
 	}
 
 	/**
