@@ -19,9 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
 public class SchemaInfoTest extends AbstractRuntimeTest
@@ -105,6 +107,24 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		{
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}
+
+		if(isConcurrentModificationDetectionEnabled(model))
+		{
+			assertEquals("catch", getModificationCounterColumnName(InstanceOfAItem.TYPE));
+		}
+		else
+		{
+			try
+			{
+				getModificationCounterColumnName(InstanceOfAItem.TYPE);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no modification counter column for InstanceOfAItem", e.getMessage());
+			}
+		}
+
 		assertCacheInfo(
 			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
 			new int []{62500, 12500, 12500, 12500});

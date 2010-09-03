@@ -103,6 +103,32 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @see #getModificationCounterColumnName(Type)
+	 */
+	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	{
+		return model.connect().properties.itemCacheConcurrentModificationDetection.booleanValue();
+	}
+
+	/**
+	 * Returns the name of modification counter column in the database for the type.
+	 * If not configured otherwise
+	 * the name equals "catch".
+	 * @throws IllegalArgumentException
+	 *         if there is no modification counter column for this type,
+	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
+	 *         has been switched off.
+	 */
+	public static String getModificationCounterColumnName(final Type type)
+	{
+		final Table table = type.table;
+		if(table.modificationCount==null)
+			throw new IllegalArgumentException("no modification counter column for " + type);
+
+		return table.modificationCount.id;
+	}
+
+	/**
 	 * Returns the name of database column for the field.
 	 * If not configured otherwise
 	 * or trimmed to fit into name length restrictions,
