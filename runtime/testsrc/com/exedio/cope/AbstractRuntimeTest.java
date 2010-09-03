@@ -119,7 +119,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
-	protected boolean noJoinParentheses;
 	protected boolean noJoinParenthesesNew;
 
 	private final ArrayList<File> files = new ArrayList<File>();
@@ -149,7 +148,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		noJoinParentheses = false;
 		noJoinParenthesesNew = hsqldb;
 		files.clear();
 
