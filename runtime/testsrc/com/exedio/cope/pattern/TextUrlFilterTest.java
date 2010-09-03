@@ -20,13 +20,16 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
+import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletOutputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {
@@ -120,6 +123,100 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 					throw new RuntimeException();
 				}
 			};
+		}
+	}
+
+	public void testFail()
+	{
+		try
+		{
+			new TextUrlFilter(null, null, null, null, null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("source", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, null, null, null, null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("supportedContentType", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", null, null, null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("encoding", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "zack", null, null, null, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", null, null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("pasteStart", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", "", null, null, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteStart", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", "(", null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("pasteStop", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", "(", "", null, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteStop", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", "(", ")", null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("pasteKey", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", "utf8", "(", ")", new StringField(), null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("pasteValue", e.getMessage());
 		}
 	}
 }

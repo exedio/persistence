@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,10 +67,37 @@ public class TextUrlFilter extends MediaFilter
 	{
 		super(raw);
 
+		if(supportedContentType==null)
+			throw new NullPointerException("supportedContentType");
+
+		if(encoding==null)
+			throw new NullPointerException("encoding");
+		try
+		{
+			"zack".getBytes(encoding);
+		}
+		catch(final UnsupportedEncodingException e)
+		{
+			throw new IllegalArgumentException(e);
+		}
+
+		if(pasteStart==null)
+			throw new NullPointerException("pasteStart");
+		if(pasteStart.length()==0)
+			throw new IllegalArgumentException("pasteStart");
+		if(pasteStop==null)
+			throw new NullPointerException("pasteStop");
+		if(pasteStop.length()==0)
+			throw new IllegalArgumentException("pasteStop");
 		if(pasteStart.length()>1)
 			throw new RuntimeException("not yet implemented, is buggy " + pasteStart);
 		if(pasteStop.length()>1)
 			throw new RuntimeException("not yet implemented, is buggy " + pasteStop);
+
+		if(pasteKey==null)
+			throw new NullPointerException("pasteKey");
+		if(pasteValue==null)
+			throw new NullPointerException("pasteValue");
 
 		this.raw = raw;
 		this.supportedContentType = supportedContentType;
