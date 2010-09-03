@@ -74,12 +74,37 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteValue = pasteValue;
 	}
 
+	public void setRaw( final Item item, final Media.Value raw ) throws IOException
+	{
+		this.raw.set( item, raw );
+	}
+
 	public final void addPaste(final Item item, final String key, final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
 				this.pasteValue.map(value),
 				Cope.mapAndCast(this.pasteParent, item));
+	}
+
+	public void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
+	{
+		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
+		if( pasteItem == null )
+		{
+			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
+		}
+		pasteValue.set( pasteItem, value );
+	}
+
+	public String getPasteUrl( final Item item, final String key ) throws IOException
+	{
+		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
+		if( pasteItem == null )
+		{
+			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
+		}
+		return pasteValue.getURL( pasteItem );
 	}
 
 	@Override
@@ -89,9 +114,18 @@ public class TextUrlFilter extends MediaFilter
 		result.addAll(super.getWrappers());
 
 		result.add(
+			new Wrapper( "setRaw" ).addParameter( Media.Value.class, "raw" ).
+			addThrows( IOException.class ) );
+
+		result.add(
 				new Wrapper("addPaste").
 				addParameter(String.class, "key").
 				addParameter(Media.Value.class, "value"));
+
+		result.add(
+			new Wrapper( "modifyPaste" ).addParameter( String.class, "key" ).
+			addParameter( Media.Value.class, "value" ).
+			addThrows( IOException.class ) );
 
 		return Collections.unmodifiableList(result);
 	}
