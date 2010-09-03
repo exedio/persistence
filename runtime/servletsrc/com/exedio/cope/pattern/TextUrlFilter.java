@@ -97,7 +97,7 @@ public class TextUrlFilter extends MediaFilter
 		pasteValue.set( pasteItem, value );
 	}
 
-	public String getPasteUrl( final Item item, final String key ) throws IOException
+	public String getPasteUrl( final Item item, final String key )
 	{
 		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
 		if( pasteItem == null )
