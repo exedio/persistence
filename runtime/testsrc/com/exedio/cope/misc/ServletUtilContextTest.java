@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
@@ -36,7 +38,7 @@ public class ServletUtilContextTest extends CopeAssert
 	public void testIt()
 	{
 		{
-			final Source s = ServletUtil.getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
+			final Source s = getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
@@ -45,7 +47,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Source s = ServletUtil.getPropertyContext(new TestContext("/", "root."));
+			final Source s = getPropertyContext(new TestContext("/", "root."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "root.p3");
@@ -54,7 +56,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Source s = ServletUtil.getPropertyContext(new TestContext("ding", "ding."));
+			final Source s = getPropertyContext(new TestContext("ding", "ding."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "ding.p3");
@@ -63,7 +65,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Source s = ServletUtil.getPropertyContext(new TestContext(null, ""));
+			final Source s = getPropertyContext(new TestContext(null, ""));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
