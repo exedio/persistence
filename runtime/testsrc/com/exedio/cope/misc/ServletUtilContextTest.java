@@ -36,7 +36,7 @@ public class ServletUtilContextTest extends CopeAssert
 	public void testIt()
 	{
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("testContextPath.", "/testContextPath"));
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
@@ -45,7 +45,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("root.", "/"));
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("/", "root."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "root.p3");
@@ -54,7 +54,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("ding.", "ding"));
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("ding", "ding."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "ding.p3");
@@ -63,7 +63,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("", null));
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null, ""));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
@@ -88,13 +88,13 @@ public class ServletUtilContextTest extends CopeAssert
 
 	static class TestContext implements ServletContext
 	{
-		private final String prefix;
 		private final String contextPath;
+		private final String prefix;
 
-		TestContext(final String prefix, final String contextPath)
+		TestContext(final String contextPath, final String prefix)
 		{
-			this.prefix = prefix;
 			this.contextPath = contextPath;
+			this.prefix = prefix;
 		}
 
 		public String getInitParameter(final String name)
