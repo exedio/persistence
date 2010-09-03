@@ -120,6 +120,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean postgresql;
 	protected boolean cache;
 	protected boolean noJoinParentheses;
+	protected boolean noJoinParenthesesNew;
 
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
@@ -148,7 +149,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		noJoinParentheses = hsqldb;
+		noJoinParentheses = false;
+		noJoinParenthesesNew = hsqldb;
 		files.clear();
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
