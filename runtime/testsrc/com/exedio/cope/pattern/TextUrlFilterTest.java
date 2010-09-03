@@ -57,7 +57,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, item));
 
-		item.setFertigRaw("<eins>(uno)<zwei>");
+		item.setFertigRaw("<eins>paste(uno)<zwei>");
 		try
 		{
 			fertig.doGetIfModified(null, item);
@@ -74,7 +74,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item.addFertigPaste("duo");
 		assertGet("<eins>" + URL1 + "<zwei>");
 
-		item.setFertigRaw("(uno)<eins>(duo)");
+		item.setFertigRaw("paste(uno)<eins>paste(duo)");
 		assertGet(URL1 + "<eins>" + URL2);
 	}
 

@@ -32,7 +32,7 @@ public class TextUrlFilterItem extends Item
 	static final TextUrlFilter fertig = new TextUrlFilter(
 			roh,
 			"text/plain", "utf-8",
-			"(", ")",
+			"paste(", ")",
 			new StringField(),
 			new Media());
 
