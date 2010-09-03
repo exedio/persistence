@@ -65,6 +65,12 @@ public class TextUrlFilter extends MediaFilter
 			final Media pasteValue)
 	{
 		super(raw);
+
+		if(pasteStart.length()>1)
+			throw new RuntimeException("not yet implemented, is buggy " + pasteStart);
+		if(pasteStop.length()>1)
+			throw new RuntimeException("not yet implemented, is buggy " + pasteStop);
+
 		this.raw = raw;
 		this.supportedContentType = supportedContentType;
 		this.encoding = encoding;
