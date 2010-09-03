@@ -18,8 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.ServletUtil.getPropertyContext;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
@@ -38,7 +36,7 @@ public class ServletUtilContextTest extends CopeAssert
 	public void testIt()
 	{
 		{
-			final Source s = getPropertyContext(new TestContext("testContextPath.", "/testContextPath"));
+			final Source s = com.exedio.cope.util.ServletUtil.getPropertyContext(new TestContext("testContextPath.", "/testContextPath"));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
@@ -46,7 +44,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Source s = getPropertyContext(new TestContext("", null));
+			final Source s = com.exedio.cope.util.ServletUtil.getPropertyContext(new TestContext("", null));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
