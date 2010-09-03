@@ -72,6 +72,7 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteStop = pasteStop;
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
+		addSource( raw, "Raw" );
 	}
 
 	public void setRaw( final Item item, final Media.Value raw ) throws IOException
