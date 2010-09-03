@@ -28,6 +28,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.ServletUtil;
 
 public class ServletUtilContextTest extends CopeAssert
 {
@@ -35,18 +36,20 @@ public class ServletUtilContextTest extends CopeAssert
 	public void testIt()
 	{
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("prfx."));
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("testContextPath.", "/testContextPath"));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
-			assertFails(s, "p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' (prefix prfx.)", s.getDescription());
+			assertFails(s, "p3", "testContextPath.p3");
+			assertEquals("javax.servlet.ServletContext.getInitParameter of '/testContextPath' (prefix testContextPath.)", s.getDescription());
+			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
-			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null));
-			assertEquals("v1", s.get("prfx.p1"));
-			assertEquals("v2", s.get("prfx.p2"));
-			assertFails(s, "prfx.p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.toString());
+			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext("", null));
+			assertEquals("v1", s.get("p1"));
+			assertEquals("v2", s.get("p2"));
+			assertFails(s, "p3", "p3");
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'null'", s.getDescription());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'null'", s.toString());
 		}
 	}
 
@@ -66,19 +69,19 @@ public class ServletUtilContextTest extends CopeAssert
 	static class TestContext implements ServletContext
 	{
 		private final String prefix;
+		private final String contextPath;
 
-		TestContext(final String prefix)
+		TestContext(final String prefix, final String contextPath)
 		{
 			this.prefix = prefix;
+			this.contextPath = contextPath;
 		}
 
 		public String getInitParameter(final String name)
 		{
-			if("com.exedio.cope.contextPrefix".equals(name))
-				return prefix;
-			else if("prfx.p1".equals(name))
+			if((prefix + "p1").equals(name))
 				return "v1";
-			else if("prfx.p2".equals(name))
+			else if((prefix + "p2").equals(name))
 				return "v2";
 			else
 				throw new IllegalArgumentException(name);
@@ -106,7 +109,7 @@ public class ServletUtilContextTest extends CopeAssert
 
 		public String getContextPath()
 		{
-			return "testContextPath";
+			return contextPath;
 		}
 
 		public Enumeration getInitParameterNames()

@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add ${contextPath} to servlet property context
+	and use a value derived from that instead of com.exedio.cope.contextPrefix
+	This breaks backwards configuration compatibility
+	BEWARE: You must adjust your production systems!
 * remove @SuppressWarnings("unused") on private activation constructors
 	heavily affects instrumented code !
 	use <instrument suppressUnusedWarningOnPrivateActivationConstructor="true" ...
