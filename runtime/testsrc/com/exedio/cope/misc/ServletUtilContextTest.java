@@ -28,6 +28,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
 public class ServletUtilContextTest extends CopeAssert
@@ -40,12 +41,14 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "prfx.p3");
 			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' (prefix prfx.)", s.getDescription());
+			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
 		}
 		{
 			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null));
 			assertEquals("v1", s.get("prfx.p1"));
 			assertEquals("v2", s.get("prfx.p2"));
 			assertFails(s, "prfx.p3", "prfx.p3");
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.getDescription());
 			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.toString());
 		}
 	}
