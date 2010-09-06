@@ -208,11 +208,8 @@ final class Table
 	{
 		final ArrayList<Column> columns = new ArrayList<Column>();
 		for(final Column column : allColumnsModifiable)
-		{
-
 			if(primaryKey!=column && typeColumn!=column && modificationCount!=column)
 				columns.add(column);
-		}
 
 		this.columns = Collections.unmodifiableList(columns);
 		allColumns = Collections.unmodifiableList(allColumnsModifiable);
