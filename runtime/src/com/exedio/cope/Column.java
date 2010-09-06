@@ -32,6 +32,7 @@ abstract class Column
 	private final Field field;
 	final String id;
 	final String quotedID;
+	final String idForGlobal;
 	final boolean synthetic;
 	final boolean primaryKey;
 	final boolean optional;
@@ -47,8 +48,9 @@ abstract class Column
 		final Database database = table.database;
 		this.table = table;
 		this.field = field;
-		this.id = intern(database.makeName(id));
+		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames.booleanValue()) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
+		this.idForGlobal = id;
 		this.synthetic = synthetic;
 		this.primaryKey = primaryKey;
 		this.optional = optional;
@@ -70,7 +72,7 @@ abstract class Column
 
 	String makeGlobalID(final String suffix)
 	{
-		return table.makeGlobalID(id + '_' + suffix);
+		return table.makeGlobalID(idForGlobal + '_' + suffix);
 	}
 
 	@Override

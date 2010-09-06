@@ -78,15 +78,15 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 
 		// with sub types
 		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
-		assertEquals("class", getTypeColumnName(InstanceOfAItem.TYPE));
+		assertEquals(synthetic("this", "InstanceOfAItem"), getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
+		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
 		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 
 		// without sub types
 		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
+		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try
 		{
 			getTypeColumnName(InstanceOfB2Item.TYPE);
@@ -110,7 +110,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 
 		if(isConcurrentModificationDetectionEnabled(model))
 		{
-			assertEquals("catch", getModificationCounterColumnName(InstanceOfAItem.TYPE));
+			assertEquals(synthetic("catch", "InstanceOfAItem"), getModificationCounterColumnName(InstanceOfAItem.TYPE));
 		}
 		else
 		{

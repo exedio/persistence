@@ -96,17 +96,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table)
 	{
-		// IMPLEMENTATION NOTE
-		//
-		// In theory, one could specify different column names
-		// for the primary key of different tables here, and the framework
-		// should work as well. I tried this once (uncomment the line below),
-		// and it did pass all tests.
-		//
-		//super(table, Table.PK_COLUMN_NAME+table.id, true, true);
-
 		super(table, null, Table.PK_COLUMN_NAME, true, true, true);
-
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;
