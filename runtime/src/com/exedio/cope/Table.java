@@ -209,8 +209,8 @@ final class Table
 		final ArrayList<Column> columns = new ArrayList<Column>();
 		for(final Column column : allColumnsModifiable)
 		{
-			// TODO dont use TYPE_COLUMN_NAME
-			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id) && modificationCount!=column)
+
+			if(primaryKey!=column && typeColumn!=column && modificationCount!=column)
 				columns.add(column);
 		}
 
