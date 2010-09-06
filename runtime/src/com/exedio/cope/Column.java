@@ -32,6 +32,7 @@ abstract class Column
 	private final Field field;
 	final String id;
 	final String quotedID;
+	final boolean synthetic;
 	final boolean primaryKey;
 	final boolean optional;
 
@@ -39,6 +40,7 @@ abstract class Column
 			final Table table,
 			final Field field,
 			final String id,
+			final boolean synthetic,
 			final boolean primaryKey,
 			final boolean optional)
 	{
@@ -47,9 +49,12 @@ abstract class Column
 		this.field = field;
 		this.id = intern(database.makeName(id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
+		this.synthetic = synthetic;
 		this.primaryKey = primaryKey;
 		this.optional = optional;
 		table.addColumn(this);
+
+		assert !primaryKey || synthetic : table.id+':'+id;
 	}
 
 	abstract String getDatabaseType();
