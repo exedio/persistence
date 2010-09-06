@@ -68,6 +68,11 @@ abstract class Column
 		return null;
 	}
 
+	String makeGlobalID(final String suffix)
+	{
+		return table.makeGlobalID(id + '_' + suffix);
+	}
+
 	@Override
 	public final String toString()
 	{
@@ -111,9 +116,9 @@ abstract class Column
 		final String checkNotNull = getCheckConstraintIfNotNull();
 		if(primaryKey)
 		{
-			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
 			if(checkNotNull!=null)
-				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_CkPk"), checkNotNull);
+				new CheckConstraint(dsmfTable, makeGlobalID("CkPk"), checkNotNull);
 		}
 		else
 		{
@@ -146,7 +151,7 @@ abstract class Column
 			}
 
 			if(checkConstraint!=null)
-				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
+				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), checkConstraint);
 		}
 	}
 

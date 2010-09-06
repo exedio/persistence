@@ -35,10 +35,9 @@ final class ItemColumn extends IntegerColumn
 			final Type<?> targetType)
 	{
 		super(table, field, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
-		final Database database = table.database;
 		assert targetType!=null;
 		this.targetType = targetType;
-		this.integrityConstraintName = intern(database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ));
+		this.integrityConstraintName = intern(makeGlobalID("Fk"));
 	}
 
 	/**

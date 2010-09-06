@@ -227,6 +227,11 @@ final class Table
 		allColumnsModifiable = null;
 	}
 
+	String makeGlobalID(final String suffix)
+	{
+		return database.makeName(id + '_' + suffix);
+	}
+
 	@Override
 	public final String toString()
 	{
