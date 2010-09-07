@@ -118,8 +118,8 @@ final class ChangeListeners
 		if(listeners.isEmpty())
 			return;
 
-		final List<Item> items = types.activate(invalidations);
-		assert !items.isEmpty();
+		final Item[] items = types.activate(invalidations);
+		assert items.length>0;
 		final ChangeEvent event = new ChangeEvent(items, transactionInfo);
 		for(final ChangeListener listener : listeners)
 		{

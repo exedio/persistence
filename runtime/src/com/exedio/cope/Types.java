@@ -426,17 +426,26 @@ final class Types
 			type.disconnect();
 	}
 
-	List<Item> activate(final TIntHashSet[] invalidations)
+	Item[] activate(final TIntHashSet[] invalidations)
 	{
-		final ArrayList<Item> result = new ArrayList<Item>();
+		int length = 0;
+		for(int type = 0; type<invalidations.length; type++)
+		{
+			final TIntHashSet set = invalidations[type];
+			if(set!=null)
+				length += set.size();
+		}
 
+		final Item[] result = new Item[length];
+		int item = 0;
 		for(int type = 0; type<invalidations.length; type++)
 		{
 			final TIntHashSet set = invalidations[type];
 			if(set!=null)
 				for(final TIntIterator i = set.iterator(); i.hasNext(); )
-					result.add(getConcreteType(type).activate(i.next()));
+					result[item++] = getConcreteType(type).activate(i.next());
 		}
-		return Collections.unmodifiableList(result);
+		assert item==length;
+		return result;
 	}
 }

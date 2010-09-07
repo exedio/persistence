@@ -22,6 +22,7 @@ import gnu.trove.TIntHashSet;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -121,7 +122,7 @@ final class ModificationListeners
 		if(listeners.isEmpty())
 			return;
 
-		final List<Item> items = types.activate(invalidations);
+		final Collection<Item> items = Collections.unmodifiableCollection(Arrays.asList(types.activate(invalidations)));
 		assert !items.isEmpty();
 		for(final ModificationListener listener : listeners)
 		{
