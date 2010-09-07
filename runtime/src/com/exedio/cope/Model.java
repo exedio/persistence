@@ -591,9 +591,7 @@ public final class Model implements Serializable
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		final boolean hadConnection = tx.commitOrRollback(rollback);
-
-		transactionCounter.count(rollback, hadConnection);
+		tx.commitOrRollback(rollback, transactionCounter);
 	}
 
 	/**

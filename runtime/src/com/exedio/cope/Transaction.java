@@ -265,9 +265,8 @@ public final class Transaction
 
 	/**
 	 * calling this method directly breaks model.openTransactions
-	 * @return whether this transaction had an associated database connection
 	 */
-	boolean commitOrRollback(final boolean rollback)
+	void commitOrRollback(final boolean rollback, final TransactionCounter transactionCounter)
 	{
 		assert !closed : name;
 
@@ -318,7 +317,12 @@ public final class Transaction
 				model.changeListeners.invalidate(invalidations, new TransactionInfoLocal(this), connect.log);
 				model.modificationListeners.invalidate(invalidations, this, connect.log);
 			}
+		}
 
+		transactionCounter.count(rollback, hadConnection);
+
+		if(invalidations!=null)
+		{
 			// cleanup
 			// do this at the end, because there is no hurry with cleanup
 			assert entityMaps.length==invalidations.length;
@@ -342,8 +346,6 @@ public final class Transaction
 				entityMaps[typeTransiently] = null;
 			}
 		}
-
-		return hadConnection;
 	}
 
 	public long getID()
