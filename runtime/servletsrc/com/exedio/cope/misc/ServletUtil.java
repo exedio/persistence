@@ -188,7 +188,7 @@ public final class ServletUtil
 		final String prefix;
 		if(contextPath==null)
 			prefix = null;
-		else if("/".equals(contextPath))
+		else if("".equals(contextPath))
 			prefix = "root.";
 		else if(contextPath.startsWith("/"))
 			prefix = contextPath.substring(1) + '.';
