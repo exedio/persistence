@@ -115,25 +115,25 @@ final class ChangeListeners
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo, final boolean log)
 	{
 		final List<ChangeListener> listeners = get();
-		if(!listeners.isEmpty())
+		if(listeners.isEmpty())
+			return;
+
+		final ArrayList<Item> items = types.activate(invalidations);
+		assert !items.isEmpty();
+		final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+		final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
+		for(final ChangeListener listener : listeners)
 		{
-			final ArrayList<Item> items = types.activate(invalidations);
-			assert !items.isEmpty();
-			final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
-			final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
-			for(final ChangeListener listener : listeners)
+			try
 			{
-				try
-				{
-					listener.onChange(event);
-				}
-				catch(final RuntimeException e)
-				{
-					if(log)
-						System.err.println(
-								"Suppressing exception from change listener " + listener.getClass().getName() +
-								':' + e.getClass().getName() + ' ' + e.getMessage());
-				}
+				listener.onChange(event);
+			}
+			catch(final RuntimeException e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing exception from change listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}
 	}

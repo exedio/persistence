@@ -118,24 +118,24 @@ final class ModificationListeners
 	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction, final boolean log)
 	{
 		final List<ModificationListener> listeners = get();
-		if(!listeners.isEmpty())
+		if(listeners.isEmpty())
+			return;
+
+		final ArrayList<Item> items = types.activate(invalidations);
+		assert !items.isEmpty();
+		final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+		for(final ModificationListener listener : listeners)
 		{
-			final ArrayList<Item> items = types.activate(invalidations);
-			assert !items.isEmpty();
-			final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
-			for(final ModificationListener listener : listeners)
+			try
 			{
-				try
-				{
-					onModifyingCommit(listener, itemsUnmodifiable, transaction);
-				}
-				catch(final RuntimeException e)
-				{
-					if(log)
-						System.err.println(
-								"Suppressing exception from modification listener " + listener.getClass().getName() +
-								':' + e.getClass().getName() + ' ' + e.getMessage());
-				}
+				onModifyingCommit(listener, itemsUnmodifiable, transaction);
+			}
+			catch(final RuntimeException e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing exception from modification listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}
 	}
