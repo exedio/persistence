@@ -32,6 +32,8 @@ public final class ChangeEvent
 	{
 		this.items = items;
 		this.transactionInfo = transactionInfo;
+
+		assert items.length>0;
 	}
 
 	public Collection<Item> getItems()
