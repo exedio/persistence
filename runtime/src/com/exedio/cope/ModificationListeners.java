@@ -120,14 +120,14 @@ final class ModificationListeners
 		final List<ModificationListener> listeners = get();
 		if(!listeners.isEmpty())
 		{
-			final ArrayList<Item> modifiedItems = types.activate(invalidations);
-			assert !modifiedItems.isEmpty();
-			final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
+			final ArrayList<Item> items = types.activate(invalidations);
+			assert !items.isEmpty();
+			final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
 			for(final ModificationListener listener : listeners)
 			{
 				try
 				{
-					onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
+					onModifyingCommit(listener, itemsUnmodifiable, transaction);
 				}
 				catch(final RuntimeException e)
 				{
