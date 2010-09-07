@@ -304,35 +304,35 @@ public final class Transaction
 			unbindThread();
 		}
 
-	if(invalidations!=null)
-	{
-		// notify global cache
-		if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
+		if(invalidations!=null)
 		{
-			connect.invalidate(invalidations, true);
-		}
-
-		// notify ChangeListeners
-		if(!rollback)
-		{
-			model.changeListeners.invalidate(invalidations, new TransactionInfoLocal(this), connect.log);
-			model.modificationListeners.invalidate(invalidations, this, connect.log);
-		}
-
-		// cleanup
-		// do this at the end, because there is no hurry with cleanup
-		assert entityMaps.length==invalidations.length;
-		for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
-		{
-			final TIntHashSet invalidationSet = invalidations[typeTransiently];
-			if(invalidationSet!=null)
+			// notify global cache
+			if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
 			{
-				invalidationSet.clear();
-				invalidations[typeTransiently] = null;
+				connect.invalidate(invalidations, true);
 			}
+
+			// notify ChangeListeners
+			if(!rollback)
+			{
+				model.changeListeners.invalidate(invalidations, new TransactionInfoLocal(this), connect.log);
+				model.modificationListeners.invalidate(invalidations, this, connect.log);
+			}
+
+			// cleanup
+			// do this at the end, because there is no hurry with cleanup
+			assert entityMaps.length==invalidations.length;
+			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+			{
+				final TIntHashSet invalidationSet = invalidations[typeTransiently];
+				if(invalidationSet!=null)
+				{
+					invalidationSet.clear();
+					invalidations[typeTransiently] = null;
+				}
+			}
+			invalidations = null;
 		}
-		invalidations = null;
-	}
 		for(int typeTransiently = 0; typeTransiently<entityMaps.length; typeTransiently++)
 		{
 			final TIntObjectHashMap<Entity> entityMap = entityMaps[typeTransiently];
