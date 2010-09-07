@@ -428,19 +428,14 @@ final class Types
 
 	ArrayList<Item> activate(final TIntHashSet[] invalidations)
 	{
-		ArrayList<Item> result = null;
+		final ArrayList<Item> result = new ArrayList<Item>();
 
 		for(int type = 0; type<invalidations.length; type++)
 		{
 			final TIntHashSet set = invalidations[type];
 			if(set!=null)
-			{
-				if(result==null)
-					result = new ArrayList<Item>();
-
 				for(final TIntIterator i = set.iterator(); i.hasNext(); )
 					result.add(getConcreteType(type).activate(i.next()));
-			}
 		}
 		return result;
 	}

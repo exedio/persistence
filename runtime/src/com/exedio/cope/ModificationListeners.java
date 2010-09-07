@@ -121,22 +121,20 @@ final class ModificationListeners
 		if(!listeners.isEmpty())
 		{
 			final ArrayList<Item> modifiedItems = types.activate(invalidations);
-			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			assert !modifiedItems.isEmpty();
+			final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
+			for(final ModificationListener listener : listeners)
 			{
-				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				for(final ModificationListener listener : listeners)
+				try
 				{
-					try
-					{
-						onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
-					}
-					catch(final RuntimeException e)
-					{
-						if(log)
-							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
-									':' + e.getClass().getName() + ' ' + e.getMessage());
-					}
+					onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
+				}
+				catch(final RuntimeException e)
+				{
+					if(log)
+						System.err.println(
+								"Suppressing exception from modification listener " + listener.getClass().getName() +
+								':' + e.getClass().getName() + ' ' + e.getMessage());
 				}
 			}
 		}
