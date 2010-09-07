@@ -35,7 +35,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalID("Seq");
+		this.name = database.makeName(column.table.id + '_' + column.id + "_Seq");
 	}
 
 	public void makeSchema(final Schema schema)

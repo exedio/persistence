@@ -52,7 +52,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailItem());
 		txt = deleteOnTearDown(new ThumbnailItem());
 		emp = deleteOnTearDown(new ThumbnailItem());
-		jpg.setFile(getClass().getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
+		jpg.setFile(getClass().getResourceAsStream("small.jpg"), "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");

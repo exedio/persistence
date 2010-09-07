@@ -143,7 +143,7 @@ public final class Join
 				append(this.kind.sql);
 		}
 
-		bf.appendTypeDefinition(this, this.type, true);
+		bf.appendTypeDefinition(this, this.type);
 
 		if(condition!=null)
 		{

@@ -70,7 +70,6 @@ public class ReviseTest extends CopeAssert
 	String jdbcUrl;
 	String jdbcUser;
 	EnvironmentInfo info;
-	boolean longSyntheticNames = false;
 
 	public void testRevise() throws ParseException
 	{
@@ -80,7 +79,6 @@ public class ReviseTest extends CopeAssert
 		assertSame(revisions5, model5.getRevisions());
 
 		model5.connect(props);
-		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
 		info = model5.getEnvironmentInfo();
@@ -224,7 +222,7 @@ public class ReviseTest extends CopeAssert
 		final Iterator<Column> columns = table.getColumns().iterator();
 
 		final Column columnThis = columns.next();
-		assertEquals(synthetic("this", "ReviseItem"), columnThis.getName());
+		assertEquals("this", columnThis.getName());
 		assertEquals(true, columnThis.required());
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
@@ -232,7 +230,7 @@ public class ReviseTest extends CopeAssert
 		if(props.itemCacheConcurrentModificationDetection.booleanValue())
 		{
 			final Column columnCatch = columns.next();
-			assertEquals(synthetic("catch", "ReviseItem"), columnCatch.getName());
+			assertEquals("catch", columnCatch.getName());
 			assertEquals(true, columnCatch.required());
 			assertEquals(true, columnCatch.exists());
 			assertNotNull(columnCatch.getType());
@@ -363,13 +361,5 @@ public class ReviseTest extends CopeAssert
 		model7.disconnect();
 		model7.setRevisions(revisions);
 		model7.connect(c);
-	}
-
-	private final String synthetic(final String name, final String global)
-	{
-		return
-			longSyntheticNames
-			? (name + global)
-			: name;
 	}
 }

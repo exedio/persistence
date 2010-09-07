@@ -39,7 +39,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
-	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
 
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 

@@ -64,12 +64,6 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime/testfeaturesrc</label>
-                    <type>java</type>
-                    <location>runtime/testfeaturesrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
                     <label>copernica/webtestsrc</label>
                     <type>java</type>
                     <location>copernica/webtestsrc</location>
@@ -97,18 +91,6 @@
                     <label>console/testsrc</label>
                     <type>java</type>
                     <location>console/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>dsmf/src</label>
-                    <type>java</type>
-                    <location>dsmf/src</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>dsmf/testsrc</label>
-                    <type>java</type>
-                    <location>dsmf/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
             </folders>
@@ -165,10 +147,6 @@
                         <location>runtime/junitsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/testfeaturesrc</label>
-                        <location>runtime/testfeaturesrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>copernica/webtestsrc</label>
                         <location>copernica/webtestsrc</location>
                     </source-folder>
@@ -187,14 +165,6 @@
                     <source-folder style="packages">
                         <label>console/testsrc</label>
                         <location>console/testsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>dsmf/src</label>
-                        <location>dsmf/src</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>dsmf/testsrc</label>
-                        <location>dsmf/testsrc</location>
                     </source-folder>
                     <source-file>
                         <location>build.xml</location>
@@ -231,10 +201,7 @@
                 <package-root>console/src</package-root>
                 <package-root>console/websrc</package-root>
                 <package-root>console/testsrc</package-root>
-                <package-root>dsmf/src</package-root>
-                <package-root>dsmf/testsrc</package-root>
-                <package-root>runtime/testfeaturesrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/bsh-core.jar:lib/bsh-src.jar:lib/cojen-sources.jar:lib/cojen.jar:lib/exedio-cope-console.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/exedio-cops.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/junit.jar:lib/servlet-api.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar</classpath>
+                <classpath mode="compile">lib/bsh-src.jar;lib/commons-fileupload.jar;lib/commons-io.jar;lib/cojen-sources.jar;lib/bsh-core.jar;lib/cojen.jar;lib/servlet-api.jar;lib/exedio-cope-util.jar;lib/exedio-cope-util.jar-src.zip;lib/junit.jar;lib/jdbc/hsqldb.jar;lib/jdbc/mysql-connector-java-5.0.3-bin.jar;lib/jdbc/postgresql-8.1-404.jdbc3.jar;lib/exedio-cops.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

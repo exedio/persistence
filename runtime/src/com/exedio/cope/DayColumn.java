@@ -36,7 +36,7 @@ final class DayColumn extends Column
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, field, id, false, optional);
 	}
 
 	@Override

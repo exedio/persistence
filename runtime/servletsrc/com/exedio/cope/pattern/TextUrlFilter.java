@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,37 +65,6 @@ public class TextUrlFilter extends MediaFilter
 			final Media pasteValue)
 	{
 		super(raw);
-
-		if(supportedContentType==null)
-			throw new NullPointerException("supportedContentType");
-
-		if(encoding==null)
-			throw new NullPointerException("encoding");
-		try
-		{
-			"zack".getBytes(encoding);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
-
-		if(pasteStart==null)
-			throw new NullPointerException("pasteStart");
-		if(pasteStart.length()==0)
-			throw new IllegalArgumentException("pasteStart");
-		if(pasteStop==null)
-			throw new NullPointerException("pasteStop");
-		if(pasteStop.length()==0)
-			throw new IllegalArgumentException("pasteStop");
-		if(pasteStop.length()>1)
-			throw new RuntimeException("not yet implemented, is buggy " + pasteStop);
-
-		if(pasteKey==null)
-			throw new NullPointerException("pasteKey");
-		if(pasteValue==null)
-			throw new NullPointerException("pasteValue");
-
 		this.raw = raw;
 		this.supportedContentType = supportedContentType;
 		this.encoding = encoding;
@@ -103,12 +72,6 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteStop = pasteStop;
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
-		addSource( raw, "Raw" );
-	}
-
-	public void setRaw( final Item item, final Media.Value raw ) throws IOException
-	{
-		this.raw.set( item, raw );
 	}
 
 	public final void addPaste(final Item item, final String key, final Media.Value value)
@@ -119,26 +82,6 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	public void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
-	{
-		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
-		if( pasteItem == null )
-		{
-			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
-		}
-		pasteValue.set( pasteItem, value );
-	}
-
-	public String getPasteUrl( final Item item, final String key )
-	{
-		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
-		if( pasteItem == null )
-		{
-			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
-		}
-		return pasteValue.getURL( pasteItem );
-	}
-
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
@@ -146,18 +89,9 @@ public class TextUrlFilter extends MediaFilter
 		result.addAll(super.getWrappers());
 
 		result.add(
-			new Wrapper( "setRaw" ).addParameter( Media.Value.class, "raw" ).
-			addThrows( IOException.class ) );
-
-		result.add(
 				new Wrapper("addPaste").
 				addParameter(String.class, "key").
 				addParameter(Media.Value.class, "value"));
-
-		result.add(
-			new Wrapper( "modifyPaste" ).addParameter( String.class, "key" ).
-			addParameter( Media.Value.class, "value" ).
-			addThrows( IOException.class ) );
 
 		return Collections.unmodifiableList(result);
 	}
@@ -214,13 +148,16 @@ public class TextUrlFilter extends MediaFilter
 
 		response.setContentType(supportedContentType);
 
-		final byte[] body = tempString.getBytes(encoding);
-		response.setContentLength(body.length);
+		final ByteArrayOutputStream body = new ByteArrayOutputStream(); // TODO do not use ByteArrayOutputStream, is non-sense
+
+		body.write(tempString.getBytes(encoding));
+
+		response.setContentLength(body.size());
 
 		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			out.write(body);
+			body.writeTo(out);
 			return delivered;
 		}
 		finally
