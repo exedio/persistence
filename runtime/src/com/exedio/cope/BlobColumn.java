@@ -39,7 +39,7 @@ final class BlobColumn extends Column
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, false, false, optional);
 		this.maximumLength = maximumLength;
 		this.lengthFactor = table.database.dialect.getBlobLengthFactor();
 

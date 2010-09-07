@@ -103,9 +103,9 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertCheckModificationCounters();
 		assertEquals(2, subItem.getSuperInt());
 
-		if(!noJoinParentheses) assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
+		assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
 		assertEquals(list(subItem), subItem.TYPE.search(null));
-		if(!noJoinParentheses) assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
+		assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
 
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 		assertCheckModificationCounters();

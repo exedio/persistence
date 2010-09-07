@@ -18,24 +18,27 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public final class ChangeEvent
 {
-	private final List<Item> items;
+	private final Item[] items;
 	private final TransactionInfo transactionInfo;
 
-	ChangeEvent(final List<Item> items, final TransactionInfo transactionInfo)
+	ChangeEvent(final Item[] items, final TransactionInfo transactionInfo)
 	{
 		this.items = items;
 		this.transactionInfo = transactionInfo;
+
+		assert items.length>0;
 	}
 
 	public Collection<Item> getItems()
 	{
-		return items;
+		return Collections.unmodifiableCollection(Arrays.asList(items));
 	}
 
 	public boolean isRemote()

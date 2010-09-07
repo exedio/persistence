@@ -32,6 +32,8 @@ abstract class Column
 	private final Field field;
 	final String id;
 	final String quotedID;
+	final String idForGlobal;
+	final boolean synthetic;
 	final boolean primaryKey;
 	final boolean optional;
 
@@ -39,17 +41,22 @@ abstract class Column
 			final Table table,
 			final Field field,
 			final String id,
+			final boolean synthetic,
 			final boolean primaryKey,
 			final boolean optional)
 	{
 		final Database database = table.database;
 		this.table = table;
 		this.field = field;
-		this.id = intern(database.makeName(id));
+		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames.booleanValue()) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
+		this.idForGlobal = id;
+		this.synthetic = synthetic;
 		this.primaryKey = primaryKey;
 		this.optional = optional;
 		table.addColumn(this);
+
+		assert !primaryKey || synthetic : table.id+':'+id;
 	}
 
 	abstract String getDatabaseType();
@@ -61,6 +68,11 @@ abstract class Column
 			throw new IllegalStateException(table.id + '.' + id);
 
 		return null;
+	}
+
+	String makeGlobalID(final String suffix)
+	{
+		return table.makeGlobalID(idForGlobal + '_' + suffix);
 	}
 
 	@Override
@@ -106,9 +118,9 @@ abstract class Column
 		final String checkNotNull = getCheckConstraintIfNotNull();
 		if(primaryKey)
 		{
-			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
 			if(checkNotNull!=null)
-				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_CkPk"), checkNotNull);
+				new CheckConstraint(dsmfTable, makeGlobalID("CkPk"), checkNotNull);
 		}
 		else
 		{
@@ -141,7 +153,7 @@ abstract class Column
 			}
 
 			if(checkConstraint!=null)
-				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
+				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), checkConstraint);
 		}
 	}
 

@@ -433,7 +433,7 @@ final class Statement
 		return this;
 	}
 
-	void appendTypeDefinition(final Join join, final Type type)
+	void appendTypeDefinition(final Join join, final Type type, final boolean hasJoins)
 	{
 		final Type supertype = type.supertype;
 		final Table table = type.getTable();
@@ -454,7 +454,7 @@ final class Statement
 			}
 		}
 
-		if(superTables!=null)
+		if(superTables!=null && hasJoins)
 			append('(');
 
 		appendTableDefinition(join, table);
@@ -470,7 +470,8 @@ final class Statement
 				append('=');
 				append(table.primaryKey, join);
 			}
-			append(')');
+			if(hasJoins)
+				append(')');
 		}
 	}
 

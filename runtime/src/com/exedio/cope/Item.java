@@ -416,7 +416,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	// activation/deactivation -----------------------------------------------------
 
-	private final Entity getEntity()
+	final Entity getEntity()
 	{
 		return getEntity(true);
 	}

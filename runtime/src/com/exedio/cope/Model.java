@@ -58,10 +58,7 @@ public final class Model implements Serializable
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 
-	private volatile long transactionsCommitWithoutConnection = 0;
-	private volatile long transactionsCommitWithConnection = 0;
-	private volatile long transactionsRollbackWithoutConnection = 0;
-	private volatile long transactionsRollbackWithConnection = 0;
+	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type... types)
 	{
@@ -594,18 +591,7 @@ public final class Model implements Serializable
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		final boolean hadConnection = tx.commitOrRollback(rollback);
-
-		if(hadConnection)
-			if(rollback)
-				transactionsRollbackWithConnection++;
-			else
-				transactionsCommitWithConnection++;
-		else
-			if(rollback)
-				transactionsRollbackWithoutConnection++;
-			else
-				transactionsCommitWithoutConnection++;
+		tx.commitOrRollback(rollback, transactionCounter);
 	}
 
 	/**
@@ -636,11 +622,7 @@ public final class Model implements Serializable
 
 	public TransactionCounters getTransactionCounters()
 	{
-		return new TransactionCounters(
-				transactionsCommitWithoutConnection,
-				transactionsCommitWithConnection,
-				transactionsRollbackWithoutConnection,
-				transactionsRollbackWithConnection);
+		return transactionCounter.getCounters();
 	}
 
 	public void clearCache()

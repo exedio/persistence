@@ -806,7 +806,7 @@ public final class Query<R>
 		}
 
 		bf.append(" from ").
-			appendTypeDefinition((Join)null, this.type);
+			appendTypeDefinition((Join)null, this.type, joins!=null);
 
 		if(joins!=null)
 		{

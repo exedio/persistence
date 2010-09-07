@@ -22,6 +22,7 @@ import gnu.trove.TIntHashSet;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -118,26 +119,23 @@ final class ModificationListeners
 	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction, final boolean log)
 	{
 		final List<ModificationListener> listeners = get();
-		if(!listeners.isEmpty())
+		if(listeners.isEmpty())
+			return;
+
+		final Collection<Item> items = Collections.unmodifiableCollection(Arrays.asList(types.activate(invalidations)));
+		assert !items.isEmpty();
+		for(final ModificationListener listener : listeners)
 		{
-			final ArrayList<Item> modifiedItems = types.activate(invalidations);
-			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			try
 			{
-				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				for(final ModificationListener listener : listeners)
-				{
-					try
-					{
-						onModifyingCommit(listener, modifiedItemsUnmodifiable, transaction);
-					}
-					catch(final RuntimeException e)
-					{
-						if(log)
-							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
-									':' + e.getClass().getName() + ' ' + e.getMessage());
-					}
-				}
+				onModifyingCommit(listener, items, transaction);
+			}
+			catch(final RuntimeException e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing exception from modification listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}
 	}

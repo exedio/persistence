@@ -50,6 +50,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
+		suite.addTestSuite(TextUrlFilterTest.class);
 		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
