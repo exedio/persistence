@@ -20,31 +20,31 @@ package com.exedio.cope;
 
 final class TransactionCounter
 {
-	private volatile long transactionsCommitWithoutConnection = 0;
-	private volatile long transactionsCommitWithConnection = 0;
-	private volatile long transactionsRollbackWithoutConnection = 0;
-	private volatile long transactionsRollbackWithConnection = 0;
+	private volatile long commitWithoutConnection = 0;
+	private volatile long commitWithConnection = 0;
+	private volatile long rollbackWithoutConnection = 0;
+	private volatile long rollbackWithConnection = 0;
 
 	void count(final boolean rollback, final boolean hadConnection)
 	{
 		if(hadConnection)
 			if(rollback)
-				transactionsRollbackWithConnection++;
+				rollbackWithConnection++;
 			else
-				transactionsCommitWithConnection++;
+				commitWithConnection++;
 		else
 			if(rollback)
-				transactionsRollbackWithoutConnection++;
+				rollbackWithoutConnection++;
 			else
-				transactionsCommitWithoutConnection++;
+				commitWithoutConnection++;
 	}
 
-	public TransactionCounters getTransactionCounters()
+	TransactionCounters getCounters()
 	{
 		return new TransactionCounters(
-				transactionsCommitWithoutConnection,
-				transactionsCommitWithConnection,
-				transactionsRollbackWithoutConnection,
-				transactionsRollbackWithConnection);
+				commitWithoutConnection,
+				commitWithConnection,
+				rollbackWithoutConnection,
+				rollbackWithConnection);
 	}
 }
