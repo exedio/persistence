@@ -323,25 +323,25 @@ public final class Transaction
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup
-		for(int typeTransiently = 0; typeTransiently<entityMaps.length; typeTransiently++)
+		for(int type = 0; type<entityMaps.length; type++)
 		{
-			final TIntObjectHashMap<Entity> entityMap = entityMaps[typeTransiently];
-			if(entityMap!=null)
+			final TIntObjectHashMap<Entity> map = entityMaps[type];
+			if(map!=null)
 			{
-				entityMap.clear();
-				entityMaps[typeTransiently] = null;
+				map.clear();
+				entityMaps[type] = null;
 			}
 		}
 		if(invalidations!=null)
 		{
 			assert entityMaps.length==invalidations.length;
-			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+			for(int type = 0; type<invalidations.length; type++)
 			{
-				final TIntHashSet invalidationSet = invalidations[typeTransiently];
-				if(invalidationSet!=null)
+				final TIntHashSet set = invalidations[type];
+				if(set!=null)
 				{
-					invalidationSet.clear();
-					invalidations[typeTransiently] = null;
+					set.clear();
+					invalidations[type] = null;
 				}
 			}
 			invalidations = null;
