@@ -437,7 +437,7 @@
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="webapp" value="junitwebapp" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
 					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
 					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 					<assertions><enable/></assertions>
@@ -470,7 +470,7 @@
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
-					<sysproperty key="webapp" value="junitwebapp" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -498,7 +498,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="webapp" value="teardownwebapp" />
+					<sysproperty key="contextPath" value="/teardownContextPath" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
