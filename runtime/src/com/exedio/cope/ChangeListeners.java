@@ -118,10 +118,9 @@ final class ChangeListeners
 		if(listeners.isEmpty())
 			return;
 
-		final ArrayList<Item> items = types.activate(invalidations);
+		final List<Item> items = types.activate(invalidations);
 		assert !items.isEmpty();
-		final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
-		final ChangeEvent event = new ChangeEvent(itemsUnmodifiable, transactionInfo);
+		final ChangeEvent event = new ChangeEvent(items, transactionInfo);
 		for(final ChangeListener listener : listeners)
 		{
 			try

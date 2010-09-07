@@ -121,14 +121,13 @@ final class ModificationListeners
 		if(listeners.isEmpty())
 			return;
 
-		final ArrayList<Item> items = types.activate(invalidations);
+		final List<Item> items = types.activate(invalidations);
 		assert !items.isEmpty();
-		final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
 		for(final ModificationListener listener : listeners)
 		{
 			try
 			{
-				onModifyingCommit(listener, itemsUnmodifiable, transaction);
+				onModifyingCommit(listener, items, transaction);
 			}
 			catch(final RuntimeException e)
 			{

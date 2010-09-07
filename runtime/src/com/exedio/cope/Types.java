@@ -426,7 +426,7 @@ final class Types
 			type.disconnect();
 	}
 
-	ArrayList<Item> activate(final TIntHashSet[] invalidations)
+	List<Item> activate(final TIntHashSet[] invalidations)
 	{
 		final ArrayList<Item> result = new ArrayList<Item>();
 
@@ -437,6 +437,6 @@ final class Types
 				for(final TIntIterator i = set.iterator(); i.hasNext(); )
 					result.add(getConcreteType(type).activate(i.next()));
 		}
-		return result;
+		return Collections.unmodifiableList(result);
 	}
 }
