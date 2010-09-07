@@ -321,10 +321,19 @@ public final class Transaction
 
 		transactionCounter.count(rollback, hadConnection);
 
+		// cleanup
+		// do this at the end, because there is no hurry with cleanup
+		for(int typeTransiently = 0; typeTransiently<entityMaps.length; typeTransiently++)
+		{
+			final TIntObjectHashMap<Entity> entityMap = entityMaps[typeTransiently];
+			if(entityMap!=null)
+			{
+				entityMap.clear();
+				entityMaps[typeTransiently] = null;
+			}
+		}
 		if(invalidations!=null)
 		{
-			// cleanup
-			// do this at the end, because there is no hurry with cleanup
 			assert entityMaps.length==invalidations.length;
 			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
 			{
@@ -336,15 +345,6 @@ public final class Transaction
 				}
 			}
 			invalidations = null;
-		}
-		for(int typeTransiently = 0; typeTransiently<entityMaps.length; typeTransiently++)
-		{
-			final TIntObjectHashMap<Entity> entityMap = entityMaps[typeTransiently];
-			if(entityMap!=null)
-			{
-				entityMap.clear();
-				entityMaps[typeTransiently] = null;
-			}
 		}
 	}
 
