@@ -166,7 +166,9 @@ public final class Revisions
 		}
 	}
 
-	private Map<Integer, byte[]> getLogs(final Connection connection, final Executor executor)
+	private Map<Integer, byte[]> getLogs(
+			final Connection connection,
+			final Executor executor)
 	{
 		final Dialect dialect = executor.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
@@ -204,7 +206,10 @@ public final class Revisions
 		return Collections.unmodifiableMap(result);
 	}
 
-	void insertCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
+	void insertCreate(
+			final ConnectionPool connectionPool,
+			final Executor executor,
+			final Map<String, String> environment)
 	{
 		Connection con = null;
 		try
@@ -222,7 +227,11 @@ public final class Revisions
 		}
 	}
 
-	void revise(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment, final boolean log)
+	void revise(
+			final ConnectionPool connectionPool,
+			final Executor executor,
+			final Map<String, String> environment,
+			final boolean log)
 	{
 		Connection con = null;
 		try

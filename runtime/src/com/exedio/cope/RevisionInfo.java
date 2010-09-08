@@ -40,7 +40,8 @@ public abstract class RevisionInfo
 
 	RevisionInfo(
 			final int number,
-			final Date date, final Map<String, String> environment)
+			final Date date,
+			final Map<String, String> environment)
 	{
 		if(date==null)
 			throw new NullPointerException("date");

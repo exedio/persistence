@@ -29,8 +29,10 @@ final class RevisionInfoMutex extends RevisionInfo
 	private final int actualNumber;
 
 	RevisionInfoMutex(
-			final Date date, final Map<String, String> environment,
-			final int expectedNumber, final int actualNumber)
+			final Date date,
+			final Map<String, String> environment,
+			final int expectedNumber,
+			final int actualNumber)
 	{
 		super(NUMBER, date, environment);
 
