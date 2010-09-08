@@ -204,7 +204,7 @@ public final class Revisions
 		return Collections.unmodifiableMap(result);
 	}
 
-	void inserCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
+	void insertCreate(final ConnectionPool connectionPool, final Executor executor, final Map<String, String> environment)
 	{
 		Connection con = null;
 		try
