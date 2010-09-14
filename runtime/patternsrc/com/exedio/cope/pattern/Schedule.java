@@ -19,6 +19,15 @@
 package com.exedio.cope.pattern;
 
 import static java.lang.System.nanoTime;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MILLISECOND;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SECOND;
+import static java.util.Calendar.WEEK_OF_MONTH;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -261,15 +270,15 @@ public final class Schedule extends Pattern
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
 		cal.setTime(now);
-		cal.set(GregorianCalendar.MILLISECOND, 0);
-		cal.set(GregorianCalendar.SECOND, 0);
-		cal.set(GregorianCalendar.MINUTE, 0);
-		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
+		cal.set(MILLISECOND, 0);
+		cal.set(SECOND, 0);
+		cal.set(MINUTE, 0);
+		cal.set(HOUR_OF_DAY, 0);
 		final Date untilDaily = cal.getTime();
-		cal.set(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.MONDAY);
+		cal.set(DAY_OF_WEEK, MONDAY);
 		final Date untilWeekly = cal.getTime();
 		cal.setTime(untilDaily);
-		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
+		cal.set(DAY_OF_MONTH, 1);
 		final Date untilMonthly = cal.getTime();
 
 
@@ -327,9 +336,9 @@ public final class Schedule extends Pattern
 				cal.setTime(until);
 				switch(interval)
 				{
-					case DAILY:  cal.add(GregorianCalendar.DAY_OF_WEEK  , -1); break;
-					case WEEKLY: cal.add(GregorianCalendar.WEEK_OF_MONTH, -1); break;
-					case MONTHLY:cal.add(GregorianCalendar.MONTH,         -1); break;
+					case DAILY:  cal.add(DAY_OF_WEEK  , -1); break;
+					case WEEKLY: cal.add(WEEK_OF_MONTH, -1); break;
+					case MONTHLY:cal.add(MONTH,         -1); break;
 					default: throw new RuntimeException(interval.name());
 				}
 				final Date from = cal.getTime();
