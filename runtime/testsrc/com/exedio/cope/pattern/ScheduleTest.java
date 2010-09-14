@@ -401,7 +401,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	void assertRuns(final List<ExpectedRun> expectedMore)
 	{
 		expectedRuns.addAll(expectedMore);
-		final List<Run> actualList = report.runType.search(null, report.runType.getThis(), true);
+		final List<Run> actualList = report.getRunType().search(null, report.getRunType().getThis(), true);
 		final ArrayList<ExpectedRun> actual = new ArrayList<ExpectedRun>();
 		for(final Run run : actualList)
 			actual.add(new ExpectedRun(run));

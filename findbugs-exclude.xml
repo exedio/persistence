@@ -27,6 +27,7 @@
 			<Class name="com.exedio.cope.pattern.Media" />
 			<Class name="com.exedio.cope.pattern.Hash" />
 			<Class name="com.exedio.cope.pattern.Dispatcher" />
+			<Class name="com.exedio.cope.pattern.Schedule" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
