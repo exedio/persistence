@@ -255,6 +255,7 @@ public final class Schedule extends Pattern
 
 	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
 	{
+		final Mount mount = mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
@@ -278,10 +279,10 @@ public final class Schedule extends Pattern
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
-					mount().runType.getThis().isNull()));
-			q.joinOuterLeft(mount().runType,
+					mount.runType.getThis().isNull()));
+			q.joinOuterLeft(mount.runType,
 					Cope.and(
-						mount().runParent.as(type.getJavaClass()).equal(typeThis),
+						mount.runParent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
 							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
@@ -335,8 +336,8 @@ public final class Schedule extends Pattern
 				final long elapsedStart = nanoTime();
 				itemCasted.run(this, from, until, effectiveInterrupter);
 				final long elapsedEnd = nanoTime();
-				mount().runType.newItem(
-					Cope.mapAndCast(mount().runParent, item),
+				mount.runType.newItem(
+					Cope.mapAndCast(mount.runParent, item),
 					this.runFrom.map(from),
 					this.runUntil.map(until),
 					this.runRun.map(now),
