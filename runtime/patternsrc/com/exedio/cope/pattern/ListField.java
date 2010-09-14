@@ -84,7 +84,10 @@ public final class ListField<E> extends AbstractListField<E>
 		final UniqueConstraint uniqueConstraint;
 		final Type<?> relationType;
 
-		Mount(final ItemField<?> parent, final UniqueConstraint uniqueConstraint, final Type<PatternItem> relationType)
+		Mount(
+				final ItemField<?> parent,
+				final UniqueConstraint uniqueConstraint,
+				final Type<PatternItem> relationType)
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
@@ -199,7 +202,8 @@ public final class ListField<E> extends AbstractListField<E>
 	 */
 	public Query<E> getQuery(final Item item)
 	{
-		final Query<E> q = new Query<E>(element, Cope.equalAndCast(mount().parent, item));
+		final Query<E> q =
+			new Query<E>(element, Cope.equalAndCast(mount().parent, item));
 		q.setOrderBy(order, true);
 		return q;
 	}
@@ -212,14 +216,18 @@ public final class ListField<E> extends AbstractListField<E>
 	 */
 	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
 	{
-		final Query<P> q = new Query<P>(mount().parent.as(parentClass), Cope.equalAndCast(this.element, element));
+		final Query<P> q = new Query<P>(
+				mount().parent.as(parentClass),
+				Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return q.search();
 	}
 
 	public void add(final Item item, final E value)
 	{
-		final Query<Integer> q = new Query<Integer>(this.order.max(), Cope.equalAndCast(mount().parent, item));
+		final Query<Integer> q = new Query<Integer>(
+				this.order.max(),
+				Cope.equalAndCast(mount().parent, item));
 		final Integer max = q.searchSingleton();
 		final int newOrder = max!=null ? (max.intValue()+1) : 0;
 		mount().relationType.newItem(
@@ -231,7 +239,12 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		final Iterator<? extends Item> actual = mount().relationType.search(Cope.equalAndCast(mount().parent, item), this.order, true).iterator();
+		final Iterator<? extends Item> actual =
+			mount().relationType.search(
+					Cope.equalAndCast(mount().parent, item),
+					this.order,
+					true).
+			iterator();
 		final Iterator<? extends E> expected = value.iterator();
 
 		for(int order = 0; ; order++)

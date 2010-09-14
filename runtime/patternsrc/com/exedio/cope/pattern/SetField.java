@@ -85,7 +85,10 @@ public final class SetField<E> extends Pattern
 		final UniqueConstraint uniqueConstraint;
 		final Type<?> relationType;
 
-		Mount(final ItemField<?> parent, final UniqueConstraint uniqueConstraint, final Type<PatternItem> relationType)
+		Mount(
+				final ItemField<?> parent,
+				final UniqueConstraint uniqueConstraint,
+				final Type<PatternItem> relationType)
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
@@ -207,7 +210,10 @@ public final class SetField<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getParents(final Class<P> parentClass, final E element)
 	{
-		return new Query<P>(mount().parent.as(parentClass), this.element.equal(element)).search();
+		return new Query<P>(
+				mount().parent.as(parentClass),
+				this.element.equal(element)).
+			search();
 	}
 
 	/**
@@ -235,9 +241,13 @@ public final class SetField<E> extends Pattern
 	 */
 	public boolean remove(final Item item, final E element)
 	{
-		final Item row = mount().uniqueConstraint.search(item, element);
+		final Item row =
+			mount().uniqueConstraint.search(item, element);
+
 		if(row==null)
+		{
 			return false;
+		}
 		else
 		{
 			row.deleteCopeItem();

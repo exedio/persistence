@@ -86,7 +86,10 @@ public final class MapField<K,V> extends Pattern
 		final UniqueConstraint uniqueConstraint;
 		final Type<?> relationType;
 
-		Mount(final ItemField<?> parent, final UniqueConstraint uniqueConstraint, final Type<PatternItem> relationType)
+		Mount(
+				final ItemField<?> parent,
+				final UniqueConstraint uniqueConstraint,
+				final Type<PatternItem> relationType)
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
@@ -167,7 +170,9 @@ public final class MapField<K,V> extends Pattern
 
 	public V get(final Item item, final K key)
 	{
-		final Item relationItem = mount().uniqueConstraint.search(item, key);
+		final Item relationItem =
+			mount().uniqueConstraint.search(item, key);
+
 		if(relationItem!=null)
 			return value.get(relationItem);
 		else
@@ -176,7 +181,9 @@ public final class MapField<K,V> extends Pattern
 
 	public void set(final Item item, final K key, final V value)
 	{
-		final Item relationItem = mount().uniqueConstraint.search(item, key);
+		final Item relationItem =
+			mount().uniqueConstraint.search(item, key);
+
 		if(relationItem==null)
 		{
 			if(value!=null)
