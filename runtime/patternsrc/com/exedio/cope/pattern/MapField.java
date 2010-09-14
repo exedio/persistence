@@ -40,11 +40,9 @@ public final class MapField<K,V> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private ItemField<? extends Item> parent = null;
 	private final FunctionField<K> key;
-	private UniqueConstraint uniqueConstraint = null;
 	private final FunctionField<V> value;
-	private Type<?> relationType = null;
+	private Mount mount = null;
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
 	{
@@ -71,24 +69,51 @@ public final class MapField<K,V> extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		uniqueConstraint = new UniqueConstraint(parent, key);
+		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, key);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("key", key);
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
-		this.relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		this.mount = new Mount(parent, uniqueConstraint, relationType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> parent;
+		final UniqueConstraint uniqueConstraint;
+		final Type<?> relationType;
+
+		Mount(final ItemField<?> parent, final UniqueConstraint uniqueConstraint, final Type<PatternItem> relationType)
+		{
+			assert parent!=null;
+			assert uniqueConstraint!=null;
+			assert relationType!=null;
+
+			this.parent = parent;
+			this.uniqueConstraint = uniqueConstraint;
+			this.relationType = relationType;
+		}
+	}
+
+	private final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.as(parentClass);
+		return mount().parent.as(parentClass);
 	}
 
 	public ItemField<?> getParent()
 	{
-		return parent;
+		return mount().parent;
 	}
 
 	public FunctionField<K> getKey()
@@ -98,8 +123,7 @@ public final class MapField<K,V> extends Pattern
 
 	public UniqueConstraint getUniqueConstraint()
 	{
-		assert uniqueConstraint!=null;
-		return uniqueConstraint;
+		return mount().uniqueConstraint;
 	}
 
 	public FunctionField<V> getValue()
@@ -109,8 +133,7 @@ public final class MapField<K,V> extends Pattern
 
 	public Type<? extends Item> getRelationType()
 	{
-		assert relationType!=null;
-		return relationType;
+		return mount().relationType;
 	}
 
 	@Override
@@ -144,7 +167,7 @@ public final class MapField<K,V> extends Pattern
 
 	public V get(final Item item, final K key)
 	{
-		final Item relationItem = uniqueConstraint.search(item, key);
+		final Item relationItem = mount().uniqueConstraint.search(item, key);
 		if(relationItem!=null)
 			return value.get(relationItem);
 		else
@@ -153,12 +176,12 @@ public final class MapField<K,V> extends Pattern
 
 	public void set(final Item item, final K key, final V value)
 	{
-		final Item relationItem = uniqueConstraint.search(item, key);
+		final Item relationItem = mount().uniqueConstraint.search(item, key);
 		if(relationItem==null)
 		{
 			if(value!=null)
-				uniqueConstraint.getType().newItem(
-						Cope.mapAndCast(this.parent, item),
+				mount().uniqueConstraint.getType().newItem(
+						Cope.mapAndCast(mount().parent, item),
 						this.key.map(key),
 						this.value.map(value)
 				);
@@ -186,7 +209,7 @@ public final class MapField<K,V> extends Pattern
 	{
 		return q.joinOuterLeft(
 				getRelationType(),
-				parent.equalTarget().
+				mount().parent.equalTarget().
 					and(this.key.equal(key)));
 	}
 }
