@@ -322,7 +322,8 @@ public final class Dispatcher extends Pattern
 							runSuccess.map(false),
 							runFailure.map(baos.toByteArray()));
 
-						final boolean finalFailure = mount().runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+						final boolean finalFailure =
+							mount().runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 
@@ -366,7 +367,10 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
-		final Query<Run> q = mount().runType.newQuery(Cope.equalAndCast(mount().runParent, item).and(runSuccess.equal(true)));
+		final Query<Run> q =
+			mount().runType.newQuery(Cope.and(
+				Cope.equalAndCast(mount().runParent, item),
+				runSuccess.equal(true)));
 		q.setOrderBy(mount().runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
@@ -374,12 +378,22 @@ public final class Dispatcher extends Pattern
 
 	public List<Run> getRuns(final Item item)
 	{
-		return mount().runType.search(Cope.equalAndCast(mount().runParent, item), mount().runType.getThis(), true);
+		return
+			mount().runType.search(
+					Cope.equalAndCast(mount().runParent, item),
+					mount().runType.getThis(),
+					true);
 	}
 
 	public List<Run> getFailures(final Item item)
 	{
-		return mount().runType.search(Cope.equalAndCast(mount().runParent, item).and(runSuccess.equal(false)), mount().runType.getThis(), true);
+		return
+			mount().runType.search(
+					Cope.and(
+							Cope.equalAndCast(mount().runParent, item),
+							runSuccess.equal(false)),
+					mount().runType.getThis(),
+					true);
 	}
 
 	public static final class Config
