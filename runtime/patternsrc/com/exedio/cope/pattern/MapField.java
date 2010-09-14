@@ -84,7 +84,7 @@ public final class MapField<K,V> extends Pattern
 	{
 		final ItemField<?> parent;
 		final UniqueConstraint uniqueConstraint;
-		final Type<?> relationType;
+		final Type<PatternItem> relationType;
 
 		Mount(
 				final ItemField<?> parent,

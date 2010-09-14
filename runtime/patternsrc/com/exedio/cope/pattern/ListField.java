@@ -82,7 +82,7 @@ public final class ListField<E> extends AbstractListField<E>
 	{
 		final ItemField<?> parent;
 		final UniqueConstraint uniqueConstraint;
-		final Type<?> relationType;
+		final Type<PatternItem> relationType;
 
 		Mount(
 				final ItemField<?> parent,
@@ -241,7 +241,7 @@ public final class ListField<E> extends AbstractListField<E>
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Mount mount = mount();
-		final Iterator<? extends Item> actual =
+		final Iterator<PatternItem> actual =
 			mount.relationType.search(
 					Cope.equalAndCast(mount.parent, item),
 					this.order,
@@ -271,7 +271,7 @@ public final class ListField<E> extends AbstractListField<E>
 			}
 			else
 			{
-				final Item tupel = actual.next();
+				final PatternItem tupel = actual.next();
 				final int currentOrder = this.order.get(tupel);
 				assert order<=currentOrder : String.valueOf(order) + '/' + currentOrder;
 				order = currentOrder;

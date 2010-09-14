@@ -83,7 +83,7 @@ public final class SetField<E> extends Pattern
 	{
 		final ItemField<?> parent;
 		final UniqueConstraint uniqueConstraint;
-		final Type<?> relationType;
+		final Type<PatternItem> relationType;
 
 		Mount(
 				final ItemField<?> parent,
@@ -262,7 +262,7 @@ public final class SetField<E> extends Pattern
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
 		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
 
-		for(final Item tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final Object element = this.element.get(tupel);
 
