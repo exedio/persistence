@@ -101,9 +101,9 @@ public final class Dispatcher extends Pattern
 
 	private static final class Mount
 	{
-		ItemField<?> runParent = null;
-		PartOf<?> runRuns = null;
-		Type<Run> runType = null;
+		final ItemField<?> runParent;
+		final PartOf<?> runRuns;
+		final Type<Run> runType;
 
 		Mount(
 				final ItemField<?> runParent,
