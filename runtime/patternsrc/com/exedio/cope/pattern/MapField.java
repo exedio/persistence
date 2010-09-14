@@ -181,14 +181,16 @@ public final class MapField<K,V> extends Pattern
 
 	public void set(final Item item, final K key, final V value)
 	{
+		final Mount mount = mount();
+
 		final Item relationItem =
-			mount().uniqueConstraint.search(item, key);
+			mount.uniqueConstraint.search(item, key);
 
 		if(relationItem==null)
 		{
 			if(value!=null)
-				mount().uniqueConstraint.getType().newItem(
-						Cope.mapAndCast(mount().parent, item),
+				mount.uniqueConstraint.getType().newItem(
+						Cope.mapAndCast(mount.parent, item),
 						this.key.map(key),
 						this.value.map(value)
 				);

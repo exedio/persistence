@@ -225,13 +225,14 @@ public final class ListField<E> extends AbstractListField<E>
 
 	public void add(final Item item, final E value)
 	{
+		final Mount mount = mount();
 		final Query<Integer> q = new Query<Integer>(
 				this.order.max(),
-				Cope.equalAndCast(mount().parent, item));
+				Cope.equalAndCast(mount.parent, item));
 		final Integer max = q.searchSingleton();
 		final int newOrder = max!=null ? (max.intValue()+1) : 0;
-		mount().relationType.newItem(
-				Cope.mapAndCast(mount().parent, item),
+		mount.relationType.newItem(
+				Cope.mapAndCast(mount.parent, item),
 				this.order.map(newOrder),
 				this.element.map(value));
 	}
@@ -239,9 +240,10 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		final Mount mount = mount();
 		final Iterator<? extends Item> actual =
-			mount().relationType.search(
-					Cope.equalAndCast(mount().parent, item),
+			mount.relationType.search(
+					Cope.equalAndCast(mount.parent, item),
 					this.order,
 					true).
 			iterator();
@@ -253,8 +255,8 @@ public final class ListField<E> extends AbstractListField<E>
 			{
 				while(expected.hasNext())
 				{
-					mount().relationType.newItem(
-							Cope.mapAndCast(mount().parent, item),
+					mount.relationType.newItem(
+							Cope.mapAndCast(mount.parent, item),
 							this.element.map(expected.next()),
 							this.order.map(order++)
 					);

@@ -221,17 +221,18 @@ public final class SetField<E> extends Pattern
 	 */
 	public boolean add(final Item item, final E element)
 	{
+		final Mount mount = mount();
 		try
 		{
-			mount().relationType.newItem(
-					Cope.mapAndCast(mount().parent, item),
+			mount.relationType.newItem(
+					Cope.mapAndCast(mount.parent, item),
 					this.element.map(element)
 			);
 			return true;
 		}
 		catch(final UniqueViolationException e)
 		{
-			assert mount().uniqueConstraint==e.getFeature();
+			assert mount.uniqueConstraint==e.getFeature();
 			return false;
 		}
 	}
@@ -257,10 +258,11 @@ public final class SetField<E> extends Pattern
 
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
 		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
 
-		for(final Item tupel : mount().relationType.search(Cope.equalAndCast(mount().parent, item)))
+		for(final Item tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final Object element = this.element.get(tupel);
 
@@ -278,8 +280,8 @@ public final class SetField<E> extends Pattern
 			{
 				while(toCreate.hasNext())
 				{
-					mount().relationType.newItem(
-							Cope.mapAndCast(mount().parent, item),
+					mount.relationType.newItem(
+							Cope.mapAndCast(mount.parent, item),
 							this.element.map(toCreate.next())
 					);
 				}
