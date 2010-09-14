@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* switch to hsqldb 2.1 for jdk 1.5 from support page
+	changelist: 10 Sept 2010  - SVN 3782: added enhancement for column visibility in nested joins
+	fixes noJoinParentheses
 * add ${contextPath} to servlet property context
 	and use a value derived from that instead of com.exedio.cope.contextPrefix
 	This breaks backwards configuration compatibility

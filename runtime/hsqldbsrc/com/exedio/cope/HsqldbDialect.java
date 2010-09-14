@@ -112,7 +112,7 @@ final class HsqldbDialect extends Dialect
 		bf.append(" limit ").
 			appendParameter(offset).
 			append(' ').
-			appendParameter(limit!=Query.UNLIMITED ? limit : 0);
+			appendParameter(limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE);
 	}
 
 	@Override

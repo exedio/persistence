@@ -148,7 +148,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		noJoinParentheses = hsqldb;
+		noJoinParentheses = false;
 		files.clear();
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
