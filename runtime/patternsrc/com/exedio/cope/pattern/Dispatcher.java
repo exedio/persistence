@@ -230,6 +230,7 @@ public final class Dispatcher extends Pattern
 		if(config==null)
 			throw new NullPointerException("config");
 
+		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
@@ -259,7 +260,7 @@ public final class Dispatcher extends Pattern
 			if(toDispatch.isEmpty())
 				break;
 
-			final ItemField<P> runParent = mount().runParent.as(parentClass);
+			final ItemField<P> runParent = mount.runParent.as(parentClass);
 
 			for(final P item : toDispatch)
 			{
@@ -287,7 +288,7 @@ public final class Dispatcher extends Pattern
 
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						pending.set(item, false);
-						mount().runType.newItem(
+						mount.runType.newItem(
 								runParent.map(item),
 								runDate.map(new Date(start)),
 								runElapsed.map(elapsed),
@@ -315,7 +316,7 @@ public final class Dispatcher extends Pattern
 						cause.printStackTrace(out);
 						out.close();
 
-						mount().runType.newItem(
+						mount.runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
@@ -323,7 +324,7 @@ public final class Dispatcher extends Pattern
 							runFailure.map(baos.toByteArray()));
 
 						final boolean finalFailure =
-							mount().runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+							mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 
@@ -367,32 +368,35 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
+		final Mount mount = mount();
 		final Query<Run> q =
-			mount().runType.newQuery(Cope.and(
-				Cope.equalAndCast(mount().runParent, item),
+			mount.runType.newQuery(Cope.and(
+				Cope.equalAndCast(mount.runParent, item),
 				runSuccess.equal(true)));
-		q.setOrderBy(mount().runType.getThis(), false);
+		q.setOrderBy(mount.runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
 	}
 
 	public List<Run> getRuns(final Item item)
 	{
+		final Mount mount = mount();
 		return
-			mount().runType.search(
-					Cope.equalAndCast(mount().runParent, item),
-					mount().runType.getThis(),
+			mount.runType.search(
+					Cope.equalAndCast(mount.runParent, item),
+					mount.runType.getThis(),
 					true);
 	}
 
 	public List<Run> getFailures(final Item item)
 	{
+		final Mount mount = mount();
 		return
-			mount().runType.search(
+			mount.runType.search(
 					Cope.and(
-							Cope.equalAndCast(mount().runParent, item),
+							Cope.equalAndCast(mount.runParent, item),
 							runSuccess.equal(false)),
-					mount().runType.getThis(),
+					mount.runType.getThis(),
 					true);
 	}
 
