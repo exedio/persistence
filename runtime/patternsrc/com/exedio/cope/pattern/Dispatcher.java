@@ -54,13 +54,11 @@ public final class Dispatcher extends Pattern
 
 	private final BooleanField pending;
 
-	ItemField<?> runParent = null;
-	private PartOf<?> runRuns = null;
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal();
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	private Type<Run> runType = null;
+	private Mount mount = null;
 
 	public Dispatcher()
 	{
@@ -88,8 +86,8 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		runRuns = PartOf.newPartOf(runParent, runDate);
+		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runDate);
 		final Features features = new Features();
 		features.put("parent", runParent);
 		features.put("date", runDate);
@@ -97,7 +95,37 @@ public final class Dispatcher extends Pattern
 		features.put("elapsed", runElapsed);
 		features.put("success", runSuccess);
 		features.put("failure", runFailure);
-		runType = newSourceType(Run.class, features, "Run");
+		final Type<Run> runType = newSourceType(Run.class, features, "Run");
+		this.mount = new Mount(runParent, runRuns, runType);
+	}
+
+	private static final class Mount
+	{
+		ItemField<?> runParent = null;
+		PartOf<?> runRuns = null;
+		Type<Run> runType = null;
+
+		Mount(
+				final ItemField<?> runParent,
+				final PartOf<?> runRuns,
+				final Type<Run> runType)
+		{
+			assert runParent!=null;
+			assert runRuns!=null;
+			assert runType!=null;
+
+			this.runParent = runParent;
+			this.runRuns = runRuns;
+			this.runType = runType;
+		}
+	}
+
+	final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public BooleanField getPending()
@@ -107,13 +135,12 @@ public final class Dispatcher extends Pattern
 
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
-		assert runParent!=null;
-		return runParent.as(parentClass);
+		return mount().runParent.as(parentClass);
 	}
 
 	public PartOf getRunRuns()
 	{
-		return runRuns;
+		return mount().runRuns;
 	}
 
 	public DateField getRunDate()
@@ -138,8 +165,7 @@ public final class Dispatcher extends Pattern
 
 	public Type<Run> getRunType()
 	{
-		assert runType!=null;
-		return runType;
+		return mount().runType;
 	}
 
 	@Override
@@ -233,7 +259,7 @@ public final class Dispatcher extends Pattern
 			if(toDispatch.isEmpty())
 				break;
 
-			final ItemField<P> runParent = this.runParent.as(parentClass);
+			final ItemField<P> runParent = mount().runParent.as(parentClass);
 
 			for(final P item : toDispatch)
 			{
@@ -261,7 +287,7 @@ public final class Dispatcher extends Pattern
 
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						pending.set(item, false);
-						runType.newItem(
+						mount().runType.newItem(
 								runParent.map(item),
 								runDate.map(new Date(start)),
 								runElapsed.map(elapsed),
@@ -289,14 +315,14 @@ public final class Dispatcher extends Pattern
 						cause.printStackTrace(out);
 						out.close();
 
-						runType.newItem(
+						mount().runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
 							runSuccess.map(false),
 							runFailure.map(baos.toByteArray()));
 
-						final boolean finalFailure = runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+						final boolean finalFailure = mount().runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 
@@ -340,20 +366,20 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
-		final Query<Run> q = runType.newQuery(Cope.equalAndCast(runParent, item).and(runSuccess.equal(true)));
-		q.setOrderBy(runType.getThis(), false);
+		final Query<Run> q = mount().runType.newQuery(Cope.equalAndCast(mount().runParent, item).and(runSuccess.equal(true)));
+		q.setOrderBy(mount().runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
 	}
 
 	public List<Run> getRuns(final Item item)
 	{
-		return runType.search(Cope.equalAndCast(runParent, item), runType.getThis(), true);
+		return mount().runType.search(Cope.equalAndCast(mount().runParent, item), mount().runType.getThis(), true);
 	}
 
 	public List<Run> getFailures(final Item item)
 	{
-		return runType.search(Cope.equalAndCast(runParent, item).and(runSuccess.equal(false)), runType.getThis(), true);
+		return mount().runType.search(Cope.equalAndCast(mount().runParent, item).and(runSuccess.equal(false)), mount().runType.getThis(), true);
 	}
 
 	public static final class Config
@@ -405,7 +431,7 @@ public final class Dispatcher extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().runParent.get(this);
+			return getPattern().mount().runParent.get(this);
 		}
 
 		public Date getDate()
