@@ -106,7 +106,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return element;
 	}
 
-	public Type<? extends Item> getRelationType()
+	public Type<?> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;
