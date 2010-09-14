@@ -276,7 +276,9 @@ public final class Schedule extends Pattern
 		try
 		{
 			model.startTransaction(featureID + " search");
-			final Query<P> q = type.newQuery(enabled.equal(true).and(mount().runType.getThis().isNull()));
+			final Query<P> q = type.newQuery(Cope.and(
+					enabled.equal(true),
+					mount().runType.getThis().isNull()));
 			q.joinOuterLeft(mount().runType,
 					Cope.and(
 						mount().runParent.as(type.getJavaClass()).equal(typeThis),
@@ -299,7 +301,8 @@ public final class Schedule extends Pattern
 		if(toRun.isEmpty())
 			return 0;
 
-		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : Interrupters.VAIN_INTERRUPTER;
+		final Interrupter effectiveInterrupter =
+			interrupter!=null ? interrupter : Interrupters.VAIN_INTERRUPTER;
 		int result = 0;
 		for(final P item : toRun)
 		{
