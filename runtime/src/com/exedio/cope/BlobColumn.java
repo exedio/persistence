@@ -143,7 +143,7 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("select length(").
+		bf.append("select octet_length(").
 			append(quotedID).
 			append(") from ").
 			append(table.quotedID).
