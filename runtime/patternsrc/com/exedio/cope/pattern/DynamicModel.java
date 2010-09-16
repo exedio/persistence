@@ -690,9 +690,10 @@ public final class DynamicModel<L> extends Pattern
 		{
 			assertEnum();
 			final DynamicModel<L> p = getPattern();
+			final Mount<L> m = p.mount();
 			return
-				p.mount().enumType.search(
-						p.mount().enumParent.equal(this),
+				m.enumType.search(
+						m.enumParent.equal(this),
 						p.enumPosition,
 						true);
 		}
@@ -700,10 +701,11 @@ public final class DynamicModel<L> extends Pattern
 		public Enum<L> getEnumValue(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
+			final Mount<L> m = p.mount();
 			assertEnum();
 			return
-				p.mount().enumType.searchSingleton(Cope.and(
-						p.mount().enumParent.equal(this),
+				m.enumType.searchSingleton(Cope.and(
+						m.enumParent.equal(this),
 						p.enumCode.equal(code)));
 		}
 
