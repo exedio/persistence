@@ -528,13 +528,20 @@ public final class DynamicModel<L> extends Pattern
 		public List<Field<L>> getFields()
 		{
 			final DynamicModel<L> p = getPattern();
-			return p.mount().fieldType.search(p.mount().fieldParent.equal(this), p.fieldPosition, true);
+			return
+				p.mount().fieldType.search(
+						p.mount().fieldParent.equal(this),
+						p.fieldPosition,
+						true);
 		}
 
 		public Field<L> getField(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
-			return p.mount().fieldType.searchSingleton(p.mount().fieldParent.equal(this).and(p.fieldCode.equal(code)));
+			return
+				p.mount().fieldType.searchSingleton(Cope.and(
+						p.mount().fieldParent.equal(this),
+						p.fieldCode.equal(code)));
 		}
 
 		public com.exedio.cope.Type getParentType()
