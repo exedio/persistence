@@ -365,8 +365,9 @@ public final class DynamicModel<L> extends Pattern
 
 	private void assertType(final Item item, final Field<L> field)
 	{
-		final Item fieldType = mount().fieldParent.get(field);
-		final Item itemType = mount().type.get(item);
+		final Mount<L> mount = mount();
+		final Item fieldType = mount.fieldParent.get(field);
+		final Item itemType = mount.type.get(item);
 		if(!fieldType.equals(itemType))
 			throw new IllegalArgumentException(
 					"dynamic type mismatch: field has type " + typeCode.get(fieldType) +
