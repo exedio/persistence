@@ -108,6 +108,11 @@ public final class DynamicModel<L> extends Pattern
 			addSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "double"+i);
 	}
 
+	private MapField<L, String> newLocalization()
+	{
+		return MapField.newMap(localeTemplate.copy(), new StringField());
+	}
+
 	@SuppressWarnings("unchecked")
 	private ItemField<Enum<L>>[] newItemField(final int length)
 	{
@@ -204,11 +209,6 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
-	}
-
-	private MapField<L, String> newLocalization()
-	{
-		return MapField.newMap(localeTemplate.copy(), new StringField());
 	}
 
 	@SuppressWarnings("unchecked")
