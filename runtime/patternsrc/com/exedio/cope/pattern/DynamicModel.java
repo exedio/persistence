@@ -48,24 +48,18 @@ public final class DynamicModel<L> extends Pattern
 
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
-	com.exedio.cope.Type<Type<L>> typeType = null;
 	final MapField<L, String> typeLocalization;
 
-	ItemField<Type<L>> fieldParent = null;
 	final IntegerField fieldPosition = new IntegerField().toFinal();
 	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
-	com.exedio.cope.Type<Field<L>> fieldType = null;
 	final MapField<L, String> fieldLocalization;
 
-	ItemField<Field<L>> enumParent = null;
 	final IntegerField enumPosition = new IntegerField().toFinal();
 	final StringField enumCode = new StringField().toFinal();
-	com.exedio.cope.Type<Enum<L>> enumType = null;
 	final MapField<L, String> enumLocalization;
 
-	private ItemField<Type<L>> type = null;
 	private final FunctionField<?>[] fields;
 
 	private final StringField [] strings;
@@ -73,6 +67,8 @@ public final class DynamicModel<L> extends Pattern
 	private final IntegerField[] integers;
 	private final DoubleField [] doubles;
 	private final ItemField<Enum<L>>[] enums;
+
+	private Mount<L> mount = null;
 
 	private DynamicModel(
 			final FunctionField<L> locale,
@@ -176,10 +172,10 @@ public final class DynamicModel<L> extends Pattern
 		final Features features = new Features();
 		features.put("code", typeCode);
 		features.put("name", typeLocalization);
-		typeType = castType(newSourceType(Type.class, features, "Type"));
+		final com.exedio.cope.Type<Type<L>> typeType = castType(newSourceType(Type.class, features, "Type"));
 
 		features.clear();
-		fieldParent = typeType.newItemField(CASCADE).toFinal();
+		final ItemField<Type<L>> fieldParent = typeType.newItemField(CASCADE).toFinal();
 		features.put("parent", fieldParent);
 		features.put("position", fieldPosition);
 		features.put("uniqueConstraint", new UniqueConstraint(fieldParent, fieldPosition));
@@ -189,8 +185,10 @@ public final class DynamicModel<L> extends Pattern
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
 		features.put("name", fieldLocalization);
-		fieldType = castField(newSourceType(Field.class, features, "Field"));
+		final com.exedio.cope.Type<Field<L>> fieldType = castField(newSourceType(Field.class, features, "Field"));
 
+		ItemField<Field<L>> enumParent = null;
+		com.exedio.cope.Type<Enum<L>> enumType = null;
 		if(enums.length>0)
 		{
 			features.clear();
@@ -208,7 +206,43 @@ public final class DynamicModel<L> extends Pattern
 				addSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "enum"+i);
 		}
 
+		ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
+
+		this.mount = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
+	}
+
+	private static final class Mount<L>
+	{
+		final com.exedio.cope.Type<Type<L>> typeType;
+		final ItemField<Type<L>> fieldParent;
+		final com.exedio.cope.Type<Field<L>> fieldType;
+		final ItemField<Field<L>> enumParent;
+		final com.exedio.cope.Type<Enum<L>> enumType;
+		final ItemField<Type<L>> type;
+
+		Mount(final com.exedio.cope.Type<Type<L>> typeType,
+				final ItemField<Type<L>> fieldParent,
+				final com.exedio.cope.Type<Field<L>> fieldType,
+				final ItemField<Field<L>> enumParent,
+				final com.exedio.cope.Type<Enum<L>> enumType,
+				final ItemField<Type<L>> type)
+		{
+			this.typeType =typeType;
+			this.fieldParent = fieldParent;
+			this.fieldType = fieldType;
+			this.enumParent = enumParent;
+			this.enumType = enumType;
+			this.type = type;
+		}
+	}
+
+	Mount<L> mount()
+	{
+		final Mount<L> mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -231,17 +265,17 @@ public final class DynamicModel<L> extends Pattern
 
 	public Type<L> createType(final String code)
 	{
-		return typeType.newItem(typeCode.map(code));
+		return mount().typeType.newItem(typeCode.map(code));
 	}
 
 	public List<Type<L>> getTypes()
 	{
-		return typeType.search();
+		return mount().typeType.search();
 	}
 
 	public Type<L> getType(final String code)
 	{
-		return typeType.searchSingleton(typeCode.equal(code));
+		return mount().typeType.searchSingleton(typeCode.equal(code));
 	}
 
 	@Override
@@ -277,22 +311,22 @@ public final class DynamicModel<L> extends Pattern
 
 	public Type<L> getType(final Item item)
 	{
-		return this.type.get(item);
+		return mount().type.get(item);
 	}
 
 	public com.exedio.cope.Type<Type<L>> getTypeType()
 	{
-		return typeType;
+		return mount().typeType;
 	}
 
 	public com.exedio.cope.Type<Field<L>> getFieldType()
 	{
-		return fieldType;
+		return mount().fieldType;
 	}
 
 	public com.exedio.cope.Type<Enum<L>> getEnumType()
 	{
-		return enumType;
+		return mount().enumType;
 	}
 
 	public com.exedio.cope.Type getTypeLocalizationType()
@@ -312,7 +346,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public ItemField<Type<L>> getTypeField()
 	{
-		return type;
+		return mount().type;
 	}
 
 	public void setType(final Item item, final Type<L> type)
@@ -323,7 +357,7 @@ public final class DynamicModel<L> extends Pattern
 					", but must be " + toString());
 
 		final SetValue[] values = new SetValue[1+fields.length];
-		values[0] = this.type.map(type);
+		values[0] = mount().type.map(type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
 		item.set(values);
@@ -331,8 +365,8 @@ public final class DynamicModel<L> extends Pattern
 
 	private void assertType(final Item item, final Field<L> field)
 	{
-		final Item fieldType = fieldParent.get(field);
-		final Item itemType = type.get(item);
+		final Item fieldType = mount().fieldParent.get(field);
+		final Item itemType = mount().type.get(item);
 		if(!fieldType.equals(itemType))
 			throw new IllegalArgumentException(
 					"dynamic type mismatch: field has type " + typeCode.get(fieldType) +
@@ -445,23 +479,24 @@ public final class DynamicModel<L> extends Pattern
 		public Field<L> addField(final String code, final ValueType valueType)
 		{
 			final DynamicModel<L> p = getPattern();
+			final Mount<L> m = p.mount();
 			final List<Field<L>> fields = getFields(); // TODO make more efficient
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
-			final List<Field<L>> fieldsPerValuetype = getFields(p, valueType); // TODO make more efficient
+			final List<Field<L>> fieldsPerValuetype = getFields(p, m, valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
 			p.assertCapacity(valueType, positionPerValuetype);
 			return
-					p.fieldType.newItem(
-							p.fieldParent.map(this),
+					m.fieldType.newItem(
+							m.fieldParent.map(this),
 							p.fieldPosition.map(position),
 							p.fieldCode.map(code),
 							p.fieldValueType.map(valueType),
 							p.fieldPositionPerValueType.map(positionPerValuetype));
 		}
 
-		private List<Field<L>> getFields(final DynamicModel<L> p, final ValueType valueType)
+		private List<Field<L>> getFields(final DynamicModel<L> p, final Mount<L> m, final ValueType valueType)
 		{
-			return p.fieldType.search(p.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
+			return m.fieldType.search(m.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 
 		public Field<L> addStringField(final String code)
@@ -492,13 +527,13 @@ public final class DynamicModel<L> extends Pattern
 		public List<Field<L>> getFields()
 		{
 			final DynamicModel<L> p = getPattern();
-			return p.fieldType.search(p.fieldParent.equal(this), p.fieldPosition, true);
+			return p.mount().fieldType.search(p.mount().fieldParent.equal(this), p.fieldPosition, true);
 		}
 
 		public Field<L> getField(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
-			return p.fieldType.searchSingleton(p.fieldParent.equal(this).and(p.fieldCode.equal(code)));
+			return p.mount().fieldType.searchSingleton(p.mount().fieldParent.equal(this).and(p.fieldCode.equal(code)));
 		}
 
 		public com.exedio.cope.Type getParentType()
@@ -645,32 +680,33 @@ public final class DynamicModel<L> extends Pattern
 		{
 			assertEnum();
 			final DynamicModel<L> p = getPattern();
-			return p.enumType.search(p.enumParent.equal(this), p.enumPosition, true);
+			return p.mount().enumType.search(p.mount().enumParent.equal(this), p.enumPosition, true);
 		}
 
 		public Enum<L> getEnumValue(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
 			assertEnum();
-			return p.enumType.searchSingleton(p.enumParent.equal(this).and(p.enumCode.equal(code)));
+			return p.mount().enumType.searchSingleton(p.mount().enumParent.equal(this).and(p.enumCode.equal(code)));
 		}
 
 		public Enum<L> addEnumValue(final String code)
 		{
 			final DynamicModel<L> p = getPattern();
+			final Mount<L> m = p.mount();
 			assertEnum();
 			final List<Enum<L>> values = getEnumValues(); // TODO make more efficient
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
 			return
-					p.enumType.newItem(
-							p.enumParent.map(this),
+					m.enumType.newItem(
+							m.enumParent.map(this),
 							p.enumPosition.map(position),
 							p.enumCode.map(code));
 		}
 
 		public Type<L> getParent()
 		{
-			return getPattern().fieldParent.get(this);
+			return getPattern().mount().fieldParent.get(this);
 		}
 
 		public int getPosition()
@@ -732,7 +768,7 @@ public final class DynamicModel<L> extends Pattern
 
 		public Field<L> getParent()
 		{
-			return getPattern().enumParent.get(this);
+			return getPattern().mount().enumParent.get(this);
 		}
 
 		public int getPosition()
