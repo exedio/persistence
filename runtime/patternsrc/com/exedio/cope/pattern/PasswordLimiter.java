@@ -203,7 +203,7 @@ public final class PasswordLimiter extends Pattern
 		return
 			mount.refusalType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.parent, item),
-				this.date.greater(new Date(System.currentTimeMillis()-period))));
+				this.date.greater(getExpiryDate())));
 	}
 
 	private boolean checkInternally(final Item item, final String password)
@@ -268,9 +268,14 @@ public final class PasswordLimiter extends Pattern
 	{
 		return Delete.delete(
 				mount().refusalType.newQuery(
-						this.date.less(new Date(System.currentTimeMillis()-period))),
+						this.date.less(getExpiryDate())),
 				"PasswordLimiter#purge " + getID(),
 				interrupter);
+	}
+
+	private Date getExpiryDate()
+	{
+		return new Date(System.currentTimeMillis()-period);
 	}
 
 	@Computed
