@@ -29,6 +29,7 @@ public class PackageUtilTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
+		suite.addTestSuite(SetValueUtilTest.class);
 		return suite;
 	}
 }
