@@ -199,8 +199,10 @@ public final class PasswordLimiter extends Pattern
 
 	private Query<Refusal> getCheckQuery(final Item item)
 	{
-		return mount().refusalType.newQuery(
-				Cope.equalAndCast(mount().parent, item).and(this.date.greater(new Date(System.currentTimeMillis()-period))));
+		return
+			mount().refusalType.newQuery(Cope.and(
+				Cope.equalAndCast(mount().parent, item),
+				this.date.greater(new Date(System.currentTimeMillis()-period))));
 	}
 
 	private boolean checkInternally(final Item item, final String password)
