@@ -28,6 +28,7 @@
 			<Class name="com.exedio.cope.pattern.Hash" />
 			<Class name="com.exedio.cope.pattern.Dispatcher" />
 			<Class name="com.exedio.cope.pattern.Schedule" />
+			<Class name="com.exedio.cope.pattern.PasswordLimiter" />
 			<Class name="com.exedio.cope.pattern.DynamicModel" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
