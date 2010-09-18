@@ -22,13 +22,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+public class PackageUtilTest extends TestCase
 {
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(TransactionSlicerTest.class);
+		suite.addTestSuite(ServletUtilTest.class);
+		suite.addTestSuite(ServletUtilContextTest.class);
 		return suite;
 	}
 }

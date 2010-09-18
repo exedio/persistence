@@ -16,19 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+public class PackageUtilTest extends TestCase
 {
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(TransactionSlicerTest.class);
+		suite.addTestSuite(ServletUtilTest.class);
+		suite.addTestSuite(ServletUtilContextTest.class);
 		return suite;
 	}
 }

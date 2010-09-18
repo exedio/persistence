@@ -47,6 +47,8 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CompositeConditionTest.class);
 		suite.addTestSuite(CompositeConditionCopeTest.class);
 		suite.addTestSuite(SetValueUtilTest.class);
+		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
+		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		return suite;
 	}
 }
