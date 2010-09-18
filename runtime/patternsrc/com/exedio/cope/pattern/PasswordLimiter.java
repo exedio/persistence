@@ -208,9 +208,12 @@ public final class PasswordLimiter extends Pattern
 		final boolean result = this.password.check(item, password);
 
 		if(!result)
-			mount().refusalType.newItem(
-				Cope.mapAndCast(mount().parent, item),
+		{
+			final Mount mount = mount();
+			mount.refusalType.newItem(
+				Cope.mapAndCast(mount.parent, item),
 				this.date.map(new Date()));
+		}
 
 		return result;
 	}
