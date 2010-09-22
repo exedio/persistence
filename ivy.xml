@@ -1,0 +1,27 @@
+<ivy-module version="2.0">
+	<info
+			organisation="com.exedio"
+			module="cope"
+			revision="@BUILD_REVISION@">
+		<license
+				name="GNU Lesser General Public License, Version 2.1"
+				url="http://opensource.org/licenses/lgpl-license.html" />
+	</info>
+	<configurations>
+		<conf name="runtime" />
+		<conf name="build" extends="runtime" visibility="private" />
+	</configurations>
+	<publications>
+		<artifact name="exedio-cope" />
+		<artifact name="exedio-cope" type="src" ext="zip" />
+		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope-instrument" />
+		<artifact name="exedio-cope-test" />
+	</publications>
+	<dependencies>
+		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
+		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
+		<dependency org="com.exedio" name="copeutil" rev="160" />
+		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
+	</dependencies>
+</ivy-module>

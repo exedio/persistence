@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project
+		xmlns:ivy="antlib:org.apache.ivy.ant"
+		name="ivy"
+		default="copy">
+	<ivy:settings file="settings.xml" />
+	<target name="resolve">
+		<delete dir="artifacts" />
+		<mkdir dir="artifacts" />
+		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[revision]-[type].[ext]" />
+	</target>
+	<target name="copy" depends="resolve">
+		<copy file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" overwrite="true" />
+	</target>
+</project>
