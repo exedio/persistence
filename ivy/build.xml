@@ -11,5 +11,7 @@
 	</target>
 	<target name="copy" depends="resolve">
 		<copy file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" overwrite="true" />
+		<copy file="artifacts/cojen-2.0-jar.jar" tofile="../lib/cojen.jar" overwrite="true" />
+		<copy file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" overwrite="true" />
 	</target>
 </project>

@@ -20,6 +20,8 @@
 	</publications>
 	<dependencies>
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
+		<dependency org="org.cojen" name="cojen" rev="2.0" />
+		<dependency org="org.beanshell" name="bsh-core" rev="2.0b4" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="160" />
 		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
