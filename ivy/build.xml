@@ -13,5 +13,6 @@
 		<copy file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" overwrite="true" />
 		<copy file="artifacts/cojen-2.0-jar.jar" tofile="../lib/cojen.jar" overwrite="true" />
 		<copy file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" overwrite="true" />
+		<copy file="artifacts/mysql-connector-java-5.0.3-jar.jar" tofile="../lib/jdbc/mysql-connector-java-5.0.3-bin.jar" overwrite="true" />
 	</target>
 </project>
