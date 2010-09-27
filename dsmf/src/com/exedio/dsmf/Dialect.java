@@ -66,6 +66,8 @@ public abstract class Dialect
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
+						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
+							continue;
 						//printRow(resultSet);
 						schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);

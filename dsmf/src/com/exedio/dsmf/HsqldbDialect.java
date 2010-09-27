@@ -54,8 +54,8 @@ public final class HsqldbDialect extends Dialect
 		}
 	}
 
-	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_TABLE_CONSTRAINTS";
-	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_CHECK_CONSTRAINTS";
+	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.TABLE_CONSTRAINTS";
+	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.CHECK_CONSTRAINTS";
 	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
 
 	@Override
@@ -77,6 +77,8 @@ public final class HsqldbDialect extends Dialect
 						final String constraintType = resultSet.getString(2);
 						final String tableName = resultSet.getString(3);
 
+						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
+							continue;
 						final Table table = schema.notifyExistentTable(tableName);
 
 						if("CHECK".equals(constraintType))
@@ -85,6 +87,8 @@ public final class HsqldbDialect extends Dialect
 							String checkClause = resultSet.getString(4);
 							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
 								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
+							
+							checkClause = checkClause.replace("PUBLIC.", "");
 
 							table.notifyExistentCheckConstraint(constraintName, checkClause);
 						}
@@ -142,6 +146,8 @@ public final class HsqldbDialect extends Dialect
 					{
 						//printRow(resultSet);
 						final String name = resultSet.getString(1);
+						if("LOB_ID".equals(name))
+							continue;
 						schema.notifyExistentSequence(name);
 					}
 				}
