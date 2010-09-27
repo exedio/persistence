@@ -43,9 +43,6 @@ TODO for cope runtime
 	* copy() for all features
 - Connection Pool: throw exception, if transaction is not closed when putting back to pool
 - enable clustering
-	* persistent modification counters
-		- option for disable
-		- omit if all fields are final
 	* make revisions cluster aware
 	* test configuration of tomcat
 	* use auto-increment instead of sequences
