@@ -515,7 +515,12 @@
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
+					<fileset dir="build/classes/dsmf/src" />
 					<fileset dir="build/classes/runtime/src" />
+					<fileset dir="build/classes/runtime/dialects" />
+					<fileset dir="build/classes/runtime/patternsrc" />
+					<fileset dir="build/classes/runtime/servletsrc" />
+					<fileset dir="build/classes/runtime/junitsrc" />
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
