@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,9 +86,19 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
+	{
+		final Blob blob = resultSet.getBlob(columnIndex);
+		if(blob==null)
+			return null;
+
+		return DataField.copy(blob.getBinaryStream(), blob.length());
+	}
+
+	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return "binary";
+		return "blob";
 	}
 
 	@Override
