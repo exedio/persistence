@@ -96,6 +96,13 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
+	{
+		statementText.append('X');
+		super.addBlobInStatementText(statementText, parameter);
+	}
+
+	@Override
 	String getBlobType(final long maximumLength)
 	{
 		return "blob";
