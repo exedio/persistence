@@ -510,7 +510,7 @@
 	</target>
 
 	<target name="runtime.web"
-			  depends="runtime.core.compile, runtime.test.compile">
+			  depends="runtime.core.compile, runtime.dialect.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
