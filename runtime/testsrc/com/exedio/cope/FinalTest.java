@@ -48,8 +48,33 @@ public final class FinalTest extends AbstractRuntimeTest
 
 	public void testModificationCounter()
 	{
-		assertEquals(synthetic("catch", "FinalSuperItem"), getModificationCounterColumnName(FinalSuperItem.TYPE));
-		assertEquals(synthetic("catch", "FinalSubNoneItem"), getModificationCounterColumnName(FinalSubNoneItem.TYPE));
+		if(SchemaInfo.isConcurrentModificationDetectionEnabled(model))
+		{
+			assertEquals(synthetic("catch", "FinalSuperItem"), getModificationCounterColumnName(FinalSuperItem.TYPE));
+			assertEquals(synthetic("catch", "FinalSubNoneItem"), getModificationCounterColumnName(FinalSubNoneItem.TYPE));
+		}
+		else
+		{
+			try
+			{
+				getModificationCounterColumnName(FinalSuperItem.TYPE);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no modification counter column for FinalSuperItem", e.getMessage());
+			}
+			try
+			{
+				getModificationCounterColumnName(FinalSubNoneItem.TYPE);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no modification counter column for FinalSubNoneItem", e.getMessage());
+			}
+		}
+
 		try
 		{
 			getModificationCounterColumnName(FinalSubItem.TYPE);
