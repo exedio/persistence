@@ -47,6 +47,8 @@ final class Connect
 
 	final boolean supportsReadCommitted;
 
+	boolean revised = false;
+
 	Connect(
 			final String name,
 			final Types types,
@@ -173,7 +175,12 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
+		if(revised) // synchronization is done by Model#revise
+			return;
+
 		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+
+		revised = true;
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
