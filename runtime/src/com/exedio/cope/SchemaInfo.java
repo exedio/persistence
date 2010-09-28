@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * Returns information about the database schema accessed by cope
  * - <b>use with care!</b>
@@ -32,6 +35,15 @@ package com.exedio.cope;
  */
 public final class SchemaInfo
 {
+	/**
+	 * Its your responsibility to close the returned connection.
+	 * @see Connection#close()
+	 */
+	public static Connection newConnection(final Model model) throws SQLException
+	{
+		return model.connect().connectionFactory.createRaw();
+	}
+
 	/**
 	 * Quotes a database name.
 	 * This prevents the name from being interpreted as a SQL keyword.
@@ -166,6 +178,11 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
+	}
+
+	private SchemaInfo()
+	{
+		// prevent instantiation
 	}
 
 	// ------------------- deprecated stuff -------------------

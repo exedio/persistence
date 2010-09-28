@@ -36,6 +36,7 @@ final class Connect
 	final ConnectProperties properties;
 	final boolean log;
 	final Dialect dialect;
+	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
 	final Executor executor;
 	final Database database;
@@ -87,8 +88,9 @@ final class Connect
 		}
 
 		this.dialect = properties.createDialect(dialectParameters);
+		this.connectionFactory = new ConnectionFactory(properties, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
-				new ConnectionFactory(properties, dialect),
+				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
