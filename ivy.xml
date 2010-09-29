@@ -9,9 +9,9 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
-		<conf name="hsqldb" />
-		<conf name="mysql" />
-		<conf name="oracle" />
+		<conf name="hsqldb" extends="runtime" />
+		<conf name="mysql" extends="runtime" />
+		<conf name="oracle" extends="runtime" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications>
