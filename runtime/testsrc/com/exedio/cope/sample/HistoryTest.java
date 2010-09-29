@@ -16,9 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.console;
+package com.exedio.cope.sample;
 
-import static com.exedio.cope.console.HistoryThread.HISTORY_MODEL;
+import static com.exedio.cope.sample.HistoryThread.HISTORY_MODEL;
 import static java.util.Arrays.asList;
 
 import java.text.SimpleDateFormat;
