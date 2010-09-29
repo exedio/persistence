@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sample;
 
-import static com.exedio.cope.sample.HistoryThread.HISTORY_MODEL;
+import static com.exedio.cope.sample.Sampler.HISTORY_MODEL;
 import static java.util.Arrays.asList;
 
 import java.text.SimpleDateFormat;
@@ -85,21 +85,21 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
-		final HistoryThread thread = new HistoryThread(MODEL, "zack");
+		final Sampler thread = new Sampler(MODEL, "zack");
 
 		HISTORY_MODEL.startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
 		assertEquals(0, HistoryItemCache.TYPE.search().size());
 		assertEquals(0, HistoryMedia.TYPE.search().size());
 		HISTORY_MODEL.commit();
-		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryMedia.TYPE)));
 
 		final Date before55 = new Date();
 		thread.store(55);
@@ -125,14 +125,14 @@ public class HistoryTest extends TestCase
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
-		assertEquals(1, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(1, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList(date55, date55  ), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(1, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(1, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(1, Sampler.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList(date55, date55  ), asList(Sampler.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList(date55, date55  ), asList(Sampler.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList(date55, date55  ), asList(Sampler.analyzeDate(HistoryMedia.TYPE)));
 
 		final Date before66 = new Date();
 		thread.store(66);
@@ -159,48 +159,48 @@ public class HistoryTest extends TestCase
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
-		assertEquals(2, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(2, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(2, HistoryThread.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(HistoryThread.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList(date55, date66  ), asList(HistoryThread.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(2, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(2, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(2, Sampler.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(asList(date55, date66  ), asList(Sampler.analyzeDate(HistoryModel.TYPE)));
+		assertEquals(asList(date55, date66  ), asList(Sampler.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryClusterNode.TYPE)));
+		assertEquals(asList(date55, date66  ), asList(Sampler.analyzeDate(HistoryMedia.TYPE)));
 	}
 
 	public void testPurge()
 	{
-		final HistoryThread thread = new HistoryThread(MODEL, "zack");
-		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		final Sampler thread = new Sampler(MODEL, "zack");
+		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
 		assertEquals(0, HistoryPurge.purge(new Date()));
 
 		thread.store(66);
-		assertEquals(1, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(1, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(1, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(1, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(1, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(1, Sampler.analyzeCount(HistoryMedia.TYPE));
 
 		sleepLongerThan(1);
 		assertEquals(3, HistoryPurge.purge(new Date()));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
 
 		sleepLongerThan(1);
 		assertEquals(0, HistoryPurge.purge(new Date()));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryModel.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(0, HistoryThread.analyzeCount(HistoryMedia.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
+		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
 	}
 
 	private static final HistoryModel assertIt(
-			final HistoryThread thread,
+			final Sampler thread,
 			final Date before, final Date after,
 			final int running,
 			final HistoryModel model)
@@ -214,7 +214,7 @@ public class HistoryTest extends TestCase
 	}
 	private static final HistoryItemCache assertIt(
 			final HistoryModel model,
-			final HistoryThread thread,
+			final Sampler thread,
 			final HistoryItemCache itemCache)
 	{
 		assertEquals(model, itemCache.getModel());
@@ -229,7 +229,7 @@ public class HistoryTest extends TestCase
 
 	private static final HistoryMedia assertIt(
 			final HistoryModel model,
-			final HistoryThread thread,
+			final Sampler thread,
 			final HistoryMedia media)
 	{
 		assertEquals(model, media.getModel());
