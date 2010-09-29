@@ -10,7 +10,11 @@
 			<artifact pattern="${shared.root}/[artifact].[ext]"/>
 			<artifact pattern="${shared.root}/[artifact]-[type].[ext]"/>
 		</url>
+		<filesystem name="sharedthirdparty">
+			<artifact pattern="/home/rw7/.sharedthirdparty/[organization]/[artifact]/[artifact]-[revision]-[type].[ext]"/>
+		</filesystem>
 		<chain name="main" dual="true">
+			<resolver ref="sharedthirdparty"/>
 			<resolver ref="shared"/>
 			<resolver ref="public"/>
 		</chain>
