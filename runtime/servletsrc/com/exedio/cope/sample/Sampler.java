@@ -59,7 +59,6 @@ public final class Sampler
 	private final Model watchedModel;
 	private final String propertyFile;
 	private final Object lock = new Object();
-	private final String topic;
 	private final MediaPath[] medias;
 
 	public Sampler(final Model watchedModel, final String propertyFile)
@@ -67,7 +66,6 @@ public final class Sampler
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
-		this.topic = name + ' ';
 
 		assert watchedModel!=null;
 		assert propertyFile!=null;
@@ -82,19 +80,15 @@ public final class Sampler
 
 	public void run()
 	{
-		System.out.println(topic + "run() started");
 		try
 		{
 			sleepByWait(2000l);
 
-			System.out.println(topic + "run() connecting");
 			ConnectToken connectToken = null;
-			final long connecting = System.nanoTime();
 			try
 			{
 				connectToken =
 					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
-				System.out.println(topic + "run() connected (" + ((System.nanoTime() - connecting) / 1000000) + "ms)");
 				HISTORY_MODEL.reviseIfSupported();
 				try
 				{
@@ -109,7 +103,6 @@ public final class Sampler
 
 				for(int running = 0; true; running++)
 				{
-					System.out.println(topic + "run() store " + running);
 					store(running);
 					sleepByWait(60000l);
 				}
@@ -118,13 +111,8 @@ public final class Sampler
 			{
 				if(connectToken!=null)
 				{
-					System.out.println(topic + "run() disconnecting");
-					final long disconnecting = System.nanoTime();
 					connectToken.returnIt();
-					System.out.println(topic + "run() disconnected (" + ((System.nanoTime() - disconnecting) / 1000000) + "ms)");
 				}
-				else
-					System.out.println(topic + "run() not connected");
 			}
 		}
 		catch(final RuntimeException e)
@@ -163,7 +151,7 @@ public final class Sampler
 		// save data
 		try
 		{
-			HISTORY_MODEL.startTransaction(topic + running);
+			HISTORY_MODEL.startTransaction(getClass().getName() + '#' + watchedModel.toString());
 			final HistoryModel model;
 			{
 				sv.clear();
