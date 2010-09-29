@@ -83,30 +83,30 @@ public final class Sampler
 		// TODO rename table while
 		if(connectToken==null)
 		{
-				connectToken =
-					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
-				// TODO cleanup if fails
-				HISTORY_MODEL.reviseIfSupported();
-				try
-				{
-					HISTORY_MODEL.startTransaction("check");
-					HISTORY_MODEL.checkSchema();
-					HISTORY_MODEL.commit();
-				}
-				finally
-				{
-					HISTORY_MODEL.rollbackIfNotCommitted();
-				}
+			connectToken =
+				ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
+			// TODO cleanup if fails
+			HISTORY_MODEL.reviseIfSupported();
+			try
+			{
+				HISTORY_MODEL.startTransaction("check");
+				HISTORY_MODEL.checkSchema();
+				HISTORY_MODEL.commit();
+			}
+			finally
+			{
+				HISTORY_MODEL.rollbackIfNotCommitted();
+			}
 		}
 	}
 
 	public void disconnect()
 	{
-				if(connectToken!=null)
-				{
-					connectToken.returnIt();
-					connectToken = null;
-				}
+		if(connectToken!=null)
+		{
+			connectToken.returnIt();
+			connectToken = null;
+		}
 	}
 
 	void store(final int running) // non-private for testing
