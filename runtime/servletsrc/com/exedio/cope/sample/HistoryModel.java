@@ -85,6 +85,8 @@ final class HistoryModel extends Item
 	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal();
 	private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
+	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal();
+	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal();
 
 	static List<SetValue> map(final ItemCacheSummary info)
 	{
@@ -94,7 +96,10 @@ final class HistoryModel extends Item
 
 			itemCacheConcurrentLoads.map(info.concurrentLoads),
 			itemCacheReplacementRuns.map(info.replacementRuns),
-			itemCacheReplacements   .map(info.replacements));
+			itemCacheReplacements   .map(info.replacements),
+
+			itemCacheInvalidationsOrdered.map(info.invalidationsOrdered),
+			itemCacheInvalidationsDone   .map(info.invalidationsDone));
 	}
 
 
