@@ -53,6 +53,8 @@ final class History
 		}
 	}
 
+	static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
+
 	void start()
 	{
 		synchronized(lock)
@@ -71,7 +73,7 @@ final class History
 			}
 			if(context!=null)
 			{
-				final String propertyFile = context.get(ConsoleServlet.HISTORY_PROPERTY_FILE);
+				final String propertyFile = context.get(HISTORY_PROPERTY_FILE);
 				if(propertyFile!=null)
 				{
 					available = true;
