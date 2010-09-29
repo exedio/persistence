@@ -21,6 +21,7 @@
 	</publications>
 	<dependencies>
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
+		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" />
 		<dependency org="org.cojen" name="cojen" rev="2.0" />
 		<dependency org="org.beanshell" name="bsh-core" rev="2.0b4" />
 		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->default" />
