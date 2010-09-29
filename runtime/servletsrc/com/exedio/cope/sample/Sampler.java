@@ -56,8 +56,8 @@ public final class Sampler
 	private final String name;
 	private final Model watchedModel;
 	private final String propertyFile;
-	private final Object lock = new Object();
 	private final MediaPath[] medias;
+	private ConnectToken connectToken = null;
 
 	public Sampler(final Model watchedModel, final String propertyFile)
 	{
@@ -76,17 +76,13 @@ public final class Sampler
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
-	public void run()
+	public void connect()
 	{
-		try
+		if(connectToken==null)
 		{
-			sleepByWait(2000l);
-
-			ConnectToken connectToken = null;
-			try
-			{
 				connectToken =
 					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
+				// TODO cleanup if fails
 				HISTORY_MODEL.reviseIfSupported();
 				try
 				{
@@ -98,25 +94,16 @@ public final class Sampler
 				{
 					HISTORY_MODEL.rollbackIfNotCommitted();
 				}
+		}
+	}
 
-				for(int running = 0; true; running++)
-				{
-					store(running);
-					sleepByWait(60000l);
-				}
-			}
-			finally
-			{
+	public void disconnect()
+	{
 				if(connectToken!=null)
 				{
 					connectToken.returnIt();
+					connectToken = null;
 				}
-			}
-		}
-		catch(final RuntimeException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	void store(final int running) // non-private for testing
@@ -202,24 +189,6 @@ public final class Sampler
 		finally
 		{
 			HISTORY_MODEL.rollbackIfNotCommitted();
-		}
-	}
-
-	private void sleepByWait(final long millis)
-	{
-		synchronized(lock)
-		{
-			//System.out.println(topic + "run() sleeping (" + millis + "ms)");
-			//final long sleeping = System.currentTimeMillis();
-			try
-			{
-				lock.wait(millis);
-			}
-			catch(final InterruptedException e)
-			{
-				throw new RuntimeException(name, e);
-			}
-			//System.out.println(topic + "run() slept    (" + (System.currentTimeMillis()-sleeping) + "ms)");
 		}
 	}
 
