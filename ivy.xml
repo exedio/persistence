@@ -9,6 +9,7 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
+		<conf name="hsqldb" extends="runtime" />
 		<conf name="mysql" extends="runtime" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
@@ -24,6 +25,7 @@
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" />
 		<dependency org="org.cojen" name="cojen" rev="2.0" />
 		<dependency org="org.beanshell" name="bsh-core" rev="2.0b4" />
+		<dependency org="org.hsqldb" name="hsqldb" rev="1.8.0.10" conf="hsqldb->default" />
 		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->default" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="160" />
