@@ -42,7 +42,7 @@ import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 
-final class Sampler
+public final class Sampler
 {
 	static final Model HISTORY_MODEL =
 		new Model(
@@ -63,7 +63,7 @@ final class Sampler
 	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 
-	Sampler(final Model watchedModel, final String propertyFile)
+	public Sampler(final Model watchedModel, final String propertyFile)
 	{
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		this.watchedModel = watchedModel;
