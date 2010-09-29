@@ -22,6 +22,7 @@
 		<copy overwrite="true" file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" />
 		<copy overwrite="true" file="artifacts/bsh-2.0b4-core.jar" tofile="../lib/bsh-core.jar" />
 		<copy overwrite="true" file="artifacts/bsh-2.0b4-src.jar" tofile="../lib/bsh-src.jar" />
+		<copy overwrite="true" file="artifacts/hsqldb-1.8.0.8-jar.jar" tofile="../lib/jdbc/hsqldb.jar" />
 		<copy overwrite="true" file="artifacts/mysql-connector-java-5.0.3-jar.jar" tofile="../lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
 		<copy overwrite="true" file="artifacts/ojdbc5-11.1.0.7.0-jar.jar" tofile="../lib/jdbc/ojdbc5-11.1.0.7.0.jar" />
 		<copy overwrite="true" file="artifacts/apache-tomcat-6.0.16-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" />
