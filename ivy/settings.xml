@@ -11,7 +11,7 @@
 			<artifact pattern="${shared.root}/[artifact]-[type].[ext]"/>
 		</url>
 		<filesystem name="sharedthirdparty">
-			<artifact pattern="/home/rw7/.sharedthirdparty/[organization]/[artifact]/[artifact]-[revision]-[type].[ext]"/>
+			<artifact pattern="/home/rw7/.sharedthirdparty/[organization]/[artifact]/[revision]/[artifact]-[type].[ext]"/>
 		</filesystem>
 		<chain name="main" dual="true">
 			<resolver ref="sharedthirdparty"/>
