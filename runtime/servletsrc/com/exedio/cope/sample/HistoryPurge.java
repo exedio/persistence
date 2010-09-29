@@ -36,6 +36,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.util.Interrupter;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class HistoryPurge extends Item
@@ -53,7 +54,7 @@ final class HistoryPurge extends Item
 		return q;
 	}
 
-	static int purge(final int days)
+	static int purge(final int days, final Interrupter interrupter)
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -61,16 +62,24 @@ final class HistoryPurge extends Item
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
 		cal.add(cal.DATE, -days);
-		return purge(cal.getTime());
+		return purge(cal.getTime(), interrupter);
 	}
 
-	static int purge(final Date limit) // non-private for testing
+	static int purge(final Date limit, final Interrupter interrupter) // non-private for testing
 	{
 		int result = 0;
 		for(final Type type : TYPE.getModel().getTypes())
 			if(HistoryModel.TYPE!=type && // purge HistoryModel at the end
 				TYPE!=type)
+			{
+				if(interrupter!=null && interrupter.isRequested())
+					return result;
+
 				result += purge(type, limit);
+			}
+
+		if(interrupter!=null && interrupter.isRequested())
+			return result;
 
 		result += purge(HistoryModel.TYPE, limit);
 

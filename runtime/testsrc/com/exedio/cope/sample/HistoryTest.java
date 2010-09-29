@@ -19,6 +19,7 @@
 package com.exedio.cope.sample;
 
 import static com.exedio.cope.sample.Sampler.HISTORY_MODEL;
+import static com.exedio.cope.util.Interrupters.VAIN_INTERRUPTER;
 import static java.util.Arrays.asList;
 
 import java.text.SimpleDateFormat;
@@ -176,7 +177,7 @@ public class HistoryTest extends TestCase
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(0, HistoryPurge.purge(new Date()));
+		assertEquals(0, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
 
 		thread.store(66);
 		assertEquals(1, Sampler.analyzeCount(HistoryModel.TYPE));
@@ -185,14 +186,14 @@ public class HistoryTest extends TestCase
 		assertEquals(1, Sampler.analyzeCount(HistoryMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertEquals(3, HistoryPurge.purge(new Date()));
+		assertEquals(3, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertEquals(0, HistoryPurge.purge(new Date()));
+		assertEquals(0, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
