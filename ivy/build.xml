@@ -10,11 +10,11 @@
 		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[revision]-[type].[ext]" />
 	</target>
 	<target name="copy" depends="resolve">
-		<copy file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" overwrite="true" />
-		<copy file="artifacts/cojen-2.0-jar.jar" tofile="../lib/cojen.jar" overwrite="true" />
-		<copy file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" overwrite="true" />
-		<copy file="artifacts/mysql-connector-java-5.0.3-jar.jar" tofile="../lib/jdbc/mysql-connector-java-5.0.3-bin.jar" overwrite="true" />
-		<copy file="artifacts/ojdbc5-11.1.0.7.0-jar.jar" tofile="../lib/jdbc/ojdbc5-11.1.0.7.0.jar" overwrite="true" />
-		<copy file="artifacts/apache-tomcat-6.0.16-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" overwrite="true" />
+		<copy overwrite="true" file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" />
+		<copy overwrite="true" file="artifacts/cojen-2.0-jar.jar" tofile="../lib/cojen.jar" />
+		<copy overwrite="true" file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" />
+		<copy overwrite="true" file="artifacts/mysql-connector-java-5.0.3-jar.jar" tofile="../lib/jdbc/mysql-connector-java-5.0.3-bin.jar" />
+		<copy overwrite="true" file="artifacts/ojdbc5-11.1.0.7.0-jar.jar" tofile="../lib/jdbc/ojdbc5-11.1.0.7.0.jar" />
+		<copy overwrite="true" file="artifacts/apache-tomcat-6.0.16-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" />
 	</target>
 </project>
