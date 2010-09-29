@@ -61,7 +61,6 @@ public final class Sampler
 	private final Object lock = new Object();
 	private final String topic;
 	private final MediaPath[] medias;
-	private volatile boolean proceed = true;
 
 	public Sampler(final Model watchedModel, final String propertyFile)
 	{
@@ -87,8 +86,6 @@ public final class Sampler
 		try
 		{
 			sleepByWait(2000l);
-			if(!proceed)
-				return;
 
 			System.out.println(topic + "run() connecting");
 			ConnectToken connectToken = null;
@@ -110,7 +107,7 @@ public final class Sampler
 					HISTORY_MODEL.rollbackIfNotCommitted();
 				}
 
-				for(int running = 0; proceed; running++)
+				for(int running = 0; true; running++)
 				{
 					System.out.println(topic + "run() store " + running);
 					store(running);
