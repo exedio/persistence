@@ -19,7 +19,6 @@
 package com.exedio.cope.sample;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -27,7 +26,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerField;
@@ -85,7 +83,6 @@ final class HistoryPurge extends Item
 		if(field==null)
 			throw new RuntimeException(type.getID());
 		final Model model = type.getModel();
-		final ConnectProperties p = model.getConnectProperties();
 		final String bf =
 			"delete from " + SchemaInfo.quoteName(model, SchemaInfo.getTableName (type )) +
 			" where "      + SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field)) + "<?";
@@ -94,7 +91,7 @@ final class HistoryPurge extends Item
 		final long start = System.nanoTime();
 		try
 		{
-			con = DriverManager.getConnection(p.getDatabaseUrl(), p.getDatabaseUser(), p.getDatabasePassword());
+			con = SchemaInfo.newConnection(model);
 			PreparedStatement stat = null;
 			try
 			{
