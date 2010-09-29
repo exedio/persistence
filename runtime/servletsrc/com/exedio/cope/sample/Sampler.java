@@ -53,8 +53,6 @@ public final class Sampler
 			HistoryMedia.TYPE,
 			HistoryPurge.TYPE);
 
-	private static final String NAME = "COPE History";
-
 	private final String name;
 	private final Model watchedModel;
 	private final String propertyFile;
@@ -63,7 +61,7 @@ public final class Sampler
 
 	public Sampler(final Model watchedModel, final String propertyFile)
 	{
-		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
+		this.name = getClass().getName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
 
@@ -151,7 +149,7 @@ public final class Sampler
 		// save data
 		try
 		{
-			HISTORY_MODEL.startTransaction(getClass().getName() + '#' + watchedModel.toString());
+			HISTORY_MODEL.startTransaction(name);
 			final HistoryModel model;
 			{
 				sv.clear();
