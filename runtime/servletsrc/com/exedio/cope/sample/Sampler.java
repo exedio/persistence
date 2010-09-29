@@ -61,11 +61,13 @@ public final class Sampler
 
 	public Sampler(final Model watchedModel, final String propertyFile)
 	{
+		if(watchedModel==null)
+			throw new NullPointerException("model");
+
 		this.name = getClass().getName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
 
-		assert watchedModel!=null;
 		assert propertyFile!=null;
 
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();

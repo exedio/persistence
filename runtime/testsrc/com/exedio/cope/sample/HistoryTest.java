@@ -86,6 +86,16 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
+		try
+		{
+			new Sampler(null, "zack");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+
 		final Sampler thread = new Sampler(MODEL, "zack");
 
 		HISTORY_MODEL.startTransaction("HistoryTest");
