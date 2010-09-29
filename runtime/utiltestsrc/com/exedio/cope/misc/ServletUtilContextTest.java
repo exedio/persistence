@@ -44,7 +44,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertFails(s, "p3", "testContextPath.p3");
 			assertEquals("/testContextPath", s.get("contextPath"));
 			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.getDescription());
-			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
+			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.toString());
 		}
 		{
 			final Source s = getPropertyContext(new TestContext("", "root."));
@@ -53,7 +53,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertFails(s, "p3", "root.p3");
 			assertEquals("", s.get("contextPath"));
 			assertEquals("ServletContext '' (prefix root.)", s.getDescription());
-			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
+			assertEquals("ServletContext '' (prefix root.)", s.toString());
 		}
 		{
 			final Source s = getPropertyContext(new TestContext("ding", "ding."));
@@ -62,7 +62,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertFails(s, "p3", "ding.p3");
 			assertEquals("ding", s.get("contextPath"));
 			assertEquals("ServletContext 'ding' (prefix ding.)", s.getDescription());
-			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
+			assertEquals("ServletContext 'ding' (prefix ding.)", s.toString());
 		}
 		{
 			final Source s = getPropertyContext(new TestContext(null, ""));

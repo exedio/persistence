@@ -41,7 +41,7 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
 			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.getDescription());
-			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
+			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.toString());
 		}
 		{
 			final Source s = com.exedio.cope.util.ServletUtil.getPropertyContext(new TestContext("", null));
