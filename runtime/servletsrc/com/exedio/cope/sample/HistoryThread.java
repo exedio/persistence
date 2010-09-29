@@ -42,7 +42,7 @@ import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 
-final class HistoryThread extends Thread
+final class HistoryThread
 {
 	static final Model HISTORY_MODEL =
 		new Model(
@@ -65,9 +65,7 @@ final class HistoryThread extends Thread
 
 	HistoryThread(final Model watchedModel, final String propertyFile)
 	{
-		super(NAME);
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
-		setName(name);
 		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
 		this.topic = name + ' ';
@@ -83,7 +81,6 @@ final class HistoryThread extends Thread
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
-	@Override
 	public void run()
 	{
 		System.out.println(topic + "run() started");
@@ -241,28 +238,6 @@ final class HistoryThread extends Thread
 			}
 			//System.out.println(topic + "run() slept    (" + (System.currentTimeMillis()-sleeping) + "ms)");
 		}
-	}
-
-	void stopAndJoin()
-	{
-		System.out.println(topic + "stopAndJoin() entering");
-		proceed = false;
-		synchronized(lock)
-		{
-			System.out.println(topic + "stopAndJoin() notifying");
-			lock.notify();
-		}
-		System.out.println(topic + "stopAndJoin() notified");
-		final long joining = System.nanoTime();
-		try
-		{
-			join();
-		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(name, e);
-		}
-		System.out.println(topic + "stopAndJoin() joined (" + ((System.nanoTime() - joining) / 1000000) + "ms)");
 	}
 
 	@Override
