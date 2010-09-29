@@ -9,9 +9,9 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
-		<conf name="hsqldb" extends="runtime" />
-		<conf name="mysql" extends="runtime" />
-		<conf name="oracle" extends="runtime" />
+		<conf name="hsqldb" />
+		<conf name="mysql" />
+		<conf name="oracle" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications>
@@ -26,9 +26,9 @@
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" />
 		<dependency org="org.cojen" name="cojen" rev="2.0" />
 		<dependency org="org.beanshell" name="bsh-core" rev="2.0b4" />
-		<dependency org="org.hsqldb" name="hsqldb" rev="1.8.0.10" conf="hsqldb->*" />
-		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->*" />
-		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->*" />
+		<dependency org="org.hsqldb" name="hsqldb" rev="1.8.0.10" conf="hsqldb->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->default" />
+		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="160" />
