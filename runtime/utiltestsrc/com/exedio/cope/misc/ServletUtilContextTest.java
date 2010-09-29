@@ -30,7 +30,6 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties.Source;
 
 public class ServletUtilContextTest extends CopeAssert
