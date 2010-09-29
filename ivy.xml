@@ -22,7 +22,7 @@
 		<artifact name="exedio-cope-test" />
 	</publications>
 	<dependencies>
-		<dependency org="javax.servlet" name="servlet-api" rev="2.4" />
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" />
 		<dependency org="org.cojen" name="cojen" rev="2.0" />
 		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
