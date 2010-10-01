@@ -70,8 +70,6 @@ public class ConnectedTest extends TestCase
 						return "sa";
 					else if(key.equals("sampler.database.password"))
 						return "";
-					else if(key.equals("sampler.cache.query.limit"))
-						return "0";
 					else
 						return null;
 				}

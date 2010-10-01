@@ -21,6 +21,7 @@ package com.exedio.cope.sample;
 import static com.exedio.cope.Query.newQuery;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,7 @@ import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PrefixSource;
+import com.exedio.cope.util.Properties;
 
 public final class Sampler
 {
@@ -89,12 +91,35 @@ public final class Sampler
 				ConnectToken.issue(
 						historyModel,
 						new ConnectProperties(
-								new PrefixSource(
+								xs(new PrefixSource(
 										watchedModel.getConnectProperties().getContext(),
-										"sampler."),
+										"sampler.")),
 								null),
 						name);
 		}
+	}
+
+	private static Properties.Source xs(final Properties.Source x)
+	{
+		return new Properties.Source(){
+
+			public String get(final String key)
+			{
+				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
+					return "0";
+				return x.get(key);
+			}
+
+			public String getDescription()
+			{
+				return x.getDescription();
+			}
+
+			public Collection<String> keySet()
+			{
+				return x.keySet();
+			}
+		};
 	}
 
 	public void check()
