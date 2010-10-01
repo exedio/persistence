@@ -24,92 +24,15 @@ import static com.exedio.cope.util.Interrupters.VAIN_INTERRUPTER;
 import static java.util.Arrays.asList;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
-import com.exedio.cope.util.Properties;
 
-public class HistoryTest extends TestCase
+public class HistoryTest extends ConnectedTest
 {
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		final Properties.Source s = new Properties.Source(){
-
-			public String get(final String key)
-			{
-				if(key.equals("database.url"))
-					return "jdbc:hsqldb:mem:copetest";
-				else if(key.equals("database.user"))
-					return "sa";
-				else if(key.equals("database.password"))
-					return "";
-				else
-					return null;
-			}
-
-			public String getDescription()
-			{
-				return "HistoryTest Properties.Source";
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
-		final Properties.Source c = new Properties.Source(){
-
-			public String get(final String key)
-			{
-				if(key.startsWith("sampler."))
-				{
-					if(key.equals("sampler.database.url"))
-						return "jdbc:hsqldb:mem:sampler";
-					else if(key.equals("sampler.database.user"))
-						return "sa";
-					else if(key.equals("sampler.database.password"))
-						return "";
-					else if(key.equals("sampler.cache.query.limit"))
-						return "0";
-					else
-						return null;
-				}
-				else
-					throw new RuntimeException(key);
-			}
-
-			public String getDescription()
-			{
-				return "HistoryTest Properties.Source Context";
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
-		MODEL.connect(new ConnectProperties(s, c));
-		sampler.connect();
-	}
-
-	@Override
-	protected void tearDown() throws Exception
-	{
-		MODEL.disconnect();
-		sampler.getModel().dropSchema();
-		sampler.disconnect();
-		super.tearDown();
-	}
-
 	public void testIt()
 	{
 		assertEquals("Sampler#com.exedio.cope.sample.Stuff#MODEL", sampler.toString());
