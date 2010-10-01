@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sample;
 
+import static com.exedio.cope.sample.Stuff.MODEL;
+import static com.exedio.cope.sample.Stuff.sampler;
 import static com.exedio.cope.util.Interrupters.VAIN_INTERRUPTER;
 import static java.util.Arrays.asList;
 
@@ -30,22 +32,12 @@ import junit.framework.TestCase;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
-import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.Properties;
 
 public class HistoryTest extends TestCase
 {
-	static final Model MODEL = new Model(HistoryItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(HistoryTest.class, "MODEL");
-	}
-
-	static final Sampler sampler = new Sampler(MODEL);
-
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -120,7 +112,7 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
-		assertEquals("Sampler#com.exedio.cope.sample.HistoryTest#MODEL", sampler.toString());
+		assertEquals("Sampler#com.exedio.cope.sample.Stuff#MODEL", sampler.toString());
 		sampler.getModel().createSchema();
 		sampler.check();
 		sampler.getModel().startTransaction("HistoryTest");
