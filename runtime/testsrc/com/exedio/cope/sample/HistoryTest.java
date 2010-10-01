@@ -39,7 +39,7 @@ import com.exedio.cope.util.Properties;
 public class HistoryTest extends TestCase
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
-	private static final Sampler thread = new Sampler(MODEL);
+	private static final Sampler sampler = new Sampler(MODEL);
 
 	@Override
 	protected void setUp() throws Exception
@@ -101,7 +101,7 @@ public class HistoryTest extends TestCase
 			}
 		};
 		MODEL.connect(new ConnectProperties(s, c));
-		thread.connect();
+		sampler.connect();
 		HISTORY_MODEL.createSchema();
 	}
 
@@ -110,7 +110,7 @@ public class HistoryTest extends TestCase
 	{
 		MODEL.disconnect();
 		HISTORY_MODEL.dropSchema();
-		thread.disconnect();
+		sampler.disconnect();
 		super.tearDown();
 	}
 
@@ -141,26 +141,26 @@ public class HistoryTest extends TestCase
 		assertEquals(asList((Date)null, null), asList(Sampler.analyzeDate(HistoryMedia.TYPE)));
 
 		final Date before55 = new Date();
-		thread.store(55);
+		sampler.store(55);
 		final Date after55 = new Date();
 		HISTORY_MODEL.startTransaction("HistoryTest2");
 		final HistoryModel model55;
 		{
 			final Iterator<HistoryModel> iter = HistoryModel.TYPE.search().iterator();
-			model55 = assertIt(thread, before55, after55, 55, iter.next());
+			model55 = assertIt(sampler, before55, after55, 55, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = HistoryModel.date.get(model55);
 		final HistoryItemCache itemCache55;
 		{
 			final Iterator<HistoryItemCache> iter = HistoryItemCache.TYPE.search().iterator();
-			itemCache55 = assertIt(model55, thread, iter.next());
+			itemCache55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final HistoryMedia media55;
 		{
 			final Iterator<HistoryMedia> iter = HistoryMedia.TYPE.search().iterator();
-			media55 = assertIt(model55, thread, iter.next());
+			media55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
@@ -174,27 +174,27 @@ public class HistoryTest extends TestCase
 		assertEquals(asList(date55, date55  ), asList(Sampler.analyzeDate(HistoryMedia.TYPE)));
 
 		final Date before66 = new Date();
-		thread.store(66);
+		sampler.store(66);
 		final Date after66 = new Date();
 		HISTORY_MODEL.startTransaction("HistoryTest2");
 		final HistoryModel model66;
 		{
 			final Iterator<HistoryModel> iter = iter(HistoryModel.TYPE);
 			assertEquals(model55, iter.next());
-			model66 = assertIt(thread, before66, after66, 66, iter.next());
+			model66 = assertIt(sampler, before66, after66, 66, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = HistoryModel.date.get(model66);
 		{
 			final Iterator<HistoryItemCache> iter = iter(HistoryItemCache.TYPE);
 			assertEquals(itemCache55, iter.next());
-			assertIt(model66, thread, iter.next());
+			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		{
 			final Iterator<HistoryMedia> iter = iter(HistoryMedia.TYPE);
 			assertEquals(media55, iter.next());
-			assertIt(model66, thread, iter.next());
+			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		HISTORY_MODEL.commit();
@@ -220,7 +220,7 @@ public class HistoryTest extends TestCase
 		assertEquals(0, Sampler.analyzeCount(HistoryMedia.TYPE));
 		assertEquals(0, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
 
-		thread.store(66);
+		sampler.store(66);
 		assertEquals(1, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(1, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
