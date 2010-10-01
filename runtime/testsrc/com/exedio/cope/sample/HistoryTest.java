@@ -38,6 +38,12 @@ import com.exedio.cope.util.Properties;
 public class HistoryTest extends TestCase
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
+
+	static
+	{
+		MODEL.enableSerialization(HistoryTest.class, "MODEL");
+	}
+
 	private static final Sampler sampler = new Sampler(MODEL);
 
 	@Override
@@ -114,6 +120,7 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
+		assertEquals("com.exedio.cope.sample.Sampler#com.exedio.cope.sample.HistoryTest#MODEL", sampler.toString());
 		sampler.getModel().createSchema();
 		sampler.check();
 		sampler.getModel().startTransaction("HistoryTest");
