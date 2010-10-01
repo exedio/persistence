@@ -18,12 +18,15 @@
 
 package com.exedio.cope.sample;
 
+import static com.exedio.cope.sample.Stuff.sampler;
 import junit.framework.TestCase;
 
 public class SamplerTest extends TestCase
 {
 	public void testIt()
 	{
+		assertEquals("Sampler#com.exedio.cope.sample.Stuff#MODEL", sampler.toString());
+
 		try
 		{
 			new Sampler(null);

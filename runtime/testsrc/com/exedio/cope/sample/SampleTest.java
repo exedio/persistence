@@ -34,7 +34,6 @@ public class SampleTest extends ConnectedTest
 {
 	public void testIt()
 	{
-		assertEquals("Sampler#com.exedio.cope.sample.Stuff#MODEL", sampler.toString());
 		sampler.getModel().createSchema();
 		sampler.check();
 		sampler.getModel().startTransaction("HistoryTest");
