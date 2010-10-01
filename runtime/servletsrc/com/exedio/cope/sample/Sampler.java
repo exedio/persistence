@@ -44,14 +44,7 @@ import com.exedio.cope.util.PrefixSource;
 
 public final class Sampler
 {
-	private static final Model HISTORY_MODEL =
-		new Model(
-			HistoryRevisions.REVISIONS,
-			HistoryModel.TYPE,
-			HistoryItemCache.TYPE,
-			HistoryClusterNode.TYPE,
-			HistoryMedia.TYPE,
-			HistoryPurge.TYPE);
+	private final Model HISTORY_MODEL;
 
 	private final String name;
 	private final Model watchedModel;
@@ -66,6 +59,14 @@ public final class Sampler
 		this.name = getClass().getName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
 
+		this.HISTORY_MODEL =
+			new Model(
+				HistoryRevisions.REVISIONS,
+				HistoryModel.TYPE,
+				HistoryItemCache.TYPE,
+				HistoryClusterNode.TYPE,
+				HistoryMedia.TYPE,
+				HistoryPurge.TYPE);
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : watchedModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -212,7 +213,7 @@ public final class Sampler
 		return name;
 	}
 
-	static int analyzeCount(final Type type)
+	int analyzeCount(final Type type)
 	{
 		final int result;
 		try
@@ -228,7 +229,7 @@ public final class Sampler
 		return result;
 	}
 
-	static Date[] analyzeDate(final Type type)
+	Date[] analyzeDate(final Type type)
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List dates;
