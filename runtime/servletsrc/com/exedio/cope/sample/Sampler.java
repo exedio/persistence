@@ -88,18 +88,21 @@ public final class Sampler
 										"sampler."),
 								null),
 						name);
-			// TODO cleanup if fails
-			//HISTORY_MODEL.reviseIfSupported(); TODO
-			try
-			{
-				HISTORY_MODEL.startTransaction("check");
-				//HISTORY_MODEL.checkSchema(); TODO
-				HISTORY_MODEL.commit();
-			}
-			finally
-			{
-				HISTORY_MODEL.rollbackIfNotCommitted();
-			}
+		}
+	}
+
+	public void check()
+	{
+		HISTORY_MODEL.reviseIfSupported();
+		try
+		{
+			HISTORY_MODEL.startTransaction("check");
+			HISTORY_MODEL.checkSchema();
+			HISTORY_MODEL.commit();
+		}
+		finally
+		{
+			HISTORY_MODEL.rollbackIfNotCommitted();
 		}
 	}
 

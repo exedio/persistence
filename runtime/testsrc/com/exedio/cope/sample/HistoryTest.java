@@ -102,7 +102,6 @@ public class HistoryTest extends TestCase
 		};
 		MODEL.connect(new ConnectProperties(s, c));
 		sampler.connect();
-		HISTORY_MODEL.createSchema();
 	}
 
 	@Override
@@ -126,6 +125,8 @@ public class HistoryTest extends TestCase
 			assertEquals("model", e.getMessage());
 		}
 
+		HISTORY_MODEL.createSchema();
+		sampler.check();
 		HISTORY_MODEL.startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
 		assertEquals(0, HistoryItemCache.TYPE.search().size());
@@ -213,6 +214,8 @@ public class HistoryTest extends TestCase
 		assertEquals("jdbc:hsqldb:mem:copetest", MODEL.getConnectProperties().getDatabaseUrl());
 		assertEquals("jdbc:hsqldb:mem:sampler", HISTORY_MODEL.getConnectProperties().getDatabaseUrl());
 		assertEquals(0, HISTORY_MODEL.getConnectProperties().getQueryCacheLimit());
+		HISTORY_MODEL.createSchema();
+		sampler.check();
 
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
