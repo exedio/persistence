@@ -80,7 +80,14 @@ public final class Sampler
 		if(connectToken==null)
 		{
 			connectToken =
-				ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new PrefixSource(watchedModel.getConnectProperties().getContext(), "sampler."), null), name);
+				ConnectToken.issue(
+						HISTORY_MODEL,
+						new ConnectProperties(
+								new PrefixSource(
+										watchedModel.getConnectProperties().getContext(),
+										"sampler."),
+								null),
+						name);
 			// TODO cleanup if fails
 			//HISTORY_MODEL.reviseIfSupported(); TODO
 			try
