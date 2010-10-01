@@ -37,14 +37,14 @@ import com.exedio.cope.util.Properties;
 
 public class HistoryTest extends TestCase
 {
-	private static final Model MODEL = new Model(HistoryItem.TYPE);
+	static final Model MODEL = new Model(HistoryItem.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(HistoryTest.class, "MODEL");
 	}
 
-	private static final Sampler sampler = new Sampler(MODEL);
+	static final Sampler sampler = new Sampler(MODEL);
 
 	@Override
 	protected void setUp() throws Exception
