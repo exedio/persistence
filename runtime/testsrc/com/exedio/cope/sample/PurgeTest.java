@@ -28,7 +28,7 @@ public class PurgeTest extends ConnectedTest
 {
 	public void testPurge()
 	{
-		assertEquals("jdbc:hsqldb:mem:copetest", MODEL.getConnectProperties().getDatabaseUrl());
+		assertEquals("jdbc:hsqldb:mem:sampled", MODEL.getConnectProperties().getDatabaseUrl());
 		assertEquals("jdbc:hsqldb:mem:sampler", sampler.getModel().getConnectProperties().getDatabaseUrl());
 		assertEquals(0, sampler.getModel().getConnectProperties().getItemCacheLimit());
 		assertEquals(0, sampler.getModel().getConnectProperties().getQueryCacheLimit());

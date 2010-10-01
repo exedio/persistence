@@ -39,7 +39,7 @@ public class ConnectedTest extends TestCase
 			public String get(final String key)
 			{
 				if(key.equals("database.url"))
-					return "jdbc:hsqldb:mem:copetest";
+					return "jdbc:hsqldb:mem:sampled";
 				else if(key.equals("database.user"))
 					return "sa";
 				else if(key.equals("database.password"))
