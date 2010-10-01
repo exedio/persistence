@@ -3,6 +3,9 @@
 	<property
 			name="shared.root"
 			value="http://hudson.exedio.com/hudson/job/[module]/[revision]/artifact/main/build/success" />
+	<property
+			name="sharedthirdparty.root"
+			value="http://download.exedio.com/artifacts" />
 	<resolvers>
 		<ibiblio name="public" m2compatible="true"/>
 		<url name="shared">
@@ -10,10 +13,10 @@
 			<artifact pattern="${shared.root}/[artifact].[ext]"/>
 			<artifact pattern="${shared.root}/[artifact]-[type].[ext]"/>
 		</url>
-		<filesystem name="sharedthirdparty">
-			<ivy      pattern="/home/rw7/.sharedthirdparty/[organization]/[module]/[revision]/ivy.xml"/>
-			<artifact pattern="/home/rw7/.sharedthirdparty/[organization]/[module]/[revision]/[artifact]-[type].[ext]"/>
-		</filesystem>
+		<url name="sharedthirdparty">
+			<ivy      pattern="${sharedthirdparty.root}/[organization]/[module]/[revision]/ivy.xml"/>
+			<artifact pattern="${sharedthirdparty.root}/[organization]/[module]/[revision]/[artifact]-[type].[ext]"/>
+		</url>
 		<chain name="main" dual="true">
 			<resolver ref="sharedthirdparty"/>
 			<resolver ref="shared"/>
