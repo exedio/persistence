@@ -23,41 +23,22 @@ import static com.exedio.cope.sample.Stuff.sampler;
 
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.MatchTest;
 import com.exedio.cope.util.Properties;
 
-public class ConnectedTest extends TestCase
+public class ConnectedTest extends AbstractRuntimeTest
 {
+	ConnectedTest()
+	{
+		super(MatchTest.MODEL);
+	}
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final Properties.Source s = new Properties.Source(){
-
-			public String get(final String key)
-			{
-				if(key.equals("database.url"))
-					return "jdbc:hsqldb:mem:sampled";
-				else if(key.equals("database.user"))
-					return "sa";
-				else if(key.equals("database.password"))
-					return "";
-				else
-					return null;
-			}
-
-			public String getDescription()
-			{
-				return "HistoryTest Properties.Source";
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
 		final Properties.Source c = new Properties.Source(){
 
 			public String get(final String key)
@@ -74,7 +55,7 @@ public class ConnectedTest extends TestCase
 						return null;
 				}
 				else
-					throw new RuntimeException(key);
+					return null;
 			}
 
 			public String getDescription()
@@ -87,7 +68,7 @@ public class ConnectedTest extends TestCase
 				return null;
 			}
 		};
-		MODEL.connect(new ConnectProperties(s, c));
+		MODEL.connect(new ConnectProperties(model.getConnectProperties().getSourceObject(), c));
 		sampler.connect();
 	}
 

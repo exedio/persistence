@@ -22,7 +22,6 @@ import static com.exedio.cope.sample.Stuff.MODEL;
 import static com.exedio.cope.sample.Stuff.sampler;
 import static java.util.Arrays.asList;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -36,6 +35,8 @@ public class SampleTest extends ConnectedTest
 	{
 		sampler.getModel().createSchema();
 		sampler.check();
+		final boolean itemCache = model.getConnectProperties().getItemCacheLimit()>0;
+
 		sampler.getModel().startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
 		assertEquals(0, HistoryItemCache.TYPE.search().size());
@@ -62,10 +63,16 @@ public class SampleTest extends ConnectedTest
 		}
 		final Date date55 = HistoryModel.date.get(model55);
 		final HistoryItemCache itemCache55;
+		if(itemCache)
 		{
 			final Iterator<HistoryItemCache> iter = HistoryItemCache.TYPE.search().iterator();
 			itemCache55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
+		}
+		else
+		{
+			assertEquals(0, HistoryItemCache.TYPE.search().size());
+			itemCache55 = null;
 		}
 		final HistoryMedia media55;
 		{
@@ -75,11 +82,11 @@ public class SampleTest extends ConnectedTest
 		}
 		sampler.getModel().commit();
 		assertEquals(1, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(1, sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(itemCache?1:0, sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(1, sampler.analyzeCount(HistoryMedia.TYPE));
 		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(itemCache?asList(date55, date55):asList((Date)null, null), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryClusterNode.TYPE)));
 		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(HistoryMedia.TYPE)));
 
@@ -95,11 +102,16 @@ public class SampleTest extends ConnectedTest
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = HistoryModel.date.get(model66);
+		if(itemCache)
 		{
 			final Iterator<HistoryItemCache> iter = iter(HistoryItemCache.TYPE);
 			assertEquals(itemCache55, iter.next());
 			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
+		}
+		else
+		{
+			assertEquals(0, HistoryItemCache.TYPE.search().size());
 		}
 		{
 			final Iterator<HistoryMedia> iter = iter(HistoryMedia.TYPE);
@@ -109,11 +121,11 @@ public class SampleTest extends ConnectedTest
 		}
 		sampler.getModel().commit();
 		assertEquals(2, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(2, sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(itemCache?2:0, sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(HistoryMedia.TYPE));
 		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
+		assertEquals(itemCache?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryClusterNode.TYPE)));
 		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(HistoryMedia.TYPE)));
 	}
@@ -166,19 +178,5 @@ public class SampleTest extends ConnectedTest
 		final Query<E> q = new Query<E>(type.getThis());
 		q.setOrderBy(type.getThis(), true);
 		return q.search().iterator();
-	}
-
-	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
-
-	private static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
-	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-		final String message =
-			"expected date within " + df.format(expectedBefore) +
-			" and " + df.format(expectedAfter) +
-			", but was " + df.format(actual);
-
-		assertTrue(message, !expectedBefore.after(actual));
-		assertTrue(message, !expectedAfter.before(actual));
 	}
 }
