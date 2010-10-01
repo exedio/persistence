@@ -39,6 +39,7 @@ import com.exedio.cope.util.Properties;
 public class HistoryTest extends TestCase
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
+	private static final Sampler thread = new Sampler(MODEL);
 
 	@Override
 	protected void setUp() throws Exception
@@ -54,8 +55,6 @@ public class HistoryTest extends TestCase
 					return "sa";
 				else if(key.equals("database.password"))
 					return "";
-				else if(key.equals("cache.query.limit"))
-					return "0";
 				else
 					return null;
 			}
@@ -70,8 +69,39 @@ public class HistoryTest extends TestCase
 				return null;
 			}
 		};
-		MODEL.connect(new ConnectProperties(s, null));
-		HISTORY_MODEL.connect(new ConnectProperties(s, null));
+		final Properties.Source c = new Properties.Source(){
+
+			public String get(final String key)
+			{
+				if(key.startsWith("sampler."))
+				{
+					if(key.equals("sampler.database.url"))
+						return "jdbc:hsqldb:mem:sampler";
+					else if(key.equals("sampler.database.user"))
+						return "sa";
+					else if(key.equals("sampler.database.password"))
+						return "";
+					else if(key.equals("sampler.cache.query.limit"))
+						return "0";
+					else
+						return null;
+				}
+				else
+					throw new RuntimeException(key);
+			}
+
+			public String getDescription()
+			{
+				return "HistoryTest Properties.Source Context";
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
+		MODEL.connect(new ConnectProperties(s, c));
+		thread.connect();
 		HISTORY_MODEL.createSchema();
 	}
 
@@ -80,7 +110,7 @@ public class HistoryTest extends TestCase
 	{
 		MODEL.disconnect();
 		HISTORY_MODEL.dropSchema();
-		HISTORY_MODEL.disconnect();
+		thread.disconnect();
 		super.tearDown();
 	}
 
@@ -88,15 +118,13 @@ public class HistoryTest extends TestCase
 	{
 		try
 		{
-			new Sampler(null, "zack");
+			new Sampler(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("model", e.getMessage());
 		}
-
-		final Sampler thread = new Sampler(MODEL, "zack");
 
 		HISTORY_MODEL.startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
@@ -182,7 +210,10 @@ public class HistoryTest extends TestCase
 
 	public void testPurge()
 	{
-		final Sampler thread = new Sampler(MODEL, "zack");
+		assertEquals("jdbc:hsqldb:mem:copetest", MODEL.getConnectProperties().getDatabaseUrl());
+		assertEquals("jdbc:hsqldb:mem:sampler", HISTORY_MODEL.getConnectProperties().getDatabaseUrl());
+		assertEquals(0, HISTORY_MODEL.getConnectProperties().getQueryCacheLimit());
+
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));

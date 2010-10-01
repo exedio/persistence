@@ -20,7 +20,6 @@ package com.exedio.cope.sample;
 
 import static com.exedio.cope.Query.newQuery;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +40,7 @@ import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PrefixSource;
 
 public final class Sampler
 {
@@ -55,20 +55,16 @@ public final class Sampler
 
 	private final String name;
 	private final Model watchedModel;
-	private final String propertyFile;
 	private final MediaPath[] medias;
 	private ConnectToken connectToken = null;
 
-	public Sampler(final Model watchedModel, final String propertyFile)
+	public Sampler(final Model watchedModel)
 	{
 		if(watchedModel==null)
 			throw new NullPointerException("model");
 
 		this.name = getClass().getName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
-		this.propertyFile = propertyFile;
-
-		assert propertyFile!=null;
 
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : watchedModel.getTypes())
@@ -84,13 +80,13 @@ public final class Sampler
 		if(connectToken==null)
 		{
 			connectToken =
-				ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
+				ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new PrefixSource(watchedModel.getConnectProperties().getContext(), "sampler."), null), name);
 			// TODO cleanup if fails
-			HISTORY_MODEL.reviseIfSupported();
+			//HISTORY_MODEL.reviseIfSupported(); TODO
 			try
 			{
 				HISTORY_MODEL.startTransaction("check");
-				HISTORY_MODEL.checkSchema();
+				//HISTORY_MODEL.checkSchema(); TODO
 				HISTORY_MODEL.commit();
 			}
 			finally
