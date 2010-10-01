@@ -43,17 +43,12 @@ public class ConnectedTest extends AbstractRuntimeTest
 
 			public String get(final String key)
 			{
-				if(key.startsWith("sampler."))
-				{
-					if(key.equals("sampler.database.url"))
-						return "jdbc:hsqldb:mem:sampler";
-					else if(key.equals("sampler.database.user"))
-						return "sa";
-					else if(key.equals("sampler.database.password"))
-						return "";
-					else
-						return null;
-				}
+				if(key.equals("sampler.database.url"))
+					return "jdbc:hsqldb:mem:sampler";
+				else if(key.equals("sampler.database.user"))
+					return "sa";
+				else if(key.equals("sampler.database.password"))
+					return "";
 				else
 					return null;
 			}
