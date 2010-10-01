@@ -120,7 +120,7 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
-		assertEquals("com.exedio.cope.sample.Sampler#com.exedio.cope.sample.HistoryTest#MODEL", sampler.toString());
+		assertEquals("Sampler#com.exedio.cope.sample.HistoryTest#MODEL", sampler.toString());
 		sampler.getModel().createSchema();
 		sampler.check();
 		sampler.getModel().startTransaction("HistoryTest");

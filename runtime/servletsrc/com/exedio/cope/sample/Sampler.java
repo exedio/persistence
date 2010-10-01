@@ -56,7 +56,7 @@ public final class Sampler
 		if(watchedModel==null)
 			throw new NullPointerException("model");
 
-		this.name = getClass().getName() + '#' + watchedModel.toString();
+		this.name = getClass().getSimpleName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
 
 		this.historyModel =
