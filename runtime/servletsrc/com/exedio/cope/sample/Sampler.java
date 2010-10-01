@@ -44,7 +44,7 @@ import com.exedio.cope.util.PrefixSource;
 
 public final class Sampler
 {
-	private final Model HISTORY_MODEL;
+	private final Model historyModel;
 
 	private final String name;
 	private final Model watchedModel;
@@ -59,7 +59,7 @@ public final class Sampler
 		this.name = getClass().getName() + '#' + watchedModel.toString();
 		this.watchedModel = watchedModel;
 
-		this.HISTORY_MODEL =
+		this.historyModel =
 			new Model(
 				HistoryRevisions.REVISIONS,
 				HistoryModel.TYPE,
@@ -77,7 +77,7 @@ public final class Sampler
 
 	Model getModel()
 	{
-		return HISTORY_MODEL;
+		return historyModel;
 	}
 
 	public void connect()
@@ -87,7 +87,7 @@ public final class Sampler
 		{
 			connectToken =
 				ConnectToken.issue(
-						HISTORY_MODEL,
+						historyModel,
 						new ConnectProperties(
 								new PrefixSource(
 										watchedModel.getConnectProperties().getContext(),
@@ -99,16 +99,16 @@ public final class Sampler
 
 	public void check()
 	{
-		HISTORY_MODEL.reviseIfSupported();
+		historyModel.reviseIfSupported();
 		try
 		{
-			HISTORY_MODEL.startTransaction("check");
-			HISTORY_MODEL.checkSchema();
-			HISTORY_MODEL.commit();
+			historyModel.startTransaction("check");
+			historyModel.checkSchema();
+			historyModel.commit();
 		}
 		finally
 		{
-			HISTORY_MODEL.rollbackIfNotCommitted();
+			historyModel.rollbackIfNotCommitted();
 		}
 	}
 
@@ -151,7 +151,7 @@ public final class Sampler
 		// save data
 		try
 		{
-			HISTORY_MODEL.startTransaction(name);
+			historyModel.startTransaction(name);
 			final HistoryModel model;
 			{
 				sv.clear();
@@ -199,11 +199,11 @@ public final class Sampler
 					HistoryClusterNode.TYPE.newItem(sv);
 				}
 			}
-			HISTORY_MODEL.commit();
+			historyModel.commit();
 		}
 		finally
 		{
-			HISTORY_MODEL.rollbackIfNotCommitted();
+			historyModel.rollbackIfNotCommitted();
 		}
 	}
 
@@ -218,13 +218,13 @@ public final class Sampler
 		final int result;
 		try
 		{
-			HISTORY_MODEL.startTransaction("history analyze count");
+			historyModel.startTransaction("history analyze count");
 			result = type.newQuery().total();
-			HISTORY_MODEL.commit();
+			historyModel.commit();
 		}
 		finally
 		{
-			HISTORY_MODEL.rollbackIfNotCommitted();
+			historyModel.rollbackIfNotCommitted();
 		}
 		return result;
 	}
@@ -235,13 +235,13 @@ public final class Sampler
 		final List dates;
 		try
 		{
-			HISTORY_MODEL.startTransaction("history analyze dates");
+			historyModel.startTransaction("history analyze dates");
 			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
-			HISTORY_MODEL.commit();
+			historyModel.commit();
 		}
 		finally
 		{
-			HISTORY_MODEL.rollbackIfNotCommitted();
+			historyModel.rollbackIfNotCommitted();
 		}
 		return new Date[] {
 				(Date)dates.get(0),
