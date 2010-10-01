@@ -18,6 +18,8 @@
 		<copy overwrite="true" file="artifacts/servlet-api-2.5-jar.jar" tofile="../lib/servlet-api.jar" />
 		<copy overwrite="true" file="artifacts/servlet-api-2.5-source.jar" tofile="../lib/../lib/servlet-api.jar-src.zip" />
 		<copy overwrite="true" file="artifacts/junit-4.4-jar.jar" tofile="../lib/junit.jar" />
+		<copy overwrite="true" file="artifacts/trove-2.0.2-jar.jar" tofile="../lib/trove.jar" />
+		<copy overwrite="true" file="artifacts/trove-2.0.2-src.jar" tofile="../lib/trove-src.jar" />
 		<copy overwrite="true" file="artifacts/cojen-2.0-jar.jar" tofile="../lib/cojen.jar" />
 		<copy overwrite="true" file="artifacts/cojen-2.0-source.jar" tofile="../lib/cojen-sources.jar" />
 		<copy overwrite="true" file="artifacts/bsh-2.0b4-core.jar" tofile="../lib/bsh-core.jar" />
