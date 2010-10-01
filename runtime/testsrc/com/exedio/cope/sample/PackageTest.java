@@ -27,8 +27,9 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(HistoryTest.class);
+		suite.addTestSuite(SampleTest.class);
 		suite.addTestSuite(SamplerTest.class);
+		suite.addTestSuite(PurgeTest.class);
 		return suite;
 	}
 }

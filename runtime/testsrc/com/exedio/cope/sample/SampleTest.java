@@ -30,7 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 
-public class HistoryTest extends ConnectedTest
+public class SampleTest extends ConnectedTest
 {
 	public void testIt()
 	{
