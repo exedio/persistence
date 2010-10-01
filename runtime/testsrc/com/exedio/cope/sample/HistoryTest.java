@@ -18,7 +18,6 @@
 
 package com.exedio.cope.sample;
 
-import static com.exedio.cope.sample.Sampler.HISTORY_MODEL;
 import static com.exedio.cope.util.Interrupters.VAIN_INTERRUPTER;
 import static java.util.Arrays.asList;
 
@@ -108,20 +107,20 @@ public class HistoryTest extends TestCase
 	protected void tearDown() throws Exception
 	{
 		MODEL.disconnect();
-		HISTORY_MODEL.dropSchema();
+		sampler.getModel().dropSchema();
 		sampler.disconnect();
 		super.tearDown();
 	}
 
 	public void testIt()
 	{
-		HISTORY_MODEL.createSchema();
+		sampler.getModel().createSchema();
 		sampler.check();
-		HISTORY_MODEL.startTransaction("HistoryTest");
+		sampler.getModel().startTransaction("HistoryTest");
 		assertEquals(0, HistoryModel.TYPE.search().size());
 		assertEquals(0, HistoryItemCache.TYPE.search().size());
 		assertEquals(0, HistoryMedia.TYPE.search().size());
-		HISTORY_MODEL.commit();
+		sampler.getModel().commit();
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
@@ -134,7 +133,7 @@ public class HistoryTest extends TestCase
 		final Date before55 = new Date();
 		sampler.store(55);
 		final Date after55 = new Date();
-		HISTORY_MODEL.startTransaction("HistoryTest2");
+		sampler.getModel().startTransaction("HistoryTest2");
 		final HistoryModel model55;
 		{
 			final Iterator<HistoryModel> iter = HistoryModel.TYPE.search().iterator();
@@ -154,7 +153,7 @@ public class HistoryTest extends TestCase
 			media55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		HISTORY_MODEL.commit();
+		sampler.getModel().commit();
 		assertEquals(1, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(1, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
@@ -167,7 +166,7 @@ public class HistoryTest extends TestCase
 		final Date before66 = new Date();
 		sampler.store(66);
 		final Date after66 = new Date();
-		HISTORY_MODEL.startTransaction("HistoryTest2");
+		sampler.getModel().startTransaction("HistoryTest2");
 		final HistoryModel model66;
 		{
 			final Iterator<HistoryModel> iter = iter(HistoryModel.TYPE);
@@ -188,7 +187,7 @@ public class HistoryTest extends TestCase
 			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		HISTORY_MODEL.commit();
+		sampler.getModel().commit();
 		assertEquals(2, Sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(2, Sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, Sampler.analyzeCount(HistoryClusterNode.TYPE));
@@ -202,9 +201,9 @@ public class HistoryTest extends TestCase
 	public void testPurge()
 	{
 		assertEquals("jdbc:hsqldb:mem:copetest", MODEL.getConnectProperties().getDatabaseUrl());
-		assertEquals("jdbc:hsqldb:mem:sampler", HISTORY_MODEL.getConnectProperties().getDatabaseUrl());
-		assertEquals(0, HISTORY_MODEL.getConnectProperties().getQueryCacheLimit());
-		HISTORY_MODEL.createSchema();
+		assertEquals("jdbc:hsqldb:mem:sampler", sampler.getModel().getConnectProperties().getDatabaseUrl());
+		assertEquals(0, sampler.getModel().getConnectProperties().getQueryCacheLimit());
+		sampler.getModel().createSchema();
 		sampler.check();
 
 		assertEquals(0, Sampler.analyzeCount(HistoryModel.TYPE));

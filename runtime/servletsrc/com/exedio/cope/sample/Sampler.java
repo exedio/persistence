@@ -44,7 +44,7 @@ import com.exedio.cope.util.PrefixSource;
 
 public final class Sampler
 {
-	static final Model HISTORY_MODEL =
+	private static final Model HISTORY_MODEL =
 		new Model(
 			HistoryRevisions.REVISIONS,
 			HistoryModel.TYPE,
@@ -72,6 +72,11 @@ public final class Sampler
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
+	}
+
+	Model getModel()
+	{
+		return HISTORY_MODEL;
 	}
 
 	public void connect()
