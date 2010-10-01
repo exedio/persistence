@@ -18,17 +18,20 @@
 
 package com.exedio.cope.sample;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+public class SamplerTest extends TestCase
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(HistoryTest.class);
-		suite.addTestSuite(SamplerTest.class);
-		return suite;
+		try
+		{
+			new Sampler(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
 	}
 }

@@ -115,16 +115,6 @@ public class HistoryTest extends TestCase
 
 	public void testIt()
 	{
-		try
-		{
-			new Sampler(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("model", e.getMessage());
-		}
-
 		HISTORY_MODEL.createSchema();
 		sampler.check();
 		HISTORY_MODEL.startTransaction("HistoryTest");
