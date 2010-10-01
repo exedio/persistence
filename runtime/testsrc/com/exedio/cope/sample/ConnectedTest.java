@@ -23,34 +23,58 @@ import static com.exedio.cope.sample.Stuff.sampler;
 
 import java.util.Collection;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import junit.framework.TestCase;
+
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.MatchTest;
 import com.exedio.cope.util.Properties;
 
-public class ConnectedTest extends AbstractRuntimeTest
+public class ConnectedTest extends TestCase
 {
-	ConnectedTest()
-	{
-		super(MatchTest.MODEL);
-	}
-
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		final Properties.Source s = new Properties.Source(){
+
+			public String get(final String key)
+			{
+				if(key.equals("database.url"))
+					return "jdbc:hsqldb:mem:sampled";
+				else if(key.equals("database.user"))
+					return "sa";
+				else if(key.equals("database.password"))
+					return "";
+				else
+					return null;
+			}
+
+			public String getDescription()
+			{
+				return "HistoryTest Properties.Source";
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
 		final Properties.Source c = new Properties.Source(){
 
 			public String get(final String key)
 			{
-				if(key.equals("sampler.database.url"))
-					return "jdbc:hsqldb:mem:sampler";
-				else if(key.equals("sampler.database.user"))
-					return "sa";
-				else if(key.equals("sampler.database.password"))
-					return "";
+				if(key.startsWith("sampler."))
+				{
+					if(key.equals("sampler.database.url"))
+						return "jdbc:hsqldb:mem:sampler";
+					else if(key.equals("sampler.database.user"))
+						return "sa";
+					else if(key.equals("sampler.database.password"))
+						return "";
+					else
+						return null;
+				}
 				else
-					return null;
+					throw new RuntimeException(key);
 			}
 
 			public String getDescription()
@@ -63,7 +87,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 				return null;
 			}
 		};
-		MODEL.connect(new ConnectProperties(model.getConnectProperties().getSourceObject(), c));
+		MODEL.connect(new ConnectProperties(s, c));
 		sampler.connect();
 	}
 

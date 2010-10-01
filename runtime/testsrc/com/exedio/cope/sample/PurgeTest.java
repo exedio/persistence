@@ -26,13 +26,12 @@ import java.util.Date;
 
 public class PurgeTest extends ConnectedTest
 {
-	public void testPurge() throws InterruptedException
+	public void testPurge()
 	{
+		assertEquals("jdbc:hsqldb:mem:sampled", MODEL.getConnectProperties().getDatabaseUrl());
 		assertEquals("jdbc:hsqldb:mem:sampler", sampler.getModel().getConnectProperties().getDatabaseUrl());
-		assertFalse(sampler.getModel().getConnectProperties().getDatabaseUrl().equals(MODEL.getConnectProperties().getDatabaseUrl()));
 		assertEquals(0, sampler.getModel().getConnectProperties().getItemCacheLimit());
 		assertEquals(0, sampler.getModel().getConnectProperties().getQueryCacheLimit());
-		final boolean itemCache = model.getConnectProperties().getItemCacheLimit()>0;
 		sampler.getModel().createSchema();
 		sampler.check();
 
@@ -44,12 +43,12 @@ public class PurgeTest extends ConnectedTest
 
 		sampler.store(66);
 		assertEquals(1, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(itemCache?1:0, sampler.analyzeCount(HistoryItemCache.TYPE));
+		assertEquals(1, sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(1, sampler.analyzeCount(HistoryMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertEquals(itemCache?3:2, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
+		assertEquals(3, HistoryPurge.purge(new Date(), VAIN_INTERRUPTER));
 		assertEquals(0, sampler.analyzeCount(HistoryModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
@@ -61,5 +60,28 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(HistoryItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(HistoryMedia.TYPE));
+	}
+
+	/**
+	 * This method will not return until the result of System.currentTimeMillis() has increased
+	 * by the given amount of milli seconds.
+	 */
+	private static void sleepLongerThan(final long millis)
+	{
+		final long start = System.currentTimeMillis();
+		// The loop double-checks that currentTimeMillis() really returns a sufficiently higher
+		// value ... needed for Windows.
+		try
+		{
+			do
+			{
+				Thread.sleep(millis+1);
+			}
+			while((System.currentTimeMillis()-start)<=millis);
+		}
+		catch(final InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
