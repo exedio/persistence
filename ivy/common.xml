@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project
+		xmlns:ivy="antlib:org.apache.ivy.ant"
+		name="ivy">
+	<ivy:settings file="settings.xml" />
+	<target name="resolve">
+		<delete dir="artifacts" />
+		<mkdir dir="artifacts" />
+		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[revision]-[type].[ext]" />
+	</target>
+</project>
