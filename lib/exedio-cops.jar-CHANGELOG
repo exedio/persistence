@@ -7,6 +7,27 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* PropertiesServlet supports getTests
+* fix endless redirection loop in Cop#redirectToCanonical, if
+	addParameter(String, Cop) is used with parameters containing non-safe
+	characters.
+* change return type of Cop#needsSecure() from Boolean to boolean.
+	
+	Forcing http is no longer supported because of numerous problems.
+	THIS CHANGE IS NOT BACKWARDS COMPATIBLE, YOU MUST ADJUST YOUR CODE !
+	
+	Take care, because the mapping between old and new return values of
+	needsSecure may easily lead to mistakes! Boolean.FALSE is *not*
+	replaced by false! See the table below:
+	
+		meaning       | old           | new
+		-----------------------------------------------
+		https         | Boolean.TRUE  | true
+		http          | Boolean.FALSE | <not supported>
+		any (default) | null          | false
+	
+	If you do not override needsSecure(), you don't have to do anything.
+	
 * remove forms
 	- does not need commons-fileupload.jar and commons-io.jar anymore
 	- you MUST update copernica to at least build 46
