@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <project
 		xmlns:ivy="antlib:org.apache.ivy.ant"
-		name="ivy">
-	<ivy:settings file="settings.xml" />
+		name="ivy-common">
 	<target name="resolve">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
+		<get src="http://download.exedio.com/artifacts/ivy.jar" dest="artifacts/ivy.jar" />
+		<taskdef
+			resource="org/apache/ivy/ant/antlib.xml"
+			classpath="artifacts/ivy.jar"
+			uri="antlib:org.apache.ivy.ant" />
+		<ivy:settings file="settings.xml" />
 		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[revision]-[type].[ext]" />
 	</target>
 </project>
