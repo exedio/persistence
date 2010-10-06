@@ -129,7 +129,9 @@ public final class SchemaInfo
 	 * @throws IllegalArgumentException
 	 *         if there is no modification counter column for this type,
 	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
-	 *         has been switched off.
+	 *         has been switched off,
+	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
+	 *         fields on the type or its subtypes.
 	 */
 	public static String getModificationCounterColumnName(final Type type)
 	{
