@@ -72,6 +72,13 @@ public abstract class CopeTest extends CopeAssert
 		return item;
 	}
 
+	protected final boolean dontDeleteOnTearDown(final Item item)
+	{
+		if(item==null)
+			throw new NullPointerException();
+		return deleteOnTearDown.remove(item);
+	}
+
 	protected final void printConnectionPoolCounter()
 	{
 		final PoolCounter connectionPoolCounter = model.getConnectionPoolInfo().getCounter();

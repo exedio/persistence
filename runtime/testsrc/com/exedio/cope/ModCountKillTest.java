@@ -88,6 +88,45 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 		assertEquals("name2", item.getName());
 	}
 
+	public void testSameTransactionDelete() throws SQLException
+	{
+		if(!isConcurrentModificationDetectionEnabled(model))
+			return;
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		// This transaction fills the global cache
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		execute(
+				"update " + q(getTableName(TYPE)) +
+				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		if(cache)
+		{
+			try
+			{
+				item.deleteCopeItem();
+				fail();
+			}
+			catch(final RuntimeException e)
+			{
+				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertEquals(RuntimeException.class, e.getClass());
+				assertEquals(null, e.getCause());
+			}
+			assertEquals(true, item.existsCopeItem());
+		}
+
+		item.deleteCopeItem();
+		assertEquals(false, item.existsCopeItem());
+		dontDeleteOnTearDown(item);
+	}
+
 	public void testCommit() throws SQLException
 	{
 		if(!isConcurrentModificationDetectionEnabled(model))
@@ -132,6 +171,48 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		item.setName("name2");
 		assertEquals("name2", item.getName());
+	}
+
+	public void testCommitDelete() throws SQLException
+	{
+		if(!isConcurrentModificationDetectionEnabled(model))
+			return;
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		// This transaction fills the global cache
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		execute(
+				"update " + q(getTableName(TYPE)) +
+				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		if(cache)
+		{
+			try
+			{
+				item.deleteCopeItem();
+				fail();
+			}
+			catch(final RuntimeException e)
+			{
+				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertEquals(RuntimeException.class, e.getClass());
+				assertEquals(null, e.getCause());
+			}
+			assertEquals(true, item.existsCopeItem());
+		}
+
+		model.commit();
+		model.startTransaction();
+
+		item.deleteCopeItem();
+		assertEquals(false, item.existsCopeItem());
+		dontDeleteOnTearDown(item);
 	}
 
 	public void testRollback() throws SQLException
@@ -196,6 +277,66 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				assertEquals(null, e.getCause());
 			}
 			assertEquals("name0", item.getName());
+		}
+	}
+
+	public void testRollbackDelete() throws SQLException
+	{
+		if(!isConcurrentModificationDetectionEnabled(model))
+			return;
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		// This transaction fills the global cache
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		model.commit();
+
+		execute(
+				"update " + q(getTableName(TYPE)) +
+				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+
+		model.startTransaction();
+		assertEquals(true, item.existsCopeItem());
+		if(cache)
+		{
+			try
+			{
+				item.deleteCopeItem();
+				fail();
+			}
+			catch(final RuntimeException e)
+			{
+				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertEquals(RuntimeException.class, e.getClass());
+				assertEquals(null, e.getCause());
+			}
+			assertEquals(true, item.existsCopeItem());
+		}
+
+		model.rollback();
+		model.startTransaction();
+
+		if(hsqldb) // TODO
+		{
+			item.deleteCopeItem();
+			assertEquals(false, item.existsCopeItem());
+			dontDeleteOnTearDown(item);
+		}
+		else
+		{
+			try
+			{
+				item.deleteCopeItem();
+				fail();
+			}
+			catch(final RuntimeException e)
+			{
+				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertEquals(RuntimeException.class, e.getClass());
+				assertEquals(null, e.getCause());
+			}
+			assertEquals(true, item.existsCopeItem());
 		}
 	}
 
