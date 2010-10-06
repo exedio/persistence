@@ -6,11 +6,12 @@
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
 		<get src="http://download.exedio.com/artifacts/ivy.jar" dest="artifacts/ivy.jar" />
+		<get src="http://download.exedio.com/artifacts/ivysettings.xml" dest="artifacts/ivysettings.xml" />
 		<taskdef
 			resource="org/apache/ivy/ant/antlib.xml"
 			classpath="artifacts/ivy.jar"
 			uri="antlib:org.apache.ivy.ant" />
-		<ivy:settings file="settings.xml" />
+		<ivy:settings file="artifacts/ivysettings.xml" />
 		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[type].[ext]" />
 	</target>
 </project>
