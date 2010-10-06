@@ -129,6 +129,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionEmptyTest.class );
 		suite.addTestSuite( TransactionCountersTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
+		suite.addTestSuite( ModCountKillTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ChangeListenerTest.class );
