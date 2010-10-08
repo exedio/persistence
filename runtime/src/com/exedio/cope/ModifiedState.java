@@ -55,21 +55,18 @@ final class ModifiedState extends State
 	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
+		boolean discard = true;
 		try
 		{
 			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
-			return new WrittenState(this);
+			discard = false;
 		}
-		catch ( final RuntimeException e )
+		finally
 		{
-			discard( transaction );
-			throw e;
+			if(discard)
+				discard( transaction );
 		}
-		catch ( final Error e )
-		{
-			discard( transaction );
-			throw e;
-		}
+		return new WrittenState(this);
 	}
 
 	@Override
