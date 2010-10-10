@@ -125,13 +125,13 @@ class IntegerColumn extends Column
 		if(allowedValues!=null)
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append(quotedID + " IN (");
+			bf.append('(' + quotedID + ") IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
 					bf.append(',');
-				bf.append(allowedValues[j]);
+				bf.append('(').append(allowedValues[j]).append(')');
 			}
 			bf.append(')');
 			return bf.toString();
