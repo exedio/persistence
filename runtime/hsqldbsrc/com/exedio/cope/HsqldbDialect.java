@@ -51,7 +51,7 @@ final class HsqldbDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.HsqldbDialect(),
-				"LENGTH");
+				"CHAR_LENGTH");
 	}
 
 	@Override
