@@ -838,6 +838,8 @@ public final class Query<R>
 
 					if(!orderAscending[i])
 						bf.append(" desc");
+					else
+						bf.append(" nulls last"); // TODO move into dialect
 
 					// TODO break here, if already ordered by some unique function
 				}
