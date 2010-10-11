@@ -58,10 +58,7 @@ abstract class ClusterListener
 	{
 		final Iter iter = new Iter(packet);
 
-		if(iter.nextByte()!=MAGIC0 ||
-			iter.nextByte()!=MAGIC1 ||
-			iter.nextByte()!=MAGIC2 ||
-			iter.nextByte()!=MAGIC3)
+		if(!iter.checkBytes(MAGIC))
 		{
 			missingMagic++;
 			return;
@@ -135,6 +132,8 @@ abstract class ClusterListener
 		}
 	}
 
+	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
+
 	private boolean handlePingPong(final DatagramPacket packet, final Iter iter, final int node, final boolean ping)
 	{
 		final int sequence = iter.nextInt();
@@ -179,12 +178,12 @@ abstract class ClusterListener
 			return pos<endOffset;
 		}
 
-		byte nextByte()
+		boolean checkBytes(final byte[] expected)
 		{
-			final byte result = buf[pos++];
-			if(pos>endOffset)
-				throw new RuntimeException(String.valueOf(endOffset));
-			return result;
+			for(int i = 0; i<expected.length; i++)
+				if(expected[i]!=buf[pos++])
+					return false;
+			return true;
 		}
 
 		int nextInt()
