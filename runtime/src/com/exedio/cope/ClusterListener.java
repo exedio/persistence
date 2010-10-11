@@ -155,7 +155,7 @@ abstract class ClusterListener
 		return ping ? "ping" : "pong";
 	}
 
-	private static final class Iter
+	static final class Iter
 	{
 		private final int length;
 		private final int offset;
