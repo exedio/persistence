@@ -200,15 +200,15 @@ abstract class ClusterListener
 		}
 	}
 
-	static final int unmarshal(int pos, final byte[] buf, final int endPos)
+	static final int unmarshal(int pos, final byte[] buf, final int endOffset)
 	{
 		final int result =
 			((buf[pos++] & 0xff)    ) |
 			((buf[pos++] & 0xff)<< 8) |
 			((buf[pos++] & 0xff)<<16) |
 			((buf[pos++] & 0xff)<<24) ;
-		if(pos>endPos)
-			throw new RuntimeException(String.valueOf(endPos));
+		if(pos>endOffset)
+			throw new RuntimeException(String.valueOf(endOffset));
 		return result;
 	}
 
