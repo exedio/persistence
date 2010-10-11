@@ -258,25 +258,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 		model.rollback();
 		model.startTransaction();
 
-		if(hsqldb) // TODO
 		{
 			item.setName("name2");
 			assertEquals("name2", item.getName());
-		}
-		else
-		{
-			try
-			{
-				item.setName("name2");
-				fail();
-			}
-			catch(final RuntimeException e)
-			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
-			}
-			assertEquals("name0", item.getName());
 		}
 	}
 
@@ -317,26 +301,10 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 		model.rollback();
 		model.startTransaction();
 
-		if(hsqldb) // TODO
 		{
 			item.deleteCopeItem();
 			assertEquals(false, item.existsCopeItem());
 			dontDeleteOnTearDown(item);
-		}
-		else
-		{
-			try
-			{
-				item.deleteCopeItem();
-				fail();
-			}
-			catch(final RuntimeException e)
-			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
-			}
-			assertEquals(true, item.existsCopeItem());
 		}
 	}
 

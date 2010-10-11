@@ -78,6 +78,13 @@ final class ItemCache
 		return state;
 	}
 
+	void remove(final Item item)
+	{
+		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
+		if(cachlet!=null)
+			cachlet.remove(item.pk);
+	}
+
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
@@ -192,6 +199,14 @@ final class ItemCache
 					replacements += (mapSize - map.size());
 					lastReplacementRun = now;
 				}
+			}
+		}
+
+		void remove(final int pk)
+		{
+			synchronized(map)
+			{
+				map.remove(pk);
 			}
 		}
 
