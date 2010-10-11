@@ -543,7 +543,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executor.update(connection, bf, true);
+		executor.updateStrict(connection, bf);
 	}
 
 	String makeName(final String longName)

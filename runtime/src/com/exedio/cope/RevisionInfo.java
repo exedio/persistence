@@ -228,6 +228,6 @@ public abstract class RevisionInfo
 			appendParameterBlob(toBytes()).
 			append(')');
 
-		executor.update(connection, bf, true);
+		executor.updateStrict(connection, bf);
 	}
 }

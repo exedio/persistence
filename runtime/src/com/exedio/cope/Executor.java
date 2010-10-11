@@ -185,9 +185,19 @@ final class Executor
 		}
 	}
 
+	void updateStrict(
+			final Connection connection,
+			final Statement statement)
+		throws UniqueViolationException
+	{
+		final int rows = update(connection, statement);
+		if(rows!=1)
+			throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
+	}
+
 	int update(
 			final Connection connection,
-			final Statement statement, final boolean checkRows)
+			final Statement statement)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
@@ -227,8 +237,6 @@ final class Executor
 						0);
 
 			//System.out.println("("+rows+"): "+statement.getText());
-			if(checkRows && rows!=1)
-				throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
 			return rows;
 		}
 		catch(final SQLException e)

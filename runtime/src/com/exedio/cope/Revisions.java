@@ -287,7 +287,7 @@ public final class Revisions
 				final Statement bf = executor.newStatement();
 				bf.append(sql);
 				final long start = nanoTime();
-				final int rows = executor.update(con, bf, false);
+				final int rows = executor.update(con, bf);
 				final long elapsed = (nanoTime() - start) / 1000000;
 				if(elapsed>1000)
 					System.out.println(
@@ -307,7 +307,7 @@ public final class Revisions
 				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 				append('=').
 				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.update(con, bf, true);
+			executor.updateStrict(con, bf);
 		}
 	}
 }
