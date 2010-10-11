@@ -130,6 +130,7 @@
 		<Or>
 			<Class name="com.exedio.cope.Type" />
 			<Class name="com.exedio.cope.OracleDialect" />
+			<Class name="com.exedio.cope.HsqldbDialect" />
 			<Class name="com.exedio.cope.misc.SetValueUtil" />
 			<Class name="com.exedio.cope.pattern.Serializer" />
 			<Class name="com.exedio.cope.pattern.MediaImageioFilter" />
