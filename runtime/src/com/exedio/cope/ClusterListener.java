@@ -69,14 +69,14 @@ abstract class ClusterListener
 			return;
 		}
 
-		if(secret!=unmarshal(pos, buf))
+		if(secret!=unmarshal(pos, buf, endPos))
 		{
 			wrongSecret++;
 			return;
 		}
 		pos += 4;
 
-		final int node = unmarshal(pos, buf);
+		final int node = unmarshal(pos, buf, endPos);
 		if(localNode==node)
 		{
 			fromMyself++;
@@ -85,24 +85,24 @@ abstract class ClusterListener
 		pos += 4;
 
 		// kind
-		final int kind = unmarshal(pos, buf);
+		final int kind = unmarshal(pos, buf, endPos);
 		pos += 4;
 		switch(kind)
 		{
 			case KIND_PING:
 			{
-				if(handlePingPong(packet, pos, node, true))
+				if(handlePingPong(packet, pos, endPos, node, true))
 					pong();
 				break;
 			}
 			case KIND_PONG:
 			{
-				handlePingPong(packet, pos, node, false);
+				handlePingPong(packet, pos, endPos, node, false);
 				break;
 			}
 			case KIND_INVALIDATE:
 			{
-				final int sequence = unmarshal(pos, buf);
+				final int sequence = unmarshal(pos, buf, endPos);
 				pos += 4;
 				if(node(node, packet).invalidate(sequence))
 				{
@@ -114,7 +114,7 @@ abstract class ClusterListener
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
 				outer: while(pos<endPos)
 				{
-					final int typeIdTransiently = unmarshal(pos, buf);
+					final int typeIdTransiently = unmarshal(pos, buf, endPos);
 					pos += 4;
 
 					final TIntHashSet set = new TIntHashSet();
@@ -124,7 +124,7 @@ abstract class ClusterListener
 						if(pos>=endPos)
 							break outer;
 
-						final int pk = unmarshal(pos, buf);
+						final int pk = unmarshal(pos, buf, endPos);
 						pos += 4;
 
 						if(pk==PK.NaPK)
@@ -143,11 +143,11 @@ abstract class ClusterListener
 		}
 	}
 
-	private boolean handlePingPong(final DatagramPacket packet, int pos, final int node, final boolean ping)
+	private boolean handlePingPong(final DatagramPacket packet, int pos, final int endPos, final int node, final boolean ping)
 	{
 		final byte[] buf = packet.getData();
 		final int length = packet.getLength();
-		final int sequence = unmarshal(pos, buf);
+		final int sequence = unmarshal(pos, buf, endPos);
 		pos += 4;
 
 		properties.checkPingPayload(pos, buf, packet.getOffset(), length, ping);
@@ -167,13 +167,16 @@ abstract class ClusterListener
 		return ping ? "ping" : "pong";
 	}
 
-	static final int unmarshal(int pos, final byte[] buf)
+	static final int unmarshal(int pos, final byte[] buf, final int endPos)
 	{
-		return
+		final int result =
 			((buf[pos++] & 0xff)    ) |
 			((buf[pos++] & 0xff)<< 8) |
 			((buf[pos++] & 0xff)<<16) |
 			((buf[pos++] & 0xff)<<24) ;
+		if(pos>endPos)
+			throw new RuntimeException(String.valueOf(endPos));
+		return result;
 	}
 
 	abstract void invalidate(int node, TIntHashSet[] invalidations);

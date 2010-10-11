@@ -72,6 +72,6 @@ public class ClusterIntTest extends TestCase
 
 	private int um(final int pos)
 	{
-		return ClusterListener.unmarshal(pos, buf);
+		return ClusterListener.unmarshal(pos, buf, buf.length);
 	}
 }
