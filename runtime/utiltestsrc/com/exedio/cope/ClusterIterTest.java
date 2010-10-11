@@ -27,7 +27,7 @@ public class ClusterIterTest extends TestCase
 	public void testInt()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
-				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
+				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.nextInt());
 		assertFalse(iter.hasNext());
@@ -38,7 +38,7 @@ public class ClusterIterTest extends TestCase
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("4", e.getMessage());
+			assertEquals("6", e.getMessage());
 		}
 	}
 
@@ -54,7 +54,7 @@ public class ClusterIterTest extends TestCase
 	public void testCheckInt()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
-				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
+				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}));
 		assertFalse(iter.hasNext());

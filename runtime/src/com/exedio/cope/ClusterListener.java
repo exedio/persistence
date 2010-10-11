@@ -182,7 +182,14 @@ abstract class ClusterListener
 		{
 			for(int i = 0; i<expected.length; i++)
 				if(expected[i]!=buf[pos++])
+				{
+					if(pos>endOffset)
+						throw new RuntimeException(String.valueOf(length));
 					return false;
+				}
+
+			if(pos>endOffset)
+				throw new RuntimeException(String.valueOf(length));
 			return true;
 		}
 
