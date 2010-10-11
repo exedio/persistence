@@ -195,8 +195,13 @@ abstract class ClusterListener
 
 		int nextInt()
 		{
-			final int result = ClusterListener.unmarshal(pos, buf, endOffset);
-			pos += 4;
+			final int result =
+				((buf[pos++] & 0xff)    ) |
+				((buf[pos++] & 0xff)<< 8) |
+				((buf[pos++] & 0xff)<<16) |
+				((buf[pos++] & 0xff)<<24) ;
+			if(pos>endOffset)
+				throw new RuntimeException(String.valueOf(endOffset));
 			return result;
 		}
 
@@ -204,18 +209,6 @@ abstract class ClusterListener
 		{
 			properties.checkPingPayload(pos, buf, offset, length, ping);
 		}
-	}
-
-	static final int unmarshal(int pos, final byte[] buf, final int endOffset)
-	{
-		final int result =
-			((buf[pos++] & 0xff)    ) |
-			((buf[pos++] & 0xff)<< 8) |
-			((buf[pos++] & 0xff)<<16) |
-			((buf[pos++] & 0xff)<<24) ;
-		if(pos>endOffset)
-			throw new RuntimeException(String.valueOf(endOffset));
-		return result;
 	}
 
 	abstract void invalidate(int node, TIntHashSet[] invalidations);
