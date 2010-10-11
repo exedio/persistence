@@ -31,6 +31,15 @@ public class ClusterIterTest extends TestCase
 		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.nextInt());
 		assertFalse(iter.hasNext());
+		try
+		{
+			iter.nextInt();
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("4", e.getMessage());
+		}
 	}
 
 	public void testIntNegative()
@@ -49,6 +58,15 @@ public class ClusterIterTest extends TestCase
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}));
 		assertFalse(iter.hasNext());
+		try
+		{
+			assertTrue(iter.checkBytes(new byte[]{(byte)0xab}));
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("4", e.getMessage());
+		}
 	}
 
 	public void testCheckIntFalse()
