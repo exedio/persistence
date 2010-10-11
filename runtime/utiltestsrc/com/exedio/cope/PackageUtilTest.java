@@ -34,7 +34,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
-		suite.addTestSuite(ClusterTest.class);
+		suite.addTestSuite(ClusterUnpaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
 		suite.addTestSuite(ClusterSenderMulticastTest.class);
 		suite.addTestSuite(ClusterNetworkPingTest.class);
