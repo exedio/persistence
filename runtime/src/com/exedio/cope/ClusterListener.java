@@ -32,6 +32,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import com.exedio.cope.util.SequenceChecker;
 
@@ -185,12 +186,12 @@ abstract class ClusterListener
 				if(expected[i]!=buf[pos++])
 				{
 					if(pos>endOffset)
-						throw new RuntimeException(String.valueOf(length));
+						throw new NoSuchElementException(String.valueOf(length));
 					return false;
 				}
 
 			if(pos>endOffset)
-				throw new RuntimeException(String.valueOf(length));
+				throw new NoSuchElementException(String.valueOf(length));
 			this.pos = pos;
 			return true;
 		}
@@ -204,7 +205,7 @@ abstract class ClusterListener
 				((buf[pos++] & 0xff)<<16) |
 				((buf[pos++] & 0xff)<<24) ;
 			if(pos>endOffset)
-				throw new RuntimeException(String.valueOf(endOffset));
+				throw new NoSuchElementException(String.valueOf(length));
 			this.pos = pos;
 			return result;
 		}

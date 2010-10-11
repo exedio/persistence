@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.net.DatagramPacket;
+import java.util.NoSuchElementException;
 
 import junit.framework.TestCase;
 
@@ -27,7 +28,7 @@ public class ClusterIterTest extends TestCase
 	public void testInt()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
-				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
+				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.nextInt());
 		assertFalse(iter.hasNext());
@@ -36,9 +37,9 @@ public class ClusterIterTest extends TestCase
 			iter.nextInt();
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final NoSuchElementException e)
 		{
-			assertEquals("6", e.getMessage());
+			assertEquals("4", e.getMessage());
 		}
 	}
 
@@ -63,7 +64,7 @@ public class ClusterIterTest extends TestCase
 			assertTrue(iter.checkBytes(new byte[]{(byte)0xab}));
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final NoSuchElementException e)
 		{
 			assertEquals("4", e.getMessage());
 		}
