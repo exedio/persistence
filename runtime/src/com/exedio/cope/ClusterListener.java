@@ -180,6 +180,7 @@ abstract class ClusterListener
 
 		boolean checkBytes(final byte[] expected)
 		{
+			int pos = this.pos;
 			for(int i = 0; i<expected.length; i++)
 				if(expected[i]!=buf[pos++])
 				{
@@ -190,11 +191,13 @@ abstract class ClusterListener
 
 			if(pos>endOffset)
 				throw new RuntimeException(String.valueOf(length));
+			this.pos = pos;
 			return true;
 		}
 
 		int nextInt()
 		{
+			int pos = this.pos;
 			final int result =
 				((buf[pos++] & 0xff)    ) |
 				((buf[pos++] & 0xff)<< 8) |
@@ -202,6 +205,7 @@ abstract class ClusterListener
 				((buf[pos++] & 0xff)<<24) ;
 			if(pos>endOffset)
 				throw new RuntimeException(String.valueOf(endOffset));
+			this.pos = pos;
 			return result;
 		}
 
