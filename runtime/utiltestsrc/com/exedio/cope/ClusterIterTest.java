@@ -28,13 +28,17 @@ public class ClusterIterTest extends TestCase
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
+		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.nextInt());
+		assertFalse(iter.hasNext());
 	}
 
 	public void testIntNegative()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
+		assertTrue(iter.hasNext());
 		assertEquals(0xab896745, iter.nextInt());
+		assertFalse(iter.hasNext());
 	}
 }
