@@ -111,8 +111,6 @@ abstract class ClusterListener
 				outer: while(iter.hasNext())
 				{
 					final int typeIdTransiently = iter.unmarshal();
-
-
 					final TIntHashSet set = new TIntHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
@@ -121,8 +119,6 @@ abstract class ClusterListener
 							break outer;
 
 						final int pk = iter.unmarshal();
-
-
 						if(pk==PK.NaPK)
 							break inner;
 
