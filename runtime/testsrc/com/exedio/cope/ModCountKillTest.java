@@ -258,10 +258,8 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 		model.rollback();
 		model.startTransaction();
 
-		{
-			item.setName("name2");
-			assertEquals("name2", item.getName());
-		}
+		item.setName("name2");
+		assertEquals("name2", item.getName());
 	}
 
 	public void testRollbackDelete() throws SQLException
@@ -301,11 +299,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 		model.rollback();
 		model.startTransaction();
 
-		{
-			item.deleteCopeItem();
-			assertEquals(false, item.existsCopeItem());
-			dontDeleteOnTearDown(item);
-		}
+		item.deleteCopeItem();
+		assertEquals(false, item.existsCopeItem());
+		dontDeleteOnTearDown(item);
 	}
 
 	private void execute(final String sql) throws SQLException
