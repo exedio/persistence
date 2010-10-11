@@ -239,7 +239,7 @@ final class HsqldbDialect extends Dialect
 			final String name)
 	{
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT START_WITH" +
+		bf.append("SELECT NEXT_VALUE" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
