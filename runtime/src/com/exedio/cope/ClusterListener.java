@@ -58,7 +58,7 @@ abstract class ClusterListener
 	{
 		int pos = packet.getOffset();
 		final byte[] buf = packet.getData();
-		final int length = packet.getLength();
+		final int endPos = pos + packet.getLength();
 
 		if(buf[pos++]!=MAGIC0 ||
 			buf[pos++]!=MAGIC1 ||
@@ -112,7 +112,7 @@ abstract class ClusterListener
 				}
 
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
-				outer: while(pos<length)
+				outer: while(pos<endPos)
 				{
 					final int typeIdTransiently = unmarshal(pos, buf);
 					pos += 4;
@@ -121,7 +121,7 @@ abstract class ClusterListener
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
 					{
-						if(pos>=length)
+						if(pos>=endPos)
 							break outer;
 
 						final int pk = unmarshal(pos, buf);
@@ -150,7 +150,7 @@ abstract class ClusterListener
 		final int sequence = unmarshal(pos, buf);
 		pos += 4;
 
-		properties.checkPingPayload(pos, buf, length, ping);
+		properties.checkPingPayload(pos, buf, packet.getOffset(), length, ping);
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{
