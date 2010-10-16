@@ -153,6 +153,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
+		final long lengthFactor= this.lengthFactor;
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
@@ -164,8 +165,14 @@ final class BlobColumn extends Column
 				if(o==null)
 					return -1l;
 
-				long result = ((Number)o).longValue();
-				// TODO remove lengthFactor !!!!!!!!!!!!!!!!!!!!
+				long result = ((Number) o).longValue();
+				final long factor = lengthFactor;
+				if(factor!=1)
+				{
+					if(result%factor!=0)
+						throw new RuntimeException("not dividable "+result+'/'+factor);
+					result /= factor;
+				}
 				return result;
 			}
 		});

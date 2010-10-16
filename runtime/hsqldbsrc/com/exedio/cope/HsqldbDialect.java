@@ -111,7 +111,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	int getBlobLengthFactor()
 	{
-		return 2;
+		return 1;
 	}
 
 	@Override
