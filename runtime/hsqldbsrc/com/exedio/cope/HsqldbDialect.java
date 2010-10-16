@@ -115,6 +115,14 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	{
+		super.appendOrderBy(bf, function, ascending);
+		if(ascending)
+			bf.append(" nulls last");
+	}
+
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;

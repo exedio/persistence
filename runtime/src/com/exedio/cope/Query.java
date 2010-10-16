@@ -834,12 +834,7 @@ public final class Query<R>
 					else
 						bf.append(',');
 
-					bf.append(orderBy[i], (Join)null);
-
-					if(!orderAscending[i])
-						bf.append(" desc");
-					else
-						bf.append(" nulls last"); // TODO move into dialect
+					dialect.appendOrderBy(bf, orderBy[i], orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}

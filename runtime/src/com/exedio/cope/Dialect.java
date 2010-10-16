@@ -179,6 +179,13 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
+	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	{
+		bf.append(function, (Join)null);
+		if(!ascending)
+			bf.append(" desc");
+	}
+
 	abstract LimitSupport getLimitSupport();
 
 	static enum LimitSupport
