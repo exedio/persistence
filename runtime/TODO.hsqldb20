@@ -1,1 +1,2 @@
 * remove Dialect#getBlobLengthFactor
+* LimitSupport.CLAUSE_AFTER_SELECT
