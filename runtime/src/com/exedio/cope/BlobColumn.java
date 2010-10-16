@@ -165,7 +165,7 @@ final class BlobColumn extends Column
 				if(o==null)
 					return -1l;
 
-				long result = ((Number) o).longValue();
+				long result = ((Number)o).longValue();
 				final long factor = lengthFactor;
 				if(factor!=1)
 				{
