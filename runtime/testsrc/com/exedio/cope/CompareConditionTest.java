@@ -218,7 +218,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// This bug occurs for columns with an index only (that is created by
 		// the foreign key constraint here) and only when using the min()
 		// aggregate.
-		assertEquals(null, new Query<CompareConditionItem>(item1.item.min()).searchSingleton()); // TODO must be item1 ----------------------------
+		assertEquals(nullsFirst ? null : item1, new Query<CompareConditionItem>(item1.item.min()).searchSingleton());
 		assertEquals(item1, new Query<CompareConditionItem>(item1.TYPE.getThis().min()).searchSingleton());
 
 		// max
