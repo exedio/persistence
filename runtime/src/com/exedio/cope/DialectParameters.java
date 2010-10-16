@@ -46,14 +46,29 @@ final class DialectParameters
 			final DatabaseMetaData dmd = connection.getMetaData();
 			supportsTransactionIsolationLevel = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 			this.environmentInfo = new EnvironmentInfo(dmd);
-			//if(dmd.nullsAreSortedAtStart())
-				//throw new IllegalStateException("not supported: nullsAreSortedAtStart");
+			if("HSQL Database Engine".equals(dmd.getDatabaseProductName()))
+			{
+				if(!dmd.nullsAreSortedAtStart())
+					throw new IllegalStateException("not supported: !nullsAreSortedAtStart");
+				if(dmd.nullsAreSortedAtEnd())
+					throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
+				if(dmd.nullsAreSortedHigh())
+					throw new IllegalStateException("not supported: nullsAreSortedHigh");
+				if(dmd.nullsAreSortedLow())
+					throw new IllegalStateException("not supported: nullsAreSortedLow");
+				this.nullsAreSortedLow = false;
+			}
+			else
+			{
+			if(dmd.nullsAreSortedAtStart())
+				throw new IllegalStateException("not supported: nullsAreSortedAtStart");
 			if(dmd.nullsAreSortedAtEnd())
 				throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
 			final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
-			//if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
-				//throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
+			if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
+				throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
 			this.nullsAreSortedLow = nullsAreSortedLow;
+			}
 		}
 		catch(final SQLException e)
 		{
