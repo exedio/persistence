@@ -166,6 +166,12 @@ final class OracleDialect extends Dialect
 	}
 	
 	@Override
+	String getBlobLength()
+	{
+		return "LENGTH";
+	}
+	
+	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
 		bf.append("RAWTOHEX(DBMS_LOB.SUBSTR(").

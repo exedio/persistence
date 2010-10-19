@@ -56,7 +56,7 @@ final class BlobColumn extends Column
 	@Override
 	final String getCheckConstraintIfNotNull()
 	{
-		return "OCTET_LENGTH(" + quotedID + ")<=" + (maximumLength*lengthFactor);
+		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + (maximumLength*lengthFactor);
 	}
 
 	@Override
@@ -143,7 +143,7 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("select octet_length(").
+		bf.append("select ").append(table.database.dialect.getBlobLength()).append('(').
 			append(quotedID).
 			append(") from ").
 			append(table.quotedID).

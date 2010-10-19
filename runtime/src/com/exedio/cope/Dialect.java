@@ -225,6 +225,11 @@ abstract class Dialect
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
+	String getBlobLength()
+	{
+		return "OCTET_LENGTH";
+	}
+
 	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);
 
 	/**
