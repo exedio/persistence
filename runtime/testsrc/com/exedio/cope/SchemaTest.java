@@ -123,6 +123,6 @@ public class SchemaTest extends AbstractRuntimeTest
 
 	private final String l(final DataField f)
 	{
-		return "OCTET_LENGTH(" + q(f) + ')';
+		return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
 	}
 }
