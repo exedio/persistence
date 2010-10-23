@@ -1,3 +1,4 @@
 * remove Dialect#getBlobLengthFactor
 * LimitSupport.CLAUSE_AFTER_SELECT
 * remove hsqldb-specific code in DialectParameters constructor
+* add Dialect#getStringLength()
