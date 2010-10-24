@@ -104,13 +104,17 @@ public final class Sampler
 
 			public String get(final String key)
 			{
+				final String originalResult = original.get(key);
+				if(originalResult!=null)
+					return originalResult;
+
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
 				if("schema.revision.table".equals(key))
 					return "SamplerRevision";
 				if("schema.revision.unique".equals(key))
 					return "SamplerRevisionUnique";
-				return original.get(key);
+				return null;
 			}
 
 			public String getDescription()
