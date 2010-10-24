@@ -132,7 +132,7 @@
 			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
 		</Or>
 		<Or>
-			<Class name="com.exedio.cope.sampler.HistoryPurge" />
+			<Class name="com.exedio.cope.sampler.SamplerPurge" />
 		</Or>
 	</Match>
 	<Match>
