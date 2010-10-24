@@ -253,7 +253,7 @@ public final class Sampler
 		final int result;
 		try
 		{
-			samplerModel.startTransaction("history analyze count");
+			samplerModel.startTransaction("sampler analyzeCount");
 			result = type.newQuery().total();
 			samplerModel.commit();
 		}
@@ -270,7 +270,7 @@ public final class Sampler
 		final List dates;
 		try
 		{
-			samplerModel.startTransaction("history analyze dates");
+			samplerModel.startTransaction("sampler analyzeDate");
 			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
 			samplerModel.commit();
 		}
