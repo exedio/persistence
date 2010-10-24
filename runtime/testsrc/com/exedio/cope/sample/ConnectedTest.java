@@ -23,41 +23,24 @@ import static com.exedio.cope.sample.Stuff.sampler;
 
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.Properties;
 
-public class ConnectedTest extends TestCase
+public class ConnectedTest extends AbstractRuntimeTest
 {
-	@Override
-	protected void setUp() throws Exception
+	ConnectedTest()
 	{
-		super.setUp();
-		final Properties.Source s = new Properties.Source(){
+		super(MODEL);
+	}
 
-			public String get(final String key)
-			{
-				if(key.equals("database.url"))
-					return "jdbc:hsqldb:mem:sampled";
-				else if(key.equals("database.user"))
-					return "sa";
-				else if(key.equals("database.password"))
-					return "";
-				else
-					return null;
-			}
+	@Override
+	public ConnectProperties getConnectProperties()
+	{
+		final ConnectProperties superResult = super.getConnectProperties();
+		final Properties.Source superSource  = superResult.getSourceObject();
+		final Properties.Source superContext = superResult.getContext();
 
-			public String getDescription()
-			{
-				return "HistoryTest Properties.Source";
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
 		final Properties.Source c = new Properties.Source(){
 
 			public String get(final String key)
@@ -65,36 +48,44 @@ public class ConnectedTest extends TestCase
 				if(key.startsWith("sampler."))
 				{
 					if(key.equals("sampler.database.url"))
-						return "jdbc:hsqldb:mem:sampler";
+						return superSource.get("database.url");
 					else if(key.equals("sampler.database.user"))
-						return "sa";
+						return superSource.get("database.user");
 					else if(key.equals("sampler.database.password"))
-						return "";
+						return superSource.get("database.password");
 					else
 						return null;
 				}
 				else
-					throw new RuntimeException(key);
+					return superContext.get(key);
 			}
 
 			public String getDescription()
 			{
-				return "HistoryTest Properties.Source Context";
+				return superContext.getDescription() + " (sampler)";
 			}
 
 			public Collection<String> keySet()
 			{
-				return null;
+				return superContext.keySet();
 			}
 		};
-		MODEL.connect(new ConnectProperties(s, c));
+		return new ConnectProperties(superSource, c);
+	}
+
+	boolean c;
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		c = model.getConnectProperties().getItemCacheLimit()>0;
 		sampler.connect();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		MODEL.disconnect();
 		sampler.getModel().dropSchema();
 		sampler.disconnect();
 		super.tearDown();
