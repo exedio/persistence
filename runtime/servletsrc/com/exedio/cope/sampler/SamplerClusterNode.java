@@ -35,9 +35,9 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.CompositeField;
 
-final class HistoryClusterNode extends Item
+final class SamplerClusterNode extends Item
 {
-	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
+	private static final ItemField<SamplerModel> model = newItemField(SamplerModel.class).toFinal();
 	private static final IntegerField id = new IntegerField().toFinal();
 
 	private static final DateField date = new DateField().toFinal();
@@ -53,15 +53,15 @@ final class HistoryClusterNode extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final HistoryModel m)
+	static List<SetValue> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue)
 			model         .map(m),
-			date          .map(HistoryModel.date.get(m)),
-			initializeDate.map(HistoryModel.initializeDate.get(m)),
-			connectDate   .map(HistoryModel.connectDate.get(m)),
-			thread        .map(HistoryModel.thread.get(m)),
-			running       .map(HistoryModel.running.get(m)));
+			date          .map(SamplerModel.date.get(m)),
+			initializeDate.map(SamplerModel.initializeDate.get(m)),
+			connectDate   .map(SamplerModel.connectDate.get(m)),
+			thread        .map(SamplerModel.thread.get(m)),
+			running       .map(SamplerModel.running.get(m)));
 	}
 
 
@@ -87,12 +87,12 @@ final class HistoryClusterNode extends Item
 
 
 	@SuppressWarnings("unused")
-	private HistoryClusterNode(final ActivationParameters ap)
+	private SamplerClusterNode(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryClusterNode> TYPE = TypesBound.newType(HistoryClusterNode.class);
+	static final Type<SamplerClusterNode> TYPE = TypesBound.newType(SamplerClusterNode.class);
 }

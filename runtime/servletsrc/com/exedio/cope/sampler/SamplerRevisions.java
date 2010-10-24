@@ -23,14 +23,14 @@ import com.exedio.cope.Revisions;
 /**
  * Currently works for MySQL only.
  */
-final class HistoryRevisions
+final class SamplerRevisions
 {
 	static final Revisions REVISIONS =
 		new Revisions(
 			0
 		);
 
-	private HistoryRevisions()
+	private SamplerRevisions()
 	{
 		// prevent instantiation
 	}

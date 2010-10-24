@@ -39,7 +39,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.Interrupter;
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class HistoryPurge extends Item
+final class SamplerPurge extends Item
 {
 	private static final StringField type = new StringField().toFinal();
 	private static final DateField limit = new DateField().toFinal();
@@ -47,9 +47,9 @@ final class HistoryPurge extends Item
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
 	private static final IntegerField elapsed  = new IntegerField().toFinal().min(0);
 
-	static Query<HistoryPurge> newQuery()
+	static Query<SamplerPurge> newQuery()
 	{
-		final Query<HistoryPurge> q = TYPE.newQuery();
+		final Query<SamplerPurge> q = TYPE.newQuery();
 		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
 		return q;
 	}
@@ -69,7 +69,7 @@ final class HistoryPurge extends Item
 	{
 		int result = 0;
 		for(final Type type : TYPE.getModel().getTypes())
-			if(HistoryModel.TYPE!=type && // purge HistoryModel at the end
+			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 				TYPE!=type)
 			{
 				if(interrupter!=null && interrupter.isRequested())
@@ -81,7 +81,7 @@ final class HistoryPurge extends Item
 		if(interrupter!=null && interrupter.isRequested())
 			return result;
 
-		result += purge(HistoryModel.TYPE, limit);
+		result += purge(SamplerModel.TYPE, limit);
 
 		return result;
 	}
@@ -156,7 +156,7 @@ final class HistoryPurge extends Item
 		try
 		{
 			model.startTransaction("history analyze dates");
-			new HistoryPurge(type, limit, rows, (int)((end-start)/1000000));
+			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
 			model.commit();
 		}
 		finally
@@ -168,21 +168,21 @@ final class HistoryPurge extends Item
 	}
 
 
-	HistoryPurge(
+	SamplerPurge(
 			final Type type,
 			final Date limit,
 			final int rows,
 			final int elapsed)
 	{
 		super(
-			HistoryPurge.type   .map(type.getID()),
-			HistoryPurge.limit  .map(limit),
-			HistoryPurge.rows   .map(rows),
-			HistoryPurge.elapsed.map(elapsed));
+			SamplerPurge.type   .map(type.getID()),
+			SamplerPurge.limit  .map(limit),
+			SamplerPurge.rows   .map(rows),
+			SamplerPurge.elapsed.map(elapsed));
 	}
 
 	@SuppressWarnings("unused")
-	private HistoryPurge(final ActivationParameters ap)
+	private SamplerPurge(final ActivationParameters ap)
 	{
 		super(ap);
 	}
@@ -214,5 +214,5 @@ final class HistoryPurge extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryPurge> TYPE = TypesBound.newType(HistoryPurge.class);
+	static final Type<SamplerPurge> TYPE = TypesBound.newType(SamplerPurge.class);
 }

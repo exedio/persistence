@@ -36,7 +36,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.Pool;
 
-final class HistoryModel extends Item
+final class SamplerModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
 	static final LongField duration = new LongField().toFinal();
@@ -173,12 +173,12 @@ final class HistoryModel extends Item
 
 
 	@SuppressWarnings("unused")
-	private HistoryModel(final ActivationParameters ap)
+	private SamplerModel(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryModel> TYPE = TypesBound.newType(HistoryModel.class);
+	static final Type<SamplerModel> TYPE = TypesBound.newType(SamplerModel.class);
 }

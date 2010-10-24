@@ -63,12 +63,12 @@ public final class Sampler
 
 		this.historyModel =
 			new Model(
-				HistoryRevisions.REVISIONS,
-				HistoryModel.TYPE,
-				HistoryItemCache.TYPE,
-				HistoryClusterNode.TYPE,
-				HistoryMedia.TYPE,
-				HistoryPurge.TYPE);
+				SamplerRevisions.REVISIONS,
+				SamplerModel.TYPE,
+				SamplerItemCache.TYPE,
+				SamplerClusterNode.TYPE,
+				SamplerMedia.TYPE,
+				SamplerPurge.TYPE);
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : watchedModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -186,42 +186,42 @@ public final class Sampler
 		try
 		{
 			historyModel.startTransaction(name);
-			final HistoryModel model;
+			final SamplerModel model;
 			{
 				sv.clear();
-				sv.add(HistoryModel.date.map(date));
-				sv.add(HistoryModel.duration.map(duration));
-				sv.add(HistoryModel.initializeDate.map(initializeDate));
-				sv.add(HistoryModel.connectDate.map(connectDate));
-				sv.add(HistoryModel.thread.map(thread));
-				sv.add(HistoryModel.running.map(running));
-				sv.addAll(HistoryModel.map(connectionPoolInfo));
-				sv.add(HistoryModel.nextTransactionId.map(nextTransactionId));
-				sv.addAll(HistoryModel.map(transactionCounters));
-				sv.addAll(HistoryModel.map(itemCacheSummary));
-				sv.addAll(HistoryModel.map(queryCacheInfo));
-				sv.add(HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath));
-				sv.addAll(HistoryModel.map(mediaSummary));
-				sv.addAll(HistoryModel.map(clusterSenderInfo));
-				sv.addAll(HistoryModel.map(clusterListenerInfo));
-				model = HistoryModel.TYPE.newItem(sv);
+				sv.add(SamplerModel.date.map(date));
+				sv.add(SamplerModel.duration.map(duration));
+				sv.add(SamplerModel.initializeDate.map(initializeDate));
+				sv.add(SamplerModel.connectDate.map(connectDate));
+				sv.add(SamplerModel.thread.map(thread));
+				sv.add(SamplerModel.running.map(running));
+				sv.addAll(SamplerModel.map(connectionPoolInfo));
+				sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
+				sv.addAll(SamplerModel.map(transactionCounters));
+				sv.addAll(SamplerModel.map(itemCacheSummary));
+				sv.addAll(SamplerModel.map(queryCacheInfo));
+				sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
+				sv.addAll(SamplerModel.map(mediaSummary));
+				sv.addAll(SamplerModel.map(clusterSenderInfo));
+				sv.addAll(SamplerModel.map(clusterListenerInfo));
+				model = SamplerModel.TYPE.newItem(sv);
 			}
 			{
 				for(final ItemCacheInfo info : itemCacheInfos)
 				{
 					sv.clear();
-					sv.addAll(HistoryItemCache.map(model));
-					sv.addAll(HistoryItemCache.map(info));
-					HistoryItemCache.TYPE.newItem(sv);
+					sv.addAll(SamplerItemCache.map(model));
+					sv.addAll(SamplerItemCache.map(info));
+					SamplerItemCache.TYPE.newItem(sv);
 				}
 			}
 			{
 				for(final MediaInfo info : mediaInfos)
 				{
 					sv.clear();
-					sv.addAll(HistoryMedia.map(model));
-					sv.addAll(HistoryMedia.map(info));
-					HistoryMedia.TYPE.newItem(sv);
+					sv.addAll(SamplerMedia.map(model));
+					sv.addAll(SamplerMedia.map(info));
+					SamplerMedia.TYPE.newItem(sv);
 				}
 			}
 			if(clusterListenerInfo!=null)
@@ -229,9 +229,9 @@ public final class Sampler
 				for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
 				{
 					sv.clear();
-					sv.addAll(HistoryClusterNode.map(model));
-					sv.addAll(HistoryClusterNode.map(node));
-					HistoryClusterNode.TYPE.newItem(sv);
+					sv.addAll(SamplerClusterNode.map(model));
+					sv.addAll(SamplerClusterNode.map(node));
+					SamplerClusterNode.TYPE.newItem(sv);
 				}
 			}
 			historyModel.commit();

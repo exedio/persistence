@@ -27,21 +27,22 @@ import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.MediaInfo;
 
-final class HistoryMedia extends Item
+final class SamplerItemCache extends Item
 {
-	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
-	private static final StringField media = new StringField().toFinal();
+	private static final ItemField<SamplerModel> model = newItemField(SamplerModel.class).toFinal();
+	private static final StringField type = new StringField().toFinal();
 
 	private static final DateField date = new DateField().toFinal();
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();
 	private static final DateField connectDate = new DateField().toFinal();
 	private static final IntegerField thread = new IntegerField().toFinal();
@@ -53,60 +54,70 @@ final class HistoryMedia extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final HistoryModel m)
+	static List<SetValue> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue)
 			model         .map(m),
-			date          .map(HistoryModel.date.get(m)),
-			initializeDate.map(HistoryModel.initializeDate.get(m)),
-			connectDate   .map(HistoryModel.connectDate.get(m)),
-			thread        .map(HistoryModel.thread.get(m)),
-			running       .map(HistoryModel.running.get(m)));
+			date          .map(SamplerModel.date.get(m)),
+			initializeDate.map(SamplerModel.initializeDate.get(m)),
+			connectDate   .map(SamplerModel.connectDate.get(m)),
+			thread        .map(SamplerModel.thread.get(m)),
+			running       .map(SamplerModel.running.get(m)));
 	}
 
 
-	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
-	private static final IntegerField exception     = new IntegerField().toFinal().min(0);
-	private static final IntegerField guessedUrl    = new IntegerField().toFinal().min(0);
-	private static final IntegerField notAnItem     = new IntegerField().toFinal().min(0);
-	private static final IntegerField noSuchItem    = new IntegerField().toFinal().min(0);
-	private static final IntegerField moved         = new IntegerField().toFinal().min(0);
-	private static final IntegerField isNull        = new IntegerField().toFinal().min(0);
-	private static final IntegerField notComputable = new IntegerField().toFinal().min(0);
-	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
-	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
+	private static final IntegerField limit = new IntegerField().toFinal().min(0);
+	private static final IntegerField level = new IntegerField().toFinal().min(0);
+	private static final LongField hits = new LongField().toFinal();
+	private static final LongField misses = new LongField().toFinal();
+	private static final LongField concurrentLoads = new LongField().toFinal();
+	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
+	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
+	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
+	private static final LongField ageAverageMillis = new LongField().toFinal();
+	private static final LongField ageMinMillis = new LongField().toFinal();
+	private static final LongField ageMaxMillis = new LongField().toFinal();
+	private static final LongField invalidationsOrdered = new LongField().toFinal();
+	private static final LongField invalidationsDone = new LongField().toFinal();
 
-	static List<SetValue> map(final MediaInfo info)
+	static List<SetValue> map(final ItemCacheInfo info)
 	{
 		return Arrays.asList((SetValue)
-			media        .map(info.getPath().getID()),
-			redirectFrom .map(info.getRedirectFrom()),
-			exception    .map(info.getException()),
-			guessedUrl   .map(info.getGuessedUrl()),
-			notAnItem    .map(info.getNotAnItem()),
-			noSuchItem   .map(info.getNoSuchItem()),
-			moved        .map(info.getMoved()),
-			isNull       .map(info.getIsNull()),
-			notComputable.map(info.getNotComputable()),
-			notModified  .map(info.getNotModified()),
-			delivered    .map(info.getDelivered()));
+			type  .map(info.getType().getID()),
+			limit .map(info.getLimit()),
+			level .map(info.getLevel()),
+			hits  .map(info.getHits()),
+			misses.map(info.getMisses()),
+
+			concurrentLoads.map(info.getConcurrentLoads()),
+
+			replacementRuns   .map(info.getReplacementRuns()),
+			replacements      .map(info.getReplacements()),
+			lastReplacementRun.map(info.getLastReplacementRun()),
+
+			ageAverageMillis.map(info.getAgeAverageMillis()),
+			ageMinMillis    .map(info.getAgeMinMillis()),
+			ageMaxMillis    .map(info.getAgeMaxMillis()),
+
+			invalidationsOrdered.map(info.getInvalidationsOrdered()),
+			invalidationsDone   .map(info.getInvalidationsDone()));
 	}
 
 
 	@SuppressWarnings("unused")
-	private HistoryMedia(final ActivationParameters ap)
+	private SamplerItemCache(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
-	HistoryModel getModel()
+	SamplerModel getModel()
 	{
 		return model.get(this);
 	}
 
-	String getMedia()
+	String getType()
 	{
-		return media.get(this);
+		return type.get(this);
 	}
 
 	Date getDate()
@@ -136,5 +147,5 @@ final class HistoryMedia extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryMedia> TYPE = TypesBound.newType(HistoryMedia.class);
+	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class);
 }

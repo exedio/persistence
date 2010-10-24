@@ -36,66 +36,66 @@ public class SampleTest extends ConnectedTest
 		sampler.getModel().createSchema();
 		sampler.check();
 		sampler.getModel().startTransaction("HistoryTest");
-		assertEquals(0, HistoryModel.TYPE.search().size());
-		assertEquals(0, HistoryItemCache.TYPE.search().size());
-		assertEquals(0, HistoryMedia.TYPE.search().size());
+		assertEquals(0, SamplerModel.TYPE.search().size());
+		assertEquals(0, SamplerItemCache.TYPE.search().size());
+		assertEquals(0, SamplerMedia.TYPE.search().size());
 		sampler.getModel().commit();
-		assertEquals(0, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		final Date before55 = new Date();
 		sampler.store(55);
 		final Date after55 = new Date();
 		sampler.getModel().startTransaction("HistoryTest2");
-		final HistoryModel model55;
+		final SamplerModel model55;
 		{
-			final Iterator<HistoryModel> iter = HistoryModel.TYPE.search().iterator();
+			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
 			model55 = assertIt(sampler, before55, after55, 55, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		final Date date55 = HistoryModel.date.get(model55);
-		final HistoryItemCache itemCache55;
+		final Date date55 = SamplerModel.date.get(model55);
+		final SamplerItemCache itemCache55;
 		{
-			final Iterator<HistoryItemCache> iter = HistoryItemCache.TYPE.search().iterator();
+			final Iterator<SamplerItemCache> iter = SamplerItemCache.TYPE.search().iterator();
 			itemCache55 = c ? assertIt(model55, sampler, iter.next()) : null;
 			assertFalse(iter.hasNext());
 		}
-		final HistoryMedia media55;
+		final SamplerMedia media55;
 		{
-			final Iterator<HistoryMedia> iter = HistoryMedia.TYPE.search().iterator();
+			final Iterator<SamplerMedia> iter = SamplerMedia.TYPE.search().iterator();
 			media55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		sampler.getModel().commit();
-		assertEquals(1, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(c?1:0, sampler.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(1, sampler.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(c?asList(date55, date55):asList((Date)null, null), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(1, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(c?asList(date55, date55):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
+		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		final Date before66 = new Date();
 		sampler.store(66);
 		final Date after66 = new Date();
 		sampler.getModel().startTransaction("HistoryTest2");
-		final HistoryModel model66;
+		final SamplerModel model66;
 		{
-			final Iterator<HistoryModel> iter = iter(HistoryModel.TYPE);
+			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
 			model66 = assertIt(sampler, before66, after66, 66, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		final Date date66 = HistoryModel.date.get(model66);
+		final Date date66 = SamplerModel.date.get(model66);
 		{
-			final Iterator<HistoryItemCache> iter = iter(HistoryItemCache.TYPE);
+			final Iterator<SamplerItemCache> iter = iter(SamplerItemCache.TYPE);
 			if(c)
 			{
 				assertEquals(itemCache55, iter.next());
@@ -104,62 +104,62 @@ public class SampleTest extends ConnectedTest
 			assertFalse(iter.hasNext());
 		}
 		{
-			final Iterator<HistoryMedia> iter = iter(HistoryMedia.TYPE);
+			final Iterator<SamplerMedia> iter = iter(SamplerMedia.TYPE);
 			assertEquals(media55, iter.next());
 			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		sampler.getModel().commit();
-		assertEquals(2, sampler.analyzeCount(HistoryModel.TYPE));
-		assertEquals(c?2:0, sampler.analyzeCount(HistoryItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(HistoryClusterNode.TYPE));
-		assertEquals(2, sampler.analyzeCount(HistoryMedia.TYPE));
-		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(HistoryModel.TYPE)));
-		assertEquals(c?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(HistoryItemCache.TYPE)));
-		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(HistoryClusterNode.TYPE)));
-		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(HistoryMedia.TYPE)));
+		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(c?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
+		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 	}
 
-	private static final HistoryModel assertIt(
+	private static final SamplerModel assertIt(
 			final Sampler thread,
 			final Date before, final Date after,
 			final int running,
-			final HistoryModel model)
+			final SamplerModel model)
 	{
-		assertWithin(before, after, HistoryModel.date.get(model));
-		assertEquals(MODEL.getInitializeDate(), HistoryModel.initializeDate.get(model));
-		assertEquals(MODEL.getConnectDate(), HistoryModel.connectDate.get(model));
-		assertEquals(System.identityHashCode(thread), HistoryModel.thread.getMandatory(model));
-		assertEquals(running, HistoryModel.running.getMandatory(model));
+		assertWithin(before, after, SamplerModel.date.get(model));
+		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
+		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));
+		assertEquals(System.identityHashCode(thread), SamplerModel.thread.getMandatory(model));
+		assertEquals(running, SamplerModel.running.getMandatory(model));
 		return model;
 	}
-	private static final HistoryItemCache assertIt(
-			final HistoryModel model,
+	private static final SamplerItemCache assertIt(
+			final SamplerModel model,
 			final Sampler thread,
-			final HistoryItemCache itemCache)
+			final SamplerItemCache itemCache)
 	{
 		assertEquals(model, itemCache.getModel());
 		assertEquals("HistoryItem", itemCache.getType());
-		assertEquals(HistoryModel.date.get(model), itemCache.getDate());
+		assertEquals(SamplerModel.date.get(model), itemCache.getDate());
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
 		assertEquals(System.identityHashCode(thread), itemCache.getThread());
-		assertEquals(HistoryModel.running.getMandatory(model), itemCache.getRunning());
+		assertEquals(SamplerModel.running.getMandatory(model), itemCache.getRunning());
 		return itemCache;
 	}
 
-	private static final HistoryMedia assertIt(
-			final HistoryModel model,
+	private static final SamplerMedia assertIt(
+			final SamplerModel model,
 			final Sampler thread,
-			final HistoryMedia media)
+			final SamplerMedia media)
 	{
 		assertEquals(model, media.getModel());
 		assertEquals("HistoryItem.media", media.getMedia());
-		assertEquals(HistoryModel.date.get(model), media.getDate());
+		assertEquals(SamplerModel.date.get(model), media.getDate());
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
 		assertEquals(System.identityHashCode(thread), media.getThread());
-		assertEquals(HistoryModel.running.getMandatory(model), media.getRunning());
+		assertEquals(SamplerModel.running.getMandatory(model), media.getRunning());
 		return media;
 	}
 
