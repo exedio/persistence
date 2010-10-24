@@ -16,10 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sample.Stuff.MODEL;
-import static com.exedio.cope.sample.Stuff.sampler;
+import static com.exedio.cope.sampler.Stuff.MODEL;
+import static com.exedio.cope.sampler.Stuff.sampler;
 import static java.util.Arrays.asList;
 
 import java.util.Date;

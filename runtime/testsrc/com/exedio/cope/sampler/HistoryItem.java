@@ -16,22 +16,32 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import com.exedio.cope.Revisions;
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
+import com.exedio.cope.pattern.Media;
 
-/**
- * Currently works for MySQL only.
- */
-final class HistoryRevisions
+public class HistoryItem extends Item
 {
-	static final Revisions REVISIONS =
-		new Revisions(
-			0
-		);
+	static final StringField code = new StringField();
+	static final Media media = new Media();
 
-	private HistoryRevisions()
+	HistoryItem(final SetValue... values)
 	{
-		// prevent instantiation
+		super(values);
 	}
+
+	HistoryItem(final ActivationParameters ap)
+	{
+		super(ap);
+	}
+
+	private static final long serialVersionUID = 1l;
+
+	static final Type<HistoryItem> TYPE = TypesBound.newType(HistoryItem.class);
 }

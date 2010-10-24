@@ -16,32 +16,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Media;
+import com.exedio.cope.Model;
 
-public class HistoryItem extends Item
+final class Stuff
 {
-	static final StringField code = new StringField();
-	static final Media media = new Media();
+	static final Model MODEL = new Model(HistoryItem.TYPE);
 
-	HistoryItem(final SetValue... values)
+	static
 	{
-		super(values);
+		MODEL.enableSerialization(Stuff.class, "MODEL");
 	}
 
-	HistoryItem(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
-	private static final long serialVersionUID = 1l;
-
-	static final Type<HistoryItem> TYPE = TypesBound.newType(HistoryItem.class);
+	static final Sampler sampler = new Sampler(MODEL);
 }

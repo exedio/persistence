@@ -16,18 +16,25 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import com.exedio.cope.Model;
+import static com.exedio.cope.sampler.Stuff.sampler;
+import junit.framework.TestCase;
 
-final class Stuff
+public class SamplerTest extends TestCase
 {
-	static final Model MODEL = new Model(HistoryItem.TYPE);
-
-	static
+	public void testIt()
 	{
-		MODEL.enableSerialization(Stuff.class, "MODEL");
-	}
+		assertEquals("Sampler#com.exedio.cope.sampler.Stuff#MODEL", sampler.toString());
 
-	static final Sampler sampler = new Sampler(MODEL);
+		try
+		{
+			new Sampler(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+	}
 }

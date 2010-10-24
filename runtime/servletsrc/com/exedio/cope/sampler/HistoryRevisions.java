@@ -16,20 +16,22 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.Revisions;
 
-public class PackageTest extends TestCase
+/**
+ * Currently works for MySQL only.
+ */
+final class HistoryRevisions
 {
-	public static Test suite()
+	static final Revisions REVISIONS =
+		new Revisions(
+			0
+		);
+
+	private HistoryRevisions()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(SampleTest.class);
-		suite.addTestSuite(SamplerTest.class);
-		suite.addTestSuite(PurgeTest.class);
-		return suite;
+		// prevent instantiation
 	}
 }

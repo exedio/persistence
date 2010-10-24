@@ -16,33 +16,32 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.CompositeField;
 
-final class HistoryItemCache extends Item
+final class HistoryClusterNode extends Item
 {
 	private static final ItemField<HistoryModel> model = newItemField(HistoryModel.class).toFinal();
-	private static final StringField type = new StringField().toFinal();
+	private static final IntegerField id = new IntegerField().toFinal();
 
 	private static final DateField date = new DateField().toFinal();
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();
 	private static final DateField connectDate = new DateField().toFinal();
 	private static final IntegerField thread = new IntegerField().toFinal();
@@ -66,86 +65,34 @@ final class HistoryItemCache extends Item
 	}
 
 
-	private static final IntegerField limit = new IntegerField().toFinal().min(0);
-	private static final IntegerField level = new IntegerField().toFinal().min(0);
-	private static final LongField hits = new LongField().toFinal();
-	private static final LongField misses = new LongField().toFinal();
-	private static final LongField concurrentLoads = new LongField().toFinal();
-	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
-	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
-	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
-	private static final LongField ageAverageMillis = new LongField().toFinal();
-	private static final LongField ageMinMillis = new LongField().toFinal();
-	private static final LongField ageMaxMillis = new LongField().toFinal();
-	private static final LongField invalidationsOrdered = new LongField().toFinal();
-	private static final LongField invalidationsDone = new LongField().toFinal();
+	private static final DateField firstEncounter = new DateField().toFinal();
+	private static final StringField fromAddress = new StringField().toFinal();
+	private static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
+	private static final CompositeField<SequenceInfo> ping = CompositeField.newComposite(SequenceInfo.class).toFinal();
+	private static final CompositeField<SequenceInfo> pong = CompositeField.newComposite(SequenceInfo.class).toFinal();
+	private static final CompositeField<SequenceInfo> invalidate = CompositeField.newComposite(SequenceInfo.class).toFinal();
 
-	static List<SetValue> map(final ItemCacheInfo info)
+	static List<SetValue> map(final ClusterListenerInfo.Node node)
 	{
-		return Arrays.asList((SetValue)
-			type  .map(info.getType().getID()),
-			limit .map(info.getLimit()),
-			level .map(info.getLevel()),
-			hits  .map(info.getHits()),
-			misses.map(info.getMisses()),
+		return Arrays.asList(
+				id            .map(node.getID()),
+				firstEncounter.map(node.getFirstEncounter()),
+				fromAddress   .map(node.getAddress().toString()),
+				fromPort      .map(node.getPort()),
 
-			concurrentLoads.map(info.getConcurrentLoads()),
-
-			replacementRuns   .map(info.getReplacementRuns()),
-			replacements      .map(info.getReplacements()),
-			lastReplacementRun.map(info.getLastReplacementRun()),
-
-			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinMillis    .map(info.getAgeMinMillis()),
-			ageMaxMillis    .map(info.getAgeMaxMillis()),
-
-			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()));
+				ping      .map(new SequenceInfo(node.getPingInfo())),
+				pong      .map(new SequenceInfo(node.getPingInfo())),
+				invalidate.map(new SequenceInfo(node.getInvalidateInfo())));
 	}
 
 
 	@SuppressWarnings("unused")
-	private HistoryItemCache(final ActivationParameters ap)
+	private HistoryClusterNode(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
-	HistoryModel getModel()
-	{
-		return model.get(this);
-	}
-
-	String getType()
-	{
-		return type.get(this);
-	}
-
-	Date getDate()
-	{
-		return date.get(this);
-	}
-
-	Date getInitalizeDate()
-	{
-		return initializeDate.get(this);
-	}
-
-	Date getConnectDate()
-	{
-		return connectDate.get(this);
-	}
-
-	int getThread()
-	{
-		return thread.getMandatory(this);
-	}
-
-	int getRunning()
-	{
-		return running.getMandatory(this);
-	}
-
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryItemCache> TYPE = TypesBound.newType(HistoryItemCache.class);
+	static final Type<HistoryClusterNode> TYPE = TypesBound.newType(HistoryClusterNode.class);
 }

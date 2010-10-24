@@ -16,25 +16,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sample;
+package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sample.Stuff.sampler;
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-public class SamplerTest extends TestCase
+public class PackageTest extends TestCase
 {
-	public void testIt()
+	public static Test suite()
 	{
-		assertEquals("Sampler#com.exedio.cope.sample.Stuff#MODEL", sampler.toString());
-
-		try
-		{
-			new Sampler(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("model", e.getMessage());
-		}
+		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(SampleTest.class);
+		suite.addTestSuite(SamplerTest.class);
+		suite.addTestSuite(PurgeTest.class);
+		return suite;
 	}
 }
