@@ -84,7 +84,6 @@ public final class Sampler
 
 	public void connect()
 	{
-		// TODO rename table while
 		if(connectToken==null)
 		{
 			connectToken =
