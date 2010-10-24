@@ -91,7 +91,7 @@ public final class Sampler
 				ConnectToken.issue(
 						historyModel,
 						new ConnectProperties(
-								xs(new PrefixSource(
+								makeSource(new PrefixSource(
 										watchedModel.getConnectProperties().getContext(),
 										"sampler.")),
 								null),
@@ -99,7 +99,7 @@ public final class Sampler
 		}
 	}
 
-	private static Properties.Source xs(final Properties.Source x)
+	private static Properties.Source makeSource(final Properties.Source x)
 	{
 		return new Properties.Source(){
 
