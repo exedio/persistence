@@ -178,13 +178,13 @@ final class Connect
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
 
 		revised = true;
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
-		return revisions.getLogs(connectionPool, executor);
+		return revisions.getLogs(properties, connectionPool, executor);
 	}
 }

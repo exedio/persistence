@@ -41,6 +41,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
 	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
 
+	/**
+	 * The table name for the revision information.
+	 * The value "while" prevents name collisions
+	 * with other tables,
+	 * since "while" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	final StringField revisionTableName = new StringField("schema.revision.table", "while");
+
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);

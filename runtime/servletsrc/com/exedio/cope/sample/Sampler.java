@@ -107,6 +107,8 @@ public final class Sampler
 			{
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
+				if("schema.revision.table".equals(key))
+					return "SamplerRevision";
 				return original.get(key);
 			}
 
