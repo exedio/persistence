@@ -129,7 +129,7 @@ public final class Sampler
 		};
 	}
 
-	public void check()
+	void check()
 	{
 		samplerModel.reviseIfSupported();
 		try
