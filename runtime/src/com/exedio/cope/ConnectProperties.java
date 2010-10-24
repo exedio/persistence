@@ -50,6 +50,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	final StringField revisionTableName = new StringField("schema.revision.table", "while");
 
+	/**
+	 * The name of the unique constraint
+	 * on the table for the revision information.
+	 * The value "protected" prevents name collisions
+	 * with other tables,
+	 * since "protected" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
+
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);

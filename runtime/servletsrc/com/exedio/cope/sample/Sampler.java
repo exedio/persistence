@@ -109,6 +109,8 @@ public final class Sampler
 					return "0";
 				if("schema.revision.table".equals(key))
 					return "SamplerRevision";
+				if("schema.revision.unique".equals(key))
+					return "SamplerRevisionUnique";
 				return original.get(key);
 			}
 

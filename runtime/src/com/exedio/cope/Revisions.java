@@ -118,7 +118,6 @@ public final class Revisions
 
 
 
-	static final String UNIQUE_CONSTRAINT_NAME = com.exedio.cope.Table.REVISION_UNIQUE_CONSTRAINT_NAME;
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
@@ -127,7 +126,7 @@ public final class Revisions
 		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName.stringValue());
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new UniqueConstraint(table, UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
 	private int getActualNumber(final ConnectProperties properties, final Connection connection, final Executor executor)
