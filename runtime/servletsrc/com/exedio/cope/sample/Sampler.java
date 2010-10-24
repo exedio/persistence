@@ -99,7 +99,7 @@ public final class Sampler
 		}
 	}
 
-	private static Properties.Source makeSource(final Properties.Source x)
+	private static Properties.Source makeSource(final Properties.Source original)
 	{
 		return new Properties.Source(){
 
@@ -107,17 +107,17 @@ public final class Sampler
 			{
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
-				return x.get(key);
+				return original.get(key);
 			}
 
 			public String getDescription()
 			{
-				return x.getDescription();
+				return original.getDescription();
 			}
 
 			public Collection<String> keySet()
 			{
-				return x.keySet();
+				return original.keySet();
 			}
 		};
 	}
