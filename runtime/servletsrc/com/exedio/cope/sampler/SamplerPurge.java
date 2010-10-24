@@ -155,7 +155,7 @@ final class SamplerPurge extends Item
 
 		try
 		{
-			model.startTransaction("history analyze dates");
+			model.startTransaction("sampler analyze dates");
 			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
 			model.commit();
 		}
