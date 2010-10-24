@@ -149,6 +149,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
+		suite.addTest( com.exedio.cope.sampler.PackageTest.suite() );
 
 		return suite;
 	}

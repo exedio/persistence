@@ -281,8 +281,8 @@ public class ReviseTest extends CopeAssert
 
 		assertFalse(columns.hasNext());
 
-		final Table revisionTable = schema.getTable("while");
-		assertEquals("while", revisionTable.getName());
+		final Table revisionTable = schema.getTable(props.revisionTableName.stringValue());
+		assertEquals(props.revisionTableName.stringValue(), revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
 	}

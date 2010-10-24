@@ -103,25 +103,6 @@ final class Table
 	private static final String CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME = "catch";
 
 	/**
-	 * The table name for the revision information.
-	 * The value "while" prevents name collisions
-	 * with other tables,
-	 * since "while" is a reserved java keyword,
-	 * which cannot be used for java classes.
-	 */
-	static final String REVISION_TABLE_NAME = "while";
-
-	/**
-	 * The name of the unique contraint
-	 * on the table for the revision information.
-	 * The value "protected" prevents name collisions
-	 * with other tables,
-	 * since "protected" is a reserved java keyword,
-	 * which cannot be used for java classes.
-	 */
-	static final String REVISION_UNIQUE_CONSTRAINT_NAME = "protected";
-
-	/**
 	 * A name for aliases is sql statements.
 	 * The value prevents name collisions
 	 * with columns for cope fields / types,
