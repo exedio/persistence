@@ -153,6 +153,7 @@ public final class Sampler
 		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
 
 		// gather data
+		final long start = System.nanoTime();
 		final Date date = new Date();
 		final Date initializeDate = watchedModel.getInitializeDate();
 		final Date connectDate = watchedModel.getConnectDate();
@@ -167,6 +168,7 @@ public final class Sampler
 			mediaInfos[mediaValuesIndex++] = path.getInfo();
 		final ClusterSenderInfo clusterSenderInfo = watchedModel.getClusterSenderInfo();
 		final ClusterListenerInfo clusterListenerInfo = watchedModel.getClusterListenerInfo();
+		final long duration = System.nanoTime() - start;
 
 		// process data
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
@@ -181,6 +183,7 @@ public final class Sampler
 			{
 				sv.clear();
 				sv.add(HistoryModel.date.map(date));
+				sv.add(HistoryModel.duration.map(duration));
 				sv.add(HistoryModel.initializeDate.map(initializeDate));
 				sv.add(HistoryModel.connectDate.map(connectDate));
 				sv.add(HistoryModel.thread.map(thread));
