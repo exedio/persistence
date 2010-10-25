@@ -65,6 +65,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
+		suite.addTestSuite( SchemaInfoConnectionTest.class );
 
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
@@ -128,6 +129,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionEmptyTest.class );
 		suite.addTestSuite( TransactionCountersTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
+		suite.addTestSuite( ModCountKillTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ChangeListenerTest.class );
@@ -147,6 +149,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
+		suite.addTest( com.exedio.cope.sampler.PackageTest.suite() );
 
 		return suite;
 	}

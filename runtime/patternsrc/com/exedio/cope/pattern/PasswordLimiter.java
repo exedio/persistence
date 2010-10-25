@@ -45,10 +45,8 @@ public final class PasswordLimiter extends Pattern
 	private final long period;
 	private final int limit;
 
-	ItemField<?> parent = null;
-	PartOf<?> refusals = null;
 	final DateField date = new DateField().toFinal();
-	Type<Refusal> refusalType = null;
+	private Mount mount = null;
 
 	public PasswordLimiter(
 			final Hash password,
@@ -88,24 +86,53 @@ public final class PasswordLimiter extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		refusals = PartOf.newPartOf(parent, date);
+		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final PartOf<?>refusals = PartOf.newPartOf(parent, date);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("date", date);
 		features.put("refusals", refusals);
-		refusalType = newSourceType(Refusal.class, features, "Refusal");
+		final Type<Refusal> refusalType = newSourceType(Refusal.class, features, "Refusal");
+		this.mount = new Mount(parent, refusals, refusalType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> parent;
+		final PartOf<?> refusals;
+		final Type<Refusal> refusalType;
+
+		Mount(
+				final ItemField<?> parent,
+				final PartOf<?> refusals,
+				final Type<Refusal> refusalType)
+		{
+			assert parent!=null;
+			assert refusals!=null;
+			assert refusalType!=null;
+
+			this.parent = parent;
+			this.refusals = refusals;
+			this.refusalType = refusalType;
+		}
+	}
+
+	Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		assert parent!=null;
-		return parent.as(parentClass);
+		return mount().parent.as(parentClass);
 	}
 
 	public PartOf getRefusals()
 	{
-		return refusals;
+		return mount().refusals;
 	}
 
 	public DateField getDate()
@@ -115,7 +142,7 @@ public final class PasswordLimiter extends Pattern
 
 	public Type<Refusal> getRefusalType()
 	{
-		return refusalType;
+		return mount().refusalType;
 	}
 
 	@Override
@@ -172,8 +199,11 @@ public final class PasswordLimiter extends Pattern
 
 	private Query<Refusal> getCheckQuery(final Item item)
 	{
-		return refusalType.newQuery(
-				Cope.equalAndCast(this.parent, item).and(this.date.greater(new Date(System.currentTimeMillis()-period))));
+		final Mount mount = mount();
+		return
+			mount.refusalType.newQuery(Cope.and(
+				Cope.equalAndCast(mount.parent, item),
+				this.date.greater(getExpiryDate())));
 	}
 
 	private boolean checkInternally(final Item item, final String password)
@@ -181,9 +211,12 @@ public final class PasswordLimiter extends Pattern
 		final boolean result = this.password.check(item, password);
 
 		if(!result)
-			refusalType.newItem(
-				Cope.mapAndCast(parent, item),
+		{
+			final Mount mount = mount();
+			mount.refusalType.newItem(
+				Cope.mapAndCast(mount.parent, item),
 				this.date.map(new Date()));
+		}
 
 		return result;
 	}
@@ -234,10 +267,15 @@ public final class PasswordLimiter extends Pattern
 	public int purge(final Interrupter interrupter)
 	{
 		return Delete.delete(
-				refusalType.newQuery(
-						this.date.less(new Date(System.currentTimeMillis()-period))),
+				mount().refusalType.newQuery(
+						this.date.less(getExpiryDate())),
 				"PasswordLimiter#purge " + getID(),
 				interrupter);
+	}
+
+	private Date getExpiryDate()
+	{
+		return new Date(System.currentTimeMillis()-period);
 	}
 
 	@Computed
@@ -257,7 +295,7 @@ public final class PasswordLimiter extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().parent.get(this);
+			return getPattern().mount().parent.get(this);
 		}
 
 		public Date getDate()

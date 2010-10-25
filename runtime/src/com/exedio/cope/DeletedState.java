@@ -80,7 +80,7 @@ final class DeletedState extends State
 
 			//System.out.println("deleting "+bf.toString());
 
-			executor.update(connection, bf, true);
+			executor.updateStrict(connection, bf);
 		}
 		modificationCount = Integer.MIN_VALUE;
 	}

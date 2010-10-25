@@ -118,20 +118,18 @@ public final class Revisions
 
 
 
-	static final String TABLE_NAME = com.exedio.cope.Table.REVISION_TABLE_NAME;
-	static final String UNIQUE_CONSTRAINT_NAME = com.exedio.cope.Table.REVISION_UNIQUE_CONSTRAINT_NAME;
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
-	void makeSchema(final Schema result, final Dialect dialect)
+	void makeSchema(final Schema result, final ConnectProperties properties, final Dialect dialect)
 	{
-		final Table table = new com.exedio.dsmf.Table(result, TABLE_NAME);
+		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName.stringValue());
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new UniqueConstraint(table, UNIQUE_CONSTRAINT_NAME, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
-	private int getActualNumber(final Connection connection, final Executor executor)
+	private int getActualNumber(final ConnectProperties properties, final Connection connection, final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
@@ -140,7 +138,7 @@ public final class Revisions
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(dsmfDialect.quoteName(TABLE_NAME)).
+			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -148,13 +146,13 @@ public final class Revisions
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 
-	Map<Integer, byte[]> getLogs(final ConnectionPool connectionPool, final Executor executor)
+	Map<Integer, byte[]> getLogs(final ConnectProperties properties, final ConnectionPool connectionPool, final Executor executor)
 	{
 		Connection con = null;
 		try
 		{
 			con = connectionPool.get(true);
-			return getLogs(con, executor);
+			return getLogs(properties, con, executor);
 		}
 		finally
 		{
@@ -167,6 +165,7 @@ public final class Revisions
 	}
 
 	private Map<Integer, byte[]> getLogs(
+			final ConnectProperties properties,
 			final Connection connection,
 			final Executor executor)
 	{
@@ -180,7 +179,7 @@ public final class Revisions
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.quoteName(TABLE_NAME)).
+			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -207,6 +206,7 @@ public final class Revisions
 	}
 
 	void insertCreate(
+			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Map<String, String> environment)
@@ -215,7 +215,7 @@ public final class Revisions
 		try
 		{
 			con = connectionPool.get(true);
-			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(con, executor);
+			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, con, executor);
 		}
 		finally
 		{
@@ -228,6 +228,7 @@ public final class Revisions
 	}
 
 	void revise(
+			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Map<String, String> environment,
@@ -238,11 +239,11 @@ public final class Revisions
 		{
 			con = connectionPool.get(true);
 
-			final int actualNumber = getActualNumber(con, executor);
+			final int actualNumber = getActualNumber(properties, con, executor);
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 			if(!revisionsToRun.isEmpty())
-				revise(con, executor, environment, revisionsToRun, actualNumber, log);
+				revise(properties, con, executor, environment, revisionsToRun, actualNumber, log);
 		}
 		finally
 		{
@@ -255,6 +256,7 @@ public final class Revisions
 	}
 
 	private void revise(
+			final ConnectProperties properties,
 			final Connection con,
 			final Executor executor,
 			final Map<String, String> environment,
@@ -265,7 +267,7 @@ public final class Revisions
 		final Date date = new Date();
 		try
 		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(con, executor);
+			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, con, executor);
 		}
 		catch(final SQLRuntimeException e)
 		{
@@ -287,7 +289,7 @@ public final class Revisions
 				final Statement bf = executor.newStatement();
 				bf.append(sql);
 				final long start = nanoTime();
-				final int rows = executor.update(con, bf, false);
+				final int rows = executor.update(con, bf);
 				final long elapsed = (nanoTime() - start) / 1000000;
 				if(elapsed>1000)
 					System.out.println(
@@ -296,18 +298,18 @@ public final class Revisions
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-			info.insert(con, executor);
+			info.insert(properties, con, executor);
 		}
 		{
 			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 			final Statement bf = executor.newStatement();
 			bf.append("delete from ").
-				append(dsmfDialect.quoteName(TABLE_NAME)).
+				append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
 				append(" where ").
 				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 				append('=').
 				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.update(con, bf, true);
+			executor.updateStrict(con, bf);
 		}
 	}
 }

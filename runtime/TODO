@@ -43,13 +43,8 @@ TODO for cope runtime
 	* copy() for all features
 - Connection Pool: throw exception, if transaction is not closed when putting back to pool
 - enable clustering
-	* persistent modification counters
-		- option for disable
-		- omit if all fields are final
 	* make revisions cluster aware
 	* test configuration of tomcat
-	* sequences for primary keys and IntegerField.defaultToNext
-		- fix sequences for MySQL in console
 	* use auto-increment instead of sequences
 - move DateField#touch into separate pattern Timestamp
 - FieldListLimited: allow length terminated instead of null terminated as well
