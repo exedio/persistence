@@ -211,13 +211,13 @@ public abstract class RevisionInfo
 	}
 
 
-	final void insert(final ConnectProperties properties, final Connection connection, final Executor executor)
+	final void insert(final Connection connection, final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
 		final Statement bf = executor.newStatement();
 		bf.append("insert into ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(dsmfDialect.quoteName(Revisions.TABLE_NAME)).
 			append('(').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append(',').
@@ -228,6 +228,6 @@ public abstract class RevisionInfo
 			appendParameterBlob(toBytes()).
 			append(')');
 
-		executor.updateStrict(connection, bf);
+		executor.update(connection, bf, true);
 	}
 }

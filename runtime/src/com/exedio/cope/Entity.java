@@ -56,17 +56,7 @@ final class Entity
 
 	void write(final Map<BlobColumn, byte[]> blobs) throws UniqueViolationException
 	{
-		boolean discard = true;
-		try
-		{
-			state = state.write(transaction, blobs);
-			discard = false;
-		}
-		finally
-		{
-			if(discard)
-				transaction.connect.itemCache.remove(state.item);
-		}
+		state = state.write(transaction, blobs);
 	}
 
 	void delete()

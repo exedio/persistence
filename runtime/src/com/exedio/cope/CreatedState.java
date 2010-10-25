@@ -53,18 +53,21 @@ final class CreatedState extends State
 	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
-		boolean discard = true;
 		try
 		{
 			type.getModel().connect().database.store(transaction.getConnection(), this, false, blobs);
-			discard = false;
+			return new WrittenState(this);
 		}
-		finally
+		catch ( final RuntimeException e )
 		{
-			if(discard)
-				discard( transaction );
+			discard( transaction );
+			throw e;
 		}
-		return new WrittenState(this);
+		catch ( final Error e )
+		{
+			discard( transaction );
+			throw e;
+		}
 	}
 
 	@Override

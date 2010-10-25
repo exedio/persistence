@@ -69,10 +69,6 @@ public abstract class Dialect
 						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
 							continue;
 						//printRow(resultSet);
-
-						if(ignoreTable(schema, tableName))
-							continue;
-
 						schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
 					}
@@ -102,13 +98,6 @@ public abstract class Dialect
 					}
 				}
 			});
-	}
-
-	boolean ignoreTable(
-			@SuppressWarnings("unused") final Schema schema,
-			@SuppressWarnings("unused") final String name)
-	{
-		return false;
 	}
 
 	/**

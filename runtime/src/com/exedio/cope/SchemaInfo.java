@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 /**
  * Returns information about the database schema accessed by cope
  * - <b>use with care!</b>
@@ -35,15 +32,6 @@ import java.sql.SQLException;
  */
 public final class SchemaInfo
 {
-	/**
-	 * Its your responsibility to close the returned connection.
-	 * @see Connection#close()
-	 */
-	public static Connection newConnection(final Model model) throws SQLException
-	{
-		return model.connect().connectionFactory.createRaw();
-	}
-
 	/**
 	 * Quotes a database name.
 	 * This prevents the name from being interpreted as a SQL keyword.
@@ -129,9 +117,7 @@ public final class SchemaInfo
 	 * @throws IllegalArgumentException
 	 *         if there is no modification counter column for this type,
 	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
-	 *         has been switched off,
-	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
-	 *         fields on the type or its subtypes.
+	 *         has been switched off.
 	 */
 	public static String getModificationCounterColumnName(final Type type)
 	{
@@ -180,11 +166,6 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
-	}
-
-	private SchemaInfo()
-	{
-		// prevent instantiation
 	}
 
 	// ------------------- deprecated stuff -------------------

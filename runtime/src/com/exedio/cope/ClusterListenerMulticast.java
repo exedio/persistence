@@ -24,10 +24,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
@@ -121,11 +117,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			catch(final Exception e)
 			{
 				exception++;
-				System.out.println("--------ClusterListenerMulticast-----");
-				System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-				e.printStackTrace(System.out);
-				System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
-				System.out.println("-------/ClusterListenerMulticast-----");
+				e.printStackTrace();
 			}
 		}
 		logTerminate();

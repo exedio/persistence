@@ -202,6 +202,6 @@ final class BlobColumn extends Column
 			appendTypeCheck(table, item.type);
 
 		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, bf);
+		executor.update(connection, bf, true);
 	}
 }

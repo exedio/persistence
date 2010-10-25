@@ -144,10 +144,10 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoExecuted, nanoPrepared),
-						n2m(nanoResultRead, nanoExecuted),
-						n2m(nanoEnd, nanoResultRead));
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoExecuted-nanoPrepared),
+						n2m(nanoResultRead-nanoExecuted),
+						n2m(nanoEnd-nanoResultRead));
 
 			if(queryInfo!=null)
 				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
@@ -185,19 +185,9 @@ final class Executor
 		}
 	}
 
-	void updateStrict(
-			final Connection connection,
-			final Statement statement)
-		throws UniqueViolationException
-	{
-		final int rows = update(connection, statement);
-		if(rows!=1)
-			throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
-	}
-
 	int update(
 			final Connection connection,
-			final Statement statement)
+			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
@@ -231,12 +221,14 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoPrepared, timeEnd),
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoPrepared-timeEnd),
 						0,
 						0);
 
 			//System.out.println("("+rows+"): "+statement.getText());
+			if(checkRows && rows!=1)
+				throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
 			return rows;
 		}
 		catch(final SQLException e)
@@ -297,8 +289,8 @@ final class Executor
 				listener.onStatement(
 						sqlText,
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoEnd, nanoPrepared),
+						n2m(nanoPrepared-nanoStart),
+						n2m(nanoEnd-nanoPrepared),
 						0,
 						0);
 
@@ -366,9 +358,9 @@ final class Executor
 		numberFormat = new DecimalFormat("", nfs);
 	}
 
-	private static final long n2m(final long to, final long from)
+	private static final long n2m(final long nanos)
 	{
-		return (to-from)/1000000;
+		return nanos/1000000;
 	}
 
 	static int convertSQLResult(final Object sqlInteger)

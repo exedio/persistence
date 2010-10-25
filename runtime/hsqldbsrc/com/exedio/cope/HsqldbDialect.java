@@ -191,14 +191,14 @@ final class HsqldbDialect extends Dialect
 			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
-			executor.update(connection, bf);
+			executor.update(connection, bf, false);
 		}
 		{
 			final Statement bf = executor.newStatement();
 			bf.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			executor.updateStrict(connection, bf);
+			executor.update(connection, bf, true);
 		}
 		final Integer result;
 		{
@@ -225,7 +225,7 @@ final class HsqldbDialect extends Dialect
 			final Statement bf = executor.newStatement();
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
-			executor.update(connection, bf);
+			executor.update(connection, bf, false);
 		}
 		try
 		{

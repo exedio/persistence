@@ -36,7 +36,6 @@ final class Connect
 	final ConnectProperties properties;
 	final boolean log;
 	final Dialect dialect;
-	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
 	final Executor executor;
 	final Database database;
@@ -46,8 +45,6 @@ final class Connect
 	final ClusterListenerMulticast clusterListener;
 
 	final boolean supportsReadCommitted;
-
-	boolean revised = false;
 
 	Connect(
 			final String name,
@@ -90,9 +87,8 @@ final class Connect
 		}
 
 		this.dialect = properties.createDialect(dialectParameters);
-		this.connectionFactory = new ConnectionFactory(properties, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
-				connectionFactory,
+				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
@@ -175,16 +171,11 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
-		if(revised) // synchronization is done by Model#revise
-			return;
-
-		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
-
-		revised = true;
+		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
-		return revisions.getLogs(properties, connectionPool, executor);
+		return revisions.getLogs(connectionPool, executor);
 	}
 }

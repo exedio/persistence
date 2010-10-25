@@ -377,7 +377,8 @@ public class ServletUtilTest extends CopeAssert
 		{
 			if("WEB-INF/cope.properties".equals(name))
 			{
-				return "runtime/utiltest.properties";
+				final String p = System.getProperty("com.exedio.cope.properties");
+				return p!=null ? p : "cope.properties";
 			}
 			else
 				throw new RuntimeException(name);

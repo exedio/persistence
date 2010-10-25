@@ -32,7 +32,7 @@ import com.exedio.cope.util.Properties;
 /**
  * BEWARE: This test listens to port 14446, thus must not be included into exedio-cope-test.jar.
  */
-public abstract class ClusterTest extends CopeAssert
+public class ClusterTest extends CopeAssert
 {
 	private ClusterProperties csp;
 	private ClusterProperties clp;
@@ -848,7 +848,7 @@ public abstract class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(toPacket(buf));
+		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
 		cl.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
@@ -858,12 +858,10 @@ public abstract class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(toPacket(buf));
+		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
 		cl.testSink = null;
 		assertEquals(list(), sink);
 	}
-
-	protected abstract DatagramPacket toPacket(final byte[] buf);
 
 	private void assertInfo(
 			final long invalidationSplit,

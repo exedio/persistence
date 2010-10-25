@@ -45,17 +45,12 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	{
 		try
 		{
-			return createRaw();
+			return DriverManager.getConnection(url, info);
 		}
 		catch(final SQLException ex)
 		{
 			throw new SQLRuntimeException(ex, "create");
 		}
-	}
-
-	Connection createRaw() throws SQLException
-	{
-		return DriverManager.getConnection(url, info);
 	}
 
 	public boolean isValidOnGet(final Connection e)

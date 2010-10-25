@@ -74,24 +74,6 @@ public final class MediaServlet extends HttpServlet
 		super.init();
 
 		connectToken = ServletUtil.getConnectedModel(this);
-
-		boolean mustDestroy = true;
-		try
-		{
-			initConnected();
-			mustDestroy = false;
-		}
-		finally
-		{
-			if(mustDestroy)
-				destroy();
-		}
-		// DO NOT WRITE ANYTHING HERE, BUT IN initConnected ONLY
-		// OTHERWISE ConnectTokens MAY BE LOST
-	}
-
-	private void initConnected()
-	{
 		final Model model = connectToken.getModel();
 		model.reviseIfSupported();
 		for(final Type<?> type : model.getTypes())
@@ -165,7 +147,6 @@ public final class MediaServlet extends HttpServlet
 		connectToken.returnIt();
 		connectToken = null;
 		pathes.clear();
-		pathesRedirectFrom.clear();
 		super.destroy();
 	}
 

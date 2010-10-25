@@ -28,8 +28,6 @@
 			<Class name="com.exedio.cope.pattern.Hash" />
 			<Class name="com.exedio.cope.pattern.Dispatcher" />
 			<Class name="com.exedio.cope.pattern.Schedule" />
-			<Class name="com.exedio.cope.pattern.PasswordLimiter" />
-			<Class name="com.exedio.cope.pattern.DynamicModel" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
@@ -124,15 +122,6 @@
 			<Class name="com.exedio.dsmf.Node" />
 			<Class name="com.exedio.dsmf.MysqlDialect" />
 			<Class name="com.exedio.cope.OracleDialect" />
-		</Or>
-	</Match>
-	<Match>
-		<Or>
-			<!-- A prepared statement is generated from a nonconstant String -->
-			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
-		</Or>
-		<Or>
-			<Class name="com.exedio.cope.sampler.SamplerPurge" />
 		</Or>
 	</Match>
 	<Match>

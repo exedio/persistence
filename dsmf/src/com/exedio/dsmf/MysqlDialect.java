@@ -235,21 +235,6 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	boolean ignoreTable(final Schema schema, final String name)
-	{
-		final boolean result = isSequence(schema, name);
-		if(result)
-			schema.notifyExistentSequence(name);
-		return result;
-	}
-
-	private boolean isSequence(final Schema schema, final String tableName)
-	{
-		final Sequence sequence = schema.getSequence(tableName);
-		return sequence!=null && sequence.required();
-	}
-
-	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(" engine=innodb");
