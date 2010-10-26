@@ -43,6 +43,56 @@ public final class QueryIterator<E>
 			: new Limited<E>  (queryCopy, slice, queryLimit);
 	}
 
+	private static final class Unlimited<E> implements Iterator<E>
+	{
+		private final Query<E> query;
+		private final int slice;
+
+		private int offset;
+		private Iterator<E> iterator;
+
+		Unlimited(
+				final Query<E> query,
+				final int slice)
+		{
+			this.query = query;
+			this.slice = slice;
+
+			this.offset = query.getOffset();
+			this.iterator = iterator();
+		}
+
+		private Iterator<E> iterator()
+		{
+			//System.out.println("--   " + offset + " " + slice);
+			query.setLimit(offset, slice);
+			return query.search().iterator();
+		}
+
+		public boolean hasNext()
+		{
+			return iterator.hasNext();
+		}
+
+		public E next()
+		{
+			final E result = iterator.next();
+
+			if(!iterator.hasNext())
+			{
+				offset += slice;
+				this.iterator = iterator();
+			}
+
+			return result;
+		}
+
+		public final void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
+	}
+
 	private static final class Limited<E> implements Iterator<E>
 	{
 		private final Query<E> query;
@@ -90,56 +140,6 @@ public final class QueryIterator<E>
 			if(iterator==null)
 				throw new NoSuchElementException();
 
-			final E result = iterator.next();
-
-			if(!iterator.hasNext())
-			{
-				offset += slice;
-				this.iterator = iterator();
-			}
-
-			return result;
-		}
-
-		public final void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
-	}
-
-	private static final class Unlimited<E> implements Iterator<E>
-	{
-		private final Query<E> query;
-		private final int slice;
-
-		private int offset;
-		private Iterator<E> iterator;
-
-		Unlimited(
-				final Query<E> query,
-				final int slice)
-		{
-			this.query = query;
-			this.slice = slice;
-
-			this.offset = query.getOffset();
-			this.iterator = iterator();
-		}
-
-		private Iterator<E> iterator()
-		{
-			//System.out.println("--   " + offset + " " + slice);
-			query.setLimit(offset, slice);
-			return query.search().iterator();
-		}
-
-		public boolean hasNext()
-		{
-			return iterator.hasNext();
-		}
-
-		public E next()
-		{
 			final E result = iterator.next();
 
 			if(!iterator.hasNext())
