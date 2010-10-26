@@ -79,25 +79,25 @@ public class QueryIteratorTest extends AbstractRuntimeTest
 			assertEquals("slice must be greater 0, but was 0", e.getMessage());
 		}
 
-		assertDing(listg(item0, item1, item2, item3, item4, item5, item6, item7, item8, item9), q);
+		assertIt(listg(item0, item1, item2, item3, item4, item5, item6, item7, item8, item9), q);
 
 		q.setLimit(4);
-		assertDing(listg(item4, item5, item6, item7, item8, item9), q);
+		assertIt(listg(item4, item5, item6, item7, item8, item9), q);
 
 		q.setLimit(0, 6);
-		assertDing(listg(item0, item1, item2, item3, item4, item5), q);
+		assertIt(listg(item0, item1, item2, item3, item4, item5), q);
 
 		q.setLimit(0, 5);
-		assertDing(listg(item0, item1, item2, item3, item4), q);
+		assertIt(listg(item0, item1, item2, item3, item4), q);
 
 		q.setLimit(2, 6);
-		assertDing(listg(item2, item3, item4, item5, item6, item7), q);
+		assertIt(listg(item2, item3, item4, item5, item6, item7), q);
 
 		q.setLimit(2, 5);
-		assertDing(listg(item2, item3, item4, item5, item6), q);
+		assertIt(listg(item2, item3, item4, item5, item6), q);
 	}
 
-	private void assertDing(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
+	private void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
 	{
 		assertEquals(expected, l(wrap(q,  1)));
 		assertEquals(expected, l(wrap(q,  2)));
