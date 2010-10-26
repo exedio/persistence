@@ -86,14 +86,15 @@ public final class Sampler
 	{
 		if(connectToken==null)
 		{
+			final Properties.Source watchedContext = watchedModel.getConnectProperties().getContext();
 			connectToken =
 				ConnectToken.issue(
 						samplerModel,
 						new ConnectProperties(
 								filterSource(new PrefixSource(
-										watchedModel.getConnectProperties().getContext(),
+										watchedContext,
 										"sampler.")),
-								null),
+								watchedContext),
 						name);
 		}
 	}
