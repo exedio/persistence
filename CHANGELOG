@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add QueryIterator
 * bugfix: ClusterListener deals with offset in packets
 * bugfix: recover from failing modification counter by removing the item from global cache
 * cache result of Model#revise[IfSupported], so its cheap to call
