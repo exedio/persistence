@@ -361,7 +361,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 
 		assertCacheInfo(
 				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
-				new int []{1, 1, 1});
+				new int []{33333, 33333, 33333});
 
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
