@@ -126,6 +126,8 @@ public final class QueryIterator<E>
 				: (queryEnd - offset);
 
 			//System.out.println("--   " + offset + " " + newLimit);
+			assert 0<newLimit : newLimit;
+			assert newLimit<=slice : newLimit;
 			query.setLimit(offset, newLimit);
 			return query.search().iterator();
 		}
