@@ -167,4 +167,10 @@ public final class StableQueryIterator<E>
 			throw new UnsupportedOperationException();
 		}
 	}
+
+
+	private StableQueryIterator()
+	{
+		// prevent instantiation
+	}
 }

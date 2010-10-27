@@ -38,4 +38,10 @@ public final class QueryIterator<E>
 	{
 		return StableQueryIterator.iterate(query, slice);
 	}
+
+
+	private QueryIterator()
+	{
+		// prevent instantiation
+	}
 }
