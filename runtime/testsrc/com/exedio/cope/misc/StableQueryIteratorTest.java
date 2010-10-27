@@ -29,9 +29,9 @@ import java.util.NoSuchElementException;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Query;
 
-public class QueryIteratorTest extends AbstractRuntimeTest
+public class StableQueryIteratorTest extends AbstractRuntimeTest
 {
-	public QueryIteratorTest()
+	public StableQueryIteratorTest()
 	{
 		super(QueryAggregatorTest.MODEL);
 	}

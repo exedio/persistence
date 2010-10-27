@@ -31,7 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(TransactionSlicerTest.class);
 		suite.addTestSuite(TransactionRunnableTest.class);
 		suite.addTestSuite(QueryAggregatorTest.class);
-		suite.addTestSuite(QueryIteratorTest.class);
+		suite.addTestSuite(StableQueryIteratorTest.class);
 		return suite;
 	}
 }
