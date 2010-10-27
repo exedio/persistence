@@ -19,7 +19,7 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
-import static com.exedio.cope.misc.QueryIterator.wrap;
+import static com.exedio.cope.misc.StableQueryIterator.iterate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,7 +62,7 @@ public class QueryIteratorTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			wrap(null,  0);
+			iterate(null,  0);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -71,7 +71,7 @@ public class QueryIteratorTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			wrap(q,  0);
+			iterate(q,  0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -99,21 +99,21 @@ public class QueryIteratorTest extends AbstractRuntimeTest
 
 	private void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
 	{
-		assertEquals(expected, l(wrap(q,  1)));
-		assertEquals(expected, l(wrap(q,  2)));
-		assertEquals(expected, l(wrap(q,  3)));
-		assertEquals(expected, l(wrap(q,  4)));
-		assertEquals(expected, l(wrap(q,  5)));
-		assertEquals(expected, l(wrap(q,  6)));
-		assertEquals(expected, l(wrap(q,  7)));
-		assertEquals(expected, l(wrap(q,  8)));
-		assertEquals(expected, l(wrap(q,  9)));
-		assertEquals(expected, l(wrap(q, 10)));
-		assertEquals(expected, l(wrap(q, 11)));
-		assertEquals(expected, l(wrap(q, 12)));
-		assertEquals(expected, l(wrap(q, 13)));
-		assertEquals(expected, l(wrap(q, 14)));
-		assertEquals(expected, l(wrap(q, 15)));
+		assertEquals(expected, l(iterate(q,  1)));
+		assertEquals(expected, l(iterate(q,  2)));
+		assertEquals(expected, l(iterate(q,  3)));
+		assertEquals(expected, l(iterate(q,  4)));
+		assertEquals(expected, l(iterate(q,  5)));
+		assertEquals(expected, l(iterate(q,  6)));
+		assertEquals(expected, l(iterate(q,  7)));
+		assertEquals(expected, l(iterate(q,  8)));
+		assertEquals(expected, l(iterate(q,  9)));
+		assertEquals(expected, l(iterate(q, 10)));
+		assertEquals(expected, l(iterate(q, 11)));
+		assertEquals(expected, l(iterate(q, 12)));
+		assertEquals(expected, l(iterate(q, 13)));
+		assertEquals(expected, l(iterate(q, 14)));
+		assertEquals(expected, l(iterate(q, 15)));
 	}
 
 	private static ArrayList<QueryAggregatorItem> l(final Iterator<QueryAggregatorItem> iterator)

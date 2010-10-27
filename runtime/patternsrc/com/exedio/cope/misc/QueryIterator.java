@@ -19,151 +19,23 @@
 package com.exedio.cope.misc;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import com.exedio.cope.Query;
 
+/**
+ * @deprecated Use {@link StableQueryIterator} instead.
+ */
+@Deprecated
 public final class QueryIterator<E>
 {
 	/**
-	 * @param query
-	 * <b>BEWARE:<b>
-	 * The mechanism of this iterator works only,
-	 * if the result of <tt>query</tt> does not change while iterating.
-	 * Otherwise, the iterator may miss some results,
-	 * or return duplicates.
+	 * @deprecated Use {@link StableQueryIterator#iterate(Query, int)} instead.
 	 */
+	@Deprecated
 	public static <E> Iterator<E> wrap(
 			final Query<E> query,
 			final int slice)
 	{
-		if(query==null)
-			throw new NullPointerException("query");
-		if(slice<1)
-			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
-
-		//System.out.println("-- " + query.getOffset() + " " + query.getLimit() + " " + slice);
-
-		final Query<E> queryCopy = new Query<E>(query);
-		final int queryLimit = queryCopy.getLimit();
-		return (queryLimit==-1)
-			? new Unlimited<E>(queryCopy, slice)
-			: new Limited<E>  (queryCopy, slice, queryLimit);
-	}
-
-	private static final class Unlimited<E> implements Iterator<E>
-	{
-		private final Query<E> query;
-		private final int slice;
-
-		private int offset;
-		private Iterator<E> iterator;
-
-		Unlimited(
-				final Query<E> query,
-				final int slice)
-		{
-			this.query = query;
-			this.slice = slice;
-
-			this.offset = query.getOffset();
-			this.iterator = iterator();
-		}
-
-		private Iterator<E> iterator()
-		{
-			//System.out.println("--   " + offset + " " + slice);
-			query.setLimit(offset, slice);
-			return query.search().iterator();
-		}
-
-		public boolean hasNext()
-		{
-			return iterator.hasNext();
-		}
-
-		public E next()
-		{
-			final E result = iterator.next();
-
-			if(!iterator.hasNext())
-			{
-				offset += slice;
-				this.iterator = iterator();
-			}
-
-			return result;
-		}
-
-		public final void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
-	}
-
-	private static final class Limited<E> implements Iterator<E>
-	{
-		private final Query<E> query;
-		private final int slice;
-
-		private int offset;
-		private final int queryEnd;
-		private Iterator<E> iterator;
-
-		Limited(
-				final Query<E> query,
-				final int slice,
-				final int queryLimit)
-		{
-			this.query = query;
-			this.slice = slice;
-
-			this.offset = query.getOffset();
-			this.queryEnd = offset + queryLimit;
-			this.iterator = iterator();
-		}
-
-		private Iterator<E> iterator()
-		{
-			if(queryEnd<=offset)
-				return null;
-
-			final int newLimit =
-				((offset+slice)<=queryEnd)
-				? slice
-				: (queryEnd - offset);
-
-			//System.out.println("--   " + offset + " " + newLimit);
-			assert 0<newLimit : newLimit;
-			assert newLimit<=slice : newLimit;
-			query.setLimit(offset, newLimit);
-			return query.search().iterator();
-		}
-
-		public boolean hasNext()
-		{
-			return iterator!=null && iterator.hasNext();
-		}
-
-		public E next()
-		{
-			if(iterator==null)
-				throw new NoSuchElementException();
-
-			final E result = iterator.next();
-
-			if(!iterator.hasNext())
-			{
-				offset += slice;
-				this.iterator = iterator();
-			}
-
-			return result;
-		}
-
-		public final void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
+		return StableQueryIterator.iterate(query, slice);
 	}
 }
