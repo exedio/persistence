@@ -25,6 +25,14 @@ import com.exedio.cope.Query;
 
 public final class QueryIterator<E>
 {
+	/**
+	 * @param query
+	 * <b>BEWARE:<b>
+	 * The mechanism of this iterator works only,
+	 * if the result of <tt>query</tt> does not change while iterating.
+	 * Otherwise, the iterator may miss some results,
+	 * or return duplicates.
+	 */
 	public static <E> Iterator<E> wrap(
 			final Query<E> query,
 			final int slice)
