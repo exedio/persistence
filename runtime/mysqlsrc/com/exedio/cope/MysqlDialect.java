@@ -207,6 +207,14 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("CONVERT(").
+			append(source, join).
+			append(",CHAR)");
+	}
+
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(match(").

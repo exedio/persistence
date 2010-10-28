@@ -122,6 +122,12 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		appendMatchClauseByLike(bf, function, value);

@@ -209,6 +209,8 @@ abstract class Dialect
 	 */
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
+	abstract void appendAsString(Statement bf, NumberFunction source, Join join);
+
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
 	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)

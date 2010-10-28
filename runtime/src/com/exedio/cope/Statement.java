@@ -28,7 +28,7 @@ import java.util.Map;
 
 final class Statement
 {
-	private final Dialect dialect;
+	final Dialect dialect;
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;

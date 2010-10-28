@@ -47,8 +47,6 @@ public final class AsStringView extends StringView
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
-		bf.append("CONVERT(").
-			append(source, join).
-			append(",CHAR)");
+		bf.dialect.appendAsString(bf, source, join);
 	}
 }
