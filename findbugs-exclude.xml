@@ -18,6 +18,7 @@
 			<Class name="com.exedio.cope.DivideView" />
 			<Class name="com.exedio.cope.UppercaseView" />
 			<Class name="com.exedio.cope.LengthView" />
+			<Class name="com.exedio.cope.AsStringView" />
 			<Class name="com.exedio.cope.CompositeCondition$Operator" />
 			<Class name="com.exedio.cope.pattern.SetField" />
 			<Class name="com.exedio.cope.pattern.ListField" />
