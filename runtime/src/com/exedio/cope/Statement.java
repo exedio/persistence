@@ -312,32 +312,12 @@ final class Statement
 		return this;
 	}
 
-	Statement appendLength()
-	{
-		this.text.append(dialect.stringLength);
-
-		return this;
-	}
-
 	void appendMatch(final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
 			dialect.appendMatchClauseFullTextIndex(this, function, value);
 		else
 			dialect.appendMatchClauseByLike(this, function, value);
-	}
-
-	void appendStartsWith(final DataField field, final byte[] value)
-	{
-		dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
-	}
-
-	<E extends Number >void appendIntegerDivisionOperator(
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
-			final Join join)
-	{
-		dialect.appendIntegerDivision(this, dividend, divisor, join);
 	}
 
 	String getText()
