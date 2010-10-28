@@ -70,18 +70,16 @@ public class AsStringTest extends AbstractRuntimeTest
 		assertEquals(null, longx  .asString().get(itemX));
 		assertEquals(null, doublex.asString().get(itemX));
 
-		if(postgresql) return;
-
 		{
 			final Query<List<Object>> q = Query.newQuery(
 					new Selectable[]{intx.asString(), longx.asString(), doublex.asString()},
 					TYPE, null);
 			q.setOrderBy(TYPE.getThis(), true);
-			final char d = (hsqldb||mysql) ? '.' : ',';
+			final char d = oracle ? ',' : '.';
 			final Iterator<List<Object>> i = q.search().iterator();
-			assertEquals(list( "13",  "15",  "1"+d+"9"), i.next());
+			assertEquals(list( "13",  "15", postgresql?"2":("1"+d+"9")), i.next());
 			assertEquals(list( "23",  "25", hsqldb?"29.0":"29"), i.next());
-			assertEquals(list("-33", "-35", "-3"+d+"9"), i.next());
+			assertEquals(list("-33", "-35", postgresql?"-4":("-3"+d+"9")), i.next());
 			assertEquals(list(  "0",   "0", hsqldb?"0.0":"0"), i.next());
 			assertEquals(list( null,  null,   null), i.next());
 			assertFalse(i.hasNext());
@@ -93,7 +91,7 @@ public class AsStringTest extends AbstractRuntimeTest
 
 		assertEquals(item2, TYPE.searchSingleton(intx   .asString().like("2%")));
 		assertEquals(item2, TYPE.searchSingleton(longx  .asString().like("2%")));
-		assertEquals(item2, TYPE.searchSingleton(doublex.asString().like("2%")));
+		assertEquals(item2, TYPE.searchSingleton(doublex.asString().like(postgresql?"29%":"2%")));
 
 		assertEquals(itemX, TYPE.searchSingleton(intx   .asString().isNull()));
 		assertEquals(itemX, TYPE.searchSingleton(longx  .asString().isNull()));

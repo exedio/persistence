@@ -159,9 +159,9 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
 	{
-		bf.append("TO_CHAR(").
+		bf.append("TRIM(TO_CHAR(").
 			append(source, join).
-			append(", '00.0')");
+			append(", '9999999999999'))");
 	}
 
 	@Override
