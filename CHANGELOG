@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add NumberFunction#asString()
 * add TypeIterator
 * add QueryIterator
 * bugfix: ClusterListener deals with offset in packets

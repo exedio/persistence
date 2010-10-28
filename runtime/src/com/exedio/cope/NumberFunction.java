@@ -27,6 +27,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 
 	BindNumberFunction<E> bind(Join join);
 
+	AsStringView asString();
 	PlusLiteralView<E> plus(E value);
 	MultiplyLiteralView<E> multiply(E value);
 	PlusView<E> plus(NumberFunction<E> other);
