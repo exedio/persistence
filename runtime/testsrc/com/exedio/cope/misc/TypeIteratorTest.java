@@ -66,20 +66,12 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			iterate(TYPE, null, 0);
 			fail();
 		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("condition", e.getMessage());
-		}
-		try
-		{
-			iterate(TYPE, intx.greater(2), 0);
-			fail();
-		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("slice must be greater 0, but was 0", e.getMessage());
 		}
 
+		assertIt(listg(item0, item1, item2, item3, item4), null);
 		assertIt(listg(item0, item1, item2, item3, item4), intx.greater(-1));
 		assertIt(listg(item2, item3, item4), intx.greater(1));
 		assertIt(listg(item0, item1), intx.less(2));

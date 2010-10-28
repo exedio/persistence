@@ -52,8 +52,6 @@ public final class TypeIterator
 		{
 			if(type==null)
 				throw new NullPointerException("type");
-			if(condition==null)
-				throw new NullPointerException("condition");
 			if(slice<1)
 				throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
 
@@ -80,7 +78,8 @@ public final class TypeIterator
 
 			if(!iterator.hasNext())
 			{
-				query.setCondition(condition.and(typeThis.greater(last)));
+				final Condition c = typeThis.greater(last);
+				query.setCondition(condition!=null ? condition.and(c) : c);
 				this.iterator = query.search().iterator();
 			}
 
