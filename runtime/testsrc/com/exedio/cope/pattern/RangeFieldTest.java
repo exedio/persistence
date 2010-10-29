@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Range.newRange;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -51,12 +53,18 @@ public class RangeFieldTest extends AbstractRuntimeTest
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.text,
+				item.text.getFrom(),
+				item.text.getTo(),
 			}), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.text,
+				item.text.getFrom(),
+				item.text.getTo(),
 			}), item.TYPE.getDeclaredFeatures());
 
 		assertEquals(item.TYPE, item.valid.getFrom().getType());
@@ -74,7 +82,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertSerializedSame(item.valid, 383);
 
 		// test persistence
-		item = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(3, 5), new Range<String>("alpha", "beta")));
+		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
 
 		assertEquals(new Range<Integer>(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
@@ -90,7 +98,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 
-		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(4, 4), new Range<String>("alpha", "beta")));
+		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
 		assertEquals(new Range<Integer>(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
