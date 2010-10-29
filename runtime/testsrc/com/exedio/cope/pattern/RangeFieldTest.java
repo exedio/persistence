@@ -96,22 +96,22 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		// test persistence
 		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
 
-		assertEquals(new Range<Integer>(3, 5), item.getValid());
+		assertEquals(newRange(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidFrom(8);
-		assertEquals(new Range<Integer>(8, 5), item.getValid());
+		assertEquals(newRange(8, 5), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidTo(9);
-		assertEquals(new Range<Integer>(8, 9), item.getValid());
+		assertEquals(newRange(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 
 		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
-		assertEquals(new Range<Integer>(4, 4), item2.getValid());
+		assertEquals(newRange(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
 
