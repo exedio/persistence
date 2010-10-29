@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: omit setters for final RangeField
+	avoids warnings in eclipse,
+	affects instrumented code
 * add Range#newRange
 * add NumberFunction#asString()
 * add TypeIterator

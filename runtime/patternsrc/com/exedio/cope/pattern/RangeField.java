@@ -69,14 +69,16 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
+		final boolean isfinal = from.isFinal();
 
 		result.add(
 			new Wrapper("get").
 			setReturn(Wrapper.generic(Range.class, from.getValueClass())));
 
-		result.add(
-			new Wrapper("set").
-			addParameter(Wrapper.genericExtends(Range.class, from.getValueClass())));
+		if(!isfinal)
+			result.add(
+				new Wrapper("set").
+				addParameter(Wrapper.genericExtends(Range.class, from.getValueClass())));
 
 		result.add(
 			new Wrapper("getFrom").
@@ -86,13 +88,15 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 			new Wrapper("getTo").
 			setReturn(Wrapper.TypeVariable0.class));
 
-		result.add(
-			new Wrapper("setFrom").
-			addParameter(Wrapper.TypeVariable0.class));
+		if(!isfinal)
+			result.add(
+				new Wrapper("setFrom").
+				addParameter(Wrapper.TypeVariable0.class));
 
-		result.add(
-			new Wrapper("setTo").
-			addParameter(Wrapper.TypeVariable0.class));
+		if(!isfinal)
+			result.add(
+				new Wrapper("setTo").
+				addParameter(Wrapper.TypeVariable0.class));
 
 		return Collections.unmodifiableList(result);
 	}
