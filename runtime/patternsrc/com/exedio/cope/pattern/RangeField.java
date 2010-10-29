@@ -89,14 +89,15 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 			setReturn(Wrapper.TypeVariable0.class));
 
 		if(!isfinal)
+		{
 			result.add(
 				new Wrapper("setFrom").
 				addParameter(Wrapper.TypeVariable0.class));
 
-		if(!isfinal)
 			result.add(
 				new Wrapper("setTo").
 				addParameter(Wrapper.TypeVariable0.class));
+		}
 
 		return Collections.unmodifiableList(result);
 	}
