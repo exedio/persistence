@@ -24,9 +24,11 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.Wrapper;
 
 public class RangeFieldTest extends AbstractRuntimeTest
@@ -77,9 +79,19 @@ public class RangeFieldTest extends AbstractRuntimeTest
 
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
+		assertEquals(false, item.valid.getFrom().isFinal());
+		assertEquals(false, item.valid.getTo().isFinal());
 		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		assertSerializedSame(item.valid, 383);
+
+		assertEquals(true, item.text.isInitial());
+		assertEquals(true, item.text.isFinal());
+		assertEquals(true, item.text.getFrom().isFinal());
+		assertEquals(true, item.text.getTo().isFinal());
+		assertEquals(Wrapper.generic(Range.class, String.class), item.text.getInitialType());
+		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, item.text.getInitialExceptions());
+		assertSerializedSame(item.text, 382);
 
 		// test persistence
 		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
