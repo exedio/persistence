@@ -41,17 +41,24 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		model.createSchema();
 		final Date createAfter = new Date();
 
+		final Date create;
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
-			assertCreate(createBefore, createAfter, logs, 5);
+			create = assertCreate(createBefore, createAfter, logs, 5);
 			assertEquals(1, logs.size());
 		}
 
 		model.deleteSchema();
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
-			assertEquals(0, logs.size()); // TODO this is a bug
+			assertCreate(create, logs, 5);
+			assertEquals(1, logs.size());
 		}
+	}
+
+	private final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
+	{
+		assertCreate(date, date, logs, revision);
 	}
 
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
