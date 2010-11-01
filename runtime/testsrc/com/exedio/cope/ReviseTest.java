@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RevisionInfo.parse;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
@@ -354,11 +355,6 @@ public class ReviseTest extends CopeAssert
 		assertEquals(info.getDriverVersion(),               p.getProperty("env.driver.version"));
 		assertEquals(valueOf(info.getDriverMajorVersion()), p.getProperty("env.driver.version.major"));
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
-	}
-
-	private static final Properties parse(final byte[] log)
-	{
-		return RevisionInfo.parse(log);
 	}
 
 	private static final void assertMinInt(final int expectedMinimum, final String actual)
