@@ -57,14 +57,14 @@ public class ReviseTest extends CopeAssert
 	}
 
 	private String hostname;
-	private com.exedio.cope.ConnectProperties props;
+	private ConnectProperties props;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
+		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
 	String jdbcUrl;
