@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
@@ -50,6 +51,7 @@ public final class Sampler
 
 	private final String name;
 	private final Model sampledModel;
+	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
 	private ConnectToken connectToken = null;
 
@@ -154,7 +156,7 @@ public final class Sampler
 		}
 	}
 
-	void store(final int running) // non-private for testing
+	public void sample()
 	{
 		// prepare
 		final int thread = System.identityHashCode(this);
@@ -182,6 +184,7 @@ public final class Sampler
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
 		final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+		final int running = runningSource.getAndIncrement();
 
 		// save data
 		try

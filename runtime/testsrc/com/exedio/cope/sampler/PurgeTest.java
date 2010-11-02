@@ -38,7 +38,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 		assertEquals(0, SamplerPurge.purge(new Date(), VAIN_INTERRUPTER));
 
-		sampler.store(66);
+		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));

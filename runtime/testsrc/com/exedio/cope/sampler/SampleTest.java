@@ -50,13 +50,13 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		final Date before55 = new Date();
-		sampler.store(55);
+		sampler.sample();
 		final Date after55 = new Date();
 		sampler.getModel().startTransaction("HistoryTest2");
 		final SamplerModel model55;
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
-			model55 = assertIt(sampler, before55, after55, 55, iter.next());
+			model55 = assertIt(sampler, before55, after55, 0, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = SamplerModel.date.get(model55);
@@ -83,14 +83,14 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		final Date before66 = new Date();
-		sampler.store(66);
+		sampler.sample();
 		final Date after66 = new Date();
 		sampler.getModel().startTransaction("HistoryTest2");
 		final SamplerModel model66;
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
-			model66 = assertIt(sampler, before66, after66, 66, iter.next());
+			model66 = assertIt(sampler, before66, after66, 1, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = SamplerModel.date.get(model66);
