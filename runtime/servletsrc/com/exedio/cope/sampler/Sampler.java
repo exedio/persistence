@@ -80,16 +80,16 @@ public final class Sampler
 
 	public ConnectToken connect()
 	{
-			final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
-			return
-				ConnectToken.issue(
-						samplerModel,
-						new ConnectProperties(
-								filterSource(new PrefixSource(
-										sampledContext,
-										"sampler.")),
-								sampledContext),
-						name);
+		final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
+		return
+			ConnectToken.issue(
+					samplerModel,
+					new ConnectProperties(
+							filterSource(new PrefixSource(
+									sampledContext,
+									"sampler.")),
+							sampledContext),
+					name);
 	}
 
 	private static Properties.Source filterSource(final Properties.Source original)
