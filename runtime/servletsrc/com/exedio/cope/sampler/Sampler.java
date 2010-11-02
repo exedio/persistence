@@ -49,17 +49,17 @@ public final class Sampler
 	private final Model samplerModel;
 
 	private final String name;
-	private final Model watchedModel;
+	private final Model sampledModel;
 	private final MediaPath[] medias;
 	private ConnectToken connectToken = null;
 
-	public Sampler(final Model watchedModel)
+	public Sampler(final Model sampledModel)
 	{
-		if(watchedModel==null)
+		if(sampledModel==null)
 			throw new NullPointerException("model");
 
-		this.name = getClass().getSimpleName() + '#' + watchedModel.toString();
-		this.watchedModel = watchedModel;
+		this.name = getClass().getSimpleName() + '#' + sampledModel.toString();
+		this.sampledModel = sampledModel;
 
 		this.samplerModel =
 			new Model(
@@ -70,7 +70,7 @@ public final class Sampler
 				SamplerMedia.TYPE,
 				SamplerPurge.TYPE);
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
-		for(final Type<?> type : watchedModel.getTypes())
+		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
@@ -86,15 +86,15 @@ public final class Sampler
 	{
 		if(connectToken==null)
 		{
-			final Properties.Source watchedContext = watchedModel.getConnectProperties().getContext();
+			final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
 			connectToken =
 				ConnectToken.issue(
 						samplerModel,
 						new ConnectProperties(
 								filterSource(new PrefixSource(
-										watchedContext,
+										sampledContext,
 										"sampler.")),
-								watchedContext),
+								sampledContext),
 						name);
 		}
 	}
@@ -163,19 +163,19 @@ public final class Sampler
 		// gather data
 		final long start = System.nanoTime();
 		final Date date = new Date();
-		final Date initializeDate = watchedModel.getInitializeDate();
-		final Date connectDate = watchedModel.getConnectDate();
-		final Pool.Info connectionPoolInfo = watchedModel.getConnectionPoolInfo();
-		final long nextTransactionId = watchedModel.getNextTransactionId();
-		final TransactionCounters transactionCounters = watchedModel.getTransactionCounters();
-		final ItemCacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
-		final QueryCacheInfo queryCacheInfo = watchedModel.getQueryCacheInfo();
+		final Date initializeDate = sampledModel.getInitializeDate();
+		final Date connectDate = sampledModel.getConnectDate();
+		final Pool.Info connectionPoolInfo = sampledModel.getConnectionPoolInfo();
+		final long nextTransactionId = sampledModel.getNextTransactionId();
+		final TransactionCounters transactionCounters = sampledModel.getTransactionCounters();
+		final ItemCacheInfo[] itemCacheInfos = sampledModel.getItemCacheInfo();
+		final QueryCacheInfo queryCacheInfo = sampledModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
 			mediaInfos[mediaValuesIndex++] = path.getInfo();
-		final ClusterSenderInfo clusterSenderInfo = watchedModel.getClusterSenderInfo();
-		final ClusterListenerInfo clusterListenerInfo = watchedModel.getClusterListenerInfo();
+		final ClusterSenderInfo clusterSenderInfo = sampledModel.getClusterSenderInfo();
+		final ClusterListenerInfo clusterListenerInfo = sampledModel.getClusterListenerInfo();
 		final long duration = System.nanoTime() - start;
 
 		// process data
