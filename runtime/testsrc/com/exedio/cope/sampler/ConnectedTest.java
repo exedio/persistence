@@ -25,6 +25,8 @@ import java.util.Collection;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
+import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.Properties;
 
 public class ConnectedTest extends AbstractRuntimeTest
@@ -74,20 +76,26 @@ public class ConnectedTest extends AbstractRuntimeTest
 	}
 
 	boolean c;
+	private ConnectToken connectToken = null;
+
+	protected final Model samplerModel()
+	{
+		return connectToken.getModel();
+	}
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		c = model.getConnectProperties().getItemCacheLimit()>0;
-		sampler.connect();
+		connectToken = sampler.connect();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		sampler.getModel().dropSchema();
-		sampler.disconnect();
+		samplerModel().dropSchema();
+		connectToken.returnIt();
 		super.tearDown();
 	}
 }

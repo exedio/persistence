@@ -53,7 +53,6 @@ public final class Sampler
 	private final Model sampledModel;
 	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
-	private ConnectToken connectToken = null;
 
 	public Sampler(final Model sampledModel)
 	{
@@ -79,17 +78,10 @@ public final class Sampler
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
-	Model getModel()
+	public ConnectToken connect()
 	{
-		return samplerModel;
-	}
-
-	public void connect()
-	{
-		if(connectToken==null)
-		{
 			final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
-			connectToken =
+			return
 				ConnectToken.issue(
 						samplerModel,
 						new ConnectProperties(
@@ -98,7 +90,6 @@ public final class Sampler
 										"sampler.")),
 								sampledContext),
 						name);
-		}
 	}
 
 	private static Properties.Source filterSource(final Properties.Source original)
@@ -144,15 +135,6 @@ public final class Sampler
 		finally
 		{
 			samplerModel.rollbackIfNotCommitted();
-		}
-	}
-
-	public void disconnect()
-	{
-		if(connectToken!=null)
-		{
-			connectToken.returnIt();
-			connectToken = null;
 		}
 	}
 
