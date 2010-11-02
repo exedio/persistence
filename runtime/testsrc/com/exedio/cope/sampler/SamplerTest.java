@@ -34,7 +34,7 @@ public class SamplerTest extends TestCase
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("model", e.getMessage());
+			assertEquals("sampledModel", e.getMessage());
 		}
 	}
 }

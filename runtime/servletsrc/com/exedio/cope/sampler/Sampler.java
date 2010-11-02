@@ -56,7 +56,7 @@ public final class Sampler
 	public Sampler(final Model sampledModel)
 	{
 		if(sampledModel==null)
-			throw new NullPointerException("model");
+			throw new NullPointerException("sampledModel");
 
 		this.name = getClass().getSimpleName() + '#' + sampledModel.toString();
 		this.sampledModel = sampledModel;
