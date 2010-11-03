@@ -32,13 +32,25 @@ public final class Delete
 			final String transactionName,
 			final Interrupter interrupter)
 	{
+		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
+		delete(query, transactionName, ctx);
+		return ctx.getProgress();
+	}
+
+	private static void delete(
+			final Query<? extends Item> query,
+			final String transactionName,
+			final ExperimentalTaskContext ctx)
+	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
 		final int LIMIT = 100;
 		final Model model = query.getType().getModel();
-		int result = 0;
 		for(int transaction = 0; transaction<30; transaction++)
 		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
+			if(ctx.requestsStop())
+				return;
 
 			try
 			{
@@ -48,14 +60,16 @@ public final class Delete
 				final List<? extends Item> items = query.search();
 				final int itemsSize = items.size();
 				if(itemsSize==0)
-					return result;
+					return;
 				for(final Item item : items)
+				{
 					item.deleteCopeItem();
-				result += itemsSize;
+					ctx.notifyProgress();
+				}
 				if(itemsSize<LIMIT)
 				{
 					model.commit();
-					return result;
+					return;
 				}
 
 				model.commit();
@@ -66,8 +80,7 @@ public final class Delete
 			}
 		}
 
-		System.out.println("Aborting " + transactionName + " after " + result);
-		return result;
+		System.out.println("Aborting " + transactionName);
 	}
 
 	private Delete()
