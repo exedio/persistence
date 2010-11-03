@@ -202,7 +202,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (Interrupter)null);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -211,7 +211,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null, null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, null, (Interrupter)null);
 			fail();
 		}
 		catch(final NullPointerException e)
