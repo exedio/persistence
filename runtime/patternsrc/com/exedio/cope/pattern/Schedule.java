@@ -53,7 +53,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
-import com.exedio.cope.util.Interrupters;
 
 public final class Schedule extends Pattern
 {
@@ -259,11 +258,21 @@ public final class Schedule extends Pattern
 
 	int run(final Interrupter interrupter, final Date now)
 	{
-		return run(getType(), interrupter, now);
+		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
+		run(ctx, now);
+		return ctx.getProgress();
 	}
 
-	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
+	void run(final TaskContext ctx, final Date now)
 	{
+		run(getType(), ctx, now);
+	}
+
+	private <P extends Item> void run(final Type<P> type, final TaskContext ctx, final Date now)
+	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
 		final Mount mount = mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
@@ -309,15 +318,20 @@ public final class Schedule extends Pattern
 		}
 
 		if(toRun.isEmpty())
-			return 0;
+			return;
 
-		final Interrupter effectiveInterrupter =
-			interrupter!=null ? interrupter : Interrupters.VAIN_INTERRUPTER;
-		int result = 0;
+		final Interrupter interrupterForItem = new Interrupter()
+		{
+			public boolean isRequested()
+			{
+				return ctx.requestsStop();
+			}
+		};
+
 		for(final P item : toRun)
 		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
+			if(ctx.requestsStop())
+				return;
 
 			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
@@ -343,7 +357,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, effectiveInterrupter);
+				itemCasted.run(this, from, until, interrupterForItem);
 				final long elapsedEnd = nanoTime();
 				mount.runType.newItem(
 					Cope.mapAndCast(mount.runParent, item),
@@ -352,14 +366,13 @@ public final class Schedule extends Pattern
 					this.runRun.map(now),
 					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
 				model.commit();
-				result++;
+				ctx.notifyProgress();
 			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
 			}
 		}
-		return result;
 	}
 
 	@Computed

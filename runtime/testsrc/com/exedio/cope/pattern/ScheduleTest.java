@@ -194,6 +194,16 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 		assertRuns(listg(
 				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+
+		try
+		{
+			report.run((TaskContext)null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	public void testInterrupter1()
