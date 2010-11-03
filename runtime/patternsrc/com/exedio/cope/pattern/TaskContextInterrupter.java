@@ -20,39 +20,51 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.util.Interrupter;
 
-final class TaskContextInterrupter implements ExperimentalTaskContext
+abstract class TaskContextInterrupter
 {
-	private final Interrupter interrupter;
-	private int progress = 0;
-	private boolean exhausted = false;
-
-	TaskContextInterrupter(final Interrupter interrupter)
+	static final int run(final Interrupter interrupter, final TaskContextInterrupter body)
 	{
-		this.interrupter = interrupter;
+		final Adapter ctx = new Adapter(interrupter);
+		body.run(ctx);
+		return ctx.getProgress();
 	}
 
-	public boolean requestsStop()
+	abstract void run(ExperimentalTaskContext ctx);
+
+	private static final class Adapter implements ExperimentalTaskContext
 	{
-		if(exhausted)
-			throw new IllegalStateException();
+		private final Interrupter interrupter;
+		private int progress = 0;
+		private boolean exhausted = false;
 
-		return interrupter!=null && interrupter.isRequested();
-	}
+		Adapter(final Interrupter interrupter)
+		{
+			this.interrupter = interrupter;
+		}
 
-	public void notifyProgress()
-	{
-		if(exhausted)
-			throw new IllegalStateException();
+		public boolean requestsStop()
+		{
+			if(exhausted)
+				throw new IllegalStateException();
 
-		progress++;
-	}
+			return interrupter!=null && interrupter.isRequested();
+		}
 
-	int getProgress()
-	{
-		if(exhausted)
-			throw new IllegalStateException();
+		public void notifyProgress()
+		{
+			if(exhausted)
+				throw new IllegalStateException();
 
-		exhausted = true;
-		return progress;
+			progress++;
+		}
+
+		int getProgress()
+		{
+			if(exhausted)
+				throw new IllegalStateException();
+
+			exhausted = true;
+			return progress;
+		}
 	}
 }
