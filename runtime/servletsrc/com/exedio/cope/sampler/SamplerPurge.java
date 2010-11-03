@@ -67,26 +67,30 @@ final class SamplerPurge extends Item
 
 	static int purge(final Date limit, final Interrupter interrupter) // non-private for testing
 	{
-		int result = 0;
+		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
+		purge(limit, ctx);
+		return ctx.getProgress();
+	}
+
+	private static void purge(final Date limit, final ExperimentalTaskContext ctx)
+	{
 		for(final Type type : TYPE.getModel().getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 				TYPE!=type)
 			{
-				if(interrupter!=null && interrupter.isRequested())
-					return result;
+				if(ctx.requestsStop())
+					return;
 
-				result += purge(type, limit);
+				purge(type, limit, ctx);
 			}
 
-		if(interrupter!=null && interrupter.isRequested())
-			return result;
+		if(ctx.requestsStop())
+			return;
 
-		result += purge(SamplerModel.TYPE, limit);
-
-		return result;
+		purge(SamplerModel.TYPE, limit, ctx);
 	}
 
-	private static int purge(final Type type, final Date limit)
+	private static void purge(final Type type, final Date limit, final ExperimentalTaskContext ctx)
 	{
 		final DateField field = (DateField)type.getFeature("date");
 		if(field==null)
@@ -164,7 +168,7 @@ final class SamplerPurge extends Item
 			model.rollbackIfNotCommitted();
 		}
 
-		return rows;
+		ctx.notifyProgress(rows);
 	}
 
 
