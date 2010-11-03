@@ -154,6 +154,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
+			// must be the same order as in model constructor
 			assertEquals(HierarchyEmptySub.TYPE, itemCacheInfo[0].getType());
 			assertEquals(HierarchyEmptySuper.TYPE, itemCacheInfo[1].getType());
 			assertEquals(2, itemCacheInfo.length);
