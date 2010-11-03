@@ -227,8 +227,17 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
+		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
+		dispatch(parentClass, config, ctx);
+		return ctx.getProgress();
+	}
+
+	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final TaskContext ctx)
+	{
 		if(config==null)
 			throw new NullPointerException("config");
+		if(ctx==null)
+			throw new NullPointerException("ctx");
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
@@ -237,7 +246,6 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 
 		P lastDispatched = null;
-		int result = 0;
 		while(true)
 		{
 			final List<P> toDispatch;
@@ -264,8 +272,8 @@ public final class Dispatcher extends Pattern
 
 			for(final P item : toDispatch)
 			{
-				if(interrupter!=null && interrupter.isRequested())
-					return result;
+				if(ctx.requestsStop())
+					return;
 
 				lastDispatched = item;
 				final Dispatchable itemCasted = (Dispatchable)item;
@@ -295,7 +303,7 @@ public final class Dispatcher extends Pattern
 								runSuccess.map(true));
 
 						model.commit();
-						result++;
+						ctx.notifyProgress();
 					}
 					catch(final Exception cause)
 					{
@@ -340,8 +348,6 @@ public final class Dispatcher extends Pattern
 				}
 			}
 		}
-
-		return result;
 	}
 
 	public boolean isPending(final Item item)

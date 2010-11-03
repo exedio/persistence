@@ -218,6 +218,15 @@ public class DispatcherTest extends AbstractRuntimeTest
 		{
 			assertEquals("config", e.getMessage());
 		}
+		try
+		{
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (TaskContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	public void testInterrupt0()
