@@ -105,7 +105,7 @@ final class Connect
 				executor,
 				revisions);
 
-		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
+		this.itemCache = new ItemCache(types.typeListSorted, properties.getItemCacheLimit());
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
 		if(properties.cluster.booleanValue())

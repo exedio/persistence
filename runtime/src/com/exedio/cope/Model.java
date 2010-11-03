@@ -411,7 +411,7 @@ public final class Model implements Serializable
 
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return connect().itemCache.getInfo();
+		return connect().itemCache.getInfo(types.concreteTypeList);
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()

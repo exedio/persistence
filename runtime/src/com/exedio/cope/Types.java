@@ -351,7 +351,9 @@ final class Types
 
 	private Type getConcreteType(final int transientNumber)
 	{
-		return concreteTypes[transientNumber];
+		final Type result = concreteTypes[transientNumber];
+		assert result.cacheIdTransiently==transientNumber : String.valueOf(result.cacheIdTransiently) + '/' + result.id + '/' + transientNumber;
+		return result;
 	}
 
 	Item getItem(final String id) throws NoSuchIDException
