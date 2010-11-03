@@ -220,7 +220,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (TaskContext)null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (ExperimentalTaskContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)

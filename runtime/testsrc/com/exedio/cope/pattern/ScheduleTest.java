@@ -197,7 +197,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		try
 		{
-			report.run((TaskContext)null, null);
+			report.run((ExperimentalTaskContext)null, null);
 			fail();
 		}
 		catch(final NullPointerException e)

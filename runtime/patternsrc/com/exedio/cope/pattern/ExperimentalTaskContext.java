@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-interface TaskContext
+interface ExperimentalTaskContext
 {
 	boolean requestsStop();
 	void notifyProgress();

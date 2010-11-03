@@ -263,12 +263,12 @@ public final class Schedule extends Pattern
 		return ctx.getProgress();
 	}
 
-	void run(final TaskContext ctx, final Date now)
+	void run(final ExperimentalTaskContext ctx, final Date now)
 	{
 		run(getType(), ctx, now);
 	}
 
-	private <P extends Item> void run(final Type<P> type, final TaskContext ctx, final Date now)
+	private <P extends Item> void run(final Type<P> type, final ExperimentalTaskContext ctx, final Date now)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");

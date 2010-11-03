@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.util.Interrupter;
 
-final class TaskContextInterrupter implements TaskContext
+final class TaskContextInterrupter implements ExperimentalTaskContext
 {
 	private final Interrupter interrupter;
 	private int progress = 0;

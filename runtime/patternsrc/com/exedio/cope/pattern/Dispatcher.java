@@ -232,7 +232,7 @@ public final class Dispatcher extends Pattern
 		return ctx.getProgress();
 	}
 
-	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final TaskContext ctx)
+	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final ExperimentalTaskContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
