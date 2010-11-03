@@ -67,12 +67,16 @@ final class SamplerPurge extends Item
 
 	static int purge(final Date limit, final Interrupter interrupter) // non-private for testing
 	{
-		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
-		purge(limit, ctx);
-		return ctx.getProgress();
+		return InterrupterTaskContext.run(
+			interrupter,
+			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
+			{
+				purge(limit, ctx);
+			}}
+		);
 	}
 
-	private static void purge(final Date limit, final ExperimentalTaskContext ctx)
+	static void purge(final Date limit, final ExperimentalTaskContext ctx)
 	{
 		for(final Type type : TYPE.getModel().getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end

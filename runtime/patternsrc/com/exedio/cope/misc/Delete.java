@@ -32,12 +32,16 @@ public final class Delete
 			final String transactionName,
 			final Interrupter interrupter)
 	{
-		final TaskContextInterrupter ctx = new TaskContextInterrupter(interrupter);
-		delete(query, transactionName, ctx);
-		return ctx.getProgress();
+		return InterrupterTaskContext.run(
+			interrupter,
+			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
+			{
+				delete(query, transactionName, ctx);
+			}}
+		);
 	}
 
-	private static void delete(
+	static void delete(
 			final Query<? extends Item> query,
 			final String transactionName,
 			final ExperimentalTaskContext ctx)
