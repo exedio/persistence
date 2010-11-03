@@ -20,9 +20,9 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.util.Interrupter;
 
-abstract class TaskContextInterrupter
+abstract class InterrupterTaskContext
 {
-	static final int run(final Interrupter interrupter, final TaskContextInterrupter body)
+	static final int run(final Interrupter interrupter, final InterrupterTaskContext body)
 	{
 		final Adapter ctx = new Adapter(interrupter);
 		body.run(ctx);

@@ -259,9 +259,9 @@ public final class Schedule extends Pattern
 	int run(final Interrupter interrupter, final Date now)
 	{
 		final Schedule s = this;
-		return TaskContextInterrupter.run(
+		return InterrupterTaskContext.run(
 			interrupter,
-			new TaskContextInterrupter(){@Override void run(final ExperimentalTaskContext ctx)
+			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
 			{
 				s.run(ctx, now);
 			}}

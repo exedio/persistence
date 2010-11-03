@@ -227,9 +227,9 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
-		return TaskContextInterrupter.run(
+		return InterrupterTaskContext.run(
 			interrupter,
-			new TaskContextInterrupter(){@Override void run(final ExperimentalTaskContext ctx)
+			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
 			{
 				dispatch(parentClass, config, ctx);
 			}}
