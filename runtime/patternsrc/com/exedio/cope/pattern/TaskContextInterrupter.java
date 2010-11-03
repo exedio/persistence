@@ -35,7 +35,7 @@ abstract class TaskContextInterrupter
 	{
 		private final Interrupter interrupter;
 		private int progress = 0;
-		private boolean exhausted = false;
+		private boolean finished = false;
 
 		Adapter(final Interrupter interrupter)
 		{
@@ -44,7 +44,7 @@ abstract class TaskContextInterrupter
 
 		public boolean requestsStop()
 		{
-			if(exhausted)
+			if(finished)
 				throw new IllegalStateException();
 
 			return interrupter!=null && interrupter.isRequested();
@@ -52,7 +52,7 @@ abstract class TaskContextInterrupter
 
 		public void notifyProgress()
 		{
-			if(exhausted)
+			if(finished)
 				throw new IllegalStateException();
 
 			progress++;
@@ -60,10 +60,10 @@ abstract class TaskContextInterrupter
 
 		int finish()
 		{
-			if(exhausted)
+			if(finished)
 				throw new IllegalStateException();
 
-			exhausted = true;
+			finished = true;
 			return progress;
 		}
 	}
