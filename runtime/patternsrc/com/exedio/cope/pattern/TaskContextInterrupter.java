@@ -26,7 +26,7 @@ abstract class TaskContextInterrupter
 	{
 		final Adapter ctx = new Adapter(interrupter);
 		body.run(ctx);
-		return ctx.getProgress();
+		return ctx.finish();
 	}
 
 	abstract void run(ExperimentalTaskContext ctx);
@@ -58,7 +58,7 @@ abstract class TaskContextInterrupter
 			progress++;
 		}
 
-		int getProgress()
+		int finish()
 		{
 			if(exhausted)
 				throw new IllegalStateException();
