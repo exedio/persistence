@@ -19,7 +19,6 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
-import static com.exedio.cope.util.Interrupters.VAIN_INTERRUPTER;
 
 import java.util.Date;
 
@@ -36,7 +35,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, SamplerPurge.purge(new Date(), VAIN_INTERRUPTER));
+		assertPurge(0, new Date());
 
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
@@ -45,17 +44,24 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(1, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertEquals(c?3:2, SamplerPurge.purge(new Date(), VAIN_INTERRUPTER));
+		assertPurge(c?3:2, new Date());
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertEquals(0, SamplerPurge.purge(new Date(), VAIN_INTERRUPTER));
+		assertPurge(0, new Date());
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+	}
+
+	private static final void assertPurge(final int progress, final Date date)
+	{
+		final MockTaskContext ctx = new MockTaskContext();
+		SamplerPurge.purge(date, ctx);
+		assertEquals(progress, ctx.getProgress());
 	}
 }

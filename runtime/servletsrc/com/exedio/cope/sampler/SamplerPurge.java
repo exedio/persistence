@@ -65,7 +65,7 @@ final class SamplerPurge extends Item
 		return purge(cal.getTime(), interrupter);
 	}
 
-	static int purge(final Date limit, final Interrupter interrupter) // non-private for testing
+	private static int purge(final Date limit, final Interrupter interrupter)
 	{
 		return InterrupterTaskContext.run(
 			interrupter,
@@ -76,7 +76,7 @@ final class SamplerPurge extends Item
 		);
 	}
 
-	static void purge(final Date limit, final ExperimentalTaskContext ctx)
+	static void purge(final Date limit, final ExperimentalTaskContext ctx) // non-private for testing
 	{
 		for(final Type type : TYPE.getModel().getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
