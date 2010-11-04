@@ -53,7 +53,7 @@ public final class Delete
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; transaction<30; transaction++)
 		{
-			if(ctx.requestsStop())
+			if(ctx.requestedToStop())
 				return;
 
 			try
@@ -68,7 +68,7 @@ public final class Delete
 				for(final Item item : items)
 				{
 					item.deleteCopeItem();
-					ctx.notifyProgress();
+					ctx.incrementProgress();
 				}
 				if(itemsSize<LIMIT)
 				{

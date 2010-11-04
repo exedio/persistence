@@ -276,7 +276,7 @@ public final class Dispatcher extends Pattern
 
 			for(final P item : toDispatch)
 			{
-				if(ctx.requestsStop())
+				if(ctx.requestedToStop())
 					return;
 
 				lastDispatched = item;
@@ -307,7 +307,7 @@ public final class Dispatcher extends Pattern
 								runSuccess.map(true));
 
 						model.commit();
-						ctx.notifyProgress();
+						ctx.incrementProgress();
 					}
 					catch(final Exception cause)
 					{

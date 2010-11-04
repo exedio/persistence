@@ -27,7 +27,7 @@ final class MockTaskContext implements ExperimentalTaskContext
 	private int requestsStop;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
-	public boolean requestsStop()
+	public boolean requestedToStop()
 	{
 		requestsStop++;
 		return false;
@@ -38,7 +38,7 @@ final class MockTaskContext implements ExperimentalTaskContext
 		return requestsStop;
 	}
 
-	public void notifyProgress(final int delta)
+	public void incrementProgress(final int delta)
 	{
 		progress.add(delta);
 	}

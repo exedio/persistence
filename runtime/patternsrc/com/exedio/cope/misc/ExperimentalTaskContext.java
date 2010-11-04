@@ -20,6 +20,6 @@ package com.exedio.cope.misc;
 
 interface ExperimentalTaskContext
 {
-	boolean requestsStop();
-	void notifyProgress();
+	boolean requestedToStop();
+	void incrementProgress();
 }

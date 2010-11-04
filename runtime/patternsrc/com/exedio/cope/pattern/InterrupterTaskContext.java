@@ -42,7 +42,7 @@ abstract class InterrupterTaskContext
 			this.interrupter = interrupter;
 		}
 
-		public boolean requestsStop()
+		public boolean requestedToStop()
 		{
 			if(finished)
 				throw new IllegalStateException("finished");
@@ -50,7 +50,7 @@ abstract class InterrupterTaskContext
 			return interrupter!=null && interrupter.isRequested();
 		}
 
-		public void notifyProgress()
+		public void incrementProgress()
 		{
 			if(finished)
 				throw new IllegalStateException("finished");

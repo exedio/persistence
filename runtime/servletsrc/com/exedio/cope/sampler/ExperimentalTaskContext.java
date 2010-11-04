@@ -20,6 +20,6 @@ package com.exedio.cope.sampler;
 
 interface ExperimentalTaskContext
 {
-	boolean requestsStop();
-	void notifyProgress(int delta);
+	boolean requestedToStop();
+	void incrementProgress(int delta);
 }

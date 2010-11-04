@@ -130,7 +130,7 @@ final class SamplerPurge extends Item
 			model.rollbackIfNotCommitted();
 		}
 
-		ctx.notifyProgress(rows);
+		ctx.incrementProgress(rows);
 	}
 
 

@@ -282,13 +282,13 @@ public final class Sampler
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 				SamplerPurge.TYPE!=type)
 			{
-				if(ctx.requestsStop())
+				if(ctx.requestedToStop())
 					return;
 
 				SamplerPurge.purge(type, limit, ctx);
 			}
 
-		if(ctx.requestsStop())
+		if(ctx.requestedToStop())
 			return;
 
 		SamplerPurge.purge(SamplerModel.TYPE, limit, ctx);

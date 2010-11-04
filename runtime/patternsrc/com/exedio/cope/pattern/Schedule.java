@@ -329,13 +329,13 @@ public final class Schedule extends Pattern
 		{
 			public boolean isRequested()
 			{
-				return ctx.requestsStop();
+				return ctx.requestedToStop();
 			}
 		};
 
 		for(final P item : toRun)
 		{
-			if(ctx.requestsStop())
+			if(ctx.requestedToStop())
 				return;
 
 			final Scheduleable itemCasted = (Scheduleable)item;
@@ -371,7 +371,7 @@ public final class Schedule extends Pattern
 					this.runRun.map(now),
 					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
 				model.commit();
-				ctx.notifyProgress();
+				ctx.incrementProgress();
 			}
 			finally
 			{
