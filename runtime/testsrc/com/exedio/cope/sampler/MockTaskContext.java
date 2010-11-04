@@ -24,11 +24,18 @@ import java.util.List;
 
 final class MockTaskContext implements ExperimentalTaskContext
 {
+	private int requestsStop;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
 	public boolean requestsStop()
 	{
+		requestsStop++;
 		return false;
+	}
+
+	int getRequestsStop()
+	{
+		return requestsStop;
 	}
 
 	public void notifyProgress(final int delta)
