@@ -63,7 +63,7 @@ public class PurgeTest extends ConnectedTest
 	{
 		final MockJobContext ctx = new MockJobContext();
 		sampler.purge(date, ctx);
-		assertEquals(4, ctx.getRequestsStop());
+		assertEquals(4, ctx.getRequestedToStopCount());
 		final ArrayList<Integer> progressList = new ArrayList<Integer>();
 		for(final int p : progress)
 			progressList.add(p);

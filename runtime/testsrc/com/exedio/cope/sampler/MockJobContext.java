@@ -26,18 +26,18 @@ import com.exedio.cope.util.JobContext;
 
 final class MockJobContext implements JobContext
 {
-	private int requestsStop;
+	private int requestedToStopCount;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
 	public boolean requestedToStop()
 	{
-		requestsStop++;
+		requestedToStopCount++;
 		return false;
 	}
 
-	int getRequestsStop()
+	int getRequestedToStopCount()
 	{
-		return requestsStop;
+		return requestedToStopCount;
 	}
 
 	public void incrementProgress(final int delta)
