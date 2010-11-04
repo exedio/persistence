@@ -36,7 +36,6 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class SamplerPurge extends Item
@@ -54,7 +53,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static int purge(final int days, final Interrupter interrupter)
+	static void purge(final int days, final ExperimentalTaskContext ctx)
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -62,18 +61,7 @@ final class SamplerPurge extends Item
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
 		cal.add(cal.DATE, -days);
-		return purge(cal.getTime(), interrupter);
-	}
-
-	private static int purge(final Date limit, final Interrupter interrupter)
-	{
-		return InterrupterTaskContext.run(
-			interrupter,
-			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
-			{
-				purge(limit, ctx);
-			}}
-		);
+		purge(cal.getTime(), ctx);
 	}
 
 	static void purge(final Date limit, final ExperimentalTaskContext ctx) // non-private for testing
