@@ -45,7 +45,7 @@ public final class Delete
 		);
 	}
 
-	static void delete(
+	public static void delete(
 			final Query<? extends Item> query,
 			final String transactionName,
 			final JobContext ctx)
