@@ -24,7 +24,7 @@ import java.util.List;
 
 import com.exedio.cope.util.JobContext;
 
-final class MockTaskContext implements JobContext
+final class MockJobContext implements JobContext
 {
 	private int requestsStop;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
