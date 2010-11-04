@@ -23,6 +23,7 @@ import static com.exedio.cope.Query.newQuery;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -262,6 +263,22 @@ public final class Sampler
 				(Date)dates.get(0),
 				(Date)dates.get(1),
 			};
+	}
+
+	static void purge(final int days, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	{
+		if(days<=0)
+			throw new IllegalArgumentException(String.valueOf(days));
+
+		final GregorianCalendar cal = new GregorianCalendar();
+		cal.setTimeInMillis(System.currentTimeMillis());
+		cal.add(cal.DATE, -days);
+		purge(cal.getTime(), ctx);
+	}
+
+	static void purge(final Date limit, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	{
+		SamplerPurge.purge(limit, ctx);
 	}
 
 	@Override

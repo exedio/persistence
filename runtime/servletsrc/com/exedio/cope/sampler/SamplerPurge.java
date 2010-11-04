@@ -23,7 +23,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
@@ -53,18 +52,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static void purge(final int days, final ExperimentalTaskContext ctx)
-	{
-		if(days<=0)
-			throw new IllegalArgumentException(String.valueOf(days));
-
-		final GregorianCalendar cal = new GregorianCalendar();
-		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(cal.DATE, -days);
-		purge(cal.getTime(), ctx);
-	}
-
-	static void purge(final Date limit, final ExperimentalTaskContext ctx) // non-private for testing
+	static void purge(final Date limit, final ExperimentalTaskContext ctx)
 	{
 		for(final Type type : TYPE.getModel().getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
