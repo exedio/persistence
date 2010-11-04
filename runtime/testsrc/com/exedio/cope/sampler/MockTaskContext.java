@@ -18,9 +18,13 @@
 
 package com.exedio.cope.sampler;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 final class MockTaskContext implements ExperimentalTaskContext
 {
-	private int progress = 0;
+	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
 	public boolean requestsStop()
 	{
@@ -29,11 +33,11 @@ final class MockTaskContext implements ExperimentalTaskContext
 
 	public void notifyProgress(final int delta)
 	{
-		progress += delta;
+		progress.add(delta);
 	}
 
-	int getProgress()
+	List<Integer> getProgress()
 	{
-		return progress;
+		return Collections.unmodifiableList(progress);
 	}
 }

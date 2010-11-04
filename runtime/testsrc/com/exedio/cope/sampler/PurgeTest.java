@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PurgeTest extends ConnectedTest
@@ -35,7 +36,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertPurge(0, new Date());
+		assertPurge(new Date(), 0, 0, 0, 0);
 
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
@@ -44,24 +45,27 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(1, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertPurge(c?3:2, new Date());
+		assertPurge(new Date(), c?1:0, 0, 1, 1);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertPurge(0, new Date());
+		assertPurge(new Date(), 0, 0, 0, 0);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 	}
 
-	private static final void assertPurge(final int progress, final Date date)
+	private static final void assertPurge(final Date date, final int... progress)
 	{
 		final MockTaskContext ctx = new MockTaskContext();
 		SamplerPurge.purge(date, ctx);
-		assertEquals(progress, ctx.getProgress());
+		final ArrayList<Integer> progressList = new ArrayList<Integer>();
+		for(final int p : progress)
+			progressList.add(p);
+		assertEquals(progressList, ctx.getProgress());
 	}
 }
