@@ -228,12 +228,6 @@ public final class Sampler
 		}
 	}
 
-	@Override
-	public String toString()
-	{
-		return name;
-	}
-
 	int analyzeCount(final Type type)
 	{
 		final int result;
@@ -268,5 +262,11 @@ public final class Sampler
 				(Date)dates.get(0),
 				(Date)dates.get(1),
 			};
+	}
+
+	@Override
+	public String toString()
+	{
+		return name;
 	}
 }
