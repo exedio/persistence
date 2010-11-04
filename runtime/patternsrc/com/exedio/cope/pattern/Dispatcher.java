@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
 import java.io.ByteArrayOutputStream;
@@ -45,6 +46,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Dispatcher extends Pattern
 {
@@ -227,16 +230,16 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
-		return InterrupterTaskContext.run(
+		return run(
 			interrupter,
-			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
+			new Body(){public void run(final JobContext ctx)
 			{
 				dispatch(parentClass, config, ctx);
 			}}
 		);
 	}
 
-	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final ExperimentalTaskContext ctx)
+	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");

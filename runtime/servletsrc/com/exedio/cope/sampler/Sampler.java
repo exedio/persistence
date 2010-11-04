@@ -42,6 +42,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
@@ -265,7 +266,7 @@ public final class Sampler
 			};
 	}
 
-	void purge(final int days, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	void purge(final int days, final JobContext ctx) // TODO make public
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -276,7 +277,7 @@ public final class Sampler
 		purge(cal.getTime(), ctx);
 	}
 
-	void purge(final Date limit, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	void purge(final Date limit, final JobContext ctx) // TODO make public
 	{
 		for(final Type type : samplerModel.getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end

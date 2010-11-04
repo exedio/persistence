@@ -18,12 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
+
 import java.util.List;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Delete
 {
@@ -32,9 +36,9 @@ public final class Delete
 			final String transactionName,
 			final Interrupter interrupter)
 	{
-		return InterrupterTaskContext.run(
+		return run(
 			interrupter,
-			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
+			new Body(){public void run(final JobContext ctx)
 			{
 				delete(query, transactionName, ctx);
 			}}
@@ -44,7 +48,7 @@ public final class Delete
 	static void delete(
 			final Query<? extends Item> query,
 			final String transactionName,
-			final ExperimentalTaskContext ctx)
+			final JobContext ctx)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");

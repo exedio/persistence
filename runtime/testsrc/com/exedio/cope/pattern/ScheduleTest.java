@@ -35,6 +35,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
@@ -197,7 +198,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		try
 		{
-			report.run((ExperimentalTaskContext)null, null);
+			report.run((JobContext)null, null);
 			fail();
 		}
 		catch(final NullPointerException e)

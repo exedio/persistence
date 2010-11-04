@@ -35,6 +35,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class SamplerPurge extends Item
@@ -52,7 +53,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static void purge(final Type type, final Date limit, final ExperimentalTaskContext ctx)
+	static void purge(final Type type, final Date limit, final JobContext ctx)
 	{
 		if(ctx.requestedToStop())
 			return;

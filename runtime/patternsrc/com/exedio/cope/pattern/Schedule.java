@@ -53,6 +53,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.InterrupterJobContextAdapter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Schedule extends Pattern
 {
@@ -259,21 +262,21 @@ public final class Schedule extends Pattern
 	int run(final Interrupter interrupter, final Date now)
 	{
 		final Schedule s = this;
-		return InterrupterTaskContext.run(
+		return InterrupterJobContextAdapter.run(
 			interrupter,
-			new InterrupterTaskContext(){@Override void run(final ExperimentalTaskContext ctx)
+			new Body(){public void run(final JobContext ctx)
 			{
 				s.run(ctx, now);
 			}}
 		);
 	}
 
-	void run(final ExperimentalTaskContext ctx, final Date now)
+	void run(final JobContext ctx, final Date now)
 	{
 		run(getType(), ctx, now);
 	}
 
-	private <P extends Item> void run(final Type<P> type, final ExperimentalTaskContext ctx, final Date now)
+	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");

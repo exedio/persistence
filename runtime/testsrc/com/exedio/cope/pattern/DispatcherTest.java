@@ -30,6 +30,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {
@@ -220,7 +221,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (ExperimentalTaskContext)null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)

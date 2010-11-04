@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-final class MockTaskContext implements ExperimentalTaskContext
+import com.exedio.cope.util.JobContext;
+
+final class MockTaskContext implements JobContext
 {
 	private int requestsStop;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
@@ -46,5 +48,38 @@ final class MockTaskContext implements ExperimentalTaskContext
 	List<Integer> getProgress()
 	{
 		return Collections.unmodifiableList(progress);
+	}
+
+
+	// all others are not used
+
+	public boolean supportsMessage()
+	{
+		throw new RuntimeException();
+	}
+
+	public void setMessage(final String message)
+	{
+		throw new RuntimeException();
+	}
+
+	public boolean supportsProgress()
+	{
+		throw new RuntimeException();
+	}
+
+	public void incrementProgress()
+	{
+		throw new RuntimeException();
+	}
+
+	public boolean supportsCompleteness()
+	{
+		throw new RuntimeException();
+	}
+
+	public void setCompleteness(final double completeness)
+	{
+		throw new RuntimeException();
 	}
 }
