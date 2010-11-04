@@ -186,6 +186,13 @@ public final class Dispatcher extends Pattern
 			setStatic());
 
 		result.add(
+			new Wrapper("dispatch").
+			addComment("Dispatch by {0}.").
+			addParameter(Config.class, "config").
+			addParameter(JobContext.class, "ctx").
+			setStatic());
+
+		result.add(
 			new Wrapper("isPending").
 			addComment("Returns, whether this item is yet to be dispatched by {0}.").
 			setReturn(boolean.class));
@@ -239,7 +246,7 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
-	<P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");

@@ -230,6 +230,10 @@ public final class Schedule extends Pattern
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
 			setStatic(false));
+		result.add(
+			new Wrapper("run").
+			addParameter(JobContext.class, "ctx").
+			setStatic(false));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -257,6 +261,11 @@ public final class Schedule extends Pattern
 	public int run(final Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
+	}
+
+	public void run(final JobContext ctx)
+	{
+		run(ctx, new Date());
 	}
 
 	int run(final Interrupter interrupter, final Date now)
