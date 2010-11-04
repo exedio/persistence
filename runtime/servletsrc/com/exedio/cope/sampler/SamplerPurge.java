@@ -54,6 +54,9 @@ final class SamplerPurge extends Item
 
 	static void purge(final Type type, final Date limit, final ExperimentalTaskContext ctx)
 	{
+		if(ctx.requestedToStop())
+			return;
+
 		final DateField field = (DateField)type.getFeature("date");
 		if(field==null)
 			throw new RuntimeException(type.getID());
