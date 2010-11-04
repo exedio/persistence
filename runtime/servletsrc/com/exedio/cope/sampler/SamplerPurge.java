@@ -52,25 +52,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static void purge(final Date limit, final ExperimentalTaskContext ctx)
-	{
-		for(final Type type : TYPE.getModel().getTypes())
-			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-				TYPE!=type)
-			{
-				if(ctx.requestsStop())
-					return;
-
-				purge(type, limit, ctx);
-			}
-
-		if(ctx.requestsStop())
-			return;
-
-		purge(SamplerModel.TYPE, limit, ctx);
-	}
-
-	private static void purge(final Type type, final Date limit, final ExperimentalTaskContext ctx)
+	static void purge(final Type type, final Date limit, final ExperimentalTaskContext ctx)
 	{
 		final DateField field = (DateField)type.getFeature("date");
 		if(field==null)

@@ -265,7 +265,7 @@ public final class Sampler
 			};
 	}
 
-	static void purge(final int days, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	void purge(final int days, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -276,9 +276,22 @@ public final class Sampler
 		purge(cal.getTime(), ctx);
 	}
 
-	static void purge(final Date limit, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
+	void purge(final Date limit, final ExperimentalTaskContext ctx) // TODO make public when ExperimentalTaskContext is public
 	{
-		SamplerPurge.purge(limit, ctx);
+		for(final Type type : samplerModel.getTypes())
+			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
+				SamplerPurge.TYPE!=type)
+			{
+				if(ctx.requestsStop())
+					return;
+
+				SamplerPurge.purge(type, limit, ctx);
+			}
+
+		if(ctx.requestsStop())
+			return;
+
+		SamplerPurge.purge(SamplerModel.TYPE, limit, ctx);
 	}
 
 	@Override
