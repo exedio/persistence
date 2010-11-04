@@ -34,7 +34,7 @@
 		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="170" />
+		<dependency org="com.exedio" name="copeutil" rev="171" />
 		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
 		<dependency org="com.exedio" name="copeconsole" rev="6294" conf="build->runtime" />
 	</dependencies>

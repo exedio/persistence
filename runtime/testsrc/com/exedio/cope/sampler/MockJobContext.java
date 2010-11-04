@@ -22,13 +22,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.AssertionErrorJobContext;
 
-final class MockJobContext implements JobContext
+final class MockJobContext extends AssertionErrorJobContext
 {
 	private int requestedToStopCount;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
+	@Override
 	public boolean requestedToStop()
 	{
 		requestedToStopCount++;
@@ -40,6 +41,7 @@ final class MockJobContext implements JobContext
 		return requestedToStopCount;
 	}
 
+	@Override
 	public void incrementProgress(final int delta)
 	{
 		progress.add(delta);
@@ -48,38 +50,5 @@ final class MockJobContext implements JobContext
 	List<Integer> getProgress()
 	{
 		return Collections.unmodifiableList(progress);
-	}
-
-
-	// all others are not used
-
-	public boolean supportsMessage()
-	{
-		throw new RuntimeException();
-	}
-
-	public void setMessage(final String message)
-	{
-		throw new RuntimeException();
-	}
-
-	public boolean supportsProgress()
-	{
-		throw new RuntimeException();
-	}
-
-	public void incrementProgress()
-	{
-		throw new RuntimeException();
-	}
-
-	public boolean supportsCompleteness()
-	{
-		throw new RuntimeException();
-	}
-
-	public void setCompleteness(final double completeness)
-	{
-		throw new RuntimeException();
 	}
 }
