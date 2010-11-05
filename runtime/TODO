@@ -45,23 +45,12 @@ TODO for cope runtime
 - enable clustering
 	* make revisions cluster aware
 	* test configuration of tomcat
-	* use auto-increment instead of sequences
 - move DateField#touch into separate pattern Timestamp
 - FieldListLimited: allow length terminated instead of null terminated as well
 - SetFieldOrdered: SetField with explicit order
 - patterns such as PriceField as function for select and orderBy
-- Cache: store values in three arrays int[], double[], String[] instead of a Map,
-	saves lots of objects going through full GC.
-	* implement pooling for various classes, especcially when trove LinkedHashMap is done
-- QueryCache:
-	* implement similar compact representation as for Cache
-	* special handling for empty/singleton results saving memory
 - Copy Constraint for non-final fields
 - allow declaring indexes / other schema modification in SQL.
-- trove:
-	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
-	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
-- rethink internal structure of Entity, State, Row
 - use getForeignKeyInfo() etc. from JDBC for verifying dsmf schema
 - allow (fulltext) indexes to be declared in java source code,
 	and generate useful finders for index.
@@ -81,3 +70,14 @@ performance / memory consumption
 	* replace expensive connection testing on retrieval from pool
 		by periodic expiry of connections that have not been used for some time.
 	* show information about expired connection / last expiry run in console
+- Use auto-increment instead of sequences
+- Cache: store values in three arrays int[], double[], String[] instead of a Map,
+	saves lots of objects going through full GC.
+	* implement pooling for various classes, especcially when trove LinkedHashMap is done
+- QueryCache:
+	* implement similar compact representation as for Cache
+	* special handling for empty/singleton results saving memory
+- trove:
+	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
+	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
+- rethink internal structure of Entity, State, Row
