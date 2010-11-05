@@ -71,7 +71,7 @@ performance / memory consumption
 		by periodic expiry of connections that have not been used for some time.
 	* show information about expired connection / last expiry run in console
 - Use auto-increment instead of sequences
-- Cache: store values in three arrays int[], double[], String[] instead of a Map,
+- ItemCache: store values in three arrays int[], double[], String[] instead of a Map,
 	saves lots of objects going through full GC.
 	* implement pooling for various classes, especcially when trove LinkedHashMap is done
 - QueryCache:
