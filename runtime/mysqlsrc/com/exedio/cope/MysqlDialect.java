@@ -337,10 +337,9 @@ final class MysqlDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
-					throw new RuntimeException("null in sequence " + name);
-				return ((Integer)o);
+
+				// converts null into integer 0
+				return resultSet.getInt(1);
 			}
 		});
 	}

@@ -49,19 +49,7 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 
 		deleteOnTearDown(new PrimaryKeyItem("first", 5));
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		if(c&&mysql) // TODO
-		{
-			try
-			{
-				next.checkDefaultToNext();
-				fail();
-			}
-			catch(final RuntimeException e)
-			{
-				assertEquals("null in sequence PrimaryKeyItem_next_Seq", e.getMessage());
-			}
-		}
-		else if(c&&oracle) // TODO
+		if(c&&oracle) // TODO
 		{
 			try
 			{
