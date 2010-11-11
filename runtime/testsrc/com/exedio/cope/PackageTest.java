@@ -39,6 +39,7 @@ public class PackageTest extends TestCase
 
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 
+		suite.addTestSuite( PrimaryKeyTest.class );
 		suite.addTestSuite( CapabilitiesTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
 		suite.addTestSuite( TestGetModelTest.class );

@@ -507,8 +507,13 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
+		assertInfo(feature, count, first, last, info, 0);
+	}
+
+	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
-		assertEquals(0, feature.checkDefaultToNext());
+		assertEquals(check, feature.checkDefaultToNext());
 	}
 
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
@@ -531,8 +536,13 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
+		assertInfo(feature, info, 0);
+	}
+
+	protected void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
+	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
-		assertEquals(0, feature.checkDefaultToNext());
+		assertEquals(check, feature.checkDefaultToNext());
 	}
 
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
