@@ -81,3 +81,4 @@ performance / memory consumption
 	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
 	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
 - rethink internal structure of Entity, State, Row
+- special handling of searches by unique constraints, bypassing QueryCache
