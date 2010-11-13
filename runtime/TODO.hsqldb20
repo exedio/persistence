@@ -2,4 +2,5 @@
 * LimitSupport.CLAUSE_AFTER_SELECT
 * remove hsqldb-specific code in DialectParameters constructor
 * add Dialect#getStringLength()
+* check default implementation of Dialect#getBytes
 * remove AbstractRuntimeTest.noJoinParentheses
