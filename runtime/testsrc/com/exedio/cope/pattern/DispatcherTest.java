@@ -344,11 +344,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return dispatch(expectedResult, requestsBeforeStop, requestsBeforeStop+1);
 	}
 
-	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop, final int expectedCalls)
+	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop, final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
 		final DateRange result = dispatch(ci);
-		assertEquals(expectedCalls, ci.requestsToStop);
+		assertEquals(expectedRequestsToStop, ci.requestsToStop);
 		assertEquals(expectedResult, ci.progress);
 		return result;
 	}
