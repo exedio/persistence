@@ -29,7 +29,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Run;
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 
 public class DispatcherTest extends AbstractRuntimeTest
@@ -203,7 +204,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (Interrupter)null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -212,7 +213,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null, (Interrupter)null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -299,33 +300,42 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	private DateRange dispatch(final int expectedResult)
 	{
-		return dispatch(expectedResult, null);
+		final CountInterrupter ci = new CountInterrupter(Integer.MAX_VALUE);
+		final DateRange result = dispatch(ci);
+		assertEquals(expectedResult, ci.progress);
+		return result;
 	}
 
-	private DateRange dispatch(final int expectedResult, final Interrupter interrupter)
+	private DateRange dispatch(final JobContext interrupter)
 	{
 		model.commit();
 		final Date before = new Date();
-		final int actualResult = item.dispatchToTarget(config, interrupter);
+		item.dispatchToTarget(config, interrupter);
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
-		assertEquals(expectedResult, actualResult);
 		return new DateRange(before, after);
 	}
 
-	private static class CountInterrupter implements Interrupter
+	private static class CountInterrupter extends AssertionErrorJobContext
 	{
 		final int callsWithoutInterrupt;
 		int calls = 0;
+		int progress = 0;
 
 		CountInterrupter(final int callsWithoutInterrupt)
 		{
 			this.callsWithoutInterrupt = callsWithoutInterrupt;
 		}
 
-		public boolean isRequested()
+		@Override public boolean requestedToStop()
 		{
 			return (calls++)>=callsWithoutInterrupt;
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			progress++;
 		}
 	}
 
@@ -337,8 +347,9 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt, final int expectedCalls)
 	{
 		final CountInterrupter ci = new CountInterrupter(callsWithoutInterrupt);
-		final DateRange result = dispatch(expectedResult, ci);
+		final DateRange result = dispatch(ci);
 		assertEquals(expectedCalls, ci.calls);
+		assertEquals(expectedResult, ci.progress);
 		return result;
 	}
 
