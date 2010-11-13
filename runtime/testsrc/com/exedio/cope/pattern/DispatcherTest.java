@@ -231,7 +231,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	public void testInterrupt0()
+	public void testStop0()
 	{
 		dispatch(0, 0);
 		assertPending(item1, 0, list());
@@ -240,7 +240,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt1()
+	public void testStop1()
 	{
 		final DateRange d = dispatch(1, 1);
 		assertSuccess(item1, 1, d, list());
@@ -249,7 +249,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt2()
+	public void testStop2()
 	{
 		final DateRange d = dispatch(1, 2);
 		assertSuccess(item1, 1, d, list());
@@ -258,7 +258,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt3()
+	public void testStop3()
 	{
 		final DateRange d = dispatch(2, 3);
 		assertSuccess(item1, 1, d, list());
@@ -267,7 +267,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt4()
+	public void testStop4()
 	{
 		final DateRange d = dispatch(2, 4, 4);
 		assertSuccess(item1, 1, d, list());
@@ -276,7 +276,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list(d));
 	}
 
-	public void testInterrupt5()
+	public void testStop5()
 	{
 		final DateRange d = dispatch(2, 5, 4);
 		assertSuccess(item1, 1, d, list());
