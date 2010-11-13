@@ -318,18 +318,18 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	private static class JC extends AssertionErrorJobContext
 	{
-		final int callsWithoutInterrupt;
+		final int requestsBeforeStop;
 		int calls = 0;
 		int progress = 0;
 
-		JC(final int callsWithoutInterrupt)
+		JC(final int requestsBeforeStop)
 		{
-			this.callsWithoutInterrupt = callsWithoutInterrupt;
+			this.requestsBeforeStop = requestsBeforeStop;
 		}
 
 		@Override public boolean requestedToStop()
 		{
-			return (calls++)>=callsWithoutInterrupt;
+			return (calls++)>=requestsBeforeStop;
 		}
 
 		@Override
