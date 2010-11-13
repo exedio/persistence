@@ -306,11 +306,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return result;
 	}
 
-	private DateRange dispatch(final JC interrupter)
+	private DateRange dispatch(final JC ctx)
 	{
 		model.commit();
 		final Date before = new Date();
-		item.dispatchToTarget(config, interrupter);
+		item.dispatchToTarget(config, ctx);
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
 		return new DateRange(before, after);
