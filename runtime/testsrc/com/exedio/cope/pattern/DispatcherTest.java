@@ -319,7 +319,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static class JC extends AssertionErrorJobContext
 	{
 		final int requestsBeforeStop;
-		int calls = 0;
+		int requestsToStop = 0;
 		int progress = 0;
 
 		JC(final int requestsBeforeStop)
@@ -329,7 +329,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		@Override public boolean requestedToStop()
 		{
-			return (calls++)>=requestsBeforeStop;
+			return (requestsToStop++)>=requestsBeforeStop;
 		}
 
 		@Override
@@ -348,7 +348,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	{
 		final JC ci = new JC(callsWithoutInterrupt);
 		final DateRange result = dispatch(ci);
-		assertEquals(expectedCalls, ci.calls);
+		assertEquals(expectedCalls, ci.requestsToStop);
 		assertEquals(expectedResult, ci.progress);
 		return result;
 	}
