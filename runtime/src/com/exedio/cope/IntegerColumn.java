@@ -124,7 +124,10 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
+			// Additional parenthesis are needed for hsqldb,
+			// see http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
 			final boolean hsqldb = table.database.hsqldb;
+
 			final StringBuilder bf = new StringBuilder();
 			if(hsqldb)
 				bf.append('(');
