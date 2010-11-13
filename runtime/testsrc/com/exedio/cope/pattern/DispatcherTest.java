@@ -339,14 +339,14 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt)
+	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop)
 	{
-		return dispatch(expectedResult, callsWithoutInterrupt, callsWithoutInterrupt+1);
+		return dispatch(expectedResult, requestsBeforeStop, requestsBeforeStop+1);
 	}
 
-	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt, final int expectedCalls)
+	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop, final int expectedCalls)
 	{
-		final JC ci = new JC(callsWithoutInterrupt);
+		final JC ci = new JC(requestsBeforeStop);
 		final DateRange result = dispatch(ci);
 		assertEquals(expectedCalls, ci.requestsToStop);
 		assertEquals(expectedResult, ci.progress);
