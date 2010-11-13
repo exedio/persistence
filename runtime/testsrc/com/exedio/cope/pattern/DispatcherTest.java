@@ -306,7 +306,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return result;
 	}
 
-	private DateRange dispatch(final JobContext interrupter)
+	private DateRange dispatch(final JC interrupter)
 	{
 		model.commit();
 		final Date before = new Date();
