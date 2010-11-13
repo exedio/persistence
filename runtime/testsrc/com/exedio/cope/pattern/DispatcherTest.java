@@ -339,12 +339,20 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(final int expectedProgress, final int requestsBeforeStop)
+	private DateRange dispatch(
+			final int expectedProgress,
+			final int requestsBeforeStop)
 	{
-		return dispatch(expectedProgress, requestsBeforeStop, requestsBeforeStop+1);
+		return dispatch(
+				expectedProgress,
+				requestsBeforeStop,
+				requestsBeforeStop+1);
 	}
 
-	private DateRange dispatch(final int expectedProgress, final int requestsBeforeStop, final int expectedRequestsToStop)
+	private DateRange dispatch(
+			final int expectedProgress,
+			final int requestsBeforeStop,
+			final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
 		final DateRange result = dispatch(ci);
@@ -353,7 +361,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return result;
 	}
 
-	private static void assertSuccess(final DispatcherItem item, final int dispatchCountCommitted, final DateRange date, final List failures)
+	private static void assertSuccess(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final DateRange date,
+			final List failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -364,7 +376,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size()+dispatchCountCommitted, failures, item, 0);
 	}
 
-	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
+	private static void assertPending(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final List failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -372,7 +387,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
 	}
 
-	private static void assertFailed(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
+	private static void assertFailed(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final List failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -380,7 +398,12 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
 	}
 
-	private static void assertIt(final int dispatchCountCommitted, final int dispatchCount, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
+	private static void assertIt(
+			final int dispatchCountCommitted,
+			final int dispatchCount,
+			final List failures,
+			final DispatcherItem item,
+			final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
