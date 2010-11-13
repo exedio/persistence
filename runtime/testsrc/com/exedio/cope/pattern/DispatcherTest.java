@@ -300,7 +300,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	private DateRange dispatch(final int expectedResult)
 	{
-		final CountInterrupter ci = new CountInterrupter(Integer.MAX_VALUE);
+		final JC ci = new JC(Integer.MAX_VALUE);
 		final DateRange result = dispatch(ci);
 		assertEquals(expectedResult, ci.progress);
 		return result;
@@ -316,13 +316,13 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return new DateRange(before, after);
 	}
 
-	private static class CountInterrupter extends AssertionErrorJobContext
+	private static class JC extends AssertionErrorJobContext
 	{
 		final int callsWithoutInterrupt;
 		int calls = 0;
 		int progress = 0;
 
-		CountInterrupter(final int callsWithoutInterrupt)
+		JC(final int callsWithoutInterrupt)
 		{
 			this.callsWithoutInterrupt = callsWithoutInterrupt;
 		}
@@ -346,7 +346,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt, final int expectedCalls)
 	{
-		final CountInterrupter ci = new CountInterrupter(callsWithoutInterrupt);
+		final JC ci = new JC(callsWithoutInterrupt);
 		final DateRange result = dispatch(ci);
 		assertEquals(expectedCalls, ci.calls);
 		assertEquals(expectedResult, ci.progress);
