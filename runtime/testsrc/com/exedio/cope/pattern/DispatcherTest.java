@@ -298,11 +298,11 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(final int expectedResult)
+	private DateRange dispatch(final int expectedProgress)
 	{
 		final JC ci = new JC(Integer.MAX_VALUE);
 		final DateRange result = dispatch(ci);
-		assertEquals(expectedResult, ci.progress);
+		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
 
@@ -339,17 +339,17 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop)
+	private DateRange dispatch(final int expectedProgress, final int requestsBeforeStop)
 	{
-		return dispatch(expectedResult, requestsBeforeStop, requestsBeforeStop+1);
+		return dispatch(expectedProgress, requestsBeforeStop, requestsBeforeStop+1);
 	}
 
-	private DateRange dispatch(final int expectedResult, final int requestsBeforeStop, final int expectedRequestsToStop)
+	private DateRange dispatch(final int expectedProgress, final int requestsBeforeStop, final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
 		final DateRange result = dispatch(ci);
 		assertEquals(expectedRequestsToStop, ci.requestsToStop);
-		assertEquals(expectedResult, ci.progress);
+		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
 
