@@ -44,8 +44,8 @@ public final class HsqldbDialect extends Dialect
 				return "timestamp";
 			case Types.DATE:
 				return "date";
-			case Types.BINARY:
-				return "binary";
+			case Types.BLOB:
+				return "blob";
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "varchar("+columnSize+')';
@@ -87,7 +87,7 @@ public final class HsqldbDialect extends Dialect
 							String checkClause = resultSet.getString(4);
 							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
 								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
-							
+
 							checkClause = checkClause.replace("PUBLIC.", "");
 
 							table.notifyExistentCheckConstraint(constraintName, checkClause);

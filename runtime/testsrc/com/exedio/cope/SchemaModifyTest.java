@@ -284,7 +284,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(true, table.exists());
 			assertEquals(null, table.getError());
 			assertEquals(Schema.Color.OK, table.getParticularColor());
-			//assertEquals(Schema.Color.OK, table.getCumulativeColor()); TODO---------------
+			assertEquals(Schema.Color.OK, table.getCumulativeColor());
 
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
