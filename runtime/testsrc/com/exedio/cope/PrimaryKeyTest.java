@@ -37,7 +37,7 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	public void testSingleTransaction()
 	{
 		final boolean c = model.getConnectProperties().cluster.booleanValue();
 		final boolean cm = (!hsqldb)||c;
@@ -72,5 +72,43 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PrimaryKeyItem("third"));
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, cm?0:6, cm?1:7, next.getDefaultToNextInfo(), cm?4:0);
+	}
+
+	public void testMultipleTransactions()
+	{
+		final boolean c = model.getConnectProperties().cluster.booleanValue();
+
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
+
+		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
+		assertInfo(next, next.getDefaultToNextInfo());
+
+		deleteOnTearDown(new PrimaryKeyItem("first", 5));
+		restartTransaction();
+		assertInfo(TYPE, 1, c?3:0, c?3:0, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
+		assertInfo(next, next.getDefaultToNextInfo(), c?4:0);
+
+		deleteOnTearDown(new PrimaryKeyItem("second"));
+		restartTransaction();
+		assertInfo(TYPE, 2, c?3:0, c?4:1, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
+		if(c&&oracle) // TODO
+		{
+			try
+			{
+				next.checkDefaultToNext();
+				fail();
+			}
+			catch(final SQLRuntimeException e)
+			{
+				assertEquals("SELECT \"PrimaryKeyItem_next_Seq\".currval FROM DUAL", e.getMessage());
+			}
+		}
+		else
+			assertInfo(next, 1, c?2:6, c?2:6, next.getDefaultToNextInfo(), c?3:0);
+
+		deleteOnTearDown(new PrimaryKeyItem("third"));
+		restartTransaction();
+		assertInfo(TYPE, 3, c?3:0, c?5:2, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
+		assertInfo(next, 2, c?2:6, c?3:7, next.getDefaultToNextInfo(), c?(oracle?3:2):0);
 	}
 }
