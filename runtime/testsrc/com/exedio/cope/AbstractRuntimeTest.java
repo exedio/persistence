@@ -501,8 +501,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info)
 	{
+		assertInfo(type, count, first, last, info, 0);
+	}
+	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
-		assertEquals(0, type.checkPrimaryKey());
+		assertEquals(check, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
