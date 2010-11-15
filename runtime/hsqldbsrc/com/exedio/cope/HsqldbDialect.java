@@ -153,7 +153,7 @@ final class HsqldbDialect extends Dialect
 	{
 		bf.append("CONVERT(").
 			append(source, join).
-			append(",VARCHAR)");
+			append(",VARCHAR(40))");
 	}
 
 	@Override
