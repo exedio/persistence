@@ -1,0 +1,100 @@
+/*
+ * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.misc;
+
+import java.util.Iterator;
+
+import com.exedio.cope.Condition;
+import com.exedio.cope.Item;
+import com.exedio.cope.Query;
+import com.exedio.cope.This;
+import com.exedio.cope.Type;
+
+public final class TypeIterator
+{
+	public static <E extends Item> Iterator<E> iterate(
+			final Type<E> type,
+			final Condition condition,
+			final int slice)
+	{
+		return new Iter<E>(type, condition, slice);
+	}
+
+	private static final class Iter<E extends Item> implements Iterator<E>
+	{
+		private final This<E> typeThis;
+		private final Condition condition;
+		private final Query<E> query;
+
+		private Iterator<E> iterator;
+		private E last = null;
+
+		Iter(
+				final Type<E> type,
+				final Condition condition,
+				final int slice)
+		{
+			if(type==null)
+				throw new NullPointerException("type");
+			if(slice<1)
+				throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
+
+			this.typeThis = type.getThis();
+			this.condition = condition;
+
+			this.query  = type.newQuery(condition);
+			query.setOrderBy(typeThis, true);
+			query.setLimit(0, slice);
+			this.iterator = query.search().iterator();
+		}
+
+		public boolean hasNext()
+		{
+			return iterator.hasNext();
+		}
+
+		public E next()
+		{
+			final E result = iterator.next();
+			if(result==null)
+				throw new NullPointerException("does not support null in result");
+			last = result;
+
+			if(!iterator.hasNext())
+			{
+				final Condition c = typeThis.greater(last);
+				query.setCondition(condition!=null ? condition.and(c) : c);
+				this.iterator = query.search().iterator();
+			}
+
+			return result;
+		}
+
+		public void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
+	}
+
+
+	private TypeIterator()
+	{
+		// prevent instantiation
+	}
+}

@@ -157,6 +157,14 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("TRIM(TO_CHAR(").
+			append(source, join).
+			append(", '9999999999999'))");
+	}
+
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		// TODO check for full text indexes

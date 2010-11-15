@@ -65,6 +65,25 @@ public final class Query<R>
 	/**
 	 * Copy Constructor
 	 */
+	public Query(final Query<R> query)
+	{
+		this.model = query.model;
+		this.selectSingle = query.selectSingle;
+		this.selectsMulti = query.selectsMulti;
+		this.distinct = query.distinct;
+		this.type = query.type;
+		this.joinIndex = query.joinIndex;
+		this.joins = query.joins!=null ? new ArrayList<Join>(query.joins) : null;
+		this.condition = query.condition;
+		this.orderBy = query.orderBy;
+		this.orderAscending = query.orderAscending;
+		this.offset = query.offset;
+		this.limit = query.limit;
+	}
+
+	/**
+	 * Copy Constructor
+	 */
 	public Query(final Selectable<? extends R> select, final Query<?> query)
 	{
 		this.model = query.model;

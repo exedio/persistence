@@ -18,12 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
+
 import java.util.List;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Delete
 {
@@ -32,13 +36,29 @@ public final class Delete
 			final String transactionName,
 			final Interrupter interrupter)
 	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				delete(query, transactionName, ctx);
+			}}
+		);
+	}
+
+	public static void delete(
+			final Query<? extends Item> query,
+			final String transactionName,
+			final JobContext ctx)
+	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
 		final int LIMIT = 100;
 		final Model model = query.getType().getModel();
-		int result = 0;
 		for(int transaction = 0; transaction<30; transaction++)
 		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
+			if(ctx.requestedToStop())
+				return;
 
 			try
 			{
@@ -48,14 +68,16 @@ public final class Delete
 				final List<? extends Item> items = query.search();
 				final int itemsSize = items.size();
 				if(itemsSize==0)
-					return result;
+					return;
 				for(final Item item : items)
+				{
 					item.deleteCopeItem();
-				result += itemsSize;
+					ctx.incrementProgress();
+				}
 				if(itemsSize<LIMIT)
 				{
 					model.commit();
-					return result;
+					return;
 				}
 
 				model.commit();
@@ -66,8 +88,7 @@ public final class Delete
 			}
 		}
 
-		System.out.println("Aborting " + transactionName + " after " + result);
-		return result;
+		System.out.println("Aborting " + transactionName);
 	}
 
 	private Delete()

@@ -34,8 +34,13 @@ final class ItemCache
 	 */
 	private final Cachlet[] cachlets;
 
-	ItemCache(final List<Type<?>> types, final int limit)
+	ItemCache(final List<Type<?>> typesSorted, final int limit)
 	{
+		final ArrayList<Type<?>> types = new ArrayList<Type<?>>(typesSorted.size());
+		for(final Type<?> type : typesSorted)
+			if(!type.isAbstract)
+				types.add(type);
+
 		final int l = types.size();
 
 		final int[] weights = new int[l];
@@ -54,8 +59,14 @@ final class ItemCache
 		cachlets = new Cachlet[l];
 		for(int i=0; i<l; i++)
 		{
+			final Type<?> type = types.get(i);
+			assert !type.isAbstract : type.id;
+			assert type.cacheIdTransiently>=0 : String.valueOf(type.cacheIdTransiently) + '/' + type.id;
+			assert type.cacheIdTransiently <l : String.valueOf(type.cacheIdTransiently) + '/' + type.id;
+			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
+
 			final int iLimit = weights[i] * limit / weightSum;
-			cachlets[i] = (iLimit>0) ? new Cachlet(types.get(i), iLimit) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit) : null;
 		}
 	}
 
@@ -76,6 +87,13 @@ final class ItemCache
 		}
 
 		return state;
+	}
+
+	void remove(final Item item)
+	{
+		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
+		if(cachlet!=null)
+			cachlet.remove(item.pk);
 	}
 
 	void invalidate(final TIntHashSet[] invalidations)
@@ -101,12 +119,13 @@ final class ItemCache
 		}
 	}
 
-	ItemCacheInfo[] getInfo()
+	ItemCacheInfo[] getInfo(final List<Type<?>> typesInOriginalOrder)
 	{
 		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
 
-		for(final Cachlet cachlet : cachlets)
+		for(final Type<?> type : typesInOriginalOrder)
 		{
+			final Cachlet cachlet = cachlets[type.cacheIdTransiently];
 			if(cachlet!=null)
 				result.add(cachlet.getInfo());
 		}
@@ -192,6 +211,14 @@ final class ItemCache
 					replacements += (mapSize - map.size());
 					lastReplacementRun = now;
 				}
+			}
+		}
+
+		void remove(final int pk)
+		{
+			synchronized(map)
+			{
+				map.remove(pk);
 			}
 		}
 

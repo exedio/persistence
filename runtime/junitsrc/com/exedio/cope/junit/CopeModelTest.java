@@ -46,19 +46,33 @@ public abstract class CopeModelTest extends CopeAssert
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
+	private boolean manageTransactions;
+
+	protected boolean doesManageTransactions()
+	{
+		return true;
+	}
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
-		model.startTransaction("tx:" + getClass().getName());
-		model.checkEmptySchema();
+
+		manageTransactions = doesManageTransactions();
+		if(manageTransactions)
+		{
+			model.startTransaction("tx:" + getClass().getName());
+			model.checkEmptySchema();
+		}
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		model.rollbackIfNotCommitted();
+		if(manageTransactions)
+			model.rollbackIfNotCommitted();
+
 		model.deleteSchema();
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())

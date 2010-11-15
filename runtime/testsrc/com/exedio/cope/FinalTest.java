@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
+
 public final class FinalTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(FinalSuperItem.TYPE, FinalSubItem.TYPE, FinalSubNoneItem.TYPE);
@@ -42,5 +44,45 @@ public final class FinalTest extends AbstractRuntimeTest
 		final FinalSubNoneItem item2c = FinalSubNoneItem.TYPE.searchSingleton(null);
 		assertEquals(2, item2c.getSuperInt());
 		assertEquals(22, item2c.getSubIntNone());
+	}
+
+	public void testModificationCounter()
+	{
+		if(SchemaInfo.isConcurrentModificationDetectionEnabled(model))
+		{
+			assertEquals(synthetic("catch", "FinalSuperItem"), getModificationCounterColumnName(FinalSuperItem.TYPE));
+			assertEquals(synthetic("catch", "FinalSubNoneItem"), getModificationCounterColumnName(FinalSubNoneItem.TYPE));
+		}
+		else
+		{
+			try
+			{
+				getModificationCounterColumnName(FinalSuperItem.TYPE);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no modification counter column for FinalSuperItem", e.getMessage());
+			}
+			try
+			{
+				getModificationCounterColumnName(FinalSubNoneItem.TYPE);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no modification counter column for FinalSubNoneItem", e.getMessage());
+			}
+		}
+
+		try
+		{
+			getModificationCounterColumnName(FinalSubItem.TYPE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("no modification counter column for FinalSubItem", e.getMessage());
+		}
 	}
 }

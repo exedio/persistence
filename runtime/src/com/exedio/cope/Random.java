@@ -225,6 +225,11 @@ public class Random implements NumberFunction<Double>
 		return new ExtremumAggregate<Double>(this, false);
 	}
 
+	public final AsStringView asString()
+	{
+		return new AsStringView(this);
+	}
+
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
 		return new PlusLiteralView<Double>(this, value);

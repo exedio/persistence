@@ -18,13 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Range.newRange;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.Wrapper;
 
 public class RangeFieldTest extends AbstractRuntimeTest
@@ -51,12 +55,18 @@ public class RangeFieldTest extends AbstractRuntimeTest
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.text,
+				item.text.getFrom(),
+				item.text.getTo(),
 			}), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.text,
+				item.text.getFrom(),
+				item.text.getTo(),
 			}), item.TYPE.getDeclaredFeatures());
 
 		assertEquals(item.TYPE, item.valid.getFrom().getType());
@@ -69,29 +79,39 @@ public class RangeFieldTest extends AbstractRuntimeTest
 
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
+		assertEquals(false, item.valid.getFrom().isFinal());
+		assertEquals(false, item.valid.getTo().isFinal());
 		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		assertSerializedSame(item.valid, 383);
 
-		// test persistence
-		item = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(3, 5)));
+		assertEquals(true, item.text.isInitial());
+		assertEquals(true, item.text.isFinal());
+		assertEquals(true, item.text.getFrom().isFinal());
+		assertEquals(true, item.text.getTo().isFinal());
+		assertEquals(Wrapper.generic(Range.class, String.class), item.text.getInitialType());
+		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, item.text.getInitialExceptions());
+		assertSerializedSame(item.text, 382);
 
-		assertEquals(new Range<Integer>(3, 5), item.getValid());
+		// test persistence
+		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
+
+		assertEquals(newRange(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidFrom(8);
-		assertEquals(new Range<Integer>(8, 5), item.getValid());
+		assertEquals(newRange(8, 5), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidTo(9);
-		assertEquals(new Range<Integer>(8, 9), item.getValid());
+		assertEquals(newRange(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 
-		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(new Range<Integer>(4, 4)));
-		assertEquals(new Range<Integer>(4, 4), item2.getValid());
+		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
+		assertEquals(newRange(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
 
@@ -106,12 +126,31 @@ public class RangeFieldTest extends AbstractRuntimeTest
 
 		try
 		{
+			RangeField.newRange(new IntegerField().optional());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("optional borderTemplate not yet implemented", e.getMessage());
+		}
+		try
+		{
 			RangeField.newRange(new IntegerField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("unique borderTemplate is not supported", e.getMessage());
+		}
+
+		try
+		{
+			item.valid.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("right", e.getMessage());
 		}
 	}
 }

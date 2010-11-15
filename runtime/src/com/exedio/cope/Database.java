@@ -106,17 +106,17 @@ final class Database
 	{
 		buildStage = false;
 
-		makeSchema().create();
+		makeSchema(true).create();
 
 		if(revisions!=null)
-			revisions.insertCreate(connectionPool, executor, dialectParameters.getRevisionEnvironment());
+			revisions.insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().createConstraints(types);
+		makeSchema(true).createConstraints(types);
 	}
 
 	//private static int checkTableTime = 0;
@@ -229,28 +229,28 @@ final class Database
 		buildStage = false;
 
 		flushSequences();
-		makeSchema().drop();
+		makeSchema(true).drop();
 	}
 
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().dropConstraints(types);
+		makeSchema(true).dropConstraints(types);
 	}
 
 	void tearDownSchema()
 	{
 		buildStage = false;
 
-		makeSchema().tearDown();
+		makeSchema(true).tearDown();
 	}
 
 	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().tearDownConstraints(types);
+		makeSchema(true).tearDownConstraints(types);
 	}
 
 	void checkEmptySchema(final Connection connection)
@@ -545,7 +545,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executor.update(connection, bf, true);
+		executor.updateStrict(connection, bf);
 	}
 
 	String makeName(final String longName)
@@ -553,7 +553,7 @@ final class Database
 		return nameTrimmer.trimString(longName);
 	}
 
-	Schema makeSchema()
+	Schema makeSchema(final boolean withRevisions)
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
@@ -571,8 +571,8 @@ final class Database
 		for(final Table t : tables)
 			t.makeSchema(result);
 
-		if(revisions!=null)
-			revisions.makeSchema(result, dialect);
+		if(withRevisions && revisions!=null)
+			revisions.makeSchema(result, properties, dialect);
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
 
@@ -582,7 +582,7 @@ final class Database
 
 	Schema makeVerifiedSchema()
 	{
-		final Schema result = makeSchema();
+		final Schema result = makeSchema(true);
 		result.verify();
 		return result;
 	}

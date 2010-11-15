@@ -53,7 +53,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
-import com.exedio.cope.util.Interrupters;
+import com.exedio.cope.util.InterrupterJobContextAdapter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Schedule extends Pattern
 {
@@ -228,6 +230,10 @@ public final class Schedule extends Pattern
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
 			setStatic(false));
+		result.add(
+			new Wrapper("run").
+			addParameter(JobContext.class, "ctx").
+			setStatic(false));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -257,13 +263,33 @@ public final class Schedule extends Pattern
 		return run(interrupter, new Date());
 	}
 
-	int run(final Interrupter interrupter, final Date now)
+	public void run(final JobContext ctx)
 	{
-		return run(getType(), interrupter, now);
+		run(ctx, new Date());
 	}
 
-	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
+	int run(final Interrupter interrupter, final Date now)
 	{
+		final Schedule s = this;
+		return InterrupterJobContextAdapter.run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				s.run(ctx, now);
+			}}
+		);
+	}
+
+	void run(final JobContext ctx, final Date now)
+	{
+		run(getType(), ctx, now);
+	}
+
+	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
+	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
 		final Mount mount = mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
@@ -309,15 +335,20 @@ public final class Schedule extends Pattern
 		}
 
 		if(toRun.isEmpty())
-			return 0;
+			return;
 
-		final Interrupter effectiveInterrupter =
-			interrupter!=null ? interrupter : Interrupters.VAIN_INTERRUPTER;
-		int result = 0;
+		final Interrupter interrupterForItem = new Interrupter()
+		{
+			public boolean isRequested()
+			{
+				return ctx.requestedToStop();
+			}
+		};
+
 		for(final P item : toRun)
 		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
+			if(ctx.requestedToStop())
+				return;
 
 			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
@@ -343,7 +374,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, effectiveInterrupter);
+				itemCasted.run(this, from, until, interrupterForItem);
 				final long elapsedEnd = nanoTime();
 				mount.runType.newItem(
 					Cope.mapAndCast(mount.runParent, item),
@@ -352,14 +383,13 @@ public final class Schedule extends Pattern
 					this.runRun.map(now),
 					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
 				model.commit();
-				result++;
+				ctx.incrementProgress();
 			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
 			}
 		}
-		return result;
 	}
 
 	@Computed

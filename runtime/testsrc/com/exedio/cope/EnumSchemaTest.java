@@ -26,7 +26,6 @@ public class EnumSchemaTest extends CopeAssert
 {
 	public void testNormal()
 	{
-
 		assertEquals(10, getColumnValue(Normal.Eins));
 		assertEquals(20, getColumnValue(Normal.Zwei));
 		assertEquals(30, getColumnValue(Normal.Drei));
@@ -39,7 +38,6 @@ public class EnumSchemaTest extends CopeAssert
 
 	public void testNormal2()
 	{
-
 		assertEquals(10, getColumnValue(Normal2.Eins));
 		assertEquals(20, getColumnValue(Normal2.Zwei));
 
@@ -77,7 +75,6 @@ public class EnumSchemaTest extends CopeAssert
 
 	public void testAnnotatedBefore()
 	{
-
 		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
 		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedBefore.Drei));
@@ -92,7 +89,6 @@ public class EnumSchemaTest extends CopeAssert
 
 	public void testAnnotatedAfter()
 	{
-
 		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
 		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedAfter.Drei));
@@ -107,7 +103,6 @@ public class EnumSchemaTest extends CopeAssert
 
 	public void testAnnotatedStart()
 	{
-
 		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
 		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedStart.Drei));
@@ -122,7 +117,6 @@ public class EnumSchemaTest extends CopeAssert
 
 	public void testAnnotatedEnd()
 	{
-
 		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
 		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
 		assertEquals(21, getColumnValue(AnnotatedEnd.Drei));

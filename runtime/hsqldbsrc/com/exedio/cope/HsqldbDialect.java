@@ -149,6 +149,14 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("CONVERT(").
+			append(source, join).
+			append(",CHAR)");
+	}
+
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		appendMatchClauseByLike(bf, function, value);
@@ -191,14 +199,14 @@ final class HsqldbDialect extends Dialect
 			bf.append("CREATE TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
-			executor.update(connection, bf, false);
+			executor.update(connection, bf);
 		}
 		{
 			final Statement bf = executor.newStatement();
 			bf.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			executor.update(connection, bf, true);
+			executor.updateStrict(connection, bf);
 		}
 		final Integer result;
 		{
@@ -225,7 +233,7 @@ final class HsqldbDialect extends Dialect
 			final Statement bf = executor.newStatement();
 			bf.append("DROP TABLE ").
 				append(TEMP_TABLE);
-			executor.update(connection, bf, false);
+			executor.update(connection, bf);
 		}
 		try
 		{

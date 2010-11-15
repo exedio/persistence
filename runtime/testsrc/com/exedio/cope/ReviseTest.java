@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RevisionInfo.parse;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
@@ -57,14 +58,14 @@ public class ReviseTest extends CopeAssert
 	}
 
 	private String hostname;
-	private com.exedio.cope.ConnectProperties props;
+	private ConnectProperties props;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
+		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
 	String jdbcUrl;
@@ -172,6 +173,20 @@ public class ReviseTest extends CopeAssert
 			assertEquals(3, logs.size());
 		}
 
+		// test, that revision is not executed again,
+		// even after reconnect
+		model7.disconnect();
+		model7.connect(props);
+		model7.revise();
+		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			assertCreate(createDate, logs, 5);
+			assertRevise(reviseDate, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
+			assertEquals(3, logs.size());
+		}
+
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
@@ -267,8 +282,8 @@ public class ReviseTest extends CopeAssert
 
 		assertFalse(columns.hasNext());
 
-		final Table revisionTable = schema.getTable("while");
-		assertEquals("while", revisionTable.getName());
+		final Table revisionTable = schema.getTable(props.revisionTableName.stringValue());
+		assertEquals(props.revisionTableName.stringValue(), revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
 	}
@@ -340,11 +355,6 @@ public class ReviseTest extends CopeAssert
 		assertEquals(info.getDriverVersion(),               p.getProperty("env.driver.version"));
 		assertEquals(valueOf(info.getDriverMajorVersion()), p.getProperty("env.driver.version.major"));
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
-	}
-
-	private static final Properties parse(final byte[] log)
-	{
-		return RevisionInfo.parse(log);
 	}
 
 	private static final void assertMinInt(final int expectedMinimum, final String actual)

@@ -154,6 +154,14 @@ final class OracleDialect extends Dialect
 		if(offset>0)
 			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(offset);
 	}
+
+	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("TO_CHAR(").
+			append(source, join).
+			append(')');
+	}
 	
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)

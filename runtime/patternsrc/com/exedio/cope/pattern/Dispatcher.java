@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
 import java.io.ByteArrayOutputStream;
@@ -45,6 +46,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Dispatcher extends Pattern
 {
@@ -183,6 +186,13 @@ public final class Dispatcher extends Pattern
 			setStatic());
 
 		result.add(
+			new Wrapper("dispatch").
+			addComment("Dispatch by {0}.").
+			addParameter(Config.class, "config").
+			addParameter(JobContext.class, "ctx").
+			setStatic());
+
+		result.add(
 			new Wrapper("isPending").
 			addComment("Returns, whether this item is yet to be dispatched by {0}.").
 			setReturn(boolean.class));
@@ -227,8 +237,21 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				dispatch(parentClass, config, ctx);
+			}}
+		);
+	}
+
+	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	{
 		if(config==null)
 			throw new NullPointerException("config");
+		if(ctx==null)
+			throw new NullPointerException("ctx");
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
@@ -237,7 +260,6 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 
 		P lastDispatched = null;
-		int result = 0;
 		while(true)
 		{
 			final List<P> toDispatch;
@@ -264,8 +286,8 @@ public final class Dispatcher extends Pattern
 
 			for(final P item : toDispatch)
 			{
-				if(interrupter!=null && interrupter.isRequested())
-					return result;
+				if(ctx.requestedToStop())
+					return;
 
 				lastDispatched = item;
 				final Dispatchable itemCasted = (Dispatchable)item;
@@ -295,7 +317,7 @@ public final class Dispatcher extends Pattern
 								runSuccess.map(true));
 
 						model.commit();
-						result++;
+						ctx.incrementProgress();
 					}
 					catch(final Exception cause)
 					{
@@ -340,8 +362,6 @@ public final class Dispatcher extends Pattern
 				}
 			}
 		}
-
-		return result;
 	}
 
 	public boolean isPending(final Item item)

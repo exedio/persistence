@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +39,8 @@ import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class PasswordRecovery extends Pattern
 {
@@ -127,6 +131,10 @@ public final class PasswordRecovery extends Pattern
 			setStatic(false).
 			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of tokens purged"));
+		result.add(
+			new Wrapper("purge").
+			setStatic(false).
+			addParameter(JobContext.class, "ctx"));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -178,10 +186,21 @@ public final class PasswordRecovery extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
-		return Delete.delete(
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				purge(ctx);
+			}}
+		);
+	}
+
+	public void purge(final JobContext ctx)
+	{
+		Delete.delete(
 				tokenType.newQuery(this.expires.less(new Date())),
 				"PasswordRecovery#purge " + getID(),
-				interrupter);
+				ctx);
 	}
 
 	@Computed

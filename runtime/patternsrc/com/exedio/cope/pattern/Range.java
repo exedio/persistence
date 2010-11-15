@@ -20,6 +20,11 @@ package com.exedio.cope.pattern;
 
 public final class Range<E>
 {
+	public static <E> Range<E> newRange(final E from, final E to)
+	{
+		return new Range<E>(from, to);
+	}
+
 	final E from;
 	final E to;
 

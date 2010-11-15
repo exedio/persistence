@@ -359,9 +359,10 @@ public class HierarchyTest extends AbstractRuntimeTest
 				), comparableList);
 		}
 
+		// must be the same order as in model constructor
 		assertCacheInfo(
 				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
-				new int []{33333, 33333, 33333});
+				new int []{1, 1, 1});
 
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());

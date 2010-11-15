@@ -28,6 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
+import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.Interrupters;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
@@ -135,7 +136,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 
 		model.commit();
-		assertEquals(0, i.purgePasswordRecovery(null));
+		assertEquals(0, i.purgePasswordRecovery((Interrupter)null));
 		model.startTransaction("PasswordRecoveryTest");
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
@@ -163,7 +164,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 
 		model.commit();
-		assertEquals(1, i.purgePasswordRecovery(null));
+		assertEquals(1, i.purgePasswordRecovery((Interrupter)null));
 		model.startTransaction("PasswordRecoveryTest");
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());

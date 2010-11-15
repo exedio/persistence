@@ -349,7 +349,7 @@ public final class Model implements Serializable
 
 	public Schema getSchema()
 	{
-		return connect().database.makeSchema();
+		return connect().database.makeSchema(true);
 	}
 
 	/**
@@ -411,7 +411,7 @@ public final class Model implements Serializable
 
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return connect().itemCache.getInfo();
+		return connect().itemCache.getInfo(types.concreteTypeList);
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()
@@ -641,7 +641,7 @@ public final class Model implements Serializable
 
 	public void checkUnsupportedConstraints()
 	{
-		connect().database.makeSchema().checkUnsupportedConstraints();
+		connect().database.makeSchema(true).checkUnsupportedConstraints();
 	}
 
 	public boolean isClusterNetworkEnabled()

@@ -207,6 +207,14 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("CONVERT(").
+			append(source, join).
+			append(",CHAR)");
+	}
+
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(match(").
@@ -329,10 +337,9 @@ final class MysqlDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
-					throw new RuntimeException("null in sequence " + name);
-				return ((Integer)o);
+
+				// converts null into integer 0
+				return resultSet.getInt(1);
 			}
 		});
 	}

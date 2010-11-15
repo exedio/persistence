@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info
+			organisation="com.exedio"
+			module="cope"
+			revision="@BUILD_REVISION@">
+		<license
+				name="GNU Lesser General Public License, Version 2.1"
+				url="http://opensource.org/licenses/lgpl-license.html" />
+	</info>
+	<configurations>
+		<conf name="runtime" />
+		<conf name="hsqldb" extends="runtime" />
+		<conf name="mysql" extends="runtime" />
+		<conf name="oracle" extends="runtime" />
+		<conf name="build" extends="runtime" visibility="private" />
+	</configurations>
+	<publications>
+		<artifact name="exedio-cope" />
+		<artifact name="exedio-cope" type="src" ext="zip" />
+		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope-instrument" />
+		<artifact name="exedio-cope-test" />
+	</publications>
+	<dependencies>
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
+		<dependency org="net.sf.trove4j-x" name="trove4j" rev="2.0.2" />
+		<dependency org="org.cojen" name="cojen" rev="2.0" />
+		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
+		<dependency org="org.hsqldb" name="hsqldb" rev="1.8.0.8" conf="hsqldb->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->default" />
+		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
+		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
+		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
+		<dependency org="com.exedio" name="copeutil" rev="171" />
+		<dependency org="com.exedio" name="jspm"     rev= "89" conf="build->runtime" />
+		<dependency org="com.exedio" name="copeconsole" rev="6294" conf="build->runtime" />
+	</dependencies>
+</ivy-module>

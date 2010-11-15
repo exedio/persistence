@@ -35,6 +35,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
@@ -194,6 +195,16 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 		assertRuns(listg(
 				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+
+		try
+		{
+			report.run((JobContext)null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	public void testInterrupter1()

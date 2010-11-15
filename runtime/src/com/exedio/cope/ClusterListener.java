@@ -32,6 +32,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import com.exedio.cope.util.SequenceChecker;
 
@@ -56,54 +57,47 @@ abstract class ClusterListener
 
 	final void handle(final DatagramPacket packet)
 	{
-		int pos = packet.getOffset();
-		final byte[] buf = packet.getData();
-		final int length = packet.getLength();
+		final Iter iter = new Iter(packet);
 
-		if(buf[pos++]!=MAGIC0 ||
-			buf[pos++]!=MAGIC1 ||
-			buf[pos++]!=MAGIC2 ||
-			buf[pos++]!=MAGIC3)
+		if(!iter.checkBytes(MAGIC))
 		{
 			missingMagic++;
 			return;
 		}
 
-		if(secret!=unmarshal(pos, buf))
+		if(secret!=iter.nextInt())
 		{
 			wrongSecret++;
 			return;
 		}
-		pos += 4;
 
-		final int node = unmarshal(pos, buf);
+		final int node = iter.nextInt();
 		if(localNode==node)
 		{
 			fromMyself++;
 			return;
 		}
-		pos += 4;
 
 		// kind
-		final int kind = unmarshal(pos, buf);
-		pos += 4;
+		final int kind = iter.nextInt();
+
 		switch(kind)
 		{
 			case KIND_PING:
 			{
-				if(handlePingPong(packet, pos, node, true))
+				if(handlePingPong(packet, iter, node, true))
 					pong();
 				break;
 			}
 			case KIND_PONG:
 			{
-				handlePingPong(packet, pos, node, false);
+				handlePingPong(packet, iter, node, false);
 				break;
 			}
 			case KIND_INVALIDATE:
 			{
-				final int sequence = unmarshal(pos, buf);
-				pos += 4;
+				final int sequence = iter.nextInt();
+
 				if(node(node, packet).invalidate(sequence))
 				{
 					if(log)
@@ -112,21 +106,17 @@ abstract class ClusterListener
 				}
 
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
-				outer: while(pos<length)
+				outer: while(iter.hasNext())
 				{
-					final int typeIdTransiently = unmarshal(pos, buf);
-					pos += 4;
-
+					final int typeIdTransiently = iter.nextInt();
 					final TIntHashSet set = new TIntHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
 					{
-						if(pos>=length)
+						if(!iter.hasNext())
 							break outer;
 
-						final int pk = unmarshal(pos, buf);
-						pos += 4;
-
+						final int pk = iter.nextInt();
 						if(pk==PK.NaPK)
 							break inner;
 
@@ -143,14 +133,13 @@ abstract class ClusterListener
 		}
 	}
 
-	private boolean handlePingPong(final DatagramPacket packet, int pos, final int node, final boolean ping)
-	{
-		final byte[] buf = packet.getData();
-		final int length = packet.getLength();
-		final int sequence = unmarshal(pos, buf);
-		pos += 4;
+	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
 
-		properties.checkPingPayload(pos, buf, length, ping);
+	private boolean handlePingPong(final DatagramPacket packet, final Iter iter, final int node, final boolean ping)
+	{
+		final int sequence = iter.nextInt();
+
+		iter.checkPingPayload(properties, ping);
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{
@@ -167,13 +156,64 @@ abstract class ClusterListener
 		return ping ? "ping" : "pong";
 	}
 
-	static final int unmarshal(int pos, final byte[] buf)
+	static final class Iter
 	{
-		return
-			((buf[pos++] & 0xff)    ) |
-			((buf[pos++] & 0xff)<< 8) |
-			((buf[pos++] & 0xff)<<16) |
-			((buf[pos++] & 0xff)<<24) ;
+		private final int length;
+		private final int offset;
+		private final int endOffset;
+		private final byte[] buf;
+		private int pos;
+
+		Iter(final DatagramPacket packet)
+		{
+			this.offset = packet.getOffset();
+			this.length = packet.getLength();
+			this.endOffset = offset + length;
+			this.buf = packet.getData();
+
+			this.pos = offset;
+		}
+
+		boolean hasNext()
+		{
+			return pos<endOffset;
+		}
+
+		boolean checkBytes(final byte[] expected)
+		{
+			int pos = this.pos;
+			for(int i = 0; i<expected.length; i++)
+				if(expected[i]!=buf[pos++])
+				{
+					if(pos>endOffset)
+						throw new NoSuchElementException(String.valueOf(length));
+					return false;
+				}
+
+			if(pos>endOffset)
+				throw new NoSuchElementException(String.valueOf(length));
+			this.pos = pos;
+			return true;
+		}
+
+		int nextInt()
+		{
+			int pos = this.pos;
+			final int result =
+				((buf[pos++] & 0xff)    ) |
+				((buf[pos++] & 0xff)<< 8) |
+				((buf[pos++] & 0xff)<<16) |
+				((buf[pos++] & 0xff)<<24) ;
+			if(pos>endOffset)
+				throw new NoSuchElementException(String.valueOf(length));
+			this.pos = pos;
+			return result;
+		}
+
+		void checkPingPayload(final ClusterProperties properties, final boolean ping)
+		{
+			properties.checkPingPayload(pos, buf, offset, length, ping);
+		}
 	}
 
 	abstract void invalidate(int node, TIntHashSet[] invalidations);

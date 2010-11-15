@@ -80,6 +80,11 @@ public abstract class NumberView<E extends Number> extends View<E>
 		return new BindNumberFunction<E>(this, join);
 	}
 
+	public final AsStringView asString()
+	{
+		return new AsStringView(this);
+	}
+
 	public final PlusLiteralView<E> plus(final E value)
 	{
 		return new PlusLiteralView<E>(this, value);

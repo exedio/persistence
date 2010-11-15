@@ -52,15 +52,15 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 
 		assertEquals(null, model.getDatabaseListener());
 
-		final DBL dbl = new DBL();
-		model.setDatabaseListener(dbl);
-		assertSame(dbl, model.getDatabaseListener());
+		final DBL dbl1 = new DBL();
+		model.setDatabaseListener(dbl1);
+		assertSame(dbl1, model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string1"));
 		l.verifyExpectations();
-		dbl.assertSql("select");
+		dbl1.assertSql("select");
 		item.setText("string1");
-		dbl.assertSql("update");
+		dbl1.assertSql("update");
 
 		final DBL dbl2 = new DBL();
 		model.setDatabaseListener(dbl2);
@@ -71,7 +71,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		dbl2.assertSql("select");
 		item.setText("string2");
 		dbl2.assertSql("update");
-		dbl.assertSqlEmpty();
+		dbl1.assertSqlEmpty();
 
 		final DBL dbl3 = new DBL();
 		model.setDatabaseListener(dbl3);
@@ -83,7 +83,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		item.setText("string2");
 		dbl3.assertSql("update");
 		dbl2.assertSqlEmpty();
-		dbl.assertSqlEmpty();
+		dbl1.assertSqlEmpty();
 
 		model.setDatabaseListener(null);
 		assertNull(model.getDatabaseListener());
@@ -92,7 +92,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		l.verifyExpectations();
 		item.setText("string3");
 		dbl2.assertSqlEmpty();
-		dbl.assertSqlEmpty();
+		dbl1.assertSqlEmpty();
 
 		model.setTestDatabaseListener(null);
 	}

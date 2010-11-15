@@ -45,14 +45,12 @@ public class ClusterIntTest extends TestCase
 	{
 		assertEquals(7, m(3, 0x456789ab));
 		assertBuf(FILL, FILL, FILL, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45);
-		assertEquals(Integer.toHexString(um(3)), 0x456789ab, um(3));
 	}
 
 	public void testIntNegative()
 	{
 		assertEquals(7, m(3, 0xab896745));
 		assertBuf(FILL, FILL, FILL, (byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab);
-		assertEquals(0xab896745, um(3));
 	}
 
 
@@ -68,10 +66,5 @@ public class ClusterIntTest extends TestCase
 	private int m(final int pos, final int i)
 	{
 		return ClusterSender.marshal(pos, buf, i);
-	}
-
-	private int um(final int pos)
-	{
-		return ClusterListener.unmarshal(pos, buf);
 	}
 }

@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.misc;
+
+import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -32,22 +34,41 @@ import com.exedio.cope.util.Properties.Source;
 
 public class ServletUtilContextTest extends CopeAssert
 {
-	@Deprecated
 	public void testIt()
 	{
 		{
-			final Source s = com.exedio.cope.util.ServletUtil.getPropertyContext(new TestContext("testContextPath.", "/testContextPath"));
+			final Source s = getPropertyContext(new TestContext("/testContextPath", "testContextPath."));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "testContextPath.p3");
+			assertEquals("/testContextPath", s.get("contextPath"));
 			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.getDescription());
-			assertTrue(s.toString().startsWith(PrefixSource.class.getName()));
+			assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.toString());
 		}
 		{
-			final Source s = com.exedio.cope.util.ServletUtil.getPropertyContext(new TestContext("", null));
+			final Source s = getPropertyContext(new TestContext("", "root."));
+			assertEquals("v1", s.get("p1"));
+			assertEquals("v2", s.get("p2"));
+			assertFails(s, "p3", "root.p3");
+			assertEquals("", s.get("contextPath"));
+			assertEquals("ServletContext '' (prefix root.)", s.getDescription());
+			assertEquals("ServletContext '' (prefix root.)", s.toString());
+		}
+		{
+			final Source s = getPropertyContext(new TestContext("ding", "ding."));
+			assertEquals("v1", s.get("p1"));
+			assertEquals("v2", s.get("p2"));
+			assertFails(s, "p3", "ding.p3");
+			assertEquals("ding", s.get("contextPath"));
+			assertEquals("ServletContext 'ding' (prefix ding.)", s.getDescription());
+			assertEquals("ServletContext 'ding' (prefix ding.)", s.toString());
+		}
+		{
+			final Source s = getPropertyContext(new TestContext(null, ""));
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "p3");
+			assertEquals(null, s.get("contextPath"));
 			assertEquals("ServletContext 'null'", s.getDescription());
 			assertEquals("ServletContext 'null'", s.toString());
 		}
@@ -68,13 +89,13 @@ public class ServletUtilContextTest extends CopeAssert
 
 	static class TestContext implements ServletContext
 	{
-		private final String prefix;
 		private final String contextPath;
+		private final String prefix;
 
-		TestContext(final String prefix, final String contextPath)
+		TestContext(final String contextPath, final String prefix)
 		{
-			this.prefix = prefix;
 			this.contextPath = contextPath;
+			this.prefix = prefix;
 		}
 
 		public String getInitParameter(final String name)

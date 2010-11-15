@@ -22,7 +22,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import com.exedio.cope.misc.SetValueUtilTest;
 import com.exedio.cope.pattern.MessageDigestAlgorithmTest;
 
 public class PackageUtilTest extends TestCase
@@ -35,8 +34,10 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
-		suite.addTestSuite(ClusterTest.class);
+		suite.addTestSuite(ClusterUnpaddedTest.class);
+		suite.addTestSuite(ClusterPaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
+		suite.addTestSuite(ClusterIterTest.class);
 		suite.addTestSuite(ClusterSenderMulticastTest.class);
 		suite.addTestSuite(ClusterNetworkPingTest.class);
 		suite.addTestSuite(ClusterNetworkChangeListenerTest.class);
@@ -46,7 +47,8 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ByteAlgorithmTest.class);
 		suite.addTestSuite(CompositeConditionTest.class);
 		suite.addTestSuite(CompositeConditionCopeTest.class);
-		suite.addTestSuite(SetValueUtilTest.class);
+		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
+		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
 		return suite;
 	}
 }

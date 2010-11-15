@@ -39,6 +39,7 @@ public class PackageTest extends TestCase
 
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 
+		suite.addTestSuite( PrimaryKeyTest.class );
 		suite.addTestSuite( CapabilitiesTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
 		suite.addTestSuite( TestGetModelTest.class );
@@ -65,6 +66,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
+		suite.addTestSuite( SchemaInfoConnectionTest.class );
 
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
@@ -78,6 +80,7 @@ public class PackageTest extends TestCase
 
 		suite.addTestSuite( DeleteTest.class );
 		suite.addTestSuite( DeleteHierarchyTest.class );
+		suite.addTestSuite( DeleteSchemaTest.class );
 		suite.addTestSuite( NameTest.class );
 		suite.addTestSuite( StringTest.class );
 		suite.addTestSuite( IntegerTest.class );
@@ -95,6 +98,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
 		suite.addTestSuite( SearchTest.class );
+		suite.addTestSuite( AsStringTest.class );
 		suite.addTestSuite( PlusIntegerTest.class );
 		suite.addTestSuite( PlusIntegerOrderTest.class );
 		suite.addTestSuite( PlusIntegerOrderNullTest.class );
@@ -128,6 +132,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionEmptyTest.class );
 		suite.addTestSuite( TransactionCountersTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
+		suite.addTestSuite( ModCountKillTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ChangeListenerTest.class );
@@ -147,6 +152,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
+		suite.addTest( com.exedio.cope.sampler.PackageTest.suite() );
 
 		return suite;
 	}

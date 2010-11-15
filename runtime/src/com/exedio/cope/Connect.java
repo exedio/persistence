@@ -36,6 +36,7 @@ final class Connect
 	final ConnectProperties properties;
 	final boolean log;
 	final Dialect dialect;
+	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
 	final Executor executor;
 	final Database database;
@@ -45,6 +46,8 @@ final class Connect
 	final ClusterListenerMulticast clusterListener;
 
 	final boolean supportsReadCommitted;
+
+	boolean revised = false;
 
 	Connect(
 			final String name,
@@ -87,8 +90,9 @@ final class Connect
 		}
 
 		this.dialect = properties.createDialect(dialectParameters);
+		this.connectionFactory = new ConnectionFactory(properties, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
-				new ConnectionFactory(properties, dialect),
+				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
@@ -101,7 +105,7 @@ final class Connect
 				executor,
 				revisions);
 
-		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
+		this.itemCache = new ItemCache(types.typeListSorted, properties.getItemCacheLimit());
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
 		if(properties.cluster.booleanValue())
@@ -163,7 +167,7 @@ final class Connect
 		queryCache.clear();
 		{
 			//final long start = System.currentTimeMillis();
-			dialect.dsmfDialect.deleteSchema(database.makeSchema());
+			dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
 			//System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 		}
 		database.flushSequences();
@@ -171,11 +175,16 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
-		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+		if(revised) // synchronization is done by Model#revise
+			return;
+
+		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+
+		revised = true;
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
-		return revisions.getLogs(connectionPool, executor);
+		return revisions.getLogs(properties, connectionPool, executor);
 	}
 }
