@@ -35,13 +35,14 @@ public class AsStringTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	AsStringItem item1, item2, itemN, item0, itemX;
+	AsStringItem item1, item10, item2, itemN, item0, itemX;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item1 = deleteOnTearDown(new AsStringItem( 13,  15l,  1.9));
+		item10= deleteOnTearDown(new AsStringItem( 13,  15l,  0.9));
 		item2 = deleteOnTearDown(new AsStringItem( 23,  25l, 29.0));
 		itemN = deleteOnTearDown(new AsStringItem(-33, -35l, -3.9));
 		item0 = deleteOnTearDown(new AsStringItem(  0,   0l,  0.0));
@@ -53,6 +54,7 @@ public class AsStringTest extends AbstractRuntimeTest
 		assertEquals("13",   intx   .asString().get(item1));
 		assertEquals("15",   longx  .asString().get(item1));
 		assertEquals( "1.9", doublex.asString().get(item1));
+		assertEquals( "0.9", doublex.asString().get(item10));
 
 		assertEquals("23",   intx   .asString().get(item2));
 		assertEquals("25",   longx  .asString().get(item2));
@@ -77,8 +79,10 @@ public class AsStringTest extends AbstractRuntimeTest
 			q.setOrderBy(TYPE.getThis(), true);
 			final char d = oracle ? ',' : '.';
 			final String p = hsqldb ? "E0" : "";
+			final String zd = oracle ? "," : "0.";
 			final Iterator<List<Object>> i = q.search().iterator();
 			assertEquals(list( "13",  "15", postgresql?"2":("1"+d+"9"+p)), i.next());
+			assertEquals(list( "13",  "15", postgresql?"1":(zd+"9"+p)), i.next());
 			assertEquals(list( "23",  "25", hsqldb?"29.0E0":"29"), i.next());
 			assertEquals(list("-33", "-35", postgresql?"-4":("-3"+d+"9"+p)), i.next());
 			assertEquals(list(  "0",   "0", hsqldb?"0.0E0":"0"), i.next());

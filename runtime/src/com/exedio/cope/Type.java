@@ -655,7 +655,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 	public int checkPrimaryKey()
 	{
-		return primaryKeySequence.check(getModel().currentTransaction().getConnection());
+		return primaryKeySequence.check(getModel().connect().connectionPool);
 	}
 
 	/**
