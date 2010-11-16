@@ -43,8 +43,6 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		j.setCondition(PolymorphicBoundSelectSubItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent.bind(j));
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent.bind(j));
-		if(noJoinParentheses)
-			return;
 		assertEquals(list(list(subItem, null)), q.search());
 	}
 

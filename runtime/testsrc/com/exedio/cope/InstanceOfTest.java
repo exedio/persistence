@@ -146,46 +146,46 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemc1.TYPE);
 			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
-			if(!noJoinParentheses) assertContains(itemc1, q.search());
+			assertContains(itemc1, q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemc1.code.bind(j).equal(itemb2.code));
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE));
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb1.TYPE);
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 		{
 			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb1.TYPE);
 			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
-			if(!noJoinParentheses) assertContains(q.search());
+			assertContains(q.search());
 		}
 
 		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", itema.TYPE.getThis().instanceOf(itemc1.TYPE).toString());

@@ -2,4 +2,3 @@
 * add Dialect#getStringLength()
 * check default implementation of Dialect#getBytes
 * check default implementation of Dialect#addBlobInStatementText
-* remove AbstractRuntimeTest.noJoinParentheses
