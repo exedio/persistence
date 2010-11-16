@@ -789,12 +789,7 @@ public final class Query<R>
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
 
-		bf.append("select");
-
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
-			dialect.appendLimitClause(bf, offset, limit);
-
-		bf.append(' ');
+		bf.append("select ");
 
 		final Selectable[] selects = this.selects();
 		final Column[] selectColumns = new Column[selects.length];
@@ -865,7 +860,6 @@ public final class Query<R>
 				{
 					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
 					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
-					case CLAUSE_AFTER_SELECT:
 					case NONE:
 						break;
 				}

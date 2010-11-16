@@ -182,7 +182,6 @@ abstract class Dialect
 	static enum LimitSupport
 	{
 		NONE,
-		CLAUSE_AFTER_SELECT,
 		CLAUSE_AFTER_WHERE,
 		CLAUSES_AROUND;
 	}
