@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* switch to hsqldb 2.0.0 for jdk 1.5 from support page (revision 3814)
+	fixes noJoinParentheses
 * use JobContext for Dispatcher and Schedule
 	affects instrumented code
 * BUGFIX: grave bug corrupting data in item cache

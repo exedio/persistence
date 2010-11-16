@@ -124,14 +124,27 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
+			// Additional parenthesis are needed for hsqldb,
+			// see http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
+			final boolean hsqldb = table.database.hsqldb;
+
 			final StringBuilder bf = new StringBuilder();
-			bf.append(quotedID + " IN (");
+			if(hsqldb)
+				bf.append('(');
+			bf.append(quotedID);
+			if(hsqldb)
+				bf.append(')');
+			bf.append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
 					bf.append(',');
+				if(hsqldb)
+					bf.append('(');
 				bf.append(allowedValues[j]);
+				if(hsqldb)
+					bf.append(')');
 			}
 			bf.append(')');
 			return bf.toString();

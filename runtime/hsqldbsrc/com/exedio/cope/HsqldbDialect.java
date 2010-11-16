@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,7 +51,7 @@ final class HsqldbDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.HsqldbDialect(),
-				"LENGTH");
+				"CHAR_LENGTH");
 	}
 
 	@Override
@@ -85,21 +86,46 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
+	{
+		final Blob blob = resultSet.getBlob(columnIndex);
+		if(blob==null)
+			return null;
+
+		return DataField.copy(blob.getBinaryStream(), blob.length());
+	}
+
+	@Override
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
+	{
+		statementText.append('X');
+		super.addBlobInStatementText(statementText, parameter);
+	}
+
+	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return "binary";
+		return "blob";
 	}
 
 	@Override
 	int getBlobLengthFactor()
 	{
-		return 2;
+		return 1;
+	}
+
+	@Override
+	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	{
+		super.appendOrderBy(bf, function, ascending);
+		if(ascending)
+			bf.append(" nulls last");
 	}
 
 	@Override
 	LimitSupport getLimitSupport()
 	{
-		return LimitSupport.CLAUSE_AFTER_SELECT;
+		return LimitSupport.CLAUSE_AFTER_WHERE;
 	}
 
 	@Override
@@ -109,10 +135,11 @@ final class HsqldbDialect extends Dialect
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
-		bf.append(" limit ").
-			appendParameter(offset).
-			append(' ').
-			appendParameter(limit!=Query.UNLIMITED ? limit : 0);
+		bf.append(" offset ").
+			appendParameter(offset);
+		if(limit!=Query.UNLIMITED)
+			bf.append(" limit ").
+				appendParameter(limit);
 	}
 
 	@Override
@@ -126,7 +153,7 @@ final class HsqldbDialect extends Dialect
 	{
 		bf.append("CONVERT(").
 			append(source, join).
-			append(",CHAR)");
+			append(",VARCHAR(40))");
 	}
 
 	@Override
@@ -138,9 +165,9 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
-		bf.append("substring(").
+		bf.append("left(RAWTOHEX(").
 			append(column, (Join)null).
-			append(",0,").
+			append("),").
 			appendParameter(2*value.length).
 			append(")=").
 			appendParameter(Hex.encodeLower(value));
@@ -226,7 +253,7 @@ final class HsqldbDialect extends Dialect
 			final String name)
 	{
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT START_WITH" +
+		bf.append("SELECT NEXT_VALUE" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 

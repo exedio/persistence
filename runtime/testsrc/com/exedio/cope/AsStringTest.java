@@ -78,20 +78,21 @@ public class AsStringTest extends AbstractRuntimeTest
 					TYPE, null);
 			q.setOrderBy(TYPE.getThis(), true);
 			final char d = oracle ? ',' : '.';
+			final String p = hsqldb ? "E0" : "";
 			final String zd = oracle ? "," : "0.";
 			final Iterator<List<Object>> i = q.search().iterator();
-			assertEquals(list( "13",  "15", postgresql?"2":("1"+d+"9")), i.next());
-			assertEquals(list( "13",  "15", postgresql?"1":(zd+"9")), i.next());
-			assertEquals(list( "23",  "25", hsqldb?"29.0":"29"), i.next());
-			assertEquals(list("-33", "-35", postgresql?"-4":("-3"+d+"9")), i.next());
-			assertEquals(list(  "0",   "0", hsqldb?"0.0":"0"), i.next());
+			assertEquals(list( "13",  "15", postgresql?"2":("1"+d+"9"+p)), i.next());
+			assertEquals(list( "13",  "15", postgresql?"1":(zd+"9"+p)), i.next());
+			assertEquals(list( "23",  "25", hsqldb?"29.0E0":"29"), i.next());
+			assertEquals(list("-33", "-35", postgresql?"-4":("-3"+d+"9"+p)), i.next());
+			assertEquals(list(  "0",   "0", hsqldb?"0.0E0":"0"), i.next());
 			assertEquals(list( null,  null,   null), i.next());
 			assertFalse(i.hasNext());
 		}
 
 		assertEquals(item2, TYPE.searchSingleton(intx   .asString().equal("23")));
 		assertEquals(item2, TYPE.searchSingleton(longx  .asString().equal("25")));
-		assertEquals(item2, TYPE.searchSingleton(doublex.asString().equal(hsqldb?"29.0":"29")));
+		assertEquals(item2, TYPE.searchSingleton(doublex.asString().equal(hsqldb?"29.0E0":"29")));
 
 		assertEquals(item2, TYPE.searchSingleton(intx   .asString().like("2%")));
 		assertEquals(item2, TYPE.searchSingleton(longx  .asString().like("2%")));

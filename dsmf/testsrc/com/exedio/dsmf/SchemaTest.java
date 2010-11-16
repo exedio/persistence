@@ -35,6 +35,7 @@ public abstract class SchemaTest extends TestCase
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
+	boolean hsqldb = false; // TODO remove
 	boolean postgresql = false; // TODO remove
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
@@ -78,6 +79,7 @@ public abstract class SchemaTest extends TestCase
 			stringType = "varchar(8)";
 			intType = "integer";
 			intType2 = null;
+			hsqldb = true;
 			postgresql = false;
 		}
 		else if(url.startsWith("jdbc:mysql:"))
@@ -87,6 +89,7 @@ public abstract class SchemaTest extends TestCase
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
+			hsqldb = false;
 			postgresql = false;
 		}
 		else if(url.startsWith("jdbc:oracle:"))
@@ -96,6 +99,7 @@ public abstract class SchemaTest extends TestCase
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
+			hsqldb = false;
 			postgresql = false;
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
@@ -105,6 +109,7 @@ public abstract class SchemaTest extends TestCase
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = null;
+			hsqldb = false;
 			postgresql = true;
 		}
 		else
@@ -161,4 +166,11 @@ public abstract class SchemaTest extends TestCase
 		return dialect.quoteName(name);
 	}
 
+	protected final String hp(final String s)
+	{
+		if(hsqldb)
+			return "(" + s + ")";
+		else
+			return s;
+	}
 }

@@ -120,6 +120,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean postgresql;
 	protected boolean cache;
 	protected boolean noJoinParentheses;
+	protected boolean nullsFirst;
 
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
@@ -148,7 +149,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		noJoinParentheses = hsqldb;
+		noJoinParentheses = false;
+		nullsFirst = hsqldb;
 		files.clear();
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
@@ -507,7 +509,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
-		assertEquals(check, type.checkPrimaryKey());
+		if(!hsqldb)
+			assertEquals(check, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -518,7 +521,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
-		assertEquals(check, feature.checkDefaultToNext());
+		if(!hsqldb)
+			assertEquals(check, feature.checkDefaultToNext());
 	}
 
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
@@ -536,7 +540,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final Type type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
-		assertEquals(0, type.checkPrimaryKey());
+		if(!hsqldb)
+			assertEquals(0, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
@@ -547,7 +552,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
-		assertEquals(check, feature.checkDefaultToNext());
+		if(!hsqldb)
+			assertEquals(check, feature.checkDefaultToNext());
 	}
 
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
