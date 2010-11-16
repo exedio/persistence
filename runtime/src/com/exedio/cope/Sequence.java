@@ -109,11 +109,22 @@ final class Sequence
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 
-	int check(final Connection connection)
+	int check(final ConnectionPool connectionPool)
 	{
-		final Integer maxO = column.max(connection, column.table.database.executor);
-		if(maxO==null)
-			return 0;
+		final Integer maxO;
+		Connection connection = null;
+		try
+		{
+			connection = connectionPool.get(true);
+			maxO = column.max(connection, column.table.database.executor);
+			if(maxO==null)
+				return 0;
+		}
+		finally
+		{
+			if(connection!=null)
+				connectionPool.put(connection);
+		}
 
 		final int max = maxO.intValue();
 		final int current = impl().getNext();

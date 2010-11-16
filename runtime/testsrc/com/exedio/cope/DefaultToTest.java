@@ -312,7 +312,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(DefaultToItem.booleanNone.map(false), DefaultToItem.integerNext.map(10028)));
 			assertEquals(integer(10028), item2.getIntegerNext());
 			if(!(oracle&&model.getConnectProperties().cluster.booleanValue()))
-				assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo(), 25);
+				assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo(), hsqldb?25:0);
 
 			restartTransaction();
 			assertEquals(integer(10028), item2.getIntegerNext());

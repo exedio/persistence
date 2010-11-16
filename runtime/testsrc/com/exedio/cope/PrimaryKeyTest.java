@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
 
-import com.exedio.dsmf.SQLRuntimeException;
-
 public class PrimaryKeyTest extends AbstractRuntimeTest
 {
 	/**
@@ -41,6 +39,7 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	{
 		final boolean c = model.getConnectProperties().cluster.booleanValue();
 		final boolean cm = (!hsqldb)||c;
+		final boolean cx = hsqldb&&c;
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
@@ -49,29 +48,16 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 
 		deleteOnTearDown(new PrimaryKeyItem("first", 5));
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		if(c&&oracle) // TODO
-		{
-			try
-			{
-				next.checkDefaultToNext();
-				fail();
-			}
-			catch(final SQLRuntimeException e)
-			{
-				assertEquals("SELECT \"PrimaryKeyItem_next_Seq\".currval FROM DUAL", e.getMessage());
-			}
-		}
-		else
-			assertInfo(next, next.getDefaultToNextInfo(), cm?6:0);
+		assertInfo(next, next.getDefaultToNextInfo(), cx?6:0);
 
 
 		deleteOnTearDown(new PrimaryKeyItem("second"));
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 1, cm?0:6, cm?0:6, next.getDefaultToNextInfo(), cm?5:0);
+		assertInfo(next, 1, cm?0:6, cm?0:6, next.getDefaultToNextInfo(), cx?5:0);
 
 		deleteOnTearDown(new PrimaryKeyItem("third"));
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 2, cm?0:6, cm?1:7, next.getDefaultToNextInfo(), cm?4:0);
+		assertInfo(next, 2, cm?0:6, cm?1:7, next.getDefaultToNextInfo(), cx?4:0);
 	}
 
 	public void testMultipleTransactions()
@@ -91,24 +77,11 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PrimaryKeyItem("second"));
 		restartTransaction();
 		assertInfo(TYPE, 2, c?3:0, c?4:1, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
-		if(c&&oracle) // TODO
-		{
-			try
-			{
-				next.checkDefaultToNext();
-				fail();
-			}
-			catch(final SQLRuntimeException e)
-			{
-				assertEquals("SELECT \"PrimaryKeyItem_next_Seq\".currval FROM DUAL", e.getMessage());
-			}
-		}
-		else
-			assertInfo(next, 1, c?2:6, c?2:6, next.getDefaultToNextInfo(), c?3:0);
+		assertInfo(next, 1, c?2:6, c?2:6, next.getDefaultToNextInfo(), c?3:0);
 
 		deleteOnTearDown(new PrimaryKeyItem("third"));
 		restartTransaction();
 		assertInfo(TYPE, 3, c?3:0, c?5:2, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
-		assertInfo(next, 2, c?2:6, c?3:7, next.getDefaultToNextInfo(), c?(oracle?3:2):0);
+		assertInfo(next, 2, c?2:6, c?3:7, next.getDefaultToNextInfo(), c?2:0);
 	}
 }
