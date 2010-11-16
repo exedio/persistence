@@ -118,7 +118,7 @@ public class SchemaTest extends AbstractRuntimeTest
 
 	private final String l(final StringField f)
 	{
-		return model.connect().database.dialect.stringLength + '(' + q(f) + ')';
+		return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
 	}
 
 	private final String l(final DataField f)

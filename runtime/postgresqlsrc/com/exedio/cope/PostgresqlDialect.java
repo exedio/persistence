@@ -46,8 +46,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				parameters,
-				new com.exedio.dsmf.PostgresqlDialect(),
-				"LENGTH");
+				new com.exedio.dsmf.PostgresqlDialect());
 
 		final EnvironmentInfo ei = parameters.environmentInfo;
 		// version 8 needed for savepoints
@@ -79,6 +78,12 @@ final class PostgresqlDialect extends Dialect
 	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
 		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
+	}
+
+	@Override
+	String getStringLength()
+	{
+		return "LENGTH";
 	}
 
 	@Override

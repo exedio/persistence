@@ -59,8 +59,7 @@ final class MysqlDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.MysqlDialect(
-						Table.PK_COLUMN_NAME),
-				"CHAR_LENGTH");
+						Table.PK_COLUMN_NAME));
 		this.placeholdersInLimit = parameters.environmentInfo.getDatabaseMajorVersion()>=5;
 	}
 

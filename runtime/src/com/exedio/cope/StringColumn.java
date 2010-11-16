@@ -115,7 +115,7 @@ class StringColumn extends Column
 		}
 		else
 		{
-			final String length = table.database.dialect.stringLength;
+			final String length = table.database.dialect.getStringLength();
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)

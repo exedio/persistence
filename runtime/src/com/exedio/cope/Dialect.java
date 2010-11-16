@@ -45,13 +45,11 @@ abstract class Dialect
 
 	private final boolean nullsAreSortedLow;
 	final com.exedio.dsmf.Dialect dsmfDialect;
-	final String stringLength;
 
-	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect, final String stringLength)
+	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect)
 	{
 		this.nullsAreSortedLow = parameters.nullsAreSortedLow;
 		this.dsmfDialect = dsmfDialect;
-		this.stringLength = stringLength;
 	}
 
 	/**
@@ -158,6 +156,12 @@ abstract class Dialect
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
 	abstract String getStringType(int maxChars);
+
+	String getStringLength()
+	{
+		return "CHAR_LENGTH";
+	}
+
 	abstract String getDayType();
 
 	/**
