@@ -137,15 +137,6 @@ abstract class Dialect
 		return false;
 	}
 
-	/**
-	 * Specifies the factor,
-	 * the length function of blob columns is wrong.
-	 */
-	int getBlobLengthFactor()
-	{
-		return 1;
-	}
-
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');

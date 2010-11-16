@@ -108,7 +108,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "(("+q(stringMin4Max8)+" IS NOT NULL) AND (("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8))) OR ("+q(stringMin4Max8)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", "(("+q(stringExact6)  +" IS NOT NULL) AND (" +l(stringExact6)+"=6)) OR ("+q(stringExact6)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH*model.connect().dialect.getBlobLengthFactor())+")) OR ("+q(data)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH)+")) OR ("+q(data)+" IS NULL)");
 	}
 
 	private final String q(final Field f)

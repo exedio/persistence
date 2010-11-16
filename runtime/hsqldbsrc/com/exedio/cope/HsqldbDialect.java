@@ -109,12 +109,6 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	int getBlobLengthFactor()
-	{
-		return 1;
-	}
-
-	@Override
 	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
 	{
 		super.appendOrderBy(bf, function, ascending);
