@@ -1,3 +1,1 @@
 * remove hsqldb-specific code in DialectParameters constructor
-* check default implementation of Dialect#getBytes
-* check default implementation of Dialect#addBlobInStatementText
