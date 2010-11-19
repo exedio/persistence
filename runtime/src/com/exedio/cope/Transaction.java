@@ -164,13 +164,14 @@ public final class Transaction
 
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
-		if(!connect.queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
+		final QueryCache queryCache = connect.queryCache;
+		if(!queryCache.isEnabled() || isInvalidated(query))
 		{
 			return query.searchUncached(this, totalOnly);
 		}
 		else
 		{
-			return connect.queryCache.search(this, query, totalOnly);
+			return queryCache.search(this, query, totalOnly);
 		}
 	}
 
