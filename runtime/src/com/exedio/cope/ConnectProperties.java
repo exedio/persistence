@@ -236,15 +236,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return databaseDontSupportEmptyStrings.booleanValue();
 	}
 
-	/**
-	 * @deprecated Always returns false.
-	 */
-	@Deprecated
-	public boolean getDatabaseDontSupportLimit()
-	{
-		return false;
-	}
-
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return databaseDontSupportNativeDate.booleanValue();
@@ -366,5 +357,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getOracleVarchar()
 	{
 		return true;
+	}
+
+	/**
+	 * @deprecated Always returns false.
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportLimit()
+	{
+		return false;
 	}
 }
