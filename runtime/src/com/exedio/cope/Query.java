@@ -761,7 +761,7 @@ public final class Query<R>
 		return c==Condition.TRUE ? null : c;
 	}
 
-	ArrayList<Object> search(
+	private ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
 			final boolean totalOnly,
