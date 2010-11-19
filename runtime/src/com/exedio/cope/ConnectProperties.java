@@ -360,7 +360,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	/**
-	 * @deprecated Always returns false.
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns false.
 	 */
 	@Deprecated
 	public boolean getDatabaseDontSupportLimit()
