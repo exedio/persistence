@@ -36,7 +36,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
 	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
-	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
 	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
@@ -237,9 +236,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return databaseDontSupportEmptyStrings.booleanValue();
 	}
 
+	/**
+	 * @deprecated Always returns false.
+	 */
+	@Deprecated
 	public boolean getDatabaseDontSupportLimit()
 	{
-		return databaseDontSupportLimit.booleanValue();
+		return false;
 	}
 
 	public boolean getDatabaseDontSupportNativeDate()

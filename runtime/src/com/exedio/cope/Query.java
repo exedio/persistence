@@ -902,8 +902,6 @@ public final class Query<R>
 				{
 					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
 					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
-					case NONE:
-						break;
 				}
 			}
 		}
@@ -940,23 +938,8 @@ public final class Query<R>
 					return null;
 				}
 
-				if(offset>0 && limitSupport==Dialect.LimitSupport.NONE)
-				{
-					// TODO: ResultSet.relative
-					// Would like to use
-					//    resultSet.relative(limitStart+1);
-					// but this throws a java.sql.SQLException:
-					// Invalid operation for forward only resultset : relative
-					for(int i = offset; i>0; i--)
-						resultSet.next();
-				}
-
-				int i = ((limit==Query.UNLIMITED||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limit );
-				if(i<=0)
-					throw new RuntimeException(String.valueOf(limit));
-
 				int sizeLimitCountDown = sizeLimit;
-				while(resultSet.next() && (--i)>=0)
+				while(resultSet.next())
 				{
 					if((--sizeLimitCountDown)<0)
 						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());

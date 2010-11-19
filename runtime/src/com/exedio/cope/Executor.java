@@ -46,7 +46,7 @@ final class Executor
 	{
 		this.dialect = dialect;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
+		this.limitSupport = dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
 
 		if(limitSupport==null)
