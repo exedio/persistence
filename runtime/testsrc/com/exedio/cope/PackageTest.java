@@ -51,6 +51,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryCopyTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
+		suite.addTestSuite( QuerySearchSizeLimitTest.class );
 		suite.addTestSuite( ConnectTest.class );
 		suite.addTestSuite( TypesBoundTest.class );
 		suite.addTestSuite( TypesBoundComplexTest.class );

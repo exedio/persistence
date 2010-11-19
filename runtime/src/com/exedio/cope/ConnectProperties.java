@@ -67,6 +67,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
 
+	private final IntField querySearchSizeLimit = new IntField("query.searchSizeLimit", 100000, 1);
+
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
 	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
@@ -271,6 +273,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getConnectionPoolIdleLimit()
 	{
 		return connectionPoolIdleLimit.intValue();
+	}
+
+	/**
+	 * @see Query#getSearchSizeLimit()
+	 * @see Query#setSearchSizeLimit(int)
+	 */
+	public int getQuerySearchSizeLimit()
+	{
+		return querySearchSizeLimit.intValue();
 	}
 
 	public int getItemCacheLimit()

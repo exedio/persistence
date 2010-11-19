@@ -49,6 +49,9 @@ public final class Query<R>
 	private int offset = 0;
 	private int limit = UNLIMITED;
 
+	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
+	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
+
 	public Query(final Selectable<? extends R> select)
 	{
 		this(select, (Condition)null);
@@ -79,6 +82,7 @@ public final class Query<R>
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
 		this.limit = query.limit;
+		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
 	/**
@@ -97,6 +101,7 @@ public final class Query<R>
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
 		this.limit = query.limit;
+		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
@@ -381,6 +386,43 @@ public final class Query<R>
 
 		this.offset = offset;
 		this.limit = UNLIMITED;
+	}
+
+	/**
+	 * @see #setSearchSizeLimit(int)
+	 */
+	public int getSearchSizeLimit()
+	{
+		return
+			(searchSizeLimit==SEARCH_SIZE_LIMIT_DEFAULT)
+			? model.getConnectProperties().getQuerySearchSizeLimit()
+			: searchSizeLimit;
+	}
+
+	/**
+	 * Sets the search size limit for this query.
+	 * <p>
+	 * Method {@link #search()} will fail with an {@link IllegalStateException}
+	 * as soon as the size of the result set exceeds the search size limit.
+	 * Method {@link #total()} is not affected by this limit.
+	 * <p>
+	 * Setting the search size limit does not guarantee,
+	 * that {@link #search()} actually fails when exceeding the limit.
+	 * But it is guaranteed, that it does not fail when not exceeding the limit.
+	 * In particular, it may not fail, if the result is fetched from the query cache.
+	 * <p>
+	 * If search size limit is not set, it defaults to
+	 * {@link ConnectProperties#getQuerySearchSizeLimit()}.
+	 *
+	 * @see #getSearchSizeLimit()
+	 */
+	public void setSearchSizeLimit(final int searchSizeLimit)
+	{
+		if(searchSizeLimit<1)
+			throw new IllegalArgumentException(
+					"searchSizeLimit must be greater zero, but was " + searchSizeLimit);
+
+		this.searchSizeLimit = searchSizeLimit;
 	}
 
 	/**
@@ -884,6 +926,7 @@ public final class Query<R>
 
 		//System.out.println(bf.toString());
 
+		final int sizeLimit = this.getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
@@ -912,8 +955,12 @@ public final class Query<R>
 				if(i<=0)
 					throw new RuntimeException(String.valueOf(limit));
 
+				int sizeLimitCountDown = sizeLimit;
 				while(resultSet.next() && (--i)>=0)
 				{
+					if((--sizeLimitCountDown)<0)
+						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
+
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 					final Row dummyRow = new Row();
