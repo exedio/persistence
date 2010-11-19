@@ -127,6 +127,15 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
 				System.out.println("-------/ClusterListenerMulticast-----");
 			}
+			catch(final AssertionError e)
+			{
+				exception++;
+				System.out.println("--------ClusterListenerMulticast-----X");
+				System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
+				e.printStackTrace(System.out);
+				System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
+				System.out.println("-------/ClusterListenerMulticast-----");
+			}
 		}
 		logTerminate();
 	}
