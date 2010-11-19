@@ -77,6 +77,7 @@ performance / memory consumption
 - QueryCache:
 	* implement similar compact representation as for Cache
 	* special handling for empty/singleton results saving memory
+	* API for enabling cache for single Query, also dependent on result size
 - trove:
 	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
 	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
