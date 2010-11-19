@@ -902,6 +902,8 @@ public final class Query<R>
 				{
 					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
 					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
+					default:
+						throw new RuntimeException(limitSupport.name());
 				}
 			}
 		}
