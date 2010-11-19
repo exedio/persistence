@@ -35,6 +35,7 @@ final class Types
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
+	private final Type<?>[] typesByCacheIdTransiently;
 	final int concreteTypeCount;
 	final List<Type<?>> typeList;
 	final List<Type<?>> typeListSorted;
@@ -108,6 +109,23 @@ final class Types
 
 		for(final Type<?> type : typesSorted)
 			type.mount(model, parametersMap.get(type));
+
+		this.typesByCacheIdTransiently = new Type[concreteTypeCount];
+		{
+			int cacheIdTransiently = 0;
+			for(final Type<?> type : typesSorted)
+			{
+				if(!type.isAbstract)
+				{
+					assert
+						type.cacheIdTransiently==cacheIdTransiently :
+						String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + cacheIdTransiently;
+					typesByCacheIdTransiently[cacheIdTransiently++] = type;
+				}
+			}
+			assert cacheIdTransiently==typesByCacheIdTransiently.length;
+		}
+
 
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
@@ -351,7 +369,7 @@ final class Types
 
 	private Type getConcreteType(final int transientNumber)
 	{
-		final Type result = concreteTypes[transientNumber];
+		final Type result = typesByCacheIdTransiently[transientNumber];
 		assert result.cacheIdTransiently==transientNumber : String.valueOf(result.cacheIdTransiently) + '/' + result.id + '/' + transientNumber;
 		return result;
 	}

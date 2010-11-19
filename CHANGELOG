@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* BUGFIX: grave bug notifying ChangeListeners
 * remove connect property database.dontSupport.limit
 * add Query#searchSizeLimit
 	BEWARE:
