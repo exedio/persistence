@@ -25,6 +25,8 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.util.Hex;
@@ -37,7 +39,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final DatagramSocket socket;
 	private final int receiveBufferSize;
 
-	private final Thread[] threads;
+	private final ThreadController[] threads;
 	private volatile boolean threadRun = true;
 
 	ClusterListenerMulticast(
@@ -60,16 +62,16 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			throw new RuntimeException(e);
 		}
 
-		this.threads = new Thread[properties.getListenThreads()];
+		this.threads = new ThreadController[properties.getListenThreads()];
 		for(int i = 0; i<threads.length; i++)
 		{
-			final Thread thread = new Thread(this);
-			thread.setName("COPE Cluster Listener " + name + ' ' + (i+1) + '/' + threads.length);
-			thread.setDaemon(true);
+			final ThreadController thread = new ThreadController(this,
+				"COPE Cluster Listener " + name + ' ' + (i+1) + '/' + threads.length,
+				true);
 			properties.setListenPriority(thread);
 			threads[i] = thread;
 		}
-		for(final Thread thread : threads)
+		for(final ThreadController thread : threads)
 		{
 			thread.start();
 			if(log)
@@ -155,6 +157,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		return receiveBufferSize;
 	}
 
+	void addThreadControllers(final ArrayList<ThreadController> list)
+	{
+		list.addAll(Arrays.asList(threads));
+	}
+
 	@Override
 	void close()
 	{
@@ -172,7 +179,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		}
 		socket.close();
 
-		for(final Thread thread : threads)
+		for(final ThreadController thread : threads)
 		{
 			try
 			{

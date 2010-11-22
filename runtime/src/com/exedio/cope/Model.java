@@ -364,6 +364,11 @@ public final class Model implements Serializable
 		return types.getItem(id);
 	}
 
+	public List<ThreadController> getThreadControllers()
+	{
+		return connect().getThreadControllers();
+	}
+
 	public List<ChangeListener> getChangeListeners()
 	{
 		return changeListeners.get();

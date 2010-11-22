@@ -26,11 +26,22 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
 	public void testMulticast() throws InterruptedException
 	{
+		try
+		{
+			modelA.getThreadControllers();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+		}
+
 		modelA.connect(getProperties(true, -1, -1));
 		modelB.connect(getProperties(true, -1, -1));
 
 		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
+		assertUnmodifiable(modelA.getThreadControllers());
 		assertIt(true, 0, 0);
 
 		modelA.pingClusterNetwork();
