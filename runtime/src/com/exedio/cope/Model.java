@@ -379,15 +379,6 @@ public final class Model implements Serializable
 		return changeListeners.getInfo();
 	}
 
-	/**
-	 * @deprecated use {@link #getChangeListenersInfo()}.{@link ChangeListenerInfo#getCleared()} instead.
-	 */
-	@Deprecated
-	public int getChangeListenersCleared()
-	{
-		return changeListeners.getInfo().getCleared();
-	}
-
 	public int getModificationListenersCleared()
 	{
 		return modificationListeners.getCleared();
@@ -1028,5 +1019,14 @@ public final class Model implements Serializable
 	public static final boolean isLoggingEnabled()
 	{
 		return false;
+	}
+
+	/**
+	 * @deprecated use {@link #getChangeListenersInfo()}.{@link ChangeListenerInfo#getCleared()} instead.
+	 */
+	@Deprecated
+	public int getChangeListenersCleared()
+	{
+		return changeListeners.getInfo().getCleared();
 	}
 }
