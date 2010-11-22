@@ -68,11 +68,11 @@ final class ChangeListeners
 		}
 	}
 
-	int getCleared()
+	ChangeListenerInfo getInfo()
 	{
 		synchronized(list)
 		{
-			return cleared;
+			return new ChangeListenerInfo(cleared);
 		}
 	}
 

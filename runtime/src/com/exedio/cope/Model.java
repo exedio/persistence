@@ -374,9 +374,18 @@ public final class Model implements Serializable
 		return modificationListeners.get();
 	}
 
+	public ChangeListenerInfo getChangeListenersInfo()
+	{
+		return changeListeners.getInfo();
+	}
+
+	/**
+	 * @deprecated use {@link #getChangeListenersInfo()}.{@link ChangeListenerInfo#getCleared()} instead.
+	 */
+	@Deprecated
 	public int getChangeListenersCleared()
 	{
-		return changeListeners.getCleared();
+		return changeListeners.getInfo().getCleared();
 	}
 
 	public int getModificationListenersCleared()
