@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
+import java.lang.Thread.State;
 
 public final class ThreadController
 {
@@ -102,6 +103,24 @@ public final class ThreadController
 	{
 		final Thread thread = this.thread;
 		return thread!=null ? thread.getId() : -1;
+	}
+
+	public boolean isAlive()
+	{
+		final Thread thread = this.thread;
+		return thread!=null && thread.isAlive();
+	}
+
+	public State getState()
+	{
+		final Thread thread = this.thread;
+		return thread!=null ? thread.getState() : null;
+	}
+
+	public StackTraceElement[] getStackTrace()
+	{
+		final Thread thread = this.thread;
+		return thread!=null ? thread.getStackTrace() : null;
 	}
 
 	void join() throws InterruptedException
