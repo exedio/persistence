@@ -219,7 +219,7 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	void setListenPriority(final Thread thread)
+	void setListenPriority(final ThreadController thread)
 	{
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
