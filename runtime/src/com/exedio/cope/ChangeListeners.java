@@ -140,6 +140,13 @@ final class ChangeListeners
 							"Suppressing exception from change listener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
+			catch(final AssertionError e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing assertion error from change listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
+			}
 		}
 	}
 }

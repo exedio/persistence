@@ -137,6 +137,13 @@ final class ModificationListeners
 							"Suppressing exception from modification listener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
+			catch(final AssertionError e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing assertion error from modification listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
+			}
 		}
 	}
 
