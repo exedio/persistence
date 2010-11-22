@@ -60,7 +60,8 @@ public final class ThreadController
 
 	public int getPriority()
 	{
-		return priority;
+		final Thread thread = this.thread;
+		return thread!=null ? thread.getPriority() : priority;
 	}
 
 	public void setPriority(final int priority)
