@@ -33,11 +33,11 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 0);
 
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 0);
 
 		try
 		{
@@ -49,7 +49,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 0);
 
 		try
 		{
@@ -61,7 +61,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 0);
 
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
@@ -123,34 +123,35 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
 
+		assertInfo(0, 0);
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 1);
 
 		// test weakness
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 1);
 
 		System.gc();
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0);
+		assertInfo(0, 1);
 
 		l1 = null;
 		System.gc();
-		assertInfo(0);
+		assertInfo(0, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(1);
+		assertInfo(1, 1);
 
 		final FailListener l2 = new FailListener();
 		model.addChangeListener(l2);
 		model.addChangeListener(new FailListener());
 		System.gc();
 		model.removeChangeListener(l2);
-		assertInfo(2);
+		assertInfo(2, 2);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(2);
+		assertInfo(2, 2);
 
 		model.startTransaction("CommitListenerTestX");
 	}
@@ -240,10 +241,11 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private void assertInfo(final int cleared)
+	private void assertInfo(final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
 		assertEquals(cleared, info.getCleared());
+		assertEquals(removed, info.getRemoved());
 
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared();

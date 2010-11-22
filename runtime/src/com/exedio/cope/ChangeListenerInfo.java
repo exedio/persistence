@@ -21,15 +21,23 @@ package com.exedio.cope;
 public final class ChangeListenerInfo
 {
 	private final int cleared;
+	private final int removed;
 
 	ChangeListenerInfo(
-			final int cleared)
+			final int cleared,
+			final int removed)
 	{
 		this.cleared = cleared;
+		this.removed = removed;
 	}
 
 	public int getCleared()
 	{
 		return cleared;
+	}
+
+	public int getRemoved()
+	{
+		return removed;
 	}
 }

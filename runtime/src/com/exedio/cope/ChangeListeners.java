@@ -32,6 +32,7 @@ final class ChangeListeners
 	private final Types types;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
+	private int removed = 0;
 
 	ChangeListeners(final Types types)
 	{
@@ -72,7 +73,7 @@ final class ChangeListeners
 	{
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared);
+			return new ChangeListenerInfo(cleared, removed);
 		}
 	}
 
@@ -96,6 +97,7 @@ final class ChangeListeners
 		synchronized(list)
 		{
 			int cleared = 0;
+			int removed = 0;
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ChangeListener l = i.next().get();
@@ -105,10 +107,15 @@ final class ChangeListeners
 					cleared++;
 				}
 				else if(l==listener)
+				{
 					i.remove();
+					removed++;
+				}
 			}
 			if(cleared>0)
 				this.cleared += cleared;
+			if(removed>0)
+				this.removed += removed;
 		}
 	}
 
