@@ -23,6 +23,9 @@ import gnu.trove.TIntHashSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.util.Pool;
@@ -186,5 +189,13 @@ final class Connect
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
 		return revisions.getLogs(properties, connectionPool, executor);
+	}
+
+	List<ThreadController> getThreadControllers()
+	{
+		final ArrayList<ThreadController> result = new ArrayList<ThreadController>();
+		if(clusterListener!=null)
+			clusterListener.addThreadControllers(result);
+		return Collections.unmodifiableList(result);
 	}
 }

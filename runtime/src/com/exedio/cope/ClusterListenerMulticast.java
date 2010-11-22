@@ -25,6 +25,8 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.util.Hex;
@@ -153,6 +155,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	int getReceiveBufferSize()
 	{
 		return receiveBufferSize;
+	}
+
+	void addThreadControllers(final ArrayList<ThreadController> list)
+	{
+		list.addAll(Arrays.asList(threads));
 	}
 
 	@Override
