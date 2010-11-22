@@ -97,6 +97,8 @@
 		<Or>
 			<Class name="com.exedio.cope.Type" />
 			<Class name="com.exedio.cope.Feature" />
+			<Class name="com.exedio.cope.ThreadController" />
+			<Class name="com.exedio.cope.Transaction" />
 		</Or>
 	</Match>
 	<Match>
@@ -141,6 +143,7 @@
 		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
 		<Or>
 			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.ThreadController" />
 			<Class name="com.exedio.cope.OracleDialect" />
 			<Class name="com.exedio.cope.HsqldbDialect" />
 			<Class name="com.exedio.cope.misc.SetValueUtil" />
