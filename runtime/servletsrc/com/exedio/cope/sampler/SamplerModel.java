@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.CopeSchemaName;
@@ -116,6 +117,17 @@ final class SamplerModel extends Item
 			queryCacheMisses       .map(info.getMisses()),
 			queryCacheReplacements .map(info.getReplacements()),
 			queryCacheInvalidations.map(info.getInvalidations()));
+	}
+
+
+	private static final IntegerField changeListenerCleared  = new IntegerField().toFinal().min(0);
+	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
+
+	static List<SetValue> map(final ChangeListenerInfo info)
+	{
+		return Arrays.asList((SetValue)
+			changeListenerCleared.map(info.getCleared()),
+			changeListenerRemoved.map(info.getRemoved()));
 	}
 
 
