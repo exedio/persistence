@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -166,7 +167,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		public void onChange(final ChangeEvent event)
+		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
 
@@ -203,7 +204,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			if(exception)
 			{
 				exception = false;
-				throw new NullPointerException("ChangeListener exception");
+				throw new IOException("ChangeListener exception");
 			}
 		}
 

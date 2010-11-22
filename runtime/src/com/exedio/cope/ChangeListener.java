@@ -20,5 +20,5 @@ package com.exedio.cope;
 
 public interface ChangeListener
 {
-	void onChange(ChangeEvent event);
+	void onChange(ChangeEvent event) throws Exception;
 }

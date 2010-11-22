@@ -133,7 +133,7 @@ final class ChangeListeners
 			{
 				listener.onChange(event);
 			}
-			catch(final RuntimeException e)
+			catch(final Exception e)
 			{
 				if(log)
 					System.err.println(
