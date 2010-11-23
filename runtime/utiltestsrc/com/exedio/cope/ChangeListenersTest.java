@@ -115,8 +115,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertEquals(cleared, clearedDeprecated);
 	}
 
-	private static final Type TYPE = TypesBound.newType(AnItem.class);
-	private static final Model model = new Model(TYPE);
+	private static final Model model = new Model(TypesBound.newType(AnItem.class));
 
 	private static class AnItem extends Item
 	{
