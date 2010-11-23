@@ -22,10 +22,10 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ChangeListenersTest extends CopeAssert
 {
-	final FailListener l = new FailListener();
-
 	public void testIt()
 	{
+		final FailListener l = new FailListener();
+
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0);
 
@@ -61,8 +61,10 @@ public class ChangeListenersTest extends CopeAssert
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 1);
+	}
 
-		// test weakness
+	public void testWeakness()
+	{
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
