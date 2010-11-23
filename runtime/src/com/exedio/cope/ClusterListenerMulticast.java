@@ -122,24 +122,24 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception e)
 			{
-				exception++;
-				System.out.println("--------ClusterListenerMulticast-----");
-				System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-				e.printStackTrace(System.out);
-				System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
-				System.out.println("-------/ClusterListenerMulticast-----");
+				handleException(e, packet);
 			}
 			catch(final AssertionError e)
 			{
-				exception++;
-				System.out.println("--------ClusterListenerMulticast-----X");
-				System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-				e.printStackTrace(System.out);
-				System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
-				System.out.println("-------/ClusterListenerMulticast-----");
+				handleException(e, packet);
 			}
 		}
 		logTerminate();
+	}
+
+	private void handleException(final Throwable e, final DatagramPacket packet)
+	{
+		exception++;
+		System.out.println("--------ClusterListenerMulticast-----");
+		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
+		e.printStackTrace(System.out);
+		System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
+		System.out.println("-------/ClusterListenerMulticast-----");
 	}
 
 	private void logTerminate()
