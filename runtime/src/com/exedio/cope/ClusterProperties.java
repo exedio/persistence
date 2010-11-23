@@ -66,6 +66,7 @@ final class ClusterProperties extends Properties
 	private final BooleanField listenBufferDefault = new BooleanField("listenBufferDefault", true);
 	private final IntField     listenBuffer        = new     IntField("listenBuffer"       , 50000, 1);
 	private final IntField     listenThreads       = new     IntField("listenThreads",       1, 1);
+	private final IntField     listenThreadsMax    = new     IntField("listenThreadsMax",    10, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	private final BooleanField multicast           = new BooleanField("multicast",           true);
@@ -97,6 +98,12 @@ final class ClusterProperties extends Properties
 
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);
+
+			if(listenThreads.intValue()>listenThreadsMax.intValue())
+				throw new IllegalArgumentException(
+						listenThreads.getKey() + '=' + listenThreads.intValue() + " must be less or equal " +
+						listenThreadsMax.getKey() + '=' + listenThreadsMax.intValue());
+
 			this.packetSize = packetSizeField.intValue() & (~3);
 			{
 				final Random r = new Random(secret.intValue());
@@ -188,6 +195,11 @@ final class ClusterProperties extends Properties
 	int getListenThreads()
 	{
 		return listenThreads.intValue();
+	}
+
+	int getListenThreadsMax()
+	{
+		return listenThreadsMax.intValue();
 	}
 
 	DatagramSocket newListenSocket()

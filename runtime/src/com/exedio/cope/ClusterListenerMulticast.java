@@ -62,7 +62,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			throw new RuntimeException(e);
 		}
 
-		this.threads = new ThreadController[properties.getListenThreads()];
+		this.threads = new ThreadController[properties.getListenThreadsMax()];
 		for(int i = 0; i<threads.length; i++)
 		{
 			final ThreadController thread = new ThreadController(this,
@@ -71,8 +71,12 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			properties.setListenPriority(thread);
 			threads[i] = thread;
 		}
+		int toStart = properties.getListenThreads();
 		for(final ThreadController thread : threads)
 		{
+			if((--toStart)<0)
+				continue;
+
 			thread.start();
 			if(log)
 				System.out.println(thread.getName() + " (" + thread.getId() + ") started.");
