@@ -61,9 +61,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			throw new RuntimeException(e);
 		}
 
-		this.threads = new ThreadSwarm(this,
+		this.threads = new ThreadSwarm(
+				this,
 				"COPE Cluster Listener " + name,
-				properties.getListenThreadsMax());
+				properties.getListenThreadsMax()
+		);
 		properties.setListenPriority(threads);
 		threads.start(properties.getListenThreads(), log);
 	}
