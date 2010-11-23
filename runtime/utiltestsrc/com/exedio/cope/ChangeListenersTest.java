@@ -109,6 +109,7 @@ public class ChangeListenersTest extends CopeAssert
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
 		assertEquals(cleared, info.getCleared());
 		assertEquals(removed, info.getRemoved());
+		assertEquals(0,       info.getFailed());
 
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared();

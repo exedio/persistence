@@ -56,6 +56,9 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerA.assertLocal(listg(itemA), transactionA);
 		sleepLongerThan(50);
 		listenerB.assertRemote(listg("TypeB-0"));
+
+		assertEquals(0, modelA.getChangeListenersInfo().getFailed());
+		assertEquals(0, modelB.getChangeListenersInfo().getFailed());
 	}
 
 	private final class MockListener implements ChangeListener

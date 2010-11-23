@@ -22,13 +22,16 @@ public final class ChangeListenerInfo
 {
 	private final int cleared;
 	private final int removed;
+	private final int failed;
 
 	ChangeListenerInfo(
 			final int cleared,
-			final int removed)
+			final int removed,
+			final int failed)
 	{
 		this.cleared = cleared;
 		this.removed = removed;
+		this.failed  = failed;
 	}
 
 	public int getCleared()
@@ -39,5 +42,10 @@ public final class ChangeListenerInfo
 	public int getRemoved()
 	{
 		return removed;
+	}
+
+	public int getFailed()
+	{
+		return failed;
 	}
 }

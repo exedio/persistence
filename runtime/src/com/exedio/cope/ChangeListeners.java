@@ -33,6 +33,7 @@ final class ChangeListeners
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
 	private int removed = 0;
+	private volatile int failed = 0;
 
 	ChangeListeners(final Types types)
 	{
@@ -73,7 +74,7 @@ final class ChangeListeners
 	{
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared, removed);
+			return new ChangeListenerInfo(cleared, removed, failed);
 		}
 	}
 
@@ -135,16 +136,18 @@ final class ChangeListeners
 			}
 			catch(final Exception e)
 			{
+				failed++;
 				if(log)
 					System.err.println(
-							"Suppressing exception from change listener " + listener.getClass().getName() +
+							"Failed ChangeListener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 			catch(final AssertionError e)
 			{
+				failed++;
 				if(log)
 					System.err.println(
-							"Suppressing assertion error from change listener " + listener.getClass().getName() +
+							"Failed ChangeListener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}
