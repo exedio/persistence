@@ -26,7 +26,6 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.util.Hex;
@@ -39,7 +38,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final DatagramSocket socket;
 	private final int receiveBufferSize;
 
-	private final ThreadController[] threads;
+	private final ThreadSwarm threads;
 	private volatile boolean threadRun = true;
 
 	ClusterListenerMulticast(
@@ -62,25 +61,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			throw new RuntimeException(e);
 		}
 
-		this.threads = new ThreadController[properties.getListenThreadsMax()];
-		for(int i = 0; i<threads.length; i++)
-		{
-			final ThreadController thread = new ThreadController(this,
-				"COPE Cluster Listener " + name + ' ' + (i+1) + '/' + threads.length,
-				true);
-			properties.setListenPriority(thread);
-			threads[i] = thread;
-		}
-		int toStart = properties.getListenThreads();
-		for(final ThreadController thread : threads)
-		{
-			if((--toStart)<0)
-				continue;
-
-			thread.start();
-			if(log)
-				System.out.println(thread.getName() + " (" + thread.getId() + ") started.");
-		}
+		this.threads = new ThreadSwarm(this,
+				"COPE Cluster Listener " + name,
+				properties.getListenThreadsMax());
+		properties.setListenPriority(threads);
+		threads.start(properties.getListenThreads(), log);
 	}
 
 	public void run()
@@ -163,7 +148,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	void addThreadControllers(final ArrayList<ThreadController> list)
 	{
-		list.addAll(Arrays.asList(threads));
+		threads.addThreadControllers(list);
 	}
 
 	@Override
@@ -183,16 +168,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		}
 		socket.close();
 
-		for(final ThreadController thread : threads)
-		{
-			try
-			{
-				thread.join();
-			}
-			catch(final InterruptedException e)
-			{
-				throw new RuntimeException(thread.getName() + '(' + thread.getId() + ')', e);
-			}
-		}
+		threads.join();
 	}
 }

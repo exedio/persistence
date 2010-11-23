@@ -231,7 +231,7 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	void setListenPriority(final ThreadController thread)
+	void setListenPriority(final ThreadSwarm thread)
 	{
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
