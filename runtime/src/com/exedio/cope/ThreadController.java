@@ -124,6 +124,13 @@ public final class ThreadController
 		return thread!=null ? thread.getStackTrace() : null;
 	}
 
+	void interrupt()
+	{
+		final Thread thread = this.thread;
+		if(thread!=null)
+			thread.interrupt();
+	}
+
 	void join() throws InterruptedException
 	{
 		final Thread thread = this.thread;

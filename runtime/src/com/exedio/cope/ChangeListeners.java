@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,17 +25,19 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.exedio.cope.util.Interrupter;
+
 final class ChangeListeners
 {
-	private final Types types;
+	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
 	private int removed = 0;
 	private volatile int failed = 0;
 
-	ChangeListeners(final Types types)
+	ChangeListeners()
 	{
-		this.types = types;
+		// empty
 	}
 
 	List<ChangeListener> get()
@@ -70,6 +70,11 @@ final class ChangeListeners
 		}
 	}
 
+	boolean isUsed()
+	{
+		return used;
+	}
+
 	ChangeListenerInfo getInfo()
 	{
 		synchronized(list)
@@ -88,6 +93,7 @@ final class ChangeListeners
 		{
 			list.add(ref);
 		}
+		used = true;
 	}
 
 	void remove(final ChangeListener listener)
@@ -120,16 +126,15 @@ final class ChangeListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo, final boolean log)
+	void handle(final ChangeEvent event, final Interrupter interrupter, final boolean log)
 	{
 		final List<ChangeListener> listeners = get();
-		if(listeners.isEmpty())
-			return;
 
-		final ChangeEvent event =
-			new ChangeEvent(types.activate(invalidations), transactionInfo);
 		for(final ChangeListener listener : listeners)
 		{
+			if(interrupter.isRequested())
+				return;
+
 			try
 			{
 				listener.onChange(event);
@@ -139,7 +144,7 @@ final class ChangeListeners
 				failed++;
 				if(log)
 					System.err.println(
-							"Failed ChangeListener " + listener.getClass().getName() +
+							"Suppressing exception from change listener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 			catch(final AssertionError e)
@@ -147,7 +152,7 @@ final class ChangeListeners
 				failed++;
 				if(log)
 					System.err.println(
-							"Failed ChangeListener " + listener.getClass().getName() +
+							"Suppressing assertion error from change listener " + listener.getClass().getName() +
 							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}

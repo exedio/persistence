@@ -18,33 +18,38 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import java.util.concurrent.ArrayBlockingQueue;
 
-abstract class ClusterListenerModel extends ClusterListener
+final class LimitedQueue<E>
 {
-	private final ClusterSender sender;
-	private final Connect connect;
+	private final ArrayBlockingQueue<E> back;
 
-	ClusterListenerModel(
-			final ClusterProperties properties,
-			final ClusterSender sender,
-			final int typeLength, final Connect connect)
+	LimitedQueue(final int capacity)
 	{
-		super(properties, typeLength);
-		this.sender = sender;
-		this.connect = connect;
+		if(capacity<=0)
+			throw new IllegalArgumentException(String.valueOf(capacity));
+
+		back = new ArrayBlockingQueue<E>(capacity);
 	}
 
-	@Override
-	final void invalidate(final int node, final TIntHashSet[] invalidations)
+	/**
+	 * Inserts the specified element into this queue if it is possible to do so
+	 * immediately without exceeding capacity.
+	 *
+	 * @return <tt>true</tt> if the element was added to this queue, else
+	 *         <tt>false</tt>
+	 */
+	boolean offer(final E e)
 	{
-		connect.invalidate(invalidations, false);
-		connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoRemote(node));
+		return back.offer(e);
 	}
 
-	@Override
-	final void pong()
+   /**
+    * Retrieves and removes the head of this queue, waiting if necessary
+    * until an element becomes available.
+    */
+	E take() throws InterruptedException
 	{
-		sender.pong();
+		return back.take();
 	}
 }

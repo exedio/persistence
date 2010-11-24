@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Thread.MAX_PRIORITY;
+import static java.lang.Thread.MIN_PRIORITY;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -74,6 +77,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
+
+	final     IntField changeListenersQueueCapacity = new     IntField("changeListeners.queueCapacity", 1000, 1);
+	final     IntField changeListenersThreads       = new     IntField("changeListeners.threads",        1, 1);
+	final     IntField changeListenersThreadsMax    = new     IntField("changeListeners.threadsMax",    10, 1);
+	final BooleanField changeListenersPrioritySet   = new BooleanField("changeListeners.prioritySet",   false);
+	final     IntField changeListenersPriority      = new     IntField("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
 
 	final BooleanField cluster = new BooleanField("cluster", false);
 

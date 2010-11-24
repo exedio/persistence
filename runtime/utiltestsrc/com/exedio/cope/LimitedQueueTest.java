@@ -18,33 +18,26 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import junit.framework.TestCase;
 
-abstract class ClusterListenerModel extends ClusterListener
+public class LimitedQueueTest extends TestCase
 {
-	private final ClusterSender sender;
-	private final Connect connect;
-
-	ClusterListenerModel(
-			final ClusterProperties properties,
-			final ClusterSender sender,
-			final int typeLength, final Connect connect)
+	public void testIt() throws InterruptedException
 	{
-		super(properties, typeLength);
-		this.sender = sender;
-		this.connect = connect;
-	}
+		final LimitedQueue<String> q = new LimitedQueue<String>(2);
 
-	@Override
-	final void invalidate(final int node, final TIntHashSet[] invalidations)
-	{
-		connect.invalidate(invalidations, false);
-		connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoRemote(node));
-	}
+		assertEquals(true, q.offer("alpha"));
+		assertEquals("alpha", q.take());
 
-	@Override
-	final void pong()
-	{
-		sender.pong();
+		assertEquals(true, q.offer("alpha"));
+		assertEquals(true, q.offer("beta"));
+		assertEquals("alpha", q.take());
+		assertEquals("beta", q.take());
+
+		assertEquals(true, q.offer("alpha"));
+		assertEquals(true, q.offer("beta"));
+		assertEquals(false, q.offer("gamma"));
+		assertEquals("alpha", q.take());
+		assertEquals("beta", q.take());
 	}
 }

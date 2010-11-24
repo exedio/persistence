@@ -70,7 +70,7 @@ public final class Model implements Serializable
 		this.revisions = revisions;
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
-		this.changeListeners = new ChangeListeners(this.types);
+		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
 	}
 

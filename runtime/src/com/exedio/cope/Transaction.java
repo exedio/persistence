@@ -315,7 +315,7 @@ public final class Transaction
 			// notify ChangeListeners
 			if(!rollback)
 			{
-				model.changeListeners.invalidate(invalidations, new TransactionInfoLocal(this), connect.log);
+				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
 				model.modificationListeners.invalidate(invalidations, this, connect.log);
 			}
 		}

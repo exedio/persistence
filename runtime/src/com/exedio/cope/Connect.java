@@ -47,6 +47,7 @@ final class Connect
 	final QueryCache queryCache;
 	final ClusterSenderMulticast clusterSender;
 	final ClusterListenerMulticast clusterListener;
+	final ChangeListenerDispatcher changeListenerDispatcher;
 
 	final boolean supportsReadCommitted;
 
@@ -117,7 +118,7 @@ final class Connect
 			if(clusterProperties!=null)
 			{
 				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
-				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this, changeListeners);
+				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this);
 			}
 			else
 			{
@@ -131,6 +132,10 @@ final class Connect
 			this.clusterListener = null;
 		}
 
+		this.changeListenerDispatcher =
+			new ChangeListenerDispatcher(
+					types, name, changeListeners, properties);
+
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
@@ -138,6 +143,8 @@ final class Connect
 
 	void close()
 	{
+		changeListenerDispatcher.close();
+
 		if(clusterSender!=null)
 			clusterSender.close();
 		if(clusterListener!=null)
@@ -196,6 +203,7 @@ final class Connect
 		final ArrayList<ThreadController> result = new ArrayList<ThreadController>();
 		if(clusterListener!=null)
 			clusterListener.addThreadControllers(result);
+		changeListenerDispatcher.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
 }

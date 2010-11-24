@@ -71,6 +71,12 @@ final class ThreadSwarm
 			thread.setPriority(priority);
 	}
 
+	void interrupt()
+	{
+		for(final ThreadController thread : threads)
+			thread.interrupt();
+	}
+
 	void join()
 	{
 		for(final ThreadController thread : threads)
