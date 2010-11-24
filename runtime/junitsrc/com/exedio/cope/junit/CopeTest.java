@@ -118,6 +118,12 @@ public abstract class CopeTest extends CopeAssert
 					e.printStackTrace();
 					System.err.println("-------------------- /additional exception in tearDown --------------------");
 				}
+				catch(final AssertionError e)
+				{
+					System.err.println("--------------------- additional assertion error in tearDown --------------------");
+					e.printStackTrace();
+					System.err.println("-------------------- /additional assertion error in tearDown --------------------");
+				}
 			}
 		}
 	}
