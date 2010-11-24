@@ -79,6 +79,7 @@ public final class ThreadController
 		thread.setDaemon(daemon);
 		if(priority!=NO_PRIORITY)
 			thread.setPriority(priority);
+		// thread.setUncaughtExceptionHandler(xxx); TODO save exception and make available by getter
 		return thread;
 	}
 
