@@ -153,7 +153,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		threads.addThreadControllers(list);
 	}
 
-	@Override
 	void close()
 	{
 		threadRun = false;

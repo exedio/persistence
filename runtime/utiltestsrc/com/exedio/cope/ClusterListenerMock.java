@@ -52,7 +52,6 @@ final class ClusterListenerMock extends ClusterListener
 		return 234567;
 	}
 
-	@Override
 	void close()
 	{
 		if(closed)

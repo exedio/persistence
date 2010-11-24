@@ -219,7 +219,6 @@ abstract class ClusterListener
 	abstract void invalidate(int node, TIntHashSet[] invalidations);
 	abstract void pong();
 	abstract int getReceiveBufferSize();
-	abstract void close();
 
 	// info
 
