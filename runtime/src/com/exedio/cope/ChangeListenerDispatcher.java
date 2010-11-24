@@ -149,10 +149,14 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		threads.addThreadControllers(list);
 	}
 
-	void close()
+	void startClose()
 	{
 		threadRun = false;
 		threads.interrupt();
-		threads.join();
+	}
+
+	void joinClose()
+	{
+		threads.join(log);
 	}
 }

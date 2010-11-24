@@ -153,7 +153,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		threads.addThreadControllers(list);
 	}
 
-	void close()
+	void startClose()
 	{
 		threadRun = false;
 		if(socket instanceof MulticastSocket)
@@ -168,7 +168,10 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 		}
 		socket.close();
+	}
 
-		threads.join();
+	void joinClose()
+	{
+		threads.join(log);
 	}
 }

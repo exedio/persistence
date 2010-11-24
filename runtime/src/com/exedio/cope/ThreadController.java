@@ -131,11 +131,15 @@ public final class ThreadController
 			thread.interrupt();
 	}
 
-	void join() throws InterruptedException
+	void join(final boolean log) throws InterruptedException
 	{
 		final Thread thread = this.thread;
 		if(thread!=null)
+		{
 			thread.join();
+			if(log)
+				System.out.println(thread.getName() + " (" + thread.getId() + ") done.");
+		}
 	}
 
 	@Override

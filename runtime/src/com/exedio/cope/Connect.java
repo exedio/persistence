@@ -143,14 +143,20 @@ final class Connect
 
 	void close()
 	{
-		changeListenerDispatcher.close();
+		changeListenerDispatcher.startClose();
 
 		if(clusterSender!=null)
 			clusterSender.close();
 		if(clusterListener!=null)
-			clusterListener.close();
+			clusterListener.startClose();
 
 		connectionPool.flush();
+
+		// let threads have some time to terminate,
+		// doing other thing in the mean time
+		changeListenerDispatcher.joinClose();
+		if(clusterListener!=null)
+			clusterListener.joinClose();
 	}
 
 	boolean supportsEmptyStrings()

@@ -77,13 +77,13 @@ final class ThreadSwarm
 			thread.interrupt();
 	}
 
-	void join()
+	void join(final boolean log)
 	{
 		for(final ThreadController thread : threads)
 		{
 			try
 			{
-				thread.join();
+				thread.join(log);
 			}
 			catch(final InterruptedException e)
 			{
