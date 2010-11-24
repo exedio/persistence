@@ -27,6 +27,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
@@ -158,6 +159,7 @@ public final class Sampler
 		final ItemCacheInfo[] itemCacheInfos = sampledModel.getItemCacheInfo();
 		final QueryCacheInfo queryCacheInfo = sampledModel.getQueryCacheInfo();
 		final ChangeListenerInfo changeListenerInfo = sampledModel.getChangeListenersInfo();
+		final ChangeListenerDispatcherInfo changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
 		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
@@ -191,6 +193,7 @@ public final class Sampler
 				sv.addAll(SamplerModel.map(itemCacheSummary));
 				sv.addAll(SamplerModel.map(queryCacheInfo));
 				sv.addAll(SamplerModel.map(changeListenerInfo));
+				sv.addAll(SamplerModel.map(changeListenerDispatcherInfo));
 				sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
 				sv.addAll(SamplerModel.map(mediaSummary));
 				sv.addAll(SamplerModel.map(clusterSenderInfo));

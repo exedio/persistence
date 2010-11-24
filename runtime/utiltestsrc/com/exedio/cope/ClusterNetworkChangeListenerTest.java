@@ -59,6 +59,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		assertEquals(0, modelA.getChangeListenersInfo().getFailed());
 		assertEquals(0, modelB.getChangeListenersInfo().getFailed());
+		assertInfo(modelA);
+		assertInfo(modelB);
 	}
 
 	private final class MockListener implements ChangeListener
@@ -169,5 +171,14 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			event = null;
 		}
+	}
+
+	private static void assertInfo(final Model model)
+	{
+		final ChangeListenerDispatcherInfo dispatcherInfo =
+			model.getChangeListenerDispatcherInfo();
+		assertEquals(0, dispatcherInfo.getOverflow ());
+		assertEquals(0, dispatcherInfo.getException());
+		assertEquals(0, dispatcherInfo.getPending  ());
 	}
 }

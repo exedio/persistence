@@ -384,6 +384,11 @@ public final class Model implements Serializable
 		return changeListeners.getInfo();
 	}
 
+	public ChangeListenerDispatcherInfo getChangeListenerDispatcherInfo()
+	{
+		return connect().changeListenerDispatcher.getInfo();
+	}
+
 	public int getModificationListenersCleared()
 	{
 		return modificationListeners.getCleared();

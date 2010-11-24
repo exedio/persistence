@@ -114,6 +114,16 @@ public class ChangeListenersTest extends CopeAssert
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared();
 		assertEquals(cleared, clearedDeprecated);
+
+		try
+		{
+			model.getChangeListenerDispatcherInfo();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+		}
 	}
 
 	private static final Model model = new Model(TypesBound.newType(AnItem.class));

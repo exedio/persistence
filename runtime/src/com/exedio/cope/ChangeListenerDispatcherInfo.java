@@ -18,43 +18,34 @@
 
 package com.exedio.cope;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
-final class LimitedQueue<E>
+public final class ChangeListenerDispatcherInfo
 {
-	private final ArrayBlockingQueue<E> back;
+	private final long overflow;
+	private final long exception;
+	private final int pending;
 
-	LimitedQueue(final int capacity)
+	ChangeListenerDispatcherInfo(
+			final long overflow,
+			final long exception,
+			final int pending)
 	{
-		if(capacity<=0)
-			throw new IllegalArgumentException(String.valueOf(capacity));
-
-		back = new ArrayBlockingQueue<E>(capacity);
+		this.overflow = overflow;
+		this.exception = exception;
+		this.pending  = pending;
 	}
 
-	/**
-	 * Inserts the specified element into this queue if it is possible to do so
-	 * immediately without exceeding capacity.
-	 *
-	 * @return <tt>true</tt> if the element was added to this queue, else
-	 *         <tt>false</tt>
-	 */
-	boolean offer(final E e)
+	public long getOverflow()
 	{
-		return back.offer(e);
+		return overflow;
 	}
 
-   /**
-    * Retrieves and removes the head of this queue, waiting if necessary
-    * until an element becomes available.
-    */
-	E take() throws InterruptedException
+	public long getException()
 	{
-		return back.take();
+		return exception;
 	}
 
-	int size()
+	public int getPending()
 	{
-		return back.size();
+		return pending;
 	}
 }

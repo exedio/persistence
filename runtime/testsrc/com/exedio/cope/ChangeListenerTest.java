@@ -262,6 +262,11 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared();
 		assertEquals(cleared, clearedDeprecated);
+
+		final ChangeListenerDispatcherInfo dispatcherInfo = model.getChangeListenerDispatcherInfo();
+		assertEquals(0, dispatcherInfo.getOverflow ());
+		assertEquals(0, dispatcherInfo.getException());
+		assertEquals(0, dispatcherInfo.getPending  ());
 	}
 
 	public void testThreadControllers()

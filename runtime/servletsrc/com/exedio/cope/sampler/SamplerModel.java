@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
@@ -130,6 +131,19 @@ final class SamplerModel extends Item
 			changeListenerCleared.map(info.getCleared()),
 			changeListenerRemoved.map(info.getRemoved()),
 			changeListenerFailed .map(info.getFailed()));
+	}
+
+
+	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal();
+	private static final    LongField changeListenerException = new LongField   ().toFinal();
+	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
+
+	static List<SetValue> map(final ChangeListenerDispatcherInfo info)
+	{
+		return Arrays.asList((SetValue)
+			changeListenerOverflow .map(info.getOverflow ()),
+			changeListenerException.map(info.getException()),
+			changeListenerPending  .map(info.getPending  ()));
 	}
 
 

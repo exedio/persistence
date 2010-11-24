@@ -59,6 +59,11 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		threads.start(connectProperties.changeListenersThreads.intValue(), log);
 	}
 
+	ChangeListenerDispatcherInfo getInfo()
+	{
+		return new ChangeListenerDispatcherInfo(overflow, exception, queue.size());
+	}
+
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
 	{
 		if(!manager.isUsed())
