@@ -70,11 +70,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.setName("name1");
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -113,11 +111,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.deleteCopeItem();
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}
@@ -152,11 +148,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.setName("name1");
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -198,11 +192,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.deleteCopeItem();
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}
@@ -241,11 +233,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.setName("name1");
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -287,11 +277,9 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 				item.deleteCopeItem();
 				fail();
 			}
-			catch(final RuntimeException e)
+			catch(final TemporaryTransactionException e)
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}

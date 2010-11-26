@@ -145,11 +145,9 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 				item.setString("zack");
 				fail();
 			}
-			catch(final RuntimeException e) // TODO this is a bug
+			catch(final TemporaryTransactionException e) // TODO this is a bug
 			{
 				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-				assertEquals(RuntimeException.class, e.getClass());
-				assertEquals(null, e.getCause());
 			}
 		}
 		else

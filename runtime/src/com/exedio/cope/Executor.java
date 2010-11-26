@@ -192,7 +192,7 @@ final class Executor
 	{
 		final int rows = update(connection, statement);
 		if(rows!=1)
-			throw new RuntimeException("expected one row, but got " + rows + " on statement: " + statement.toString());
+			throw new TemporaryTransactionException(statement.toString(), rows);
 	}
 
 	int update(
