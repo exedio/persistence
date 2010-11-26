@@ -84,7 +84,7 @@ public final class LikeCondition extends Condition
 	{
 		function.toString(bf, defaultType);
 		bf.append(" like '").
-			append(toStringForValue(value, key)).
+			append(value).
 			append('\'');
 	}
 

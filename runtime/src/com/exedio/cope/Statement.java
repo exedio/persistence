@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.exedio.cope.misc.Arrays;
 
 final class Statement
 {
@@ -341,7 +345,7 @@ final class Statement
 			{
 				result.append(text.substring(lastPos, pos));
 				result.append(QUESTION_MARK);
-				result.append(Condition.toStringForValue(pi.next(), true));
+				result.append(toStringForValue(pi.next()));
 				result.append(QUESTION_MARK);
 				lastPos = pos+1;
 			}
@@ -349,6 +353,20 @@ final class Statement
 
 			return result.toString();
 		}
+	}
+
+	private static final String toStringForValue(final Object o)
+	{
+		if(o==null)
+			return "NULL";
+		else if(o instanceof Item)
+			return ((Item)o).getCopeID();
+		else if(o instanceof Date)
+			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
+		else if(o instanceof byte[])
+			return Arrays.toString((byte[])o, 30);
+		else
+			return o.toString();
 	}
 
 	// join aliases

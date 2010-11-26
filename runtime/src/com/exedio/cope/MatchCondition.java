@@ -91,7 +91,7 @@ public final class MatchCondition extends Condition
 	{
 		function.toString(bf, defaultType);
 		bf.append(" matches '").
-			append(toStringForValue(value, key)).
+			append(value).
 			append('\'');
 	}
 }

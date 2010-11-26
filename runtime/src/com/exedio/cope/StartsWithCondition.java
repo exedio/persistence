@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 
+import com.exedio.cope.util.Hex;
+
 public final class StartsWithCondition extends Condition
 {
 	public final DataField field;
@@ -94,7 +96,8 @@ public final class StartsWithCondition extends Condition
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		field.toString(bf, defaultType);
-		bf.append(" startsWith ").
-			append(toStringForValue(value, key));
+		bf.append(" startsWith '");
+		Hex.append(bf, value, value.length);
+		bf.append('\'');
 	}
 }
