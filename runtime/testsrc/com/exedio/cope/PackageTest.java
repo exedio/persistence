@@ -43,9 +43,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CapabilitiesTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
 		suite.addTestSuite( TestGetModelTest.class );
-		suite.addTestSuite( TypeCollisionTest.class );
-		suite.addTestSuite( TypeSetTest.class );
-		suite.addTestSuite( TypeCompareTest.class );
 		suite.addTestSuite( FeaturesTest.class );
 		suite.addTestSuite( FinalTest.class );
 		suite.addTestSuite( QueryTest.class );
@@ -53,10 +50,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( QuerySearchSizeLimitTest.class );
 		suite.addTestSuite( ConnectTest.class );
-		suite.addTestSuite( TypesBoundTest.class );
-		suite.addTestSuite( TypesBoundComplexTest.class );
 		suite.addTestSuite( TypesBoundAnnotationTest.class );
-		suite.addTestSuite( TypesBoundErrorTest.class );
 		suite.addTestSuite( FeatureTest.class );
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );

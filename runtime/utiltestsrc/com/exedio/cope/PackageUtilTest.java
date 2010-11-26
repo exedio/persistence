@@ -36,6 +36,12 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
+		suite.addTestSuite(TypeCompareTest.class);
+		suite.addTestSuite(TypeSetTest.class);
+		suite.addTestSuite(TypeCollisionTest.class);
+		suite.addTestSuite(TypesBoundTest.class);
+		suite.addTestSuite(TypesBoundErrorTest.class);
+		suite.addTestSuite(TypesBoundComplexTest.class);
 		suite.addTestSuite(ClusterUnpaddedTest.class);
 		suite.addTestSuite(ClusterPaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
