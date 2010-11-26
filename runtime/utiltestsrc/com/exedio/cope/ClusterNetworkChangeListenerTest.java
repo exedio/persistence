@@ -57,8 +57,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerA.assertLocal(listg(itemA), transactionA);
 		listenerB.assertRemote(listg("TypeB-0"));
 
-		assertEquals(0, modelA.getChangeListenersInfo().getFailed());
-		assertEquals(0, modelB.getChangeListenersInfo().getFailed());
 		assertInfo(modelA);
 		assertInfo(modelB);
 	}
@@ -101,8 +99,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		void assertEmpty()
 		{
-			assertEquals(0, modelA.getChangeListenersInfo().getFailed());
-			assertEquals(0, modelB.getChangeListenersInfo().getFailed());
 			assertInfo(modelA);
 			assertInfo(modelB);
 
@@ -111,8 +107,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
 		{
-			assertEquals(0, modelA.getChangeListenersInfo().getFailed());
-			assertEquals(0, modelB.getChangeListenersInfo().getFailed());
 			assertInfo(modelA);
 			assertInfo(modelB);
 
@@ -141,8 +135,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		void assertRemote(final List<String> expectedItems) throws ChangeEvent.NotAvailableException
 		{
-			assertEquals(0, modelA.getChangeListenersInfo().getFailed());
-			assertEquals(0, modelB.getChangeListenersInfo().getFailed());
 			assertInfo(modelA);
 			assertInfo(modelB);
 
@@ -190,6 +182,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 	static void assertInfo(final Model model)
 	{
+		assertEquals(0, model.getChangeListenersInfo().getFailed());
+
 		final ChangeListenerDispatcherInfo dispatcherInfo =
 			model.getChangeListenerDispatcherInfo();
 		assertEquals("overflow",  0, dispatcherInfo.getOverflow ());
