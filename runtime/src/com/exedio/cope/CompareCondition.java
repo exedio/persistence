@@ -107,7 +107,7 @@ public final class CompareCondition<E> extends Condition
 		if(o instanceof Item)
 			bf.append(key ? ((Item)o).getCopeID() : o.toString());
 		else if(o instanceof Date)
-			bf.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
+			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else
 			bf.append(o.toString());
 	}
