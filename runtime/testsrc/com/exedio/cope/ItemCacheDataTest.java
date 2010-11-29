@@ -43,161 +43,161 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 	public void testCommitSingleString()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zick");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertModificationCount(2);
+		assertModificationCount(2, 1);
 	}
 
 	public void testCommitSingleData()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 	}
 
 	public void testCommitMultiString()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zick");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertModificationCount(2);
+		assertModificationCount(2, 1);
 	}
 
 	public void testCommitMultiData()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1); // TODO should be 0
+		assertModificationCount(1, 1); // TODO should be 0/0
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, 1);
 
 		item.setString("zack");
-		assertModificationCount(2); // TODO should be 1
+		assertModificationCount(2, 1); // TODO should be 1/0
 	}
 
 	public void testCommitMultiBoth()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setBothMulti("zick", Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertModificationCount(2);
+		assertModificationCount(2, 1);
 	}
 
 	public void testRollbackSingleString()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zick");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, 0);
 
 		item.setString("zack");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 	}
 
 	public void testRollbackSingleData()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 	}
 
 	public void testRollbackMultiString()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zick");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, 0);
 
 		item.setString("zack");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 	}
 
 	public void testRollbackMultiData()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1); // TODO should be 1
+		assertModificationCount(1, 1); // TODO should be 1
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, 1);
 
 		final ConnectProperties props = model.getConnectProperties();
 		if(props.itemCacheConcurrentModificationDetection.booleanValue() &&
@@ -216,34 +216,38 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		else
 			item.setString("zack");
 
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		// allow teardown to delete item
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 	}
 
 	public void testRollbackMultiBoth()
 	{
-		assertModificationCount(0);
+		assertModificationCount(0, MIN_VALUE);
 
 		restartTransaction();
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setBothMulti("zick", Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE);
+		assertModificationCount(MIN_VALUE, 0);
 
 		item.setString("zack");
-		assertModificationCount(1);
+		assertModificationCount(1, 0);
 	}
 
-	private void assertModificationCount(final int expected)
+	@SuppressWarnings("deprecation") // OK: using special accessors for tests
+	private void assertModificationCount(final int expected, final int global)
 	{
 		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+		{
 			assertEquals(expected, item.getModificationCountIfActive());
+			assertEquals("global", global, item.getModificationCountGlobal());
+		}
 	}
 }

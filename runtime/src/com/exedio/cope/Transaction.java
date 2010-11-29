@@ -162,6 +162,15 @@ public final class Transaction
 		}
 	}
 
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	WrittenState getGlobalState(final Item item)
+	{
+		return connect.itemCache.getStateIfPresent(item);
+	}
+
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		final QueryCache queryCache = connect.queryCache;

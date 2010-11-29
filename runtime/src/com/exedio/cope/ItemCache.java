@@ -89,6 +89,19 @@ final class ItemCache
 		return state;
 	}
 
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	WrittenState getStateIfPresent(final Item item)
+	{
+		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
+		if(cachlet==null)
+			return null;
+
+		return cachlet.get(item.pk);
+	}
+
 	void remove(final Item item)
 	{
 		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];

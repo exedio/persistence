@@ -443,6 +443,20 @@ public abstract class Item implements Serializable, Comparable<Item>
 			: entity.getModificationCount();
 	}
 
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	int getModificationCountGlobal()
+	{
+		final WrittenState state =
+			type.getModel().currentTransaction().getGlobalState(this);
+		return
+			state==null
+			? Integer.MIN_VALUE
+			: state.modificationCount;
+	}
+
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
