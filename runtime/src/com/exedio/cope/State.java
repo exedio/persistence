@@ -27,7 +27,6 @@ abstract class State
 	final int pk;
 	int modificationCount;
 
-
 	protected State(final Item item, final int modificationCount)
 	{
 		this.item = item;
