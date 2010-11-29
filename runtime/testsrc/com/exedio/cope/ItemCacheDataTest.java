@@ -103,14 +103,14 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1, 1); // TODO should be 0/0
+		assertModificationCount(0, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE, 1);
+		assertModificationCount(MIN_VALUE, 0);
 
 		item.setString("zack");
-		assertModificationCount(2, 1); // TODO should be 1/0
+		assertModificationCount(1, 0);
 	}
 
 	public void testCommitMultiBoth()
@@ -193,34 +193,14 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti(Hex.decodeLower("aabbccdd"));
-		assertModificationCount(1, 1); // TODO should be 1
+		assertModificationCount(0, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE, 1);
+		assertModificationCount(MIN_VALUE, 0);
 
-		final ConnectProperties props = model.getConnectProperties();
-		if(props.itemCacheConcurrentModificationDetection.booleanValue() &&
-			props.getItemCacheLimit()>0)
-		{
-			try
-			{
-				item.setString("zack");
-				fail();
-			}
-			catch(final TemporaryTransactionException e) // TODO this is a bug
-			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
-			}
-		}
-		else
-			item.setString("zack");
-
-		assertModificationCount((model.getConnectProperties().getItemCacheLimit()>0)?MIN_VALUE:1, MIN_VALUE);
-
-		// allow teardown to delete item
-		restartTransaction();
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		item.setString("zack");
+		assertModificationCount(1, 0);
 	}
 
 	public void testRollbackMultiBoth()

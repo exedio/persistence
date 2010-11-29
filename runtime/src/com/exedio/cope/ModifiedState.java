@@ -58,7 +58,7 @@ final class ModifiedState extends State
 		boolean discard = true;
 		try
 		{
-			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
+			type.getModel().connect().database.store(transaction.getConnection(), this, true, true, blobs);
 			discard = false;
 		}
 		finally
@@ -66,7 +66,7 @@ final class ModifiedState extends State
 			if(discard)
 				discard( transaction );
 		}
-		return new WrittenState(this);
+		return new WrittenState(this, true);
 	}
 
 	@Override

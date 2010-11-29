@@ -82,7 +82,6 @@ final class DeletedState extends State
 
 			executor.updateStrict(connection, bf);
 		}
-		modificationCount = Integer.MIN_VALUE;
 	}
 
 	@Override

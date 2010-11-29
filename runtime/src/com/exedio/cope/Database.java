@@ -404,25 +404,26 @@ final class Database
 			final Connection connection,
 			final State state,
 			final boolean present,
+			final boolean modCount,
 			final Map<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, blobs, state.type);
-		if(present)
-			state.modificationCount++;
+		store(connection, state, present, modCount, blobs, state.type);
 	}
 
 	private void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
+			final boolean modCount,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
 		buildStage = false;
+		assert present || modCount;
 
 		final Type supertype = type.supertype;
 		if(supertype!=null)
-			store(connection, state, present, blobs, supertype);
+			store(connection, state, present, modCount, blobs, supertype);
 
 		final Table table = type.getTable();
 
@@ -430,7 +431,7 @@ final class Database
 
 		final Statement bf = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
-		final IntegerColumn modificationCountColumn = table.modificationCount;
+		final IntegerColumn modificationCountColumn = modCount ? table.modificationCount : null;
 		if(present)
 		{
 			bf.append("update ").
