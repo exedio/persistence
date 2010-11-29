@@ -246,7 +246,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 	{
 		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
 		{
-			assertEquals(expected, item.getModificationCountIfActive());
+			assertEquals("transaction", expected, item.getModificationCountIfActive());
 			assertEquals("global", global, item.getModificationCountGlobal());
 		}
 	}
