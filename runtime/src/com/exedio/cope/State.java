@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.Map;
 
-
 abstract class State
 {
 	final Item item;
