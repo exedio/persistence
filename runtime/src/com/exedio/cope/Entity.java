@@ -89,6 +89,14 @@ final class Entity
 		state.discard(transaction);
 	}
 
+	/**
+	 * For unit tests only.
+	 */
+	int getModificationCount()
+	{
+		return state.modificationCount;
+	}
+
 	@Override
 	public String toString()
 	{

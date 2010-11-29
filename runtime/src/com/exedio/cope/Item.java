@@ -431,6 +431,18 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return type.getModel().currentTransaction().getEntityIfActive(type, pk);
 	}
 
+	/**
+	 * For unit tests only.
+	 */
+	int getModificationCountIfActive()
+	{
+		final Entity entity = getEntityIfActive();
+		return
+			entity==null
+			? Integer.MIN_VALUE
+			: entity.getModificationCount();
+	}
+
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
