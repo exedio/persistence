@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -442,6 +443,11 @@ public final class Model implements Serializable
 	public EnvironmentInfo getEnvironmentInfo()
 	{
 		return connect().database.dialectParameters.environmentInfo;
+	}
+
+	public Properties getClusterProperties()
+	{
+		return connect().clusterProperties;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()

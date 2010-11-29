@@ -45,6 +45,7 @@ final class Connect
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
+	final ClusterProperties clusterProperties;
 	final ClusterSenderMulticast clusterSender;
 	final ClusterListenerMulticast clusterListener;
 	final ChangeListenerDispatcher changeListenerDispatcher;
@@ -114,7 +115,7 @@ final class Connect
 
 		if(properties.cluster.booleanValue())
 		{
-			final ClusterProperties clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+			this.clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
 			if(clusterProperties!=null)
 			{
 				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
@@ -128,6 +129,7 @@ final class Connect
 		}
 		else
 		{
+			this.clusterProperties = null;
 			this.clusterSender   = null;
 			this.clusterListener = null;
 		}
