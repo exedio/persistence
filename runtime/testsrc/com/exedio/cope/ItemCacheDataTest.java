@@ -244,7 +244,8 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertModificationCount(final int expected, final int global)
 	{
-		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+		final ConnectProperties props = model.getConnectProperties();
+		if(props.itemCacheConcurrentModificationDetection.booleanValue() && props.getItemCacheLimit()>0)
 		{
 			assertEquals("transaction", expected, item.getModificationCountIfActive());
 			assertEquals("global", global, item.getModificationCountGlobal());

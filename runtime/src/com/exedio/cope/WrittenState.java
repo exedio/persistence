@@ -58,6 +58,8 @@ final class WrittenState extends State
 	{
 		if(blobs!=null && !blobs.isEmpty())
 			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
+		else
+			throw new RuntimeException(item.getCopeID());
 
 		return this;
 	}
