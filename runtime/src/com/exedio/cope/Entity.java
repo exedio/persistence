@@ -90,8 +90,9 @@ final class Entity
 	}
 
 	/**
-	 * For unit tests only.
+	 * @deprecated for unit tests only
 	 */
+	@Deprecated
 	int getModificationCount()
 	{
 		return state.modificationCount;

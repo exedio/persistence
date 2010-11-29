@@ -432,8 +432,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 	}
 
 	/**
-	 * For unit tests only.
+	 * @deprecated for unit tests only
 	 */
+	@Deprecated
 	int getModificationCountIfActive()
 	{
 		final Entity entity = getEntityIfActive();
