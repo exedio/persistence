@@ -143,7 +143,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE, 0);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
 		assertModificationCount(1, 0);
@@ -179,7 +179,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE, 0);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
 		assertModificationCount(1, 0);
@@ -235,7 +235,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertModificationCount(MIN_VALUE, 0);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
 		assertModificationCount(1, 0);
