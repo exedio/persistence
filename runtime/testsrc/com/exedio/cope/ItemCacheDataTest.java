@@ -216,7 +216,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		else
 			item.setString("zack");
 
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertModificationCount((model.getConnectProperties().getItemCacheLimit()>0)?MIN_VALUE:1, MIN_VALUE);
 
 		// allow teardown to delete item
 		restartTransaction();
@@ -245,10 +245,11 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 	private void assertModificationCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		if(props.itemCacheConcurrentModificationDetection.booleanValue() && props.getItemCacheLimit()>0)
+		if(props.itemCacheConcurrentModificationDetection.booleanValue())
 		{
 			assertEquals("transaction", expected, item.getModificationCountIfActive());
-			assertEquals("global", global, item.getModificationCountGlobal());
+			if(props.getItemCacheLimit()>0)
+				assertEquals("global", global, item.getModificationCountGlobal());
 		}
 	}
 }
