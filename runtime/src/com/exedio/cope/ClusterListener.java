@@ -137,7 +137,11 @@ abstract class ClusterListener
 
 	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
 
-	private boolean handlePingPong(final DatagramPacket packet, final Iter iter, final int node, final boolean ping)
+	private boolean handlePingPong(
+			final DatagramPacket packet,
+			final Iter iter,
+			final int node,
+			final boolean ping)
 	{
 		final int sequence = iter.nextInt();
 
