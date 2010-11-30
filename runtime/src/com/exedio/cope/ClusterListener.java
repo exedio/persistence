@@ -240,7 +240,11 @@ abstract class ClusterListener
 		final SequenceChecker pongSequenceChecker;
 		final SequenceChecker invalidateSequenceChecker;
 
-		Node(final int id, final DatagramPacket packet, final int sequenceCheckerCapacity, final boolean log)
+		Node(
+				final int id,
+				final DatagramPacket packet,
+				final int sequenceCheckerCapacity,
+				final boolean log)
 		{
 			this.id = id;
 			this.firstEncounter = System.currentTimeMillis();
