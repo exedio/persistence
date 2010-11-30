@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 
 /**
@@ -101,17 +102,17 @@ public abstract class ClusterTest extends CopeAssert
 
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00, // kind=invalidation
-				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
-				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
-					(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
-					(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
-				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
+				"c0be1111" + // magic
+				"55667788" + // secret
+				"33442211" + // node
+				"01001200" + // kind=invalidation
+				"00000000" + // sequence
+				"00000000" + // id 0
+					"456789af" + // pk2 (swapped by hash set)
+					"ab896745" + // pk1
+					"00000080" + // NaPK for end
+				"02000000" + // id 2
+					"00000080" ); // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
@@ -477,23 +478,23 @@ public abstract class ClusterTest extends CopeAssert
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 40 type 1
-					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 44 pk 11
+				"c0be1111" +     //  4 magic
+				"55667788" +     //  8 secret
+				"33442211" +     // 12 node
+				"01001200" +     // 16 kind=invalidation
+				"00000000" +     // 20 sequence
+				"00000000" +     // 24 type 0
+					"02000000" +  // 28 pk 2
+					"01000000" +  // 32 pk 1
+					"00000080" +  // 36 NaPK for end
+				"01000000" +     // 40 type 1
+					"0b000000" ); // 44 pk 11
 		assertEqualsBytes(bufs[1], // TODO should not be there
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 20 sequence
+				"c0be1111" +     //  4 magic
+				"55667788" +     //  8 secret
+				"33442211" +     // 12 node
+				"01001200" +     // 16 kind=invalidation
+				"01000000" );    // 20 sequence
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
@@ -791,6 +792,11 @@ public abstract class ClusterTest extends CopeAssert
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
 		assertEquals(expectedData.length, actualData.length);
+	}
+
+	private void assertEqualsBytes(final byte[] actualData, final String expectedData)
+	{
+		assertEquals(expectedData, Hex.encodeLower(actualData));
 	}
 
 	private static TIntHashSet[] convert(final int[][] invalidationNumbers)
