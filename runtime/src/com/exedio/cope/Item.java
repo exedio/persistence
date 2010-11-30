@@ -295,6 +295,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 			FinalViolationException,
 			ClassCastException
 	{
+		if(setValues==null)
+			throw new NullPointerException("setValues");
+		if(setValues.length==0)
+			return;
+
 		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
 		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
 		{

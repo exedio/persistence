@@ -41,6 +41,19 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new ItemCacheDataItem());
 	}
 
+	public void testNull()
+	{
+		try
+		{
+			item.set((SetValue[])null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("setValues", e.getMessage());
+		}
+	}
+
 	public void testCommitSingleString()
 	{
 		assertModificationCount(0, MIN_VALUE);
@@ -67,6 +80,24 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData(Hex.decodeLower("aabbccdd"));
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		model.commit();
+		model.startTransaction("ItemCacheDataTest");
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		item.setString("zack");
+		assertModificationCount(1, 0);
+	}
+
+	public void testCommitMultiEmpty()
+	{
+		assertModificationCount(0, MIN_VALUE);
+
+		restartTransaction();
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		item.set(new SetValue[0]);
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		model.commit();
@@ -157,6 +188,24 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData(Hex.decodeLower("aabbccdd"));
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		model.rollback();
+		model.startTransaction("ItemCacheDataTest");
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		item.setString("zack");
+		assertModificationCount(1, 0);
+	}
+
+	public void testRollbackMultiEmpty()
+	{
+		assertModificationCount(0, MIN_VALUE);
+
+		restartTransaction();
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+		item.set(new SetValue[0]);
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 
 		model.rollback();
