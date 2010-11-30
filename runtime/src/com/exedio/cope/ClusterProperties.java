@@ -69,6 +69,7 @@ final class ClusterProperties extends Properties
 	private final IntField     listenThreadsMax    = new     IntField("listenThreadsMax",    10, 1);
 	private final BooleanField listenPrioritySet   = new BooleanField("listenPrioritySet",   false);
 	private final IntField     listenPriority      = new     IntField("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
+	        final IntField     listenSeqCheckCap   = new     IntField("listenSequenceCheckerCapacity", 200, 1);
 	private final BooleanField multicast           = new BooleanField("multicast",           true);
 	private final IntField     packetSizeField     = new     IntField("packetSize",          1400, 32);
 

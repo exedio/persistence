@@ -42,6 +42,7 @@ abstract class ClusterListener
 	private final int secret;
 	private final int localNode;
 	private final boolean log;
+	private final int sequenceCheckerCapacity;
 	private final int typeLength;
 
 	ClusterListener(
@@ -52,6 +53,7 @@ abstract class ClusterListener
 		this.secret = properties.getSecret();
 		this.localNode = properties.node;
 		this.log = properties.log.booleanValue();
+		this.sequenceCheckerCapacity = properties.listenSeqCheckCap.intValue();
 		this.typeLength = typeLength;
 	}
 
@@ -238,15 +240,15 @@ abstract class ClusterListener
 		final SequenceChecker pongSequenceChecker;
 		final SequenceChecker invalidateSequenceChecker;
 
-		Node(final int id, final DatagramPacket packet, final boolean log)
+		Node(final int id, final DatagramPacket packet, final int sequenceCheckerCapacity, final boolean log)
 		{
 			this.id = id;
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
-			this.pingSequenceChecker = new SequenceChecker(200);
-			this.pongSequenceChecker = new SequenceChecker(200);
-			this.invalidateSequenceChecker = new SequenceChecker(200);
+			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
+			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
+			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
@@ -281,7 +283,7 @@ abstract class ClusterListener
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, log));
+			nodes.put(id, result = new Node(id, packet, sequenceCheckerCapacity, log));
 			return result;
 		}
 	}
