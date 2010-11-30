@@ -152,6 +152,8 @@ abstract class ClusterSender
 
 				pos = marshal(pos, buf, invalidationSequence.getAndIncrement());
 
+				boolean packetNotEmpty = false;
+
 				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
 					if(i!=null && !i.hasNext())
@@ -169,6 +171,7 @@ abstract class ClusterSender
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, typeIdTransiently);
+						packetNotEmpty = true;
 
 						if(i==null)
 							i = invalidation.iterator();
@@ -193,7 +196,8 @@ abstract class ClusterSender
 					}
 				}
 
-				send(pos, buf);
+				if(packetNotEmpty)
+					send(pos, buf);
 				break;
 			}
 			while(true);

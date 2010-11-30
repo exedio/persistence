@@ -489,29 +489,13 @@ public abstract class ClusterTest extends CopeAssert
 					"00000080" +  // 36 NaPK for end
 				"01000000" +     // 40 type 1
 					"0b000000" ); // 44 pk 11
-		assertEqualsBytes(bufs[1], // TODO should not be there
-				"c0be1111" +     //  4 magic
-				"55667788" +     //  8 secret
-				"33442211" +     // 12 node
-				"01001200" +     // 16 kind=invalidation
-				"01000000" );    // 20 sequence
-		assertEquals(2, bufs.length);
+		assertEquals(1, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
-			assertEquals(null, pks[2]);
-			assertEquals(null, pks[3]);
-			assertEquals(4, pks.length);
-		}
-		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-
-		{
-			final TIntHashSet[] pks = um(bufs[1]);
-			assertEquals(null, pks[0]);
-			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
