@@ -362,7 +362,6 @@ public abstract class MediaPath extends Pattern
 
 		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;
-		final boolean checkCanonical;
 		if(slash<0)
 		{
 			final int dot = pathInfo.indexOf('.', fromIndex);
@@ -372,13 +371,10 @@ public abstract class MediaPath extends Pattern
 				id = pathInfo.substring(fromIndex, dot);
 			else
 				id = pathInfo.substring(fromIndex);
-
-			checkCanonical = true;
 		}
 		else
 		{
 			id = pathInfo.substring(fromIndex, slash);
-			checkCanonical = false;
 		}
 
 		final String token = makeUrlToken(id);
@@ -396,7 +392,6 @@ public abstract class MediaPath extends Pattern
 			model.startTransaction("MediaServlet");
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
-			if(checkCanonical)
 			{
 				final Locator locator = getLocator(item);
 				if(locator!=null)

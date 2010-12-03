@@ -61,6 +61,10 @@ public class MediaServletTest extends TestCase
 		init.getContent();
 
 		final String prefix = app + "media/MediaServletItem/";
+		final String itemTxt      = prefix + "content/"    + ITEM_TXT + ".txt";
+		final String itemTxtCatch = prefix + "content/"    + ITEM_TEXT_CATCH + "/zick.txt";
+		final String itemUnkown   = prefix + "content/"    + ITEM_UNK;
+		final String itemName     = prefix + "nameServer/" + ITEM_NAME_OK + ".txt";
 
 		final long lmTxt = assertTxt(prefix + "content/" + ITEM_TXT + ".txt");
 		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" );
@@ -73,28 +77,28 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_TXT + ".zick", prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TXT + "."    , prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TXT          , prefix + "content/" + ITEM_TXT + ".txt");
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.txt" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zack.txt" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.jpg" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.zack"));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick."    ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick"     ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/."        ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/"         ));
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zick.txt" , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zack.txt" , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zick.jpg" , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zick.zack", itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zick."    , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/zick"     , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/."        , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + "/"         , itemTxt);
 
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + ".txt"));
-		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".jpg" , prefix + "content/" + ITEM_TEXT_CATCH + ".txt");
-		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", prefix + "content/" + ITEM_TEXT_CATCH + ".txt"); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , prefix + "content/" + ITEM_TEXT_CATCH + ".txt"); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , prefix + "content/" + ITEM_TEXT_CATCH + ".txt");
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".txt" , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".jpg" , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", itemTxtCatch); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , itemTxtCatch); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , itemTxtCatch);
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.txt" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack"));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick."    ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick"     ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/."        ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/"         ));
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack", itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick."    , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick"     , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/."        , itemTxtCatch);
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/"         , itemTxtCatch);
 
 		assertNotFound(app + "media/MeDiaServletItem/content/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/conTent/" + ITEM_TXT + "/", NO_SUCH_PATH);
@@ -153,10 +157,10 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_UNK + ".jpg"                , prefix + "content/" + ITEM_UNK);
 		assertMoved(prefix + "content/" + ITEM_UNK + "."                   , prefix + "content/" + ITEM_UNK); // TODO should be 404
 		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK                              , "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.unknownma.unknownmi", "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick.jpg"                , "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick."                   , "unknownma/unknownmi"));
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK + "/zick"                    , "unknownma/unknownmi"));
+		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.unknownma.unknownmi", itemUnkown);
+		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.jpg"                , itemUnkown);
+		assertMoved(prefix + "content/" + ITEM_UNK + "/zick."                   , itemUnkown);
+		assertMoved(prefix + "content/" + ITEM_UNK + "/zick"                    , itemUnkown);
 
 		assertMoved(app + "media/MediaServletItemAlt1/content/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
 		assertMoved(app + "media/MediaServletItemAlt2/content/"     + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
@@ -217,7 +221,7 @@ public class MediaServletTest extends TestCase
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
 		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
-		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, "image/jpeg"));
+		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t="  , GUESSED_URL);
@@ -238,9 +242,9 @@ public class MediaServletTest extends TestCase
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + ".", prefix + "nameServer/" + ITEM_NAME_OK + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK , prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
-		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt");
-		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/.");
-		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + "/");
+		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + "/something.txt", itemName);
+		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + "/.", itemName);
+		assertMoved(prefix + "nameServer/" + ITEM_NAME_OK + "/", itemName);
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL + ".txt", IS_NULL);
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL + ".", IS_NULL);
 		assertNotFound(prefix + "nameServer/" + ITEM_NAME_NUL, IS_NULL);

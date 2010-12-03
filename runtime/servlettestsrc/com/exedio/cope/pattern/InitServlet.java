@@ -121,6 +121,7 @@ public class InitServlet extends HttpServlet
 
 			final MediaServletItem catchPhrase = new MediaServletItem();
 			assertID("MediaServletItem-14", catchPhrase);
+			catchPhrase.setCatchPhrase("zick");
 			catchPhrase.setContent(textValue, "text/plain");
 
 			model.commit();
