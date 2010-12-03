@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 public interface MediaUrlTextProvider
 {
 	/**
-	 * Returning null is equivalent to not implementing interface
+	 * Returning null or an empty string is equivalent to not implementing interface
 	 * {@link MediaUrlTextProvider}
 	 * at all.
 	 */
