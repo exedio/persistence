@@ -53,7 +53,7 @@ public class MediaUrlItem extends Item implements MediaUrlTextProvider
 
 	public String getMediaUrlText(final MediaPath path)
 	{
-		return getName();
+		return (path.getName().indexOf("Name")>0) ? getName() : null;
 	}
 
 
