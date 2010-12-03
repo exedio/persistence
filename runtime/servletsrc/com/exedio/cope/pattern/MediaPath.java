@@ -236,10 +236,10 @@ public abstract class MediaPath extends Pattern
 
 	private final String makeUrlCatchphrase(final Item item)
 	{
-		if(!(item instanceof MediaUrlTextProvider))
+		if(!(item instanceof MediaUrlCatchphraseProvider))
 			return null;
 
-		final String result = ((MediaUrlTextProvider)item).getMediaUrlCatchphrase(this);
+		final String result = ((MediaUrlCatchphraseProvider)item).getMediaUrlCatchphrase(this);
 		if(result==null || result.length()==0)
 			return null;
 
@@ -495,7 +495,7 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * @param name is ignored
-	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlCatchphrase(MediaPath)} instead.
+	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlCatchphraseProvider#getMediaUrlCatchphrase(MediaPath)} instead.
 	 */
 	@Deprecated public final String getNamedURL(final Item item, final String name)
 	{

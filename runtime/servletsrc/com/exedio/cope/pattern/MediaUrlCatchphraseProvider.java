@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-public interface MediaUrlTextProvider
+public interface MediaUrlCatchphraseProvider
 {
 	/**
 	 * Returning null or an empty string is equivalent to not implementing interface
-	 * {@link MediaUrlTextProvider}
+	 * {@link MediaUrlCatchphraseProvider}
 	 * at all.
 	 */
 	String getMediaUrlCatchphrase(MediaPath path);
