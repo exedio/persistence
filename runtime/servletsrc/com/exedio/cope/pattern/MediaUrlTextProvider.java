@@ -25,5 +25,5 @@ public interface MediaUrlTextProvider
 	 * {@link MediaUrlTextProvider}
 	 * at all.
 	 */
-	String getMediaUrlText(MediaPath path);
+	String getMediaUrlCatchphrase(MediaPath path);
 }

@@ -129,18 +129,18 @@ public abstract class MediaPath extends Pattern
 	public final class Locator
 	{
 		private final Item item;
-		private final String text;
+		private final String catchphrase;
 		private final String extension;
 		private final String secret;
 
 		Locator(
 				final Item item,
-				final String text,
+				final String catchphrase,
 				final String extension,
 				final String secret)
 		{
 			this.item = item;
-			this.text = text;
+			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
 		}
@@ -157,8 +157,8 @@ public abstract class MediaPath extends Pattern
 			bf.append(getUrlPath()).
 				append(item.getCopeID());
 
-			if(text!=null)
-				bf.append('/').append(text);
+			if(catchphrase!=null)
+				bf.append('/').append(catchphrase);
 
 			if(extension!=null)
 				bf.append(extension);
@@ -173,8 +173,8 @@ public abstract class MediaPath extends Pattern
 			bf.append(getUrlPath()).
 				append(item.getCopeID());
 
-			if(text!=null)
-				bf.append('/').append(text);
+			if(catchphrase!=null)
+				bf.append('/').append(catchphrase);
 
 			if(extension!=null)
 				bf.append(extension);
@@ -196,7 +196,7 @@ public abstract class MediaPath extends Pattern
 
 		return new Locator(
 				item,
-				makeUrlText(item),
+				makeUrlCatchphrase(item),
 				contentTypeToExtension.get(contentType),
 				makeUrlToken(item));
 	}
@@ -218,9 +218,9 @@ public abstract class MediaPath extends Pattern
 		bf.append(getUrlPath()).
 			append(item.getCopeID());
 
-		final String text = makeUrlText(item);
-		if(text!=null)
-			bf.append('/').append(text);
+		final String catchphrase = makeUrlCatchphrase(item);
+		if(catchphrase!=null)
+			bf.append('/').append(catchphrase);
 
 		final String extension = contentTypeToExtension.get(contentType);
 		if(extension!=null)
@@ -234,12 +234,12 @@ public abstract class MediaPath extends Pattern
 		return bf.toString();
 	}
 
-	private final String makeUrlText(final Item item)
+	private final String makeUrlCatchphrase(final Item item)
 	{
 		if(!(item instanceof MediaUrlTextProvider))
 			return null;
 
-		final String result = ((MediaUrlTextProvider)item).getMediaUrlText(this);
+		final String result = ((MediaUrlTextProvider)item).getMediaUrlCatchphrase(this);
 		if(result==null || result.length()==0)
 			return null;
 
@@ -495,7 +495,7 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * @param name is ignored
-	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlText(MediaPath)} instead.
+	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlTextProvider#getMediaUrlCatchphrase(MediaPath)} instead.
 	 */
 	@Deprecated public final String getNamedURL(final Item item, final String name)
 	{

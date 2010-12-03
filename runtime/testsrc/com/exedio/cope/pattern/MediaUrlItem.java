@@ -51,7 +51,7 @@ public class MediaUrlItem extends Item implements MediaUrlTextProvider
 	static final Media fileNameSecure = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 
-	public String getMediaUrlText(final MediaPath path)
+	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
 		return (path.getName().indexOf("Name")>0) ? getName() : null;
 	}
