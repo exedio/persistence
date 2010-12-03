@@ -153,10 +153,10 @@ public class MediaServletTest extends TestCase
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt     , true ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt+5000, true ));
 
-		assertMoved(prefix + "content/" + ITEM_UNK + ".unknownma.unknownmi", prefix + "content/" + ITEM_UNK); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_UNK + ".jpg"                , prefix + "content/" + ITEM_UNK);
-		assertMoved(prefix + "content/" + ITEM_UNK + "."                   , prefix + "content/" + ITEM_UNK); // TODO should be 404
-		assertEquals(lmUnk, assertTxt(prefix + "content/" + ITEM_UNK                              , "unknownma/unknownmi"));
+		assertMoved(prefix + "content/" + ITEM_UNK + ".unknownma.unknownmi", itemUnkown); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_UNK + ".jpg"                , itemUnkown);
+		assertMoved(prefix + "content/" + ITEM_UNK + "."                   , itemUnkown); // TODO should be 404
+		assertEquals(lmUnk, assertTxt(itemUnkown, "unknownma/unknownmi"));
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.unknownma.unknownmi", itemUnkown);
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.jpg"                , itemUnkown);
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick."                   , itemUnkown);
