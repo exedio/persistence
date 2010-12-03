@@ -82,6 +82,13 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return new EnumField<E>(isfinal, optional, false, valueClass, defaultConstant);
 	}
 
+	@Override
+	public EnumField<E> noDefault()
+	{
+		return new EnumField<E>(isfinal, optional, unique, valueClass, null);
+	}
+
+	@Override
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);

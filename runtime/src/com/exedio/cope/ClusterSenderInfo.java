@@ -20,12 +20,47 @@ package com.exedio.cope;
 
 public final class ClusterSenderInfo
 {
+	private final int nodeID;
+	private final int localPort;
+	private final int sendBufferSize;
+	private final int trafficClass;
 	private final long invalidationSplit;
 
 	ClusterSenderInfo(
+			final int nodeID,
+			final int localPort,
+			final int sendBufferSize,
+			final int trafficClass,
 			final long invalidationSplit)
 	{
+		this.nodeID = nodeID;
+		this.localPort = localPort;
+		this.sendBufferSize = sendBufferSize;
+		this.trafficClass = trafficClass;
 		this.invalidationSplit = invalidationSplit;
+	}
+
+	/**
+	 * @see ClusterListenerInfo.Node#getID()
+	 */
+	public int getNodeID()
+	{
+		return nodeID;
+	}
+
+	public int getLocalPort()
+	{
+		return localPort;
+	}
+
+	public int getSendBufferSize()
+	{
+		return sendBufferSize;
+	}
+
+	public int getTrafficClass()
+	{
+		return trafficClass;
 	}
 
 	public long getInvalidationSplit()

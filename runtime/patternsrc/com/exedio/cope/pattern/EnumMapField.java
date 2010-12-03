@@ -33,24 +33,40 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private final Class<K> keyClass;
+	private final FunctionField<V> valueTemplate;
 	private final EnumMap<K, FunctionField<V>> fields;
+	private final EnumMap<K, V> defaultConstant;
 
-	private EnumMapField(final Class<K> keyClass, final FunctionField<V> valueTemplate)
+	private EnumMapField(
+			final Class<K> keyClass,
+			final FunctionField<V> valueTemplate,
+			final EnumMap<K, V> defaultConstant)
 	{
 		this.keyClass = keyClass;
+		this.valueTemplate = valueTemplate;
 		this.fields = new EnumMap<K, FunctionField<V>>(keyClass);
+		this.defaultConstant = defaultConstant;
 
 		for(final K key : keyClass.getEnumConstants())
 		{
-			final FunctionField<V> value = valueTemplate.copy();
+			final FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
 			addSource(value, key.name());
 			fields.put(key, value);
 		}
 	}
 
-	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
+	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(
+			final Class<K> keyClass,
+			final FunctionField<V> value)
 	{
-		return new EnumMapField<K,V>(keyClass, value);
+		return new EnumMapField<K,V>(keyClass, value, new EnumMap<K, V>(keyClass));
+	}
+
+	public EnumMapField<K,V> defaultTo(final K key, final V value)
+	{
+		final EnumMap<K, V> defaultConstant = new EnumMap<K, V>(this.defaultConstant);
+		defaultConstant.put(key, value);
+		return new EnumMapField<K,V>(keyClass, valueTemplate, defaultConstant);
 	}
 
 	public Class<K> getKeyClass()

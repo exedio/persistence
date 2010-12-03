@@ -63,6 +63,13 @@ public final class LongField extends NumberField<Long>
 		return new LongField(isfinal, optional, false, defaultConstant);
 	}
 
+	@Override
+	public LongField noDefault()
+	{
+		return new LongField(isfinal, optional, unique, null);
+	}
+
+	@Override
 	public LongField defaultTo(final Long defaultConstant)
 	{
 		return new LongField(isfinal, optional, unique, defaultConstant);
@@ -77,7 +84,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+		return new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 
 	@Override

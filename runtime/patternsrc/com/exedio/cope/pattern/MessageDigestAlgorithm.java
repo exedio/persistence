@@ -37,7 +37,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	private final int digestLength;
 
 	private final int saltLength;
-	private java.util.Random saltSource;
+	private final SecureRandom saltSource;
 
 	private final int iterations;
 
@@ -56,20 +56,10 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			iterations);
 	}
 
-	/**
-	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	MessageDigestAlgorithm(
-			final String digest,
-			final int iterations)
-	{
-		this(digest, 0, null, iterations);
-	}
-
 	private MessageDigestAlgorithm(
 			final String digest,
 			final int saltLength,
-			final java.util.Random saltSource,
+			final SecureRandom saltSource,
 			final int iterations)
 	{
 		this.digest = digest;
@@ -90,7 +80,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 
-	MessageDigestAlgorithm salt(final int length, final java.util.Random source)
+	public MessageDigestAlgorithm salt(final int length, final SecureRandom source)
 	{
 		return new MessageDigestAlgorithm(digest, length, source, iterations);
 	}
@@ -98,19 +88,9 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	/**
 	 * For tests only !!!
 	 */
-	java.util.Random getSaltSource()
+	SecureRandom getSaltSource()
 	{
 		return saltSource;
-	}
-
-	/**
-	 * For tests only !!!
-	 */
-	java.util.Random setSaltSource(final java.util.Random saltSource)
-	{
-		final java.util.Random result = this.saltSource;
-		this.saltSource = saltSource;
-		return result;
 	}
 
 	public String name()
@@ -204,6 +184,23 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			if(result[i]!=hash[i+saltLength])
 				return false;
 		return true;
+	}
+
+	public boolean compatibleTo(final Hash.Algorithm other)
+	{
+		if(this==other)
+			return true;
+		if(other==null)
+			throw new NullPointerException();
+		if(!(other instanceof MessageDigestAlgorithm))
+			return false;
+
+		final MessageDigestAlgorithm o = (MessageDigestAlgorithm)other;
+		return
+			digest.equals(o.digest) &&
+			digestLength==o.digestLength &&
+			saltLength==o.saltLength &&
+			iterations==o.iterations;
 	}
 
 	public int getSaltLength()

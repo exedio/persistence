@@ -23,15 +23,15 @@ import java.util.Collection;
 import com.exedio.cope.Item;
 import com.exedio.cope.Transaction;
 
-/**
- * TODO:
- * ModificationListener are not yet triggered in clustered mode
- * if transactions are commited on remote nodes.
- */
 public interface ModificationListener
 {
 	/**
+	 * @deprecated
+	 * ModificationListener are not yet triggered in clustered mode
+	 * if transactions are committed on remote nodes.
+	 * Use {@link com.exedio.cope.ChangeListener} instead.
 	 * @param transaction the committed transaction
 	 */
+	@Deprecated
 	void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction);
 }

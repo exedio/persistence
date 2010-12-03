@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Query.newQuery;
 
 import java.util.List;
@@ -26,9 +28,6 @@ import com.exedio.cope.util.Day;
 
 public class QueryTest extends AbstractRuntimeTest
 {
-	private static final Condition TRUE  = Condition.TRUE;
-	private static final Condition FALSE = Condition.FALSE;
-
 	public QueryTest()
 	{
 		super(DayFieldTest.MODEL);
@@ -175,6 +174,12 @@ public class QueryTest extends AbstractRuntimeTest
 
 			q.setCondition(FALSE);
 			assertSame(FALSE, q.getCondition());
+
+			q.setCondition(null);
+			assertSame(null, q.getCondition());
+
+			q.narrow(TRUE);
+			assertSame(null, q.getCondition());
 		}
 	}
 

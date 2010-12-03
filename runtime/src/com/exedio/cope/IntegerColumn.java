@@ -37,12 +37,13 @@ class IntegerColumn extends Column
 			final Table table,
 			final Field field,
 			final String id,
+			final boolean synthetic,
 			final boolean optional,
 			final long minimum,
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, synthetic, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -58,7 +59,7 @@ class IntegerColumn extends Column
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, false, false, optional);
 		this.minimum = 0;
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
@@ -95,17 +96,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table)
 	{
-		// IMPLEMENTATION NOTE
-		//
-		// In theory, one could specify different column names
-		// for the primary key of different tables here, and the framework
-		// should work as well. I tried this once (uncomment the line below),
-		// and it did pass all tests.
-		//
-		//super(table, Table.PK_COLUMN_NAME+table.id, true, true);
-
-		super(table, null, Table.PK_COLUMN_NAME, true, true);
-
+		super(table, null, Table.PK_COLUMN_NAME, true, true, true);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;
@@ -133,14 +124,27 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
+			// Additional parenthesis are needed for hsqldb,
+			// see http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
+			final boolean hsqldb = table.database.hsqldb;
+
 			final StringBuilder bf = new StringBuilder();
-			bf.append(quotedID + " IN (");
+			if(hsqldb)
+				bf.append('(');
+			bf.append(quotedID);
+			if(hsqldb)
+				bf.append(')');
+			bf.append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
 					bf.append(',');
+				if(hsqldb)
+					bf.append('(');
 				bf.append(allowedValues[j]);
+				if(hsqldb)
+					bf.append(')');
 			}
 			bf.append(')');
 			return bf.toString();

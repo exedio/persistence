@@ -30,7 +30,6 @@ import com.exedio.cope.Executor.ResultSetHandler;
 final class BlobColumn extends Column
 {
 	private final long maximumLength;
-	private final long lengthFactor;
 
 	BlobColumn(
 			final Table table,
@@ -39,9 +38,8 @@ final class BlobColumn extends Column
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, false, false, optional);
 		this.maximumLength = maximumLength;
-		this.lengthFactor = table.database.dialect.getBlobLengthFactor();
 
 		if(table.database.dialect.getBlobType(maximumLength)==null)
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
@@ -56,7 +54,7 @@ final class BlobColumn extends Column
 	@Override
 	final String getCheckConstraintIfNotNull()
 	{
-		return "LENGTH(" + quotedID + ")<=" + (maximumLength*lengthFactor);
+		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + (maximumLength);
 	}
 
 	@Override
@@ -143,7 +141,7 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("select length(").
+		bf.append("select ").append(table.database.dialect.getBlobLength()).append('(').
 			append(quotedID).
 			append(") from ").
 			append(table.quotedID).
@@ -153,7 +151,6 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		final long lengthFactor= this.lengthFactor;
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
@@ -165,15 +162,7 @@ final class BlobColumn extends Column
 				if(o==null)
 					return -1l;
 
-				long result = ((Number)o).longValue();
-				final long factor = lengthFactor;
-				if(factor!=1)
-				{
-					if(result%factor!=0)
-						throw new RuntimeException("not dividable "+result+'/'+factor);
-					result /= factor;
-				}
-				return result;
+				return ((Number)o).longValue();
 			}
 		});
 	}
@@ -202,6 +191,6 @@ final class BlobColumn extends Column
 			appendTypeCheck(table, item.type);
 
 		//System.out.println("storing "+bf.toString());
-		executor.update(connection, bf, true);
+		executor.updateStrict(connection, bf);
 	}
 }

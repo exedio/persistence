@@ -141,18 +141,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
 	}
 
-	private FunctionField copy(final FunctionField template)
+	private FunctionField copy(FunctionField f)
 	{
 		if(isfinal)
-			if(optional)
-				return (FunctionField)template.toFinal().optional();
-			else
-				return (FunctionField)template.toFinal();
-		else
-			if(optional)
-				return (FunctionField)template.optional();
-			else
-				return template.copy();
+			f = (FunctionField)f.toFinal();
+		if(optional)
+			f = (FunctionField)f.optional();
+		f = f.noDefault();
+		return f;
 	}
 
 	public <X extends FunctionField> X of(final X template)

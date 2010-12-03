@@ -96,6 +96,13 @@ public final class StringField extends FunctionField<String>
 		return new StringField(isfinal, optional, false, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
+	@Override
+	public StringField noDefault()
+	{
+		return new StringField(isfinal, optional, unique, null, minimumLength, maximumLength, charSet);
+	}
+
+	@Override
 	public StringField defaultTo(final String defaultConstant)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
@@ -191,10 +198,8 @@ public final class StringField extends FunctionField<String>
 			throw new MandatoryViolationException(this, this, exceptionItem);
 
 		final int length = value.length();
-		if(length<minimumLength)
-			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
-		if(length>maximumLength)
-			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
+		if(length<minimumLength||length>maximumLength)
+			throw new StringLengthViolationException(this, exceptionItem, value);
 		if(charSet!=null)
 		{
 			final int i = charSet.indexOfNotContains(value);

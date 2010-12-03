@@ -45,13 +45,11 @@ abstract class Dialect
 
 	private final boolean nullsAreSortedLow;
 	final com.exedio.dsmf.Dialect dsmfDialect;
-	final String stringLength;
 
-	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect, final String stringLength)
+	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect)
 	{
 		this.nullsAreSortedLow = parameters.nullsAreSortedLow;
 		this.dsmfDialect = dsmfDialect;
-		this.stringLength = stringLength;
 	}
 
 	/**
@@ -137,15 +135,6 @@ abstract class Dialect
 		return false;
 	}
 
-	/**
-	 * Specifies the factor,
-	 * the length function of blob columns is wrong.
-	 */
-	int getBlobLengthFactor()
-	{
-		return 1;
-	}
-
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');
@@ -167,6 +156,12 @@ abstract class Dialect
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
 	abstract String getStringType(int maxChars);
+
+	String getStringLength()
+	{
+		return "CHAR_LENGTH";
+	}
+
 	abstract String getDayType();
 
 	/**
@@ -179,12 +174,17 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
+	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	{
+		bf.append(function, (Join)null);
+		if(!ascending)
+			bf.append(" desc");
+	}
+
 	abstract LimitSupport getLimitSupport();
 
 	static enum LimitSupport
 	{
-		NONE,
-		CLAUSE_AFTER_SELECT,
 		CLAUSE_AFTER_WHERE,
 		CLAUSES_AROUND;
 	}
@@ -209,6 +209,8 @@ abstract class Dialect
 	 */
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
+	abstract void appendAsString(Statement bf, NumberFunction source, Join join);
+
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
 	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
@@ -216,6 +218,11 @@ abstract class Dialect
 		bf.append(function, (Join)null).
 			append(" like ").
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+	}
+
+	String getBlobLength()
+	{
+		return "OCTET_LENGTH";
 	}
 
 	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);

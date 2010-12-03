@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
+import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
+import static com.exedio.cope.pattern.EnumMapFieldItem.name;
+import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 
@@ -52,40 +57,50 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(item.TYPE, item.name.getType());
-		assertEquals("name", item.name.getName());
+		assertEquals(TYPE, name.getType());
+		assertEquals("name", name.getName());
 
-		assertEquals(EnumMapFieldItem.Language.class, item.name.getKeyClass());
+		assertEquals(EnumMapFieldItem.Language.class, name.getKeyClass());
 
-		assertEquals(String.class, item.name.getField(DE).getValueClass());
-		assertEquals("name-DE", item.name.getField(DE).getName());
-		assertSame(item.TYPE, item.name.getField(DE).getType());
-		assertEquals(item.name, item.name.getField(DE).getPattern());
-		assertEqualsUnmodifiable(list(item.name.getField(DE), item.name.getField(EN), item.name.getField(PL)), item.name.getSourceFeatures());
+		assertEquals(String.class, name.getField(DE).getValueClass());
+		assertEquals("name-DE", name.getField(DE).getName());
+		assertSame(TYPE, name.getField(DE).getType());
+		assertEquals(name, name.getField(DE).getPattern());
+		assertEquals(null, name.getField(DE).getDefaultConstant());
+		assertEqualsUnmodifiable(list(name.getField(DE), name.getField(EN), name.getField(PL)), name.getSourceFeatures());
+
+		assertEquals("defaultDE", defaults.getField(DE).getDefaultConstant());
+		assertEquals(null, defaults.getField(EN).getDefaultConstant());
+		assertEquals(null, defaults.getField(PL).getDefaultConstant());
 
 		assertEqualsUnmodifiable(
 				list(
-						item.TYPE.getThis(),
-						item.name, item.name.getField(DE), item.name.getField(EN), item.name.getField(PL),
-						item.nameLength, item.nameLength.getField(DE), item.nameLength.getField(EN), item.nameLength.getField(PL)),
-				item.TYPE.getFeatures());
+						TYPE.getThis(),
+						name, name.getField(DE), name.getField(EN), name.getField(PL),
+						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
+						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
+				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
-						item.name.getField(DE), item.name.getField(EN), item.name.getField(PL),
-						item.nameLength.getField(DE), item.nameLength.getField(EN), item.nameLength.getField(PL)),
-				item.TYPE.getFields());
+						name.getField(DE), name.getField(EN), name.getField(PL),
+						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
+						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
+				TYPE.getFields());
 
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
 
-		assertSerializedSame(item.name      , 386);
-		assertSerializedSame(item.nameLength, 392);
+		assertSerializedSame(name      , 386);
+		assertSerializedSame(nameLength, 392);
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
+		assertEquals("defaultDE", item.getDefaults(DE));
+		assertEquals(null, item.getDefaults(EN));
+		assertEquals(null, item.getDefaults(PL));
 
 		item.setName(DE, "nameDE");
 		assertEquals("nameDE", item.getName(DE));
@@ -147,7 +162,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			((EnumMapField)item.name).get(item, X.A);
+			((EnumMapField)name).get(item, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -156,7 +171,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumMapField)item.name).set(item, X.A, "hallo");
+			((EnumMapField)name).set(item, X.A, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)

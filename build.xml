@@ -255,10 +255,12 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.servlet.compile" depends="runtime.core.compile">
+	<target name="runtime.servlet.compile" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile">
 		<compile srcdir="runtime/servletsrc">
 			<classpath>
+				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
@@ -306,14 +308,16 @@
 	</target>
 	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.junit.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile">
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</compile>
@@ -327,10 +331,12 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/dialects" />
 				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/utiltestsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/jdbc/hsqldb.jar" />
 			</classpath>
@@ -343,12 +349,17 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</compile>
 	</target>
 	
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument finalArgs="true" createDeprecated="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				createDeprecated="true"
+				verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
@@ -372,6 +383,7 @@
 				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="sampler/*.java" /><!-- TODO remove -->
 				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
 			</fileset>
@@ -431,8 +443,9 @@
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="webapp" value="junitwebapp" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
 					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
+					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -463,7 +476,7 @@
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
-					<sysproperty key="webapp" value="junitwebapp" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -476,8 +489,14 @@
 				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{env}"
 						fork="yes" failonerror="yes">
 					<classpath>
-						<pathelement location="build/runtime/classes" />
-						<pathelement location="build/runtime/testclasses" />
+						<pathelement location="build/classes/dsmf/src" />
+						<pathelement location="build/classes/runtime/src" />
+						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/patternsrc" />
+						<pathelement location="build/classes/runtime/servletsrc" />
+						<pathelement location="build/classes/runtime/junitsrc" />
+						<pathelement location="build/classes/runtime/testfeaturesrc" />
+						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
@@ -485,7 +504,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="webapp" value="teardownwebapp" />
+					<sysproperty key="contextPath" value="/teardownContextPath" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
@@ -493,12 +512,17 @@
 	</target>
 
 	<target name="runtime.web"
-			  depends="runtime.core.compile, runtime.test.compile">
+			  depends="runtime.core.compile, runtime.dialect.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
+					<fileset dir="build/classes/dsmf/src" />
 					<fileset dir="build/classes/runtime/src" />
+					<fileset dir="build/classes/runtime/dialects" />
+					<fileset dir="build/classes/runtime/patternsrc" />
+					<fileset dir="build/classes/runtime/servletsrc" />
+					<fileset dir="build/classes/runtime/junitsrc" />
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
@@ -531,7 +555,10 @@
 	</target>
 	
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument finalArgs="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
 				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
@@ -540,10 +567,11 @@
 	</target>
 
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile">
+			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.pattern.compile">
 		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -553,6 +581,7 @@
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
+			<fileset dir="build/classes/runtime/patternsrc" />
 			<fileset dir="build/classes/runtime/servletsrc" />
 			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
@@ -594,12 +623,13 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.web" depends="copernica.test.compile, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.test.compile">
+	<target name="copernica.web" depends="copernica.test.compile, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.test.compile">
 		<mkdir dir="build/copernica/web" />
 		<copy todir="build/copernica/web/WEB-INF/classes">
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
+			<fileset dir="build/classes/runtime/patternsrc" />
 			<fileset dir="build/classes/runtime/servletsrc" />
 			<fileset dir="build/classes/runtime/testsrc" />
 			<fileset dir="build/classes/copernica/testsrc" />
@@ -721,7 +751,11 @@
 	</target>
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument finalArgs="true" createDeprecated="true" verbose="false">
+		<instrument
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				finalArgs="true"
+				createDeprecated="true"
+				verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
 			</fileset>
@@ -948,6 +982,15 @@
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 		</copy>
+		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+			<filterset>
+				<filter token="BUILD_REVISION" value="${build.revision}" />
+			</filterset>
+		</copy>
+		<copy tofile="${basedir}/build/success/exedio-cope-src.zip"
+				file="${basedir}/build/exedio-cope.jar-src.zip" />
+		<copy tofile="${basedir}/build/success/exedio-cope-log.txt"
+				file="CHANGELOG" />
 	</target>
 
 </project>

@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add AssertionErrorJobContext
+* add JobContext&Co
+* add Interrupters#iterator
+* add Hex#encode[Lower|Upper](bytes, offset, length)
+* add Day#valueOf methods
+* add Day constructors with long
+* add Day constructors with GregorianCalendar and XMLGregorianCalendar
+* add Day#getGregorianCalendar
+* add Day#getXMLGregorianCalendar
+* add PrefixSource
+* add Day#getTimeFrom/To
+* add Day#getTimeInMillisTo()
 * add Hex#decodeLower
 * add SafeFile
 * add Properties#getTests()

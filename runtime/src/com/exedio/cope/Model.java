@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -46,6 +47,7 @@ public final class Model implements Serializable
 
 	final Types types;
 	private final long initializeDate;
+	final ChangeListeners changeListeners;
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
@@ -57,10 +59,7 @@ public final class Model implements Serializable
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 
-	private volatile long transactionsCommitWithoutConnection = 0;
-	private volatile long transactionsCommitWithConnection = 0;
-	private volatile long transactionsRollbackWithoutConnection = 0;
-	private volatile long transactionsRollbackWithConnection = 0;
+	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type... types)
 	{
@@ -72,6 +71,7 @@ public final class Model implements Serializable
 		this.revisions = revisions;
 		this.types = new Types(this, types);
 		this.initializeDate = System.currentTimeMillis();
+		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
 	}
 
@@ -100,7 +100,7 @@ public final class Model implements Serializable
 			if(this.connect!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connect = new Connect(types, revisions, properties);
+			this.connect = new Connect(toString(), types, revisions, properties, changeListeners);
 			types.connect(connect.database);
 		}
 	}
@@ -350,7 +350,7 @@ public final class Model implements Serializable
 
 	public Schema getSchema()
 	{
-		return connect().database.makeSchema();
+		return connect().database.makeSchema(true);
 	}
 
 	/**
@@ -365,9 +365,29 @@ public final class Model implements Serializable
 		return types.getItem(id);
 	}
 
+	public List<ThreadController> getThreadControllers()
+	{
+		return connect().getThreadControllers();
+	}
+
+	public List<ChangeListener> getChangeListeners()
+	{
+		return changeListeners.get();
+	}
+
 	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
+	}
+
+	public ChangeListenerInfo getChangeListenersInfo()
+	{
+		return changeListeners.getInfo();
+	}
+
+	public ChangeListenerDispatcherInfo getChangeListenerDispatcherInfo()
+	{
+		return connect().changeListenerDispatcher.getInfo();
 	}
 
 	public int getModificationListenersCleared()
@@ -375,9 +395,19 @@ public final class Model implements Serializable
 		return modificationListeners.getCleared();
 	}
 
+	public void addChangeListener(final ChangeListener listener)
+	{
+		changeListeners.add(listener);
+	}
+
 	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
+	}
+
+	public void removeChangeListener(final ChangeListener listener)
+	{
+		changeListeners.remove(listener);
 	}
 
 	public void removeModificationListener(final ModificationListener listener)
@@ -392,7 +422,7 @@ public final class Model implements Serializable
 
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return connect().itemCache.getInfo();
+		return connect().itemCache.getInfo(types.concreteTypeList);
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()
@@ -413,6 +443,11 @@ public final class Model implements Serializable
 	public EnvironmentInfo getEnvironmentInfo()
 	{
 		return connect().database.dialectParameters.environmentInfo;
+	}
+
+	public Properties getClusterProperties()
+	{
+		return connect().clusterProperties;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
@@ -572,18 +607,7 @@ public final class Model implements Serializable
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		final boolean hadConnection = tx.commitOrRollback(rollback);
-
-		if(hadConnection)
-			if(rollback)
-				transactionsRollbackWithConnection++;
-			else
-				transactionsCommitWithConnection++;
-		else
-			if(rollback)
-				transactionsRollbackWithoutConnection++;
-			else
-				transactionsCommitWithoutConnection++;
+		tx.commitOrRollback(rollback, transactionCounter);
 	}
 
 	/**
@@ -614,11 +638,7 @@ public final class Model implements Serializable
 
 	public TransactionCounters getTransactionCounters()
 	{
-		return new TransactionCounters(
-				transactionsCommitWithoutConnection,
-				transactionsCommitWithConnection,
-				transactionsRollbackWithoutConnection,
-				transactionsRollbackWithConnection);
+		return transactionCounter.getCounters();
 	}
 
 	public void clearCache()
@@ -637,7 +657,7 @@ public final class Model implements Serializable
 
 	public void checkUnsupportedConstraints()
 	{
-		connect().database.makeSchema().checkUnsupportedConstraints();
+		connect().database.makeSchema(true).checkUnsupportedConstraints();
 	}
 
 	public boolean isClusterNetworkEnabled()
@@ -656,11 +676,6 @@ public final class Model implements Serializable
 		if(clusterSender==null)
 			throw new IllegalStateException("cluster network not enabled");
 		clusterSender.ping(count);
-	}
-
-	public static final boolean isLoggingEnabled()
-	{
-		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
 	}
 
 	// serialization -------------
@@ -1011,5 +1026,23 @@ public final class Model implements Serializable
 	public boolean supportsSequences()
 	{
 		return SchemaInfo.supportsSequences(this);
+	}
+
+	/**
+	 * @deprecated Use {@link ConnectProperties#isLoggingEnabled()} instead, always returns false.
+	 */
+	@Deprecated
+	public static final boolean isLoggingEnabled()
+	{
+		return false;
+	}
+
+	/**
+	 * @deprecated use {@link #getChangeListenersInfo()}.{@link ChangeListenerInfo#getCleared()} instead.
+	 */
+	@Deprecated
+	public int getChangeListenersCleared()
+	{
+		return changeListeners.getInfo().getCleared();
 	}
 }

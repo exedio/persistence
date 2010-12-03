@@ -44,10 +44,8 @@ public final class SetField<E> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private ItemField<?> parent = null;
 	private final FunctionField<E> element;
-	private UniqueConstraint uniqueConstraint = null;
-	private Type<?> relationType = null;
+	private Mount mount = null;
 
 	private SetField(final FunctionField<E> element)
 	{
@@ -71,23 +69,53 @@ public final class SetField<E> extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		uniqueConstraint = new UniqueConstraint(parent, element);
+		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, element);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueConstraint);
-		this.relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		this.mount = new Mount(parent, uniqueConstraint, relationType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> parent;
+		final UniqueConstraint uniqueConstraint;
+		final Type<PatternItem> relationType;
+
+		Mount(
+				final ItemField<?> parent,
+				final UniqueConstraint uniqueConstraint,
+				final Type<PatternItem> relationType)
+		{
+			assert parent!=null;
+			assert uniqueConstraint!=null;
+			assert relationType!=null;
+
+			this.parent = parent;
+			this.uniqueConstraint = uniqueConstraint;
+			this.relationType = relationType;
+		}
+	}
+
+	private final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.as(parentClass);
+		return mount().parent.as(parentClass);
 	}
 
 	public ItemField<?> getParent()
 	{
-		return parent;
+		return mount().parent;
 	}
 
 	public FunctionField<E> getElement()
@@ -97,14 +125,12 @@ public final class SetField<E> extends Pattern
 
 	public UniqueConstraint getUniqueConstraint()
 	{
-		assert uniqueConstraint!=null;
-		return uniqueConstraint;
+		return mount().uniqueConstraint;
 	}
 
 	public Type<?> getRelationType()
 	{
-		assert relationType!=null;
-		return relationType;
+		return mount().relationType;
 	}
 
 	@Override
@@ -175,7 +201,7 @@ public final class SetField<E> extends Pattern
 
 	public Query<E> getQuery(final Item item)
 	{
-		return new Query<E>(element, Cope.equalAndCast(this.parent, item));
+		return new Query<E>(element, Cope.equalAndCast(mount().parent, item));
 	}
 
 	/**
@@ -184,7 +210,10 @@ public final class SetField<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getParents(final Class<P> parentClass, final E element)
 	{
-		return new Query<P>(this.parent.as(parentClass), this.element.equal(element)).search();
+		return new Query<P>(
+				mount().parent.as(parentClass),
+				this.element.equal(element)).
+			search();
 	}
 
 	/**
@@ -192,17 +221,18 @@ public final class SetField<E> extends Pattern
 	 */
 	public boolean add(final Item item, final E element)
 	{
+		final Mount mount = mount();
 		try
 		{
-			relationType.newItem(
-					Cope.mapAndCast(this.parent, item),
+			mount.relationType.newItem(
+					Cope.mapAndCast(mount.parent, item),
 					this.element.map(element)
 			);
 			return true;
 		}
 		catch(final UniqueViolationException e)
 		{
-			assert uniqueConstraint==e.getFeature();
+			assert mount.uniqueConstraint==e.getFeature();
 			return false;
 		}
 	}
@@ -212,9 +242,13 @@ public final class SetField<E> extends Pattern
 	 */
 	public boolean remove(final Item item, final E element)
 	{
-		final Item row = uniqueConstraint.search(item, element);
+		final Item row =
+			mount().uniqueConstraint.search(item, element);
+
 		if(row==null)
+		{
 			return false;
+		}
 		else
 		{
 			row.deleteCopeItem();
@@ -224,10 +258,11 @@ public final class SetField<E> extends Pattern
 
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
 		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
 
-		for(final Item tupel : this.relationType.search(Cope.equalAndCast(this.parent, item)))
+		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final Object element = this.element.get(tupel);
 
@@ -245,8 +280,8 @@ public final class SetField<E> extends Pattern
 			{
 				while(toCreate.hasNext())
 				{
-					this.relationType.newItem(
-							Cope.mapAndCast(this.parent, item),
+					mount.relationType.newItem(
+							Cope.mapAndCast(mount.parent, item),
 							this.element.map(toCreate.next())
 					);
 				}

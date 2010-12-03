@@ -18,17 +18,21 @@
 
 package com.exedio.cope;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.misc.Arrays;
+
 final class Statement
 {
-	private final Dialect dialect;
+	final Dialect dialect;
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
@@ -312,32 +316,12 @@ final class Statement
 		return this;
 	}
 
-	Statement appendLength()
-	{
-		this.text.append(dialect.stringLength);
-
-		return this;
-	}
-
 	void appendMatch(final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
 			dialect.appendMatchClauseFullTextIndex(this, function, value);
 		else
 			dialect.appendMatchClauseByLike(this, function, value);
-	}
-
-	void appendStartsWith(final DataField field, final byte[] value)
-	{
-		dialect.appendStartsWith(this, (BlobColumn)field.getColumn(), value);
-	}
-
-	<E extends Number >void appendIntegerDivisionOperator(
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
-			final Join join)
-	{
-		dialect.appendIntegerDivision(this, dividend, divisor, join);
 	}
 
 	String getText()
@@ -361,7 +345,7 @@ final class Statement
 			{
 				result.append(text.substring(lastPos, pos));
 				result.append(QUESTION_MARK);
-				result.append(Condition.toStringForValue(pi.next(), true));
+				result.append(toStringForValue(pi.next()));
 				result.append(QUESTION_MARK);
 				lastPos = pos+1;
 			}
@@ -369,6 +353,20 @@ final class Statement
 
 			return result.toString();
 		}
+	}
+
+	private static final String toStringForValue(final Object o)
+	{
+		if(o==null)
+			return "NULL";
+		else if(o instanceof Item)
+			return ((Item)o).getCopeID();
+		else if(o instanceof Date)
+			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
+		else if(o instanceof byte[])
+			return Arrays.toString((byte[])o, 30);
+		else
+			return o.toString();
 	}
 
 	// join aliases
@@ -433,7 +431,7 @@ final class Statement
 		return this;
 	}
 
-	void appendTypeDefinition(final Join join, final Type type)
+	void appendTypeDefinition(final Join join, final Type type, final boolean hasJoins)
 	{
 		final Type supertype = type.supertype;
 		final Table table = type.getTable();
@@ -454,7 +452,7 @@ final class Statement
 			}
 		}
 
-		if(superTables!=null)
+		if(superTables!=null && hasJoins)
 			append('(');
 
 		appendTableDefinition(join, table);
@@ -470,7 +468,8 @@ final class Statement
 				append('=');
 				append(table.primaryKey, join);
 			}
-			append(')');
+			if(hasJoins)
+				append(')');
 		}
 	}
 

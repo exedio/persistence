@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
 public final class ServletUtil
@@ -183,12 +184,21 @@ public final class ServletUtil
 
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		final String prefix =
-			context.getInitParameter("com.exedio.cope.contextPrefix");
-		return new Properties.Source(){
+		final String contextPath = context.getContextPath();
+		final String prefix;
+		if(contextPath==null)
+			prefix = null;
+		else if("".equals(contextPath))
+			prefix = "root.";
+		else if(contextPath.startsWith("/"))
+			prefix = contextPath.substring(1) + '.';
+		else
+			prefix = contextPath + '.';
+
+		final Properties.Source initParam = PrefixSource.wrap(new Properties.Source(){
 					public String get(final String key)
 					{
-						return context.getInitParameter(prefix!=null ? (prefix+key) : key);
+						return context.getInitParameter(key);
 					}
 
 					public Collection<String> keySet()
@@ -204,12 +214,36 @@ public final class ServletUtil
 					@Override
 					public String toString()
 					{
-						return
-							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + context.getContextPath() + '\'' +
-							(prefix!=null ? (" with prefix '"+prefix+'\'') : "");
+						return "ServletContext '" + contextPath + '\'';
 					}
-				};
+				},
+				prefix);
+
+		return new Properties.Source(){
+			public String get(final String key)
+			{
+				if("contextPath".equals(key))
+					return contextPath;
+
+				return initParam.get(key);
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+
+			public String getDescription()
+			{
+				return initParam.getDescription();
+			}
+
+			@Override
+			public String toString()
+			{
+				return initParam.toString();
+			}
+		};
 	}
 
 	// ------------------- deprecated stuff -------------------

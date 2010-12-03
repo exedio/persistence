@@ -23,33 +23,46 @@ import gnu.trove.TIntHashSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
 {
 	final long date = System.currentTimeMillis();
 	final ConnectProperties properties;
+	final boolean log;
 	final Dialect dialect;
+	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
 	final Executor executor;
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
-	final ClusterSender clusterSender;
-	final ClusterListener clusterListener;
+	final ClusterProperties clusterProperties;
+	final ClusterSenderMulticast clusterSender;
+	final ClusterListenerMulticast clusterListener;
+	final ChangeListenerDispatcher changeListenerDispatcher;
 
 	final boolean supportsReadCommitted;
 
+	boolean revised = false;
+
 	Connect(
+			final String name,
 			final Types types,
 			final Revisions revisions,
-			final ConnectProperties properties)
+			final ConnectProperties properties,
+			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
+		this.log = properties.isLoggingEnabled();
 
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
@@ -82,8 +95,9 @@ final class Connect
 		}
 
 		this.dialect = properties.createDialect(dialectParameters);
+		this.connectionFactory = new ConnectionFactory(properties, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
-				new ConnectionFactory(properties, dialect),
+				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
@@ -96,16 +110,16 @@ final class Connect
 				executor,
 				revisions);
 
-		this.itemCache = new ItemCache(types.concreteTypeList, properties.getItemCacheLimit());
+		this.itemCache = new ItemCache(types.typeListSorted, properties.getItemCacheLimit());
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
 		if(properties.cluster.booleanValue())
 		{
-			final ClusterConfig config = ClusterConfig.get(properties);
-			if(config!=null)
+			this.clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+			if(clusterProperties!=null)
 			{
-				this.clusterSender   = new ClusterSender  (config, properties);
-				this.clusterListener = new ClusterListener(config, properties, clusterSender, types.concreteTypeCount, itemCache, queryCache);
+				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
+				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this);
 			}
 			else
 			{
@@ -115,9 +129,14 @@ final class Connect
 		}
 		else
 		{
+			this.clusterProperties = null;
 			this.clusterSender   = null;
 			this.clusterListener = null;
 		}
+
+		this.changeListenerDispatcher =
+			new ChangeListenerDispatcher(
+					types, name, changeListeners, properties);
 
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
@@ -126,12 +145,20 @@ final class Connect
 
 	void close()
 	{
+		changeListenerDispatcher.startClose();
+
 		if(clusterSender!=null)
 			clusterSender.close();
 		if(clusterListener!=null)
-			clusterListener.close();
+			clusterListener.startClose();
 
 		connectionPool.flush();
+
+		// let threads have some time to terminate,
+		// doing other thing in the mean time
+		changeListenerDispatcher.joinClose();
+		if(clusterListener!=null)
+			clusterListener.joinClose();
 	}
 
 	boolean supportsEmptyStrings()
@@ -144,11 +171,11 @@ final class Connect
 		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
-	void invalidate(final TIntHashSet[] invalidations)
+	void invalidate(final TIntHashSet[] invalidations, final boolean propagateToCluster)
 	{
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
-		if(clusterSender!=null)
+		if(propagateToCluster && clusterSender!=null)
 			clusterSender.invalidate(invalidations);
 	}
 
@@ -158,7 +185,7 @@ final class Connect
 		queryCache.clear();
 		{
 			//final long start = System.currentTimeMillis();
-			dialect.dsmfDialect.deleteSchema(database.makeSchema());
+			dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
 			//System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 		}
 		database.flushSequences();
@@ -166,11 +193,25 @@ final class Connect
 
 	void revise(final Revisions revisions)
 	{
-		revisions.revise(connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
+		if(revised) // synchronization is done by Model#revise
+			return;
+
+		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+
+		revised = true;
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
 	{
-		return revisions.getLogs(connectionPool, executor);
+		return revisions.getLogs(properties, connectionPool, executor);
+	}
+
+	List<ThreadController> getThreadControllers()
+	{
+		final ArrayList<ThreadController> result = new ArrayList<ThreadController>();
+		if(clusterListener!=null)
+			clusterListener.addThreadControllers(result);
+		changeListenerDispatcher.addThreadControllers(result);
+		return Collections.unmodifiableList(result);
 	}
 }

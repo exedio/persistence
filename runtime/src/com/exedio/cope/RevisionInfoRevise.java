@@ -97,8 +97,10 @@ public final class RevisionInfoRevise extends RevisionInfo
 
 	public RevisionInfoRevise(
 			final int number,
-			final Date date, final Map<String, String> environment,
-			final String comment, final Body... body)
+			final Date date,
+			final Map<String, String> environment,
+			final String comment,
+			final Body... body)
 	{
 		super(number, date, environment);
 

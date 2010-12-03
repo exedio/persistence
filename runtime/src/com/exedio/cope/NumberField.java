@@ -39,6 +39,11 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 		return new BindNumberFunction<E>(this, join);
 	}
 
+	public final AsStringView asString()
+	{
+		return new AsStringView(this);
+	}
+
 	public final PlusLiteralView<E> plus(final E value)
 	{
 		return new PlusLiteralView<E>(this, value);

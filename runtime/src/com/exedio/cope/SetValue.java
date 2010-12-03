@@ -35,4 +35,9 @@ public final class SetValue<E>
 		this.value = value;
 	}
 
+	@Override
+	public String toString()
+	{
+		return settable.toString() + '=' + value;
+	}
 }

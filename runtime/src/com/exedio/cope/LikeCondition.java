@@ -29,7 +29,9 @@ public final class LikeCondition extends Condition
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringFunction#like(String)}.
 	 */
-	public LikeCondition(final StringFunction function, final String value)
+	public LikeCondition(
+			final StringFunction function,
+			final String value)
 	{
 		this.function = function;
 		this.value = value;
@@ -82,7 +84,7 @@ public final class LikeCondition extends Condition
 	{
 		function.toString(bf, defaultType);
 		bf.append(" like '").
-			append(toStringForValue(value, key)).
+			append(value).
 			append('\'');
 	}
 

@@ -44,7 +44,7 @@ public final class Transaction
 	 * and the values are {@link Entity}s
 	 */
 	private final TIntObjectHashMap<Entity>[] entityMaps;
-	private final TIntHashSet[] invalidations;
+	private TIntHashSet[] invalidations = null;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 
@@ -56,7 +56,6 @@ public final class Transaction
 		this.name = name;
 		this.startDate = startDate;
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
-		this.invalidations = new TIntHashSet[concreteTypeCount];
 	}
 
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -163,15 +162,25 @@ public final class Transaction
 		}
 	}
 
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	WrittenState getGlobalState(final Item item)
+	{
+		return connect.itemCache.getStateIfPresent(item);
+	}
+
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
-		if(!connect.queryCache.isEnabled() || isInvalidated(query)) // TODO reuse queryCache
+		final QueryCache queryCache = connect.queryCache;
+		if(!queryCache.isEnabled() || isInvalidated(query))
 		{
 			return query.searchUncached(this, totalOnly);
 		}
 		else
 		{
-			return connect.queryCache.search(this, query, totalOnly);
+			return queryCache.search(this, query, totalOnly);
 		}
 	}
 
@@ -200,6 +209,9 @@ public final class Transaction
 		if(type==null)
 			throw new NullPointerException();
 
+		if(invalidations==null)
+			return false;
+
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
 			final TIntHashSet invalidationsForType = invalidations[instanceType.cacheIdTransiently];
@@ -212,12 +224,18 @@ public final class Transaction
 
 	private boolean isInvalidated( final Item item )
 	{
+		if(invalidations==null)
+			return false;
+
 		final TIntHashSet invalidationsForType = invalidations[item.type.cacheIdTransiently];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 
 	void addInvalidation(final Item item)
 	{
+		if(invalidations==null)
+			invalidations = new TIntHashSet[entityMaps.length];
+
 		final int typeTransiently = item.type.cacheIdTransiently;
 		TIntHashSet invalidationsForType = invalidations[typeTransiently];
 		if ( invalidationsForType==null )
@@ -257,9 +275,8 @@ public final class Transaction
 
 	/**
 	 * calling this method directly breaks model.openTransactions
-	 * @return whether this transaction had an associated database connection
 	 */
-	boolean commitOrRollback(final boolean rollback)
+	void commitOrRollback(final boolean rollback, final TransactionCounter transactionCounter)
 	{
 		assert !closed : name;
 
@@ -296,48 +313,49 @@ public final class Transaction
 			unbindThread();
 		}
 
-		// notify global cache
-		if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
+		if(invalidations!=null)
 		{
-			boolean modified = false;
-			for(final TIntHashSet invalidation : invalidations)
+			// notify global cache
+			if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
 			{
-				if(invalidation!=null)
-				{
-					modified = true;
-					break;
-				}
+				connect.invalidate(invalidations, true);
 			}
 
-			if(modified)
-				connect.invalidate(invalidations);
+			// notify ChangeListeners
+			if(!rollback)
+			{
+				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
+				model.modificationListeners.invalidate(invalidations, this, connect.log);
+			}
 		}
 
-		// notify ModificationListeners
-		if(!rollback)
-			model.modificationListeners.invalidate(invalidations, this);
+		transactionCounter.count(rollback, hadConnection);
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup
-		assert entityMaps.length==invalidations.length;
-		for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+		for(int type = 0; type<entityMaps.length; type++)
 		{
-			final TIntObjectHashMap<Entity> entityMap = entityMaps[typeTransiently];
-			if(entityMap!=null)
+			final TIntObjectHashMap<Entity> map = entityMaps[type];
+			if(map!=null)
 			{
-				entityMap.clear();
-				entityMaps[typeTransiently] = null;
-			}
-
-			final TIntHashSet invalidationSet = invalidations[typeTransiently];
-			if(invalidationSet!=null)
-			{
-				invalidationSet.clear();
-				invalidations[typeTransiently] = null;
+				map.clear();
+				entityMaps[type] = null;
 			}
 		}
-
-		return hadConnection;
+		if(invalidations!=null)
+		{
+			assert entityMaps.length==invalidations.length;
+			for(int type = 0; type<invalidations.length; type++)
+			{
+				final TIntHashSet set = invalidations[type];
+				if(set!=null)
+				{
+					set.clear();
+					invalidations[type] = null;
+				}
+			}
+			invalidations = null;
+		}
 	}
 
 	public long getID()

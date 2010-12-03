@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * Returns information about the database schema accessed by cope
  * - <b>use with care!</b>
@@ -32,6 +35,15 @@ package com.exedio.cope;
  */
 public final class SchemaInfo
 {
+	/**
+	 * Its your responsibility to close the returned connection.
+	 * @see Connection#close()
+	 */
+	public static Connection newConnection(final Model model) throws SQLException
+	{
+		return model.connect().connectionFactory.createRaw();
+	}
+
 	/**
 	 * Quotes a database name.
 	 * This prevents the name from being interpreted as a SQL keyword.
@@ -95,11 +107,39 @@ public final class SchemaInfo
 	 */
 	public static String getTypeColumnName(final Type type)
 	{
-		final Table table = type.table;
-		if(table.typeColumn==null)
+		final StringColumn column = type.table.typeColumn;
+		if(column==null)
 			throw new IllegalArgumentException("no type column for " + type);
 
-		return table.typeColumn.id;
+		return column.id;
+	}
+
+	/**
+	 * @see #getModificationCounterColumnName(Type)
+	 */
+	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	{
+		return model.connect().properties.itemCacheConcurrentModificationDetection.booleanValue();
+	}
+
+	/**
+	 * Returns the name of modification counter column in the database for the type.
+	 * If not configured otherwise
+	 * the name equals "catch".
+	 * @throws IllegalArgumentException
+	 *         if there is no modification counter column for this type,
+	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
+	 *         has been switched off,
+	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
+	 *         fields on the type or its subtypes.
+	 */
+	public static String getModificationCounterColumnName(final Type type)
+	{
+		final IntegerColumn column = type.table.modificationCount;
+		if(column==null)
+			throw new IllegalArgumentException("no modification counter column for " + type);
+
+		return column.id;
 	}
 
 	/**
@@ -126,11 +166,11 @@ public final class SchemaInfo
 	 */
 	public static String getTypeColumnName(final ItemField field)
 	{
-		final Column typeColumn = field.getTypeColumn();
-		if(typeColumn==null)
+		final Column column = field.getTypeColumn();
+		if(column==null)
 			throw new IllegalArgumentException("no type column for " + field);
 
-		return typeColumn.id;
+		return column.id;
 	}
 
 	/**
@@ -140,6 +180,11 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
+	}
+
+	private SchemaInfo()
+	{
+		// prevent instantiation
 	}
 
 	// ------------------- deprecated stuff -------------------

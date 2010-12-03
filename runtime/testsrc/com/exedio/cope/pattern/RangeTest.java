@@ -18,19 +18,21 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Range.newRange;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class RangeTest extends CopeAssert
 {
 	public void testIt()
 	{
-		assertEquals(new Range<Integer>(1, 3), new Range<Integer>(1, 3));
-		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(2, 3));
-		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(1, 4));
-		assertNotEquals(new Range<Integer>(1, 3), new Range<Integer>(3, 1));
+		assertEquals(newRange(1, 3), newRange(1, 3));
+		assertNotEquals(newRange(1, 3), newRange(2, 3));
+		assertNotEquals(newRange(1, 3), newRange(1, 4));
+		assertNotEquals(newRange(1, 3), newRange(3, 1));
 
-		assertEquals(new Range<Integer>(5, 5), new Range<Integer>(5, 5));
-		assertNotEquals(new Range<Integer>(5, 5), new Range<Integer>(6, 6));
+		assertEquals(newRange(5, 5), newRange(5, 5));
+		assertNotEquals(newRange(5, 5), newRange(6, 6));
 	}
 
 	private static void assertEquals(final Range c1, final Range c2)

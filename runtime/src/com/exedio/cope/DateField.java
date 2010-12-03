@@ -82,6 +82,13 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, false, defaultConstant, defaultNow);
 	}
 
+	@Override
+	public DateField noDefault()
+	{
+		return new DateField(isfinal, optional, unique, null, false);
+	}
+
+	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
 		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
@@ -147,7 +154,7 @@ public final class DateField extends FunctionField<Date>
 		return
 				getType().getModel().connect().supportsNativeDate()
 				? (Column)new TimestampColumn(table, this, name, optional)
-				: (Column)new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+				: (Column)new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 
 	@Override

@@ -57,7 +57,7 @@ public final class CheckConstraint extends Feature
 
 		new com.exedio.dsmf.CheckConstraint(
 				dsmfTable,
-				intern(table.database.makeName(table.id + '_' + getSchemaName())),
+				intern(table.makeGlobalID(getSchemaName())),
 				statement.getText());
 	}
 }

@@ -36,8 +36,6 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 	private final StringField feature;
 	private final String value;
-	private final boolean isTooShort;
-	private final int border;
 
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
@@ -45,13 +43,11 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public StringLengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
+	public StringLengthViolationException(final StringField feature, final Item item, final String value)
 	{
 		super(item, null);
 		this.feature = feature;
 		this.value = value;
-		this.isTooShort = isTooShort;
-		this.border = border;
 	}
 
 	/**
@@ -73,23 +69,53 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 	public boolean isTooShort()
 	{
-		return isTooShort;
+		return value.length()<feature.getMinimumLength();
 	}
 
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		return
-			"length violation" + getItemPhrase() +
-			", '" + value + "' is too " +
-			(isTooShort?"short":"long") +
-			(withFeature ? (" for "+ feature) : "") +
-			", must be at " + (isTooShort?"least":"most") +
-			' ' + border + " characters, " +
-			"but was " + value.length() + '.';
+		final int len = value.length();
+		final int min = feature.getMinimumLength();
+		final int max = feature.getMaximumLength();
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append("length violation").
+			append(getItemPhrase()).
+			append(", '").
+			append(value).
+			append("' is too ").
+			append((len<min)?"short":"long");
+
+		if(withFeature)
+			bf.append(" for ").
+				append(feature);
+		bf.append(", must be ");
+
+		if(min==max)
+			bf.append("exactly");
+		else
+			bf.append("at ").
+				append((len<min)?"least":"most");
+
+		bf.append(' ').
+			append((len<min)?min:max).
+			append(" characters, but was ").
+			append(len).append('.');
+
+		return bf.toString();
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #StringLengthViolationException(StringField, Item, String)} instead.
+	 */
+	@Deprecated
+	public StringLengthViolationException(final StringField feature, final Item item, final String value, @SuppressWarnings("unused") final boolean isTooShort, @SuppressWarnings("unused") final int border)
+	{
+		this(feature, item, value);
+	}
 
 	/**
 	 * @deprecated Renamed to {@link #getFeature()}.

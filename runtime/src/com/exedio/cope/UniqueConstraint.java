@@ -79,12 +79,11 @@ public final class UniqueConstraint extends Feature
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
-		final Database database = table.database;
 		final String schemaName =
 			(fields.length==1)
 			? fields[0].getSchemaName()
 			: getSchemaName();
-		this.databaseID = intern(database.makeName(table.id + '_' + schemaName + "_Unq"));
+		this.databaseID = intern(table.makeGlobalID(schemaName + "_Unq"));
 	}
 
 	void disconnect()

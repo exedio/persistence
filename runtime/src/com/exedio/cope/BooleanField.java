@@ -66,6 +66,13 @@ public final class BooleanField extends FunctionField<Boolean>
 		return new BooleanField(isfinal, optional, false, defaultConstant);
 	}
 
+	@Override
+	public BooleanField noDefault()
+	{
+		return new BooleanField(isfinal, optional, unique, null);
+	}
+
+	@Override
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
 		return new BooleanField(isfinal, optional, unique, defaultConstant);

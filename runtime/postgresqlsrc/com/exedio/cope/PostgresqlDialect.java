@@ -46,8 +46,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				parameters,
-				new com.exedio.dsmf.PostgresqlDialect(),
-				"LENGTH");
+				new com.exedio.dsmf.PostgresqlDialect());
 
 		final EnvironmentInfo ei = parameters.environmentInfo;
 		// version 8 needed for savepoints
@@ -79,6 +78,12 @@ final class PostgresqlDialect extends Dialect
 	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
 		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
+	}
+
+	@Override
+	String getStringLength()
+	{
+		return "LENGTH";
 	}
 
 	@Override
@@ -154,6 +159,14 @@ final class PostgresqlDialect extends Dialect
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException();
+	}
+
+	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("TRIM(TO_CHAR(").
+			append(source, join).
+			append(", '9999999999999'))");
 	}
 
 	@Override

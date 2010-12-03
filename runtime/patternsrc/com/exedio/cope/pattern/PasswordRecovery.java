@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,13 +33,14 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class PasswordRecovery extends Pattern
 {
@@ -128,6 +131,10 @@ public final class PasswordRecovery extends Pattern
 			setStatic(false).
 			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of tokens purged"));
+		result.add(
+			new Wrapper("purge").
+			setStatic(false).
+			addParameter(JobContext.class, "ctx"));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -179,44 +186,21 @@ public final class PasswordRecovery extends Pattern
 
 	public int purge(final Interrupter interrupter)
 	{
-		final int LIMIT = 100;
-		final Date now = new Date();
-		final Model model = getType().getModel();
-		int result = 0;
-		for(int transaction = 0; transaction<30; transaction++)
-		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
-
-			try
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
 			{
-				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
+				purge(ctx);
+			}}
+		);
+	}
 
-				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
-				query.setLimit(0, LIMIT);
-				final List<Token> tokens = query.search();
-				final int tokensSize = tokens.size();
-				if(tokensSize==0)
-					return result;
-				for(final Token token : tokens)
-					token.deleteCopeItem();
-				result += tokensSize;
-				if(tokensSize<LIMIT)
-				{
-					model.commit();
-					return result;
-				}
-
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-		}
-
-		System.out.println("Aborting PasswordRecovery#purge " + getID() + " after " + result);
-		return result;
+	public void purge(final JobContext ctx)
+	{
+		Delete.delete(
+				tokenType.newQuery(this.expires.less(new Date())),
+				"PasswordRecovery#purge " + getID(),
+				ctx);
 	}
 
 	@Computed

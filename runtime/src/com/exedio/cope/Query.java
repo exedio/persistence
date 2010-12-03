@@ -49,6 +49,9 @@ public final class Query<R>
 	private int offset = 0;
 	private int limit = UNLIMITED;
 
+	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
+	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
+
 	public Query(final Selectable<? extends R> select)
 	{
 		this(select, (Condition)null);
@@ -60,6 +63,26 @@ public final class Query<R>
 		this.type = select.getType();
 		this.model = this.type.getModel();
 		this.condition = replaceTrue(condition);
+	}
+
+	/**
+	 * Copy Constructor
+	 */
+	public Query(final Query<R> query)
+	{
+		this.model = query.model;
+		this.selectSingle = query.selectSingle;
+		this.selectsMulti = query.selectsMulti;
+		this.distinct = query.distinct;
+		this.type = query.type;
+		this.joinIndex = query.joinIndex;
+		this.joins = query.joins!=null ? new ArrayList<Join>(query.joins) : null;
+		this.condition = query.condition;
+		this.orderBy = query.orderBy;
+		this.orderAscending = query.orderAscending;
+		this.offset = query.offset;
+		this.limit = query.limit;
+		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
 	/**
@@ -78,6 +101,7 @@ public final class Query<R>
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
 		this.limit = query.limit;
+		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
@@ -178,7 +202,7 @@ public final class Query<R>
 		condition =
 			condition!=null
 			? condition.and(narrowingCondition)
-			: narrowingCondition;
+			: replaceTrue(narrowingCondition);
 	}
 
 	private Join join(final Join join)
@@ -362,6 +386,43 @@ public final class Query<R>
 
 		this.offset = offset;
 		this.limit = UNLIMITED;
+	}
+
+	/**
+	 * @see #setSearchSizeLimit(int)
+	 */
+	public int getSearchSizeLimit()
+	{
+		return
+			(searchSizeLimit==SEARCH_SIZE_LIMIT_DEFAULT)
+			? model.getConnectProperties().getQuerySearchSizeLimit()
+			: searchSizeLimit;
+	}
+
+	/**
+	 * Sets the search size limit for this query.
+	 * <p>
+	 * Method {@link #search()} will fail with an {@link IllegalStateException}
+	 * as soon as the size of the result set exceeds the search size limit.
+	 * Method {@link #total()} is not affected by this limit.
+	 * <p>
+	 * Setting the search size limit does not guarantee,
+	 * that {@link #search()} actually fails when exceeding the limit.
+	 * But it is guaranteed, that it does not fail when not exceeding the limit.
+	 * In particular, it may not fail, if the result is fetched from the query cache.
+	 * <p>
+	 * If search size limit is not set, it defaults to
+	 * {@link ConnectProperties#getQuerySearchSizeLimit()}.
+	 *
+	 * @see #getSearchSizeLimit()
+	 */
+	public void setSearchSizeLimit(final int searchSizeLimit)
+	{
+		if(searchSizeLimit<1)
+			throw new IllegalArgumentException(
+					"searchSizeLimit must be greater zero, but was " + searchSizeLimit);
+
+		this.searchSizeLimit = searchSizeLimit;
 	}
 
 	/**
@@ -742,7 +803,7 @@ public final class Query<R>
 		return c==Condition.TRUE ? null : c;
 	}
 
-	ArrayList<Object> search(
+	private ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
 			final boolean totalOnly,
@@ -770,12 +831,7 @@ public final class Query<R>
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
 
-		bf.append("select");
-
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
-			dialect.appendLimitClause(bf, offset, limit);
-
-		bf.append(' ');
+		bf.append("select ");
 
 		final Selectable[] selects = this.selects();
 		final Column[] selectColumns = new Column[selects.length];
@@ -806,7 +862,7 @@ public final class Query<R>
 		}
 
 		bf.append(" from ").
-			appendTypeDefinition((Join)null, this.type);
+			appendTypeDefinition((Join)null, this.type, joins!=null);
 
 		if(joins!=null)
 		{
@@ -834,10 +890,7 @@ public final class Query<R>
 					else
 						bf.append(',');
 
-					bf.append(orderBy[i], (Join)null);
-
-					if(!orderAscending[i])
-						bf.append(" desc");
+					dialect.appendOrderBy(bf, orderBy[i], orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}
@@ -849,9 +902,8 @@ public final class Query<R>
 				{
 					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
 					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
-					case CLAUSE_AFTER_SELECT:
-					case NONE:
-						break;
+					default:
+						throw new RuntimeException(limitSupport.name());
 				}
 			}
 		}
@@ -874,6 +926,7 @@ public final class Query<R>
 
 		//System.out.println(bf.toString());
 
+		final int sizeLimit = this.getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
@@ -887,23 +940,12 @@ public final class Query<R>
 					return null;
 				}
 
-				if(offset>0 && limitSupport==Dialect.LimitSupport.NONE)
+				int sizeLimitCountDown = sizeLimit;
+				while(resultSet.next())
 				{
-					// TODO: ResultSet.relative
-					// Would like to use
-					//    resultSet.relative(limitStart+1);
-					// but this throws a java.sql.SQLException:
-					// Invalid operation for forward only resultset : relative
-					for(int i = offset; i>0; i--)
-						resultSet.next();
-				}
+					if((--sizeLimitCountDown)<0)
+						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
 
-				int i = ((limit==Query.UNLIMITED||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limit );
-				if(i<=0)
-					throw new RuntimeException(String.valueOf(limit));
-
-				while(resultSet.next() && (--i)>=0)
-				{
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 					final Row dummyRow = new Row();

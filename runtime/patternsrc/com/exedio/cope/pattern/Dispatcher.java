@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
 import java.io.ByteArrayOutputStream;
@@ -45,6 +46,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Dispatcher extends Pattern
 {
@@ -54,13 +57,11 @@ public final class Dispatcher extends Pattern
 
 	private final BooleanField pending;
 
-	ItemField<?> runParent = null;
-	private PartOf<?> runRuns = null;
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal();
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	private Type<Run> runType = null;
+	private Mount mount = null;
 
 	public Dispatcher()
 	{
@@ -88,8 +89,8 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		runRuns = PartOf.newPartOf(runParent, runDate);
+		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runDate);
 		final Features features = new Features();
 		features.put("parent", runParent);
 		features.put("date", runDate);
@@ -97,7 +98,37 @@ public final class Dispatcher extends Pattern
 		features.put("elapsed", runElapsed);
 		features.put("success", runSuccess);
 		features.put("failure", runFailure);
-		runType = newSourceType(Run.class, features, "Run");
+		final Type<Run> runType = newSourceType(Run.class, features, "Run");
+		this.mount = new Mount(runParent, runRuns, runType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> runParent;
+		final PartOf<?> runRuns;
+		final Type<Run> runType;
+
+		Mount(
+				final ItemField<?> runParent,
+				final PartOf<?> runRuns,
+				final Type<Run> runType)
+		{
+			assert runParent!=null;
+			assert runRuns!=null;
+			assert runType!=null;
+
+			this.runParent = runParent;
+			this.runRuns = runRuns;
+			this.runType = runType;
+		}
+	}
+
+	final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public BooleanField getPending()
@@ -107,13 +138,12 @@ public final class Dispatcher extends Pattern
 
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
-		assert runParent!=null;
-		return runParent.as(parentClass);
+		return mount().runParent.as(parentClass);
 	}
 
 	public PartOf getRunRuns()
 	{
-		return runRuns;
+		return mount().runRuns;
 	}
 
 	public DateField getRunDate()
@@ -138,8 +168,7 @@ public final class Dispatcher extends Pattern
 
 	public Type<Run> getRunType()
 	{
-		assert runType!=null;
-		return runType;
+		return mount().runType;
 	}
 
 	@Override
@@ -154,6 +183,13 @@ public final class Dispatcher extends Pattern
 			setReturn(int.class, "the number of successfully dispatched items").
 			addParameter(Config.class, "config").
 			addParameter(Interrupter.class, "interrupter").
+			setStatic());
+
+		result.add(
+			new Wrapper("dispatch").
+			addComment("Dispatch by {0}.").
+			addParameter(Config.class, "config").
+			addParameter(JobContext.class, "ctx").
 			setStatic());
 
 		result.add(
@@ -201,16 +237,29 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
 	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				dispatch(parentClass, config, ctx);
+			}}
+		);
+	}
+
+	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	{
 		if(config==null)
 			throw new NullPointerException("config");
+		if(ctx==null)
+			throw new NullPointerException("ctx");
 
+		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String id = getID();
 
 		P lastDispatched = null;
-		int result = 0;
 		while(true)
 		{
 			final List<P> toDispatch;
@@ -233,12 +282,12 @@ public final class Dispatcher extends Pattern
 			if(toDispatch.isEmpty())
 				break;
 
-			final ItemField<P> runParent = this.runParent.as(parentClass);
+			final ItemField<P> runParent = mount.runParent.as(parentClass);
 
 			for(final P item : toDispatch)
 			{
-				if(interrupter!=null && interrupter.isRequested())
-					return result;
+				if(ctx.requestedToStop())
+					return;
 
 				lastDispatched = item;
 				final Dispatchable itemCasted = (Dispatchable)item;
@@ -261,14 +310,14 @@ public final class Dispatcher extends Pattern
 
 						final long elapsed = (nanoTime() - nanoStart) / 1000000;
 						pending.set(item, false);
-						runType.newItem(
+						mount.runType.newItem(
 								runParent.map(item),
 								runDate.map(new Date(start)),
 								runElapsed.map(elapsed),
 								runSuccess.map(true));
 
 						model.commit();
-						result++;
+						ctx.incrementProgress();
 					}
 					catch(final Exception cause)
 					{
@@ -289,14 +338,15 @@ public final class Dispatcher extends Pattern
 						cause.printStackTrace(out);
 						out.close();
 
-						runType.newItem(
+						mount.runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
 							runSuccess.map(false),
 							runFailure.map(baos.toByteArray()));
 
-						final boolean finalFailure = runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+						final boolean finalFailure =
+							mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 						if(finalFailure)
 							pending.set(item, false);
 
@@ -312,8 +362,6 @@ public final class Dispatcher extends Pattern
 				}
 			}
 		}
-
-		return result;
 	}
 
 	public boolean isPending(final Item item)
@@ -340,20 +388,36 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
-		final Query<Run> q = runType.newQuery(Cope.equalAndCast(runParent, item).and(runSuccess.equal(true)));
-		q.setOrderBy(runType.getThis(), false);
+		final Mount mount = mount();
+		final Query<Run> q =
+			mount.runType.newQuery(Cope.and(
+				Cope.equalAndCast(mount.runParent, item),
+				runSuccess.equal(true)));
+		q.setOrderBy(mount.runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
 	}
 
 	public List<Run> getRuns(final Item item)
 	{
-		return runType.search(Cope.equalAndCast(runParent, item), runType.getThis(), true);
+		final Mount mount = mount();
+		return
+			mount.runType.search(
+					Cope.equalAndCast(mount.runParent, item),
+					mount.runType.getThis(),
+					true);
 	}
 
 	public List<Run> getFailures(final Item item)
 	{
-		return runType.search(Cope.equalAndCast(runParent, item).and(runSuccess.equal(false)), runType.getThis(), true);
+		final Mount mount = mount();
+		return
+			mount.runType.search(
+					Cope.and(
+							Cope.equalAndCast(mount.runParent, item),
+							runSuccess.equal(false)),
+					mount.runType.getThis(),
+					true);
 	}
 
 	public static final class Config
@@ -405,7 +469,7 @@ public final class Dispatcher extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().runParent.get(this);
+			return getPattern().mount().runParent.get(this);
 		}
 
 		public Date getDate()

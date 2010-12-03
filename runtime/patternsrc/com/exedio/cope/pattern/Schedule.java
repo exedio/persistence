@@ -19,6 +19,15 @@
 package com.exedio.cope.pattern;
 
 import static java.lang.System.nanoTime;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MILLISECOND;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SECOND;
+import static java.util.Calendar.WEEK_OF_MONTH;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +53,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.InterrupterJobContextAdapter;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Schedule extends Pattern
 {
@@ -61,13 +73,12 @@ public final class Schedule extends Pattern
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
 
-	ItemField<?> runParent = null;
-	PartOf<?> runRuns = null;
 	final DateField runFrom = new DateField().toFinal();
 	final DateField runUntil = new DateField().toFinal();
 	final DateField runRun = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal();
-	Type<Run> runType = null;
+
+	private Mount mount = null;
 
 	/**
 	 * @deprecated Use {@link #Schedule(Locale)} instead.
@@ -109,8 +120,8 @@ public final class Schedule extends Pattern
 					"type of " + getID() + " must implement " + Scheduleable.class +
 					", but was " + type.getJavaClass().getName());
 
-		runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		runRuns = PartOf.newPartOf(runParent, runFrom);
+		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runFrom);
 		final Features features = new Features();
 		features.put("parent", runParent);
 		features.put("from",  runFrom);
@@ -118,7 +129,37 @@ public final class Schedule extends Pattern
 		features.put("until", runUntil);
 		features.put("run",   runRun);
 		features.put("elapsed", runElapsed);
-		runType = newSourceType(Run.class, features, "Run");
+		final Type<Run> runType = newSourceType(Run.class, features, "Run");
+		this.mount = new Mount(runParent, runRuns, runType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> runParent;
+		final PartOf<?> runRuns;
+		final Type<Run> runType;
+
+		Mount(
+				final ItemField<?> runParent,
+				final PartOf<?> runRuns,
+				final Type<Run> runType)
+		{
+			assert runParent!=null;
+			assert runRuns!=null;
+			assert runType!=null;
+
+			this.runParent = runParent;
+			this.runRuns = runRuns;
+			this.runType = runType;
+		}
+	}
+
+	final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public BooleanField getEnabled()
@@ -133,12 +174,12 @@ public final class Schedule extends Pattern
 
 	public ItemField<?> getRunParent()
 	{
-		return runParent;
+		return mount().runParent;
 	}
 
 	public PartOf<?> getRunRuns()
 	{
-		return runRuns;
+		return mount().runRuns;
 	}
 
 	public DateField getRunFrom()
@@ -163,7 +204,7 @@ public final class Schedule extends Pattern
 
 	public Type<Run> getRunType()
 	{
-		return runType;
+		return mount().runType;
 	}
 
 	@Override
@@ -188,6 +229,10 @@ public final class Schedule extends Pattern
 			new Wrapper("run").
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
+			setStatic(false));
+		result.add(
+			new Wrapper("run").
+			addParameter(JobContext.class, "ctx").
 			setStatic(false));
 
 		return Collections.unmodifiableList(result);
@@ -218,27 +263,48 @@ public final class Schedule extends Pattern
 		return run(interrupter, new Date());
 	}
 
-	int run(final Interrupter interrupter, final Date now)
+	public void run(final JobContext ctx)
 	{
-		return run(getType(), interrupter, now);
+		run(ctx, new Date());
 	}
 
-	private <P extends Item> int run(final Type<P> type, final Interrupter interrupter, final Date now)
+	int run(final Interrupter interrupter, final Date now)
 	{
+		final Schedule s = this;
+		return InterrupterJobContextAdapter.run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				s.run(ctx, now);
+			}}
+		);
+	}
+
+	void run(final JobContext ctx, final Date now)
+	{
+		run(getType(), ctx, now);
+	}
+
+	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
+	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
+		final Mount mount = mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
 		cal.setTime(now);
-		cal.set(GregorianCalendar.MILLISECOND, 0);
-		cal.set(GregorianCalendar.SECOND, 0);
-		cal.set(GregorianCalendar.MINUTE, 0);
-		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
+		cal.set(MILLISECOND, 0);
+		cal.set(SECOND, 0);
+		cal.set(MINUTE, 0);
+		cal.set(HOUR_OF_DAY, 0);
 		final Date untilDaily = cal.getTime();
-		cal.set(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.MONDAY);
+		cal.set(DAY_OF_WEEK, MONDAY);
 		final Date untilWeekly = cal.getTime();
 		cal.setTime(untilDaily);
-		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
+		cal.set(DAY_OF_MONTH, 1);
 		final Date untilMonthly = cal.getTime();
 
 
@@ -246,10 +312,12 @@ public final class Schedule extends Pattern
 		try
 		{
 			model.startTransaction(featureID + " search");
-			final Query<P> q = type.newQuery(enabled.equal(true).and(runType.getThis().isNull()));
-			q.joinOuterLeft(runType,
+			final Query<P> q = type.newQuery(Cope.and(
+					enabled.equal(true),
+					mount.runType.getThis().isNull()));
+			q.joinOuterLeft(mount.runType,
 					Cope.and(
-						runParent.as(type.getJavaClass()).equal(typeThis),
+						mount.runParent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
 							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
@@ -267,14 +335,20 @@ public final class Schedule extends Pattern
 		}
 
 		if(toRun.isEmpty())
-			return 0;
+			return;
 
-		final Interrupter effectiveInterrupter = interrupter!=null ? interrupter : DEFAULT_INTERRUPTER;
-		int result = 0;
+		final Interrupter interrupterForItem = new Interrupter()
+		{
+			public boolean isRequested()
+			{
+				return ctx.requestedToStop();
+			}
+		};
+
 		for(final P item : toRun)
 		{
-			if(interrupter!=null && interrupter.isRequested())
-				return result;
+			if(ctx.requestedToStop())
+				return;
 
 			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
@@ -293,39 +367,30 @@ public final class Schedule extends Pattern
 				cal.setTime(until);
 				switch(interval)
 				{
-					case DAILY:  cal.add(GregorianCalendar.DAY_OF_WEEK  , -1); break;
-					case WEEKLY: cal.add(GregorianCalendar.WEEK_OF_MONTH, -1); break;
-					case MONTHLY:cal.add(GregorianCalendar.MONTH,         -1); break;
+					case DAILY:  cal.add(DAY_OF_WEEK  , -1); break;
+					case WEEKLY: cal.add(WEEK_OF_MONTH, -1); break;
+					case MONTHLY:cal.add(MONTH,         -1); break;
 					default: throw new RuntimeException(interval.name());
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, effectiveInterrupter);
+				itemCasted.run(this, from, until, interrupterForItem);
 				final long elapsedEnd = nanoTime();
-				runType.newItem(
-					Cope.mapAndCast(this.runParent, item),
+				mount.runType.newItem(
+					Cope.mapAndCast(mount.runParent, item),
 					this.runFrom.map(from),
 					this.runUntil.map(until),
 					this.runRun.map(now),
 					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
 				model.commit();
-				result++;
+				ctx.incrementProgress();
 			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
 			}
 		}
-		return result;
 	}
-
-	private static final Interrupter DEFAULT_INTERRUPTER = new Interrupter()
-	{
-		public boolean isRequested()
-		{
-			return false;
-		}
-	};
 
 	@Computed
 	public static final class Run extends Item
@@ -344,7 +409,7 @@ public final class Schedule extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().runParent.get(this);
+			return getPattern().mount().runParent.get(this);
 		}
 
 		public Date getFrom()

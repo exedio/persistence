@@ -47,6 +47,11 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 		return this;
 	}
 
+	public final AsStringView asString()
+	{
+		return new AsStringView(this);
+	}
+
 	public final PlusLiteralView<E> plus(final E value)
 	{
 		return new PlusLiteralView<E>(this, value);

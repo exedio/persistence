@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -115,44 +116,40 @@ final class ModificationListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
+	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction, final boolean log)
 	{
-		final List<ModificationListener> commitListeners = get();
-		if(!commitListeners.isEmpty())
+		final List<ModificationListener> listeners = get();
+		if(listeners.isEmpty())
+			return;
+
+		final Collection<Item> items = Collections.unmodifiableCollection(Arrays.asList(types.activate(invalidations)));
+		assert !items.isEmpty();
+		for(final ModificationListener listener : listeners)
 		{
-			ArrayList<Item> modifiedItems = null;
-
-			for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
+			try
 			{
-				final TIntHashSet invalidationSet = invalidations[typeTransiently];
-				if(invalidationSet!=null)
-				{
-					if(modifiedItems==null)
-						modifiedItems = new ArrayList<Item>();
-
-					for(final TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-						modifiedItems.add(types.getConcreteType(typeTransiently).activate(i.next()));
-				}
+				onModifyingCommit(listener, items, transaction);
 			}
-
-			if(modifiedItems!=null && !modifiedItems.isEmpty())
+			catch(final RuntimeException e)
 			{
-				final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-				for(final ModificationListener listener : commitListeners)
-				{
-					try
-					{
-						listener.onModifyingCommit(modifiedItemsUnmodifiable, transaction);
-					}
-					catch(final RuntimeException e)
-					{
-						if(Model.isLoggingEnabled())
-							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
-									':' + e.getClass().getName() + ' ' + e.getMessage());
-					}
-				}
+				if(log)
+					System.err.println(
+							"Suppressing exception from modification listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
+			}
+			catch(final AssertionError e)
+			{
+				if(log)
+					System.err.println(
+							"Suppressing assertion error from modification listener " + listener.getClass().getName() +
+							':' + e.getClass().getName() + ' ' + e.getMessage());
 			}
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void onModifyingCommit(final ModificationListener listener, final Collection<Item> modifiedItems, final Transaction transaction)
+	{
+		listener.onModifyingCommit(modifiedItems, transaction);
 	}
 }

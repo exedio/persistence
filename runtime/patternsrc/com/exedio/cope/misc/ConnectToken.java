@@ -24,36 +24,81 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
 public final class ConnectToken
 {
 	private final Manciple manciple;
-	final Model model;
-	final int id;
+	private final Model model;
+	private final int id;
 	private final long issueDate = System.currentTimeMillis();
-	final String name;
+	private final String name;
+	private final boolean conditional;
 	private final boolean didConnect;
-	private volatile boolean returned = false;
-	private final Object returnedLock = new Object();
+	private final boolean log;
+	private final AtomicBoolean returned = new AtomicBoolean(false);
 
 	ConnectToken(
 			final Manciple manciple,
 			final Model model,
 			final int id,
 			final String name,
+			final boolean conditional,
 			final boolean didConnect)
 	{
 		assert manciple!=null;
 		assert model!=null;
 		assert id>=0;
+		assert !(conditional && didConnect) : name;
 
 		this.manciple = manciple;
 		this.model = model;
 		this.id = id;
 		this.name = name;
+		this.conditional = conditional;
 		this.didConnect = didConnect;
+		this.log = model.getConnectProperties().isLoggingEnabled();
+
+		if(log)
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("ConnectToken ").
+				append(model.toString()).
+				append(": issued ").append(id);
+			if(name!=null)
+				bf.append(" (").
+					append(name).
+					append(')');
+			if(conditional)
+				bf.append(" conditional");
+			if(didConnect)
+				bf.append(" CONNECT");
+			System.out.println(bf.toString());
+		}
+	}
+
+	void onReturn(final boolean disconnect)
+	{
+		if(disconnect)
+			model.disconnect();
+
+		if(log)
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("ConnectToken ").
+				append(model.toString()).
+				append(": returned ").append(id);
+			if(name!=null)
+				bf.append(" (").
+					append(name).
+					append(')');
+			if(disconnect)
+				bf.append(" DISCONNECT");
+			System.out.println(bf.toString());
+		}
 	}
 
 	public Model getModel()
@@ -76,6 +121,15 @@ public final class ConnectToken
 		return name;
 	}
 
+	/**
+	 * Returns true, if this token was issued by {@link #issueIfConnected(Model, String)}.
+	 * Returns false, if this token was issued by {@link #issue(Model, ConnectProperties, String)}.
+	 */
+	public boolean wasConditional()
+	{
+		return conditional;
+	}
+
 	public boolean didConnect()
 	{
 		return didConnect;
@@ -83,20 +137,36 @@ public final class ConnectToken
 
 	public boolean isReturned()
 	{
-		return returned;
+		return returned.get();
 	}
 
 	public boolean returnIt()
 	{
-		synchronized(returnedLock)
-		{
-			if(returned)
-				throw new IllegalStateException("connect token " + id + " already returned");
-
-			returned = true;
-		}
+		if(returned.getAndSet(true))
+			throw new IllegalStateException("connect token " + id + " already returned");
 
 		return manciple.returnIt(this);
+	}
+
+	public boolean returnItConditionally()
+	{
+		if(returned.getAndSet(true))
+			return false;
+
+		return manciple.returnIt(this);
+	}
+
+	@Override
+	public String toString()
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append(model.toString()).
+			append('/').append(id);
+		if(name!=null)
+			bf.append('(').
+				append(name).
+				append(')');
+		return bf.toString();
 	}
 
 	private static final class Manciple
@@ -112,7 +182,7 @@ public final class ConnectToken
 
 		ConnectToken issue(
 				final Model model,
-				final com.exedio.cope.ConnectProperties properties,
+				final ConnectProperties properties,
 				final String tokenName)
 		{
 			synchronized(lock)
@@ -123,14 +193,23 @@ public final class ConnectToken
 				else
 					model.getConnectProperties().ensureEquality(properties);
 
-				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
+				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false, connect);
 				tokens.add(result);
+				return result;
+			}
+		}
 
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(model), Character.MAX_RADIX) +
-							": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") +
-							(connect ? " CONNECT" : ""));
+		ConnectToken issueIfConnected(
+				final Model model,
+				final String tokenName)
+		{
+			synchronized(lock)
+			{
+				if(tokens.isEmpty())
+					return null;
+
+				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, true, false);
+				tokens.add(result);
 				return result;
 			}
 		}
@@ -141,16 +220,11 @@ public final class ConnectToken
 			{
 				final boolean removed = tokens.remove(token);
 				assert removed;
-				final boolean disconnect = tokens.isEmpty();
-				if(disconnect)
-					token.model.disconnect();
-
-				if(Model.isLoggingEnabled())
-					System.out.println(
-							"ConnectToken " + Integer.toString(System.identityHashCode(token.model), Character.MAX_RADIX) +
-							": returned " + token.id + (token.name!=null ? (" (" + token.name + ')') : "") +
-							(disconnect ? " DISCONNECT" : ""));
-				return disconnect;
+				final boolean result = tokens.isEmpty();
+				token.onReturn(result);
+				if(result)
+					nextId = 0;
+				return result;
 			}
 		}
 
@@ -197,10 +271,28 @@ public final class ConnectToken
 	 */
 	public static final ConnectToken issue(
 			final Model model,
-			final com.exedio.cope.ConnectProperties properties,
+			final ConnectProperties properties,
 			final String tokenName)
 	{
 		return manciple(model).issue(model, properties, tokenName);
+	}
+
+	/**
+	 * Issues a ConnectToken, if the model is already connected.
+	 * Otherwise the method returns null.
+	 * <p>
+	 * Usually you may want to use this method, if you want to do something
+	 * if the model is already connected, but in that case with a guarantee,
+	 * that the model is not disconnected while doing those things.
+	 * <p>
+	 * Tokens returned by this method always do have {@link #didConnect()}==false.
+	 * @see #wasConditional()
+	 */
+	public static final ConnectToken issueIfConnected(
+			final Model model,
+			final String tokenName)
+	{
+		return manciple(model).issueIfConnected(model, tokenName);
 	}
 
 	/**

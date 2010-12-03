@@ -202,7 +202,7 @@ public class DataTest extends AbstractRuntimeTest
 		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6));
 		assertNotEquals(item.data.startsWith(data4), item.data.startsWith(data6x4));
 		assertNotEquals(item.data.startsWith(data4), item.data10.startsWith(data4));
-		assertEquals("DataItem.data startsWith [-86, 122, -8, 23]", item.data.startsWith(data4).toString());
+		assertEquals("DataItem.data startsWith 'aa7af817'", item.data.startsWith(data4).toString());
 		try
 		{
 			new StartsWithCondition(null, null);

@@ -19,11 +19,12 @@
 package com.exedio.cope.pattern;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.Hex;
 
 public class MessageDigestHashTest extends AbstractRuntimeTest
 {
@@ -47,9 +48,9 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		final Random byMandatory = ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(new Random(2345l));
-		item = deleteOnTearDown(new MessageDigestHashItem("musso"));
-		((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).setSaltSource(byMandatory);
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
 	}
 
 	public void testMD5()
@@ -60,6 +61,8 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 				item.password.getStorage(),
 				item.passwordLatin,
 				item.passwordLatin.getStorage(),
+				item.passwordFinal,
+				item.passwordFinal.getStorage(),
 				item.passwordMandatory,
 				item.passwordMandatory.getStorage()),
 			item.TYPE.getFeatures());
@@ -92,6 +95,18 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertContains(item.passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
 		assertEquals(5, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
+
+		assertEquals(item.TYPE, item.passwordFinal.getType());
+		assertEquals("passwordFinal", item.passwordFinal.getName());
+		assertEquals("SHA512s8i5", item.passwordFinal.getAlgorithmName());
+		assertEquals(item.passwordFinal, item.passwordFinal.getStorage().getPattern());
+		assertEquals(true, item.passwordFinal.isInitial());
+		assertEquals(true, item.passwordFinal.isFinal());
+		assertEquals(true, item.passwordFinal.isMandatory());
+		assertEquals(String.class, item.passwordFinal.getInitialType());
+		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.passwordFinal.getInitialExceptions());
+		assertEquals("utf8", item.passwordFinal.getEncoding());
+		assertEquals(5, ((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -162,6 +177,33 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordLatin(null));
 		assertTrue(!item.checkPasswordLatin("bello"));
 		assertTrue(item.checkPasswordLatin(specialPlainText));
+
+		assertEquals("885406ef34cef302ae05cffbfc7d490a7a38e92c241014c2cb8667fa30f039590c649c0d80b5ab21a0d5bae8ab016dcb43d9b233962917c61827f1e924c98ffed30e4675ab08230c", item.getPasswordFinalSHA512s8i5());
+		assertTrue(item.checkPasswordFinal("finalo"));
+		assertTrue(!item.checkPasswordFinal("finalox"));
+		assertTrue(!item.checkPasswordFinal(""));
+		assertTrue(!item.checkPasswordFinal(null));
+		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
+
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		try
+		{
+			item.passwordFinal.set(item, "finalox");
+			fail();
+		}
+		catch(final FinalViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.passwordFinal.getStorage(), e.getFeature()); // TODO should be passwordFinal
+		}
+		assertEquals("885406ef34cef302ae05cffbfc7d490a7a38e92c241014c2cb8667fa30f039590c649c0d80b5ab21a0d5bae8ab016dcb43d9b233962917c61827f1e924c98ffed30e4675ab08230c", item.getPasswordFinalSHA512s8i5());
+		assertTrue(item.checkPasswordFinal("finalo"));
+		assertTrue(!item.checkPasswordFinal("finalox"));
+		assertTrue(!item.checkPasswordFinal(""));
+		assertTrue(!item.checkPasswordFinal(null));
+		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
+		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
 
 		assertEquals("885406ef34cef302a5b5577715808f6cae847208da6117c46119ab13d30f7c464ccc72e28e9d9b52c0be210c0ac25f7938327f63c6c8b67557e1f011b5d0e68a5a7beab6485b495a", item.getPasswordMandatorySHA512s8i5());
 		assertTrue(item.checkPasswordMandatory("musso"));

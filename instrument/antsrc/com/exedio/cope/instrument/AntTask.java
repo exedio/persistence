@@ -34,39 +34,44 @@ public final class AntTask extends Task
 	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<DataType>();
 	private final Params params = new Params();
 
-	public void addFileset(final FileSet fileSet)
+	public void addFileset(final FileSet value)
 	{
-		fileSetsOrLists.add(fileSet);
+		fileSetsOrLists.add(value);
 	}
 
-	public void addFilelist(final FileList fileList)
+	public void addFilelist(final FileList value)
 	{
-		fileSetsOrLists.add(fileList);
+		fileSetsOrLists.add(value);
 	}
 
-	public void setLongJavadoc(final boolean longJavadoc)
+	public void setLongJavadoc(final boolean value)
 	{
-		params.longJavadoc = longJavadoc;
+		params.longJavadoc = value;
 	}
 
-	public void setFinalArgs(final boolean finalArgs)
+	public void setFinalArgs(final boolean value)
 	{
-		params.finalArgs = finalArgs;
+		params.finalArgs = value;
 	}
 
-	public void setSerialVersionUID(final boolean serialVersionUID)
+	public void setSuppressUnusedWarningOnPrivateActivationConstructor(final boolean value)
 	{
-		params.serialVersionUID = serialVersionUID;
+		params.suppressUnusedWarningOnPrivateActivationConstructor = value;
 	}
 
-	public void setCreateDeprecated(final boolean createDeprecated)
+	public void setSerialVersionUID(final boolean value)
 	{
-		params.createDeprecated = createDeprecated;
+		params.serialVersionUID = value;
 	}
 
-	public void setVerbose(final boolean verbose)
+	public void setCreateDeprecated(final boolean value)
 	{
-		params.verbose = verbose;
+		params.createDeprecated = value;
+	}
+
+	public void setVerbose(final boolean value)
+	{
+		params.verbose = value;
 	}
 
 	@Override

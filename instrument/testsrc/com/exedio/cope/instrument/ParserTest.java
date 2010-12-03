@@ -22,9 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import com.exedio.cope.instrument.Lexer.CommentToken;
-
 import junit.framework.AssertionFailedError;
+
+import com.exedio.cope.instrument.Lexer.CommentToken;
 
 public abstract class ParserTest extends InstrumentorTest
 {

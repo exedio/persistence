@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.exedio.cope.misc.Arrays;
-
 public abstract class Condition
 {
 	abstract void append(Statement statment);
@@ -153,7 +148,7 @@ public abstract class Condition
 		@Override
 		void check(final TC tc)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(name);
 		}
 
 		@Override
@@ -208,18 +203,4 @@ public abstract class Condition
 	}
 
 	abstract void toString(StringBuilder bf, boolean key, Type defaultType);
-
-	static final String toStringForValue(final Object o, final boolean key)
-	{
-		if(o==null)
-			return "NULL";
-		else if(o instanceof Item)
-			return key ? ((Item)o).getCopeID() : o.toString();
-		else if(o instanceof Date)
-			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
-		else if(o instanceof byte[])
-			return Arrays.toString((byte[])o, 30);
-		else
-			return o.toString();
-	}
 }

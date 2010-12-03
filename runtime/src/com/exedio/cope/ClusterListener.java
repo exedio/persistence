@@ -18,176 +18,88 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterConstants.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterConstants.KIND_PING;
+import static com.exedio.cope.ClusterConstants.KIND_PONG;
+import static com.exedio.cope.ClusterConstants.MAGIC0;
+import static com.exedio.cope.ClusterConstants.MAGIC1;
+import static com.exedio.cope.ClusterConstants.MAGIC2;
+import static com.exedio.cope.ClusterConstants.MAGIC3;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import com.exedio.cope.util.SequenceChecker;
 
-final class ClusterListener implements Runnable
+abstract class ClusterListener
 {
-	private final ClusterConfig config;
+	private final ClusterProperties properties;
+	private final int secret;
+	private final int localNode;
 	private final boolean log;
-	private final int port;
-	private final MulticastSocket socket;
-
-	private final ClusterSender sender;
+	private final int sequenceCheckerCapacity;
 	private final int typeLength;
-	private final ItemCache itemCache;
-	private final QueryCache queryCache;
-
-	private final Thread thread;
-	private volatile boolean threadRun = true;
-
-	ArrayList<Object> testSink = null;
 
 	ClusterListener(
-			final ClusterConfig config, final ConnectProperties properties,
-			final ClusterSender sender,
-			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
+			final ClusterProperties properties,
+			final int typeLength)
 	{
-		this.config = config;
-		this.log = config.log;
-		this.port = properties.clusterListenPort.intValue();
-		try
-		{
-			this.socket = new MulticastSocket(port);
-			socket.joinGroup(config.group);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		this.sender = sender;
+		this.properties = properties;
+		this.secret = properties.getSecret();
+		this.localNode = properties.node;
+		this.log = properties.log.booleanValue();
+		this.sequenceCheckerCapacity = properties.listenSeqCheckCap.intValue();
 		this.typeLength = typeLength;
-		this.itemCache = itemCache;
-		this.queryCache = queryCache;
-		thread = new Thread(this);
-		thread.setName("COPE Cluster Listener");
-		thread.setDaemon(true);
-		if(properties.clusterListenPrioritySet.booleanValue())
-			thread.setPriority(properties.clusterListenPriority.intValue());
-		thread.start();
 	}
 
-	public void run()
+	final void handle(final DatagramPacket packet)
 	{
-		final byte[] buf = new byte[config.packetSize];
-		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
+		final Iter iter = new Iter(packet);
 
-		while(threadRun)
-		{
-			try
-			{
-				if(!threadRun)
-					return;
-				socket.receive(packet);
-				if(!threadRun)
-					return;
-				handle(packet);
-	      }
-			catch(final SocketException e)
-			{
-				if(threadRun)
-				{
-					exception++;
-					e.printStackTrace();
-				}
-				else
-				{
-					if(log)
-						System.out.println("COPE Cluster Listener graceful shutdown: " + e.getMessage());
-				}
-			}
-			catch(final Exception e)
-			{
-				exception++;
-				e.printStackTrace();
-			}
-		}
-	}
-
-	void handle(final DatagramPacket packet)
-	{
-		int pos = packet.getOffset();
-		final byte[] buf = packet.getData();
-		final int length = packet.getLength();
-
-		if(buf[pos++]!=ClusterConfig.MAGIC0 ||
-			buf[pos++]!=ClusterConfig.MAGIC1 ||
-			buf[pos++]!=ClusterConfig.MAGIC2 ||
-			buf[pos++]!=ClusterConfig.MAGIC3)
+		if(!iter.checkBytes(MAGIC))
 		{
 			missingMagic++;
 			return;
 		}
 
-		if(config.secret!=unmarshal(pos, buf))
+		if(secret!=iter.nextInt())
 		{
 			wrongSecret++;
 			return;
 		}
-		pos += 4;
 
-		final int node = unmarshal(pos, buf);
-		if(config.node==node)
+		final int node = iter.nextInt();
+		if(localNode==node)
 		{
 			fromMyself++;
 			return;
 		}
-		pos += 4;
 
 		// kind
-		final int kind = unmarshal(pos, buf);
-		pos += 4;
+		final int kind = iter.nextInt();
+
 		switch(kind)
 		{
-			case ClusterConfig.KIND_PING:
-			case ClusterConfig.KIND_PONG:
+			case KIND_PING:
 			{
-				final boolean ping = (kind==ClusterConfig.KIND_PING);
-
-				final int sequence = unmarshal(pos, buf);
-				pos += 4;
-
-				if(length!=config.packetSize)
-					throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", expected length " + config.packetSize + ", but was " + length);
-				final byte[] pingPayload = config.pingPayload;
-				for(; pos<length; pos++)
-				{
-					if(pingPayload[pos]!=buf[pos])
-						throw new RuntimeException("invalid " + (ping?"ping":"pong") + ", at position " + pos + " expected " + pingPayload[pos] + ", but was " + buf[pos]);
-				}
-
-				if(node(node, packet).pingPong(ping, sequence))
-				{
-					if(log)
-						System.out.println("COPE Cluster Listener " + (ping?"ping":"pong") + " duplicate " + sequence + " from " + packet.getAddress());
-					break;
-				}
-
-				if(testSink!=null)
-				{
-					testSink.add(ping ? "PING" : "PONG");
-				}
-				else
-				{
-					if(ping)
-						sender.pong();
-				}
+				if(handlePingPong(packet, iter, node, true))
+					pong();
 				break;
 			}
-			case ClusterConfig.KIND_INVALIDATE:
+			case KIND_PONG:
 			{
-				final int sequence = unmarshal(pos, buf);
-				pos += 4;
+				handlePingPong(packet, iter, node, false);
+				break;
+			}
+			case KIND_INVALIDATE:
+			{
+				final int sequence = iter.nextInt();
+
 				if(node(node, packet).invalidate(sequence))
 				{
 					if(log)
@@ -196,21 +108,17 @@ final class ClusterListener implements Runnable
 				}
 
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
-				outer: while(pos<length)
+				outer: while(iter.hasNext())
 				{
-					final int typeIdTransiently = unmarshal(pos, buf);
-					pos += 4;
-
+					final int typeIdTransiently = iter.nextInt();
 					final TIntHashSet set = new TIntHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
 					{
-						if(pos>=length)
+						if(!iter.hasNext())
 							break outer;
 
-						final int pk = unmarshal(pos, buf);
-						pos += 4;
-
+						final int pk = iter.nextInt();
 						if(pk==PK.NaPK)
 							break inner;
 
@@ -218,15 +126,8 @@ final class ClusterListener implements Runnable
 					}
 				}
 
-				if(testSink!=null)
-				{
-					testSink.add(invalidations);
-				}
-				else
-				{
-					itemCache.invalidate(invalidations);
-					queryCache.invalidate(invalidations);
-				}
+				invalidate(node, invalidations);
+
 				break;
 			}
 			default:
@@ -234,46 +135,106 @@ final class ClusterListener implements Runnable
 		}
 	}
 
-	static int unmarshal(int pos, final byte[] buf)
+	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
+
+	private boolean handlePingPong(
+			final DatagramPacket packet,
+			final Iter iter,
+			final int node,
+			final boolean ping)
 	{
-		return
-			((buf[pos++] & 0xff)    ) |
-			((buf[pos++] & 0xff)<< 8) |
-			((buf[pos++] & 0xff)<<16) |
-			((buf[pos++] & 0xff)<<24) ;
+		final int sequence = iter.nextInt();
+
+		iter.checkPingPayload(properties, ping);
+
+		if(node(node, packet).pingPong(ping, sequence))
+		{
+			if(log)
+				System.out.println("COPE Cluster Listener " + pingString(ping) + " duplicate " + sequence + " from " + packet.getAddress());
+			return false;
+		}
+
+		return true;
 	}
 
-	void close()
+	static String pingString(final boolean ping)
 	{
-		threadRun = false;
-		try
+		return ping ? "ping" : "pong";
+	}
+
+	static final class Iter
+	{
+		private final int length;
+		private final int offset;
+		private final int endOffset;
+		private final byte[] buf;
+		private int pos;
+
+		Iter(final DatagramPacket packet)
 		{
-			socket.leaveGroup(config.group);
+			this.offset = packet.getOffset();
+			this.length = packet.getLength();
+			this.endOffset = offset + length;
+			this.buf = packet.getData();
+
+			this.pos = offset;
 		}
-		catch(final IOException e)
+
+		boolean hasNext()
 		{
-			throw new RuntimeException(e);
+			return pos<endOffset;
 		}
-		socket.close();
-		try
+
+		boolean checkBytes(final byte[] expected)
 		{
-			thread.join();
+			int pos = this.pos;
+			for(int i = 0; i<expected.length; i++)
+				if(expected[i]!=buf[pos++])
+				{
+					if(pos>endOffset)
+						throw new NoSuchElementException(String.valueOf(length));
+					return false;
+				}
+
+			if(pos>endOffset)
+				throw new NoSuchElementException(String.valueOf(length));
+			this.pos = pos;
+			return true;
 		}
-		catch(final InterruptedException e)
+
+		int nextInt()
 		{
-			throw new RuntimeException(e);
+			int pos = this.pos;
+			final int result =
+				((buf[pos++] & 0xff)    ) |
+				((buf[pos++] & 0xff)<< 8) |
+				((buf[pos++] & 0xff)<<16) |
+				((buf[pos++] & 0xff)<<24) ;
+			if(pos>endOffset)
+				throw new NoSuchElementException(String.valueOf(length));
+			this.pos = pos;
+			return result;
+		}
+
+		void checkPingPayload(final ClusterProperties properties, final boolean ping)
+		{
+			properties.checkPingPayload(pos, buf, offset, length, ping);
 		}
 	}
+
+	abstract void invalidate(int node, TIntHashSet[] invalidations);
+	abstract void pong();
+	abstract int getReceiveBufferSize();
 
 	// info
 
-	private volatile long exception = 0;
+	volatile long exception = 0;
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
 	private volatile long fromMyself = 0;
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
 
-	private static class Node
+	private static final class Node
 	{
 		final int id;
 		final long firstEncounter;
@@ -283,15 +244,19 @@ final class ClusterListener implements Runnable
 		final SequenceChecker pongSequenceChecker;
 		final SequenceChecker invalidateSequenceChecker;
 
-		Node(final int id, final DatagramPacket packet, final boolean log)
+		Node(
+				final int id,
+				final DatagramPacket packet,
+				final int sequenceCheckerCapacity,
+				final boolean log)
 		{
 			this.id = id;
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
-			this.pingSequenceChecker = new SequenceChecker(200);
-			this.pongSequenceChecker = new SequenceChecker(200);
-			this.invalidateSequenceChecker = new SequenceChecker(200);
+			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
+			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
+			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
@@ -318,7 +283,7 @@ final class ClusterListener implements Runnable
 		}
 	}
 
-	Node node(final int id, final DatagramPacket packet)
+	final Node node(final int id, final DatagramPacket packet)
 	{
 		synchronized(nodes)
 		{
@@ -326,12 +291,12 @@ final class ClusterListener implements Runnable
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, log));
+			nodes.put(id, result = new Node(id, packet, sequenceCheckerCapacity, log));
 			return result;
 		}
 	}
 
-	ClusterListenerInfo getInfo()
+	final ClusterListenerInfo getInfo()
 	{
 		final Node[] ns;
 		synchronized(nodes)
@@ -342,6 +307,12 @@ final class ClusterListener implements Runnable
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
 
-		return new ClusterListenerInfo(exception, missingMagic, wrongSecret, fromMyself, infoNodes);
+		return new ClusterListenerInfo(
+				getReceiveBufferSize(),
+				exception,
+				missingMagic,
+				wrongSecret,
+				fromMyself,
+				infoNodes);
 	}
 }

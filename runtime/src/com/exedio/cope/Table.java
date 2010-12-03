@@ -59,11 +59,11 @@ final class Table
 			: new IntegerColumn(this);
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
-			? new StringColumn(this, null, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues)
+			? new StringColumn(this, null, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
 			: null;
 		this.modificationCount =
 			concurrentModificationDetectionEnabled
-			? new IntegerColumn(this, null, CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME, false, 0, Integer.MAX_VALUE, false)
+			? new IntegerColumn(this, null, CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
 			: null;
 		database.addTable(this);
 	}
@@ -101,25 +101,6 @@ final class Table
 	 * which cannot be used for java fields.
 	 */
 	private static final String CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME = "catch";
-
-	/**
-	 * The table name for the revision information.
-	 * The value "while" prevents name collisions
-	 * with other tables,
-	 * since "while" is a reserved java keyword,
-	 * which cannot be used for java classes.
-	 */
-	static final String REVISION_TABLE_NAME = "while";
-
-	/**
-	 * The name of the unique contraint
-	 * on the table for the revision information.
-	 * The value "protected" prevents name collisions
-	 * with other tables,
-	 * since "protected" is a reserved java keyword,
-	 * which cannot be used for java classes.
-	 */
-	static final String REVISION_UNIQUE_CONSTRAINT_NAME = "protected";
 
 	/**
 	 * A name for aliases is sql statements.
@@ -204,19 +185,32 @@ final class Table
 		return checkConstraints;
 	}
 
+	private final boolean assertSynthetic()
+	{
+		for(final Column c : allColumnsModifiable)
+			if(c.synthetic != (primaryKey==c || typeColumn==c || modificationCount==c))
+				return false;
+
+		return true;
+	}
+
 	final void finish()
 	{
+		assert assertSynthetic();
+
 		final ArrayList<Column> columns = new ArrayList<Column>();
 		for(final Column column : allColumnsModifiable)
-		{
-			// TODO dont use TYPE_COLUMN_NAME
-			if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id) && modificationCount!=column)
+			if(!column.synthetic)
 				columns.add(column);
-		}
 
 		this.columns = Collections.unmodifiableList(columns);
 		allColumns = Collections.unmodifiableList(allColumnsModifiable);
 		allColumnsModifiable = null;
+	}
+
+	String makeGlobalID(final String suffix)
+	{
+		return database.makeName(id + '_' + suffix);
 	}
 
 	@Override

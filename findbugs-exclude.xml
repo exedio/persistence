@@ -18,11 +18,19 @@
 			<Class name="com.exedio.cope.DivideView" />
 			<Class name="com.exedio.cope.UppercaseView" />
 			<Class name="com.exedio.cope.LengthView" />
+			<Class name="com.exedio.cope.AsStringView" />
 			<Class name="com.exedio.cope.CompositeCondition$Operator" />
+			<Class name="com.exedio.cope.pattern.SetField" />
+			<Class name="com.exedio.cope.pattern.ListField" />
+			<Class name="com.exedio.cope.pattern.MapField" />
 			<Class name="com.exedio.cope.pattern.CompositeField" />
 			<Class name="com.exedio.cope.pattern.JavaView" />
 			<Class name="com.exedio.cope.pattern.Media" />
 			<Class name="com.exedio.cope.pattern.Hash" />
+			<Class name="com.exedio.cope.pattern.Dispatcher" />
+			<Class name="com.exedio.cope.pattern.Schedule" />
+			<Class name="com.exedio.cope.pattern.PasswordLimiter" />
+			<Class name="com.exedio.cope.pattern.DynamicModel" />
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
@@ -58,7 +66,7 @@
 	<Match>
 		<!-- Random object created and used only once -->
 		<Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
-		<Class name="com.exedio.cope.ClusterConfig" />
+		<Class name="com.exedio.cope.ClusterProperties" />
 	</Match>
 	<Match>
 		<!-- May expose internal representation by returning reference to mutable object -->
@@ -89,6 +97,8 @@
 		<Or>
 			<Class name="com.exedio.cope.Type" />
 			<Class name="com.exedio.cope.Feature" />
+			<Class name="com.exedio.cope.ThreadController" />
+			<Class name="com.exedio.cope.Transaction" />
 		</Or>
 	</Match>
 	<Match>
@@ -120,11 +130,22 @@
 		</Or>
 	</Match>
 	<Match>
+		<Or>
+			<!-- A prepared statement is generated from a nonconstant String -->
+			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+		</Or>
+		<Or>
+			<Class name="com.exedio.cope.sampler.SamplerPurge" />
+		</Or>
+	</Match>
+	<Match>
 		<!-- Consider returning a zero length array rather than null -->
 		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
 		<Or>
 			<Class name="com.exedio.cope.Type" />
+			<Class name="com.exedio.cope.ThreadController" />
 			<Class name="com.exedio.cope.OracleDialect" />
+			<Class name="com.exedio.cope.HsqldbDialect" />
 			<Class name="com.exedio.cope.misc.SetValueUtil" />
 			<Class name="com.exedio.cope.pattern.Serializer" />
 			<Class name="com.exedio.cope.pattern.MediaImageioFilter" />

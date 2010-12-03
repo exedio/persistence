@@ -46,7 +46,7 @@ public final class Features
 		{
 			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
 			if(i>=0)
-			throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
+				throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 		if(feature==null)
 			throw new NullPointerException("feature");
@@ -86,16 +86,19 @@ public final class Features
 
 	private AnnotatedElement getAnnotationSource(final Feature feature)
 	{
-		if(annotationSources==null)
-			return null;
-
-		return annotationSources.get(feature);
+		return
+			(annotationSources!=null)
+			? annotationSources.get(feature)
+			: null;
 	}
 
 	void mount(final Type<?> type)
 	{
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
-			entry.getValue().mount(type, entry.getKey(), getAnnotationSource(entry.getValue()));
+		{
+			final Feature feature = entry.getValue();
+			feature.mount(type, entry.getKey(), getAnnotationSource(feature));
+		}
 	}
 
 	List<Feature> mountPattern(final Type<?> type, final String name)

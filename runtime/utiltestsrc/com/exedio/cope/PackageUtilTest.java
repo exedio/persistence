@@ -29,14 +29,36 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite( TrimmerTest.class );
-		suite.addTestSuite( IsInitialTest.class );
-		suite.addTestSuite( GetModelTest.class );
-		suite.addTestSuite( ClusterTest.class );
-		suite.addTestSuite( ClusterIntTest.class );
-		suite.addTestSuite( ArraysTest.class );
-		suite.addTestSuite( MessageDigestAlgorithmTest.class );
-		suite.addTestSuite( ByteAlgorithmTest.class );
+		suite.addTestSuite(SetValueTest.class);
+		suite.addTestSuite(LimitedQueueTest.class);
+		suite.addTestSuite(ChangeListenersTest.class);
+		suite.addTestSuite(LRUMapTest.class);
+		suite.addTestSuite(TrimmerTest.class);
+		suite.addTestSuite(PrefixSourceTest.class);
+		suite.addTestSuite(IsInitialTest.class);
+		suite.addTestSuite(GetModelTest.class);
+		suite.addTestSuite(TypeCompareTest.class);
+		suite.addTestSuite(TypeSetTest.class);
+		suite.addTestSuite(TypeCollisionTest.class);
+		suite.addTestSuite(TypesBoundTest.class);
+		suite.addTestSuite(TypesBoundErrorTest.class);
+		suite.addTestSuite(TypesBoundComplexTest.class);
+		suite.addTestSuite(ClusterUnpaddedTest.class);
+		suite.addTestSuite(ClusterPaddedTest.class);
+		suite.addTestSuite(ClusterIntTest.class);
+		suite.addTestSuite(ClusterIterTest.class);
+		suite.addTestSuite(ClusterPropertiesTest.class);
+		suite.addTestSuite(ClusterSenderMulticastTest.class);
+		suite.addTestSuite(ClusterNetworkPingTest.class);
+		suite.addTestSuite(ClusterNetworkChangeListenerTest.class);
+		suite.addTestSuite(ClusterNetworkModificationListenerTest.class);
+		suite.addTestSuite(ArraysTest.class);
+		suite.addTestSuite(MessageDigestAlgorithmTest.class);
+		suite.addTestSuite(ByteAlgorithmTest.class);
+		suite.addTestSuite(CompositeConditionTest.class);
+		suite.addTestSuite(CompositeConditionCopeTest.class);
+		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
+		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
 		return suite;
 	}
 }

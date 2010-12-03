@@ -30,7 +30,9 @@ public final class IsNullCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#isNull()
 	 * @see com.exedio.cope.Function#isNotNull()
 	 */
-	public IsNullCondition(final Function<E> function, final boolean not)
+	public IsNullCondition(
+			final Function<E> function,
+			final boolean not)
 	{
 		if(function==null)
 			throw new NullPointerException("function");

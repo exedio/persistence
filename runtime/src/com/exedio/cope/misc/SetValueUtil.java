@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import java.util.List;
 
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 
 public final class SetValueUtil
 {
@@ -30,6 +31,15 @@ public final class SetValueUtil
 			list!=null
 			? list.toArray(list.toArray(new SetValue[list.size()]))
 			: null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <E> E getFirst(final List<SetValue> setValues, final Settable<E> settable)
+	{
+		for(final SetValue setValue : setValues)
+			if(settable==setValue.settable)
+				return (E)setValue.value;
+		return null;
 	}
 
 	private SetValueUtil()

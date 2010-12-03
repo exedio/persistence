@@ -785,7 +785,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				final boolean isfinal,
 				final boolean optional)
 		{
-			super(makeField(61, new CharSet('-', '-', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
+			super(makeField(61, new CharSet('-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
 		}
 
 		@Override
@@ -1033,7 +1033,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				final boolean isfinal,
 				final boolean optional)
 		{
-			super(makeField(30, new CharSet('-', '-', '0', '9', 'a', 'z')), isfinal, optional, "minor");
+			super(makeField(30, new CharSet('-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();

@@ -20,14 +20,12 @@ package com.exedio.cope;
 
 import java.util.Map;
 
-
 abstract class State
 {
 	final Item item;
 	final Type type;
 	final int pk;
-	int modificationCount;
-
+	final int modificationCount;
 
 	protected State(final Item item, final int modificationCount)
 	{

@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,6 +35,7 @@ final class Types
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
+	private final Type<?>[] typesByCacheIdTransiently;
 	final int concreteTypeCount;
 	final List<Type<?>> typeList;
 	final List<Type<?>> typeListSorted;
@@ -45,6 +49,8 @@ final class Types
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
+		for(final Type<?> type : types)
+			type.assertNotMounted();
 
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
@@ -53,6 +59,9 @@ final class Types
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypes)
 			addTypeIncludingGenerated(type, typesL, 10);
+
+		for(final Type<?> type : typesL)
+			type.assertNotMounted();
 
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : typesL)
@@ -100,6 +109,23 @@ final class Types
 
 		for(final Type<?> type : typesSorted)
 			type.mount(model, parametersMap.get(type));
+
+		this.typesByCacheIdTransiently = new Type[concreteTypeCount];
+		{
+			int cacheIdTransiently = 0;
+			for(final Type<?> type : typesSorted)
+			{
+				if(!type.isAbstract)
+				{
+					assert
+						type.cacheIdTransiently==cacheIdTransiently :
+						String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + cacheIdTransiently;
+					typesByCacheIdTransiently[cacheIdTransiently++] = type;
+				}
+			}
+			assert cacheIdTransiently==typesByCacheIdTransiently.length;
+		}
+
 
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
@@ -341,9 +367,11 @@ final class Types
 		return featuresByID.get(id);
 	}
 
-	Type getConcreteType(final int transientNumber)
+	private Type getConcreteType(final int transientNumber)
 	{
-		return concreteTypes[transientNumber];
+		final Type result = typesByCacheIdTransiently[transientNumber];
+		assert result.cacheIdTransiently==transientNumber : String.valueOf(result.cacheIdTransiently) + '/' + result.id + '/' + transientNumber;
+		return result;
 	}
 
 	Item getItem(final String id) throws NoSuchIDException
@@ -416,5 +444,28 @@ final class Types
 	{
 		for(final Type type : typesSorted)
 			type.disconnect();
+	}
+
+	Item[] activate(final TIntHashSet[] invalidations)
+	{
+		int length = 0;
+		for(int type = 0; type<invalidations.length; type++)
+		{
+			final TIntHashSet set = invalidations[type];
+			if(set!=null)
+				length += set.size();
+		}
+
+		final Item[] result = new Item[length];
+		int item = 0;
+		for(int type = 0; type<invalidations.length; type++)
+		{
+			final TIntHashSet set = invalidations[type];
+			if(set!=null)
+				for(final TIntIterator i = set.iterator(); i.hasNext(); )
+					result[item++] = getConcreteType(type).activate(i.next());
+		}
+		assert item==length;
+		return result;
 	}
 }

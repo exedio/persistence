@@ -295,6 +295,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 			FinalViolationException,
 			ClassCastException
 	{
+		if(setValues==null)
+			throw new NullPointerException("setValues");
+		if(setValues.length==0)
+			return;
+
 		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
 		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
 		{
@@ -416,7 +421,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	// activation/deactivation -----------------------------------------------------
 
-	private final Entity getEntity()
+	final Entity getEntity()
 	{
 		return getEntity(true);
 	}
@@ -429,6 +434,33 @@ public abstract class Item implements Serializable, Comparable<Item>
 	private final Entity getEntityIfActive()
 	{
 		return type.getModel().currentTransaction().getEntityIfActive(type, pk);
+	}
+
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	int getModificationCountIfActive()
+	{
+		final Entity entity = getEntityIfActive();
+		return
+			entity==null
+			? Integer.MIN_VALUE
+			: entity.getModificationCount();
+	}
+
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	int getModificationCountGlobal()
+	{
+		final WrittenState state =
+			type.getModel().currentTransaction().getGlobalState(this);
+		return
+			state==null
+			? Integer.MIN_VALUE
+			: state.modificationCount;
 	}
 
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
@@ -452,7 +484,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	private static final void putField(final LinkedHashMap<Field, Object> result, final SetValue<?> setValue)
 	{
 		if(result.put((Field)setValue.settable, setValue.value)!=null)
-			throw new RuntimeException("duplicate field " + setValue.settable.toString());
+			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
 	private static final <X> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)

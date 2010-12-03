@@ -38,7 +38,9 @@ public final class MatchCondition extends Condition
 	/**
 	 * Creates a new MatchCondition. EXPERIMENTAL!!!
 	 */
-	public MatchCondition(final StringFunction function, final String value)
+	public MatchCondition(
+			final StringFunction function,
+			final String value)
 	{
 		this.function = function;
 		this.value = value;
@@ -89,7 +91,7 @@ public final class MatchCondition extends Condition
 	{
 		function.toString(bf, defaultType);
 		bf.append(" matches '").
-			append(toStringForValue(value, key)).
+			append(value).
 			append('\'');
 	}
 }

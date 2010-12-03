@@ -40,11 +40,9 @@ public final class ListField<E> extends AbstractListField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	private ItemField<?> parent = null;
 	private final IntegerField order;
-	private UniqueConstraint uniqueConstraint = null;
 	private final FunctionField<E> element;
-	private Type<?> relationType = null;
+	private Mount mount = null;
 
 	private ListField(final FunctionField<E> element)
 	{
@@ -69,24 +67,54 @@ public final class ListField<E> extends AbstractListField<E>
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		uniqueConstraint = new UniqueConstraint(parent, order);
+		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, order);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
-		this.relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		this.mount = new Mount(parent, uniqueConstraint, relationType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<?> parent;
+		final UniqueConstraint uniqueConstraint;
+		final Type<PatternItem> relationType;
+
+		Mount(
+				final ItemField<?> parent,
+				final UniqueConstraint uniqueConstraint,
+				final Type<PatternItem> relationType)
+		{
+			assert parent!=null;
+			assert uniqueConstraint!=null;
+			assert relationType!=null;
+
+			this.parent = parent;
+			this.uniqueConstraint = uniqueConstraint;
+			this.relationType = relationType;
+		}
+	}
+
+	private final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.as(parentClass);
+		return mount().parent.as(parentClass);
 	}
 
 	public ItemField<?> getParent()
 	{
-		return parent;
+		return mount().parent;
 	}
 
 	public IntegerField getOrder()
@@ -96,8 +124,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	public UniqueConstraint getUniqueConstraint()
 	{
-		assert uniqueConstraint!=null;
-		return uniqueConstraint;
+		return mount().uniqueConstraint;
 	}
 
 	@Override
@@ -108,8 +135,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	public Type<? extends Item> getRelationType()
 	{
-		assert relationType!=null;
-		return relationType;
+		return mount().relationType;
 	}
 
 	@Override
@@ -176,7 +202,8 @@ public final class ListField<E> extends AbstractListField<E>
 	 */
 	public Query<E> getQuery(final Item item)
 	{
-		final Query<E> q = new Query<E>(element, Cope.equalAndCast(this.parent, item));
+		final Query<E> q =
+			new Query<E>(element, Cope.equalAndCast(mount().parent, item));
 		q.setOrderBy(order, true);
 		return q;
 	}
@@ -189,18 +216,23 @@ public final class ListField<E> extends AbstractListField<E>
 	 */
 	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
 	{
-		final Query<P> q = new Query<P>(this.parent.as(parentClass), Cope.equalAndCast(this.element, element));
+		final Query<P> q = new Query<P>(
+				mount().parent.as(parentClass),
+				Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return q.search();
 	}
 
 	public void add(final Item item, final E value)
 	{
-		final Query<Integer> q = new Query<Integer>(this.order.max(), Cope.equalAndCast(this.parent, item));
+		final Mount mount = mount();
+		final Query<Integer> q = new Query<Integer>(
+				this.order.max(),
+				Cope.equalAndCast(mount.parent, item));
 		final Integer max = q.searchSingleton();
 		final int newOrder = max!=null ? (max.intValue()+1) : 0;
-		this.relationType.newItem(
-				Cope.mapAndCast(this.parent, item),
+		mount.relationType.newItem(
+				Cope.mapAndCast(mount.parent, item),
 				this.order.map(newOrder),
 				this.element.map(value));
 	}
@@ -208,7 +240,13 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item), this.order, true).iterator();
+		final Mount mount = mount();
+		final Iterator<PatternItem> actual =
+			mount.relationType.search(
+					Cope.equalAndCast(mount.parent, item),
+					this.order,
+					true).
+			iterator();
 		final Iterator<? extends E> expected = value.iterator();
 
 		for(int order = 0; ; order++)
@@ -217,8 +255,8 @@ public final class ListField<E> extends AbstractListField<E>
 			{
 				while(expected.hasNext())
 				{
-					this.relationType.newItem(
-							Cope.mapAndCast(this.parent, item),
+					mount.relationType.newItem(
+							Cope.mapAndCast(mount.parent, item),
 							this.element.map(expected.next()),
 							this.order.map(order++)
 					);
@@ -233,7 +271,7 @@ public final class ListField<E> extends AbstractListField<E>
 			}
 			else
 			{
-				final Item tupel = actual.next();
+				final PatternItem tupel = actual.next();
 				final int currentOrder = this.order.get(tupel);
 				assert order<=currentOrder : String.valueOf(order) + '/' + currentOrder;
 				order = currentOrder;

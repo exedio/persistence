@@ -61,7 +61,7 @@ public class ConstraintTest extends SchemaReadyTest
 			new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
 			new Column(table, CHECK_COLUMN, intType);
-			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
 		}
 
 		new Column(table, PK_COLUMN, stringType);
@@ -96,7 +96,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		if(!postgresql)
-			assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+			assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
 		assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
 		assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 		if(!postgresql)

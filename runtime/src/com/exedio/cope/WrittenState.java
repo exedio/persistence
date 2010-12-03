@@ -33,9 +33,9 @@ final class WrittenState extends State
 		lastUsageMillis = System.currentTimeMillis();
 	}
 
-	WrittenState(final State original)
+	WrittenState(final State original, final boolean modificationCountIncrement)
 	{
-		super(original.item, original.modificationCount);
+		super(original.item, modificationCountIncrement ? (original.modificationCount+1) : original.modificationCount);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();
@@ -57,7 +57,9 @@ final class WrittenState extends State
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
-			type.getModel().connect().database.store(transaction.getConnection(), this, true, blobs);
+			type.getModel().connect().database.store(transaction.getConnection(), this, true, false, blobs);
+		else
+			throw new RuntimeException(item.getCopeID());
 
 		return this;
 	}

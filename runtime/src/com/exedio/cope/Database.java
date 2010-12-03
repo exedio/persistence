@@ -48,6 +48,7 @@ final class Database
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
+	final boolean hsqldb; // TODO remove
 	final boolean oracle; // TODO remove
 
 	Database(
@@ -65,6 +66,7 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
+		this.hsqldb = dialect.getClass().getName().equals("com.exedio.cope.HsqldbDialect");
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 
 		//System.out.println("using database "+getClass());
@@ -104,17 +106,17 @@ final class Database
 	{
 		buildStage = false;
 
-		makeSchema().create();
+		makeSchema(true).create();
 
 		if(revisions!=null)
-			revisions.inserCreate(connectionPool, executor, dialectParameters.getRevisionEnvironment());
+			revisions.insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().createConstraints(types);
+		makeSchema(true).createConstraints(types);
 	}
 
 	//private static int checkTableTime = 0;
@@ -227,28 +229,28 @@ final class Database
 		buildStage = false;
 
 		flushSequences();
-		makeSchema().drop();
+		makeSchema(true).drop();
 	}
 
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().dropConstraints(types);
+		makeSchema(true).dropConstraints(types);
 	}
 
 	void tearDownSchema()
 	{
 		buildStage = false;
 
-		makeSchema().tearDown();
+		makeSchema(true).tearDown();
 	}
 
 	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().tearDownConstraints(types);
+		makeSchema(true).tearDownConstraints(types);
 	}
 
 	void checkEmptySchema(final Connection connection)
@@ -402,25 +404,26 @@ final class Database
 			final Connection connection,
 			final State state,
 			final boolean present,
+			final boolean modCount,
 			final Map<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, blobs, state.type);
-		if(present)
-			state.modificationCount++;
+		store(connection, state, present, modCount, blobs, state.type);
 	}
 
 	private void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
+			final boolean modCount,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
 		buildStage = false;
+		assert present || modCount;
 
 		final Type supertype = type.supertype;
 		if(supertype!=null)
-			store(connection, state, present, blobs, supertype);
+			store(connection, state, present, modCount, blobs, supertype);
 
 		final Table table = type.getTable();
 
@@ -428,7 +431,7 @@ final class Database
 
 		final Statement bf = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
-		final IntegerColumn modificationCountColumn = table.modificationCount;
+		final IntegerColumn modificationCountColumn = modCount ? table.modificationCount : null;
 		if(present)
 		{
 			bf.append("update ").
@@ -543,7 +546,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executor.update(connection, bf, true);
+		executor.updateStrict(connection, bf);
 	}
 
 	String makeName(final String longName)
@@ -551,7 +554,7 @@ final class Database
 		return nameTrimmer.trimString(longName);
 	}
 
-	Schema makeSchema()
+	Schema makeSchema(final boolean withRevisions)
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
@@ -569,8 +572,8 @@ final class Database
 		for(final Table t : tables)
 			t.makeSchema(result);
 
-		if(revisions!=null)
-			revisions.makeSchema(result, dialect);
+		if(withRevisions && revisions!=null)
+			revisions.makeSchema(result, properties, dialect);
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
 
@@ -580,7 +583,7 @@ final class Database
 
 	Schema makeVerifiedSchema()
 	{
-		final Schema result = makeSchema();
+		final Schema result = makeSchema(true);
 		result.verify();
 		return result;
 	}

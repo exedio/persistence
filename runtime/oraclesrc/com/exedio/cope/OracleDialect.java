@@ -46,21 +46,20 @@ final class OracleDialect extends Dialect
 		{
 			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
 		}
-		catch(ClassNotFoundException e)
+		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
 				parameters,
 				new com.exedio.dsmf.OracleDialect(
-						parameters.properties.getDatabaseUser().toUpperCase(Locale.ENGLISH)),
-				"LENGTH");
+						parameters.properties.getDatabaseUser().toUpperCase(Locale.ENGLISH)));
 	}
-	
+
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
@@ -86,25 +85,31 @@ final class OracleDialect extends Dialect
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
-	
+
+	@Override
+	String getStringLength()
+	{
+		return "LENGTH";
+	}
+
 	@Override
 	String getDayType()
 	{
 		return "DATE";
 	}
-	
+
 	@Override
 	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
 	}
-	
+
 	@Override
 	String getBlobType(final long maximumLength)
 	{
 		return "BLOB";
 	}
-	
+
 	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
@@ -118,7 +123,7 @@ final class OracleDialect extends Dialect
 			append(divisor, join).
 			append(')');
 	}
-	
+
 	@Override
 	LimitSupport getLimitSupport()
 	{
@@ -138,7 +143,7 @@ final class OracleDialect extends Dialect
 		if(offset>0)
 			bf.append("select "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" from(");
 	}
-	
+
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
@@ -154,7 +159,15 @@ final class OracleDialect extends Dialect
 		if(offset>0)
 			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(offset);
 	}
-	
+
+	@Override
+	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	{
+		bf.append("TO_CHAR(").
+			append(source, join).
+			append(')');
+	}
+
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
@@ -164,7 +177,13 @@ final class OracleDialect extends Dialect
 			appendParameter(function, value).
 			append(")>0)");
 	}
-	
+
+	@Override
+	String getBlobLength()
+	{
+		return "LENGTH";
+	}
+
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
@@ -175,7 +194,7 @@ final class OracleDialect extends Dialect
 			append(",1))=").
 			appendParameter(Hex.encodeUpper(value));
 	}
-	
+
 	@Override
 	boolean nullsAreSortedLow()
 	{
@@ -183,7 +202,7 @@ final class OracleDialect extends Dialect
 			System.out.println(getClass().getName() + ": nullsAreSortedLow is unexpectedly correct");
 		return false;
 	}
-	
+
 	@Override
 	boolean supportsEmptyStrings()
 	{
@@ -226,9 +245,9 @@ final class OracleDialect extends Dialect
 		new Column(planTable, "OTHER_TAG", "VARCHAR2(255 BYTE)");
 		new Column(planTable, "OTHER", "LONG");
 	}
-	
+
 	private static final Random statementIDCounter = new Random();
-	
+
 	private static final String PLAN_TABLE = "PLAN_TABLE";
 	private static final String STATEMENT_ID = "STATEMENT_ID";
 	private static final String OPERATION = "OPERATION";
@@ -254,21 +273,21 @@ final class OracleDialect extends Dialect
 			PARENT_ID,
 			"POSITION",
 		}));
-	
+
 	@Override
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;
-		
+
 		final int statementIDNumber;
 		synchronized(statementIDCounter)
 		{
 			statementIDNumber = statementIDCounter.nextInt();
 		}
 		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(statementIDNumber!=Integer.MIN_VALUE ? Math.abs(statementIDNumber) : Integer.MAX_VALUE);
-		
+
 		{
 			final Statement bf = executor.newStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
@@ -282,7 +301,7 @@ final class OracleDialect extends Dialect
 				sqlExplainStatement = connection.createStatement();
 				sqlExplainStatement.executeUpdate(bf.getText());
 			}
-			catch(SQLException e)
+			catch(final SQLException e)
 			{
 				throw new SQLRuntimeException(e, bf.toString());
 			}
@@ -294,7 +313,7 @@ final class OracleDialect extends Dialect
 					{
 						sqlExplainStatement.close();
 					}
-					catch(SQLException e)
+					catch(final SQLException e)
 					{
 						// exception is already thrown
 					}
@@ -327,7 +346,7 @@ final class OracleDialect extends Dialect
 						final String objectType = resultSet.getString(OBJECT_TYPE);
 						final int id = resultSet.getInt(ID);
 						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
-						
+
 						final StringBuilder bf = new StringBuilder(operation);
 
 						if(options!=null)
@@ -335,13 +354,13 @@ final class OracleDialect extends Dialect
 
 						if(objectName!=null)
 							bf.append(" on ").append(objectName);
-						
+
 						if(objectInstance!=0)
 							bf.append('[').append(objectInstance).append(']');
 
 						if(objectType!=null)
 							bf.append('[').append(objectType).append(']');
-						
+
 
 						for(int i = 1; i<=columnCount; i++)
 						{
@@ -381,17 +400,17 @@ final class OracleDialect extends Dialect
 		}
 		if(root==null)
 			throw new RuntimeException();
-		
+
 		final QueryInfo result = new QueryInfo(EXPLAIN_PLAN + " statement_id=" + statementID);
 		result.addChild(root);
-		
+
 		//System.out.println("######################");
 		//System.out.println(statement.getText());
 		//root.print(System.out);
 		//System.out.println("######################");
 		return result;
 	}
-	
+
 	@Override
 	protected Integer nextSequence(
 			final Executor executor,
@@ -402,7 +421,7 @@ final class OracleDialect extends Dialect
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".nextval FROM DUAL");
-			
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException
@@ -416,7 +435,7 @@ final class OracleDialect extends Dialect
 			}
 		});
 	}
-	
+
 	@Override
 	protected Integer getNextSequence(
 			final Executor executor,
@@ -427,7 +446,7 @@ final class OracleDialect extends Dialect
 		bf.append("SELECT ").
 			append(dsmfDialect.quoteName(name)).
 			append(".currval FROM DUAL");
-			
+
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
 			public Integer handle(final ResultSet resultSet) throws SQLException

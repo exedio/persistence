@@ -41,7 +41,7 @@ class StringColumn extends Column
 			final int maximumLength,
 			final CharSet charSet)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, false, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -54,10 +54,11 @@ class StringColumn extends Column
 			final Table table,
 			final Field field,
 			final String id,
+			final boolean synthetic,
 			final boolean optional,
 			final String[] allowedValues)
 	{
-		super(table, field, id, false, optional);
+		super(table, field, id, synthetic, false, optional);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
 		this.charSet  = null;
@@ -114,7 +115,7 @@ class StringColumn extends Column
 		}
 		else
 		{
-			final String length = table.database.dialect.stringLength;
+			final String length = table.database.dialect.getStringLength();
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)

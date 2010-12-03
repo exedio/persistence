@@ -29,7 +29,9 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Run;
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.JobContext;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {
@@ -202,7 +204,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -211,16 +213,25 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null, null);
+			DispatcherItem.toTarget.dispatch(HashItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("config", e.getMessage());
 		}
+		try
+		{
+			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
-	public void testInterrupt0()
+	public void testStop0()
 	{
 		dispatch(0, 0);
 		assertPending(item1, 0, list());
@@ -229,7 +240,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt1()
+	public void testStop1()
 	{
 		final DateRange d = dispatch(1, 1);
 		assertSuccess(item1, 1, d, list());
@@ -238,7 +249,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt2()
+	public void testStop2()
 	{
 		final DateRange d = dispatch(1, 2);
 		assertSuccess(item1, 1, d, list());
@@ -247,7 +258,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt3()
+	public void testStop3()
 	{
 		final DateRange d = dispatch(2, 3);
 		assertSuccess(item1, 1, d, list());
@@ -256,7 +267,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testInterrupt4()
+	public void testStop4()
 	{
 		final DateRange d = dispatch(2, 4, 4);
 		assertSuccess(item1, 1, d, list());
@@ -265,7 +276,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list(d));
 	}
 
-	public void testInterrupt5()
+	public void testStop5()
 	{
 		final DateRange d = dispatch(2, 5, 4);
 		assertSuccess(item1, 1, d, list());
@@ -287,52 +298,74 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(final int expectedResult)
+	private DateRange dispatch(final int expectedProgress)
 	{
-		return dispatch(expectedResult, null);
-	}
-
-	private DateRange dispatch(final int expectedResult, final Interrupter interrupter)
-	{
-		model.commit();
-		final Date before = new Date();
-		final int actualResult = item.dispatchToTarget(config, interrupter);
-		final Date after = new Date();
-		model.startTransaction("DispatcherTest");
-		assertEquals(expectedResult, actualResult);
-		return new DateRange(before, after);
-	}
-
-	private static class CountInterrupter implements Interrupter
-	{
-		final int callsWithoutInterrupt;
-		int calls = 0;
-
-		CountInterrupter(final int callsWithoutInterrupt)
-		{
-			this.callsWithoutInterrupt = callsWithoutInterrupt;
-		}
-
-		public boolean isRequested()
-		{
-			return (calls++)>=callsWithoutInterrupt;
-		}
-	}
-
-	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt)
-	{
-		return dispatch(expectedResult, callsWithoutInterrupt, callsWithoutInterrupt+1);
-	}
-
-	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt, final int expectedCalls)
-	{
-		final CountInterrupter ci = new CountInterrupter(callsWithoutInterrupt);
-		final DateRange result = dispatch(expectedResult, ci);
-		assertEquals(expectedCalls, ci.calls);
+		final JC ci = new JC(Integer.MAX_VALUE);
+		final DateRange result = dispatch(ci);
+		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
 
-	private static void assertSuccess(final DispatcherItem item, final int dispatchCountCommitted, final DateRange date, final List failures)
+	private DateRange dispatch(final JC ctx)
+	{
+		model.commit();
+		final Date before = new Date();
+		item.dispatchToTarget(config, ctx);
+		final Date after = new Date();
+		model.startTransaction("DispatcherTest");
+		return new DateRange(before, after);
+	}
+
+	private static class JC extends AssertionErrorJobContext
+	{
+		final int requestsBeforeStop;
+		int requestsToStop = 0;
+		int progress = 0;
+
+		JC(final int requestsBeforeStop)
+		{
+			this.requestsBeforeStop = requestsBeforeStop;
+		}
+
+		@Override public boolean requestedToStop()
+		{
+			return (requestsToStop++)>=requestsBeforeStop;
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			progress++;
+		}
+	}
+
+	private DateRange dispatch(
+			final int expectedProgress,
+			final int requestsBeforeStop)
+	{
+		return dispatch(
+				expectedProgress,
+				requestsBeforeStop,
+				requestsBeforeStop+1);
+	}
+
+	private DateRange dispatch(
+			final int expectedProgress,
+			final int requestsBeforeStop,
+			final int expectedRequestsToStop)
+	{
+		final JC ci = new JC(requestsBeforeStop);
+		final DateRange result = dispatch(ci);
+		assertEquals(expectedRequestsToStop, ci.requestsToStop);
+		assertEquals(expectedProgress, ci.progress);
+		return result;
+	}
+
+	private static void assertSuccess(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final DateRange date,
+			final List failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -343,7 +376,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size()+dispatchCountCommitted, failures, item, 0);
 	}
 
-	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
+	private static void assertPending(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final List failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -351,7 +387,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
 	}
 
-	private static void assertFailed(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
+	private static void assertFailed(
+			final DispatcherItem item,
+			final int dispatchCountCommitted,
+			final List failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -359,7 +398,12 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
 	}
 
-	private static void assertIt(final int dispatchCountCommitted, final int dispatchCount, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
+	private static void assertIt(
+			final int dispatchCountCommitted,
+			final int dispatchCount,
+			final List failures,
+			final DispatcherItem item,
+			final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);

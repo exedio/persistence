@@ -95,6 +95,25 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
 	}
 
+	@Override
+	public ItemField<E> noDefault()
+	{
+		return copy(); // no defaults for item fields
+	}
+
+	/**
+	 * @deprecated defaults make no sense for ItemField
+	 */
+	@Deprecated
+	@Override
+	public ItemField<E> defaultTo(final E defaultConstant)
+	{
+		if(defaultConstant!=null)
+			throw new IllegalArgumentException("no defaults for item fields");
+
+		return copy(); // no defaults for item fields
+	}
+
 	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
@@ -124,8 +143,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	void resolveValueType()
 	{
-		if(valueType!=null)
+		if(!isMounted())
 			throw new RuntimeException();
+		if(valueType!=null)
+			throw new RuntimeException(getID());
 
 		valueType = valueTypeFuture.get();
 		assert valueClass.equals(valueType.getJavaClass());

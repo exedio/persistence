@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RevisionInfo.parse;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
@@ -57,19 +58,20 @@ public class ReviseTest extends CopeAssert
 	}
 
 	private String hostname;
-	private com.exedio.cope.ConnectProperties props;
+	private ConnectProperties props;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
+		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
 	String jdbcUrl;
 	String jdbcUser;
 	EnvironmentInfo info;
+	boolean longSyntheticNames = false;
 
 	public void testRevise() throws ParseException
 	{
@@ -79,6 +81,7 @@ public class ReviseTest extends CopeAssert
 		assertSame(revisions5, model5.getRevisions());
 
 		model5.connect(props);
+		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
 		info = model5.getEnvironmentInfo();
@@ -170,6 +173,20 @@ public class ReviseTest extends CopeAssert
 			assertEquals(3, logs.size());
 		}
 
+		// test, that revision is not executed again,
+		// even after reconnect
+		model7.disconnect();
+		model7.connect(props);
+		model7.revise();
+		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			assertCreate(createDate, logs, 5);
+			assertRevise(reviseDate, revisions7, 1, logs, 6);
+			assertRevise(reviseDate, revisions7, 0, logs, 7);
+			assertEquals(3, logs.size());
+		}
+
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
@@ -222,7 +239,7 @@ public class ReviseTest extends CopeAssert
 		final Iterator<Column> columns = table.getColumns().iterator();
 
 		final Column columnThis = columns.next();
-		assertEquals("this", columnThis.getName());
+		assertEquals(synthetic("this", "ReviseItem"), columnThis.getName());
 		assertEquals(true, columnThis.required());
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
@@ -230,7 +247,7 @@ public class ReviseTest extends CopeAssert
 		if(props.itemCacheConcurrentModificationDetection.booleanValue())
 		{
 			final Column columnCatch = columns.next();
-			assertEquals("catch", columnCatch.getName());
+			assertEquals(synthetic("catch", "ReviseItem"), columnCatch.getName());
 			assertEquals(true, columnCatch.required());
 			assertEquals(true, columnCatch.exists());
 			assertNotNull(columnCatch.getType());
@@ -265,8 +282,8 @@ public class ReviseTest extends CopeAssert
 
 		assertFalse(columns.hasNext());
 
-		final Table revisionTable = schema.getTable("while");
-		assertEquals("while", revisionTable.getName());
+		final Table revisionTable = schema.getTable(props.revisionTableName.stringValue());
+		assertEquals(props.revisionTableName.stringValue(), revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
 	}
@@ -340,11 +357,6 @@ public class ReviseTest extends CopeAssert
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
 	}
 
-	private static final Properties parse(final byte[] log)
-	{
-		return RevisionInfo.parse(log);
-	}
-
 	private static final void assertMinInt(final int expectedMinimum, final String actual)
 	{
 		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
@@ -361,5 +373,13 @@ public class ReviseTest extends CopeAssert
 		model7.disconnect();
 		model7.setRevisions(revisions);
 		model7.connect(c);
+	}
+
+	private final String synthetic(final String name, final String global)
+	{
+		return
+			longSyntheticNames
+			? (name + global)
+			: name;
 	}
 }

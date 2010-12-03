@@ -373,8 +373,7 @@ public class ServletUtilTest extends CopeAssert
 		{
 			if("WEB-INF/cope.properties".equals(name))
 			{
-				final String p = System.getProperty("com.exedio.cope.properties");
-				return p!=null ? p : "cope.properties";
+				return "runtime/utiltest.properties";
 			}
 			else
 				throw new RuntimeException(name);
@@ -428,7 +427,7 @@ public class ServletUtilTest extends CopeAssert
 
 		public String getContextPath()
 		{
-			throw new RuntimeException();
+			return "contextPath";
 		}
 	}
 

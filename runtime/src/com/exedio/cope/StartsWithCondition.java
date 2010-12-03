@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 
+import com.exedio.cope.util.Hex;
+
 public final class StartsWithCondition extends Condition
 {
 	public final DataField field;
@@ -31,7 +33,9 @@ public final class StartsWithCondition extends Condition
 	 * you may want to use the more convenient wrapper method
 	 * {@link DataField#startsWith(byte[])}.
 	 */
-	public StartsWithCondition(final DataField field, final byte[] value)
+	public StartsWithCondition(
+			final DataField field,
+			final byte[] value)
 	{
 		this.field = field;
 		this.value = value;
@@ -47,7 +51,7 @@ public final class StartsWithCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.appendStartsWith(field, value);
+		bf.dialect.appendStartsWith(bf, (BlobColumn)field.getColumn(), value);
 	}
 
 	@Override
@@ -92,7 +96,8 @@ public final class StartsWithCondition extends Condition
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		field.toString(bf, defaultType);
-		bf.append(" startsWith ").
-			append(toStringForValue(value, key));
+		bf.append(" startsWith '");
+		Hex.append(bf, value, value.length);
+		bf.append('\'');
 	}
 }

@@ -21,73 +21,70 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
-import java.io.File;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 
 /**
  * BEWARE: This test listens to port 14446, thus must not be included into exedio-cope-test.jar.
  */
-public class ClusterTest extends CopeAssert
+public abstract class ClusterTest extends CopeAssert
 {
-	private ConnectProperties properties;
-	private ClusterConfig csc;
-	private ClusterConfig clc;
-	private ClusterSender cs;
-	private ClusterListener cl;
+	private ClusterProperties csp;
+	private ClusterProperties clp;
+	private ClusterSenderMock cs;
+	private ClusterListenerMock cl;
 
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
+
+	private ClusterProperties getProperties(final int node)
+	{
+		return ClusterProperties.get(
+				new Properties.Source()
+				{
+					public String get(final String key)
+					{
+						if(key.equals("packetSize"))
+							return "47";
+						else if(key.equals("secret"))
+							return String.valueOf(SECRET);
+						else if(key.equals("nodeAuto"))
+							return "false";
+						else if(key.equals("node"))
+							return String.valueOf(node);
+						else if(key.equals("log"))
+							return "false";
+						else
+							return null;
+					}
+
+					public String getDescription()
+					{
+						return "Cluster Properties";
+					}
+
+					public Collection<String> keySet()
+					{
+						return null;
+					}
+				}
+			);
+	}
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
-		final Properties.Source source = defaultProperties.getSourceObject();
-		Properties.Source context = null;
-		try
-		{
-			context = defaultProperties.getContext();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
-		properties = new ConnectProperties(
-				new Properties.Source()
-				{
-					public String get(final String key)
-					{
-						if(key.equals("cluster.packetSize"))
-							return "47";
-						else if(key.equals("cluster.log"))
-							return "false";
-						else
-							return source.get(key);
-					}
-
-					public String getDescription()
-					{
-						return source.getDescription();
-					}
-
-					public Collection<String> keySet()
-					{
-						return source.keySet();
-					}
-				},
-				context
-			);
-		csc = new ClusterConfig(SECRET, 0x11224433, properties);
-		clc = new ClusterConfig(SECRET, 0x11224434, properties);
-		cs = new ClusterSender(csc, properties);
-		cl = new ClusterListener(clc, properties, cs, 4, null, null);
+		csp = getProperties(0x11224433);
+		clp = getProperties(0x11224434);
+		cs = new ClusterSenderMock(csp);
+		cl = new ClusterListenerMock(clp, 4);
 	}
 
 	@Override
@@ -100,22 +97,22 @@ public class ClusterTest extends CopeAssert
 
 	public void testSet()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00, // kind=invalidation
-				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
-				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
-					(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
-					(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
-				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
+				"c0be1111" + // magic
+				"55667788" + // secret
+				"33442211" + // node
+				"01001200" + // kind=invalidation
+				"00000000" + // sequence
+				"00000000" + // id 0
+					"456789af" + // pk2 (swapped by hash set)
+					"ab896745" + // pk1
+					"00000080" + // NaPK for end
+				"02000000" + // id 2
+					"00000080" ); // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
@@ -167,7 +164,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitBeforeTypeSingle()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
@@ -219,7 +216,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitBeforeType()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
@@ -273,7 +270,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAtType()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
@@ -324,7 +321,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
@@ -375,7 +372,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
@@ -426,7 +423,7 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterAfterType()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
 		assertEqualsBytes(bufs[0],
@@ -476,45 +473,29 @@ public class ClusterTest extends CopeAssert
 
 	public void testSplitAfterAfterAfterTypeCollapse()
 	{
-		assertEquals(PACKET_SIZE, csc.packetSize);
+		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 sequence
-				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 24 type 0
-					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
-					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
-				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 40 type 1
-					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 44 pk 11
-		assertEqualsBytes(bufs[1], // TODO should not be there
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
-				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
-				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0x01, (byte)0x00, (byte)0x12, (byte)0x00,     // 16 kind=invalidation
-				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 20 sequence
-		assertEquals(2, bufs.length);
+				"c0be1111" +     //  4 magic
+				"55667788" +     //  8 secret
+				"33442211" +     // 12 node
+				"01001200" +     // 16 kind=invalidation
+				"00000000" +     // 20 sequence
+				"00000000" +     // 24 type 0
+					"02000000" +  // 28 pk 2
+					"01000000" +  // 32 pk 1
+					"00000080" +  // 36 NaPK for end
+				"01000000" +     // 40 type 1
+					"0b000000" ); // 44 pk 11
+		assertEquals(1, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
-			assertEquals(null, pks[2]);
-			assertEquals(null, pks[3]);
-			assertEquals(4, pks.length);
-		}
-		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
-
-		{
-			final TIntHashSet[] pks = um(bufs[1]);
-			assertEquals(null, pks[0]);
-			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
@@ -545,7 +526,7 @@ public class ClusterTest extends CopeAssert
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 
 		assertEquals(
-				"PING",
+				"PONG",
 				umi(buf));
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 
@@ -695,9 +676,7 @@ public class ClusterTest extends CopeAssert
 				(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 
-		assertEquals(
-				"PONG",
-				umi(buf));
+		ume(buf);
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 
 		{
@@ -799,6 +778,11 @@ public class ClusterTest extends CopeAssert
 		assertEquals(expectedData.length, actualData.length);
 	}
 
+	private void assertEqualsBytes(final byte[] actualData, final String expectedData)
+	{
+		assertEquals(expectedData, Hex.encodeLower(actualData));
+	}
+
 	private static TIntHashSet[] convert(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
@@ -854,7 +838,7 @@ public class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
+		cl.handle(toPacket(buf));
 		cl.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
@@ -864,10 +848,12 @@ public class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
+		cl.handle(toPacket(buf));
 		cl.testSink = null;
 		assertEquals(list(), sink);
 	}
+
+	protected abstract DatagramPacket toPacket(final byte[] buf);
 
 	private void assertInfo(
 			final long invalidationSplit,
@@ -877,9 +863,13 @@ public class ClusterTest extends CopeAssert
 			final long[][] listenerNodes)
 	{
 		final ClusterSenderInfo senderInfo = cs.getInfo();
+		assertEquals(123456, senderInfo.getLocalPort());
+		assertEquals(123457, senderInfo.getSendBufferSize());
+		assertEquals(123458, senderInfo.getTrafficClass());
 		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit());
 
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
+		assertEquals(234567, listenerInfo.getReceiveBufferSize());
 		assertEquals(0, listenerInfo.getException());
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
 		assertEquals(listenerWrongSecret, listenerInfo.getWrongSecret());

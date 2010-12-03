@@ -50,7 +50,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 
 	public void test() throws MandatoryViolationException
 	{
-		if(postgresql) return;
+		if(postgresql||hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -100,6 +100,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 
 	public void testRollback() throws MandatoryViolationException
 	{
+		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);

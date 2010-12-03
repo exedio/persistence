@@ -1,0 +1,1 @@
+* remove hsqldb-specific code in DialectParameters constructor

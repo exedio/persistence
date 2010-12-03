@@ -18,20 +18,22 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterConstants.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterConstants.KIND_PING;
+import static com.exedio.cope.ClusterConstants.KIND_PONG;
+import static com.exedio.cope.ClusterConstants.MAGIC0;
+import static com.exedio.cope.ClusterConstants.MAGIC1;
+import static com.exedio.cope.ClusterConstants.MAGIC2;
+import static com.exedio.cope.ClusterConstants.MAGIC3;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-final class ClusterSender
+abstract class ClusterSender
 {
-	private final ClusterConfig config;
-	private final int destinationPort;
-	private final DatagramSocket socket;
+	private final ClusterProperties properties;
 
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
@@ -44,65 +46,53 @@ final class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ArrayList<byte[]> testSink = null;
-
-	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
+	ClusterSender(final ClusterProperties properties)
 	{
-		this.config = config;
-		this.destinationPort = properties.clusterSendDestinationPort.intValue();
-		try
+		this.properties = properties;
 		{
-			this.socket = new DatagramSocket(properties.clusterSendSourcePort.intValue());
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(String.valueOf(properties.clusterSendSourcePort.intValue()), e);
-		}
-		{
-			final byte[] pingPongTemplate = new byte[config.packetSize];
-			pingPongTemplate[0] = ClusterConfig.MAGIC0;
-			pingPongTemplate[1] = ClusterConfig.MAGIC1;
-			pingPongTemplate[2] = ClusterConfig.MAGIC2;
-			pingPongTemplate[3] = ClusterConfig.MAGIC3;
+			final byte[] pingPongTemplate = new byte[properties.packetSize];
+			pingPongTemplate[0] = MAGIC0;
+			pingPongTemplate[1] = MAGIC1;
+			pingPongTemplate[2] = MAGIC2;
+			pingPongTemplate[3] = MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, pingPongTemplate, config.secret);
-			pos = marshal(pos, pingPongTemplate, config.node);
+			pos = marshal(pos, pingPongTemplate, properties.getSecret());
+			pos = marshal(pos, pingPongTemplate, properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 
-			for(; pos<config.packetSize; pos++)
-				pingPongTemplate[pos] = config.pingPayload[pos];
-			assert pos==config.packetSize : pos;
+			pos = properties.copyPingPayload(pos, pingPongTemplate);
+			assert pos==properties.packetSize : pos;
 			this.pingPongTemplate = pingPongTemplate;
 		}
 		{
 			final byte[] invalidateTemplate = new byte[INVALIDATE_TEMPLATE_SIZE];
-			invalidateTemplate[0] = ClusterConfig.MAGIC0;
-			invalidateTemplate[1] = ClusterConfig.MAGIC1;
-			invalidateTemplate[2] = ClusterConfig.MAGIC2;
-			invalidateTemplate[3] = ClusterConfig.MAGIC3;
+			invalidateTemplate[0] = MAGIC0;
+			invalidateTemplate[1] = MAGIC1;
+			invalidateTemplate[2] = MAGIC2;
+			invalidateTemplate[3] = MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, invalidateTemplate, config.secret);
-			pos = marshal(pos, invalidateTemplate, config.node);
+			pos = marshal(pos, invalidateTemplate, properties.getSecret());
+			pos = marshal(pos, invalidateTemplate, properties.node);
 			assert pos==KIND;
-			pos = marshal(pos, invalidateTemplate, ClusterConfig.KIND_INVALIDATE);
+			pos = marshal(pos, invalidateTemplate, KIND_INVALIDATE);
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
 	}
 
-	void ping(final int count)
+	final void ping(final int count)
 	{
-		pingPong(ClusterConfig.KIND_PING, pingSequence, count);
+		pingPong(KIND_PING, pingSequence, count);
 	}
 
-	void pong()
+	final void pong()
 	{
-		pingPong(ClusterConfig.KIND_PONG, pongSequence, 1);
+		pingPong(KIND_PONG, pongSequence, 1);
 	}
 
 	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
@@ -110,8 +100,8 @@ final class ClusterSender
 		if(count<=0)
 			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
 
-		assert kind==ClusterConfig.KIND_PING||kind==ClusterConfig.KIND_PONG : kind;
-		final int packetSize = config.packetSize;
+		assert kind==KIND_PING||kind==KIND_PONG : kind;
+		final int packetSize = properties.packetSize;
 
 		final byte[] buf = new byte[packetSize];
 		System.arraycopy(pingPongTemplate, 0, buf, 0, packetSize);
@@ -135,9 +125,9 @@ final class ClusterSender
 	// info
 	private volatile long invalidationSplit = 0;
 
-	void invalidate(final TIntHashSet[] invalidations)
+	final void invalidate(final TIntHashSet[] invalidations)
 	{
-		final int packetSize = config.packetSize;
+		final int packetSize = properties.packetSize;
 		final int length;
 		{
 			int pos = 0;
@@ -162,6 +152,8 @@ final class ClusterSender
 
 				pos = marshal(pos, buf, invalidationSequence.getAndIncrement());
 
+				boolean packetNotEmpty = false;
+
 				for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 				{
 					if(i!=null && !i.hasNext())
@@ -179,6 +171,7 @@ final class ClusterSender
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, typeIdTransiently);
+						packetNotEmpty = true;
 
 						if(i==null)
 							i = invalidation.iterator();
@@ -203,7 +196,8 @@ final class ClusterSender
 					}
 				}
 
-				send(pos, buf);
+				if(packetNotEmpty)
+					send(pos, buf);
 				break;
 			}
 			while(true);
@@ -217,23 +211,7 @@ final class ClusterSender
 		}
 	}
 
-	private void send(final int length, final byte[] buf) throws IOException
-	{
-		if(testSink!=null)
-		{
-			final byte[] bufCopy = new byte[length];
-			System.arraycopy(buf, 0, bufCopy, 0, length);
-			testSink.add(bufCopy);
-		}
-		else
-		{
-			final DatagramPacket packet =
-				new DatagramPacket(buf, length, config.group, destinationPort);
-			socket.send(packet);
-		}
-	}
-
-	static int marshal(int pos, final byte[] buf, final int i)
+	final static int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
 		buf[pos++] = (byte)((i>>> 8) & 0xff);
@@ -242,13 +220,19 @@ final class ClusterSender
 		return pos;
 	}
 
-	ClusterSenderInfo getInfo()
+	final ClusterSenderInfo getInfo()
 	{
-		return new ClusterSenderInfo(invalidationSplit);
+		return new ClusterSenderInfo(
+				properties.node,
+				getLocalPort(),
+				getSendBufferSize(),
+				getTrafficClass(),
+				invalidationSplit);
 	}
 
-	void close()
-	{
-		socket.close();
-	}
+	abstract void send(final int length, final byte[] buf) throws IOException;
+	abstract int getLocalPort();
+	abstract int getSendBufferSize();
+	abstract int getTrafficClass();
+	abstract void close();
 }

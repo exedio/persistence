@@ -30,7 +30,9 @@ public final class CompositeCondition extends Condition
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.size()==0</tt>
 	 */
-	public CompositeCondition(final Operator operator, final List<? extends Condition> conditions)
+	public CompositeCondition(
+			final Operator operator,
+			final List<? extends Condition> conditions)
 	{
 		this(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
@@ -39,7 +41,9 @@ public final class CompositeCondition extends Condition
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
 	 */
-	public CompositeCondition(final Operator operator, final Condition... conditions)
+	public CompositeCondition(
+			final Operator operator,
+			final Condition... conditions)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator");
@@ -49,10 +53,11 @@ public final class CompositeCondition extends Condition
 			throw new IllegalArgumentException("conditions must not be empty");
 		for(int i = 0; i<conditions.length; i++)
 		{
-			if(conditions[i]==null)
+			final Condition c = conditions[i];
+			if(c==null)
 				throw new NullPointerException("conditions" + '[' + i + ']');
-			if(conditions[i] instanceof Literal)
-				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal");
+			if(c instanceof Literal)
+				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal, but was " + c);
 		}
 
 
@@ -180,10 +185,13 @@ public final class CompositeCondition extends Condition
 		OR (" or ",  TRUE, FALSE);
 
 		final String sql;
-		final Condition.Literal absorber;
-		final Condition.Literal identity;
+		final Literal absorber;
+		final Literal identity;
 
-		private Operator(final String sql, final Condition.Literal absorber, final Condition.Literal identity)
+		private Operator(
+				final String sql,
+				final Literal absorber,
+				final Literal identity)
 		{
 			this.sql = sql;
 			this.absorber = absorber;

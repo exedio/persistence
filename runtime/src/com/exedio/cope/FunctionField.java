@@ -130,19 +130,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public abstract FunctionField<E> unique();
 
 	public abstract FunctionField<E> nonUnique();
+	public abstract FunctionField<E> noDefault();
+	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
 	abstract E get(final Row row, final Query query);
 	abstract void set(final Row row, final E surface);
-
-	private static final Entity getEntity(final Item item)
-	{
-		return getEntity(item, true);
-	}
-
-	private static final Entity getEntity(final Item item, final boolean present)
-	{
-		return item.type.getModel().currentTransaction().getEntity(item, present);
-	}
 
 	@Override
 	public Class getInitialType()
@@ -208,7 +200,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	{
 		item.type.assertBelongs(this);
 
-		return Cast.verboseCast(valueClass, getEntity(item).get(this));
+		return Cast.verboseCast(valueClass, item.getEntity().get(this));
 	}
 
 	@Override

@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public final class CompareCondition<E> extends Condition
 {
 	private final CompareFunctionCondition.Operator operator;
@@ -35,7 +38,10 @@ public final class CompareCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Object)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
 	 */
-	public CompareCondition(final CompareFunctionCondition.Operator operator, final Function<E> left, final E right)
+	public CompareCondition(
+			final CompareFunctionCondition.Operator operator,
+			final Function<E> left,
+			final E right)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator");
@@ -91,8 +97,18 @@ public final class CompareCondition<E> extends Condition
 	{
 		left.toString(bf, defaultType);
 		bf.append(operator.sql).
-			append('\'').
-			append(toStringForValue(right, key)).
 			append('\'');
+		toStringForValue(bf, right, key);
+		bf.append('\'');
+	}
+
+	private void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
+	{
+		if(o instanceof Item)
+			bf.append(key ? ((Item)o).getCopeID() : o.toString());
+		else if(o instanceof Date)
+			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
+		else
+			bf.append(o.toString());
 	}
 }

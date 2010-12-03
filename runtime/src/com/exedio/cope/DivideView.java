@@ -79,7 +79,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 		}
 		else
 		{
-			bf.appendIntegerDivisionOperator(dividend, divisor, join);
+			bf.dialect.appendIntegerDivision(bf, dividend, divisor, join);
 		}
 		bf.append(')');
 	}

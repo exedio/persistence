@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Thread.MAX_PRIORITY;
+import static java.lang.Thread.MIN_PRIORITY;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +28,8 @@ import java.util.Locale;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
+	private final BooleanField log = new BooleanField("log", true);
+
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
@@ -34,9 +39,28 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
 	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
-	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
+	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
+
+	/**
+	 * The table name for the revision information.
+	 * The value "while" prevents name collisions
+	 * with other tables,
+	 * since "while" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	final StringField revisionTableName = new StringField("schema.revision.table", "while");
+
+	/**
+	 * The name of the unique constraint
+	 * on the table for the revision information.
+	 * The value "protected" prevents name collisions
+	 * with other tables,
+	 * since "protected" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 
@@ -45,6 +69,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
 
+	private final IntField querySearchSizeLimit = new IntField("query.searchSizeLimit", 100000, 1);
+
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
 	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
@@ -52,15 +78,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
 
-	final BooleanField cluster                    = new BooleanField("cluster",     false);
-	final BooleanField clusterLog                 = new BooleanField("cluster.log", true);
-	final IntField     clusterSendSourcePort      = new     IntField("cluster.sendSourcePort"     , 14445, 1);
-	final IntField     clusterSendDestinationPort = new     IntField("cluster.sendDestinationPort", 14446, 1);
-	final IntField     clusterListenPort          = new     IntField("cluster.listenPort",          14446, 1);
-	final BooleanField clusterListenPrioritySet   = new BooleanField("cluster.listenPrioritySet",   false);
-	final IntField     clusterListenPriority      = new     IntField("cluster.listenPriority",      Thread.MAX_PRIORITY, Thread.MIN_PRIORITY);
-	final StringField  clusterGroup               = new  StringField("cluster.group",               "230.0.0.1");
-	final IntField     clusterPacketSize          = new     IntField("cluster.packetSize",          1400, 32);
+	final     IntField changeListenersQueueCapacity = new     IntField("changeListeners.queueCapacity", 1000, 1);
+	final     IntField changeListenersThreads       = new     IntField("changeListeners.threads",        1, 1);
+	final     IntField changeListenersThreadsMax    = new     IntField("changeListeners.threadsMax",    10, 1);
+	final BooleanField changeListenersPrioritySet   = new BooleanField("changeListeners.prioritySet",   false);
+	final     IntField changeListenersPriority      = new     IntField("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
+
+	final BooleanField cluster = new BooleanField("cluster", false);
 
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
@@ -166,6 +190,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
+	public boolean isLoggingEnabled()
+	{
+		return log.booleanValue();
+	}
+
 	Dialect createDialect(final DialectParameters parameters)
 	{
 		try
@@ -216,11 +245,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return databaseDontSupportEmptyStrings.booleanValue();
 	}
 
-	public boolean getDatabaseDontSupportLimit()
-	{
-		return databaseDontSupportLimit.booleanValue();
-	}
-
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return databaseDontSupportNativeDate.booleanValue();
@@ -252,6 +276,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getConnectionPoolIdleLimit()
 	{
 		return connectionPoolIdleLimit.intValue();
+	}
+
+	/**
+	 * @see Query#getSearchSizeLimit()
+	 * @see Query#setSearchSizeLimit(int)
+	 */
+	public int getQuerySearchSizeLimit()
+	{
+		return querySearchSizeLimit.intValue();
 	}
 
 	public int getItemCacheLimit()
@@ -333,5 +366,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getOracleVarchar()
 	{
 		return true;
+	}
+
+	/**
+	 * @deprecated
+	 * Not supported anymore.
+	 * This method always returns false.
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportLimit()
+	{
+		return false;
 	}
 }

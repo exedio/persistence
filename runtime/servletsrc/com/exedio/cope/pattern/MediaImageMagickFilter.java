@@ -45,7 +45,6 @@ public class MediaImageMagickFilter extends MediaFilter
 	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 
 	private static final String DEFAULT_COMMAND_BINARY = "convert";
-	// private static final String COMMAND_BINARY = "C:\\Programme\\ImageMagick-6.3.7-Q16\\convert.exe";
 
 	private static final boolean enabled = Boolean.valueOf(System.getProperty(ENABLE_PROPERTY));
 	private static final String convertCommand = System.getProperty(CONVERT_COMMAND_PROPERTY);

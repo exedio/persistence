@@ -86,21 +86,21 @@ public class NameTest extends AbstractRuntimeTest
 		// test schema
 
 		assertEquals(filterTableName("NameLongItem"), getTableName(NameLongItem.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameLongItem.TYPE));
-		assertEquals("class", getTypeColumnName(NameLongItem.TYPE));
+		assertEquals(synthetic("this", "NameLongItem"), getPrimaryKeyColumnName(NameLongItem.TYPE));
+		assertEquals(synthetic("class", "NameLongItem"), getTypeColumnName(NameLongItem.TYPE));
 		assertEquals("code", getColumnName(NameLongItem.code));
 		assertEquals("codeLooooooooooooooooName", getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 
 		assertEquals(filterTableName("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
+		assertEquals(synthetic("this", "NameCollisionloooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 
 		assertEquals(filterTableName("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
+		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 
 		if(!postgresql)
@@ -111,9 +111,9 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals(null, nameSub.getError());
 			assertEquals(Schema.Color.OK, nameSub.getParticularColor());
 
-			assertEquals("this",    nameSub.getColumn("this")   .getName());
+			assertEquals(synthetic("this", "NameSubItemX"),    nameSub.getColumn(synthetic("this", "NameSubItemX"))   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+q("this")+">=0) AND ("+q("this")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+q(synthetic("this", "NameSubItemX"))+">=0) AND ("+q(synthetic("this", "NameSubItemX"))+"<=2147483647)");
 
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
 			assertEquals("integer", nameSub.getColumn("integer").getName());

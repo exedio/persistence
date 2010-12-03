@@ -66,8 +66,17 @@ public abstract class CopeTest extends CopeAssert
 
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
+		if(item==null)
+			throw new NullPointerException();
 		deleteOnTearDown.add(item);
 		return item;
+	}
+
+	protected final boolean dontDeleteOnTearDown(final Item item)
+	{
+		if(item==null)
+			throw new NullPointerException();
+		return deleteOnTearDown.remove(item);
 	}
 
 	protected final void printConnectionPoolCounter()
@@ -108,6 +117,12 @@ public abstract class CopeTest extends CopeAssert
 					System.err.println("--------------------- additional exception in tearDown --------------------");
 					e.printStackTrace();
 					System.err.println("-------------------- /additional exception in tearDown --------------------");
+				}
+				catch(final AssertionError e)
+				{
+					System.err.println("--------------------- additional assertion error in tearDown --------------------");
+					e.printStackTrace();
+					System.err.println("-------------------- /additional assertion error in tearDown --------------------");
 				}
 			}
 		}

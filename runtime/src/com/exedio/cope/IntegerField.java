@@ -116,6 +116,13 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, false, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
+	@Override
+	public IntegerField noDefault()
+	{
+		return new IntegerField(isfinal, optional, unique, null, null, minimum, maximum);
+	}
+
+	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
@@ -191,7 +198,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final IntegerColumn result = new IntegerColumn(table, this, name, optional, minimum, maximum, false);
+		final IntegerColumn result = new IntegerColumn(table, this, name, false, optional, minimum, maximum, false);
 		if(defaultToNextSequence!=null)
 		{
 			final Database database = table.database;
@@ -258,7 +265,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().currentTransaction().getConnection()) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().connect().connectionPool) : 0;
 	}
 
 	@Override
