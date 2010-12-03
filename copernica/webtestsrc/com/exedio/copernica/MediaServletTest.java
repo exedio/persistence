@@ -66,7 +66,7 @@ public class MediaServletTest extends TestCase
 		final String itemUnkown   = prefix + "content/"    + ITEM_UNK;
 		final String itemName     = prefix + "nameServer/" + ITEM_NAME_OK + ".txt";
 
-		final long lmTxt = assertTxt(prefix + "content/" + ITEM_TXT + ".txt");
+		final long lmTxt = assertTxt(itemTxt);
 		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" );
 		final long lmJpg = assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg");
 		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
