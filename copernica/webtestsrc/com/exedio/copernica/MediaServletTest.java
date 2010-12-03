@@ -91,7 +91,7 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , itemTxtCatch);
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.txt" ));
+		assertEquals(lmTxt, assertTxt(itemTxtCatch));
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack", itemTxtCatch);
