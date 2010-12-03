@@ -20,5 +20,10 @@ package com.exedio.cope.pattern;
 
 public interface MediaUrlTextProvider
 {
+	/**
+	 * Returning null is equivalent to not implementing interface
+	 * {@link MediaUrlTextProvider}
+	 * at all.
+	 */
 	String getMediaUrlText(MediaPath path);
 }
