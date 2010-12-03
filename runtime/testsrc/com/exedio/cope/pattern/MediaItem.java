@@ -72,11 +72,6 @@ public class MediaItem extends Item
 		return custom.getURL(this);
 	}
 
-	final String getNamedImageURL(final String name)
-	{
-		return image.getNamedURL(this, name);
-	}
-
 	/**
 
 	 **
