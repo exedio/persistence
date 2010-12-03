@@ -139,16 +139,16 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertIt("MediaUrlItem/file/", file, anond,      ""    );
 		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, "/name.jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0");
 		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond,      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/name?t=MediaUrlItem.fileSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,      "?t=MediaUrlItem.fileSecure-MediaUrlItem-1");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/name"+ "?t=MediaUrlItem.fileSecure-MediaUrlItem-0");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,          "?t=MediaUrlItem.fileSecure-MediaUrlItem-1");
 		assertIt("MediaUrlItem/fotoName/", fotoName, named, "/name.jpg");
 		assertIt("MediaUrlItem/fotoName/", fotoName, anond,      ".jpg");
 		assertIt("MediaUrlItem/fileName/", fileName, named, "/name"    );
 		assertIt("MediaUrlItem/fileName/", fileName, anond,      ""    );
 		assertIt("MediaUrlItem/fotoNameSecure/", fotoNameSecure, named, "/name.jpg?t=MediaUrlItem.fotoNameSecure-MediaUrlItem-0");
 		assertIt("MediaUrlItem/fotoNameSecure/", fotoNameSecure, anond,      ".jpg?t=MediaUrlItem.fotoNameSecure-MediaUrlItem-1");
-		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name?t=MediaUrlItem.fileNameSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,      "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-1");
+		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name"+ "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-0");
+		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,          "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-1");
 
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
@@ -166,8 +166,8 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertIt("MediaUrlItem/fileName/", fileName, anond,      ""    );
 		assertIt("MediaUrlItem/fotoNameSecure/", fotoNameSecure, named, "/name.jpg?t=7231ebc6fdfa8f9230c4");
 		assertIt("MediaUrlItem/fotoNameSecure/", fotoNameSecure, anond,      ".jpg?t=e7e9ffd94558828377b9");
-		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name?t=61fc960d681bee64248c");
-		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,      "?t=36894b09b797b511ecb1");
+		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name"+ "?t=61fc960d681bee64248c");
+		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,          "?t=36894b09b797b511ecb1");
 	}
 
 	private void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
