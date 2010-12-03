@@ -72,11 +72,11 @@ public class MediaServletTest extends TestCase
 		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
 		final long lmUnk = assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi");
 
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt"));
-		assertMoved(prefix + "content/" + ITEM_TXT + ".jpg" , prefix + "content/" + ITEM_TXT + ".txt");
-		assertMoved(prefix + "content/" + ITEM_TXT + ".zick", prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_TXT + "."    , prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
-		assertMoved(prefix + "content/" + ITEM_TXT          , prefix + "content/" + ITEM_TXT + ".txt");
+		assertEquals(lmTxt, assertTxt(itemTxt));
+		assertMoved(prefix + "content/" + ITEM_TXT + ".jpg"      , itemTxt);
+		assertMoved(prefix + "content/" + ITEM_TXT + ".zick"     , itemTxt); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TXT + "."         , itemTxt); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TXT               , itemTxt);
 		assertMoved(prefix + "content/" + ITEM_TXT + "/zick.txt" , itemTxt);
 		assertMoved(prefix + "content/" + ITEM_TXT + "/zack.txt" , itemTxt);
 		assertMoved(prefix + "content/" + ITEM_TXT + "/zick.jpg" , itemTxt);
