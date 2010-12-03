@@ -49,6 +49,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_GIF = "MediaServletItem-8";
 	private static final String ITEM_NX  = "MediaServletItem-20";
 	private static final String ITEM_TEXT_FILTER = "MediaServletItem-13";
+	private static final String ITEM_TEXT_CATCH = "MediaServletItem-14";
 	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
@@ -73,12 +74,28 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_TXT + "."    , prefix + "content/" + ITEM_TXT + ".txt"); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TXT          , prefix + "content/" + ITEM_TXT + ".txt");
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.txt" ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zack.txt" ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.jpg" ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick.zack"));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick."    ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/zick"     ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/."        ));
 		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + "/"         ));
+
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + ".txt"));
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".jpg" , prefix + "content/" + ITEM_TEXT_CATCH + ".txt");
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", prefix + "content/" + ITEM_TEXT_CATCH + ".txt"); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , prefix + "content/" + ITEM_TEXT_CATCH + ".txt"); // TODO should be 404
+		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , prefix + "content/" + ITEM_TEXT_CATCH + ".txt");
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.txt" ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack"));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick."    ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/zick"     ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/."        ));
+		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TEXT_CATCH + "/"         ));
+
 		assertNotFound(app + "media/MeDiaServletItem/content/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/conTent/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media//content/" + ITEM_TXT + "/", NO_SUCH_PATH);

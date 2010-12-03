@@ -119,6 +119,10 @@ public class InitServlet extends HttpServlet
 			pattern.addSourceItem(textValue, "text/plain");
 			pattern.addSourceItem(textValue, "text/plain");
 
+			final MediaServletItem catchPhrase = new MediaServletItem();
+			assertID("MediaServletItem-14", catchPhrase);
+			catchPhrase.setContent(textValue, "text/plain");
+
 			model.commit();
 		}
 		catch(final IOException e)
