@@ -48,6 +48,14 @@ public final class ClusterSenderInfo
 		return nodeID;
 	}
 
+	/**
+	 * @see ClusterListenerInfo.Node#getIDString()
+	 */
+	public String getNodeIDString()
+	{
+		return toStringNodeID(nodeID);
+	}
+
 	public int getLocalPort()
 	{
 		return localPort;
@@ -66,5 +74,10 @@ public final class ClusterSenderInfo
 	public long getInvalidationSplit()
 	{
 		return invalidationSplit;
+	}
+
+	public static String toStringNodeID(final int nodeID)
+	{
+		return Integer.toHexString(nodeID);
 	}
 }

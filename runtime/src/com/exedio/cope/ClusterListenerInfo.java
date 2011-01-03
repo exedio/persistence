@@ -123,6 +123,14 @@ public final class ClusterListenerInfo
 			return id;
 		}
 
+		/**
+		 * Returns the {@link ClusterSenderInfo#getNodeIDString() id} of the node.
+		 */
+		public String getIDString()
+		{
+			return ClusterSenderInfo.toStringNodeID(id);
+		}
+
 		public Date getFirstEncounter()
 		{
 			return new Date(firstEncounter);

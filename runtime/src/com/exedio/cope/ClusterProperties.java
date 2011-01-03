@@ -95,7 +95,7 @@ final class ClusterProperties extends Properties
 					throw new IllegalArgumentException(); // must not be left at default value
 			}
 			if(log.booleanValue())
-				System.out.println("COPE Cluster Network node id: " + node);
+				System.out.println("COPE Cluster Network node id: " + ClusterSenderInfo.toStringNodeID(node));
 
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);

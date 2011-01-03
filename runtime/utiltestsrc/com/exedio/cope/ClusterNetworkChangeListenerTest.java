@@ -148,6 +148,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			assertEquals(true, event.isRemote());
 			assertEquals(remoteModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
+			assertEquals(remoteModel.getClusterSenderInfo().getNodeIDString(), event.getRemoteNodeIDString());
 			try
 			{
 				event.getTransactionID();

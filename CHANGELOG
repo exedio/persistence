@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* Make consistent visualization of cluster node id available.
+	Adds the following methods
+		ClusterSenderInfo#toStringNodeID
+		ClusterSenderInfo#getNodeIDString
+		ClusterListenerInfo#getIDString
+		ChangeEvent#getRemoteNodeIDString
 * add MediaUrlCatchphraseProvider
 	This breaks backwards API compatibility,
 	because MediaPath.getNamedURL(Item, String) changes sematics to be equals to getURL(Item)

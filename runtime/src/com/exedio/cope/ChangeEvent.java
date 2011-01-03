@@ -57,6 +57,15 @@ public final class ChangeEvent
 
 	/**
 	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @see ClusterSenderInfo#getNodeIDString()
+	 */
+	public String getRemoteNodeIDString() throws ChangeEvent.NotAvailableException
+	{
+		return ClusterSenderInfo.toStringNodeID(transactionInfo.getRemoteNodeID());
+	}
+
+	/**
+	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see Transaction#getID()
 	 */
 	public long getTransactionID() throws ChangeEvent.NotAvailableException

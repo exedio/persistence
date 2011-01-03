@@ -46,6 +46,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ClusterUnpaddedTest.class);
 		suite.addTestSuite(ClusterPaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
+		suite.addTestSuite(ClusterIdToStringTest.class);
 		suite.addTestSuite(ClusterIterTest.class);
 		suite.addTestSuite(ClusterPropertiesTest.class);
 		suite.addTestSuite(ClusterSenderMulticastTest.class);
