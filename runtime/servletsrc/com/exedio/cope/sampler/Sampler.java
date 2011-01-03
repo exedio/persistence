@@ -74,6 +74,7 @@ public final class Sampler
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
 				SamplerPurge.TYPE);
+		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
