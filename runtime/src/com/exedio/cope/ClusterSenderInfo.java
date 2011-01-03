@@ -41,6 +41,7 @@ public final class ClusterSenderInfo
 	}
 
 	/**
+	 * @see #getNodeIDString()
 	 * @see ClusterListenerInfo.Node#getID()
 	 */
 	public int getNodeID()
@@ -49,6 +50,7 @@ public final class ClusterSenderInfo
 	}
 
 	/**
+	 * @see #getNodeID()
 	 * @see ClusterListenerInfo.Node#getIDString()
 	 */
 	public String getNodeIDString()

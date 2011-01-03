@@ -49,6 +49,7 @@ public final class ChangeEvent
 	/**
 	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see ClusterSenderInfo#getNodeID()
+	 * @see #getRemoteNodeIDString()
 	 */
 	public int getRemoteNodeID() throws ChangeEvent.NotAvailableException
 	{
@@ -58,6 +59,7 @@ public final class ChangeEvent
 	/**
 	 * @throws ChangeEvent.NotAvailableException is that information is not available
 	 * @see ClusterSenderInfo#getNodeIDString()
+	 * @see #getRemoteNodeID()
 	 */
 	public String getRemoteNodeIDString() throws ChangeEvent.NotAvailableException
 	{

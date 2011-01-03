@@ -117,6 +117,7 @@ public final class ClusterListenerInfo
 
 		/**
 		 * Returns the {@link ClusterSenderInfo#getNodeID() id} of the node.
+		 * @see #getIDString()
 		 */
 		public int getID()
 		{
@@ -125,6 +126,7 @@ public final class ClusterListenerInfo
 
 		/**
 		 * Returns the {@link ClusterSenderInfo#getNodeIDString() id} of the node.
+		 * @see #getID()
 		 */
 		public String getIDString()
 		{
