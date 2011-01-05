@@ -440,12 +440,12 @@ public abstract class MediaPath extends Pattern
 		throws IOException;
 
 	/**
-	 * Returns a condition matching all items, for which {@link #getURL(Item)} returns null.
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
 	 */
 	public abstract Condition isNull();
 
 	/**
-	 * Returns a condition matching all items, for which {@link #getURL(Item)} does not return null.
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
 	 */
 	public abstract Condition isNotNull();
 
