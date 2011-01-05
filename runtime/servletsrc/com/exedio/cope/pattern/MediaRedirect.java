@@ -81,7 +81,8 @@ public final class MediaRedirect extends MediaPath
 
 	@Override
 	public Media.Log doGet(
-			final HttpServletRequest request, final HttpServletResponse response,
+			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final Item item)
 	{
 		final Locator locator = target.getLocator(item);
