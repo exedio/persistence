@@ -182,7 +182,10 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Override
-	public final Log doGetIfModified(final HttpServletResponse response, final Item item) throws IOException
+	public final Log doGetIfModified(
+			final HttpServletResponse response,
+			final Item item)
+	throws IOException
 	{
 		final String sourceContentType = raw.getContentType(item);
 		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))

@@ -36,7 +36,8 @@ public abstract class CachedMedia extends MediaPath
 
 	@Override
 	public final Media.Log doGet(
-			final HttpServletRequest request, final HttpServletResponse response,
+			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final Item item)
 		throws IOException
 	{
