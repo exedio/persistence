@@ -40,6 +40,7 @@ import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
@@ -133,6 +134,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 
 	@Override
 	public final Media.Log doGetIfModified(
+			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
 	throws IOException

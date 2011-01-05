@@ -63,7 +63,7 @@ public abstract class CachedMedia extends MediaPath
 		final long lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)
-			return doGetIfModified(response, item);
+			return doGetIfModified(request, response, item);
 
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
@@ -91,7 +91,7 @@ public abstract class CachedMedia extends MediaPath
 		}
 		else
 		{
-			return doGetIfModified(response, item);
+			return doGetIfModified(request, response, item);
 		}
 	}
 
@@ -102,5 +102,5 @@ public abstract class CachedMedia extends MediaPath
 	 * because the response of a cached media must depend
 	 * on the item only.
 	 */
-	public abstract Media.Log doGetIfModified(HttpServletResponse response, Item item) throws IOException;
+	public abstract Media.Log doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException;
 }

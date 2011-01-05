@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.DataField;
@@ -154,12 +155,13 @@ public class MediaImageMagickFilter extends MediaFilter
 
 	@Override
 	public final Media.Log doGetIfModified(
+			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
 	throws IOException
 	{
 		if(!isEnabled())
-			return fallback.doGetIfModified(response, item);
+			return fallback.doGetIfModified(request, response, item);
 
 		final String contentType = source.getContentType(item);
 		if(contentType==null)

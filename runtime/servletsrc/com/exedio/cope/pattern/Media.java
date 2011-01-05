@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.CheckConstraint;
@@ -613,6 +614,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	@Override
 	public Media.Log doGetIfModified(
+			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
 		throws IOException

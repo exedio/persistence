@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* abstract method CachedMedia#doGetIfModified extends signature from
+	doGetIfModified(HttpServletResponse response, Item item) to
+	doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item)
+	This breaks backwards API compatibility.
 * Make consistent visualization of cluster node id available.
 	Adds the following methods
 		ClusterSenderInfo#toStringNodeID

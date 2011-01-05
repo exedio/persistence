@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.ActivationParameters;
@@ -183,6 +184,7 @@ public class TextUrlFilter extends MediaFilter
 
 	@Override
 	public final Log doGetIfModified(
+			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
 	throws IOException

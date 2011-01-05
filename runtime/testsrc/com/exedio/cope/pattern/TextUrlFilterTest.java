@@ -55,12 +55,12 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		final String URL1 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
 		final String URL2 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
 
-		assertEquals(fertig.isNull, fertig.doGetIfModified(null, item));
+		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
 
 		item.setFertigRaw("<eins>paste(uno)<zwei>");
 		try
 		{
-			fertig.doGetIfModified(null, item);
+			fertig.doGetIfModified(null, null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -82,7 +82,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 	private void assertGet(final String body) throws IOException
 	{
-		fertig.doGetIfModified(new Response(body), item);
+		fertig.doGetIfModified(null, new Response(body), item);
 	}
 
 	static class Response extends ResponseTemplate
