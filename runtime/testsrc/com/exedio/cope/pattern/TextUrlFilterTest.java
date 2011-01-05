@@ -52,15 +52,15 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 	public void testIt() throws IOException
 	{
 		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
-		final String URL1 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
-		final String URL2 = rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
+		final String URL1 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
+		final String URL2 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
 
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
 
 		item.setFertigRaw("<eins>paste(uno)<zwei>");
 		try
 		{
-			fertig.doGetIfModified(null, null, item);
+			fertig.doGetIfModified(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -70,7 +70,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 		item.addFertigPaste("uno");
 		assertEquals("TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteLocator(item, "uno").getPath());
-		assertEquals("media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
+		assertEquals(rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
 		assertGet("<eins>" + URL1 + "<zwei>");
 
 		item.addFertigPaste("duo");
@@ -82,7 +82,22 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 	private void assertGet(final String body) throws IOException
 	{
-		fertig.doGetIfModified(null, new Response(body), item);
+		fertig.doGetIfModified(new Request(), new Response(body), item);
+	}
+
+	static class Request extends RequestTemplate
+	{
+		@Override
+		public String getContextPath()
+		{
+			return "/contextPath";
+		}
+
+		@Override
+		public String getServletPath()
+		{
+			return "/servletPath";
+		}
 	}
 
 	static class Response extends ResponseTemplate

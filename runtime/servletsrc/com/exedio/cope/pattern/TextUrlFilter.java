@@ -205,7 +205,10 @@ public class TextUrlFilter extends MediaFilter
 			String image = tempString.substring(startPos + pasteStart.length());
 			image = image.substring(0, image.indexOf(pasteStop));
 			final String rest = tempString.substring(startPos);
-			sb.append(pasteValue.getURL(getPaste(item, image)));
+			sb.append(request.getContextPath());
+			sb.append(request.getServletPath());
+			sb.append('/');
+			pasteValue.getLocator(getPaste(item, image)).appendPath(sb);
 			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
 			tempString = sb.toString();
 		}
