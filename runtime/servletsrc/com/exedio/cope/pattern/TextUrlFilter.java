@@ -124,6 +124,11 @@ public class TextUrlFilter extends MediaFilter
 		pasteValue.set(getPaste(item, key), value);
 	}
 
+	public final Locator getPasteLocator(final Item item, final String key)
+	{
+		return pasteValue.getLocator(getPaste(item, key));
+	}
+
 	public final String getPasteURL( final Item item, final String key )
 	{
 		return pasteValue.getURL(getPaste(item, key));
