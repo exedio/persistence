@@ -373,9 +373,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public String getContentType(final Item item)
 	{
-		if(isNull(item))
-			return null;
-
 		return contentType.get(item);
 	}
 
@@ -387,10 +384,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public long getLastModified(final Item item)
 	{
-		if(isNull(item))
-			return -1;
-
-		return lastModified.get(item).getTime();
+		final Date date = lastModified.get(item);
+		return date!=null ? date.getTime() : -1;
 	}
 
 	/**
@@ -399,13 +394,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public long getLength(final Item item)
 	{
+		// do check before, because this check is supported by the item cache
 		if(isNull(item))
 			return -1;
 
-		final long result = body.getLength(item);
-
-		assert result>=0 : item.getCopeID();
-		return result;
+		return body.getLength(item);
 	}
 
 	/**
