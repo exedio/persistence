@@ -373,7 +373,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public String getContentType(final Item item)
 	{
-		return contentType.get(item);
+		return contentType.get(item, lastModified);
 	}
 
 	/**
@@ -757,7 +757,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		abstract boolean check(String contentType);
 		abstract String describe();
 		abstract List<String> getAllowed();
-		abstract String get(Item item);
+		abstract String get(Item item, DateField nullSensor);
 		abstract B set(String contentType);
 		abstract Condition equal(String contentType);
 
@@ -818,7 +818,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 
 		@Override
-		String get(final Item item)
+		String get(final Item item, final DateField nullSensor)
 		{
 			return field.get(item);
 		}
@@ -907,9 +907,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 
 		@Override
-		String get(final Item item)
+		String get(final Item item, final DateField nullSensor)
 		{
-			return types[field.get(item).intValue()];
+			final Integer number = field.get(item);
+			return (number!=null) ? types[number.intValue()] : null;
 		}
 
 		@Override
@@ -978,9 +979,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 
 		@Override
-		String get(final Item item)
+		String get(final Item item, final DateField nullSensor)
 		{
-			return full;
+			return (nullSensor.get(item)!=null) ? full : null;
 		}
 
 		@Override
@@ -1072,9 +1073,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 
 		@Override
-		String get(final Item item)
+		String get(final Item item, final DateField nullSensor)
 		{
-			return prefix + field.get(item);
+			final String minor = field.get(item);
+			return (minor!=null) ? (prefix + minor) : null;
 		}
 
 		@Override
