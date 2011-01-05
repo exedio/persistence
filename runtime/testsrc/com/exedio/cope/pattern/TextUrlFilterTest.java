@@ -69,6 +69,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 
 		item.addFertigPaste("uno");
+		assertEquals("media/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteUrl(item, "uno"));
 		assertGet("<eins>" + URL1 + "<zwei>");
 
 		item.addFertigPaste("duo");
