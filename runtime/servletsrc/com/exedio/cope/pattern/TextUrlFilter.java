@@ -121,22 +121,12 @@ public class TextUrlFilter extends MediaFilter
 
 	public final void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
 	{
-		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
-		if( pasteItem == null )
-		{
-			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
-		}
-		pasteValue.set( pasteItem, value );
+		pasteValue.set(getPaste(item, key), value);
 	}
 
 	public final String getPasteUrl( final Item item, final String key )
 	{
-		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
-		if( pasteItem == null )
-		{
-			throw new RuntimeException( "Can't find image for stylesheet with code: " + key );
-		}
-		return pasteValue.getURL( pasteItem );
+		return pasteValue.getURL(getPaste(item, key));
 	}
 
 	@Override
@@ -205,9 +195,7 @@ public class TextUrlFilter extends MediaFilter
 			String image = tempString.substring(startPos + pasteStart.length());
 			image = image.substring(0, image.indexOf(pasteStop));
 			final String rest = tempString.substring(startPos);
-			final Paste pasteItem = pasteType.searchSingletonStrict(
-					Cope.equalAndCast(pasteParent, item).and(pasteKey.equal(image)));
-			sb.append(pasteValue.getURL(pasteItem));
+			sb.append(pasteValue.getURL(getPaste(item, image)));
 			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
 			tempString = sb.toString();
 		}
@@ -227,6 +215,14 @@ public class TextUrlFilter extends MediaFilter
 		{
 			out.close();
 		}
+	}
+
+	private final Paste getPaste(final Item item, final String key)
+	{
+		return pasteType.searchSingletonStrict(Cope.and(
+				Cope.equalAndCast(pasteParent, item),
+				pasteKey.equal(key)
+		));
 	}
 
 	@Override
