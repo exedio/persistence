@@ -69,7 +69,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 
 		item.addFertigPaste("uno");
-		fertig.doGetIfModified(new Response("<eins>" + URL1 + "<zwei>"), item);
+		assertGet("<eins>" + URL1 + "<zwei>");
 
 		item.addFertigPaste("duo");
 		assertGet("<eins>" + URL1 + "<zwei>");
