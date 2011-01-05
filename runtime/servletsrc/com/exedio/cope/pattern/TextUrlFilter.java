@@ -106,7 +106,7 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	public void setRaw( final Item item, final Media.Value raw ) throws IOException
+	public final void setRaw( final Item item, final Media.Value raw ) throws IOException
 	{
 		this.raw.set( item, raw );
 	}
@@ -119,7 +119,7 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	public void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
+	public final void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
 	{
 		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
 		if( pasteItem == null )
@@ -129,7 +129,7 @@ public class TextUrlFilter extends MediaFilter
 		pasteValue.set( pasteItem, value );
 	}
 
-	public String getPasteUrl( final Item item, final String key )
+	public final String getPasteUrl( final Item item, final String key )
 	{
 		final Paste pasteItem = pasteType.searchSingleton( Cope.equalAndCast( pasteParent, item ).and( this.pasteKey.equal( key ) ) );
 		if( pasteItem == null )
