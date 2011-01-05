@@ -124,7 +124,7 @@ public class TextUrlFilter extends MediaFilter
 		pasteValue.set(getPaste(item, key), value);
 	}
 
-	public final String getPasteUrl( final Item item, final String key )
+	public final String getPasteURL( final Item item, final String key )
 	{
 		return pasteValue.getURL(getPaste(item, key));
 	}
@@ -240,5 +240,16 @@ public class TextUrlFilter extends MediaFilter
 		{
 			super(ap);
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getPasteURL(Item,String)} instead
+	 */
+	@Deprecated
+	public final String getPasteUrl( final Item item, final String key )
+	{
+		return getPasteURL(item, key);
 	}
 }
