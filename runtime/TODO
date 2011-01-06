@@ -25,9 +25,6 @@ TODO for cope runtime
 	* implement MediaAlias
 	* redundantly maintain width/height for images
 	* store text/* gzipped and deliver as such to the browser
-- Hash:
-	* support a maximum of failed checks
-	* support blocking for a short time after a failed check
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
 - pattern Range:
