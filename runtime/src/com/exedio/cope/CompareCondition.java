@@ -105,7 +105,12 @@ public final class CompareCondition<E> extends Condition
 	private void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
 	{
 		if(o instanceof Item)
-			bf.append(key ? ((Item)o).getCopeID() : o.toString());
+		{
+			if(key)
+				((Item)o).appendCopeID(bf);
+			else
+				bf.append(o.toString());
+		}
 		else if(o instanceof Date)
 			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else

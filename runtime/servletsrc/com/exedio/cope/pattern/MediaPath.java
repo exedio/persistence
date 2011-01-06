@@ -162,10 +162,13 @@ public abstract class MediaPath extends Pattern
 			return bf.toString();
 		}
 
+		/**
+		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getPath()});</tt>
+		 */
 		public void appendPath(final StringBuilder bf)
 		{
-			bf.append(getUrlPath()).
-				append(item.getCopeID());
+			bf.append(getUrlPath());
+			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
 				bf.append('/').append(catchphrase);
@@ -180,8 +183,8 @@ public abstract class MediaPath extends Pattern
 
 		void appendPathInfo(final StringBuilder bf)
 		{
-			bf.append(getUrlPath()).
-				append(item.getCopeID());
+			bf.append(getUrlPath());
+			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
 				bf.append('/').append(catchphrase);
@@ -225,8 +228,8 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
 
-		bf.append(getUrlPath()).
-			append(item.getCopeID());
+		bf.append(getUrlPath());
+		item.appendCopeID(bf);
 
 		final String catchphrase = makeUrlCatchphrase(item);
 		if(catchphrase!=null)
@@ -271,7 +274,7 @@ public abstract class MediaPath extends Pattern
 		if(!preventUrlGuessing)
 			return null;
 
-		return makeUrlToken(item.getCopeID());
+		return makeUrlToken(item.getCopeID()); // TODO use appendCopeID
 	}
 
 	private final String makeUrlToken(final String itemID)

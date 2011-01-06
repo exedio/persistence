@@ -42,11 +42,11 @@ public class ItemTest extends TestmodelTest
 
 		assertInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
 		final EmptyItem item1 = new EmptyItem();
-		assertEquals("EmptyItem-0", item1.getCopeID());
+		assertID("EmptyItem-0", item1);
 		final EmptyItem item2 = new EmptyItem();
-		assertEquals("EmptyItem-1", item2.getCopeID());
+		assertID("EmptyItem-1", item2);
 		final EmptyItem2 item3 = new EmptyItem2();
-		assertEquals("EmptyItem2-0", item3.getCopeID());
+		assertID("EmptyItem2-0", item3);
 		assertInfo(EmptyItem.TYPE, 2, 0, 1, EmptyItem.TYPE.getPrimaryKeyInfo());
 
 		assertEquals(EmptyItem.TYPE, item1.getCopeType());
@@ -208,5 +208,13 @@ public class ItemTest extends TestmodelTest
 
 		assertDelete(item2);
 		assertDelete(item1);
+	}
+
+	private static void assertID(final String id, final Item item)
+	{
+		assertEquals(id, item.getCopeID());
+		final StringBuilder bf = new StringBuilder();
+		item.appendCopeID(bf);
+		assertEquals(id, bf.toString());
 	}
 }

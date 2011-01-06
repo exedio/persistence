@@ -345,7 +345,7 @@ final class Statement
 			{
 				result.append(text.substring(lastPos, pos));
 				result.append(QUESTION_MARK);
-				result.append(toStringForValue(pi.next()));
+				appendValue(result, pi.next());
 				result.append(QUESTION_MARK);
 				lastPos = pos+1;
 			}
@@ -355,18 +355,18 @@ final class Statement
 		}
 	}
 
-	private static final String toStringForValue(final Object o)
+	private static final void appendValue(final StringBuilder bf, final Object o)
 	{
 		if(o==null)
-			return "NULL";
+			bf.append("NULL");
 		else if(o instanceof Item)
-			return ((Item)o).getCopeID();
+			((Item)o).appendCopeID(bf);
 		else if(o instanceof Date)
-			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
+			bf.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else if(o instanceof byte[])
-			return Arrays.toString((byte[])o, 30);
+			bf.append(Arrays.toString((byte[])o, 30)); // TODO use append function
 		else
-			return o.toString();
+			bf.append(o.toString());
 	}
 
 	// join aliases

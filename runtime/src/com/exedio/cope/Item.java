@@ -71,6 +71,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 	}
 
 	/**
+	 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getCopeID()});</tt>
+	 */
+	public final void appendCopeID(final StringBuilder bf)
+	{
+		bf.append(type.id).
+			append(ID_SEPARATOR).
+			append(pk);
+	}
+
+	/**
 	 * Returns the type of this item.
 	 * Never returns null.
 	 */
