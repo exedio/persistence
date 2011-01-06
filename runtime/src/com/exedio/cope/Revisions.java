@@ -234,11 +234,9 @@ public final class Revisions
 			final Map<String, String> environment,
 			final boolean log)
 	{
-		Connection con = null;
+		final Connection con = connectionPool.get(true);
 		try
 		{
-			con = connectionPool.get(true);
-
 			final int actualNumber = getActualNumber(properties, con, executor);
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
@@ -247,11 +245,7 @@ public final class Revisions
 		}
 		finally
 		{
-			if(con!=null)
-			{
-				connectionPool.put(con);
-				con = null;
-			}
+			connectionPool.put(con);
 		}
 	}
 
