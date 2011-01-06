@@ -671,7 +671,10 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	public void assertLocator(final MediaPath feature, final String path, final MediaPath.Locator locator)
+	public void assertLocator(
+			final MediaPath feature,
+			final String path,
+			final MediaPath.Locator locator)
 	{
 		// locator methods must work without transaction
 		final Transaction tx = model.leaveTransaction();
