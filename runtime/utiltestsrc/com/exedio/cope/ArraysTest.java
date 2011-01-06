@@ -28,24 +28,24 @@ public class ArraysTest extends TestCase
 	{
 		try
 		{
-			str(null, 0);
+			Arrays.toString(null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
 		}
-		assertEquals("null", str(null, 1));
-		assertEquals("[]", str(new byte[]{}, 1));
-		assertEquals("[20]",         str(new byte[]{20}, 1));
-		assertEquals("[20, 21]",     str(new byte[]{20, 21}, 2));
-		assertEquals("[20, 21, 22]", str(new byte[]{20, 21, 22}, 3));
-		assertEquals("[20, 21, ... (3)]", str(new byte[]{20, 21, 22}, 2));
-		assertEquals("[20, ... (3)]", str(new byte[]{20, 21, 22}, 1));
+		assertIt("null", null, 1);
+		assertIt("[]", new byte[]{}, 1);
+		assertIt("[20]",         new byte[]{20}, 1);
+		assertIt("[20, 21]",     new byte[]{20, 21}, 2);
+		assertIt("[20, 21, 22]", new byte[]{20, 21, 22}, 3);
+		assertIt("[20, 21, ... (3)]", new byte[]{20, 21, 22}, 2);
+		assertIt("[20, ... (3)]", new byte[]{20, 21, 22}, 1);
 	}
 
-	private static final String str(final byte[] a, final int limit)
+	private static final void assertIt(final String expected, final byte[] a, final int limit)
 	{
-		return Arrays.toString(a, limit);
+		assertEquals(expected, Arrays.toString(a, limit));
 	}
 }
