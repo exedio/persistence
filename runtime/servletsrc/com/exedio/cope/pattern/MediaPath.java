@@ -126,6 +126,11 @@ public abstract class MediaPath extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
+	/**
+	 * Represents a resource to be delivered the media servlet.
+	 * Provides methods for retrieving different types of urls.
+	 * All methods of Locator do not require a connected model or a transaction to work.
+	 */
 	public final class Locator
 	{
 		private final Item item;
