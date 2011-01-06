@@ -110,10 +110,9 @@ final class PostgresqlDialect extends Dialect
 			final Item item, final OutputStream data, final DataField field)
 	throws SQLException
 	{
-		InputStream source = null;
+		final InputStream source = resultSet.getBinaryStream(columnIndex);
 		try
 		{
-			source = resultSet.getBinaryStream(columnIndex);
 			if(source!=null)
 				field.copy(source, data, item);
 		}

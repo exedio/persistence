@@ -181,15 +181,12 @@ public class MediaImageMagickFilter extends MediaFilter
 		response.setContentType(outputContentType);
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
-		FileInputStream body = null;
+		final FileInputStream body = new FileInputStream(outFile);
 		try
 		{
-			body = new FileInputStream(outFile);
-			ServletOutputStream out = null;
+			final ServletOutputStream out = response.getOutputStream();
 			try
 			{
-				out = response.getOutputStream();
-
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
 
@@ -203,8 +200,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		finally
 		{
-			if(body!=null)
-				body.close();
+			body.close();
 			delete(outFile);
 		}
 	}
@@ -231,18 +227,16 @@ public class MediaImageMagickFilter extends MediaFilter
 
 		final byte[] result = new byte[(int)contentLength];
 
-		FileInputStream body = null;
+		final FileInputStream body = new FileInputStream(outFile);
 		try
 		{
-			body = new FileInputStream(outFile);
 			final int readResult = body.read(result);
 			if(readResult!=contentLength)
 				throw new RuntimeException(String.valueOf(contentLength) + '/' + readResult);
 		}
 		finally
 		{
-			if(body!=null)
-				body.close();
+			body.close();
 			delete(outFile);
 		}
 		return result;

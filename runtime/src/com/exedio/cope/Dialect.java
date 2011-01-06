@@ -85,10 +85,9 @@ abstract class Dialect
 		final Blob blob = resultSet.getBlob(columnIndex);
 		if(blob!=null)
 		{
-			InputStream source = null;
+			final InputStream source = blob.getBinaryStream();
 			try
 			{
-				source = blob.getBinaryStream();
 				field.copy(source, data, blob.length(), item);
 			}
 			catch(final IOException e)
