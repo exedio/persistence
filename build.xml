@@ -465,6 +465,7 @@
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
 						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
