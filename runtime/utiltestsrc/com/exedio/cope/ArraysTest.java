@@ -42,8 +42,8 @@ public class ArraysTest extends TestCase
 		assertIt("[20, 21]",     new byte[]{20, 21}, 2);
 		assertIt("[20, 21]",     new byte[]{20, 21}, 3);
 		assertIt("[20, 21, 22]", new byte[]{20, 21, 22}, 3);
-		assertIt("[20, 21, ... (3)]", new byte[]{20, 21, 22}, 2);
-		assertIt("[20, ... (3)]", new byte[]{20, 21, 22}, 1);
+		assertIt("[20, 21 ... (3)]", new byte[]{20, 21, 22}, 2);
+		assertIt("[20 ... (3)]", new byte[]{20, 21, 22}, 1);
 	}
 
 	private static final void assertIt(final String expected, final byte[] a, final int limit)

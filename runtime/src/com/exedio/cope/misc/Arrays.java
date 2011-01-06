@@ -56,19 +56,30 @@ public final class Arrays
 	{
 		if(limit<=0)
 			throw new IllegalArgumentException("limit must be greater that zero, but was " + limit);
-		if(a==null||a.length<=limit)
-			return java.util.Arrays.toString(a);
+		if(a==null)
+			return "null";
+		if(a.length==0)
+			return "[]";
 
 		final StringBuilder bf = new StringBuilder();
-		bf.append('[');
-		for(int i = 0; i<limit; i++)
-		{
-			bf.append(a[i]);
-			bf.append(", ");
-		}
-		bf.append("... (").
-			append(a.length).
-			append(")]");
+
+		bf.append('[').
+			append(a[0]);
+
+		final boolean exceedLimit = a.length>limit;
+		final int actualLimit = exceedLimit ? limit : a.length;
+
+		for(int i = 1; i<actualLimit; i++)
+			bf.append(", ").
+				append(a[i]);
+
+		if(exceedLimit)
+			bf.append(" ... (").
+				append(a.length).
+				append(")]");
+		else
+			bf.append(']');
+
 		return bf.toString();
 	}
 
