@@ -150,6 +150,11 @@ public abstract class MediaPath extends Pattern
 			this.secret = secret;
 		}
 
+		public MediaPath getFeature()
+		{
+			return MediaPath.this;
+		}
+
 		public String getPath()
 		{
 			final StringBuilder bf = new StringBuilder();

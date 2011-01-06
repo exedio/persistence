@@ -191,6 +191,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 			assertEquals(mediaRootUrl + pathInfo, url);
 		}
 
-		assertLocator(pathInfo, path.getLocator(item));
+		assertLocator(path, pathInfo, path.getLocator(item));
 	}
 }
