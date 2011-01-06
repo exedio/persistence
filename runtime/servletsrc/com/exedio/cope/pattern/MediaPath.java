@@ -274,7 +274,22 @@ public abstract class MediaPath extends Pattern
 		if(!preventUrlGuessing)
 			return null;
 
-		return makeUrlToken(item.getCopeID()); // TODO use appendCopeID
+		final String sss = getNonGuessableUrlSecret();
+		if(sss==null)
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append(getID()).
+				append('-');
+			item.appendCopeID(bf);
+			return bf.toString();
+		}
+
+		final StringBuilder bf = new StringBuilder();
+		bf.append(getUrlPath());
+		item.appendCopeID(bf);
+		bf.append('-').
+			append(sss);
+		return makeUrlTokenDigest(bf.toString());
 	}
 
 	private final String makeUrlToken(final String itemID)
@@ -286,7 +301,11 @@ public abstract class MediaPath extends Pattern
 		if(sss==null)
 			return getID() + '-' + itemID;
 
-		final String plainText = getUrlPath() + itemID + '-' + sss;
+		return makeUrlTokenDigest(getUrlPath() + itemID + '-' + sss);
+	}
+
+	private final static String makeUrlTokenDigest(final String plainText)
+	{
 		try
 		{
 			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
