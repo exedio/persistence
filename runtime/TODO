@@ -81,3 +81,9 @@ performance / memory consumption
 - rethink internal structure of Entity, State, Row
 - special handling of searches by unique constraints, bypassing QueryCache
 - Media may set Expires header using a number of seconds, as the default alternative to the date currently used
+
+security
+--------
+
+- allow separate database account for revisions,
+	for minimizing privileges of the normal account.
