@@ -327,12 +327,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertWithin(before, after, new Date(item.getFileLastModified()));
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + path, item.getFileURL());
-		final MediaPath.Locator locator = item.getFileLocator();
-		assertEquals(path, locator.getPath());
-		assertEquals(path, locator.toString());
-		final StringBuilder bf = new StringBuilder();
-		locator.appendPath(bf);
-		assertEquals(path, bf.toString());
+		assertLocator(path, item.getFileLocator());
 	}
 
 	private final void assertDataFile(final byte[] expectedData) throws IOException

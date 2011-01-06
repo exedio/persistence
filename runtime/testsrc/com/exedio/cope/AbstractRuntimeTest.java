@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.pattern.MediaPath;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -667,6 +668,24 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		catch(final RuntimeException e)
 		{
 			assertEquals("no check for modification counter needed for " + type, e.getMessage());
+		}
+	}
+
+	public void assertLocator(final String path, final MediaPath.Locator locator)
+	{
+		// locator methods must work without transaction
+		final Transaction tx = model.leaveTransaction();
+		try
+		{
+			assertEquals(path, locator.getPath());
+			assertEquals(path, locator.toString());
+			final StringBuilder bf = new StringBuilder();
+			locator.appendPath(bf);
+			assertEquals(path, bf.toString());
+		}
+		finally
+		{
+			model.joinTransaction(tx);
 		}
 	}
 }

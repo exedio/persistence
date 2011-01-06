@@ -191,12 +191,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 			assertEquals(mediaRootUrl + pathInfo, url);
 		}
 
-		final MediaPath.Locator locator = path.getLocator(item);
-		assertEquals(pathInfo, locator.getPath());
-		assertEquals(pathInfo, locator.toString());
-
-		final StringBuilder bf = new StringBuilder();
-		locator.appendPath(bf);
-		assertEquals(pathInfo, bf.toString());
+		assertLocator(pathInfo, path.getLocator(item));
 	}
 }
