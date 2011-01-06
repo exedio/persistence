@@ -80,7 +80,6 @@ performance / memory consumption
 	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
 - rethink internal structure of Entity, State, Row
 - special handling of searches by unique constraints, bypassing QueryCache
-- Media may set Expires header using a number of seconds, as the default alternative to the date currently used
 
 security
 --------
