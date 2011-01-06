@@ -88,10 +88,9 @@ final class MediaNameServer extends MediaPath
 
 		System.out.println(request.getMethod()+' '+request.getProtocol()+" modified: "+contentLength);
 
-		ServletOutputStream out = null;
+		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			out = response.getOutputStream();
 			out.write(contentBytes);
 		}
 		finally

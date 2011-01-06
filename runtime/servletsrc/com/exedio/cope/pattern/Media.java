@@ -633,10 +633,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 		//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
 
-		ServletOutputStream out = null;
+		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			out = response.getOutputStream();
 			getBody(item, out);
 			return delivered;
 		}

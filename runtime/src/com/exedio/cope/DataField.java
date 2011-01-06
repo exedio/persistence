@@ -259,16 +259,14 @@ public final class DataField extends Field<DataField.Value>
 
 		if(!isNull(item))
 		{
-			FileOutputStream target = null;
+			final FileOutputStream target = new FileOutputStream(data);
 			try
 			{
-				target = new FileOutputStream(data);
 				get(item, target);
 			}
 			finally
 			{
-				if(target!=null)
-					target.close();
+				target.close();
 			}
 		}
 		// TODO maybe file should be deleted when field is null?
