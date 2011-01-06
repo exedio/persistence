@@ -35,7 +35,7 @@ import com.exedio.cope.util.CharSet;
 public abstract class Feature implements Serializable
 {
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	private static final class Mount
 	{
@@ -87,9 +87,9 @@ public abstract class Feature implements Serializable
 				throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 
-		if(this.mount!=null)
-			throw new IllegalStateException("feature already mounted: " + mount.id);
-		this.mount = new Mount(type, name, annotationSource);
+		if(this.mountIfMounted!=null)
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted.id);
+		this.mountIfMounted = new Mount(type, name, annotationSource);
 
 		type.registerMounted(this);
 
@@ -99,15 +99,15 @@ public abstract class Feature implements Serializable
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
-		if(mount==null)
+		final Mount result = this.mountIfMounted;
+		if(result==null)
 			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return result;
 	}
 
 	final boolean isMounted()
 	{
-		return mount!=null;
+		return mountIfMounted!=null;
 	}
 
 	public Type<? extends Item> getType()
@@ -167,7 +167,7 @@ public abstract class Feature implements Serializable
 	@Override
 	public final String toString()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount!=null)
 		{
 			return mount.id;
@@ -182,7 +182,7 @@ public abstract class Feature implements Serializable
 
 	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount!=null)
 			mount.toString(bf, defaultType);
 		else
@@ -229,7 +229,7 @@ public abstract class Feature implements Serializable
 	 */
 	protected final Object writeReplace() throws ObjectStreamException
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(getClass().getName());
 

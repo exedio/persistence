@@ -51,7 +51,7 @@ public final class Model implements Serializable
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
-	private Connect connect;
+	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
@@ -97,11 +97,11 @@ public final class Model implements Serializable
 
 		synchronized(connectLock)
 		{
-			if(this.connect!=null)
+			if(this.connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connect = new Connect(toString(), types, revisions, properties, changeListeners);
-			types.connect(connect.database);
+			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
+			types.connect(connectIfConnected.database);
 		}
 	}
 
@@ -109,11 +109,11 @@ public final class Model implements Serializable
 	{
 		synchronized(connectLock)
 		{
-			if(this.connect==null)
+			if(this.connectIfConnected==null)
 				throw new IllegalStateException("model not yet connected, use Model#connect");
 
-			final Connect connect = this.connect;
-			this.connect = null;
+			final Connect connect = this.connectIfConnected;
+			this.connectIfConnected = null;
 			types.disconnect();
 			connect.close();
 		}
@@ -121,10 +121,10 @@ public final class Model implements Serializable
 
 	Connect connect()
 	{
-		final Connect connect = this.connect;
-		if(connect==null)
+		final Connect result = this.connectIfConnected;
+		if(result==null)
 			throw new IllegalStateException("model not yet connected, use Model#connect");
-		return connect;
+		return result;
 	}
 
 	private final void assertRevisionEnabled()
@@ -143,10 +143,10 @@ public final class Model implements Serializable
 		if(revisions==null)
 			throw new NullPointerException();
 		assertRevisionEnabled();
-		if(connect!=null)
+		if(connectIfConnected!=null)
 			throw new IllegalStateException();
 		this.revisions = revisions;
-		if(connect!=null)
+		if(connectIfConnected!=null)
 			throw new IllegalStateException();
 	}
 
@@ -176,7 +176,7 @@ public final class Model implements Serializable
 
 	public boolean isConnected()
 	{
-		return this.connect!=null;
+		return this.connectIfConnected!=null;
 	}
 
 	public ConnectProperties getConnectProperties()
@@ -186,7 +186,7 @@ public final class Model implements Serializable
 
 	public Date getConnectDate()
 	{
-		final Connect connect = this.connect;
+		final Connect connect = this.connectIfConnected;
 		if(connect==null)
 			return null;
 		return new Date(connect.date);

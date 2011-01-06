@@ -29,7 +29,7 @@ public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private Mount mount;
+	private Mount mountIfMounted;
 
 	private static final class Mount
 	{
@@ -65,15 +65,15 @@ public final class JavaView extends Pattern
 	protected void onMount()
 	{
 		super.onMount();
-		this.mount = new Mount(getType(), getName());
+		this.mountIfMounted = new Mount(getType(), getName());
 	}
 
 	private Mount mount()
 	{
-		final Mount mount = this.mount;
-		if(mount==null)
+		final Mount result = this.mountIfMounted;
+		if(result==null)
 			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return result;
 	}
 
 	public Class getValueType()
