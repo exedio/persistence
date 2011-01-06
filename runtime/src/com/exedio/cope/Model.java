@@ -156,7 +156,7 @@ public final class Model implements Serializable
 
 		synchronized(reviseLock)
 		{
-			connect.revise(revisions);
+			connect().revise(revisions);
 		}
 	}
 
