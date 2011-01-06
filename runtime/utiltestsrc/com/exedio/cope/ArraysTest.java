@@ -35,6 +35,15 @@ public class ArraysTest extends TestCase
 		{
 			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
 		}
+		try
+		{
+			Arrays.append(null, null, 0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
+		}
 		assertIt("null", null, 1);
 		assertIt("[]", new byte[]{}, 1);
 		assertIt("[20]",         new byte[]{20}, 1);
@@ -49,5 +58,8 @@ public class ArraysTest extends TestCase
 	private static final void assertIt(final String expected, final byte[] a, final int limit)
 	{
 		assertEquals(expected, Arrays.toString(a, limit));
+		final StringBuilder bf = new StringBuilder();
+		Arrays.append(bf, a, limit);
+		assertEquals(expected, bf.toString());
 	}
 }

@@ -62,7 +62,32 @@ public final class Arrays
 			return "[]";
 
 		final StringBuilder bf = new StringBuilder();
+		append0(bf, a, limit);
+		return bf.toString();
+	}
 
+	/**
+	 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #toString(byte[], int) toString}(a, limit));</tt>
+	 */
+	public static void append(final StringBuilder bf, final byte[] a, final int limit)
+	{
+		if(limit<=0)
+			throw new IllegalArgumentException("limit must be greater that zero, but was " + limit);
+		if(a==null)
+		{
+			bf.append("null");
+			return;
+		}
+		if(a.length==0)
+		{
+			bf.append("[]");
+			return;
+		}
+		append0(bf, a, limit);
+	}
+
+	private static void append0(final StringBuilder bf, final byte[] a, final int limit)
+	{
 		bf.append('[').
 			append(a[0]);
 
@@ -79,8 +104,6 @@ public final class Arrays
 				append(")]");
 		else
 			bf.append(']');
-
-		return bf.toString();
 	}
 
 	private Arrays()

@@ -364,7 +364,7 @@ final class Statement
 		else if(o instanceof Date)
 			bf.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else if(o instanceof byte[])
-			bf.append(Arrays.toString((byte[])o, 30)); // TODO use append function
+			Arrays.append(bf, (byte[])o, 30);
 		else
 			bf.append(o.toString());
 	}
