@@ -148,14 +148,14 @@ public final class Revisions
 
 	Map<Integer, byte[]> getLogs(final ConnectProperties properties, final ConnectionPool connectionPool, final Executor executor)
 	{
-		final Connection con = connectionPool.get(true);
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return getLogs(properties, con, executor);
+			return getLogs(properties, connection, executor);
 		}
 		finally
 		{
-			connectionPool.put(con);
+			connectionPool.put(connection);
 		}
 	}
 
@@ -206,14 +206,14 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		final Connection con = connectionPool.get(true);
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, con, executor);
+			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connection, executor);
 		}
 		finally
 		{
-			connectionPool.put(con);
+			connectionPool.put(connection);
 		}
 	}
 
