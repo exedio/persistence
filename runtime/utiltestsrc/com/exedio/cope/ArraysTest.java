@@ -38,7 +38,9 @@ public class ArraysTest extends TestCase
 		assertIt("null", null, 1);
 		assertIt("[]", new byte[]{}, 1);
 		assertIt("[20]",         new byte[]{20}, 1);
+		assertIt("[20]",         new byte[]{20}, 2);
 		assertIt("[20, 21]",     new byte[]{20, 21}, 2);
+		assertIt("[20, 21]",     new byte[]{20, 21}, 3);
 		assertIt("[20, 21, 22]", new byte[]{20, 21, 22}, 3);
 		assertIt("[20, 21, ... (3)]", new byte[]{20, 21, 22}, 2);
 		assertIt("[20, ... (3)]", new byte[]{20, 21, 22}, 1);
