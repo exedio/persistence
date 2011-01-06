@@ -234,18 +234,18 @@ public final class Revisions
 			final Map<String, String> environment,
 			final boolean log)
 	{
-		final Connection con = connectionPool.get(true);
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			final int actualNumber = getActualNumber(properties, con, executor);
+			final int actualNumber = getActualNumber(properties, connection, executor);
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 			if(!revisionsToRun.isEmpty())
-				revise(properties, con, executor, environment, revisionsToRun, actualNumber, log);
+				revise(properties, connection, executor, environment, revisionsToRun, actualNumber, log);
 		}
 		finally
 		{
-			connectionPool.put(con);
+			connectionPool.put(connection);
 		}
 	}
 
