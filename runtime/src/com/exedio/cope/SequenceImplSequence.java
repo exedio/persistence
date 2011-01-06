@@ -45,31 +45,27 @@ final class SequenceImplSequence implements SequenceImpl
 
 	public int next()
 	{
-		Connection connection = null;
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			connection = connectionPool.get(true);
 			return executor.dialect.nextSequence(executor, connection, name);
 		}
 		finally
 		{
-			if(connection!=null)
-				connectionPool.put(connection);
+			connectionPool.put(connection);
 		}
 	}
 
 	public int getNext()
 	{
-		Connection connection = null;
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			connection = connectionPool.get(true);
 			return executor.dialect.getNextSequence(executor, connection, name);
 		}
 		finally
 		{
-			if(connection!=null)
-				connectionPool.put(connection);
+			connectionPool.put(connection);
 		}
 	}
 

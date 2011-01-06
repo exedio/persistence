@@ -86,16 +86,14 @@ final class SequenceImplMax implements SequenceImpl
 
 	private Integer current()
 	{
-		Connection connection = null;
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			connection = connectionPool.get(true);
 			return column.max(connection, column.table.database.executor);
 		}
 		finally
 		{
-			if(connection!=null)
-				connectionPool.put(connection);
+			connectionPool.put(connection);
 		}
 	}
 

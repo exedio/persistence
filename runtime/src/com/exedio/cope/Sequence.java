@@ -112,18 +112,16 @@ final class Sequence
 	int check(final ConnectionPool connectionPool)
 	{
 		final Integer maxO;
-		Connection connection = null;
+		final Connection connection = connectionPool.get(true);
 		try
 		{
-			connection = connectionPool.get(true);
 			maxO = column.max(connection, column.table.database.executor);
 			if(maxO==null)
 				return 0;
 		}
 		finally
 		{
-			if(connection!=null)
-				connectionPool.put(connection);
+			connectionPool.put(connection);
 		}
 
 		final int max = maxO.intValue();
