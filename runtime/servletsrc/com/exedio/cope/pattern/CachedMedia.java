@@ -106,10 +106,5 @@ public abstract class CachedMedia extends MediaPath
 
 	public abstract long getLastModified(Item item);
 
-	/**
-	 * This method does not get the request as a parameter,
-	 * because the response of a cached media must depend
-	 * on the item only.
-	 */
 	public abstract Media.Log doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException;
 }
