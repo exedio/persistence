@@ -68,7 +68,7 @@ public abstract class CachedMedia extends MediaPath
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
-		final long lastModified = (lastModifiedRaw / 1000l) * 1000l;
+		final long lastModified = roundLastModified(lastModifiedRaw);
 		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
@@ -93,6 +93,15 @@ public abstract class CachedMedia extends MediaPath
 		{
 			return doGetIfModified(request, response, item);
 		}
+	}
+
+	/**
+	 * Copied from {@link com.exedio.cops.Resource}.
+	 */
+	private static long roundLastModified(final long lastModified)
+	{
+		final long remainder = lastModified%1000;
+		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
 	public abstract long getLastModified(Item item);
