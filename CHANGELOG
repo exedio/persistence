@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add UniqueConstraint constructor for 6 FunctionFields
 * add UniqueConstraint constructor for 5 FunctionFields
 * add Item#appendCopeID
 * add MediaPath.Locator#getFeature()
