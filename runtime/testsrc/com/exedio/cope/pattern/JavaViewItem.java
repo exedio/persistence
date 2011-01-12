@@ -48,7 +48,7 @@ public class JavaViewItem extends Item
 		return "N" + getNumberString();
 	}
 
-/**
+	/**
 
 	 **
 	 * Creates a new JavaViewItem with all the fields initially needed.
