@@ -140,12 +140,12 @@ public final class IntegerField extends NumberField<Integer>
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, Integer.MAX_VALUE);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, Integer.MIN_VALUE, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public boolean isDefaultNext()

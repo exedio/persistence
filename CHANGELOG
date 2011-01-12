@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* changed semantics: [Integer|Double]Field#[min|max] does not forget the other limit anymore
+	This breaks backwards API compatibility.
 * add UniqueConstraint constructor for 6 FunctionFields
 * add UniqueConstraint constructor for 5 FunctionFields
 * add Item#appendCopeID

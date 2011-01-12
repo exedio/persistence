@@ -109,12 +109,12 @@ public final class DoubleField extends NumberField<Double>
 
 	public DoubleField min(final double minimum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, MAX);
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField max(final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, MIN, maximum);
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 
 	public double getMinimum()
