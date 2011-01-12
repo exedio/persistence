@@ -46,11 +46,11 @@ public final class JavaView extends Pattern
 			final Method getter;
 			try
 			{
-				getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null);
+				getter = javaClass.getDeclaredMethod("get" + nameUpper, (Class[])null);
 			}
 			catch(final NoSuchMethodException e)
 			{
-				throw new RuntimeException("no suitable getter method found for java view "+name, e);
+				throw new RuntimeException("no suitable getter method found for java view " + name, e);
 			}
 
 			this.getter = getter;
