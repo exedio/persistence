@@ -40,9 +40,7 @@ public final class JavaView extends Pattern
 		Mount(final Type<? extends Item> type, final String name)
 		{
 			final String nameUpper =
-				name.length()==1
-				? Character.toString(Character.toUpperCase(name.charAt(0)))
-				: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
+				Character.toUpperCase(name.charAt(0)) + name.substring(1);
 
 			final Class<?> javaClass = type.getJavaClass();
 			final Method getter;
