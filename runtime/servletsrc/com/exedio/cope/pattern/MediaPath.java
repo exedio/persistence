@@ -44,36 +44,50 @@ public abstract class MediaPath extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private String urlPath = null;
-	private boolean preventUrlGuessing = false;
+	private Mount mountIfMounted;
+
+	private static final class Mount
+	{
+		final String urlPath;
+		final boolean preventUrlGuessing;
+
+		Mount(final MediaPath feature)
+		{
+			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
+			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
+			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
+				throw new RuntimeException(
+						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+						" at " + feature.getID() +
+						" together with @" + RedirectFrom.class.getSimpleName());
+		}
+	}
+
 	private String mediaRootUrl = null;
 
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		final String name = getName();
+		this.mountIfMounted = new Mount(this);
+	}
 
-		urlPath = getType().getID() + '/' + name + '/';
-		preventUrlGuessing = isAnnotationPresent(PreventUrlGuessing.class);
-		if(preventUrlGuessing && isAnnotationPresent(RedirectFrom.class))
-			throw new RuntimeException(
-					"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
-					" at " + getID() +
-					" together with @" + RedirectFrom.class.getSimpleName());
+	private Mount mount()
+	{
+		final Mount result = this.mountIfMounted;
+		if(result==null)
+			throw new IllegalStateException("feature not mounted");
+		return result;
 	}
 
 	final String getUrlPath()
 	{
-		if(urlPath==null)
-			throw new RuntimeException("not yet mounted");
-
-		return urlPath;
+		return mount().urlPath;
 	}
 
 	public final boolean isUrlGuessingPrevented()
 	{
-		return preventUrlGuessing;
+		return mount().preventUrlGuessing;
 	}
 
 	private final String getMediaRootUrl()
@@ -271,7 +285,7 @@ public abstract class MediaPath extends Pattern
 
 	private final String makeUrlToken(final Item item)
 	{
-		if(!preventUrlGuessing)
+		if(!mount().preventUrlGuessing)
 			return null;
 
 		final String sss = getNonGuessableUrlSecret();
@@ -294,7 +308,7 @@ public abstract class MediaPath extends Pattern
 
 	private final String makeUrlToken(final String itemID)
 	{
-		if(!preventUrlGuessing)
+		if(!mount().preventUrlGuessing)
 			return null;
 
 		final String sss = getNonGuessableUrlSecret();
