@@ -27,6 +27,7 @@ public class JavaViewItem extends Item
 
 	static final JavaView number = new JavaView();
 	static final JavaView numberPrimitive = new JavaView();
+	static final JavaView n = new JavaView();
 
 	Double getNumber()
 	{
@@ -40,6 +41,11 @@ public class JavaViewItem extends Item
 		if(s==null)
 			throw new UnsupportedOperationException("numberPrimitive");
 		return Double.parseDouble(s);
+	}
+
+	String getN()
+	{
+		return "N" + getNumberString();
 	}
 
 /**

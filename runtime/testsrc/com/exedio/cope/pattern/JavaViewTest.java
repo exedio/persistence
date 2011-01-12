@@ -59,6 +59,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 				item.numberString,
 				item.number,
 				item.numberPrimitive,
+				item.n,
 			}), item.TYPE.getDeclaredFeatures());
 		assertEquals(item.TYPE.getDeclaredFeatures(), item.TYPE.getFeatures());
 
@@ -104,6 +105,8 @@ public class JavaViewTest extends AbstractRuntimeTest
 		assertEquals(d2, item.number.get(item));
 		assertEquals(2.25, item.getNumberPrimitive());
 		assertEquals(2.25, item.numberPrimitive.get(item));
+		assertEquals("N2.25", item.getN());
+		assertEquals("N2.25", item.n.get(item));
 
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
