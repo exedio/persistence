@@ -25,8 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
-
 public final class Wrapper
 {
 	private final String name;
@@ -313,7 +311,7 @@ public final class Wrapper
 
 	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
 	{
-		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
+		return sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
 	}
 
 	public static class ExtendsType implements java.lang.reflect.Type
