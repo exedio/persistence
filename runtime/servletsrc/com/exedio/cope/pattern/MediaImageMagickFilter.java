@@ -268,7 +268,6 @@ public class MediaImageMagickFilter extends MediaFilter
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
 			try
 			{
-
 				final int inLength = inStream.read(b);
 				if(inLength!=1578)
 					throw new RuntimeException(String.valueOf(inLength));
