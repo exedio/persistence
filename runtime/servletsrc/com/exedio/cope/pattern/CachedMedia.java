@@ -96,7 +96,7 @@ public abstract class CachedMedia extends MediaPath
 	}
 
 	/**
-	 * Copied from {@link com.exedio.cops.Resource}.
+	 * Copied from com.exedio.cops.Resource.
 	 */
 	private static long roundLastModified(final long lastModified)
 	{
