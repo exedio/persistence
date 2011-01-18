@@ -22,7 +22,9 @@ import static com.exedio.cope.util.SafeFile.delete;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -240,6 +242,85 @@ public class MediaImageMagickFilter extends MediaFilter
 			delete(outFile);
 		}
 		return result;
+	}
+
+	public void test() throws IOException
+	{
+		if(!isEnabled())
+			return;
+
+		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");
+		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
+
+		final String[] command = new String[options.length+4];
+		command[0] = getConvertBinary();
+		command[1] = "-quiet";
+		for(int i = 0; i<options.length; i++)
+			command[i+2] = options[i];
+		command[command.length-2] = inFile.getAbsolutePath();
+		command[command.length-1] = outFile.getAbsolutePath();
+		//System.out.println("-----------------"+Arrays.toString(command));
+
+		final ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+		final byte[] b = new byte[1580]; // size of the file
+		{
+			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
+			try
+			{
+
+				final int inLength = inStream.read(b);
+				if(inLength!=1578)
+					throw new RuntimeException(String.valueOf(inLength));
+			}
+			finally
+			{
+				inStream.close();
+			}
+		}
+		{
+			final FileOutputStream outStream = new FileOutputStream(inFile);
+			try
+			{
+				outStream.write(b);
+			}
+			finally
+			{
+				outStream.close();
+			}
+		}
+
+		final Process process = processBuilder.start();
+		try { process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
+
+		// IMPLEMENTATION NOTE
+		// Without the following three lines each run of this code will leave
+		// three open file descriptors in the system. Using utility "lsof"
+		// you will see the following:
+		//    java <pid> <user> 52w FIFO 0,8 0t0 141903 pipe
+		//    java <pid> <user> 53r FIFO 0,8 0t0 141904 pipe
+		//    java <pid> <user> 54w FIFO 0,8 0t0 142576 pipe
+		process.getInputStream ().close();
+		process.getOutputStream().close();
+		process.getErrorStream ().close();
+
+		final int exitValue = process.exitValue();
+		if(exitValue!=0)
+			throw new RuntimeException(
+					"process " + process +
+					" (command " + Arrays.asList(command) + ")" +
+					" exited with " + exitValue +
+					" for feature " + getID() +
+					", left " + inFile.getAbsolutePath() +
+					" and " + outFile.getAbsolutePath() +
+					( exitValue==4 ?
+						" (if running on Windows, make sure ImageMagick convert.exe and " +
+							"not \\Windows\\system32\\convert.exe is called)"
+						: ""
+					) );
+
+		delete(inFile);
+		delete(outFile);
 	}
 
 	private final File execute(final Item item) throws IOException
