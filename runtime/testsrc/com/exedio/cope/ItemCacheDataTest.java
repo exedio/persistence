@@ -279,6 +279,8 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 			assertEquals("transaction", expected, item.getModificationCountIfActive());
 			if(props.getItemCacheLimit()>0)
 				assertEquals("global", global, item.getModificationCountGlobal());
+			else
+				assertEquals("global", Integer.MIN_VALUE, item.getModificationCountGlobal());
 		}
 	}
 }
