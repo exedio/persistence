@@ -208,7 +208,7 @@ final class Connect
 
 	List<ThreadController> getThreadControllers()
 	{
-		final ArrayList<ThreadController> result = new ArrayList<ThreadController>();
+		final ArrayList<ThreadController> result = new ArrayList<ThreadController>(2);
 		changeListenerDispatcher.addThreadControllers(result);
 		if(clusterListener!=null)
 			clusterListener.addThreadControllers(result);
