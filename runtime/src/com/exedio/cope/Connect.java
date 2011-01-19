@@ -209,9 +209,9 @@ final class Connect
 	List<ThreadController> getThreadControllers()
 	{
 		final ArrayList<ThreadController> result = new ArrayList<ThreadController>();
+		changeListenerDispatcher.addThreadControllers(result);
 		if(clusterListener!=null)
 			clusterListener.addThreadControllers(result);
-		changeListenerDispatcher.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
 }
