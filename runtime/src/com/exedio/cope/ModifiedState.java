@@ -66,7 +66,7 @@ final class ModifiedState extends State
 			if(discard)
 				discard( transaction );
 		}
-		return new WrittenState(this, true);
+		return new WrittenState(this);
 	}
 
 	@Override

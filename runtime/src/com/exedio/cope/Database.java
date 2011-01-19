@@ -523,7 +523,7 @@ final class Database
 			if(modificationCountColumn!=null)
 			{
 				bf.append(',').
-					appendParameter(state.modificationCount);
+					appendParameter(state.modificationCount+1); // is initialized to -1
 			}
 
 			for(final Column column : columns)

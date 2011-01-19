@@ -26,7 +26,7 @@ final class CreatedState extends State
 
 	CreatedState(final Transaction transaction, final Item item)
 	{
-		super(item, 0);
+		super(item, -1); // on insert -1 becomes 0
 		transaction.addInvalidation(item);
 	}
 
@@ -64,7 +64,7 @@ final class CreatedState extends State
 			if(discard)
 				discard( transaction );
 		}
-		return new WrittenState(this, false);
+		return new WrittenState(this);
 	}
 
 	@Override

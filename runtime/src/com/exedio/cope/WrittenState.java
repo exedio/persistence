@@ -33,9 +33,9 @@ final class WrittenState extends State
 		lastUsageMillis = System.currentTimeMillis();
 	}
 
-	WrittenState(final State original, final boolean modificationCountIncrement)
+	WrittenState(final State original)
 	{
-		super(original.item, modificationCountIncrement ? (original.modificationCount+1) : original.modificationCount);
+		super(original.item, original.modificationCount+1);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();
