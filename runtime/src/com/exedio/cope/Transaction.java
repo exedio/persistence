@@ -47,6 +47,9 @@ public final class Transaction
 	private TIntHashSet[] invalidations = null;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
+	private Connection connection = null;
+	private ConnectionPool connectionPool = null;
+	private boolean closed = false;
 
 	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
 	{
@@ -96,10 +99,6 @@ public final class Transaction
 		}
 		boundThread = null;
 	}
-
-	private Connection connection = null;
-	private ConnectionPool connectionPool = null;
-	private boolean closed = false;
 
 	public boolean isClosed()
 	{
