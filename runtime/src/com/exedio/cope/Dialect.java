@@ -124,7 +124,7 @@ abstract class Dialect
 		return false;
 	}
 
-	boolean fakesSupportReadCommitted()
+	boolean fakesSupportTransactionIsolationReadCommitted()
 	{
 		return false;
 	}

@@ -50,7 +50,7 @@ final class Connect
 	final ClusterListenerMulticast clusterListener;
 	final ChangeListenerDispatcher changeListenerDispatcher;
 
-	final boolean supportsReadCommitted;
+	final boolean supportsTransactionIsolationReadCommitted;
 
 	boolean revised = false;
 
@@ -138,9 +138,9 @@ final class Connect
 			new ChangeListenerDispatcher(
 					types, name, changeListeners, properties);
 
-		this.supportsReadCommitted =
-			!dialect.fakesSupportReadCommitted() &&
-			dialectParameters.supportsTransactionIsolationLevel;
+		this.supportsTransactionIsolationReadCommitted =
+			!dialect.fakesSupportTransactionIsolationReadCommitted() &&
+			dialectParameters.supportsTransactionIsolationReadCommitted;
 	}
 
 	void close()

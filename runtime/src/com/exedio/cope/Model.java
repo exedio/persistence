@@ -615,7 +615,7 @@ public final class Model implements Serializable
 	 */
 	boolean supportsReadCommitted()
 	{
-		return connect().supportsReadCommitted;
+		return connect().supportsTransactionIsolationReadCommitted;
 	}
 
 	/**

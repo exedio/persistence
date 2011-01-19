@@ -33,7 +33,7 @@ final class DialectParameters
 	final ConnectProperties properties;
 
 	// probed on the initial connection
-	final boolean supportsTransactionIsolationLevel;
+	final boolean supportsTransactionIsolationReadCommitted;
 	final EnvironmentInfo environmentInfo;
 	final boolean nullsAreSortedLow;
 
@@ -44,7 +44,7 @@ final class DialectParameters
 		try
 		{
 			final DatabaseMetaData dmd = connection.getMetaData();
-			supportsTransactionIsolationLevel = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
+			supportsTransactionIsolationReadCommitted = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 			this.environmentInfo = new EnvironmentInfo(dmd);
 			if("HSQL Database Engine".equals(dmd.getDatabaseProductName()))
 			{

@@ -167,7 +167,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	boolean fakesSupportReadCommitted()
+	boolean fakesSupportTransactionIsolationReadCommitted()
 	{
 		return true;
 	}

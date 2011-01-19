@@ -315,7 +315,7 @@ public final class Transaction
 		if(invalidations!=null)
 		{
 			// notify global cache
-			if(!rollback || !connect.supportsReadCommitted /* please send any complaints to derschuldige@hsqldb.org */)
+			if(!rollback || !connect.supportsTransactionIsolationReadCommitted)
 			{
 				connect.invalidate(invalidations, true);
 			}
