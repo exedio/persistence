@@ -80,11 +80,7 @@ public final class ConnectToken
 			model.disconnect();
 
 		if(logger.isLoggable(Level.INFO))
-		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken {0}: {2} {1} ({3})");
-			logger.log(Level.INFO, bf.toString(), new Object[]{model, id, disconnect ? "disconnected" : "returned", name});
-		}
+			logger.log(Level.INFO, "ConnectToken {0}: {2} {1} ({3})", new Object[]{model, id, disconnect ? "disconnected" : "returned", name});
 	}
 
 	public Model getModel()
