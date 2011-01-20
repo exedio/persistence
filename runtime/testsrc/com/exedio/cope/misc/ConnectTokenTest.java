@@ -129,7 +129,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
-		log.assertInfo("ConnectToken " + model.toString() + ": issued 2 (token2Name) conditional");
+		log.assertInfo("ConnectToken " + model.toString() + ": issued conditionally 2 (token2Name)");
 
 		assertEquals(false, token0.returnIt());
 		assertTrue(model.isConnected());

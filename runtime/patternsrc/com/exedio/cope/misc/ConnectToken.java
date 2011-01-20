@@ -68,14 +68,12 @@ public final class ConnectToken
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken {0}: {2} {1} ({3})");
-			if(conditional)
-				bf.append(" conditional");
 			logger.log(
 					Level.INFO,
 					bf.toString(),
 					new Object[]{
 						model, id,
-						didConnect ? "connected" : "issued",
+						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
 						name});
 		}
 	}
