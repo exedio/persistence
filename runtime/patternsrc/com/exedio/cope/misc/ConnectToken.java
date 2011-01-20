@@ -70,7 +70,13 @@ public final class ConnectToken
 			bf.append("ConnectToken {0}: {2} {1} ({3})");
 			if(conditional)
 				bf.append(" conditional");
-			logger.log(Level.INFO, bf.toString(), new Object[]{model, id, didConnect ? "connected" : "issued", name});
+			logger.log(
+					Level.INFO,
+					bf.toString(),
+					new Object[]{
+						model, id,
+						didConnect ? "connected" : "issued",
+						name});
 		}
 	}
 
@@ -80,7 +86,13 @@ public final class ConnectToken
 			model.disconnect();
 
 		if(logger.isLoggable(Level.INFO))
-			logger.log(Level.INFO, "ConnectToken {0}: {2} {1} ({3})", new Object[]{model, id, disconnect ? "disconnected" : "returned", name});
+			logger.log(
+					Level.INFO,
+					"ConnectToken {0}: {2} {1} ({3})",
+					new Object[]{
+							model, id,
+							disconnect ? "disconnected" : "returned",
+							name});
 	}
 
 	public Model getModel()
