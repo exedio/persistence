@@ -504,9 +504,8 @@ public final class Model implements Serializable
 		}
 
 		final Connect connect = connect();
-		final long id;
+		final long id = nextTransactionId.getAndIncrement();
 		final long startDate = System.currentTimeMillis();
-		id = nextTransactionId.getAndIncrement();
 		lastTransactionStartDate = startDate;
 
 		final Transaction result =
