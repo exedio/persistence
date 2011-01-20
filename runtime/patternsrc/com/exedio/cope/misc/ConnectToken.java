@@ -67,9 +67,7 @@ public final class ConnectToken
 		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken ").
-				append(model.toString()).
-				append(": issued ").append(id);
+			bf.append("ConnectToken {0}: issued ").append(id);
 			if(name!=null)
 				bf.append(" (").
 					append(name).
@@ -78,7 +76,7 @@ public final class ConnectToken
 				bf.append(" conditional");
 			if(didConnect)
 				bf.append(" CONNECT");
-			logger.log(Level.INFO, bf.toString());
+			logger.log(Level.INFO, bf.toString(), model);
 		}
 	}
 
@@ -90,16 +88,14 @@ public final class ConnectToken
 		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken ").
-				append(model.toString()).
-				append(": returned ").append(id);
+			bf.append("ConnectToken {0}: returned ").append(id);
 			if(name!=null)
 				bf.append(" (").
 					append(name).
 					append(')');
 			if(disconnect)
 				bf.append(" DISCONNECT");
-			logger.log(Level.INFO, bf.toString());
+			logger.log(Level.INFO, bf.toString(), model);
 		}
 	}
 

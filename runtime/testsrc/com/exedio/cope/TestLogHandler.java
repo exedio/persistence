@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Handler;
@@ -46,7 +47,9 @@ public final class TestLogHandler extends Handler
 		assertTrue("empty", !records.isEmpty());
 		final LogRecord record = records.remove(0);
 		assertEquals(level, record.getLevel());
-		assertEquals(msg, record.getMessage());
+		final String m = record.getMessage();
+		final Object[] p = record.getParameters();
+		assertEquals(msg, p!=null ? MessageFormat.format(m, p) : m);
 	}
 
 	public void assertEmpty()
