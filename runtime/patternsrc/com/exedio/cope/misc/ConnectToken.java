@@ -67,14 +67,14 @@ public final class ConnectToken
 		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken {0}: {1} ").append(id);
+			bf.append("ConnectToken {0}: {2} {1}");
 			if(name!=null)
 				bf.append(" (").
 					append(name).
 					append(')');
 			if(conditional)
 				bf.append(" conditional");
-			logger.log(Level.INFO, bf.toString(), new Object[]{model, didConnect ? "connected" : "issued"});
+			logger.log(Level.INFO, bf.toString(), new Object[]{model, id, didConnect ? "connected" : "issued"});
 		}
 	}
 
@@ -86,12 +86,12 @@ public final class ConnectToken
 		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken {0}: {1} ").append(id);
+			bf.append("ConnectToken {0}: {2} {1}");
 			if(name!=null)
 				bf.append(" (").
 					append(name).
 					append(')');
-			logger.log(Level.INFO, bf.toString(), new Object[]{model, disconnect ? "disconnected" : "returned"});
+			logger.log(Level.INFO, bf.toString(), new Object[]{model, id, disconnect ? "disconnected" : "returned"});
 		}
 	}
 
