@@ -113,5 +113,4 @@ final class DeletedState extends State
 	{
 		return toString();
 	}
-
 }

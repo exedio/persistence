@@ -92,5 +92,4 @@ final class CreatedState extends State
 	{
 		return toString()+row.toString();
 	}
-
 }

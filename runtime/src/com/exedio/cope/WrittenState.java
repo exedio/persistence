@@ -22,7 +22,6 @@ import java.util.Map;
 
 final class WrittenState extends State
 {
-
 	private final Row row;
 	private long lastUsageMillis;
 
