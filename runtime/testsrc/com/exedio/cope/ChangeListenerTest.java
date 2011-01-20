@@ -269,6 +269,18 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 				fail("shortcut");
 		}
 		//System.out.println("-- " + (shortcut));
+
+		// Sleep even longer, because the dispatcher thread
+		// needs some more time after taking the event
+		// out of the queue.
+		try
+		{
+			sleepLongerThan(10);
+		}
+		catch (final InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void assertInfo(final int cleared, final int removed, final int failed)
