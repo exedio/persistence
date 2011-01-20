@@ -255,12 +255,12 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, null, false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0", token0.toString());
-		log.assertInfo("ConnectToken " + model.toString() + ": connected 0");
+		log.assertInfo("ConnectToken " + model.toString() + ": connected 0 (null)");
 
 		assertEquals(true, token0.returnIt());
 		assertNotConnected();
 		assertToken(0, before0, after0, null, false, true,  true, token0);
-		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0");
+		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0 (null)");
 	}
 
 	private void assertNotConnected()
