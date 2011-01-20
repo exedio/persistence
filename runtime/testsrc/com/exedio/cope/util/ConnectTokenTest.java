@@ -29,6 +29,20 @@ public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(false);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(true);
+		super.tearDown();
+	}
+
 	@Deprecated
 	public void testIt()
 	{

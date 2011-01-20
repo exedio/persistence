@@ -25,12 +25,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
 public final class ConnectToken
 {
+	public static final Logger logger = Logger.getLogger(ConnectToken.class.getName());
+
 	private final Manciple manciple;
 	private final Model model;
 	private final int id;
@@ -38,7 +42,6 @@ public final class ConnectToken
 	private final String name;
 	private final boolean conditional;
 	private final boolean didConnect;
-	private final boolean log;
 	private final AtomicBoolean returned = new AtomicBoolean(false);
 
 	ConnectToken(
@@ -60,9 +63,8 @@ public final class ConnectToken
 		this.name = name;
 		this.conditional = conditional;
 		this.didConnect = didConnect;
-		this.log = model.getConnectProperties().isLoggingEnabled();
 
-		if(log)
+		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").
@@ -76,7 +78,7 @@ public final class ConnectToken
 				bf.append(" conditional");
 			if(didConnect)
 				bf.append(" CONNECT");
-			System.out.println(bf.toString());
+			logger.log(Level.INFO, bf.toString());
 		}
 	}
 
@@ -85,7 +87,7 @@ public final class ConnectToken
 		if(disconnect)
 			model.disconnect();
 
-		if(log)
+		if(logger.isLoggable(Level.INFO))
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append("ConnectToken ").
@@ -97,7 +99,7 @@ public final class ConnectToken
 					append(')');
 			if(disconnect)
 				bf.append(" DISCONNECT");
-			System.out.println(bf.toString());
+			logger.log(Level.INFO, bf.toString());
 		}
 	}
 
