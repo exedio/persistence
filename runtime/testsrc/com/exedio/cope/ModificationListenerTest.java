@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 
 import com.exedio.cope.util.ModificationListener;
 
@@ -31,6 +32,26 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 	}
 
 	final MockListener l = new MockListener();
+
+	TestLogHandler log = null;
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		log = new TestLogHandler();
+		ModificationListeners.logger.addHandler(log);
+		ModificationListeners.logger.setUseParentHandlers(false);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		ModificationListeners.logger.removeHandler(log);
+		log = null;
+		ModificationListeners.logger.setUseParentHandlers(true);
+		super.tearDown();
+	}
 
 	public void testIt()
 	{
@@ -117,6 +138,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.commit();
 		l.assertIt(list(item3), t8);
 
+		log.assertEmpty();
 		final Transaction te = model.startTransaction("CommitListenerTestE");
 		item1.setText("item1Exception");
 		l.assertIt(null, null);
@@ -124,6 +146,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.commit();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
+		log.assertMessage(Level.SEVERE, "Suppressing exception from modification listener " + MockListener.class.getName());
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -155,6 +178,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		assertEquals(2, model.getModificationListenersCleared());
 
 		model.startTransaction("CommitListenerTestX");
+		log.assertEmpty();
 	}
 
 	private final class MockListener implements ModificationListener

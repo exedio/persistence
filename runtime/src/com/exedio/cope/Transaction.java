@@ -330,7 +330,7 @@ public final class Transaction
 			if(!rollback)
 			{
 				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
-				model.modificationListeners.invalidate(invalidations, this, connect.log);
+				model.modificationListeners.invalidate(invalidations, this);
 			}
 		}
 

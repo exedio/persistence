@@ -28,11 +28,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
+	static final Logger logger = Logger.getLogger(ModificationListeners.class.getName());
+
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
 	private int cleared = 0;
@@ -116,7 +120,7 @@ final class ModificationListeners
 		}
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction, final boolean log)
+	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
 	{
 		final List<ModificationListener> listeners = get();
 		if(listeners.isEmpty())
@@ -132,17 +136,13 @@ final class ModificationListeners
 			}
 			catch(final RuntimeException e)
 			{
-				if(log)
-					System.err.println(
-							"Suppressing exception from modification listener " + listener.getClass().getName() +
-							':' + e.getClass().getName() + ' ' + e.getMessage());
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 			catch(final AssertionError e)
 			{
-				if(log)
-					System.err.println(
-							"Suppressing assertion error from modification listener " + listener.getClass().getName() +
-							':' + e.getClass().getName() + ' ' + e.getMessage());
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 		}
 	}
