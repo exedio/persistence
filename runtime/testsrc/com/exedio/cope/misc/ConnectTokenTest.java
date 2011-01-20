@@ -80,7 +80,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(token0Name)", token0.toString());
-		log.assertInfo("ConnectToken " + model.toString() + ": issued 0 (token0Name) CONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": connected 0 (token0Name)");
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
@@ -156,7 +156,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, true,  token2);
-		log.assertInfo("ConnectToken " + model.toString() + ": returned 1 (token1Name) DISCONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 1 (token1Name)");
 
 		try
 		{
@@ -200,7 +200,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(token0Name)", token0.toString());
-		log.assertInfo("ConnectToken " + model.toString() + ": issued 0 (token0Name) CONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": connected 0 (token0Name)");
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
@@ -231,7 +231,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
-		log.assertInfo("ConnectToken " + model.toString() + ": returned 0 (token0Name) DISCONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0 (token0Name)");
 
 		assertEquals(false, token0.returnItConditionally());
 		assertNotConnected();
@@ -255,12 +255,12 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, null, false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0", token0.toString());
-		log.assertInfo("ConnectToken " + model.toString() + ": issued 0 CONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": connected 0");
 
 		assertEquals(true, token0.returnIt());
 		assertNotConnected();
 		assertToken(0, before0, after0, null, false, true,  true, token0);
-		log.assertInfo("ConnectToken " + model.toString() + ": returned 0 DISCONNECT");
+		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0");
 	}
 
 	private void assertNotConnected()
