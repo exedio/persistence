@@ -22,10 +22,17 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MessageDigestAlgorithmTest;
 
 public class PackageUtilTest extends TestCase
 {
+	static
+	{
+		ThreadSwarm.logger.setUseParentHandlers(false);
+		ConnectToken.logger.setUseParentHandlers(false);
+	}
+
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
