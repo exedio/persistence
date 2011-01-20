@@ -179,7 +179,7 @@ final class Connect
 			clusterSender.invalidate(invalidations);
 	}
 
-	public void createSchema()
+	void createSchema()
 	{
 		database.createSchema();
 		clearCache();
@@ -196,13 +196,13 @@ final class Connect
 		database.flushSequences();
 	}
 
-	public void dropSchema()
+	void dropSchema()
 	{
 		database.dropSchema();
 		clearCache();
 	}
 
-	public void tearDownSchema()
+	void tearDownSchema()
 	{
 		database.tearDownSchema();
 		clearCache();
