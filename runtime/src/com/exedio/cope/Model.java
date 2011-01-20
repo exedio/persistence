@@ -509,7 +509,8 @@ public final class Model implements Serializable
 		id = nextTransactionId.getAndIncrement();
 		lastTransactionStartDate = startDate;
 
-		final Transaction result = new Transaction(connect, types.concreteTypeCount, id, name, startDate);
+		final Transaction result =
+			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		setTransaction( result );
 		synchronized(openTransactions)
 		{

@@ -278,7 +278,10 @@ public final class Transaction
 	/**
 	 * calling this method directly breaks model.openTransactions
 	 */
-	void commitOrRollback(final boolean rollback, final Model model, final TransactionCounter transactionCounter)
+	void commitOrRollback(
+			final boolean rollback,
+			final Model model,
+			final TransactionCounter transactionCounter)
 	{
 		assert !closed : name;
 
