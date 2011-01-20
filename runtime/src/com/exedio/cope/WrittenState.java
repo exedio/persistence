@@ -56,7 +56,7 @@ final class WrittenState extends State
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
-			type.getModel().connect().database.store(transaction.getConnection(), this, true, false, blobs);
+			transaction.connect.database.store(transaction.getConnection(), this, true, false, blobs);
 		else
 			throw new RuntimeException(item.getCopeID());
 

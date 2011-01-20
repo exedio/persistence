@@ -56,7 +56,7 @@ final class CreatedState extends State
 		boolean discard = true;
 		try
 		{
-			type.getModel().connect().database.store(transaction.getConnection(), this, false, true, blobs);
+			transaction.connect.database.store(transaction.getConnection(), this, false, true, blobs);
 			discard = false;
 		}
 		finally

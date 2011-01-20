@@ -1153,8 +1153,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		if(!needsCheckModificationCounter())
 			throw new RuntimeException("no check for modification counter needed for " + this);
 
-		final Model model = getModel();
-		return checkModificationCounter(model.currentTransaction().getConnection(), model.connect().executor);
+		final Transaction tx = getModel().currentTransaction();
+		return checkModificationCounter(tx.getConnection(), tx.connect.executor);
 	}
 
 	private int checkModificationCounter(final Connection connection, final Executor executor)

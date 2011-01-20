@@ -316,9 +316,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			throw new RuntimeException("no check for type column needed for " + this);
 
 		final Type type = getType();
-		final Model model = type.getModel();
-		final Connection connection = model.currentTransaction().getConnection();
-		final Executor executor = model.connect().executor;
+		final Transaction tx = type.getModel().currentTransaction();
+		final Connection connection = tx.getConnection();
+		final Executor executor = tx.connect.executor;
 		final Table table = type.getTable();
 		final Table valueTable = getValueType().getTable();
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);

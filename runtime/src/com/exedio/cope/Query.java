@@ -793,7 +793,7 @@ public final class Query<R>
 	{
 		return search(
 				transaction.getConnection(),
-				model.connect().executor,
+				transaction.connect.executor,
 				totalOnly,
 				transaction.queryInfos);
 	}

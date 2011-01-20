@@ -70,7 +70,7 @@ final class ItemCache
 		}
 	}
 
-	WrittenState getState(final Transaction connectionSource, final Item item)
+	WrittenState getState(final Transaction tx, final Item item)
 	{
 		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
 
@@ -80,7 +80,7 @@ final class ItemCache
 
 		if ( state==null )
 		{
-			state = item.type.getModel().connect().database.load(connectionSource.getConnection(), item);
+			state = tx.connect.database.load(tx.getConnection(), item);
 
 			if(cachlet!=null)
 				cachlet.put(state);

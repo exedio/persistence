@@ -116,8 +116,8 @@ public final class This<E extends Item> extends Feature
 		if(!needsCheckTypeColumn())
 			throw new RuntimeException("no check for type column needed for " + this);
 
-		final Model model = type.getModel();
-		return type.checkTypeColumn(model.currentTransaction().getConnection(), model.connect().executor);
+		final Transaction tx = type.getModel().currentTransaction();
+		return type.checkTypeColumn(tx.getConnection(), tx.connect.executor);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

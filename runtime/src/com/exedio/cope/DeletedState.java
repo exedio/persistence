@@ -47,7 +47,7 @@ final class DeletedState extends State
 		assert blobs==null;
 		try
 		{
-			doDelete(transaction.getConnection(), type.getModel().connect().executor);
+			doDelete(transaction.getConnection(), transaction.connect.executor);
 		}
 		finally
 		{

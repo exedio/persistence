@@ -301,12 +301,14 @@ public final class Model implements Serializable
 	 */
 	public void checkSchema()
 	{
-		connect().database.checkSchema(currentTransaction().getConnection());
+		final Transaction tx = currentTransaction();
+		tx.connect.database.checkSchema(tx.getConnection());
 	}
 
 	public void checkEmptySchema()
 	{
-		connect().database.checkEmptySchema(currentTransaction().getConnection());
+		final Transaction tx = currentTransaction();
+		tx.connect.database.checkEmptySchema(tx.getConnection());
 	}
 
 	/**
@@ -644,8 +646,9 @@ public final class Model implements Serializable
 
 	public void clearCache()
 	{
-		connect().itemCache.clear();
-		connect().queryCache.clear();
+		final Connect connect = connect();
+		connect.itemCache.clear();
+		connect.queryCache.clear();
 	}
 
 	/**
