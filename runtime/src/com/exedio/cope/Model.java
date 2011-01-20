@@ -279,8 +279,7 @@ public final class Model implements Serializable
 
 	public void createSchema()
 	{
-		connect().database.createSchema();
-		clearCache();
+		connect().createSchema();
 	}
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -325,8 +324,7 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
-		connect().database.dropSchema();
-		clearCache();
+		connect().dropSchema();
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -336,8 +334,7 @@ public final class Model implements Serializable
 
 	public void tearDownSchema()
 	{
-		connect().database.tearDownSchema();
-		clearCache();
+		connect().tearDownSchema();
 	}
 
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -646,9 +643,7 @@ public final class Model implements Serializable
 
 	public void clearCache()
 	{
-		final Connect connect = connect();
-		connect.itemCache.clear();
-		connect.queryCache.clear();
+		connect().clearCache();
 	}
 
 	/**

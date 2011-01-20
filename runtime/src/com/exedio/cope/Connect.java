@@ -179,16 +179,39 @@ final class Connect
 			clusterSender.invalidate(invalidations);
 	}
 
+	public void createSchema()
+	{
+		database.createSchema();
+		clearCache();
+	}
+
 	void deleteSchema()
 	{
-		itemCache.clear();
-		queryCache.clear();
 		{
 			//final long start = System.currentTimeMillis();
 			dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
 			//System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
 		}
+		clearCache();
 		database.flushSequences();
+	}
+
+	public void dropSchema()
+	{
+		database.dropSchema();
+		clearCache();
+	}
+
+	public void tearDownSchema()
+	{
+		database.tearDownSchema();
+		clearCache();
+	}
+
+	void clearCache()
+	{
+		itemCache.clear();
+		queryCache.clear();
 	}
 
 	void revise(final Revisions revisions)
