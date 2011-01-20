@@ -20,9 +20,13 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class ThreadSwarm
 {
+	static final Logger logger = Logger.getLogger(ThreadSwarm.class.getName());
+
 	private final ThreadController[] threads;
 
 	ThreadSwarm(
@@ -44,7 +48,7 @@ final class ThreadSwarm
 		}
 	}
 
-	void start(final int number, final boolean log)
+	void start(final int number)
 	{
 		assert number<=threads.length;
 
@@ -55,8 +59,11 @@ final class ThreadSwarm
 				continue;
 
 			thread.start();
-			if(log)
-				System.out.println(thread.getName() + " (" + thread.getId() + ") started.");
+			if(logger.isLoggable(Level.INFO))
+				logger.log(
+						Level.INFO,
+						"{1} ({0}) started.",
+						new Object[]{thread.getId(), thread.getName()});
 		}
 	}
 
@@ -77,13 +84,13 @@ final class ThreadSwarm
 			thread.interrupt();
 	}
 
-	void join(final boolean log)
+	void join()
 	{
 		for(final ThreadController thread : threads)
 		{
 			try
 			{
-				thread.join(log);
+				thread.join();
 			}
 			catch(final InterruptedException e)
 			{

@@ -67,7 +67,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				properties.getListenThreadsMax()
 		);
 		properties.setListenPriority(threads);
-		threads.start(properties.getListenThreads(), log);
+		threads.start(properties.getListenThreads());
 	}
 
 	public void run()
@@ -172,6 +172,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	void joinClose()
 	{
-		threads.join(log);
+		threads.join();
 	}
 }

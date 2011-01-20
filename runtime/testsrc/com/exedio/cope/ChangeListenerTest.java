@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
@@ -31,6 +32,26 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	}
 
 	final MockListener l = new MockListener();
+
+	TestLogHandler log = null;
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		log = new TestLogHandler();
+		ChangeListeners.logger.addHandler(log);
+		ChangeListeners.logger.setUseParentHandlers(false);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		ChangeListeners.logger.removeHandler(log);
+		log = null;
+		ChangeListeners.logger.setUseParentHandlers(true);
+		super.tearDown();
+	}
 
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
@@ -125,6 +146,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item3), t8);
 
+		log.assertEmpty();
 		final Transaction te = model.startTransaction("CommitListenerTestE");
 		item1.setText("item1Exception");
 		l.assertIt(null, null);
@@ -133,6 +155,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
+		log.assertMessage(Level.SEVERE, "Suppressing exception from change listener " + MockListener.class.getName());
 
 		assertInfo(0, 0, 1);
 		model.removeChangeListener(l);
@@ -165,6 +188,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertInfo(2, 2, 1);
 
 		model.startTransaction("CommitListenerTestX");
+		log.assertEmpty();
 	}
 
 	private final class MockListener implements ChangeListener

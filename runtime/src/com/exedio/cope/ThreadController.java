@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 import java.lang.Thread.State;
+import java.util.logging.Level;
 
 public final class ThreadController
 {
@@ -132,14 +133,17 @@ public final class ThreadController
 			thread.interrupt();
 	}
 
-	void join(final boolean log) throws InterruptedException
+	void join() throws InterruptedException
 	{
 		final Thread thread = this.thread;
 		if(thread!=null)
 		{
 			thread.join();
-			if(log)
-				System.out.println(thread.getName() + " (" + thread.getId() + ") done.");
+			if(ThreadSwarm.logger.isLoggable(Level.INFO))
+				ThreadSwarm.logger.log(
+						Level.INFO,
+						"{1} ({0}) done.",
+						new Object[]{thread.getId(), thread.getName()});
 		}
 	}
 

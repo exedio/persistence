@@ -23,6 +23,7 @@ import gnu.trove.TIntHashSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
 
 import com.exedio.cope.util.Interrupter;
 
@@ -31,7 +32,6 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 	private final Types types;
 	private final ChangeListeners manager;
 	private final LimitedQueue<ChangeEvent> queue;
-	private final boolean log;
 
 	private final ThreadSwarm threads;
 	private boolean threadRun = true;
@@ -47,7 +47,6 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		this.types = types;
 		this.manager = manager;
 		this.queue = new LimitedQueue<ChangeEvent>(connectProperties.changeListenersQueueCapacity.intValue());
-		this.log = connectProperties.isLoggingEnabled();
 
 		this.threads = new ThreadSwarm(
 				this,
@@ -56,7 +55,7 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		);
 		if(connectProperties.changeListenersPrioritySet.booleanValue())
 			threads.setPriority(connectProperties.changeListenersPriority.intValue());
-		threads.start(connectProperties.changeListenersThreads.intValue(), log);
+		threads.start(connectProperties.changeListenersThreads.intValue());
 	}
 
 	ChangeListenerDispatcherInfo getInfo()
@@ -75,8 +74,8 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		if(!queue.offer(event))
 		{
 			overflow++;
-			if(log)
-				System.out.println("COPE Change Listener Dispatcher overflows");
+			if(ChangeListeners.logger.isLoggable(Level.SEVERE))
+				ChangeListeners.logger.log(Level.SEVERE, "COPE Change Listener Dispatcher overflows");
 		}
 	}
 
@@ -107,7 +106,7 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 					return;
 				}
 
-				manager.handle(event, this, log);
+				manager.handle(event, this);
 	      }
 			catch(final InterruptedException e)
 			{
@@ -137,10 +136,13 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 	private void logTerminate()
 	{
-		if(log)
+		if(ThreadSwarm.logger.isLoggable(Level.INFO))
 		{
 			final Thread t = Thread.currentThread();
-			System.out.println(t.getName() + " (" + t.getId() + ") terminates.");
+			ThreadSwarm.logger.log(
+					Level.INFO,
+					"{1} ({0}) terminates.",
+					new Object[]{t.getId(), t.getName()});
 		}
 	}
 
@@ -157,6 +159,6 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 	void joinClose()
 	{
-		threads.join(log);
+		threads.join();
 	}
 }

@@ -24,11 +24,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.util.Interrupter;
 
 final class ChangeListeners
 {
+	static final Logger logger = Logger.getLogger(ChangeListenerDispatcher.class.getName());
+
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
@@ -126,7 +130,7 @@ final class ChangeListeners
 		}
 	}
 
-	void handle(final ChangeEvent event, final Interrupter interrupter, final boolean log)
+	void handle(final ChangeEvent event, final Interrupter interrupter)
 	{
 		final List<ChangeListener> listeners = get();
 
@@ -142,18 +146,14 @@ final class ChangeListeners
 			catch(final Exception e)
 			{
 				failed++;
-				if(log)
-					System.err.println(
-							"Suppressing exception from change listener " + listener.getClass().getName() +
-							':' + e.getClass().getName() + ' ' + e.getMessage());
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
 			}
 			catch(final AssertionError e)
 			{
 				failed++;
-				if(log)
-					System.err.println(
-							"Suppressing assertion error from change listener " + listener.getClass().getName() +
-							':' + e.getClass().getName() + ' ' + e.getMessage());
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
 			}
 		}
 	}
