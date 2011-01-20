@@ -37,7 +37,6 @@ final class Connect
 {
 	final long date = System.currentTimeMillis();
 	final ConnectProperties properties;
-	final boolean log;
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
@@ -62,7 +61,6 @@ final class Connect
 			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
-		this.log = properties.isLoggingEnabled();
 
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
@@ -219,7 +217,7 @@ final class Connect
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment(), log);
+		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
 
 		revised = true;
 	}

@@ -59,6 +59,7 @@ public class ReviseTest extends CopeAssert
 
 	private String hostname;
 	private ConnectProperties props;
+	private TestLogHandler log = null;
 
 	@Override
 	protected void setUp() throws Exception
@@ -66,6 +67,18 @@ public class ReviseTest extends CopeAssert
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
 		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		log = new TestLogHandler();
+		Revisions.logger.addHandler(log);
+		Revisions.logger.setUseParentHandlers(false);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Revisions.logger.removeHandler(log);
+		log = null;
+		Revisions.logger.setUseParentHandlers(true);
+		super.tearDown();
 	}
 
 	String jdbcUrl;
@@ -148,6 +161,7 @@ public class ReviseTest extends CopeAssert
 		setRevisions(revisions7);
 		assertSame(revisions7, model7.getRevisions());
 
+		log.assertEmpty();
 		final Date reviseBefore = new Date();
 		model7.reviseIfSupported();
 		final Date reviseAfter = new Date();
@@ -160,6 +174,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
+		log.assertInfo("revise 6/0:" + body60);
 
 		// test, that revision is not executed again,
 		// causing a SQLException because column does already exist
@@ -172,6 +187,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
+		log.assertInfo("revise 6/1:" + body61);
 
 		// test, that revision is not executed again,
 		// even after reconnect
@@ -186,6 +202,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
+		log.assertInfo("revise 7/0:" + body70);
 
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
@@ -209,6 +226,7 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
+		log.assertInfo("revise 8/0:nonsense statement causing a test failure");
 
 		try
 		{
@@ -226,8 +244,10 @@ public class ReviseTest extends CopeAssert
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
 		}
+		log.assertEmpty();
 
 		model7.tearDownSchema();
+		log.assertEmpty();
 	}
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)

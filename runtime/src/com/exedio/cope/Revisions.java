@@ -30,6 +30,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
@@ -40,6 +42,8 @@ import com.exedio.dsmf.UniqueConstraint;
 
 public final class Revisions
 {
+	static final Logger logger = Logger.getLogger(Revisions.class.getName());
+
 	private final int number;
 	private final Revision[] revisions;
 
@@ -221,8 +225,7 @@ public final class Revisions
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Map<String, String> environment,
-			final boolean log)
+			final Map<String, String> environment)
 	{
 		final Connection connection = connectionPool.get(true);
 		try
@@ -231,7 +234,7 @@ public final class Revisions
 			final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 			if(!revisionsToRun.isEmpty())
-				revise(properties, connection, executor, environment, revisionsToRun, actualNumber, log);
+				revise(properties, connection, executor, environment, revisionsToRun, actualNumber);
 		}
 		finally
 		{
@@ -245,8 +248,7 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment,
 			final List<Revision> revisionsToRun,
-			final int actualNumber,
-			final boolean log)
+			final int actualNumber)
 	{
 		final Date date = new Date();
 		try
@@ -268,17 +270,15 @@ public final class Revisions
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 			{
 				final String sql = body[bodyIndex];
-				if(log)
-					System.out.println("COPE revising " + number + ':' + sql);
+				if(logger.isLoggable(Level.INFO))
+					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
 				final Statement bf = executor.newStatement();
 				bf.append(sql);
 				final long start = nanoTime();
 				final int rows = executor.update(con, bf);
 				final long elapsed = (nanoTime() - start) / 1000000;
-				if(elapsed>1000)
-					System.out.println(
-							"Warning: slow cope revision " + number +
-							" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
+				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
+					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
