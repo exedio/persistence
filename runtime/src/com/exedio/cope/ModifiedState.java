@@ -20,10 +20,8 @@ package com.exedio.cope;
 
 import java.util.Map;
 
-
 final class ModifiedState extends State
 {
-
 	private Row row;
 
 	ModifiedState( final Transaction transaction, final State original )
@@ -94,5 +92,4 @@ final class ModifiedState extends State
 	{
 		return toString()+row.toString();
 	}
-
 }
