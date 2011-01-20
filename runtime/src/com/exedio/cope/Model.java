@@ -503,12 +503,13 @@ public final class Model implements Serializable
 					" bound to current thread");
 		}
 
+		final Connect connect = connect();
 		final long id;
 		final long startDate = System.currentTimeMillis();
 		id = nextTransactionId.getAndIncrement();
 		lastTransactionStartDate = startDate;
 
-		final Transaction result = new Transaction(this, types.concreteTypeCount, id, name, startDate);
+		final Transaction result = new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		setTransaction( result );
 		synchronized(openTransactions)
 		{
@@ -607,7 +608,7 @@ public final class Model implements Serializable
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		tx.commitOrRollback(rollback, transactionCounter);
+		tx.commitOrRollback(rollback, this, transactionCounter);
 	}
 
 	/**

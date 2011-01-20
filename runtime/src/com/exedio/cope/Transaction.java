@@ -32,7 +32,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {
-	final Model model;
 	final Connect connect;
 	final long id;
 	final String name;
@@ -52,14 +51,13 @@ public final class Transaction
 	private boolean closed = false;
 
 	Transaction(
-			final Model model,
+			final Connect connect,
 			final int concreteTypeCount,
 			final long id,
 			final String name,
 			final long startDate)
 	{
-		this.model = model;
-		this.connect = model.connect();
+		this.connect = connect;
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
@@ -280,7 +278,7 @@ public final class Transaction
 	/**
 	 * calling this method directly breaks model.openTransactions
 	 */
-	void commitOrRollback(final boolean rollback, final TransactionCounter transactionCounter)
+	void commitOrRollback(final boolean rollback, final Model model, final TransactionCounter transactionCounter)
 	{
 		assert !closed : name;
 
