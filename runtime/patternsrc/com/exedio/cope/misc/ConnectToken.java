@@ -65,17 +65,13 @@ public final class ConnectToken
 		this.didConnect = didConnect;
 
 		if(logger.isLoggable(Level.INFO))
-		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append("ConnectToken {0}: {2} {1} ({3})");
 			logger.log(
 					Level.INFO,
-					bf.toString(),
+					"ConnectToken {0}: {2} {1} ({3})",
 					new Object[]{
 						model, id,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
 						name});
-		}
 	}
 
 	void onReturn(final boolean disconnect)
