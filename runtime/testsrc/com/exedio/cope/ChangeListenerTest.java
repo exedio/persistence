@@ -32,7 +32,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	public void testIt() throws ChangeEvent.NotAvailableException, InterruptedException
+	public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -69,7 +69,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.currentTransaction();
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item1), firstTransaction);
 		l.assertIt(null, null);
 
@@ -77,21 +77,21 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEquals("item1", item1.getText());
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();;
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
 		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();;
 		l.assertIt(list(item2), t3);
 
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");
 		item1.setText("item1x");
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item1), t4);
 
 		final Transaction t5 = model.startTransaction("CommitListenerTest5");
@@ -99,7 +99,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		item2.setText("item2y");
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item1, item2), t5);
 
 		model.startTransaction("CommitListenerTest6");
@@ -107,7 +107,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		item2.setText("item2R");
 		l.assertIt(null, null);
 		model.rollback();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(null, null);
 
 		final Transaction t7 = model.startTransaction("CommitListenerTest7");
@@ -115,14 +115,14 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		item1.setText("item1z");
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item1, item3), t7);
 
 		final Transaction t8 = model.startTransaction("CommitListenerTest8");
 		item3.deleteCopeItem();
 		l.assertIt(null, null);
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item3), t8);
 
 		final Transaction te = model.startTransaction("CommitListenerTestE");
@@ -130,7 +130,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		l.assertIt(null, null);
 		l.exception = true;
 		model.commit();
-		sleepLongerThan(20);
+		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
 
@@ -250,6 +250,25 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		{
 			throw new RuntimeException();
 		}
+	}
+
+	private void waitWhilePending()
+	{
+		int shortcut = 50;
+		while(model.getChangeListenerDispatcherInfo().getPending()>0)
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (final InterruptedException e)
+			{
+				throw new RuntimeException(e);
+			}
+			if((shortcut--)<0)
+				fail("shortcut");
+		}
+		//System.out.println("-- " + (shortcut));
 	}
 
 	private void assertInfo(final int cleared, final int removed, final int failed)
