@@ -28,9 +28,6 @@ import java.util.Locale;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	@Deprecated
-	private final BooleanField log = new BooleanField("log", true);
-
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
@@ -193,15 +190,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	/**
-	 * @deprecated Replaced by java.util.logging.
-	 */
-	@Deprecated
-	public boolean isLoggingEnabled()
-	{
-		return log.booleanValue();
-	}
-
 	Dialect createDialect(final DialectParameters parameters)
 	{
 		try
@@ -325,6 +313,18 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	private final BooleanField log = new BooleanField("log", true);
+
+	/**
+	 * @deprecated Replaced by java.util.logging.
+	 */
+	@Deprecated
+	public boolean isLoggingEnabled()
+	{
+		return log.booleanValue();
+	}
 
 	/**
 	 * @deprecated Has been renamed to {@link #getDialect()}.
