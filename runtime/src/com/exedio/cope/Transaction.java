@@ -51,7 +51,12 @@ public final class Transaction
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
 
-	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
+	Transaction(
+			final Model model,
+			final int concreteTypeCount,
+			final long id,
+			final String name,
+			final long startDate)
 	{
 		this.model = model;
 		this.connect = model.connect();
