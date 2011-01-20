@@ -87,6 +87,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		ConnectToken.logger.setUseParentHandlers(false);
 		c = model.getConnectProperties().getItemCacheLimit()>0;
 		connectToken = sampler.connect();
 	}
@@ -96,6 +97,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	{
 		samplerModel().dropSchema();
 		connectToken.returnIt();
+		ConnectToken.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
 }
