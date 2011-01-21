@@ -74,5 +74,7 @@ public class TracedItemsTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(Arrays.asList(expected), model.getTracedItems());
 		assertEquals(Arrays.asList(expected).contains(item1), model.tracedItems.matches(item1));
 		assertEquals(Arrays.asList(expected).contains(item2), model.tracedItems.matches(item2));
+		assertEquals(Arrays.asList(expected).contains(itemb1), model.tracedItems.matches(itemb1));
+		assertEquals(Arrays.asList(expected).contains(itemb2), model.tracedItems.matches(itemb2));
 	}
 }
