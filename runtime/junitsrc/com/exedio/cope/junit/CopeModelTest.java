@@ -79,6 +79,7 @@ public abstract class CopeModelTest extends CopeAssert
 			model.removeChangeListener(cl);
 		for(final ModificationListener ml : model.getModificationListeners())
 			model.removeModificationListener(ml);
+		model.clearTracedItems();
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
 	}

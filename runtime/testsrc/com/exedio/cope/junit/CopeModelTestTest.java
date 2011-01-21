@@ -117,6 +117,14 @@ public class CopeModelTestTest extends CopeModelTest
 		});
 	}
 
+	public void testTracedItem()
+	{
+		assertBlank();
+
+		final JUnitTestItem i1 = new JUnitTestItem(100);
+		model.addTracedItem(i1);
+	}
+
 	public void testLast()
 	{
 		assertBlank();
@@ -130,5 +138,6 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals(null, model.getDatabaseListener());
 		assertEquals(list(), model.getChangeListeners());
 		assertEquals(list(), model.getModificationListeners());
+		assertEquals(list(), model.getTracedItems());
 	}
 }
