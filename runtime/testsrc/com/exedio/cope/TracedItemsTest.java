@@ -24,17 +24,20 @@ public class TracedItemsTest extends AbstractRuntimeTest
 {
 	public TracedItemsTest()
 	{
-		super(MatchTest.MODEL);
+		super(InstanceOfTest.MODEL);
 	}
 
-	MatchItem item1, item2;
+	InstanceOfAItem item1, item2;
+	InstanceOfB1Item itemb1, itemb2;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new MatchItem());
-		item2 = deleteOnTearDown(new MatchItem());
+		item1 = deleteOnTearDown(new InstanceOfAItem("itema1"));
+		item2 = deleteOnTearDown(new InstanceOfAItem("itema2"));
+		itemb1 = deleteOnTearDown(new InstanceOfB1Item("itemb1"));
+		itemb2 = deleteOnTearDown(new InstanceOfB1Item("itemb2"));
 	}
 
 	public void testIt()
@@ -49,6 +52,18 @@ public class TracedItemsTest extends AbstractRuntimeTest
 
 		model.removeTracedItem(item1);
 		assertTraced(item2);
+
+		model.clearTracedItems();
+		assertTraced();
+
+		model.addTracedItem(itemb1);
+		assertTraced(itemb1);
+
+		model.addTracedItem(itemb2);
+		assertTraced(itemb1, itemb2);
+
+		model.addTracedItem(item2);
+		assertTraced(itemb1, itemb2, item2);
 
 		model.clearTracedItems();
 		assertTraced();
