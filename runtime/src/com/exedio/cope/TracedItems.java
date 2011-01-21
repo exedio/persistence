@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +32,14 @@ final class TracedItems
 
 	private volatile boolean virgin = true;
 	private final ArrayList<Item> list = new ArrayList<Item>();
+	private final TIntHashSet[] array;
+
+	TracedItems(final int concreteTypeCount)
+	{
+		this.array = new TIntHashSet[concreteTypeCount];
+		for(int i = 0; i<concreteTypeCount; i++)
+			array[i] = new TIntHashSet();
+	}
 
 	List<Item> get()
 	{
@@ -52,6 +62,14 @@ final class TracedItems
 		synchronized(list)
 		{
 			virgin = false;
+
+			final TIntHashSet pks = array[item.type.cacheIdTransiently];
+			final int pk = item.pk;
+			synchronized(pks)
+			{
+				pks.add(pk);
+			}
+
 			list.add(item);
 		}
 	}
@@ -65,6 +83,13 @@ final class TracedItems
 
 		synchronized(list)
 		{
+			final TIntHashSet pks = array[item.type.cacheIdTransiently];
+			final int pk = item.pk;
+			synchronized(pks)
+			{
+				pks.remove(pk);
+			}
+
 			return list.remove(item);
 		}
 	}
@@ -76,9 +101,31 @@ final class TracedItems
 
 		synchronized(list)
 		{
+			for(int i = 0; i<array.length; i++)
+			{
+				final TIntHashSet pks = array[i];
+				synchronized(pks)
+				{
+					pks.clear();
+				}
+			}
+
 			list.clear();
 		}
 
 		virgin = true;
+	}
+
+	boolean matches(final Item item)
+	{
+		if(virgin)
+			return false;
+
+		final TIntHashSet pks = array[item.type.cacheIdTransiently];
+		final int pk = item.pk;
+		synchronized(pks)
+		{
+			return pks.contains(pk);
+		}
 	}
 }

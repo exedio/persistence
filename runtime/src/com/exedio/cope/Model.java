@@ -74,7 +74,7 @@ public final class Model implements Serializable
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
-		this.tracedItems = new TracedItems();
+		this.tracedItems = new TracedItems(this.types.concreteTypeCount);
 	}
 
 	public boolean containsTypeSet(final Type... typeSet)
