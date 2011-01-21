@@ -31,7 +31,7 @@ import com.exedio.cope.util.Interrupter;
 
 final class ChangeListeners
 {
-	static final Logger logger = Logger.getLogger(ChangeListenerDispatcher.class.getName());
+	static final Logger logger = Logger.getLogger(ChangeListeners.class.getName());
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
