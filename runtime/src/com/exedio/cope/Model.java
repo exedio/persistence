@@ -49,7 +49,6 @@ public final class Model implements Serializable
 	private final long initializeDate;
 	final ChangeListeners changeListeners;
 	final ModificationListeners modificationListeners;
-	final TracedItems tracedItems;
 
 	private final Object connectLock = new Object();
 	private Connect connectIfConnected;
@@ -74,7 +73,6 @@ public final class Model implements Serializable
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
-		this.tracedItems = new TracedItems(this.types.concreteTypeCount);
 	}
 
 	public boolean containsTypeSet(final Type... typeSet)
@@ -415,29 +413,6 @@ public final class Model implements Serializable
 	{
 		modificationListeners.remove(listener);
 	}
-
-	// traced items
-
-	public List<Item> getTracedItems()
-	{
-		return tracedItems.get();
-	}
-
-	public void addTracedItem(final Item item)
-	{
-		tracedItems.add(item);
-	}
-
-	public boolean removeTracedItem(final Item item)
-	{
-		return tracedItems.remove(item);
-	}
-
-	public void clearTracedItems()
-	{
-		tracedItems.clear();
-	}
-
 
 	public List<SequenceInfo> getSequenceInfo()
 	{
