@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
+
 public class TracedItemsTest extends AbstractRuntimeTest
 {
 	public TracedItemsTest()
@@ -37,18 +39,23 @@ public class TracedItemsTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertEqualsUnmodifiable(list(), model.getTracedItems());
+		assertTraced();
 
 		model.addTracedItem(item1);
-		assertEqualsUnmodifiable(list(item1), model.getTracedItems());
+		assertTraced(item1);
 
 		model.addTracedItem(item2);
-		assertEqualsUnmodifiable(list(item1, item2), model.getTracedItems());
+		assertTraced(item1, item2);
 
 		model.removeTracedItem(item1);
-		assertEqualsUnmodifiable(list(item2), model.getTracedItems());
+		assertTraced(item2);
 
 		model.clearTracedItems();
-		assertEqualsUnmodifiable(list(), model.getTracedItems());
+		assertTraced();
+	}
+
+	private void assertTraced(final Item... expected)
+	{
+		assertEqualsUnmodifiable(Arrays.asList(expected), model.getTracedItems());
 	}
 }
