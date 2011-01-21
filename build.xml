@@ -298,7 +298,7 @@
 	
 	<target name="runtime.jar.src">
 		<mkdir dir="build" />
-		<zip destfile="build/exedio-cope.jar-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
+		<zip destfile="build/exedio-cope-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
 			<zipfileset dir="${basedir}/dsmf/src"          ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/patternsrc"><include name="**/*.java"/></zipfileset>
@@ -979,19 +979,16 @@
 	<target name="hudson" depends="all">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
-			<fileset file="${basedir}/build/exedio-cope.jar-src.zip" />
+			<fileset file="${basedir}/build/exedio-cope-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
+			<fileset file="${basedir}/exedio-cope-log.txt" />
 		</copy>
 		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 			</filterset>
 		</copy>
-		<copy tofile="${basedir}/build/success/exedio-cope-src.zip"
-				file="${basedir}/build/exedio-cope.jar-src.zip" />
-		<copy tofile="${basedir}/build/success/exedio-cope-log.txt"
-				file="CHANGELOG" />
 	</target>
 
 </project>
