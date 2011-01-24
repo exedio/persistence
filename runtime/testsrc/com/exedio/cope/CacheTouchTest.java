@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
+import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
 
 public class CacheTouchTest extends AbstractRuntimeTest
 {
@@ -57,7 +58,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 		model.startTransaction("CacheTouchTest failer");
 
-		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+		if(isConcurrentModificationDetectionEnabled(model))
 		{
 			try
 			{

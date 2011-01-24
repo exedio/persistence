@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
 import static com.exedio.cope.util.SafeFile.delete;
 
 import java.io.File;
@@ -648,7 +649,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		for(final Type type : model.getTypes())
 		{
-			if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+			if(isConcurrentModificationDetectionEnabled(model))
 			{
 				if(type.needsCheckModificationCounter())
 					assertEquals(0, type.checkModificationCounter());

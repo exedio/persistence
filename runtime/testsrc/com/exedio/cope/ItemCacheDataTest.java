@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
+import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
 import com.exedio.cope.util.Hex;
@@ -274,7 +275,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 	private void assertModificationCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		if(props.itemCacheConcurrentModificationDetection.booleanValue())
+		if(isConcurrentModificationDetectionEnabled(model))
 		{
 			assertEquals("transaction", expected, item.getModificationCountIfActive());
 			if(props.getItemCacheLimit()>0)
