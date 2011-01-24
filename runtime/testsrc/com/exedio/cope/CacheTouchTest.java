@@ -57,16 +57,23 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 		model.startTransaction("CacheTouchTest failer");
 
-		try
+		if(model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
 		{
-			// TODO
-			// The exception is a bug that needs to be fixed.
-			item.setName("itemName3");
-			fail();
+			try
+			{
+				// TODO
+				// The exception is a bug that needs to be fixed.
+				item.setName("itemName3");
+				fail();
+			}
+			catch(final TemporaryTransactionException e)
+			{
+				// ok
+			}
 		}
-		catch(final TemporaryTransactionException e)
+		else
 		{
-			// ok
+			item.setName("itemName3");
 		}
 	}
 }
