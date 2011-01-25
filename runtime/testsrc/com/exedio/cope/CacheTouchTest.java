@@ -91,11 +91,15 @@ public class CacheTouchTest extends AbstractRuntimeTest
 				// ok
 			}
 			assertModificationCount(MIN_VALUE, MIN_VALUE);
+
+			assertEquals("itemName2", item.getName());
 		}
 		else
 		{
 			item.setName("itemName3");
 			assertModificationCount(MIN_VALUE, 0);
+
+			assertEquals("itemName3", item.getName());
 		}
 	}
 
