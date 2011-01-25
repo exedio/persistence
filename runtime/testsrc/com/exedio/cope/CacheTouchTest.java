@@ -75,6 +75,8 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 1, 2, 1);
 
+	if(!model.getConnectProperties().connectionTransactionIsolationReadCommitted.booleanValue())
+	{
 		assertEquals("itemName", item.getName());
 		assertModificationCount(0, 0);
 		assertCache(1, 0, 2, 2, 1);
@@ -112,6 +114,28 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 			assertEquals("itemName3", item.getName());
 		}
+	}
+	else
+	{
+		assertEquals("itemName2", item.getName());
+		assertModificationCount(1, 1);
+		assertCache(1, 0, 2, 2, 1);
+
+		model.commit();
+
+		// failure
+		model.startTransaction("CacheTouchTest failer");
+		assertModificationCount(MIN_VALUE, 1);
+		assertCache(1, 0, 2, 2, 1);
+
+		// the following fails, if transaction does run in
+		// repeatable-read isolation.
+		item.setName("itemName3");
+		assertModificationCount(2, 1);
+		assertCache(1, 1, 2, 2, 1);
+
+		assertEquals("itemName3", item.getName());
+	}
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests

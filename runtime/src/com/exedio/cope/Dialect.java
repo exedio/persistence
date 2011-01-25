@@ -60,15 +60,6 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	/**
-	 * @param connection used in subclasses
-	 * @throws SQLException may be throws by subclasses
-	 */
-	protected void completeConnection(final Connection connection) throws SQLException
-	{
-		// default implementation does nothing, may be overwritten by subclasses
-	}
-
 	protected static final String EXPLAIN_PLAN = "explain plan";
 
 	/**

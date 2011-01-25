@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* all jdbc connections are treated with
+	setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ)
+	Use cope property connection.transactionIsolation.readCommitted=false
+	to disable.
 * add MediaImageMagickFilter#test()
 * changed semantics: [Integer|Double]Field#[min|max] does not forget the other limit anymore
 	This breaks backwards API compatibility.

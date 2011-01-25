@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -55,12 +54,6 @@ final class PostgresqlDialect extends Dialect
 			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + ei.getDatabaseVersionDescription());
 		if(ei.getDriverMajorVersion()<8)
 			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + ei.getDriverVersionDescription());
-	}
-
-	@Override
-	protected void completeConnection(final Connection connection) throws SQLException
-	{
-		connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 	}
 
 	@Override
