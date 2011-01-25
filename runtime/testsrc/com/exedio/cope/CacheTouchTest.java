@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static java.lang.Integer.MIN_VALUE;
 
 public class CacheTouchTest extends AbstractRuntimeTest
 {
@@ -42,21 +43,39 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	{
 		if(!mysql) return; // TODO
 
+		assertModificationCount(0, MIN_VALUE);
 		model.commit();
 
+		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
 		assertSame(loader, model.leaveTransaction());
 
+		// change row
 		model.startTransaction("CacheTouchTest changer");
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
 		item.setName("itemName2");
+		assertModificationCount(1, 0);
+
 		model.commit();
 
+		// load row
 		model.joinTransaction(loader);
+		assertModificationCount(MIN_VALUE, MIN_VALUE);
+
 		assertEquals("itemName", item.getName());
+		assertModificationCount(0, 0);
+
 		model.commit();
 
+		// failure
 		model.startTransaction("CacheTouchTest failer");
+		assertModificationCount(MIN_VALUE, 0);
 
 		if(isConcurrentModificationDetectionEnabled(model))
 		{
@@ -71,10 +90,26 @@ public class CacheTouchTest extends AbstractRuntimeTest
 			{
 				// ok
 			}
+			assertModificationCount(MIN_VALUE, MIN_VALUE);
 		}
 		else
 		{
 			item.setName("itemName3");
+			assertModificationCount(MIN_VALUE, 0);
+		}
+	}
+
+	@SuppressWarnings("deprecation") // OK: using special accessors for tests
+	private void assertModificationCount(final int expected, final int global)
+	{
+		final ConnectProperties props = model.getConnectProperties();
+		if(isConcurrentModificationDetectionEnabled(model))
+		{
+			assertEquals("transaction", expected, item.getModificationCountIfActive());
+			if(props.getItemCacheLimit()>0)
+				assertEquals("global", global, item.getModificationCountGlobal());
+			else
+				assertEquals("global", Integer.MIN_VALUE, item.getModificationCountGlobal());
 		}
 	}
 }
