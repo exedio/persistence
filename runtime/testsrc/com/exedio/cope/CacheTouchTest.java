@@ -42,40 +42,49 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		if(hsqldb||oracle) return; // TODO
+		initCache();
 
 		assertModificationCount(0, MIN_VALUE);
+		assertCache(0, 0, 0, 0, 0);
 		model.commit();
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertCache(0, 0, 0, 1, 0);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertCache(0, 0, 0, 1, 0);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertCache(0, 0, 0, 1, 0);
 
 		item.setName("itemName2");
 		assertModificationCount(1, 0);
+		assertCache(1, 0, 1, 1, 0);
 
 		model.commit();
 
 		// load row
 		model.joinTransaction(loader);
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertCache(0, 0, 1, 2, 1);
 
 		assertEquals("itemName", item.getName());
 		assertModificationCount(0, 0);
+		assertCache(1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
 		assertModificationCount(MIN_VALUE, 0);
+		assertCache(1, 0, 2, 2, 1);
 
 		if(isConcurrentModificationDetectionEnabled(model))
 		{
@@ -91,6 +100,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 				// ok
 			}
 			assertModificationCount(MIN_VALUE, MIN_VALUE);
+			assertCache(0, 1, 2, 2, 1);
 
 			assertEquals("itemName2", item.getName());
 		}
@@ -98,6 +108,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		{
 			item.setName("itemName3");
 			assertModificationCount(MIN_VALUE, 0);
+			assertCache(1, 1, 2, 2, 1);
 
 			assertEquals("itemName3", item.getName());
 		}
@@ -115,5 +126,38 @@ public class CacheTouchTest extends AbstractRuntimeTest
 			else
 				assertEquals("global", Integer.MIN_VALUE, item.getModificationCountGlobal());
 		}
+	}
+
+
+	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone;
+
+	private void initCache()
+	{
+		final ItemCacheInfo[] icis = model.getItemCacheInfo();
+		assertEquals(1, icis.length);
+		final ItemCacheInfo ici = icis[0];
+		assertSame(TYPE, ici.getType());
+		initHits = ici.getHits();
+		initMisses = ici.getMisses();
+		initInvalidationsOrdered = ici.getInvalidationsOrdered();
+		initInvalidationsDone = ici.getInvalidationsDone();
+	}
+
+	private void assertCache(
+			final int level,
+			final long hits,
+			final long misses,
+			final long invalidationsOrdered,
+			final long invalidationsDone)
+	{
+		final ItemCacheInfo[] icis = model.getItemCacheInfo();
+		assertEquals(1, icis.length);
+		final ItemCacheInfo ici = icis[0];
+		assertSame(TYPE, ici.getType());
+		assertSame("level"               , level               , ici.getLevel());
+		assertSame("hits"                , hits                , ici.getHits()                -initHits                );
+		assertSame("misses"              , misses              , ici.getMisses()              -initMisses              );
+		assertSame("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
+		assertSame("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
 	}
 }

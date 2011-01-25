@@ -99,7 +99,7 @@ final class ItemCache
 		if(cachlet==null)
 			return null;
 
-		return cachlet.get(item.pk);
+		return cachlet.getInternal(item.pk);
 	}
 
 	void remove(final Item item)
@@ -187,6 +187,18 @@ final class ItemCache
 				misses++;
 
 			return result;
+		}
+
+		/**
+		 * @deprecated for unit tests only
+		 */
+		@Deprecated
+		WrittenState getInternal(final int pk)
+		{
+			synchronized(map)
+			{
+				return map.get(pk);
+			}
 		}
 
 		void put(final WrittenState state)
