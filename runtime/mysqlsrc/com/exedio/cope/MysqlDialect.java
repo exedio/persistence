@@ -72,6 +72,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void completeConnection(final Connection connection) throws SQLException
+	{
+		connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

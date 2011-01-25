@@ -41,7 +41,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		if(!mysql) return; // TODO
+		if(hsqldb||oracle) return; // TODO
 
 		assertModificationCount(0, MIN_VALUE);
 		model.commit();

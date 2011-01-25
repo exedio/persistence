@@ -29,11 +29,13 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
 	private final String url;
+	private final Dialect dialect;
 	private final java.util.Properties info;
 
 	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
 	{
 		this.url = properties.getDatabaseUrl();
+		this.dialect = dialect;
 
 		info = new java.util.Properties();
 		info.setProperty("user", properties.getDatabaseUser());
@@ -55,7 +57,9 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	Connection createRaw() throws SQLException
 	{
-		return DriverManager.getConnection(url, info);
+		final Connection result = DriverManager.getConnection(url, info);
+		dialect.completeConnection(result);
+		return result;
 	}
 
 	public boolean isValidOnGet(final Connection e)
