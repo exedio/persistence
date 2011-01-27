@@ -36,6 +36,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.util.Pool;
 
 final class SamplerModel extends Item

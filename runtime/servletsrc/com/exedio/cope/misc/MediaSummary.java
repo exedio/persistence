@@ -16,11 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sampler;
+package com.exedio.cope.misc;
 
 import com.exedio.cope.pattern.MediaInfo;
 
-final class MediaSummary
+public final class MediaSummary
 {
 	private final int redirectFrom;
 	private final int exception;
@@ -33,7 +33,7 @@ final class MediaSummary
 	private final int notModified;
 	private final int delivered;
 
-	MediaSummary(final MediaInfo[] infos)
+	public MediaSummary(final MediaInfo[] infos)
 	{
 		int redirectFrom = 0;
 		int exception = 0;
