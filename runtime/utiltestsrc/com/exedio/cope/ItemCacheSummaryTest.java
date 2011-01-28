@@ -33,6 +33,9 @@ public class ItemCacheSummaryTest extends CopeAssert
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, D2, 83, 93, 103, 113, 123, 133);
 
+		assertEquals(3, i1.getAgeAverageMillis());
+		assertEquals(3, i2.getAgeAverageMillis());
+
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2});
 		assertEquals( 24, ms.getLimit());
 		assertEquals( 44, ms.getLevel());
