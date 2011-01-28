@@ -16,11 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sampler;
+package com.exedio.cope.misc;
 
 import com.exedio.cope.ItemCacheInfo;
 
-final class ItemCacheSummary
+public final class ItemCacheSummary
 {
 	final long hits;
 	final long misses;
@@ -31,7 +31,7 @@ final class ItemCacheSummary
 	final long invalidationsDone;
 	final long invalidationBucketHits;
 
-	ItemCacheSummary(final ItemCacheInfo[] infos)
+	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
 		long allHits = 0;
 		long allMisses = 0;
@@ -63,5 +63,45 @@ final class ItemCacheSummary
 		this.invalidationsOrdered = allInvalidationsOrdered;
 		this.invalidationsDone = allInvalidationsDone;
 		this.invalidationBucketHits = allInvalidationBucketHits;
+	}
+
+	public long getHits()
+	{
+		return hits;
+	}
+
+	public long getMisses()
+	{
+		return misses;
+	}
+
+	public long getConcurrentLoads()
+	{
+		return concurrentLoads;
+	}
+
+	public int getReplacementRuns()
+	{
+		return replacementRuns;
+	}
+
+	public int getReplacements()
+	{
+		return replacements;
+	}
+
+	public long getInvalidationsOrdered()
+	{
+		return invalidationsOrdered;
+	}
+
+	public long getInvalidationsDone()
+	{
+		return invalidationsDone;
+	}
+
+	public long getInvalidationBucketHits()
+	{
+		return invalidationBucketHits;
 	}
 }
