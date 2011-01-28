@@ -24,20 +24,20 @@ import com.exedio.cope.ItemCacheInfo;
 
 public final class ItemCacheSummary
 {
-	final int limit;
-	final int level;
-	final long hits;
-	final long misses;
-	final long concurrentLoads;
-	final int replacementRuns;
-	final int replacements;
-	final long lastReplacementRun;
-	final long ageMinMillis;
-	final long ageAverageMillis;
-	final long ageMaxMillis;
-	final long invalidationsOrdered;
-	final long invalidationsDone;
-	final long invalidationBucketHits;
+	private final int limit;
+	private final int level;
+	private final long hits;
+	private final long misses;
+	private final long concurrentLoads;
+	private final int replacementRuns;
+	private final int replacements;
+	private final long lastReplacementRun;
+	private final long ageMinMillis;
+	private final long ageAverageMillis;
+	private final long ageMaxMillis;
+	private final long invalidationsOrdered;
+	private final long invalidationsDone;
+	private final long invalidationBucketHits;
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
