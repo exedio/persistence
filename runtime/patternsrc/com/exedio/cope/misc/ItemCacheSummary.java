@@ -31,7 +31,7 @@ public final class ItemCacheSummary
 	final long concurrentLoads;
 	final int replacementRuns;
 	final int replacements;
-	final Date lastReplacementRun;
+	final long lastReplacementRun;
 	final long ageMinMillis;
 	final long ageAverageMillis;
 	final long ageMaxMillis;
@@ -48,7 +48,7 @@ public final class ItemCacheSummary
 		long allConcurrentLoads = 0;
 		int allReplacementRuns = 0;
 		int allReplacements = 0;
-		Date allLastReplacementRun = null;
+		long allLastReplacementRun = Long.MIN_VALUE;
 		long allNum = 0;
 		long allAgeMinMillis = Long.MAX_VALUE;
 		long allSumAgeAverageMillis = 0l;
@@ -69,8 +69,8 @@ public final class ItemCacheSummary
 			allReplacements += info.getReplacements();
 
 			final Date lastReplacementRun = info.getLastReplacementRun();
-			if(allLastReplacementRun==null || (lastReplacementRun!=null && allLastReplacementRun.before(lastReplacementRun)))
-				allLastReplacementRun = lastReplacementRun;
+			if(lastReplacementRun!=null && allLastReplacementRun<lastReplacementRun.getTime())
+				allLastReplacementRun = lastReplacementRun.getTime();
 
 			if(info.getLevel()>0)
 			{
@@ -144,7 +144,7 @@ public final class ItemCacheSummary
 
 	public Date getLastReplacementRun()
 	{
-		return lastReplacementRun;
+		return lastReplacementRun!=Long.MIN_VALUE ? new Date(lastReplacementRun) : null;
 	}
 
 	public long getAgeMinMillis()
