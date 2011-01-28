@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHash;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntObjectHashMap;
@@ -34,7 +35,7 @@ final class ItemCache
 	 */
 	private final Cachlet[] cachlets;
 
-	ItemCache(final List<Type<?>> typesSorted, final int limit)
+	ItemCache(final List<Type<?>> typesSorted, final int limit, final int invalidationBucketMillis)
 	{
 		final ArrayList<Type<?>> types = new ArrayList<Type<?>>(typesSorted.size());
 		for(final Type<?> type : typesSorted)
@@ -56,6 +57,7 @@ final class ItemCache
 			weightSum += weight;
 		}
 
+		final long invalidationBucketNanos = invalidationBucketMillis*1000L*1000L;
 		cachlets = new Cachlet[l];
 		for(int i=0; i<l; i++)
 		{
@@ -66,7 +68,7 @@ final class ItemCache
 			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
 
 			final int iLimit = weights[i] * limit / weightSum;
-			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidationBucketNanos) : null;
 		}
 	}
 
@@ -151,6 +153,12 @@ final class ItemCache
 		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
+	
+		private final long invalidationBucketNanos;
+		private long invalidationsTimestamp = System.nanoTime();
+		private TIntHashSet newInvalidationBucket = null;
+		private TIntHashSet oldInvalidationBucket = null;
+		
 		private volatile long hits = 0;
 		private volatile long misses = 0;
 		private long concurrentLoads = 0;
@@ -159,15 +167,18 @@ final class ItemCache
 		private long lastReplacementRun = 0;
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
-
-		Cachlet(final Type type, final int limit)
+		private long invalidationBucketHits = 0;
+		
+		Cachlet(final Type type, final int limit, final long invalidationBucketNanos)
 		{
 			assert !type.isAbstract;
 			assert limit>0;
+			assert invalidationBucketNanos>=0;
 
 			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<WrittenState>();
+			this.invalidationBucketNanos = invalidationBucketNanos;
 		}
 
 		WrittenState get(final int pk)
@@ -201,10 +212,34 @@ final class ItemCache
 			}
 		}
 
+		private void checkShift()
+		{
+			assert invalidationBucketNanos>0;
+			final long now = System.nanoTime();
+			final long delta = now-invalidationsTimestamp;
+			if ( delta>invalidationBucketNanos )
+			{
+				oldInvalidationBucket = newInvalidationBucket;
+				newInvalidationBucket = null;
+				invalidationsTimestamp = now;
+			}
+		}
+
 		void put(final WrittenState state)
 		{
 			synchronized(map)
 			{
+				if ( invalidationBucketNanos!=0 )
+				{
+					checkShift();
+					if ( ( newInvalidationBucket!=null && newInvalidationBucket.contains(state.pk) )
+						|| ( oldInvalidationBucket!=null && oldInvalidationBucket.contains(state.pk) ) )
+					{
+						invalidationBucketHits++;
+						return;
+					}
+				}
+
 				if(map.put(state.pk, state)!=null)
 					concurrentLoads++;
 
@@ -251,6 +286,19 @@ final class ItemCache
 		{
 			synchronized(map)
 			{
+				if ( invalidationBucketNanos!=0 )
+				{
+					checkShift();
+					if ( newInvalidationBucket==null )
+					{
+						newInvalidationBucket = new TIntHashSet();
+					}
+					for ( final TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+					{
+						newInvalidationBucket.add( i.next() );
+					}
+				}
+
 				final int mapSizeBefore = map.size();
 
 				// TODO implement and use a removeAll
@@ -304,7 +352,7 @@ final class ItemCache
 				concurrentLoads,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
-				invalidationsOrdered, invalidationsDone);
+				invalidationsOrdered, invalidationsDone, invalidationBucketHits);
 		}
 	}
 }
