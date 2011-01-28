@@ -25,17 +25,26 @@ import com.exedio.cope.misc.ItemCacheSummary;
 
 public class ItemCacheSummaryTest extends CopeAssert
 {
+	private static final Date D1 = new Date(123456789);
+	private static final Date D2 = new Date(123456989);
+
 	public void testIt()
 	{
-		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, new Date(), 81, 91, 101, 111, 121, 131);
-		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, new Date(), 83, 93, 103, 113, 123, 133);
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131);
+		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, D2, 83, 93, 103, 113, 123, 133);
 
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2});
+		assertEquals( 24, ms.getLimit());
+		assertEquals( 44, ms.getLevel());
 		assertEquals( 64, ms.getHits());
 		assertEquals( 84, ms.getMisses());
 		assertEquals(104, ms.getConcurrentLoads());
 		assertEquals(124, ms.getReplacementRuns());
 		assertEquals(144, ms.getReplacements());
+		assertEquals( D2, ms.getLastReplacementRun());
+		assertEquals( 91, ms.getAgeMinMillis());
+		assertEquals(  3, ms.getAgeAverageMillis());
+		assertEquals(103, ms.getAgeMaxMillis());
 		assertEquals(224, ms.getInvalidationsOrdered());
 		assertEquals(244, ms.getInvalidationsDone());
 		assertEquals(264, ms.getInvalidationBucketHits());
@@ -56,7 +65,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 
 	public void testNullElement()
 	{
-		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, new Date(), 81, 91, 101, 111, 121, 131);
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131);
 		try
 		{
 			new ItemCacheSummary(new ItemCacheInfo[]{i1, null});
@@ -71,11 +80,17 @@ public class ItemCacheSummaryTest extends CopeAssert
 	public void testEmpty()
 	{
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
+		assertEquals(0, ms.getLimit());
+		assertEquals(0, ms.getLevel());
 		assertEquals(0, ms.getHits());
 		assertEquals(0, ms.getMisses());
 		assertEquals(0, ms.getConcurrentLoads());
 		assertEquals(0, ms.getReplacementRuns());
 		assertEquals(0, ms.getReplacements());
+		assertEquals(null, ms.getLastReplacementRun());
+		assertEquals(0, ms.getAgeMinMillis());
+		assertEquals(0, ms.getAgeAverageMillis());
+		assertEquals(0, ms.getAgeMaxMillis());
 		assertEquals(0, ms.getInvalidationsOrdered());
 		assertEquals(0, ms.getInvalidationsDone());
 		assertEquals(0, ms.getInvalidationBucketHits());
