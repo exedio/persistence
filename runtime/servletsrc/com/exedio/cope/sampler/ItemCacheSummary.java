@@ -29,6 +29,7 @@ final class ItemCacheSummary
 	final int replacements;
 	final long invalidationsOrdered;
 	final long invalidationsDone;
+	final long invalidationBucketHits;
 
 	ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
@@ -39,6 +40,7 @@ final class ItemCacheSummary
 		int allReplacements = 0;
 		long allInvalidationsOrdered = 0l;
 		long allInvalidationsDone = 0l;
+		long allInvalidationBucketHits = 0l;
 
 		for(final ItemCacheInfo info : infos)
 		{
@@ -51,6 +53,7 @@ final class ItemCacheSummary
 
 			allInvalidationsOrdered += info.getInvalidationsOrdered();
 			allInvalidationsDone += info.getInvalidationsDone();
+			allInvalidationBucketHits += info.getInvalidationBucketHits();
 		}
 		this.hits = allHits;
 		this.misses = allMisses;
@@ -59,5 +62,6 @@ final class ItemCacheSummary
 		this.replacements = allReplacements;
 		this.invalidationsOrdered = allInvalidationsOrdered;
 		this.invalidationsDone = allInvalidationsDone;
+		this.invalidationBucketHits = allInvalidationBucketHits;
 	}
 }

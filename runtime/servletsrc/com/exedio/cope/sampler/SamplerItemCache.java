@@ -79,6 +79,7 @@ final class SamplerItemCache extends Item
 	private static final LongField ageMaxMillis = new LongField().toFinal();
 	private static final LongField invalidationsOrdered = new LongField().toFinal();
 	private static final LongField invalidationsDone = new LongField().toFinal();
+	private static final LongField invalidationBucketHits = new LongField().toFinal();
 
 	static List<SetValue> map(final ItemCacheInfo info)
 	{
@@ -100,7 +101,8 @@ final class SamplerItemCache extends Item
 			ageMaxMillis    .map(info.getAgeMaxMillis()),
 
 			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()));
+			invalidationsDone   .map(info.getInvalidationsDone()),
+			invalidationBucketHits.map(info.getInvalidationBucketHits()));
 	}
 
 
