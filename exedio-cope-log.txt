@@ -8,7 +8,7 @@ The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
 * added invalidation buckets:
-	cope property "cache.item.invalidationBucket.millis" can be set to define for how long 
+	cope property "cache.item.invalidationBucket.millis" can be set to define for how long
 	after an invalidation an item will not be added to the item cache (deactivated by default)
 * add class MediaSummary
 * all jdbc connections are treated with

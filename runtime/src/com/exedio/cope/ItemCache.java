@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHash;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntObjectHashMap;
@@ -153,12 +152,12 @@ final class ItemCache
 		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
-	
+
 		private final long invalidationBucketNanos;
 		private long invalidationsTimestamp = System.nanoTime();
 		private TIntHashSet newInvalidationBucket = null;
 		private TIntHashSet oldInvalidationBucket = null;
-		
+
 		private volatile long hits = 0;
 		private volatile long misses = 0;
 		private long concurrentLoads = 0;
@@ -168,7 +167,7 @@ final class ItemCache
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
 		private long invalidationBucketHits = 0;
-		
+
 		Cachlet(final Type type, final int limit, final long invalidationBucketNanos)
 		{
 			assert !type.isAbstract;

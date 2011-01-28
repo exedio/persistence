@@ -297,7 +297,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	int getItemCacheInvalidationBucketMillis()
 	{
 		return itemCacheInvalidationBucketMillis.intValue();
-	}	
+	}
 
 	public String getMediaRootUrl()
 	{
