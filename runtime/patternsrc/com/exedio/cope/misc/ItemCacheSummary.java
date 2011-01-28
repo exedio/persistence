@@ -69,8 +69,12 @@ public final class ItemCacheSummary
 			allReplacements += info.getReplacements();
 
 			final Date lastReplacementRun = info.getLastReplacementRun();
-			if(lastReplacementRun!=null && allLastReplacementRun<lastReplacementRun.getTime())
-				allLastReplacementRun = lastReplacementRun.getTime();
+			if(lastReplacementRun!=null)
+			{
+				final long lastReplacementRunMillis = lastReplacementRun.getTime();
+				if(allLastReplacementRun<lastReplacementRunMillis)
+					allLastReplacementRun = lastReplacementRunMillis;
+			}
 
 			if(info.getLevel()>0)
 			{
