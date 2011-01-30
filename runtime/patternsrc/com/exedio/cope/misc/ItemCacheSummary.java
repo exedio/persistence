@@ -41,32 +41,32 @@ public final class ItemCacheSummary
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
-		int allLimit = 0;
-		int allLevel = 0;
-		long allHits = 0;
-		long allMisses = 0;
-		long allConcurrentLoads = 0;
-		int allReplacementRuns = 0;
-		int allReplacements = 0;
+		int limit = 0;
+		int level = 0;
+		long hits = 0;
+		long misses = 0;
+		long concurrentLoads = 0;
+		int replacementRuns = 0;
+		int replacements = 0;
 		long allLastReplacementRun = Long.MIN_VALUE;
 		long allNum = 0;
-		long allAgeMinMillis = Long.MAX_VALUE;
+		long ageMinMillis = Long.MAX_VALUE;
 		long allSumAgeAverageMillis = 0l;
-		long allAgeMaxMillis = 0l;
-		long allInvalidationsOrdered = 0l;
-		long allInvalidationsDone = 0l;
-		long allInvalidationBucketHits = 0l;
+		long ageMaxMillis = 0l;
+		long invalidationsOrdered = 0l;
+		long invalidationsDone = 0l;
+		long invalidationBucketHits = 0l;
 
 		for(final ItemCacheInfo info : infos)
 		{
-			allLimit += info.getLimit();
-			allLevel += info.getLevel();
-			allHits += info.getHits();
-			allMisses += info.getMisses();
-			allConcurrentLoads += info.getConcurrentLoads();
+			limit += info.getLimit();
+			level += info.getLevel();
+			hits += info.getHits();
+			misses += info.getMisses();
+			concurrentLoads += info.getConcurrentLoads();
 
-			allReplacementRuns += info.getReplacementRuns();
-			allReplacements += info.getReplacements();
+			replacementRuns += info.getReplacementRuns();
+			replacements += info.getReplacements();
 
 			final Date lastReplacementRun = info.getLastReplacementRun();
 			if(lastReplacementRun!=null)
@@ -81,34 +81,34 @@ public final class ItemCacheSummary
 				allNum++;
 
 				final long minAge = info.getAgeMinMillis();
-				if(allAgeMinMillis>minAge)
-					allAgeMinMillis = minAge;
+				if(ageMinMillis>minAge)
+					ageMinMillis = minAge;
 
 				allSumAgeAverageMillis += info.getAgeAverageMillis();
 
 				final long maxAge = info.getAgeMaxMillis();
-				if(allAgeMaxMillis<maxAge)
-					allAgeMaxMillis = maxAge;
+				if(ageMaxMillis<maxAge)
+					ageMaxMillis = maxAge;
 			}
 
-			allInvalidationsOrdered += info.getInvalidationsOrdered();
-			allInvalidationsDone += info.getInvalidationsDone();
-			allInvalidationBucketHits += info.getInvalidationBucketHits();
+			invalidationsOrdered += info.getInvalidationsOrdered();
+			invalidationsDone += info.getInvalidationsDone();
+			invalidationBucketHits += info.getInvalidationBucketHits();
 		}
-		this.limit = allLimit;
-		this.level = allLevel;
-		this.hits = allHits;
-		this.misses = allMisses;
-		this.concurrentLoads = allConcurrentLoads;
-		this.replacementRuns = allReplacementRuns;
-		this.replacements = allReplacements;
+		this.limit = limit;
+		this.level = level;
+		this.hits = hits;
+		this.misses = misses;
+		this.concurrentLoads = concurrentLoads;
+		this.replacementRuns = replacementRuns;
+		this.replacements = replacements;
 		this.lastReplacementRun = allLastReplacementRun;
-		this.ageMinMillis = allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0;
+		this.ageMinMillis = ageMinMillis!=Long.MAX_VALUE ? ageMinMillis : 0;
 		this.ageAverageMillis = allNum>0 ? allSumAgeAverageMillis/allNum : 0;
-		this.ageMaxMillis = allAgeMaxMillis;
-		this.invalidationsOrdered = allInvalidationsOrdered;
-		this.invalidationsDone = allInvalidationsDone;
-		this.invalidationBucketHits = allInvalidationBucketHits;
+		this.ageMaxMillis = ageMaxMillis;
+		this.invalidationsOrdered = invalidationsOrdered;
+		this.invalidationsDone = invalidationsDone;
+		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
 	public int getLimit()
