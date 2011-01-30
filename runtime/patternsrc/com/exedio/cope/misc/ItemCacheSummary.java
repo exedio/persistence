@@ -80,15 +80,15 @@ public final class ItemCacheSummary
 			{
 				allNum++;
 
-				final long minAge = info.getAgeMinMillis();
-				if(ageMinMillis>minAge)
-					ageMinMillis = minAge;
+				final long currentMinAgeMillis = info.getAgeMinMillis();
+				if(ageMinMillis>currentMinAgeMillis)
+					ageMinMillis = currentMinAgeMillis;
 
 				allSumAgeAverageMillis += info.getAgeAverageMillis();
 
-				final long maxAge = info.getAgeMaxMillis();
-				if(ageMaxMillis<maxAge)
-					ageMaxMillis = maxAge;
+				final long currentMaxAgeMillis = info.getAgeMaxMillis();
+				if(ageMaxMillis<currentMaxAgeMillis)
+					ageMaxMillis = currentMaxAgeMillis;
 			}
 
 			invalidationsOrdered += info.getInvalidationsOrdered();
