@@ -48,7 +48,7 @@ public final class ItemCacheSummary
 		long concurrentLoads = 0;
 		int replacementRuns = 0;
 		int replacements = 0;
-		long allLastReplacementRun = Long.MIN_VALUE;
+		long lastReplacementRun = Long.MIN_VALUE;
 		long allNum = 0;
 		long ageMinMillis = Long.MAX_VALUE;
 		long allSumAgeAverageMillis = 0l;
@@ -72,8 +72,8 @@ public final class ItemCacheSummary
 			if(currentLastReplacementRun!=null)
 			{
 				final long lastReplacementRunMillis = currentLastReplacementRun.getTime();
-				if(allLastReplacementRun<lastReplacementRunMillis)
-					allLastReplacementRun = lastReplacementRunMillis;
+				if(lastReplacementRun<lastReplacementRunMillis)
+					lastReplacementRun = lastReplacementRunMillis;
 			}
 
 			if(info.getLevel()>0)
@@ -102,7 +102,7 @@ public final class ItemCacheSummary
 		this.concurrentLoads = concurrentLoads;
 		this.replacementRuns = replacementRuns;
 		this.replacements = replacements;
-		this.lastReplacementRun = allLastReplacementRun;
+		this.lastReplacementRun = lastReplacementRun;
 		this.ageMinMillis = ageMinMillis!=Long.MAX_VALUE ? ageMinMillis : 0;
 		this.ageAverageMillis = allNum>0 ? allSumAgeAverageMillis/allNum : 0;
 		this.ageMaxMillis = ageMaxMillis;
