@@ -49,9 +49,9 @@ public final class ItemCacheSummary
 		int replacementRuns = 0;
 		int replacements = 0;
 		long lastReplacementRun = Long.MIN_VALUE;
-		long allNum = 0;
+		long numAgeAverageMillis = 0;
 		long ageMinMillis = Long.MAX_VALUE;
-		long allSumAgeAverageMillis = 0l;
+		long sumAgeAverageMillis = 0l;
 		long ageMaxMillis = 0l;
 		long invalidationsOrdered = 0l;
 		long invalidationsDone = 0l;
@@ -78,13 +78,13 @@ public final class ItemCacheSummary
 
 			if(info.getLevel()>0)
 			{
-				allNum++;
+				numAgeAverageMillis++;
 
 				final long currentMinAgeMillis = info.getAgeMinMillis();
 				if(ageMinMillis>currentMinAgeMillis)
 					ageMinMillis = currentMinAgeMillis;
 
-				allSumAgeAverageMillis += info.getAgeAverageMillis();
+				sumAgeAverageMillis += info.getAgeAverageMillis();
 
 				final long currentMaxAgeMillis = info.getAgeMaxMillis();
 				if(ageMaxMillis<currentMaxAgeMillis)
@@ -104,7 +104,7 @@ public final class ItemCacheSummary
 		this.replacements = replacements;
 		this.lastReplacementRun = lastReplacementRun;
 		this.ageMinMillis = ageMinMillis!=Long.MAX_VALUE ? ageMinMillis : 0;
-		this.ageAverageMillis = allNum>0 ? allSumAgeAverageMillis/allNum : 0;
+		this.ageAverageMillis = numAgeAverageMillis>0 ? sumAgeAverageMillis/numAgeAverageMillis : 0;
 		this.ageMaxMillis = ageMaxMillis;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
