@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* MediaServlet can be subclassed for overriding onException
 * add class ItemCacheSummary
 * added invalidation buckets:
 	cope property "cache.item.invalidationBucket.millis" can be set to define for how long

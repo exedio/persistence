@@ -60,7 +60,7 @@ import com.exedio.cope.misc.ServletUtil;
  *
  * @author Ralf Wiebicke
  */
-public final class MediaServlet extends HttpServlet
+public class MediaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 
@@ -69,7 +69,7 @@ public final class MediaServlet extends HttpServlet
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();
 
 	@Override
-	public void init() throws ServletException
+	public final void init() throws ServletException
 	{
 		super.init();
 
@@ -160,7 +160,7 @@ public final class MediaServlet extends HttpServlet
 	}
 
 	@Override
-	public void destroy()
+	public final void destroy()
 	{
 		connectToken.returnIt();
 		connectToken = null;
@@ -170,7 +170,7 @@ public final class MediaServlet extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(
+	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws IOException
@@ -293,18 +293,25 @@ public final class MediaServlet extends HttpServlet
 		}
 		catch(final Exception e)
 		{
-			System.out.println("--------MediaServlet-----");
-			System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-			printHeader(request, "Host");
-			printHeader(request, "Referer");
-			printHeader(request, "User-Agent");
-			e.printStackTrace(System.out);
-			System.out.println("-------/MediaServlet-----");
+			onException(request, e);
 			return path.exception;
 		}
 	}
 
 	private static final String RESPONSE_LOCATION = "Location";
+
+	protected void onException(
+			final HttpServletRequest request,
+			final Exception exception)
+	{
+		System.out.println("--------MediaServlet-----");
+		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
+		printHeader(request, "Host");
+		printHeader(request, "Referer");
+		printHeader(request, "User-Agent");
+		exception.printStackTrace(System.out);
+		System.out.println("-------/MediaServlet-----");
+	}
 
 	private static void printHeader(final HttpServletRequest request, final String name)
 	{
