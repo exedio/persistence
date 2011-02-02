@@ -152,8 +152,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 
 		ensureValidity("x-build");
-		if(log.isSpecified())
-			System.out.println("remove non-functional connect property " + log.getKey());
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
@@ -321,16 +319,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// ------------------- deprecated stuff -------------------
 
-	@Deprecated
-	private final BooleanField log = new BooleanField("log", true);
-
 	/**
-	 * @deprecated Replaced by java.util.logging.
+	 * @deprecated Replaced by java.util.logging. Always returns true.
 	 */
 	@Deprecated
 	public boolean isLoggingEnabled()
 	{
-		return log.booleanValue();
+		return true;
 	}
 
 	/**
