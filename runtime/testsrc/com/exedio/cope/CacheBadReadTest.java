@@ -75,6 +75,8 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 	public void testIt() throws InterruptedException
 	{
 		if(!mysql) return; // TODO
+		if(!model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+			return;
 
 		for(int i = 0; i<threads.length; i++)
 		{
