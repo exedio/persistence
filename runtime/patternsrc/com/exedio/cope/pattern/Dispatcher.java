@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -51,6 +53,8 @@ import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Dispatcher extends Pattern
 {
+	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
+
 	private static final long serialVersionUID = 1l;
 
 	private static final String ENCODING = "utf8";
@@ -298,7 +302,11 @@ public final class Dispatcher extends Pattern
 
 					if(!isPending(item))
 					{
-						System.out.println("Already dispatched " + itemID + " by " + id + ", probably due to concurrent dispatching.");
+						if(logger.isLoggable(Level.INFO))
+							logger.log(
+									Level.INFO,
+									"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
+									new Object[]{id, itemID});
 						continue;
 					}
 
