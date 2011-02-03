@@ -28,7 +28,7 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 	}
 
 	CacheIsolationItem item;
-	ThreadStoppable threadRead;
+	final ThreadStoppable threads[] = new ThreadStoppable[10];
 
 	@Override
 	public void setUp() throws Exception
@@ -50,9 +50,14 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 	@Override
 	public void tearDown() throws Exception
 	{
-		if(threadRead!=null)
-			threadRead.join();
-		threadRead = null;
+		for(int i = 0; i<threads.length; i++)
+		{
+			if(threads[i]!=null)
+			{
+				threads[i].join();
+				threads[i] = null;
+			}
+		}
 
 		super.tearDown();
 	}
@@ -66,46 +71,56 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 	{
 		if(hsqldb||oracle) return; // TODO
 
-		threadRead = new ThreadStoppable(){
-			@Override
-			public void run()
-			{
-				int i;
-				for(i = 0; i<10000000 && proceed; i++)
+		for(int i = 0; i<threads.length; i++)
+		{
+			threads[i] = new ThreadStoppable(){
+				@Override
+				public void run()
 				{
-					//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
-					Thread.yield();
-					model.startTransaction("CacheBadReadTest  read " + i);
-					final String name = item.getName();
-					assertTrue(name, name.startsWith("itemName"));
+					int i;
+					for(i = 0; i<10000000 && proceed; i++)
+					{
+						//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
+						//Thread.yield();
+						model.startTransaction("CacheBadReadTest  read " + i);
+						final String name = item.getName();
+						assertTrue(name, name.startsWith("itemName"));
+						model.commit();
+					}
+					//System.out.println("CacheBadReadTest read fertig " + i);
+				}
+			};
+		}
+
+		for(final Thread thread : threads)
+			thread.start();
+
+		{
+			int i = 0;
+			try
+			{
+				for(; i<10000; i++)
+				{
+					//if(i%100==0 || i<20) System.out.println("CacheBadReadTest write " + i);
+					//Thread.yield();
+					model.startTransaction("CacheBadReadTest write " + i);
+					item.setName("itemName" + i);
 					model.commit();
 				}
-				System.out.println("CacheBadReadTest read fertig " + i);
 			}
-		};
-
-		threadRead.start();
-
-		int i = 0;
-		try
-		{
-			for(; i<10000; i++)
+			catch(final TemporaryTransactionException e)
 			{
-				//if(i%100==0 || i<20) System.out.println("CacheBadReadTest write " + i);
-				Thread.yield();
-				model.startTransaction("CacheBadReadTest write " + i);
-				item.setName("itemName" + i);
-				model.commit();
+				System.out.println("" + i + " " + e.getMessage());
 			}
 		}
-		catch(final TemporaryTransactionException e)
+
+
+		for(final ThreadStoppable thread : threads)
+			thread.proceed = false;
+		for(int i = 0; i<threads.length; i++)
 		{
-			System.out.println("" + i + " " + e.getMessage());
+			threads[i].join();
+			threads[i] = null;
 		}
-
-
-		threadRead.proceed = false;
-		threadRead.join();
-		threadRead = null;
 	}
 }
