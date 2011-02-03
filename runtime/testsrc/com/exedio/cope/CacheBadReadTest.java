@@ -50,6 +50,11 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 	@Override
 	public void tearDown() throws Exception
 	{
+		for(final ThreadStoppable thread : threads)
+		{
+			if(thread!=null)
+				thread.proceed = false;
+		}
 		for(int i = 0; i<threads.length; i++)
 		{
 			if(threads[i]!=null)
@@ -69,7 +74,7 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 
 	public void testIt() throws InterruptedException
 	{
-		if(hsqldb||oracle) return; // TODO
+		if(!mysql) return; // TODO
 
 		for(int i = 0; i<threads.length; i++)
 		{
@@ -107,10 +112,11 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
+				fail();
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				System.out.println("" + i + " " + e.getMessage());
+				assertNotNull(e.getMessage());
 			}
 		}
 
