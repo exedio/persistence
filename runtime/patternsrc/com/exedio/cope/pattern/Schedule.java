@@ -81,15 +81,6 @@ public final class Schedule extends Pattern
 	private Mount mount = null;
 
 	/**
-	 * @deprecated Use {@link #Schedule(Locale)} instead.
-	 */
-	@Deprecated
-	public Schedule()
-	{
-		this(Locale.getDefault());
-	}
-
-	/**
 	 * @param locale
 	 *        specifies the locale used for creating the {@link GregorianCalendar}
 	 *        that does all the date computations.
@@ -434,6 +425,15 @@ public final class Schedule extends Pattern
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #Schedule(Locale)} instead.
+	 */
+	@Deprecated
+	public Schedule()
+	{
+		this(Locale.getDefault());
+	}
 
 	/**
 	 * @deprecated Use {@link #run(Interrupter)} instead.
