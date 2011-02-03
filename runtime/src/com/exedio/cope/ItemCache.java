@@ -34,7 +34,7 @@ final class ItemCache
 	 */
 	private final Cachlet[] cachlets;
 
-	ItemCache(final List<Type<?>> typesSorted, final int limit, final int invalidationBucketMillis)
+	ItemCache(final List<Type<?>> typesSorted, final ConnectProperties properties)
 	{
 		final ArrayList<Type<?>> types = new ArrayList<Type<?>>(typesSorted.size());
 		for(final Type<?> type : typesSorted)
@@ -56,8 +56,9 @@ final class ItemCache
 			weightSum += weight;
 		}
 
-		final long invalidationBucketNanos = invalidationBucketMillis*1000L*1000L;
+		final long invalidationBucketNanos = properties.getItemCacheInvalidationBucketMillis()*1000L*1000L;
 		cachlets = new Cachlet[l];
+		final int limit = properties.getItemCacheLimit();
 		for(int i=0; i<l; i++)
 		{
 			final Type<?> type = types.get(i);

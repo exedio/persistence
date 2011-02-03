@@ -108,7 +108,7 @@ final class Connect
 				executor,
 				revisions);
 
-		this.itemCache = new ItemCache(types.typeListSorted, properties.getItemCacheLimit(), properties.getItemCacheInvalidationBucketMillis());
+		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
 		if(properties.cluster.booleanValue())
