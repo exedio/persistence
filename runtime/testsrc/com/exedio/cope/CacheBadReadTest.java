@@ -82,15 +82,22 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 				@Override
 				public void run()
 				{
-					int i;
-					for(i = 0; i<10000000 && proceed; i++)
+					try
 					{
-						//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
-						//Thread.yield();
-						model.startTransaction("CacheBadReadTest  read " + i);
-						final String name = item.getName();
-						assertTrue(name, name.startsWith("itemName"));
-						model.commit();
+						int i;
+						for(i = 0; i<10000000 && proceed; i++)
+						{
+							//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
+							//Thread.yield();
+							model.startTransaction("CacheBadReadTest  read " + i);
+							final String name = item.getName();
+							assertTrue(name, name.startsWith("itemName"));
+							model.commit();
+						}
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
 					}
 					//System.out.println("CacheBadReadTest read fertig " + i);
 				}
@@ -117,6 +124,10 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
 			}
 		}
 
