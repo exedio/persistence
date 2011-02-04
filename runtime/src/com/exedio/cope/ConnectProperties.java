@@ -72,6 +72,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
 	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
+	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
 	private final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
 
@@ -152,6 +153,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 
 		ensureValidity("x-build");
+
+		if(itemCacheInvalidateLast.booleanValue())
+			System.out.println("WARNING: ConnectProperties using experimental " + itemCacheInvalidateLast.getKey());
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)

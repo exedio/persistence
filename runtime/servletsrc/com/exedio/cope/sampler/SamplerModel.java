@@ -92,6 +92,8 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
 	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal();
 	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal();
+	private static final IntegerField itemCacheInvalidateLastSize = new IntegerField().toFinal().min(0);
+	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal();
 	private static final LongField itemCacheInvalidationBucketHits = new LongField().toFinal();
 
 	static List<SetValue> map(final ItemCacheSummary info)
@@ -106,6 +108,10 @@ final class SamplerModel extends Item
 
 			itemCacheInvalidationsOrdered.map(info.getInvalidationsOrdered()),
 			itemCacheInvalidationsDone   .map(info.getInvalidationsDone()),
+
+			itemCacheInvalidateLastSize.map(info.getInvalidateLastSize()),
+			itemCacheInvalidateLastHits.map(info.getInvalidateLastHits()),
+
 			itemCacheInvalidationBucketHits.map(info.getInvalidationBucketHits()));
 	}
 

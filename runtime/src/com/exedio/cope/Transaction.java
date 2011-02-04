@@ -36,6 +36,7 @@ public final class Transaction
 	final long id;
 	final String name;
 	final long startDate;
+	final long startNanos;
 
 	/**
 	 * index in array is {@link Type#cacheIdTransiently};
@@ -61,6 +62,7 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
+		this.startNanos = System.nanoTime();
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
 	}
 

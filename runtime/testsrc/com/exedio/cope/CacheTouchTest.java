@@ -75,7 +75,9 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 1, 2, 1);
 
-	if(!model.getConnectProperties().connectionTransactionIsolationReadCommitted.booleanValue())
+	final ConnectProperties props = model.getConnectProperties();
+	if(!props.connectionTransactionIsolationReadCommitted.booleanValue() &&
+		!props.itemCacheInvalidateLast.booleanValue())
 	{
 		assertEquals("itemName", item.getName());
 		assertModificationCount(0, 0);

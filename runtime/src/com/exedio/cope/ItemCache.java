@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
+import gnu.trove.TIntLongHashMap;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TIntObjectIterator;
 
@@ -56,6 +57,7 @@ final class ItemCache
 			weightSum += weight;
 		}
 
+		final boolean invalidateLast = properties.itemCacheInvalidateLast.booleanValue();
 		final long invalidationBucketNanos = properties.getItemCacheInvalidationBucketMillis()*1000L*1000L;
 		cachlets = new Cachlet[l];
 		final int limit = properties.getItemCacheLimit();
@@ -68,7 +70,7 @@ final class ItemCache
 			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
 
 			final int iLimit = weights[i] * limit / weightSum;
-			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidationBucketNanos) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidateLast, invalidationBucketNanos) : null;
 		}
 	}
 
@@ -85,7 +87,7 @@ final class ItemCache
 			state = tx.connect.database.load(tx.getConnection(), item);
 
 			if(cachlet!=null)
-				cachlet.put(state);
+				cachlet.put(state, tx.startNanos);
 		}
 
 		return state;
@@ -153,6 +155,7 @@ final class ItemCache
 		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
+		private final TIntLongHashMap invalidateLastNanos;
 
 		private final long invalidationBucketNanos;
 		private long invalidationsTimestamp = System.nanoTime();
@@ -167,9 +170,10 @@ final class ItemCache
 		private long lastReplacementRun = 0;
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
+		private long invalidateLastHits = 0;
 		private long invalidationBucketHits = 0;
 
-		Cachlet(final Type type, final int limit, final long invalidationBucketNanos)
+		Cachlet(final Type type, final int limit, final boolean invalidateLast, final long invalidationBucketNanos)
 		{
 			assert !type.isAbstract;
 			assert limit>0;
@@ -178,6 +182,7 @@ final class ItemCache
 			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<WrittenState>();
+			this.invalidateLastNanos = invalidateLast ? new TIntLongHashMap() : null;
 			this.invalidationBucketNanos = invalidationBucketNanos;
 		}
 
@@ -225,10 +230,20 @@ final class ItemCache
 			}
 		}
 
-		void put(final WrittenState state)
+		void put(final WrittenState state, final long transactionStartNanos)
 		{
 			synchronized(map)
 			{
+				if(invalidateLastNanos!=null)
+				{
+					final long invalidateLastNanos = this.invalidateLastNanos.get(state.pk);
+					if(invalidateLastNanos!=0 && invalidateLastNanos>=transactionStartNanos)
+					{
+						invalidateLastHits++;
+						return;
+					}
+				}
+
 				if ( invalidationBucketNanos!=0 )
 				{
 					checkShift();
@@ -303,7 +318,15 @@ final class ItemCache
 
 				// TODO implement and use a removeAll
 				for(final TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-					map.remove(i.next());
+				{
+					final int pk = i.next();
+					map.remove(pk);
+
+					// TODO reuse System.nanoTime()
+					// TODO purge lastInvalidateNanos XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+					if(invalidateLastNanos!=null)
+						invalidateLastNanos.put(pk, System.nanoTime());
+				}
 
 				invalidationsOrdered += invalidatedPKs.size();
 				invalidationsDone    += (mapSizeBefore - map.size());
@@ -326,6 +349,7 @@ final class ItemCache
 			long ageSum = 0;
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
+			final int invalidateLastSize;
 
 			synchronized(map)
 			{
@@ -343,6 +367,7 @@ final class ItemCache
 					if(ageMax<age)
 						ageMax = age;
 				}
+				invalidateLastSize = invalidateLastNanos!=null ? invalidateLastNanos.size() : 0;
 			}
 
 			return new ItemCacheInfo(
@@ -352,7 +377,9 @@ final class ItemCache
 				concurrentLoads,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
-				invalidationsOrdered, invalidationsDone, invalidationBucketHits);
+				invalidationsOrdered, invalidationsDone,
+				invalidateLastSize, invalidateLastHits,
+				invalidationBucketHits);
 		}
 	}
 }

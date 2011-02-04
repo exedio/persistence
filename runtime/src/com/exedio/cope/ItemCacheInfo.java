@@ -36,6 +36,8 @@ public final class ItemCacheInfo
 	private final long ageMax;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
+	private final int  invalidateLastSize;
+	private final long invalidateLastHits;
 	private final long invalidationBucketHits;
 
 	ItemCacheInfo(
@@ -46,7 +48,9 @@ public final class ItemCacheInfo
 			final long concurrentLoads,
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
-			final long invalidationsOrdered, final long invalidationsDone, final long invalidationBucketHits)
+			final long invalidationsOrdered, final long invalidationsDone,
+			final int invalidateLastSize, final long invalidateLastHits,
+			final long invalidationBucketHits)
 	{
 		this.type = type;
 		this.limit = limit;
@@ -62,6 +66,8 @@ public final class ItemCacheInfo
 		this.ageMax = ageMax;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
+		this.invalidateLastSize = invalidateLastSize;
+		this.invalidateLastHits = invalidateLastHits;
 		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
@@ -139,6 +145,16 @@ public final class ItemCacheInfo
 	public long getInvalidationsDone()
 	{
 		return invalidationsDone;
+	}
+
+	public int getInvalidateLastSize()
+	{
+		return invalidateLastSize;
+	}
+
+	public long getInvalidateLastHits()
+	{
+		return invalidateLastHits;
 	}
 
 	public long getInvalidationBucketHits()
