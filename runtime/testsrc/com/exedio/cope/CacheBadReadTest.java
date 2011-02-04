@@ -121,11 +121,12 @@ public class CacheBadReadTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				fail();
+				assertTrue("itemCacheInvalidateLast", model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
+				assertFalse("itemCacheInvalidateLast", model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
 			}
 			finally
 			{
