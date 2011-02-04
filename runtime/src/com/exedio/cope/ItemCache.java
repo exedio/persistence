@@ -58,7 +58,7 @@ final class ItemCache
 		}
 
 		final boolean invalidateLast = properties.itemCacheInvalidateLast.booleanValue();
-		final long invalidationBucketNanos = properties.getItemCacheInvalidationBucketMillis()*1000L*1000L;
+		final long invalidationBucketNanos = properties.itemCacheInvalidationBucketMillis.intValue()*1000L*1000L;
 		cachlets = new Cachlet[l];
 		final int limit = properties.getItemCacheLimit();
 		for(int i=0; i<l; i++)

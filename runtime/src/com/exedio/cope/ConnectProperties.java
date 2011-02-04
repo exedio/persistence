@@ -73,7 +73,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
 	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
 	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
-	private final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
+	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
@@ -294,11 +294,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getQueryCacheLimit()
 	{
 		return queryCacheLimit.intValue();
-	}
-
-	int getItemCacheInvalidationBucketMillis()
-	{
-		return itemCacheInvalidationBucketMillis.intValue();
 	}
 
 	public String getMediaRootUrl()
