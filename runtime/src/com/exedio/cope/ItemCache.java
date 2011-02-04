@@ -87,7 +87,7 @@ final class ItemCache
 			state = tx.connect.database.load(tx.getConnection(), item);
 
 			if(cachlet!=null)
-				cachlet.put(state, tx.startNanos);
+				cachlet.put(state, tx.getConnectionNanos());
 		}
 
 		return state;
@@ -230,14 +230,14 @@ final class ItemCache
 			}
 		}
 
-		void put(final WrittenState state, final long transactionStartNanos)
+		void put(final WrittenState state, final long connectionNanos)
 		{
 			synchronized(map)
 			{
 				if(invalidateLastNanos!=null)
 				{
 					final long invalidateLastNanos = this.invalidateLastNanos.get(state.pk);
-					if(invalidateLastNanos!=0 && invalidateLastNanos>=transactionStartNanos)
+					if(invalidateLastNanos!=0 && invalidateLastNanos>=connectionNanos)
 					{
 						invalidateLastHits++;
 						return;

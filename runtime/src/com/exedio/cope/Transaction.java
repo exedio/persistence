@@ -36,7 +36,6 @@ public final class Transaction
 	final long id;
 	final String name;
 	final long startDate;
-	final long startNanos;
 
 	/**
 	 * index in array is {@link Type#cacheIdTransiently};
@@ -49,6 +48,7 @@ public final class Transaction
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
+	private long connectionNanos = Long.MIN_VALUE;
 	private boolean closed = false;
 
 	Transaction(
@@ -62,7 +62,6 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
-		this.startNanos = System.nanoTime();
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
 	}
 
@@ -273,8 +272,18 @@ public final class Transaction
 		connectionPool = connect.connectionPool;
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
+		this.connectionNanos = System.nanoTime();
 
 		return connection;
+	}
+
+	long getConnectionNanos()
+	{
+		assert !closed : name;
+		if(connection==null)
+			throw new RuntimeException(name);
+
+		return connectionNanos;
 	}
 
 	/**
