@@ -119,10 +119,11 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	}
 	else
 	{
+		final boolean rr = !props.connectionTransactionIsolationReadCommitted.booleanValue();
 		final boolean il = props.itemCacheInvalidateLast.booleanValue();
 
-		assertEquals("itemName2", item.getName());
-		assertModificationCount(1, il?MIN_VALUE:1);
+		assertEquals(rr?"itemName":"itemName2", item.getName());
+		assertModificationCount(rr?0:1, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		model.commit();
@@ -133,7 +134,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
-		// repeatable-read isolation.
+		// repeatable-read isolation and does no itemCacheInvalidateLast.
 		item.setName("itemName3");
 		assertModificationCount(2, 1);
 		assertCache(1, il?0:1, il?3:2, 2, 1);
