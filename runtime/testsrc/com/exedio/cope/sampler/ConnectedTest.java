@@ -78,11 +78,6 @@ public class ConnectedTest extends AbstractRuntimeTest
 	boolean c;
 	private ConnectToken connectToken = null;
 
-	protected final Model samplerModel()
-	{
-		return connectToken.getModel();
-	}
-
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -95,7 +90,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	@Override
 	protected void tearDown() throws Exception
 	{
-		samplerModel().dropSchema();
+		sampler.getModel().dropSchema();
 		connectToken.returnIt();
 		ConnectToken.logger.setUseParentHandlers(true);
 		super.tearDown();

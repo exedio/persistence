@@ -85,6 +85,11 @@ public final class Sampler
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
+	public Model getModel()
+	{
+		return samplerModel;
+	}
+
 	public ConnectToken connect()
 	{
 		final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
@@ -130,7 +135,7 @@ public final class Sampler
 		};
 	}
 
-	void check()
+	public void check()
 	{
 		samplerModel.reviseIfSupported();
 		try
@@ -275,7 +280,7 @@ public final class Sampler
 			};
 	}
 
-	void purge(final int days, final JobContext ctx) // TODO make public
+	public void purge(final int days, final JobContext ctx)
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -286,7 +291,7 @@ public final class Sampler
 		purge(cal.getTime(), ctx);
 	}
 
-	void purge(final Date limit, final JobContext ctx) // TODO make public
+	public void purge(final Date limit, final JobContext ctx)
 	{
 		for(final Type type : samplerModel.getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end

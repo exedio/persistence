@@ -33,13 +33,13 @@ public class SampleTest extends ConnectedTest
 {
 	public void testIt()
 	{
-		samplerModel().createSchema();
+		sampler.getModel().createSchema();
 		sampler.check();
-		samplerModel().startTransaction("HistoryTest");
+		sampler.getModel().startTransaction("HistoryTest");
 		assertEquals(0, SamplerModel.TYPE.search().size());
 		assertEquals(0, SamplerItemCache.TYPE.search().size());
 		assertEquals(0, SamplerMedia.TYPE.search().size());
-		samplerModel().commit();
+		sampler.getModel().commit();
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
@@ -52,7 +52,7 @@ public class SampleTest extends ConnectedTest
 		final Date before55 = new Date();
 		sampler.sample();
 		final Date after55 = new Date();
-		samplerModel().startTransaction("HistoryTest2");
+		sampler.getModel().startTransaction("HistoryTest2");
 		final SamplerModel model55;
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
@@ -72,7 +72,7 @@ public class SampleTest extends ConnectedTest
 			media55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		samplerModel().commit();
+		sampler.getModel().commit();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
@@ -85,7 +85,7 @@ public class SampleTest extends ConnectedTest
 		final Date before66 = new Date();
 		sampler.sample();
 		final Date after66 = new Date();
-		samplerModel().startTransaction("HistoryTest2");
+		sampler.getModel().startTransaction("HistoryTest2");
 		final SamplerModel model66;
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
@@ -109,7 +109,7 @@ public class SampleTest extends ConnectedTest
 			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		samplerModel().commit();
+		sampler.getModel().commit();
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
