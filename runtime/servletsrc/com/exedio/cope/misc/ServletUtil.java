@@ -28,6 +28,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.PrefixSource;
@@ -158,8 +159,8 @@ public final class ServletUtil
 	 * the file <tt>cope.properties</tt>
 	 * in the directory <tt>WEB-INF</tt>
 	 * of the web application.
-	 * @see Model#connect(com.exedio.cope.ConnectProperties)
-	 * @see ConnectToken#issue(Model,com.exedio.cope.ConnectProperties,String)
+	 * @see Model#connect(ConnectProperties)
+	 * @see ConnectToken#issue(Model,ConnectProperties,String)
 	 */
 	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
 	{
@@ -178,7 +179,7 @@ public final class ServletUtil
 
 		final ServletContext context = config.getServletContext();
 		return ConnectToken.issue(model,
-			new com.exedio.cope.ConnectProperties(
+			new ConnectProperties(
 				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
 	}
 
