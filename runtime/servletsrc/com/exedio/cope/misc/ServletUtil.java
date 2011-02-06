@@ -151,7 +151,7 @@ public final class ServletUtil
 		{
 			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		return connect(result, config, description);
+		return ConnectToken.issue(result, description);
 	}
 
 	/**
@@ -162,19 +162,19 @@ public final class ServletUtil
 	 * @see Model#connect(ConnectProperties)
 	 * @see ConnectToken#issue(Model,ConnectProperties,String)
 	 */
-	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
+	@Deprecated public static final ConnectToken connect(final Model model, @SuppressWarnings("unused") final ServletConfig config, final String name)
 	{
-		return connect(model, wrap(config), name);
+		return ConnectToken.issue(model, name);
 	}
 
-	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
+	@Deprecated public static final ConnectToken connect(final Model model, @SuppressWarnings("unused") final FilterConfig config, final String name)
 	{
-		return connect(model, wrap(config), name);
+		return ConnectToken.issue(model, name);
 	}
 
-	private static final ConnectToken connect(final Model model, final Config config, final String name)
+	public static final ConnectProperties getConnectProperties(final ServletConfig config)
 	{
-		return ConnectToken.issue(model, getConnectProperties(config), name);
+		return getConnectProperties(wrap(config));
 	}
 
 	private static final ConnectProperties getConnectProperties(final Config config)
