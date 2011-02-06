@@ -18,22 +18,29 @@
 
 package com.exedio.cope.misc;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static com.exedio.cope.misc.ConnectToken.issue;
+import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
+import static com.exedio.cope.util.Properties.getSystemPropertySource;
 
-public class PackageTest extends TestCase
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.junit.CopeAssert;
+
+public class ConnectTokenNullModelTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(ConnectTokenNullModelTest.class);
-		suite.addTestSuite(TransactionSlicerTest.class);
-		suite.addTestSuite(TransactionRunnableTest.class);
-		suite.addTestSuite(QueryAggregatorTest.class);
-		suite.addTestSuite(TypeIteratorTest.class);
-		suite.addTestSuite(StableQueryIteratorTest.class);
-		return suite;
+		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+
+		try
+		{
+			issue(null, props, "tokenNameNullModel");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+
+		assertNull(issueIfConnected(null, "tokenNameNullModelConditionally")); // TODO should fail
 	}
 }

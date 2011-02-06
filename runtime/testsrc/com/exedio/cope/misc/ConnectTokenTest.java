@@ -70,6 +70,17 @@ public class ConnectTokenTest extends CopeAssert
 
 		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
 
+		try
+		{
+			issue(model, null, "token0NameNullProperties");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+		assertNotConnected();
+
 		final Date before0 = new Date();
 		final ConnectToken token0 = issue(model, props, "token0Name");
 		final Date after0 = new Date();
@@ -130,6 +141,19 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
 		log.assertInfo("ConnectToken " + model.toString() + ": issued conditionally 2 (token2Name)");
+
+		try
+		{
+			issue(model, null, "token0NameNullProperties");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage()); // TODO should have message "properties"
+		}
+		assertTrue(model.isConnected());
+		assertSame(props, model.getConnectProperties());
+		assertEquals(connectDate, model.getConnectDate());
 
 		assertEquals(false, token0.returnIt());
 		assertTrue(model.isConnected());
