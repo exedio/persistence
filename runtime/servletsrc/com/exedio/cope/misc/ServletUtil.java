@@ -174,13 +174,18 @@ public final class ServletUtil
 
 	private static final ConnectToken connect(final Model model, final Config config, final String name)
 	{
+		return ConnectToken.issue(model, getConnectProperties(config), name);
+	}
+
+	private static final ConnectProperties getConnectProperties(final Config config)
+	{
 		final String propertiesInitParam = config.getInitParameter("cope.properties");
 		final String propertiesFile = propertiesInitParam!=null ? propertiesInitParam : "WEB-INF/cope.properties";
 
 		final ServletContext context = config.getServletContext();
-		return ConnectToken.issue(model,
+		return
 			new ConnectProperties(
-				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
+				new File(context.getRealPath(propertiesFile)), getPropertyContext(context));
 	}
 
 	public static final Properties.Source getPropertyContext(final ServletContext context)
