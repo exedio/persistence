@@ -231,6 +231,9 @@ public final class ConnectToken
 
 	private static final Manciple manciple(final Model model)
 	{
+		if(model==null)
+			throw new NullPointerException("model");
+
 		synchronized(manciples)
 		{
 			Manciple result = manciples.get(model);

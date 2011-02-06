@@ -38,9 +38,17 @@ public class ConnectTokenNullModelTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("model", e.getMessage());
 		}
 
-		assertNull(issueIfConnected(null, "tokenNameNullModelConditionally")); // TODO should fail
+		try
+		{
+			issueIfConnected(null, "tokenNameNullModelConditionally");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
 	}
 }
