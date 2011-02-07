@@ -34,7 +34,14 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		quit = !model.getConnectProperties().itemCacheInvalidateLast.booleanValue();
+
+		final ConnectProperties props = model.getConnectProperties();
+		quit =
+			props.getItemCacheLimit()==0 ||
+			!props.itemCacheInvalidateLast.booleanValue();
+		if(quit)
+			return;
+
 		item1 = deleteOnTearDown(new CacheIsolationItem("item1"));
 		item2 = deleteOnTearDown(new CacheIsolationItem("item2"));
 		itemX = deleteOnTearDown(new CacheIsolationItem("itemX"));
