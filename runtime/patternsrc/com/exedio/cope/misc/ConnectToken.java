@@ -230,7 +230,6 @@ public final class ConnectToken
 
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
 
-
 	public static final void setProperties(
 			final Model model,
 			final ConnectProperties properties)
