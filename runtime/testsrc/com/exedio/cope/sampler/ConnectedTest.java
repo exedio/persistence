@@ -83,6 +83,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 		super.setUp();
 		ConnectToken.logger.setUseParentHandlers(false);
 		c = model.getConnectProperties().getItemCacheLimit()>0;
+		ConnectToken.setProperties(sampler.getModel(), sampler.getConnectProperties());
 		connectToken = sampler.connect();
 	}
 
