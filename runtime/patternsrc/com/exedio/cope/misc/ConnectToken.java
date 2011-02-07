@@ -230,7 +230,10 @@ public final class ConnectToken
 
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
 
-	private static final void newManciple(final Model model, final ConnectProperties properties)
+
+	public static final void setProperties(
+			final Model model,
+			final ConnectProperties properties)
 	{
 		if(model==null)
 			throw new NullPointerException("model");
@@ -260,13 +263,6 @@ public final class ConnectToken
 			throw new IllegalStateException("No properties set for model " + model.toString() + ", use ConnectToken.setProperties.");
 
 		return result;
-	}
-
-	public static final void setProperties(
-			final Model model,
-			final ConnectProperties properties)
-	{
-		newManciple(model, properties);
 	}
 
 	/**
