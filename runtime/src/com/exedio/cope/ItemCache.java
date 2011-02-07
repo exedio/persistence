@@ -136,6 +136,19 @@ final class ItemCache
 		}
 	}
 
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	void clearInvalidateLast()
+	{
+		for(final Cachlet cachlet : cachlets)
+		{
+			if(cachlet!=null)
+				cachlet.clearInvalidateLast();
+		}
+	}
+
 	ItemCacheInfo[] getInfo(final List<Type<?>> typesInOriginalOrder)
 	{
 		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
@@ -338,6 +351,21 @@ final class ItemCache
 			synchronized(map)
 			{
 				map.clear();
+			}
+		}
+
+		/**
+		 * @deprecated for unit tests only
+		 */
+		@Deprecated
+		void clearInvalidateLast()
+		{
+			if(invalidateLastNanos!=null)
+			{
+				synchronized(map)
+				{
+					invalidateLastNanos.clear();
+				}
 			}
 		}
 
