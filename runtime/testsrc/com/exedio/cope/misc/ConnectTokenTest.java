@@ -244,6 +244,22 @@ public class ConnectTokenTest extends CopeAssert
 		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0 (null)");
 	}
 
+	public void testSetDuplicate()
+	{
+		try
+		{
+			setProperties(model, props);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Properties already set for model " +
+					"com.exedio.cope.misc.ConnectTokenTest#model.",
+					e.getMessage());
+		}
+	}
+
 	private void assertNotConnected()
 	{
 		assertFalse(model.isConnected());

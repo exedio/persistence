@@ -230,7 +230,7 @@ public final class ConnectToken
 
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
 
-	private static final Manciple newManciple(final Model model, final ConnectProperties properties)
+	private static final void newManciple(final Model model, final ConnectProperties properties)
 	{
 		if(model==null)
 			throw new NullPointerException("model");
@@ -239,13 +239,10 @@ public final class ConnectToken
 
 		synchronized(manciples)
 		{
-			Manciple result = manciples.get(model);
-			if(result!=null)
-				return result;
+			if(manciples.containsKey(model))
+				throw new IllegalStateException("Properties already set for model " + model.toString() + '.');
 
-			result = new Manciple(properties);
-			manciples.put(model, result);
-			return result;
+			manciples.put(model, new Manciple(properties));
 		}
 	}
 
