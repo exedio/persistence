@@ -75,7 +75,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
 	}
 
-	public void testOverlappingEmpty()
+	public void testOverlappingOnce()
 	{
 		if(quit)
 			return;
