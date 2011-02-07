@@ -18,7 +18,9 @@
 
 package com.exedio.cope.util;
 
-import java.io.File;
+import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static com.exedio.cope.util.Properties.getSystemPropertySource;
+
 import java.util.Date;
 
 import com.exedio.cope.ConnectProperties;
@@ -28,6 +30,12 @@ import com.exedio.cope.junit.CopeAssert;
 public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
+	private static final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+
+	static
+	{
+		setProperties(model, props);
+	}
 
 	@Override
 	protected void setUp() throws Exception
@@ -58,8 +66,6 @@ public class ConnectTokenTest extends CopeAssert
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
 
-		final com.exedio.cope.ConnectProperties props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
-
 		final Date before1 = new Date();
 		final ConnectToken token1 = ConnectToken.issue(model, props, "token1Name");
 		final Date after1 = new Date();
@@ -89,28 +95,6 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals("token2Name", token2.getName());
 		assertEquals(false, token2.didConnect());
 		assertEquals(false, token2.isReturned());
-
-		{
-			final File dpf = ConnectProperties.getDefaultPropertyFile();
-			final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
-			dp.setProperty("database.user", "zack");
-			final ConnectProperties props2 = new ConnectProperties(dp, "ConnectTokenTestChangedProps", ConnectProperties.getSystemPropertySource());
-			try
-			{
-				ConnectToken.issue(model, props2, "tokenXName");
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals(
-						"inconsistent initialization for database.user between " + props.getSource() +
-						" and ConnectTokenTestChangedProps, expected " + props.getDatabaseUser() +
-						" but got zack.", e.getMessage());
-			}
-			assertSame(props, model.getConnectProperties());
-			assertEquals(connectDate, model.getConnectDate());
-			assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
-		}
 
 		assertEquals(false, token1.returnIt());
 		assertSame(props, model.getConnectProperties());
