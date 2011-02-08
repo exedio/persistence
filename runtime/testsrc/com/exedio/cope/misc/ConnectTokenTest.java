@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.util.Properties.getSystemPropertySource;
 
 import java.util.Date;
@@ -39,7 +40,6 @@ public class ConnectTokenTest extends CopeAssert
 	static
 	{
 		model.enableSerialization(ConnectTokenTest.class, "model");
-		setProperties(model, props);
 	}
 
 	TestLogHandler log = null;
@@ -51,11 +51,13 @@ public class ConnectTokenTest extends CopeAssert
 		log = new TestLogHandler();
 		ConnectToken.logger.addHandler(log);
 		ConnectToken.logger.setUseParentHandlers(false);
+		setProperties(model, props);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		removeProperties(model);
 		ConnectToken.logger.removeHandler(log);
 		log = null;
 		ConnectToken.logger.setUseParentHandlers(true);
