@@ -159,7 +159,7 @@ public final class ConnectToken
 
 	private static final class Manciple
 	{
-		private final ConnectProperties properties;
+		final ConnectProperties properties;
 		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();
 		private int nextId = 0;
 		private final Object lock = new Object();
@@ -246,6 +246,21 @@ public final class ConnectToken
 
 			manciples.put(model, new Manciple(properties));
 		}
+	}
+
+	public static final ConnectProperties removeProperties(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+
+		final Manciple manciple;
+
+		synchronized(manciples)
+		{
+			manciple = manciples.remove(model);
+		}
+
+		return manciple!=null ? manciple.properties : null;
 	}
 
 	private static final Manciple manciple(final Model model)

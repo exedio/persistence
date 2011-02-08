@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
 import java.io.File;
@@ -49,12 +50,23 @@ public class ServletUtilTest extends CopeAssert
 	public static final Model modelContext = new Model(ModelContext.TYPE);
 	public static final Model modelNull = null;
 
-	static
+	@Override
+	protected void setUp() throws Exception
 	{
+		super.setUp();
 		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 		setProperties(modelOk, props);
 		setProperties(modelOk2, props);
 		setProperties(modelContext, props);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		removeProperties(modelOk);
+		removeProperties(modelOk2);
+		removeProperties(modelContext);
+		super.tearDown();
 	}
 
 	public void testIt() throws ServletException

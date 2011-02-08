@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.util.Properties.getSystemPropertySource;
 
@@ -32,21 +33,18 @@ public class ConnectTokenTest extends CopeAssert
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 	private static final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
 
-	static
-	{
-		setProperties(model, props);
-	}
-
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(false);
+		setProperties(model, props);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		removeProperties(model);
 		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
