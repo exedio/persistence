@@ -76,6 +76,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 
 	boolean c;
 	private ConnectToken connectToken = null;
+	private static boolean propertiesSet = false;
 
 	@Override
 	protected void setUp() throws Exception
@@ -83,7 +84,11 @@ public class ConnectedTest extends AbstractRuntimeTest
 		super.setUp();
 		ConnectToken.logger.setUseParentHandlers(false);
 		c = model.getConnectProperties().getItemCacheLimit()>0;
-		ConnectToken.setProperties(sampler.getModel(), sampler.getConnectProperties());
+		if(!propertiesSet)
+		{
+			ConnectToken.setProperties(sampler.getModel(), sampler.getConnectProperties());
+			propertiesSet = true;
+		}
 		connectToken = sampler.connect();
 	}
 
