@@ -270,7 +270,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		this.connectionNanos = System.nanoTime();
+		this.connectionNanos = System.nanoTime() - connect.properties.itemCacheInvalidateLastMargin.intValue();
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 
