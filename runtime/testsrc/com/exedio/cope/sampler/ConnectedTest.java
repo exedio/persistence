@@ -38,11 +38,12 @@ public class ConnectedTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		final ConnectProperties props = model.getConnectProperties();
 		ConnectToken.logger.setUseParentHandlers(false);
-		c = model.getConnectProperties().getItemCacheLimit()>0;
+		c = props.getItemCacheLimit()>0;
 		sampler.getModel().connect(new ConnectProperties(
-				Sampler.maskConnectSource(model.getConnectProperties().getSourceObject()),
-				model.getConnectProperties().getContext()));
+				Sampler.maskConnectSource(props.getSourceObject()),
+				props.getContext()));
 	}
 
 	@Override
