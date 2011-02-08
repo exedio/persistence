@@ -48,7 +48,7 @@ public final class Transaction
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
-	private long connectionNanos = Long.MIN_VALUE;
+	private long connectionNanos = Long.MAX_VALUE;
 	private boolean closed = false;
 
 	Transaction(
@@ -270,9 +270,9 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
+		this.connectionNanos = System.nanoTime();
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
-		this.connectionNanos = System.nanoTime();
 
 		return connection;
 	}
@@ -284,6 +284,11 @@ public final class Transaction
 			throw new RuntimeException(name);
 
 		return connectionNanos;
+	}
+
+	long getConnectionNanosOrMax()
+	{
+		return this.connectionNanos;
 	}
 
 	/**

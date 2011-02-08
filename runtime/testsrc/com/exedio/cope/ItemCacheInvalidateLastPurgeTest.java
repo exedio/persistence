@@ -71,17 +71,17 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
 		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 	}
 
 	public void testOverlappingOnce()
@@ -109,10 +109,10 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 	}
 
 	public void testOverlappingOnceWithoutConnection()
@@ -133,16 +133,16 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.joinTransaction(overlapTx);
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 	}
 
 	public void testOverlappingTwice()
@@ -174,16 +174,16 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0);
 
 		model.commit(); // overlapTx1
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.joinTransaction(overlapTx2);
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.commit(); // overlapTx2
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+		assertCache(0, 0, 2, 2, 2, 0, 0);
 	}
 
 

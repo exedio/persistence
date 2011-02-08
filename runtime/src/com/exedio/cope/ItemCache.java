@@ -21,6 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntLongHashMap;
+import gnu.trove.TIntLongIterator;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TIntObjectIterator;
 
@@ -133,6 +134,15 @@ final class ItemCache
 		{
 			if(cachlet!=null)
 				cachlet.clear();
+		}
+	}
+
+	void purgeInvalidateLast(final long untilNanos)
+	{
+		for(final Cachlet cachlet : cachlets)
+		{
+			if(cachlet!=null)
+				cachlet.purgeInvalidateLast(untilNanos);
 		}
 	}
 
@@ -336,7 +346,6 @@ final class ItemCache
 					map.remove(pk);
 
 					// TODO reuse System.nanoTime()
-					// TODO purge lastInvalidateNanos XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 					if(invalidateLastNanos!=null)
 						invalidateLastNanos.put(pk, System.nanoTime());
 				}
@@ -351,6 +360,23 @@ final class ItemCache
 			synchronized(map)
 			{
 				map.clear();
+			}
+		}
+
+		void purgeInvalidateLast(final long untilNanos)
+		{
+			if(invalidateLastNanos!=null)
+			{
+				synchronized(map)
+				{
+					// TODO clear map if untilNanos==Long.MAX_VALUE
+					for(final TIntLongIterator i = invalidateLastNanos.iterator(); i.hasNext(); )
+					{
+						i.advance();
+						if(i.value()<untilNanos)
+							i.remove();
+					}
+				}
 			}
 		}
 

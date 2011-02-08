@@ -608,6 +608,21 @@ public final class Model implements Serializable
 		}
 		setTransaction(null);
 		tx.commitOrRollback(rollback, this, transactionCounter);
+
+		if(tx.connect.properties.itemCacheInvalidateLast.booleanValue())
+		{
+			long oldestNanos = Long.MAX_VALUE;
+			synchronized(openTransactions)
+			{
+				for(final Transaction openTransaction : openTransactions)
+				{
+					final long currentNanos = openTransaction.getConnectionNanosOrMax();
+					if(oldestNanos>currentNanos)
+						oldestNanos = currentNanos;
+				}
+			}
+			connect().itemCache.purgeInvalidateLast(oldestNanos);
+		}
 	}
 
 	/**
