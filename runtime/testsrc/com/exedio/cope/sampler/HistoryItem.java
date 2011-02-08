@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
@@ -26,6 +27,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Media;
 
+@CopeSchemaName("SampledModelItem")
 public class HistoryItem extends Item
 {
 	static final StringField code = new StringField();
