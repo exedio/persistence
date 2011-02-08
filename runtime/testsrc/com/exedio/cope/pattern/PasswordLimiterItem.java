@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 public class PasswordLimiterItem extends Item
 {
 	static final MessageDigestHash password = new MessageDigestHash(8);
-	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 200, 2);
+	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
 
 
 
