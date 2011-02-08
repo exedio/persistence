@@ -7,6 +7,26 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* rework ConnectToken
+
+	public class PropertiesInitializer implements ServletContextListener
+	{
+		public void contextInitialized(ServletContextEvent sce)
+		{
+			ConnectToken.setProperties(Main.model, ServletUtil.getConnectProperties(sce.getServletContext()));
+		}
+		public void contextDestroyed(ServletContextEvent sce)
+		{
+			ConnectToken.removeProperties(Main.model);
+		}
+	}
+	
+	web.xml
+	
+	<listener>
+		<listener-class>com.exedio.copernica.test.PropertiesInitializer</listener-class>
+	</listener>
+
 * remove connect property "log", has been replaced by java.util.logging
 * MediaServlet can be subclassed for overriding onException
 * add class ItemCacheSummary

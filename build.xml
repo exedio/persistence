@@ -609,11 +609,12 @@
 	</target>
 	
 	<target name="copernica.test.compile"
-				depends="dsmf.compile, runtime.core.compile, runtime.servlet.compile, runtime.test.compile, copernica.test.jspm">
+				depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.compile, copernica.test.jspm">
 		<compile srcdir="copernica/testsrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location="lib/exedio-cops.jar" />
