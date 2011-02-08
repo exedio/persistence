@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static com.exedio.cope.CacheIsolationItem.name;
 
 public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 {
@@ -73,6 +74,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
+		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
 		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
 
 		model.commit();
@@ -96,6 +98,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		assertEquals(list(), TYPE.search(name.equal("testOverlappingOnce"))); // make transaction acquire a connection
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 
@@ -104,6 +107,36 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 		model.joinTransaction(overlapTx);
 		assertCache(0, 0, 2, 2, 2, 2, 0);
+
+		model.commit(); // overlapTx
+		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+
+		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+	}
+
+	public void testOverlappingOnceWithoutConnection()
+	{
+		if(quit)
+			return;
+		assertCache(0, 0, 0, 0, 0, 0, 0);
+
+		item1.setName("item1a");
+		assertCache(1, 0, 1, 0, 0, 0, 0);
+
+		item2.setName("item2a");
+		assertCache(2, 0, 2, 0, 0, 0, 0);
+
+		final Transaction modifyTx = model.leaveTransaction();
+		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		final Transaction overlapTx = model.leaveTransaction();
+		model.joinTransaction(modifyTx);
+
+		model.commit(); // modifyTx
+		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
+
+		model.joinTransaction(overlapTx);
+		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
 
 		model.commit(); // overlapTx
 		assertCache(0, 0, 2, 2, 2, 2, 0); // TODO invalidateLastSize should be 0
@@ -126,6 +159,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap1");
+		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice1"))); // make transaction acquire a connection
 		final Transaction overlapTx1 = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 
@@ -133,6 +167,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap2");
+		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
 		model.joinTransaction(overlapTx1);
