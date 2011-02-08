@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
@@ -50,7 +51,7 @@ public class ServletUtilTest extends CopeAssert
 
 	static
 	{
-		final ConnectProperties props = new ConnectProperties();
+		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 		setProperties(modelOk, props);
 		setProperties(modelOk2, props);
 		setProperties(modelContext, props);
