@@ -21,34 +21,34 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
-import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
-import static com.exedio.cope.util.Properties.getSystemPropertySource;
+import static com.exedio.cope.misc.ConnectToken.setProperties;
 
+import java.io.File;
 import java.util.Date;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.TestLogHandler;
+import com.exedio.cope.TestLogUtilHandler;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
-	private static final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 
 	static
 	{
 		model.enableSerialization(ConnectTokenTest.class, "model");
 	}
 
-	TestLogHandler log = null;
+	TestLogUtilHandler log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
+		log = new TestLogUtilHandler();
 		ConnectToken.logger.addHandler(log);
 		ConnectToken.logger.setUseParentHandlers(false);
 		setProperties(model, props);

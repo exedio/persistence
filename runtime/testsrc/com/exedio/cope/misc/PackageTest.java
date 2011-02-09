@@ -27,10 +27,6 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenNotSetTest.class);
-		suite.addTestSuite(ConnectTokenSetTest.class);
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(ConnectTokenNullModelTest.class);
 		suite.addTestSuite(TransactionSlicerTest.class);
 		suite.addTestSuite(TransactionRunnableTest.class);
 		suite.addTestSuite(QueryAggregatorTest.class);
