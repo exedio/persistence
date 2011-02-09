@@ -295,7 +295,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
-		assertTrue((date+1000)>=lastModified);
+		assertTrue((date+2000)>=lastModified);
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
@@ -397,7 +397,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
-		assertTrue((date+1000)>=lastModified);
+		assertTrue((date+2000)>=lastModified);
 		if(!contentType.equals(conn.getContentType()))
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());

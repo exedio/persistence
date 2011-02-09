@@ -159,18 +159,19 @@ public final class ConnectToken
 
 	private static final class Manciple
 	{
+		final ConnectProperties properties;
 		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();
 		private int nextId = 0;
 		private final Object lock = new Object();
 
-		Manciple()
+		Manciple(final ConnectProperties properties)
 		{
-			// make constructor non-private
+			assert properties!=null;
+			this.properties = properties;
 		}
 
 		ConnectToken issue(
 				final Model model,
-				final ConnectProperties properties,
 				final String tokenName)
 		{
 			synchronized(lock)
@@ -229,21 +230,64 @@ public final class ConnectToken
 
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
 
+	/**
+	 * Sets the connect properties for the given model.
+	 * Enables usage of
+	 * {@link #issue(Model, String)},
+	 * {@link #issueIfConnected(Model, String)},
+	 * {@link #getTokens(Model)}.
+	 * @see #removeProperties(Model)
+	 */
+	public static final void setProperties(
+			final Model model,
+			final ConnectProperties properties)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+		if(properties==null)
+			throw new NullPointerException("properties");
+
+		synchronized(manciples)
+		{
+			if(manciples.containsKey(model))
+				throw new IllegalStateException("Properties already set for model " + model.toString() + '.');
+
+			manciples.put(model, new Manciple(properties));
+		}
+	}
+
+	/**
+	 * @see #setProperties(Model, ConnectProperties)
+	 */
+	public static final ConnectProperties removeProperties(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+
+		final Manciple manciple;
+
+		synchronized(manciples)
+		{
+			manciple = manciples.remove(model);
+		}
+
+		return manciple!=null ? manciple.properties : null;
+	}
+
 	private static final Manciple manciple(final Model model)
 	{
 		if(model==null)
 			throw new NullPointerException("model");
 
+		final Manciple result;
 		synchronized(manciples)
 		{
-			Manciple result = manciples.get(model);
-			if(result!=null)
-				return result;
-
-			result = new Manciple();
-			manciples.put(model, result);
-			return result;
+			result = manciples.get(model);
 		}
+		if(result==null)
+			throw new IllegalStateException("No properties set for model " + model.toString() + ", use ConnectToken.setProperties.");
+
+		return result;
 	}
 
 	/**
@@ -251,21 +295,15 @@ public final class ConnectToken
 	 * if the model is not already connected.
 	 * Can be called multiple times, but only the first time
 	 * takes effect.
-	 * Any subsequent calls must give properties equal to properties given
-	 * on the first call, otherwise a RuntimeException is thrown.
 	 * <p>
 	 * Usually you may want to use this method, if you want to connect this model
 	 * from different servlets with equal properties in an undefined order.
-	 *
-	 * @throws IllegalArgumentException if a subsequent call provides properties different
-	 * 									to the first call.
 	 */
 	public static final ConnectToken issue(
 			final Model model,
-			final ConnectProperties properties,
 			final String tokenName)
 	{
-		return manciple(model).issue(model, properties, tokenName);
+		return manciple(model).issue(model, tokenName);
 	}
 
 	/**
@@ -297,5 +335,20 @@ public final class ConnectToken
 	public static final List<ConnectToken> getTokens(final Model model)
 	{
 		return manciple(model).getTokens();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @param properties is ignored
+	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter <tt>properties</tt> is ignored.
+	 */
+	@Deprecated
+	public static final ConnectToken issue(
+			final Model model,
+			final ConnectProperties properties,
+			final String tokenName)
+	{
+		return issue(model, tokenName);
 	}
 }

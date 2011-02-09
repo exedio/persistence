@@ -7,6 +7,33 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* Change ConnectToken semantics
+
+	This breaks backwards API compatibility in almost all cases !!!
+	You MUST call ConnectToken.setProperties, otherwise ConnectTokens
+	will not work anymore. ConnectTokens are used by depending
+	frameworks as well, such as generic backoffice and COPE Console.
+	
+	Typically you may want to have a class like this:
+
+		public class PropertiesInitializer implements ServletContextListener
+		{
+			public void contextInitialized(ServletContextEvent sce)
+			{
+				ConnectToken.setProperties(Main.model, ServletUtil.getConnectProperties(sce.getServletContext()));
+			}
+			public void contextDestroyed(ServletContextEvent sce)
+			{
+				ConnectToken.removeProperties(Main.model);
+			}
+		}
+		
+	and a corresponding snippet within your web.xml:
+	
+		<listener>
+			<listener-class>com.exedio.copedemo.PropertiesInitializer</listener-class>
+		</listener>
+
 * remove connect property "log", has been replaced by java.util.logging
 * MediaServlet can be subclassed for overriding onException
 * add class ItemCacheSummary

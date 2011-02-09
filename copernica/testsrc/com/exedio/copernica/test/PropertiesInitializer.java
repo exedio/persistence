@@ -16,34 +16,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sampler;
+package com.exedio.copernica.test;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.CopeSchemaName;
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Media;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-@CopeSchemaName("SampledModelItem")
-public class HistoryItem extends Item
+import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.misc.ServletUtil;
+import com.exedio.cope.testmodel.Main;
+
+public final class PropertiesInitializer implements ServletContextListener
 {
-	static final StringField code = new StringField();
-	static final Media media = new Media();
-
-	HistoryItem(final SetValue... values)
+	public void contextInitialized(final ServletContextEvent sce)
 	{
-		super(values);
+		ConnectToken.setProperties(Main.model, ServletUtil.getConnectProperties(sce.getServletContext()));
 	}
 
-	HistoryItem(final ActivationParameters ap)
+	public void contextDestroyed(final ServletContextEvent sce)
 	{
-		super(ap);
+		ConnectToken.removeProperties(Main.model);
 	}
-
-	private static final long serialVersionUID = 1l;
-
-	static final Type<HistoryItem> TYPE = TypesBound.newType(HistoryItem.class);
 }

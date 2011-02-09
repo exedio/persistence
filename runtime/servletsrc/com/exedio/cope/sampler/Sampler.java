@@ -31,7 +31,6 @@ import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.ItemCacheInfo;
@@ -41,14 +40,12 @@ import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
-import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
 public final class Sampler
@@ -90,32 +87,19 @@ public final class Sampler
 		return samplerModel;
 	}
 
-	public ConnectToken connect()
-	{
-		final Properties.Source sampledContext = sampledModel.getConnectProperties().getContext();
-		return
-			ConnectToken.issue(
-					samplerModel,
-					new ConnectProperties(
-							filterSource(new PrefixSource(
-									sampledContext,
-									"sampler.")),
-							sampledContext),
-					name);
-	}
-
-	private static Properties.Source filterSource(final Properties.Source original)
+	public static Properties.Source maskConnectSource(final Properties.Source original)
 	{
 		return new Properties.Source(){
 
 			public String get(final String key)
 			{
+				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
+					return "0";
+
 				final String originalResult = original.get(key);
 				if(originalResult!=null)
 					return originalResult;
 
-				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
-					return "0";
 				if("schema.revision.table".equals(key))
 					return "SamplerRevision";
 				if("schema.revision.unique".equals(key))

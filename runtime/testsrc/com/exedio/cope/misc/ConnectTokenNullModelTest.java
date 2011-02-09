@@ -20,20 +20,16 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
-import static com.exedio.cope.util.Properties.getSystemPropertySource;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenNullModelTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
-
 		try
 		{
-			issue(null, props, "tokenNameNullModel");
+			issue(null, "tokenNameNullModel");
 			fail();
 		}
 		catch(final NullPointerException e)

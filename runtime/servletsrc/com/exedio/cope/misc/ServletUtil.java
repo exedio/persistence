@@ -151,41 +151,40 @@ public final class ServletUtil
 		{
 			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		return connect(result, config, description);
+		return ConnectToken.issue(result, description);
 	}
 
 	/**
-	 * Connects the model using the properties from
+	 * @param config is ignored
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
+	 */
+	@Deprecated
+	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
+	{
+		return ConnectToken.issue(model, name);
+	}
+
+	/**
+	 * @param config is ignored
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
+	 */
+	@Deprecated
+	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
+	{
+		return ConnectToken.issue(model, name);
+	}
+
+	/**
+	 * Returns connect properties from
 	 * the file <tt>cope.properties</tt>
 	 * in the directory <tt>WEB-INF</tt>
 	 * of the web application.
-	 * @see Model#connect(ConnectProperties)
-	 * @see ConnectToken#issue(Model,ConnectProperties,String)
 	 */
-	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
+	public static final ConnectProperties getConnectProperties(final ServletContext context)
 	{
-		return connect(model, wrap(config), name);
-	}
-
-	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
-	{
-		return connect(model, wrap(config), name);
-	}
-
-	private static final ConnectToken connect(final Model model, final Config config, final String name)
-	{
-		return ConnectToken.issue(model, getConnectProperties(config), name);
-	}
-
-	private static final ConnectProperties getConnectProperties(final Config config)
-	{
-		final String propertiesInitParam = config.getInitParameter("cope.properties");
-		final String propertiesFile = propertiesInitParam!=null ? propertiesInitParam : "WEB-INF/cope.properties";
-
-		final ServletContext context = config.getServletContext();
 		return
 			new ConnectProperties(
-				new File(context.getRealPath(propertiesFile)), getPropertyContext(context));
+				new File(context.getRealPath("WEB-INF/cope.properties")), getPropertyContext(context));
 	}
 
 	public static final Properties.Source getPropertyContext(final ServletContext context)
