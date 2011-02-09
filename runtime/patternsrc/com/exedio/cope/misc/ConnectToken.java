@@ -329,12 +329,13 @@ public final class ConnectToken
 	// ------------------- deprecated stuff -------------------
 
 	/**
+	 * @param properties is ignored
 	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter <tt>properties</tt> is ignored.
 	 */
 	@Deprecated
 	public static final ConnectToken issue(
 			final Model model,
-			@SuppressWarnings("unused") final ConnectProperties properties,
+			final ConnectProperties properties,
 			final String tokenName)
 	{
 		return issue(model, tokenName);
