@@ -230,6 +230,14 @@ public final class ConnectToken
 
 	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
 
+	/**
+	 * Sets the connect properties for the given model.
+	 * Enables usage of
+	 * {@link #issue(Model, String)},
+	 * {@link #issueIfConnected(Model, String)},
+	 * {@link #getTokens(Model)}.
+	 * @see #removeProperties(Model)
+	 */
 	public static final void setProperties(
 			final Model model,
 			final ConnectProperties properties)
@@ -248,6 +256,9 @@ public final class ConnectToken
 		}
 	}
 
+	/**
+	 * @see #setProperties(Model, ConnectProperties)
+	 */
 	public static final ConnectProperties removeProperties(final Model model)
 	{
 		if(model==null)
