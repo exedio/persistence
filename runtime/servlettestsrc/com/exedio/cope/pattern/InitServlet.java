@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.misc.ServletUtil;
 
 public class InitServlet extends HttpServlet
 {
@@ -54,7 +53,7 @@ public class InitServlet extends HttpServlet
 		}
 
 		final Class thisClass = InitServlet.class;
-		connectToken = ServletUtil.connect(model, getServletConfig(), thisClass.getName());
+		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();
 		try
 		{
