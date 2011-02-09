@@ -5,16 +5,16 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
+	<listener>
+		<listener-class>com.exedio.cope.pattern.PropertiesInitializer</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>media</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cope.properties</param-name>
-			<param-value>WEB-INF/media.cope.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -25,10 +25,6 @@
 	<servlet>
 		<servlet-name>init</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.InitServlet</servlet-class>
-		<init-param>
-			<param-name>cope.properties</param-name>
-			<param-value>WEB-INF/media.cope.properties</param-value>
-		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>
@@ -41,10 +37,6 @@
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cope.properties</param-name>
-			<param-value>WEB-INF/media.cope.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
