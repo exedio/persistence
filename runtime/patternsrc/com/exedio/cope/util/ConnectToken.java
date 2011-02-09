@@ -74,6 +74,7 @@ public final class ConnectToken
 		return ct.returnIt();
 	}
 
+	@Deprecated // needed for jdk 1.5
 	public static final ConnectToken issue(
 			final Model model,
 			final com.exedio.cope.ConnectProperties properties,
