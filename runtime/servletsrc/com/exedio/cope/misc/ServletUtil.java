@@ -155,23 +155,27 @@ public final class ServletUtil
 	}
 
 	/**
-	 * Connects the model using the properties from
-	 * the file <tt>cope.properties</tt>
-	 * in the directory <tt>WEB-INF</tt>
-	 * of the web application.
-	 * @see Model#connect(ConnectProperties)
-	 * @see ConnectToken#issue(Model,ConnectProperties,String)
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
 	 */
 	@Deprecated public static final ConnectToken connect(final Model model, @SuppressWarnings("unused") final ServletConfig config, final String name)
 	{
 		return ConnectToken.issue(model, name);
 	}
 
+	/**
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
+	 */
 	@Deprecated public static final ConnectToken connect(final Model model, @SuppressWarnings("unused") final FilterConfig config, final String name)
 	{
 		return ConnectToken.issue(model, name);
 	}
 
+	/**
+	 * Returns connect properties from
+	 * the file <tt>cope.properties</tt>
+	 * in the directory <tt>WEB-INF</tt>
+	 * of the web application.
+	 */
 	public static final ConnectProperties getConnectProperties(final ServletContext context)
 	{
 		return
