@@ -139,7 +139,7 @@ public class SampleTest extends ConnectedTest
 			final SamplerItemCache itemCache)
 	{
 		assertEquals(model, itemCache.getModel());
-		assertEquals("HistoryItem", itemCache.getType());
+		assertEquals("SampledModelItem", itemCache.getType());
 		assertEquals(SamplerModel.date.get(model), itemCache.getDate());
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
@@ -154,7 +154,7 @@ public class SampleTest extends ConnectedTest
 			final SamplerMedia media)
 	{
 		assertEquals(model, media.getModel());
-		assertEquals("HistoryItem.media", media.getMedia());
+		assertEquals("SampledModelItem.media", media.getMedia());
 		assertEquals(SamplerModel.date.get(model), media.getDate());
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
