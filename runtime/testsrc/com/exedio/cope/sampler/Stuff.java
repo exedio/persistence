@@ -22,7 +22,7 @@ import com.exedio.cope.Model;
 
 final class Stuff
 {
-	static final Model MODEL = new Model(HistoryItem.TYPE);
+	static final Model MODEL = new Model(SampledModelItem.TYPE);
 
 	static
 	{

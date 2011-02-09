@@ -19,7 +19,6 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
@@ -27,23 +26,22 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Media;
 
-@CopeSchemaName("SampledModelItem")
-public class HistoryItem extends Item
+public class SampledModelItem extends Item
 {
 	static final StringField code = new StringField();
 	static final Media media = new Media();
 
-	HistoryItem(final SetValue... values)
+	SampledModelItem(final SetValue... values)
 	{
 		super(values);
 	}
 
-	HistoryItem(final ActivationParameters ap)
+	SampledModelItem(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<HistoryItem> TYPE = TypesBound.newType(HistoryItem.class);
+	static final Type<SampledModelItem> TYPE = TypesBound.newType(SampledModelItem.class);
 }
