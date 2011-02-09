@@ -155,26 +155,6 @@ public final class ServletUtil
 	}
 
 	/**
-	 * @param config is ignored
-	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
-	 */
-	@Deprecated
-	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
-	{
-		return ConnectToken.issue(model, name);
-	}
-
-	/**
-	 * @param config is ignored
-	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
-	 */
-	@Deprecated
-	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
-	{
-		return ConnectToken.issue(model, name);
-	}
-
-	/**
 	 * Returns connect properties from
 	 * the file <tt>cope.properties</tt>
 	 * in the directory <tt>WEB-INF</tt>
@@ -280,5 +260,25 @@ public final class ServletUtil
 	public static final ConnectToken initialize(final Model model, final ServletConfig config, final String name)
 	{
 		return connect(model, config, name);
+	}
+
+	/**
+	 * @param config is ignored
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
+	 */
+	@Deprecated
+	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
+	{
+		return ConnectToken.issue(model, name);
+	}
+
+	/**
+	 * @param config is ignored
+	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
+	 */
+	@Deprecated
+	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
+	{
+		return ConnectToken.issue(model, name);
 	}
 }
