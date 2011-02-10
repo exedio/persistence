@@ -144,12 +144,12 @@ final class SamplerPurge extends Item
 
 	int getRows()
 	{
-		return rows.get(this);
+		return rows.getMandatory(this);
 	}
 
 	int getElapsed()
 	{
-		return elapsed.get(this);
+		return elapsed.getMandatory(this);
 	}
 
 	private static final long serialVersionUID = 1l;
