@@ -52,7 +52,6 @@ public final class Sampler
 {
 	private final Model samplerModel;
 
-	private final String name;
 	private final Model sampledModel;
 	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
@@ -62,7 +61,6 @@ public final class Sampler
 		if(sampledModel==null)
 			throw new NullPointerException("sampledModel");
 
-		this.name = getClass().getSimpleName() + '#' + sampledModel.toString();
 		this.sampledModel = sampledModel;
 
 		this.samplerModel =
@@ -169,7 +167,7 @@ public final class Sampler
 		// save data
 		try
 		{
-			samplerModel.startTransaction(name);
+			samplerModel.startTransaction(toString() + " sample");
 			final SamplerModel model;
 			{
 				sv.clear();
@@ -290,6 +288,10 @@ public final class Sampler
 	@Override
 	public String toString()
 	{
-		return name;
+		// NOTE:
+		// The result of sampledModel.toString() may not be
+		// constant over time, therefore we need to compute
+		// the result live.
+		return "Sampler#" + sampledModel.toString();
 	}
 }
