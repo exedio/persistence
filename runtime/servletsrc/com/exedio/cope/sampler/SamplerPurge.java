@@ -122,7 +122,6 @@ final class SamplerPurge extends Item
 			SamplerPurge.elapsed.map(elapsed));
 	}
 
-	@SuppressWarnings("unused")
 	private SamplerPurge(final ActivationParameters ap)
 	{
 		super(ap);
