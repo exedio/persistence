@@ -36,6 +36,9 @@ The items are sorted inversely, i.e. lastest items are on top
 		
 	Note, that the <init-param> named "cope.properties" at the servlet
 	is not supported anymore.
+	
+	You MUST update cope console as well to at least svn.19004 hudson.6368 2011-02-10_13-41-05,
+	otherwise history will not work.
 
 * remove connect property "log", has been replaced by java.util.logging
 * MediaServlet can be subclassed for overriding onException
