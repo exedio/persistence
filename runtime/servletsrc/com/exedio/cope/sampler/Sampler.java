@@ -275,14 +275,15 @@ public final class Sampler
 
 	public void purge(final Date limit, final JobContext ctx)
 	{
+		final String samplerString = toString();
 		for(final Type type : samplerModel.getTypes())
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 				SamplerPurge.TYPE!=type)
 			{
-				SamplerPurge.purge(type, limit, ctx);
+				SamplerPurge.purge(type, limit, ctx, samplerString);
 			}
 
-		SamplerPurge.purge(SamplerModel.TYPE, limit, ctx);
+		SamplerPurge.purge(SamplerModel.TYPE, limit, ctx, samplerString);
 	}
 
 	@Override

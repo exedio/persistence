@@ -53,7 +53,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static void purge(final Type type, final Date limit, final JobContext ctx)
+	static void purge(final Type type, final Date limit, final JobContext ctx, final String samplerString)
 	{
 		if(ctx.requestedToStop())
 			return;
@@ -125,7 +125,7 @@ final class SamplerPurge extends Item
 
 		try
 		{
-			model.startTransaction("sampler new SamplerPurge");
+			model.startTransaction(samplerString + " purge register");
 			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
 			model.commit();
 		}
