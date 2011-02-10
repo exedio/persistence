@@ -53,7 +53,11 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	static void purge(final Type type, final Date limit, final JobContext ctx, final String samplerString)
+	static void purge(
+			final Type type,
+			final Date limit,
+			final JobContext ctx,
+			final String samplerString)
 	{
 		if(ctx.requestedToStop())
 			return;
