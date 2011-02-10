@@ -33,6 +33,9 @@ The items are sorted inversely, i.e. lastest items are on top
 		<listener>
 			<listener-class>com.exedio.copedemo.PropertiesInitializer</listener-class>
 		</listener>
+		
+	Note, that the <init-param> named "cope.properties" at the servlet
+	is not supported anymore.
 
 * remove connect property "log", has been replaced by java.util.logging
 * MediaServlet can be subclassed for overriding onException
