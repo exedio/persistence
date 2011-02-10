@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -276,14 +277,21 @@ public final class Sampler
 	public void purge(final Date limit, final JobContext ctx)
 	{
 		final String samplerString = toString();
-		for(final Type type : samplerModel.getTypes())
-			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-				SamplerPurge.TYPE!=type)
-			{
-				SamplerPurge.purge(type, limit, ctx, samplerString);
-			}
+		try
+		{
+			for(final Type type : samplerModel.getTypes())
+				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
+					SamplerPurge.TYPE!=type)
+				{
+					SamplerPurge.purge(type, limit, ctx, samplerString);
+				}
 
-		SamplerPurge.purge(SamplerModel.TYPE, limit, ctx, samplerString);
+			SamplerPurge.purge(SamplerModel.TYPE, limit, ctx, samplerString);
+		}
+		catch (final SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override

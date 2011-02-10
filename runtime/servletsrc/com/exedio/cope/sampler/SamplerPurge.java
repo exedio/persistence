@@ -36,7 +36,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
-import com.exedio.dsmf.SQLRuntimeException;
 
 final class SamplerPurge extends Item
 {
@@ -58,6 +57,7 @@ final class SamplerPurge extends Item
 			final Date limit,
 			final JobContext ctx,
 			final String samplerString)
+	throws SQLException
 	{
 		if(ctx.requestedToStop())
 			return;
@@ -69,61 +69,28 @@ final class SamplerPurge extends Item
 		final String bf =
 			"delete from " + SchemaInfo.quoteName(model, SchemaInfo.getTableName (type )) +
 			" where "      + SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field)) + "<?";
-		Connection con = null;
 		final int rows;
 		final long start = System.nanoTime();
+		final Connection con = SchemaInfo.newConnection(model);
 		try
 		{
-			con = SchemaInfo.newConnection(model);
-			PreparedStatement stat = null;
+			final PreparedStatement stat = con.prepareStatement(bf);
 			try
 			{
-				stat = con.prepareStatement(bf);
-
 				if(SchemaInfo.supportsNativeDate(model))
 					stat.setTimestamp(1, new Timestamp(limit.getTime())); else
 					stat.setLong     (1,               limit.getTime() );
 
 				rows = stat.executeUpdate();
-
-				if(stat!=null)
-				{
-					stat.close();
-					stat = null;
-				}
-				if(con!=null)
-				{
-					con.close();
-					con = null;
-				}
 			}
 			finally
 			{
-				if(stat!=null)
-				{
-					stat.close();
-					stat = null;
-				}
+				stat.close();
 			}
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, bf);
 		}
 		finally
 		{
-			if(con!=null)
-			{
-				try
-				{
-					con.close();
-					con = null;
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
+			con.close();
 		}
 		final long end = System.nanoTime();
 
