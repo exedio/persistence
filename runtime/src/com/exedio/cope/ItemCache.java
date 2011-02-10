@@ -194,6 +194,7 @@ final class ItemCache
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
 		private long invalidateLastHits = 0;
+		private long invalidateLastPurged = 0;
 		private long invalidationBucketHits = 0;
 
 		Cachlet(final Type type, final int limit, final boolean invalidateLast, final long invalidationBucketNanos)
@@ -374,7 +375,10 @@ final class ItemCache
 					{
 						i.advance();
 						if(i.value()<untilNanos)
+						{
+							invalidateLastPurged++;
 							i.remove();
+						}
 					}
 				}
 			}
@@ -432,7 +436,7 @@ final class ItemCache
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
 				invalidationsOrdered, invalidationsDone,
-				invalidateLastSize, invalidateLastHits,
+				invalidateLastSize, invalidateLastHits, invalidateLastPurged,
 				invalidationBucketHits);
 		}
 	}

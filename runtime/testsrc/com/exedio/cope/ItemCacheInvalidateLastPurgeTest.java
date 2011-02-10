@@ -62,39 +62,39 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 	{
 		if(quit)
 			return;
-		assertCache(0, 0, 0, 0, 0, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
-		assertCache(1, 0, 1, 0, 0, 0, 0);
+		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0);
+		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
 		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
 	public void testOverlappingOnce()
 	{
 		if(quit)
 			return;
-		assertCache(0, 0, 0, 0, 0, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
-		assertCache(1, 0, 1, 0, 0, 0, 0);
+		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0);
+		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
@@ -103,29 +103,29 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 2, 0);
+		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
 		model.joinTransaction(overlapTx);
-		assertCache(0, 0, 2, 2, 2, 2, 0);
+		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
 	public void testOverlappingOnceWithoutConnection()
 	{
 		if(quit)
 			return;
-		assertCache(0, 0, 0, 0, 0, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
-		assertCache(1, 0, 1, 0, 0, 0, 0);
+		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0);
+		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
@@ -133,29 +133,29 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.joinTransaction(overlapTx);
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
 	public void testOverlappingTwice()
 	{
 		if(quit)
 			return;
-		assertCache(0, 0, 0, 0, 0, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
-		assertCache(1, 0, 1, 0, 0, 0, 0);
+		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0);
+		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap1");
@@ -164,30 +164,30 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 2, 0);
+		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap2");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
 		model.joinTransaction(overlapTx1);
-		assertCache(0, 0, 2, 2, 2, 2, 0);
+		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
 		model.commit(); // overlapTx1
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.joinTransaction(overlapTx2);
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.commit(); // overlapTx2
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
 
-	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initInvalidationsLastHits;
+	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initInvalidationsLastHits, initInvalidationsLastPurged;
 
 	private void initCache()
 	{
@@ -200,6 +200,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		initInvalidationsOrdered = ici.getInvalidationsOrdered();
 		initInvalidationsDone = ici.getInvalidationsDone();
 		initInvalidationsLastHits = ici.getInvalidateLastHits();
+		initInvalidationsLastPurged = ici.getInvalidateLastPurged();
 	}
 
 	private void assertCache(
@@ -209,7 +210,8 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 			final long invalidationsOrdered,
 			final long invalidationsDone,
 			final int  invalidateLastSize,
-			final long invalidateLastHits)
+			final long invalidateLastHits,
+			final long invalidateLastPurged)
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheInfo();
 		assertEquals(1, icis.length);
@@ -222,5 +224,6 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertSame("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
 		assertSame("invalidateLastSize"  , invalidateLastSize  , ici.getInvalidateLastSize());
 		assertSame("invalidateLastHits"  , invalidateLastHits  , ici.getInvalidateLastHits()  -initInvalidationsLastHits);
+		assertSame("invalidateLastPurged", invalidateLastPurged, ici.getInvalidateLastPurged()-initInvalidationsLastPurged);
 	}
 }

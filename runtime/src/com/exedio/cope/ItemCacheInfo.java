@@ -38,6 +38,7 @@ public final class ItemCacheInfo
 	private final long invalidationsDone;
 	private final int  invalidateLastSize;
 	private final long invalidateLastHits;
+	private final long invalidateLastPurged;
 	private final long invalidationBucketHits;
 
 	ItemCacheInfo(
@@ -49,7 +50,7 @@ public final class ItemCacheInfo
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone,
-			final int invalidateLastSize, final long invalidateLastHits,
+			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged,
 			final long invalidationBucketHits)
 	{
 		this.type = type;
@@ -68,6 +69,7 @@ public final class ItemCacheInfo
 		this.invalidationsDone = invalidationsDone;
 		this.invalidateLastSize = invalidateLastSize;
 		this.invalidateLastHits = invalidateLastHits;
+		this.invalidateLastPurged = invalidateLastPurged;
 		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
@@ -155,6 +157,11 @@ public final class ItemCacheInfo
 	public long getInvalidateLastHits()
 	{
 		return invalidateLastHits;
+	}
+
+	public long getInvalidateLastPurged()
+	{
+		return invalidateLastPurged;
 	}
 
 	public long getInvalidationBucketHits()

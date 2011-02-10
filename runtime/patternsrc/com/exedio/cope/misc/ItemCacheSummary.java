@@ -39,6 +39,7 @@ public final class ItemCacheSummary
 	private final long invalidationsDone;
 	private final int  invalidateLastSize;
 	private final long invalidateLastHits;
+	private final long invalidateLastPurged;
 	private final long invalidationBucketHits;
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
@@ -59,6 +60,7 @@ public final class ItemCacheSummary
 		long invalidationsDone = 0l;
 		int  invalidateLastSize = 0;
 		long invalidateLastHits = 0l;
+		long invalidateLastPurged = 0l;
 		long invalidationBucketHits = 0l;
 
 		for(final ItemCacheInfo info : infos)
@@ -99,6 +101,7 @@ public final class ItemCacheSummary
 			invalidationsDone += info.getInvalidationsDone();
 			invalidateLastSize += info.getInvalidateLastSize();
 			invalidateLastHits += info.getInvalidateLastHits();
+			invalidateLastPurged += info.getInvalidateLastPurged();
 			invalidationBucketHits += info.getInvalidationBucketHits();
 		}
 		this.limit = limit;
@@ -116,6 +119,7 @@ public final class ItemCacheSummary
 		this.invalidationsDone = invalidationsDone;
 		this.invalidateLastSize = invalidateLastSize;
 		this.invalidateLastHits = invalidateLastHits;
+		this.invalidateLastPurged = invalidateLastPurged;
 		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
@@ -192,6 +196,11 @@ public final class ItemCacheSummary
 	public long getInvalidateLastHits()
 	{
 		return invalidateLastHits;
+	}
+
+	public long getInvalidateLastPurged()
+	{
+		return invalidateLastPurged;
 	}
 
 	public long getInvalidationBucketHits()
