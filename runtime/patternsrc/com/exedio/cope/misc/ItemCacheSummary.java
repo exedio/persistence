@@ -86,13 +86,13 @@ public final class ItemCacheSummary
 			{
 				numAgeAverageMillis++;
 
-				final long currentMinAgeMillis = info.getAgeMinMillis();
+				final long currentMinAgeMillis = info.getAgeMinimumMillis();
 				if(ageMinMillis>currentMinAgeMillis)
 					ageMinMillis = currentMinAgeMillis;
 
 				sumAgeAverageMillis += info.getAgeAverageMillis();
 
-				final long currentMaxAgeMillis = info.getAgeMaxMillis();
+				final long currentMaxAgeMillis = info.getAgeMaximumMillis();
 				if(ageMaxMillis<currentMaxAgeMillis)
 					ageMaxMillis = currentMaxAgeMillis;
 			}
@@ -163,7 +163,7 @@ public final class ItemCacheSummary
 		return lastReplacementRun!=Long.MIN_VALUE ? new Date(lastReplacementRun) : null;
 	}
 
-	public long getAgeMinMillis()
+	public long getAgeMinimumMillis()
 	{
 		return ageMinMillis;
 	}
@@ -173,7 +173,7 @@ public final class ItemCacheSummary
 		return ageAverageMillis;
 	}
 
-	public long getAgeMaxMillis()
+	public long getAgeMaximumMillis()
 	{
 		return ageMaxMillis;
 	}
@@ -206,5 +206,25 @@ public final class ItemCacheSummary
 	public long getInvalidationBucketHits()
 	{
 		return invalidationBucketHits;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getAgeMinimumMillis()} instead
+	 */
+	@Deprecated
+	public long getAgeMinMillis()
+	{
+		return getAgeMinimumMillis();
+	}
+
+	/**
+	 * @deprecated Use {@link #getAgeMaximumMillis()} instead
+	 */
+	@Deprecated
+	public long getAgeMaxMillis()
+	{
+		return getAgeMaximumMillis();
 	}
 }

@@ -49,9 +49,9 @@ public class ItemCacheSummaryTest extends CopeAssert
 		assertEquals(124, ms.getReplacementRuns());
 		assertEquals(144, ms.getReplacements());
 		assertEquals( D2, ms.getLastReplacementRun());
-		assertEquals( 91, ms.getAgeMinMillis());
+		assertEquals( 91, ms.getAgeMinimumMillis());
 		assertEquals(  3, ms.getAgeAverageMillis());
-		assertEquals(103, ms.getAgeMaxMillis());
+		assertEquals(103, ms.getAgeMaximumMillis());
 		assertEquals(224, ms.getInvalidationsOrdered());
 		assertEquals(244, ms.getInvalidationsDone());
 		assertEquals(284, ms.getInvalidateLastSize());
@@ -98,9 +98,9 @@ public class ItemCacheSummaryTest extends CopeAssert
 		assertEquals(0, ms.getReplacementRuns());
 		assertEquals(0, ms.getReplacements());
 		assertEquals(null, ms.getLastReplacementRun());
-		assertEquals(0, ms.getAgeMinMillis());
+		assertEquals(0, ms.getAgeMinimumMillis());
 		assertEquals(0, ms.getAgeAverageMillis());
-		assertEquals(0, ms.getAgeMaxMillis());
+		assertEquals(0, ms.getAgeMaximumMillis());
 		assertEquals(0, ms.getInvalidationsOrdered());
 		assertEquals(0, ms.getInvalidationsDone());
 		assertEquals(0, ms.getInvalidateLastSize());

@@ -75,8 +75,8 @@ final class SamplerItemCache extends Item
 	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
 	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
 	private static final LongField ageAverageMillis = new LongField().toFinal();
-	private static final LongField ageMinMillis = new LongField().toFinal();
-	private static final LongField ageMaxMillis = new LongField().toFinal();
+	private static final LongField ageMinimumMillis = new LongField().toFinal();
+	private static final LongField ageMaximumMillis = new LongField().toFinal();
 	private static final LongField invalidationsOrdered = new LongField().toFinal();
 	private static final LongField invalidationsDone = new LongField().toFinal();
 	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
@@ -100,8 +100,8 @@ final class SamplerItemCache extends Item
 			lastReplacementRun.map(info.getLastReplacementRun()),
 
 			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinMillis    .map(info.getAgeMinMillis()),
-			ageMaxMillis    .map(info.getAgeMaxMillis()),
+			ageMinimumMillis.map(info.getAgeMinimumMillis()),
+			ageMaximumMillis.map(info.getAgeMaximumMillis()),
 
 			invalidationsOrdered.map(info.getInvalidationsOrdered()),
 			invalidationsDone   .map(info.getInvalidationsDone()),

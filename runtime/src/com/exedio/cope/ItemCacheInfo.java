@@ -129,12 +129,12 @@ public final class ItemCacheInfo
 		return (level!=0) ? (ageSum / level) : 0l;
 	}
 
-	public long getAgeMinMillis()
+	public long getAgeMinimumMillis()
 	{
 		return ageMin;
 	}
 
-	public long getAgeMaxMillis()
+	public long getAgeMaximumMillis()
 	{
 		return ageMax;
 	}
@@ -167,5 +167,25 @@ public final class ItemCacheInfo
 	public long getInvalidationBucketHits()
 	{
 		return invalidationBucketHits;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getAgeMinimumMillis()} instead
+	 */
+	@Deprecated
+	public long getAgeMinMillis()
+	{
+		return getAgeMinimumMillis();
+	}
+
+	/**
+	 * @deprecated Use {@link #getAgeMaximumMillis()} instead
+	 */
+	@Deprecated
+	public long getAgeMaxMillis()
+	{
+		return getAgeMaximumMillis();
 	}
 }
