@@ -126,7 +126,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	boolean get(final Item item)
+	public boolean get(final Item item)
 	{
 		final Item value = function.get(item);
 		final Type valueType = value.getCopeType();

@@ -79,7 +79,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	boolean get(final Item item)
+	public boolean get(final Item item)
 	{
 		final boolean absorber = operator.absorber.value;
 		for(final Condition condition : conditions)

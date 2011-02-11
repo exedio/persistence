@@ -48,7 +48,7 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	boolean get(final Item item)
+	public boolean get(final Item item)
 	{
 		return !argument.get(item);
 	}

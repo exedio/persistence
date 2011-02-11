@@ -22,7 +22,7 @@ public abstract class Condition
 {
 	abstract void append(Statement statment);
 
-	abstract boolean get(Item item);
+	public abstract boolean get(Item item);
 
 	abstract void check(TC tc);
 
@@ -133,7 +133,7 @@ public abstract class Condition
 		}
 
 		@Override
-		boolean get(final Item item)
+		public boolean get(final Item item)
 		{
 			// NOTE
 			// all other implementations of get will fail when

@@ -58,7 +58,7 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	boolean get(final Item item)
+	public boolean get(final Item item)
 	{
 		throw new RuntimeException("not yet implemented");
 	}
