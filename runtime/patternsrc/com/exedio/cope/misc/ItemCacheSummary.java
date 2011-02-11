@@ -33,7 +33,7 @@ public final class ItemCacheSummary
 	private final int replacements;
 	private final long lastReplacementRun;
 	private final long ageMinMillis;
-	private final long ageAverageMillis;
+	private final long ageAvgMillis;
 	private final long ageMaxMillis;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
@@ -54,7 +54,7 @@ public final class ItemCacheSummary
 		long lastReplacementRun = Long.MIN_VALUE;
 		long numAgeAverageMillis = 0;
 		long ageMinMillis = Long.MAX_VALUE;
-		long sumAgeAverageMillis = 0l;
+		long sumAgeAvgMillis = 0l;
 		long ageMaxMillis = 0l;
 		long invalidationsOrdered = 0l;
 		long invalidationsDone = 0l;
@@ -90,7 +90,7 @@ public final class ItemCacheSummary
 				if(ageMinMillis>currentMinAgeMillis)
 					ageMinMillis = currentMinAgeMillis;
 
-				sumAgeAverageMillis += info.getAgeAverageMillis();
+				sumAgeAvgMillis += info.getAgeAverageMillis();
 
 				final long currentMaxAgeMillis = info.getAgeMaximumMillis();
 				if(ageMaxMillis<currentMaxAgeMillis)
@@ -113,7 +113,7 @@ public final class ItemCacheSummary
 		this.replacements = replacements;
 		this.lastReplacementRun = lastReplacementRun;
 		this.ageMinMillis = ageMinMillis!=Long.MAX_VALUE ? ageMinMillis : 0;
-		this.ageAverageMillis = numAgeAverageMillis>0 ? sumAgeAverageMillis/numAgeAverageMillis : 0;
+		this.ageAvgMillis = numAgeAverageMillis>0 ? sumAgeAvgMillis/numAgeAverageMillis : 0;
 		this.ageMaxMillis = ageMaxMillis;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
@@ -170,7 +170,7 @@ public final class ItemCacheSummary
 
 	public long getAgeAverageMillis()
 	{
-		return ageAverageMillis;
+		return ageAvgMillis;
 	}
 
 	public long getAgeMaximumMillis()
