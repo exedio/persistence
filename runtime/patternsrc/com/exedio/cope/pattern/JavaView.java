@@ -39,18 +39,18 @@ public final class JavaView extends Pattern
 
 		Mount(final Type<? extends Item> type, final String name)
 		{
-			final String nameUpper =
-				(Character.toUpperCase(name.charAt(0)) + name.substring(1)).replaceAll("-", "");
+			final String getterName =
+				("get" + Character.toUpperCase(name.charAt(0)) + name.substring(1)).replaceAll("-", "");
 
 			final Class<?> javaClass = type.getJavaClass();
 			final Method getter;
 			try
 			{
-				getter = javaClass.getDeclaredMethod("get" + nameUpper, (Class[])null);
+				getter = javaClass.getDeclaredMethod(getterName, (Class[])null);
 			}
 			catch(final NoSuchMethodException e)
 			{
-				throw new RuntimeException("no suitable getter method found for java view " + name, e);
+				throw new IllegalArgumentException("no suitable getter method " + getterName + " found for java view " + name, e);
 			}
 
 			this.getter = getter;

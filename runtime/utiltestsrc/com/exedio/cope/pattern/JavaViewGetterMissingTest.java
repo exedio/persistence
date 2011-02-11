@@ -40,10 +40,10 @@ public class JavaViewGetterMissingTest extends CopeAssert
 			TypesBound.newType(AnItem.class);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no suitable getter method found for java view schauHer", e.getMessage());
-			assertEquals(RuntimeException.class, e.getClass());
+			assertEquals("no suitable getter method getSchauHer found for java view schauHer", e.getMessage());
+			assertEquals(IllegalArgumentException.class, e.getClass());
 
 			assertEquals("com.exedio.cope.pattern.JavaViewGetterMissingTest$AnItem.getSchauHer()", e.getCause().getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
