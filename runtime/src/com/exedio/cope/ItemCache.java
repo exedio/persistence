@@ -370,19 +370,30 @@ final class ItemCache
 			{
 				synchronized(map)
 				{
-					int purged = 0;
-					// TODO clear map if untilNanos==Long.MAX_VALUE
-					for(final TIntLongIterator i = invalidateLastNanos.iterator(); i.hasNext(); )
+					final int size = invalidateLastNanos.size();
+					if(size==0)
+						return;
+
+					if(untilNanos==Long.MAX_VALUE)
 					{
-						i.advance();
-						if(i.value()<untilNanos)
-						{
-							purged++;
-							i.remove();
-						}
+						invalidateLastNanos.clear();
+						invalidateLastPurged += size;
 					}
-					if(purged>0)
-						invalidateLastPurged += purged;
+					else
+					{
+						int purged = 0;
+						for(final TIntLongIterator i = invalidateLastNanos.iterator(); i.hasNext(); )
+						{
+							i.advance();
+							if(i.value()<untilNanos)
+							{
+								purged++;
+								i.remove();
+							}
+						}
+						if(purged>0)
+							invalidateLastPurged += purged;
+					}
 				}
 			}
 		}
