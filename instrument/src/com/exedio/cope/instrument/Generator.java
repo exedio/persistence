@@ -634,12 +634,12 @@ final class Generator
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
 		{
-			bf.append(toString(a, feature));
-
 			if(first)
 				first = false;
 			else
 				bf.append(',');
+
+			bf.append(toString(a, feature));
 		}
 		bf.append('>');
 
@@ -653,13 +653,13 @@ final class Generator
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
 		{
-			bf.append("? extends ");
-			bf.append(toString(a, feature));
-
 			if(first)
 				first = false;
 			else
 				bf.append(',');
+
+			bf.append("? extends ");
+			bf.append(toString(a, feature));
 		}
 		bf.append('>');
 
