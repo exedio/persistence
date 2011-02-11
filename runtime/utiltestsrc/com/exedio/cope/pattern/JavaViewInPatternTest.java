@@ -32,6 +32,8 @@ public class JavaViewInPatternTest extends CopeAssert
 		{
 			addSource(new JavaView(), "schau");
 		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 	private static final class AnItem extends Item
