@@ -183,10 +183,10 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());
-		assertSame("level"               , level               , ici.getLevel());
-		assertSame("hits"                , hits                , ici.getHits()                -initHits                );
-		assertSame("misses"              , misses              , ici.getMisses()              -initMisses              );
-		assertSame("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
-		assertSame("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
+		assertEquals("level"               , level               , ici.getLevel());
+		assertEquals("hits"                , hits                , ici.getHits()                -initHits                );
+		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
+		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
+		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
 	}
 }

@@ -217,13 +217,13 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());
-		assertSame("level"               , level               , ici.getLevel());
-		assertSame("hits"                , hits                , ici.getHits()                -initHits                );
-		assertSame("misses"              , misses              , ici.getMisses()              -initMisses              );
-		assertSame("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
-		assertSame("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
-		assertSame("invalidateLastSize"  , invalidateLastSize  , ici.getInvalidateLastSize());
-		assertSame("invalidateLastHits"  , invalidateLastHits  , ici.getInvalidateLastHits()  -initInvalidationsLastHits);
-		assertSame("invalidateLastPurged", invalidateLastPurged, ici.getInvalidateLastPurged()-initInvalidationsLastPurged);
+		assertEquals("level"               , level               , ici.getLevel());
+		assertEquals("hits"                , hits                , ici.getHits()                -initHits                );
+		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
+		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
+		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
+		assertEquals("invalidateLastSize"  , invalidateLastSize  , ici.getInvalidateLastSize());
+		assertEquals("invalidateLastHits"  , invalidateLastHits  , ici.getInvalidateLastHits()  -initInvalidationsLastHits);
+		assertEquals("invalidateLastPurged", invalidateLastPurged, ici.getInvalidateLastPurged()-initInvalidationsLastPurged);
 	}
 }
