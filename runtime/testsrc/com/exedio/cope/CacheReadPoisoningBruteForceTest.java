@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 
-public class CacheBadReadTest extends AbstractRuntimeTest
+public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 {
-	public CacheBadReadTest()
+	public CacheReadPoisoningBruteForceTest()
 	{
 		super(CacheIsolationTest.MODEL);
 		skipTransactionManagement();

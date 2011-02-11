@@ -131,7 +131,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ModCountKillTest.class );
 		suite.addTestSuite( ItemCacheDataTest.class );
 		suite.addTestSuite( ItemCacheInvalidateLastPurgeTest.class );
-		suite.addTestSuite( CacheBadReadTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ChangeListenerTest.class );
