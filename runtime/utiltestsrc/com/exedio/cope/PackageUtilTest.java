@@ -24,6 +24,7 @@ import junit.framework.TestSuite;
 
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.JavaViewGetterMissingTest;
+import com.exedio.cope.pattern.JavaViewInPatternTest;
 import com.exedio.cope.pattern.MediaSummaryTest;
 import com.exedio.cope.pattern.MessageDigestAlgorithmTest;
 
@@ -70,6 +71,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ItemCacheSummaryTest.class);
 		suite.addTestSuite(MediaSummaryTest.class);
 		suite.addTestSuite(JavaViewGetterMissingTest.class);
+		suite.addTestSuite(JavaViewInPatternTest.class);
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
 		return suite;
