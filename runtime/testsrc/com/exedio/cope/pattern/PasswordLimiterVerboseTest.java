@@ -71,7 +71,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		try
 		{
 			i.checkPasswordLimitedVerbosely(PASSWORD);
-			fail();
+			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
 		{
@@ -97,7 +97,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		}
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
-		assertEquals(0, purge());
+		assertEquals("fails spuriously with actual 2", 0, purge());
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
@@ -115,7 +115,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		try
 		{
 			i.checkPasswordLimitedVerbosely(PASSWORD);
-			fail();
+			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
 		{
