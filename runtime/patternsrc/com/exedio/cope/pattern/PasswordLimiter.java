@@ -44,6 +44,7 @@ import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 public final class PasswordLimiter extends Pattern
 {
 	private static final long serialVersionUID = 1l;
+	static final Clock clock = new Clock();
 
 	private final Hash password;
 	private final long period;
@@ -223,7 +224,7 @@ public final class PasswordLimiter extends Pattern
 			final Mount mount = mount();
 			mount.refusalType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				this.date.map(new Date()));
+				this.date.map(new Date(clock.currentTimeMillis())));
 		}
 
 		return result;
@@ -294,7 +295,7 @@ public final class PasswordLimiter extends Pattern
 
 	private Date getExpiryDate()
 	{
-		return new Date(System.currentTimeMillis()-period);
+		return new Date(clock.currentTimeMillis()-period);
 	}
 
 	@Computed
