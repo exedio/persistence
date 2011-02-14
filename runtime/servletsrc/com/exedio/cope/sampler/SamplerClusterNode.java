@@ -82,7 +82,7 @@ final class SamplerClusterNode extends Item
 
 				invalidate.map(new SequenceInfo(node.getInvalidateInfo())),
 				ping      .map(new SequenceInfo(node.getPingInfo())),
-				pong      .map(new SequenceInfo(node.getPingInfo())));
+				pong      .map(new SequenceInfo(node.getPongInfo())));
 	}
 
 
