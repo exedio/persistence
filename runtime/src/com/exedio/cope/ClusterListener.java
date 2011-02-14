@@ -240,9 +240,9 @@ abstract class ClusterListener
 		final long firstEncounter;
 		final InetAddress address;
 		final int port;
+		final SequenceChecker invalidateSequenceChecker;
 		final SequenceChecker pingSequenceChecker;
 		final SequenceChecker pongSequenceChecker;
-		final SequenceChecker invalidateSequenceChecker;
 
 		Node(
 				final int id,
@@ -254,21 +254,21 @@ abstract class ClusterListener
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
+			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
-			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
-		}
-
-		boolean pingPong(final boolean ping, final int sequence)
-		{
-			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
 		}
 
 		boolean invalidate(final int sequence)
 		{
 			return invalidateSequenceChecker.check(sequence);
+		}
+
+		boolean pingPong(final boolean ping, final int sequence)
+		{
+			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
 		}
 
 		ClusterListenerInfo.Node getInfo()
@@ -277,9 +277,9 @@ abstract class ClusterListener
 					id,
 					new Date(firstEncounter),
 					address, port,
+					invalidateSequenceChecker.getInfo(),
 					pingSequenceChecker.getInfo(),
-					pongSequenceChecker.getInfo(),
-					invalidateSequenceChecker.getInfo());
+					pongSequenceChecker.getInfo());
 		}
 	}
 

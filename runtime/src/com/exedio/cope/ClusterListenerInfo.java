@@ -86,32 +86,32 @@ public final class ClusterListenerInfo
 		final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
+		private final SequenceChecker.Info invalidateInfo;
 		private final SequenceChecker.Info pingInfo;
 		private final SequenceChecker.Info pongInfo;
-		private final SequenceChecker.Info invalidateInfo;
 
 		public Node(
 				final int id,
 				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
+				final SequenceChecker.Info invalidateInfo,
 				final SequenceChecker.Info pingInfo,
-				final SequenceChecker.Info pongInfo,
-				final SequenceChecker.Info invalidateInfo)
+				final SequenceChecker.Info pongInfo)
 		{
 			this.id = id;
 			this.firstEncounter = firstEncounter.getTime();
 			this.address = address;
 			this.port = port;
+			this.invalidateInfo = invalidateInfo;
 			this.pingInfo = pingInfo;
 			this.pongInfo = pongInfo;
-			this.invalidateInfo = invalidateInfo;
 
+			if(invalidateInfo==null)
+				throw new NullPointerException();
 			if(pingInfo==null)
 				throw new NullPointerException();
 			if(pongInfo==null)
-				throw new NullPointerException();
-			if(invalidateInfo==null)
 				throw new NullPointerException();
 		}
 
@@ -148,6 +148,11 @@ public final class ClusterListenerInfo
 			return port;
 		}
 
+		public SequenceChecker.Info getInvalidateInfo()
+		{
+			return invalidateInfo;
+		}
+
 		public SequenceChecker.Info getPingInfo()
 		{
 			return pingInfo;
@@ -156,11 +161,6 @@ public final class ClusterListenerInfo
 		public SequenceChecker.Info getPongInfo()
 		{
 			return pongInfo;
-		}
-
-		public SequenceChecker.Info getInvalidateInfo()
-		{
-			return invalidateInfo;
 		}
 
 		@Override
