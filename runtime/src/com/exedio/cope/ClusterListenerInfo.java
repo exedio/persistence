@@ -83,14 +83,14 @@ public final class ClusterListenerInfo
 	public static final class Node
 	{
 		private final int id;
-		final long firstEncounter;
+		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
 		private final SequenceChecker.Info invalidateInfo;
 		private final SequenceChecker.Info pingInfo;
 		private final SequenceChecker.Info pongInfo;
 
-		public Node(
+		Node(
 				final int id,
 				final Date firstEncounter,
 				final InetAddress address,
