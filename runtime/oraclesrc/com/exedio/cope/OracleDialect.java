@@ -40,18 +40,6 @@ import com.exedio.dsmf.Table;
 
 final class OracleDialect extends Dialect
 {
-	static
-	{
-		try
-		{
-			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
