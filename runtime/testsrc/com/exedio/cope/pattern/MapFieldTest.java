@@ -20,6 +20,11 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
+import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Query;
@@ -47,6 +52,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
+		assertEquals(map(), item.getNameMap());
+		assertEquals(map(), item.getNameLengthMap());
 
 		item.setName(DE, "nameDE");
 		assertEquals("nameDE", item.getName(DE));
@@ -54,6 +61,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+		assertEquals(map(), item.getNameLengthMap());
 		{
 			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
 			item.name.join(q, DE);
@@ -76,6 +85,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+		assertEquals(map(DE, 5), item.getNameLengthMap());
 
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
@@ -83,6 +94,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+		assertEquals(map(DE, 6), item.getNameLengthMap());
 
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
@@ -90,6 +103,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEquals(map(DE, "nameDE", EN, "nameEN"), item.getNameMap());
+		assertEquals(map(DE, 6), item.getNameLengthMap());
 
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
@@ -97,5 +112,35 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEquals(map(EN, "nameEN"), item.getNameMap());
+		assertEquals(map(DE, 6), item.getNameLengthMap());
+	}
+
+	public void testMapSet()
+	{
+		final HashMap<MapFieldItem.Language, String> map = new HashMap<MapFieldItem.Language, String>();
+		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		assertEquals(map(), item.getNameMap());
+
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
+
+		map.put(DE, "nameDE");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+
+		map.put(EN, "nameEN");
+		map.put(DE, "nameDE2");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+
+		map.put(PL, "namePL");
+		map.remove(DE);
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+
+		map.clear();
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
 	}
 }

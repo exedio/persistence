@@ -22,7 +22,9 @@ import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
@@ -159,6 +161,14 @@ public final class MapField<K,V> extends Pattern
 			addParameter(Wrapper.TypeVariable1.class));
 
 		result.add(
+			new Wrapper("getMap").
+			setReturn(Wrapper.generic(Map.class, Wrapper.TypeVariable0.class, Wrapper.TypeVariable1.class)));
+
+		result.add(
+			new Wrapper("setMap").
+			addParameter(Wrapper.genericExtends(Map.class, Wrapper.TypeVariable0.class, Wrapper.TypeVariable1.class)));
+
+		result.add(
 			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
@@ -201,6 +211,40 @@ public final class MapField<K,V> extends Pattern
 				this.value.set(relationItem, value);
 			else
 				relationItem.deleteCopeItem();
+		}
+	}
+
+	public Map<K,V> getMap(final Item item)
+	{
+		final Mount mount = mount();
+		final HashMap<K,V> result = new HashMap<K,V>();
+		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+			result.put(key.get(relationItem), value.get(relationItem));
+		return result;
+	}
+
+	public void setMap(final Item item, final Map<? extends K,? extends V> map)
+	{
+		final Mount mount = mount();
+		final HashMap<K,V> done = new HashMap<K,V>();
+
+		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		{
+			final K key = this.key.get(relationItem);
+			if(map.containsKey(key))
+				value.set(relationItem, map.get(key));
+			else
+				relationItem.deleteCopeItem();
+
+			done.put(key, null); // value not needed here
+		}
+		for(final K key : map.keySet())
+		{
+			if(!done.containsKey(key))
+				mount.relationType.newItem(
+						Cope.mapAndCast(mount.parent, item),
+						this.key.map(key),
+						this.value.map(map.get(key)));
 		}
 	}
 
