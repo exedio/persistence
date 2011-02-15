@@ -19,30 +19,16 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.EnumField;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.StringField;
-import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Computed;
 
 public class MapFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(MapFieldItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(MapFieldTest.class, "MODEL");
-	}
-
 	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
 	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
 
 	public MapFieldTest()
 	{
-		super(MODEL);
+		super(MapFieldModelTest.MODEL);
 	}
 
 	MapFieldItem item, itemX;
@@ -57,111 +43,6 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
-		assertEquals(item.TYPE, item.name.getType());
-		assertEquals("name", item.name.getName());
-		assertEquals(MapFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
-
-		assertEquals(item.TYPE, item.nameParent().getValueType());
-		assertEquals("parent", item.nameParent().getName());
-		assertEquals(DeletePolicy.CASCADE, item.nameParent().getDeletePolicy());
-		assertSame(item.name.getRelationType(), item.nameParent().getType());
-		assertEquals(null, item.nameParent().getPattern());
-		assertSame(item.nameParent(), item.name.getParent());
-
-		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)item.name.getKey()).getValueClass());
-		assertEquals("key", item.name.getKey().getName());
-		assertSame(item.name.getRelationType(), item.name.getKey().getType());
-		assertEquals(null, item.name.getKey().getPattern());
-
-		assertEqualsUnmodifiable(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
-		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
-		assertSame(item.name.getRelationType(), item.name.getUniqueConstraint().getType());
-		assertEquals(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
-
-		assertEquals(String.class, item.name.getValue().getValueClass());
-		assertEquals("value", item.name.getValue().getName());
-		assertSame(item.name.getRelationType(), item.name.getValue().getType());
-		assertEquals(null, item.name.getValue().getPattern());
-
-		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
-		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());
-		assertEquals(false, item.name.getRelationType().isBound());
-		assertSame(item.name, item.name.getRelationType().getPattern());
-		assertEquals(null, item.name.getRelationType().getSupertype());
-		assertEquals(list(), item.name.getRelationType().getSubtypes());
-		assertEqualsUnmodifiable(
-				list(
-						item.name.getRelationType().getThis(),
-						item.nameParent(), item.name.getKey(), item.name.getUniqueConstraint(),
-						item.name.getValue()),
-				item.name.getRelationType().getFeatures());
-		assertEquals(model, item.name.getRelationType().getModel());
-
-		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
-
-		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
-		assertEquals("MapFieldItem-name.parent", item.name.getParent(MapFieldItem.class).getID());
-		assertEquals("MapFieldItem-name.key", item.name.getKey().getID());
-		assertEquals("MapFieldItem-name.value", item.name.getValue().getID());
-		assertSame(item.name.getRelationType(), model.getType("MapFieldItem-name"));
-		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem-name.parent"));
-		assertSame(item.name.getKey(), model.getFeature("MapFieldItem-name.key"));
-		assertSame(item.name.getValue(), model.getFeature("MapFieldItem-name.value"));
-
-		assertTrue(item.name      .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.string    .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.integer   .getRelationType().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(item.name      , 378);
-		assertSerializedSame(item.nameLength, 384);
-		assertSerializedSame(item.string    , 380);
-		assertSerializedSame(item.integer   , 381);
-
-		try
-		{
-			MapField.newMap(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField().unique(), null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be unique", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField(), new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must not be unique", e.getMessage());
-		}
-		MapField.newMap(new StringField(), new StringField());
-
-		// test persistence
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
@@ -216,15 +97,5 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
-
-		try
-		{
-			item.name.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
 	}
 }
