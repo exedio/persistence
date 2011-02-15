@@ -238,13 +238,14 @@ public final class MapField<K,V> extends Pattern
 
 			done.put(key, null); // value not needed here
 		}
-		for(final K key : map.keySet())
+		for(final Map.Entry<? extends K, ? extends V> entry : map.entrySet())
 		{
+			final K key = entry.getKey();
 			if(!done.containsKey(key))
 				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						this.key.map(key),
-						this.value.map(map.get(key)));
+						this.value.map(entry.getValue()));
 		}
 	}
 
