@@ -74,6 +74,7 @@ public abstract class SchemaTest extends TestCase
 
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
+			Class.forName("org.hsqldb.jdbcDriver");
 			dialect = new HsqldbDialect();
 			stringType = "varchar(8)";
 			intType = "integer";
@@ -93,6 +94,7 @@ public abstract class SchemaTest extends TestCase
 		}
 		else if(url.startsWith("jdbc:oracle:"))
 		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			dialect = new OracleDialect(user.toUpperCase());
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
