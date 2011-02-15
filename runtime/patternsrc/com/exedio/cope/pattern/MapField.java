@@ -199,7 +199,7 @@ public final class MapField<K,V> extends Pattern
 		if(relationItem==null)
 		{
 			if(value!=null)
-				mount.uniqueConstraint.getType().newItem(
+				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						this.key.map(key),
 						this.value.map(value)
