@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
+import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Query;
 
 public class MapFieldTest extends AbstractRuntimeTest
 {
-	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
-	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
-
 	public MapFieldTest()
 	{
 		super(MapFieldModelTest.MODEL);
