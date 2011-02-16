@@ -38,6 +38,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
+	PasswordLimiterMockClockSource clock;
 
 	@Override
 	protected void setUp() throws Exception
@@ -45,32 +46,41 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
 		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
+		clock = new PasswordLimiterMockClockSource();
+		PasswordLimiter.clock.setSource(clock);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		PasswordLimiter.clock.removeSource();
+		super.tearDown();
 	}
 
 	private static final String PASSWORD = "correctPassword8927365";
 	private static final String PASSWORD2 = "correctPassword6576675";
 
-	public void testIt() throws ExceededException, InterruptedException
+	public void testIt() throws ExceededException
 	{
 		assertTrue(i.checkPassword(PASSWORD));
 		assertEquals(list(), getRefusals());
 		assertTrue(i2.checkPassword(PASSWORD2));
 
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock));
 		assertEquals(list(), getRefusals());
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2));
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock));
 
 		final Refusal refusal1 = refuse();
 		assertEquals(list(refusal1), getRefusals());
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2));
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock));
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock));
 
 		final Refusal refusal2 = refuse();
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely(PASSWORD);
+			i.checkPasswordLimitedVerbosely(PASSWORD, clock);
 			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
@@ -80,12 +90,12 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertEquals(new Date(refusal1.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
 			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2));
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock));
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely("wrongpass");
+			i.checkPasswordLimitedVerbosely("wrongpass", clock);
 			fail();
 		}
 		catch(final ExceededException e)
@@ -97,24 +107,42 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		}
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
+		clock.addNow();
 		assertEquals("fails spuriously with actual 2", 0, purge());
+		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
 
-		sleepLongerThan(passwordLimited.getPeriod());
+		clock.addOffset(passwordLimited.getPeriod()-1);
+		try
+		{
+			i.checkPasswordLimitedVerbosely(PASSWORD);
+			fail();
+		}
+		catch(final ExceededException e)
+		{
+			assertSame(passwordLimited, e.getLimiter());
+			assertSame(i, e.getItem());
+			assertEquals(new Date(refusal1.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
+			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+		}
+		clock.assertEmpty();
+
+		clock.addOffset(1); // refusal expires
 		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
+		clock.assertEmpty();
 
 		final Refusal refusal3 = refuse();
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock));
 
 		final Refusal refusal4 = refuse();
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely(PASSWORD);
+			i.checkPasswordLimitedVerbosely(PASSWORD, clock);
 			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
@@ -128,7 +156,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely("wrongpass");
+			i.checkPasswordLimitedVerbosely("wrongpass", clock);
 			fail();
 		}
 		catch(final ExceededException e)
@@ -140,22 +168,35 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		}
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
-		assertEquals(2, purge());
-		assertEquals(list(refusal3, refusal4), getRefusals());
-		assertFalse(refusal1.existsCopeItem());
-		assertFalse(refusal2.existsCopeItem());
-		assertTrue(refusal3.existsCopeItem());
-		assertTrue(refusal4.existsCopeItem());
-
+		clock.addNow();
 		assertEquals(0, purge());
+		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
+		assertTrue(refusal1.existsCopeItem());
+		assertTrue(refusal2.existsCopeItem());
+		assertTrue(refusal3.existsCopeItem());
+		assertTrue(refusal4.existsCopeItem());
+
+		clock.addOffset(1); // refusal expires
+		assertEquals(2, purge());
+		clock.assertEmpty();
 		assertEquals(list(refusal3, refusal4), getRefusals());
 		assertFalse(refusal1.existsCopeItem());
 		assertFalse(refusal2.existsCopeItem());
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		sleepLongerThan(passwordLimited.getPeriod());
+		clock.addOffset(passwordLimited.getPeriod()-1);
+		assertEquals(0, purge());
+		clock.assertEmpty();
+		assertEquals(list(refusal3, refusal4), getRefusals());
+		assertFalse(refusal1.existsCopeItem());
+		assertFalse(refusal2.existsCopeItem());
+		assertTrue(refusal3.existsCopeItem());
+		assertTrue(refusal4.existsCopeItem());
+
+		clock.addOffset(1); // refusal expires
 		assertEquals(2, purge());
+		clock.assertEmpty();
 		assertEquals(list(), getRefusals());
 		assertFalse(refusal1.existsCopeItem());
 		assertFalse(refusal2.existsCopeItem());
@@ -166,12 +207,13 @@ public class PasswordLimiterVerboseTest extends CopeTest
 	private final Refusal refuse() throws ExceededException
 	{
 		final List<Refusal> existing = getRefusals();
-		final Date before = new Date();
+		clock.addNow(); // TODO fetch time once only
+		final long f = clock.addNow();
 		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass"));
-		final Date after = new Date();
+		clock.assertEmpty();
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
-		assertWithin(before, after, result.getDate());
+		assertEquals(new Date(f), result.getDate());
 		return result;
 	}
 
