@@ -50,17 +50,45 @@ public class ClockTest extends CopeAssert
 			assertWithin(before, after, new Date(date));
 		}
 
-		c.setSource(source);
+		final MockSource ms = new MockSource();
+		c.setSource(ms);
+		assertEquals(444, c.currentTimeMillis());
+		assertEquals(1, ms.currentTimeMillisCount);
+
+		try
+		{
+			c.setSource(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("source", e.getMessage());
+		}
+		assertEquals(444, c.currentTimeMillis());
+		assertEquals(2, ms.currentTimeMillisCount);
+
+		c.removeSource();
+		{
+			final Date before = new Date();
+			final long date = c.currentTimeMillis();
+			final Date after = new Date();
+			assertWithin(before, after, new Date(date));
+		}
 	}
 
 	private static final class MockSource implements Clock.Source
 	{
+		int currentTimeMillisCount = 0;
+
+		MockSource()
+		{
+			// just make package private
+		}
 
 		public long currentTimeMillis()
 		{
-			// TODO Auto-generated method stub
-			return 0;
+			currentTimeMillisCount++;
+			return 444;
 		}
-
 	}
 }
