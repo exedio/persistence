@@ -180,19 +180,21 @@ public final class PasswordLimiter extends Pattern
 
 	public boolean check(final Item item, final String password)
 	{
-		final Query<Refusal> query = getCheckQuery(item);
+		final long now = clock.currentTimeMillis();
+		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
 			// prevent Timing Attacks
 			this.password.blind(password);
 			return false;
 		}
-		return checkInternally(item, password);
+		return checkInternally(item, password, now);
 	}
 
 	public boolean checkVerbosely(final Item item, final String password) throws ExceededException
 	{
-		final Query<Refusal> query = getCheckQuery(item);
+		final long now = clock.currentTimeMillis();
+		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
 			query.setOrderBy(this.date, true);
@@ -203,19 +205,19 @@ public final class PasswordLimiter extends Pattern
 					item,
 					query.searchSingletonStrict().getDate().getTime() + period);
 		}
-		return checkInternally(item, password);
+		return checkInternally(item, password, now);
 	}
 
-	private Query<Refusal> getCheckQuery(final Item item)
+	private Query<Refusal> getCheckQuery(final Item item, final long now)
 	{
 		final Mount mount = mount();
 		return
 			mount.refusalType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.parent, item),
-				this.date.greater(getExpiryDate())));
+				this.date.greater(getExpiryDate(now))));
 	}
 
-	private boolean checkInternally(final Item item, final String password)
+	private boolean checkInternally(final Item item, final String password, final long now)
 	{
 		final boolean result = this.password.check(item, password);
 
@@ -224,7 +226,7 @@ public final class PasswordLimiter extends Pattern
 			final Mount mount = mount();
 			mount.refusalType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				this.date.map(new Date(clock.currentTimeMillis())));
+				this.date.map(new Date(now)));
 		}
 
 		return result;
@@ -286,16 +288,17 @@ public final class PasswordLimiter extends Pattern
 
 	public void purge(final JobContext ctx)
 	{
+		final long now = clock.currentTimeMillis();
 		Delete.delete(
 				mount().refusalType.newQuery(
-						this.date.less(getExpiryDate())),
+						this.date.less(getExpiryDate(now))),
 				"PasswordLimiter#purge " + getID(),
 				ctx);
 	}
 
-	private Date getExpiryDate()
+	private Date getExpiryDate(final long now)
 	{
-		return new Date(clock.currentTimeMillis()-period);
+		return new Date(now-period);
 	}
 
 	@Computed

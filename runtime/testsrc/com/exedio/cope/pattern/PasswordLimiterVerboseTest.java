@@ -207,7 +207,6 @@ public class PasswordLimiterVerboseTest extends CopeTest
 	private final Refusal refuse() throws ExceededException
 	{
 		final List<Refusal> existing = getRefusals();
-		clock.addNow(); // TODO fetch time once only
 		final long f = clock.addNow();
 		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass"));
 		clock.assertEmpty();
