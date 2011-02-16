@@ -18,34 +18,36 @@
 
 package com.exedio.cope.pattern;
 
-final class Clock
+import java.util.Collections;
+import java.util.LinkedList;
+
+import org.junit.Assert;
+
+final class PasswordLimiterMockClockSource implements Clock.Source
 {
-	private Source source = null;
+	private final LinkedList<Long> events = new LinkedList<Long>();
+	private long date = 1000*60*60*24*1000;
 
 	public long currentTimeMillis()
 	{
-		final Source source = this.source;
-		if(source!=null)
-			return source.currentTimeMillis();
-
-		return System.currentTimeMillis();
+		Assert.assertFalse("no pending clock events", events.isEmpty());
+		return events.removeFirst();
 	}
 
-	public void setSource(final Source source)
+	public long addNow()
 	{
-		if(source==null)
-			throw new NullPointerException("source");
-
-		this.source = source;
+		return addOffset(0);
 	}
 
-	public void removeSource()
+	public long addOffset(final long date)
 	{
-		source = null;
+		this.date += date;
+		events.add(this.date);
+		return this.date;
 	}
 
-	interface Source
+	public void assertEmpty()
 	{
-		long currentTimeMillis();
+		Assert.assertEquals("pending clock events", Collections.EMPTY_LIST, events);
 	}
 }
