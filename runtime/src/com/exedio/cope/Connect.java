@@ -67,9 +67,9 @@ final class Connect
 		try
 		{
 			probeConnection = DriverManager.getConnection(
-					properties.getDatabaseUrl(),
-					properties.getDatabaseUser(),
-					properties.getDatabasePassword());
+					properties.getConnectionUrl(),
+					properties.getConnectionUser(),
+					properties.getConnectionPassword());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)

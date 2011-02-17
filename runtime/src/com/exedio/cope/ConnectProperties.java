@@ -220,17 +220,17 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return dialect.getDeclaringClass().getName();
 	}
 
-	public String getDatabaseUrl()
+	public String getConnectionUrl()
 	{
 		return connectionUrl.stringValue();
 	}
 
-	public String getDatabaseUser()
+	public String getConnectionUser()
 	{
 		return connectionUser.stringValue();
 	}
 
-	public String getDatabasePassword()
+	public String getConnectionPassword()
 	{
 		return connectionPassword.stringValue();
 	}
@@ -386,5 +386,32 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseDontSupportLimit()
 	{
 		return false;
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionUrl()} instead
+	 */
+	@Deprecated
+	public String getDatabaseUrl()
+	{
+		return getConnectionUrl();
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionUser()} instead
+	 */
+	@Deprecated
+	public String getDatabaseUser()
+	{
+		return getConnectionUser();
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionPassword()} instead
+	 */
+	@Deprecated
+	public String getDatabasePassword()
+	{
+		return getConnectionPassword();
 	}
 }

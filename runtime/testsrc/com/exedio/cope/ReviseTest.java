@@ -88,8 +88,8 @@ public class ReviseTest extends CopeAssert
 
 	public void testRevise() throws ParseException
 	{
-		jdbcUrl  = props.getDatabaseUrl();
-		jdbcUser = props.getDatabaseUser();
+		jdbcUrl  = props.getConnectionUrl();
+		jdbcUser = props.getConnectionUser();
 
 		assertSame(revisions5, model5.getRevisions());
 

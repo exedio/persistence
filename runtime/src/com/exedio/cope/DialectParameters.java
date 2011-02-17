@@ -89,8 +89,8 @@ final class DialectParameters
 			// do not put in hostname
 		}
 
-		store.put("jdbc.url",  properties.getDatabaseUrl());
-		store.put("jdbc.user", properties.getDatabaseUser());
+		store.put("jdbc.url",  properties.getConnectionUrl());
+		store.put("jdbc.user", properties.getConnectionUser());
 		store.put("database.name",    environmentInfo.getDatabaseProductName());
 		store.put("database.version", environmentInfo.getDatabaseProductVersion());
 		store.put("database.version.major", String.valueOf(environmentInfo.getDatabaseMajorVersion()));
