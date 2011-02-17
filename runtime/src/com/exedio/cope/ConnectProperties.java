@@ -30,16 +30,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
-	private final StringField connectionUrl =  new StringField("database.url");
-	private final StringField connectionUser =  new StringField("database.user");
-	private final StringField connectionPassword =  new StringField("database.password", true);
+	private final StringField connectionUrl =  new StringField("connection.url");
+	private final StringField connectionUser =  new StringField("connection.user");
+	private final StringField connectionPassword =  new StringField("connection.password", true);
 
-	private final BooleanField dialectDisablePreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
-	private final BooleanField dialectDisableEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
-	private final BooleanField dialectDisableNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
+	private final BooleanField dialectDisablePreparedStatements = new BooleanField("dialect.disableSupport.preparedStatements", false);
+	private final BooleanField dialectDisableEmptyStrings = new BooleanField("dialect.disableSupport.emptyStrings", false);
+	private final BooleanField dialectDisableNativeDate = new BooleanField("dialect.disableSupport.nativeDate", false);
 
-	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
-	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
+	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
+	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
 
 	/**
 	 * The table name for the revision information.
@@ -60,7 +60,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
-	private final MapField databaseTableOptions = new MapField("database.tableOption");
+	private final MapField databaseTableOptions = new MapField("schema.tableOption");
 
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
@@ -71,7 +71,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
+	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.updateCounter", true);
 	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
 	final     IntField itemCacheInvalidateLastMargin            = new     IntField("cache.item.invalidateLast.margin", 0, 0);
 	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
