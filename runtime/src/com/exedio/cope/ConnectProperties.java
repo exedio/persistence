@@ -30,9 +30,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
-	private final StringField databaseUrl =  new StringField("database.url");
-	private final StringField databaseUser =  new StringField("database.user");
-	private final StringField databasePassword =  new StringField("database.password", true);
+	private final StringField connectionUrl =  new StringField("database.url");
+	private final StringField connectionUser =  new StringField("database.user");
+	private final StringField connectionPassword =  new StringField("database.password", true);
 
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
@@ -136,13 +136,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final String dialectCode;
 		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
-			final String url = databaseUrl.stringValue();
+			final String url = connectionUrl.stringValue();
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
+				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing second colon");
+				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing second colon");
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
@@ -222,17 +222,17 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getDatabaseUrl()
 	{
-		return databaseUrl.stringValue();
+		return connectionUrl.stringValue();
 	}
 
 	public String getDatabaseUser()
 	{
-		return databaseUser.stringValue();
+		return connectionUser.stringValue();
 	}
 
 	public String getDatabasePassword()
 	{
-		return databasePassword.stringValue();
+		return connectionPassword.stringValue();
 	}
 
 	public boolean getDatabaseDontSupportPreparedStatements()
