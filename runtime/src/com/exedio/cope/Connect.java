@@ -161,12 +161,12 @@ final class Connect
 
 	boolean supportsEmptyStrings()
 	{
-		return !properties.getDatabaseDontSupportEmptyStrings() && dialect.supportsEmptyStrings();
+		return !properties.isDialectSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
 	}
 
 	boolean supportsNativeDate()
 	{
-		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
+		return !properties.isDialectSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
 	void invalidate(final TIntHashSet[] invalidations, final boolean propagateToCluster)

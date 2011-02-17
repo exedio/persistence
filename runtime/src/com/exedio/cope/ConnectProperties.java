@@ -34,9 +34,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField connectionUser =  new StringField("database.user");
 	private final StringField connectionPassword =  new StringField("database.password", true);
 
-	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
-	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
-	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
+	private final BooleanField dialectDisablePreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
+	private final BooleanField dialectDisableEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
+	private final BooleanField dialectDisableNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
 	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
@@ -235,19 +235,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionPassword.stringValue();
 	}
 
-	public boolean getDatabaseDontSupportPreparedStatements()
+	public boolean isDialectSupportDisabledForPreparedStatements()
 	{
-		return databaseDontSupportPreparedStatements.booleanValue();
+		return dialectDisablePreparedStatements.booleanValue();
 	}
 
-	public boolean getDatabaseDontSupportEmptyStrings()
+	public boolean isDialectSupportDisabledForEmptyStrings()
 	{
-		return databaseDontSupportEmptyStrings.booleanValue();
+		return dialectDisableEmptyStrings.booleanValue();
 	}
 
-	public boolean getDatabaseDontSupportNativeDate()
+	public boolean isDialectSupportDisabledForNativeDate()
 	{
-		return databaseDontSupportNativeDate.booleanValue();
+		return dialectDisableNativeDate.booleanValue();
 	}
 
 	String filterTableName(final String tableName)
@@ -413,5 +413,32 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public String getDatabasePassword()
 	{
 		return getConnectionPassword();
+	}
+
+	/**
+	 * @deprecated Use {@link #isDialectSupportDisabledForPreparedStatements()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportPreparedStatements()
+	{
+		return isDialectSupportDisabledForPreparedStatements();
+	}
+
+	/**
+	 * @deprecated Use {@link #isDialectSupportDisabledForEmptyStrings()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportEmptyStrings()
+	{
+		return isDialectSupportDisabledForEmptyStrings();
+	}
+
+	/**
+	 * @deprecated Use {@link #isDialectSupportDisabledForNativeDate()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportNativeDate()
+	{
+		return isDialectSupportDisabledForNativeDate();
 	}
 }
