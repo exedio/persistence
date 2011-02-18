@@ -34,11 +34,11 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
 	{
-		this.url = properties.getDatabaseUrl();
+		this.url = properties.getConnectionUrl();
 
 		info = new java.util.Properties();
-		info.setProperty("user", properties.getDatabaseUser());
-		info.setProperty("password", properties.getDatabasePassword());
+		info.setProperty("user", properties.getConnectionUser());
+		info.setProperty("password", properties.getConnectionPassword());
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolationReadCommitted =

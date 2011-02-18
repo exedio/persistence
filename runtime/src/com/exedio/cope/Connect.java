@@ -67,9 +67,9 @@ final class Connect
 		try
 		{
 			probeConnection = DriverManager.getConnection(
-					properties.getDatabaseUrl(),
-					properties.getDatabaseUser(),
-					properties.getDatabasePassword());
+					properties.getConnectionUrl(),
+					properties.getConnectionUser(),
+					properties.getConnectionPassword());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)
@@ -161,12 +161,12 @@ final class Connect
 
 	boolean supportsEmptyStrings()
 	{
-		return !properties.getDatabaseDontSupportEmptyStrings() && dialect.supportsEmptyStrings();
+		return !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
 	}
 
 	boolean supportsNativeDate()
 	{
-		return !properties.getDatabaseDontSupportNativeDate() && (dialect.getDateTimestampType()!=null);
+		return !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
 	void invalidate(final TIntHashSet[] invalidations, final boolean propagateToCluster)

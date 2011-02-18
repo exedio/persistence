@@ -81,15 +81,15 @@ public class ReviseTest extends CopeAssert
 		super.tearDown();
 	}
 
-	String jdbcUrl;
-	String jdbcUser;
+	String connectionUrl;
+	String connectionUser;
 	EnvironmentInfo info;
 	boolean longSyntheticNames = false;
 
 	public void testRevise() throws ParseException
 	{
-		jdbcUrl  = props.getDatabaseUrl();
-		jdbcUser = props.getDatabaseUser();
+		connectionUrl  = props.getConnectionUrl();
+		connectionUser = props.getConnectionUser();
 
 		assertSame(revisions5, model5.getRevisions());
 
@@ -357,16 +357,16 @@ public class ReviseTest extends CopeAssert
 	private final void assertRevisionEnvironment(final Properties p)
 	{
 		assertNotNull(hostname);
-		assertNotNull(jdbcUrl);
-		assertNotNull(jdbcUser);
+		assertNotNull(connectionUrl);
+		assertNotNull(connectionUser);
 		assertNotNull(info.getDatabaseProductName());
 		assertNotNull(info.getDatabaseProductVersion());
 		assertNotNull(info.getDriverName());
 		assertNotNull(info.getDriverVersion());
 
 		assertEquals(hostname, p.getProperty("env.hostname"));
-		assertEquals(jdbcUrl, p.getProperty("env.jdbc.url"));
-		assertEquals(jdbcUser, p.getProperty("env.jdbc.user"));
+		assertEquals(connectionUrl,  p.getProperty("env.connection.url"));
+		assertEquals(connectionUser, p.getProperty("env.connection.user"));
 		assertEquals(info.getDatabaseProductName(),             p.getProperty("env.database.name"));
 		assertEquals(info.getDatabaseProductVersion(),          p.getProperty("env.database.version"));
 		assertEquals(valueOf(info.getDatabaseMajorVersion()),   p.getProperty("env.database.version.major"));

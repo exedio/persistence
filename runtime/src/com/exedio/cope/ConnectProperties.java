@@ -30,16 +30,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
-	private final StringField databaseUrl =  new StringField("database.url");
-	private final StringField databaseUser =  new StringField("database.user");
-	private final StringField databasePassword =  new StringField("database.password", true);
+	private final StringField connectionUrl      = new StringField("connection.url");
+	private final StringField connectionUser     = new StringField("connection.user");
+	private final StringField connectionPassword = new StringField("connection.password", true);
 
-	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
-	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
-	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
+	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
+	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
+	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
 
-	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
-	final BooleanField longSyntheticNames = new BooleanField("database.longSyntheticNames", false);
+	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
+	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
 
 	/**
 	 * The table name for the revision information.
@@ -60,7 +60,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
-	private final MapField databaseTableOptions = new MapField("database.tableOption");
+	private final MapField databaseTableOptions = new MapField("schema.tableOption");
 
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
@@ -71,7 +71,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("cache.item.concurrentModificationDetection", true);
+	final BooleanField itemCacheConcurrentModificationDetection = new BooleanField("schema.updateCounter", true);
 	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
 	final     IntField itemCacheInvalidateLastMargin            = new     IntField("cache.item.invalidateLast.margin", 0, 0);
 	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
@@ -136,13 +136,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final String dialectCode;
 		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
-			final String url = databaseUrl.stringValue();
+			final String url = connectionUrl.stringValue();
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
+				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing second colon");
+				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing second colon");
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
@@ -220,34 +220,34 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return dialect.getDeclaringClass().getName();
 	}
 
-	public String getDatabaseUrl()
+	public String getConnectionUrl()
 	{
-		return databaseUrl.stringValue();
+		return connectionUrl.stringValue();
 	}
 
-	public String getDatabaseUser()
+	public String getConnectionUser()
 	{
-		return databaseUser.stringValue();
+		return connectionUser.stringValue();
 	}
 
-	public String getDatabasePassword()
+	public String getConnectionPassword()
 	{
-		return databasePassword.stringValue();
+		return connectionPassword.stringValue();
 	}
 
-	public boolean getDatabaseDontSupportPreparedStatements()
+	public boolean isSupportDisabledForPreparedStatements()
 	{
-		return databaseDontSupportPreparedStatements.booleanValue();
+		return disablePreparedStatements.booleanValue();
 	}
 
-	public boolean getDatabaseDontSupportEmptyStrings()
+	public boolean isSupportDisabledForEmptyStrings()
 	{
-		return databaseDontSupportEmptyStrings.booleanValue();
+		return disableEmptyStrings.booleanValue();
 	}
 
-	public boolean getDatabaseDontSupportNativeDate()
+	public boolean isSupportDisabledForNativeDate()
 	{
-		return databaseDontSupportNativeDate.booleanValue();
+		return disableNativeDate.booleanValue();
 	}
 
 	String filterTableName(final String tableName)
@@ -386,5 +386,59 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseDontSupportLimit()
 	{
 		return false;
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionUrl()} instead
+	 */
+	@Deprecated
+	public String getDatabaseUrl()
+	{
+		return getConnectionUrl();
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionUser()} instead
+	 */
+	@Deprecated
+	public String getDatabaseUser()
+	{
+		return getConnectionUser();
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectionPassword()} instead
+	 */
+	@Deprecated
+	public String getDatabasePassword()
+	{
+		return getConnectionPassword();
+	}
+
+	/**
+	 * @deprecated Use {@link #isSupportDisabledForPreparedStatements()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportPreparedStatements()
+	{
+		return isSupportDisabledForPreparedStatements();
+	}
+
+	/**
+	 * @deprecated Use {@link #isSupportDisabledForEmptyStrings()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportEmptyStrings()
+	{
+		return isSupportDisabledForEmptyStrings();
+	}
+
+	/**
+	 * @deprecated Use {@link #isSupportDisabledForNativeDate()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseDontSupportNativeDate()
+	{
+		return isSupportDisabledForNativeDate();
 	}
 }
