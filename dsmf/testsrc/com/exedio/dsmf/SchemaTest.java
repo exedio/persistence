@@ -52,9 +52,9 @@ public abstract class SchemaTest extends TestCase
 
 	private final class Properties extends com.exedio.cope.util.Properties
 	{
-		final StringField databaseUrl =  new StringField("database.url");
-		final StringField databaseUser =  new StringField("database.user");
-		final StringField databasePassword =  new StringField("database.password", true);
+		final StringField databaseUrl =  new StringField("connection.url");
+		final StringField databaseUser =  new StringField("connection.user");
+		final StringField databasePassword =  new StringField("connection.password", true);
 
 		Properties()
 		{
