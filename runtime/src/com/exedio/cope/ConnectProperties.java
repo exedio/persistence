@@ -34,9 +34,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
 
-	private final BooleanField disablePreparedStatements = new BooleanField("dialect.disableSupport.preparedStatements", false);
-	private final BooleanField disableEmptyStrings = new BooleanField("dialect.disableSupport.emptyStrings", false);
-	private final BooleanField disableNativeDate = new BooleanField("dialect.disableSupport.nativeDate", false);
+	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
+	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
+	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
 	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
