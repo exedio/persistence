@@ -44,35 +44,35 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		if(hsqldb||oracle) return; // TODO
 		initCache();
 
-		assertModificationCount(0, MIN_VALUE);
+		assertUpdateCount(0, MIN_VALUE);
 		assertCache(0, 0, 0, 0, 0);
 		model.commit();
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		item.setName("itemName2");
-		assertModificationCount(1, 0);
+		assertUpdateCount(1, 0);
 		assertCache(1, 0, 1, 1, 0);
 
 		model.commit();
 
 		// load row
 		model.joinTransaction(loader);
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 1, 2, 1);
 
 	final ConnectProperties props = model.getConnectProperties();
@@ -80,14 +80,14 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		!props.itemCacheInvalidateLast.booleanValue())
 	{
 		assertEquals("itemName", item.getName());
-		assertModificationCount(0, 0);
+		assertUpdateCount(0, 0);
 		assertCache(1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertModificationCount(MIN_VALUE, 0);
+		assertUpdateCount(MIN_VALUE, 0);
 		assertCache(1, 0, 2, 2, 1);
 
 		if(isUpdateCounterEnabled(model))
@@ -103,7 +103,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 			{
 				// ok
 			}
-			assertModificationCount(MIN_VALUE, MIN_VALUE);
+			assertUpdateCount(MIN_VALUE, MIN_VALUE);
 			assertCache(0, 1, 2, 2, 1);
 
 			assertEquals("itemName2", item.getName());
@@ -111,7 +111,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		else
 		{
 			item.setName("itemName3");
-			assertModificationCount(MIN_VALUE, 0);
+			assertUpdateCount(MIN_VALUE, 0);
 			assertCache(1, 1, 2, 2, 1);
 
 			assertEquals("itemName3", item.getName());
@@ -123,20 +123,20 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		final boolean il = props.itemCacheInvalidateLast.booleanValue();
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());
-		assertModificationCount(rr?0:1, il?MIN_VALUE:1);
+		assertUpdateCount(rr?0:1, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertModificationCount(MIN_VALUE, il?MIN_VALUE:1);
+		assertUpdateCount(MIN_VALUE, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
 		// repeatable-read isolation and does no itemCacheInvalidateLast.
 		item.setName("itemName3");
-		assertModificationCount(2, 1);
+		assertUpdateCount(2, 1);
 		assertCache(1, il?0:1, il?3:2, 2, 1);
 
 		assertEquals("itemName3", item.getName());
@@ -144,16 +144,16 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
-	private void assertModificationCount(final int expected, final int global)
+	private void assertUpdateCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		if(isUpdateCounterEnabled(model))
 		{
-			assertEquals("transaction", expected, item.getModificationCountIfActive());
+			assertEquals("transaction", expected, item.getUpdateCountIfActive());
 			if(props.getItemCacheLimit()>0)
-				assertEquals("global", global, item.getModificationCountGlobal());
+				assertEquals("global", global, item.getUpdateCountGlobal());
 			else
-				assertEquals("global", Integer.MIN_VALUE, item.getModificationCountGlobal());
+				assertEquals("global", Integer.MIN_VALUE, item.getUpdateCountGlobal());
 		}
 	}
 

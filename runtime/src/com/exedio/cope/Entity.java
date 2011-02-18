@@ -93,7 +93,7 @@ final class Entity
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getModificationCount()
+	int getUpdateCount()
 	{
 		return state.updateCount;
 	}

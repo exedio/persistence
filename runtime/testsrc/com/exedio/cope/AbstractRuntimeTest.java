@@ -645,7 +645,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertSame(value, reserialize(value, expectedSize));
 	}
 
-	final void assertCheckModificationCounters()
+	final void assertCheckUpdateCounters()
 	{
 		for(final Type type : model.getTypes())
 		{
@@ -654,17 +654,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 				if(type.needsCheckUpdateCounter())
 					assertEquals(0, type.checkUpdateCounter());
 				else
-					assertCheckModificationCounterFails(type);
+					assertCheckUpdateCounterFails(type);
 			}
 			else
 			{
 				assertFalse(type.needsCheckUpdateCounter());
-				assertCheckModificationCounterFails(type);
+				assertCheckUpdateCounterFails(type);
 			}
 		}
 	}
 
-	private static final void assertCheckModificationCounterFails(final Type type)
+	private static final void assertCheckUpdateCounterFails(final Type type)
 	{
 		try
 		{

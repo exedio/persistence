@@ -46,7 +46,7 @@ public final class FinalTest extends AbstractRuntimeTest
 		assertEquals(22, item2c.getSubIntNone());
 	}
 
-	public void testModificationCounter()
+	public void testUpdateCounter()
 	{
 		if(SchemaInfo.isUpdateCounterEnabled(model))
 		{

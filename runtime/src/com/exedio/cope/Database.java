@@ -361,7 +361,7 @@ final class Database
 
 				final Row row = new Row();
 				int columnIndex = 1;
-				int modificationCount = Integer.MIN_VALUE;
+				int updateCount = Integer.MIN_VALUE;
 				for(Type superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
@@ -370,19 +370,19 @@ final class Database
 					if(updateCounter!=null)
 					{
 						final int value = resultSet.getInt(columnIndex++);
-						if(modificationCount==Integer.MIN_VALUE)
+						if(updateCount==Integer.MIN_VALUE)
 						{
 							if(value<0)
 								throw new RuntimeException("invalid update counter for row " + item.pk + " in table " + table.id + ": " + value);
-							modificationCount = value;
+							updateCount = value;
 						}
 						else
 						{
-							if(modificationCount!=value)
+							if(updateCount!=value)
 								throw new RuntimeException(
 										"inconsistent update counter for row " + item.pk + " in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
-										+ value + '/' + modificationCount);
+										+ value + '/' + updateCount);
 						}
 					}
 
@@ -393,7 +393,7 @@ final class Database
 					}
 				}
 
-				return new WrittenState(item, row, modificationCount);
+				return new WrittenState(item, row, updateCount);
 			}
 		});
 

@@ -450,20 +450,20 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getModificationCountIfActive()
+	int getUpdateCountIfActive()
 	{
 		final Entity entity = getEntityIfActive();
 		return
 			entity==null
 			? Integer.MIN_VALUE
-			: entity.getModificationCount();
+			: entity.getUpdateCount();
 	}
 
 	/**
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getModificationCountGlobal()
+	int getUpdateCountGlobal()
 	{
 		final WrittenState state =
 			type.getModel().currentTransaction().getGlobalState(this);
