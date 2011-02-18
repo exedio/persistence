@@ -18,14 +18,15 @@
 
 package com.exedio.cope;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertEquals;
 
 public final class TestLogUtilHandler extends Handler
 {

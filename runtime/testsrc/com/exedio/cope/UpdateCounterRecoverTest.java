@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 
 import java.sql.Connection;
 import java.sql.SQLException;

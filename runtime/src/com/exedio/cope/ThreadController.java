@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
+
 import java.lang.Thread.State;
 import java.util.logging.Level;
 

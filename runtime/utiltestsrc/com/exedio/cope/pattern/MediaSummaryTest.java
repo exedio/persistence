@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.MediaSummary;
-import com.exedio.cope.pattern.MediaInfo;
 
 public class MediaSummaryTest extends CopeAssert
 {
