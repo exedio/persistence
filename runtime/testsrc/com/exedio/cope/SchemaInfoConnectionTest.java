@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
@@ -55,9 +55,9 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE))).
 			append(',').
 			append(q(getTypeColumnName(InstanceOfAItem.TYPE)));
-		if(isConcurrentModificationDetectionEnabled(model))
+		if(isUpdateCounterEnabled(model))
 			bf.append(',').
-			append(q(getModificationCounterColumnName(InstanceOfAItem.TYPE)));
+			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE)));
 		bf.append(',').
 			append(q(getColumnName(InstanceOfAItem.code))).
 			append(" from ").
@@ -72,9 +72,9 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
 			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)));
-		if(isConcurrentModificationDetectionEnabled(model))
+		if(isUpdateCounterEnabled(model))
 			bf.append(',').
-				append(q(getModificationCounterColumnName(InstanceOfRefItem.TYPE)));
+				append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE)));
 		bf.append(',').
 			append(q(getColumnName(InstanceOfRefItem.ref))).
 			append(',').

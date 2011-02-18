@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
 import java.sql.Connection;
@@ -47,7 +47,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testSameTransaction() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 		assertEquals("name0", item.getName());
 		model.commit();
@@ -59,7 +59,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals("name0", item.getName());
@@ -88,7 +88,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testSameTransactionDelete() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
@@ -100,7 +100,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals(true, item.existsCopeItem());
@@ -125,7 +125,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testCommit() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 		assertEquals("name0", item.getName());
 		model.commit();
@@ -137,7 +137,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals("name0", item.getName());
@@ -169,7 +169,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testCommitDelete() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
@@ -181,7 +181,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals(true, item.existsCopeItem());
@@ -209,7 +209,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testRollback() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 
 		assertEquals("name0", item.getName());
@@ -222,7 +222,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals("name0", item.getName());
@@ -254,7 +254,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 	public void testRollbackDelete() throws SQLException
 	{
-		if(!isConcurrentModificationDetectionEnabled(model))
+		if(!isUpdateCounterEnabled(model))
 			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
@@ -266,7 +266,7 @@ public final class ModCountKillTest extends AbstractRuntimeTest
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
-				" set " + q(getModificationCounterColumnName(TYPE)) + "=99");
+				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
 		model.startTransaction();
 		assertEquals(true, item.existsCopeItem());

@@ -180,15 +180,15 @@ final class Database
 						appendParameter("x");
 				}
 
-				final Column modificationCount = table.modificationCount;
-				if(modificationCount!=null)
+				final Column updateCounter = table.updateCounter;
+				if(updateCounter!=null)
 				{
 					if(first)
 						first = false;
 					else
 						bf.append(" and ");
 
-					bf.append(modificationCount).
+					bf.append(updateCounter).
 						append('=').
 						appendParameter(Integer.MIN_VALUE);
 				}
@@ -292,15 +292,15 @@ final class Database
 		{
 			final Table table = superType.getTable();
 
-			final IntegerColumn modificationCountColumn = table.modificationCount;
-			if(modificationCountColumn!=null)
+			final IntegerColumn updateCounter = table.updateCounter;
+			if(updateCounter!=null)
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(',');
 
-				bf.append(modificationCountColumn);
+				bf.append(updateCounter);
 			}
 
 			for(final Column column : table.getColumns())
@@ -366,21 +366,21 @@ final class Database
 				{
 					final Table table = superType.getTable();
 
-					final IntegerColumn modificationCountColumn = table.modificationCount;
-					if(modificationCountColumn!=null)
+					final IntegerColumn updateCounter = table.updateCounter;
+					if(updateCounter!=null)
 					{
 						final int value = resultSet.getInt(columnIndex++);
 						if(modificationCount==Integer.MIN_VALUE)
 						{
 							if(value<0)
-								throw new RuntimeException("invalid modification counter for row " + item.pk + " in table " + table.id + ": " + value);
+								throw new RuntimeException("invalid update counter for row " + item.pk + " in table " + table.id + ": " + value);
 							modificationCount = value;
 						}
 						else
 						{
 							if(modificationCount!=value)
 								throw new RuntimeException(
-										"inconsistent modification counter for row " + item.pk + " in table " + table.id +
+										"inconsistent update counter for row " + item.pk + " in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
 										+ value + '/' + modificationCount);
 						}
@@ -404,26 +404,26 @@ final class Database
 			final Connection connection,
 			final State state,
 			final boolean present,
-			final boolean modCount,
+			final boolean incrementUpdateCounter,
 			final Map<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, modCount, blobs, state.type);
+		store(connection, state, present, incrementUpdateCounter, blobs, state.type);
 	}
 
 	private void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
-			final boolean modCount,
+			final boolean incrementUpdateCounter,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
 		buildStage = false;
-		assert present || modCount;
+		assert present || incrementUpdateCounter;
 
 		final Type supertype = type.supertype;
 		if(supertype!=null)
-			store(connection, state, present, modCount, blobs, supertype);
+			store(connection, state, present, incrementUpdateCounter, blobs, supertype);
 
 		final Table table = type.getTable();
 
@@ -431,7 +431,7 @@ final class Database
 
 		final Statement bf = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
-		final IntegerColumn modificationCountColumn = modCount ? table.modificationCount : null;
+		final IntegerColumn updateCounter = incrementUpdateCounter ? table.updateCounter : null;
 		if(present)
 		{
 			bf.append("update ").
@@ -440,11 +440,11 @@ final class Database
 
 			boolean first = true;
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
-				bf.append(modificationCountColumn.quotedID).
+				bf.append(updateCounter.quotedID).
 					append('=').
-					appendParameter(modificationCountColumn, state.modificationCount+1);
+					appendParameter(updateCounter, state.updateCount+1);
 				first = false;
 			}
 
@@ -475,12 +475,12 @@ final class Database
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(" and ").
-					append(modificationCountColumn.quotedID).
+					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(state.modificationCount);
+					appendParameter(state.updateCount);
 			}
 		}
 		else
@@ -496,10 +496,10 @@ final class Database
 					append(typeColumn.quotedID);
 			}
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(',').
-					append(modificationCountColumn.quotedID);
+					append(updateCounter.quotedID);
 			}
 
 			for(final Column column : columns)
@@ -520,10 +520,10 @@ final class Database
 					appendParameter(state.type.id);
 			}
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(',').
-					appendParameter(state.modificationCount+1); // is initialized to -1
+					appendParameter(state.updateCount+1); // is initialized to -1
 			}
 
 			for(final Column column : columns)

@@ -75,7 +75,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	public void testIt() throws InterruptedException
 	{
 		if(!mysql) return; // TODO
-		if(!model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
+		if(!model.getConnectProperties().updateCounter.booleanValue())
 			return;
 
 		for(int i = 0; i<threads.length; i++)

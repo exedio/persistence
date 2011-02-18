@@ -25,14 +25,14 @@ abstract class State
 	final Item item;
 	final Type type;
 	final int pk;
-	final int modificationCount;
+	final int updateCount;
 
-	protected State(final Item item, final int modificationCount)
+	protected State(final Item item, final int updateCount)
 	{
 		this.item = item;
 		this.type = item.type;
 		this.pk = item.pk;
-		this.modificationCount = modificationCount;
+		this.updateCount = updateCount;
 
 		assert PK.isValid(pk) : pk;
 	}

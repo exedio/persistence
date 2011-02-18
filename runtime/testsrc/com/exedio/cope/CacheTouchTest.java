@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
 public class CacheTouchTest extends AbstractRuntimeTest
@@ -90,7 +90,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertModificationCount(MIN_VALUE, 0);
 		assertCache(1, 0, 2, 2, 1);
 
-		if(isConcurrentModificationDetectionEnabled(model))
+		if(isUpdateCounterEnabled(model))
 		{
 			try
 			{
@@ -147,7 +147,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	private void assertModificationCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		if(isConcurrentModificationDetectionEnabled(model))
+		if(isUpdateCounterEnabled(model))
 		{
 			assertEquals("transaction", expected, item.getModificationCountIfActive());
 			if(props.getItemCacheLimit()>0)

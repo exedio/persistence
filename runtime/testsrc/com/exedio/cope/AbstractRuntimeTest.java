@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.util.SafeFile.delete;
 
 import java.io.File;
@@ -649,16 +649,16 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		for(final Type type : model.getTypes())
 		{
-			if(isConcurrentModificationDetectionEnabled(model))
+			if(isUpdateCounterEnabled(model))
 			{
-				if(type.needsCheckModificationCounter())
-					assertEquals(0, type.checkModificationCounter());
+				if(type.needsCheckUpdateCounter())
+					assertEquals(0, type.checkUpdateCounter());
 				else
 					assertCheckModificationCounterFails(type);
 			}
 			else
 			{
-				assertFalse(type.needsCheckModificationCounter());
+				assertFalse(type.needsCheckUpdateCounter());
 				assertCheckModificationCounterFails(type);
 			}
 		}
@@ -668,12 +668,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		try
 		{
-			type.checkModificationCounter();
+			type.checkUpdateCounter();
 			fail();
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("no check for modification counter needed for " + type, e.getMessage());
+			assertEquals("no check for update counter needed for " + type, e.getMessage());
 		}
 	}
 

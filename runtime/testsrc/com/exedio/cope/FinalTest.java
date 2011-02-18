@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 
 public final class FinalTest extends AbstractRuntimeTest
 {
@@ -48,41 +48,41 @@ public final class FinalTest extends AbstractRuntimeTest
 
 	public void testModificationCounter()
 	{
-		if(SchemaInfo.isConcurrentModificationDetectionEnabled(model))
+		if(SchemaInfo.isUpdateCounterEnabled(model))
 		{
-			assertEquals(synthetic("catch", "FinalSuperItem"), getModificationCounterColumnName(FinalSuperItem.TYPE));
-			assertEquals(synthetic("catch", "FinalSubNoneItem"), getModificationCounterColumnName(FinalSubNoneItem.TYPE));
+			assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
+			assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
 		}
 		else
 		{
 			try
 			{
-				getModificationCounterColumnName(FinalSuperItem.TYPE);
+				getUpdateCounterColumnName(FinalSuperItem.TYPE);
 				fail();
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("no modification counter column for FinalSuperItem", e.getMessage());
+				assertEquals("no update counter for FinalSuperItem", e.getMessage());
 			}
 			try
 			{
-				getModificationCounterColumnName(FinalSubNoneItem.TYPE);
+				getUpdateCounterColumnName(FinalSubNoneItem.TYPE);
 				fail();
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("no modification counter column for FinalSubNoneItem", e.getMessage());
+				assertEquals("no update counter for FinalSubNoneItem", e.getMessage());
 			}
 		}
 
 		try
 		{
-			getModificationCounterColumnName(FinalSubItem.TYPE);
+			getUpdateCounterColumnName(FinalSubItem.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no modification counter column for FinalSubItem", e.getMessage());
+			assertEquals("no update counter for FinalSubItem", e.getMessage());
 		}
 	}
 }

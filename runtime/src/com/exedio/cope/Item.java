@@ -470,7 +470,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return
 			state==null
 			? Integer.MIN_VALUE
-			: state.modificationCount;
+			: state.updateCount;
 	}
 
 	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)

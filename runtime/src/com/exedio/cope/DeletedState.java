@@ -25,7 +25,7 @@ final class DeletedState extends State
 {
 	DeletedState(final Transaction transaction, final State original)
 	{
-		super(original.item, original.modificationCount);
+		super(original.item, original.updateCount);
 		transaction.addInvalidation(item);
 	}
 
@@ -69,13 +69,13 @@ final class DeletedState extends State
 				append('=').
 				appendParameter(pk);
 
-			final IntegerColumn modificationCountColumn = currentTable.modificationCount;
-			if(modificationCountColumn!=null)
+			final IntegerColumn updateCounter = currentTable.updateCounter;
+			if(updateCounter!=null)
 			{
 				bf.append(" and ").
-					append(modificationCountColumn.quotedID).
+					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(this.modificationCount);
+					appendParameter(this.updateCount);
 			}
 
 			//System.out.println("deleting "+bf.toString());

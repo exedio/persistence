@@ -264,7 +264,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
 
-		if(props.itemCacheConcurrentModificationDetection.booleanValue())
+		if(props.updateCounter.booleanValue())
 		{
 			final Column columnCatch = columns.next();
 			assertEquals(synthetic("catch", "ReviseItem"), columnCatch.getName());

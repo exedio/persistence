@@ -115,29 +115,29 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @see #getModificationCounterColumnName(Type)
+	 * @see #getUpdateCounterColumnName(Type)
 	 */
-	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	public static boolean isUpdateCounterEnabled(final Model model)
 	{
-		return model.connect().properties.itemCacheConcurrentModificationDetection.booleanValue();
+		return model.connect().properties.updateCounter.booleanValue();
 	}
 
 	/**
-	 * Returns the name of modification counter column in the database for the type.
+	 * Returns the name of update counter column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "catch".
 	 * @throws IllegalArgumentException
-	 *         if there is no modification counter column for this type,
-	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
+	 *         if there is no update counter column for this type,
+	 *         because {@link #isUpdateCounterEnabled(Model) Update Counters}
 	 *         has been switched off,
 	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
 	 */
-	public static String getModificationCounterColumnName(final Type type)
+	public static String getUpdateCounterColumnName(final Type type)
 	{
-		final IntegerColumn column = type.table.modificationCount;
+		final IntegerColumn column = type.table.updateCounter;
 		if(column==null)
-			throw new IllegalArgumentException("no modification counter column for " + type);
+			throw new IllegalArgumentException("no update counter for " + type);
 
 		return column.id;
 	}
@@ -196,5 +196,23 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)
 	{
 		return field.valueType.columnValue(value);
+	}
+
+	/**
+	 * @deprecated Use {@link #isUpdateCounterEnabled(Model)} instead
+	 */
+	@Deprecated
+	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	{
+		return isUpdateCounterEnabled(model);
+	}
+
+	/**
+	 * @deprecated Use {@link #getUpdateCounterColumnName(Type)} instead
+	 */
+	@Deprecated
+	public static String getModificationCounterColumnName(final Type type)
+	{
+		return getUpdateCounterColumnName(type);
 	}
 }

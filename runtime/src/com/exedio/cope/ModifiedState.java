@@ -26,7 +26,7 @@ final class ModifiedState extends State
 
 	ModifiedState( final Transaction transaction, final State original )
 	{
-		super(original.item, original.modificationCount);
+		super(original.item, original.updateCount);
 		row = original.stealValues();
 		transaction.addInvalidation(item);
 	}

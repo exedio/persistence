@@ -530,7 +530,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				schemaId,
 				supertype,
 				mount().typesOfInstancesColumnValues,
-				database.properties.itemCacheConcurrentModificationDetection.booleanValue() && !hasFinalTable());
+				database.properties.updateCounter.booleanValue() && !hasFinalTable());
 		if(supertype==null)
 		{
 			primaryKeySequence.connect(database, table.primaryKey);
@@ -1143,21 +1143,21 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 
-	public boolean needsCheckModificationCounter()
+	public boolean needsCheckUpdateCounter()
 	{
-		return supertype!=null && getTable().modificationCount!=null;
+		return supertype!=null && getTable().updateCounter!=null;
 	}
 
-	public int checkModificationCounter()
+	public int checkUpdateCounter()
 	{
-		if(!needsCheckModificationCounter())
-			throw new RuntimeException("no check for modification counter needed for " + this);
+		if(!needsCheckUpdateCounter())
+			throw new RuntimeException("no check for update counter needed for " + this);
 
 		final Transaction tx = getModel().currentTransaction();
-		return checkModificationCounter(tx.getConnection(), tx.connect.executor);
+		return checkUpdateCounter(tx.getConnection(), tx.connect.executor);
 	}
 
-	private int checkModificationCounter(final Connection connection, final Executor executor)
+	private int checkUpdateCounter(final Connection connection, final Executor executor)
 	{
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
@@ -1168,7 +1168,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			append(" where ").
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
 			append(" and ").
-			append(table.modificationCount).append("<>").append(superTable.modificationCount);
+			append(table.updateCounter).append("<>").append(superTable.updateCounter);
 
 		//System.out.println("CHECKM:"+bf.toString());
 
@@ -1356,5 +1356,23 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		return TypesBound.forClassUnchecked(javaClass);
+	}
+
+	/**
+	 * @deprecated Use {@link #needsCheckUpdateCounter()} instead
+	 */
+	@Deprecated
+	public boolean needsCheckModificationCounter()
+	{
+		return needsCheckUpdateCounter();
+	}
+
+	/**
+	 * @deprecated Use {@link #checkUpdateCounter()} instead
+	 */
+	@Deprecated
+	public int checkModificationCounter()
+	{
+		return checkUpdateCounter();
 	}
 }

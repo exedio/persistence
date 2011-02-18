@@ -95,7 +95,7 @@ final class Entity
 	@Deprecated
 	int getModificationCount()
 	{
-		return state.modificationCount;
+		return state.updateCount;
 	}
 
 	@Override

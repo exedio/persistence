@@ -40,14 +40,14 @@ final class Table
 	final String quotedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
-	final IntegerColumn modificationCount;
+	final IntegerColumn updateCounter;
 
 	Table(
 			final Database database,
 			final String id,
 			final Type<? extends Item> supertype,
 			final String[] typesOfInstancesColumnValues,
-			final boolean concurrentModificationDetectionEnabled)
+			final boolean updateCounter)
 	{
 		this.database = database;
 		this.id = intern(database.makeName(id));
@@ -61,9 +61,9 @@ final class Table
 			(typesOfInstancesColumnValues!=null)
 			? new StringColumn(this, null, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
 			: null;
-		this.modificationCount =
-			concurrentModificationDetectionEnabled
-			? new IntegerColumn(this, null, CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
+		this.updateCounter =
+			updateCounter
+			? new IntegerColumn(this, null, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
 			: null;
 		database.addTable(this);
 	}
@@ -94,13 +94,13 @@ final class Table
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
-	 * The column name for the modification counter.
+	 * The column name for the update counter.
 	 * The value "catch" prevents name collisions
 	 * with columns for cope fields,
 	 * since "catch" is a reserved java keyword,
 	 * which cannot be used for java fields.
 	 */
-	private static final String CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME = "catch";
+	private static final String UPDATE_COUNTER_COLUMN_NAME = "catch";
 
 	/**
 	 * A name for aliases is sql statements.
@@ -188,7 +188,7 @@ final class Table
 	private final boolean assertSynthetic()
 	{
 		for(final Column c : allColumnsModifiable)
-			if(c.synthetic != (primaryKey==c || typeColumn==c || modificationCount==c))
+			if(c.synthetic != (primaryKey==c || typeColumn==c || updateCounter==c))
 				return false;
 
 		return true;
