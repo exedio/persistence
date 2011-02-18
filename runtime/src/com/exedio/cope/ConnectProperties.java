@@ -34,9 +34,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
 
-	private final BooleanField dialectDisablePreparedStatements = new BooleanField("dialect.disableSupport.preparedStatements", false);
-	private final BooleanField dialectDisableEmptyStrings = new BooleanField("dialect.disableSupport.emptyStrings", false);
-	private final BooleanField dialectDisableNativeDate = new BooleanField("dialect.disableSupport.nativeDate", false);
+	private final BooleanField disablePreparedStatements = new BooleanField("dialect.disableSupport.preparedStatements", false);
+	private final BooleanField disableEmptyStrings = new BooleanField("dialect.disableSupport.emptyStrings", false);
+	private final BooleanField disableNativeDate = new BooleanField("dialect.disableSupport.nativeDate", false);
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
 	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
@@ -235,19 +235,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionPassword.stringValue();
 	}
 
-	public boolean isDialectSupportDisabledForPreparedStatements()
+	public boolean isSupportDisabledForPreparedStatements()
 	{
-		return dialectDisablePreparedStatements.booleanValue();
+		return disablePreparedStatements.booleanValue();
 	}
 
-	public boolean isDialectSupportDisabledForEmptyStrings()
+	public boolean isSupportDisabledForEmptyStrings()
 	{
-		return dialectDisableEmptyStrings.booleanValue();
+		return disableEmptyStrings.booleanValue();
 	}
 
-	public boolean isDialectSupportDisabledForNativeDate()
+	public boolean isSupportDisabledForNativeDate()
 	{
-		return dialectDisableNativeDate.booleanValue();
+		return disableNativeDate.booleanValue();
 	}
 
 	String filterTableName(final String tableName)
@@ -416,29 +416,29 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	/**
-	 * @deprecated Use {@link #isDialectSupportDisabledForPreparedStatements()} instead
+	 * @deprecated Use {@link #isSupportDisabledForPreparedStatements()} instead
 	 */
 	@Deprecated
 	public boolean getDatabaseDontSupportPreparedStatements()
 	{
-		return isDialectSupportDisabledForPreparedStatements();
+		return isSupportDisabledForPreparedStatements();
 	}
 
 	/**
-	 * @deprecated Use {@link #isDialectSupportDisabledForEmptyStrings()} instead
+	 * @deprecated Use {@link #isSupportDisabledForEmptyStrings()} instead
 	 */
 	@Deprecated
 	public boolean getDatabaseDontSupportEmptyStrings()
 	{
-		return isDialectSupportDisabledForEmptyStrings();
+		return isSupportDisabledForEmptyStrings();
 	}
 
 	/**
-	 * @deprecated Use {@link #isDialectSupportDisabledForNativeDate()} instead
+	 * @deprecated Use {@link #isSupportDisabledForNativeDate()} instead
 	 */
 	@Deprecated
 	public boolean getDatabaseDontSupportNativeDate()
 	{
-		return isDialectSupportDisabledForNativeDate();
+		return isSupportDisabledForNativeDate();
 	}
 }

@@ -30,12 +30,12 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 
 		assertEquals(mysql, model.nullsAreSortedLow());
-		assertEquals(!oracle && !props.isDialectSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(!oracle && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
 		assertEquals(mysql, model.supportsRandom());
 
 		// SchemaInfo
 		assertEquals(!mysql, SchemaInfo.supportsCheckConstraints(model));
-		assertEquals(!mysql && !props.isDialectSupportDisabledForNativeDate(), SchemaInfo.supportsNativeDate(model));
+		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), SchemaInfo.supportsNativeDate(model));
 		assertEquals(!postgresql, SchemaInfo.supportsSequences(model));
 	}
 }

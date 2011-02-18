@@ -45,7 +45,7 @@ final class Executor
 			final ConnectProperties properties)
 	{
 		this.dialect = dialect;
-		this.prepare = !properties.isDialectSupportDisabledForPreparedStatements();
+		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.limitSupport = dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
 
