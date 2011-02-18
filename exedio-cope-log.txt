@@ -7,6 +7,22 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* rename key in cope.properties:
+		
+		database.url      -> connection.url
+		database.user     -> connection.user
+		database.password -> connection.password
+		
+		mysql.lower_case_table_names -> schema.mysql.lower_case_table_names
+		cache.item.concurrentModificationDetection -> schema.updateCounter
+
+		database.dontSupport.preparedStatements -> disableSupport.preparedStatements
+		database.dontSupport.emptyStrings       -> disableSupport.emptyStrings
+		database.dontSupport.nativeDate         -> disableSupport.nativeDate
+		
+		database.tableOption.xxx -> schema.tableOption.xxx
+		database.longSyntheticNames -> schema.tableInNames
+
 * add MapField.[get|set]Map
 	affects instrumented code
 * '-' is dropped from JavaView getter names (allows JavaViews in patterns)
