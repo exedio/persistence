@@ -30,6 +30,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
+
 	private final StringField connectionUrl      = new StringField("connection.url");
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
@@ -38,7 +39,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
 	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
 
-	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
+	// schema
+
+	final BooleanField updateCounter = new BooleanField("schema.updateCounter", true);
 	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
 
 	/**
@@ -60,7 +63,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
+	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
 	private final MapField databaseTableOptions = new MapField("schema.tableOption");
+
 
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
@@ -71,7 +76,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField updateCounter = new BooleanField("schema.updateCounter", true);
 	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
 	final     IntField itemCacheInvalidateLastMargin            = new     IntField("cache.item.invalidateLast.margin", 0, 0);
 	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
