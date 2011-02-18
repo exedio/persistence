@@ -39,6 +39,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
 	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
 	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
+	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	// schema
 
@@ -67,8 +68,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
 	private final MapField databaseTableOptions = new MapField("schema.tableOption");
 
-
-	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit   = new IntField("connectionPool.idleLimit",  50, 0);
