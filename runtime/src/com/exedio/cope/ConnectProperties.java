@@ -70,19 +70,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
-	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
+	private final IntField connectionPoolIdleLimit   = new IntField("connectionPool.idleLimit",  50, 0);
 
 	private final IntField querySearchSizeLimit = new IntField("query.searchSizeLimit", 100000, 1);
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField itemCacheInvalidateLast                  = new BooleanField("cache.item.invalidateLast", false);
-	final     IntField itemCacheInvalidateLastMargin            = new     IntField("cache.item.invalidateLast.margin", 0, 0);
+	final BooleanField itemCacheInvalidateLast       = new BooleanField("cache.item.invalidateLast", false);
+	final     IntField itemCacheInvalidateLastMargin = new     IntField("cache.item.invalidateLast.margin", 0, 0);
 	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
-	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
+	final IntField dataFieldBufferSizeLimit   = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
 
 	final     IntField changeListenersQueueCapacity = new     IntField("changeListeners.queueCapacity", 1000, 1);
 	final     IntField changeListenersThreads       = new     IntField("changeListeners.threads",        1, 1);
