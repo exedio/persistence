@@ -30,9 +30,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
-	private final StringField connectionUrl =  new StringField("connection.url");
-	private final StringField connectionUser =  new StringField("connection.user");
-	private final StringField connectionPassword =  new StringField("connection.password", true);
+	private final StringField connectionUrl      = new StringField("connection.url");
+	private final StringField connectionUser     = new StringField("connection.user");
+	private final StringField connectionPassword = new StringField("connection.password", true);
 
 	private final BooleanField dialectDisablePreparedStatements = new BooleanField("dialect.disableSupport.preparedStatements", false);
 	private final BooleanField dialectDisableEmptyStrings = new BooleanField("dialect.disableSupport.emptyStrings", false);
