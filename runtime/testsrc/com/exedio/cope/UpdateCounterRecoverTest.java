@@ -27,9 +27,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public final class ModCountKillTest extends AbstractRuntimeTest
+public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 {
-	public ModCountKillTest()
+	public UpdateCounterRecoverTest()
 	{
 		super(CacheIsolationTest.MODEL);
 	}
