@@ -309,10 +309,12 @@ public class MediaServlet extends HttpServlet
 	{
 		if(logger.isLoggable(Level.SEVERE))
 		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "Media Servlet Host={0} Referer={1} Agent={2}");
+			final LogRecord record = new LogRecord(Level.SEVERE, "Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}");
 			record.setSourceClassName(MediaServlet.class.getName());
 			record.setSourceMethodName("onException");
 			record.setParameters(new String[]{
+					request.getPathInfo(),
+					request.getQueryString(),
 					request.getHeader("Host"),
 					request.getHeader("Referer"),
 					request.getHeader("User-Agent")});
