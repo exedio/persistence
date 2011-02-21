@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import com.exedio.cope.util.Interrupter;
@@ -158,6 +159,14 @@ final class ChangeListeners
 	{
 		failed++;
 		if(logger.isLoggable(Level.SEVERE))
-			logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), throwable);
+		{
+			final LogRecord record = new LogRecord(Level.SEVERE, "Suppressing exception from change listener {0}");
+			record.setSourceClassName(ChangeListeners.class.getName());
+			record.setSourceMethodName("handleException");
+			record.setParameters(new String[]{
+					listener.getClass().getName()});
+			record.setThrown(throwable);
+			logger.log(record);
+		}
 	}
 }
