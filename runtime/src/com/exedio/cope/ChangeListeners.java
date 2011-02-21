@@ -155,7 +155,10 @@ final class ChangeListeners
 		}
 	}
 
-	private void onDispatchFailure(final ChangeEvent event, final ChangeListener listener, final Throwable throwable)
+	private void onDispatchFailure(
+			final ChangeEvent event,
+			final ChangeListener listener,
+			final Throwable throwable)
 	{
 		failed++;
 		if(logger.isLoggable(Level.SEVERE))
