@@ -164,7 +164,7 @@ final class ChangeListeners
 			record.setSourceClassName(ChangeListeners.class.getName());
 			record.setSourceMethodName("onDispatchFailure");
 			record.setParameters(new Object[]{
-					listener.getClass()});
+					listener});
 			record.setThrown(throwable);
 			logger.log(record);
 		}

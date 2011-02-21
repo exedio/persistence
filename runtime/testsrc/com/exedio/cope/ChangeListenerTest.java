@@ -155,7 +155,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.SEVERE, "change listener class " + MockListener.class.getName());
+		log.assertMessage(Level.SEVERE, "change listener " + l.toString());
 
 		assertInfo(0, 0, 1);
 		model.removeChangeListener(l);
