@@ -103,6 +103,12 @@ public final class ChangeEvent
 		}
 	}
 
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(items);
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

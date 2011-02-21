@@ -146,24 +146,25 @@ final class ChangeListeners
 			}
 			catch(final Exception e)
 			{
-				onDispatchFailure(listener, e);
+				onDispatchFailure(event, listener, e);
 			}
 			catch(final AssertionError e)
 			{
-				onDispatchFailure(listener, e);
+				onDispatchFailure(event, listener, e);
 			}
 		}
 	}
 
-	private void onDispatchFailure(final ChangeListener listener, final Throwable throwable)
+	private void onDispatchFailure(final ChangeEvent event, final ChangeListener listener, final Throwable throwable)
 	{
 		failed++;
 		if(logger.isLoggable(Level.SEVERE))
 		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "change listener {0}");
+			final LogRecord record = new LogRecord(Level.SEVERE, "change listener {0} {1}");
 			record.setSourceClassName(ChangeListeners.class.getName());
 			record.setSourceMethodName("onDispatchFailure");
 			record.setParameters(new Object[]{
+					event,
 					listener});
 			record.setThrown(throwable);
 			logger.log(record);
