@@ -131,7 +131,7 @@ final class ChangeListeners
 		}
 	}
 
-	void handle(final ChangeEvent event, final Interrupter interrupter)
+	void dispatch(final ChangeEvent event, final Interrupter interrupter)
 	{
 		final List<ChangeListener> listeners = get();
 
@@ -146,25 +146,25 @@ final class ChangeListeners
 			}
 			catch(final Exception e)
 			{
-				handleException(listener, e);
+				onDispatchFailure(listener, e);
 			}
 			catch(final AssertionError e)
 			{
-				handleException(listener, e);
+				onDispatchFailure(listener, e);
 			}
 		}
 	}
 
-	private void handleException(final ChangeListener listener, final Throwable throwable)
+	private void onDispatchFailure(final ChangeListener listener, final Throwable throwable)
 	{
 		failed++;
 		if(logger.isLoggable(Level.SEVERE))
 		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "Suppressing exception from change listener {0}");
+			final LogRecord record = new LogRecord(Level.SEVERE, "change listener {0}");
 			record.setSourceClassName(ChangeListeners.class.getName());
-			record.setSourceMethodName("handleException");
-			record.setParameters(new String[]{
-					listener.getClass().getName()});
+			record.setSourceMethodName("onDispatchFailure");
+			record.setParameters(new Object[]{
+					listener.getClass()});
 			record.setThrown(throwable);
 			logger.log(record);
 		}

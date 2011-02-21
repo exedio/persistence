@@ -106,7 +106,7 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 					return;
 				}
 
-				manager.handle(event, this);
+				manager.dispatch(event, this);
 	      }
 			catch(final InterruptedException e)
 			{
