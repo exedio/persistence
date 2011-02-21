@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import com.exedio.cope.util.Interrupter;
 
@@ -128,10 +127,14 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 	private void handleException(final Throwable e)
 	{
 		exception++;
-		System.out.println("--------ChangeListenerDispatcher-----");
-		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-		e.printStackTrace(System.out);
-		System.out.println("-------/ChangeListenerDispatcher-----");
+		if(ChangeListeners.logger.isLoggable(Level.SEVERE))
+		{
+			final LogRecord record = new LogRecord(Level.SEVERE, "ChangeListenerDispatcher");
+			record.setSourceClassName(ChangeListenerDispatcher.class.getName());
+			record.setSourceMethodName("handleException");
+			record.setThrown(e);
+			ChangeListeners.logger.log(record);
+		}
 	}
 
 	private void logTerminate()
