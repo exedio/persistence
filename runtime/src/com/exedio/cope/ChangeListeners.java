@@ -145,16 +145,19 @@ final class ChangeListeners
 			}
 			catch(final Exception e)
 			{
-				failed++;
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
+				handleException(listener, e);
 			}
 			catch(final AssertionError e)
 			{
-				failed++;
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
+				handleException(listener, e);
 			}
 		}
+	}
+
+	private void handleException(final ChangeListener listener, final Throwable throwable)
+	{
+		failed++;
+		if(logger.isLoggable(Level.SEVERE))
+			logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), throwable);
 	}
 }
