@@ -20,9 +20,10 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,6 +63,8 @@ import com.exedio.cope.misc.ServletUtil;
  */
 public class MediaServlet extends HttpServlet
 {
+	private static final Logger logger = Logger.getLogger(MediaServlet.class.getName());
+
 	private static final long serialVersionUID = 1l;
 
 	private ConnectToken connectToken = null;
@@ -304,21 +307,17 @@ public class MediaServlet extends HttpServlet
 			final HttpServletRequest request,
 			final Exception exception)
 	{
-		System.out.println("--------MediaServlet-----");
-		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-		printHeader(request, "Host");
-		printHeader(request, "Referer");
-		printHeader(request, "User-Agent");
-		exception.printStackTrace(System.out);
-		System.out.println("-------/MediaServlet-----");
-	}
-
-	private static void printHeader(final HttpServletRequest request, final String name)
-	{
-		final String value = request.getHeader(name);
-		if(value!=null)
-			System.out.println(name + ": >" + value + '<');
-		else
-			System.out.println(name + " does not exist");
+		if(logger.isLoggable(Level.SEVERE))
+		{
+			final LogRecord record = new LogRecord(Level.SEVERE, "Media Servlet Host={0} Referer={1} Agent={2}");
+			record.setSourceClassName(MediaServlet.class.getName());
+			record.setSourceMethodName("onException");
+			record.setParameters(new String[]{
+					request.getHeader("Host"),
+					request.getHeader("Referer"),
+					request.getHeader("User-Agent")});
+			record.setThrown(exception);
+			logger.log(record);
+		}
 	}
 }
