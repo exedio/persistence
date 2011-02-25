@@ -31,12 +31,11 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ImporterModelTest extends CopeAssert
 {
-	static final Model MODEL = new Model(ImporterItem.TYPE);
-	static final Model model = MODEL;
+	static final Model model = new Model(ImporterItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(ImporterModelTest.class, "MODEL");
+		model.enableSerialization(ImporterModelTest.class, "model");
 	}
 
 	public void testIt()

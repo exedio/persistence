@@ -32,7 +32,7 @@ public class ImporterTest extends AbstractRuntimeTest
 {
 	public ImporterTest()
 	{
-		super(ImporterModelTest.MODEL);
+		super(ImporterModelTest.model);
 	}
 
 	public void testIt()
