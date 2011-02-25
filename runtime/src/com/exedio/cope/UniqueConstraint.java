@@ -94,6 +94,8 @@ public final class UniqueConstraint extends Feature
 			? fields[0].getSchemaName()
 			: getSchemaName();
 		this.databaseID = intern(table.makeGlobalID(schemaName + "_Unq"));
+
+		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
 
 	void disconnect()
@@ -193,7 +195,7 @@ public final class UniqueConstraint extends Feature
 
 				final Item collision = search(values);
 				if(collision!=null && (item==null || !item.equals(collision)))
-					throw new UniqueViolationException(this, item);
+					throw new UniqueViolationException(this, item, null);
 
 				break field;
 			}

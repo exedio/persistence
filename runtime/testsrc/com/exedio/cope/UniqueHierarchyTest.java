@@ -50,6 +50,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		{
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
+			assertEquals(null, e.getCause());
 		}
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
@@ -68,6 +69,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		{
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
+			assertEquals(null, e.getCause());
 		}
 		assertEquals("sub2", item2.getSubField());
 

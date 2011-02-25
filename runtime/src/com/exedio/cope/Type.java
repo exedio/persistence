@@ -82,6 +82,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private final Constructor<T> activationConstructor;
 	private final Method[] beforeNewItemMethods;
 	private final Sequence primaryKeySequence;
+	private final boolean uniqueConstraintsProblem;
 
 	private Mount<T> mount = null;
 
@@ -239,6 +240,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			supertype!=null
 			? supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
+
+		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.isEmpty());
 	}
 
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
@@ -938,6 +941,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 	void checkUniqueConstraints(final Item item, final Map<? extends Field, ?> fieldValues)
 	{
+		if(!uniqueConstraintsProblem && getModel().connect().executor.supportsUniqueViolation)
+			return;
+
 		for(final UniqueConstraint uc : uniqueConstraints)
 			uc.check(item, fieldValues);
 	}

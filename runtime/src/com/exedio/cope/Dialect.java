@@ -134,6 +134,19 @@ abstract class Dialect
 		return false;
 	}
 
+	boolean supportsUniqueViolation()
+	{
+		return false;
+	}
+
+	/**
+	 * @param exception used in subclasses
+	 */
+	String extractUniqueViolation(final SQLException exception)
+	{
+		throw new RuntimeException("not supported");
+	}
+
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');

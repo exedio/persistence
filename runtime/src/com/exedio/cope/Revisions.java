@@ -275,7 +275,7 @@ public final class Revisions
 				final Statement bf = executor.newStatement();
 				bf.append(sql);
 				final long start = nanoTime();
-				final int rows = executor.update(con, bf);
+				final int rows = executor.update(con, null, bf);
 				final long elapsed = (nanoTime() - start) / 1000000;
 				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
 					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
@@ -293,7 +293,7 @@ public final class Revisions
 				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 				append('=').
 				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.updateStrict(con, bf);
+			executor.updateStrict(con, null, bf);
 		}
 	}
 }

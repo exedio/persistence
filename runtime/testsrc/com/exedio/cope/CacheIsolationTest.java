@@ -29,6 +29,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	boolean unq;
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
@@ -40,6 +41,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
 
+		unq = model.connect().executor.supportsUniqueViolation;
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheInfo();
@@ -89,11 +91,11 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		}
 		assertInvalidations(2, 0);
 		model.commit();
-		assertInvalidations(2, 0);
+		assertInvalidations(unq?3:2, 0);
 		model.joinTransaction( txChangeCollisionItem );
-		assertInvalidations(2, 0);
+		assertInvalidations(unq?3:2, 0);
 		model.commit();
-		assertInvalidations(3, 1);
+		assertInvalidations(unq?4:3, 1);
 		model.startTransaction("just for tearDown");
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}

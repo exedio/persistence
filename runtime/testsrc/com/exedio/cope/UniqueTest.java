@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.SQLException;
+
 public class UniqueTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
@@ -158,6 +160,7 @@ public class UniqueTest extends AbstractRuntimeTest
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals(item2, e.getItem());
 				assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				assertCause(e);
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, UniqueSingleItem.forUniqueString("uniqueString2"));
@@ -175,6 +178,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
@@ -188,6 +192,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
@@ -201,6 +206,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
 
@@ -299,6 +305,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
 			assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertCause(e);
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -454,6 +461,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 		try
@@ -469,6 +477,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
 
@@ -482,6 +491,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(b2, e.getItem());
 			assertEquals("unique violation on " + b2 + " for " + a1.doubleUnique, e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(2, b2.getInteger());
 
@@ -495,6 +505,7 @@ public class UniqueTest extends AbstractRuntimeTest
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(b2, e.getItem());
 			assertEquals("unique violation on " + b2 + " for " + a1.doubleUnique, e.getMessage());
+			assertCause(e);
 		}
 		assertEquals(2, b2.getInteger());
 
@@ -513,4 +524,17 @@ public class UniqueTest extends AbstractRuntimeTest
 		assertDelete(b1X);
 	}
 
+	private void assertCause(final UniqueViolationException e)
+	{
+		final Throwable cause = e.getCause();
+		if(model.connect().executor.supportsUniqueViolation)
+		{
+			assertNotNull(e.getCause());
+			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
+		}
+		else
+		{
+			assertEquals(null, cause);
+		}
+	}
 }

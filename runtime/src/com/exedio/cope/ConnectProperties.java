@@ -25,9 +25,13 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
+	private static final Logger logger = Logger.getLogger(ConnectProperties.class.getName());
+
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 
@@ -37,6 +41,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
 
 	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
+	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", true);
 	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
 	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
@@ -158,6 +163,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		ensureValidity("x-build");
 
+		if(!disableUniqueViolation.booleanValue() && logger.isLoggable(Level.WARNING))
+			logger.log(Level.WARNING, "enabled experimental {0}", new Object[]{disableUniqueViolation.getKey()});
 		if(itemCacheInvalidateLast.booleanValue())
 			System.out.println("WARNING: ConnectProperties using experimental " + itemCacheInvalidateLast.getKey());
 	}
@@ -241,6 +248,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean isSupportDisabledForPreparedStatements()
 	{
 		return disablePreparedStatements.booleanValue();
+	}
+
+	boolean isSupportDisabledForUniqueViolation()
+	{
+		return disableUniqueViolation.booleanValue();
 	}
 
 	public boolean isSupportDisabledForEmptyStrings()

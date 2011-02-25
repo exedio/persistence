@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.HashMap;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -36,8 +37,11 @@ final class Executor
 
 	final Dialect dialect;
 	final boolean prepare;
+	final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
+	private final HashMap<String, UniqueConstraint> uniqueConstraints =
+		new HashMap<String, UniqueConstraint>();
 	volatile DatabaseListener listener = null;
 
 	Executor(
@@ -46,11 +50,20 @@ final class Executor
 	{
 		this.dialect = dialect;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
+		this.supportsUniqueViolation =
+			!properties.isSupportDisabledForUniqueViolation() &&
+			dialect.supportsUniqueViolation();
 		this.limitSupport = dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
 
 		if(limitSupport==null)
 			throw new NullPointerException(dialect.toString());
+	}
+
+	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)
+	{
+		if(uniqueConstraints.put(id, uniqueConstraint)!=null)
+			throw new RuntimeException(id);
 	}
 
 	protected Statement newStatement()
@@ -187,16 +200,18 @@ final class Executor
 
 	void updateStrict(
 			final Connection connection,
+			final Item exceptionItem,
 			final Statement statement)
 		throws UniqueViolationException
 	{
-		final int rows = update(connection, statement);
+		final int rows = update(connection, exceptionItem, statement);
 		if(rows!=1)
 			throw new TemporaryTransactionException(statement.toString(), rows);
 	}
 
 	int update(
 			final Connection connection,
+			final Item exceptionItem,
 			final Statement statement)
 		throws UniqueViolationException
 	{
@@ -241,6 +256,7 @@ final class Executor
 		}
 		catch(final SQLException e)
 		{
+			throwViolation(e, exceptionItem);
 			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
@@ -332,6 +348,20 @@ final class Executor
 				{
 					// exception is already thrown
 				}
+			}
+		}
+	}
+
+	private void throwViolation(final SQLException sqlException, final Item item)
+	{
+		if(supportsUniqueViolation)
+		{
+			final String id = dialect.extractUniqueViolation(sqlException);
+			if(id!=null)
+			{
+				final UniqueConstraint feature = uniqueConstraints.get(id);
+				if(feature!=null)
+					throw new UniqueViolationException(feature, item, sqlException);
 			}
 		}
 	}

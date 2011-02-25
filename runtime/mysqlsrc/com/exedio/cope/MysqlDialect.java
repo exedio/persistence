@@ -27,6 +27,7 @@ import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.mysql.jdbc.Driver;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * This MySQL driver requires the InnoDB engine.
@@ -353,5 +354,36 @@ final class MysqlDialect extends Dialect
 	boolean subqueryRequiresAlias()
 	{
 		return true;
+	}
+
+	@Override
+	boolean supportsUniqueViolation()
+	{
+		return true;
+	}
+
+	private static final String UNIQUE_PREFIX = "Duplicate entry '";
+	private static final String UNIQUE_INFIX  = "' for key '";
+	private static final int UNIQUE_PREFIX_LENGTH = UNIQUE_PREFIX.length();
+	private static final int UNIQUE_INFIX_LENGTH  = UNIQUE_INFIX.length();
+
+	@Override
+	String extractUniqueViolation(final SQLException exception)
+	{
+		if(!(exception instanceof MySQLIntegrityConstraintViolationException))
+			return null;
+
+		final String message = exception.getMessage();
+		if(message==null || !message.startsWith(UNIQUE_PREFIX))
+			return null;
+		final int infixPosition = message.indexOf(UNIQUE_INFIX, UNIQUE_PREFIX_LENGTH);
+		if(infixPosition<0)
+			return null;
+		final int infixEnd = infixPosition + UNIQUE_INFIX_LENGTH;
+		final int postfixPosition = message.indexOf('\'', infixEnd);
+		if(postfixPosition<0)
+			return null;
+
+		return message.substring(infixEnd, postfixPosition);
 	}
 }

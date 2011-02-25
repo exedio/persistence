@@ -546,7 +546,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, bf);
+		executor.updateStrict(connection, present ? state.item : null, bf);
 	}
 
 	String makeName(final String longName)
