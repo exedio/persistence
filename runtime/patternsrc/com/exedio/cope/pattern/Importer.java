@@ -142,6 +142,12 @@ public final class Importer<E extends Object> extends Pattern
 		}
 	}
 
+	/**
+	 * When setting to true,
+	 * method {@link #doImport(Class, Object, SetValue...)}
+	 * becomes more efficient when item do not yet exist
+	 * and less efficient when items already do exist.
+	 */
 	public void setHintInitialExerimental(final boolean hintInitial)
 	{
 		this.hintInitial = hintInitial;
