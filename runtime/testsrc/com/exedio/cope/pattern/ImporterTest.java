@@ -19,8 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ImporterItem.TYPE;
-import static com.exedio.cope.pattern.ImporterItem.byCode;
-import static com.exedio.cope.pattern.ImporterItem.code;
 import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
@@ -28,87 +26,17 @@ import static com.exedio.cope.pattern.ImporterItem.importByCode;
 import java.util.ArrayList;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 
 public class ImporterTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(ImporterItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(ImporterTest.class, "MODEL");
-	}
-
 	public ImporterTest()
 	{
-		super(MODEL);
+		super(ImporterModelTest.MODEL);
 	}
 
 	public void testIt()
 	{
-		// test model
-		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
-		assertEquals(ImporterItem.class, TYPE.getJavaClass());
-		assertEquals(true, TYPE.isBound());
-		assertEquals(null, TYPE.getPattern());
-
-		assertEqualsUnmodifiable(list(
-				TYPE.getThis(),
-				code,
-				code.getImplicitUniqueConstraint(),
-				byCode,
-				description,
-				description2
-			), TYPE.getFeatures());
-
-		assertEquals(TYPE, byCode.getType());
-		assertEquals("byCode", byCode.getName());
-		assertSame(code, byCode.getKey());
-		assertEquals(list(), byCode.getSourceFeatures());
-		assertEquals(list(), byCode.getSourceTypes());
-		assertSerializedSame(byCode, 380);
-
-		try
-		{
-			Importer.newImporter(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be final", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField().toFinal().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be mandatory", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField().toFinal());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be unique", e.getMessage());
-		}
-
-		// test persistence
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
 		final ImporterItem itemA = deleteOnTearDown(
