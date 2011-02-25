@@ -35,8 +35,20 @@ public class ImporterTest extends AbstractRuntimeTest
 		super(ImporterModelTest.model);
 	}
 
-	public void testIt()
+	public void testNonInitial()
 	{
+		doTest(false);
+	}
+
+	public void testInitial()
+	{
+		doTest(true);
+	}
+
+	private void doTest(final boolean hintInitial)
+	{
+		ImporterItem.byCode.setHintInitialExerimental(hintInitial);
+
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
 		final ImporterItem itemA = deleteOnTearDown(

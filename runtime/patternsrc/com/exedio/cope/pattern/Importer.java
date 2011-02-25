@@ -26,6 +26,8 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
@@ -35,6 +37,7 @@ public final class Importer<E extends Object> extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> key;
+	private boolean hintInitial = false;
 
 	private Importer(final FunctionField<E> key)
 	{
@@ -104,6 +107,9 @@ public final class Importer<E extends Object> extends Pattern
 		if(setValues==null)
 			throw new NullPointerException("setValues");
 
+		if(hintInitial)
+			return doImportInitial(parentClass, keyValue, setValues);
+
 		final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
 		if(existent!=null)
 		{
@@ -117,5 +123,32 @@ public final class Importer<E extends Object> extends Pattern
 			System.arraycopy(setValues, 0, setValuesNew, 1, setValues.length);
 			return getType().as(parentClass).newItem(setValuesNew);
 		}
+	}
+
+	private <P extends Item> P doImportInitial(
+			final Class<P> parentClass,
+			final E keyValue,
+			final SetValue... setValues)
+	{
+		final SetValue[] setValuesNew = new SetValue[setValues.length + 1];
+		setValuesNew[0] = key.map(keyValue);
+		System.arraycopy(setValues, 0, setValuesNew, 1, setValues.length);
+		final Type<P> type = getType().as(parentClass);
+
+		try
+		{
+			return type.newItem(setValuesNew);
+		}
+		catch(final UniqueViolationException e)
+		{
+			final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
+			existent.set(setValues);
+			return existent;
+		}
+	}
+
+	public void setHintInitialExerimental(final boolean hintInitial)
+	{
+		this.hintInitial = hintInitial;
 	}
 }
