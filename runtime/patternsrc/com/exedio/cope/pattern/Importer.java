@@ -118,10 +118,7 @@ public final class Importer<E extends Object> extends Pattern
 		}
 		else
 		{
-			final SetValue[] setValuesNew = new SetValue[setValues.length + 1];
-			setValuesNew[0] = key.map(keyValue);
-			System.arraycopy(setValues, 0, setValuesNew, 1, setValues.length);
-			return getType().as(parentClass).newItem(setValuesNew);
+			return getType().as(parentClass).newItem(prepend(key.map(keyValue), setValues));
 		}
 	}
 
@@ -130,9 +127,7 @@ public final class Importer<E extends Object> extends Pattern
 			final E keyValue,
 			final SetValue... setValues)
 	{
-		final SetValue[] setValuesNew = new SetValue[setValues.length + 1];
-		setValuesNew[0] = key.map(keyValue);
-		System.arraycopy(setValues, 0, setValuesNew, 1, setValues.length);
+		final SetValue[] setValuesNew = prepend(key.map(keyValue), setValues);
 		final Type<P> type = getType().as(parentClass);
 
 		try
@@ -150,5 +145,13 @@ public final class Importer<E extends Object> extends Pattern
 	public void setHintInitialExerimental(final boolean hintInitial)
 	{
 		this.hintInitial = hintInitial;
+	}
+
+	private static SetValue[] prepend(final SetValue head, final SetValue[] tail)
+	{
+		final SetValue[] result = new SetValue[tail.length + 1];
+		result[0] = head;
+		System.arraycopy(tail, 0, result, 1, tail.length);
+		return result;
 	}
 }
