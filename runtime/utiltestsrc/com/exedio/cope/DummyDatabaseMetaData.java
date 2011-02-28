@@ -3,7 +3,6 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.RowIdLifetime;
 import java.sql.SQLException;
 
 public class DummyDatabaseMetaData implements DatabaseMetaData
@@ -326,11 +325,6 @@ public class DummyDatabaseMetaData implements DatabaseMetaData
 	}
 
 	public int getResultSetHoldability() throws SQLException
-	{
-		throw new SQLException();
-	}
-
-	public RowIdLifetime getRowIdLifetime() throws SQLException
 	{
 		throw new SQLException();
 	}
