@@ -54,6 +54,7 @@ final class MysqlDialect extends Dialect
 	 * mysql supports placeholders in version 5.0.7 and higher
 	 */
 	private final boolean placeholdersInLimit;
+	private final boolean supportsUniqueViolation;
 
 	protected MysqlDialect(final DialectParameters parameters)
 	{
@@ -62,6 +63,7 @@ final class MysqlDialect extends Dialect
 				new com.exedio.dsmf.MysqlDialect(
 						Table.PK_COLUMN_NAME));
 		this.placeholdersInLimit = parameters.environmentInfo.getDatabaseMajorVersion()>=5;
+		this.supportsUniqueViolation = parameters.environmentInfo.isDatabaseVersionAtLeast(5, 1);
 	}
 
 	@Override
@@ -359,7 +361,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsUniqueViolation()
 	{
-		return true;
+		return supportsUniqueViolation;
 	}
 
 	private static final String UNIQUE_PREFIX = "Duplicate entry '";
