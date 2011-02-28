@@ -70,6 +70,18 @@ public final class SchemaInfo
 		return model.connect().supportsNativeDate();
 	}
 
+	/**
+	 * Returns whether the detecting
+	 * {@link UniqueViolationException}s from
+	 * {@link SQLException}s is supported.
+	 * If not, then cope must issue explicit searches before
+	 * any insert/update covering a unique constraint.
+	 */
+	public static boolean supportsUniqueViolation(final Model model)
+	{
+		return model.connect().executor.supportsUniqueViolation;
+	}
+
 	public static boolean supportsSequences(final Model model)
 	{
 		return model.connect().dialect.dsmfDialect.supportsSequences();
