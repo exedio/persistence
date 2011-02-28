@@ -71,7 +71,7 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * Returns whether the detecting
+	 * Returns whether detecting
 	 * {@link UniqueViolationException}s from
 	 * {@link SQLException}s is supported.
 	 * If not, then cope must issue explicit searches before
