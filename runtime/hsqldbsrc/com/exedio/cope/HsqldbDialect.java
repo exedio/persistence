@@ -23,26 +23,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.hsqldb.jdbcDriver;
-
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class HsqldbDialect extends Dialect
 {
-	static
-	{
-		try
-		{
-			Class.forName(jdbcDriver.class.getName());
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	/**
 	 * @param parameters must be there to be called by reflection
 	 */
