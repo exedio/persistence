@@ -104,4 +104,28 @@ public final class EnvironmentInfo
 		result.setProperty("driver.version", getDriverVersionDescription());
 		return result;
 	}
+
+	public boolean isDatabaseVersionAtLeast(final int major, final int minor)
+	{
+		return isVersionAtLeast(major, minor, databaseMajorVersion, databaseMinorVersion);
+	}
+
+	public boolean isDriverVersionAtLeast(final int major, final int minor)
+	{
+		return isVersionAtLeast(major, minor, driverMajorVersion, driverMinorVersion);
+	}
+
+	private static boolean isVersionAtLeast(
+			final int expectedMajor,
+			final int expectedMinor,
+			final int actualMajor,
+			final int actualMinor)
+	{
+		if(expectedMajor<actualMajor)
+			return true;
+		else if(expectedMajor>actualMajor)
+			return false;
+		else
+			return expectedMinor<=actualMinor;
+	}
 }
