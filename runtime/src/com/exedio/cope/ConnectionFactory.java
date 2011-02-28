@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,12 +30,24 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
 	private final String url;
+	private final Driver driver;
 	private final java.util.Properties info;
 	private final boolean transactionIsolationReadCommitted;
 
 	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
 	{
 		this.url = properties.getConnectionUrl();
+
+		try
+		{
+			this.driver = DriverManager.getDriver(url);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getDriver");
+		}
+		if(driver==null)
+			throw new RuntimeException(url);
 
 		info = new java.util.Properties();
 		info.setProperty("user", properties.getConnectionUser());
@@ -59,7 +72,9 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	Connection createRaw() throws SQLException
 	{
-		final Connection result = DriverManager.getConnection(url, info);
+		final Connection result = driver.connect(url, info);
+		if(result==null)
+			throw new RuntimeException(driver.toString() + '/' + url);
 		if(transactionIsolationReadCommitted)
 			result.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 		return result;
