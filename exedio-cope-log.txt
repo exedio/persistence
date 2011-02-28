@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* switch from jdk 1.5.0_17 to jdk 1.6.0_18
+	do not forget to update your hudson job !!!
 * add SchemaInfo#supportsUniqueViolation
 * rename key in cope.properties:
 		
