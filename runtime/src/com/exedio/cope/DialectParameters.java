@@ -78,20 +78,20 @@ final class DialectParameters
 
 	Map<String, String> getRevisionEnvironment()
 	{
-		final HashMap<String, String> store = new HashMap<String, String>();
+		final HashMap<String, String> env = new HashMap<String, String>();
 
 		try
 		{
-			store.put("hostname", InetAddress.getLocalHost().getHostName());
+			env.put("hostname", InetAddress.getLocalHost().getHostName());
 		}
 		catch(final UnknownHostException e)
 		{
 			// do not put in hostname
 		}
 
-		properties.putRevisionEnvironment(store);
-		environmentInfo.putRevisionEnvironment(store);
+		properties.putRevisionEnvironment(env);
+		environmentInfo.putRevisionEnvironment(env);
 
-		return store;
+		return env;
 	}
 }
