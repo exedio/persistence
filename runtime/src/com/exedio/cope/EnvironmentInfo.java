@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Properties;
 
 public final class EnvironmentInfo
@@ -103,6 +104,18 @@ public final class EnvironmentInfo
 		result.setProperty("driver.name", driverName);
 		result.setProperty("driver.version", getDriverVersionDescription());
 		return result;
+	}
+
+	void putRevisionEnvironment(final HashMap<String, String> e)
+	{
+		e.put("database.name",    databaseProductName);
+		e.put("database.version", databaseProductVersion);
+		e.put("database.version.major", String.valueOf(databaseMajorVersion));
+		e.put("database.version.minor", String.valueOf(databaseMinorVersion));
+		e.put("driver.name",    driverName);
+		e.put("driver.version", driverVersion);
+		e.put("driver.version.major", String.valueOf(driverMajorVersion));
+		e.put("driver.version.minor", String.valueOf(driverMinorVersion));
 	}
 
 	public boolean isDatabaseVersionAtLeast(final int major, final int minor)

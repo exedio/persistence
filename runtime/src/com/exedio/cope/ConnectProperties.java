@@ -24,6 +24,7 @@ import static java.lang.Thread.MIN_PRIORITY;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,6 +252,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		result.setProperty("user",     connectionUser.    stringValue());
 		result.setProperty("password", connectionPassword.stringValue());
 		return result;
+	}
+
+	void putRevisionEnvironment(final HashMap<String, String> e)
+	{
+		e.put("connection.url",  connectionUrl. stringValue());
+		e.put("connection.user", connectionUser.stringValue());
 	}
 
 	public boolean isSupportDisabledForPreparedStatements()

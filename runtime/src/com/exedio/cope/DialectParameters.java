@@ -89,16 +89,8 @@ final class DialectParameters
 			// do not put in hostname
 		}
 
-		store.put("connection.url",  properties.getConnectionUrl());
-		store.put("connection.user", properties.getConnectionUser());
-		store.put("database.name",    environmentInfo.getDatabaseProductName());
-		store.put("database.version", environmentInfo.getDatabaseProductVersion());
-		store.put("database.version.major", String.valueOf(environmentInfo.getDatabaseMajorVersion()));
-		store.put("database.version.minor", String.valueOf(environmentInfo.getDatabaseMinorVersion()));
-		store.put("driver.name",    environmentInfo.getDriverName());
-		store.put("driver.version", environmentInfo.getDriverVersion());
-		store.put("driver.version.major", String.valueOf(environmentInfo.getDriverMajorVersion()));
-		store.put("driver.version.minor", String.valueOf(environmentInfo.getDriverMinorVersion()));
+		properties.putRevisionEnvironment(store);
+		environmentInfo.putRevisionEnvironment(store);
 
 		return store;
 	}
