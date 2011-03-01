@@ -125,7 +125,10 @@ public final class Revisions
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
-	void makeSchema(final Schema result, final ConnectProperties properties, final Dialect dialect)
+	void makeSchema(
+			final Schema result,
+			final ConnectProperties properties,
+			final Dialect dialect)
 	{
 		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName.stringValue());
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
@@ -133,7 +136,10 @@ public final class Revisions
 		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
-	private int getActualNumber(final ConnectProperties properties, final Connection connection, final Executor executor)
+	private int getActualNumber(
+			final ConnectProperties properties,
+			final Connection connection,
+			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
@@ -150,7 +156,10 @@ public final class Revisions
 		return executor.query(connection, bf, null, false, integerResultSetHandler);
 	}
 
-	Map<Integer, byte[]> getLogs(final ConnectProperties properties, final ConnectionPool connectionPool, final Executor executor)
+	Map<Integer, byte[]> getLogs(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
 	{
 		final Connection connection = connectionPool.get(true);
 		try
