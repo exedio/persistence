@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -34,24 +33,12 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final java.util.Properties info;
 	private final boolean transactionIsolationReadCommitted;
 
-	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
+	ConnectionFactory(final ConnectProperties properties, final Driver driver, final Dialect dialect)
 	{
 		this.url = properties.getConnectionUrl();
+		this.driver = driver;
 
-		try
-		{
-			this.driver = DriverManager.getDriver(url);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getDriver");
-		}
-		if(driver==null)
-			throw new RuntimeException(url);
-
-		info = new java.util.Properties();
-		info.setProperty("user", properties.getConnectionUser());
-		info.setProperty("password", properties.getConnectionPassword());
+		info = properties.newConnectionInfo();
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolationReadCommitted =

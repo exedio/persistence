@@ -21,6 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,19 +63,30 @@ final class Connect
 	{
 		this.properties = properties;
 
+		final Driver driver;
+		try
+		{
+			driver = DriverManager.getDriver(properties.getConnectionUrl());
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getDriver");
+		}
+		if(driver==null)
+			throw new RuntimeException(properties.getConnectionUrl());
+
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
 		try
 		{
-			probeConnection = DriverManager.getConnection(
+			probeConnection = driver.connect(
 					properties.getConnectionUrl(),
-					properties.getConnectionUser(),
-					properties.getConnectionPassword());
+					properties.newConnectionInfo());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)
 		{
-			throw new SQLRuntimeException(e, "create");
+			throw new SQLRuntimeException(e, "connect");
 		}
 		finally
 		{
@@ -93,7 +105,7 @@ final class Connect
 		}
 
 		this.dialect = properties.createDialect(dialectParameters);
-		this.connectionFactory = new ConnectionFactory(properties, dialect);
+		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
 				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),

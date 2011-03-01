@@ -245,6 +245,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionPassword.stringValue();
 	}
 
+	java.util.Properties newConnectionInfo()
+	{
+		final java.util.Properties result = new java.util.Properties();
+		result.setProperty("user",     connectionUser.    stringValue());
+		result.setProperty("password", connectionPassword.stringValue());
+		return result;
+	}
+
 	public boolean isSupportDisabledForPreparedStatements()
 	{
 		return disablePreparedStatements.booleanValue();
