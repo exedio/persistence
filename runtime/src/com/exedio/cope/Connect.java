@@ -80,9 +80,7 @@ final class Connect
 		Connection probeConnection = null;
 		try
 		{
-			probeConnection = driver.connect(
-					url,
-					properties.newConnectionInfo());
+			probeConnection = driver.connect(url, properties.newConnectionInfo());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)
