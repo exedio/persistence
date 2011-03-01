@@ -372,14 +372,14 @@ final class Executor
 	{
 		queryInfo.addChild(statement.getQueryInfo());
 
-		queryInfo.addChild(new QueryInfo(
-				"timing " +
-				numberFormat.format(end-start) + '/' +
-				numberFormat.format(prepared-start) + '/' +
-				numberFormat.format(executed-prepared) + '/' +
-				numberFormat.format(resultRead-executed) + '/' +
-				numberFormat.format(end-resultRead) +
-				" (total/prepare/execute/readResult/close in ns)"));
+		{
+			final QueryInfo timing = new QueryInfo("time elapsed " + numberFormat.format(end-start) + "ns");
+			timing.addChild(new QueryInfo("prepare " + numberFormat.format(prepared-start)));
+			timing.addChild(new QueryInfo("execute " + numberFormat.format(executed-prepared)));
+			timing.addChild(new QueryInfo("result " + numberFormat.format(resultRead-executed)));
+			timing.addChild(new QueryInfo("close " + numberFormat.format(end-resultRead)));
+			queryInfo.addChild(timing);
+		}
 
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)

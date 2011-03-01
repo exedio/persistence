@@ -62,8 +62,29 @@ public class QueryInfoTest extends AbstractRuntimeTest
 		}
 		{
 			final QueryInfo timing = rootChilds.next();
-			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
-			assertContains(timing.getChilds());
+			assertTrue(timing.getText(), timing.getText().startsWith("time elapsed "));
+			final Iterator<QueryInfo> timingInfoChilds = timing.getChilds().iterator();
+			{
+				final QueryInfo timingPrepare = timingInfoChilds.next();
+				assertTrue(timingPrepare.getText(), timingPrepare.getText().startsWith("prepare "));
+				assertContains(timingPrepare.getChilds());
+			}
+			{
+				final QueryInfo timingExecute = timingInfoChilds.next();
+				assertTrue(timingExecute.getText(), timingExecute.getText().startsWith("execute "));
+				assertContains(timingExecute.getChilds());
+			}
+			{
+				final QueryInfo timingReadResult = timingInfoChilds.next();
+				assertTrue(timingReadResult.getText(), timingReadResult.getText().startsWith("result "));
+				assertContains(timingReadResult.getChilds());
+			}
+			{
+				final QueryInfo timingClose = timingInfoChilds.next();
+				assertTrue(timingClose.getText(), timingClose.getText().startsWith("close "));
+				assertContains(timingClose.getChilds());
+			}
+			assertTrue(!timingInfoChilds.hasNext());
 		}
 
 		switch(dialect)
