@@ -218,9 +218,7 @@ public final class Dispatcher extends Pattern
 			WrapperByReflection.make(Dispatcher.class, "getRuns"));
 
 		result.add(
-			new Wrapper("getFailures").
-			addComment("Returns the failed attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
+			WrapperByReflection.make(Dispatcher.class, "getFailures"));
 
 		result.add(
 			new Wrapper("getRunParent").
@@ -415,6 +413,7 @@ public final class Dispatcher extends Pattern
 					true);
 	}
 
+	@MethodComment("Returns the failed attempts to dispatch this item by {0}.")
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();
