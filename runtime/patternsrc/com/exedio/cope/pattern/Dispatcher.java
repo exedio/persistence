@@ -45,7 +45,9 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.MethodComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
@@ -197,9 +199,7 @@ public final class Dispatcher extends Pattern
 			setStatic());
 
 		result.add(
-			new Wrapper("isPending").
-			addComment("Returns, whether this item is yet to be dispatched by {0}.").
-			setReturn(boolean.class));
+			WrapperByReflection.make(Dispatcher.class, "isPending"));
 
 		result.add(
 			new Wrapper("setPending").
@@ -207,9 +207,7 @@ public final class Dispatcher extends Pattern
 			addParameter(boolean.class, "pending"));
 
 		result.add(
-			new Wrapper("getLastSuccessDate").
-			addComment("Returns the date, this item was last successfully dispatched by {0}.").
-			setReturn(Date.class));
+			WrapperByReflection.make(Dispatcher.class, "getLastSuccessDate"));
 
 		result.add(
 			new Wrapper("getLastSuccessElapsed").
@@ -372,6 +370,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
+	@MethodComment("Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
@@ -382,6 +381,7 @@ public final class Dispatcher extends Pattern
 		this.pending.set(item, pending);
 	}
 
+	@MethodComment("Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
