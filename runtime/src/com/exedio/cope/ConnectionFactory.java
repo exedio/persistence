@@ -33,7 +33,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final java.util.Properties info;
 	private final boolean transactionIsolationReadCommitted;
 
-	ConnectionFactory(final ConnectProperties properties, final Driver driver, final Dialect dialect)
+	ConnectionFactory(
+			final ConnectProperties properties,
+			final Driver driver,
+			final Dialect dialect)
 	{
 		this.url = properties.getConnectionUrl();
 		this.driver = driver;
