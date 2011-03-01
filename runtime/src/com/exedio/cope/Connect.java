@@ -63,30 +63,31 @@ final class Connect
 	{
 		this.properties = properties;
 
+		final String url = properties.getConnectionUrl();
 		final Driver driver;
 		try
 		{
-			driver = DriverManager.getDriver(properties.getConnectionUrl());
+			driver = DriverManager.getDriver(url);
 		}
 		catch(final SQLException e)
 		{
-			throw new SQLRuntimeException(e, "getDriver");
+			throw new SQLRuntimeException(e, url);
 		}
 		if(driver==null)
-			throw new RuntimeException(properties.getConnectionUrl());
+			throw new RuntimeException(url);
 
 		final DialectParameters dialectParameters;
 		Connection probeConnection = null;
 		try
 		{
 			probeConnection = driver.connect(
-					properties.getConnectionUrl(),
+					url,
 					properties.newConnectionInfo());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)
 		{
-			throw new SQLRuntimeException(e, "connect");
+			throw new SQLRuntimeException(e, url);
 		}
 		finally
 		{
