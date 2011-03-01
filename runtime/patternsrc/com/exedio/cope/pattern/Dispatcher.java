@@ -215,9 +215,7 @@ public final class Dispatcher extends Pattern
 			setReturn(Long.class));
 
 		result.add(
-			new Wrapper("getRuns").
-			addComment("Returns the attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
+			WrapperByReflection.make(Dispatcher.class, "getRuns"));
 
 		result.add(
 			new Wrapper("getFailures").
@@ -406,6 +404,7 @@ public final class Dispatcher extends Pattern
 		return q.searchSingleton();
 	}
 
+	@MethodComment("Returns the attempts to dispatch this item by {0}.")
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();

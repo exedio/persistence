@@ -40,7 +40,7 @@ public final class WrapperByReflection
 		{
 			throw new RuntimeException(e);
 		}
-		result.setReturn(m.getReturnType());
+		result.setReturn(m.getGenericReturnType());
 		final MethodComment comment = m.getAnnotation(MethodComment.class);
 		if(comment!=null)
 			result.addComment(comment.value());
