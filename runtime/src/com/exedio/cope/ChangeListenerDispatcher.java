@@ -41,20 +41,20 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 			final Types types,
 			final String name,
 			final ChangeListeners manager,
-			final ConnectProperties connectProperties)
+			final ConnectProperties properties)
 	{
 		this.types = types;
 		this.manager = manager;
-		this.queue = new LimitedQueue<ChangeEvent>(connectProperties.changeListenersQueueCapacity.intValue());
+		this.queue = new LimitedQueue<ChangeEvent>(properties.changeListenersQueueCapacity.intValue());
 
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Change Listener Dispatcher " + name,
-				connectProperties.changeListenersThreadsMax.intValue()
+				properties.changeListenersThreadsMax.intValue()
 		);
-		if(connectProperties.changeListenersPrioritySet.booleanValue())
-			threads.setPriority(connectProperties.changeListenersPriority.intValue());
-		threads.start(connectProperties.changeListenersThreads.intValue());
+		if(properties.changeListenersPrioritySet.booleanValue())
+			threads.setPriority(properties.changeListenersPriority.intValue());
+		threads.start(properties.changeListenersThreads.intValue());
 	}
 
 	ChangeListenerDispatcherInfo getInfo()
