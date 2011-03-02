@@ -41,21 +41,21 @@ public final class WrapperByReflection
 	{
 		final Wrapper result = new Wrapper(name);
 
-		Method m;
-		m = getMethod(name, prepend(Class.class, parameterTypes));
-		if(m==null)
-			m = getMethod(name, prepend(Item.class, parameterTypes));
+		Method method;
+		method = getMethod(name, prepend(Class.class, parameterTypes));
+		if(method==null)
+			method = getMethod(name, prepend(Item.class, parameterTypes));
 		else
 			result.setStatic();
 
-		final Type returnType = m.getGenericReturnType();
+		final Type returnType = method.getGenericReturnType();
 		if(returnType!=void.class)
 			result.setReturn(returnType);
-		final MethodComment comment = m.getAnnotation(MethodComment.class);
+		final MethodComment comment = method.getAnnotation(MethodComment.class);
 		if(comment!=null)
 			result.addComment(comment.value());
 		{
-			final Annotation[][] annotations = m.getParameterAnnotations();
+			final Annotation[][] annotations = method.getParameterAnnotations();
 			int i = 1; // 1 because of leading item
 			for(final Class parameterType : parameterTypes)
 			{
