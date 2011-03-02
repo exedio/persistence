@@ -24,7 +24,16 @@ import com.exedio.cope.Item;
 
 public final class WrapperByReflection
 {
-	public static Wrapper make(final Class<?> clazz, final String name)
+	private final Class<?> clazz;
+
+	public WrapperByReflection(final Class<?> clazz)
+	{
+		this.clazz = clazz;
+		if(clazz==null)
+			throw new NullPointerException("clazz");
+	}
+
+	public Wrapper make(final String name)
 	{
 		final Wrapper result = new Wrapper(name);
 		final Method m;
@@ -45,10 +54,5 @@ public final class WrapperByReflection
 		if(comment!=null)
 			result.addComment(comment.value());
 		return result;
-	}
-
-	private WrapperByReflection()
-	{
-		// prevent instantiation
 	}
 }

@@ -180,6 +180,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
+		final WrapperByReflection factory = new WrapperByReflection(Dispatcher.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
@@ -199,7 +200,7 @@ public final class Dispatcher extends Pattern
 			setStatic());
 
 		result.add(
-			WrapperByReflection.make(Dispatcher.class, "isPending"));
+			factory.make("isPending"));
 
 		result.add(
 			new Wrapper("setPending").
@@ -207,7 +208,7 @@ public final class Dispatcher extends Pattern
 			addParameter(boolean.class, "pending"));
 
 		result.add(
-			WrapperByReflection.make(Dispatcher.class, "getLastSuccessDate"));
+			factory.make("getLastSuccessDate"));
 
 		result.add(
 			new Wrapper("getLastSuccessElapsed").
@@ -215,10 +216,10 @@ public final class Dispatcher extends Pattern
 			setReturn(Long.class));
 
 		result.add(
-			WrapperByReflection.make(Dispatcher.class, "getRuns"));
+			factory.make("getRuns"));
 
 		result.add(
-			WrapperByReflection.make(Dispatcher.class, "getFailures"));
+			factory.make("getFailures"));
 
 		result.add(
 			new Wrapper("getRunParent").
