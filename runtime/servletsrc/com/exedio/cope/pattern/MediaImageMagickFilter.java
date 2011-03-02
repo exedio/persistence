@@ -289,8 +289,9 @@ public class MediaImageMagickFilter extends MediaFilter
 			}
 		}
 
+		final int exitValue;
 		final Process process = processBuilder.start();
-		try { process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
+		try { exitValue = process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
 
 		// IMPLEMENTATION NOTE
 		// Without the following three lines each run of this code will leave
@@ -303,7 +304,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		process.getOutputStream().close();
 		process.getErrorStream ().close();
 
-		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 			throw new RuntimeException(
 					"process " + process +
@@ -339,8 +339,9 @@ public class MediaImageMagickFilter extends MediaFilter
 		final ProcessBuilder processBuilder = new ProcessBuilder(command);
 
 		source.getBody(item, inFile);
+		final int exitValue;
 		final Process process = processBuilder.start();
-		try { process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
+		try { exitValue = process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
 
 		// IMPLEMENTATION NOTE
 		// Without the following three lines each run of this code will leave
@@ -353,7 +354,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		process.getOutputStream().close();
 		process.getErrorStream ().close();
 
-		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 			throw new RuntimeException(
 					"process " + process +
