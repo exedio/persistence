@@ -46,6 +46,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.ParameterComment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
@@ -203,9 +204,7 @@ public final class Dispatcher extends Pattern
 			factory.make("isPending"));
 
 		result.add(
-			new Wrapper("setPending").
-			addComment("Sets whether this item is yet to be dispatched by {0}.").
-			addParameter(boolean.class, "pending"));
+			factory.make("setPending", boolean.class));
 
 		result.add(
 			factory.make("getLastSuccessDate"));
@@ -373,7 +372,8 @@ public final class Dispatcher extends Pattern
 		return pending.getMandatory(item);
 	}
 
-	public void setPending(final Item item, final boolean pending)
+	@MethodComment("Sets whether this item is yet to be dispatched by {0}.")
+	public void setPending(final Item item, @ParameterComment("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}

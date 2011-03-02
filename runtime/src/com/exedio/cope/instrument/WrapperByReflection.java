@@ -18,7 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.exedio.cope.Item;
 
@@ -33,13 +37,17 @@ public final class WrapperByReflection
 			throw new NullPointerException("clazz");
 	}
 
-	public Wrapper make(final String name)
+	public Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
+		final ArrayList<Class> parameterTypesX = new ArrayList<Class>();
+		parameterTypesX.add(Item.class);
+		parameterTypesX.addAll(Arrays.asList(parameterTypes));
+
 		final Wrapper result = new Wrapper(name);
 		final Method m;
 		try
 		{
-			m = clazz.getMethod(name, Item.class);
+			m = clazz.getMethod(name, parameterTypesX.toArray(new Class[parameterTypesX.size()]));
 		}
 		catch(final SecurityException e)
 		{
@@ -49,10 +57,28 @@ public final class WrapperByReflection
 		{
 			throw new RuntimeException(e);
 		}
-		result.setReturn(m.getGenericReturnType());
+		final Type returnType = m.getGenericReturnType();
+		if(returnType!=void.class)
+			result.setReturn(returnType);
 		final MethodComment comment = m.getAnnotation(MethodComment.class);
 		if(comment!=null)
 			result.addComment(comment.value());
+		{
+			final Annotation[][] annotations = m.getParameterAnnotations();
+			int i = 1; // 1 because of leading item
+			for(final Class parameterType : parameterTypes)
+			{
+				ParameterComment c = null;
+				for(final Annotation a : annotations[i])
+					if(a.annotationType().equals(ParameterComment.class))
+						c = (ParameterComment)a;
+				if(c==null)
+					result.addParameter(parameterType);
+				else
+					result.addParameter(parameterType, c.value());
+				i++;
+			}
+		}
 		return result;
 	}
 }
