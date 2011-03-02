@@ -306,8 +306,7 @@ public class MediaImageMagickFilter extends MediaFilter
 
 		if(exitValue!=0)
 			throw new RuntimeException(
-					"process " + process +
-					" (command " + Arrays.asList(command) + ")" +
+					"command " + Arrays.asList(command) +
 					" exited with " + exitValue +
 					" for feature " + getID() +
 					", left " + inFile.getAbsolutePath() +
@@ -356,8 +355,7 @@ public class MediaImageMagickFilter extends MediaFilter
 
 		if(exitValue!=0)
 			throw new RuntimeException(
-					"process " + process +
-					" (command " + Arrays.asList(command) + ")" +
+					"command " + Arrays.asList(command) +
 					" exited with " + exitValue +
 					" for feature " + getID() +
 					" and item " + item.getCopeID() +
