@@ -57,12 +57,16 @@ public final class WrapperByReflection
 		if(method==null)
 			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
 
-		final Type returnType = method.getGenericReturnType();
-		if(returnType!=void.class)
-			result.setReturn(returnType);
-		final MethodComment comment = method.getAnnotation(MethodComment.class);
-		if(comment!=null)
-			result.addComment(comment.value());
+		{
+			final Type returnType = method.getGenericReturnType();
+			if(returnType!=void.class)
+				result.setReturn(returnType);
+		}
+		{
+			final MethodComment comment = method.getAnnotation(MethodComment.class);
+			if(comment!=null)
+				result.addComment(comment.value());
+		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
 			int i = 1; // 1 because of leading item
