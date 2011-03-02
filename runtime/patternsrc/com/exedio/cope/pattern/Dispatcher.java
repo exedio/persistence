@@ -49,6 +49,7 @@ import com.exedio.cope.instrument.MethodComment;
 import com.exedio.cope.instrument.ParameterComment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperReturn;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
@@ -186,12 +187,7 @@ public final class Dispatcher extends Pattern
 		result.addAll(super.getWrappers());
 
 		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			setReturn(int.class, "the number of successfully dispatched items").
-			addParameter(Config.class, "config").
-			addParameter(Interrupter.class, "interrupter").
-			setStatic());
+			factory.make("dispatch", Config.class, Interrupter.class));
 
 		result.add(
 			factory.make("dispatch", Config.class, JobContext.class));
@@ -227,7 +223,9 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
+	@MethodComment("Dispatch by {0}.")
+	@WrapperReturn("the number of successfully dispatched items")
+	public <P extends Item> int dispatch(final Class<P> parentClass, @ParameterComment("config") final Config config, @ParameterComment("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
