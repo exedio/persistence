@@ -210,9 +210,7 @@ public final class Dispatcher extends Pattern
 			factory.make("getLastSuccessDate"));
 
 		result.add(
-			new Wrapper("getLastSuccessElapsed").
-			addComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.").
-			setReturn(Long.class));
+			factory.make("getLastSuccessElapsed"));
 
 		result.add(
 			factory.make("getRuns"));
@@ -385,6 +383,7 @@ public final class Dispatcher extends Pattern
 		return success!=null ? runDate.get(success) : null;
 	}
 
+	@MethodComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
