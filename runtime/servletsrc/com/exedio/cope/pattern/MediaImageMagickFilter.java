@@ -261,8 +261,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		command[command.length-1] = outFile.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
 
-		final ProcessBuilder processBuilder = new ProcessBuilder(command);
-
 		final byte[] b = new byte[1580]; // size of the file
 		{
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
@@ -289,6 +287,7 @@ public class MediaImageMagickFilter extends MediaFilter
 			}
 		}
 
+		final ProcessBuilder processBuilder = new ProcessBuilder(command);
 		final int exitValue;
 		final Process process = processBuilder.start();
 		try { exitValue = process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
@@ -335,9 +334,9 @@ public class MediaImageMagickFilter extends MediaFilter
 		command[command.length-1] = outFile.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
 
-		final ProcessBuilder processBuilder = new ProcessBuilder(command);
-
 		source.getBody(item, inFile);
+
+		final ProcessBuilder processBuilder = new ProcessBuilder(command);
 		final int exitValue;
 		final Process process = processBuilder.start();
 		try { exitValue = process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
