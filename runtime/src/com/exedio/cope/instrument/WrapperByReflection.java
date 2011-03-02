@@ -42,30 +42,11 @@ public final class WrapperByReflection
 		final Wrapper result = new Wrapper(name);
 
 		Method m;
-		try
-		{
-			m = clazz.getMethod(name, prepend(Class.class, parameterTypes));
+		m = getMethod(name, prepend(Class.class, parameterTypes));
+		if(m==null)
+			m = getMethod(name, prepend(Item.class, parameterTypes));
+		else
 			result.setStatic();
-		}
-		catch(final SecurityException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			try
-			{
-				m = clazz.getMethod(name, prepend(Item.class, parameterTypes));
-			}
-			catch(final SecurityException e2)
-			{
-				throw new RuntimeException(e2);
-			}
-			catch(final NoSuchMethodException e2)
-			{
-				throw new RuntimeException(e2);
-			}
-		}
 
 		final Type returnType = m.getGenericReturnType();
 		if(returnType!=void.class)
@@ -98,5 +79,21 @@ public final class WrapperByReflection
 		result.add(prefix);
 		result.addAll(Arrays.asList(list));
 		return result.toArray(new Class[result.size()]);
+	}
+
+	private Method getMethod(final String name, final Class... parameterTypes)
+	{
+		try
+		{
+			return clazz.getMethod(name, parameterTypes);
+		}
+		catch(final SecurityException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final NoSuchMethodException e2e)
+		{
+			return null;
+		}
 	}
 }
