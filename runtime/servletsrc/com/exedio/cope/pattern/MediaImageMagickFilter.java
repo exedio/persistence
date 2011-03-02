@@ -346,7 +346,14 @@ public class MediaImageMagickFilter extends MediaFilter
 		final ProcessBuilder processBuilder = new ProcessBuilder(command);
 		final int exitValue;
 		final Process process = processBuilder.start();
-		try { exitValue = process.waitFor(); } catch(final InterruptedException e) { throw new RuntimeException(toString(), e); }
+		try
+		{
+			exitValue = process.waitFor();
+		}
+		catch(final InterruptedException e)
+		{
+			throw new RuntimeException(toString(), e);
+		}
 
 		// IMPLEMENTATION NOTE
 		// Without the following three lines each run of this code will leave
