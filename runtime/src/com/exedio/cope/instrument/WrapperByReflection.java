@@ -41,12 +41,21 @@ public final class WrapperByReflection
 	{
 		final Wrapper result = new Wrapper(name);
 
-		Method method;
-		method = getMethod(name, prepend(Class.class, parameterTypes));
+		final Method method;
+		{
+			final Method staticMethod = getMethod(name, prepend(Class.class, parameterTypes));
+			if(staticMethod!=null)
+			{
+				result.setStatic();
+				method = staticMethod;
+			}
+			else
+			{
+				method = getMethod(name, prepend(Item.class, parameterTypes));
+			}
+		}
 		if(method==null)
-			method = getMethod(name, prepend(Item.class, parameterTypes));
-		else
-			result.setStatic();
+			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
 
 		final Type returnType = method.getGenericReturnType();
 		if(returnType!=void.class)
