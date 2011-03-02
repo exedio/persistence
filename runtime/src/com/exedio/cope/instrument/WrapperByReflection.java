@@ -41,14 +41,10 @@ public final class WrapperByReflection
 	{
 		final Wrapper result = new Wrapper(name);
 
-		final ArrayList<Class> parameterTypesX = new ArrayList<Class>();
-		parameterTypesX.add(Class.class);
-		parameterTypesX.addAll(Arrays.asList(parameterTypes));
-
 		Method m;
 		try
 		{
-			m = clazz.getMethod(name, parameterTypesX.toArray(new Class[parameterTypesX.size()]));
+			m = clazz.getMethod(name, prepend(Class.class, parameterTypes));
 			result.setStatic();
 		}
 		catch(final SecurityException e)
@@ -57,13 +53,9 @@ public final class WrapperByReflection
 		}
 		catch(final NoSuchMethodException e)
 		{
-			final ArrayList<Class> parameterTypesY = new ArrayList<Class>();
-			parameterTypesY.add(Item.class);
-			parameterTypesY.addAll(Arrays.asList(parameterTypes));
-
 			try
 			{
-				m = clazz.getMethod(name, parameterTypesY.toArray(new Class[parameterTypesY.size()]));
+				m = clazz.getMethod(name, prepend(Item.class, parameterTypes));
 			}
 			catch(final SecurityException e2)
 			{
@@ -98,5 +90,13 @@ public final class WrapperByReflection
 			}
 		}
 		return result;
+	}
+
+	private static Class[] prepend(final Class prefix, final Class[] list)
+	{
+		final ArrayList<Class> result = new ArrayList<Class>();
+		result.add(prefix);
+		result.addAll(Arrays.asList(list));
+		return result.toArray(new Class[result.size()]);
 	}
 }
