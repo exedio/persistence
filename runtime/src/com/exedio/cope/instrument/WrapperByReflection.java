@@ -39,15 +39,17 @@ public final class WrapperByReflection
 
 	public Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
+		final Wrapper result = new Wrapper(name);
+
 		final ArrayList<Class> parameterTypesX = new ArrayList<Class>();
-		parameterTypesX.add(Item.class);
+		parameterTypesX.add(Class.class);
 		parameterTypesX.addAll(Arrays.asList(parameterTypes));
 
-		final Wrapper result = new Wrapper(name);
-		final Method m;
+		Method m;
 		try
 		{
 			m = clazz.getMethod(name, parameterTypesX.toArray(new Class[parameterTypesX.size()]));
+			result.setStatic();
 		}
 		catch(final SecurityException e)
 		{
@@ -55,8 +57,24 @@ public final class WrapperByReflection
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw new RuntimeException(e);
+			final ArrayList<Class> parameterTypesY = new ArrayList<Class>();
+			parameterTypesY.add(Item.class);
+			parameterTypesY.addAll(Arrays.asList(parameterTypes));
+
+			try
+			{
+				m = clazz.getMethod(name, parameterTypesY.toArray(new Class[parameterTypesY.size()]));
+			}
+			catch(final SecurityException e2)
+			{
+				throw new RuntimeException(e2);
+			}
+			catch(final NoSuchMethodException e2)
+			{
+				throw new RuntimeException(e2);
+			}
 		}
+
 		final Type returnType = m.getGenericReturnType();
 		if(returnType!=void.class)
 			result.setReturn(returnType);

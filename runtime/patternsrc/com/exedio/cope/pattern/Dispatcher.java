@@ -194,11 +194,7 @@ public final class Dispatcher extends Pattern
 			setStatic());
 
 		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			addParameter(Config.class, "config").
-			addParameter(JobContext.class, "ctx").
-			setStatic());
+			factory.make("dispatch", Config.class, JobContext.class));
 
 		result.add(
 			factory.make("isPending"));
@@ -242,7 +238,8 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
-	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	@MethodComment("Dispatch by {0}.")
+	public <P extends Item> void dispatch(final Class<P> parentClass, @ParameterComment("config") final Config config, @ParameterComment("ctx") final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
