@@ -129,6 +129,12 @@ public abstract class MediaImageioFilter extends MediaFilter
 		return (contentType!=null && imageReaderSpi.containsKey(contentType)) ? outputContentType : null;
 	}
 
+	@Override
+	public final boolean isContentTypeWrapped()
+	{
+		return false; // since there is only one outputContentType
+	}
+
 	public abstract BufferedImage filter(BufferedImage in);
 
 	@Override

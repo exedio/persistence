@@ -156,6 +156,12 @@ public class MediaImageMagickFilter extends MediaFilter
 	}
 
 	@Override
+	public final boolean isContentTypeWrapped()
+	{
+		return false; // since there is only one outputContentType
+	}
+
+	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,

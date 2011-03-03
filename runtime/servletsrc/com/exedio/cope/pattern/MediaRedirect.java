@@ -77,6 +77,12 @@ public final class MediaRedirect extends MediaPath
 		return target.getContentType(item);
 	}
 
+	@Override
+	public boolean isContentTypeWrapped()
+	{
+		return target.isContentTypeWrapped();
+	}
+
 	private static final String RESPONSE_LOCATION = "Location";
 
 	@Override
