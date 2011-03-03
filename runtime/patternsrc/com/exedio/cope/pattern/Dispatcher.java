@@ -239,7 +239,10 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
+	public <P extends Item> int dispatch(
+			final Class<P> parentClass,
+			final Config config,
+			final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -250,7 +253,10 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
-	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	public <P extends Item> void dispatch(
+			final Class<P> parentClass,
+			final Config config,
+			final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
@@ -377,7 +383,9 @@ public final class Dispatcher extends Pattern
 		return pending.getMandatory(item);
 	}
 
-	public void setPending(final Item item, final boolean pending)
+	public void setPending(
+			final Item item,
+			final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
