@@ -31,7 +31,7 @@ public class ThumbnailMagickItem extends Item
 	// because photo has a fixed contentType
 	String getThumbContentType()
 	{
-		return ThumbnailItem.thumb.getContentType(this);
+		return ThumbnailMagickItem.thumb.getContentType(this);
 	}
 
 	/**
