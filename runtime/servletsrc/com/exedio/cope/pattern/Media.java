@@ -347,6 +347,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return Collections.unmodifiableList(result);
 	}
 
+	@Override
+	public boolean isContentTypeFixed()
+	{
+		return contentType instanceof FixedContentType;
+	}
+
 	public boolean isFinal()
 	{
 		return isfinal;
