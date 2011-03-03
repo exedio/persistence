@@ -348,9 +348,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
-	public boolean isContentTypeFixed()
+	public boolean isContentTypeWrapped()
 	{
-		return contentType instanceof FixedContentType;
+		return !(contentType instanceof FixedContentType);
 	}
 
 	public boolean isFinal()

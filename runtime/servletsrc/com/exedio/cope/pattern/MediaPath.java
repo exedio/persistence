@@ -131,7 +131,7 @@ public abstract class MediaPath extends Pattern
 			addComment("Returns a Locator the content of {0} is available under.").
 			setReturn(Locator.class));
 
-		if(!isContentTypeFixed())
+		if(isContentTypeWrapped())
 			result.add(
 				new Wrapper("getContentType").
 				addComment("Returns the content type of the media {0}.").
@@ -140,9 +140,9 @@ public abstract class MediaPath extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
-	public boolean isContentTypeFixed()
+	public boolean isContentTypeWrapped()
 	{
-		return false;
+		return true;
 	}
 
 	/**
