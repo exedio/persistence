@@ -25,66 +25,66 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.CharSet;
 
-	final class DefaultContentType extends ContentType<String>
+final class DefaultContentType extends ContentType<String>
+{
+	DefaultContentType(
+			final boolean isfinal,
+			final boolean optional)
 	{
-		DefaultContentType(
-				final boolean isfinal,
-				final boolean optional)
-		{
-			super(makeField(61, new CharSet('-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
-		}
-
-		@Override
-		DefaultContentType copy()
-		{
-			return new DefaultContentType(field.isFinal(), !field.isMandatory());
-		}
-
-		@Override
-		DefaultContentType toFinal()
-		{
-			return new DefaultContentType(true, !field.isMandatory());
-		}
-
-		@Override
-		DefaultContentType optional()
-		{
-			return new DefaultContentType(field.isFinal(), true);
-		}
-
-		@Override
-		boolean check(final String contentType)
-		{
-			return contentType.indexOf('/')>=0;
-		}
-
-		@Override
-		String describe()
-		{
-			return "*/*";
-		}
-
-		@Override
-		List<String> getAllowed()
-		{
-			return null;
-		}
-
-		@Override
-		String get(final Item item, final DateField nullSensor)
-		{
-			return field.get(item);
-		}
-
-		@Override
-		String set(final String contentType)
-		{
-			return contentType;
-		}
-
-		@Override
-		Condition equal(final String contentType)
-		{
-			return field.equal(contentType);
-		}
+		super(makeField(61, new CharSet('-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
 	}
+
+	@Override
+	DefaultContentType copy()
+	{
+		return new DefaultContentType(field.isFinal(), !field.isMandatory());
+	}
+
+	@Override
+	DefaultContentType toFinal()
+	{
+		return new DefaultContentType(true, !field.isMandatory());
+	}
+
+	@Override
+	DefaultContentType optional()
+	{
+		return new DefaultContentType(field.isFinal(), true);
+	}
+
+	@Override
+	boolean check(final String contentType)
+	{
+		return contentType.indexOf('/')>=0;
+	}
+
+	@Override
+	String describe()
+	{
+		return "*/*";
+	}
+
+	@Override
+	List<String> getAllowed()
+	{
+		return null;
+	}
+
+	@Override
+	String get(final Item item, final DateField nullSensor)
+	{
+		return field.get(item);
+	}
+
+	@Override
+	String set(final String contentType)
+	{
+		return contentType;
+	}
+
+	@Override
+	Condition equal(final String contentType)
+	{
+		return field.equal(contentType);
+	}
+}

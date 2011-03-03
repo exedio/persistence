@@ -25,82 +25,82 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.CharSet;
 
-	final class SubContentType extends ContentType<String>
+final class SubContentType extends ContentType<String>
+{
+	private final String major;
+	private final String prefix;
+	private final int prefixLength;
+
+	SubContentType(
+			final String major,
+			final boolean isfinal,
+			final boolean optional)
 	{
-		private final String major;
-		private final String prefix;
-		private final int prefixLength;
+		super(makeField(30, new CharSet('-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
+		this.major = major;
+		this.prefix = major + '/';
+		this.prefixLength = this.prefix.length();
 
-		SubContentType(
-				final String major,
-				final boolean isfinal,
-				final boolean optional)
-		{
-			super(makeField(30, new CharSet('-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
-			this.major = major;
-			this.prefix = major + '/';
-			this.prefixLength = this.prefix.length();
-
-			if(major==null)
-				throw new NullPointerException("fixedMimeMajor");
-		}
-
-		@Override
-		SubContentType copy()
-		{
-			return new SubContentType(major, field.isFinal(), !field.isMandatory());
-		}
-
-		@Override
-		SubContentType toFinal()
-		{
-			return new SubContentType(major, true, !field.isMandatory());
-		}
-
-		@Override
-		SubContentType optional()
-		{
-			return new SubContentType(major, field.isFinal(), true);
-		}
-
-		@Override
-		boolean check(final String contentType)
-		{
-			return contentType.startsWith(prefix);
-		}
-
-		@Override
-		String describe()
-		{
-			return prefix + '*';
-		}
-
-		@Override
-		List<String> getAllowed()
-		{
-			return null;
-		}
-
-		@Override
-		String get(final Item item, final DateField nullSensor)
-		{
-			final String minor = field.get(item);
-			return (minor!=null) ? (prefix + minor) : null;
-		}
-
-		@Override
-		String set(final String contentType)
-		{
-			assert check(contentType);
-			return contentType.substring(prefixLength);
-		}
-
-		@Override
-		Condition equal(final String contentType)
-		{
-			return
-				contentType.startsWith(prefix)
-				? field.equal(contentType.substring(prefixLength))
-				: Condition.FALSE;
-		}
+		if(major==null)
+			throw new NullPointerException("fixedMimeMajor");
 	}
+
+	@Override
+	SubContentType copy()
+	{
+		return new SubContentType(major, field.isFinal(), !field.isMandatory());
+	}
+
+	@Override
+	SubContentType toFinal()
+	{
+		return new SubContentType(major, true, !field.isMandatory());
+	}
+
+	@Override
+	SubContentType optional()
+	{
+		return new SubContentType(major, field.isFinal(), true);
+	}
+
+	@Override
+	boolean check(final String contentType)
+	{
+		return contentType.startsWith(prefix);
+	}
+
+	@Override
+	String describe()
+	{
+		return prefix + '*';
+	}
+
+	@Override
+	List<String> getAllowed()
+	{
+		return null;
+	}
+
+	@Override
+	String get(final Item item, final DateField nullSensor)
+	{
+		final String minor = field.get(item);
+		return (minor!=null) ? (prefix + minor) : null;
+	}
+
+	@Override
+	String set(final String contentType)
+	{
+		assert check(contentType);
+		return contentType.substring(prefixLength);
+	}
+
+	@Override
+	Condition equal(final String contentType)
+	{
+		return
+			contentType.startsWith(prefix)
+			? field.equal(contentType.substring(prefixLength))
+			: Condition.FALSE;
+	}
+}

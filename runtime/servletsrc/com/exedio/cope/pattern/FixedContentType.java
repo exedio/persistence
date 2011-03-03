@@ -25,86 +25,86 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 
-	final class FixedContentType extends ContentType<Void>
+final class FixedContentType extends ContentType<Void>
+{
+	private final String full;
+
+	FixedContentType(final String full)
 	{
-		private final String full;
-
-		FixedContentType(final String full)
-		{
-			super();
-			this.full = full;
-		}
-
-		@Override
-		FixedContentType copy()
-		{
-			return new FixedContentType(full);
-		}
-
-		@Override
-		FixedContentType toFinal()
-		{
-			return copy();
-		}
-
-		@Override
-		FixedContentType optional()
-		{
-			return copy();
-		}
-
-		@Override
-		boolean check(final String contentType)
-		{
-			return this.full.equals(contentType);
-		}
-
-		@Override
-		String describe()
-		{
-			return full;
-		}
-
-		@Override
-		List<String> getAllowed()
-		{
-			return Collections.singletonList(full);
-		}
-
-		@Override
-		String get(final Item item, final DateField nullSensor)
-		{
-			return (nullSensor.get(item)!=null) ? full : null;
-		}
-
-		@Override
-		Void set(final String contentType)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		Condition equal(final String contentType)
-		{
-			return
-				full.equals(contentType)
-				? Condition.TRUE
-				: Condition.FALSE;
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * @deprecated is used from deprecated code only
-		 */
-		@Deprecated
-		FixedContentType(final String major, final String minor)
-		{
-			this(major + '/' + minor);
-
-			if(major==null)
-				throw new NullPointerException("fixedMimeMajor");
-			if(minor==null)
-				throw new NullPointerException("fixedMimeMinor");
-		}
+		super();
+		this.full = full;
 	}
+
+	@Override
+	FixedContentType copy()
+	{
+		return new FixedContentType(full);
+	}
+
+	@Override
+	FixedContentType toFinal()
+	{
+		return copy();
+	}
+
+	@Override
+	FixedContentType optional()
+	{
+		return copy();
+	}
+
+	@Override
+	boolean check(final String contentType)
+	{
+		return this.full.equals(contentType);
+	}
+
+	@Override
+	String describe()
+	{
+		return full;
+	}
+
+	@Override
+	List<String> getAllowed()
+	{
+		return Collections.singletonList(full);
+	}
+
+	@Override
+	String get(final Item item, final DateField nullSensor)
+	{
+		return (nullSensor.get(item)!=null) ? full : null;
+	}
+
+	@Override
+	Void set(final String contentType)
+	{
+		throw new RuntimeException();
+	}
+
+	@Override
+	Condition equal(final String contentType)
+	{
+		return
+			full.equals(contentType)
+			? Condition.TRUE
+			: Condition.FALSE;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated is used from deprecated code only
+	 */
+	@Deprecated
+	FixedContentType(final String major, final String minor)
+	{
+		this(major + '/' + minor);
+
+		if(major==null)
+			throw new NullPointerException("fixedMimeMajor");
+		if(minor==null)
+			throw new NullPointerException("fixedMimeMinor");
+	}
+}

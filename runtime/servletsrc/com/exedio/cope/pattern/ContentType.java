@@ -28,47 +28,47 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.util.CharSet;
 
-	abstract class ContentType<B>
+abstract class ContentType<B>
+{
+	final FunctionField<B> field;
+	final String name;
+
+	ContentType()
 	{
-		final FunctionField<B> field;
-		final String name;
-
-		ContentType()
-		{
-			this.field = null;
-			this.name = null;
-		}
-
-		ContentType(
-				final FunctionField<B> field,
-				final boolean isfinal,
-				final boolean optional,
-				final String name)
-		{
-			this.field = Media.applyConstraints(field, isfinal, optional);
-			this.name = name;
-
-			assert field!=null;
-			assert name!=null;
-		}
-
-		abstract ContentType copy();
-		abstract ContentType toFinal();
-		abstract ContentType optional();
-		abstract boolean check(String contentType);
-		abstract String describe();
-		abstract List<String> getAllowed();
-		abstract String get(Item item, DateField nullSensor);
-		abstract B set(String contentType);
-		abstract Condition equal(String contentType);
-
-		final SetValue<B> map(final String contentType)
-		{
-			return field.map(set(contentType));
-		}
-
-		protected static final StringField makeField(final int maxLength, final CharSet charSet)
-		{
-			return new StringField().lengthRange(1, maxLength).charSet(charSet);
-		}
+		this.field = null;
+		this.name = null;
 	}
+
+	ContentType(
+			final FunctionField<B> field,
+			final boolean isfinal,
+			final boolean optional,
+			final String name)
+	{
+		this.field = Media.applyConstraints(field, isfinal, optional);
+		this.name = name;
+
+		assert field!=null;
+		assert name!=null;
+	}
+
+	abstract ContentType copy();
+	abstract ContentType toFinal();
+	abstract ContentType optional();
+	abstract boolean check(String contentType);
+	abstract String describe();
+	abstract List<String> getAllowed();
+	abstract String get(Item item, DateField nullSensor);
+	abstract B set(String contentType);
+	abstract Condition equal(String contentType);
+
+	final SetValue<B> map(final String contentType)
+	{
+		return field.map(set(contentType));
+	}
+
+	protected static final StringField makeField(final int maxLength, final CharSet charSet)
+	{
+		return new StringField().lengthRange(1, maxLength).charSet(charSet);
+	}
+}
