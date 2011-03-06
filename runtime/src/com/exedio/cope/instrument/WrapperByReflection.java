@@ -37,23 +37,21 @@ public final class WrapperByReflection
 			throw new NullPointerException("clazz");
 	}
 
+	public Wrapper makeStatic(final String name, final Class<?>... parameterTypes)
+	{
+		final Wrapper result = new Wrapper(name);
+		result.setStatic();
+		return make(result, getMethod(name, prepend(Class.class, parameterTypes)), parameterTypes);
+	}
+
 	public Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
+		return make(result, getMethod(name, prepend(Item.class, parameterTypes)), parameterTypes);
+	}
 
-		final Method method;
-		{
-			final Method staticMethod = getMethod(name, prepend(Class.class, parameterTypes));
-			if(staticMethod!=null)
-			{
-				result.setStatic();
-				method = staticMethod;
-			}
-			else
-			{
-				method = getMethod(name, prepend(Item.class, parameterTypes));
-			}
-		}
+	private Wrapper make(final Wrapper result, final Method method, final Class<?>... parameterTypes)
+	{
 		if(method==null)
 			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
 

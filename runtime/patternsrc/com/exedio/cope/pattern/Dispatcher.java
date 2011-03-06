@@ -187,10 +187,10 @@ public final class Dispatcher extends Pattern
 		result.addAll(super.getWrappers());
 
 		result.add(
-			factory.make("dispatch", Config.class, Interrupter.class));
+			factory.makeStatic("dispatch", Config.class, Interrupter.class));
 
 		result.add(
-			factory.make("dispatch", Config.class, JobContext.class));
+			factory.makeStatic("dispatch", Config.class, JobContext.class));
 
 		result.add(
 			factory.make("isPending"));
