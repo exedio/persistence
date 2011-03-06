@@ -234,7 +234,9 @@ public final class Schedule extends Pattern
 		return this.enabled.getMandatory(item);
 	}
 
-	public void setEnabled(final Item item, final boolean enabled)
+	public void setEnabled(
+			final Item item,
+			final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
@@ -244,17 +246,21 @@ public final class Schedule extends Pattern
 		return this.interval.get(item);
 	}
 
-	public void setInterval(final Item item, final Interval interval)
+	public void setInterval(
+			final Item item,
+			final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
 
-	public int run(final Interrupter interrupter)
+	public int run(
+			final Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
 	}
 
-	public void run(final JobContext ctx)
+	public void run(
+			final JobContext ctx)
 	{
 		run(ctx, new Date());
 	}

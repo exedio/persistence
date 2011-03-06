@@ -183,6 +183,12 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Override
+	public final boolean isContentTypeWrapped()
+	{
+		return false; // since there is only one supportedContentType
+	}
+
+	@Override
 	public final Log doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,

@@ -55,9 +55,11 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		final String URL1 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
 		final String URL2 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
 
+		assertEquals(null, item.getFertigContentType());
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
 
 		item.setFertigRaw("<eins>paste(uno)<zwei>");
+		assertEquals("text/plain", item.getFertigContentType());
 		try
 		{
 			fertig.doGetIfModified(new Request(), null, item);
@@ -85,6 +87,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 	private void assertGet(final String body) throws IOException
 	{
+		assertEquals("text/plain", item.getFertigContentType());
 		fertig.doGetIfModified(new Request(), new Response(body), item);
 	}
 

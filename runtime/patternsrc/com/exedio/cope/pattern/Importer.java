@@ -32,14 +32,14 @@ import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 
-public final class Importer<E extends Object> extends Pattern
+public final class Importer<K extends Object> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private final FunctionField<E> key;
+	private final FunctionField<K> key;
 	private boolean hintInitial = false;
 
-	private Importer(final FunctionField<E> key)
+	private Importer(final FunctionField<K> key)
 	{
 		if(key==null)
 			throw new NullPointerException("key");
@@ -53,12 +53,12 @@ public final class Importer<E extends Object> extends Pattern
 		this.key = key;
 	}
 
-	public static final <E> Importer<E> newImporter(final FunctionField<E> key)
+	public static final <K> Importer<K> newImporter(final FunctionField<K> key)
 	{
-		return new Importer<E>(key);
+		return new Importer<K>(key);
 	}
 
-	public FunctionField<E> getKey()
+	public FunctionField<K> getKey()
 	{
 		return key;
 	}
@@ -91,7 +91,7 @@ public final class Importer<E extends Object> extends Pattern
 
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final E keyValue,
+			final K keyValue,
 			final List<? extends SetValue> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
@@ -99,7 +99,7 @@ public final class Importer<E extends Object> extends Pattern
 
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final E keyValue,
+			final K keyValue,
 			final SetValue... setValues)
 	{
 		if(keyValue==null)
@@ -124,7 +124,7 @@ public final class Importer<E extends Object> extends Pattern
 
 	private <P extends Item> P doImportInitial(
 			final Class<P> parentClass,
-			final E keyValue,
+			final K keyValue,
 			final SetValue... setValues)
 	{
 		final SetValue[] setValuesNew = prepend(key.map(keyValue), setValues);
