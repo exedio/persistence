@@ -585,8 +585,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	/**
 	 * Returns, whether this type bound to it's java class.
 	 * Only such types can be found by
-	 * {@link #forClass(Class)} and
-	 * {@link #forClassUnchecked(Class)}.
+	 * {@link TypesBound#forClass(Class)} and
+	 * {@link TypesBound#forClassUnchecked(Class)}.
 	 */
 	public boolean isBound()
 	{
