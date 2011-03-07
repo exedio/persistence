@@ -39,19 +39,20 @@ public final class WrapperByReflection
 
 	public Wrapper makeStatic(final String name, final Class<?>... parameterTypes)
 	{
-		final Wrapper result = make(name, getMethod(name, prepend(Class.class, parameterTypes)), parameterTypes);
+		final Wrapper result = make(name, prepend(Class.class, parameterTypes), parameterTypes);
 		result.setStatic();
 		return result;
 	}
 
 	public Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
-		return make(name, getMethod(name, prepend(Item.class, parameterTypes)), parameterTypes);
+		return make(name, prepend(Item.class, parameterTypes), parameterTypes);
 	}
 
-	private Wrapper make(final String name, final Method method, final Class<?>... parameterTypes)
+	private Wrapper make(final String name, final Class<?>[] parameterTypesWrapped, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
+		final Method method = getMethod(name, parameterTypesWrapped);
 		if(method==null)
 			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
 
