@@ -35,7 +35,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.MethodComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
@@ -119,23 +121,18 @@ public abstract class MediaPath extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
+		final WrapperByReflection factory = new WrapperByReflection(MediaPath.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
 		result.add(
-			new Wrapper("getURL").
-			addComment("Returns a URL the content of {0} is available under.").
-			setReturn(String.class));
+			factory.make("getURL"));
 		result.add(
-			new Wrapper("getLocator").
-			addComment("Returns a Locator the content of {0} is available under.").
-			setReturn(Locator.class));
+			factory.make("getLocator"));
 
 		if(isContentTypeWrapped())
 			result.add(
-				new Wrapper("getContentType").
-				addComment("Returns the content type of the media {0}.").
-				setReturn(String.class));
+				factory.make("getContentType"));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -219,6 +216,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	@MethodComment("Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -238,6 +236,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
+	@MethodComment("Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -485,6 +484,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	@MethodComment("Returns the content type of the media {0}.")
 	public abstract String getContentType(Item item);
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
