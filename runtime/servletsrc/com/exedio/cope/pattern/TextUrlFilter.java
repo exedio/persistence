@@ -111,12 +111,18 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@ThrowsComment(clazz=IOException.class)
-	public final void setRaw( final Item item, @ParameterComment("raw") final Media.Value raw ) throws IOException
+	public final void setRaw(
+			final Item item,
+			@ParameterComment("raw") final Media.Value raw )
+	throws IOException
 	{
 		this.raw.set( item, raw );
 	}
 
-	public final void addPaste(final Item item, @ParameterComment("key") final String key, @ParameterComment("value") final Media.Value value)
+	public final void addPaste(
+			final Item item,
+			@ParameterComment("key") final String key,
+			@ParameterComment("value") final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
@@ -125,7 +131,11 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@ThrowsComment(clazz=IOException.class)
-	public final void modifyPaste( final Item item, @ParameterComment("key") final String key, @ParameterComment("value") final Media.Value value ) throws IOException
+	public final void modifyPaste(
+			final Item item,
+			@ParameterComment("key") final String key,
+			@ParameterComment("value") final Media.Value value )
+	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
 	}
