@@ -289,9 +289,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			factory.make("getLength"));
 
 		result.add(
-			new Wrapper("getBody").
-			addComment("Returns the body of the media {0}.").
-			setReturn(byte[].class));
+			factory.make("getBody"));
 
 		result.add(
 			new Wrapper("getBody").
@@ -425,6 +423,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
+	@MethodComment("Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return this.body.getArray(item);
