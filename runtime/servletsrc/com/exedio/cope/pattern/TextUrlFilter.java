@@ -37,7 +37,10 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.ThrowsComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
 
 public class TextUrlFilter extends MediaFilter
@@ -107,12 +110,13 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	public final void setRaw( final Item item, final Media.Value raw ) throws IOException
+	@ThrowsComment(clazz=IOException.class)
+	public final void setRaw( final Item item, @ParameterComment("raw") final Media.Value raw ) throws IOException
 	{
 		this.raw.set( item, raw );
 	}
 
-	public final void addPaste(final Item item, final String key, final Media.Value value)
+	public final void addPaste(final Item item, @ParameterComment("key") final String key, @ParameterComment("value") final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
@@ -120,7 +124,8 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	public final void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
+	@ThrowsComment(clazz=IOException.class)
+	public final void modifyPaste( final Item item, @ParameterComment("key") final String key, @ParameterComment("value") final Media.Value value ) throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
 	}
@@ -138,22 +143,18 @@ public class TextUrlFilter extends MediaFilter
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
+		final WrapperByReflection factory = new WrapperByReflection(TextUrlFilter.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
 		result.add(
-			new Wrapper( "setRaw" ).addParameter( Media.Value.class, "raw" ).
-			addThrows( IOException.class ) );
+			factory.make("setRaw", Media.Value.class));
 
 		result.add(
-				new Wrapper("addPaste").
-				addParameter(String.class, "key").
-				addParameter(Media.Value.class, "value"));
+			factory.make("addPaste", String.class, Media.Value.class));
 
 		result.add(
-			new Wrapper( "modifyPaste" ).addParameter( String.class, "key" ).
-			addParameter( Media.Value.class, "value" ).
-			addThrows( IOException.class ) );
+			factory.make("modifyPaste", String.class, Media.Value.class));
 
 		return Collections.unmodifiableList(result);
 	}

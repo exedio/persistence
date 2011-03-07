@@ -29,5 +29,5 @@ import java.lang.annotation.Target;
 public @interface ThrowsComment
 {
 	Class<? extends Throwable> clazz();
-	String value();
+	String value() default "none";
 }
