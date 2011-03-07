@@ -47,7 +47,9 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.MethodComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 
@@ -272,14 +274,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		final String IO_EXCEPTION_COMMENT = "if accessing <tt>body</tt> throws an IOException.";
 
+		final WrapperByReflection factory = new WrapperByReflection(Media.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
 		if(optional)
 			result.add(
-				new Wrapper("isNull").
-				addComment("Returns whether media {0} is null."). // TODO better text
-				setReturn(boolean.class));
+				factory.make("isNull"));
 
 		result.add(
 			new Wrapper("getLastModified").
@@ -363,6 +364,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
+	@MethodComment("Returns whether media {0} is null.")
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
