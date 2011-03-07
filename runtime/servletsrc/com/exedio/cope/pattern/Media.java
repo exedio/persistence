@@ -390,7 +390,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@MethodComment("Sets the content of media {0}.")
 	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
-	public void set(final Item item, final Media.Value value)
+	public void set(
+			final Item item,
+			final Media.Value value)
 		throws DataLengthViolationException, IOException
 	{
 		if(value==null && !optional)
@@ -418,7 +420,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
 	@MethodComment("Sets the content of media {0}.")
-	public void set(final Item item, @ParameterComment("body") final byte[] body, @ParameterComment("contentType") final String contentType)
+	public void set(
+			final Item item,
+			@ParameterComment("body") final byte[] body,
+			@ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -445,7 +450,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."})
 	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
-	public void getBody(final Item item, @ParameterComment("body") final OutputStream body) throws IOException
+	public void getBody(
+			final Item item,
+			@ParameterComment("body") final OutputStream body)
+	throws IOException
 	{
 		this.body.get(item, body);
 	}
@@ -462,7 +470,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@MethodComment("Sets the content of media {0}.")
 	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
-	public void set(final Item item, @ParameterComment("body") final InputStream body, @ParameterComment("contentType") final String contentType)
+	public void set(
+			final Item item,
+			@ParameterComment("body") final InputStream body,
+			@ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -490,7 +501,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."})
 	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
-	public void getBody(final Item item, @ParameterComment("body") final File body) throws IOException
+	public void getBody(
+			final Item item,
+			@ParameterComment("body") final File body)
+	throws IOException
 	{
 		this.body.get(item, body);
 	}
@@ -506,7 +520,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@MethodComment("Sets the content of media {0}.")
 	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
-	public void set(final Item item, @ParameterComment("body") final File body, @ParameterComment("contentType") final String contentType)
+	public void set(
+			final Item item,
+			@ParameterComment("body") final File body,
+			@ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -518,7 +535,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	/**
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	private void set(final Item item, final DataField.Value body, final String contentType)
+	private void set(
+			final Item item,
+			final DataField.Value body,
+			final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		assert !((body==null||contentType==null) && !optional) : getID();
