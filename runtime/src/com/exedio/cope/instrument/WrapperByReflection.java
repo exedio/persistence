@@ -37,16 +37,16 @@ public final class WrapperByReflection
 			throw new NullPointerException("clazz");
 	}
 
+	public Wrapper make(final String name, final Class<?>... parameterTypes)
+	{
+		return make(name, prepend(Item.class, parameterTypes), parameterTypes);
+	}
+
 	public Wrapper makeStatic(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = make(name, prepend(Class.class, parameterTypes), parameterTypes);
 		result.setStatic();
 		return result;
-	}
-
-	public Wrapper make(final String name, final Class<?>... parameterTypes)
-	{
-		return make(name, prepend(Item.class, parameterTypes), parameterTypes);
 	}
 
 	private Wrapper make(final String name, final Class<?>[] parameterTypesWrapped, final Class<?>... parameterTypes)
