@@ -48,6 +48,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.ThrowsComment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.ComputedElement;
@@ -292,18 +294,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			factory.make("getBody"));
 
 		result.add(
-			new Wrapper("getBody").
-			addComment("Writes the body of media {0} into the given stream.").
-			addComment("Does nothing, if the media is null.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(OutputStream.class, "body"));
+			factory.make("getBody", OutputStream.class));
 
 		result.add(
-			new Wrapper("getBody").
-			addComment("Writes the body of media {0} into the given file.").
-			addComment("Does nothing, if the media is null.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(File.class, "body"));
+			factory.make("getBody", File.class));
 
 		if(!isfinal)
 		{
@@ -460,7 +454,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getBody(final Item item, final OutputStream body) throws IOException
+	@MethodComment({
+		"Writes the body of media {0} into the given stream.",
+		"Does nothing, if the media is null."})
+	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	public void getBody(final Item item, @ParameterComment("body") final OutputStream body) throws IOException
 	{
 		this.body.get(item, body);
 	}
@@ -499,7 +497,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getBody(final Item item, final File body) throws IOException
+	@MethodComment({
+		"Writes the body of media {0} into the given file.",
+		"Does nothing, if the media is null."})
+	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	public void getBody(final Item item, @ParameterComment("body") final File body) throws IOException
 	{
 		this.body.get(item, body);
 	}

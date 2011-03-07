@@ -70,7 +70,8 @@ public final class WrapperByReflection
 		{
 			final MethodComment comment = method.getAnnotation(MethodComment.class);
 			if(comment!=null)
-				result.addComment(comment.value());
+				for(final String s : comment.value())
+					result.addComment(s);
 		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
@@ -87,6 +88,11 @@ public final class WrapperByReflection
 					result.addParameter(parameterType, c.value());
 				i++;
 			}
+		}
+		{
+			final ThrowsComment c = method.getAnnotation(ThrowsComment.class);
+			if(c!=null)
+				result.addThrows(c.clazz(), c.value());
 		}
 		return result;
 	}
