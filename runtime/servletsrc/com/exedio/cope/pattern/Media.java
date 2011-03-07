@@ -283,14 +283,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				factory.make("isNull"));
 
 		result.add(
-			new Wrapper("getLastModified").
-			addComment("Returns the last modification date of media {0}.").
-			setReturn(long.class));
+			factory.make("getLastModified"));
 
 		result.add(
-			new Wrapper("getLength").
-			addComment("Returns the body length of the media {0}.").
-			setReturn(long.class));
+			factory.make("getLength"));
 
 		result.add(
 			new Wrapper("getBody").
@@ -385,6 +381,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
+	@MethodComment("Returns the last modification date of media {0}.")
 	@Override
 	public long getLastModified(final Item item)
 	{
@@ -396,6 +393,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
+	@MethodComment("Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		// do check before, because this check is supported by the item cache
