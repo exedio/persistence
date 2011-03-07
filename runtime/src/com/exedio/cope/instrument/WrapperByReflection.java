@@ -85,7 +85,13 @@ public final class WrapperByReflection
 				if(c==null)
 					result.addParameter(parameterType);
 				else
-					result.addParameter(parameterType, c.value());
+				{
+					final String comment = c.comment();
+					if("none".equals(comment))
+						result.addParameter(parameterType, c.value());
+					else
+						result.addParameter(parameterType, c.value(), comment);
+				}
 				i++;
 			}
 		}

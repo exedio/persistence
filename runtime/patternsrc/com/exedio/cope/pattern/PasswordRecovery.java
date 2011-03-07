@@ -35,7 +35,9 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.ParameterComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Interrupter;
@@ -115,13 +117,12 @@ public final class PasswordRecovery extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
+		final WrapperByReflection factory = new WrapperByReflection(PasswordRecovery.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
 		result.add(
-			new Wrapper("issue").
-			addParameter(int.class, "expiryMillis", "the time span, after which this token will not be valid anymore, in milliseconds").
-			setReturn(Token.class));
+			factory.make("issue", int.class));
 		result.add(
 			new Wrapper("redeem").
 			addParameter(long.class, "secret", "a token secret for password recovery").
@@ -144,7 +145,7 @@ public final class PasswordRecovery extends Pattern
 	 */
 	public Token issue(
 			final Item item,
-			final int expiryMillis)
+			@ParameterComment(value="expiryMillis", comment="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
