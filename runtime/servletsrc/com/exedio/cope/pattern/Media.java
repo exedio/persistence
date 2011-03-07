@@ -412,7 +412,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
-	public void set(final Item item, final Media.Value value)
+	public void set(
+			final Item item,
+			final Media.Value value)
 		throws DataLengthViolationException, IOException
 	{
 		if(value==null && !optional)
@@ -438,7 +440,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	public void set(final Item item, final byte[] body, final String contentType)
+	public void set(
+			final Item item,
+			final byte[] body,
+			final String contentType)
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -461,7 +466,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getBody(final Item item, final OutputStream body) throws IOException
+	public void getBody(
+			final Item item,
+			final OutputStream body)
+	throws IOException
 	{
 		this.body.get(item, body);
 	}
@@ -476,7 +484,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final InputStream body, final String contentType)
+	public void set(
+			final Item item,
+			final InputStream body,
+			final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -500,7 +511,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getBody(final Item item, final File body) throws IOException
+	public void getBody(
+			final Item item,
+			final File body)
+	throws IOException
 	{
 		this.body.get(item, body);
 	}
@@ -514,7 +528,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final File body, final String contentType)
+	public void set(
+			final Item item,
+			final File body,
+			final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -526,7 +543,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	/**
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	private void set(final Item item, final DataField.Value body, final String contentType)
+	private void set(
+			final Item item,
+			final DataField.Value body,
+			final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		assert !((body==null||contentType==null) && !optional) : getID();
