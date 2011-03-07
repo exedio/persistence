@@ -107,12 +107,18 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	public final void setRaw( final Item item, final Media.Value raw ) throws IOException
+	public final void setRaw(
+			final Item item,
+			final Media.Value raw )
+	throws IOException
 	{
 		this.raw.set( item, raw );
 	}
 
-	public final void addPaste(final Item item, final String key, final Media.Value value)
+	public final void addPaste(
+			final Item item,
+			final String key,
+			final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
@@ -120,7 +126,11 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	public final void modifyPaste( final Item item, final String key, final Media.Value value ) throws IOException
+	public final void modifyPaste(
+			final Item item,
+			final String key,
+			final Media.Value value )
+	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
 	}
