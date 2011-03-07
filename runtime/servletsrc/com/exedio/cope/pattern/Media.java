@@ -274,8 +274,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final String IO_EXCEPTION_COMMENT = "if accessing <tt>body</tt> throws an IOException.";
-
 		final WrapperByReflection factory = new WrapperByReflection(Media.class);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
@@ -302,30 +300,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		if(!isfinal)
 		{
 			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(Value.class));
+				factory.make("set", Value.class));
 
 			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addParameter(byte[].class, "body").
-				addParameter(String.class, "contentType"));
+				factory.make("set", byte[].class, String.class));
 
 			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(InputStream.class, "body").
-				addParameter(String.class, "contentType"));
+				factory.make("set", InputStream.class, String.class));
 
 			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(File.class, "body").
-				addParameter(String.class, "contentType"));
+				factory.make("set", File.class, String.class));
 		}
 
 		return Collections.unmodifiableList(result);
@@ -404,6 +388,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
+	@MethodComment("Sets the content of media {0}.")
+	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
 	public void set(final Item item, final Media.Value value)
 		throws DataLengthViolationException, IOException
 	{
@@ -431,7 +417,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	public void set(final Item item, final byte[] body, final String contentType)
+	@MethodComment("Sets the content of media {0}.")
+	public void set(final Item item, @ParameterComment("body") final byte[] body, @ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -473,7 +460,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final InputStream body, final String contentType)
+	@MethodComment("Sets the content of media {0}.")
+	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	public void set(final Item item, @ParameterComment("body") final InputStream body, @ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -515,7 +504,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final File body, final String contentType)
+	@MethodComment("Sets the content of media {0}.")
+	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	public void set(final Item item, @ParameterComment("body") final File body, @ParameterComment("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
