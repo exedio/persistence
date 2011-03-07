@@ -142,7 +142,9 @@ public final class PasswordRecovery extends Pattern
 	/**
 	 * @return a valid token for password recovery
 	 */
-	public Token issue(final Item item, final int expiryMillis)
+	public Token issue(
+			final Item item,
+			final int expiryMillis)
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
@@ -161,7 +163,9 @@ public final class PasswordRecovery extends Pattern
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
-	public String redeem(final Item item, final long secret)
+	public String redeem(
+			final Item item,
+			final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
@@ -184,7 +188,8 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
-	public int purge(final Interrupter interrupter)
+	public int purge(
+			final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -195,7 +200,8 @@ public final class PasswordRecovery extends Pattern
 		);
 	}
 
-	public void purge(final JobContext ctx)
+	public void purge(
+			final JobContext ctx)
 	{
 		Delete.delete(
 				tokenType.newQuery(this.expires.less(new Date())),
