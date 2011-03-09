@@ -27,13 +27,13 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
 {
-	TestLogHandler log = null;
+	TestUtilLogHandler log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
+		log = new TestUtilLogHandler();
 		DateField.logger.addHandler(log);
 		DateField.logger.setUseParentHandlers(false);
 	}

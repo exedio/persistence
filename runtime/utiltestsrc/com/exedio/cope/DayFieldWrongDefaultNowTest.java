@@ -27,13 +27,13 @@ import com.exedio.cope.util.Day;
 
 public class DayFieldWrongDefaultNowTest extends CopeAssert
 {
-	TestLogHandler log = null;
+	TestUtilLogHandler log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
+		log = new TestUtilLogHandler();
 		DayField.logger.addHandler(log);
 		DayField.logger.setUseParentHandlers(false);
 	}
