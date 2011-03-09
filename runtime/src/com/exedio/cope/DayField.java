@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -35,72 +36,73 @@ public final class DayField extends FunctionField<Day>
 
 	private static final long serialVersionUID = 1l;
 
+	private final long defaultConstantSet;
 	final boolean defaultNow;
-	private final boolean suspiciousForWrongDefaultNow;
 
 	private DayField(
 			final boolean isfinal, final boolean optional, final boolean unique,
-			final Day defaultConstant, final boolean defaultNow)
+			final Day defaultConstant, final long defaultConstantSet, final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, Day.class, defaultConstant);
+		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
-		this.suspiciousForWrongDefaultNow = defaultConstant!=null && defaultConstant.equals(new Day());
 
 		if(defaultConstant!=null && defaultNow)
 			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
+		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
 
 	public DayField()
 	{
-		this(false, false, false, null, false);
+		this(false, false, false, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, defaultConstant, defaultNow);
+		return new DayField(true, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, true, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, true, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, false, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField noDefault()
 	{
-		return new DayField(isfinal, optional, unique, null, false);
+		return new DayField(isfinal, optional, unique, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, unique, defaultConstant, System.currentTimeMillis(), defaultNow);
 	}
 
 	public DayField defaultToNow()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, true);
+		return new DayField(isfinal, optional, unique, defaultConstant, defaultConstantSet, true);
 	}
 
 	public boolean isDefaultNow()
@@ -139,7 +141,7 @@ public final class DayField extends FunctionField<Day>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow && logger.isLoggable(Level.WARNING))
+		if(defaultConstant!=null && defaultConstant.equals(new Day(new Date(defaultConstantSet))) && logger.isLoggable(Level.WARNING))
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}. " +

@@ -35,72 +35,73 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
+	private final long defaultConstantSet;
 	final boolean defaultNow;
-	private final boolean suspiciousForWrongDefaultNow;
 
 	private DateField(
 			final boolean isfinal, final boolean optional, final boolean unique,
-			final Date defaultConstant, final boolean defaultNow)
+			final Date defaultConstant, final long defaultConstantSet, final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, Date.class, defaultConstant);
+		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
-		this.suspiciousForWrongDefaultNow = defaultConstant!=null && Math.abs(defaultConstant.getTime()-System.currentTimeMillis())<100;
 
 		if(defaultConstant!=null && defaultNow)
 			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
+		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, false);
+		this(false, false, false, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, defaultConstant, defaultNow);
+		return new DateField(true, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, true, unique, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, true, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, false, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, null, false);
+		return new DateField(isfinal, optional, unique, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, unique, defaultConstant, System.currentTimeMillis(), defaultNow);
 	}
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, true);
+		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, true);
 	}
 
 	public boolean isDefaultNow()
@@ -145,7 +146,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow && logger.isLoggable(Level.WARNING))
+		if(defaultConstant!=null && Math.abs(defaultConstant.getTime()-defaultConstantSet)<100 && logger.isLoggable(Level.WARNING))
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
