@@ -143,7 +143,8 @@ public final class DayField extends FunctionField<Day>
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}. " +
-					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{getID()});
+					"This will not work as expected, use \"defaultToNow()\" instead.",
+					new Object[]{getID()});
 	}
 
 	@Override

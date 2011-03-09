@@ -149,7 +149,8 @@ public final class DateField extends FunctionField<Date>
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
-					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{getID()});
+					"This will not work as expected, use \"defaultToNow()\" instead.",
+					new Object[]{getID()});
 	}
 
 	@Override
