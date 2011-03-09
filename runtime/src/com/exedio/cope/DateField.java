@@ -143,13 +143,13 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
+		super.mount(type, name, annotationSource);
+
 		if(suspiciousForWrongDefaultNow && logger.isLoggable(Level.WARNING))
 			logger.log(
 					Level.WARNING,
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}.{1}. " +
-					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{type.getID(),name});
-
-		super.mount(type, name, annotationSource);
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
+					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{getID()});
 	}
 
 	@Override
