@@ -24,11 +24,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DateField extends FunctionField<Date>
 {
+	static final Logger logger = Logger.getLogger(DateField.class.getName());
+
 	private static final long serialVersionUID = 1l;
 
 	final boolean defaultNow;
@@ -139,11 +143,11 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(suspiciousForWrongDefaultNow)
-			System.out.println(
-					"WARNING: " +
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + type.getID() + '.' + name + ". " +
-					"This will not work as expected, use \"defaultToNow()\" instead.");
+		if(suspiciousForWrongDefaultNow && logger.isLoggable(Level.WARNING))
+			logger.log(
+					Level.WARNING,
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}.{1}. " +
+					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{type.getID(),name});
 
 		super.mount(type, name, annotationSource);
 	}

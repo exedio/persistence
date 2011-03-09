@@ -23,12 +23,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
 {
+	static final Logger logger = Logger.getLogger(DayField.class.getName());
+
 	private static final long serialVersionUID = 1l;
 
 	final boolean defaultNow;
@@ -133,11 +137,11 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(suspiciousForWrongDefaultNow)
-			System.out.println(
-					"WARNING: " +
-					"Very probably you called \"DayField.defaultTo(new Day())\" on field " + type.getID() + '.' + name + ". " +
-					"This will not work as expected, use \"defaultToNow()\" instead.");
+		if(suspiciousForWrongDefaultNow && logger.isLoggable(Level.WARNING))
+			logger.log(
+					Level.WARNING,
+					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}.{1}. " +
+					"This will not work as expected, use \"defaultToNow()\" instead.", new Object[]{type.getID(),name});
 
 		super.mount(type, name, annotationSource);
 	}
