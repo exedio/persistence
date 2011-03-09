@@ -33,7 +33,7 @@ final class EnumFieldType<E extends Enum<E>>
 	final TIntObjectHashMap<E> numbersToValues;
 	final int[] ordinalsToNumbers;
 
-	EnumFieldType(final Class<E> valueClass)
+	private EnumFieldType(final Class<E> valueClass)
 	{
 		this.valueClass = valueClass;
 		if(!valueClass.isEnum())
