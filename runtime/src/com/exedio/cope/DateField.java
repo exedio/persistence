@@ -146,12 +146,17 @@ public final class DateField extends FunctionField<Date>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(defaultConstant!=null && Math.abs(defaultConstant.getTime()-defaultConstantSet)<100 && logger.isLoggable(Level.WARNING))
+		if(suspiciousForWrongDefaultNow() && logger.isLoggable(Level.WARNING))
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					new Object[]{getID()});
+	}
+
+	private boolean suspiciousForWrongDefaultNow()
+	{
+		return defaultConstant!=null && Math.abs(defaultConstant.getTime()-defaultConstantSet)<100;
 	}
 
 	@Override

@@ -141,12 +141,17 @@ public final class DayField extends FunctionField<Day>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(defaultConstant!=null && defaultConstant.equals(new Day(new Date(defaultConstantSet))) && logger.isLoggable(Level.WARNING))
+		if(suspiciousForWrongDefaultNow() && logger.isLoggable(Level.WARNING))
 			logger.log(
 					Level.WARNING,
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					new Object[]{getID()});
+	}
+
+	private boolean suspiciousForWrongDefaultNow()
+	{
+		return defaultConstant!=null && defaultConstant.equals(new Day(new Date(defaultConstantSet)));
 	}
 
 	@Override
