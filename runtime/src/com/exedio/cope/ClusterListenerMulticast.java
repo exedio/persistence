@@ -24,14 +24,17 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
+	private static final Logger logger = Logger.getLogger(ClusterListenerMulticast.class.getName());
+
 	private final boolean log;
 	private final int packetSize;
 	private final InetAddress address;
@@ -126,11 +129,16 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private void handleException(final Throwable e, final DatagramPacket packet)
 	{
 		exception++;
-		System.out.println("--------ClusterListenerMulticast-----");
-		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-		e.printStackTrace(System.out);
-		System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
-		System.out.println("-------/ClusterListenerMulticast-----");
+		if(logger.isLoggable(Level.SEVERE))
+		{
+			final LogRecord record = new LogRecord(Level.SEVERE, "ClusterListenerMulticast {0}");
+			record.setSourceClassName(ClusterListenerMulticast.class.getName());
+			record.setSourceMethodName("handleException");
+			record.setParameters(new Object[]{
+					Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength())});
+			record.setThrown(e);
+			logger.log(record);
+		}
 	}
 
 	private void logTerminate()
