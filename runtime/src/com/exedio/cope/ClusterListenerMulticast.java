@@ -116,17 +116,17 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception e)
 			{
-				handleException(e, packet);
+				onListenFailure(e, packet);
 			}
 			catch(final AssertionError e)
 			{
-				handleException(e, packet);
+				onListenFailure(e, packet);
 			}
 		}
 		logTerminate();
 	}
 
-	private void handleException(final Throwable e, final DatagramPacket packet)
+	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
 		exception++;
 		if(logger.isLoggable(Level.SEVERE))
@@ -136,7 +136,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			record.setSourceMethodName("handleException");
 			record.setParameters(new Object[]{
 					Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength())});
-			record.setThrown(e);
+			record.setThrown(throwable);
 			logger.log(record);
 		}
 	}
