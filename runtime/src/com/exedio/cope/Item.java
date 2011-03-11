@@ -436,7 +436,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return getEntity(true);
 	}
 
-	private final Entity getEntity(final boolean present)
+	final Entity getEntity(final boolean present)
 	{
 		return type.getModel().currentTransaction().getEntity(this, present);
 	}
@@ -502,7 +502,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	private static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
+	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 

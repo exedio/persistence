@@ -883,7 +883,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return result;
 	}
 
-	LinkedHashMap<Field, Object> prepareCreate(SetValue[] setValues)
+	LinkedHashMap<Field, Object> executeCreate(SetValue[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
@@ -930,6 +930,13 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			field.check(fieldValues.get(field), null);
 		}
+
+		return fieldValues;
+	}
+
+	LinkedHashMap<Field, Object> prepareCreate(final SetValue[] setValues)
+	{
+		final LinkedHashMap<Field, Object> fieldValues = executeCreate(setValues);
 
 		checkUniqueConstraints(null, fieldValues);
 
