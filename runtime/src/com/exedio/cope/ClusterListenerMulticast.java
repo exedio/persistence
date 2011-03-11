@@ -133,7 +133,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			final LogRecord record = new LogRecord(Level.SEVERE, "ClusterListenerMulticast {0}");
 			record.setSourceClassName(ClusterListenerMulticast.class.getName());
-			record.setSourceMethodName("handleException");
+			record.setSourceMethodName("onListenFailure");
 			record.setParameters(new Object[]{
 					Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength())});
 			record.setThrown(throwable);
