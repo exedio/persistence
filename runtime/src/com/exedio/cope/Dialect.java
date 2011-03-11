@@ -134,6 +134,9 @@ abstract class Dialect
 		return false;
 	}
 
+	/**
+	 * @see #extractUniqueViolation(SQLException)
+	 */
 	boolean supportsUniqueViolation()
 	{
 		return false;
@@ -141,6 +144,7 @@ abstract class Dialect
 
 	/**
 	 * @param exception used in subclasses
+	 * @see #supportsUniqueViolation()
 	 */
 	String extractUniqueViolation(final SQLException exception)
 	{
