@@ -47,6 +47,14 @@ public final class WrapperByReflection
 		return makeIt(name, prepend(Class.class, parameterTypes));
 	}
 
+	private static Class[] prepend(final Class prefix, final Class[] list)
+	{
+		final ArrayList<Class> result = new ArrayList<Class>();
+		result.add(prefix);
+		result.addAll(Arrays.asList(list));
+		return result.toArray(new Class[result.size()]);
+	}
+
 	private Wrapper makeIt(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
@@ -120,14 +128,6 @@ public final class WrapperByReflection
 			}
 		}
 		return result;
-	}
-
-	private static Class[] prepend(final Class prefix, final Class[] list)
-	{
-		final ArrayList<Class> result = new ArrayList<Class>();
-		result.add(prefix);
-		result.addAll(Arrays.asList(list));
-		return result.toArray(new Class[result.size()]);
 	}
 
 	private Method getMethod(final String name, final Class... parameterTypes)
