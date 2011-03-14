@@ -39,12 +39,12 @@ public final class WrapperByReflection
 
 	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
 	{
-		return makeIt(name, prepend(Item.class, parameterTypes));
+		return make(name, prepend(Item.class, parameterTypes));
 	}
 
 	public Wrapper makeClass(final String name, final Class<?>... parameterTypes)
 	{
-		return makeIt(name, prepend(Class.class, parameterTypes));
+		return make(name, prepend(Class.class, parameterTypes));
 	}
 
 	private static Class[] prepend(final Class prefix, final Class[] list)
@@ -55,7 +55,7 @@ public final class WrapperByReflection
 		return result.toArray(new Class[result.size()]);
 	}
 
-	private Wrapper makeIt(final String name, final Class<?>... parameterTypes)
+	private Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
 
