@@ -128,14 +128,17 @@ public final class WrapperByReflection
 			}
 		}
 		{
-			final ThrowsComment c = method.getAnnotation(ThrowsComment.class);
-			if(c!=null)
+			final ThrowsComment a = method.getAnnotation(ThrowsComment.class);
+			if(a!=null)
 			{
-				final String v = c.value();
-				if("none".equals(v))
-					result.addThrows(c.clazz());
-				else
-					result.addThrows(c.clazz(), v);
+				for(final ThrowsComment.E c : a.value())
+				{
+					final String v = c.value();
+					if("none".equals(v))
+						result.addThrows(c.clazz());
+					else
+						result.addThrows(c.clazz(), v);
+				}
 			}
 		}
 		return result;

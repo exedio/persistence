@@ -389,7 +389,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading value throws an IOException.
 	 */
 	@MethodComment("Sets the content of media {0}.")
-	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			final Media.Value value)
@@ -449,7 +449,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@MethodComment({
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."})
-	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@ParameterComment("body") final OutputStream body)
@@ -469,7 +469,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	@MethodComment("Sets the content of media {0}.")
-	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@ParameterComment("body") final InputStream body,
@@ -500,7 +500,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@MethodComment({
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."})
-	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@ParameterComment("body") final File body)
@@ -519,7 +519,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	@MethodComment("Sets the content of media {0}.")
-	@ThrowsComment(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@ParameterComment("body") final File body,

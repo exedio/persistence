@@ -110,7 +110,7 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	@ThrowsComment(clazz=IOException.class)
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
 			@ParameterComment("raw") final Media.Value raw )
@@ -130,7 +130,7 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	@ThrowsComment(clazz=IOException.class)
+	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
 			@ParameterComment("key") final String key,

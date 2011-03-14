@@ -28,6 +28,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ThrowsComment
 {
-	Class<? extends Throwable> clazz();
-	String value() default "none";
+	E[] value();
+
+	public @interface E
+	{
+		Class<? extends Throwable> clazz();
+		String value() default "none";
+	}
 }
