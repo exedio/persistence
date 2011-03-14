@@ -20,7 +20,9 @@ package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 
 import com.exedio.cope.Item;
 
@@ -93,16 +95,22 @@ public final class WrapperByReflection
 			{
 				final WrapperReturn comment = method.getAnnotation(WrapperReturn.class);
 				if(comment!=null)
-					result.setReturn(returnType, comment.value());
+					result.setReturn(replace(returnType), comment.value());
 				else
-					result.setReturn(returnType);
+					result.setReturn(replace(returnType));
 			}
 		}
 		{
 			final MethodComment comment = method.getAnnotation(MethodComment.class);
 			if(comment!=null)
+			{
 				for(final String s : comment.value())
 					result.addComment(s);
+
+				final String methodWrapperPattern = comment.name();
+				if(!methodWrapperPattern.isEmpty())
+					result.setMethodWrapperPattern(methodWrapperPattern);
+			}
 		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
@@ -140,5 +148,33 @@ public final class WrapperByReflection
 			}
 		}
 		return result;
+	}
+
+	private static Type replace(final Type type)
+	{
+		if(type instanceof Class)
+		{
+			return type;
+		}
+		if(type instanceof ParameterizedType)
+		{
+			final ParameterizedType paramType = (ParameterizedType)type;
+			final Type[] args = paramType.getActualTypeArguments();
+			if(args.length==1)
+			{
+				final Type arg0 = args[0];
+				if(arg0 instanceof TypeVariable)
+				{
+					final TypeVariable arg0Var = (TypeVariable)arg0;
+					if("P".equals(arg0Var.getName())) // TODO make more explicit
+						return Wrapper.generic((Class)paramType.getRawType(), Wrapper.ClassVariable.class);
+				}
+			}
+			return type;
+		}
+		else
+		{
+			return type;
+		}
 	}
 }

@@ -144,6 +144,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
+	@MethodComment(value="Returns the parent field of the run type of {0}.", name="{1}RunParent")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -211,11 +212,7 @@ public final class Dispatcher extends Pattern
 			factory.makeItem("getFailures"));
 
 		result.add(
-			new Wrapper("getRunParent").
-			addComment("Returns the parent field of the run type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}RunParent").
-			setStatic());
+			factory.makeClass("getRunParent"));
 
 		return Collections.unmodifiableList(result);
 	}

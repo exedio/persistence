@@ -29,4 +29,5 @@ import java.lang.annotation.Target;
 public @interface MethodComment
 {
 	String[] value();
+	String name() default "";
 }
