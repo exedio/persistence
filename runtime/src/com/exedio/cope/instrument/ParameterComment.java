@@ -29,5 +29,5 @@ import java.lang.annotation.Target;
 public @interface ParameterComment
 {
 	String value();
-	String comment() default "none";
+	String comment() default "";
 }

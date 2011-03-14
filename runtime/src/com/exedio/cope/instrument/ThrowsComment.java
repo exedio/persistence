@@ -33,6 +33,6 @@ public @interface ThrowsComment
 	public @interface E
 	{
 		Class<? extends Throwable> clazz();
-		String value() default "none";
+		String value() default "";
 	}
 }

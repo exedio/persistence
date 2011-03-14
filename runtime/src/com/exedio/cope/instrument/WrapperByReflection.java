@@ -120,7 +120,7 @@ public final class WrapperByReflection
 				else
 				{
 					final String comment = c.comment();
-					if("none".equals(comment))
+					if(comment.isEmpty())
 						result.addParameter(parameterType, c.value());
 					else
 						result.addParameter(parameterType, c.value(), comment);
@@ -134,7 +134,7 @@ public final class WrapperByReflection
 				for(final ThrowsComment.E c : a.value())
 				{
 					final String v = c.value();
-					if("none".equals(v))
+					if(v.isEmpty())
 						result.addThrows(c.clazz());
 					else
 						result.addThrows(c.clazz(), v);
