@@ -21,8 +21,6 @@ package com.exedio.cope.instrument;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.exedio.cope.Item;
 
@@ -47,12 +45,12 @@ public final class WrapperByReflection
 		return make(name, prepend(Class.class, parameterTypes));
 	}
 
-	private static Class[] prepend(final Class prefix, final Class[] list)
+	private static Class[] prepend(final Class head, final Class[] tail)
 	{
-		final ArrayList<Class> result = new ArrayList<Class>();
-		result.add(prefix);
-		result.addAll(Arrays.asList(list));
-		return result.toArray(new Class[result.size()]);
+		final Class[] result = new Class[tail.length + 1];
+		result[0] = head;
+		System.arraycopy(tail, 0, result, 1, tail.length);
+		return result;
 	}
 
 	private Wrapper make(final String name, final Class<?>... parameterTypes)
