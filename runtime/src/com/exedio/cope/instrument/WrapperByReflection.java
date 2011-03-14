@@ -42,7 +42,7 @@ public final class WrapperByReflection
 		return makeIt(name, prepend(Item.class, parameterTypes));
 	}
 
-	public Wrapper makeStatic(final String name, final Class<?>... parameterTypes)
+	public Wrapper makeClass(final String name, final Class<?>... parameterTypes)
 	{
 		return makeIt(name, prepend(Class.class, parameterTypes));
 	}
