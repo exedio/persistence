@@ -39,22 +39,36 @@ public final class WrapperByReflection
 
 	public Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
-		return make(name, prepend(Item.class, parameterTypes), parameterTypes);
+		return makeIt(name, prepend(Item.class, parameterTypes));
 	}
 
 	public Wrapper makeStatic(final String name, final Class<?>... parameterTypes)
 	{
-		final Wrapper result = make(name, prepend(Class.class, parameterTypes), parameterTypes);
-		result.setStatic();
-		return result;
+		return makeIt(name, prepend(Class.class, parameterTypes));
 	}
 
-	private Wrapper make(final String name, final Class<?>[] parameterTypesWrapped, final Class<?>... parameterTypes)
+	private Wrapper makeIt(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
-		final Method method = getMethod(name, parameterTypesWrapped);
+		final Method method = getMethod(name, parameterTypes);
 		if(method==null)
 			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
+
+		final int parameterOffset;
+		if(parameterTypes[0]==Class.class)
+		{
+			result.setStatic();
+			parameterOffset = 1;
+		}
+		else if(parameterTypes[0]==Item.class)
+		{
+			parameterOffset = 1;
+		}
+		else
+		{
+			result.setStatic(false);
+			parameterOffset = 0;
+		}
 
 		{
 			final Type returnType = method.getGenericReturnType();
@@ -75,9 +89,9 @@ public final class WrapperByReflection
 		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
-			int i = 1; // 1 because of leading item
-			for(final Class parameterType : parameterTypes)
+			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
+				final Class parameterType = parameterTypes[i];
 				ParameterComment c = null;
 				for(final Annotation a : annotations[i])
 					if(a.annotationType().equals(ParameterComment.class))
@@ -92,7 +106,6 @@ public final class WrapperByReflection
 					else
 						result.addParameter(parameterType, c.value(), comment);
 				}
-				i++;
 			}
 		}
 		{
