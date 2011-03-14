@@ -58,9 +58,20 @@ public final class WrapperByReflection
 	private Wrapper makeIt(final String name, final Class<?>... parameterTypes)
 	{
 		final Wrapper result = new Wrapper(name);
-		final Method method = getMethod(name, parameterTypes);
-		if(method==null)
-			throw new RuntimeException("no such method " + Arrays.asList(parameterTypes));
+
+		final Method method;
+		try
+		{
+			method = clazz.getMethod(name, parameterTypes);
+		}
+		catch(final SecurityException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw new RuntimeException(e);
+		}
 
 		final int parameterOffset;
 		if(parameterTypes[0]==Class.class)
@@ -128,21 +139,5 @@ public final class WrapperByReflection
 			}
 		}
 		return result;
-	}
-
-	private Method getMethod(final String name, final Class... parameterTypes)
-	{
-		try
-		{
-			return clazz.getMethod(name, parameterTypes);
-		}
-		catch(final SecurityException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final NoSuchMethodException e2e)
-		{
-			return null;
-		}
 	}
 }
