@@ -280,36 +280,36 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 		if(optional)
 			result.add(
-				factory.make("isNull"));
+				factory.makeItem("isNull"));
 
 		result.add(
-			factory.make("getLastModified"));
+			factory.makeItem("getLastModified"));
 
 		result.add(
-			factory.make("getLength"));
+			factory.makeItem("getLength"));
 
 		result.add(
-			factory.make("getBody"));
+			factory.makeItem("getBody"));
 
 		result.add(
-			factory.make("getBody", OutputStream.class));
+			factory.makeItem("getBody", OutputStream.class));
 
 		result.add(
-			factory.make("getBody", File.class));
+			factory.makeItem("getBody", File.class));
 
 		if(!isfinal)
 		{
 			result.add(
-				factory.make("set", Value.class));
+				factory.makeItem("set", Value.class));
 
 			result.add(
-				factory.make("set", byte[].class, String.class));
+				factory.makeItem("set", byte[].class, String.class));
 
 			result.add(
-				factory.make("set", InputStream.class, String.class));
+				factory.makeItem("set", InputStream.class, String.class));
 
 			result.add(
-				factory.make("set", File.class, String.class));
+				factory.makeItem("set", File.class, String.class));
 		}
 
 		return Collections.unmodifiableList(result);

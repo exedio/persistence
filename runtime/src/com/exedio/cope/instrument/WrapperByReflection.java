@@ -37,7 +37,7 @@ public final class WrapperByReflection
 			throw new NullPointerException("clazz");
 	}
 
-	public Wrapper make(final String name, final Class<?>... parameterTypes)
+	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
 	{
 		return makeIt(name, prepend(Item.class, parameterTypes));
 	}

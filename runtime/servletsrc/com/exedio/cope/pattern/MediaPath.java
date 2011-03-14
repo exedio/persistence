@@ -126,13 +126,13 @@ public abstract class MediaPath extends Pattern
 		result.addAll(super.getWrappers());
 
 		result.add(
-			factory.make("getURL"));
+			factory.makeItem("getURL"));
 		result.add(
-			factory.make("getLocator"));
+			factory.makeItem("getLocator"));
 
 		if(isContentTypeWrapped())
 			result.add(
-				factory.make("getContentType"));
+				factory.makeItem("getContentType"));
 
 		return Collections.unmodifiableList(result);
 	}

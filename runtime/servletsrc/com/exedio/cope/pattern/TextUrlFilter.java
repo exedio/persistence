@@ -158,13 +158,13 @@ public class TextUrlFilter extends MediaFilter
 		result.addAll(super.getWrappers());
 
 		result.add(
-			factory.make("setRaw", Media.Value.class));
+			factory.makeItem("setRaw", Media.Value.class));
 
 		result.add(
-			factory.make("addPaste", String.class, Media.Value.class));
+			factory.makeItem("addPaste", String.class, Media.Value.class));
 
 		result.add(
-			factory.make("modifyPaste", String.class, Media.Value.class));
+			factory.makeItem("modifyPaste", String.class, Media.Value.class));
 
 		return Collections.unmodifiableList(result);
 	}

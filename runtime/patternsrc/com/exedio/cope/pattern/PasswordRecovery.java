@@ -122,7 +122,7 @@ public final class PasswordRecovery extends Pattern
 		result.addAll(super.getWrappers());
 
 		result.add(
-			factory.make("issue", int.class));
+			factory.makeItem("issue", int.class));
 		result.add(
 			new Wrapper("redeem").
 			addParameter(long.class, "secret", "a token secret for password recovery").

@@ -57,7 +57,7 @@ public abstract class MediaFilter extends CachedMedia
 		result.addAll(super.getWrappers());
 
 		result.add(
-			factory.make("getURLWithFallbackToSource"));
+			factory.makeItem("getURLWithFallbackToSource"));
 
 		return Collections.unmodifiableList(result);
 	}

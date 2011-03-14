@@ -193,22 +193,22 @@ public final class Dispatcher extends Pattern
 			factory.makeClass("dispatch", Config.class, JobContext.class));
 
 		result.add(
-			factory.make("isPending"));
+			factory.makeItem("isPending"));
 
 		result.add(
-			factory.make("setPending", boolean.class));
+			factory.makeItem("setPending", boolean.class));
 
 		result.add(
-			factory.make("getLastSuccessDate"));
+			factory.makeItem("getLastSuccessDate"));
 
 		result.add(
-			factory.make("getLastSuccessElapsed"));
+			factory.makeItem("getLastSuccessElapsed"));
 
 		result.add(
-			factory.make("getRuns"));
+			factory.makeItem("getRuns"));
 
 		result.add(
-			factory.make("getFailures"));
+			factory.makeItem("getFailures"));
 
 		result.add(
 			new Wrapper("getRunParent").
