@@ -741,6 +741,13 @@ public class StringTest extends TestmodelTest
 		// due to column "hijackedColumn" not found
 		assertStringSet(item, sa, "value',hijackedColumn='otherValue");
 
+		assertStringSet(item, sa, "a'b");
+		assertStringSet(item, sa, "ab'");
+		assertStringSet(item, sa, "'ab");
+		assertStringSet(item, sa, "a''b");
+		assertStringSet(item, sa, "ab''");
+		assertStringSet(item, sa, "''ab");
+
 		// MySQL and PostgreSQL do interpret backslash sequences
 		// if prepared statements are disabled
 		// http://dev.mysql.com/doc/refman/5.1/en/string-syntax.html
