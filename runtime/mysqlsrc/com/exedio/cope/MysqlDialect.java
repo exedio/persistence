@@ -72,7 +72,7 @@ final class MysqlDialect extends Dialect
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", "utf8");
 		info.setProperty("characterSetResults", "utf8");
-		info.setProperty("sessionVariables", "sql_mode='NO_ENGINE_SUBSTITUTION'");
+		info.setProperty("sessionVariables", "sql_mode='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES'");
 	}
 
 	@Override
