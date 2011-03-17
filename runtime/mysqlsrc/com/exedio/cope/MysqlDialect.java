@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
@@ -68,7 +69,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void completeConnectionInfo(final java.util.Properties info)
+	protected void completeConnectionInfo(final Properties info)
 	{
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);

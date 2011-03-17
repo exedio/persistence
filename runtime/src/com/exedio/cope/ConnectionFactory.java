@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -30,7 +31,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 {
 	private final String url;
 	private final Driver driver;
-	private final java.util.Properties info;
+	private final Properties info;
 	private final boolean transactionIsolationReadCommitted;
 
 	ConnectionFactory(

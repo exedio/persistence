@@ -25,6 +25,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -55,7 +56,7 @@ abstract class Dialect
 	/**
 	 * @param info used in subclasses
 	 */
-	protected void completeConnectionInfo(final java.util.Properties info)
+	protected void completeConnectionInfo(final Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}

@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Properties;
 
 public class ProtocolWriter extends AbstractRuntimeTest
 {
@@ -35,8 +36,8 @@ public class ProtocolWriter extends AbstractRuntimeTest
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		if(prefix!=null)
 		{
-			final java.util.Properties databaseInfo = model.getEnvironmentInfo().asProperties();
-			final java.util.Properties prefixed = new java.util.Properties();
+			final Properties databaseInfo = model.getEnvironmentInfo().asProperties();
+			final Properties prefixed = new Properties();
 			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
 			for(final Object nameObject : databaseInfo.keySet())
 			{
