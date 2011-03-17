@@ -71,9 +71,9 @@ final class MysqlDialect extends Dialect
 	protected void completeConnectionInfo(final java.util.Properties info)
 	{
 		info.setProperty("useUnicode", "true");
-		info.setProperty("characterEncoding", "utf8");
-		info.setProperty("characterSetResults", "utf8");
-		info.setProperty("sessionVariables", "sql_mode='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES'");
+		info.setProperty("characterEncoding", CHARSET);
+		info.setProperty("characterSetResults", CHARSET);
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
 	}
 
 	@Override
@@ -83,9 +83,9 @@ final class MysqlDialect extends Dialect
 				"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
 				"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
 				"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
-				"SET NAMES utf8;\n" +
+				"SET NAMES " + CHARSET + ";\n" +
 
-				"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES';\n" +
+				"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='" + SQL_MODE + "';\n" +
 
 				"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
 				"SET TIME_ZONE='+00:00';\n");
@@ -103,6 +103,9 @@ final class MysqlDialect extends Dialect
 
 				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
 	}
+
+	private static final String CHARSET = "utf8";
+	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES";
 
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
