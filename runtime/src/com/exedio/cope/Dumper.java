@@ -29,6 +29,22 @@ public final class Dumper
 {
 	private final HashMap<Type, AtomicInteger> pks = new HashMap<Type, AtomicInteger>();
 
+	public void prepare(
+			final Appendable out,
+			final Model model)
+	throws IOException
+	{
+		model.connect().dialect.prepareDumperConnection(out);
+	}
+
+	public void unprepare(
+			final Appendable out,
+			final Model model)
+	throws IOException
+	{
+		model.connect().dialect.unprepareDumperConnection(out);
+	}
+
 	/**
 	 * @throws IOException from calling out.{@link Appendable#append(CharSequence) append}.
 	 */

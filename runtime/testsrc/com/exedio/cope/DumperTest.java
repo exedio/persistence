@@ -115,6 +115,37 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
+	public void testPrepare() throws IOException
+	{
+		final StringBuilder out = new StringBuilder();
+		dumper.prepare(out, model);
+		if(mysql)
+			assertEquals(
+					"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
+					"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
+					"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
+					"SET NAMES utf8;\n" +
+					"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES';\n" +
+					"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
+					"SET TIME_ZONE='+00:00';\n",
+				out.toString());
+		else
+			assertEquals("", out.toString());
+
+		out.setLength(0);
+		dumper.unprepare(out, model);
+		if(mysql)
+			assertEquals(
+					"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
+					"SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;\n" +
+					"SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;\n" +
+					"SET SQL_MODE=@OLD_SQL_MODE;\n" +
+					"SET TIME_ZONE=@OLD_TIME_ZONE;\n",
+				out.toString());
+		else
+			assertEquals("", out.toString());
+	}
+
 
 	private String tab(final Type type)
 	{

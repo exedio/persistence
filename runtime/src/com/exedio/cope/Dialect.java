@@ -60,6 +60,24 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void prepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
 	protected static final String EXPLAIN_PLAN = "explain plan";
 
 	/**

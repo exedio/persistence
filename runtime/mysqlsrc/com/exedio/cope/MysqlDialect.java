@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -73,6 +74,34 @@ final class MysqlDialect extends Dialect
 		info.setProperty("characterEncoding", "utf8");
 		info.setProperty("characterSetResults", "utf8");
 		info.setProperty("sessionVariables", "sql_mode='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES'");
+	}
+
+	@Override
+	protected void prepareDumperConnection(final Appendable out) throws IOException
+	{
+		out.append(
+				"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
+				"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
+				"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
+				"SET NAMES utf8;\n" +
+
+				"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES';\n" +
+
+				"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
+				"SET TIME_ZONE='+00:00';\n");
+	}
+
+	@Override
+	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	{
+		out.append(
+				"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
+				"SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;\n" +
+				"SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;\n" +
+
+				"SET SQL_MODE=@OLD_SQL_MODE;\n" +
+
+				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
 	}
 
 	@Override
