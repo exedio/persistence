@@ -26,7 +26,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.MethodComment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -145,19 +147,15 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
+		final WrapperByReflection factory = new WrapperByReflection(FunctionField.class, this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
 		final Class initialType = getInitialType();
 		final boolean initialTypePrimitive = initialType.isPrimitive();
 
-		final Wrapper get =
-			new Wrapper(initialTypePrimitive ? "getMandatory" : "get").
-			addComment("Returns the value of {0}.").
-			setReturn(initialType);
-		if(initialTypePrimitive)
-			get.setMethodWrapperPattern("get{0}");
-		result.add(get);
+		if(!initialTypePrimitive)
+			result.add(factory.makeItem("get"));
 
 		if(!isfinal)
 		{
@@ -195,6 +193,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Collections.unmodifiableList(result);
 	}
 
+	@MethodComment("Returns the value of {0}.")
 	@Override
 	public final E get(final Item item)
 	{

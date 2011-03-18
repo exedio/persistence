@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -85,6 +92,17 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final WrapperByReflection factory = new WrapperByReflection(BooleanField.class, this);
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		if(isMandatory())
+			result.add(0, factory.makeItem("getMandatory"));
+		return Collections.unmodifiableList(result);
+	}
+
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, this, name, optional, ALLOWED_VALUES);
@@ -122,6 +140,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@MethodComment(value="Returns the value of {0}.", name="get{0}")
 	public final boolean getMandatory(final Item item)
 	{
 		if(optional)

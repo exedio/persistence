@@ -24,17 +24,30 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 
 public final class WrapperByReflection
 {
 	private final Class<?> clazz;
+	private final FunctionField instance; // TODO remove
 
 	public WrapperByReflection(final Class<?> clazz)
 	{
 		this.clazz = clazz;
+		this.instance = null;
 		if(clazz==null)
 			throw new NullPointerException("clazz");
+	}
+
+	public WrapperByReflection(final Class<?> clazz, final FunctionField instance)
+	{
+		this.clazz = clazz;
+		this.instance = instance;
+		if(clazz==null)
+			throw new NullPointerException("clazz");
+		if(instance==null)
+			throw new NullPointerException("instance");
 	}
 
 	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
@@ -95,9 +108,9 @@ public final class WrapperByReflection
 			{
 				final WrapperReturn comment = method.getAnnotation(WrapperReturn.class);
 				if(comment!=null)
-					result.setReturn(replace(returnType), comment.value());
+					result.setReturn(replace(returnType, method), comment.value());
 				else
-					result.setReturn(replace(returnType));
+					result.setReturn(replace(returnType, method));
 			}
 		}
 		{
@@ -150,7 +163,7 @@ public final class WrapperByReflection
 		return result;
 	}
 
-	private static Type replace(final Type type)
+	private Type replace(final Type type, final Method method)
 	{
 		if(type instanceof Class)
 		{
@@ -168,6 +181,28 @@ public final class WrapperByReflection
 					final TypeVariable arg0Var = (TypeVariable)arg0;
 					if("P".equals(arg0Var.getName())) // TODO make more explicit
 						return Wrapper.generic((Class)paramType.getRawType(), Wrapper.ClassVariable.class);
+				}
+			}
+			return type;
+		}
+		if(type instanceof TypeVariable)
+		{
+			if(type instanceof TypeVariable)
+			{
+				final TypeVariable arg0Var = (TypeVariable)type;
+				if("E".equals(arg0Var.getName())) // TODO make more explicit
+				{
+					final Class methodClass = method.getDeclaringClass();
+					if(FunctionField.class.isAssignableFrom(methodClass)) // TODO do not rely on FunctionField
+					{
+						final Class valueClass = instance.getValueClass();
+
+						// TODO seems to be weird
+						if("com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass".equals(valueClass.getName()))
+							return Wrapper.TypeVariable0.class;
+
+						return valueClass;
+					}
 				}
 			}
 			return type;

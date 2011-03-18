@@ -18,7 +18,14 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+
+import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 
 /**
  * Represents a field within a {@link Type type},
@@ -196,6 +203,17 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final WrapperByReflection factory = new WrapperByReflection(IntegerField.class, this);
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		if(isMandatory())
+			result.add(0, factory.makeItem("getMandatory"));
+		return Collections.unmodifiableList(result);
+	}
+
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final IntegerColumn result = new IntegerColumn(table, this, name, false, optional, minimum, maximum, false);
@@ -231,6 +249,7 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@MethodComment(value="Returns the value of {0}.", name="get{0}")
 	public int getMandatory(final Item item)
 	{
 		if(optional)
