@@ -72,13 +72,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.optional = optional;
 		this.valueClass = valueClass;
 
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
-		if(!Composite.class.isAssignableFrom(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
-		if(Composite.class.equals(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
-
 		this.valueType = CompositeType.get(valueClass);
 		this.valueConstructor = valueType.constructor;
 		this.templates = valueType.templates;

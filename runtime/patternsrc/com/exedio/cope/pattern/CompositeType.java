@@ -91,7 +91,12 @@ final class CompositeType<X>
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
-		assert valueClass!=null;
+		if(valueClass==null)
+			throw new NullPointerException("valueClass");
+		if(!Composite.class.isAssignableFrom(valueClass))
+			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
+		if(Composite.class.equals(valueClass))
+			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
 
 		synchronized(types)
 		{
