@@ -29,6 +29,7 @@ import java.util.List;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.instrument.InstrumentContext;
 
 final class CompositeType<X>
 {
@@ -101,6 +102,10 @@ final class CompositeType<X>
 				result = new CompositeType<E>(valueClass);
 				types.put(valueClass, result);
 			}
+
+			if(result.componentSize==0 && !InstrumentContext.isRunning())
+				throw new IllegalArgumentException("composite has no templates");
+
 			return result;
 		}
 	}

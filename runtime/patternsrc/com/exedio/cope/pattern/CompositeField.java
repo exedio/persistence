@@ -41,6 +41,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
@@ -58,12 +59,12 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final List<FunctionField> templateList;
 	private final int componentSize;
 
-	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
-	private HashMap<FunctionField, FunctionField> componentToTemplate = null;
-	private List<FunctionField> componentList = null;
-	private FunctionField mandatoryComponent = null;
-	private FunctionField isNullComponent = null;
-	private CheckConstraint unison = null;
+	private final LinkedHashMap<FunctionField, FunctionField> templateToComponent;
+	private final HashMap<FunctionField, FunctionField> componentToTemplate;
+	private final List<FunctionField> componentList;
+	private final FunctionField mandatoryComponent;
+	private final FunctionField isNullComponent;
+	private final CheckConstraint unison;
 
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
@@ -83,6 +84,55 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.templates = valueType.templates;
 		this.templateList = valueType.templateList;
 		this.componentSize = valueType.componentSize;
+
+		if(!InstrumentContext.isRunning())
+		{
+			final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
+				new LinkedHashMap<FunctionField, FunctionField>();
+			final HashMap<FunctionField, FunctionField> componentToTemplate =
+				new HashMap<FunctionField, FunctionField>();
+			FunctionField mandatoryComponent = null;
+			final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
+			final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
+
+			for(final Map.Entry<String, FunctionField> e : templates.entrySet())
+			{
+				final FunctionField template = e.getValue();
+				final FunctionField component = copy(template);
+				addSource(component, e.getKey(), ComputedElement.get());
+				templateToComponent.put(template, component);
+				componentToTemplate.put(component, template);
+				if(optional && mandatoryComponent==null && template.isMandatory())
+					mandatoryComponent = component;
+				if(optional)
+				{
+					isNull.add(component.isNull());
+					if(template.isMandatory())
+						isNotNull.add(component.isNotNull());
+				}
+			}
+			if(optional && mandatoryComponent==null)
+				throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
+
+			this.templateToComponent = templateToComponent;
+			this.componentToTemplate = componentToTemplate;
+			this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
+			this.mandatoryComponent = mandatoryComponent;
+			this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
+			if(optional)
+				addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
+			else
+				this.unison = null;
+		}
+		else
+		{
+			this.templateToComponent = null;
+			this.componentToTemplate = null;
+			this.componentList = null;
+			this.mandatoryComponent = null;
+			this.isNullComponent = null;
+			this.unison = null;
+		}
 	}
 
 	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)
@@ -98,47 +148,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public CompositeField<E> optional()
 	{
 		return new CompositeField<E>(isfinal, true, valueClass);
-	}
-
-	@Override
-	protected void onMount()
-	{
-		super.onMount();
-
-		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
-			new LinkedHashMap<FunctionField, FunctionField>();
-		final HashMap<FunctionField, FunctionField> componentToTemplate =
-			new HashMap<FunctionField, FunctionField>();
-		FunctionField mandatoryComponent = null;
-		final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
-		final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
-
-		for(final Map.Entry<String, FunctionField> e : templates.entrySet())
-		{
-			final FunctionField template = e.getValue();
-			final FunctionField component = copy(template);
-			addSource(component, e.getKey(), ComputedElement.get());
-			templateToComponent.put(template, component);
-			componentToTemplate.put(component, template);
-			if(optional && mandatoryComponent==null && template.isMandatory())
-				mandatoryComponent = component;
-			if(optional)
-			{
-				isNull.add(component.isNull());
-				if(template.isMandatory())
-					isNotNull.add(component.isNotNull());
-			}
-		}
-		if(optional && mandatoryComponent==null)
-			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
-
-		this.templateToComponent = templateToComponent;
-		this.componentToTemplate = componentToTemplate;
-		this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
-		this.mandatoryComponent = mandatoryComponent;
-		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
-		if(optional)
-			addSource(this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison");
 	}
 
 	private FunctionField copy(FunctionField f)

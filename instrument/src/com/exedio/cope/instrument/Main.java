@@ -76,75 +76,84 @@ public final class Main
 		if(files.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 
-		final JavaRepository repository = new JavaRepository();
-		final ArrayList<Parser> parsers = new ArrayList<Parser>(files.size());
-
-		this.verbose = params.verbose;
-		instrumented = 0;
-		skipped = 0;
-		for(final File file : files)
+		try
 		{
-			if(!file.exists())
-				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
-			if(!file.isFile())
-				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
+			InstrumentContext.enter();
 
-			final JavaFile javaFile = new JavaFile(repository);
-			final Parser parser = new Parser(new Lexer(file, javaFile), new Instrumentor(), javaFile);
-			parser.parseFile();
-			parsers.add(parser);
-		}
+			final JavaRepository repository = new JavaRepository();
+			final ArrayList<Parser> parsers = new ArrayList<Parser>(files.size());
 
-		repository.endBuildStage();
-
-		for(final Parser parser : parsers)
-		{
-			final JavaFile javaFile = parser.javaFile;
-			for(final JavaClass javaClass : javaFile.getClasses())
+			this.verbose = params.verbose;
+			instrumented = 0;
+			skipped = 0;
+			for(final File file : files)
 			{
-				final CopeType type = CopeType.getCopeType(javaClass);
-				if(type!=null)
+				if(!file.exists())
+					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
+				if(!file.isFile())
+					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
+
+				final JavaFile javaFile = new JavaFile(repository);
+				final Parser parser = new Parser(new Lexer(file, javaFile), new Instrumentor(), javaFile);
+				parser.parseFile();
+				parsers.add(parser);
+			}
+
+			repository.endBuildStage();
+
+			for(final Parser parser : parsers)
+			{
+				final JavaFile javaFile = parser.javaFile;
+				for(final JavaClass javaClass : javaFile.getClasses())
 				{
-					if(!type.isInterface())
+					final CopeType type = CopeType.getCopeType(javaClass);
+					if(type!=null)
 					{
-						//System.out.println("onClassEnd("+jc.getName()+") writing");
-						for(final CopeFeature feature : type.getFeatures())
-							feature.getInstance();
+						if(!type.isInterface())
+						{
+							//System.out.println("onClassEnd("+jc.getName()+") writing");
+							for(final CopeFeature feature : type.getFeatures())
+								feature.getInstance();
+						}
 					}
 				}
 			}
+
+			final Iterator<Parser> parsersIter = parsers.iterator();
+			for(final File file : files)
+			{
+				final Parser parser = parsersIter.next();
+
+				final StringBuilder baos = new StringBuilder((int)file.length() + 100);
+				final Generator generator = new Generator(parser.javaFile, baos, params);
+				generator.write();
+
+				if(!parser.lexer.inputEqual(baos))
+				{
+					logInstrumented(file);
+					delete(file);
+					final Charset charset = Charset.defaultCharset(); // TODO make configurable
+					final CharsetEncoder decoder = charset.newEncoder();
+					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
+					final FileOutputStream o = new FileOutputStream(file);
+					try
+					{
+						o.getChannel().write(out);
+					}
+					finally
+					{
+						o.close();
+					}
+				}
+				else
+				{
+					logSkipped(file);
+				}
+			}
 		}
-
-		final Iterator<Parser> parsersIter = parsers.iterator();
-		for(final File file : files)
+		finally
 		{
-			final Parser parser = parsersIter.next();
-
-			final StringBuilder baos = new StringBuilder((int)file.length() + 100);
-			final Generator generator = new Generator(parser.javaFile, baos, params);
-			generator.write();
-
-			if(!parser.lexer.inputEqual(baos))
-			{
-				logInstrumented(file);
-				delete(file);
-				final Charset charset = Charset.defaultCharset(); // TODO make configurable
-				final CharsetEncoder decoder = charset.newEncoder();
-				final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
-				final FileOutputStream o = new FileOutputStream(file);
-				try
-				{
-					o.getChannel().write(out);
-				}
-				finally
-				{
-					o.close();
-				}
-			}
-			else
-			{
-				logSkipped(file);
-			}
+			InstrumentContext.leave();
 		}
 
 		if(verbose || instrumented>0)
