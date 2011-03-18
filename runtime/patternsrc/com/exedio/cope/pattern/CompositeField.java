@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,7 +29,6 @@ import java.util.Set;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
@@ -54,7 +51,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final Class<E> valueClass;
 
 	private final CompositeType<E> valueType;
-	private final Constructor<E> valueConstructor;
 	private final LinkedHashMap<String, FunctionField> templates;
 	private final List<FunctionField> templateList;
 	private final int componentSize;
@@ -73,7 +69,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.valueClass = valueClass;
 
 		this.valueType = CompositeType.get(valueClass);
-		this.valueConstructor = valueType.constructor;
 		this.templates = valueType.templates;
 		this.templateList = valueType.templateList;
 		this.componentSize = valueType.componentSize;
@@ -224,34 +219,9 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return newValue(initargs);
 	}
 
-	public E newValue(final SetValue... initargs)
+	public E newValue(final SetValue... setValues)
 	{
-		try
-		{
-			return valueConstructor.newInstance(new Object[]{initargs});
-		}
-		catch(final IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InstantiationException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InvocationTargetException e)
-		{
-			final Throwable cause = e.getCause();
-			if(cause instanceof ConstraintViolationException)
-				throw (ConstraintViolationException)cause;
-			else if(cause instanceof IllegalArgumentException)
-				throw (IllegalArgumentException)cause;
-			else
-				throw new RuntimeException(e);
-		}
+		return valueType.newValue(setValues);
 	}
 
 	@SuppressWarnings("unchecked")

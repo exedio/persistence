@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
@@ -33,7 +35,7 @@ import com.exedio.cope.instrument.InstrumentContext;
 
 final class CompositeType<X>
 {
-	final Constructor<X> constructor;
+	private final Constructor<X> constructor;
 	final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
 	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
 	final List<FunctionField> templateList;
@@ -86,6 +88,38 @@ final class CompositeType<X>
 	}
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
+
+
+	public X newValue(final SetValue... setValues)
+	{
+		try
+		{
+			return constructor.newInstance(new Object[]{setValues});
+		}
+		catch(final IllegalArgumentException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InstantiationException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InvocationTargetException e)
+		{
+			final Throwable cause = e.getCause();
+			if(cause instanceof ConstraintViolationException)
+				throw (ConstraintViolationException)cause;
+			else if(cause instanceof IllegalArgumentException)
+				throw (IllegalArgumentException)cause;
+			else
+				throw new RuntimeException(e);
+		}
+	}
+
 
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 
