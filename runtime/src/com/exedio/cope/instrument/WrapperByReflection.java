@@ -187,22 +187,19 @@ public final class WrapperByReflection
 		}
 		if(type instanceof TypeVariable)
 		{
-			if(type instanceof TypeVariable)
+			final TypeVariable arg0Var = (TypeVariable)type;
+			if("E".equals(arg0Var.getName())) // TODO make more explicit
 			{
-				final TypeVariable arg0Var = (TypeVariable)type;
-				if("E".equals(arg0Var.getName())) // TODO make more explicit
+				final Class methodClass = method.getDeclaringClass();
+				if(FunctionField.class.isAssignableFrom(methodClass)) // TODO do not rely on FunctionField
 				{
-					final Class methodClass = method.getDeclaringClass();
-					if(FunctionField.class.isAssignableFrom(methodClass)) // TODO do not rely on FunctionField
-					{
-						final Class valueClass = instance.getValueClass();
+					final Class valueClass = instance.getValueClass();
 
-						// TODO seems to be weird
-						if("com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass".equals(valueClass.getName()))
-							return Wrapper.TypeVariable0.class;
+					// TODO seems to be weird
+					if("com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass".equals(valueClass.getName()))
+						return Wrapper.TypeVariable0.class;
 
-						return valueClass;
-					}
+					return valueClass;
 				}
 			}
 			return type;
