@@ -90,6 +90,11 @@ final class CompositeType<X>
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 
 
+	public List<FunctionField> getTemplates()
+	{
+		return templateList;
+	}
+
 	public X newValue(final SetValue... setValues)
 	{
 		try
