@@ -51,15 +51,15 @@ public class CompositeErrorTest extends CopeAssert
 					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-		try
+		//try
 		{
 			CompositeField.newComposite(NoFields.class);
 			//fail();
 		}
-		catch(final IllegalArgumentException e)
+		/*catch(final IllegalArgumentException e) TODO
 		{
 			assertEquals("", e.getMessage());
-		}
+		}*/
 		try
 		{
 			CompositeField.newComposite(NullField.class);
