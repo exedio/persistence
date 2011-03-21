@@ -54,7 +54,7 @@ public final class SchemaInfo
 			throw new NullPointerException("model");
 		if(name==null)
 			throw new NullPointerException("name");
-		if(name.length()==0)
+		if(name.isEmpty())
 			throw new IllegalArgumentException("name must not be empty");
 
 		return model.connect().dialect.dsmfDialect.quoteName(name);

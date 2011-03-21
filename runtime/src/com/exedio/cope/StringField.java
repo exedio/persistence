@@ -181,7 +181,7 @@ public final class StringField extends FunctionField<String>
 			cell = surface;
 		else
 		{
-			if(surface!=null && surface.length()==0)
+			if(surface!=null && surface.isEmpty())
 				cell = null;
 			else
 				cell = surface;
@@ -194,7 +194,7 @@ public final class StringField extends FunctionField<String>
 		throws
 			StringLengthViolationException, StringCharSetViolationException
 	{
-		if(convertEmptyStrings && value.length()==0 && !optional)
+		if(convertEmptyStrings && value.isEmpty() && !optional)
 			throw new MandatoryViolationException(this, this, exceptionItem);
 
 		final int length = value.length();

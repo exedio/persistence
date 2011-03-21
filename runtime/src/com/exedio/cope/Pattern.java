@@ -72,7 +72,7 @@ public abstract class Pattern extends Feature
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
-		if(postfix.length()==0)
+		if(postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(feature==null)
 			throw new NullPointerException("feature");
@@ -125,7 +125,7 @@ public abstract class Pattern extends Feature
 				if(sourceName!=null)
 				{
 					final String v = sourceName.value();
-					if(v.length()>0)
+					if(!v.isEmpty())
 						bf.append('-').append(v);
 				}
 				else
@@ -192,7 +192,7 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
-		if(postfix!=null && postfix.length()==0)
+		if(postfix!=null && postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");

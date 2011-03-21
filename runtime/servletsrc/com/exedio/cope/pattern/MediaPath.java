@@ -272,7 +272,7 @@ public abstract class MediaPath extends Pattern
 			return null;
 
 		final String result = ((MediaUrlCatchphraseProvider)item).getMediaUrlCatchphrase(this);
-		if(result==null || result.length()==0)
+		if(result==null || result.isEmpty())
 			return null;
 
 		final int l = result.length();

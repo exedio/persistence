@@ -37,7 +37,7 @@ final class Trimmer
 
 	String trimString(final String longString)
 	{
-		if(longString.length()==0)
+		if(longString.isEmpty())
 			throw new IllegalArgumentException("longString must not be empty");
 
 		if(longString.length()<=maxLength)
