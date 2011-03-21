@@ -88,8 +88,6 @@ public final class Delete
 				model.rollbackIfNotCommitted();
 			}
 		}
-
-		System.out.println("Aborting " + transactionName);
 	}
 
 	private Delete()
