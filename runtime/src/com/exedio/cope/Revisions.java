@@ -284,8 +284,8 @@ public final class Revisions
 		{
 			final int number = revision.number;
 			final RevisionInfoRevise.Body[] bodyInfo = revision.execute(connectionPool, executor);
-			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-			info.insert(properties, connectionPool, executor);
+			new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo).
+				insert(properties, connectionPool, executor);
 		}
 		{
 			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
