@@ -211,7 +211,10 @@ public abstract class RevisionInfo
 	}
 
 
-	final void insert(final ConnectProperties properties, final ConnectionPool connectionPool, final Executor executor)
+	final void insert(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
