@@ -77,13 +77,11 @@ public final class Delete
 					item.deleteCopeItem();
 					ctx.incrementProgress();
 				}
-				if(itemsSize<LIMIT)
-				{
-					model.commit();
-					return;
-				}
 
 				model.commit();
+
+				if(itemsSize<LIMIT)
+					return;
 			}
 			finally
 			{
