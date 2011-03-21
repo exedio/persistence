@@ -186,22 +186,6 @@ public final class Revisions
 			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			return getLogs(properties, connection, executor);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
-	}
-
-	private Map<Integer, byte[]> getLogs(
-			final ConnectProperties properties,
-			final Connection connection,
-			final Executor executor)
-	{
 		final Dialect dialect = executor.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
 
@@ -219,22 +203,30 @@ public final class Revisions
 
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
-		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		final Connection connection = connectionPool.get(true);
+		try
 		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
-				while(resultSet.next())
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
-					final int revision = resultSet.getInt(1);
-					final byte[] info = dialect.getBytes(resultSet, 2);
-					final byte[] previous = result.put(revision, info);
-					if(previous!=null)
-						throw new RuntimeException("duplicate revision " + revision);
-				}
+					while(resultSet.next())
+					{
+						final int revision = resultSet.getInt(1);
+						final byte[] info = dialect.getBytes(resultSet, 2);
+						final byte[] previous = result.put(revision, info);
+						if(previous!=null)
+							throw new RuntimeException("duplicate revision " + revision);
+					}
 
-				return null;
-			}
-		});
+					return null;
+				}
+			});
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 		return Collections.unmodifiableMap(result);
 	}
 
