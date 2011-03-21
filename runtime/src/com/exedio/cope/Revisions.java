@@ -269,10 +269,10 @@ public final class Revisions
 			final int actualNumber)
 	{
 		final Date date = new Date();
+		final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
 		try
 		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).
-				insert(properties, connectionPool, executor);
+			mutex.insert(properties, connectionPool, executor);
 		}
 		catch(final SQLRuntimeException e)
 		{
@@ -287,25 +287,6 @@ public final class Revisions
 			new RevisionInfoRevise(revision.number, date, environment, revision.comment, bodyInfo).
 				insert(properties, connectionPool, executor);
 		}
-		{
-			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-			final Statement bf = executor.newStatement();
-			bf.append("delete from ").
-				append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
-				append(" where ").
-				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
-				append('=').
-				appendParameter(RevisionInfoMutex.NUMBER);
-
-			final Connection connection = connectionPool.get(true);
-			try
-			{
-				executor.updateStrict(connection, null, bf);
-			}
-			finally
-			{
-				connectionPool.put(connection);
-			}
-		}
+		mutex.delete(properties, connectionPool, executor);
 	}
 }
