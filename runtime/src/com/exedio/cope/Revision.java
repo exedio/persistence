@@ -18,10 +18,16 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Revisions.logger;
+import static java.lang.System.nanoTime;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 public final class Revision
 {
@@ -74,6 +80,48 @@ public final class Revision
 	public String toString()
 	{
 		return String.valueOf('R') + number + ':' + comment;
+	}
+
+	RevisionInfoRevise.Body[] execute(
+			final ConnectionPool connectionPool,
+			final Executor executor)
+	{
+		final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			{
+				final String sql = body[bodyIndex];
+				if(logger.isLoggable(Level.INFO))
+					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
+				final Statement bf = executor.newStatement();
+				bf.append(sql);
+				final long start = nanoTime();
+				final int rows = executor.update(connection, null, bf);
+				final long elapsed = (nanoTime() - start) / 1000000;
+				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
+					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
+				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+			}
+		}
+		finally
+		{
+			// IMPORTANT
+			// Do not put it back into the pool,
+			// because connection state may have
+			// been changed by the revision
+			try
+			{
+				connection.close();
+			}
+			catch(final SQLException e)
+			{
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "close", e);
+			}
+		}
+		return bodyInfo;
 	}
 
 	// ------------------- deprecated stuff -------------------

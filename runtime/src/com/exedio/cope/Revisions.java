@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
-import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -285,42 +283,7 @@ public final class Revisions
 		for(final Revision revision : revisionsToRun)
 		{
 			final int number = revision.number;
-			final String[] body = revision.body;
-			final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-			final Connection connection = connectionPool.get(true);
-			try
-			{
-				for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
-				{
-					final String sql = body[bodyIndex];
-					if(logger.isLoggable(Level.INFO))
-						logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
-					final Statement bf = executor.newStatement();
-					bf.append(sql);
-					final long start = nanoTime();
-					final int rows = executor.update(connection, null, bf);
-					final long elapsed = (nanoTime() - start) / 1000000;
-					if(logger.isLoggable(Level.WARNING) && elapsed>1000)
-						logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
-					bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
-				}
-			}
-			finally
-			{
-				// IMPORTANT
-				// Do not put it back into the pool,
-				// because connection state may have
-				// been changed by the revision
-				try
-				{
-					connection.close();
-				}
-				catch(final SQLException e)
-				{
-					if(logger.isLoggable(Level.SEVERE))
-						logger.log(Level.SEVERE, "close", e);
-				}
-			}
+			final RevisionInfoRevise.Body[] bodyInfo = revision.execute(connectionPool, executor);
 			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
 			info.insert(properties, connectionPool, executor);
 		}
