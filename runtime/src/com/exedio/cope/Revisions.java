@@ -236,7 +236,8 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connectionPool, executor);
+		new RevisionInfoCreate(getNumber(), new Date(), environment).
+			insert(properties, connectionPool, executor);
 	}
 
 	void revise(
