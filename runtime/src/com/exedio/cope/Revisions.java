@@ -271,7 +271,8 @@ public final class Revisions
 		final Date date = new Date();
 		try
 		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, connectionPool, executor);
+			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).
+				insert(properties, connectionPool, executor);
 		}
 		catch(final SQLRuntimeException e)
 		{
