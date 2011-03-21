@@ -54,6 +54,7 @@ public final class Delete
 			throw new NullPointerException("ctx");
 
 		final int LIMIT = 100;
+		query.setLimit(0, LIMIT);
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; !ctx.requestedToStop(); transaction++)
 		{
@@ -61,7 +62,6 @@ public final class Delete
 			{
 				model.startTransaction(transactionName + '#' + transaction);
 
-				query.setLimit(0, LIMIT);
 				final List<? extends Item> items = query.search();
 				final int itemsSize = items.size();
 				if(itemsSize==0)
