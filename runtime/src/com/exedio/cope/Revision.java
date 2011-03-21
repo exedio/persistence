@@ -25,7 +25,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -82,7 +84,9 @@ public final class Revision
 		return String.valueOf('R') + number + ':' + comment;
 	}
 
-	RevisionInfoRevise.Body[] execute(
+	RevisionInfoRevise execute(
+			final Date date,
+			final Map<String, String> environment,
 			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
@@ -121,7 +125,7 @@ public final class Revision
 					logger.log(Level.SEVERE, "close", e);
 			}
 		}
-		return bodyInfo;
+		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
 	}
 
 	// ------------------- deprecated stuff -------------------

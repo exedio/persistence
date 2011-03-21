@@ -266,8 +266,7 @@ public final class Revisions
 			}
 			for(final Revision revision : revisionsToRun)
 			{
-				final RevisionInfoRevise.Body[] bodyInfo = revision.execute(connectionPool, executor);
-				new RevisionInfoRevise(revision.number, date, environment, revision.comment, bodyInfo).
+				revision.execute(date, environment, connectionPool, executor).
 					insert(properties, connectionPool, executor);
 			}
 			mutex.delete(properties, connectionPool, executor);
