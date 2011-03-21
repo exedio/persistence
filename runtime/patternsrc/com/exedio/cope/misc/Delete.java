@@ -55,11 +55,8 @@ public final class Delete
 
 		final int LIMIT = 100;
 		final Model model = query.getType().getModel();
-		for(int transaction = 0; transaction<30; transaction++)
+		for(int transaction = 0; !ctx.requestedToStop(); transaction++)
 		{
-			if(ctx.requestedToStop())
-				return;
-
 			try
 			{
 				model.startTransaction(transactionName + '#' + transaction);
