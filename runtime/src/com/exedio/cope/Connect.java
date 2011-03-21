@@ -236,7 +236,7 @@ final class Connect
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
+		revisions.revise(properties, connectionPool, executor, database.dialectParameters);
 
 		revised = true;
 	}

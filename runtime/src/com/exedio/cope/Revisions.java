@@ -244,7 +244,7 @@ public final class Revisions
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Map<String, String> environment)
+			final DialectParameters dialectParameters)
 	{
 		final int actualNumber = getActualNumber(properties, connectionPool, executor);
 		final List<Revision> revisionsToRun = getListToRun(actualNumber);
@@ -252,6 +252,7 @@ public final class Revisions
 		if(!revisionsToRun.isEmpty())
 		{
 			final Date date = new Date();
+			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
 			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
 			try
 			{
