@@ -25,6 +25,7 @@ import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.JobContext;
 
 public class DeleteTest extends AbstractRuntimeTest
 {
@@ -61,6 +62,29 @@ public class DeleteTest extends AbstractRuntimeTest
 
 		Delete.delete(q, "tx", ctx);
 		ctx.assertProgress(0);
+	}
+
+	public void testError()
+	{
+		try
+		{
+			Delete.delete(TYPE.newQuery(), "tx", (JobContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
+
+		try
+		{
+			Delete.delete(null, "tx", new AssertionErrorJobContext());
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	public void testAbort()
