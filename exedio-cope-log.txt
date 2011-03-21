@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* Revisions: a new java.sql.Connection is created for executing each Revisions
+	(but not each body within a Revision).
+	This breaks backwards compatibility, when using connection states in Revisions
 * Delete#delete is not limited to 3000 items anymore.
 	If you want a limit, you need to implement it via the JobContext.
 * Many methods of CompositeField will work now immediatly after construction:

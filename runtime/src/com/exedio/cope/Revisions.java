@@ -40,6 +40,25 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
+/**
+ * NOTE:
+ *
+ * The statements listed in {@link Revision#getBody()}
+ * are guaranteed to be executed subsequently
+ * in the order specified by the list
+ * by one single {@link java.sql.Connection connection}.
+ * So you may use connection states within a revision.
+ *
+ * Additionally,
+ * {@link Revision revisions} listed in {@link #getList()}
+ * are guaranteed to be executed subsequently
+ * reversely to the order specified the list,
+ * each revision by a newly created {@link java.sql.Connection connection}.
+ * The connection is not used for any other purpose afterwards.
+ * So you cannot use connection states between revisions,
+ * but you also don't have to cleanup connection state at the end of each revision.
+ * This is for minimizing effects between revisions.
+ */
 public final class Revisions
 {
 	static final Logger logger = Logger.getLogger(Revisions.class.getName());
@@ -138,7 +157,7 @@ public final class Revisions
 
 	private int getActualNumber(
 			final ConnectProperties properties,
-			final Connection connection,
+			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
@@ -153,7 +172,15 @@ public final class Revisions
 			append(revision).
 			append(">=0");
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			return executor.query(connection, bf, null, false, integerResultSetHandler);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 
 	Map<Integer, byte[]> getLogs(
@@ -219,15 +246,7 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connection, executor);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
+		new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connectionPool, executor);
 	}
 
 	void revise(
@@ -236,24 +255,16 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			final int actualNumber = getActualNumber(properties, connection, executor);
-			final List<Revision> revisionsToRun = getListToRun(actualNumber);
+		final int actualNumber = getActualNumber(properties, connectionPool, executor);
+		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
-			if(!revisionsToRun.isEmpty())
-				revise(properties, connection, executor, environment, revisionsToRun, actualNumber);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
+		if(!revisionsToRun.isEmpty())
+			revise(properties, connectionPool, executor, environment, revisionsToRun, actualNumber);
 	}
 
 	private void revise(
 			final ConnectProperties properties,
-			final Connection con,
+			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Map<String, String> environment,
 			final List<Revision> revisionsToRun,
@@ -262,7 +273,7 @@ public final class Revisions
 		final Date date = new Date();
 		try
 		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, con, executor);
+			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, connectionPool, executor);
 		}
 		catch(final SQLRuntimeException e)
 		{
@@ -276,22 +287,42 @@ public final class Revisions
 			final int number = revision.number;
 			final String[] body = revision.body;
 			final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			final Connection connection = connectionPool.get(true);
+			try
 			{
-				final String sql = body[bodyIndex];
-				if(logger.isLoggable(Level.INFO))
-					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
-				final Statement bf = executor.newStatement();
-				bf.append(sql);
-				final long start = nanoTime();
-				final int rows = executor.update(con, null, bf);
-				final long elapsed = (nanoTime() - start) / 1000000;
-				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
-					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
-				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+				for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+				{
+					final String sql = body[bodyIndex];
+					if(logger.isLoggable(Level.INFO))
+						logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
+					final Statement bf = executor.newStatement();
+					bf.append(sql);
+					final long start = nanoTime();
+					final int rows = executor.update(connection, null, bf);
+					final long elapsed = (nanoTime() - start) / 1000000;
+					if(logger.isLoggable(Level.WARNING) && elapsed>1000)
+						logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
+					bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+				}
+			}
+			finally
+			{
+				// IMPORTANT
+				// Do not put it back into the pool,
+				// because connection state may have
+				// been changed by the revision
+				try
+				{
+					connection.close();
+				}
+				catch(final SQLException e)
+				{
+					if(logger.isLoggable(Level.SEVERE))
+						logger.log(Level.SEVERE, "close", e);
+				}
 			}
 			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-			info.insert(properties, con, executor);
+			info.insert(properties, connectionPool, executor);
 		}
 		{
 			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
@@ -302,7 +333,16 @@ public final class Revisions
 				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
 				append('=').
 				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.updateStrict(con, null, bf);
+
+			final Connection connection = connectionPool.get(true);
+			try
+			{
+				executor.updateStrict(connection, null, bf);
+			}
+			finally
+			{
+				connectionPool.put(connection);
+			}
 		}
 	}
 }
