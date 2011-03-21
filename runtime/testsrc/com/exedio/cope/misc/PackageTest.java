@@ -29,6 +29,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(TransactionSlicerTest.class);
 		suite.addTestSuite(TransactionRunnableTest.class);
+		suite.addTestSuite(DeleteTest.class);
 		suite.addTestSuite(QueryAggregatorTest.class);
 		suite.addTestSuite(TypeIteratorTest.class);
 		suite.addTestSuite(StableQueryIteratorTest.class);

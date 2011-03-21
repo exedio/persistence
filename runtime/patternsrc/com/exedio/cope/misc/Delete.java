@@ -71,6 +71,12 @@ public final class Delete
 					return;
 				for(final Item item : items)
 				{
+					if(ctx.requestedToStop())
+					{
+						model.commit();
+						return;
+					}
+
 					item.deleteCopeItem();
 					ctx.incrementProgress();
 				}
