@@ -250,36 +250,27 @@ public final class Revisions
 		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 		if(!revisionsToRun.isEmpty())
-			revise(properties, connectionPool, executor, environment, revisionsToRun, actualNumber);
-	}
-
-	private void revise(
-			final ConnectProperties properties,
-			final ConnectionPool connectionPool,
-			final Executor executor,
-			final Map<String, String> environment,
-			final List<Revision> revisionsToRun,
-			final int actualNumber)
-	{
-		final Date date = new Date();
-		final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
-		try
 		{
-			mutex.insert(properties, connectionPool, executor);
+			final Date date = new Date();
+			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
+			try
+			{
+				mutex.insert(properties, connectionPool, executor);
+			}
+			catch(final SQLRuntimeException e)
+			{
+				throw new IllegalStateException(
+						"Revision mutex set: " +
+						"Either a revision is currently underway, " +
+						"or a revision has failed unexpectedly.", e);
+			}
+			for(final Revision revision : revisionsToRun)
+			{
+				final RevisionInfoRevise.Body[] bodyInfo = revision.execute(connectionPool, executor);
+				new RevisionInfoRevise(revision.number, date, environment, revision.comment, bodyInfo).
+					insert(properties, connectionPool, executor);
+			}
+			mutex.delete(properties, connectionPool, executor);
 		}
-		catch(final SQLRuntimeException e)
-		{
-			throw new IllegalStateException(
-					"Revision mutex set: " +
-					"Either a revision is currently underway, " +
-					"or a revision has failed unexpectedly.", e);
-		}
-		for(final Revision revision : revisionsToRun)
-		{
-			final RevisionInfoRevise.Body[] bodyInfo = revision.execute(connectionPool, executor);
-			new RevisionInfoRevise(revision.number, date, environment, revision.comment, bodyInfo).
-				insert(properties, connectionPool, executor);
-		}
-		mutex.delete(properties, connectionPool, executor);
 	}
 }
