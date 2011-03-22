@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import com.exedio.dsmf.SQLRuntimeException;
+
 public final class Revision
 {
 	final int number;
@@ -87,8 +89,7 @@ public final class Revision
 	RevisionInfoRevise execute(
 			final Date date,
 			final Map<String, String> environment,
-			final ConnectionFactory connectionFactory,
-			final Executor executor)
+			final ConnectionFactory connectionFactory)
 	{
 		final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
 		// IMPORTANT
@@ -103,10 +104,8 @@ public final class Revision
 				final String sql = body[bodyIndex];
 				if(logger.isLoggable(Level.INFO))
 					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
-				final Statement bf = executor.newStatement();
-				bf.append(sql);
 				final long start = nanoTime();
-				final int rows = executor.update(connection, null, bf);
+				final int rows = executeUpdate(connection, sql);
 				final long elapsed = (nanoTime() - start) / 1000000;
 				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
 					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
@@ -126,6 +125,37 @@ public final class Revision
 			}
 		}
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
+	}
+
+	private static final int executeUpdate(
+			final Connection connection,
+			final String sql)
+	{
+		java.sql.Statement statement = null;
+		try
+		{
+			statement = connection.createStatement();
+			return statement.executeUpdate(sql);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+		finally
+		{
+			if(statement!=null)
+			{
+				try
+				{
+					statement.close();
+				}
+				catch(final SQLException e)
+				{
+					if(logger.isLoggable(Level.SEVERE))
+						logger.log(Level.SEVERE, "close", e);
+				}
+			}
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

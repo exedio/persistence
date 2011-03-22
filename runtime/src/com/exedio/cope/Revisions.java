@@ -268,7 +268,7 @@ public final class Revisions
 			}
 			for(final Revision revision : revisionsToRun)
 			{
-				revision.execute(date, environment, connectionFactory, executor).
+				revision.execute(date, environment, connectionFactory).
 					insert(properties, connectionPool, executor);
 			}
 			mutex.delete(properties, connectionPool, executor);
