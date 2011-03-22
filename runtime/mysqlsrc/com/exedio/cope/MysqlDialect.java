@@ -71,10 +71,13 @@ final class MysqlDialect extends Dialect
 	@Override
 	protected void completeConnectionInfo(final Properties info)
 	{
+		// http://dev.mysql.com/doc/refman/5.1/en/connector-j-reference-configuration-properties.html
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
 		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
+		info.setProperty("useLocalSessionState", TRUE);
+		//info.setProperty("profileSQL", TRUE);
 	}
 
 	@Override
@@ -107,6 +110,7 @@ final class MysqlDialect extends Dialect
 
 	private static final String CHARSET = "utf8";
 	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES";
+	private static final String TRUE = "true";
 
 	@Override
 	String getIntegerType(final long minimum, final long maximum)

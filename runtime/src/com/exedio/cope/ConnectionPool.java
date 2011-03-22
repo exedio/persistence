@@ -38,6 +38,10 @@ final class ConnectionPool
 		final Connection result = pool.get();
 		try
 		{
+			// NOTE:
+			// we should avoid network roundtrip if autocommit
+			// mode is already as required:
+			// MySQL: useLocalSessionState=true in connection info
 			result.setAutoCommit(autoCommit);
 		}
 		catch(final SQLException e)
