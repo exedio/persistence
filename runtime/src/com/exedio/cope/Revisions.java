@@ -242,6 +242,7 @@ public final class Revisions
 
 	void revise(
 			final ConnectProperties properties,
+			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final DialectParameters dialectParameters)
@@ -267,7 +268,7 @@ public final class Revisions
 			}
 			for(final Revision revision : revisionsToRun)
 			{
-				revision.execute(date, environment, connectionPool, executor).
+				revision.execute(date, environment, connectionFactory, executor).
 					insert(properties, connectionPool, executor);
 			}
 			mutex.delete(properties, connectionPool, executor);

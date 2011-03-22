@@ -87,11 +87,15 @@ public final class Revision
 	RevisionInfoRevise execute(
 			final Date date,
 			final Map<String, String> environment,
-			final ConnectionPool connectionPool,
+			final ConnectionFactory connectionFactory,
 			final Executor executor)
 	{
 		final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-		final Connection connection = connectionPool.get(true);
+		// IMPORTANT
+		// Do not use connection pool,
+		// because connection state may have
+		// been changed by the revision
+		final Connection connection = connectionFactory.create();
 		try
 		{
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
@@ -111,10 +115,6 @@ public final class Revision
 		}
 		finally
 		{
-			// IMPORTANT
-			// Do not put it back into the pool,
-			// because connection state may have
-			// been changed by the revision
 			try
 			{
 				connection.close();
