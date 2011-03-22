@@ -127,6 +127,7 @@
 			<Class name="com.exedio.dsmf.Node" />
 			<Class name="com.exedio.dsmf.MysqlDialect" />
 			<Class name="com.exedio.cope.OracleDialect" />
+			<Class name="com.exedio.cope.Revision" />
 		</Or>
 	</Match>
 	<Match>
