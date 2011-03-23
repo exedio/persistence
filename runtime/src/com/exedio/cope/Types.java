@@ -100,8 +100,8 @@ final class Types
 			for(final Field f : type.getDeclaredFields())
 				if(f instanceof ItemField)
 				{
-					final ItemField ff = (ItemField)f;
-					ff.resolveValueType();
+					final ItemField<?> ff = (ItemField)f;
+					ff.resolveValueType(parametersMap.keySet());
 					final Type valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);
 				}

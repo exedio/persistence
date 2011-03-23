@@ -50,6 +50,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
 		suite.addTestSuite(TypeMountTest.class);
+		suite.addTestSuite(TypeMountWrongTest.class);
 		suite.addTestSuite(TypeCompareTest.class);
 		suite.addTestSuite(TypeSetTest.class);
 		suite.addTestSuite(TypeCollisionTest.class);

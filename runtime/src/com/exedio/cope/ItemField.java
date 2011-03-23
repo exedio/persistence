@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 
 import java.sql.Connection;
+import java.util.Set;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
@@ -141,14 +142,17 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private Type<E> valueType = null;
 
-	void resolveValueType()
+	void resolveValueType(final Set<Type> typesAllowed)
 	{
 		if(!isMounted())
 			throw new RuntimeException();
 		if(valueType!=null)
 			throw new RuntimeException(getID());
 
-		valueType = valueTypeFuture.get();
+		final Type<E> valueType = valueTypeFuture.get();
+		if(!typesAllowed.contains(valueType))
+			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
+		this.valueType = valueType;
 		assert valueClass.equals(valueType.getJavaClass());
 	}
 
