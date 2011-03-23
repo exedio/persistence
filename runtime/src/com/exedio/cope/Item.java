@@ -124,16 +124,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
 	 * methods with any {@link ItemFunction}.
 	 */
-	public int compareTo(final Item other)
+	public int compareTo(final Item o)
 	{
-		if(this==other)
+		if(this==o)
 			return 0;
 
-		final int typeResult = type.toptype.compareTo(other.type.toptype);
+		final int typeResult = type.toptype.compareTo(o.type.toptype);
 		if(typeResult!=0)
 			return typeResult;
 
-		return Compare.compare(pk, other.pk);
+		return Compare.compare(pk, o.pk);
 	}
 
 	/**

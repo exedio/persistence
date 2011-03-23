@@ -498,12 +498,12 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return l;
 		}
 
-		int compareTo(final Mount other)
+		int compareTo(final Mount o)
 		{
-			if(model!=other.model)
-				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + other.id);
+			if(model!=o.model)
+				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + o.id);
 
-			return Compare.compare(orderIdTransiently, other.orderIdTransiently);
+			return Compare.compare(orderIdTransiently, o.orderIdTransiently);
 		}
 	}
 
@@ -1066,9 +1066,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
 
-	public int compareTo(final Type other)
+	public int compareTo(final Type o)
 	{
-		return mount().compareTo(other.mount());
+		return mount().compareTo(o.mount());
 	}
 
 	@Override
