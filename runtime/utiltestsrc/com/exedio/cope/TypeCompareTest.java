@@ -36,8 +36,8 @@ public class TypeCompareTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type AnItem, " +
-					"probably you forgot to put this type into the model.",
+					"type AnItem (com.exedio.cope.TypeCompareTest$AnItem) " +
+					"does not belong to any model",
 					e.getMessage());
 		}
 		try
@@ -48,8 +48,8 @@ public class TypeCompareTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type AnotherItem, " +
-					"probably you forgot to put this type into the model.",
+					"type AnotherItem (com.exedio.cope.TypeCompareTest$AnotherItem) " +
+					"does not belong to any model",
 					e.getMessage());
 		}
 
@@ -68,8 +68,8 @@ public class TypeCompareTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type AnotherModelItem, " +
-					"probably you forgot to put this type into the model.",
+					"type AnotherModelItem (com.exedio.cope.TypeCompareTest$AnotherModelItem) " +
+					"does not belong to any model",
 					e.getMessage());
 		}
 		try
@@ -80,8 +80,8 @@ public class TypeCompareTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type AnotherModelItem, " +
-					"probably you forgot to put this type into the model.",
+					"type AnotherModelItem (com.exedio.cope.TypeCompareTest$AnotherModelItem) " +
+					"does not belong to any model",
 					e.getMessage());
 		}
 
