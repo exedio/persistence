@@ -119,9 +119,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return type.hashCode() ^ pk;
 	}
 
+	/**
+	 * Defines an order consistent to the query result order when using
+	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
+	 * methods with any {@link ItemFunction}.
+	 */
 	public int compareTo(final Item other)
 	{
-		final int typeResult = type.compareTo(other.type);
+		final int typeResult = type.toptype.compareTo(other.type.toptype);
 		if(typeResult!=0)
 			return typeResult;
 

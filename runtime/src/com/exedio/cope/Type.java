@@ -59,6 +59,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super T> supertype;
+	final Type<? super T> toptype;
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<T>(this);
@@ -152,10 +153,14 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 		if(supertype==null)
 		{
+			this.toptype = this;
+
 			this.supertypes = null;
 		}
 		else
 		{
+			this.toptype = supertype.toptype;
+
 			final HashSet<Type<?>> superSupertypes = supertype.supertypes;
 			if(superSupertypes==null)
 				this.supertypes = new HashSet<Type<?>>();

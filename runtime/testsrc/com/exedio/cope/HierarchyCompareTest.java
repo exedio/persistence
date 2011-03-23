@@ -47,7 +47,7 @@ public class HierarchyCompareTest extends AbstractRuntimeTest
 		final HierarchyFirstSub a2 = deleteOnTearDown(new HierarchyFirstSub(3));
 		final HierarchySecondSub b2 = deleteOnTearDown(new HierarchySecondSub(4));
 		final HierarchySingleSub c2 = deleteOnTearDown(new HierarchySingleSub(2, ""));
-		items = Arrays.asList(a1, a2, b1, b2, c1, c2); // TODO should be a1, b1, a2, b2, c1, c2 as below
+		items   = Arrays.asList(      a1, b1, a2, b2, c1, c2);
 		orderby = Arrays.asList((Item)a1, b1, a2, b2);
 	}
 
