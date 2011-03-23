@@ -110,7 +110,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not neccessarily equivalent to <tt>getCopeID().hashCode()</tt>.
+	 * Note, that this is not necessarily equivalent to <tt>getCopeID().hashCode()</tt>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	@Override
