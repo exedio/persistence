@@ -105,8 +105,8 @@ public class TypesBoundTest extends CopeAssert
 
 		// error if not mounted
 		final String modelMessage =
-			"model not set for type AnItem, " +
-			"probably you forgot to put this type into the model.";
+			"type AnItem (" + AnItem.class.getName() +
+			") does not belong to any model";
 		try
 		{
 			type.getModel();
