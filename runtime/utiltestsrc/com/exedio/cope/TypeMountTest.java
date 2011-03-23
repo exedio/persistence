@@ -57,7 +57,7 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"valueType of Item2.f not yet resolved: com.exedio.cope.TypeMountTest$Item1",
+					"value type of Item2.f (com.exedio.cope.TypeMountTest$Item1) does not belong to any model",
 					e.getMessage());
 		}
 

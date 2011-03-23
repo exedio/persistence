@@ -158,7 +158,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
-			throw new IllegalStateException("valueType of " + this.toString() + " not yet resolved: " + valueTypeFuture.toString());
+			throw new IllegalStateException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to any model");
 
 		return valueType;
 	}
