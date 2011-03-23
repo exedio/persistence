@@ -58,7 +58,7 @@ final class Types
 
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypes)
-			addTypeIncludingGenerated(type, typesL, 10);
+			addTypeIncludingSourceTypes(type, typesL, 10);
 
 		for(final Type<?> type : typesL)
 			type.assertNotMounted();
@@ -79,7 +79,7 @@ final class Types
 
 		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypesSorted)
-			addTypeIncludingGenerated(type, typesSorted, 10);
+			addTypeIncludingSourceTypes(type, typesSorted, 10);
 
 		for(final Type<?> type : typesSorted)
 			type.testActivation();
@@ -183,7 +183,7 @@ final class Types
 		return result.toArray(new Type[result.size()]);
 	}
 
-	private static final void addTypeIncludingGenerated(
+	private static final void addTypeIncludingSourceTypes(
 			final Type<?> type,
 			final ArrayList<Type<?>> result,
 			int hopCount)
@@ -195,8 +195,8 @@ final class Types
 		result.add(type);
 		for(final Feature f : type.getDeclaredFeatures())
 			if(f instanceof Pattern)
-				for(final Type<?> generatedType : ((Pattern)f).getSourceTypes())
-					addTypeIncludingGenerated(generatedType, result, hopCount);
+				for(final Type<?> sourceType : ((Pattern)f).getSourceTypes())
+					addTypeIncludingSourceTypes(sourceType, result, hopCount);
 	}
 
 	static final class MountParameters
