@@ -126,6 +126,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 */
 	public int compareTo(final Item other)
 	{
+		if(this==other)
+			return 0;
+
 		final int typeResult = type.toptype.compareTo(other.type.toptype);
 		if(typeResult!=0)
 			return typeResult;
