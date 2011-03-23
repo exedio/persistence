@@ -504,8 +504,8 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				throw new IllegalArgumentException(
 						"types are not comparable, " +
 						"because they do not belong to the same model: " +
-						id + ',' +
-						o.id);
+						id + " (" + model + ") and " +
+						o.id + " (" + o.model + ").");
 
 			return Compare.compare(orderIdTransiently, o.orderIdTransiently);
 		}

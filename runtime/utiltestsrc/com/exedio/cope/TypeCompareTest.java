@@ -53,7 +53,7 @@ public class TypeCompareTest extends CopeAssert
 					e.getMessage());
 		}
 
-		new Model(type1, type2);
+		final Model model = new Model(type1, type2);
 		assertEquals(0, type1.compareTo(type1));
 		assertEquals(0, type2.compareTo(type2));
 		assertEquals(-1, type1.compareTo(type2));
@@ -85,7 +85,7 @@ public class TypeCompareTest extends CopeAssert
 					e.getMessage());
 		}
 
-		new Model(typeOtherModel);
+		final Model otherModel = new Model(typeOtherModel);
 		try
 		{
 			type1.compareTo(typeOtherModel);
@@ -95,7 +95,7 @@ public class TypeCompareTest extends CopeAssert
 		{
 			assertEquals(
 					"types are not comparable, because they do not belong to the same model: " +
-					"AnItem,AnotherModelItem",
+					"AnItem (" + model + ") and AnotherModelItem (" + otherModel + ").",
 					e.getMessage());
 		}
 		try
@@ -107,7 +107,7 @@ public class TypeCompareTest extends CopeAssert
 		{
 			assertEquals(
 					"types are not comparable, because they do not belong to the same model: " +
-					"AnotherModelItem,AnItem",
+					"AnotherModelItem (" + otherModel + ") and AnItem (" + model + ").",
 					e.getMessage());
 		}
 	}
