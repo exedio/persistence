@@ -18,23 +18,16 @@
 
 package com.exedio.cope.misc;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static com.exedio.cope.misc.Compare.compare;
 
-public class PackageUtilTest extends TestCase
+import com.exedio.cope.junit.CopeAssert;
+
+public class CompareTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenNotSetTest.class);
-		suite.addTestSuite(ConnectTokenSetTest.class);
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(ConnectTokenNullModelTest.class);
-		suite.addTestSuite(ServletUtilTest.class);
-		suite.addTestSuite(ServletUtilContextTest.class);
-		suite.addTestSuite(CompareTest.class);
-		suite.addTestSuite(SetValueUtilTest.class);
-		return suite;
+		assertEquals( 0, compare(0, 0));
+		assertEquals(-1, compare(0, 1));
+		assertEquals( 1, compare(1, 0));
 	}
 }
