@@ -183,7 +183,10 @@ final class Types
 		return result.toArray(new Type[result.size()]);
 	}
 
-	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)
+	private static final void addTypeIncludingGenerated(
+			final Type<?> type,
+			final ArrayList<Type<?>> result,
+			int hopCount)
 	{
 		hopCount--;
 		if(hopCount<0)
