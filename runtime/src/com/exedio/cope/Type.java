@@ -384,7 +384,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private Mount<T> mount()
 	{
 		if(mount==null)
-			throw new IllegalStateException("model not set for type " + id + ", probably you forgot to put this type into the model.");
+			throw new IllegalStateException("type " + id + " (" + javaClass.getName() + ") does not belong to any model");
 
 		return mount;
 	}

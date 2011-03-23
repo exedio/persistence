@@ -35,7 +35,7 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type Item1, probably you forgot to put this type into the model.",
+					"type Item1 (com.exedio.cope.TypeMountTest$Item1) does not belong to any model",
 					e.getMessage());
 		}
 		try
@@ -46,7 +46,7 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"model not set for type Item2, probably you forgot to put this type into the model.",
+					"type Item2 (com.exedio.cope.TypeMountTest$Item2) does not belong to any model",
 					e.getMessage());
 		}
 		assertSame(Item1.class, Item2.f.getValueClass());
