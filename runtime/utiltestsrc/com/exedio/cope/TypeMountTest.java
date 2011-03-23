@@ -35,7 +35,7 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"type Item1 (com.exedio.cope.TypeMountTest$Item1) does not belong to any model",
+					"type Item1 (" + Item1.class.getName() + ") does not belong to any model",
 					e.getMessage());
 		}
 		try
@@ -46,7 +46,7 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"type Item2 (com.exedio.cope.TypeMountTest$Item2) does not belong to any model",
+					"type Item2 (" + Item2.class.getName() + ") does not belong to any model",
 					e.getMessage());
 		}
 		assertSame(Item1.class, Item2.f.getValueClass());
@@ -57,11 +57,11 @@ public class TypeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"value type of Item2.f (com.exedio.cope.TypeMountTest$Item1) does not belong to any model",
+					"value type of Item2.f (" + Item1.class.getName() + ") does not belong to any model",
 					e.getMessage());
 		}
 
-		final Model model = new Model(Item1.TYPE, Item2.TYPE);
+		final Model model = new Model(type1, type2);
 		assertSame(model, type1.getModel());
 		assertSame(model, type2.getModel());
 		assertSame(Item1.class, Item2.f.getValueClass());
