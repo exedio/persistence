@@ -81,6 +81,9 @@ final class Types
 		for(final Type<?> type : explicitTypesSorted)
 			addTypeIncludingGenerated(type, typesSorted, 10);
 
+		for(final Type<?> type : typesSorted)
+			type.testActivation();
+
 		final HashMap<Type, MountParameters> parametersMap = new HashMap<Type, MountParameters>();
 		int typeCount = 0;
 		int concreteTypeCount = 0;
@@ -137,9 +140,6 @@ final class Types
 
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
-
-		for(final Type<?> type : typesSorted)
-			type.testActivation();
 	}
 
 	private static final Type<?>[] sort(final Type<?>[] types)
