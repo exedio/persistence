@@ -171,8 +171,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		if(valueType==null)
-			throw new RuntimeException(toString());
+		final Type<E> valueType = getValueType();
 		if(connected)
 			throw new RuntimeException(toString());
 		if(onlyPossibleValueType!=null)
