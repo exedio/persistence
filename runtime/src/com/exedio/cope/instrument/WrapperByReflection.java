@@ -81,6 +81,10 @@ public final class WrapperByReflection
 			throw new RuntimeException(e);
 		}
 
+		final Wrapped annotation = getAnnotation(method);
+		if(annotation==null)
+			throw new IllegalArgumentException(method.toString());
+
 		final int parameterOffset;
 		if(parameterTypes[0]==Class.class)
 		{
@@ -109,9 +113,6 @@ public final class WrapperByReflection
 			}
 		}
 		{
-			final Wrapped annotation = getAnnotation(method);
-			if(annotation==null)
-				throw new IllegalArgumentException(method.toString());
 			{
 				for(final String s : annotation.comment())
 					if(!s.isEmpty())
