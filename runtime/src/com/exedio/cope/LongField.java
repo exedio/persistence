@@ -92,7 +92,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(LongField.class, this);
+		final WrapperByReflection factory = new WrapperByReflection(this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		if(isMandatory())

@@ -183,7 +183,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(Dispatcher.class);
+		final WrapperByReflection factory = new WrapperByReflection(this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 

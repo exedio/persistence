@@ -152,7 +152,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(DoubleField.class, this);
+		final WrapperByReflection factory = new WrapperByReflection(this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		if(isMandatory())

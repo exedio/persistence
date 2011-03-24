@@ -24,30 +24,25 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 
 public final class WrapperByReflection
 {
-	private final Class<?> clazz;
+	private final Class<? extends Feature> clazz;
 	private final FunctionField instance; // TODO remove
 
-	public WrapperByReflection(final Class<?> clazz)
+	public WrapperByReflection(final Feature instance)
 	{
-		this.clazz = clazz;
+		this.clazz = instance.getClass();
 		this.instance = null;
-		if(clazz==null)
-			throw new NullPointerException("clazz");
 	}
 
-	public WrapperByReflection(final Class<?> clazz, final FunctionField instance)
+	public WrapperByReflection(final FunctionField instance)
 	{
-		this.clazz = clazz;
+		this.clazz = instance.getClass();
 		this.instance = instance;
-		if(clazz==null)
-			throw new NullPointerException("clazz");
-		if(instance==null)
-			throw new NullPointerException("instance");
 	}
 
 	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
@@ -114,7 +109,7 @@ public final class WrapperByReflection
 			}
 		}
 		{
-			final MethodComment comment = method.getAnnotation(MethodComment.class);
+			final MethodComment comment = getSuperComment(method);
 			if(comment!=null)
 			{
 				for(final String s : comment.value())
@@ -161,6 +156,33 @@ public final class WrapperByReflection
 			}
 		}
 		return result;
+	}
+
+	private MethodComment getSuperComment(Method method)
+	{
+		while(true)
+		{
+			final MethodComment comment = method.getAnnotation(MethodComment.class);
+			if(comment!=null)
+				return comment;
+
+			final Class<?> superClass = method.getDeclaringClass().getSuperclass();
+			if(superClass==null)
+				return null;
+
+			try
+			{
+				method = superClass.getMethod(method.getName(), method.getParameterTypes());
+			}
+			catch(final SecurityException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(final NoSuchMethodException e)
+			{
+				return null;
+			}
+		}
 	}
 
 	private Type replace(final Type type, final Method method)
