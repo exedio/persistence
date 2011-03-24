@@ -238,6 +238,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals(false, item1.string.min().isMaximum());
 		assertEquals(false, item1.string.max().isMinimum());
 		assertEquals(true,  item1.string.max().isMaximum());
+		assertEquals(String.class, item1.string.min().getValueClass());
+		assertEquals(String.class, item1.string.max().getValueClass());
 
 		// sum
 		{

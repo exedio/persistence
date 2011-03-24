@@ -26,8 +26,6 @@ public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
 
-	Class<E> getValueClass();
-
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
