@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MethodComment
+public @interface Wrapped
 {
 	String[] value();
 	String name() default "";

@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 
@@ -198,7 +198,7 @@ public final class DoubleField extends NumberField<Double>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@MethodComment(value="Returns the value of {0}.", name="get{0}")
+	@Wrapped(value="Returns the value of {0}.", name="get{0}")
 	public final double getMandatory(final Item item)
 	{
 		if(optional)

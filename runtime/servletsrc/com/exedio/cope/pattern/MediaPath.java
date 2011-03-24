@@ -35,7 +35,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.util.Hex;
@@ -216,7 +216,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@MethodComment("Returns a Locator the content of {0} is available under.")
+	@Wrapped("Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -236,7 +236,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@MethodComment("Returns a URL the content of {0} is available under.")
+	@Wrapped("Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -484,7 +484,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@MethodComment("Returns the content type of the media {0}.")
+	@Wrapped("Returns the content type of the media {0}.")
 	public abstract String getContentType(Item item);
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)

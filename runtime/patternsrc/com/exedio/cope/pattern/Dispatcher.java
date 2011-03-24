@@ -45,7 +45,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.ParameterComment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
@@ -144,7 +144,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
-	@MethodComment(value="Returns the parent field of the run type of {0}.", name="{1}RunParent")
+	@Wrapped(value="Returns the parent field of the run type of {0}.", name="{1}RunParent")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -220,7 +220,7 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	@MethodComment("Dispatch by {0}.")
+	@Wrapped("Dispatch by {0}.")
 	@WrapperReturn("the number of successfully dispatched items")
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
@@ -236,7 +236,7 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
-	@MethodComment("Dispatch by {0}.")
+	@Wrapped("Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
 			@ParameterComment("config") final Config config,
@@ -362,13 +362,13 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@MethodComment("Returns, whether this item is yet to be dispatched by {0}.")
+	@Wrapped("Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
-	@MethodComment("Sets whether this item is yet to be dispatched by {0}.")
+	@Wrapped("Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
 			final Item item,
 			@ParameterComment("pending") final boolean pending)
@@ -376,14 +376,14 @@ public final class Dispatcher extends Pattern
 		this.pending.set(item, pending);
 	}
 
-	@MethodComment("Returns the date, this item was last successfully dispatched by {0}.")
+	@Wrapped("Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
 
-	@MethodComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
+	@Wrapped("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
@@ -402,7 +402,7 @@ public final class Dispatcher extends Pattern
 		return q.searchSingleton();
 	}
 
-	@MethodComment("Returns the attempts to dispatch this item by {0}.")
+	@Wrapped("Returns the attempts to dispatch this item by {0}.")
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();
@@ -413,7 +413,7 @@ public final class Dispatcher extends Pattern
 					true);
 	}
 
-	@MethodComment("Returns the failed attempts to dispatch this item by {0}.")
+	@Wrapped("Returns the failed attempts to dispatch this item by {0}.")
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();

@@ -109,7 +109,7 @@ public final class WrapperByReflection
 			}
 		}
 		{
-			final MethodComment comment = getSuperComment(method);
+			final Wrapped comment = getSuperComment(method);
 			if(comment!=null)
 			{
 				for(final String s : comment.value())
@@ -158,11 +158,11 @@ public final class WrapperByReflection
 		return result;
 	}
 
-	private MethodComment getSuperComment(Method method)
+	private Wrapped getSuperComment(Method method)
 	{
 		while(true)
 		{
-			final MethodComment comment = method.getAnnotation(MethodComment.class);
+			final Wrapped comment = method.getAnnotation(Wrapped.class);
 			if(comment!=null)
 				return comment;
 

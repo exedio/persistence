@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.search.ExtremumAggregate;
@@ -193,7 +193,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Collections.unmodifiableList(result);
 	}
 
-	@MethodComment("Returns the value of {0}.")
+	@Wrapped("Returns the value of {0}.")
 	@Override
 	public final E get(final Item item)
 	{

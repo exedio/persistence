@@ -25,7 +25,7 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.MethodComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 
@@ -68,7 +68,7 @@ public abstract class MediaFilter extends CachedMedia
 		return source.getLastModified(item);
 	}
 
-	@MethodComment("Returns a URL the content of {0} is available under.") // TODO better text
+	@Wrapped("Returns a URL the content of {0} is available under.") // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);
