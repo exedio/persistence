@@ -45,11 +45,10 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
-import com.exedio.cope.instrument.WrapperReturn;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
@@ -220,8 +219,8 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	@Wrapped(comment = "Dispatch by {0}.")
-	@WrapperReturn("the number of successfully dispatched items")
+	@Wrapped(comment = "Dispatch by {0}.",
+		returns="the number of successfully dispatched items")
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
 			@ParameterComment("config") final Config config,

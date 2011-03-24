@@ -105,9 +105,9 @@ public final class WrapperByReflection
 			final Type returnType = method.getGenericReturnType();
 			if(returnType!=void.class)
 			{
-				final WrapperReturn comment = method.getAnnotation(WrapperReturn.class);
-				if(comment!=null)
-					result.setReturn(replace(returnType, method), comment.value());
+				final String comment = annotation.returns();
+				if(!comment.isEmpty())
+					result.setReturn(replace(returnType, method), comment);
 				else
 					result.setReturn(replace(returnType, method));
 			}

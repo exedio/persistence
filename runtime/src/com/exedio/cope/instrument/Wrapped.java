@@ -29,5 +29,6 @@ import java.lang.annotation.Target;
 public @interface Wrapped
 {
 	String[] comment() default "";
+	String returns() default "";
 	String name() default "";
 }
