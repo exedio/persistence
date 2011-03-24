@@ -103,13 +103,18 @@ public final class WrapperByReflection
 
 		{
 			final Type returnType = method.getGenericReturnType();
+			final String comment = annotation.returns();
 			if(returnType!=void.class)
 			{
-				final String comment = annotation.returns();
 				if(!comment.isEmpty())
 					result.setReturn(replace(returnType, method), comment);
 				else
 					result.setReturn(replace(returnType, method));
+			}
+			else
+			{
+				if(!comment.isEmpty())
+					throw new IllegalArgumentException('@' + "returns");
 			}
 		}
 		{
