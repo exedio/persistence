@@ -36,6 +36,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
@@ -143,6 +144,7 @@ public final class PasswordRecovery extends Pattern
 	/**
 	 * @return a valid token for password recovery
 	 */
+	@Wrapped()
 	public Token issue(
 			final Item item,
 			@ParameterComment(value="expiryMillis", comment="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)

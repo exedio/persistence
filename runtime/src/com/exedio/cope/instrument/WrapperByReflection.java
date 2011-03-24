@@ -110,10 +110,12 @@ public final class WrapperByReflection
 		}
 		{
 			final Wrapped comment = getSuperComment(method);
-			if(comment!=null)
+			if(comment==null)
+				throw new IllegalArgumentException(method.toString());
 			{
 				for(final String s : comment.value())
-					result.addComment(s);
+					if(!s.isEmpty())
+						result.addComment(s);
 
 				final String methodWrapperPattern = comment.name();
 				if(!methodWrapperPattern.isEmpty())

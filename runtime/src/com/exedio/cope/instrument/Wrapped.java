@@ -28,6 +28,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Wrapped
 {
-	String[] value();
+	String[] value() default "";
 	String name() default "";
 }

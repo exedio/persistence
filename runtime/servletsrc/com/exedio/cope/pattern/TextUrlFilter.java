@@ -39,6 +39,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.ParameterComment;
 import com.exedio.cope.instrument.ThrowsComment;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
@@ -110,6 +111,7 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
+	@Wrapped()
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
@@ -119,6 +121,7 @@ public class TextUrlFilter extends MediaFilter
 		this.raw.set( item, raw );
 	}
 
+	@Wrapped()
 	public final void addPaste(
 			final Item item,
 			@ParameterComment("key") final String key,
@@ -130,6 +133,7 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
+	@Wrapped()
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
