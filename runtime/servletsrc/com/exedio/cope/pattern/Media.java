@@ -336,7 +336,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
-	@Wrapped("Returns whether media {0} is null.")
+	@Wrapped(comment = "Returns whether media {0} is null.")
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
@@ -357,7 +357,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrapped("Returns the last modification date of media {0}.")
+	@Wrapped(comment = "Returns the last modification date of media {0}.")
 	@Override
 	public long getLastModified(final Item item)
 	{
@@ -369,7 +369,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrapped("Returns the body length of the media {0}.")
+	@Wrapped(comment = "Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		// do check before, because this check is supported by the item cache
@@ -388,7 +388,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
-	@Wrapped("Sets the content of media {0}.")
+	@Wrapped(comment = "Sets the content of media {0}.")
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -405,7 +405,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrapped("Returns the body of the media {0}.")
+	@Wrapped(comment = "Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return this.body.getArray(item);
@@ -419,7 +419,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrapped("Sets the content of media {0}.")
+	@Wrapped(comment = "Sets the content of media {0}.")
 	public void set(
 			final Item item,
 			@ParameterComment("body") final byte[] body,
@@ -446,7 +446,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped({
+	@Wrapped(comment = {
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."})
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
@@ -468,7 +468,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped("Sets the content of media {0}.")
+	@Wrapped(comment = "Sets the content of media {0}.")
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -497,7 +497,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped({
+	@Wrapped(comment = {
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."})
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
@@ -518,7 +518,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped("Sets the content of media {0}.")
+	@Wrapped(comment = "Sets the content of media {0}.")
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,

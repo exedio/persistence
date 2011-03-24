@@ -113,7 +113,7 @@ public final class WrapperByReflection
 			if(comment==null)
 				throw new IllegalArgumentException(method.toString());
 			{
-				for(final String s : comment.value())
+				for(final String s : comment.comment())
 					if(!s.isEmpty())
 						result.addComment(s);
 

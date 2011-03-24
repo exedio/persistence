@@ -198,7 +198,7 @@ public final class DoubleField extends NumberField<Double>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(value="Returns the value of {0}.", name="get{0}")
+	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public final double getMandatory(final Item item)
 	{
 		if(optional)

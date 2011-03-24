@@ -249,7 +249,7 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(value="Returns the value of {0}.", name="get{0}")
+	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public int getMandatory(final Item item)
 	{
 		if(optional)

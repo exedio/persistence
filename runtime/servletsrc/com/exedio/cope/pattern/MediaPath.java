@@ -216,7 +216,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped("Returns a Locator the content of {0} is available under.")
+	@Wrapped(comment = "Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -236,7 +236,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrapped("Returns a URL the content of {0} is available under.")
+	@Wrapped(comment = "Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -484,7 +484,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped("Returns the content type of the media {0}.")
+	@Wrapped(comment = "Returns the content type of the media {0}.")
 	public abstract String getContentType(Item item);
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
