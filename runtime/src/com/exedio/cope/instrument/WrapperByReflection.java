@@ -109,15 +109,15 @@ public final class WrapperByReflection
 			}
 		}
 		{
-			final Wrapped comment = getSuperComment(method);
-			if(comment==null)
+			final Wrapped annotation = getAnnotation(method);
+			if(annotation==null)
 				throw new IllegalArgumentException(method.toString());
 			{
-				for(final String s : comment.comment())
+				for(final String s : annotation.comment())
 					if(!s.isEmpty())
 						result.addComment(s);
 
-				final String methodWrapperPattern = comment.name();
+				final String methodWrapperPattern = annotation.name();
 				if(!methodWrapperPattern.isEmpty())
 					result.setMethodWrapperPattern(methodWrapperPattern);
 			}
@@ -160,13 +160,13 @@ public final class WrapperByReflection
 		return result;
 	}
 
-	private Wrapped getSuperComment(Method method)
+	private Wrapped getAnnotation(Method method)
 	{
 		while(true)
 		{
-			final Wrapped comment = method.getAnnotation(Wrapped.class);
-			if(comment!=null)
-				return comment;
+			final Wrapped result = method.getAnnotation(Wrapped.class);
+			if(result!=null)
+				return result;
 
 			final Class<?> superClass = method.getDeclaringClass().getSuperclass();
 			if(superClass==null)
