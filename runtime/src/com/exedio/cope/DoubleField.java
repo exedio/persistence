@@ -149,7 +149,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
-	Double get(final Row row, final Query query)
+	Double get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
