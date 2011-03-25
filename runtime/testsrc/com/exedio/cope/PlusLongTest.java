@@ -89,6 +89,12 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
 
+		// toString
+		assertEquals("plus("+numB+")", numB.plus(5l).toString()); // TODO add literal
+		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
+		assertEquals("multiply("+numB+")", numB.multiply(5l).toString()); // TODO add literal
+		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
+
 		// test normal operation
 		assertEquals(l1, item.getNumA());
 		assertEquals(l2, item.getNumB());
