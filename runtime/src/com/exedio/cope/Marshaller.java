@@ -23,5 +23,10 @@ import java.sql.SQLException;
 
 interface Marshaller<E>
 {
+	/**
+	 * @param resultSet
+	 *        For any implementor it is strictly forbidden
+	 *        to change the position of the cursor of the result set.
+	 */
 	E unmarshal(ResultSet resultSet, IntHolder columnIndex) throws SQLException;
 }
