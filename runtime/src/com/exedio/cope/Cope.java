@@ -30,9 +30,6 @@ import com.exedio.cope.util.Cast;
  */
 public abstract class Cope
 {
-	Cope()
-	{/* do not allow class to be subclassed by public */}
-
 	public static final <E> Condition equal(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
@@ -294,6 +291,11 @@ public abstract class Cope
 		else
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
 		model.disconnect();
+	}
+
+	Cope()
+	{
+		// do not allow class to be subclassed by public
 	}
 
 	// ------------------- deprecated stuff -------------------
