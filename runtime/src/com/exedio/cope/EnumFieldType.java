@@ -121,7 +121,7 @@ final class EnumFieldType<E extends Enum<E>>
 	}
 
 
-	static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
 
 	@SuppressWarnings("unchecked")
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
