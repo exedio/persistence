@@ -94,6 +94,10 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
 		assertEquals("("+numB+"*5)", numB.multiply(5).toString());
 		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
+		assertEquals("select ("+numB+"+5) from "+TYPE, new Query<Integer>(numB.plus(5)).toString());
+		assertEquals("select plus("+numB+","+numA+") from "+TYPE, new Query<Integer>(numB.plus(numA)).toString());
+		assertEquals("select ("+numB+"*5) from "+TYPE, new Query<Integer>(numB.multiply(5)).toString());
+		assertEquals("select multiply("+numB+","+numA+") from "+TYPE, new Query<Integer>(numB.multiply(numA)).toString());
 
 		// exceptions
 		try
