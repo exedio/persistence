@@ -68,10 +68,10 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append('(');
-		bf.append(left);
+		left.toString(bf, defaultType);
 		bf.append('+');
 		bf.append(right);
 		bf.append(')');

@@ -159,7 +159,7 @@ public abstract class Feature implements Serializable
 		return Collections.<Wrapper>emptyList();
 	}
 
-	void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(super.toString());
 	}
@@ -175,7 +175,7 @@ public abstract class Feature implements Serializable
 		else
 		{
 			final StringBuilder bf = new StringBuilder();
-			toStringNotMounted(bf);
+			toStringNotMounted(bf, null);
 			return bf.toString();
 		}
 	}
@@ -186,7 +186,7 @@ public abstract class Feature implements Serializable
 		if(mount!=null)
 			mount.toString(bf, defaultType);
 		else
-			toStringNotMounted(bf);
+			toStringNotMounted(bf, defaultType);
 	}
 
 	// patterns ------------------

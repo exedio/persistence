@@ -137,7 +137,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -145,7 +145,7 @@ public abstract class View<E> extends Feature
 		{
 			if(i>0)
 				bf.append(',');
-			bf.append(sources[i].toString());
+			sources[i].toString(bf, defaultType);
 		}
 		bf.append(')');
 	}
