@@ -81,10 +81,6 @@ public abstract class View<E> extends Feature
 
 	protected abstract E mapJava(Object[] sourceValues);
 
-	abstract String surface2Database(Object value);
-
-	abstract void surface2DatabasePrepared(Statement bf, Object value);
-
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -138,18 +134,6 @@ public abstract class View<E> extends Feature
 	public final void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
-	}
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		if(bf.parameters==null)
-			bf.append(surface2Database(value));
-		else
-			surface2DatabasePrepared(bf, value);
 	}
 
 	@Override

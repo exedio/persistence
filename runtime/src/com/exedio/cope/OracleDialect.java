@@ -162,7 +162,7 @@ final class OracleDialect extends Dialect
 		bf.append("(contains(").
 			append(function, (Join)null).
 			append(',').
-			appendParameter(function, value).
+			appendParameterAny(value).
 			append(")>0)");
 	}
 

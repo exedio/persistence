@@ -31,21 +31,6 @@ public abstract class NumberView<E extends Number> extends View<E>
 		super(sources, name, valueClass);
 	}
 
-	@Override
-	final String surface2Database(final Object value)
-	{
-		if(value==null)
-			return "NULL";
-		else
-			return ((Number)value).toString();
-	}
-
-	@Override
-	final void surface2DatabasePrepared(final Statement bf, final Object value)
-	{
-		bf.appendParameter((Number)value);
-	}
-
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override

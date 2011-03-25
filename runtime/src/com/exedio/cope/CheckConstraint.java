@@ -52,7 +52,7 @@ public final class CheckConstraint extends Feature
 
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
 	{
-		final Statement statement = new Statement(table.database.dialect);
+		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
 		condition.append(statement);
 
 		new com.exedio.dsmf.CheckConstraint(

@@ -60,7 +60,7 @@ public final class CompareCondition<E> extends Condition
 	{
 		bf.append(left, (Join)null).
 			append(operator.sql).
-			appendParameter(left, right);
+			appendParameterAny(right);
 	}
 
 	@Override

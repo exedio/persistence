@@ -40,4 +40,16 @@ final class SimpleItemMarshaller<E extends Item> implements Marshaller<E>
 
 		return onlyPossibleTypeOfInstances.getItemObject(((Number)cell).intValue());
 	}
+
+	@Override
+	public String marshal(final E value)
+	{
+		return String.valueOf(value.pk);
+	}
+
+	@Override
+	public Object marshalPrepared(final E value)
+	{
+		return value.pk;
+	}
 }

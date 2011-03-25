@@ -26,10 +26,12 @@ import java.sql.SQLException;
 final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 {
 	private final TIntObjectHashMap<E> numbersToValues;
+	private final int[] ordinalsToNumbers;
 
 	EnumMarshaller(final EnumFieldType<E> type)
 	{
 		numbersToValues = type.numbersToValues;
+		ordinalsToNumbers = type.ordinalsToNumbers;
 	}
 
 	@Override
@@ -43,5 +45,17 @@ final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 		if(result==null)
 			throw new RuntimeException(String.valueOf(cell));
 		return result;
+	}
+
+	@Override
+	public String marshal(final E value)
+	{
+		return String.valueOf(ordinalsToNumbers[value.ordinal()]); // TODO precompute strings
+	}
+
+	@Override
+	public Object marshalPrepared(final E value)
+	{
+		return ordinalsToNumbers[value.ordinal()];
 	}
 }

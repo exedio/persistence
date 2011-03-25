@@ -260,7 +260,7 @@ final class MysqlDialect extends Dialect
 		bf.append("(match(").
 			append(function, (Join)null).
 			append(")against(").
-			appendParameter(function, value).
+			appendParameterAny(value).
 			append("))");
 	}
 

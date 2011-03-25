@@ -33,6 +33,8 @@ import com.exedio.cope.misc.Arrays;
 final class Statement
 {
 	final Dialect dialect;
+	final Marshallers marshallers;
+
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
@@ -47,6 +49,7 @@ final class Statement
 			throw new NullPointerException();
 
 		this.dialect = executor.dialect;
+		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 		this.tc = null;
@@ -55,9 +58,10 @@ final class Statement
 		this.qualifyTable = qualifyTable;
 	}
 
-	Statement(final Dialect dialect)
+	Statement(final Dialect dialect, final Marshallers marshallers)
 	{
 		this.dialect = dialect;
+		this.marshallers = marshallers;
 		this.fulltextIndex = false;
 		this.parameters = null;
 		this.tc = null;
@@ -72,6 +76,7 @@ final class Statement
 			throw new NullPointerException();
 
 		this.dialect = executor.dialect;
+		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
 		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
 
@@ -228,10 +233,19 @@ final class Statement
 		return this;
 	}
 
-	@SuppressWarnings("deprecation") // OK: Function.appendParameter is for internal use within COPE only
-	<E> Statement appendParameter(final Function<E> function, final E value)
+	<E> Statement appendParameterAny(final E value)
 	{
-		function.appendParameter(this, value);
+		@SuppressWarnings("unchecked")
+		final Marshaller<E> marshaller = marshallers.getByValue(value);
+
+		if(parameters==null)
+			text.append(marshaller.marshal(value));
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.parameters.add(marshaller.marshalPrepared(value));
+		}
+
 		return this;
 	}
 

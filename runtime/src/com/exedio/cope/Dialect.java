@@ -252,7 +252,7 @@ abstract class Dialect
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
 	String getBlobLength()

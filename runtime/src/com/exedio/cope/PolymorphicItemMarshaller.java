@@ -50,4 +50,16 @@ final class PolymorphicItemMarshaller<E extends Item> implements Marshaller<E>
 
 		return resultType.getItemObject(((Number)pkCell).intValue());
 	}
+
+	@Override
+	public String marshal(final E value)
+	{
+		return String.valueOf(value.pk);
+	}
+
+	@Override
+	public Object marshalPrepared(final E value)
+	{
+		return value.pk;
+	}
 }

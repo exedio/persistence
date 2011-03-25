@@ -79,15 +79,6 @@ public class BindFunction<E> implements Function<E>
 		function.appendSelect(bf, this.join);
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		bf.appendParameter(function, value);
-	}
-
 	public final Type<? extends Item> getType()
 	{
 		return function.getType();

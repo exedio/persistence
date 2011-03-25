@@ -90,12 +90,6 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(final Statement bf, final Double value)
-	{
-		throw new RuntimeException();
-	}
-
-	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
 		if(!type.getModel().supportsRandom())

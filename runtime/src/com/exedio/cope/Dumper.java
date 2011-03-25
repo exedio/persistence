@@ -64,7 +64,8 @@ public final class Dumper
 		final int pk = nextPk(type);
 		final E result = type.activate(pk);
 		final HashMap<BlobColumn, byte[]> blobs = result.toBlobs(fieldValues, null);
-		insert(type.getModel().connect().dialect, blobs, type, pk, row, type, out);
+		final Connect connect = type.getModel().connect();
+		insert(connect.dialect, connect.marshallers, blobs, type, pk, row, type, out);
 		return result;
 	}
 
@@ -91,6 +92,7 @@ public final class Dumper
 
 	private static void insert(
 			final Dialect dialect,
+			final Marshallers marshallers,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type type,
 			final int pk,
@@ -101,13 +103,13 @@ public final class Dumper
 	{
 		final Type supertype = tableType.supertype;
 		if(supertype!=null)
-			insert(dialect, blobs, type, pk, row, supertype, out);
+			insert(dialect, marshallers, blobs, type, pk, row, supertype, out);
 
 		final Table table = tableType.getTable();
 
 		final List<Column> columns = table.getColumns();
 
-		final Statement bf = new Statement(dialect);
+		final Statement bf = new Statement(dialect, marshallers);
 		final StringColumn typeColumn = table.typeColumn;
 
 		bf.append("insert into ").

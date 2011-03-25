@@ -29,4 +29,7 @@ interface Marshaller<E>
 	 *        to change the position of the cursor of the result set.
 	 */
 	E unmarshal(ResultSet resultSet, IntHolder columnIndex) throws SQLException;
+
+	String marshal(final E value);
+	Object marshalPrepared(final E value);
 }

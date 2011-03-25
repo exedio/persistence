@@ -36,6 +36,7 @@ final class Executor
 	static final String NO_SUCH_ROW = "no such row";
 
 	final Dialect dialect;
+	final Marshallers marshallers;
 	final boolean prepare;
 	final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
@@ -46,9 +47,11 @@ final class Executor
 
 	Executor(
 			final Dialect dialect,
-			final ConnectProperties properties)
+			final ConnectProperties properties,
+			final Marshallers marshallers)
 	{
 		this.dialect = dialect;
+		this.marshallers = marshallers;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.supportsUniqueViolation =
 			!properties.isSupportDisabledForUniqueViolation() &&

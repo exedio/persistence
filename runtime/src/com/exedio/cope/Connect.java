@@ -41,9 +41,9 @@ final class Connect
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
+	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
-	final Marshallers marshallers;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
 	final ClusterProperties clusterProperties;
@@ -119,7 +119,8 @@ final class Connect
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
-		this.executor = new Executor(dialect, properties);
+		this.marshallers = new Marshallers(supportsNativeDate());
+		this.executor = new Executor(dialect, properties, marshallers);
 		this.database = new Database(
 				dialect.dsmfDialect,
 				dialectParameters,
@@ -128,7 +129,6 @@ final class Connect
 				executor,
 				revisions);
 
-		this.marshallers = new Marshallers(supportsNativeDate());
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 

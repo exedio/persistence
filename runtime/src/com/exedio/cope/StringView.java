@@ -28,18 +28,6 @@ public abstract class StringView extends View<String>
 		super(sources, name, String.class);
 	}
 
-	@Override
-	final String surface2Database(final Object value)
-	{
-		return StringColumn.cacheToDatabaseStatic(value);
-	}
-
-	@Override
-	final void surface2DatabasePrepared(final Statement bf, final Object value)
-	{
-		bf.appendParameter((String)value);
-	}
-
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)
