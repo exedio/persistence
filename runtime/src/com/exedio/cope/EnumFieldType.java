@@ -123,17 +123,17 @@ final class EnumFieldType<E extends Enum<E>>
 
 	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
 
-	@SuppressWarnings("unchecked")
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
 		assert valueClass!=null;
 
 		synchronized(types)
 		{
-			EnumFieldType result = types.get(valueClass);
+			@SuppressWarnings("unchecked")
+			EnumFieldType<E> result = types.get(valueClass);
 			if(result==null)
 			{
-				result = new EnumFieldType(valueClass);
+				result = new EnumFieldType<E>(valueClass);
 				types.put(valueClass, result);
 			}
 			return result;
