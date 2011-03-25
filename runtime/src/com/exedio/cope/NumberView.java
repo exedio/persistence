@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
@@ -33,28 +29,6 @@ public abstract class NumberView<E extends Number> extends View<E>
 	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);
-	}
-
-	@Override
-	final Object load(final ResultSet resultSet, final int columnIndex)
-	throws SQLException
-	{
-		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerView.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
-		if(loadedInteger!=null)
-		{
-			if(loadedInteger instanceof BigDecimal)
-				return Integer.valueOf(((BigDecimal)loadedInteger).intValue());
-			else if(loadedInteger instanceof Long)
-				return Integer.valueOf(((Long)loadedInteger).intValue());
-			else
-			{
-				assert loadedInteger instanceof Integer;
-				return loadedInteger;
-			}
-		}
-		else
-			return null;
 	}
 
 	@Override

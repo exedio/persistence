@@ -70,14 +70,13 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		final Type selectType = getType();
 		bf.appendPK(selectType, join);
 
 		final IntegerColumn column = selectType.getTable().primaryKey;
 		assert column.primaryKey;
-		columnHolder.value = column;
 
 		final StringColumn typeColumn = column.table.typeColumn;
 		if(typeColumn!=null)
@@ -85,8 +84,6 @@ public final class This<E extends Item> extends Feature
 			bf.append(',').
 				append(typeColumn, join);
 		}
-		else
-			typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
 	}
 
 	@Deprecated // OK: for internal use within COPE only

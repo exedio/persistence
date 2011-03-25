@@ -834,30 +834,27 @@ public final class Query<R>
 		bf.append("select ");
 
 		final Selectable[] selects = this.selects();
-		final Column[] selectColumns = new Column[selects.length];
-		final Type[] selectTypes = new Type[selects.length];
+		final Marshaller[] selectMarshallers;
 
 		if(!distinct&&totalOnly)
 		{
 			bf.append("count(*)");
+			selectMarshallers = null;
 		}
 		else
 		{
 			if(distinct)
 				bf.append("distinct ");
 
-			final Holder<Column> selectColumn = new Holder<Column>();
-			final Holder<Type  > selectType   = new Holder<Type  >();
+			selectMarshallers = new Marshaller[selects.length];
+			final Marshallers marshallers = model.connect().marshallers;
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
 					bf.append(',');
 
-				selectColumn.value = null;
-				selectType  .value = null;
-				bf.appendSelect(selects[i], null, selectColumn, selectType);
-				selectColumns[i] = selectColumn.value;
-				selectTypes  [i] = selectType  .value;
+				bf.appendSelect(selects[i], null);
+				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
 		}
 
@@ -908,7 +905,6 @@ public final class Query<R>
 			}
 		}
 
-		final Model model = this.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
 
 		if(totalOnly && distinct)
@@ -946,73 +942,13 @@ public final class Query<R>
 					if((--sizeLimitCountDown)<0)
 						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
 
-					int columnIndex = 1;
+					final IntHolder columnIndex = new IntHolder(1);
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
-					final Row dummyRow = new Row();
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
-						final Selectable select;
-						{
-							Selectable select0 = selects[selectIndex];
-							if(select0 instanceof BindFunction)
-								select0 = ((BindFunction)select0).function;
-							if(select0 instanceof Aggregate)
-								select0 = ((Aggregate)select0).getSource();
-							select = select0;
-						}
-
-						final Object resultCell;
-						if(select instanceof FunctionField)
-						{
-							selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-							final FunctionField selectField = (FunctionField)select;
-							if(select instanceof ItemField)
-							{
-								final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
-								if(typeColumn!=null)
-									typeColumn.load(resultSet, columnIndex++, dummyRow);
-							}
-							resultCell = selectField.get(dummyRow, Query.this);
-						}
-						else if(select instanceof View)
-						{
-							final View selectFunction = (View)select;
-							resultCell = selectFunction.load(resultSet, columnIndex++);
-						}
-						else if(select instanceof Random)
-						{
-							resultCell = resultSet.getObject(columnIndex);
-						}
-						else
-						{
-							final Number pk = (Number)resultSet.getObject(columnIndex++);
-							//System.out.println("pk:"+pk);
-							if(pk==null)
-							{
-								// can happen when using right outer joins
-								resultCell = null;
-							}
-							else
-							{
-								final Type type = selectTypes[selectIndex];
-								final Type currentType;
-								if(type==null)
-								{
-									final String typeID = resultSet.getString(columnIndex++);
-									currentType = model.getType(typeID);
-									if(currentType==null)
-										throw new RuntimeException("no type with type id "+typeID);
-								}
-								else
-									currentType = type;
-
-								final int pkPrimitive = pk.intValue();
-								if(!PK.isValid(pkPrimitive))
-									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
-								resultCell = currentType.getItemObject(pkPrimitive);
-							}
-						}
+						final Object resultCell =
+							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
 						if(resultRow!=null)
 							resultRow[selectIndex] = resultCell;
 						else

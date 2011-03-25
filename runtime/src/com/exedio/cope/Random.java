@@ -107,7 +107,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}

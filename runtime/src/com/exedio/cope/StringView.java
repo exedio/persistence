@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 public abstract class StringView extends View<String>
 	implements StringFunction
 {
@@ -30,13 +26,6 @@ public abstract class StringView extends View<String>
 	public StringView(final Function<?>[] sources, final String name)
 	{
 		super(sources, name, String.class);
-	}
-
-	@Override
-	final Object load(final ResultSet resultSet, final int columnIndex)
-	throws SQLException
-	{
-		return resultSet.getString(columnIndex);
 	}
 
 	@Override

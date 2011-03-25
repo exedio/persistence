@@ -18,29 +18,30 @@
 
 package com.exedio.cope;
 
-public interface Selectable<E extends Object>
+import gnu.trove.TIntObjectHashMap;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 {
-	Class<E> getValueClass();
+	private final TIntObjectHashMap<E> numbersToValues;
 
-	Type<? extends Item> getType();
+	EnumMarshaller(final EnumFieldType<E> type)
+	{
+		numbersToValues = type.numbersToValues;
+	}
 
-	void toString(StringBuilder bf, Type defaultType);
+	@Override
+	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	{
+		final Object cell = row.getObject(columnIndex.value++);
+		if(cell==null)
+			return null;
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void check(TC tc, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void append(Statement bf, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void appendSelect(Statement bf, Join join);
+		final E result = numbersToValues.get((((Number)cell).intValue()));
+		if(result==null)
+			throw new RuntimeException(String.valueOf(cell));
+		return result;
+	}
 }

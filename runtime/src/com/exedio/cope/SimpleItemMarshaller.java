@@ -18,29 +18,26 @@
 
 package com.exedio.cope;
 
-public interface Selectable<E extends Object>
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+final class SimpleItemMarshaller<E extends Item> implements Marshaller<E>
 {
-	Class<E> getValueClass();
+	private final Type<? extends E> onlyPossibleTypeOfInstances;
 
-	Type<? extends Item> getType();
+	SimpleItemMarshaller(final Type<? extends E> onlyPossibleTypeOfInstances)
+	{
+		this.onlyPossibleTypeOfInstances = onlyPossibleTypeOfInstances;
+		assert onlyPossibleTypeOfInstances!=null;
+	}
 
-	void toString(StringBuilder bf, Type defaultType);
+	@Override
+	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	{
+		final Object cell = row.getObject(columnIndex.value++);
+		if(cell==null)
+			return null;
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void check(TC tc, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void append(Statement bf, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void appendSelect(Statement bf, Join join);
+		return onlyPossibleTypeOfInstances.getItemObject(((Number)cell).intValue());
+	}
 }

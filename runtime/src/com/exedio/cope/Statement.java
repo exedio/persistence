@@ -167,9 +167,9 @@ final class Statement
 	}
 
 	@SuppressWarnings("deprecation") // OK: Selectable.appendSelect is for internal use within COPE only
-	Statement appendSelect(final Selectable<?> select, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	Statement appendSelect(final Selectable<?> select, final Join join)
 	{
-		select.appendSelect(this, join, columnHolder, typeHolder);
+		select.appendSelect(this, join);
 		return this;
 	}
 

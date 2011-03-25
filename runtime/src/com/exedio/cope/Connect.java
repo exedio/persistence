@@ -43,6 +43,7 @@ final class Connect
 	final ConnectionPool connectionPool;
 	final Executor executor;
 	final Database database;
+	final Marshallers marshallers;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
 	final ClusterProperties clusterProperties;
@@ -127,6 +128,7 @@ final class Connect
 				executor,
 				revisions);
 
+		this.marshallers = new Marshallers(supportsNativeDate());
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 

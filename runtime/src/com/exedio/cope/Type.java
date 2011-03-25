@@ -412,6 +412,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
 		final Type<? extends C> onlyPossibleTypeOfInstances;
 		final String[] typesOfInstancesColumnValues;
+		final Marshaller<C> marshaller;
 
 		final List<ItemField<C>> declaredReferences;
 		final List<ItemField> references;
@@ -433,6 +434,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				case 1:
 					this.typesOfInstancesMap = null;
 					this.onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
+					this.marshaller = new SimpleItemMarshaller<C>(onlyPossibleTypeOfInstances);
 					this.typesOfInstancesColumnValues = null;
 					break;
 				default:
@@ -446,6 +448,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 						typesOfInstancesColumnValues[i++] = t.id;
 					}
 					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
+					this.marshaller = new PolymorphicItemMarshaller<C>(this.typesOfInstancesMap);
 					this.onlyPossibleTypeOfInstances = null;
 					break;
 			}
@@ -636,6 +639,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	Type<? extends T> getOnlyPossibleTypeOfInstances()
 	{
 		return mount().onlyPossibleTypeOfInstances;
+	}
+
+	Marshaller getMarshaller()
+	{
+		return mount().marshaller;
 	}
 
 	String[] getTypesOfInstancesColumnValues()

@@ -231,9 +231,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
-		super.appendSelect(bf, join, columnHolder, typeHolder);
+		super.appendSelect(bf, join);
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn, join);

@@ -32,6 +32,7 @@ final class EnumFieldType<E extends Enum<E>>
 	final List<E> values;
 	final TIntObjectHashMap<E> numbersToValues;
 	final int[] ordinalsToNumbers;
+	final EnumMarshaller<E> marshaller;
 
 	private EnumFieldType(final Class<E> valueClass)
 	{
@@ -90,6 +91,7 @@ final class EnumFieldType<E extends Enum<E>>
 		this.values = Collections.unmodifiableList(values);
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
+		this.marshaller = new EnumMarshaller<E>(this);
 	}
 
 	private static final <A extends Annotation> A getAnnotation(final Enum e, final Class<A> annotationClass)

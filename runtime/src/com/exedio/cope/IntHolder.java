@@ -18,7 +18,12 @@
 
 package com.exedio.cope;
 
-final class Holder<T>
+final class IntHolder
 {
-	T value;
+	int value;
+
+	IntHolder(final int value)
+	{
+		this.value = value;
+	}
 }
