@@ -125,6 +125,7 @@ final class CompositeType<X>
 		}
 	}
 
+	// static registry
 
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 

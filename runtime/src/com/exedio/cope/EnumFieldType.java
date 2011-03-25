@@ -120,6 +120,7 @@ final class EnumFieldType<E extends Enum<E>>
 		return ordinalsToNumbers[value.ordinal()];
 	}
 
+	// static registry
 
 	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
 
