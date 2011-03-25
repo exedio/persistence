@@ -37,9 +37,8 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.WrappedParam;
-import com.exedio.cope.instrument.ThrowsComment;
 import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
@@ -111,8 +110,8 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	@Wrapped()
-	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
+	@Wrapped(
+		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
 			@WrappedParam("raw") final Media.Value raw )
@@ -133,8 +132,8 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	@Wrapped()
-	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
+	@Wrapped(
+		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
 			@WrappedParam("key") final String key,

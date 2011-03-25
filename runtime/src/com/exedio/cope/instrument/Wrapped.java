@@ -32,4 +32,11 @@ public @interface Wrapped
 	String returns() default "";
 	String name() default "";
 	int position() default Integer.MIN_VALUE;
+	Thrown[] thrown() default {};
+
+	public @interface Thrown
+	{
+		Class<? extends Throwable> clazz();
+		String value() default "";
+	}
 }
