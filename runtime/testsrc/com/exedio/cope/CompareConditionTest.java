@@ -24,6 +24,7 @@ import static com.exedio.cope.CompareConditionItem.day;
 import static com.exedio.cope.CompareConditionItem.doublex;
 import static com.exedio.cope.CompareConditionItem.enumx;
 import static com.exedio.cope.CompareConditionItem.intx;
+import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
 
@@ -97,7 +98,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(itemX, TYPE, date.isNull());
 		assertCondition(itemX, TYPE, day.isNull());
 		assertCondition(itemX, TYPE, enumx.isNull());
-		assertCondition(itemX, TYPE, item1.item.isNull());
+		assertCondition(itemX, TYPE, item.isNull());
 		assertCondition(TYPE, TYPE.getThis().isNull());
 
 		// isNotNull
@@ -108,7 +109,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, item4, item5, TYPE, date.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, day.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, enumx.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.item.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, TYPE, item.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, itemX, TYPE, TYPE.getThis().isNotNull());
 
 		// equal
@@ -119,7 +120,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, TYPE, date.equal(aDate));
 		assertCondition(item3, TYPE, day.equal(aDay));
 		assertCondition(item3, TYPE, enumx.equal(YEnum.V3));
-		assertCondition(item3, TYPE, item1.item.equal(item3));
+		assertCondition(item3, TYPE, item.equal(item3));
 		assertCondition(item3, TYPE, TYPE.getThis().equal(item3));
 
 		// notEqual
@@ -130,7 +131,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item4, item5, TYPE, date.notEqual(aDate));
 		assertCondition(item1, item2, item4, item5, TYPE, day.notEqual(aDay));
 		assertCondition(item1, item2, item4, item5, TYPE, enumx.notEqual(YEnum.V3));
-		assertCondition(item1, item2, item4, item5, TYPE, item1.item.notEqual(item3));
+		assertCondition(item1, item2, item4, item5, TYPE, item.notEqual(item3));
 		assertCondition(item1, item2, item4, item5, itemX, TYPE, TYPE.getThis().notEqual(item3));
 
 		// less
@@ -141,7 +142,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, TYPE, date.less(aDate));
 		assertCondition(item1, item2, TYPE, day.less(aDay));
 		assertCondition(item1, item2, TYPE, enumx.less(YEnum.V3));
-		assertCondition(item1, item2, TYPE, item1.item.less(item3));
+		assertCondition(item1, item2, TYPE, item.less(item3));
 		assertCondition(item1, item2, TYPE, TYPE.getThis().less(item3));
 
 		// lessOrEqual
@@ -152,7 +153,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, TYPE, date.lessOrEqual(aDate));
 		assertCondition(item1, item2, item3, TYPE, day.lessOrEqual(aDay));
 		assertCondition(item1, item2, item3, TYPE, enumx.lessOrEqual(YEnum.V3));
-		assertCondition(item1, item2, item3, TYPE, item1.item.lessOrEqual(item3));
+		assertCondition(item1, item2, item3, TYPE, item.lessOrEqual(item3));
 		assertCondition(item1, item2, item3, TYPE, TYPE.getThis().lessOrEqual(item3));
 
 		// greater
@@ -163,7 +164,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item4, item5, TYPE, date.greater(aDate));
 		assertCondition(item4, item5, TYPE, day.greater(aDay));
 		assertCondition(item4, item5, TYPE, enumx.greater(YEnum.V3));
-		assertCondition(item4, item5, TYPE, item1.item.greater(item3));
+		assertCondition(item4, item5, TYPE, item.greater(item3));
 		assertCondition(item4, item5, itemX, TYPE, TYPE.getThis().greater(item3));
 
 		// greaterOrEqual
@@ -174,7 +175,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, TYPE, date.greaterOrEqual(aDate));
 		assertCondition(item3, item4, item5, TYPE, day.greaterOrEqual(aDay));
 		assertCondition(item3, item4, item5, TYPE, enumx.greaterOrEqual(YEnum.V3));
-		assertCondition(item3, item4, item5, TYPE, item1.item.greaterOrEqual(item3));
+		assertCondition(item3, item4, item5, TYPE, item.greaterOrEqual(item3));
 		assertCondition(item3, item4, item5, itemX, TYPE, TYPE.getThis().greaterOrEqual(item3));
 
 		// between
@@ -185,7 +186,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item2, item3, item4, TYPE, date.between(date(-1), date(+1)));
 		assertCondition(item2, item3, item4, TYPE, day.between(day(-1), day(+1)));
 		assertCondition(item2, item3, item4, TYPE, enumx.between(YEnum.V2, YEnum.V4));
-		assertCondition(item2, item3, item4, TYPE, item1.item.between(item2, item4));
+		assertCondition(item2, item3, item4, TYPE, item.between(item2, item4));
 		assertCondition(item2, item3, item4, TYPE, TYPE.getThis().between(item2, item4));
 
 		// in
@@ -196,7 +197,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, TYPE, date.in(listg(date(-2), aDate, date(+25))));
 		assertCondition(item1, item3, TYPE, day.in(listg(day(-2), aDay, day(+25))));
 		assertCondition(item1, item3, TYPE, enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX)));
-		assertCondition(item1, item3, TYPE, item1.item.in(listg(item1, item3)));
+		assertCondition(item1, item3, TYPE, item.in(listg(item1, item3)));
 		assertCondition(item1, item3, TYPE, TYPE.getThis().in(listg(item1, item3)));
 
 		// min
@@ -227,7 +228,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// This bug occurs for columns with an index only (that is created by
 		// the foreign key constraint here) and only when using the min()
 		// aggregate.
-		assertEquals(nullsFirst ? null : item1, new Query<CompareConditionItem>(item1.item.min()).searchSingleton());
+		assertEquals(nullsFirst ? null : item1, new Query<CompareConditionItem>(item.min()).searchSingleton());
 		assertEquals(item1, new Query<CompareConditionItem>(TYPE.getThis().min()).searchSingleton());
 
 		// max
@@ -239,7 +240,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals(date(+2), new Query<Date>(date.max()).searchSingleton());
 		assertEquals(day(+2), new Query<Day>(day.max()).searchSingleton());
 		assertEquals(YEnum.V5, new Query<YEnum>(enumx.max()).searchSingleton());
-		assertEquals(item5, new Query<CompareConditionItem>(item1.item.max()).searchSingleton());
+		assertEquals(item5, new Query<CompareConditionItem>(item.max()).searchSingleton());
 		assertEquals(itemX, new Query<CompareConditionItem>(TYPE.getThis().max()).searchSingleton());
 
 		// test extremum aggregate
