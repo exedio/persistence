@@ -141,7 +141,6 @@ final class Marshallers
 			throw new RuntimeException(clazz.getName());
 	}
 
-	@SuppressWarnings("unchecked")
 	Marshaller get(final Selectable select)
 	{
 		final Class<?> clazz = select.getValueClass();
