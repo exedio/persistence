@@ -24,8 +24,6 @@ import static java.lang.System.nanoTime;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,7 +46,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
@@ -182,11 +179,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		factory.makeAll(result);
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(this, super.getWrappers());
 	}
 
 	/**

@@ -25,6 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Feature;
+
 public final class Wrapper
 {
 	private final String name;
@@ -342,5 +344,14 @@ public final class Wrapper
 	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
 	{
 		return new ExtendsType(rawType, actualTypeArguments);
+	}
+
+	public static List<Wrapper> makeByReflection(final Feature feature, final List<Wrapper> superResult)
+	{
+		final WrapperByReflection factory = new WrapperByReflection(feature);
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(superResult);
+		factory.makeAll(result);
+		return Collections.unmodifiableList(result);
 	}
 }
