@@ -39,17 +39,17 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	}
 
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
-	static final Date date = new Date(1087365298214l);
-	static final Day day = new Day(2007, 4, 28);
+	static final Date aDate = new Date(1087365298214l);
+	static final Day aDay = new Day(2007, 4, 28);
 
 	private Date date(final long offset)
 	{
-		return new Date(date.getTime()+offset);
+		return new Date(aDate.getTime()+offset);
 	}
 
 	private Day day(final int offset)
 	{
-		return day.add(offset);
+		return aDay.add(offset);
 	}
 
 	@Override
@@ -113,8 +113,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, TYPE, intx.equal(3));
 		assertCondition(item3, TYPE, longx.equal(13l));
 		assertCondition(item3, TYPE, doublex.equal(2.3));
-		assertCondition(item3, TYPE, item1.date.equal(date));
-		assertCondition(item3, TYPE, item1.day.equal(day));
+		assertCondition(item3, TYPE, item1.date.equal(aDate));
+		assertCondition(item3, TYPE, item1.day.equal(aDay));
 		assertCondition(item3, TYPE, item1.enumx.equal(YEnum.V3));
 		assertCondition(item3, TYPE, item1.item.equal(item3));
 		assertCondition(item3, TYPE, TYPE.getThis().equal(item3));
@@ -124,8 +124,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item4, item5, TYPE, intx.notEqual(3));
 		assertCondition(item1, item2, item4, item5, TYPE, longx.notEqual(13l));
 		assertCondition(item1, item2, item4, item5, TYPE, doublex.notEqual(2.3));
-		assertCondition(item1, item2, item4, item5, TYPE, item1.date.notEqual(date));
-		assertCondition(item1, item2, item4, item5, TYPE, item1.day.notEqual(day));
+		assertCondition(item1, item2, item4, item5, TYPE, item1.date.notEqual(aDate));
+		assertCondition(item1, item2, item4, item5, TYPE, item1.day.notEqual(aDay));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.enumx.notEqual(YEnum.V3));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.item.notEqual(item3));
 		assertCondition(item1, item2, item4, item5, itemX, TYPE, TYPE.getThis().notEqual(item3));
@@ -135,8 +135,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, TYPE, intx.less(3));
 		assertCondition(item1, item2, TYPE, longx.less(13l));
 		assertCondition(item1, item2, TYPE, doublex.less(2.3));
-		assertCondition(item1, item2, TYPE, item1.date.less(date));
-		assertCondition(item1, item2, TYPE, item1.day.less(day));
+		assertCondition(item1, item2, TYPE, item1.date.less(aDate));
+		assertCondition(item1, item2, TYPE, item1.day.less(aDay));
 		assertCondition(item1, item2, TYPE, item1.enumx.less(YEnum.V3));
 		assertCondition(item1, item2, TYPE, item1.item.less(item3));
 		assertCondition(item1, item2, TYPE, TYPE.getThis().less(item3));
@@ -146,8 +146,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, TYPE, intx.lessOrEqual(3));
 		assertCondition(item1, item2, item3, TYPE, longx.lessOrEqual(13l));
 		assertCondition(item1, item2, item3, TYPE, doublex.lessOrEqual(2.3));
-		assertCondition(item1, item2, item3, TYPE, item1.date.lessOrEqual(date));
-		assertCondition(item1, item2, item3, TYPE, item1.day.lessOrEqual(day));
+		assertCondition(item1, item2, item3, TYPE, item1.date.lessOrEqual(aDate));
+		assertCondition(item1, item2, item3, TYPE, item1.day.lessOrEqual(aDay));
 		assertCondition(item1, item2, item3, TYPE, item1.enumx.lessOrEqual(YEnum.V3));
 		assertCondition(item1, item2, item3, TYPE, item1.item.lessOrEqual(item3));
 		assertCondition(item1, item2, item3, TYPE, TYPE.getThis().lessOrEqual(item3));
@@ -157,8 +157,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item4, item5, TYPE, intx.greater(3));
 		assertCondition(item4, item5, TYPE, longx.greater(13l));
 		assertCondition(item4, item5, TYPE, doublex.greater(2.3));
-		assertCondition(item4, item5, TYPE, item1.date.greater(date));
-		assertCondition(item4, item5, TYPE, item1.day.greater(day));
+		assertCondition(item4, item5, TYPE, item1.date.greater(aDate));
+		assertCondition(item4, item5, TYPE, item1.day.greater(aDay));
 		assertCondition(item4, item5, TYPE, item1.enumx.greater(YEnum.V3));
 		assertCondition(item4, item5, TYPE, item1.item.greater(item3));
 		assertCondition(item4, item5, itemX, TYPE, TYPE.getThis().greater(item3));
@@ -168,8 +168,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, TYPE, intx.greaterOrEqual(3));
 		assertCondition(item3, item4, item5, TYPE, longx.greaterOrEqual(13l));
 		assertCondition(item3, item4, item5, TYPE, doublex.greaterOrEqual(2.3));
-		assertCondition(item3, item4, item5, TYPE, item1.date.greaterOrEqual(date));
-		assertCondition(item3, item4, item5, TYPE, item1.day.greaterOrEqual(day));
+		assertCondition(item3, item4, item5, TYPE, item1.date.greaterOrEqual(aDate));
+		assertCondition(item3, item4, item5, TYPE, item1.day.greaterOrEqual(aDay));
 		assertCondition(item3, item4, item5, TYPE, item1.enumx.greaterOrEqual(YEnum.V3));
 		assertCondition(item3, item4, item5, TYPE, item1.item.greaterOrEqual(item3));
 		assertCondition(item3, item4, item5, itemX, TYPE, TYPE.getThis().greaterOrEqual(item3));
@@ -190,8 +190,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, TYPE, intx.in(listg(1, 3, 25)));
 		assertCondition(item1, item3, TYPE, longx.in(listg(11l, 13l, 255l)));
 		assertCondition(item1, item3, TYPE, doublex.in(listg(2.1, 2.3, 25.2)));
-		assertCondition(item1, item3, TYPE, item1.date.in(listg(date(-2), date, date(+25))));
-		assertCondition(item1, item3, TYPE, item1.day.in(listg(day(-2), day, day(+25))));
+		assertCondition(item1, item3, TYPE, item1.date.in(listg(date(-2), aDate, date(+25))));
+		assertCondition(item1, item3, TYPE, item1.day.in(listg(day(-2), aDay, day(+25))));
 		assertCondition(item1, item3, TYPE, item1.enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX)));
 		assertCondition(item1, item3, TYPE, item1.item.in(listg(item1, item3)));
 		assertCondition(item1, item3, TYPE, TYPE.getThis().in(listg(item1, item3)));
