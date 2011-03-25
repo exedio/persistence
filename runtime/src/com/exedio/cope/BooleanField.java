@@ -110,8 +110,8 @@ public final class BooleanField extends FunctionField<Boolean>
 		}
 	}
 
-	static final Integer FALSE = Integer.valueOf(0);
-	static final Integer TRUE = Integer.valueOf(1);
+	private static final Integer FALSE = Integer.valueOf(0);
+	private static final Integer TRUE  = Integer.valueOf(1);
 
 	@Override
 	void set(final Row row, final Boolean surface)
