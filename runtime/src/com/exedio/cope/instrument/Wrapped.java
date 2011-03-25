@@ -37,6 +37,6 @@ public @interface Wrapped
 	public @interface Thrown
 	{
 		Class<? extends Throwable> clazz();
-		String value() default "";
+		String comment() default "";
 	}
 }

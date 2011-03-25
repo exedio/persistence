@@ -189,7 +189,7 @@ public final class WrapperByReflection
 		{
 			for(final Wrapped.Thrown c : annotation.thrown())
 			{
-				final String v = c.value();
+				final String v = c.comment();
 				if(v.isEmpty())
 					result.addThrows(c.clazz());
 				else

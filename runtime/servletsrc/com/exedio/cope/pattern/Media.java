@@ -388,7 +388,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading value throws an IOException.
 	 */
 	@Wrapped(comment = "Sets the content of media {0}.",
-		thrown={@Wrapped.Thrown(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			final Media.Value value)
@@ -448,7 +448,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrapped(comment = {
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."},
-		thrown={@Wrapped.Thrown(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@WrappedParam("body") final OutputStream body)
@@ -468,7 +468,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	@Wrapped(comment = "Sets the content of media {0}.",
-		thrown={@Wrapped.Thrown(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@WrappedParam("body") final InputStream body,
@@ -499,7 +499,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrapped(comment = {
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."},
-		thrown={@Wrapped.Thrown(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@WrappedParam("body") final File body)
@@ -518,7 +518,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	@Wrapped(comment = "Sets the content of media {0}.",
-		thrown={@Wrapped.Thrown(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@WrappedParam("body") final File body,
