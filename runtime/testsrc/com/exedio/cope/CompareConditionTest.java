@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
+import static com.exedio.cope.CompareConditionItem.string;
 
 import java.util.Date;
 
@@ -68,22 +69,22 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
-		assertEquals(item1.string.less("a"), item1.string.less("a"));
-		assertNotEquals(item1.string.less("a"), item1.string.less("b"));
-		assertNotEquals(item1.string.less("a"), item1.otherString.less("a"));
-		assertNotEquals(item1.string.less("a"), item1.string.lessOrEqual("a"));
+		assertEquals(string.less("a"), string.less("a"));
+		assertNotEquals(string.less("a"), string.less("b"));
+		assertNotEquals(string.less("a"), item1.otherString.less("a"));
+		assertNotEquals(string.less("a"), string.lessOrEqual("a"));
 
 		// test toString
-		assertEquals("CompareConditionItem.string='string3'",  item1.string.equal("string3").toString());
-		assertEquals("CompareConditionItem.string<>'string3'", item1.string.notEqual("string3").toString());
-		assertEquals("CompareConditionItem.string<'string3'",  item1.string.less("string3").toString());
-		assertEquals("CompareConditionItem.string<='string3'", item1.string.lessOrEqual("string3").toString());
-		assertEquals("CompareConditionItem.string>'string3'",  item1.string.greater("string3").toString());
-		assertEquals("CompareConditionItem.string>='string3'", item1.string.greaterOrEqual("string3").toString());
+		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());
+		assertEquals("CompareConditionItem.string<>'string3'", string.notEqual("string3").toString());
+		assertEquals("CompareConditionItem.string<'string3'",  string.less("string3").toString());
+		assertEquals("CompareConditionItem.string<='string3'", string.lessOrEqual("string3").toString());
+		assertEquals("CompareConditionItem.string>'string3'",  string.greater("string3").toString());
+		assertEquals("CompareConditionItem.string>='string3'", string.greaterOrEqual("string3").toString());
 
 
 		// isNull
-		assertCondition(itemX, TYPE, item1.string.isNull());
+		assertCondition(itemX, TYPE, string.isNull());
 		assertCondition(itemX, TYPE, item1.intx.isNull());
 		assertCondition(itemX, TYPE, item1.longx.isNull());
 		assertCondition(itemX, TYPE, item1.doublex.isNull());
@@ -94,7 +95,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(TYPE, TYPE.getThis().isNull());
 
 		// isNotNull
-		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.string.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, TYPE, string.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.intx.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.longx.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.doublex.isNotNull());
@@ -105,7 +106,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, item4, item5, itemX, TYPE, TYPE.getThis().isNotNull());
 
 		// equal
-		assertCondition(item3, TYPE, item1.string.equal("string3"));
+		assertCondition(item3, TYPE, string.equal("string3"));
 		assertCondition(item3, TYPE, item1.intx.equal(3));
 		assertCondition(item3, TYPE, item1.longx.equal(13l));
 		assertCondition(item3, TYPE, item1.doublex.equal(2.3));
@@ -116,7 +117,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, TYPE, TYPE.getThis().equal(item3));
 
 		// notEqual
-		assertCondition(item1, item2, item4, item5, TYPE, item1.string.notEqual("string3"));
+		assertCondition(item1, item2, item4, item5, TYPE, string.notEqual("string3"));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.intx.notEqual(3));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.longx.notEqual(13l));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.doublex.notEqual(2.3));
@@ -127,7 +128,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item4, item5, itemX, TYPE, TYPE.getThis().notEqual(item3));
 
 		// less
-		assertCondition(item1, item2, TYPE, item1.string.less("string3"));
+		assertCondition(item1, item2, TYPE, string.less("string3"));
 		assertCondition(item1, item2, TYPE, item1.intx.less(3));
 		assertCondition(item1, item2, TYPE, item1.longx.less(13l));
 		assertCondition(item1, item2, TYPE, item1.doublex.less(2.3));
@@ -138,7 +139,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, TYPE, TYPE.getThis().less(item3));
 
 		// lessOrEqual
-		assertCondition(item1, item2, item3, TYPE, item1.string.lessOrEqual("string3"));
+		assertCondition(item1, item2, item3, TYPE, string.lessOrEqual("string3"));
 		assertCondition(item1, item2, item3, TYPE, item1.intx.lessOrEqual(3));
 		assertCondition(item1, item2, item3, TYPE, item1.longx.lessOrEqual(13l));
 		assertCondition(item1, item2, item3, TYPE, item1.doublex.lessOrEqual(2.3));
@@ -149,7 +150,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, TYPE, TYPE.getThis().lessOrEqual(item3));
 
 		// greater
-		assertCondition(item4, item5, TYPE, item1.string.greater("string3"));
+		assertCondition(item4, item5, TYPE, string.greater("string3"));
 		assertCondition(item4, item5, TYPE, item1.intx.greater(3));
 		assertCondition(item4, item5, TYPE, item1.longx.greater(13l));
 		assertCondition(item4, item5, TYPE, item1.doublex.greater(2.3));
@@ -160,7 +161,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item4, item5, itemX, TYPE, TYPE.getThis().greater(item3));
 
 		// greaterOrEqual
-		assertCondition(item3, item4, item5, TYPE, item1.string.greaterOrEqual("string3"));
+		assertCondition(item3, item4, item5, TYPE, string.greaterOrEqual("string3"));
 		assertCondition(item3, item4, item5, TYPE, item1.intx.greaterOrEqual(3));
 		assertCondition(item3, item4, item5, TYPE, item1.longx.greaterOrEqual(13l));
 		assertCondition(item3, item4, item5, TYPE, item1.doublex.greaterOrEqual(2.3));
@@ -171,7 +172,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, itemX, TYPE, TYPE.getThis().greaterOrEqual(item3));
 
 		// between
-		assertCondition(item2, item3, item4, TYPE, item1.string.between("string2", "string4"));
+		assertCondition(item2, item3, item4, TYPE, string.between("string2", "string4"));
 		assertCondition(item2, item3, item4, TYPE, item1.intx.between(2, 4));
 		assertCondition(item2, item3, item4, TYPE, item1.longx.between(12l, 14l));
 		assertCondition(item2, item3, item4, TYPE, item1.doublex.between(2.2, 2.4));
@@ -182,7 +183,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item2, item3, item4, TYPE, TYPE.getThis().between(item2, item4));
 
 		// in
-		assertCondition(item1, item3, TYPE, item1.string.in(listg("string1", "string3", "stringNone")));
+		assertCondition(item1, item3, TYPE, string.in(listg("string1", "string3", "stringNone")));
 		assertCondition(item1, item3, TYPE, item1.intx.in(listg(1, 3, 25)));
 		assertCondition(item1, item3, TYPE, item1.longx.in(listg(11l, 13l, 255l)));
 		assertCondition(item1, item3, TYPE, item1.doublex.in(listg(2.1, 2.3, 25.2)));
@@ -193,8 +194,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, TYPE, TYPE.getThis().in(listg(item1, item3)));
 
 		// min
-		assertEquals("select min(" + item1.string.getName() + ") from " + TYPE, new Query<String>(item1.string.min()).toString());
-		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());
+		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<String>(string.min()).toString());
+		assertEquals("string1", new Query<String>(string.min()).searchSingleton());
 		assertEquals(new Integer(1), new Query<Integer>(item1.intx.min()).searchSingleton());
 		assertEquals(new Long(11l), new Query<Long>(item1.longx.min()).searchSingleton());
 		assertEquals(new Double(2.1), new Query<Double>(item1.doublex.min()).searchSingleton());
@@ -224,8 +225,8 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals(item1, new Query<CompareConditionItem>(TYPE.getThis().min()).searchSingleton());
 
 		// max
-		assertEquals("select max(" + item1.string.getName() + ") from " + TYPE, new Query<String>(item1.string.max()).toString());
-		assertEquals("string5", new Query<String>(item1.string.max()).searchSingleton());
+		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<String>(string.max()).toString());
+		assertEquals("string5", new Query<String>(string.max()).searchSingleton());
 		assertEquals(new Integer(5), new Query<Integer>(item1.intx.max()).searchSingleton());
 		assertEquals(new Long(15l), new Query<Long>(item1.longx.max()).searchSingleton());
 		assertEquals(new Double(2.5), new Query<Double>(item1.doublex.max()).searchSingleton());
@@ -236,12 +237,12 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals(itemX, new Query<CompareConditionItem>(TYPE.getThis().max()).searchSingleton());
 
 		// test extremum aggregate
-		assertEquals(true,  item1.string.min().isMinimum());
-		assertEquals(false, item1.string.min().isMaximum());
-		assertEquals(false, item1.string.max().isMinimum());
-		assertEquals(true,  item1.string.max().isMaximum());
-		assertEquals(String.class, item1.string.min().getValueClass());
-		assertEquals(String.class, item1.string.max().getValueClass());
+		assertEquals(true,  string.min().isMinimum());
+		assertEquals(false, string.min().isMaximum());
+		assertEquals(false, string.max().isMinimum());
+		assertEquals(true,  string.max().isMaximum());
+		assertEquals(String.class, string.min().getValueClass());
+		assertEquals(String.class, string.max().getValueClass());
 
 		// sum
 		{
