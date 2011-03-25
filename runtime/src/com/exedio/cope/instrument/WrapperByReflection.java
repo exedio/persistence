@@ -170,10 +170,10 @@ public final class WrapperByReflection
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Class parameterType = parameterTypes[i];
-				ParameterComment c = null;
+				WrappedParam c = null;
 				for(final Annotation a : annotations[i])
-					if(a.annotationType().equals(ParameterComment.class))
-						c = (ParameterComment)a;
+					if(a.annotationType().equals(WrappedParam.class))
+						c = (WrappedParam)a;
 				if(c==null)
 					result.addParameter(parameterType);
 				else

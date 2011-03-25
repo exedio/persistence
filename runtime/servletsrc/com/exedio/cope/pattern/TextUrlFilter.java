@@ -37,7 +37,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.ThrowsComment;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
@@ -115,7 +115,7 @@ public class TextUrlFilter extends MediaFilter
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
-			@ParameterComment("raw") final Media.Value raw )
+			@WrappedParam("raw") final Media.Value raw )
 	throws IOException
 	{
 		this.raw.set( item, raw );
@@ -124,8 +124,8 @@ public class TextUrlFilter extends MediaFilter
 	@Wrapped()
 	public final void addPaste(
 			final Item item,
-			@ParameterComment("key") final String key,
-			@ParameterComment("value") final Media.Value value)
+			@WrappedParam("key") final String key,
+			@WrappedParam("value") final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
@@ -137,8 +137,8 @@ public class TextUrlFilter extends MediaFilter
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
-			@ParameterComment("key") final String key,
-			@ParameterComment("value") final Media.Value value )
+			@WrappedParam("key") final String key,
+			@WrappedParam("value") final Media.Value value )
 	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);

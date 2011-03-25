@@ -48,7 +48,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrapped;
-import com.exedio.cope.instrument.ParameterComment;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.ThrowsComment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
@@ -422,8 +422,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrapped(comment = "Sets the content of media {0}.")
 	public void set(
 			final Item item,
-			@ParameterComment("body") final byte[] body,
-			@ParameterComment("contentType") final String contentType)
+			@WrappedParam("body") final byte[] body,
+			@WrappedParam("contentType") final String contentType)
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -452,7 +452,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
-			@ParameterComment("body") final OutputStream body)
+			@WrappedParam("body") final OutputStream body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -472,8 +472,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
-			@ParameterComment("body") final InputStream body,
-			@ParameterComment("contentType") final String contentType)
+			@WrappedParam("body") final InputStream body,
+			@WrappedParam("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -503,7 +503,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
-			@ParameterComment("body") final File body)
+			@WrappedParam("body") final File body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -522,8 +522,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@ThrowsComment({@ThrowsComment.E(clazz=IOException.class, value="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
-			@ParameterComment("body") final File body,
-			@ParameterComment("contentType") final String contentType)
+			@WrappedParam("body") final File body,
+			@WrappedParam("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
