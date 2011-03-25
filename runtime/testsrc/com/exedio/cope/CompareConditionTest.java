@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
+import static com.exedio.cope.CompareConditionItem.doublex;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
@@ -89,7 +90,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(itemX, TYPE, string.isNull());
 		assertCondition(itemX, TYPE, intx.isNull());
 		assertCondition(itemX, TYPE, longx.isNull());
-		assertCondition(itemX, TYPE, item1.doublex.isNull());
+		assertCondition(itemX, TYPE, doublex.isNull());
 		assertCondition(itemX, TYPE, item1.date.isNull());
 		assertCondition(itemX, TYPE, item1.day.isNull());
 		assertCondition(itemX, TYPE, item1.enumx.isNull());
@@ -100,7 +101,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, item4, item5, TYPE, string.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, longx.isNotNull());
-		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.doublex.isNotNull());
+		assertCondition(item1, item2, item3, item4, item5, TYPE, doublex.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.date.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.day.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, item1.enumx.isNotNull());
@@ -111,7 +112,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, TYPE, string.equal("string3"));
 		assertCondition(item3, TYPE, intx.equal(3));
 		assertCondition(item3, TYPE, longx.equal(13l));
-		assertCondition(item3, TYPE, item1.doublex.equal(2.3));
+		assertCondition(item3, TYPE, doublex.equal(2.3));
 		assertCondition(item3, TYPE, item1.date.equal(date));
 		assertCondition(item3, TYPE, item1.day.equal(day));
 		assertCondition(item3, TYPE, item1.enumx.equal(YEnum.V3));
@@ -122,7 +123,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item4, item5, TYPE, string.notEqual("string3"));
 		assertCondition(item1, item2, item4, item5, TYPE, intx.notEqual(3));
 		assertCondition(item1, item2, item4, item5, TYPE, longx.notEqual(13l));
-		assertCondition(item1, item2, item4, item5, TYPE, item1.doublex.notEqual(2.3));
+		assertCondition(item1, item2, item4, item5, TYPE, doublex.notEqual(2.3));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.date.notEqual(date));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.day.notEqual(day));
 		assertCondition(item1, item2, item4, item5, TYPE, item1.enumx.notEqual(YEnum.V3));
@@ -133,7 +134,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, TYPE, string.less("string3"));
 		assertCondition(item1, item2, TYPE, intx.less(3));
 		assertCondition(item1, item2, TYPE, longx.less(13l));
-		assertCondition(item1, item2, TYPE, item1.doublex.less(2.3));
+		assertCondition(item1, item2, TYPE, doublex.less(2.3));
 		assertCondition(item1, item2, TYPE, item1.date.less(date));
 		assertCondition(item1, item2, TYPE, item1.day.less(day));
 		assertCondition(item1, item2, TYPE, item1.enumx.less(YEnum.V3));
@@ -144,7 +145,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item2, item3, TYPE, string.lessOrEqual("string3"));
 		assertCondition(item1, item2, item3, TYPE, intx.lessOrEqual(3));
 		assertCondition(item1, item2, item3, TYPE, longx.lessOrEqual(13l));
-		assertCondition(item1, item2, item3, TYPE, item1.doublex.lessOrEqual(2.3));
+		assertCondition(item1, item2, item3, TYPE, doublex.lessOrEqual(2.3));
 		assertCondition(item1, item2, item3, TYPE, item1.date.lessOrEqual(date));
 		assertCondition(item1, item2, item3, TYPE, item1.day.lessOrEqual(day));
 		assertCondition(item1, item2, item3, TYPE, item1.enumx.lessOrEqual(YEnum.V3));
@@ -155,7 +156,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item4, item5, TYPE, string.greater("string3"));
 		assertCondition(item4, item5, TYPE, intx.greater(3));
 		assertCondition(item4, item5, TYPE, longx.greater(13l));
-		assertCondition(item4, item5, TYPE, item1.doublex.greater(2.3));
+		assertCondition(item4, item5, TYPE, doublex.greater(2.3));
 		assertCondition(item4, item5, TYPE, item1.date.greater(date));
 		assertCondition(item4, item5, TYPE, item1.day.greater(day));
 		assertCondition(item4, item5, TYPE, item1.enumx.greater(YEnum.V3));
@@ -166,7 +167,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item3, item4, item5, TYPE, string.greaterOrEqual("string3"));
 		assertCondition(item3, item4, item5, TYPE, intx.greaterOrEqual(3));
 		assertCondition(item3, item4, item5, TYPE, longx.greaterOrEqual(13l));
-		assertCondition(item3, item4, item5, TYPE, item1.doublex.greaterOrEqual(2.3));
+		assertCondition(item3, item4, item5, TYPE, doublex.greaterOrEqual(2.3));
 		assertCondition(item3, item4, item5, TYPE, item1.date.greaterOrEqual(date));
 		assertCondition(item3, item4, item5, TYPE, item1.day.greaterOrEqual(day));
 		assertCondition(item3, item4, item5, TYPE, item1.enumx.greaterOrEqual(YEnum.V3));
@@ -177,7 +178,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item2, item3, item4, TYPE, string.between("string2", "string4"));
 		assertCondition(item2, item3, item4, TYPE, intx.between(2, 4));
 		assertCondition(item2, item3, item4, TYPE, longx.between(12l, 14l));
-		assertCondition(item2, item3, item4, TYPE, item1.doublex.between(2.2, 2.4));
+		assertCondition(item2, item3, item4, TYPE, doublex.between(2.2, 2.4));
 		assertCondition(item2, item3, item4, TYPE, item1.date.between(date(-1), date(+1)));
 		assertCondition(item2, item3, item4, TYPE, item1.day.between(day(-1), day(+1)));
 		assertCondition(item2, item3, item4, TYPE, item1.enumx.between(YEnum.V2, YEnum.V4));
@@ -188,7 +189,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, TYPE, string.in(listg("string1", "string3", "stringNone")));
 		assertCondition(item1, item3, TYPE, intx.in(listg(1, 3, 25)));
 		assertCondition(item1, item3, TYPE, longx.in(listg(11l, 13l, 255l)));
-		assertCondition(item1, item3, TYPE, item1.doublex.in(listg(2.1, 2.3, 25.2)));
+		assertCondition(item1, item3, TYPE, doublex.in(listg(2.1, 2.3, 25.2)));
 		assertCondition(item1, item3, TYPE, item1.date.in(listg(date(-2), date, date(+25))));
 		assertCondition(item1, item3, TYPE, item1.day.in(listg(day(-2), day, day(+25))));
 		assertCondition(item1, item3, TYPE, item1.enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX)));
@@ -200,7 +201,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals("string1", new Query<String>(string.min()).searchSingleton());
 		assertEquals(new Integer(1), new Query<Integer>(intx.min()).searchSingleton());
 		assertEquals(new Long(11l), new Query<Long>(longx.min()).searchSingleton());
-		assertEquals(new Double(2.1), new Query<Double>(item1.doublex.min()).searchSingleton());
+		assertEquals(new Double(2.1), new Query<Double>(doublex.min()).searchSingleton());
 		assertEquals(date(-2), new Query<Date>(item1.date.min()).searchSingleton());
 		assertEquals(day(-2), new Query<Day>(item1.day.min()).searchSingleton());
 		assertEquals(YEnum.V1, new Query<YEnum>(item1.enumx.min()).searchSingleton());
@@ -231,7 +232,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertEquals("string5", new Query<String>(string.max()).searchSingleton());
 		assertEquals(new Integer(5), new Query<Integer>(intx.max()).searchSingleton());
 		assertEquals(new Long(15l), new Query<Long>(longx.max()).searchSingleton());
-		assertEquals(new Double(2.5), new Query<Double>(item1.doublex.max()).searchSingleton());
+		assertEquals(new Double(2.5), new Query<Double>(doublex.max()).searchSingleton());
 		assertEquals(date(+2), new Query<Date>(item1.date.max()).searchSingleton());
 		assertEquals(day(+2), new Query<Day>(item1.day.max()).searchSingleton());
 		assertEquals(YEnum.V5, new Query<YEnum>(item1.enumx.max()).searchSingleton());
@@ -264,11 +265,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(new Long(11+12+13), q.searchSingleton());
 		}
 		{
-			final Query<Double> q = new Query<Double>(item1.doublex.sum());
-			assertEquals("select sum(" + item1.doublex.getName() + ") from " + TYPE, q.toString());
+			final Query<Double> q = new Query<Double>(doublex.sum());
+			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE, q.toString());
 			assertEquals(new Double(2.1+2.2+2.3+2.4+2.5).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
-			q.setCondition(item1.doublex.less(2.4));
-			assertEquals("select sum(" + item1.doublex.getName() + ") from " + TYPE + " where " + item1.doublex.getName() + "<'2.4'", q.toString());
+			q.setCondition(doublex.less(2.4));
+			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
 			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 		// average
@@ -289,11 +290,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(new Long((11+12+13)/3l), q.searchSingleton());
 		}
 		{
-			final Query<Double> q = new Query<Double>(item1.doublex.average());
-			assertEquals("select avg(" + item1.doublex.getName() + ") from " + TYPE, q.toString());
+			final Query<Double> q = new Query<Double>(doublex.average());
+			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE, q.toString());
 			assertEquals(new Double((2.1+2.2+2.3+2.4+2.5)/5.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
-			q.setCondition(item1.doublex.less(2.4));
-			assertEquals("select avg(" + item1.doublex.getName() + ") from " + TYPE + " where " + item1.doublex.getName() + "<'2.4'", q.toString());
+			q.setCondition(doublex.less(2.4));
+			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
 			assertEquals(new Double((2.1+2.2+2.3)/3.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 
