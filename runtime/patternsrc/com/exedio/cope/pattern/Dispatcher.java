@@ -143,7 +143,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
-	@Wrapped(comment="Returns the parent field of the run type of {0}.", name="{1}RunParent")
+	@Wrapped(comment="Returns the parent field of the run type of {0}.", position=-1, name="{1}RunParent")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -185,34 +185,7 @@ public final class Dispatcher extends Pattern
 		final WrapperByReflection factory = new WrapperByReflection(this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-
-		result.add(
-			factory.makeClass("dispatch", Config.class, Interrupter.class));
-
-		result.add(
-			factory.makeClass("dispatch", Config.class, JobContext.class));
-
-		result.add(
-			factory.makeItem("isPending"));
-
-		result.add(
-			factory.makeItem("setPending", boolean.class));
-
-		result.add(
-			factory.makeItem("getLastSuccessDate"));
-
-		result.add(
-			factory.makeItem("getLastSuccessElapsed"));
-
-		result.add(
-			factory.makeItem("getRuns"));
-
-		result.add(
-			factory.makeItem("getFailures"));
-
-		result.add(
-			factory.makeClass("getRunParent"));
-
+		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
 	}
 

@@ -23,6 +23,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -43,6 +45,36 @@ public final class WrapperByReflection
 	{
 		this.clazz = instance.getClass();
 		this.instance = instance;
+	}
+
+	public void makeAll(final List<Wrapper> list)
+	{
+		final ArrayList<Wrapper> end = new ArrayList<Wrapper>();
+		for(final Method method : clazz.getMethods())
+		{
+			final Wrapped annotation = getAnnotation(method);
+			if(annotation==null)
+				continue;
+
+			final Wrapper wrapper = make(method.getName(), method.getParameterTypes(), method, annotation);
+			final int position = annotation.position();
+			if(position>=0)
+				add(list, position, wrapper);
+			else if(position==Integer.MIN_VALUE)
+				list.add(wrapper);
+			else
+				add(end, -position, wrapper);
+		}
+		for(int i = end.size()-1; i>=0; i--)
+			list.add(end.get(i));
+	}
+
+	void add(final List<Wrapper> list, final int position, final Wrapper wrapper)
+	{
+		if(position>=list.size())
+			list.add(wrapper);
+		else
+			list.add(0, wrapper);
 	}
 
 	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
@@ -83,6 +115,11 @@ public final class WrapperByReflection
 		if(annotation==null)
 			throw new IllegalArgumentException(method.toString());
 
+		return make(name, parameterTypes, method, annotation);
+	}
+
+	private Wrapper make(final String name, final Class<?>[] parameterTypes, final Method method, final Wrapped annotation)
+	{
 		final Wrapper result = new Wrapper(name);
 
 		final int parameterOffset;
