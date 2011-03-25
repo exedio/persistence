@@ -65,8 +65,6 @@ public final class WrapperByReflection
 
 	private Wrapper make(final String name, final Class<?>... parameterTypes)
 	{
-		final Wrapper result = new Wrapper(name);
-
 		final Method method;
 		try
 		{
@@ -84,6 +82,8 @@ public final class WrapperByReflection
 		final Wrapped annotation = getAnnotation(method);
 		if(annotation==null)
 			throw new IllegalArgumentException(method.toString());
+
+		final Wrapper result = new Wrapper(name);
 
 		final int parameterOffset;
 		if(parameterTypes[0]==Class.class)
