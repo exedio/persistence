@@ -90,9 +90,9 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertNotEquals(plusBC, multiplyBC);
 
 		// toString
-		assertEquals("plus("+numB+")", numB.plus(5).toString()); // TODO add literal
+		assertEquals("("+numB+"+5)", numB.plus(5).toString());
 		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
-		assertEquals("multiply("+numB+")", numB.multiply(5).toString()); // TODO add literal
+		assertEquals("("+numB+"*5)", numB.multiply(5).toString());
 		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
 
 		// exceptions

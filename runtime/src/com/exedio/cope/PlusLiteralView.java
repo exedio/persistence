@@ -67,6 +67,16 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
+	@Override
+	void toStringNotMounted(final StringBuilder bf)
+	{
+		bf.append('(');
+		bf.append(left);
+		bf.append('+');
+		bf.append(right);
+		bf.append(')');
+	}
+
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

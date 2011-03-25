@@ -137,7 +137,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	final void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf)
 	{
 		bf.append(name);
 		bf.append('(');
