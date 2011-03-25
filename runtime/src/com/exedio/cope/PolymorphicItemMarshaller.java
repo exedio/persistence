@@ -38,16 +38,11 @@ final class PolymorphicItemMarshaller<E extends Item> implements Marshaller<E>
 		final Object pkCell = row.getObject(columnIndex.value++);
 		final String typeCell = row.getString(columnIndex.value++);
 
+		if((pkCell==null)!=(typeCell==null))
+			throw new RuntimeException("inconsistent type column " + pkCell + '/' + typeCell);
+
 		if(pkCell==null)
-		{
-			if(typeCell!=null)
-				throw new RuntimeException("inconsistent type column on field: " + typeCell);
-
 			return null;
-		}
-
-		if(typeCell==null)
-			throw new RuntimeException("inconsistent type column on field " + typeCell);
 
 		final Type<? extends E> resultType = typesOfInstancesMap.get(typeCell);
 		if(resultType==null)

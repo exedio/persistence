@@ -104,7 +104,10 @@
 	<Match>
 		<!-- Method with Boolean return type returns explicit null -->
 		<Bug pattern="NP_BOOLEAN_RETURN_NULL" />
-		<Class name="com.exedio.cope.BooleanField" />
+		<Or>
+			<Class name="com.exedio.cope.BooleanField" />
+			<Class name="com.exedio.cope.Marshallers$2" />
+		</Or>
 	</Match>
 	<Match>
 		<!-- Comparison of String parameter using == or != -->
