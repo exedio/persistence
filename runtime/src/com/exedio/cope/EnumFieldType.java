@@ -21,7 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TIntObjectHashMap;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +40,6 @@ final class EnumFieldType<E extends Enum<E>>
 		if(!valueClass.isEnum())
 			throw new RuntimeException("must be an enum: " + valueClass);
 
-		final ArrayList<E> values = new ArrayList<E>();
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
 
 		final E[] enumConstants = valueClass.getEnumConstants();
@@ -53,13 +52,12 @@ final class EnumFieldType<E extends Enum<E>>
 		{
 			final CopeSchemaValue annotation = getAnnotation(e, CopeSchemaValue.class);
 			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
-			values.add(e);
 			numbersToValues.put(number, e);
 			ordinalsToNumbers[e.ordinal()] = number;
 		}
 		final int l = ordinalsToNumbers.length-1;
 		int i = 0;
-		for(final E e : values)
+		for(final E e : enumConstants)
 		{
 			if(getAnnotation(e, CopeSchemaValue.class)!=null)
 			{
@@ -85,9 +83,8 @@ final class EnumFieldType<E extends Enum<E>>
 			}
 			i++;
 		}
-		values.trimToSize();
 		numbersToValues.trimToSize();
-		this.values = Collections.unmodifiableList(values);
+		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
 		this.marshaller = new EnumMarshaller<E>(this);
