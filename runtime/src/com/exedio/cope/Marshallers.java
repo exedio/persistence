@@ -141,14 +141,6 @@ final class Marshallers
 			throw new RuntimeException(clazz.getName());
 	}
 
-	private Marshaller get(final Class clazz)
-	{
-		final Marshaller result = marshallers.get(clazz);
-		if(result==null)
-			throw new NullPointerException(clazz.getName());
-		return result;
-	}
-
 	@SuppressWarnings("unchecked")
 	Marshaller get(final Selectable select)
 	{
@@ -167,7 +159,10 @@ final class Marshallers
 		}
 		else
 		{
-			return get(clazz);
+			final Marshaller result = marshallers.get(clazz);
+			if(result==null)
+				throw new NullPointerException(clazz.getName());
+			return result;
 		}
 	}
 
