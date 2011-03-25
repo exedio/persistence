@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -38,6 +39,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
@@ -130,9 +132,8 @@ public abstract class MediaPath extends Pattern
 		result.add(
 			factory.makeItem("getLocator"));
 
-		if(isContentTypeWrapped())
-			result.add(
-				factory.makeItem("getContentType"));
+		result.add(
+			factory.makeItem("getContentType"));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -484,8 +485,16 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped(comment = "Returns the content type of the media {0}.")
+	@Wrapped(comment = "Returns the content type of the media {0}.", suppressor=WrapperSuppressorContentType.class)
 	public abstract String getContentType(Item item);
+
+	public static final class WrapperSuppressorContentType implements WrapperSuppressor // TODO private
+	{
+		@Override public boolean isSuppressed(final Feature feature)
+		{
+			return !((MediaPath)feature).isContentTypeWrapped();
+		}
+	}
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
 		throws IOException;

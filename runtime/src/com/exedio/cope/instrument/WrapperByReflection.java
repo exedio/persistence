@@ -33,17 +33,20 @@ import com.exedio.cope.Item;
 public final class WrapperByReflection
 {
 	private final Class<? extends Feature> clazz;
+	private final Feature feature;
 	private final FunctionField instance; // TODO remove
 
 	public WrapperByReflection(final Feature instance)
 	{
 		this.clazz = instance.getClass();
+		this.feature = instance;
 		this.instance = null;
 	}
 
 	public WrapperByReflection(final FunctionField instance)
 	{
 		this.clazz = instance.getClass();
+		this.feature = instance;
 		this.instance = instance;
 	}
 
@@ -120,6 +123,29 @@ public final class WrapperByReflection
 
 	private Wrapper make(final String name, final Class<?>[] parameterTypes, final Method method, final Wrapped annotation)
 	{
+		{
+			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
+			if(suppressorClass!=WrapperSuppressorDefault.class)
+			{
+				final WrapperSuppressor suppressor;
+				try
+				{
+					suppressor = suppressorClass.newInstance();
+				}
+				catch(final InstantiationException e)
+				{
+					throw new RuntimeException(e);
+				}
+				catch(final IllegalAccessException e)
+				{
+					throw new RuntimeException(e);
+				}
+
+				if(suppressor.isSuppressed(feature))
+					return null;
+			}
+		}
+
 		final Wrapper result = new Wrapper(name);
 
 		final int parameterOffset;

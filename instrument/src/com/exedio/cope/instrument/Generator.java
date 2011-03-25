@@ -363,6 +363,10 @@ final class Generator
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
+			// may happen if method is suppressed by WrapperSuppressor
+			if(wrapper==null)
+				continue;
+
 			final boolean deprecated = wrapper.isDeprecated();
 			if(deprecated && skipDeprecated)
 				continue;
