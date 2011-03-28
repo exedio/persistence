@@ -111,7 +111,7 @@ public final class DateField extends FunctionField<Date>
 
 	public SelectType<Date> getValueType()
 	{
-		return SimpleSelectType.Date;
+		return SimpleSelectType.DATE;
 	}
 
 	@Override

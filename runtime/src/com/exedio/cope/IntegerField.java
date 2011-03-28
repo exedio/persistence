@@ -197,7 +197,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	public SelectType<Integer> getValueType()
 	{
-		return SimpleSelectType.Integer;
+		return SimpleSelectType.INTEGER;
 	}
 
 	@Override

@@ -86,7 +86,7 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	public SelectType<Boolean> getValueType()
 	{
-		return SimpleSelectType.Boolean;
+		return SimpleSelectType.BOOLEAN;
 	}
 
 	@Override

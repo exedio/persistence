@@ -160,7 +160,7 @@ public final class StringField extends FunctionField<String>
 
 	public SelectType<String> getValueType()
 	{
-		return SimpleSelectType.String;
+		return SimpleSelectType.STRING;
 	}
 
 	private boolean convertEmptyStrings = false;

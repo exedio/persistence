@@ -83,7 +83,7 @@ public final class LongField extends NumberField<Long>
 
 	public SelectType<Long> getValueType()
 	{
-		return SimpleSelectType.Long;
+		return SimpleSelectType.LONG;
 	}
 
 	@Override

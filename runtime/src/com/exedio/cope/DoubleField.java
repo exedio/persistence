@@ -144,7 +144,7 @@ public final class DoubleField extends NumberField<Double>
 
 	public SelectType<Double> getValueType()
 	{
-		return SimpleSelectType.Double;
+		return SimpleSelectType.DOUBLE;
 	}
 
 	@Override

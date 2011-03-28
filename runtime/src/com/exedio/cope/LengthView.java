@@ -38,7 +38,7 @@ public final class LengthView extends NumberView<Integer>
 
 	public SelectType<Integer> getValueType()
 	{
-		return SimpleSelectType.Integer;
+		return SimpleSelectType.INTEGER;
 	}
 
 	@Override

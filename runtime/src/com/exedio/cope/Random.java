@@ -51,7 +51,7 @@ public class Random implements NumberFunction<Double>
 
 	public SelectType<Double> getValueType()
 	{
-		return SimpleSelectType.Double;
+		return SimpleSelectType.DOUBLE;
 	}
 
 	public Type<? extends Item> getType()

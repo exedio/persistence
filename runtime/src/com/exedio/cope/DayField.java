@@ -112,7 +112,7 @@ public final class DayField extends FunctionField<Day>
 
 	public SelectType<Day> getValueType()
 	{
-		return SimpleSelectType.Day;
+		return SimpleSelectType.DAY;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public abstract class StringView extends View<String>
 
 	public SelectType<String> getValueType()
 	{
-		return SimpleSelectType.String;
+		return SimpleSelectType.STRING;
 	}
 
 
