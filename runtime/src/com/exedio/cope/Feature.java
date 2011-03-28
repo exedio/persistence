@@ -159,6 +159,9 @@ public abstract class Feature implements Serializable
 		return Collections.<Wrapper>emptyList();
 	}
 
+	/**
+	 * @param defaultType is used by subclasses
+	 */
 	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(super.toString());
