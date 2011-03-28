@@ -84,6 +84,11 @@ public final class BooleanField extends FunctionField<Boolean>
 		return optional ? Boolean.class : boolean.class;
 	}
 
+	public SelectType<Boolean> getValueType()
+	{
+		return SimpleSelectType.Boolean;
+	}
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{

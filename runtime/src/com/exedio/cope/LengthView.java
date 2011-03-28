@@ -36,6 +36,11 @@ public final class LengthView extends NumberView<Integer>
 		this.source = source;
 	}
 
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.Integer;
+	}
+
 	@Override
 	public final Integer mapJava(final Object[] sourceValues)
 	{

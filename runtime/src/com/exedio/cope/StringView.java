@@ -28,6 +28,12 @@ public abstract class StringView extends View<String>
 		super(sources, name, String.class);
 	}
 
+	public SelectType<String> getValueType()
+	{
+		return SimpleSelectType.String;
+	}
+
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)

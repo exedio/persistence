@@ -33,6 +33,15 @@ public final class PlusView<E extends Number> extends NumberView<E>
 		return result;
 	}
 
+	static SelectType selectType(final NumberFunction[] sources)
+	{
+		final SelectType result = sources[0].getValueType();
+		for(int i = 1; i<sources.length; i++)
+			if(result!=sources[i].getValueType())
+				throw new RuntimeException(result.toString()+'/'+sources[i].getValueType()+'/'+i);
+		return result;
+	}
+
 	/**
 	 * Creates a new PlusView.
 	 * Instead of using this constructor directly,
@@ -46,6 +55,12 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	{
 		super(addends, "plus", valueClass(addends));
 		this.addends = com.exedio.cope.misc.Arrays.copyOf(addends);
+	}
+
+	@SuppressWarnings("unchecked")
+	public SelectType<E> getValueType()
+	{
+		return selectType(addends);
 	}
 
 	@Override

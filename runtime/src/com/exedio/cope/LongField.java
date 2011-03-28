@@ -81,6 +81,11 @@ public final class LongField extends NumberField<Long>
 		return optional ? Long.class : long.class;
 	}
 
+	public SelectType<Long> getValueType()
+	{
+		return SimpleSelectType.Long;
+	}
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{

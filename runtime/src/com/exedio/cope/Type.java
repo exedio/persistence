@@ -48,7 +48,7 @@ import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
-public final class Type<T extends Item> implements Comparable<Type>, Serializable
+public final class Type<T extends Item> implements SelectType<T>, Comparable<Type>, Serializable
 {
 	private final Class<T> javaClass;
 	private final AnnotatedElement annotationSource;

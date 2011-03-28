@@ -52,6 +52,11 @@ public class BindFunction<E> implements Function<E>
 		return function.getValueClass();
 	}
 
+	public SelectType<E> getValueType()
+	{
+		return function.getValueType();
+	}
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */

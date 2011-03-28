@@ -39,6 +39,11 @@ public final class DivideView<E extends Number> extends NumberView<E>
 		this.divisor = divisor;
 	}
 
+	public SelectType<E> getValueType()
+	{
+		return dividend.getValueType();
+	}
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

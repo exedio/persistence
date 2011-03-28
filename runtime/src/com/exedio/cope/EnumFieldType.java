@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-final class EnumFieldType<E extends Enum<E>>
+final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 {
 	private final Class<E> valueClass;
 	final List<E> values;
@@ -102,6 +102,11 @@ final class EnumFieldType<E extends Enum<E>>
 		}
 	}
 
+	public Class<E> getJavaClass()
+	{
+		return valueClass;
+	}
+
 	boolean isValid(final E value)
 	{
 		if(value==null)
@@ -118,6 +123,12 @@ final class EnumFieldType<E extends Enum<E>>
 					"expected " + valueClass.getName() +
 					", but was a " + value.getClass().getName());
 		return ordinalsToNumbers[value.ordinal()];
+	}
+
+	@Override
+	public String toString()
+	{
+		return valueClass.getName();
 	}
 
 	// static registry

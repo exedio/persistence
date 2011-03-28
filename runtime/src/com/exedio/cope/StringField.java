@@ -158,6 +158,11 @@ public final class StringField extends FunctionField<String>
 		return result;
 	}
 
+	public SelectType<String> getValueType()
+	{
+		return SimpleSelectType.String;
+	}
+
 	private boolean convertEmptyStrings = false;
 
 	@Override

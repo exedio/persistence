@@ -18,34 +18,7 @@
 
 package com.exedio.cope;
 
-public interface Selectable<E extends Object>
+public interface SelectType<E>
 {
-	/**
-	 * Returns {@link #getValueType()}.{@link SelectType#getJavaClass() getJavaClass()}
-	 */
-	Class<E> getValueClass();
-
-	SelectType<E> getValueType();
-
-	Type<? extends Item> getType();
-
-	void toString(StringBuilder bf, Type defaultType);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void check(TC tc, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void append(Statement bf, Join join);
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void appendSelect(Statement bf, Join join);
+	Class<E> getJavaClass();
 }

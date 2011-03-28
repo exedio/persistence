@@ -39,6 +39,12 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 		this.multipliers = com.exedio.cope.misc.Arrays.copyOf(multipliers);
 	}
 
+	@SuppressWarnings("unchecked")
+	public SelectType<E> getValueType()
+	{
+		return PlusView.selectType(multipliers);
+	}
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)

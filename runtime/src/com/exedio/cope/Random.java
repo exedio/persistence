@@ -49,6 +49,11 @@ public class Random implements NumberFunction<Double>
 		return Double.class;
 	}
 
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.Double;
+	}
+
 	public Type<? extends Item> getType()
 	{
 		return type;

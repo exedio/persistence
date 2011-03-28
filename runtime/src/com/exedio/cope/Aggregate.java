@@ -58,6 +58,11 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return source.getValueClass();
 	}
 
+	public final SelectType<E> getValueType()
+	{
+		return source.getValueType();
+	}
+
 	public final Type<? extends Item> getType()
 	{
 		return source.getType();

@@ -110,6 +110,11 @@ public final class DayField extends FunctionField<Day>
 		return defaultNow;
 	}
 
+	public SelectType<Day> getValueType()
+	{
+		return SimpleSelectType.Day;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{

@@ -107,6 +107,11 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return Wrapper.TypeVariable0.class; // TODO return valueClass
 	}
 
+	public SelectType<E> getValueType()
+	{
+		return valueType;
+	}
+
 	private E getValue(final int number)
 	{
 		final E result = numbersToValues.get(number);

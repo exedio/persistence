@@ -36,7 +36,7 @@ final class Marshallers
 
 	Marshallers(final boolean supportsNativeDate)
 	{
-		put(String.class, new Marshaller<String>() {
+		put(SimpleSelectType.String, new Marshaller<String>() {
 			@Override
 			public String unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -53,7 +53,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(Boolean.class, new Marshaller<Boolean>() {
+		put(SimpleSelectType.Boolean, new Marshaller<Boolean>() {
 			@Override
 			public Boolean unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -82,7 +82,7 @@ final class Marshallers
 				return value.booleanValue() ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
-		put(Integer.class, new Marshaller<Integer>() {
+		put(SimpleSelectType.Integer, new Marshaller<Integer>() {
 			@Override
 			public Integer unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -105,7 +105,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(Long.class, new Marshaller<Long>() {
+		put(SimpleSelectType.Long, new Marshaller<Long>() {
 			@Override
 			public Long unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -132,7 +132,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(Double.class, new Marshaller<Double>() {
+		put(SimpleSelectType.Double, new Marshaller<Double>() {
 			@Override
 			public Double unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -162,7 +162,7 @@ final class Marshallers
 		});
 
 		if(supportsNativeDate)
-			put(Date.class, new Marshaller<Date>() {
+			put(SimpleSelectType.Date, new Marshaller<Date>() {
 				@Override
 				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 				{
@@ -185,7 +185,7 @@ final class Marshallers
 				}
 			});
 		else
-			put(Date.class, new Marshaller<Date>() {
+			put(SimpleSelectType.Date, new Marshaller<Date>() {
 				@Override
 				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 				{
@@ -204,7 +204,7 @@ final class Marshallers
 				}
 			});
 
-		put(Day.class, new Marshaller<Day>() {
+		put(SimpleSelectType.Day, new Marshaller<Day>() {
 			@Override
 			public Day unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{
@@ -228,49 +228,24 @@ final class Marshallers
 		});
 	}
 
-	private <E> void put(final Class<E> clazz, final Marshaller<E> marshaller)
+	private <E> void put(final SimpleSelectType<E> selectType, final Marshaller<E> marshaller)
 	{
-		if(marshallers.put(clazz, marshaller)!=null)
-			throw new RuntimeException(clazz.getName());
+		if(marshallers.put(selectType.javaClass, marshaller)!=null)
+			throw new RuntimeException(selectType.javaClass.getName());
 	}
 
 	Marshaller get(final Selectable select)
 	{
-		final Class<?> clazz = select.getValueClass();
+		final SelectType<?> valueType = select.getValueType();
 
-		if(Item.class.isAssignableFrom(clazz))
-		{
-			return propagate(select).getValueType().getMarshaller();
-		}
-		else if(Enum.class.isAssignableFrom(clazz))
-		{
-			final Class<? extends Enum> enumClass = clazz.asSubclass(Enum.class);
-			@SuppressWarnings("unchecked")
-			final EnumFieldType enumFieldType = EnumFieldType.get(enumClass);
-			return enumFieldType.marshaller;
-		}
+		if(valueType instanceof SimpleSelectType)
+			return get(valueType.getJavaClass());
+		else if(valueType instanceof Type)
+			return ((Type)valueType).getMarshaller();
+		else if(valueType instanceof EnumFieldType)
+			return ((EnumFieldType)valueType).marshaller;
 		else
-		{
-			final Marshaller result = marshallers.get(clazz);
-			if(result==null)
-				throw new NullPointerException(clazz.getName());
-			return result;
-		}
-	}
-
-	private static final ItemFunction propagate(Selectable select)
-	{
-		// TODO nicer solution
-		for(int i = 0; i<100; i++)
-		{
-			if(select instanceof BindFunction)
-				select = ((BindFunction)select).function;
-			else if(select instanceof Aggregate)
-				select = ((Aggregate)select).getSource();
-			else
-				return (ItemFunction)select;
-		}
-		throw new RuntimeException(select.toString());
+			throw new RuntimeException(valueType.toString());
 	}
 
 	Marshaller getByValue(final Object value)
@@ -288,10 +263,16 @@ final class Marshallers
 		}
 		else
 		{
-			final Marshaller result = marshallers.get(value.getClass());
-			if(result==null)
-				throw new NullPointerException(value.getClass().getName());
-			return result;
+			return get(value.getClass());
 		}
+	}
+
+	private <E> Marshaller<E> get(final Class<E> javaClass)
+	{
+		@SuppressWarnings("unchecked")
+		final Marshaller<E> result = marshallers.get(javaClass);
+		if(result==null)
+			throw new NullPointerException(javaClass.getName());
+		return result;
 	}
 }

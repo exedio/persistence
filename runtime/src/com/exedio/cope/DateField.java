@@ -109,6 +109,11 @@ public final class DateField extends FunctionField<Date>
 		return defaultNow;
 	}
 
+	public SelectType<Date> getValueType()
+	{
+		return SimpleSelectType.Date;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{

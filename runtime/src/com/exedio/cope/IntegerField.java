@@ -195,6 +195,11 @@ public final class IntegerField extends NumberField<Integer>
 		return optional ? Integer.class : int.class;
 	}
 
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.Integer;
+	}
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{

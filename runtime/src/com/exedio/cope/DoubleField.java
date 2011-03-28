@@ -142,6 +142,11 @@ public final class DoubleField extends NumberField<Double>
 		return optional ? Double.class : double.class;
 	}
 
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.Double;
+	}
+
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{

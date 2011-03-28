@@ -34,6 +34,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		this.itemFunction = function;
 	}
 
+	@Override
 	public Type<E> getValueType()
 	{
 		return itemFunction.getValueType();

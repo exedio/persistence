@@ -42,6 +42,11 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 		this.right = right;
 	}
 
+	public SelectType<E> getValueType()
+	{
+		return left.getValueType();
+	}
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)
