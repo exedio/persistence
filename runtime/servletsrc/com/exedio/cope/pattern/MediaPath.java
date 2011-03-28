@@ -492,6 +492,10 @@ public abstract class MediaPath extends Pattern
 	{
 		@Override public boolean isSuppressed(final Feature feature)
 		{
+			// avoid findbugs warning
+			if(!(feature instanceof MediaPath))
+				throw new ClassCastException(feature.getClass().getName());
+
 			return !((MediaPath)feature).isContentTypeWrapped();
 		}
 	}
