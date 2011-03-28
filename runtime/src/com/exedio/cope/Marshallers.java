@@ -161,8 +161,8 @@ final class Marshallers
 			}
 		});
 
-		if(supportsNativeDate)
-			put(SimpleSelectType.Date, new Marshaller<Date>() {
+		put(SimpleSelectType.Date, supportsNativeDate
+			? new Marshaller<Date>() {
 				@Override
 				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 				{
@@ -183,9 +183,8 @@ final class Marshallers
 				{
 					return new Timestamp(value.getTime());
 				}
-			});
-		else
-			put(SimpleSelectType.Date, new Marshaller<Date>() {
+			}
+			: new Marshaller<Date>() {
 				@Override
 				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 				{
