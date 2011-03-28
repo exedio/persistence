@@ -19,6 +19,8 @@
 package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -127,16 +129,32 @@ public final class WrapperByReflection
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
 			if(suppressorClass!=WrapperSuppressorDefault.class)
 			{
+				final Constructor<? extends WrapperSuppressor> suppressorConstructor;
+				try
+				{
+					suppressorConstructor = suppressorClass.getDeclaredConstructor();
+				}
+				catch(final NoSuchMethodException e)
+				{
+					throw new RuntimeException(e);
+				}
+
+				suppressorConstructor.setAccessible(true);
+
 				final WrapperSuppressor suppressor;
 				try
 				{
-					suppressor = suppressorClass.newInstance();
+					suppressor = suppressorConstructor.newInstance();
 				}
 				catch(final InstantiationException e)
 				{
 					throw new RuntimeException(e);
 				}
 				catch(final IllegalAccessException e)
+				{
+					throw new RuntimeException(e);
+				}
+				catch(final InvocationTargetException e)
 				{
 					throw new RuntimeException(e);
 				}
