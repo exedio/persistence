@@ -165,8 +165,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		if(!disableUniqueViolation.booleanValue() && logger.isLoggable(Level.WARNING))
 			logger.log(Level.WARNING, "enabled experimental {0}", new Object[]{disableUniqueViolation.getKey()});
-		if(itemCacheInvalidateLast.booleanValue())
-			System.out.println("WARNING: ConnectProperties using experimental " + itemCacheInvalidateLast.getKey());
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
