@@ -255,15 +255,20 @@ final class Marshallers
 		}
 		else if(value instanceof Enum)
 		{
-			final Class<? extends Enum> enumClass = ((Enum)value).getDeclaringClass();
+			final Enum enumValue = (Enum)value;
 			@SuppressWarnings("unchecked")
-			final EnumFieldType enumFieldType = EnumFieldType.get(enumClass);
-			return enumFieldType.marshaller;
+			final	Marshaller marshaller = get(enumValue);
+			return marshaller;
 		}
 		else
 		{
 			return get(value.getClass());
 		}
+	}
+
+	private <E extends Enum<E>> Marshaller<E> get(final E value)
+	{
+		return EnumFieldType.get(value.getDeclaringClass()).marshaller;
 	}
 
 	private <E> Marshaller<E> get(final Class<E> javaClass)
