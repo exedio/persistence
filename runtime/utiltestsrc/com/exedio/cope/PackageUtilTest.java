@@ -59,6 +59,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TypesBoundComplexTest.class);
 		suite.addTestSuite(DateFieldWrongDefaultNowTest.class);
 		suite.addTestSuite(DayFieldWrongDefaultNowTest.class);
+		suite.addTestSuite(EnumSchemaTest.class);
 		suite.addTestSuite(ClusterUnpaddedTest.class);
 		suite.addTestSuite(ClusterPaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
