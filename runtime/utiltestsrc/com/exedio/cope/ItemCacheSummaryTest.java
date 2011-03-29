@@ -30,9 +30,9 @@ public class ItemCacheSummaryTest extends CopeAssert
 
 	public void testIt()
 	{
-		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 141, 151, 161, 131);
-		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, D2, 83, 93, 103, 113, 123, 143, 153, 163, 133);
-		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,  0,  0, null, 0, 0,   0,   0,   0,   0,   0,   0,   0);
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 141, 151, 161);
+		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, D2, 83, 93, 103, 113, 123, 143, 153, 163);
+		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,  0,  0, null, 0, 0,   0,   0,   0,   0,   0,   0);
 		assertEquals(D1, i1.getLastReplacementRun());
 		assertEquals(D2, i2.getLastReplacementRun());
 		assertEquals(null, i0.getLastReplacementRun());
@@ -57,7 +57,6 @@ public class ItemCacheSummaryTest extends CopeAssert
 		assertEquals(284, ms.getInvalidateLastSize());
 		assertEquals(304, ms.getInvalidateLastHits());
 		assertEquals(324, ms.getInvalidateLastPurged());
-		assertEquals(264, ms.getInvalidationBucketHits());
 	}
 
 	public void testNull()
@@ -75,7 +74,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 
 	public void testNullElement()
 	{
-		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131, 141, 151, 161);
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131, 141, 151);
 		try
 		{
 			new ItemCacheSummary(new ItemCacheInfo[]{i1, null});
@@ -106,6 +105,5 @@ public class ItemCacheSummaryTest extends CopeAssert
 		assertEquals(0, ms.getInvalidateLastSize());
 		assertEquals(0, ms.getInvalidateLastHits());
 		assertEquals(0, ms.getInvalidateLastPurged());
-		assertEquals(0, ms.getInvalidationBucketHits());
 	}
 }

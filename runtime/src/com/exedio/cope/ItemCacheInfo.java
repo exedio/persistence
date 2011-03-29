@@ -39,7 +39,6 @@ public final class ItemCacheInfo
 	private final int  invalidateLastSize;
 	private final long invalidateLastHits;
 	private final long invalidateLastPurged;
-	private final long invalidationBucketHits;
 
 	ItemCacheInfo(
 			final Type type,
@@ -50,8 +49,8 @@ public final class ItemCacheInfo
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone,
-			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged,
-			final long invalidationBucketHits)
+			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged
+			)
 	{
 		this.type = type;
 		this.limit = limit;
@@ -70,7 +69,6 @@ public final class ItemCacheInfo
 		this.invalidateLastSize = invalidateLastSize;
 		this.invalidateLastHits = invalidateLastHits;
 		this.invalidateLastPurged = invalidateLastPurged;
-		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
 	public Type getType()
@@ -164,9 +162,14 @@ public final class ItemCacheInfo
 		return invalidateLastPurged;
 	}
 
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
 	public long getInvalidationBucketHits()
 	{
-		return invalidationBucketHits;
+		return 0l;
 	}
 
 	// ------------------- deprecated stuff -------------------

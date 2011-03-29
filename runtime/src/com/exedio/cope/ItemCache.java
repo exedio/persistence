@@ -59,7 +59,6 @@ final class ItemCache
 		}
 
 		final boolean invalidateLast = properties.itemCacheInvalidateLast.booleanValue();
-		final long invalidationBucketNanos = properties.itemCacheInvalidationBucketMillis.intValue()*1000L*1000L;
 		cachlets = new Cachlet[l];
 		final int limit = properties.getItemCacheLimit();
 		for(int i=0; i<l; i++)
@@ -71,7 +70,7 @@ final class ItemCache
 			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
 
 			final int iLimit = weights[i] * limit / weightSum;
-			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidateLast, invalidationBucketNanos) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidateLast) : null;
 		}
 	}
 
@@ -180,11 +179,6 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private final TIntLongHashMap invalidateLastNanos;
 
-		private final long invalidationBucketNanos;
-		private long invalidationsTimestamp = System.nanoTime();
-		private TIntHashSet newInvalidationBucket = null;
-		private TIntHashSet oldInvalidationBucket = null;
-
 		private volatile long hits = 0;
 		private volatile long misses = 0;
 		private long concurrentLoads = 0;
@@ -195,19 +189,16 @@ final class ItemCache
 		private long invalidationsDone = 0;
 		private long invalidateLastHits = 0;
 		private long invalidateLastPurged = 0;
-		private long invalidationBucketHits = 0;
 
-		Cachlet(final Type type, final int limit, final boolean invalidateLast, final long invalidationBucketNanos)
+		Cachlet(final Type type, final int limit, final boolean invalidateLast)
 		{
 			assert !type.isAbstract;
 			assert limit>0;
-			assert invalidationBucketNanos>=0;
 
 			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<WrittenState>();
 			this.invalidateLastNanos = invalidateLast ? new TIntLongHashMap() : null;
-			this.invalidationBucketNanos = invalidationBucketNanos;
 		}
 
 		WrittenState get(final int pk)
@@ -241,19 +232,6 @@ final class ItemCache
 			}
 		}
 
-		private void checkShift()
-		{
-			assert invalidationBucketNanos>0;
-			final long now = System.nanoTime();
-			final long delta = now-invalidationsTimestamp;
-			if ( delta>invalidationBucketNanos )
-			{
-				oldInvalidationBucket = newInvalidationBucket;
-				newInvalidationBucket = null;
-				invalidationsTimestamp = now;
-			}
-		}
-
 		void put(final WrittenState state, final long connectionNanos)
 		{
 			synchronized(map)
@@ -264,17 +242,6 @@ final class ItemCache
 					if(invalidateLastNanos!=0 && invalidateLastNanos>=connectionNanos)
 					{
 						invalidateLastHits++;
-						return;
-					}
-				}
-
-				if ( invalidationBucketNanos!=0 )
-				{
-					checkShift();
-					if ( ( newInvalidationBucket!=null && newInvalidationBucket.contains(state.pk) )
-						|| ( oldInvalidationBucket!=null && oldInvalidationBucket.contains(state.pk) ) )
-					{
-						invalidationBucketHits++;
 						return;
 					}
 				}
@@ -325,19 +292,6 @@ final class ItemCache
 		{
 			synchronized(map)
 			{
-				if ( invalidationBucketNanos!=0 )
-				{
-					checkShift();
-					if ( newInvalidationBucket==null )
-					{
-						newInvalidationBucket = new TIntHashSet();
-					}
-					for ( final TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-					{
-						newInvalidationBucket.add( i.next() );
-					}
-				}
-
 				final int mapSizeBefore = map.size();
 
 				// TODO implement and use a removeAll
@@ -450,8 +404,8 @@ final class ItemCache
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
 				invalidationsOrdered, invalidationsDone,
-				invalidateLastSize, invalidateLastHits, invalidateLastPurged,
-				invalidationBucketHits);
+				invalidateLastSize, invalidateLastHits, invalidateLastPurged
+				);
 		}
 	}
 }
