@@ -38,6 +38,20 @@ public class EnumClassTest extends CopeAssert
 	}
 
 
+	public void testNull()
+	{
+		try
+		{
+			newEnumField((Class<Normal>)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("valueClass", e.getMessage());
+		}
+	}
+
+
 	@SuppressWarnings({"unchecked"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
