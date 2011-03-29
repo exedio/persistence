@@ -60,10 +60,9 @@ public class EnumClassTest extends CopeAssert
 			newEnumField((Class)SomeClass.class);
 			fail();
 		}
-		catch(final RuntimeException e) // TODO
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Enum.class.getName() + ": " + SomeClass.class.getName(), e.getMessage());
-			assertSame(RuntimeException.class, e.getClass());
+			assertEquals("not an enum: " + SomeClass.class, e.getMessage());
 		}
 	}
 
@@ -89,10 +88,9 @@ public class EnumClassTest extends CopeAssert
 			newEnumField((Class)Subclass.Eins.getClass());
 			fail();
 		}
-		catch(final RuntimeException e) // TODO
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must be an enum: class " + Subclass.Eins.getClass().getName(), e.getMessage());
-			assertSame(RuntimeException.class, e.getClass());
+			assertEquals("not an enum: " + Subclass.Eins.getClass(), e.getMessage());
 		}
 	}
 

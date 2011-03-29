@@ -37,8 +37,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	private EnumFieldType(final Class<E> valueClass)
 	{
 		this.valueClass = valueClass;
-		if(!valueClass.isEnum())
-			throw new RuntimeException("must be an enum: " + valueClass);
+		assert valueClass.isEnum() : valueClass;
 
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
 
@@ -137,7 +136,8 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
-		assert valueClass!=null;
+		if(!valueClass.isEnum())
+			throw new IllegalArgumentException("not an enum: " + valueClass);
 
 		synchronized(types)
 		{
