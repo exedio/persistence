@@ -279,7 +279,7 @@ public abstract class MediaPath extends Pattern
 		for(int i = 0; i<l; i++)
 		{
 			final char c = result.charAt(i);
-			if(!(('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')))
+			if(!(('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')))
 				throw new IllegalArgumentException(result);
 		}
 
