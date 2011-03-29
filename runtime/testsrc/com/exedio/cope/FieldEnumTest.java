@@ -54,11 +54,11 @@ public class FieldEnumTest extends FieldTest
 			item.someEnum.getValue("enumValue3"));
 
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue1.getClass());
+			AttributeItem.SomeEnum.enumValue1.getDeclaringClass());
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue2.getClass());
+			AttributeItem.SomeEnum.enumValue2.getDeclaringClass());
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue3.getClass());
+			AttributeItem.SomeEnum.enumValue3.getDeclaringClass());
 
 		assertEquals("enumValue1",
 			AttributeItem.SomeEnum.enumValue1.name());
