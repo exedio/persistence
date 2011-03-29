@@ -88,7 +88,7 @@ The items are sorted inversely, i.e. lastest items are on top
 	after an invalidation an item will not be added to the item cache (deactivated by default)
 * add class MediaSummary
 * all jdbc connections are treated with
-	setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ)
+	setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED)
 	Use cope property connection.transactionIsolation.readCommitted=false
 	to disable.
 * add MediaImageMagickFilter#test()
