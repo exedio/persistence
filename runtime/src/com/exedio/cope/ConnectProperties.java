@@ -26,13 +26,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	private static final Logger logger = Logger.getLogger(ConnectProperties.class.getName());
-
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 
@@ -162,9 +158,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 
 		ensureValidity("x-build");
-
-		if(!disableUniqueViolation.booleanValue() && logger.isLoggable(Level.WARNING))
-			logger.log(Level.WARNING, "enabled experimental {0}", new Object[]{disableUniqueViolation.getKey()});
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
