@@ -26,7 +26,7 @@ import java.util.HashSet;
 final class Transactions
 {
 	private final HashSet<Transaction> list = new HashSet<Transaction>();
-	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
+	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<Transaction>();
 
 	void add(final Transaction result)
 	{
@@ -68,7 +68,7 @@ final class Transactions
 
 	Transaction currentIfBound()
 	{
-		final Transaction result = boundTransactions.get();
+		final Transaction result = threadLocal.get();
 		assert result==null || result.assertBoundToCurrentThread();
 		return result;
 	}
@@ -78,10 +78,10 @@ final class Transactions
 		if(transaction!=null)
 		{
 			transaction.bindToCurrentThread();
-			boundTransactions.set(transaction);
+			threadLocal.set(transaction);
 		}
 		else
-			boundTransactions.remove();
+			threadLocal.remove();
 	}
 
 	Transaction remove()
