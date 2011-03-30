@@ -544,13 +544,15 @@ public final class Query<R>
 		/**
 		 * Creates an empty Result.
 		 */
-		Result()
+		private Result()
 		{
 			this.data = Collections.emptyList();
 			this.total = 0;
 			this.offset = 0;
 			this.limit = -1;
 		}
+
+		static final Result EMPTY = new Result();
 
 		public Result(
 				final List<R> data,
@@ -646,9 +648,10 @@ public final class Query<R>
 		}
 	}
 
+	@SuppressWarnings("unchecked") // OK: for singleton property
 	public static <R> Result<R> emptyResult()
 	{
-		return new Result<R>();
+		return Result.EMPTY;
 	}
 
 	/**
