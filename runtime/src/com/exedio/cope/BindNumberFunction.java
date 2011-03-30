@@ -53,7 +53,7 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	}
 
 	/**
-	 * You may want to use {@link PlusView#plus(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final PlusLiteralView<E> plus(final E value)
 	{
@@ -61,7 +61,7 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	}
 
 	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{

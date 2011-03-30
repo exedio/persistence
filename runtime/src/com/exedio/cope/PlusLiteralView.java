@@ -101,7 +101,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link PlusLiteralView(Function,Object)} instead.
+	 * @deprecated Use {@link #PlusLiteralView(Function,Number)} instead.
 	 */
 	@Deprecated
 	public PlusLiteralView(final NumberFunction<E> left, final E right)

@@ -45,7 +45,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	}
 
 	/**
-	 * You may want to use {@link PlusView#plus(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final PlusLiteralView<E> plus(final E value)
 	{
@@ -53,7 +53,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	}
 
 	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{

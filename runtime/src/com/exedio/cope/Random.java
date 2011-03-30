@@ -230,7 +230,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	/**
-	 * You may want to use {@link PlusView#plus(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
@@ -238,7 +238,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MultiplyLiteralView<Double> multiply(final Double value)
 	{

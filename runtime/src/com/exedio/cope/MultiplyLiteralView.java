@@ -101,7 +101,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link MultiplyLiteralView(Function,Object)} instead.
+	 * @deprecated Use {@link #MultiplyLiteralView(Function,Number)} instead.
 	 */
 	@Deprecated
 	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
