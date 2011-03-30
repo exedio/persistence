@@ -31,12 +31,6 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	private final Function<E> left;
 	private final E right;
 
-	/**
-	 * Creates a new PlusView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#plus(Number)
-	 */
 	private PlusLiteralView(final Function<E> left, final E right)
 	{
 		super(new Function[]{left}, "plus", PlusView.checkClass(Number.class, left.getValueClass()));

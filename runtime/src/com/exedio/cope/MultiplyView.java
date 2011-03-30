@@ -37,14 +37,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	private final Function<E>[] multipliers;
 
-	/**
-	 * Creates a new MultiplyView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#multiply(NumberFunction)
-	 * @see Cope#multiply(NumberFunction,NumberFunction)
-	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
-	 */
 	private MultiplyView(final Function<E>[] multipliers)
 	{
 		super(multipliers, "multiply", PlusView.checkClass(Number.class, PlusView.valueClass(multipliers)));

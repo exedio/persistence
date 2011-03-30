@@ -63,14 +63,6 @@ public final class PlusView<E extends Number> extends NumberView<E>
 		return clazz;
 	}
 
-	/**
-	 * Creates a new PlusView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#plus(NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
-	 */
 	private PlusView(final Function<E>[] addends)
 	{
 		super(addends, "plus", checkClass(Number.class, valueClass(addends)));

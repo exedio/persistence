@@ -31,12 +31,6 @@ public final class DivideView<E extends Number> extends NumberView<E>
 	private final Function<E> dividend;
 	private final Function<E> divisor;
 
-	/**
-	 * Creates a new MultiplyView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#divide(NumberFunction)
-	 */
 	private DivideView(final Function<E> dividend, final Function<E> divisor)
 	{
 		super(new Function[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
