@@ -44,9 +44,12 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<E> plus(final E value)
 	{
-		return new PlusLiteralView<E>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
 	public final MultiplyLiteralView<E> multiply(final E value)

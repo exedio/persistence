@@ -27,7 +27,7 @@ public class PlusDoubleItem extends Item
 
 	public static final DoubleField numC = new DoubleField().optional();
 
-	public static final PlusLiteralView<Double> plusA9 = new PlusLiteralView<Double>(numA, new Double(9.3));
+	public static final PlusLiteralView<Double> plusA9 = PlusLiteralView.plus(numA, new Double(9.3));
 
 	public static final PlusView<Double> plusAB = numA.plus(numB);
 

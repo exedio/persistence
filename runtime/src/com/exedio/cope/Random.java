@@ -229,9 +229,12 @@ public class Random implements NumberFunction<Double>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
-		return new PlusLiteralView<Double>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
 	public final MultiplyLiteralView<Double> multiply(final Double value)

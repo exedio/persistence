@@ -102,7 +102,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		// exceptions
 		try
 		{
-			new PlusLiteralView<Integer>(null, 6);
+			PlusLiteralView.plus(null, 6);
 		}
 		catch(final NullPointerException e)
 		{
@@ -110,7 +110,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new PlusLiteralView<Integer>(numA, null);
+			PlusLiteralView.plus(numA, null);
 			fail();
 		}
 		catch(final NullPointerException e)

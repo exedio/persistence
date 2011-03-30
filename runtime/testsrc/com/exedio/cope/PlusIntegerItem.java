@@ -27,7 +27,7 @@ public class PlusIntegerItem extends Item
 
 	public static final IntegerField numC = new IntegerField().optional();
 
-	public static final PlusLiteralView<Integer> plusA9 = new PlusLiteralView<Integer>(numA, new Integer(9));
+	public static final PlusLiteralView<Integer> plusA9 = PlusLiteralView.plus(numA, new Integer(9));
 
 	public static final PlusView<Integer> plusAB = numA.plus(numB);
 
