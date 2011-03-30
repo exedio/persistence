@@ -101,8 +101,8 @@ final class OracleDialect extends Dialect
 	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
+			final Function<E> dividend,
+			final Function<E> divisor,
 			final Join join)
 	{
 		bf.append("TRUNC(").

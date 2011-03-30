@@ -20,10 +20,16 @@ package com.exedio.cope;
 
 public final class DivideView<E extends Number> extends NumberView<E>
 {
+	public static final <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
+	{
+		return new DivideView<E>(dividend, divisor);
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction<E> dividend;
-	private final NumberFunction<E> divisor;
+	private final Function<E> dividend;
+	private final Function<E> divisor;
 
 	/**
 	 * Creates a new MultiplyView.
@@ -31,9 +37,9 @@ public final class DivideView<E extends Number> extends NumberView<E>
 	 * you may want to use the more convenient wrapper methods.
 	 * @see NumberFunction#divide(NumberFunction)
 	 */
-	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
+	public DivideView(final Function<E> dividend, final Function<E> divisor)
 	{
-		super(new NumberFunction[]{dividend, divisor}, "divide", dividend.getValueClass());
+		super(new Function[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
 
 		this.dividend = dividend;
 		this.divisor = divisor;
@@ -87,5 +93,16 @@ public final class DivideView<E extends Number> extends NumberView<E>
 			bf.dialect.appendIntegerDivision(bf, dividend, divisor, join);
 		}
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #DivideView(Function,Function)} instead.
+	 */
+	@Deprecated
+	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
+	{
+		this((Function<E>)dividend, (Function<E>)divisor);
 	}
 }

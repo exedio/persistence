@@ -261,9 +261,12 @@ public class Random implements NumberFunction<Double>
 		return MultiplyView.multiply(this, other);
 	}
 
+	/**
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final DivideView<Double> divide(final NumberFunction<Double> other)
 	{
-		return new DivideView<Double>(this, other);
+		return DivideView.divide(this, other);
 	}
 
 	public final SumAggregate<Double> sum()
