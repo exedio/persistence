@@ -20,9 +20,15 @@ package com.exedio.cope;
 
 public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
+	public static final <E extends Number> MultiplyLiteralView<E> multiply(final Function<E> multiplier1, final E multiplier2)
+	{
+		return new MultiplyLiteralView<E>(multiplier1, multiplier2);
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction<E> left;
+	private final Function<E> left;
 	private final E right;
 
 	/**
@@ -31,7 +37,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	 * you may want to use the more convenient wrapper methods.
 	 * @see NumberFunction#multiply(Number)
 	 */
-	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
+	private MultiplyLiteralView(final Function<E> left, final E right)
 	{
 		super(new Function[]{left}, "multiply", left.getValueClass());
 
@@ -90,5 +96,16 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		bf.append('*');
 		bf.appendParameter(right);
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link MultiplyLiteralView(Function,Object)} instead.
+	 */
+	@Deprecated
+	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
+	{
+		this((Function<E>)left, right);
 	}
 }

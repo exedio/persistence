@@ -60,9 +60,12 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 		return PlusLiteralView.plus(this, value);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Object)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{
-		return new MultiplyLiteralView<E>(this, value);
+		return MultiplyLiteralView.multiply(this, value);
 	}
 
 	/**

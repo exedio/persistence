@@ -39,7 +39,7 @@ public class PlusDoubleItem extends Item
 
 	public static final PlusView<Double> plusABaC = plusAB.plus(numC);
 
-	public static final MultiplyLiteralView<Double> multiplyB9 = new MultiplyLiteralView<Double>(numB, new Double(9.3));
+	public static final MultiplyLiteralView<Double> multiplyB9 = MultiplyLiteralView.multiply(numB, new Double(9.3));
 
 	public static final MultiplyView<Double> multiplyBC = numB.multiply(numC);
 
