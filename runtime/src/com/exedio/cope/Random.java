@@ -250,9 +250,12 @@ public class Random implements NumberFunction<Double>
 		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)
 	{
-		return new MultiplyView<Double>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
 	public final DivideView<Double> divide(final NumberFunction<Double> other)

@@ -134,14 +134,20 @@ public abstract class Cope
 		return PlusView.plus(addend1, addend2, addend3);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2});
+		return MultiplyView.multiply(multiplier1, multiplier2);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
+		return MultiplyView.multiply(multiplier1, multiplier2, multiplier3);
 	}
 
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)

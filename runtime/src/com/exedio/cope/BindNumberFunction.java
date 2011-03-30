@@ -73,9 +73,12 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
 	public final DivideView<E> divide(final NumberFunction<E> other)
