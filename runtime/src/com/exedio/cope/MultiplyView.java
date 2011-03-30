@@ -32,11 +32,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2, multiplier3});
 	}
 
-	/*public static <E extends Number> MultiplyView multiply(final Function<E>[] multipliers)
-	{
-		return new MultiplyView<E>(multipliers);
-	}*/
-
 
 	private static final long serialVersionUID = 1l;
 
@@ -50,7 +45,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	 * @see Cope#multiply(NumberFunction,NumberFunction)
 	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
 	 */
-
 	private MultiplyView(final Function<E>[] multipliers)
 	{
 		super(multipliers, "multiply", PlusView.checkClass(Number.class, PlusView.valueClass(multipliers)));
