@@ -37,7 +37,7 @@ final class Transactions
 		}
 	}
 
-	public Transaction leave()
+	Transaction leave()
 	{
 		final Transaction tx = current();
 		tx.unbindThread();
@@ -45,14 +45,14 @@ final class Transactions
 		return tx;
 	}
 
-	public void join(final Transaction tx)
+	void join(final Transaction tx)
 	{
 		if(hasCurrent())
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		setTransaction(tx);
 	}
 
-	public boolean hasCurrent()
+	boolean hasCurrent()
 	{
 		return currentIfBound()!=null;
 	}
@@ -63,7 +63,7 @@ final class Transactions
 	 * @throws IllegalStateException if there is no cope transaction bound to current thread
 	 * @see Thread#currentThread()
 	 */
-	public Transaction current()
+	Transaction current()
 	{
 		final Transaction result = currentIfBound();
 		if(result==null)
@@ -118,7 +118,7 @@ final class Transactions
 			return oldestNanos;
 	}
 
-	public Collection<Transaction> getList()
+	Collection<Transaction> getList()
 	{
 		final Transaction[] result;
 		synchronized(openTransactions)
