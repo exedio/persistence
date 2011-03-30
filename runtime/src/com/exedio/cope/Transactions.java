@@ -28,12 +28,12 @@ final class Transactions
 	private final HashSet<Transaction> open = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<Transaction>();
 
-	void add(final Transaction result)
+	void add(final Transaction tx)
 	{
-		setThreadLocal(result);
+		setThreadLocal(tx);
 		synchronized(open)
 		{
-			open.add(result);
+			open.add(tx);
 		}
 	}
 
@@ -73,12 +73,12 @@ final class Transactions
 		return result;
 	}
 
-	private void setThreadLocal(final Transaction transaction)
+	private void setThreadLocal(final Transaction tx)
 	{
-		if(transaction!=null)
+		if(tx!=null)
 		{
-			transaction.bindToCurrentThread();
-			threadLocal.set(transaction);
+			tx.bindToCurrentThread();
+			threadLocal.set(tx);
 		}
 		else
 			threadLocal.remove();
