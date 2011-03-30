@@ -71,7 +71,6 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	 * @see Cope#plus(NumberFunction,NumberFunction)
 	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
 	 */
-	@SuppressWarnings("unchecked")
 	public PlusView(final Function<E>[] addends)
 	{
 		super(addends, "plus", checkClass(Number.class, valueClass(addends)));
