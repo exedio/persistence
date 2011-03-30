@@ -108,9 +108,9 @@ final class Transactions
 			long oldestNanos = Long.MAX_VALUE;
 			synchronized(list)
 			{
-				for(final Transaction openTransaction : list)
+				for(final Transaction tx : list)
 				{
-					final long currentNanos = openTransaction.getConnectionNanosOrMax();
+					final long currentNanos = tx.getConnectionNanosOrMax();
 					if(oldestNanos>currentNanos)
 						oldestNanos = currentNanos;
 				}
