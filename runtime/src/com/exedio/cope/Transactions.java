@@ -52,12 +52,12 @@ final class Transactions
 		setTransaction(tx);
 	}
 
-	boolean hasCurrent()
+	private boolean hasCurrent()
 	{
 		return currentIfBound()!=null;
 	}
 
-	Transaction current()
+	private Transaction current()
 	{
 		final Transaction result = currentIfBound();
 		if(result==null)
