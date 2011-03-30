@@ -105,17 +105,17 @@ final class Transactions
 
 	long getOldestConnectionNanos()
 	{
-			long oldestNanos = Long.MAX_VALUE;
-			synchronized(list)
+		long oldestNanos = Long.MAX_VALUE;
+		synchronized(list)
+		{
+			for(final Transaction tx : list)
 			{
-				for(final Transaction tx : list)
-				{
-					final long currentNanos = tx.getConnectionNanosOrMax();
-					if(oldestNanos>currentNanos)
-						oldestNanos = currentNanos;
-				}
+				final long currentNanos = tx.getConnectionNanosOrMax();
+				if(oldestNanos>currentNanos)
+					oldestNanos = currentNanos;
 			}
-			return oldestNanos;
+		}
+		return oldestNanos;
 	}
 
 	Collection<Transaction> getList()
