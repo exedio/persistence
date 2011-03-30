@@ -23,12 +23,9 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -56,9 +53,7 @@ public final class Model implements Serializable
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
-	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
-	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
-
+	private final Transactions transactions = new Transactions();
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type... types)
@@ -315,7 +310,7 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
-		final Transaction tx = currentTransactionIfBound();
+		final Transaction tx = transactions.currentTransactionIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 
@@ -489,7 +484,7 @@ public final class Model implements Serializable
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		final Transaction previousTransaction = currentTransactionIfBound();
+		final Transaction previousTransaction = transactions.currentTransactionIfBound();
 		if(previousTransaction!=null)
 		{
 			final String previousName = previousTransaction.name;
@@ -509,11 +504,7 @@ public final class Model implements Serializable
 
 		final Transaction result =
 			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
-		setTransaction( result );
-		synchronized(openTransactions)
-		{
-			openTransactions.add(result);
-		}
+		transactions.add(result);
 		return result;
 	}
 
@@ -530,22 +521,17 @@ public final class Model implements Serializable
 
 	public Transaction leaveTransaction()
 	{
-		final Transaction tx = currentTransaction();
-		tx.unbindThread();
-		setTransaction( null );
-		return tx;
+		return transactions.leaveTransaction();
 	}
 
 	public void joinTransaction( final Transaction tx )
 	{
-		if ( hasCurrentTransaction() )
-			throw new RuntimeException("there is already a transaction bound to current thread");
-		setTransaction(tx);
+		transactions.joinTransaction(tx);
 	}
 
 	public boolean hasCurrentTransaction()
 	{
-		return currentTransactionIfBound()!=null;
+		return transactions.currentTransactionIfBound()!=null;
 	}
 
 	/**
@@ -556,29 +542,11 @@ public final class Model implements Serializable
 	 */
 	public Transaction currentTransaction()
 	{
-		final Transaction result = currentTransactionIfBound();
+		final Transaction result = transactions.currentTransactionIfBound();
 		if(result==null)
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		assert result.assertBoundToCurrentThread();
 		return result;
-	}
-
-	private Transaction currentTransactionIfBound()
-	{
-		final Transaction result = boundTransactions.get();
-		assert result==null || result.assertBoundToCurrentThread();
-		return result;
-	}
-
-	private void setTransaction(final Transaction transaction)
-	{
-		if(transaction!=null)
-		{
-			transaction.bindToCurrentThread();
-			boundTransactions.set(transaction);
-		}
-		else
-			boundTransactions.remove();
 	}
 
 	public void rollback()
@@ -588,7 +556,7 @@ public final class Model implements Serializable
 
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = currentTransactionIfBound();
+		final Transaction t = transactions.currentTransactionIfBound();
 		if( t!=null )
 			rollback();
 	}
@@ -600,27 +568,12 @@ public final class Model implements Serializable
 
 	private void commitOrRollback(final boolean rollback)
 	{
-		final Transaction tx = currentTransaction();
-
-		synchronized(openTransactions)
-		{
-			openTransactions.remove(tx);
-		}
-		setTransaction(null);
+		final Transaction tx = transactions.remove();
 		tx.commitOrRollback(rollback, this, transactionCounter);
 
 		if(tx.connect.properties.itemCacheInvalidateLast.booleanValue())
 		{
-			long oldestNanos = Long.MAX_VALUE;
-			synchronized(openTransactions)
-			{
-				for(final Transaction openTransaction : openTransactions)
-				{
-					final long currentNanos = openTransaction.getConnectionNanosOrMax();
-					if(oldestNanos>currentNanos)
-						oldestNanos = currentNanos;
-				}
-			}
+			final long oldestNanos = transactions.getOldestConnectionNanos();
 			connect().itemCache.purgeInvalidateLast(oldestNanos);
 		}
 	}
@@ -643,12 +596,7 @@ public final class Model implements Serializable
 	 */
 	public Collection<Transaction> getOpenTransactions()
 	{
-		final Transaction[] result;
-		synchronized(openTransactions)
-		{
-			result = openTransactions.toArray(new Transaction[openTransactions.size()]);
-		}
-		return Collections.unmodifiableCollection(Arrays.asList(result));
+		return transactions.getOpenTransactions();
 	}
 
 	public TransactionCounters getTransactionCounters()
