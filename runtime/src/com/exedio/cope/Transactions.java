@@ -25,15 +25,15 @@ import java.util.HashSet;
 
 final class Transactions
 {
-	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
+	private final HashSet<Transaction> list = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 
 	void add(final Transaction result)
 	{
 		setTransaction( result );
-		synchronized(openTransactions)
+		synchronized(list)
 		{
-			openTransactions.add(result);
+			list.add(result);
 		}
 	}
 
@@ -94,9 +94,9 @@ final class Transactions
 	{
 		final Transaction tx = current();
 
-		synchronized(openTransactions)
+		synchronized(list)
 		{
-			openTransactions.remove(tx);
+			list.remove(tx);
 		}
 		setTransaction(null);
 
@@ -106,9 +106,9 @@ final class Transactions
 	long getOldestConnectionNanos()
 	{
 			long oldestNanos = Long.MAX_VALUE;
-			synchronized(openTransactions)
+			synchronized(list)
 			{
-				for(final Transaction openTransaction : openTransactions)
+				for(final Transaction openTransaction : list)
 				{
 					final long currentNanos = openTransaction.getConnectionNanosOrMax();
 					if(oldestNanos>currentNanos)
@@ -121,9 +121,9 @@ final class Transactions
 	Collection<Transaction> getList()
 	{
 		final Transaction[] result;
-		synchronized(openTransactions)
+		synchronized(list)
 		{
-			result = openTransactions.toArray(new Transaction[openTransactions.size()]);
+			result = list.toArray(new Transaction[list.size()]);
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
