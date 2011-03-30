@@ -86,7 +86,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 	public void testOverlappingOnce()
 	{
-		if(quit)
+		if(quit||hsqldb)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -147,7 +147,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 	public void testOverlappingTwice()
 	{
-		if(quit)
+		if(quit||hsqldb)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
