@@ -32,7 +32,6 @@ public @interface Wrapped
 	String[] comment() default "";
 	String returns() default "";
 	String name() default "";
-	int position() default Integer.MIN_VALUE;
 	Thrown[] thrown() default {};
 
 	public @interface Thrown

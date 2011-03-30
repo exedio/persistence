@@ -24,7 +24,9 @@ import static java.lang.System.nanoTime;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -140,7 +142,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
-	@Wrapped(comment="Returns the parent field of the run type of {0}.", position=-1, name="{1}RunParent")
+	@Wrapped(comment="Returns the parent field of the run type of {0}.", name="{1}RunParent")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -179,7 +181,9 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(this, super.getWrappers());
+		final List<Wrapper> result = new LinkedList<Wrapper>(Wrapper.makeByReflection(this, super.getWrappers()));
+		result.add(result.size()-1, result.remove(2)); // getRunParent
+		return Collections.unmodifiableList(result);
 	}
 
 	/**
