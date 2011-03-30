@@ -57,12 +57,6 @@ final class Transactions
 		return currentIfBound()!=null;
 	}
 
-	/**
-	 * Returns the transaction for this model,
-	 * that is bound to the currently running thread.
-	 * @throws IllegalStateException if there is no cope transaction bound to current thread
-	 * @see Thread#currentThread()
-	 */
 	Transaction current()
 	{
 		final Transaction result = currentIfBound();
