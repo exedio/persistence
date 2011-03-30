@@ -596,7 +596,7 @@ public final class Model implements Serializable
 	 */
 	public Collection<Transaction> getOpenTransactions()
 	{
-		return transactions.getList();
+		return transactions.getOpen();
 	}
 
 	public TransactionCounters getTransactionCounters()
