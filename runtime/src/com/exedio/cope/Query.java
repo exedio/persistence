@@ -645,15 +645,6 @@ public final class Query<R>
 	}
 
 	/**
-	 * @deprecated Use {@link Result#empty()} instead
-	 */
-	@Deprecated
-	public static <R> Result<R> emptyResult()
-	{
-		return Result.empty();
-	}
-
-	/**
 	 * Searches equivalently to {@link #search()},
 	 * but assumes that the search result has at most one element.
 	 * <p>
@@ -994,5 +985,14 @@ public final class Query<R>
 	public R searchUnique()
 	{
 		return searchSingleton();
+	}
+
+	/**
+	 * @deprecated Use {@link Result#empty()} instead
+	 */
+	@Deprecated
+	public static <R> Result<R> emptyResult()
+	{
+		return Result.empty();
 	}
 }
