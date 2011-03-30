@@ -541,19 +541,6 @@ public final class Query<R>
 					: query.total();
 		}
 
-		/**
-		 * Creates an empty Result.
-		 */
-		private Result()
-		{
-			this.data = Collections.emptyList();
-			this.total = 0;
-			this.offset = 0;
-			this.limit = -1;
-		}
-
-		static final Result EMPTY = new Result();
-
 		public Result(
 				final List<R> data,
 				final int total,
@@ -636,6 +623,15 @@ public final class Query<R>
 			return data.toString() + '(' + total + ')';
 		}
 
+		@SuppressWarnings("unchecked") // OK: for singleton property
+		static <R> Result<R> empty()
+		{
+			return EMPTY;
+		}
+
+		@SuppressWarnings("unchecked") // OK: for singleton property
+		private static final Result EMPTY = new Result(Collections.EMPTY_LIST, 0, 0);
+
 		// ------------------- deprecated stuff -------------------
 
 		/**
@@ -648,10 +644,9 @@ public final class Query<R>
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: for singleton property
 	public static <R> Result<R> emptyResult()
 	{
-		return Result.EMPTY;
+		return Result.empty();
 	}
 
 	/**
