@@ -118,14 +118,20 @@ public abstract class Cope
 		}
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2});
+		return PlusView.plus(addend1, addend2);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2, addend3});
+		return PlusView.plus(addend1, addend2, addend3);
 	}
 
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)

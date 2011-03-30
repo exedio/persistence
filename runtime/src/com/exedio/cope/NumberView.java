@@ -54,9 +54,12 @@ public abstract class NumberView<E extends Number> extends View<E>
 		return new MultiplyLiteralView<E>(this, value);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
-		return new PlusView<E>(new NumberFunction[]{this, other});
+		return PlusView.plus(this, other);
 	}
 
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)
