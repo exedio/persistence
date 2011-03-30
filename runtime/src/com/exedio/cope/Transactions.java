@@ -30,7 +30,7 @@ final class Transactions
 
 	void add(final Transaction result)
 	{
-		setTransaction( result );
+		setThreadLocal(result);
 		synchronized(open)
 		{
 			open.add(result);
@@ -41,7 +41,7 @@ final class Transactions
 	{
 		final Transaction tx = current();
 		tx.unbindThread();
-		setTransaction( null );
+		setThreadLocal(null);
 		return tx;
 	}
 
@@ -49,7 +49,7 @@ final class Transactions
 	{
 		if(hasCurrent())
 			throw new RuntimeException("there is already a transaction bound to current thread");
-		setTransaction(tx);
+		setThreadLocal(tx);
 	}
 
 	private boolean hasCurrent()
@@ -73,7 +73,7 @@ final class Transactions
 		return result;
 	}
 
-	private void setTransaction(final Transaction transaction)
+	private void setThreadLocal(final Transaction transaction)
 	{
 		if(transaction!=null)
 		{
@@ -92,7 +92,7 @@ final class Transactions
 		{
 			open.remove(tx);
 		}
-		setTransaction(null);
+		setThreadLocal(null);
 
 		return tx;
 	}
