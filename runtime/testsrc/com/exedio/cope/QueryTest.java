@@ -188,13 +188,13 @@ public class QueryTest extends AbstractRuntimeTest
 		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
 		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
 
-		assertEquals(list(), Query.emptyResult().getData());
-		assertEquals(0, Query.emptyResult().getTotal());
-		assertEquals(0, Query.emptyResult().getOffset());
-		assertEquals(-1, Query.emptyResult().getLimit());
-		assertSame(Query.emptyResult(), Query.emptyResult());
-		assertEquals(Query.emptyResult(), Query.emptyResult());
-		assertEquals(Query.emptyResult().hashCode(), Query.emptyResult().hashCode());
+		assertEquals(list(), Query.Result.empty().getData());
+		assertEquals(0, Query.Result.empty().getTotal());
+		assertEquals(0, Query.Result.empty().getOffset());
+		assertEquals(-1, Query.Result.empty().getLimit());
+		assertSame(Query.Result.empty(), Query.Result.empty());
+		assertEquals(Query.Result.empty(), Query.Result.empty());
+		assertEquals(Query.Result.empty().hashCode(), Query.Result.empty().hashCode());
 
 		deleteOnTearDown(new DayItem(d1));
 		deleteOnTearDown(new DayItem(d2));

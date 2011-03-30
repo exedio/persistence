@@ -624,7 +624,7 @@ public final class Query<R>
 		}
 
 		@SuppressWarnings("unchecked") // OK: for singleton property
-		static <R> Result<R> empty()
+		public static <R> Result<R> empty()
 		{
 			return EMPTY;
 		}
@@ -644,6 +644,10 @@ public final class Query<R>
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link Result#empty()} instead
+	 */
+	@Deprecated
 	public static <R> Result<R> emptyResult()
 	{
 		return Result.empty();
