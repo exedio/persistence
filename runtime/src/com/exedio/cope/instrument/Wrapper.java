@@ -155,6 +155,12 @@ public final class Wrapper
 		{
 			return vararg;
 		}
+
+		@Override
+		public String toString()
+		{
+			return type.toString();
+		}
 	}
 
 	private ArrayList<Parameter> parameters;
@@ -304,6 +310,13 @@ public final class Wrapper
 			throw new IllegalArgumentException("comment must not start with space, but was '" + comment + '\'');
 		if(comment.startsWith("@"))
 			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return name + parameters;
 	}
 
 
