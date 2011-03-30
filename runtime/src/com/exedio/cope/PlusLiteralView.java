@@ -37,7 +37,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	 * you may want to use the more convenient wrapper methods.
 	 * @see NumberFunction#plus(Number)
 	 */
-	public PlusLiteralView(final Function<E> left, final E right)
+	private PlusLiteralView(final Function<E> left, final E right)
 	{
 		super(new Function[]{left}, "plus", PlusView.checkClass(Number.class, left.getValueClass()));
 
