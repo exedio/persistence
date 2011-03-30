@@ -310,7 +310,7 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
-		final Transaction tx = transactions.currentTransactionIfBound();
+		final Transaction tx = transactions.currentIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 
@@ -484,7 +484,7 @@ public final class Model implements Serializable
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		final Transaction previousTransaction = transactions.currentTransactionIfBound();
+		final Transaction previousTransaction = transactions.currentIfBound();
 		if(previousTransaction!=null)
 		{
 			final String previousName = previousTransaction.name;
@@ -521,17 +521,17 @@ public final class Model implements Serializable
 
 	public Transaction leaveTransaction()
 	{
-		return transactions.leaveTransaction();
+		return transactions.leave();
 	}
 
 	public void joinTransaction( final Transaction tx )
 	{
-		transactions.joinTransaction(tx);
+		transactions.join(tx);
 	}
 
 	public boolean hasCurrentTransaction()
 	{
-		return transactions.currentTransactionIfBound()!=null;
+		return transactions.currentIfBound()!=null;
 	}
 
 	/**
@@ -542,7 +542,7 @@ public final class Model implements Serializable
 	 */
 	public Transaction currentTransaction()
 	{
-		final Transaction result = transactions.currentTransactionIfBound();
+		final Transaction result = transactions.currentIfBound();
 		if(result==null)
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		assert result.assertBoundToCurrentThread();
@@ -556,7 +556,7 @@ public final class Model implements Serializable
 
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = transactions.currentTransactionIfBound();
+		final Transaction t = transactions.currentIfBound();
 		if( t!=null )
 			rollback();
 	}
@@ -596,7 +596,7 @@ public final class Model implements Serializable
 	 */
 	public Collection<Transaction> getOpenTransactions()
 	{
-		return transactions.getOpenTransactions();
+		return transactions.getList();
 	}
 
 	public TransactionCounters getTransactionCounters()

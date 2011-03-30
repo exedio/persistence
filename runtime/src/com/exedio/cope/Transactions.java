@@ -37,24 +37,24 @@ final class Transactions
 		}
 	}
 
-	public Transaction leaveTransaction()
+	public Transaction leave()
 	{
-		final Transaction tx = currentTransaction();
+		final Transaction tx = current();
 		tx.unbindThread();
 		setTransaction( null );
 		return tx;
 	}
 
-	public void joinTransaction( final Transaction tx )
+	public void join(final Transaction tx)
 	{
-		if ( hasCurrentTransaction() )
+		if(hasCurrent())
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		setTransaction(tx);
 	}
 
-	public boolean hasCurrentTransaction()
+	public boolean hasCurrent()
 	{
-		return currentTransactionIfBound()!=null;
+		return currentIfBound()!=null;
 	}
 
 	/**
@@ -63,16 +63,16 @@ final class Transactions
 	 * @throws IllegalStateException if there is no cope transaction bound to current thread
 	 * @see Thread#currentThread()
 	 */
-	public Transaction currentTransaction()
+	public Transaction current()
 	{
-		final Transaction result = currentTransactionIfBound();
+		final Transaction result = currentIfBound();
 		if(result==null)
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		assert result.assertBoundToCurrentThread();
 		return result;
 	}
 
-	Transaction currentTransactionIfBound()
+	Transaction currentIfBound()
 	{
 		final Transaction result = boundTransactions.get();
 		assert result==null || result.assertBoundToCurrentThread();
@@ -92,7 +92,7 @@ final class Transactions
 
 	Transaction remove()
 	{
-		final Transaction tx = currentTransaction();
+		final Transaction tx = current();
 
 		synchronized(openTransactions)
 		{
@@ -118,7 +118,7 @@ final class Transactions
 			return oldestNanos;
 	}
 
-	public Collection<Transaction> getOpenTransactions()
+	public Collection<Transaction> getList()
 	{
 		final Transaction[] result;
 		synchronized(openTransactions)
