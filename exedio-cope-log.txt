@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* Disable connection.transactionIsolation.readCommitted
+	in cope.properties by default.
 * Enable cache.item.invalidateLast by default, use
 		cache.item.invalidateLast=false
 	in cope.properties to revert to old behaviour.

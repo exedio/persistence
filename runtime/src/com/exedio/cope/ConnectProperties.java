@@ -35,7 +35,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField connectionUrl      = new StringField("connection.url");
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
-	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
+	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
 
 	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
 	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", true);
