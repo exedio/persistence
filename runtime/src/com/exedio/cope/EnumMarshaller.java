@@ -18,19 +18,17 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntObjectHashMap;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 {
-	private final TIntObjectHashMap<E> numbersToValues;
+	private final EnumFieldType<E> type;
 	private final int[] ordinalsToNumbers;
 
 	EnumMarshaller(final EnumFieldType<E> type)
 	{
-		numbersToValues = type.numbersToValues;
+		this.type = type;
 		ordinalsToNumbers = type.ordinalsToNumbers;
 	}
 
@@ -41,7 +39,7 @@ final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 		if(cell==null)
 			return null;
 
-		final E result = numbersToValues.get((((Number)cell).intValue()));
+		final E result = type.getValueByNumber(((Number)cell).intValue());
 		if(result==null)
 			throw new RuntimeException(String.valueOf(cell));
 		return result;

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntObjectHashMap;
-
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
@@ -31,7 +29,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	final EnumFieldType<E> valueType;
 	private final List<E> values;
-	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
 
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
@@ -40,7 +37,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 		this.valueType = EnumFieldType.get(valueClass);
 		this.values = valueType.values;
-		this.numbersToValues = valueType.numbersToValues;
 		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
 
 		checkValueClass(Enum.class);
@@ -112,13 +108,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return valueType;
 	}
 
-	private E getValue(final int number)
-	{
-		final E result = numbersToValues.get(number);
-		assert result!=null : toString() + number;
-		return result;
-	}
-
 	private int getNumber(final E value)
 	{
 		assert valueType.isValid(value);
@@ -178,7 +167,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return
 			cell==null ?
 				null :
-				getValue(((Integer)cell).intValue());
+				valueType.getValueByNumber(((Integer)cell).intValue());
 	}
 
 	@Override
