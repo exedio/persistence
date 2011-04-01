@@ -115,7 +115,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
 
-	int columnValue(final E value)
+	int getNumber(final E value)
 	{
 		if(!isValid(value))
 			throw new IllegalArgumentException(
@@ -140,12 +140,6 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	int[] getNumbers()
 	{
 		return com.exedio.cope.misc.Arrays.copyOf(ordinalsToNumbers);
-	}
-
-	int getNumber(final E value)
-	{
-		assert isValid(value);
-		return ordinalsToNumbers[value.ordinal()];
 	}
 
 	@Override

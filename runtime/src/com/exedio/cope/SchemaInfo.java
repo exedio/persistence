@@ -191,7 +191,7 @@ public final class SchemaInfo
 	 */
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
-		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
+		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
 	}
 
 	private SchemaInfo()
@@ -207,7 +207,7 @@ public final class SchemaInfo
 	@Deprecated
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)
 	{
-		return field.valueType.columnValue(value);
+		return field.valueType.getNumber(value);
 	}
 
 	/**
