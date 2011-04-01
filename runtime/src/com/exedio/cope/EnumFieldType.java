@@ -65,7 +65,9 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 				{
 					final StringBuilder bf = new StringBuilder();
 					bf.append(valueClass.getName()).
-						append(": @CopeSchemaValue for ").
+						append(": @").
+						append(CopeSchemaValue.class.getSimpleName()).
+						append(" for ").
 						append(e.name()).
 						append(" must be");
 					if(i>0)
