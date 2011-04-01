@@ -28,14 +28,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	private static final long serialVersionUID = 1l;
 
 	final EnumFieldType<E> valueType;
-	private final int[] ordinalsToNumbers;
 
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 
 		this.valueType = EnumFieldType.get(valueClass);
-		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
 
 		checkValueClass(Enum.class);
 		checkDefaultConstant();
@@ -105,12 +103,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return valueType;
 	}
 
-	private int getNumber(final E value)
-	{
-		assert valueType.isValid(value);
-		return ordinalsToNumbers[value.ordinal()];
-	}
-
 	/**
 	 * @see Enum#valueOf(Class, String)
 	 */
@@ -142,7 +134,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(!this.optional && ordinalsToNumbers.length==1)
+		if(!this.optional && valueType.isSingle())
 			throw new IllegalArgumentException(
 					"mandatory enum field is not allowed on valueClass with one enum value only: "
 					+ type.getID() + '.' + name +
@@ -154,7 +146,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, this, name, optional, ordinalsToNumbers);
+		return new IntegerColumn(table, this, name, optional, valueType.getNumbers());
 	}
 
 	@Override
@@ -171,7 +163,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	void set(final Row row, final E surface)
 	{
 		assert valueType.isValid(surface);
-		row.put(getColumn(), surface==null ? null : getNumber(surface));
+		row.put(getColumn(), surface==null ? null : valueType.getNumber(surface));
 	}
 
 	// ------------------- deprecated stuff -------------------

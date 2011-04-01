@@ -31,7 +31,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	private final Class<E> valueClass;
 	final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
-	final int[] ordinalsToNumbers;
+	private final int[] ordinalsToNumbers;
 	final EnumMarshaller<E> marshaller;
 
 	private EnumFieldType(final Class<E> valueClass)
@@ -130,6 +130,22 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		if(result==null)
 			throw new RuntimeException(valueClass.getName() + '/' + number);
 		return result;
+	}
+
+	boolean isSingle()
+	{
+		return ordinalsToNumbers.length==1;
+	}
+
+	int[] getNumbers()
+	{
+		return com.exedio.cope.misc.Arrays.copyOf(ordinalsToNumbers);
+	}
+
+	int getNumber(final E value)
+	{
+		assert isValid(value);
+		return ordinalsToNumbers[value.ordinal()];
 	}
 
 	@Override
