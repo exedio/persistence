@@ -39,10 +39,7 @@ final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 		if(cell==null)
 			return null;
 
-		final E result = type.getValueByNumber(((Number)cell).intValue());
-		if(result==null)
-			throw new RuntimeException(String.valueOf(cell));
-		return result;
+		return type.getValueByNumber(((Number)cell).intValue());
 	}
 
 	@Override
