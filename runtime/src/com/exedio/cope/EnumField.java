@@ -28,7 +28,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	private static final long serialVersionUID = 1l;
 
 	final EnumFieldType<E> valueType;
-	private final List<E> values;
 	private final int[] ordinalsToNumbers;
 
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
@@ -36,7 +35,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 
 		this.valueType = EnumFieldType.get(valueClass);
-		this.values = valueType.values;
 		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
 
 		checkValueClass(Enum.class);
@@ -93,7 +91,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	public List<E> getValues()
 	{
-		return values;
+		return valueType.values;
 	}
 
 	@Override
