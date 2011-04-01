@@ -93,7 +93,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	public List<E> getValues()
 	{
-		assert values!=null;
 		return values;
 	}
 
