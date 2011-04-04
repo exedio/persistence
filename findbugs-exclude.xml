@@ -5,7 +5,7 @@
 		<Or>
 			<Class name="com.exedio.cope.Model" />
 			<Class name="com.exedio.cope.Type" />
-			<Class name="com.exedio.cope.CheckConstraint" />
+			<And><Class name="com.exedio.cope.CheckConstraint" /><Field name="condition" /></And>
 			<Class name="com.exedio.cope.DataField" />
 			<Class name="com.exedio.cope.IntegerField" />
 			<Class name="com.exedio.cope.ItemField" />
@@ -21,17 +21,17 @@
 			<Class name="com.exedio.cope.AsStringView" />
 			<Class name="com.exedio.cope.CoalesceView" />
 			<Class name="com.exedio.cope.CompositeCondition$Operator" />
-			<Class name="com.exedio.cope.pattern.SetField" />
-			<Class name="com.exedio.cope.pattern.ListField" />
-			<Class name="com.exedio.cope.pattern.MapField" />
-			<Class name="com.exedio.cope.pattern.CompositeField" />
-			<Class name="com.exedio.cope.pattern.JavaView" />
-			<Class name="com.exedio.cope.pattern.Media" />
-			<Class name="com.exedio.cope.pattern.Hash" />
-			<Class name="com.exedio.cope.pattern.Dispatcher" />
-			<Class name="com.exedio.cope.pattern.Schedule" />
-			<Class name="com.exedio.cope.pattern.PasswordLimiter" />
-			<Class name="com.exedio.cope.pattern.DynamicModel" />
+			<And><Class name="com.exedio.cope.pattern.SetField" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.ListField" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.MapField" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.CompositeField" /><Field name="valueType" /></And>
+			<And><Class name="com.exedio.cope.pattern.JavaView" /><Field name="mountIfMounted" /></And>
+			<And><Class name="com.exedio.cope.pattern.Media" /><Field name="contentType" /></And>
+			<And><Class name="com.exedio.cope.pattern.Hash" /><Field name="algorithm" /></And>
+			<And><Class name="com.exedio.cope.pattern.Dispatcher" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.Schedule" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.PasswordLimiter" /><Field name="mount" /></And>
+			<And><Class name="com.exedio.cope.pattern.DynamicModel" /><Field name="mount" /></And>
 			
 			<Class name="com.exedio.cope.pattern.MediaServlet" />
 		</Or>
