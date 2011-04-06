@@ -49,6 +49,16 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	protected int filterTransationIsolation(final int level)
+	{
+		switch(level)
+		{
+			case Connection.TRANSACTION_REPEATABLE_READ: return Connection.TRANSACTION_READ_COMMITTED;
+			default: return level;
+		}
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely

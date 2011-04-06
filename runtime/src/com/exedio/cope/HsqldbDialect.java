@@ -40,6 +40,16 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	protected int filterTransationIsolation(final int level)
+	{
+		switch(level)
+		{
+			case Connection.TRANSACTION_REPEATABLE_READ: return Connection.TRANSACTION_READ_COMMITTED;
+			default: return level;
+		}
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

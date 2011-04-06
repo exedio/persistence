@@ -36,6 +36,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
+	final BooleanField connectionTransactionIsolationRepeatableRead = new BooleanField("connection.transactionIsolation.repeatableRead", true);
 
 	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
 	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", false);
@@ -154,6 +155,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
+		if(connectionTransactionIsolationReadCommitted.booleanValue() &&
+			connectionTransactionIsolationRepeatableRead.booleanValue())
+			throw new RuntimeException(connectionTransactionIsolationReadCommitted.getKey() + " and " + connectionTransactionIsolationRepeatableRead.getKey() + " cannot be enabled both");
 		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 

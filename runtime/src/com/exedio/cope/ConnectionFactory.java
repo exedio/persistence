@@ -38,6 +38,8 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final Driver driver;
 	private final Properties info;
 	private final boolean transactionIsolationReadCommitted;
+	private final boolean transactionIsolationRepeatableRead;
+	private final int transactionIsolationRepeatableReadLevel;
 
 	ConnectionFactory(
 			final ConnectProperties properties,
@@ -52,6 +54,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 		this.transactionIsolationReadCommitted =
 			properties.connectionTransactionIsolationReadCommitted.booleanValue();
+		this.transactionIsolationRepeatableRead =
+			properties.connectionTransactionIsolationRepeatableRead.booleanValue();
+		this.transactionIsolationRepeatableReadLevel =
+			dialect.filterTransationIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 	}
 
 	public Connection create()
@@ -73,6 +79,8 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 			throw new RuntimeException(driver.toString() + '/' + url);
 		if(transactionIsolationReadCommitted)
 			result.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+		if(transactionIsolationRepeatableRead)
+			result.setTransactionIsolation(transactionIsolationRepeatableReadLevel);
 		return result;
 	}
 

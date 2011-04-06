@@ -119,7 +119,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	}
 	else
 	{
-		final boolean rr = !props.connectionTransactionIsolationReadCommitted.booleanValue() && !postgresql;
+		final boolean rr = !props.connectionTransactionIsolationReadCommitted.booleanValue();
 		final boolean il = props.itemCacheInvalidateLast.booleanValue();
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());

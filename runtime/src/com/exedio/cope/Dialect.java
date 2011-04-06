@@ -79,6 +79,11 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
+	protected int filterTransationIsolation(final int level)
+	{
+		return level;
+	}
+
 	protected static final String EXPLAIN_PLAN = "explain plan";
 
 	/**
