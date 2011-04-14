@@ -80,6 +80,7 @@ public final class Main
 		{
 			InstrumentContext.enter();
 
+			final Charset charset = Charset.forName(params.encoding);
 			final JavaRepository repository = new JavaRepository();
 			final ArrayList<Parser> parsers = new ArrayList<Parser>(files.size());
 
@@ -94,7 +95,7 @@ public final class Main
 					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
 				final JavaFile javaFile = new JavaFile(repository);
-				final Parser parser = new Parser(new Lexer(file, javaFile), new Instrumentor(), javaFile);
+				final Parser parser = new Parser(new Lexer(file, charset, javaFile), new Instrumentor(), javaFile);
 				parser.parseFile();
 				parsers.add(parser);
 			}
@@ -132,7 +133,6 @@ public final class Main
 				{
 					logInstrumented(file);
 					delete(file);
-					final Charset charset = Charset.defaultCharset(); // TODO make configurable
 					final CharsetEncoder decoder = charset.newEncoder();
 					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
 					final FileOutputStream o = new FileOutputStream(file);

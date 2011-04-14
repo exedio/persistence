@@ -757,6 +757,7 @@
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
+				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				createDeprecated="true"

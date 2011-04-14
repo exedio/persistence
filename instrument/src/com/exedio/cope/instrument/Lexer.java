@@ -67,6 +67,7 @@ final class Lexer
 	 * the input stream to be parsed.
 	 */
 	public Lexer(final File inputFile,
+							final Charset charset,
 							final JavaFile javaFile)
 		throws IOException
 	{
@@ -82,7 +83,6 @@ final class Lexer
 		{
 			fis.close();
 		}
-		final Charset charset = Charset.defaultCharset(); // TODO make configurable
 		final CharsetDecoder decoder = charset.newDecoder();
 
 		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();

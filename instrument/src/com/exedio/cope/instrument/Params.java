@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 final class Params
 {
+	String encoding = "ascii";
 	boolean longJavadoc = true;
 	boolean finalArgs = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
