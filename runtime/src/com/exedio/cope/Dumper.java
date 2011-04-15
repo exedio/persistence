@@ -111,6 +111,7 @@ public final class Dumper
 
 		final Statement bf = new Statement(dialect, marshallers);
 		final StringColumn typeColumn = table.typeColumn;
+		final IntegerColumn updateCounter = table.updateCounter;
 
 		bf.append("insert into ").
 			append(table.quotedID).
@@ -121,6 +122,12 @@ public final class Dumper
 		{
 			bf.append(',').
 				append(typeColumn.quotedID);
+		}
+
+		if(updateCounter!=null)
+		{
+			bf.append(',').
+				append(updateCounter.quotedID);
 		}
 
 		for(final Column column : columns)
@@ -139,6 +146,12 @@ public final class Dumper
 		{
 			bf.append(',').
 				appendParameter(type.id);
+		}
+
+		if(updateCounter!=null)
+		{
+			bf.append(',').
+				appendParameter(0);
 		}
 
 		for(final Column column : columns)

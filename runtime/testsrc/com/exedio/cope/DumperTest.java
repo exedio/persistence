@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DumperItem.TYPE;
-import static com.exedio.cope.DumperSubItem.subString;
 import static com.exedio.cope.DumperItem.string;
 import static com.exedio.cope.DumperItem.unique;
+import static com.exedio.cope.DumperSubItem.subString;
 
 import java.io.IOException;
 
@@ -55,8 +55,8 @@ public class DumperTest extends AbstractRuntimeTest
 				unique.map("unique0"));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + "," + col(string) + "," + col(unique) + ")values" +
-				"(0,'DumperItem','string0','unique0');",
+				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + ")values" +
+				"(0,'DumperItem'" + ifupd(",0") + ",'string0','unique0');",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
@@ -72,11 +72,11 @@ public class DumperTest extends AbstractRuntimeTest
 				subString.map("subString0"));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + "," + col(string) + "," + col(unique) + ")values" +
-				"(0,'DumperSubItem','string0','unique0');" +
+				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + ")values" +
+				"(0,'DumperSubItem'" + ifupd(",0") + ",'string0','unique0');" +
 				"insert into " + tab(DumperSubItem.TYPE) +
-				"(" + pk(DumperSubItem.TYPE) + "," + col(subString) + ")values" +
-				"(0,'subString0');",
+				"(" + pk(DumperSubItem.TYPE) + ifupd("," + upd(TYPE)) + "," + col(subString) + ")values" +
+				"(0" + ifupd(",0") + ",'subString0');",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
@@ -160,6 +160,19 @@ public class DumperTest extends AbstractRuntimeTest
 	private String cls(final Type type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getTypeColumnName(type));
+	}
+
+	private String ifupd(final String s)
+	{
+		return SchemaInfo.isUpdateCounterEnabled(model) ? s : "";
+	}
+
+	private String upd(final Type type)
+	{
+		if(!SchemaInfo.isUpdateCounterEnabled(model))
+			return "XXXX";
+
+		return SchemaInfo.quoteName(model, SchemaInfo.getUpdateCounterColumnName(type));
 	}
 
 	private String col(final Field field)
