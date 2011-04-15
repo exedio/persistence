@@ -75,7 +75,7 @@ public class DumperTest extends AbstractRuntimeTest
 				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + ")values" +
 				"(0,'DumperSubItem'" + ifupd(",0") + ",'string0','unique0');" +
 				"insert into " + tab(DumperSubItem.TYPE) +
-				"(" + pk(DumperSubItem.TYPE) + ifupd("," + upd(TYPE)) + "," + col(subString) + ")values" +
+				"(" + pk(DumperSubItem.TYPE) + ifupd("," + upd(DumperSubItem.TYPE)) + "," + col(subString) + ")values" +
 				"(0" + ifupd(",0") + ",'subString0');",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
