@@ -37,7 +37,7 @@ public final class StringField extends FunctionField<String>
 	private final int maximumLength;
 	private final CharSet charSet;
 
-	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
+	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
@@ -63,7 +63,7 @@ public final class StringField extends FunctionField<String>
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 0, DEFAULT_LENGTH, null);
+		this(false, false, false, null, 0, DEFAULT_MAXIMUM_LENGTH, null);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public final class StringField extends FunctionField<String>
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, charSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_MAXIMUM_LENGTH, charSet);
 	}
 
 	public StringField lengthMax(final int maximumLength)
@@ -313,4 +313,9 @@ public final class StringField extends FunctionField<String>
 	{
 		return new com.exedio.cope.util.CharacterSet(getCharSet());
 	}
+
+	/**
+	 * @deprecated Use {@link #DEFAULT_MAXIMUM_LENGTH} instead
+	 */
+	public static final int DEFAULT_LENGTH = DEFAULT_MAXIMUM_LENGTH;
 }
