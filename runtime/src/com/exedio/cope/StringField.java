@@ -317,5 +317,6 @@ public final class StringField extends FunctionField<String>
 	/**
 	 * @deprecated Use {@link #DEFAULT_MAXIMUM_LENGTH} instead
 	 */
+	@Deprecated
 	public static final int DEFAULT_LENGTH = DEFAULT_MAXIMUM_LENGTH;
 }
