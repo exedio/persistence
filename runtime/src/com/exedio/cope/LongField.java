@@ -109,8 +109,8 @@ public final class LongField extends NumberField<Long>
 	 */
 	public final long getMandatory(final Item item)
 	{
-		assertMandatory();
-		return get(item).longValue();
+
+		return getMandatoryObject(item).longValue();
 	}
 
 	public final void set(final Item item, final long value)

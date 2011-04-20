@@ -129,8 +129,8 @@ public final class BooleanField extends FunctionField<Boolean>
 	 */
 	public final boolean getMandatory(final Item item)
 	{
-		assertMandatory();
-		return get(item).booleanValue();
+
+		return getMandatoryObject(item).booleanValue();
 	}
 
 	public final void set(final Item item, final boolean value)

@@ -203,10 +203,15 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Cast.verboseCast(valueClass, item.getEntity().get(this));
 	}
 
-	final void assertMandatory()
+	final E getMandatoryObject(final Item item)
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
+
+		final E result = get(item);
+		if(result==null)
+			throw new NullPointerException("field " + toString() + " returns null in getMandatory");
+		return result;
 	}
 
 	@Override

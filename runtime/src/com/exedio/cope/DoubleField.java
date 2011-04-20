@@ -187,8 +187,8 @@ public final class DoubleField extends NumberField<Double>
 	 */
 	public final double getMandatory(final Item item)
 	{
-		assertMandatory();
-		return get(item).doubleValue();
+
+		return getMandatoryObject(item).doubleValue();
 	}
 
 	public final void set(final Item item, final double value)

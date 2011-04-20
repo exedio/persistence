@@ -238,8 +238,8 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int getMandatory(final Item item)
 	{
-		assertMandatory();
-		return get(item).intValue();
+
+		return getMandatoryObject(item).intValue();
 	}
 
 	public void set(final Item item, final int value)
