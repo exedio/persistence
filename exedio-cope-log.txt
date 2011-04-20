@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* changed semantics: StringField#length[Min|Max] does not forget the other limit anymore
+	This breaks backwards API compatibility.
 * instrumentor defaults to ascii encoding, use
 		<instrument encoding="utf8" ...
 	to specify other encodings.

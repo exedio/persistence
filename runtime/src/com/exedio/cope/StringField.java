@@ -116,12 +116,12 @@ public final class StringField extends FunctionField<String>
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_MAXIMUM_LENGTH, charSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthExact(final int exactLength)
