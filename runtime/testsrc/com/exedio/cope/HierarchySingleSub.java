@@ -21,7 +21,7 @@ package com.exedio.cope;
 public class HierarchySingleSub extends HierarchySingleSuper
 {
 
-	public static final StringField subString = new StringField().optional();
+	public static final StringField subString = new StringField(StringField.EMPTY).optional();
 	public static final ItemField<HierarchySuper> hierarchySuper = newItemField(HierarchySuper.class).optional();
 
 

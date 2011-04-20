@@ -25,7 +25,7 @@ public class StringCopyTest extends CopeAssert
 	public void testStrings()
 	{
 		{
-			final StringField orig = new StringField().optional();
+			final StringField orig = new StringField(StringField.EMPTY).optional();
 			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertEquals(0, orig.getMinimumLength());

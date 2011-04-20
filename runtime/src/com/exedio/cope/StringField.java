@@ -59,12 +59,19 @@ public final class StringField extends FunctionField<String>
 		checkDefaultConstant();
 	}
 
+	public StringField(final StringFieldMinimumLength minimumLength)
+	{
+		this(false, false, false, null, minimumLength.value, DEFAULT_MAXIMUM_LENGTH, null);
+	}
+
+	public static final StringFieldMinimumLength EMPTY = new StringFieldMinimumLength(0);
+
 	/**
 	 * Creates a new mandatory <tt>StringField</tt>.
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 0, DEFAULT_MAXIMUM_LENGTH, null);
+		this(false, false, false, null, 1, DEFAULT_MAXIMUM_LENGTH, null);
 	}
 
 	@Override
