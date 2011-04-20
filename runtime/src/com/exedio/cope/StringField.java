@@ -31,6 +31,7 @@ import com.exedio.cope.util.CharSet;
 public final class StringField extends FunctionField<String>
 	implements StringFunction
 {
+	public static final int DEFAULT_MINIMUM_LENGTH = 1;
 	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private static final long serialVersionUID = 1l;
@@ -71,7 +72,7 @@ public final class StringField extends FunctionField<String>
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 1, DEFAULT_MAXIMUM_LENGTH, null);
+		this(false, false, false, null, DEFAULT_MINIMUM_LENGTH, DEFAULT_MAXIMUM_LENGTH, null);
 	}
 
 	@Override
