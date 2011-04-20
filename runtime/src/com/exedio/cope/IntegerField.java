@@ -238,7 +238,6 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int getMandatory(final Item item)
 	{
-
 		return getMandatoryObject(item).intValue();
 	}
 

@@ -109,7 +109,6 @@ public final class LongField extends NumberField<Long>
 	 */
 	public final long getMandatory(final Item item)
 	{
-
 		return getMandatoryObject(item).longValue();
 	}
 

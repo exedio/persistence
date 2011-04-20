@@ -129,7 +129,6 @@ public final class BooleanField extends FunctionField<Boolean>
 	 */
 	public final boolean getMandatory(final Item item)
 	{
-
 		return getMandatoryObject(item).booleanValue();
 	}
 
