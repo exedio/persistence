@@ -187,9 +187,7 @@ public final class DoubleField extends NumberField<Double>
 	 */
 	public final double getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
+		assertMandatory();
 		return get(item).doubleValue();
 	}
 

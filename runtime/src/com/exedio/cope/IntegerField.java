@@ -238,9 +238,7 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
+		assertMandatory();
 		return get(item).intValue();
 	}
 

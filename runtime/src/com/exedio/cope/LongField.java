@@ -109,9 +109,7 @@ public final class LongField extends NumberField<Long>
 	 */
 	public final long getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
+		assertMandatory();
 		return get(item).longValue();
 	}
 
