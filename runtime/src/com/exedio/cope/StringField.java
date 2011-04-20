@@ -31,13 +31,14 @@ import com.exedio.cope.util.CharSet;
 public final class StringField extends FunctionField<String>
 	implements StringFunction
 {
+	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
+
 	private static final long serialVersionUID = 1l;
+
 
 	private final int minimumLength;
 	private final int maximumLength;
 	private final CharSet charSet;
-
-	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
