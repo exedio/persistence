@@ -50,7 +50,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final StringLengthViolationException e)
 		{
-			// TODO make a nice exception message with feature name
+			assertEquals("length violation, '12345' is too long for " + Value.string4 + ", must be at most 4 characters, but was 5.", e.getMessage());
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
@@ -62,6 +62,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final MandatoryViolationException e)
 		{
+			assertEquals("mandatory violation for " + Value.string4, e.getMessage());
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
@@ -85,6 +86,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final StringLengthViolationException e)
 		{
+			assertEquals("length violation, '12345' is too long for " + Value.string4 + ", must be at most 4 characters, but was 5.", e.getMessage());
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
@@ -105,6 +107,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final MandatoryViolationException e)
 		{
+			assertEquals("mandatory violation for " + Value.string4, e.getMessage());
 			assertSame(Value.string4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
@@ -125,6 +128,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final IntegerRangeViolationException e)
 		{
+			assertEquals("range violation, 5 is too big for " + Value.intMax4 + ", must be at most 4.", e.getMessage());
 			assertSame(Value.intMax4, e.getFeature());
 			assertSame(null, e.getItem());
 		}
@@ -314,6 +318,7 @@ public class CompositeTest extends CopeAssert
 		}
 		catch(final MandatoryViolationException e)
 		{
+			assertEquals("mandatory violation for " + Value.stringDefault, e.getMessage());
 			assertSame(Value.stringDefault, e.getFeature());
 			assertSame(null, e.getItem());
 		}
