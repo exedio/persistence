@@ -44,6 +44,7 @@ final class CompositeType<X>
 	private CompositeType(final Class<X> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
+		final String classID = valueClass.getName();
 		try
 		{
 			constructor = valueClass.getDeclaredConstructor(SetValue[].class);
@@ -51,7 +52,7 @@ final class CompositeType<X>
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
-					valueClass.getName() + " does not have a constructor " +
+					classID + " does not have a constructor " +
 					valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
 		}
 		constructor.setAccessible(true);
@@ -66,23 +67,24 @@ final class CompositeType<X>
 				if(!Feature.class.isAssignableFrom(field.getType()))
 					continue;
 
+				final String fieldID = classID + '#' + field.getName();
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
-					throw new NullPointerException(valueClass.getName() + '#' + field.getName());
+					throw new NullPointerException(fieldID);
 				if(!(feature instanceof FunctionField))
-					throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
+					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
 				final FunctionField template = (FunctionField)feature;
 				if(template.isFinal())
-					throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
+					throw new IllegalArgumentException("final fields not supported: " + fieldID);
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
-				template.mount(valueClass.getName() + '#' + field.getName(), field); // TODO reuse string
+				template.mount(fieldID, field);
 			}
 		}
 		catch(final IllegalAccessException e)
 		{
-			throw new RuntimeException(valueClass.getName(), e);
+			throw new RuntimeException(classID, e);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
 		this.componentSize = templates.size();
