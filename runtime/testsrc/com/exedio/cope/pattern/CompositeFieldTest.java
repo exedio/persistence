@@ -287,15 +287,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			}
 		}
 
-		try
-		{
-			aString.isAnnotationPresent(Computed.class);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertFalse(aString.isAnnotationPresent(Computed.class));
 
 		assertTrue(eins.of(aString).isAnnotationPresent(Computed.class));
 		assertTrue(eins.of(anInt  ).isAnnotationPresent(Computed.class));

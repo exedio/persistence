@@ -77,6 +77,7 @@ final class CompositeType<X>
 					throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
+				template.mount(valueClass.getName() + '#' + field.getName(), field); // TODO reuse string
 			}
 		}
 		catch(final IllegalAccessException e)

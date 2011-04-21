@@ -94,6 +94,31 @@ public abstract class Feature implements Serializable
 		}
 	}
 
+	private static final class MountString extends Mount
+	{
+		private final String string;
+
+		MountString(final String string, final AnnotatedElement annotationSource)
+		{
+			super(annotationSource);
+			assert string!=null;
+
+			this.string = string;
+		}
+
+		@Override
+		void toString(final StringBuilder bf, final Type defaultType)
+		{
+			bf.append(string);
+		}
+
+		@Override
+		public String toString()
+		{
+			return string;
+		}
+	}
+
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
@@ -115,6 +140,15 @@ public abstract class Feature implements Serializable
 		this.patternUntilMount = null;
 	}
 
+	public final void mount(final String string, final AnnotatedElement annotationSource)
+	{
+		if(string==null)
+			throw new NullPointerException("string");
+		if(this.mountIfMounted!=null)
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
+		this.mountIfMounted = new MountString(string, annotationSource);
+	}
+
 	private final Mount mount()
 	{
 		final Mount result = this.mountIfMounted;
@@ -127,13 +161,19 @@ public abstract class Feature implements Serializable
 	{
 		final Mount result = mount();
 		if(!(result instanceof MountType))
-			throw new IllegalStateException("feature not mounted to type: " + result.toString());
+			throw new IllegalStateException("feature not mounted to a type: " + result.toString());
 		return (MountType)result;
 	}
 
 	final boolean isMounted()
 	{
 		return mountIfMounted!=null;
+	}
+
+	final boolean isMountedToType()
+	{
+		final Mount mount = mountIfMounted;
+		return (mount!=null) && (mount instanceof MountType);
 	}
 
 	public Type<? extends Item> getType()

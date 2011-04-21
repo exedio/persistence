@@ -66,7 +66,7 @@ public abstract class View<E> extends Feature
 		if(sources[0] instanceof Feature)
 		{
 			final Feature f = (Feature)sources[0];
-			this.sourceType = f.isMounted() ? f.getType() : null;
+			this.sourceType = f.isMountedToType() ? f.getType() : null;
 		}
 		else
 		{

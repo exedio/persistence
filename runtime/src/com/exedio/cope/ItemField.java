@@ -144,7 +144,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	void resolveValueType(final Set<Type> typesAllowed)
 	{
-		if(!isMounted())
+		if(!isMountedToType())
 			throw new RuntimeException();
 		if(valueType!=null)
 			throw new RuntimeException(getID());

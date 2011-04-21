@@ -42,7 +42,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -51,7 +51,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -75,7 +75,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -84,7 +84,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -108,7 +108,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -117,7 +117,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -134,8 +134,8 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testToString()
 	{
-		assertTrue(Value.string4.toString().startsWith(StringField.class.getName() + '@')); // TODO
-		assertTrue(Value.intMax4.toString().startsWith(IntegerField.class.getName() + '@')); // TODO
+		assertEquals(valueName + "string4", Value.string4.toString());
+		assertEquals(valueName + "intMax4", Value.intMax4.toString());
 
 		final LongField negative = new LongField();
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
@@ -143,26 +143,10 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testGetAnnotation()
 	{
-		// TODO
-		try
-		{
-			Value.string4.getAnnotation(Computed.class);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
-		// TODO
-		try
-		{
-			Value.intMax4.getAnnotation(Computed.class);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertEquals("stringAnno", Value.string4.getAnnotation(Anno.class).value());
+		assertEquals("intAnno", Value.intMax4.getAnnotation(Anno.class).value());
+		assertNull(Value.string4.getAnnotation(Anno2.class));
+		assertNull(Value.intMax4.getAnnotation(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -178,26 +162,10 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testIsAnnotation()
 	{
-		// TODO
-		try
-		{
-			Value.string4.isAnnotationPresent(Computed.class);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
-		// TODO
-		try
-		{
-			Value.intMax4.isAnnotationPresent(Computed.class);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertTrue (Value.string4.isAnnotationPresent(Anno.class));
+		assertTrue (Value.intMax4.isAnnotationPresent(Anno.class));
+		assertFalse(Value.string4.isAnnotationPresent(Anno2.class));
+		assertFalse(Value.intMax4.isAnnotationPresent(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -239,6 +207,8 @@ public class CompositeMountTest extends CopeAssert
 
 		private static final long serialVersionUID = 1l;
 	}
+
+	private static final String valueName = Value.class.getName() + '#';
 
 	/**
 	 * Needed to instantiate {@link CompositeType}.
