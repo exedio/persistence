@@ -28,6 +28,8 @@ public class PackageUtilTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ClockTest.class);
+		suite.addTestSuite(CompositeTest.class);
+		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(JavaViewGetterMissingTest.class);
 		suite.addTestSuite(JavaViewInPatternTest.class);
 		suite.addTestSuite(MediaSummaryTest.class);
