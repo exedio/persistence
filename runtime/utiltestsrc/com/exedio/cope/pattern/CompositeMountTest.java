@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
@@ -231,6 +232,16 @@ public class CompositeMountTest extends CopeAssert
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
+		Value(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
+
 		private static final long serialVersionUID = 1l;
 	}
+
+	/**
+	 * Needed to instantiate {@link CompositeType}.
+	 */
+	static final CompositeField field = CompositeField.newComposite(Value.class);
 }
