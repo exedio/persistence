@@ -35,9 +35,7 @@ public final class ListUtil
 		case 1:
 			return Collections.singletonList(list.get(0));
 		default:
-			final List<Object> result =
-					Arrays.asList(
-							list.toArray(new Object[size]));
+			final List<Object> result = Arrays.asList(list.toArray(new Object[size]));
 			@SuppressWarnings("unchecked")
 			final List<F> resultChecked = (List<F>)result;
 			return Collections.<F>unmodifiableList(resultChecked);
