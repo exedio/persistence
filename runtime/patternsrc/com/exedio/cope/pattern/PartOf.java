@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -91,6 +93,14 @@ public final class PartOf<C extends Item> extends Pattern
 			addParameter(Wrapper.TypeVariable0.class, "container").
 			setStatic());
 
+		result.add(
+			new Wrapper("getParts").
+			addComment("Returns the parts of the given container matching the given condition.").
+			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
+			addParameter(Wrapper.TypeVariable0.class, "container").
+			addParameter(Condition.class, "condition").
+			setStatic());
+
 		return Collections.unmodifiableList(result);
 	}
 
@@ -101,8 +111,14 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container)
 	{
+		return getParts(partClass, container, null);
+	}
+
+	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container, final Condition condition)
+	{
 		final Type<P> type = getType().as(partClass);
-		final Query<P> q = type.newQuery(this.container.equal(container));
+		final Condition parentCondition = this.container.equal(container);
+		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
 
 		final This typeThis = type.getThis(); // make search deterministic
 		if(order!=null)
