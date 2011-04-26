@@ -33,8 +33,12 @@ public final class ListUtil
 		case 1:
 			return Collections.singletonList(list.get(0));
 		default:
-			list.trimToSize();
-			return Collections.<F>unmodifiableList(list);
+			final List<Object> result =
+					java.util.Arrays.asList(
+							list.toArray(new Object[list.size()]));
+			@SuppressWarnings("unchecked")
+			final List<F> resultChecked = (List<F>)result;
+			return Collections.<F>unmodifiableList(resultChecked);
 		}
 	}
 
