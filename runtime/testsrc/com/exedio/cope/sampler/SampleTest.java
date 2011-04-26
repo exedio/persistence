@@ -28,6 +28,7 @@ import java.util.Iterator;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cope.junit.CopeAssert;
 
 public class SampleTest extends ConnectedTest
 {
@@ -82,6 +83,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
+		waitForSystemTimeChange();
 		final Date before66 = new Date();
 		sampler.sample();
 		final Date after66 = new Date();
@@ -118,6 +120,23 @@ public class SampleTest extends ConnectedTest
 		assertEquals(c?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
+	}
+
+	/**
+	 * Wait for new Date() to return a different value to avoid unique violation on SamplerModel.date. Especially useful for Windows systems which have
+	 * a low system time resolution.
+	 * @see Sampler#sample()
+	 */
+	private void waitForSystemTimeChange()
+	{
+		try
+		{
+			CopeAssert.sleepLongerThan(1);
+		}
+		catch (final InterruptedException e)
+		{
+			fail("Correctness of following code is not asserted.");
+		}
 	}
 
 	private static final SamplerModel assertIt(
