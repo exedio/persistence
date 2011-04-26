@@ -18,24 +18,28 @@
 
 package com.exedio.cope.misc;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class PackageUtilTest extends TestCase
+public final class ListUtil
 {
-	public static Test suite()
+	public static final <F> List<F> trimUnmodifiable(final ArrayList<F> list)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectTokenNotSetTest.class);
-		suite.addTestSuite(ConnectTokenSetTest.class);
-		suite.addTestSuite(ConnectTokenTest.class);
-		suite.addTestSuite(ConnectTokenNullModelTest.class);
-		suite.addTestSuite(ListUtilTest.class);
-		suite.addTestSuite(ServletUtilTest.class);
-		suite.addTestSuite(ServletUtilContextTest.class);
-		suite.addTestSuite(CompareTest.class);
-		suite.addTestSuite(SetValueUtilTest.class);
-		return suite;
+		switch(list.size())
+		{
+		case 0:
+			return Collections.<F>emptyList();
+		case 1:
+			return Collections.singletonList(list.get(0));
+		default:
+			list.trimToSize();
+			return Collections.<F>unmodifiableList(list);
+		}
+	}
+
+	private ListUtil()
+	{
+		// prevent instantiation
 	}
 }

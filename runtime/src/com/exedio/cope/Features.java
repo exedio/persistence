@@ -26,6 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.misc.ListUtil;
+
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
@@ -118,7 +120,7 @@ public final class Features
 			result.add(source);
 		}
 
-		return Type.finish(result);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	// ------------------- deprecated stuff -------------------

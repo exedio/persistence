@@ -43,6 +43,7 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
+import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
@@ -201,10 +202,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
-			this.declaredFields            = finish(declaredFields);
-			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
-			this.declaredCheckConstraints  = finish(declaredCheckConstraints);
-			this.declaredCopyConstraints   = finish(declaredCopyConstraints);
+			this.declaredFields            = ListUtil.trimUnmodifiable(declaredFields);
+			this.declaredUniqueConstraints = ListUtil.trimUnmodifiable(declaredUniqueConstraints);
+			this.declaredCheckConstraints  = ListUtil.trimUnmodifiable(declaredCheckConstraints);
+			this.declaredCopyConstraints   = ListUtil.trimUnmodifiable(declaredCopyConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
@@ -271,20 +272,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 		result.putAll(declared);
 		return result;
-	}
-
-	static final <F extends Feature> List<F> finish(final ArrayList<F> list)
-	{
-		switch(list.size())
-		{
-		case 0:
-			return Collections.<F>emptyList();
-		case 1:
-			return Collections.singletonList(list.get(0));
-		default:
-			list.trimToSize();
-			return Collections.<F>unmodifiableList(list);
-		}
 	}
 
 	private static Method[] getBeforeNewItemMethods(final Class javaClass, final Type supertype)

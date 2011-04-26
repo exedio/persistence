@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.misc.ListUtil;
+
 /**
  * A common super class for all patterns.
  * <p>
@@ -359,7 +361,7 @@ public abstract class Pattern extends Feature
 		for(final Feature f : getSourceFeatures())
 			if(f instanceof Field)
 				result.add((Field)f);
-		return Type.finish(result);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	/**
