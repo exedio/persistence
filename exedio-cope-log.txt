@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* instrumentor wraps PartOf#getParts
 * The default constructor of StringField sets a minimumLength of 1 instead of 0.
 	Use "new StringField(StringField.EMPTY)" to enforce previous behaviour.
 	This breaks backwards API compatibility !!!
