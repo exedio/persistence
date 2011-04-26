@@ -31,6 +31,16 @@ public class ListUtilTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
 		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));
 		assertEqualsUnmodifiable(list("hallo", "bello"), trimUnmodifiable(l("hallo", "bello")));
+
+		try
+		{
+			trimUnmodifiable(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	private static final ArrayList<String> l(final String... strings)
