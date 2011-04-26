@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import com.exedio.cope.misc.ListUtil;
+
 final class Types
 {
 	private final Type<?>[] types;
@@ -279,19 +281,8 @@ final class Types
 		{
 			if(list==null)
 				return Collections.<X>emptyList();
-			else
-			{
-				switch(list.size())
-				{
-				case 0:
-					throw new RuntimeException();
-				case 1:
-					return Collections.singletonList(list.get(0));
-				default:
-					list.trimToSize();
-					return Collections.<X>unmodifiableList(list);
-				}
-			}
+			assert list.size()>0;
+			return ListUtil.trimUnmodifiable(list);
 		}
 	}
 
