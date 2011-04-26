@@ -26,7 +26,8 @@ public final class ListUtil
 {
 	public static final <F> List<F> trimUnmodifiable(final ArrayList<F> list)
 	{
-		switch(list.size())
+		final int size = list.size();
+		switch(size)
 		{
 		case 0:
 			return Collections.<F>emptyList();
@@ -35,7 +36,7 @@ public final class ListUtil
 		default:
 			final List<Object> result =
 					java.util.Arrays.asList(
-							list.toArray(new Object[list.size()]));
+							list.toArray(new Object[size]));
 			@SuppressWarnings("unchecked")
 			final List<F> resultChecked = (List<F>)result;
 			return Collections.<F>unmodifiableList(resultChecked);
