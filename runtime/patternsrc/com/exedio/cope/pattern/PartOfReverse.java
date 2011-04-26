@@ -29,20 +29,20 @@ import com.exedio.cope.Type;
 
 final class PartOfReverse
 {
-	private static final HashMap<Type<?>, List<PartOf>> cacheForGetPartOfs = new HashMap<Type<?>, List<PartOf>>();
-	private static final HashMap<Type<?>, List<PartOf>> cacheForGetDeclaredPartOfs = new HashMap<Type<?>, List<PartOf>>();
+	private static final HashMap<Type<?>, List<PartOf>> cache = new HashMap<Type<?>, List<PartOf>>();
+	private static final HashMap<Type<?>, List<PartOf>> cacheDeclared = new HashMap<Type<?>, List<PartOf>>();
 
-	public static final List<PartOf> getPartOfs(final Type<?> type)
+	static final List<PartOf> get(final Type<?> type)
 	{
-		return getPartOfs(false, cacheForGetPartOfs, type);
+		return get(false, cache, type);
 	}
 
-	public static final List<PartOf> getDeclaredPartOfs(final Type<?> type)
+	static final List<PartOf> getDeclared(final Type<?> type)
 	{
-		return getPartOfs(true, cacheForGetDeclaredPartOfs, type);
+		return get(true, cacheDeclared, type);
 	}
 
-	private static final List<PartOf> getPartOfs(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
+	private static final List<PartOf> get(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
 	{
 		synchronized(cache)
 		{

@@ -141,7 +141,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 */
 	public static final List<PartOf> getPartOfs(final Type<?> type)
 	{
-		return PartOfReverse.getPartOfs(type);
+		return PartOfReverse.get(type);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 */
 	public static final List<PartOf> getDeclaredPartOfs(final Type<?> type)
 	{
-		return PartOfReverse.getDeclaredPartOfs(type);
+		return PartOfReverse.getDeclared(type);
 	}
 
 	/**
