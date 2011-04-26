@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -315,8 +314,7 @@ public abstract class Pattern extends Feature
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
 		this.sourceFeaturesGather = null;
 
-		this.sourceTypesWhileGather.trimToSize();
-		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
+		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
 	}
 
