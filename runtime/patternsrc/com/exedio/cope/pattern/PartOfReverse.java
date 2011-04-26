@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.misc.ListUtil;
 
 final class PartOfReverse
 {
@@ -60,12 +60,8 @@ final class PartOfReverse
 				if(pattern instanceof PartOf)
 					resultModifiable.add((PartOf)pattern);
 			}
-			resultModifiable.trimToSize();
 
-			final List<PartOf> result =
-				!resultModifiable.isEmpty()
-				? Collections.unmodifiableList(resultModifiable)
-				: Collections.<PartOf>emptyList();
+			final List<PartOf> result = ListUtil.trimUnmodifiable(resultModifiable);
 			cache.put(type, result);
 			return result;
 		}
