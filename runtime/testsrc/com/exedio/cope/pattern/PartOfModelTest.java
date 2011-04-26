@@ -77,10 +77,10 @@ public class PartOfModelTest extends CopeAssert
 		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
 		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
 
-		assertEquals(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
-		assertEquals(list(), PartOf.getPartOfs(PartOfItem.TYPE));
-		assertEquals(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
-		assertEquals(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
+		assertEqualsUnmodifiable(list(), PartOf.getPartOfs(PartOfItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
 		AbstractRuntimeTest.assertSerializedSame(PartOfItem.parts, 380);
 
