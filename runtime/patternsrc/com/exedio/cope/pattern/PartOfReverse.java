@@ -1,0 +1,78 @@
+/*
+ * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
+import com.exedio.cope.ItemField;
+import com.exedio.cope.Pattern;
+import com.exedio.cope.Type;
+
+final class PartOfReverse
+{
+	private static final HashMap<Type<?>, List<PartOf>> cacheForGetPartOfs = new HashMap<Type<?>, List<PartOf>>();
+	private static final HashMap<Type<?>, List<PartOf>> cacheForGetDeclaredPartOfs = new HashMap<Type<?>, List<PartOf>>();
+
+	public static final List<PartOf> getPartOfs(final Type<?> type)
+	{
+		return getPartOfs(false, cacheForGetPartOfs, type);
+	}
+
+	public static final List<PartOf> getDeclaredPartOfs(final Type<?> type)
+	{
+		return getPartOfs(true, cacheForGetDeclaredPartOfs, type);
+	}
+
+	private static final List<PartOf> getPartOfs(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
+	{
+		synchronized(cache)
+		{
+			{
+				final List<PartOf> cachedResult = cache.get(type);
+				if(cachedResult!=null)
+					return cachedResult;
+			}
+
+			final ArrayList<PartOf> resultModifiable = new ArrayList<PartOf>();
+
+			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
+			{
+				final Pattern pattern = field.getPattern();
+				if(pattern instanceof PartOf)
+					resultModifiable.add((PartOf)pattern);
+			}
+			resultModifiable.trimToSize();
+
+			final List<PartOf> result =
+				!resultModifiable.isEmpty()
+				? Collections.unmodifiableList(resultModifiable)
+				: Collections.<PartOf>emptyList();
+			cache.put(type, result);
+			return result;
+		}
+	}
+
+	private PartOfReverse()
+	{
+		// prevent instantiation
+	}
+}
