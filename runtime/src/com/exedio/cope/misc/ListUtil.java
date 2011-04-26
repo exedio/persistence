@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public final class ListUtil
 			return Collections.singletonList(list.get(0));
 		default:
 			final List<Object> result =
-					java.util.Arrays.asList(
+					Arrays.asList(
 							list.toArray(new Object[size]));
 			@SuppressWarnings("unchecked")
 			final List<F> resultChecked = (List<F>)result;
