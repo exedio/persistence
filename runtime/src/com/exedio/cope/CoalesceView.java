@@ -20,22 +20,28 @@ package com.exedio.cope;
 
 public final class CoalesceView<E> extends View<E>
 {
+	@SuppressWarnings("unchecked")
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E parameter2)
 	{
-		return new CoalesceView<E>(parameter1, parameter2);
+		return new CoalesceView<E>(new Function[]{parameter1}, parameter2);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E parameter3)
+	{
+		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, parameter3);
 	}
 
 
 	private static final long serialVersionUID = 1l;
 
-	private final Function<E> parameter1;
+	private final Function<E>[] parameters;
 	private final E parameter2;
 
-	@SuppressWarnings("unchecked")
-	private CoalesceView(final Function<E> parameter1, final E parameter2)
+	private CoalesceView(final Function<E>[] parameters, final E parameter2)
 	{
-		super(new Function[]{parameter1}, "coalesce", parameter1.getValueClass());
-		this.parameter1 = parameter1;
+		super(parameters, "coalesce", parameters[0].getValueClass());
+		this.parameters = parameters;
 		this.parameter2 = parameter2;
 
 		if(parameter2==null)
@@ -44,7 +50,7 @@ public final class CoalesceView<E> extends View<E>
 
 	public SelectType<E> getValueType()
 	{
-		return parameter1.getValueType();
+		return parameters[0].getValueType();
 	}
 
 	@Override
@@ -61,7 +67,16 @@ public final class CoalesceView<E> extends View<E>
 	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append("coalesce(");
-		parameter1.toString(bf, defaultType);
+		boolean first = true;
+		for(final Function<E> parameter : parameters)
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			parameter.toString(bf, defaultType);
+		}
 		bf.append(',');
 		bf.append(parameter2);
 		bf.append(')');
@@ -71,7 +86,16 @@ public final class CoalesceView<E> extends View<E>
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append("coalesce(");
-		bf.append(parameter1, join);
+		boolean first = true;
+		for(final Function<E> parameter : parameters)
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			bf.append(parameter, join);
+		}
 		bf.append(',');
 		bf.appendParameterAny(parameter2);
 		bf.append(')');
