@@ -69,6 +69,25 @@ public class CoalesceTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
+		try
+		{
+			coalesce(string, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("literal", e.getMessage());
+		}
+		try
+		{
+			coalesce(string, string, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("literal", e.getMessage());
+		}
+
 		assertIt(listg("string1", "string2", "stringX"), string, "stringX");
 		assertIt(listg(1, 2, 55), intx, 55);
 		assertIt(listg(11l, 12l, 55l), longx, 55l);
