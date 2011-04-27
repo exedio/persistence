@@ -26,6 +26,13 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class MediaMagicTest extends CopeAssert
 {
+	private static final String JPEG = "ffd8ff";
+	private static final String GIF = "47494638";
+	private static final String PNG = "89504e470d0a1a0a";
+	private static final String ICO = "00000100";
+	private static final String ZIP = "504b0304";
+	private static final String PDF = "25504446";
+
 	public void testDefault()
 	{
 		final Media m = new Media();
@@ -33,12 +40,12 @@ public class MediaMagicTest extends CopeAssert
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith 'ffd8ff')) OR " +
-				"("+c+"='image/gif' AND !("+b+" startsWith '47494638')) OR " +
-				"("+c+"='image/png' AND !("+b+" startsWith '89504e470d0a1a0a')) OR " +
-				"(("+c+"='image/icon' OR "+c+"='image/x-icon' OR "+c+"='image/vnd.microsoft.icon') AND !("+b+" startsWith '00000100')) OR " +
-				"(("+c+"='application/zip' OR "+c+"='application/java-archive') AND !("+b+" startsWith '504b0304')) OR " +
-				"("+c+"='application/pdf' AND !("+b+" startsWith '25504446'))" +
+				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
+				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
+				"("+c+"='image/png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"(("+c+"='image/icon' OR "+c+"='image/x-icon' OR "+c+"='image/vnd.microsoft.icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
+				"(("+c+"='application/zip' OR "+c+"='application/java-archive') AND !("+b+" startsWith '"+ZIP+"')) OR " +
+				"("+c+"='application/pdf' AND !("+b+" startsWith '"+PDF+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
 	}
@@ -48,7 +55,7 @@ public class MediaMagicTest extends CopeAssert
 		final Media m = new Media().contentType("image/jpeg");
 		final DataField b = m.getBody();
 		assertEquals(
-				"!("+b+" startsWith 'ffd8ff')",
+				"!("+b+" startsWith '"+JPEG+"')",
 				m.bodyMismatchesContentType().toString());
 	}
 
@@ -65,8 +72,8 @@ public class MediaMagicTest extends CopeAssert
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='0' OR "+c+"='1') AND !("+b+" startsWith 'ffd8ff')) OR " +
-				"("+c+"='2' AND !("+b+" startsWith '89504e470d0a1a0a'))" +
+				"(("+c+"='0' OR "+c+"='1') AND !("+b+" startsWith '"+JPEG+"')) OR " +
+				"("+c+"='2' AND !("+b+" startsWith '"+PNG+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
 	}
@@ -78,8 +85,8 @@ public class MediaMagicTest extends CopeAssert
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
 				"(" +
-				"("+c+"='0' AND !("+b+" startsWith 'ffd8ff')) OR " +
-				"("+c+"='1' AND !("+b+" startsWith '89504e470d0a1a0a'))" +
+				"("+c+"='0' AND !("+b+" startsWith '"+JPEG+"')) OR " +
+				"("+c+"='1' AND !("+b+" startsWith '"+PNG+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
 	}
@@ -91,10 +98,10 @@ public class MediaMagicTest extends CopeAssert
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith 'ffd8ff')) OR " +
-				"("+c+"='gif' AND !("+b+" startsWith '47494638')) OR " +
-				"("+c+"='png' AND !("+b+" startsWith '89504e470d0a1a0a')) OR " +
-				"(("+c+"='icon' OR "+c+"='x-icon' OR "+c+"='vnd.microsoft.icon') AND !("+b+" startsWith '00000100'))" +
+				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
+				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
+				"("+c+"='png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"(("+c+"='icon' OR "+c+"='x-icon' OR "+c+"='vnd.microsoft.icon') AND !("+b+" startsWith '"+ICO+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
 	}
