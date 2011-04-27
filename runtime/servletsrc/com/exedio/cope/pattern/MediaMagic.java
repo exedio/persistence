@@ -34,7 +34,7 @@ final class MediaMagic
 			this.contentTypes = contentTypes;
 		}
 
-		Condition bodyMismatchesContentType(final Media media)
+		Condition mismatches(final Media media)
 		{
 			final Condition[] contentTypeConditions = new Condition[contentTypes.length];
 			for(int i = 0; i<contentTypes.length; i++)
@@ -74,7 +74,7 @@ final class MediaMagic
 	{
 		final Condition[] conditions = new Condition[types.length];
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i] = types[i].bodyMismatchesContentType(media);
+			conditions[i] = types[i].mismatches(media);
 		return Cope.or(conditions);
 	}
 
