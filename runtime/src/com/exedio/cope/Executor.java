@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
@@ -160,10 +161,10 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoExecuted, nanoPrepared),
-						n2m(nanoResultRead, nanoExecuted),
-						n2m(nanoEnd, nanoResultRead));
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoExecuted, nanoPrepared),
+						toMillies(nanoResultRead, nanoExecuted),
+						toMillies(nanoEnd, nanoResultRead));
 
 			if(queryInfo!=null)
 				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
@@ -249,8 +250,8 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoPrepared, timeEnd),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(timeEnd, nanoPrepared),
 						0,
 						0);
 
@@ -316,8 +317,8 @@ final class Executor
 				listener.onStatement(
 						sqlText,
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoEnd, nanoPrepared),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
@@ -397,11 +398,6 @@ final class Executor
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
 		numberFormat = new DecimalFormat("", nfs);
-	}
-
-	private static final long n2m(final long to, final long from)
-	{
-		return (to-from)/1000000;
 	}
 
 	static int convertSQLResult(final Object sqlInteger)

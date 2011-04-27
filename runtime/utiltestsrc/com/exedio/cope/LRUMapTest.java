@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import gnu.trove.TIntObjectHashMap;
 
 import java.util.Arrays;
@@ -127,7 +128,7 @@ public class LRUMapTest extends TestCase
 		for(int i = 0; i<100000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
-		System.out.print(" " + ((end-start)/1000000) + "ms");
+		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
 	private static void assertPerformance(final TIntObjectHashMap<String> map)
@@ -142,7 +143,7 @@ public class LRUMapTest extends TestCase
 		for(int i = 0; i<100000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
-		System.out.print(" " + ((end-start)/1000000) + "ms");
+		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
 	private static long mem()

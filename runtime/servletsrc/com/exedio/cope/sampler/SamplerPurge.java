@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -97,7 +99,7 @@ final class SamplerPurge extends Item
 		try
 		{
 			model.startTransaction(samplerString + " purge register");
-			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
+			new SamplerPurge(type, limit, rows, (int)toMillies(end, start));
 			model.commit();
 		}
 		finally

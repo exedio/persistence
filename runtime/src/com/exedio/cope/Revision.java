@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Revisions.logger;
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
@@ -106,7 +107,7 @@ public final class Revision
 					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
 				final long start = nanoTime();
 				final int rows = executeUpdate(connection, sql);
-				final long elapsed = (nanoTime() - start) / 1000000;
+				final long elapsed = toMillies(nanoTime(), start);
 				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
 					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);

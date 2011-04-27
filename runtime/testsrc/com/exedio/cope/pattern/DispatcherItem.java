@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
 import java.io.IOException;
@@ -64,10 +65,10 @@ public class DispatcherItem extends Item implements Dispatchable
 		Thread.sleep(5);
 		if(log.fail)
 		{
-			log.dispatchFailureElapsed.add((int)((nanoTime() - start) / 1000000));
+			log.dispatchFailureElapsed.add((int)toMillies(nanoTime(), start));
 			throw new IOException(getBody());
 		}
-		log.dispatchLastSuccessElapsed = ((int)((nanoTime() - start) / 1000000));
+		log.dispatchLastSuccessElapsed = ((int)toMillies(nanoTime(), start));
 	}
 
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)

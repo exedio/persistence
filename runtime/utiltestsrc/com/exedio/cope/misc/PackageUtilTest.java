@@ -34,6 +34,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ListUtilTest.class);
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
+		suite.addTestSuite(TimeUtilTest.class);
 		suite.addTestSuite(CompareTest.class);
 		suite.addTestSuite(SetValueUtilTest.class);
 		return suite;

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -378,7 +379,7 @@ public final class Schedule extends Pattern
 					this.runFrom.map(from),
 					this.runUntil.map(until),
 					this.runRun.map(now),
-					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
+					this.runElapsed.map(toMillies(elapsedEnd, elapsedStart)));
 				model.commit();
 				ctx.incrementProgress();
 			}
