@@ -32,7 +32,7 @@ public final class CoalesceView<E> extends View<E>
 	private final E parameter2;
 
 	@SuppressWarnings("unchecked")
-	private  CoalesceView(final Function<E> parameter1, final E parameter2)
+	private CoalesceView(final Function<E> parameter1, final E parameter2)
 	{
 		super(new Function[]{parameter1}, "coalesce", parameter1.getValueClass());
 		this.parameter1 = parameter1;
