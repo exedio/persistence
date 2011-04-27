@@ -244,14 +244,14 @@ final class Executor
 				rows = prepared.executeUpdate();
 			}
 
-			final long timeEnd = listener!=null ? nanoTime() : 0;
+			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
 						toMillies(nanoPrepared, nanoStart),
-						toMillies(timeEnd, nanoPrepared),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
