@@ -115,6 +115,7 @@ final class ItemCache
 
 	void invalidate(final TIntHashSet[] invalidations)
 	{
+		final long nanoTime = System.nanoTime();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
@@ -122,7 +123,7 @@ final class ItemCache
 			{
 				final Cachlet cachlet = cachlets[typeTransiently];
 				if(cachlet!=null)
-					cachlet.invalidate(invalidatedPKs);
+					cachlet.invalidate(invalidatedPKs, nanoTime);
 			}
 		}
 	}
@@ -288,7 +289,7 @@ final class ItemCache
 			}
 		}
 
-		void invalidate(final TIntHashSet invalidatedPKs)
+		void invalidate(final TIntHashSet invalidatedPKs, final long nanoTime)
 		{
 			synchronized(map)
 			{
@@ -300,9 +301,8 @@ final class ItemCache
 					final int pk = i.next();
 					map.remove(pk);
 
-					// TODO reuse System.nanoTime()
 					if(invalidateLastNanos!=null)
-						invalidateLastNanos.put(pk, System.nanoTime());
+						invalidateLastNanos.put(pk, nanoTime);
 				}
 
 				invalidationsOrdered += invalidatedPKs.size();
