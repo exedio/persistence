@@ -48,7 +48,6 @@ public final class TypeIterator
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
-		private E last = null;
 
 		Iter(
 				final Type<E> type,
@@ -74,11 +73,10 @@ public final class TypeIterator
 			final E result = iterator.next();
 			if(result==null)
 				throw new NullPointerException("does not support null in result");
-			last = result;
 
 			if(!iterator.hasNext())
 			{
-				final Condition c = typeThis.greater(last);
+				final Condition c = typeThis.greater(result);
 				query.setCondition(condition!=null ? condition.and(c) : c);
 				this.iterator = query.search().iterator();
 			}
