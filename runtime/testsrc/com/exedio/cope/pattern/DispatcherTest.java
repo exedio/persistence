@@ -412,14 +412,14 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 
-		final List<Integer> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
+		final List<Long> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
 		assertEquals(failures.size(), failuresElapsed.size());
-		final Iterator<Integer> failureElapsedIter = failuresElapsed.iterator();
+		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
 
 		final Iterator expectedFailureIter = failures.iterator();
 		for(final Run actual : actualFailures)
 		{
-			final Integer failureElapsed = failureElapsedIter.next();
+			final Long failureElapsed = failureElapsedIter.next();
 			final DateRange expected = (DateRange)expectedFailureIter.next();
 			assertSame(item.toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
