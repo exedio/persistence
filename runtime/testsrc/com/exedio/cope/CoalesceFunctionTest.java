@@ -83,13 +83,28 @@ public class CoalesceFunctionTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		assertIt(listg("string1", "string2", "string1l", "string2l", "string3", "stringX"), leftString, rightString, "stringX");
+		assertIt(listg("string3", "string3", "string1r", "string2r", "string3", "stringX"), rightString, leftString, "stringX");
+
 		assertIt(listg(1, 2, 1, 2, 3, 55), leftInt, rightInt, 55);
+		assertIt(listg(3, 3, 101, 102, 3, 55), rightInt, leftInt, 55);
+
 		assertIt(listg(11l, 12l, 11l, 12l, 13l, 55l), leftLong, rightLong, 55l);
+		assertIt(listg(13l, 13l, 111l, 112l, 13l, 55l), rightLong, leftLong, 55l);
+
 		assertIt(listg(2.1, 2.2, 2.1, 2.2, 2.3, 55.5), leftDouble, rightDouble, 55.5);
+		assertIt(listg(2.3, 2.3, 102.1, 102.2, 2.3, 55.5), rightDouble, leftDouble, 55.5);
+
 		assertIt(listg(date(-2), date(-1), date(-2), date(-1), date, date(+1)), leftDate, rightDate, date(+1));
+		assertIt(listg(date, date, date(-102), date(-101), date, date(+1)), rightDate, leftDate, date(+1));
+
 		assertIt(listg(day(-2), day(-1), day(-2), day(-1), day, day(+1)), leftDay, rightDay, day(+1));
+		assertIt(listg(day, day, day(-102), day(-101), day, day(+1)), rightDay, leftDay, day(+1));
+
 		assertIt(listg(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, XEnum.V5), leftEnum, rightEnum, XEnum.V5);
+		assertIt(listg(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), rightEnum, leftEnum, XEnum.V5);
+
 		assertIt(listg(item1, item2, itemX, itemX, itemX, itemX), leftItem, rightItem, itemX);
+		assertIt(listg(item1, item2, itemX, itemX, itemX, itemX), rightItem, leftItem, itemX);
 	}
 
 	public <E> void assertIt(final List<E> expected, final FunctionField<E> function1, final FunctionField<E> function2, final E literal)
@@ -98,17 +113,5 @@ public class CoalesceFunctionTest extends AbstractRuntimeTest
 		assertEquals("select coalesce(" + function1.getName() + "," + function2.getName() + "," + literal + ") from " + TYPE, q.toString());
 		q.setOrderBy(TYPE.getThis(), true);
 		assertEquals(expected, q.search());
-	}
-
-	public void testIt2()
-	{
-		assertIt(listg("string3", "string3", "string1r", "string2r", "string3", "stringX"), rightString, leftString, "stringX");
-		assertIt(listg(3, 3, 101, 102, 3, 55), rightInt, leftInt, 55);
-		assertIt(listg(13l, 13l, 111l, 112l, 13l, 55l), rightLong, leftLong, 55l);
-		assertIt(listg(2.3, 2.3, 102.1, 102.2, 2.3, 55.5), rightDouble, leftDouble, 55.5);
-		assertIt(listg(date, date, date(-102), date(-101), date, date(+1)), rightDate, leftDate, date(+1));
-		assertIt(listg(day, day, day(-102), day(-101), day, day(+1)), rightDay, leftDay, day(+1));
-		assertIt(listg(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), rightEnum, leftEnum, XEnum.V5);
-		assertIt(listg(item1, item2, itemX, itemX, itemX, itemX), rightItem, leftItem, itemX);
 	}
 }
