@@ -18,13 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 
 public class MediaMagicTest extends CopeAssert
 {
-	public void testIt()
+	public void testDefault()
 	{
 		final Media m = new Media();
 		final DataField b = m.getBody();
@@ -39,5 +41,67 @@ public class MediaMagicTest extends CopeAssert
 				"("+c+"='application/pdf' AND !("+b+" startsWith '25504446'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
+	}
+
+	public void testFixed()
+	{
+		final Media m = new Media().contentType("image/jpeg");
+		final DataField b = m.getBody();
+		assertEquals(
+				"!("+b+" startsWith 'ffd8ff')",
+				m.bodyMismatchesContentType().toString());
+	}
+
+	public void testFixedNone()
+	{
+		final Media m = new Media().contentType("ding/dong");
+		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
+	}
+
+	public void testEnum()
+	{
+		final Media m = new Media().contentType("image/jpeg", "image/pjpeg", "image/png", "ding/dong");
+		final DataField b = m.getBody();
+		final IntegerField c = (IntegerField)m.getContentType();
+		assertEquals(
+				"(" +
+				"(("+c+"='0' OR "+c+"='1') AND !("+b+" startsWith 'ffd8ff')) OR " +
+				"("+c+"='2' AND !("+b+" startsWith '89504e470d0a1a0a'))" +
+				")",
+				m.bodyMismatchesContentType().toString());
+	}
+
+	public void testEnumUnique()
+	{
+		final Media m = new Media().contentType("image/jpeg", "image/png", "ding/dong");
+		final DataField b = m.getBody();
+		final IntegerField c = (IntegerField)m.getContentType();
+		assertEquals(
+				"(" +
+				"("+c+"='0' AND !("+b+" startsWith 'ffd8ff')) OR " +
+				"("+c+"='1' AND !("+b+" startsWith '89504e470d0a1a0a'))" +
+				")",
+				m.bodyMismatchesContentType().toString());
+	}
+
+	public void testSub()
+	{
+		final Media m = new Media().contentTypeSub("image");
+		final DataField b = m.getBody();
+		final StringField c = (StringField)m.getContentType();
+		assertEquals(
+				"(" +
+				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith 'ffd8ff')) OR " +
+				"("+c+"='gif' AND !("+b+" startsWith '47494638')) OR " +
+				"("+c+"='png' AND !("+b+" startsWith '89504e470d0a1a0a')) OR " +
+				"(("+c+"='icon' OR "+c+"='x-icon' OR "+c+"='vnd.microsoft.icon') AND !("+b+" startsWith '00000100'))" +
+				")",
+				m.bodyMismatchesContentType().toString());
+	}
+
+	public void testSubNone()
+	{
+		final Media m = new Media().contentTypeSub("ding");
+		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
 	}
 }
