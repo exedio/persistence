@@ -21,31 +21,31 @@ package com.exedio.cope;
 public final class CoalesceView<E> extends View<E>
 {
 	@SuppressWarnings("unchecked")
-	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E parameter2)
+	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E literal)
 	{
-		return new CoalesceView<E>(new Function[]{parameter1}, parameter2);
+		return new CoalesceView<E>(new Function[]{parameter1}, literal);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E parameter3)
+	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E literal)
 	{
-		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, parameter3);
+		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, literal);
 	}
 
 
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E>[] parameters;
-	private final E parameter2;
+	private final E literal;
 
-	private CoalesceView(final Function<E>[] parameters, final E parameter2)
+	private CoalesceView(final Function<E>[] parameters, final E literal)
 	{
 		super(parameters, "coalesce", parameters[0].getValueClass());
 		this.parameters = parameters;
-		this.parameter2 = parameter2;
+		this.literal = literal;
 
-		if(parameter2==null)
-			throw new NullPointerException("parameter2");
+		if(literal==null)
+			throw new NullPointerException("literal");
 	}
 
 	public SelectType<E> getValueType()
@@ -60,7 +60,7 @@ public final class CoalesceView<E> extends View<E>
 		final Object sourceValue = sourceValues[0];
 		if(sourceValue!=null)
 			return (E)sourceValue;
-		return parameter2;
+		return literal;
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public final class CoalesceView<E> extends View<E>
 			parameter.toString(bf, defaultType);
 		}
 		bf.append(',');
-		bf.append(parameter2);
+		bf.append(literal);
 		bf.append(')');
 	}
 
@@ -97,7 +97,7 @@ public final class CoalesceView<E> extends View<E>
 			bf.append(parameter, join);
 		}
 		bf.append(',');
-		bf.appendParameterAny(parameter2);
+		bf.appendParameterAny(literal);
 		bf.append(')');
 	}
 }
