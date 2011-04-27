@@ -23,13 +23,25 @@ public final class CoalesceView<E> extends View<E>
 	@SuppressWarnings("unchecked")
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E literal)
 	{
+		if(literal==null)
+			throw new NullPointerException("literal");
+
 		return new CoalesceView<E>(new Function[]{parameter1}, literal);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E literal)
 	{
+		if(literal==null)
+			throw new NullPointerException("literal");
+
 		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, literal);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2)
+	{
+		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, null);
 	}
 
 
@@ -43,9 +55,6 @@ public final class CoalesceView<E> extends View<E>
 		super(parameters, "coalesce", parameters[0].getValueClass());
 		this.parameters = parameters;
 		this.literal = literal;
-
-		if(literal==null)
-			throw new NullPointerException("literal");
 	}
 
 	public SelectType<E> getValueType()
@@ -77,8 +86,11 @@ public final class CoalesceView<E> extends View<E>
 
 			parameter.toString(bf, defaultType);
 		}
-		bf.append(',');
-		bf.append(literal);
+		if(literal!=null)
+		{
+			bf.append(',');
+			bf.append(literal);
+		}
 		bf.append(')');
 	}
 
@@ -96,8 +108,11 @@ public final class CoalesceView<E> extends View<E>
 
 			bf.append(parameter, join);
 		}
-		bf.append(',');
-		bf.appendParameterAny(literal);
+		if(literal!=null)
+		{
+			bf.append(',');
+			bf.appendParameterAny(literal);
+		}
 		bf.append(')');
 	}
 }

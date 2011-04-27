@@ -71,7 +71,7 @@ public class CoalesceTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			coalesce(string, null);
+			coalesce(string, (String)null);
 			fail();
 		}
 		catch(final NullPointerException e)
