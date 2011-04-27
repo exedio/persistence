@@ -36,10 +36,10 @@ final class MediaMagic
 
 		Condition bodyMismatchesContentType(final Media media)
 		{
-		final Condition[] contentTypeConditions = new Condition[contentTypes.length];
-		for(int i = 0; i<contentTypes.length; i++)
-			contentTypeConditions[i] = media.contentTypeEqual(contentTypes[i]);
-		return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
+			final Condition[] contentTypeConditions = new Condition[contentTypes.length];
+			for(int i = 0; i<contentTypes.length; i++)
+				contentTypeConditions[i] = media.contentTypeEqual(contentTypes[i]);
+			return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
 		}
 	}
 
