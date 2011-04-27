@@ -70,7 +70,7 @@ final class MediaMagic
 						new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
 						"application/pdf")};
 
-	static Condition bodyMismatchesContentType(final Media media)
+	static Condition mismatches(final Media media)
 	{
 		final Condition[] conditions = new Condition[types.length];
 		for(int i = 0; i<conditions.length; i++)
