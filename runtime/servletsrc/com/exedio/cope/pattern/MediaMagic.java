@@ -45,30 +45,30 @@ final class MediaMagic
 
 	private static final Type[] types = new Type[]{
 
-				new Type(
-						// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-						new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
-						"image/jpeg", "image/pjpeg"),
-				new Type(
-						// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-						new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
-						"image/gif"),
-				new Type(
-						// RFC 2083 section 3.1. PNG file signature
-						new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
-						"image/png"),
-				new Type(
-						// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
-						new byte[]{0, 0, 1, 0},
-						"image/icon", "image/x-icon", "image/vnd.microsoft.icon"),
-				new Type(
-						// http://en.wikipedia.org/wiki/ZIP_(file_format)
-						new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
-						"application/zip", "application/java-archive"),
-				new Type(
-						// http://en.wikipedia.org/wiki/PDF
-						new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
-						"application/pdf")};
+			new Type(
+					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
+					"image/jpeg", "image/pjpeg"),
+			new Type(
+					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
+					"image/gif"),
+			new Type(
+					// RFC 2083 section 3.1. PNG file signature
+					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
+					"image/png"),
+			new Type(
+					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
+					new byte[]{0, 0, 1, 0},
+					"image/icon", "image/x-icon", "image/vnd.microsoft.icon"),
+			new Type(
+					// http://en.wikipedia.org/wiki/ZIP_(file_format)
+					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
+					"application/zip", "application/java-archive"),
+			new Type(
+					// http://en.wikipedia.org/wiki/PDF
+					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
+					"application/pdf")};
 
 	static Condition mismatches(final Media media)
 	{
