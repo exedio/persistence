@@ -33,6 +33,11 @@ public final class TypeIterator
 			final Condition condition,
 			final int slice)
 	{
+		if(type==null)
+			throw new NullPointerException("type");
+		if(slice<1)
+			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
+
 		return new Iter<E>(type, condition, slice);
 	}
 
@@ -50,11 +55,6 @@ public final class TypeIterator
 				final Condition condition,
 				final int slice)
 		{
-			if(type==null)
-				throw new NullPointerException("type");
-			if(slice<1)
-				throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
-
 			this.typeThis = type.getThis();
 			this.condition = condition;
 
