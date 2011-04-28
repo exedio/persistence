@@ -115,6 +115,23 @@ final class MediaMagic
 		return null;
 	}
 
+	static MediaMagic forTypeWithAka(final String type)
+	{
+		if(type==null)
+			throw new NullPointerException("type");
+
+		for(final MediaMagic m : magics)
+		{
+			if(type.equals(m.type))
+				return m;
+			for(final String aka : m.akaTypes)
+				if(type.equals(aka))
+					return m;
+		}
+
+		return null;
+	}
+
 	static MediaMagic forMagic(final byte[] magic)
 	{
 		if(magic==null)

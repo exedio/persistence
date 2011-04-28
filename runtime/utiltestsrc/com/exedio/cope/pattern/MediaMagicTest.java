@@ -120,6 +120,8 @@ public class MediaMagicTest extends CopeAssert
 
 		assertNotNull(jpg);
 		assertNotNull(png);
+		assertSame(jpg, MediaMagic.forType("image/jpeg"));
+		assertSame(png, MediaMagic.forType("image/png"));
 		assertEquals(null, MediaMagic.forType("image/pjpeg"));
 		assertEquals(null, MediaMagic.forType("zack"));
 
@@ -138,6 +140,27 @@ public class MediaMagicTest extends CopeAssert
 
 		assertEquals("image/jpeg", jpg.toString());
 		assertEquals("image/png", png.toString());
+	}
+
+	public void testForTypeAka()
+	{
+		final MediaMagic jpg = MediaMagic.forType("image/jpeg");
+		final MediaMagic png = MediaMagic.forType("image/png");
+
+		assertSame(jpg, MediaMagic.forTypeWithAka("image/jpeg"));
+		assertSame(png, MediaMagic.forTypeWithAka("image/png"));
+		assertSame(jpg, MediaMagic.forTypeWithAka("image/pjpeg"));
+		assertSame(null, MediaMagic.forTypeWithAka("zack"));
+
+		try
+		{
+			MediaMagic.forTypeWithAka(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("type", e.getMessage());
+		}
 	}
 
 	public void testForMagic()
