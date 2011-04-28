@@ -24,25 +24,25 @@ import com.exedio.cope.Cope;
 final class MediaMagic
 {
 	private final byte[] magic;
-	private final String type;
+	private final String name;
 	private final String[] akaTypes;
 
-	private MediaMagic(final byte[] magic, final String type, final String... akaTypes)
+	private MediaMagic(final byte[] magic, final String name, final String... akaTypes)
 	{
 		this.magic = magic;
-		this.type = type;
+		this.name = name;
 		this.akaTypes = akaTypes;
 	}
 
-	String getType()
+	String getName()
 	{
-		return type;
+		return name;
 	}
 
 	String getAllowedType(final Media media)
 	{
-		if(media.checkContentType(type))
-			return type;
+		if(media.checkContentType(name))
+			return name;
 
 		for(final String akaType : akaTypes)
 			if(media.checkContentType(akaType))
@@ -65,17 +65,17 @@ final class MediaMagic
 
 	private Condition mismatchesInstance(final Media media)
 	{
-		final Condition[] typeConditions = new Condition[1 + akaTypes.length];
-		typeConditions[0] = media.contentTypeEqual(type);
+		final Condition[] nameConditions = new Condition[1 + akaTypes.length];
+		nameConditions[0] = media.contentTypeEqual(name);
 		for(int i = 0; i<akaTypes.length; i++)
-			typeConditions[i+1] = media.contentTypeEqual(akaTypes[i]);
-		return Cope.or(typeConditions).and(media.getBody().startsWith(magic).not());
+			nameConditions[i+1] = media.contentTypeEqual(akaTypes[i]);
+		return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
 	}
 
 	@Override
 	public String toString()
 	{
-		return type;
+		return name;
 	}
 
 
@@ -115,29 +115,29 @@ final class MediaMagic
 		return Cope.or(conditions);
 	}
 
-	static MediaMagic forType(final String type)
+	static MediaMagic forName(final String name)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
+		if(name==null)
+			throw new NullPointerException("name");
 
 		for(final MediaMagic m : magics)
-			if(type.equals(m.type))
+			if(name.equals(m.name))
 				return m;
 
 		return null;
 	}
 
-	static MediaMagic forTypeWithAka(final String type)
+	static MediaMagic forNameWithAka(final String name)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
+		if(name==null)
+			throw new NullPointerException("name");
 
 		for(final MediaMagic m : magics)
 		{
-			if(type.equals(m.type))
+			if(name.equals(m.name))
 				return m;
 			for(final String aka : m.akaTypes)
-				if(type.equals(aka))
+				if(name.equals(aka))
 					return m;
 		}
 

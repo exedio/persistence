@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaMagic.forMagic;
-import static com.exedio.cope.pattern.MediaMagic.forType;
-import static com.exedio.cope.pattern.MediaMagic.forTypeWithAka;
+import static com.exedio.cope.pattern.MediaMagic.forName;
+import static com.exedio.cope.pattern.MediaMagic.forNameWithAka;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
@@ -117,60 +117,60 @@ public class MediaMagicTest extends CopeAssert
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
 	}
 
-	public void testForType()
+	public void testForName()
 	{
-		final MediaMagic jpg = forType("image/jpeg");
-		final MediaMagic png = forType("image/png");
+		final MediaMagic jpg = forName("image/jpeg");
+		final MediaMagic png = forName("image/png");
 
 		assertNotNull(jpg);
 		assertNotNull(png);
-		assertSame(jpg, forType("image/jpeg"));
-		assertSame(png, forType("image/png"));
-		assertSame(null, forType("image/pjpeg"));
-		assertSame(null, forType("zack"));
+		assertSame(jpg, forName("image/jpeg"));
+		assertSame(png, forName("image/png"));
+		assertSame(null, forName("image/pjpeg"));
+		assertSame(null, forName("zack"));
 
 		try
 		{
-			forType(null);
+			forName(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("type", e.getMessage());
+			assertEquals("name", e.getMessage());
 		}
 
-		assertEquals("image/jpeg", jpg.getType());
-		assertEquals("image/png", png.getType());
+		assertEquals("image/jpeg", jpg.getName());
+		assertEquals("image/png", png.getName());
 
 		assertEquals("image/jpeg", jpg.toString());
 		assertEquals("image/png", png.toString());
 	}
 
-	public void testForTypeAka()
+	public void testForNameAka()
 	{
-		final MediaMagic jpg = forType("image/jpeg");
-		final MediaMagic png = forType("image/png");
+		final MediaMagic jpg = forName("image/jpeg");
+		final MediaMagic png = forName("image/png");
 
-		assertSame(jpg, forTypeWithAka("image/jpeg"));
-		assertSame(png, forTypeWithAka("image/png"));
-		assertSame(jpg, forTypeWithAka("image/pjpeg"));
-		assertSame(null, forTypeWithAka("zack"));
+		assertSame(jpg, forNameWithAka("image/jpeg"));
+		assertSame(png, forNameWithAka("image/png"));
+		assertSame(jpg, forNameWithAka("image/pjpeg"));
+		assertSame(null, forNameWithAka("zack"));
 
 		try
 		{
-			forTypeWithAka(null);
+			forNameWithAka(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("type", e.getMessage());
+			assertEquals("name", e.getMessage());
 		}
 	}
 
 	public void testForMagic()
 	{
-		final MediaMagic jpg = forType("image/jpeg");
-		final MediaMagic png = forType("image/png");
+		final MediaMagic jpg = forName("image/jpeg");
+		final MediaMagic png = forName("image/png");
 
 		assertSame(jpg, forMagic(Hex.decodeLower(JPEG)));
 		assertSame(jpg, forMagic(Hex.decodeLower(JPEG + "aa")));
@@ -206,9 +206,9 @@ public class MediaMagicTest extends CopeAssert
 
 	public void testAllowedType()
 	{
-		final MediaMagic jpg = forType("image/jpeg");
-		final MediaMagic pdf = forType("application/pdf");
-		final MediaMagic png = forType("image/png");
+		final MediaMagic jpg = forName("image/jpeg");
+		final MediaMagic pdf = forName("application/pdf");
+		final MediaMagic png = forName("image/png");
 
 		{
 			final Media m = new Media();
