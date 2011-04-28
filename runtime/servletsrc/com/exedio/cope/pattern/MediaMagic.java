@@ -34,6 +34,23 @@ final class MediaMagic
 		this.akaTypes = akaTypes;
 	}
 
+	String getType()
+	{
+		return type;
+	}
+
+	private boolean matches(final byte[] m)
+	{
+		if(m.length<magic.length)
+			return false;
+
+		for(int i = 0; i<magic.length; i++)
+			if(magic[i]!=m[i])
+				return false;
+
+		return true;
+	}
+
 	private Condition mismatchesInstance(final Media media)
 	{
 		final Condition[] typeConditions = new Condition[1 + akaTypes.length];
@@ -41,6 +58,12 @@ final class MediaMagic
 		for(int i = 0; i<akaTypes.length; i++)
 			typeConditions[i+1] = media.contentTypeEqual(akaTypes[i]);
 		return Cope.or(typeConditions).and(media.getBody().startsWith(magic).not());
+	}
+
+	@Override
+	public String toString()
+	{
+		return type;
 	}
 
 
@@ -78,5 +101,31 @@ final class MediaMagic
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i] = magics[i].mismatchesInstance(media);
 		return Cope.or(conditions);
+	}
+
+	static MediaMagic forType(final String type)
+	{
+		if(type==null)
+			throw new NullPointerException("type");
+
+		for(final MediaMagic m : magics)
+			if(type.equals(m.type))
+				return m;
+
+		return null;
+	}
+
+	static MediaMagic forMagic(final byte[] magic)
+	{
+		if(magic==null)
+			throw new NullPointerException("magic");
+		if(magic.length==0)
+			throw new IllegalArgumentException("empty");
+
+		for(final MediaMagic m : magics)
+			if(m.matches(magic))
+				return m;
+
+		return null;
 	}
 }

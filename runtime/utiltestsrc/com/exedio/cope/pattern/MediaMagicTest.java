@@ -23,6 +23,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
 
 public class MediaMagicTest extends CopeAssert
 {
@@ -110,5 +111,69 @@ public class MediaMagicTest extends CopeAssert
 	{
 		final Media m = new Media().contentTypeSub("ding");
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
+	}
+
+	public void testForType()
+	{
+		final MediaMagic jpg = MediaMagic.forType("image/jpeg");
+		final MediaMagic png = MediaMagic.forType("image/png");
+
+		assertNotNull(jpg);
+		assertNotNull(png);
+		assertEquals(null, MediaMagic.forType("image/pjpeg"));
+		assertEquals(null, MediaMagic.forType("zack"));
+
+		try
+		{
+			MediaMagic.forType(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("type", e.getMessage());
+		}
+
+		assertEquals("image/jpeg", jpg.getType());
+		assertEquals("image/png", png.getType());
+
+		assertEquals("image/jpeg", jpg.toString());
+		assertEquals("image/png", png.toString());
+	}
+
+	public void testForMagic()
+	{
+		final MediaMagic jpg = MediaMagic.forType("image/jpeg");
+		final MediaMagic png = MediaMagic.forType("image/png");
+
+		assertSame(jpg, MediaMagic.forMagic(Hex.decodeLower(JPEG)));
+		assertSame(jpg, MediaMagic.forMagic(Hex.decodeLower(JPEG + "aa")));
+		assertSame(png, MediaMagic.forMagic(Hex.decodeLower(PNG)));
+		assertSame(png, MediaMagic.forMagic(Hex.decodeLower(PNG + "bb")));
+		assertSame(null,  MediaMagic.forMagic(Hex.decodeLower(stealTail(JPEG))));
+		assertSame(null,  MediaMagic.forMagic(Hex.decodeLower(stealTail(PNG))));
+
+		try
+		{
+			MediaMagic.forMagic(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("magic", e.getMessage());
+		}
+		try
+		{
+			MediaMagic.forMagic(new byte[0]);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("empty", e.getMessage());
+		}
+	}
+
+	private static String stealTail(final String s)
+	{
+		return s.substring(0, s.length()-2);
 	}
 }
