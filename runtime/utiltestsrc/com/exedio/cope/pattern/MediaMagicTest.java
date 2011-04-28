@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaMagic.forMagic;
 import static com.exedio.cope.pattern.MediaMagic.forName;
-import static com.exedio.cope.pattern.MediaMagic.forNameWithAka;
+import static com.exedio.cope.pattern.MediaMagic.forNameAndAliases;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
@@ -146,19 +146,19 @@ public class MediaMagicTest extends CopeAssert
 		assertEquals("image/png", png.toString());
 	}
 
-	public void testForNameAka()
+	public void testForNameAlias()
 	{
 		final MediaMagic jpg = forName("image/jpeg");
 		final MediaMagic png = forName("image/png");
 
-		assertSame(jpg, forNameWithAka("image/jpeg"));
-		assertSame(png, forNameWithAka("image/png"));
-		assertSame(jpg, forNameWithAka("image/pjpeg"));
-		assertSame(null, forNameWithAka("zack"));
+		assertSame(jpg, forNameAndAliases("image/jpeg"));
+		assertSame(png, forNameAndAliases("image/png"));
+		assertSame(jpg, forNameAndAliases("image/pjpeg"));
+		assertSame(null, forNameAndAliases("zack"));
 
 		try
 		{
-			forNameWithAka(null);
+			forNameAndAliases(null);
 			fail();
 		}
 		catch(final NullPointerException e)

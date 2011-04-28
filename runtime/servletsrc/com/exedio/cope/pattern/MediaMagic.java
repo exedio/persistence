@@ -25,13 +25,13 @@ final class MediaMagic
 {
 	private final byte[] magic;
 	private final String name;
-	private final String[] akaTypes;
+	private final String[] aliases;
 
-	private MediaMagic(final byte[] magic, final String name, final String... akaTypes)
+	private MediaMagic(final byte[] magic, final String name, final String... aliases)
 	{
 		this.magic = magic;
 		this.name = name;
-		this.akaTypes = akaTypes;
+		this.aliases = aliases;
 	}
 
 	String getName()
@@ -44,9 +44,9 @@ final class MediaMagic
 		if(media.checkContentType(name))
 			return name;
 
-		for(final String akaType : akaTypes)
-			if(media.checkContentType(akaType))
-				return akaType;
+		for(final String alias : aliases)
+			if(media.checkContentType(alias))
+				return alias;
 
 		return null;
 	}
@@ -65,10 +65,10 @@ final class MediaMagic
 
 	private Condition mismatchesInstance(final Media media)
 	{
-		final Condition[] nameConditions = new Condition[1 + akaTypes.length];
+		final Condition[] nameConditions = new Condition[1 + aliases.length];
 		nameConditions[0] = media.contentTypeEqual(name);
-		for(int i = 0; i<akaTypes.length; i++)
-			nameConditions[i+1] = media.contentTypeEqual(akaTypes[i]);
+		for(int i = 0; i<aliases.length; i++)
+			nameConditions[i+1] = media.contentTypeEqual(aliases[i]);
 		return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
 	}
 
@@ -127,7 +127,7 @@ final class MediaMagic
 		return null;
 	}
 
-	static MediaMagic forNameWithAka(final String name)
+	static MediaMagic forNameAndAliases(final String name)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
@@ -136,8 +136,8 @@ final class MediaMagic
 		{
 			if(name.equals(m.name))
 				return m;
-			for(final String aka : m.akaTypes)
-				if(name.equals(aka))
+			for(final String alias : m.aliases)
+				if(name.equals(alias))
 					return m;
 		}
 
