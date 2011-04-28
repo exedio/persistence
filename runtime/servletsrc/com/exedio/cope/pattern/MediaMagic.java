@@ -24,20 +24,20 @@ import com.exedio.cope.Cope;
 final class MediaMagic
 {
 	private final byte[] magic;
-	private final String[] contentTypes;
+	private final String[] types;
 
-	private MediaMagic(final byte[] magic, final String... contentTypes)
+	private MediaMagic(final byte[] magic, final String... types)
 	{
 		this.magic = magic;
-		this.contentTypes = contentTypes;
+		this.types = types;
 	}
 
 	private Condition mismatchesInstance(final Media media)
 	{
-		final Condition[] contentTypeConditions = new Condition[contentTypes.length];
-		for(int i = 0; i<contentTypes.length; i++)
-			contentTypeConditions[i] = media.contentTypeEqual(contentTypes[i]);
-		return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
+		final Condition[] typeConditions = new Condition[types.length];
+		for(int i = 0; i<types.length; i++)
+			typeConditions[i] = media.contentTypeEqual(types[i]);
+		return Cope.or(typeConditions).and(media.getBody().startsWith(magic).not());
 	}
 
 	private static final MediaMagic[] magics = new MediaMagic[]{
