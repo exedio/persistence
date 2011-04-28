@@ -204,7 +204,7 @@ public class MediaMagicTest extends CopeAssert
 		return s.substring(0, s.length()-2);
 	}
 
-	public void testAllowedType()
+	public void testAllowed()
 	{
 		final MediaMagic jpg = forName("image/jpeg");
 		final MediaMagic pdf = forName("application/pdf");
@@ -212,33 +212,33 @@ public class MediaMagicTest extends CopeAssert
 
 		{
 			final Media m = new Media();
-			assertEquals("image/jpeg", jpg.getAllowedType(m));
-			assertEquals("application/pdf", pdf.getAllowedType(m));
-			assertEquals("image/png", png.getAllowedType(m));
+			assertEquals("image/jpeg", jpg.getAllowed(m));
+			assertEquals("application/pdf", pdf.getAllowed(m));
+			assertEquals("image/png", png.getAllowed(m));
 		}
 
-		assertEquals("image/jpeg", jpg.getAllowedType(new Media().contentType("image/jpeg")));
-		assertEquals("image/pjpeg", jpg.getAllowedType(new Media().contentType("image/pjpeg")));
-		assertEquals("image/png", png.getAllowedType(new Media().contentType("image/png")));
-		assertEquals(null, jpg.getAllowedType(new Media().contentType("image/png")));
-		assertEquals(null, png.getAllowedType(new Media().contentType("image/jpeg")));
+		assertEquals("image/jpeg", jpg.getAllowed(new Media().contentType("image/jpeg")));
+		assertEquals("image/pjpeg", jpg.getAllowed(new Media().contentType("image/pjpeg")));
+		assertEquals("image/png", png.getAllowed(new Media().contentType("image/png")));
+		assertEquals(null, jpg.getAllowed(new Media().contentType("image/png")));
+		assertEquals(null, png.getAllowed(new Media().contentType("image/jpeg")));
 
 		{
 			final Media m = new Media().contentType("image/jpeg", "application/pdf");
-			assertEquals("image/jpeg", jpg.getAllowedType(m));
-			assertEquals("application/pdf", pdf.getAllowedType(m));
-			assertEquals(null, png.getAllowedType(m));
+			assertEquals("image/jpeg", jpg.getAllowed(m));
+			assertEquals("application/pdf", pdf.getAllowed(m));
+			assertEquals(null, png.getAllowed(m));
 		}
 		{
 			final Media m = new Media().contentType("image/pjpeg", "application/pdf");
-			assertEquals("image/pjpeg", jpg.getAllowedType(m));
-			assertEquals("application/pdf", pdf.getAllowedType(m));
-			assertEquals(null, png.getAllowedType(m));
+			assertEquals("image/pjpeg", jpg.getAllowed(m));
+			assertEquals("application/pdf", pdf.getAllowed(m));
+			assertEquals(null, png.getAllowed(m));
 		}
 
 		try
 		{
-			jpg.getAllowedType(null);
+			jpg.getAllowed(null);
 			fail();
 		}
 		catch(final NullPointerException e)

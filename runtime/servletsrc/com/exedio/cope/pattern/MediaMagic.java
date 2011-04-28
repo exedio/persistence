@@ -39,7 +39,7 @@ final class MediaMagic
 		return name;
 	}
 
-	String getAllowedType(final Media media)
+	String getAllowed(final Media media)
 	{
 		if(media.checkContentType(name))
 			return name;
