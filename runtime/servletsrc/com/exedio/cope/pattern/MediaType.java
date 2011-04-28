@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 
-final class MediaType
+public final class MediaType
 {
 	private final byte[] magic;
 	private final String name;
@@ -34,12 +34,12 @@ final class MediaType
 		this.aliases = aliases;
 	}
 
-	String getName()
+	public String getName()
 	{
 		return name;
 	}
 
-	String getAllowed(final Media media)
+	public String getAllowed(final Media media)
 	{
 		if(media.checkContentType(name))
 			return name;
@@ -115,7 +115,7 @@ final class MediaType
 		return Cope.or(conditions);
 	}
 
-	static MediaType forName(final String name)
+	public static MediaType forName(final String name)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
@@ -127,7 +127,7 @@ final class MediaType
 		return null;
 	}
 
-	static MediaType forNameAndAliases(final String name)
+	public static MediaType forNameAndAliases(final String name)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
@@ -144,7 +144,7 @@ final class MediaType
 		return null;
 	}
 
-	static MediaType forMagic(final byte[] magic)
+	public static MediaType forMagic(final byte[] magic)
 	{
 		if(magic==null)
 			throw new NullPointerException("magic");
