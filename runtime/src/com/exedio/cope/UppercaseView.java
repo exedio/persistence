@@ -24,7 +24,7 @@ public final class UppercaseView extends StringView
 {
 	private static final long serialVersionUID = 1l;
 
-	private final StringFunction source;
+	private final Function<String> source;
 
 	/**
 	 * Creates a new UppercaseView.
@@ -32,9 +32,9 @@ public final class UppercaseView extends StringView
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringField#toUpperCase()}.
 	 */
-	public UppercaseView(final StringFunction source)
+	public UppercaseView(final Function<String> source)
 	{
-		super(new StringFunction[]{source}, "upper");
+		super(new Function[]{source}, "upper");
 		this.source = source;
 	}
 
@@ -61,28 +61,28 @@ public final class UppercaseView extends StringView
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public static final Condition equalIgnoreCase(final StringFunction function, final String value)
+	public static final Condition equalIgnoreCase(final Function<String> function, final String value)
 	{
-		return function.toUpperCase().equal(toUpperCase(value));
+		return new UppercaseView(function).equal(toUpperCase(value));
 	}
 
-	public static final LikeCondition likeIgnoreCase(final StringFunction function, final String value)
+	public static final LikeCondition likeIgnoreCase(final Function<String> function, final String value)
 	{
-		return function.toUpperCase().like(toUpperCase(value));
+		return new UppercaseView(function).like(toUpperCase(value));
 	}
 
-	public static final LikeCondition startsWithIgnoreCase(final StringFunction function, final String value)
+	public static final LikeCondition startsWithIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.startsWith(function.toUpperCase(), toUpperCase(value));
+		return LikeCondition.startsWith(new UppercaseView(function), toUpperCase(value));
 	}
 
-	public static final LikeCondition endsWithIgnoreCase(final StringFunction function, final String value)
+	public static final LikeCondition endsWithIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.endsWith(function.toUpperCase(), toUpperCase(value));
+		return LikeCondition.endsWith(new UppercaseView(function), toUpperCase(value));
 	}
 
-	public static final LikeCondition containsIgnoreCase(final StringFunction function, final String value)
+	public static final LikeCondition containsIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.contains(function.toUpperCase(), toUpperCase(value));
+		return LikeCondition.contains(new UppercaseView(function), toUpperCase(value));
 	}
 }
