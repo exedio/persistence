@@ -68,7 +68,8 @@ final class MediaMagic
 			new Type(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
-					"application/pdf")};
+					"application/pdf"),
+	};
 
 	static Condition mismatches(final Media media)
 	{
