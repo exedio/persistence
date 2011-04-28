@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.util.Hex;
 
 public final class MediaType
 {
@@ -32,6 +33,7 @@ public final class MediaType
 		this.magic = magic;
 		this.name = name;
 		this.aliases = aliases;
+		assert magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
 	}
 
 	public String getName()
@@ -78,6 +80,13 @@ public final class MediaType
 		return name;
 	}
 
+
+	private static final int MAGIC_MAX_LENGTH = 8;
+
+	public static int magicMaxLength() // use method to prevent the compiler from inlining
+	{
+		return MAGIC_MAX_LENGTH;
+	}
 
 	public static final String JPEG = "image/jpeg";
 	public static final String PNG  = "image/png";

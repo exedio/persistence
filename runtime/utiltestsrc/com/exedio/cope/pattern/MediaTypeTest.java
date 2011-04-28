@@ -169,6 +169,8 @@ public class MediaTypeTest extends CopeAssert
 
 	public void testForMagic()
 	{
+		assertEquals(8, MediaType.magicMaxLength());
+
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 
