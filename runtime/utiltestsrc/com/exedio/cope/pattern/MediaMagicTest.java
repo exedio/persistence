@@ -122,8 +122,8 @@ public class MediaMagicTest extends CopeAssert
 		assertNotNull(png);
 		assertSame(jpg, MediaMagic.forType("image/jpeg"));
 		assertSame(png, MediaMagic.forType("image/png"));
-		assertEquals(null, MediaMagic.forType("image/pjpeg"));
-		assertEquals(null, MediaMagic.forType("zack"));
+		assertSame(null, MediaMagic.forType("image/pjpeg"));
+		assertSame(null, MediaMagic.forType("zack"));
 
 		try
 		{
