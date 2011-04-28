@@ -120,9 +120,9 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType m : types)
-			if(name.equals(m.name))
-				return m;
+		for(final MediaType type : types)
+			if(name.equals(type.name))
+				return type;
 
 		return null;
 	}
@@ -132,13 +132,13 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType m : types)
+		for(final MediaType type : types)
 		{
-			if(name.equals(m.name))
-				return m;
-			for(final String alias : m.aliases)
+			if(name.equals(type.name))
+				return type;
+			for(final String alias : type.aliases)
 				if(name.equals(alias))
-					return m;
+					return type;
 		}
 
 		return null;
@@ -151,9 +151,9 @@ public final class MediaType
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		for(final MediaType m : types)
-			if(m.matches(magic))
-				return m;
+		for(final MediaType type : types)
+			if(type.matches(magic))
+				return type;
 
 		return null;
 	}
