@@ -46,8 +46,8 @@ public class MediaMagicTest extends CopeAssert
 		assertEquals(
 				"(" +
 				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"("+c+"='image/png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='image/icon' OR "+c+"='image/x-icon' OR "+c+"='image/vnd.microsoft.icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
 				"(("+c+"='application/zip' OR "+c+"='application/java-archive') AND !("+b+" startsWith '"+ZIP+"')) OR " +
 				"("+c+"='application/pdf' AND !("+b+" startsWith '"+PDF+"'))" +
@@ -104,8 +104,8 @@ public class MediaMagicTest extends CopeAssert
 		assertEquals(
 				"(" +
 				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"("+c+"='png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='icon' OR "+c+"='x-icon' OR "+c+"='vnd.microsoft.icon') AND !("+b+" startsWith '"+ICO+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
