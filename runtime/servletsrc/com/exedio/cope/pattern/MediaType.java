@@ -79,7 +79,7 @@ public final class MediaType
 	}
 
 
-	private static final MediaType[] magics = new MediaType[]{
+	private static final MediaType[] types = new MediaType[]{
 
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
@@ -109,9 +109,9 @@ public final class MediaType
 
 	static Condition mismatches(final Media media)
 	{
-		final Condition[] conditions = new Condition[magics.length];
+		final Condition[] conditions = new Condition[types.length];
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i] = magics[i].mismatchesInstance(media);
+			conditions[i] = types[i].mismatchesInstance(media);
 		return Cope.or(conditions);
 	}
 
@@ -120,7 +120,7 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType m : magics)
+		for(final MediaType m : types)
 			if(name.equals(m.name))
 				return m;
 
@@ -132,7 +132,7 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType m : magics)
+		for(final MediaType m : types)
 		{
 			if(name.equals(m.name))
 				return m;
@@ -151,7 +151,7 @@ public final class MediaType
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		for(final MediaType m : magics)
+		for(final MediaType m : types)
 			if(m.matches(magic))
 				return m;
 
