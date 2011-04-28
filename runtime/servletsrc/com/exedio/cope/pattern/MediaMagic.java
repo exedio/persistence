@@ -39,6 +39,18 @@ final class MediaMagic
 		return type;
 	}
 
+	String getAllowedType(final Media media)
+	{
+		if(media.checkContentType(type))
+			return type;
+
+		for(final String akaType : akaTypes)
+			if(media.checkContentType(akaType))
+				return akaType;
+
+		return null;
+	}
+
 	private boolean matches(final byte[] m)
 	{
 		if(m.length<magic.length)
