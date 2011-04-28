@@ -43,6 +43,7 @@ final class MediaMagic
 		return Cope.or(typeConditions).and(media.getBody().startsWith(magic).not());
 	}
 
+
 	private static final MediaMagic[] magics = new MediaMagic[]{
 
 			new MediaMagic(
