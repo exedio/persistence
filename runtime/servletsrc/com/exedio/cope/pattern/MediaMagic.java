@@ -23,22 +23,22 @@ import com.exedio.cope.Cope;
 
 final class MediaMagic
 {
-		private final byte[] magic;
-		private final String[] contentTypes;
+	private final byte[] magic;
+	private final String[] contentTypes;
 
-		private MediaMagic(final byte[] magic, final String... contentTypes)
-		{
-			this.magic = magic;
-			this.contentTypes = contentTypes;
-		}
+	private MediaMagic(final byte[] magic, final String... contentTypes)
+	{
+		this.magic = magic;
+		this.contentTypes = contentTypes;
+	}
 
-		private Condition mismatchesInstance(final Media media)
-		{
-			final Condition[] contentTypeConditions = new Condition[contentTypes.length];
-			for(int i = 0; i<contentTypes.length; i++)
-				contentTypeConditions[i] = media.contentTypeEqual(contentTypes[i]);
-			return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
-		}
+	private Condition mismatchesInstance(final Media media)
+	{
+		final Condition[] contentTypeConditions = new Condition[contentTypes.length];
+		for(int i = 0; i<contentTypes.length; i++)
+			contentTypeConditions[i] = media.contentTypeEqual(contentTypes[i]);
+		return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
+	}
 
 	private static final MediaMagic[] types = new MediaMagic[]{
 
