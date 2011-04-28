@@ -96,7 +96,7 @@ final class MediaMagic
 			new MediaMagic(
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
-					"image/icon", "image/x-icon", "image/vnd.microsoft.icon"),
+					"image/vnd.microsoft.icon", "image/icon", "image/x-icon"),
 			new MediaMagic(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
