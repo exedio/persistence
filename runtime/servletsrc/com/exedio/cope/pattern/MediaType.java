@@ -79,32 +79,39 @@ public final class MediaType
 	}
 
 
+	public static final String JPEG = "image/jpeg";
+	public static final String PNG  = "image/png";
+	public static final String GIF  = "image/gif";
+	public static final String ICON = "image/vnd.microsoft.icon";
+	public static final String ZIP  = "application/zip";
+	public static final String PDF  = "application/pdf";
+
 	private static final MediaType[] types = new MediaType[]{
 
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
-					"image/jpeg", "image/pjpeg"),
+					JPEG, "image/pjpeg"),
 			new MediaType(
 					// RFC 2083 section 3.1. PNG file signature
 					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
-					"image/png"),
+					PNG),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
-					"image/gif"),
+					GIF),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
-					"image/vnd.microsoft.icon", "image/icon", "image/x-icon"),
+					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
-					"application/zip", "application/java-archive"),
+					ZIP, "application/java-archive"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
-					"application/pdf"),
+					PDF),
 	};
 
 	static Condition mismatches(final Media media)
