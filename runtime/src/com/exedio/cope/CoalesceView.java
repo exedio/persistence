@@ -66,9 +66,9 @@ public final class CoalesceView<E> extends View<E>
 	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)
 	{
-		final Object sourceValue = sourceValues[0];
-		if(sourceValue!=null)
-			return (E)sourceValue;
+		for(final Object sourceValue : sourceValues)
+			if(sourceValue!=null)
+				return (E)sourceValue;
 		return literal;
 	}
 
