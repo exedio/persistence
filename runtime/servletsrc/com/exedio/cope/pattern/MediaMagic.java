@@ -40,7 +40,7 @@ final class MediaMagic
 		return Cope.or(contentTypeConditions).and(media.getBody().startsWith(magic).not());
 	}
 
-	private static final MediaMagic[] types = new MediaMagic[]{
+	private static final MediaMagic[] magics = new MediaMagic[]{
 
 			new MediaMagic(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
@@ -70,9 +70,9 @@ final class MediaMagic
 
 	static Condition mismatches(final Media media)
 	{
-		final Condition[] conditions = new Condition[types.length];
+		final Condition[] conditions = new Condition[magics.length];
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i] = types[i].mismatchesInstance(media);
+			conditions[i] = magics[i].mismatchesInstance(media);
 		return Cope.or(conditions);
 	}
 }
