@@ -21,13 +21,13 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 
-final class MediaMagic
+final class MediaType
 {
 	private final byte[] magic;
 	private final String name;
 	private final String[] aliases;
 
-	private MediaMagic(final byte[] magic, final String name, final String... aliases)
+	private MediaType(final byte[] magic, final String name, final String... aliases)
 	{
 		this.magic = magic;
 		this.name = name;
@@ -79,29 +79,29 @@ final class MediaMagic
 	}
 
 
-	private static final MediaMagic[] magics = new MediaMagic[]{
+	private static final MediaType[] magics = new MediaType[]{
 
-			new MediaMagic(
+			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
 					"image/jpeg", "image/pjpeg"),
-			new MediaMagic(
+			new MediaType(
 					// RFC 2083 section 3.1. PNG file signature
 					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
 					"image/png"),
-			new MediaMagic(
+			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
 					"image/gif"),
-			new MediaMagic(
+			new MediaType(
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
 					"image/vnd.microsoft.icon", "image/icon", "image/x-icon"),
-			new MediaMagic(
+			new MediaType(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
 					"application/zip", "application/java-archive"),
-			new MediaMagic(
+			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
 					"application/pdf"),
@@ -115,24 +115,24 @@ final class MediaMagic
 		return Cope.or(conditions);
 	}
 
-	static MediaMagic forName(final String name)
+	static MediaType forName(final String name)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaMagic m : magics)
+		for(final MediaType m : magics)
 			if(name.equals(m.name))
 				return m;
 
 		return null;
 	}
 
-	static MediaMagic forNameAndAliases(final String name)
+	static MediaType forNameAndAliases(final String name)
 	{
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaMagic m : magics)
+		for(final MediaType m : magics)
 		{
 			if(name.equals(m.name))
 				return m;
@@ -144,14 +144,14 @@ final class MediaMagic
 		return null;
 	}
 
-	static MediaMagic forMagic(final byte[] magic)
+	static MediaType forMagic(final byte[] magic)
 	{
 		if(magic==null)
 			throw new NullPointerException("magic");
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		for(final MediaMagic m : magics)
+		for(final MediaType m : magics)
 			if(m.matches(magic))
 				return m;
 

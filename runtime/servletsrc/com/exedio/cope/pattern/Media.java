@@ -689,7 +689,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	public Condition bodyMismatchesContentType()
 	{
-		return MediaMagic.mismatches(this);
+		return MediaType.mismatches(this);
 	}
 
 	public static final class Value

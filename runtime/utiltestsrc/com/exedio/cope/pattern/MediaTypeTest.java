@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaMagic.forMagic;
-import static com.exedio.cope.pattern.MediaMagic.forName;
-import static com.exedio.cope.pattern.MediaMagic.forNameAndAliases;
+import static com.exedio.cope.pattern.MediaType.forMagic;
+import static com.exedio.cope.pattern.MediaType.forName;
+import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
@@ -29,7 +29,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 
-public class MediaMagicTest extends CopeAssert
+public class MediaTypeTest extends CopeAssert
 {
 	private static final String JPEG = "ffd8ff";
 	private static final String GIF = "47494638";
@@ -119,8 +119,8 @@ public class MediaMagicTest extends CopeAssert
 
 	public void testForName()
 	{
-		final MediaMagic jpg = forName("image/jpeg");
-		final MediaMagic png = forName("image/png");
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType png = forName("image/png");
 
 		assertNotNull(jpg);
 		assertNotNull(png);
@@ -148,8 +148,8 @@ public class MediaMagicTest extends CopeAssert
 
 	public void testForNameAlias()
 	{
-		final MediaMagic jpg = forName("image/jpeg");
-		final MediaMagic png = forName("image/png");
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType png = forName("image/png");
 
 		assertSame(jpg, forNameAndAliases("image/jpeg"));
 		assertSame(png, forNameAndAliases("image/png"));
@@ -169,8 +169,8 @@ public class MediaMagicTest extends CopeAssert
 
 	public void testForMagic()
 	{
-		final MediaMagic jpg = forName("image/jpeg");
-		final MediaMagic png = forName("image/png");
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType png = forName("image/png");
 
 		assertSame(jpg, forMagic(Hex.decodeLower(JPEG)));
 		assertSame(jpg, forMagic(Hex.decodeLower(JPEG + "aa")));
@@ -206,9 +206,9 @@ public class MediaMagicTest extends CopeAssert
 
 	public void testAllowed()
 	{
-		final MediaMagic jpg = forName("image/jpeg");
-		final MediaMagic pdf = forName("application/pdf");
-		final MediaMagic png = forName("image/png");
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType pdf = forName("application/pdf");
+		final MediaType png = forName("image/png");
 
 		{
 			final Media m = new Media();
