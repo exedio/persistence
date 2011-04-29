@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Feature;
 
-public class WrapperSuppressorDefault implements WrapperSuppressor
+public final class WrapperSuppressorDefault implements WrapperSuppressor
 {
 	public boolean isSuppressed(final Feature feature)
 	{
