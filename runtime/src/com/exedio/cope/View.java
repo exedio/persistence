@@ -19,8 +19,6 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,7 +66,7 @@ public abstract class View<E> extends Feature
 		if(sources[0] instanceof Feature)
 		{
 			final Feature f = (Feature)sources[0];
-			this.sourceType = f.isMounted() ? f.getType() : null;
+			this.sourceType = f.isMountedToType() ? f.getType() : null;
 		}
 		else
 		{
@@ -82,12 +80,6 @@ public abstract class View<E> extends Feature
 	}
 
 	protected abstract E mapJava(Object[] sourceValues);
-
-	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
-
-	abstract String surface2Database(Object value);
-
-	abstract void surface2DatabasePrepared(Statement bf, Object value);
 
 	/**
 	 * @deprecated For internal use within COPE only.
@@ -139,25 +131,13 @@ public abstract class View<E> extends Feature
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		if(bf.parameters==null)
-			bf.append(surface2Database(value));
-		else
-			surface2DatabasePrepared(bf, value);
-	}
-
 	@Override
-	final void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -165,7 +145,7 @@ public abstract class View<E> extends Feature
 		{
 			if(i>0)
 				bf.append(',');
-			bf.append(sources[i].toString());
+			sources[i].toString(bf, defaultType);
 		}
 		bf.append(')');
 	}

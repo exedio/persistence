@@ -288,9 +288,9 @@ final class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
-			final Table table = superType.getTable();
+			final Table table = currentType.getTable();
 
 			final IntegerColumn updateCounter = table.updateCounter;
 			if(updateCounter!=null)
@@ -337,17 +337,17 @@ final class Database
 
 		bf.append(" where ");
 		first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(" and ");
 
-			bf.appendPK(superType, (Join)null).
+			bf.appendPK(currentType, (Join)null).
 				append('=').
 				appendParameter(item.pk).
-				appendTypeCheck(superType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
+				appendTypeCheck(currentType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 
 		//System.out.println(bf.toString());

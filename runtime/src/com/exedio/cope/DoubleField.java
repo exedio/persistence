@@ -149,6 +149,11 @@ public final class DoubleField extends NumberField<Double>
 		return optional ? Double.class : double.class;
 	}
 
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.DOUBLE;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -167,7 +172,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
-	Double get(final Row row, final Query query)
+	Double get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
@@ -201,10 +206,7 @@ public final class DoubleField extends NumberField<Double>
 	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public final double getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).doubleValue();
+		return getMandatoryObject(item).doubleValue();
 	}
 
 	public final void set(final Item item, final double value)

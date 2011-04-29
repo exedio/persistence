@@ -49,6 +49,16 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	protected int filterTransationIsolation(final int level)
+	{
+		switch(level)
+		{
+			case Connection.TRANSACTION_REPEATABLE_READ: return Connection.TRANSACTION_READ_COMMITTED;
+			default: return level;
+		}
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
@@ -101,8 +111,8 @@ final class OracleDialect extends Dialect
 	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
+			final Function<E> dividend,
+			final Function<E> divisor,
 			final Join join)
 	{
 		bf.append("TRUNC(").
@@ -162,7 +172,7 @@ final class OracleDialect extends Dialect
 		bf.append("(contains(").
 			append(function, (Join)null).
 			append(',').
-			appendParameter(function, value).
+			appendParameterAny(value).
 			append(")>0)");
 	}
 

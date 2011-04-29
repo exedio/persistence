@@ -20,6 +20,13 @@ package com.exedio.cope;
 
 public interface Selectable<E extends Object>
 {
+	/**
+	 * Returns {@link #getValueType()}.{@link SelectType#getJavaClass() getJavaClass()}
+	 */
+	Class<E> getValueClass();
+
+	SelectType<E> getValueType();
+
 	Type<? extends Item> getType();
 
 	void toString(StringBuilder bf, Type defaultType);
@@ -40,5 +47,5 @@ public interface Selectable<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void appendSelect(Statement bf, Join join, Holder<Column> columnHolder, Holder<Type> typeHolder);
+	void appendSelect(Statement bf, Join join);
 }

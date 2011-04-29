@@ -26,6 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.misc.ListUtil;
+
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
@@ -109,7 +111,7 @@ public final class Features
 		{
 			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
-			if(!source.isMounted())
+			if(!source.isMountedToType())
 				source.mount(type, name + '-' + postfix, getAnnotationSource(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
@@ -118,7 +120,7 @@ public final class Features
 			result.add(source);
 		}
 
-		return Type.finish(result);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	// ------------------- deprecated stuff -------------------

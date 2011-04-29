@@ -86,11 +86,11 @@ public class TextUrlFilter extends MediaFilter
 
 		if(pasteStart==null)
 			throw new NullPointerException("pasteStart");
-		if(pasteStart.length()==0)
+		if(pasteStart.isEmpty())
 			throw new IllegalArgumentException("pasteStart");
 		if(pasteStop==null)
 			throw new NullPointerException("pasteStop");
-		if(pasteStop.length()==0)
+		if(pasteStop.isEmpty())
 			throw new IllegalArgumentException("pasteStop");
 		if(pasteStop.length()>1)
 			throw new RuntimeException("not yet implemented, is buggy " + pasteStop);

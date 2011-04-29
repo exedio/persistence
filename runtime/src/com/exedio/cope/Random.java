@@ -49,6 +49,11 @@ public class Random implements NumberFunction<Double>
 		return Double.class;
 	}
 
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.DOUBLE;
+	}
+
 	public Type<? extends Item> getType()
 	{
 		return type;
@@ -90,12 +95,6 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(final Statement bf, final Double value)
-	{
-		throw new RuntimeException();
-	}
-
-	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
 		if(!type.getModel().supportsRandom())
@@ -107,7 +106,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}
@@ -230,29 +229,44 @@ public class Random implements NumberFunction<Double>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
-		return new PlusLiteralView<Double>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyLiteralView<Double> multiply(final Double value)
 	{
-		return new MultiplyLiteralView<Double>(this, value);
+		return MultiplyLiteralView.multiply(this, value);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusView<Double> plus(final NumberFunction<Double> other)
 	{
-		return new PlusView<Double>(new NumberFunction[]{this, other});
+		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)
 	{
-		return new MultiplyView<Double>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
+	/**
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final DivideView<Double> divide(final NumberFunction<Double> other)
 	{
-		return new DivideView<Double>(this, other);
+		return DivideView.divide(this, other);
 	}
 
 	public final SumAggregate<Double> sum()

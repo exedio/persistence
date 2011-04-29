@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
@@ -275,7 +276,7 @@ public final class Dispatcher extends Pattern
 					{
 						itemCasted.dispatch(this);
 
-						final long elapsed = (nanoTime() - nanoStart) / 1000000;
+						final long elapsed = toMillies(nanoTime(), nanoStart);
 						pending.set(item, false);
 						mount.runType.newItem(
 								runParent.map(item),
@@ -288,7 +289,7 @@ public final class Dispatcher extends Pattern
 					}
 					catch(final Exception cause)
 					{
-						final long elapsed = (nanoTime() - nanoStart) / 1000000;
+						final long elapsed = toMillies(nanoTime(), nanoStart);
 						model.rollbackIfNotCommitted();
 
 						model.startTransaction(id + " register failure " + itemID);

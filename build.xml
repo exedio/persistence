@@ -375,6 +375,8 @@
 				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
+				<exclude name="CoalesceTest.java" /><!-- TODO remove -->
+				<exclude name="CoalesceFunctionTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
 				<exclude name="NameTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
@@ -756,6 +758,7 @@
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
+				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				createDeprecated="true"
@@ -915,14 +918,12 @@
 						webtest" />
 	
 	
-	<target name="findbugs.prod" depends="findbugs.taskdef, compile">
+	<target name="findbugs" depends="findbugs.taskdef, compile">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx250M"
-					failOnError="true"
-					warningsProperty="findbugs.warnings"
 					output="${findbugs.output}"
-					outputFile="${basedir}/build/findbugs-prod.${findbugs.output}"
+					outputFile="${basedir}/build/findbugs.${findbugs.output}"
 					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
@@ -934,35 +935,8 @@
 			<class location="${basedir}/build/classes/runtime/junitsrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
-			<auxclasspath>
-				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
-				<pathelement location="${basedir}/lib/exedio-cops.jar" />
-				<pathelement location="${basedir}/lib/trove.jar" />
-				<pathelement location="${basedir}/lib/cojen.jar" />
-				<pathelement location="${basedir}/lib/bsh-core.jar" />
-				<pathelement location="${basedir}/lib/servlet-api.jar" />
-				<pathelement location="${basedir}/lib/junit.jar" />
-				<pathelement location="${ant.core.lib}" />
-			</auxclasspath>
-		</findbugs>
-	</target>
-	
-	<target name="findbugs.test" depends="findbugs.taskdef, compile">
-		<findbugs
-					home="${basedir}/build/findbugs-home"
-					jvmargs="-Xmx250M"
-					output="html"
-					outputFile="${basedir}/build/findbugs-test.html"
-					effort="max"
-					reportlevel="low">
 			<class location="${basedir}/build/classes/runtime/testsrc" />
 			<auxclasspath>
-				<pathelement location="${basedir}/build/classes/dsmf/src" />
-				<pathelement location="${basedir}/build/classes/runtime/src" />
-				<pathelement location="${basedir}/build/classes/runtime/patternsrc" />
-				<pathelement location="${basedir}/build/classes/runtime/servletsrc" />
-				<pathelement location="${basedir}/build/classes/runtime/junitsrc" />
-				<pathelement location="${basedir}/build/classes/instrument/src" />
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cops.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
@@ -974,8 +948,6 @@
 			</auxclasspath>
 		</findbugs>
 	</target>
-	
-	<target name="findbugs" depends="findbugs.prod, findbugs.test" />
 	
 	<target name="all" depends="build, runtime.jar.src, api, findbugs" />
 	

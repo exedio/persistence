@@ -91,7 +91,6 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(Condition.TRUE,        item.photo.contentTypeEqual("image/jpeg"));
 		assertEquals(Condition.FALSE,       item.photo.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), item.photo.contentTypeEqual(null));
-		assertNotNull(item.photo.bodyMismatchesContentType());
 
 		// test persistence
 

@@ -41,7 +41,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		{
 			if(sql==null)
 				throw new NullPointerException("sql");
-			if(sql.length()==0)
+			if(sql.isEmpty())
 				throw new IllegalArgumentException("sql must not be empty");
 			if(rows<0)
 				throw new IllegalArgumentException("rows must be greater or equal zero, but was " + rows);

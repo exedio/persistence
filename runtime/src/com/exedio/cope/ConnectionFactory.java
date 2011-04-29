@@ -22,16 +22,24 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
+	private static final Logger logger = Logger.getLogger(ConnectionFactory.class.getName());
+
 	private final String url;
 	private final Driver driver;
-	private final java.util.Properties info;
+	private final Properties info;
 	private final boolean transactionIsolationReadCommitted;
+	private final boolean transactionIsolationRepeatableRead;
+	private final int transactionIsolationRepeatableReadLevel;
 
 	ConnectionFactory(
 			final ConnectProperties properties,
@@ -46,6 +54,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 		this.transactionIsolationReadCommitted =
 			properties.connectionTransactionIsolationReadCommitted.booleanValue();
+		this.transactionIsolationRepeatableRead =
+			properties.connectionTransactionIsolationRepeatableRead.booleanValue();
+		this.transactionIsolationRepeatableReadLevel =
+			dialect.filterTransationIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 	}
 
 	public Connection create()
@@ -67,6 +79,8 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 			throw new RuntimeException(driver.toString() + '/' + url);
 		if(transactionIsolationReadCommitted)
 			result.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+		if(transactionIsolationRepeatableRead)
+			result.setTransactionIsolation(transactionIsolationRepeatableReadLevel);
 		return result;
 	}
 
@@ -86,7 +100,14 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			System.out.println("warning: pooled connection invalid: " + ex.getMessage());
+			if(logger.isLoggable(Level.WARNING))
+			{
+				final LogRecord record = new LogRecord(Level.WARNING, "invalid on get");
+				record.setSourceClassName(ConnectionFactory.class.getName());
+				record.setSourceMethodName("isValidOnGet");
+				record.setThrown(ex);
+				logger.log(record);
+			}
 			return false;
 		}
 	}

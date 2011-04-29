@@ -146,8 +146,8 @@ public class TypesBoundComplexTest extends CopeAssert
 
 		// error if not initialized
 		final String modelMessage =
-			"model not set for type AnItem, " +
-			"probably you forgot to put this type into the model.";
+			"type AnItem (" + AnItem.class.getName() +
+			") does not belong to any model";
 		try
 		{
 			type.getModel();
@@ -210,11 +210,11 @@ public class TypesBoundComplexTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("valueType of AnotherItem.itemField not yet resolved: " + AnItem.class.getName(), e.getMessage());
+			assertEquals("value type of AnotherItem.itemField (" + AnItem.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		final String modelMessageO =
-			"model not set for type AnotherItem, " +
-			"probably you forgot to put this type into the model.";
+			"type AnotherItem (" + AnotherItem.class.getName() +
+			") does not belong to any model";
 		try
 		{
 			typO.getModel();

@@ -31,13 +31,15 @@ import com.exedio.cope.util.CharSet;
 public final class StringField extends FunctionField<String>
 	implements StringFunction
 {
+	public static final int DEFAULT_MINIMUM_LENGTH = 1;
+	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
+
 	private static final long serialVersionUID = 1l;
+
 
 	private final int minimumLength;
 	private final int maximumLength;
 	private final CharSet charSet;
-
-	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
@@ -58,12 +60,19 @@ public final class StringField extends FunctionField<String>
 		checkDefaultConstant();
 	}
 
+	public StringField(final StringFieldMinimumLength minimumLength)
+	{
+		this(false, false, false, null, minimumLength.value, DEFAULT_MAXIMUM_LENGTH, null);
+	}
+
+	public static final StringFieldMinimumLength EMPTY = new StringFieldMinimumLength(0);
+
 	/**
 	 * Creates a new mandatory <tt>StringField</tt>.
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 0, DEFAULT_LENGTH, null);
+		this(false, false, false, null, DEFAULT_MINIMUM_LENGTH, DEFAULT_MAXIMUM_LENGTH, null);
 	}
 
 	@Override
@@ -115,12 +124,12 @@ public final class StringField extends FunctionField<String>
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, charSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthExact(final int exactLength)
@@ -158,6 +167,11 @@ public final class StringField extends FunctionField<String>
 		return result;
 	}
 
+	public SelectType<String> getValueType()
+	{
+		return SimpleSelectType.STRING;
+	}
+
 	private boolean convertEmptyStrings = false;
 
 	@Override
@@ -168,7 +182,7 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
-	String get(final Row row, final Query query)
+	String get(final Row row)
 	{
 		return (String)row.get(getColumn());
 	}
@@ -181,7 +195,7 @@ public final class StringField extends FunctionField<String>
 			cell = surface;
 		else
 		{
-			if(surface!=null && surface.length()==0)
+			if(surface!=null && surface.isEmpty())
 				cell = null;
 			else
 				cell = surface;
@@ -194,7 +208,7 @@ public final class StringField extends FunctionField<String>
 		throws
 			StringLengthViolationException, StringCharSetViolationException
 	{
-		if(convertEmptyStrings && value.length()==0 && !optional)
+		if(convertEmptyStrings && value.isEmpty() && !optional)
 			throw new MandatoryViolationException(this, this, exceptionItem);
 
 		final int length = value.length();
@@ -308,4 +322,10 @@ public final class StringField extends FunctionField<String>
 	{
 		return new com.exedio.cope.util.CharacterSet(getCharSet());
 	}
+
+	/**
+	 * @deprecated Use {@link #DEFAULT_MAXIMUM_LENGTH} instead
+	 */
+	@Deprecated
+	public static final int DEFAULT_LENGTH = DEFAULT_MAXIMUM_LENGTH;
 }

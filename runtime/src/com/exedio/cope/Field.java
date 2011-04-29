@@ -47,7 +47,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		this.isfinal = isfinal;
 		this.optional = optional;
 		this.valueClass = valueClass;
-		assert valueClass!=null;
+
+		if(valueClass==null)
+			throw new NullPointerException("valueClass");
 	}
 
 	/**

@@ -41,6 +41,7 @@ final class Connect
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
+	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
 	final ItemCache itemCache;
@@ -118,7 +119,8 @@ final class Connect
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
 				new PoolCounter()));
-		this.executor = new Executor(dialect, properties);
+		this.marshallers = new Marshallers(supportsNativeDate());
+		this.executor = new Executor(dialect, properties, marshallers);
 		this.database = new Database(
 				dialect.dsmfDialect,
 				dialectParameters,
@@ -236,7 +238,7 @@ final class Connect
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(properties, connectionPool, executor, database.dialectParameters.getRevisionEnvironment());
+		revisions.revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
 
 		revised = true;
 	}

@@ -20,26 +20,31 @@ package com.exedio.cope;
 
 public final class PlusLiteralView<E extends Number> extends NumberView<E>
 {
+	public static final <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
+	{
+		return new PlusLiteralView<E>(addend1, addend2);
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction<E> left;
+	private final Function<E> left;
 	private final E right;
 
-	/**
-	 * Creates a new PlusView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#plus(Number)
-	 */
-	public PlusLiteralView(final NumberFunction<E> left, final E right)
+	private PlusLiteralView(final Function<E> left, final E right)
 	{
-		super(new Function[]{left}, "plus", left.getValueClass());
+		super(new Function[]{left}, "plus", PlusView.checkClass(Number.class, left.getValueClass()));
 
 		if(right==null)
 			throw new NullPointerException("right");
 
 		this.left = left;
 		this.right = right;
+	}
+
+	public SelectType<E> getValueType()
+	{
+		return left.getValueType();
 	}
 
 	@Override
@@ -67,6 +72,16 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
+	@Override
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	{
+		bf.append('(');
+		left.toString(bf, defaultType);
+		bf.append('+');
+		bf.append(right);
+		bf.append(')');
+	}
+
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
@@ -75,5 +90,16 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 		bf.append('+');
 		bf.appendParameter(right);
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #PlusLiteralView(Function,Number)} instead.
+	 */
+	@Deprecated
+	public PlusLiteralView(final NumberFunction<E> left, final E right)
+	{
+		this((Function<E>)left, right);
 	}
 }

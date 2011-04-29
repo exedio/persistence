@@ -53,6 +53,16 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name;
 	}
 
+	public final Class<E> getValueClass()
+	{
+		return source.getValueClass();
+	}
+
+	public final SelectType<E> getValueType()
+	{
+		return source.getValueType();
+	}
+
 	public final Type<? extends Item> getType()
 	{
 		return source.getType();
@@ -82,10 +92,10 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
-			appendSelect(source, join, columnHolder, typeHolder).
+			appendSelect(source, join).
 			append(')');
 	}
 

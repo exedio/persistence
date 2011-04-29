@@ -21,9 +21,10 @@ package com.exedio.cope;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import com.exedio.cope.misc.ListUtil;
 
 /**
  * A common super class for all patterns.
@@ -72,7 +73,7 @@ public abstract class Pattern extends Feature
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
-		if(postfix.length()==0)
+		if(postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(feature==null)
 			throw new NullPointerException("feature");
@@ -125,7 +126,7 @@ public abstract class Pattern extends Feature
 				if(sourceName!=null)
 				{
 					final String v = sourceName.value();
-					if(v.length()>0)
+					if(!v.isEmpty())
 						bf.append('-').append(v);
 				}
 				else
@@ -192,7 +193,7 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
-		if(postfix!=null && postfix.length()==0)
+		if(postfix!=null && postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
@@ -313,8 +314,7 @@ public abstract class Pattern extends Feature
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
 		this.sourceFeaturesGather = null;
 
-		this.sourceTypesWhileGather.trimToSize();
-		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
+		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
 	}
 
@@ -359,7 +359,7 @@ public abstract class Pattern extends Feature
 		for(final Feature f : getSourceFeatures())
 			if(f instanceof Field)
 				result.add((Field)f);
-		return Type.finish(result);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	/**

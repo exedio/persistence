@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import com.exedio.cope.misc.ListUtil;
+
 final class Types
 {
 	private final Type<?>[] types;
@@ -58,7 +60,7 @@ final class Types
 
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypes)
-			addTypeIncludingGenerated(type, typesL, 10);
+			addTypeIncludingSourceTypes(type, typesL, 10);
 
 		for(final Type<?> type : typesL)
 			type.assertNotMounted();
@@ -79,7 +81,10 @@ final class Types
 
 		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
 		for(final Type<?> type : explicitTypesSorted)
-			addTypeIncludingGenerated(type, typesSorted, 10);
+			addTypeIncludingSourceTypes(type, typesSorted, 10);
+
+		for(final Type<?> type : typesSorted)
+			type.testActivation();
 
 		final HashMap<Type, MountParameters> parametersMap = new HashMap<Type, MountParameters>();
 		int typeCount = 0;
@@ -100,8 +105,8 @@ final class Types
 			for(final Field f : type.getDeclaredFields())
 				if(f instanceof ItemField)
 				{
-					final ItemField ff = (ItemField)f;
-					ff.resolveValueType();
+					final ItemField<?> ff = (ItemField)f;
+					ff.resolveValueType(parametersMap.keySet());
 					final Type valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);
 				}
@@ -137,9 +142,6 @@ final class Types
 
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
-
-		for(final Type<?> type : typesSorted)
-			type.testActivation();
 	}
 
 	private static final Type<?>[] sort(final Type<?>[] types)
@@ -183,7 +185,10 @@ final class Types
 		return result.toArray(new Type[result.size()]);
 	}
 
-	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)
+	private static final void addTypeIncludingSourceTypes(
+			final Type<?> type,
+			final ArrayList<Type<?>> result,
+			int hopCount)
 	{
 		hopCount--;
 		if(hopCount<0)
@@ -192,8 +197,8 @@ final class Types
 		result.add(type);
 		for(final Feature f : type.getDeclaredFeatures())
 			if(f instanceof Pattern)
-				for(final Type<?> generatedType : ((Pattern)f).getSourceTypes())
-					addTypeIncludingGenerated(generatedType, result, hopCount);
+				for(final Type<?> sourceType : ((Pattern)f).getSourceTypes())
+					addTypeIncludingSourceTypes(sourceType, result, hopCount);
 	}
 
 	static final class MountParameters
@@ -276,19 +281,8 @@ final class Types
 		{
 			if(list==null)
 				return Collections.<X>emptyList();
-			else
-			{
-				switch(list.size())
-				{
-				case 0:
-					throw new RuntimeException();
-				case 1:
-					return Collections.singletonList(list.get(0));
-				default:
-					list.trimToSize();
-					return Collections.<X>unmodifiableList(list);
-				}
-			}
+			assert list.size()>0;
+			return ListUtil.trimUnmodifiable(list);
 		}
 	}
 

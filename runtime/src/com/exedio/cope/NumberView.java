@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.SumAggregate;
 
@@ -33,43 +29,6 @@ public abstract class NumberView<E extends Number> extends View<E>
 	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);
-	}
-
-	@Override
-	final Object load(final ResultSet resultSet, final int columnIndex)
-	throws SQLException
-	{
-		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerView.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
-		if(loadedInteger!=null)
-		{
-			if(loadedInteger instanceof BigDecimal)
-				return Integer.valueOf(((BigDecimal)loadedInteger).intValue());
-			else if(loadedInteger instanceof Long)
-				return Integer.valueOf(((Long)loadedInteger).intValue());
-			else
-			{
-				assert loadedInteger instanceof Integer;
-				return loadedInteger;
-			}
-		}
-		else
-			return null;
-	}
-
-	@Override
-	final String surface2Database(final Object value)
-	{
-		if(value==null)
-			return "NULL";
-		else
-			return ((Number)value).toString();
-	}
-
-	@Override
-	final void surface2DatabasePrepared(final Statement bf, final Object value)
-	{
-		bf.appendParameter((Number)value);
 	}
 
 	// convenience methods for conditions and views ---------------------------------
@@ -85,29 +44,44 @@ public abstract class NumberView<E extends Number> extends View<E>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<E> plus(final E value)
 	{
-		return new PlusLiteralView<E>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{
-		return new MultiplyLiteralView<E>(this, value);
+		return MultiplyLiteralView.multiply(this, value);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
-		return new PlusView<E>(new NumberFunction[]{this, other});
+		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
+	/**
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final DivideView<E> divide(final NumberFunction<E> other)
 	{
-		return new DivideView<E>(this, other);
+		return DivideView.divide(this, other);
 	}
 
 	public final SumAggregate<E> sum()

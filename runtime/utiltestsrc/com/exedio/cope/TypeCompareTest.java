@@ -35,7 +35,10 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("model not set for type AnItem, probably you forgot to put this type into the model.", e.getMessage());
+			assertEquals(
+					"type AnItem (com.exedio.cope.TypeCompareTest$AnItem) " +
+					"does not belong to any model",
+					e.getMessage());
 		}
 		try
 		{
@@ -44,10 +47,13 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("model not set for type AnotherItem, probably you forgot to put this type into the model.", e.getMessage());
+			assertEquals(
+					"type AnotherItem (com.exedio.cope.TypeCompareTest$AnotherItem) " +
+					"does not belong to any model",
+					e.getMessage());
 		}
 
-		new Model(type1, type2);
+		final Model model = new Model(type1, type2);
 		assertEquals(0, type1.compareTo(type1));
 		assertEquals(0, type2.compareTo(type2));
 		assertEquals(-1, type1.compareTo(type2));
@@ -61,7 +67,10 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("model not set for type AnotherModelItem, probably you forgot to put this type into the model.", e.getMessage());
+			assertEquals(
+					"type AnotherModelItem (com.exedio.cope.TypeCompareTest$AnotherModelItem) " +
+					"does not belong to any model",
+					e.getMessage());
 		}
 		try
 		{
@@ -70,10 +79,13 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("model not set for type AnotherModelItem, probably you forgot to put this type into the model.", e.getMessage());
+			assertEquals(
+					"type AnotherModelItem (com.exedio.cope.TypeCompareTest$AnotherModelItem) " +
+					"does not belong to any model",
+					e.getMessage());
 		}
 
-		new Model(typeOtherModel);
+		final Model otherModel = new Model(typeOtherModel);
 		try
 		{
 			type1.compareTo(typeOtherModel);
@@ -81,7 +93,10 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("types are not comparable, because they do not belong to the same model: AnItem,AnotherModelItem", e.getMessage());
+			assertEquals(
+					"types are not comparable, because they do not belong to the same model: " +
+					"AnItem (" + model + ") and AnotherModelItem (" + otherModel + ").",
+					e.getMessage());
 		}
 		try
 		{
@@ -90,7 +105,10 @@ public class TypeCompareTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("types are not comparable, because they do not belong to the same model: AnotherModelItem,AnItem", e.getMessage());
+			assertEquals(
+					"types are not comparable, because they do not belong to the same model: " +
+					"AnotherModelItem (" + otherModel + ") and AnItem (" + model + ").",
+					e.getMessage());
 		}
 	}
 

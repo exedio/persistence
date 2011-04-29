@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
@@ -67,6 +68,7 @@ final class Lexer
 	 * the input stream to be parsed.
 	 */
 	public Lexer(final File inputFile,
+							final Charset charset,
 							final JavaFile javaFile)
 		throws IOException
 	{
@@ -82,11 +84,11 @@ final class Lexer
 		{
 			fis.close();
 		}
-		final Charset charset = Charset.defaultCharset(); // TODO make configurable
 		final CharsetDecoder decoder = charset.newDecoder();
 
-		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();
-		this.inputLength = input.length;
+		final CharBuffer buffer = decoder.decode(ByteBuffer.wrap(inputBytes));
+		this.input = buffer.array();
+		this.inputLength = buffer.length(); // BEWARE: May be less than input.length
 
 		this.fileName = inputFile.getName();
 		this.output = javaFile.buffer;
@@ -626,10 +628,10 @@ final class Lexer
 
 	boolean inputEqual(final StringBuilder bf)
 	{
-		if(input.length!=bf.length())
+		if(inputLength!=bf.length())
 			return false;
 
-		for(int i = 0; i<input.length; i++)
+		for(int i = 0; i<inputLength; i++)
 			if(input[i]!=bf.charAt(i))
 				return false;
 

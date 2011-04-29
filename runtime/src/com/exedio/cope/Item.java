@@ -110,7 +110,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not neccessarily equivalent to <tt>getCopeID().hashCode()</tt>.
+	 * Note, that this is not necessarily equivalent to <tt>getCopeID().hashCode()</tt>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	@Override
@@ -119,13 +119,21 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return type.hashCode() ^ pk;
 	}
 
-	public int compareTo(final Item other)
+	/**
+	 * Defines an order consistent to the query result order when using
+	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
+	 * methods with any {@link ItemFunction}.
+	 */
+	public int compareTo(final Item o)
 	{
-		final int typeResult = type.compareTo(other.type);
+		if(this==o)
+			return 0;
+
+		final int typeResult = type.toptype.compareTo(o.type.toptype);
 		if(typeResult!=0)
 			return typeResult;
 
-		return Compare.compare(pk, other.pk);
+		return Compare.compare(pk, o.pk);
 	}
 
 	/**
@@ -436,7 +444,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return getEntity(true);
 	}
 
-	private final Entity getEntity(final boolean present)
+	final Entity getEntity(final boolean present)
 	{
 		return type.getModel().currentTransaction().getEntity(this, present);
 	}
@@ -502,7 +510,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	private static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
+	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 

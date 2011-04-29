@@ -135,7 +135,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public abstract FunctionField<E> noDefault();
 	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
-	abstract E get(final Row row, final Query query);
+	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
 	@Override
@@ -202,6 +202,17 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Cast.verboseCast(valueClass, item.getEntity().get(this));
 	}
 
+	final E getMandatoryObject(final Item item)
+	{
+		if(optional)
+			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
+
+		final E result = get(item);
+		if(result==null)
+			throw new NullPointerException("field " + toString() + " returns null in getMandatory");
+		return result;
+	}
+
 	@Override
 	public final void set(final Item item, final E value)
 	{
@@ -230,11 +241,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		final Column column = getColumn();
 		bf.append(column, join);
-		columnHolder.value = column;
 	}
 
 	/**

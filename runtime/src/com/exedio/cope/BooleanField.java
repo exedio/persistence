@@ -91,6 +91,11 @@ public final class BooleanField extends FunctionField<Boolean>
 		return optional ? Boolean.class : boolean.class;
 	}
 
+	public SelectType<Boolean> getValueType()
+	{
+		return SimpleSelectType.BOOLEAN;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -109,7 +114,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
-	Boolean get(final Row row, final Query query)
+	Boolean get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		if(cell==null)
@@ -129,7 +134,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	static final Integer FALSE = Integer.valueOf(0);
-	static final Integer TRUE = Integer.valueOf(1);
+	static final Integer TRUE  = Integer.valueOf(1);
 
 	@Override
 	void set(final Row row, final Boolean surface)
@@ -143,10 +148,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public final boolean getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).booleanValue();
+		return getMandatoryObject(item).booleanValue();
 	}
 
 	public final void set(final Item item, final boolean value)

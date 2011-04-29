@@ -87,7 +87,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		// exceptions
 		try
 		{
-			new DivideView<Double>(null, numA);
+			DivideView.divide(null, numA);
 		}
 		catch(final NullPointerException e)
 		{
@@ -95,7 +95,7 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new DivideView<Double>(numA, null);
+			DivideView.divide(numA, null);
 			fail();
 		}
 		catch(final NullPointerException e)

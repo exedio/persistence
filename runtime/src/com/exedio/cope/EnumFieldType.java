@@ -21,26 +21,24 @@ package com.exedio.cope;
 import gnu.trove.TIntObjectHashMap;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-final class EnumFieldType<E extends Enum<E>>
+final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 {
 	private final Class<E> valueClass;
 	final List<E> values;
-	final TIntObjectHashMap<E> numbersToValues;
-	final int[] ordinalsToNumbers;
+	private final TIntObjectHashMap<E> numbersToValues;
+	private final int[] ordinalsToNumbers;
+	final EnumMarshaller<E> marshaller;
 
-	EnumFieldType(final Class<E> valueClass)
+	private EnumFieldType(final Class<E> valueClass)
 	{
 		this.valueClass = valueClass;
-		if(!valueClass.isEnum())
-			throw new RuntimeException("must be an enum: " + valueClass);
+		assert valueClass.isEnum() : valueClass;
 
-		// TODO compute all this once for an Enum class, as in Composite.Type
-		final ArrayList<E> values = new ArrayList<E>();
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
 
 		final E[] enumConstants = valueClass.getEnumConstants();
@@ -53,13 +51,12 @@ final class EnumFieldType<E extends Enum<E>>
 		{
 			final CopeSchemaValue annotation = getAnnotation(e, CopeSchemaValue.class);
 			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
-			values.add(e);
 			numbersToValues.put(number, e);
 			ordinalsToNumbers[e.ordinal()] = number;
 		}
 		final int l = ordinalsToNumbers.length-1;
 		int i = 0;
-		for(final E e : values)
+		for(final E e : enumConstants)
 		{
 			if(getAnnotation(e, CopeSchemaValue.class)!=null)
 			{
@@ -68,7 +65,9 @@ final class EnumFieldType<E extends Enum<E>>
 				{
 					final StringBuilder bf = new StringBuilder();
 					bf.append(valueClass.getName()).
-						append(": @CopeSchemaValue for ").
+						append(": @").
+						append(CopeSchemaValue.class.getSimpleName()).
+						append(" for ").
 						append(e.name()).
 						append(" must be");
 					if(i>0)
@@ -85,11 +84,11 @@ final class EnumFieldType<E extends Enum<E>>
 			}
 			i++;
 		}
-		values.trimToSize();
 		numbersToValues.trimToSize();
-		this.values = Collections.unmodifiableList(values);
+		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
+		this.marshaller = new EnumMarshaller<E>(this);
 	}
 
 	private static final <A extends Annotation> A getAnnotation(final Enum e, final Class<A> annotationClass)
@@ -104,6 +103,11 @@ final class EnumFieldType<E extends Enum<E>>
 		}
 	}
 
+	public Class<E> getJavaClass()
+	{
+		return valueClass;
+	}
+
 	boolean isValid(final E value)
 	{
 		if(value==null)
@@ -113,7 +117,7 @@ final class EnumFieldType<E extends Enum<E>>
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
 
-	int columnValue(final E value)
+	int getNumber(final E value)
 	{
 		if(!isValid(value))
 			throw new IllegalArgumentException(
@@ -122,20 +126,46 @@ final class EnumFieldType<E extends Enum<E>>
 		return ordinalsToNumbers[value.ordinal()];
 	}
 
+	E getValueByNumber(final int number)
+	{
+		final E result = numbersToValues.get(number);
+		if(result==null)
+			throw new RuntimeException(valueClass.getName() + '/' + number);
+		return result;
+	}
 
-	static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+	boolean isSingle()
+	{
+		return ordinalsToNumbers.length==1;
+	}
 
-	@SuppressWarnings("unchecked")
+	int[] getNumbers()
+	{
+		return com.exedio.cope.misc.Arrays.copyOf(ordinalsToNumbers);
+	}
+
+	@Override
+	public String toString()
+	{
+		return valueClass.getName();
+	}
+
+	// static registry
+
+	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
-		assert valueClass!=null;
+		if(!valueClass.isEnum())
+			throw new IllegalArgumentException("not an enum: " + valueClass);
 
 		synchronized(types)
 		{
-			EnumFieldType result = types.get(valueClass);
+			@SuppressWarnings("unchecked")
+			EnumFieldType<E> result = types.get(valueClass);
 			if(result==null)
 			{
-				result = new EnumFieldType(valueClass);
+				result = new EnumFieldType<E>(valueClass);
 				types.put(valueClass, result);
 			}
 			return result;

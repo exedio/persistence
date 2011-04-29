@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
-import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -40,6 +38,25 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
+/**
+ * NOTE:
+ *
+ * The statements listed in {@link Revision#getBody()}
+ * are guaranteed to be executed subsequently
+ * in the order specified by the list
+ * by one single {@link java.sql.Connection connection}.
+ * So you may use connection states within a revision.
+ *
+ * Additionally,
+ * {@link Revision revisions} listed in {@link #getList()}
+ * are guaranteed to be executed subsequently
+ * reversely to the order specified the list,
+ * each revision by a newly created {@link java.sql.Connection connection}.
+ * The connection is not used for any other purpose afterwards.
+ * So you cannot use connection states between revisions,
+ * but you also don't have to cleanup connection state at the end of each revision.
+ * This is for minimizing effects between revisions.
+ */
 public final class Revisions
 {
 	static final Logger logger = Logger.getLogger(Revisions.class.getName());
@@ -138,7 +155,7 @@ public final class Revisions
 
 	private int getActualNumber(
 			final ConnectProperties properties,
-			final Connection connection,
+			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
@@ -153,18 +170,10 @@ public final class Revisions
 			append(revision).
 			append(">=0");
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
-	}
-
-	Map<Integer, byte[]> getLogs(
-			final ConnectProperties properties,
-			final ConnectionPool connectionPool,
-			final Executor executor)
-	{
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return getLogs(properties, connection, executor);
+			return executor.query(connection, bf, null, false, integerResultSetHandler);
 		}
 		finally
 		{
@@ -172,9 +181,9 @@ public final class Revisions
 		}
 	}
 
-	private Map<Integer, byte[]> getLogs(
+	Map<Integer, byte[]> getLogs(
 			final ConnectProperties properties,
-			final Connection connection,
+			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
 		final Dialect dialect = executor.dialect;
@@ -194,22 +203,30 @@ public final class Revisions
 
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
-		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		final Connection connection = connectionPool.get(true);
+		try
 		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
-				while(resultSet.next())
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
-					final int revision = resultSet.getInt(1);
-					final byte[] info = dialect.getBytes(resultSet, 2);
-					final byte[] previous = result.put(revision, info);
-					if(previous!=null)
-						throw new RuntimeException("duplicate revision " + revision);
-				}
+					while(resultSet.next())
+					{
+						final int revision = resultSet.getInt(1);
+						final byte[] info = dialect.getBytes(resultSet, 2);
+						final byte[] previous = result.put(revision, info);
+						if(previous!=null)
+							throw new RuntimeException("duplicate revision " + revision);
+					}
 
-				return null;
-			}
-		});
+					return null;
+				}
+			});
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 		return Collections.unmodifiableMap(result);
 	}
 
@@ -219,90 +236,42 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connection, executor);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
+		new RevisionInfoCreate(getNumber(), new Date(), environment).
+			insert(properties, connectionPool, executor);
 	}
 
 	void revise(
 			final ConnectProperties properties,
+			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Map<String, String> environment)
+			final DialectParameters dialectParameters)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			final int actualNumber = getActualNumber(properties, connection, executor);
-			final List<Revision> revisionsToRun = getListToRun(actualNumber);
+		final int actualNumber = getActualNumber(properties, connectionPool, executor);
+		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
-			if(!revisionsToRun.isEmpty())
-				revise(properties, connection, executor, environment, revisionsToRun, actualNumber);
-		}
-		finally
+		if(!revisionsToRun.isEmpty())
 		{
-			connectionPool.put(connection);
-		}
-	}
-
-	private void revise(
-			final ConnectProperties properties,
-			final Connection con,
-			final Executor executor,
-			final Map<String, String> environment,
-			final List<Revision> revisionsToRun,
-			final int actualNumber)
-	{
-		final Date date = new Date();
-		try
-		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, con, executor);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			throw new IllegalStateException(
-					"Revision mutex set: " +
-					"Either a revision is currently underway, " +
-					"or a revision has failed unexpectedly.", e);
-		}
-		for(final Revision revision : revisionsToRun)
-		{
-			final int number = revision.number;
-			final String[] body = revision.body;
-			final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			final Date date = new Date();
+			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
+			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
+			try
 			{
-				final String sql = body[bodyIndex];
-				if(logger.isLoggable(Level.INFO))
-					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
-				final Statement bf = executor.newStatement();
-				bf.append(sql);
-				final long start = nanoTime();
-				final int rows = executor.update(con, null, bf);
-				final long elapsed = (nanoTime() - start) / 1000000;
-				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
-					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
-				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+				mutex.insert(properties, connectionPool, executor);
 			}
-			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-			info.insert(properties, con, executor);
-		}
-		{
-			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-			final Statement bf = executor.newStatement();
-			bf.append("delete from ").
-				append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
-				append(" where ").
-				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
-				append('=').
-				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.updateStrict(con, null, bf);
+			catch(final SQLRuntimeException e)
+			{
+				throw new IllegalStateException(
+						"Revision mutex set: " +
+						"Either a revision is currently underway, " +
+						"or a revision has failed unexpectedly.", e);
+			}
+			for(final Revision revision : revisionsToRun)
+			{
+				revision.execute(date, environment, connectionFactory).
+					insert(properties, connectionPool, executor);
+			}
+			mutex.delete(properties, connectionPool, executor);
 		}
 	}
 }

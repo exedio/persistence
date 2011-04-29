@@ -20,23 +20,33 @@ package com.exedio.cope;
 
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
+	@SuppressWarnings("unchecked") // OK: no generic arrays
+	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2)
+	{
+		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2});
+	}
+
+	@SuppressWarnings("unchecked") // OK: no generic arrays
+	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2, final Function<E> multiplier3)
+	{
+		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2, multiplier3});
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction[] multipliers;
+	private final Function<E>[] multipliers;
 
-	/**
-	 * Creates a new MultiplyView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#multiply(NumberFunction)
-	 * @see Cope#multiply(NumberFunction,NumberFunction)
-	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
-	 */
-	@SuppressWarnings("unchecked")
-	public MultiplyView(final NumberFunction[] multipliers)
+	private MultiplyView(final Function<E>[] multipliers)
 	{
-		super(multipliers, "multiply", PlusView.valueClass(multipliers));
+		super(multipliers, "multiply", PlusView.checkClass(Number.class, PlusView.valueClass(multipliers)));
 		this.multipliers = com.exedio.cope.misc.Arrays.copyOf(multipliers);
+	}
+
+	@SuppressWarnings("unchecked")
+	public SelectType<E> getValueType()
+	{
+		return PlusView.selectType(multipliers);
 	}
 
 	@Override
@@ -92,5 +102,18 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			bf.append(multipliers[i], join);
 		}
 		bf.append(')');
+	}
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link MultiplyView#MultiplyView(Function[])} instead.
+	 */
+	@SuppressWarnings("unchecked")
+	@Deprecated
+	public MultiplyView(final NumberFunction[] multipliers)
+	{
+		this((Function<E>[])multipliers);
 	}
 }

@@ -20,8 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.DateField;
+import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.FunctionField;
@@ -31,6 +34,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.util.Day;
 
 public abstract class Composite implements Serializable
 {
@@ -109,6 +113,16 @@ public abstract class Composite implements Serializable
 	{
 		member.check(value);
 		values[position(member)] = value;
+	}
+
+	public final void touch(final DateField member)
+	{
+		set(member, new Date());
+	}
+
+	public final void touch(final DayField member)
+	{
+		set(member, new Day());
 	}
 
 

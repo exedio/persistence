@@ -148,9 +148,9 @@ public final class Price implements Serializable, Comparable<Price>
 		return store ^ 827345123;
 	}
 
-	public int compareTo(final Price other)
+	public int compareTo(final Price o)
 	{
-		return Compare.compare(store, other.store);
+		return Compare.compare(store, o.store);
 	}
 
 	@Override

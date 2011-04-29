@@ -860,7 +860,7 @@ final class Generator
 	private void writeModifier(final int modifier)
 	{
 		final String modifierString = Modifier.toString(modifier);
-		if(modifierString.length()>0)
+		if(!modifierString.isEmpty())
 		{
 			write(modifierString);
 			write(' ');

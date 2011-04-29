@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 
 import junit.framework.AssertionFailedError;
@@ -53,7 +54,7 @@ public abstract class ParserTest extends InstrumentorTest
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser parser = new Parser(new Lexer(inputFile, javaFile), testParseConsumer, javaFile);
+		final Parser parser = new Parser(new Lexer(inputFile, Charset.forName("ascii"), javaFile), testParseConsumer, javaFile);
 		if(assertText)
 			testParseConsumer.output = parser.javaFile.buffer;
 		parser.parseFile();

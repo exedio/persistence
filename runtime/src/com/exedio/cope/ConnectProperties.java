@@ -26,23 +26,20 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	private static final Logger logger = Logger.getLogger(ConnectProperties.class.getName());
-
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 
 	private final StringField connectionUrl      = new StringField("connection.url");
 	private final StringField connectionUser     = new StringField("connection.user");
 	private final StringField connectionPassword = new StringField("connection.password", true);
-	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", true);
+	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
+	final BooleanField connectionTransactionIsolationRepeatableRead = new BooleanField("connection.transactionIsolation.repeatableRead", true);
 
 	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
-	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", true);
+	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", false);
 	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
 	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
@@ -82,9 +79,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	final BooleanField itemCacheInvalidateLast       = new BooleanField("cache.item.invalidateLast", false);
+	final BooleanField itemCacheInvalidateLast       = new BooleanField("cache.item.invalidateLast", true);
 	final     IntField itemCacheInvalidateLastMargin = new     IntField("cache.item.invalidateLast.margin", 0, 0);
-	final IntField itemCacheInvalidationBucketMillis = new IntField("cache.item.invalidationBucket.millis", 0, 0);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit   = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
@@ -159,15 +155,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
+		if(connectionTransactionIsolationReadCommitted.booleanValue() &&
+			connectionTransactionIsolationRepeatableRead.booleanValue())
+			throw new RuntimeException(connectionTransactionIsolationReadCommitted.getKey() + " and " + connectionTransactionIsolationRepeatableRead.getKey() + " cannot be enabled both");
 		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 
 		ensureValidity("x-build");
-
-		if(!disableUniqueViolation.booleanValue() && logger.isLoggable(Level.WARNING))
-			logger.log(Level.WARNING, "enabled experimental {0}", new Object[]{disableUniqueViolation.getKey()});
-		if(itemCacheInvalidateLast.booleanValue())
-			System.out.println("WARNING: ConnectProperties using experimental " + itemCacheInvalidateLast.getKey());
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)

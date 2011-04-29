@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
@@ -36,6 +37,7 @@ final class Executor
 	static final String NO_SUCH_ROW = "no such row";
 
 	final Dialect dialect;
+	final Marshallers marshallers;
 	final boolean prepare;
 	final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
@@ -46,9 +48,11 @@ final class Executor
 
 	Executor(
 			final Dialect dialect,
-			final ConnectProperties properties)
+			final ConnectProperties properties,
+			final Marshallers marshallers)
 	{
 		this.dialect = dialect;
+		this.marshallers = marshallers;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.supportsUniqueViolation =
 			!properties.isSupportDisabledForUniqueViolation() &&
@@ -157,10 +161,10 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoExecuted, nanoPrepared),
-						n2m(nanoResultRead, nanoExecuted),
-						n2m(nanoEnd, nanoResultRead));
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoExecuted, nanoPrepared),
+						toMillies(nanoResultRead, nanoExecuted),
+						toMillies(nanoEnd, nanoResultRead));
 
 			if(queryInfo!=null)
 				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
@@ -240,14 +244,14 @@ final class Executor
 				rows = prepared.executeUpdate();
 			}
 
-			final long timeEnd = listener!=null ? nanoTime() : 0;
+			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoPrepared, timeEnd),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
@@ -313,8 +317,8 @@ final class Executor
 				listener.onStatement(
 						sqlText,
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoEnd, nanoPrepared),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
@@ -394,11 +398,6 @@ final class Executor
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
 		numberFormat = new DecimalFormat("", nfs);
-	}
-
-	private static final long n2m(final long to, final long from)
-	{
-		return (to-from)/1000000;
 	}
 
 	static int convertSQLResult(final Object sqlInteger)

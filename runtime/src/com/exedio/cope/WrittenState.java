@@ -43,7 +43,7 @@ final class WrittenState extends State
 	@Override
 	Object get(final FunctionField field)
 	{
-		return field.get(row, null);
+		return field.get(row);
 	}
 
 	@Override

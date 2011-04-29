@@ -61,7 +61,7 @@ public class Hash extends Pattern implements Settable<String>
 
 		this.algorithm = algorithm;
 		final String algorithmName = algorithm.name();
-		if(algorithmName.length()==0)
+		if(algorithmName.isEmpty())
 			throw new IllegalArgumentException("algorithmName must not be empty");
 
 		addSource(this.storage = storage, algorithmName, ComputedElement.get());

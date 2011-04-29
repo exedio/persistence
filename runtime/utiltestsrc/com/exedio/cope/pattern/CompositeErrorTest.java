@@ -54,11 +54,11 @@ public class CompositeErrorTest extends CopeAssert
 		try
 		{
 			CompositeField.newComposite(NoFields.class);
-			//fail();
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("", e.getMessage());
+			assertEquals("composite has no templates", e.getMessage());
 		}
 		try
 		{

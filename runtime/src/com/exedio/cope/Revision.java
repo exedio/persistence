@@ -18,10 +18,21 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Revisions.logger;
+import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static java.lang.System.nanoTime;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+
+import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Revision
 {
@@ -74,6 +85,78 @@ public final class Revision
 	public String toString()
 	{
 		return String.valueOf('R') + number + ':' + comment;
+	}
+
+	RevisionInfoRevise execute(
+			final Date date,
+			final Map<String, String> environment,
+			final ConnectionFactory connectionFactory)
+	{
+		final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
+		// IMPORTANT
+		// Do not use connection pool,
+		// because connection state may have
+		// been changed by the revision
+		final Connection connection = connectionFactory.create();
+		try
+		{
+			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			{
+				final String sql = body[bodyIndex];
+				if(logger.isLoggable(Level.INFO))
+					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
+				final long start = nanoTime();
+				final int rows = executeUpdate(connection, sql);
+				final long elapsed = toMillies(nanoTime(), start);
+				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
+					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
+				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+			}
+		}
+		finally
+		{
+			try
+			{
+				connection.close();
+			}
+			catch(final SQLException e)
+			{
+				if(logger.isLoggable(Level.SEVERE))
+					logger.log(Level.SEVERE, "close", e);
+			}
+		}
+		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
+	}
+
+	private static final int executeUpdate(
+			final Connection connection,
+			final String sql)
+	{
+		java.sql.Statement statement = null;
+		try
+		{
+			statement = connection.createStatement();
+			return statement.executeUpdate(sql);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+		finally
+		{
+			if(statement!=null)
+			{
+				try
+				{
+					statement.close();
+				}
+				catch(final SQLException e)
+				{
+					if(logger.isLoggable(Level.SEVERE))
+						logger.log(Level.SEVERE, "close", e);
+				}
+			}
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

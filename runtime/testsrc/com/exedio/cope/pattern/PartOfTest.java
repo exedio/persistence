@@ -19,21 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Model;
 
 public class PartOfTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(PartOfItem.TYPE, PartOfOrderedItem.TYPE, PartOfContainerItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(PartOfTest.class, "MODEL");
-	}
-
 	public PartOfTest()
 	{
-		super(MODEL);
+		super(PartOfModelTest.MODEL);
 	}
 
 	PartOfContainerItem container;
@@ -47,84 +38,6 @@ public class PartOfTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
-		assertEqualsUnmodifiable(list(
-				PartOfItem.TYPE,
-				PartOfOrderedItem.TYPE,
-				PartOfContainerItem.TYPE
-			), model.getTypes());
-		assertEqualsUnmodifiable(list(
-				PartOfItem.TYPE,
-				PartOfOrderedItem.TYPE,
-				PartOfContainerItem.TYPE
-			), model.getTypesSortedByHierarchy());
-
-		assertEqualsUnmodifiable(list(
-				PartOfItem.TYPE.getThis(),
-				PartOfItem.container,
-				PartOfItem.parts,
-				PartOfItem.partString,
-				PartOfItem.partInteger
-			), PartOfItem.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(
-				PartOfOrderedItem.TYPE.getThis(),
-				PartOfOrderedItem.container,
-				PartOfOrderedItem.order,
-				PartOfOrderedItem.partsOrdered,
-				PartOfOrderedItem.partString,
-				PartOfOrderedItem.partInteger
-			), PartOfOrderedItem.TYPE.getFeatures());
-
-		assertEquals(PartOfItem.TYPE, PartOfItem.parts.getType());
-		assertEquals("parts", PartOfItem.parts.getName());
-
-		assertSame(PartOfItem.container, PartOfItem.parts.getContainer());
-		assertSame(null, PartOfItem.parts.getOrder());
-		assertEquals(PartOfItem.parts, PartOfItem.container.getPattern());
-		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.parts.getSourceFeatures());
-
-		assertSame(PartOfOrderedItem.container, PartOfOrderedItem.partsOrdered.getContainer());
-		assertSame(PartOfOrderedItem.order, PartOfOrderedItem.partsOrdered.getOrder());
-		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
-		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
-		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
-
-		assertEquals(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
-		assertEquals(list(), PartOf.getPartOfs(PartOfItem.TYPE));
-		assertEquals(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
-		assertEquals(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
-		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
-		assertSerializedSame(PartOfItem.parts, 375);
-
-		try
-		{
-			PartOf.newPartOf(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("feature", e.getMessage());
-		}
-		try
-		{
-			PartOf.newPartOf(null, new IntegerField());
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("feature", e.getMessage());
-		}
-		try
-		{
-			PartOf.newPartOf(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("order", e.getMessage());
-		}
-
-		// test persistence
 		assertEquals(list(), container.getParts());
 
 		final PartOfItem part1 = container.addToParts("part1", 1);
@@ -151,5 +64,11 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(container, partOrdered2.getPartsOrderedContainer());
 		assertEquals(list(partOrdered2, partOrdered1), container.getPartsOrdered());
 		assertEquals(list(partOrdered2, partOrdered1), PartOfOrderedItem.partsOrdered.getParts(container));
+
+		// parts condition
+		assertEquals(list(part1, part2), container.getParts(null));
+		assertEquals(list(part1       ), container.getParts(PartOfItem.partString.equal("part1")));
+		assertEquals(list(partOrdered2, partOrdered1), container.getPartsOrdered(null));
+		assertEquals(list(partOrdered1              ), container.getPartsOrdered(PartOfOrderedItem.partString.equal("part1")));
 	}
 }

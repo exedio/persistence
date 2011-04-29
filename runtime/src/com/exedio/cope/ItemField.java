@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 
 import java.sql.Connection;
+import java.util.Set;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
@@ -141,14 +142,17 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private Type<E> valueType = null;
 
-	void resolveValueType()
+	void resolveValueType(final Set<Type> typesAllowed)
 	{
-		if(!isMounted())
+		if(!isMountedToType())
 			throw new RuntimeException();
 		if(valueType!=null)
 			throw new RuntimeException(getID());
 
-		valueType = valueTypeFuture.get();
+		final Type<E> valueType = valueTypeFuture.get();
+		if(!typesAllowed.contains(valueType))
+			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
+		this.valueType = valueType;
 		assert valueClass.equals(valueType.getJavaClass());
 	}
 
@@ -158,7 +162,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
-			throw new IllegalStateException("valueType of " + this.toString() + " not yet resolved: " + valueTypeFuture.toString());
+			throw new IllegalStateException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to any model");
 
 		return valueType;
 	}
@@ -171,8 +175,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		if(valueType==null)
-			throw new RuntimeException(toString());
+		final Type<E> valueType = getValueType();
 		if(connected)
 			throw new RuntimeException(toString());
 		if(onlyPossibleValueType!=null)
@@ -228,9 +231,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
-		super.appendSelect(bf, join, columnHolder, typeHolder);
+		super.appendSelect(bf, join);
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn, join);
@@ -246,7 +249,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	E get(final Row row, final Query query)
+	E get(final Row row)
 	{
 		final StringColumn typeColumn = getTypeColumn();
 		final Object cell = row.get(getColumn());
@@ -254,7 +257,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(cell==null)
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
-				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row + " --- query: " + query);
+				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row);
 
 			return null;
 		}

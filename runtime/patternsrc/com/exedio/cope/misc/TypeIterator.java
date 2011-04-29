@@ -33,6 +33,11 @@ public final class TypeIterator
 			final Condition condition,
 			final int slice)
 	{
+		if(type==null)
+			throw new NullPointerException("type");
+		if(slice<1)
+			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
+
 		return new Iter<E>(type, condition, slice);
 	}
 
@@ -43,18 +48,12 @@ public final class TypeIterator
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
-		private E last = null;
 
 		Iter(
 				final Type<E> type,
 				final Condition condition,
 				final int slice)
 		{
-			if(type==null)
-				throw new NullPointerException("type");
-			if(slice<1)
-				throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
-
 			this.typeThis = type.getThis();
 			this.condition = condition;
 
@@ -74,11 +73,10 @@ public final class TypeIterator
 			final E result = iterator.next();
 			if(result==null)
 				throw new NullPointerException("does not support null in result");
-			last = result;
 
 			if(!iterator.hasNext())
 			{
-				final Condition c = typeThis.greater(last);
+				final Condition c = typeThis.greater(result);
 				query.setCondition(condition!=null ? condition.and(c) : c);
 				this.iterator = query.search().iterator();
 			}

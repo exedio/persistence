@@ -16,9 +16,29 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.instrument;
 
-final class Holder<T>
+public final class InstrumentContext
 {
-	T value;
+	private static final ThreadLocal<Boolean> tl = new ThreadLocal<Boolean>();
+
+	public static boolean isRunning()
+	{
+		return tl.get()!=null;
+	}
+
+	static void enter()
+	{
+		tl.set(Boolean.TRUE);
+	}
+
+	static void leave()
+	{
+		tl.remove();
+	}
+
+	private InstrumentContext()
+	{
+		// prevent instantiation
+	}
 }

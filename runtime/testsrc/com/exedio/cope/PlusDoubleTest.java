@@ -99,6 +99,12 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
 
+		// toString
+		assertEquals("("+numB+"+5.5)", numB.plus(5.5).toString());
+		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
+		assertEquals("("+numB+"*5.5)", numB.multiply(5.5).toString());
+		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
+
 		// serialization
 		assertSerializedSame(plusA9    , 376);
 		assertSerializedSame(plusAB    , 376);

@@ -44,29 +44,44 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<E> plus(final E value)
 	{
-		return new PlusLiteralView<E>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyLiteralView<E> multiply(final E value)
 	{
-		return new MultiplyLiteralView<E>(this, value);
+		return MultiplyLiteralView.multiply(this, value);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
-		return new PlusView<E>(new NumberFunction[]{this, other});
+		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
+	/**
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final DivideView<E> divide(final NumberFunction<E> other)
 	{
-		return new DivideView<E>(this, other);
+		return DivideView.divide(this, other);
 	}
 
 	public final SumAggregate<E> sum()

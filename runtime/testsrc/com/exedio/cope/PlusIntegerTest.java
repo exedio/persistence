@@ -89,10 +89,20 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
 
+		// toString
+		assertEquals("("+numB+"+5)", numB.plus(5).toString());
+		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
+		assertEquals("("+numB+"*5)", numB.multiply(5).toString());
+		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
+		assertEquals("select ("+numB.getName()+"+5) from "+TYPE, new Query<Integer>(numB.plus(5)).toString());
+		assertEquals("select plus("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<Integer>(numB.plus(numA)).toString());
+		assertEquals("select ("+numB.getName()+"*5) from "+TYPE, new Query<Integer>(numB.multiply(5)).toString());
+		assertEquals("select multiply("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<Integer>(numB.multiply(numA)).toString());
+
 		// exceptions
 		try
 		{
-			new PlusLiteralView<Integer>(null, 6);
+			PlusLiteralView.plus(null, 6);
 		}
 		catch(final NullPointerException e)
 		{
@@ -100,7 +110,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new PlusLiteralView<Integer>(numA, null);
+			PlusLiteralView.plus(numA, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -109,7 +119,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MultiplyLiteralView<Integer>(null, 6);
+			MultiplyLiteralView.multiply(null, 6);
 		}
 		catch(final NullPointerException e)
 		{
@@ -117,7 +127,7 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MultiplyLiteralView<Integer>(numA, null);
+			MultiplyLiteralView.multiply(numA, null);
 			fail();
 		}
 		catch(final NullPointerException e)

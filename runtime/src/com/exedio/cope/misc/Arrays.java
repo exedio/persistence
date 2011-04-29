@@ -40,6 +40,14 @@ public final class Arrays
 		return copy;
 	}
 
+	public static int[] copyOf(final int[] original)
+	{
+		final int l = original.length;
+		final int[] copy = new int[l];
+		arraycopy(original, 0, copy, 0, l);
+		return copy;
+	}
+
 	public static <T> T[] copyOf(final T[] original)
 	{
 		final int l = original.length;

@@ -43,12 +43,13 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
+import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
-public final class Type<T extends Item> implements Comparable<Type>, Serializable
+public final class Type<T extends Item> implements SelectType<T>, Comparable<Type>, Serializable
 {
 	private final Class<T> javaClass;
 	private final AnnotatedElement annotationSource;
@@ -59,6 +60,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super T> supertype;
+	final Type<? super T> toptype;
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<T>(this);
@@ -152,10 +154,14 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 
 		if(supertype==null)
 		{
+			this.toptype = this;
+
 			this.supertypes = null;
 		}
 		else
 		{
+			this.toptype = supertype.toptype;
+
 			final HashSet<Type<?>> superSupertypes = supertype.supertypes;
 			if(superSupertypes==null)
 				this.supertypes = new HashSet<Type<?>>();
@@ -196,10 +202,10 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
-			this.declaredFields            = finish(declaredFields);
-			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
-			this.declaredCheckConstraints  = finish(declaredCheckConstraints);
-			this.declaredCopyConstraints   = finish(declaredCopyConstraints);
+			this.declaredFields            = ListUtil.trimUnmodifiable(declaredFields);
+			this.declaredUniqueConstraints = ListUtil.trimUnmodifiable(declaredUniqueConstraints);
+			this.declaredCheckConstraints  = ListUtil.trimUnmodifiable(declaredCheckConstraints);
+			this.declaredCopyConstraints   = ListUtil.trimUnmodifiable(declaredCopyConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
@@ -266,20 +272,6 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 		result.putAll(declared);
 		return result;
-	}
-
-	static final <F extends Feature> List<F> finish(final ArrayList<F> list)
-	{
-		switch(list.size())
-		{
-		case 0:
-			return Collections.<F>emptyList();
-		case 1:
-			return Collections.singletonList(list.get(0));
-		default:
-			list.trimToSize();
-			return Collections.<F>unmodifiableList(list);
-		}
 	}
 
 	private static Method[] getBeforeNewItemMethods(final Class javaClass, final Type supertype)
@@ -379,7 +371,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	private Mount<T> mount()
 	{
 		if(mount==null)
-			throw new IllegalStateException("model not set for type " + id + ", probably you forgot to put this type into the model.");
+			throw new IllegalStateException("type " + id + " (" + javaClass.getName() + ") does not belong to any model");
 
 		return mount;
 	}
@@ -407,6 +399,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
 		final Type<? extends C> onlyPossibleTypeOfInstances;
 		final String[] typesOfInstancesColumnValues;
+		final Marshaller<C> marshaller;
 
 		final List<ItemField<C>> declaredReferences;
 		final List<ItemField> references;
@@ -428,6 +421,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 				case 1:
 					this.typesOfInstancesMap = null;
 					this.onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
+					this.marshaller = new SimpleItemMarshaller<C>(onlyPossibleTypeOfInstances);
 					this.typesOfInstancesColumnValues = null;
 					break;
 				default:
@@ -441,6 +435,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 						typesOfInstancesColumnValues[i++] = t.id;
 					}
 					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
+					this.marshaller = new PolymorphicItemMarshaller<C>(this.typesOfInstancesMap);
 					this.onlyPossibleTypeOfInstances = null;
 					break;
 			}
@@ -493,12 +488,16 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 			return l;
 		}
 
-		int compareTo(final Mount other)
+		int compareTo(final Mount o)
 		{
-			if(model!=other.model)
-				throw new IllegalArgumentException("types are not comparable, because they do not belong to the same model: " + id + ',' + other.id);
+			if(model!=o.model)
+				throw new IllegalArgumentException(
+						"types are not comparable, " +
+						"because they do not belong to the same model: " +
+						id + " (" + model + ") and " +
+						o.id + " (" + o.model + ").");
 
-			return Compare.compare(orderIdTransiently, other.orderIdTransiently);
+			return Compare.compare(orderIdTransiently, o.orderIdTransiently);
 		}
 	}
 
@@ -627,6 +626,11 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 	Type<? extends T> getOnlyPossibleTypeOfInstances()
 	{
 		return mount().onlyPossibleTypeOfInstances;
+	}
+
+	Marshaller getMarshaller()
+	{
+		return mount().marshaller;
 	}
 
 	String[] getTypesOfInstancesColumnValues()
@@ -883,7 +887,7 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return result;
 	}
 
-	LinkedHashMap<Field, Object> prepareCreate(SetValue[] setValues)
+	LinkedHashMap<Field, Object> executeCreate(SetValue[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
@@ -930,6 +934,13 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		{
 			field.check(fieldValues.get(field), null);
 		}
+
+		return fieldValues;
+	}
+
+	LinkedHashMap<Field, Object> prepareCreate(final SetValue[] setValues)
+	{
+		final LinkedHashMap<Field, Object> fieldValues = executeCreate(setValues);
 
 		checkUniqueConstraints(null, fieldValues);
 
@@ -1054,9 +1065,9 @@ public final class Type<T extends Item> implements Comparable<Type>, Serializabl
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
 
-	public int compareTo(final Type other)
+	public int compareTo(final Type o)
 	{
-		return mount().compareTo(other.mount());
+		return mount().compareTo(o.mount());
 	}
 
 	@Override

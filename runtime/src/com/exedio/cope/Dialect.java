@@ -25,6 +25,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -55,9 +56,32 @@ abstract class Dialect
 	/**
 	 * @param info used in subclasses
 	 */
-	protected void completeConnectionInfo(final java.util.Properties info)
+	protected void completeConnectionInfo(final Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void prepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	protected int filterTransationIsolation(final int level)
+	{
+		return level;
 	}
 
 	protected static final String EXPLAIN_PLAN = "explain plan";
@@ -134,6 +158,9 @@ abstract class Dialect
 		return false;
 	}
 
+	/**
+	 * @see #extractUniqueViolation(SQLException)
+	 */
 	boolean supportsUniqueViolation()
 	{
 		return false;
@@ -141,6 +168,7 @@ abstract class Dialect
 
 	/**
 	 * @param exception used in subclasses
+	 * @see #supportsUniqueViolation()
 	 */
 	String extractUniqueViolation(final SQLException exception)
 	{
@@ -156,8 +184,8 @@ abstract class Dialect
 
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
+			final Function<E> dividend,
+			final Function<E> divisor,
 			final Join join)
 	{
 		bf.append(dividend, join).
@@ -229,7 +257,7 @@ abstract class Dialect
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
 	String getBlobLength()

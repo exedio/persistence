@@ -22,7 +22,7 @@ public final class LengthView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final StringFunction source;
+	private final Function<String> source;
 
 	/**
 	 * Creates a new LengthView.
@@ -30,10 +30,15 @@ public final class LengthView extends NumberView<Integer>
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringFunction#length()}.
 	 */
-	public LengthView(final StringFunction source)
+	public LengthView(final Function<String> source)
 	{
-		super(new StringFunction[]{source}, "length", Integer.class);
+		super(new Function[]{source}, "length", Integer.class);
 		this.source = source;
+	}
+
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.INTEGER;
 	}
 
 	@Override

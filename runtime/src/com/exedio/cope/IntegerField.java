@@ -202,6 +202,11 @@ public final class IntegerField extends NumberField<Integer>
 		return optional ? Integer.class : int.class;
 	}
 
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.INTEGER;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -235,7 +240,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
-	Integer get(final Row row, final Query query)
+	Integer get(final Row row)
 	{
 		return (Integer)row.get(getColumn());
 	}
@@ -252,10 +257,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public int getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).intValue();
+		return getMandatoryObject(item).intValue();
 	}
 
 	public void set(final Item item, final int value)

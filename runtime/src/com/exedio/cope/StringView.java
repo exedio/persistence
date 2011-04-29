@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 public abstract class StringView extends View<String>
 	implements StringFunction
 {
@@ -32,24 +28,11 @@ public abstract class StringView extends View<String>
 		super(sources, name, String.class);
 	}
 
-	@Override
-	final Object load(final ResultSet resultSet, final int columnIndex)
-	throws SQLException
+	public SelectType<String> getValueType()
 	{
-		return resultSet.getString(columnIndex);
+		return SimpleSelectType.STRING;
 	}
 
-	@Override
-	final String surface2Database(final Object value)
-	{
-		return StringColumn.cacheToDatabaseStatic(value);
-	}
-
-	@Override
-	final void surface2DatabasePrepared(final Statement bf, final Object value)
-	{
-		bf.appendParameter((String)value);
-	}
 
 	// convenience methods for conditions and views ---------------------------------
 

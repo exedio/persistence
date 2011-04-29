@@ -62,6 +62,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
 		suite.addTestSuite( SchemaInfoConnectionTest.class );
+		suite.addTestSuite( DumperTest.class );
 
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
@@ -81,7 +82,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( IntegerTest.class );
 		suite.addTestSuite( DoubleTest.class );
 		suite.addTestSuite( EnumTest.class );
-		suite.addTestSuite( EnumSchemaTest.class );
 		suite.addTestSuite( DefaultToTest.class );
 		suite.addTestSuite( MatchTest.class );
 		suite.addTestSuite( DataTest.class );
@@ -92,6 +92,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CheckConstraintDataTest.class );
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
+		suite.addTestSuite( HierarchyCompareTest.class );
 		suite.addTestSuite( SearchTest.class );
 		suite.addTestSuite( AsStringTest.class );
 		suite.addTestSuite( PlusIntegerTest.class );
@@ -109,6 +110,8 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SelectBindTest.class );
 		suite.addTestSuite( DistinctTest.class );
 		suite.addTestSuite( FunctionTest.class );
+		suite.addTestSuite( CoalesceTest.class );
+		suite.addTestSuite( CoalesceFunctionTest.class );
 		suite.addTestSuite( CompareConditionTest.class );
 		suite.addTestSuite( CompareFunctionConditionTest.class );
 		suite.addTestSuite( InstanceOfTest.class );

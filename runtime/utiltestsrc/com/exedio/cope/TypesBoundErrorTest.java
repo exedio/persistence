@@ -101,7 +101,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		final Type nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
@@ -111,7 +111,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("valueType of NonResolvingItemField.itemField not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		try
 		{

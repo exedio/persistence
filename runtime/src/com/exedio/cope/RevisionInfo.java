@@ -211,7 +211,10 @@ public abstract class RevisionInfo
 	}
 
 
-	final void insert(final ConnectProperties properties, final Connection connection, final Executor executor)
+	final void insert(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
@@ -228,6 +231,14 @@ public abstract class RevisionInfo
 			appendParameterBlob(toBytes()).
 			append(')');
 
-		executor.updateStrict(connection, null, bf);
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			executor.updateStrict(connection, null, bf);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

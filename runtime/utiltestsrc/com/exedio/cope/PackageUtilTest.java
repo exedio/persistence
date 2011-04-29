@@ -23,11 +23,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.pattern.ClockTest;
-import com.exedio.cope.pattern.JavaViewGetterMissingTest;
-import com.exedio.cope.pattern.JavaViewInPatternTest;
-import com.exedio.cope.pattern.MediaSummaryTest;
-import com.exedio.cope.pattern.MessageDigestAlgorithmTest;
 
 public class PackageUtilTest extends TestCase
 {
@@ -40,6 +35,8 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(StringCopyTest.class);
+		suite.addTestSuite(StringEscapeTest.class);
 		suite.addTestSuite(SetValueTest.class);
 		suite.addTestSuite(LimitedQueueTest.class);
 		suite.addTestSuite(ChangeListenersTest.class);
@@ -48,12 +45,18 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
+		suite.addTestSuite(TypeMountTest.class);
+		suite.addTestSuite(TypeMountWrongTest.class);
 		suite.addTestSuite(TypeCompareTest.class);
 		suite.addTestSuite(TypeSetTest.class);
 		suite.addTestSuite(TypeCollisionTest.class);
 		suite.addTestSuite(TypesBoundTest.class);
 		suite.addTestSuite(TypesBoundErrorTest.class);
 		suite.addTestSuite(TypesBoundComplexTest.class);
+		suite.addTestSuite(DateFieldWrongDefaultNowTest.class);
+		suite.addTestSuite(DayFieldWrongDefaultNowTest.class);
+		suite.addTestSuite(EnumSchemaTest.class);
+		suite.addTestSuite(EnumClassTest.class);
 		suite.addTestSuite(ClusterUnpaddedTest.class);
 		suite.addTestSuite(ClusterPaddedTest.class);
 		suite.addTestSuite(ClusterIntTest.class);
@@ -66,16 +69,12 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ClusterNetworkModificationListenerTest.class);
 		suite.addTestSuite(EnviromentInfoTest.class);
 		suite.addTestSuite(ArraysTest.class);
-		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(ByteAlgorithmTest.class);
 		suite.addTestSuite(CompositeConditionTest.class);
 		suite.addTestSuite(CompositeConditionCopeTest.class);
 		suite.addTestSuite(ItemCacheSummaryTest.class);
-		suite.addTestSuite(MediaSummaryTest.class);
-		suite.addTestSuite(JavaViewGetterMissingTest.class);
-		suite.addTestSuite(JavaViewInPatternTest.class);
-		suite.addTestSuite(ClockTest.class);
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
+		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
 		return suite;
 	}

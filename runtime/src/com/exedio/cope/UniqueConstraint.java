@@ -131,14 +131,14 @@ public final class UniqueConstraint extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append("unique(");
-		bf.append(fields[0].toString());
+		fields[0].toString(bf, defaultType);
 		for(int i = 1; i<fields.length; i++)
 		{
 			bf.append(',');
-			bf.append(fields[i].toString());
+			fields[i].toString(bf, defaultType);
 		}
 		bf.append(')');
 	}

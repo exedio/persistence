@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
@@ -67,12 +69,48 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void completeConnectionInfo(final java.util.Properties info)
+	protected void completeConnectionInfo(final Properties info)
 	{
+		// http://dev.mysql.com/doc/refman/5.1/en/connector-j-reference-configuration-properties.html
 		info.setProperty("useUnicode", "true");
-		info.setProperty("characterEncoding", "utf8");
-		info.setProperty("characterSetResults", "utf8");
+		info.setProperty("characterEncoding", CHARSET);
+		info.setProperty("characterSetResults", CHARSET);
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
+		info.setProperty("useLocalSessionState", TRUE);
+		//info.setProperty("profileSQL", TRUE);
 	}
+
+	@Override
+	protected void prepareDumperConnection(final Appendable out) throws IOException
+	{
+		out.append(
+				"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
+				"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
+				"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
+				"SET NAMES " + CHARSET + ";\n" +
+
+				"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='" + SQL_MODE + "';\n" +
+
+				"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
+				"SET TIME_ZONE='+00:00';\n");
+	}
+
+	@Override
+	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	{
+		out.append(
+				"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
+				"SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;\n" +
+				"SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;\n" +
+
+				"SET SQL_MODE=@OLD_SQL_MODE;\n" +
+
+				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
+	}
+
+	private static final String CHARSET = "utf8";
+	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES";
+	private static final String TRUE = "true";
 
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
@@ -161,8 +199,8 @@ final class MysqlDialect extends Dialect
 	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
+			final Function<E> dividend,
+			final Function<E> divisor,
 			final Join join)
 	{
 		bf.append(dividend, join).
@@ -222,7 +260,7 @@ final class MysqlDialect extends Dialect
 		bf.append("(match(").
 			append(function, (Join)null).
 			append(")against(").
-			appendParameter(function, value).
+			appendParameterAny(value).
 			append("))");
 	}
 

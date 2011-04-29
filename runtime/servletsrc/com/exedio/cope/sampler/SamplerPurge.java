@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,6 +31,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.SchemaInfo;
@@ -43,7 +46,7 @@ final class SamplerPurge extends Item
 	private static final DateField limit = new DateField().toFinal();
 	private static final DateField finished = new DateField().toFinal().defaultToNow();
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
-	private static final IntegerField elapsed  = new IntegerField().toFinal().min(0);
+	private static final LongField elapsed  = new LongField().toFinal(); // TODO min(0)
 
 	static Query<SamplerPurge> newQuery()
 	{
@@ -97,7 +100,7 @@ final class SamplerPurge extends Item
 		try
 		{
 			model.startTransaction(samplerString + " purge register");
-			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
+			new SamplerPurge(type, limit, rows, toMillies(end, start));
 			model.commit();
 		}
 		finally
@@ -113,7 +116,7 @@ final class SamplerPurge extends Item
 			final Type type,
 			final Date limit,
 			final int rows,
-			final int elapsed)
+			final long elapsed)
 	{
 		super(
 			SamplerPurge.type   .map(type.getID()),
@@ -147,7 +150,7 @@ final class SamplerPurge extends Item
 		return rows.getMandatory(this);
 	}
 
-	int getElapsed()
+	long getElapsed()
 	{
 		return elapsed.getMandatory(this);
 	}

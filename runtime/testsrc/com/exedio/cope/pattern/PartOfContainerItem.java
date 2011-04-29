@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.List;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -28,9 +29,14 @@ public class PartOfContainerItem extends Item
 
 	static final StringField containerString = new StringField();
 
-	List<? extends PartOfItem> getParts() // TODO generate this
+	List<PartOfItem> getParts() // TODO generate this
 	{
-		return PartOfItem.parts.getParts(PartOfItem.class, this);
+		return PartOfItem.getPartsParts(this);
+	}
+
+	List<PartOfItem> getParts(final Condition condition) // TODO generate this
+	{
+		return PartOfItem.getPartsParts(this, condition);
 	}
 
 	PartOfItem addToParts(final String partString, final int partInteger) // TODO generate this
@@ -38,9 +44,14 @@ public class PartOfContainerItem extends Item
 		return new PartOfItem(this, partString, partInteger);
 	}
 
-	List<? extends PartOfOrderedItem> getPartsOrdered() // TODO generate this
+	List<PartOfOrderedItem> getPartsOrdered() // TODO generate this
 	{
-		return PartOfOrderedItem.partsOrdered.getParts(PartOfOrderedItem.class, this);
+		return PartOfOrderedItem.getPartsOrderedParts(this);
+	}
+
+	List<PartOfOrderedItem> getPartsOrdered(final Condition condition) // TODO generate this
+	{
+		return PartOfOrderedItem.getPartsOrderedParts(this, condition);
 	}
 
 	PartOfOrderedItem addToPartsOrdered(final int order, final String partString, final int partInteger) // TODO generate this

@@ -37,21 +37,12 @@ public abstract class Feature implements Serializable
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mountIfMounted = null;
 
-	private static final class Mount
+	private static abstract class Mount
 	{
-		final Type<? extends Item> type;
-		final String name;
-		final String id;
 		private final AnnotatedElement annotationSource;
 
-		Mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		Mount(final AnnotatedElement annotationSource)
 		{
-			assert type!=null;
-			assert name!=null;
-
-			this.type = type;
-			this.name = intern(name);
-			this.id =   intern(type.id + '.' + name);
 			this.annotationSource = annotationSource;
 		}
 
@@ -70,9 +61,61 @@ public abstract class Feature implements Serializable
 				: null;
 		}
 
+		abstract void toString(StringBuilder bf, Type defaultType);
+	}
+
+	private static final class MountType extends Mount
+	{
+		final Type<? extends Item> type;
+		final String name;
+		final String id;
+
+		MountType(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		{
+			super(annotationSource);
+			assert type!=null;
+			assert name!=null;
+
+			this.type = type;
+			this.name = intern(name);
+			this.id =   intern(type.id + '.' + name);
+		}
+
+		@Override
 		void toString(final StringBuilder bf, final Type defaultType)
 		{
 			bf.append((defaultType==type) ? name : id);
+		}
+
+		@Override
+		public String toString()
+		{
+			return id;
+		}
+	}
+
+	private static final class MountString extends Mount
+	{
+		private final String string;
+
+		MountString(final String string, final AnnotatedElement annotationSource)
+		{
+			super(annotationSource);
+			assert string!=null;
+
+			this.string = string;
+		}
+
+		@Override
+		void toString(final StringBuilder bf, final Type defaultType)
+		{
+			bf.append(string);
+		}
+
+		@Override
+		public String toString()
+		{
+			return string;
 		}
 	}
 
@@ -88,13 +131,22 @@ public abstract class Feature implements Serializable
 		}
 
 		if(this.mountIfMounted!=null)
-			throw new IllegalStateException("feature already mounted: " + mountIfMounted.id);
-		this.mountIfMounted = new Mount(type, name, annotationSource);
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
+		this.mountIfMounted = new MountType(type, name, annotationSource);
 
 		type.registerMounted(this);
 
 		this.pattern = this.patternUntilMount;
 		this.patternUntilMount = null;
+	}
+
+	public final void mount(final String string, final AnnotatedElement annotationSource)
+	{
+		if(string==null)
+			throw new NullPointerException("string");
+		if(this.mountIfMounted!=null)
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
+		this.mountIfMounted = new MountString(string, annotationSource);
 	}
 
 	private final Mount mount()
@@ -105,19 +157,33 @@ public abstract class Feature implements Serializable
 		return result;
 	}
 
+	private final MountType mountType()
+	{
+		final Mount result = mount();
+		if(!(result instanceof MountType))
+			throw new IllegalStateException("feature not mounted to a type: " + result.toString());
+		return (MountType)result;
+	}
+
 	final boolean isMounted()
 	{
 		return mountIfMounted!=null;
 	}
 
+	final boolean isMountedToType()
+	{
+		final Mount mount = mountIfMounted;
+		return (mount!=null) && (mount instanceof MountType);
+	}
+
 	public Type<? extends Item> getType()
 	{
-		return mount().type;
+		return mountType().type;
 	}
 
 	public final String getName()
 	{
-		return mount().name;
+		return mountType().name;
 	}
 
 	/**
@@ -125,7 +191,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final String getID()
 	{
-		return mount().id;
+		return mountType().id;
 	}
 
 	/**
@@ -159,7 +225,10 @@ public abstract class Feature implements Serializable
 		return Collections.<Wrapper>emptyList();
 	}
 
-	void toStringNotMounted(final StringBuilder bf)
+	/**
+	 * @param defaultType is used by subclasses
+	 */
+	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(super.toString());
 	}
@@ -170,12 +239,12 @@ public abstract class Feature implements Serializable
 		final Mount mount = this.mountIfMounted;
 		if(mount!=null)
 		{
-			return mount.id;
+			return mount.toString();
 		}
 		else
 		{
 			final StringBuilder bf = new StringBuilder();
-			toStringNotMounted(bf);
+			toStringNotMounted(bf, null);
 			return bf.toString();
 		}
 	}
@@ -186,7 +255,7 @@ public abstract class Feature implements Serializable
 		if(mount!=null)
 			mount.toString(bf, defaultType);
 		else
-			toStringNotMounted(bf);
+			toStringNotMounted(bf, defaultType);
 	}
 
 	// patterns ------------------
@@ -232,8 +301,10 @@ public abstract class Feature implements Serializable
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(getClass().getName());
+		if(!(mount instanceof MountType))
+			throw new NotSerializableException(mount.toString());
 
-		return new Serialized(mount);
+		return new Serialized((MountType)mount);
 	}
 
 	private static final class Serialized implements Serializable
@@ -243,7 +314,7 @@ public abstract class Feature implements Serializable
 		private final Type type;
 		private final String name;
 
-		Serialized(final Mount mount)
+		Serialized(final MountType mount)
 		{
 			this.type = mount.type;
 			this.name = mount.name;

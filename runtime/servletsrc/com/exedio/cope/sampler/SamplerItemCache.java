@@ -82,7 +82,6 @@ final class SamplerItemCache extends Item
 	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
 	private static final LongField invalidateLastHits = new LongField().toFinal();
 	private static final LongField invalidateLastPurged = new LongField().toFinal();
-	private static final LongField invalidationBucketHits = new LongField().toFinal();
 
 	static List<SetValue> map(final ItemCacheInfo info)
 	{
@@ -108,9 +107,9 @@ final class SamplerItemCache extends Item
 
 			invalidateLastSize.map(info.getInvalidateLastSize()),
 			invalidateLastHits.map(info.getInvalidateLastHits()),
-			invalidateLastPurged.map(info.getInvalidateLastPurged()),
+			invalidateLastPurged.map(info.getInvalidateLastPurged())
 
-			invalidationBucketHits.map(info.getInvalidationBucketHits()));
+			);
 	}
 
 

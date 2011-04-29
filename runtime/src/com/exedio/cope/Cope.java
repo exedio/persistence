@@ -30,9 +30,6 @@ import com.exedio.cope.util.Cast;
  */
 public abstract class Cope
 {
-	Cope()
-	{/* do not allow class to be subclassed by public */}
-
 	public static final <E> Condition equal(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
@@ -121,24 +118,36 @@ public abstract class Cope
 		}
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2});
+		return PlusView.plus(addend1, addend2);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2, addend3});
+		return PlusView.plus(addend1, addend2, addend3);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2});
+		return MultiplyView.multiply(multiplier1, multiplier2);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
+		return MultiplyView.multiply(multiplier1, multiplier2, multiplier3);
 	}
 
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
@@ -294,6 +303,11 @@ public abstract class Cope
 		else
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
 		model.disconnect();
+	}
+
+	Cope()
+	{
+		// do not allow class to be subclassed by public
 	}
 
 	// ------------------- deprecated stuff -------------------

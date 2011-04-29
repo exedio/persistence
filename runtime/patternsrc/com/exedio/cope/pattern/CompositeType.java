@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,13 +27,15 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.instrument.InstrumentContext;
 
 final class CompositeType<X>
 {
-	final Constructor<X> constructor;
+	private final Constructor<X> constructor;
 	final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
 	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
 	final List<FunctionField> templateList;
@@ -41,6 +44,7 @@ final class CompositeType<X>
 	private CompositeType(final Class<X> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
+		final String classID = valueClass.getName();
 		try
 		{
 			constructor = valueClass.getDeclaredConstructor(SetValue[].class);
@@ -48,7 +52,7 @@ final class CompositeType<X>
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
-					valueClass.getName() + " does not have a constructor " +
+					classID + " does not have a constructor " +
 					valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
 		}
 		constructor.setAccessible(true);
@@ -63,22 +67,24 @@ final class CompositeType<X>
 				if(!Feature.class.isAssignableFrom(field.getType()))
 					continue;
 
+				final String fieldID = classID + '#' + field.getName();
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
-					throw new NullPointerException(valueClass.getName() + '#' + field.getName());
+					throw new NullPointerException(fieldID);
 				if(!(feature instanceof FunctionField))
-					throw new IllegalArgumentException(valueClass.getName() + '#' + field.getName() + " must be an instance of " + FunctionField.class);
+					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
 				final FunctionField template = (FunctionField)feature;
 				if(template.isFinal())
-					throw new IllegalArgumentException("final fields not supported: " + valueClass.getName() + '#' + field.getName());
+					throw new IllegalArgumentException("final fields not supported: " + fieldID);
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
+				template.mount(fieldID, field);
 			}
 		}
 		catch(final IllegalAccessException e)
 		{
-			throw new RuntimeException(valueClass.getName(), e);
+			throw new RuntimeException(classID, e);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
 		this.componentSize = templates.size();
@@ -86,11 +92,54 @@ final class CompositeType<X>
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 
+
+	public List<FunctionField> getTemplates()
+	{
+		return templateList;
+	}
+
+	public X newValue(final SetValue... setValues)
+	{
+		try
+		{
+			return constructor.newInstance(new Object[]{setValues});
+		}
+		catch(final IllegalArgumentException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InstantiationException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InvocationTargetException e)
+		{
+			final Throwable cause = e.getCause();
+			if(cause instanceof ConstraintViolationException)
+				throw (ConstraintViolationException)cause;
+			else if(cause instanceof IllegalArgumentException)
+				throw (IllegalArgumentException)cause;
+			else
+				throw new RuntimeException(e);
+		}
+	}
+
+	// static registry
+
 	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
-		assert valueClass!=null;
+		if(valueClass==null)
+			throw new NullPointerException("valueClass");
+		if(!Composite.class.isAssignableFrom(valueClass))
+			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
+		if(Composite.class.equals(valueClass))
+			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
 
 		synchronized(types)
 		{
@@ -101,6 +150,10 @@ final class CompositeType<X>
 				result = new CompositeType<E>(valueClass);
 				types.put(valueClass, result);
 			}
+
+			if(result.componentSize==0 && !InstrumentContext.isRunning())
+				throw new IllegalArgumentException("composite has no templates");
+
 			return result;
 		}
 	}

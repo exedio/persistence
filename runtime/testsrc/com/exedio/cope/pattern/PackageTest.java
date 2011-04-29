@@ -31,6 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(MessageDigestHashTest.class);
+		suite.addTestSuite(PartOfModelTest.class);
 		suite.addTestSuite(PartOfTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);
@@ -52,10 +53,8 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(TextUrlFilterTest.class);
-		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
-		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);

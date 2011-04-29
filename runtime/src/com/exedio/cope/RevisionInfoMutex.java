@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -82,5 +83,30 @@ final class RevisionInfoMutex extends RevisionInfo
 				environment,
 				Integer.valueOf(p.getProperty(EXPECTED)),
 				Integer.valueOf(p.getProperty(ACTUAL)));
+	}
+
+	final void delete(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
+	{
+		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+		final Statement bf = executor.newStatement();
+		bf.append("delete from ").
+			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(" where ").
+			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
+			append('=').
+			appendParameter(NUMBER);
+
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			executor.updateStrict(connection, null, bf);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

@@ -89,6 +89,11 @@ public final class LongField extends NumberField<Long>
 		return optional ? Long.class : long.class;
 	}
 
+	public SelectType<Long> getValueType()
+	{
+		return SimpleSelectType.LONG;
+	}
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -107,7 +112,7 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
-	Long get(final Row row, final Query query)
+	Long get(final Row row)
 	{
 		return (Long)row.get(getColumn());
 	}
@@ -124,10 +129,7 @@ public final class LongField extends NumberField<Long>
 	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
 	public final long getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).longValue();
+		return getMandatoryObject(item).longValue();
 	}
 
 	public final void set(final Item item, final long value)
