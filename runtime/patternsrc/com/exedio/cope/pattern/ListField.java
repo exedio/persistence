@@ -34,7 +34,9 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperByReflection;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -144,10 +146,8 @@ public final class ListField<E> extends AbstractListField<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
+		final WrapperByReflection r = new WrapperByReflection(this);
+		r.makeAll(result);
 
 		result.add(
 			new Wrapper("getQuery").
@@ -191,6 +191,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * @see #getQuery(Item)
 	 */
+	@Wrapped(comment="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{

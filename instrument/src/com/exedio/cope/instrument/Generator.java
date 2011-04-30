@@ -27,6 +27,7 @@ import static java.text.MessageFormat.format;
 
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.TypeVariable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -650,6 +651,19 @@ final class Generator
 		return bf.toString();
 	}
 
+	private static final String toString(final TypeVariable t, final CopeFeature feature)
+	{
+		final Class<? extends Feature> featureClass = feature.getInstance().getClass();
+		int number = 0;
+		for(final TypeVariable<?> var : featureClass.getTypeParameters())
+		{
+			if(var==t)
+				return toStringType(feature, number);
+			number++;
+		}
+		throw new RuntimeException(t.getName() + '-' + featureClass);
+	}
+
 	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
@@ -676,6 +690,8 @@ final class Generator
 			return toString((Class)t, feature);
 		else if(t instanceof ParameterizedType)
 			return toString((ParameterizedType)t, feature);
+		else if(t instanceof TypeVariable)
+			return toString((TypeVariable)t, feature);
 		else if(t instanceof Wrapper.ExtendsType)
 			return toString((Wrapper.ExtendsType)t, feature);
 		else
