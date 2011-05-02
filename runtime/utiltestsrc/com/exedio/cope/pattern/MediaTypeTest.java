@@ -144,9 +144,8 @@ public class MediaTypeTest extends CopeAssert
 		assertEquals("image/jpeg", jpg.getName());
 		assertEquals("image/png", png.getName());
 
-		assertContains("image/pjpeg", jpg.getAliases());
-		assertEquals(Collections.EMPTY_LIST, png.getAliases());
-		assertUnmodifiable(jpg.getAliases());
+		assertEqualsUnmodifiable(list("image/pjpeg"), jpg.getAliases());
+		assertEqualsUnmodifiable(list(), png.getAliases());
 
 		assertEquals("image/jpeg", jpg.toString());
 		assertEquals("image/png", png.toString());
