@@ -28,8 +28,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class MediaTypeTest extends CopeAssert
 {
