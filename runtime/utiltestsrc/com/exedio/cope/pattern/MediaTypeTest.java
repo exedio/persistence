@@ -28,6 +28,8 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -141,6 +143,10 @@ public class MediaTypeTest extends CopeAssert
 
 		assertEquals("image/jpeg", jpg.getName());
 		assertEquals("image/png", png.getName());
+
+		assertContains("image/pjpeg", jpg.getAliases());
+		assertEquals(Collections.EMPTY_LIST, png.getAliases());
+		assertUnmodifiable(jpg.getAliases());
 
 		assertEquals("image/jpeg", jpg.toString());
 		assertEquals("image/png", png.toString());
