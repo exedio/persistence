@@ -150,11 +150,6 @@ public final class ListField<E> extends AbstractListField<E>
 		r.makeAll(result);
 
 		result.add(
-			new Wrapper("getQuery").
-			addComment("Returns a query for the value of {0}.").
-			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
 			new Wrapper("getDistinctParents").
 			addComment("Returns the items, for which field list {0} contains the given element.").
 			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
@@ -201,6 +196,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
+	@Wrapped(comment="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
