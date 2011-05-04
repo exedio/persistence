@@ -51,5 +51,29 @@ public class TypeSetModelErrorTest extends CopeAssert
 		{
 			assertEquals("types", e.getMessage());
 		}
+
+		final Type<Item1> type1 = TypesBound.newType(Item1.class);
+		final Type<Item2> type2 = TypesBound.newType(Item2.class);
+		try
+		{
+			new TypeSet(new Type<?>[]{type1, type2, type1});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("duplicate type Item1", e.getMessage());
+		}
+	}
+
+	static class Item1 extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		private Item1(final ActivationParameters ap) { super(ap); }
+	}
+
+	static class Item2 extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		private Item2(final ActivationParameters ap) { super(ap); }
 	}
 }

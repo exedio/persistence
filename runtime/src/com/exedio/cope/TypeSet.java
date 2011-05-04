@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public final class TypeSet
 {
@@ -37,9 +38,14 @@ public final class TypeSet
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
+		final HashSet<Type> set = new HashSet<Type>();
 		for(final Type<?> type : types)
+		{
 			if(type==null)
 				throw new NullPointerException("types");
+			if(!set.add(type))
+				throw new IllegalArgumentException("duplicate type " + type);
+		}
 	}
 
 	Type<?>[] getTypes()
