@@ -27,6 +27,12 @@ public final class TypeSet
 
 	public TypeSet(final Type<?>... types)
 	{
+		check(types);
+		this.types = types;
+	}
+
+	static void check(final Type<?>... types)
+	{
 		if(types==null)
 			throw new NullPointerException("types");
 		if(types.length==0)
@@ -34,8 +40,6 @@ public final class TypeSet
 		for(final Type<?> type : types)
 			if(type==null)
 				throw new NullPointerException("types");
-
-		this.types = types;
 	}
 
 	Type<?>[] getTypes()

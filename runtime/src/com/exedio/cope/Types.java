@@ -48,10 +48,7 @@ final class Types
 	Types(final Model model, final TypeSet[] typeSets, final Type[] typesWithoutSets)
 	{
 		final Type<?>[] types = unify(typeSets, typesWithoutSets);
-		if(types==null)
-			throw new NullPointerException("types");
-		if(types.length==0)
-			throw new IllegalArgumentException("types must not be empty");
+		TypeSet.check(types);
 		for(final Type<?> type : types)
 			type.assertNotMounted();
 
