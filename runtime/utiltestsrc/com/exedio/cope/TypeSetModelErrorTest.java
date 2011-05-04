@@ -49,7 +49,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("types", e.getMessage());
 		}
 	}
 }

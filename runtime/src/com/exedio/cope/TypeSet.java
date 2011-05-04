@@ -32,7 +32,8 @@ public final class TypeSet
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
 		for(final Type<?> type : types)
-			type.assertNotMounted();
+			if(type==null)
+				throw new NullPointerException("types");
 
 		this.types = types;
 	}

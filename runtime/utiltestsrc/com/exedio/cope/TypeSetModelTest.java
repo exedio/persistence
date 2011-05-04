@@ -32,15 +32,7 @@ public class TypeSetModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(type1), model.getTypes());
 		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
 
-		try
-		{
-			new TypeSet(new Type<?>[]{type1});
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("type Item1 already mounted", e.getMessage());
-		}
+		new TypeSet(new Type<?>[]{type1});
 	}
 
 	static class Item1 extends Item
