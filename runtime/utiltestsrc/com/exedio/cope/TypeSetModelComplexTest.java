@@ -53,9 +53,10 @@ public class TypeSetModelComplexTest extends CopeAssert
 
 		assertEquals(true, model.contains(typeSetA));
 		assertEquals(false, model.contains(new TypeSet(typeX)));
+		final TypeSet typeAX = new TypeSet(typeA1, typeA2, typeX);
 		try
 		{
-			model.contains(new TypeSet(typeA1, typeA2, typeX));
+			model.contains(typeAX);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
