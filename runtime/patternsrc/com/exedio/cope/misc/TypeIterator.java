@@ -19,9 +19,11 @@
 package com.exedio.cope.misc;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
@@ -33,18 +35,40 @@ public final class TypeIterator
 			final Condition condition,
 			final int slice)
 	{
+		return iterate(type, condition, false, slice);
+	}
+
+	/**
+	 * Works as {@link #iterate(Type, Condition, int)}
+	 * but creates its own transaction whenever needed.
+	 */
+	public static <E extends Item> Iterator<E> iterateTransactionally(
+			final Type<E> type,
+			final Condition condition,
+			final int slice)
+	{
+		return iterate(type, condition, true, slice);
+	}
+
+	private static <E extends Item> Iterator<E> iterate(
+			final Type<E> type,
+			final Condition condition,
+			final boolean transactionally,
+			final int slice)
+	{
 		if(type==null)
 			throw new NullPointerException("type");
 		if(slice<1)
 			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
 
-		return new Iter<E>(type, condition, slice);
+		return new Iter<E>(type, condition, transactionally, slice);
 	}
 
 	private static final class Iter<E extends Item> implements Iterator<E>
 	{
 		private final This<E> typeThis;
 		private final Condition condition;
+		private final boolean transactionally;
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
@@ -52,10 +76,12 @@ public final class TypeIterator
 		Iter(
 				final Type<E> type,
 				final Condition condition,
+				final boolean transactionally,
 				final int slice)
 		{
 			this.typeThis = type.getThis();
 			this.condition = condition;
+			this.transactionally = transactionally;
 
 			this.query  = type.newQuery(condition);
 			query.setOrderBy(typeThis, true);
@@ -86,7 +112,28 @@ public final class TypeIterator
 
 		private Iterator<E> search()
 		{
-			return query.search().iterator();
+			final List<E> result;
+
+			if(transactionally)
+			{
+				final Model model = typeThis.getType().getModel();
+				try
+				{
+					model.startTransaction(query.toString());
+					result = query.search();
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+			else
+			{
+				result = query.search();
+			}
+
+			return result.iterator();
 		}
 
 		public void remove()

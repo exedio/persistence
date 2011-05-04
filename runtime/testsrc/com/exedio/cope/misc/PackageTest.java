@@ -32,6 +32,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DeleteTest.class);
 		suite.addTestSuite(QueryAggregatorTest.class);
 		suite.addTestSuite(TypeIteratorTest.class);
+		suite.addTestSuite(TypeIteratorTransactionallyTest.class);
 		suite.addTestSuite(StableQueryIteratorTest.class);
 		return suite;
 	}

@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add TypeIterator#iterateTransactionally
 * add TypeSet
 * add MediaType#magicMaxLength
 * add constants for media type names in MediaType
