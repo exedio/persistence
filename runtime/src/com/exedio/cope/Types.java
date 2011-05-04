@@ -154,9 +154,8 @@ final class Types
 			return typesWithoutSets;
 
 		final ArrayList<Type<?>> result = new ArrayList<Type<?>>();
-		if(typeSets!=null)
-			for(final TypeSet typeSet : typeSets)
-				typeSet.addTo(result);
+		for(final TypeSet typeSet : typeSets)
+			typeSet.addTo(result);
 		if(typesWithoutSets!=null)
 			result.addAll(Arrays.asList(typesWithoutSets));
 
