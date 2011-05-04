@@ -33,13 +33,12 @@ public class TypeSetModelComplexTest extends CopeAssert
 
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);
-		final Type<ItemX> typeX = TypesBound.newType(ItemX.class);
-		final TypeSet typeAX = new TypeSet(typeA1, typeA2, typeX);
 
 		final Model model = new Model((Revisions)null, new TypeSet[]{typeSetA, typeSetB}, type1, type2);
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypes());
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypesSortedByHierarchy());
 
+		final Type<ItemX> typeX = TypesBound.newType(ItemX.class);
 		assertEquals(true, model.containsTypeSet(typeA1, typeA2));
 		assertEquals(false, model.containsTypeSet(typeX));
 		try
@@ -56,7 +55,7 @@ public class TypeSetModelComplexTest extends CopeAssert
 		assertEquals(false, model.contains(new TypeSet(typeX)));
 		try
 		{
-			model.contains(typeAX);
+			model.contains(new TypeSet(typeA1, typeA2, typeX));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
