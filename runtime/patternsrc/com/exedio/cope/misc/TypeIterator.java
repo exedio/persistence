@@ -60,7 +60,7 @@ public final class TypeIterator
 			this.query  = type.newQuery(condition);
 			query.setOrderBy(typeThis, true);
 			query.setLimit(0, slice);
-			this.iterator = query.search().iterator();
+			this.iterator = search();
 		}
 
 		public boolean hasNext()
@@ -78,10 +78,15 @@ public final class TypeIterator
 			{
 				final Condition c = typeThis.greater(result);
 				query.setCondition(condition!=null ? condition.and(c) : c);
-				this.iterator = query.search().iterator();
+				this.iterator = search();
 			}
 
 			return result;
+		}
+
+		private Iterator<E> search()
+		{
+			return query.search().iterator();
 		}
 
 		public void remove()
