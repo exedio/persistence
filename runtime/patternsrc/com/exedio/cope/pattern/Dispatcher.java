@@ -143,7 +143,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
-	@Wrapped(comment="Returns the parent field of the run type of {0}.", name="{1}RunParent")
+	@Wrapped(pos=1000, comment="Returns the parent field of the run type of {0}.", name="{1}RunParent")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -183,14 +183,13 @@ public final class Dispatcher extends Pattern
 	public List<Wrapper> getWrappers()
 	{
 		final List<Wrapper> result = new LinkedList<Wrapper>(Wrapper.makeByReflection(this, super.getWrappers()));
-		result.add(result.size()-1, result.remove(2)); // getRunParent
 		return Collections.unmodifiableList(result);
 	}
 
 	/**
 	 * @return the number of successfully dispatched items
 	 */
-	@Wrapped(comment = "Dispatch by {0}.",
+	@Wrapped(pos=10, comment = "Dispatch by {0}.",
 		returns="the number of successfully dispatched items")
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
@@ -206,7 +205,7 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
-	@Wrapped(comment = "Dispatch by {0}.")
+	@Wrapped(pos=20, comment = "Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
 			@WrappedParam("config") final Config config,
@@ -332,13 +331,13 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@Wrapped(comment = "Returns, whether this item is yet to be dispatched by {0}.")
+	@Wrapped(pos=30, comment = "Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
-	@Wrapped(comment = "Sets whether this item is yet to be dispatched by {0}.")
+	@Wrapped(pos=40, comment = "Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
 			final Item item,
 			@WrappedParam("pending") final boolean pending)
@@ -346,14 +345,14 @@ public final class Dispatcher extends Pattern
 		this.pending.set(item, pending);
 	}
 
-	@Wrapped(comment = "Returns the date, this item was last successfully dispatched by {0}.")
+	@Wrapped(pos=50, comment = "Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
 
-	@Wrapped(comment = "Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
+	@Wrapped(pos=60, comment = "Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
@@ -372,7 +371,7 @@ public final class Dispatcher extends Pattern
 		return q.searchSingleton();
 	}
 
-	@Wrapped(comment = "Returns the attempts to dispatch this item by {0}.")
+	@Wrapped(pos=70, comment = "Returns the attempts to dispatch this item by {0}.")
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();
@@ -383,7 +382,7 @@ public final class Dispatcher extends Pattern
 					true);
 	}
 
-	@Wrapped(comment = "Returns the failed attempts to dispatch this item by {0}.")
+	@Wrapped(pos=80, comment = "Returns the failed attempts to dispatch this item by {0}.")
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();

@@ -179,7 +179,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * @see #getQuery(Item)
 	 */
-	@Wrapped(comment="Returns the value of {0}.")
+	@Wrapped(pos=0, comment="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -189,7 +189,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
-	@Wrapped(comment="Returns a query for the value of {0}.")
+	@Wrapped(pos=1, comment="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
@@ -205,6 +205,7 @@ public final class ListField<E> extends AbstractListField<E>
 	 * The order of the result is unspecified.
 	 */
 	@Wrapped(
+			pos=2,
 			name="getDistinctParentsOf{0}",
 			comment="Returns the items, for which field list {0} contains the given element.")
 	public <P extends Item> List<P> getDistinctParents(

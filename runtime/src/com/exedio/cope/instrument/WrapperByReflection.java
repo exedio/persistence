@@ -26,11 +26,15 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.misc.Compare;
 
 public final class WrapperByReflection
 {
@@ -54,6 +58,8 @@ public final class WrapperByReflection
 
 	public void makeAll(final List<Wrapper> list)
 	{
+		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(WRAPPED_COMPARATOR);
+
 		for(final Method method : clazz.getDeclaredMethods())
 		{
 			if(!Modifier.isPublic(method.getModifiers()))
@@ -63,8 +69,51 @@ public final class WrapperByReflection
 			if(annotation==null)
 				continue;
 
+			try
+			{
+				methods.put(annotation, method);
+			}
+			catch(final PosBroken e)
+			{
+				throw new IllegalArgumentException(e.getMessage() + ": " + method.toString());
+			}
+		}
+
+		for(final Map.Entry<Wrapped, Method> entry : methods.entrySet())
+		{
+			final Wrapped annotation = entry.getKey();
+			final Method method = entry.getValue();
 			final Wrapper wrapper = make(method.getName(), method.getParameterTypes(), method, annotation);
 			list.add(wrapper);
+		}
+	}
+
+	private static final Comparator<Wrapped> WRAPPED_COMPARATOR = new Comparator<Wrapped>()
+	{
+		@Override
+		public int compare(final Wrapped o1, final Wrapped o2)
+		{
+			if(o1==o2)
+				return 0;
+
+			final int pos1 = o1.pos();
+			final int pos2 = o2.pos();
+			if(pos1==-1 || pos2==-1)
+				throw new PosBroken("must define @Wrapped(pos=n)");
+			final int result = Compare.compare(pos1, pos2);
+			if(result==0)
+				throw new PosBroken("duplicate @Wrapped(pos=" + pos1 + ')');
+			return result;
+		}
+	};
+
+	private static final class PosBroken extends IllegalArgumentException
+	{
+		private static final long serialVersionUID = 1l;
+
+		PosBroken(final String message)
+		{
+			super(message);
 		}
 	}
 
