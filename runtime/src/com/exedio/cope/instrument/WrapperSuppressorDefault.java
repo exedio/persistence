@@ -26,4 +26,9 @@ final class WrapperSuppressorDefault implements WrapperSuppressor
 	{
 		return false;
 	}
+
+	private WrapperSuppressorDefault()
+	{
+		// prevent instantiation
+	}
 }

@@ -29,4 +29,9 @@ final class WrapperThrownDefault implements WrapperThrown
 	{
 		return Collections.<Class<? extends Throwable>>emptySet();
 	}
+
+	private WrapperThrownDefault()
+	{
+		// prevent instantiation
+	}
 }
