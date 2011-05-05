@@ -44,6 +44,11 @@ public final class AntTask extends Task
 		fileSetsOrLists.add(value);
 	}
 
+	public void setVerify(final boolean value)
+	{
+		params.verify = value;
+	}
+
 	public void setEncoding(final String value)
 	{
 		params.encoding = value;
