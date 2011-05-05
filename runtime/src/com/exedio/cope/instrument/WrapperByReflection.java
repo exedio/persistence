@@ -172,35 +172,7 @@ public final class WrapperByReflection
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
 			if(suppressorClass!=WrapperSuppressorDefault.class)
 			{
-				final Constructor<? extends WrapperSuppressor> suppressorConstructor;
-				try
-				{
-					suppressorConstructor = suppressorClass.getDeclaredConstructor();
-				}
-				catch(final NoSuchMethodException e)
-				{
-					throw new RuntimeException(e);
-				}
-
-				suppressorConstructor.setAccessible(true);
-
-				final WrapperSuppressor suppressor;
-				try
-				{
-					suppressor = suppressorConstructor.newInstance();
-				}
-				catch(final InstantiationException e)
-				{
-					throw new RuntimeException(e);
-				}
-				catch(final IllegalAccessException e)
-				{
-					throw new RuntimeException(e);
-				}
-				catch(final InvocationTargetException e)
-				{
-					throw new RuntimeException(e);
-				}
+				final WrapperSuppressor suppressor = instantiate(suppressorClass);
 
 				if(suppressor.isSuppressed(feature))
 					return null;
@@ -288,40 +260,47 @@ public final class WrapperByReflection
 			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
 			if(thrownClass!=WrapperThrownDefault.class)
 			{
-				final Constructor<? extends WrapperThrown> thrownConstructor;
-				try
-				{
-					thrownConstructor = thrownClass.getDeclaredConstructor();
-				}
-				catch(final NoSuchMethodException e)
-				{
-					throw new RuntimeException(e);
-				}
-
-				thrownConstructor.setAccessible(true);
-
-				final WrapperThrown thrownx;
-				try
-				{
-					thrownx = thrownConstructor.newInstance();
-				}
-				catch(final InstantiationException e)
-				{
-					throw new RuntimeException(e);
-				}
-				catch(final IllegalAccessException e)
-				{
-					throw new RuntimeException(e);
-				}
-				catch(final InvocationTargetException e)
-				{
-					throw new RuntimeException(e);
-				}
+				final WrapperThrown thrownx = instantiate(thrownClass);
 
 				for(final Class<? extends Throwable> throwable : thrownx.get(feature))
 					result.addThrows(throwable);
 			}
 		}
+		return result;
+	}
+
+	private static <E> E instantiate(final Class<E> clazz)
+	{
+		final Constructor<E> constructor;
+		try
+		{
+			constructor = clazz.getDeclaredConstructor();
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		constructor.setAccessible(true);
+
+		final E result;
+		try
+		{
+			result = constructor.newInstance();
+		}
+		catch(final InstantiationException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InvocationTargetException e)
+		{
+			throw new RuntimeException(e);
+		}
+
 		return result;
 	}
 
