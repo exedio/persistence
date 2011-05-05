@@ -171,12 +171,8 @@ public final class WrapperByReflection
 		{
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
 			if(suppressorClass!=WrapperSuppressorDefault.class)
-			{
-				final WrapperSuppressor suppressor = instantiate(suppressorClass);
-
-				if(suppressor.isSuppressed(feature))
+				if(instantiate(suppressorClass).isSuppressed(feature))
 					return null;
-			}
 		}
 
 		final Wrapper result = new Wrapper(name);
@@ -259,12 +255,8 @@ public final class WrapperByReflection
 		{
 			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
 			if(thrownClass!=WrapperThrownDefault.class)
-			{
-				final WrapperThrown thrownx = instantiate(thrownClass);
-
-				for(final Class<? extends Throwable> throwable : thrownx.get(feature))
+				for(final Class<? extends Throwable> throwable : instantiate(thrownClass).get(feature))
 					result.addThrows(throwable);
-			}
 		}
 		return result;
 	}
