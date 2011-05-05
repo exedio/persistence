@@ -35,6 +35,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 
@@ -149,14 +150,6 @@ public final class ListField<E> extends AbstractListField<E>
 		final WrapperByReflection r = new WrapperByReflection(this);
 		r.makeAll(result);
 
-		result.add(
-			new Wrapper("getDistinctParents").
-			addComment("Returns the items, for which field list {0} contains the given element.").
-			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
-			setStatic().
-			setMethodWrapperPattern("getDistinctParentsOf{0}").
-			addParameter(Wrapper.TypeVariable0.class, "element"));
-
 		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
 		exceptions.add(ClassCastException.class);
 
@@ -211,9 +204,12 @@ public final class ListField<E> extends AbstractListField<E>
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
+	@Wrapped(
+			name="getDistinctParentsOf{0}",
+			comment="Returns the items, for which field list {0} contains the given element.")
 	public <P extends Item> List<P> getDistinctParents(
 			final Class<P> parentClass,
-			final E element)
+			@WrappedParam("element") final E element)
 	{
 		final Query<P> q = new Query<P>(
 				mount().parent.as(parentClass),

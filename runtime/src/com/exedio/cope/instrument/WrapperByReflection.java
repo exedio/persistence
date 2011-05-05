@@ -201,22 +201,23 @@ public final class WrapperByReflection
 		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
+			final Type[] genericParameterTypes = method.getGenericParameterTypes();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
-				final Class parameterType = parameterTypes[i];
+				final Type genericParameterType = genericParameterTypes[i];
 				WrappedParam c = null;
 				for(final Annotation a : annotations[i])
 					if(a.annotationType().equals(WrappedParam.class))
 						c = (WrappedParam)a;
 				if(c==null)
-					result.addParameter(parameterType);
+					result.addParameter(genericParameterType);
 				else
 				{
 					final String comment = c.comment();
 					if(comment.isEmpty())
-						result.addParameter(parameterType, c.value());
+						result.addParameter(genericParameterType, c.value());
 					else
-						result.addParameter(parameterType, c.value(), comment);
+						result.addParameter(genericParameterType, c.value(), comment);
 				}
 			}
 		}
