@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -38,6 +39,7 @@ import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperThrown;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -154,13 +156,6 @@ public final class ListField<E> extends AbstractListField<E>
 		exceptions.add(ClassCastException.class);
 
 		result.add(
-			new Wrapper("add").
-			setMethodWrapperPattern("addTo{0}").
-			addComment("Adds a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.TypeVariable0.class));
-
-		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
@@ -219,6 +214,11 @@ public final class ListField<E> extends AbstractListField<E>
 		return q.search();
 	}
 
+	@Wrapped(
+			pos=40,
+			name="addTo{0}",
+			comment="Adds a new value for {0}.",
+			thrownx=WrapperThrownElement.class)
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
@@ -273,6 +273,21 @@ public final class ListField<E> extends AbstractListField<E>
 				order = currentOrder;
 				this.element.set(tupel, expected.next());
 			}
+		}
+	}
+
+	private static final class WrapperThrownElement implements WrapperThrown
+	{
+		public Set<Class<? extends Throwable>> get(final Feature feature)
+		{
+			// avoid findbugs warning
+			if(!(feature instanceof ListField))
+				throw new ClassCastException(feature.getClass().getName());
+
+			final Set<Class<? extends Throwable>> exceptions =
+				((ListField<?>)feature).getElement().getInitialExceptions();
+			exceptions.add(ClassCastException.class);
+			return exceptions;
 		}
 	}
 }

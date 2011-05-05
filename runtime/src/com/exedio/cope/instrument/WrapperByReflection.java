@@ -284,6 +284,44 @@ public final class WrapperByReflection
 					result.addThrows(c.clazz(), v);
 			}
 		}
+		{
+			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
+			if(thrownClass!=WrapperThrownDefault.class)
+			{
+				final Constructor<? extends WrapperThrown> thrownConstructor;
+				try
+				{
+					thrownConstructor = thrownClass.getDeclaredConstructor();
+				}
+				catch(final NoSuchMethodException e)
+				{
+					throw new RuntimeException(e);
+				}
+
+				thrownConstructor.setAccessible(true);
+
+				final WrapperThrown thrownx;
+				try
+				{
+					thrownx = thrownConstructor.newInstance();
+				}
+				catch(final InstantiationException e)
+				{
+					throw new RuntimeException(e);
+				}
+				catch(final IllegalAccessException e)
+				{
+					throw new RuntimeException(e);
+				}
+				catch(final InvocationTargetException e)
+				{
+					throw new RuntimeException(e);
+				}
+
+				for(final Class<? extends Throwable> throwable : thrownx.get(feature))
+					result.addThrows(throwable);
+			}
+		}
 		return result;
 	}
 
