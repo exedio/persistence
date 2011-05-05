@@ -111,6 +111,12 @@
                     <location>dsmf/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>runtime/utiltestsrc</label>
+                    <type>java</type>
+                    <location>runtime/utiltestsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -196,6 +202,10 @@
                         <label>dsmf/testsrc</label>
                         <location>dsmf/testsrc</location>
                     </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime/utiltestsrc</label>
+                        <location>runtime/utiltestsrc</location>
+                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
@@ -234,6 +244,7 @@
                 <package-root>dsmf/src</package-root>
                 <package-root>dsmf/testsrc</package-root>
                 <package-root>runtime/testfeaturesrc</package-root>
+                <package-root>runtime/utiltestsrc</package-root>
                 <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/bsh-core.jar:lib/bsh-src.jar:lib/cojen-sources.jar:lib/cojen.jar:lib/exedio-cope-console.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/exedio-cops.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/junit.jar:lib/servlet-api.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>

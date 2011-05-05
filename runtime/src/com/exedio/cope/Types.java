@@ -45,12 +45,10 @@ final class Types
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
 
-	Types(final Model model, final Type[] types)
+	Types(final Model model, final TypeSet[] typeSets, final Type[] typesWithoutSets)
 	{
-		if(types==null)
-			throw new NullPointerException("types");
-		if(types.length==0)
-			throw new IllegalArgumentException("types must not be empty");
+		final Type<?>[] types = unify(typeSets, typesWithoutSets);
+		TypeSet.check(types);
 		for(final Type<?> type : types)
 			type.assertNotMounted();
 
@@ -142,6 +140,23 @@ final class Types
 
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
+	}
+
+	private static Type<?>[] unify(final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
+	{
+		if(typeSets==null && typesWithoutSets==null)
+			return null;
+
+		if(typeSets==null)
+			return typesWithoutSets;
+
+		final ArrayList<Type<?>> result = new ArrayList<Type<?>>();
+		for(final TypeSet typeSet : typeSets)
+			typeSet.addTo(result);
+		if(typesWithoutSets!=null)
+			result.addAll(Arrays.asList(typesWithoutSets));
+
+		return result.toArray(new Type<?>[result.size()]);
 	}
 
 	private static final Type<?>[] sort(final Type<?>[] types)

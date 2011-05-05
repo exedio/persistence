@@ -211,7 +211,9 @@ public final class ListField<E> extends AbstractListField<E>
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
+	public <P extends Item> List<P> getDistinctParents(
+			final Class<P> parentClass,
+			final E element)
 	{
 		final Query<P> q = new Query<P>(
 				mount().parent.as(parentClass),

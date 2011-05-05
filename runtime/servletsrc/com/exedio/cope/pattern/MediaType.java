@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.util.Hex;
@@ -39,6 +43,14 @@ public final class MediaType
 	public String getName()
 	{
 		return name;
+	}
+
+	public List<String> getAliases()
+	{
+		if( aliases.length>0 )
+			return Collections.unmodifiableList( Arrays.asList(aliases) );
+
+		return Collections.<String>emptyList();
 	}
 
 	public String getAllowed(final Media media)

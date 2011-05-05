@@ -16,24 +16,28 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.misc;
+package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.junit.CopeAssert;
 
-public class PackageTest extends TestCase
+public class TypeSetModelTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(TransactionSlicerTest.class);
-		suite.addTestSuite(TransactionRunnableTest.class);
-		suite.addTestSuite(DeleteTest.class);
-		suite.addTestSuite(QueryAggregatorTest.class);
-		suite.addTestSuite(TypeIteratorTest.class);
-		suite.addTestSuite(TypeIteratorTransactionallyTest.class);
-		suite.addTestSuite(StableQueryIteratorTest.class);
-		return suite;
+		final Type<Item1> type1 = TypesBound.newType(Item1.class);
+		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
+		new TypeSet(new Type<?>[]{type1});
+
+		final Model model = new Model((Revisions)null, new TypeSet[]{typeSet1});
+		assertEqualsUnmodifiable(list(type1), model.getTypes());
+		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
+
+		new TypeSet(new Type<?>[]{type1});
+	}
+
+	static class Item1 extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		private Item1(final ActivationParameters ap) { super(ap); }
 	}
 }

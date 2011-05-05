@@ -63,11 +63,21 @@ public final class Model implements Serializable
 
 	public Model(final Revisions revisions, final Type... types)
 	{
+		this(revisions, (TypeSet[])null, types);
+	}
+
+	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
+	{
 		this.revisions = revisions;
-		this.types = new Types(this, types);
+		this.types = new Types(this, typeSets, types);
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
+	}
+
+	public boolean contains(final TypeSet typeSet)
+	{
+		return containsTypeSet(typeSet.getTypes());
 	}
 
 	public boolean containsTypeSet(final Type... typeSet)
