@@ -22,6 +22,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -53,8 +54,11 @@ public final class WrapperByReflection
 
 	public void makeAll(final List<Wrapper> list)
 	{
-		for(final Method method : clazz.getMethods())
+		for(final Method method : clazz.getDeclaredMethods())
 		{
+			if(!Modifier.isPublic(method.getModifiers()))
+				continue;
+
 			final Wrapped annotation = getAnnotation(method);
 			if(annotation==null)
 				continue;
