@@ -25,9 +25,7 @@ import static java.lang.System.nanoTime;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -182,8 +180,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final List<Wrapper> result = new LinkedList<Wrapper>(Wrapper.makeByReflection(this, super.getWrappers()));
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(this, super.getWrappers());
 	}
 
 	/**
