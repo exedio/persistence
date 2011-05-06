@@ -267,7 +267,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
+			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature, null));
 			write(' ');
 			write(feature.name);
 		}
@@ -479,7 +479,7 @@ final class Generator
 				|
 				(isStatic ? STATIC : 0)
 			);
-			write(toString(methodReturnType, feature));
+			write(toString(methodReturnType, feature, wrapper));
 			if(option!=null && useIs && option.booleanAsIs)
 			{
 				write(" is");
@@ -529,7 +529,7 @@ final class Generator
 					}
 					else
 					{
-						write(toString(parameter.getType(), feature));
+						write(toString(parameter.getType(), feature, wrapper));
 					}
 					write(' ');
 					write(format(parameter.getName(), arguments));
@@ -633,9 +633,9 @@ final class Generator
 		return Generics.get(feature.javaField.type).get(number);
 	}
 
-	private static final String toString(final ParameterizedType t, final CopeFeature feature)
+	private static final String toString(final ParameterizedType t, final CopeFeature feature, final Wrapper wrapper)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature, wrapper));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -645,15 +645,18 @@ final class Generator
 			else
 				bf.append(',');
 
-			bf.append(toString(a, feature));
+			bf.append(toString(a, feature, wrapper));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final TypeVariable t, final CopeFeature feature)
+	private static final String toString(final TypeVariable t, final CopeFeature feature, final Wrapper wrapper)
 	{
+		if(wrapper.matchesStaticToken(t))
+			return feature.parent.name;
+
 		final Class<? extends Feature> featureClass = feature.getInstance().getClass();
 		int number = 0;
 		for(final TypeVariable<?> var : featureClass.getTypeParameters())
@@ -662,6 +665,7 @@ final class Generator
 				return toStringType(feature, number);
 			number++;
 		}
+
 		throw new RuntimeException(
 				t.getName() + '-' +
 				Arrays.asList(t.getBounds()) + '-' +
@@ -669,7 +673,7 @@ final class Generator
 				featureClass);
 	}
 
-	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
+	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature, final Wrapper wrapper)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
 		bf.append('<');
@@ -682,23 +686,23 @@ final class Generator
 				bf.append(',');
 
 			bf.append("? extends ");
-			bf.append(toString(a, feature));
+			bf.append(toString(a, feature, wrapper));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
+	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature, final Wrapper wrapper)
 	{
 		if(t instanceof Class)
 			return toString((Class)t, feature);
 		else if(t instanceof ParameterizedType)
-			return toString((ParameterizedType)t, feature);
+			return toString((ParameterizedType)t, feature, wrapper);
 		else if(t instanceof TypeVariable)
-			return toString((TypeVariable)t, feature);
+			return toString((TypeVariable)t, feature, wrapper);
 		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t, feature);
+			return toString((Wrapper.ExtendsType)t, feature, wrapper);
 		else
 			throw new RuntimeException(t.toString());
 	}

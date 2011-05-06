@@ -177,11 +177,35 @@ public final class WrapperByReflection
 
 		final Wrapper result = new Wrapper(name);
 
+		final Type[] genericParameterTypes = method.getGenericParameterTypes();
 		final int parameterOffset;
 		if(parameterTypes[0]==Class.class)
 		{
-			result.setStatic();
-			parameterOffset = 1;
+			final Type t = genericParameterTypes[0];
+			if(t instanceof ParameterizedType)
+			{
+				final ParameterizedType pt = (ParameterizedType)t;
+				assert pt.getRawType()==Class.class : pt.getRawType(); // because parameterTypes[0]==Class.class
+				assert pt.getOwnerType()==null : pt.getOwnerType(); // because Class is not an inner class
+				assert pt.getActualTypeArguments().length==1 : pt.getActualTypeArguments(); // because Class has one generic parameter
+
+				final Type argument = pt.getActualTypeArguments()[0];
+				if(argument instanceof TypeVariable)
+				{
+					result.setStatic((TypeVariable)argument);
+					parameterOffset = 1;
+				}
+				else
+				{
+					result.setStatic(false);
+					parameterOffset = 0;
+				}
+			}
+			else
+			{
+				result.setStatic(false);
+				parameterOffset = 0;
+			}
 		}
 		else if(parameterTypes[0]==Item.class)
 		{
@@ -222,7 +246,6 @@ public final class WrapperByReflection
 		}
 		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
-			final Type[] genericParameterTypes = method.getGenericParameterTypes();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
@@ -327,22 +350,6 @@ public final class WrapperByReflection
 	{
 		if(type instanceof Class)
 		{
-			return type;
-		}
-		if(type instanceof ParameterizedType)
-		{
-			final ParameterizedType paramType = (ParameterizedType)type;
-			final Type[] args = paramType.getActualTypeArguments();
-			if(args.length==1)
-			{
-				final Type arg0 = args[0];
-				if(arg0 instanceof TypeVariable)
-				{
-					final TypeVariable arg0Var = (TypeVariable)arg0;
-					if("P".equals(arg0Var.getName())) // TODO make more explicit
-						return Wrapper.generic((Class)paramType.getRawType(), Wrapper.ClassVariable.class);
-				}
-			}
 			return type;
 		}
 		if(type instanceof TypeVariable)

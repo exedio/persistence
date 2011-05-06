@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -47,6 +48,7 @@ public final class Wrapper
 
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
+	private TypeVariable staticToken = null;
 
 	public Wrapper setStatic()
 	{
@@ -57,6 +59,7 @@ public final class Wrapper
 	{
 		isStatic = true;
 		hasStaticClassToken = classToken;
+		staticToken = null;
 
 		return this;
 	}
@@ -69,6 +72,21 @@ public final class Wrapper
 	public boolean hasStaticClassToken()
 	{
 		return hasStaticClassToken;
+	}
+
+	Wrapper setStatic(final TypeVariable token)
+	{
+		setStatic(true);
+		staticToken = token;
+		return this;
+	}
+
+	boolean matchesStaticToken(final TypeVariable token)
+	{
+		if(token==null)
+			throw new NullPointerException();
+
+		return token==staticToken;
 	}
 
 
