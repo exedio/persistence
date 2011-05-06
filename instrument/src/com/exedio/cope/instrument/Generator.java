@@ -28,6 +28,7 @@ import static java.text.MessageFormat.format;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.TypeVariable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -661,7 +662,11 @@ final class Generator
 				return toStringType(feature, number);
 			number++;
 		}
-		throw new RuntimeException(t.getName() + '-' + featureClass);
+		throw new RuntimeException(
+				t.getName() + '-' +
+				Arrays.asList(t.getBounds()) + '-' +
+				t.getGenericDeclaration() + '-' +
+				featureClass);
 	}
 
 	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
