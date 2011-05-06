@@ -348,10 +348,6 @@ public final class WrapperByReflection
 
 	private Type replace(final Type type, final Method method)
 	{
-		if(type instanceof Class)
-		{
-			return type;
-		}
 		if(type instanceof TypeVariable)
 		{
 			final TypeVariable arg0Var = (TypeVariable)type;
