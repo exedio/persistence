@@ -622,16 +622,11 @@ final class Generator
 		if(Wrapper.ClassVariable.class.equals(c))
 			return ctx.getClassToken();
 		else if(Wrapper.TypeVariable0.class.equals(c))
-			return toStringType(ctx, 0);
+			return ctx.getGenericFieldParameter(0);
 		else if(Wrapper.TypeVariable1.class.equals(c))
-			return toStringType(ctx, 1);
+			return ctx.getGenericFieldParameter(1);
 		else
 			return c.getCanonicalName();
-	}
-
-	private static final String toStringType(final Context ctx, final int number)
-	{
-		return ctx.getGenericFieldParameter(number);
 	}
 
 	private static final String toString(final ParameterizedType t, final Context ctx)
@@ -663,7 +658,7 @@ final class Generator
 		for(final TypeVariable<?> var : featureClass.getTypeParameters())
 		{
 			if(var==t)
-				return toStringType(ctx, number);
+				return ctx.getGenericFieldParameter(number);
 			number++;
 		}
 
