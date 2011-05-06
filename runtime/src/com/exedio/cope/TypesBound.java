@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -81,6 +83,10 @@ public final class TypesBound
 		final Features features = new Features();
 		try
 		{
+			// needed for not relying on order of result of Method#getDeclaredFields
+			final TreeMap<Feature, java.lang.reflect.Field> sortBucket =
+				new TreeMap<Feature, java.lang.reflect.Field>(Feature.COMPARATOR);
+
 			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
 			{
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
@@ -92,6 +98,13 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
+				sortBucket.put(feature, field);
+			}
+
+			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : sortBucket.entrySet())
+			{
+				final Feature feature = entry.getKey();
+				final java.lang.reflect.Field field = entry.getValue();
 				final String featureName = id(field, field.getName());
 				features.put(featureName, feature, (AnnotatedElement)field);
 			}
