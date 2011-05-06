@@ -112,6 +112,10 @@ public final class ListField<E> extends AbstractListField<E>
 		return mount;
 	}
 
+	@Wrapped(
+			pos=1000,
+			name="{1}Parent",
+			comment="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -156,17 +160,11 @@ public final class ListField<E> extends AbstractListField<E>
 		exceptions.add(ClassCastException.class);
 
 		result.add(
+			result.size()-1,
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getParent").
-			addComment("Returns the parent field of the type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}Parent").
-			setStatic());
 
 		return Collections.unmodifiableList(result);
 	}
