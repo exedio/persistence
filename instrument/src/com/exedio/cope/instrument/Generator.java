@@ -267,7 +267,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature, null));
+			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), new Context(feature, null)));
 			write(' ');
 			write(feature.name);
 		}
@@ -386,6 +386,7 @@ final class Generator
 			if(option!=null && !option.exists)
 				continue;
 
+			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
@@ -479,7 +480,7 @@ final class Generator
 				|
 				(isStatic ? STATIC : 0)
 			);
-			write(toString(methodReturnType, feature, wrapper));
+			write(toString(methodReturnType, ctx));
 			if(option!=null && useIs && option.booleanAsIs)
 			{
 				write(" is");
@@ -529,7 +530,7 @@ final class Generator
 					}
 					else
 					{
-						write(toString(parameter.getType(), feature, wrapper));
+						write(toString(parameter.getType(), ctx));
 					}
 					write(' ');
 					write(format(parameter.getName(), arguments));
@@ -616,26 +617,26 @@ final class Generator
 		write(featureName);
 	}
 
-	private static final String toString(final Class c, final CopeFeature feature)
+	private static final String toString(final Class c, final Context ctx)
 	{
 		if(Wrapper.ClassVariable.class.equals(c))
-			return feature.parent.name;
+			return ctx.getClassToken();
 		else if(Wrapper.TypeVariable0.class.equals(c))
-			return toStringType(feature, 0);
+			return toStringType(ctx, 0);
 		else if(Wrapper.TypeVariable1.class.equals(c))
-			return toStringType(feature, 1);
+			return toStringType(ctx, 1);
 		else
 			return c.getCanonicalName();
 	}
 
-	private static final String toStringType(final CopeFeature feature, final int number)
+	private static final String toStringType(final Context ctx, final int number)
 	{
-		return Generics.get(feature.javaField.type).get(number);
+		return ctx.getGenericFieldParameter(number);
 	}
 
-	private static final String toString(final ParameterizedType t, final CopeFeature feature, final Wrapper wrapper)
+	private static final String toString(final ParameterizedType t, final Context ctx)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature, wrapper));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -645,24 +646,24 @@ final class Generator
 			else
 				bf.append(',');
 
-			bf.append(toString(a, feature, wrapper));
+			bf.append(toString(a, ctx));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final TypeVariable t, final CopeFeature feature, final Wrapper wrapper)
+	private static final String toString(final TypeVariable t, final Context ctx)
 	{
-		if(wrapper.matchesStaticToken(t))
-			return feature.parent.name;
+		if(ctx.matchesStaticToken(t))
+			return ctx.getClassToken();
 
-		final Class<? extends Feature> featureClass = feature.getInstance().getClass();
+		final Class<? extends Feature> featureClass = ctx.getFeatureClass();
 		int number = 0;
 		for(final TypeVariable<?> var : featureClass.getTypeParameters())
 		{
 			if(var==t)
-				return toStringType(feature, number);
+				return toStringType(ctx, number);
 			number++;
 		}
 
@@ -673,9 +674,9 @@ final class Generator
 				featureClass);
 	}
 
-	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature, final Wrapper wrapper)
+	private static final String toString(final Wrapper.ExtendsType t, final Context ctx)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -686,23 +687,23 @@ final class Generator
 				bf.append(',');
 
 			bf.append("? extends ");
-			bf.append(toString(a, feature, wrapper));
+			bf.append(toString(a, ctx));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature, final Wrapper wrapper)
+	private static final String toString(final java.lang.reflect.Type t, final Context ctx)
 	{
 		if(t instanceof Class)
-			return toString((Class)t, feature);
+			return toString((Class)t, ctx);
 		else if(t instanceof ParameterizedType)
-			return toString((ParameterizedType)t, feature, wrapper);
+			return toString((ParameterizedType)t, ctx);
 		else if(t instanceof TypeVariable)
-			return toString((TypeVariable)t, feature, wrapper);
+			return toString((TypeVariable)t, ctx);
 		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t, feature, wrapper);
+			return toString((Wrapper.ExtendsType)t, ctx);
 		else
 			throw new RuntimeException(t.toString());
 	}
