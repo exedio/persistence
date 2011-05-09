@@ -35,6 +35,9 @@ import com.exedio.cope.util.CharSet;
 
 public abstract class Feature implements Serializable
 {
+	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
+	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
+
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mountIfMounted = null;
 
@@ -289,12 +292,6 @@ public abstract class Feature implements Serializable
 
 		return pattern;
 	}
-
-	// instantiation order ----------------
-
-	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
-
-	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
 
 	// serialization -------------
 
