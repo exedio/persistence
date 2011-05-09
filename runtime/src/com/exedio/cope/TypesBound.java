@@ -115,7 +115,7 @@ public final class TypesBound
 	private static TreeMap<Feature, java.lang.reflect.Field> getFeatures(final Class clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
-		final TreeMap<Feature, java.lang.reflect.Field> orderedByInstantiation =
+		final TreeMap<Feature, java.lang.reflect.Field> result =
 			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
 		try
 		{
@@ -130,14 +130,14 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(clazz.getName() + '#' + field.getName());
-				orderedByInstantiation.put(feature, field);
+				result.put(feature, field);
 			}
 		}
 		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(clazz.getName(), e);
 		}
-		return orderedByInstantiation;
+		return result;
 	}
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
