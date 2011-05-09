@@ -20,17 +20,18 @@ package com.exedio.cope.pattern;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.InstrumentContext;
 
 final class CompositeType<X>
@@ -57,21 +58,13 @@ final class CompositeType<X>
 		}
 		constructor.setAccessible(true);
 
-		try
 		{
 			int position = 0;
-			for(final java.lang.reflect.Field field : valueClass.getDeclaredFields())
+			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(valueClass).entrySet())
 			{
-				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-					continue;
-				if(!Feature.class.isAssignableFrom(field.getType()))
-					continue;
-
+				final Feature feature = entry.getKey();
+				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = classID + '#' + field.getName();
-				field.setAccessible(true);
-				final Feature feature = (Feature)field.get(null);
-				if(feature==null)
-					throw new NullPointerException(fieldID);
 				if(!(feature instanceof FunctionField))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
 				final FunctionField template = (FunctionField)feature;
@@ -82,16 +75,9 @@ final class CompositeType<X>
 				template.mount(fieldID, field);
 			}
 		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(classID, e);
-		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
 		this.componentSize = templates.size();
 	}
-
-	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
-
 
 	public List<FunctionField> getTemplates()
 	{

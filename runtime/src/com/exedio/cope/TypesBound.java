@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -113,7 +114,7 @@ public final class TypesBound
 		return o;
 	}
 
-	private static TreeMap<Feature, java.lang.reflect.Field> getFeatures(final Class clazz)
+	public static SortedMap<Feature, java.lang.reflect.Field> getFeatures(final Class clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, java.lang.reflect.Field> result =
