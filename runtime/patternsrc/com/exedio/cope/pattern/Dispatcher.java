@@ -271,7 +271,12 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
-		for(final Iterator<P> iterator = iterateTransactionally(type, pending.equal(true), config.getSearchSize()); iterator.hasNext(); )
+		for(
+				final Iterator<P> iterator = iterateTransactionally(
+					type,
+					pending.equal(true),
+					config.getSearchSize());
+				iterator.hasNext(); )
 		{
 			if(ctx.requestedToStop())
 				return;
