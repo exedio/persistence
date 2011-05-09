@@ -82,7 +82,7 @@ public final class TypesBound
 		// features
 
 		// needed for not relying on order of result of Method#getDeclaredFields
-		final TreeMap<Feature, java.lang.reflect.Field> sortBucket =
+		final TreeMap<Feature, java.lang.reflect.Field> orderedByInstantiation =
 			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
 		try
 		{
@@ -97,7 +97,7 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
-				sortBucket.put(feature, field);
+				orderedByInstantiation.put(feature, field);
 			}
 		}
 		catch(final IllegalAccessException e)
@@ -106,7 +106,7 @@ public final class TypesBound
 		}
 
 		final Features features = new Features();
-		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : sortBucket.entrySet())
+		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : orderedByInstantiation.entrySet())
 		{
 			final Feature feature = entry.getKey();
 			final java.lang.reflect.Field field = entry.getValue();
