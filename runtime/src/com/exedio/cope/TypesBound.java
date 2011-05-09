@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -83,10 +84,10 @@ public final class TypesBound
 
 		// features
 		final Features features = new Features();
-		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : getFeatures(javaClass).entrySet())
+		for(final Map.Entry<Feature, Field> entry : getFeatures(javaClass).entrySet())
 		{
 			final Feature feature = entry.getKey();
-			final java.lang.reflect.Field field = entry.getValue();
+			final Field field = entry.getValue();
 			final String featureName = id(field, field.getName());
 			features.put(featureName, feature, (AnnotatedElement)field);
 		}
@@ -114,14 +115,14 @@ public final class TypesBound
 		return o;
 	}
 
-	public static SortedMap<Feature, java.lang.reflect.Field> getFeatures(final Class clazz)
+	public static SortedMap<Feature, Field> getFeatures(final Class clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
-		final TreeMap<Feature, java.lang.reflect.Field> result =
-			new TreeMap<Feature, java.lang.reflect.Field>(INSTANTIATION_COMPARATOR);
+		final TreeMap<Feature, Field> result =
+			new TreeMap<Feature, Field>(INSTANTIATION_COMPARATOR);
 		try
 		{
-			for(final java.lang.reflect.Field field : clazz.getDeclaredFields())
+			for(final Field field : clazz.getDeclaredFields())
 			{
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 					continue;
