@@ -70,16 +70,13 @@ public final class WrapperByReflection
 				continue;
 
 			if(annotation.pos()==-1)
-				throw new IllegalArgumentException("must define @Wrapped(pos=n)" + ": " + method.toString());
+				throw new IllegalArgumentException("must define @Wrapped(pos=n)" + ": " + toString(method));
 
-			try
-			{
-				methods.put(annotation, method);
-			}
-			catch(final PosBroken e)
-			{
-				throw new IllegalArgumentException(e.getMessage() + ": " + method.toString());
-			}
+			final Method collision = methods.put(annotation, method);
+			if(collision!=null)
+				throw new IllegalArgumentException(
+						"duplicate @Wrapped(pos=" + annotation.pos() + ") " +
+						"on " + toString(collision) + " and " + toString(method));
 		}
 
 		for(final Map.Entry<Wrapped, Method> entry : methods.entrySet())
@@ -89,6 +86,26 @@ public final class WrapperByReflection
 			final Wrapper wrapper = make(method.getName(), method.getParameterTypes(), method, annotation);
 			list.add(wrapper);
 		}
+	}
+
+	private static String toString(final Method method)
+	{
+		final StringBuilder bf =
+			new StringBuilder(method.getName());
+		bf.append('(');
+
+		boolean first = true;
+		for(final Class parameter : method.getParameterTypes())
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			bf.append(parameter.getName());
+		}
+		bf.append(')');
+		return bf.toString();
 	}
 
 	private static final Comparator<Wrapped> WRAPPED_COMPARATOR = new Comparator<Wrapped>()
@@ -101,22 +118,9 @@ public final class WrapperByReflection
 
 			final int pos1 = o1.pos();
 			final int pos2 = o2.pos();
-			final int result = Compare.compare(pos1, pos2);
-			if(result==0)
-				throw new PosBroken("duplicate @Wrapped(pos=" + pos1 + ')');
-			return result;
+			return Compare.compare(pos1, pos2);
 		}
 	};
-
-	private static final class PosBroken extends IllegalArgumentException
-	{
-		private static final long serialVersionUID = 1l;
-
-		PosBroken(final String message)
-		{
-			super(message);
-		}
-	}
 
 	void add(final List<Wrapper> list, final int position, final Wrapper wrapper)
 	{
