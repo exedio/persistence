@@ -120,14 +120,6 @@ public final class WrapperByReflection
 		}
 	};
 
-	void add(final List<Wrapper> list, final int position, final Wrapper wrapper)
-	{
-		if(position>=list.size())
-			list.add(wrapper);
-		else
-			list.add(0, wrapper);
-	}
-
 	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
 	{
 		return make(name, prepend(Item.class, parameterTypes));
