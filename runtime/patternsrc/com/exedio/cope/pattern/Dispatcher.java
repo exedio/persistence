@@ -269,90 +269,87 @@ public final class Dispatcher extends Pattern
 		final Type<P> type = getType().as(parentClass);
 		final Model model = type.getModel();
 		final String id = getID();
+		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
+		for(final Iterator<P> iterator = iterateTransactionally(type, pending.equal(true), config.getSearchSize()); iterator.hasNext(); )
 		{
-			final ItemField<P> runParent = mount.runParent.as(parentClass);
+			if(ctx.requestedToStop())
+				return;
 
-			for(final Iterator<P> iterator = iterateTransactionally(type, pending.equal(true), config.getSearchSize()); iterator.hasNext(); )
+			final P item = iterator.next();
+			final Dispatchable itemCasted = (Dispatchable)item;
+			final String itemID = item.getCopeID();
+			try
 			{
-				if(ctx.requestedToStop())
-					return;
+				model.startTransaction(id + " dispatch " + itemID);
 
-				final P item = iterator.next();
-				final Dispatchable itemCasted = (Dispatchable)item;
-				final String itemID = item.getCopeID();
+				if(!isPending(item))
+				{
+					if(logger.isLoggable(Level.INFO))
+						logger.log(
+								Level.INFO,
+								"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
+								new Object[]{id, itemID});
+					continue;
+				}
+
+				final long start = System.currentTimeMillis();
+				final long nanoStart = nanoTime();
 				try
 				{
-					model.startTransaction(id + " dispatch " + itemID);
+					itemCasted.dispatch(this);
 
-					if(!isPending(item))
-					{
-						if(logger.isLoggable(Level.INFO))
-							logger.log(
-									Level.INFO,
-									"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
-									new Object[]{id, itemID});
-						continue;
-					}
-
-					final long start = System.currentTimeMillis();
-					final long nanoStart = nanoTime();
-					try
-					{
-						itemCasted.dispatch(this);
-
-						final long elapsed = toMillies(nanoTime(), nanoStart);
-						pending.set(item, false);
-						mount.runType.newItem(
-								runParent.map(item),
-								runDate.map(new Date(start)),
-								runElapsed.map(elapsed),
-								runSuccess.map(true));
-
-						model.commit();
-						ctx.incrementProgress();
-					}
-					catch(final Exception cause)
-					{
-						final long elapsed = toMillies(nanoTime(), nanoStart);
-						model.rollbackIfNotCommitted();
-
-						model.startTransaction(id + " register failure " + itemID);
-						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						final PrintStream out;
-						try
-						{
-							out = new PrintStream(baos, false, ENCODING);
-						}
-						catch(final UnsupportedEncodingException e)
-						{
-							throw new RuntimeException(ENCODING, e);
-						}
-						cause.printStackTrace(out);
-						out.close();
-
-						mount.runType.newItem(
+					final long elapsed = toMillies(nanoTime(), nanoStart);
+					pending.set(item, false);
+					mount.runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
-							runSuccess.map(false),
-							runFailure.map(baos.toByteArray()));
+							runSuccess.map(true));
 
-						final boolean finalFailure =
-							mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
-						if(finalFailure)
-							pending.set(item, false);
-
-						model.commit();
-
-						if(finalFailure)
-							((Dispatchable)item).notifyFinalFailure(this, cause);
-					}
+					model.commit();
+					ctx.incrementProgress();
 				}
-				finally
+				catch(final Exception cause)
 				{
+					final long elapsed = toMillies(nanoTime(), nanoStart);
 					model.rollbackIfNotCommitted();
+
+					model.startTransaction(id + " register failure " + itemID);
+					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					final PrintStream out;
+					try
+					{
+						out = new PrintStream(baos, false, ENCODING);
+					}
+					catch(final UnsupportedEncodingException e)
+					{
+						throw new RuntimeException(ENCODING, e);
+					}
+					cause.printStackTrace(out);
+					out.close();
+
+					mount.runType.newItem(
+						runParent.map(item),
+						runDate.map(new Date(start)),
+						runElapsed.map(elapsed),
+						runSuccess.map(false),
+						runFailure.map(baos.toByteArray()));
+
+					final boolean finalFailure =
+						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+					if(finalFailure)
+						pending.set(item, false);
+
+					model.commit();
+
+					if(finalFailure)
+						((Dispatchable)item).notifyFinalFailure(this, cause);
 				}
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
 			}
 		}
 	}
