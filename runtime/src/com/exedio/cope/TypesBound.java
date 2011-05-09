@@ -80,33 +80,8 @@ public final class TypesBound
 			supertype = forClass(castSupertype(superclass));
 
 		// features
-
-		// needed for not relying on order of result of Method#getDeclaredFields
-		final TreeMap<Feature, java.lang.reflect.Field> orderedByInstantiation =
-			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
-		try
-		{
-			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
-			{
-				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-					continue;
-				if(!Feature.class.isAssignableFrom(field.getType()))
-					continue;
-
-				field.setAccessible(true);
-				final Feature feature = (Feature)field.get(null);
-				if(feature==null)
-					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
-				orderedByInstantiation.put(feature, field);
-			}
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(javaClass.getName(), e);
-		}
-
 		final Features features = new Features();
-		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : orderedByInstantiation.entrySet())
+		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : getFeatures(javaClass).entrySet())
 		{
 			final Feature feature = entry.getKey();
 			final java.lang.reflect.Field field = entry.getValue();
@@ -135,6 +110,34 @@ public final class TypesBound
 	private static Class<Item> castSupertype(final Class o)
 	{
 		return o;
+	}
+
+	private static TreeMap<Feature, java.lang.reflect.Field> getFeatures(final Class javaClass)
+	{
+		// needed for not relying on order of result of Method#getDeclaredFields
+		final TreeMap<Feature, java.lang.reflect.Field> orderedByInstantiation =
+			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
+		try
+		{
+			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
+			{
+				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+					continue;
+				if(!Feature.class.isAssignableFrom(field.getType()))
+					continue;
+
+				field.setAccessible(true);
+				final Feature feature = (Feature)field.get(null);
+				if(feature==null)
+					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
+				orderedByInstantiation.put(feature, field);
+			}
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(javaClass.getName(), e);
+		}
+		return orderedByInstantiation;
 	}
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
