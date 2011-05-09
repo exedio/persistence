@@ -310,10 +310,11 @@ public abstract class Feature implements Serializable
 
 			if(o1<o2)
 				return -1;
-			else if(o1>o2)
-				return 1;
 			else
-				throw new RuntimeException(f1.toString() + '/' + f2);
+			{
+				assert o1>o2 : f1.toString() + '/' + f2;
+				return 1;
+			}
 		}
 	};
 
