@@ -83,7 +83,7 @@ public final class TypesBound
 
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, java.lang.reflect.Field> sortBucket =
-			new TreeMap<Feature, java.lang.reflect.Field>(Feature.COMPARATOR);
+			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
 		try
 		{
 			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())

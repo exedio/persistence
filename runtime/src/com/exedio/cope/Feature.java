@@ -291,13 +291,13 @@ public abstract class Feature implements Serializable
 		return pattern;
 	}
 
-	// comparison ----------------
+	// instantiation order ----------------
 
-	private static final AtomicInteger comparisonOrderSource = new AtomicInteger(Integer.MIN_VALUE);
+	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
 
-	final int comparisonOrder = comparisonOrderSource.getAndIncrement();
+	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
 
-	static final Comparator<Feature> COMPARATOR = new Comparator<Feature>()
+	static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
 	{
 		@Override
 		public int compare(final Feature f1, final Feature f2)
@@ -305,8 +305,8 @@ public abstract class Feature implements Serializable
 			if(f1==f2)
 				return 0;
 
-			final int o1 = f1.comparisonOrder;
-			final int o2 = f2.comparisonOrder;
+			final int o1 = f1.instantiationOrder;
+			final int o2 = f2.instantiationOrder;
 
 			if(o1<o2)
 				return -1;
