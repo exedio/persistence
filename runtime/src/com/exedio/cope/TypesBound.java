@@ -112,14 +112,14 @@ public final class TypesBound
 		return o;
 	}
 
-	private static TreeMap<Feature, java.lang.reflect.Field> getFeatures(final Class javaClass)
+	private static TreeMap<Feature, java.lang.reflect.Field> getFeatures(final Class clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, java.lang.reflect.Field> orderedByInstantiation =
 			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
 		try
 		{
-			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
+			for(final java.lang.reflect.Field field : clazz.getDeclaredFields())
 			{
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 					continue;
@@ -129,13 +129,13 @@ public final class TypesBound
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
-					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
+					throw new NullPointerException(clazz.getName() + '#' + field.getName());
 				orderedByInstantiation.put(feature, field);
 			}
 		}
 		catch(final IllegalAccessException e)
 		{
-			throw new RuntimeException(javaClass.getName(), e);
+			throw new RuntimeException(clazz.getName(), e);
 		}
 		return orderedByInstantiation;
 	}
