@@ -156,7 +156,7 @@ public class TextUrlFilter extends MediaFilter
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(this);
+		final WrapperByReflection factory = new WrapperByReflection(TextUrlFilter.class, this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 

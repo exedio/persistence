@@ -180,7 +180,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(this, super.getWrappers());
+		return Wrapper.makeByReflection(Dispatcher.class, this, super.getWrappers());
 	}
 
 	/**

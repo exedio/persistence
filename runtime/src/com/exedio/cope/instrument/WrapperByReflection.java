@@ -42,16 +42,16 @@ public final class WrapperByReflection
 	private final Feature feature;
 	private final FunctionField instance; // TODO remove
 
-	public WrapperByReflection(final Feature instance)
+	public WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
 	{
-		this.clazz = instance.getClass();
+		this.clazz = clazz;
 		this.feature = instance;
 		this.instance = null;
 	}
 
-	public WrapperByReflection(final FunctionField instance)
+	public WrapperByReflection(final Class<? extends FunctionField> clazz, final FunctionField instance)
 	{
-		this.clazz = instance.getClass();
+		this.clazz = clazz;
 		this.feature = instance;
 		this.instance = instance;
 	}
@@ -147,7 +147,7 @@ public final class WrapperByReflection
 		final Method method;
 		try
 		{
-			method = clazz.getMethod(name, parameterTypes);
+			method = clazz.getDeclaredMethod(name, parameterTypes);
 		}
 		catch(final SecurityException e)
 		{

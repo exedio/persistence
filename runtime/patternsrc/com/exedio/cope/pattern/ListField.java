@@ -153,7 +153,7 @@ public final class ListField<E> extends AbstractListField<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
-		final WrapperByReflection r = new WrapperByReflection(this);
+		final WrapperByReflection r = new WrapperByReflection(ListField.class, this);
 		r.makeAll(result);
 
 		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
