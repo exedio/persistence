@@ -116,9 +116,7 @@ public final class WrapperByReflection
 			if(o1==o2)
 				return 0;
 
-			final int pos1 = o1.pos();
-			final int pos2 = o2.pos();
-			return Compare.compare(pos1, pos2);
+			return Compare.compare(o1.pos(), o2.pos());
 		}
 	};
 
