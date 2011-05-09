@@ -91,7 +91,11 @@ public final class WrapperByReflection
 	private static String toString(final Method method)
 	{
 		final StringBuilder bf =
-			new StringBuilder(method.getName());
+			new StringBuilder(method.getDeclaringClass().getName());
+
+		bf.append('#');
+		bf.append(method.getName());
+
 		bf.append('(');
 
 		boolean first = true;
