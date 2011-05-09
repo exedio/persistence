@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -116,7 +117,7 @@ public final class TypesBound
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, java.lang.reflect.Field> result =
-			new TreeMap<Feature, java.lang.reflect.Field>(Feature.INSTANTIATION_COMPARATOR);
+			new TreeMap<Feature, java.lang.reflect.Field>(INSTANTIATION_COMPARATOR);
 		try
 		{
 			for(final java.lang.reflect.Field field : clazz.getDeclaredFields())
@@ -141,6 +142,27 @@ public final class TypesBound
 	}
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
+
+	private static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
+	{
+		@Override
+		public int compare(final Feature f1, final Feature f2)
+		{
+			if(f1==f2)
+				return 0;
+
+			final int o1 = f1.instantiationOrder;
+			final int o2 = f2.instantiationOrder;
+
+			if(o1<o2)
+				return -1;
+			else
+			{
+				assert o1>o2 : f1.toString() + '/' + f2;
+				return 1;
+			}
+		}
+	};
 
 	private static final String id(final AnnotatedElement annotatedElement, final String fallback)
 	{

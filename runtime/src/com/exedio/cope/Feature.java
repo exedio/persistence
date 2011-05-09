@@ -27,7 +27,6 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -296,27 +295,6 @@ public abstract class Feature implements Serializable
 	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
 
 	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
-
-	static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
-	{
-		@Override
-		public int compare(final Feature f1, final Feature f2)
-		{
-			if(f1==f2)
-				return 0;
-
-			final int o1 = f1.instantiationOrder;
-			final int o2 = f2.instantiationOrder;
-
-			if(o1<o2)
-				return -1;
-			else
-			{
-				assert o1>o2 : f1.toString() + '/' + f2;
-				return 1;
-			}
-		}
-	};
 
 	// serialization -------------
 
