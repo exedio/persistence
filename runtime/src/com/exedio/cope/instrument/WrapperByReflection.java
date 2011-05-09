@@ -69,6 +69,9 @@ public final class WrapperByReflection
 			if(annotation==null)
 				continue;
 
+			if(annotation.pos()==-1)
+				throw new IllegalArgumentException("must define @Wrapped(pos=n)" + ": " + method.toString());
+
 			try
 			{
 				methods.put(annotation, method);
@@ -98,8 +101,6 @@ public final class WrapperByReflection
 
 			final int pos1 = o1.pos();
 			final int pos2 = o2.pos();
-			if(pos1==-1 || pos2==-1)
-				throw new PosBroken("must define @Wrapped(pos=n)");
 			final int result = Compare.compare(pos1, pos2);
 			if(result==0)
 				throw new PosBroken("duplicate @Wrapped(pos=" + pos1 + ')');
