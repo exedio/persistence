@@ -168,11 +168,11 @@ public final class TypesBound
 
 	private static final String id(final AnnotatedElement annotatedElement, final String fallback)
 	{
-		final CopeID featureAnnotation =
+		final CopeID annotation =
 			annotatedElement.getAnnotation(CopeID.class);
 		return
-			featureAnnotation!=null
-			? featureAnnotation.value()
+			annotation!=null
+			? annotation.value()
 			: fallback;
 	}
 
