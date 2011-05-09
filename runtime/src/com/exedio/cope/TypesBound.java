@@ -80,13 +80,12 @@ public final class TypesBound
 			supertype = forClass(castSupertype(superclass));
 
 		// features
-		final Features features = new Features();
+
+		// needed for not relying on order of result of Method#getDeclaredFields
+		final TreeMap<Feature, java.lang.reflect.Field> sortBucket =
+			new TreeMap<Feature, java.lang.reflect.Field>(Feature.COMPARATOR);
 		try
 		{
-			// needed for not relying on order of result of Method#getDeclaredFields
-			final TreeMap<Feature, java.lang.reflect.Field> sortBucket =
-				new TreeMap<Feature, java.lang.reflect.Field>(Feature.COMPARATOR);
-
 			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
 			{
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
@@ -100,18 +99,19 @@ public final class TypesBound
 					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
 				sortBucket.put(feature, field);
 			}
-
-			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : sortBucket.entrySet())
-			{
-				final Feature feature = entry.getKey();
-				final java.lang.reflect.Field field = entry.getValue();
-				final String featureName = id(field, field.getName());
-				features.put(featureName, feature, (AnnotatedElement)field);
-			}
 		}
 		catch(final IllegalAccessException e)
 		{
 			throw new RuntimeException(javaClass.getName(), e);
+		}
+
+		final Features features = new Features();
+		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : sortBucket.entrySet())
+		{
+			final Feature feature = entry.getKey();
+			final java.lang.reflect.Field field = entry.getValue();
+			final String featureName = id(field, field.getName());
+			features.put(featureName, feature, (AnnotatedElement)field);
 		}
 
 		final Type<T> result = new Type<T>(
