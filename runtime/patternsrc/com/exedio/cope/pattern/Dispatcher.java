@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
@@ -28,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +46,6 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
@@ -266,41 +267,18 @@ public final class Dispatcher extends Pattern
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
-		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String id = getID();
 
-		P lastDispatched = null;
-		while(true)
 		{
-			final List<P> toDispatch;
-			try
-			{
-				model.startTransaction(id + " search");
-				final Query<P> q  = type.newQuery(pending.equal(true));
-				if(lastDispatched!=null)
-					q.narrow(typeThis.greater(lastDispatched));
-				q.setOrderBy(typeThis, true);
-				q.setLimit(0, config.getSearchSize());
-				toDispatch = q.search();
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-
-			if(toDispatch.isEmpty())
-				break;
-
 			final ItemField<P> runParent = mount.runParent.as(parentClass);
 
-			for(final P item : toDispatch)
+			for(final Iterator<P> iterator = iterateTransactionally(type, pending.equal(true), config.getSearchSize()); iterator.hasNext(); )
 			{
 				if(ctx.requestedToStop())
 					return;
 
-				lastDispatched = item;
+				final P item = iterator.next();
 				final Dispatchable itemCasted = (Dispatchable)item;
 				final String itemID = item.getCopeID();
 				try
