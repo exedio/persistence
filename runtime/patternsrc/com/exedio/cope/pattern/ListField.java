@@ -215,7 +215,7 @@ public final class ListField<E> extends AbstractListField<E>
 			pos=40,
 			name="addTo{0}",
 			comment="Adds a new value for {0}.",
-			thrownx=WrapperThrownElement.class)
+			thrownx=ElementThrown.class)
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
@@ -273,7 +273,7 @@ public final class ListField<E> extends AbstractListField<E>
 		}
 	}
 
-	private static final class WrapperThrownElement implements WrapperThrown<ListField<?>>
+	private static final class ElementThrown implements WrapperThrown<ListField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
 		{

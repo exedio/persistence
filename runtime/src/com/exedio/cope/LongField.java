@@ -131,13 +131,13 @@ public final class LongField extends NumberField<Long>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=WrapperSuppressorOptional.class)
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=OptionalSuppressor.class)
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
 	}
 
-	private final class WrapperSuppressorOptional implements WrapperSuppressor
+	private final class OptionalSuppressor implements WrapperSuppressor
 	{
 		@Override public boolean isSuppressed()
 		{

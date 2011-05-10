@@ -296,13 +296,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
-	@Wrapped(pos=10, comment = "Returns whether media {0} is null.", suppressor=WrapperSuppressorMandatory.class)
+	@Wrapped(pos=10, comment = "Returns whether media {0} is null.", suppressor=MandatorySuppressor.class)
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
 	}
 
-	private final class WrapperSuppressorMandatory implements WrapperSuppressor
+	private final class MandatorySuppressor implements WrapperSuppressor
 	{
 		@Override public boolean isSuppressed()
 		{
@@ -356,7 +356,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
-	@Wrapped(pos=110, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
+	@Wrapped(pos=110, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -387,7 +387,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrapped(pos=120, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class)
+	@Wrapped(pos=120, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class)
 	public void set(
 			final Item item,
 			@WrappedParam("body") final byte[] body,
@@ -436,7 +436,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(pos=130, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
+	@Wrapped(pos=130, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -486,7 +486,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(pos=140, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
+	@Wrapped(pos=140, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -500,7 +500,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		set(item, DataField.toValue(body), contentType);
 	}
 
-	private final class WrapperSuppressorFinal implements WrapperSuppressor
+	private final class FinalSuppressor implements WrapperSuppressor
 	{
 		@Override public boolean isSuppressed()
 		{
