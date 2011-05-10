@@ -19,8 +19,13 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -79,26 +84,12 @@ public final class TypesBound
 
 		// features
 		final Features features = new Features();
-		try
+		for(final Map.Entry<Feature, Field> entry : getFeatures(javaClass).entrySet())
 		{
-			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
-			{
-				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-					continue;
-				if(!Feature.class.isAssignableFrom(field.getType()))
-					continue;
-
-				field.setAccessible(true);
-				final Feature feature = (Feature)field.get(null);
-				if(feature==null)
-					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
-				final String featureName = id(field, field.getName());
-				features.put(featureName, feature, (AnnotatedElement)field);
-			}
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(javaClass.getName(), e);
+			final Feature feature = entry.getKey();
+			final Field field = entry.getValue();
+			final String featureName = id(field, field.getName());
+			features.put(featureName, feature, (AnnotatedElement)field);
 		}
 
 		final Type<T> result = new Type<T>(
@@ -124,15 +115,64 @@ public final class TypesBound
 		return o;
 	}
 
+	public static SortedMap<Feature, Field> getFeatures(final Class clazz)
+	{
+		// needed for not relying on order of result of Method#getDeclaredFields
+		final TreeMap<Feature, Field> result =
+			new TreeMap<Feature, Field>(INSTANTIATION_COMPARATOR);
+		try
+		{
+			for(final Field field : clazz.getDeclaredFields())
+			{
+				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+					continue;
+				if(!Feature.class.isAssignableFrom(field.getType()))
+					continue;
+
+				field.setAccessible(true);
+				final Feature feature = (Feature)field.get(null);
+				if(feature==null)
+					throw new NullPointerException(clazz.getName() + '#' + field.getName());
+				result.put(feature, field);
+			}
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(clazz.getName(), e);
+		}
+		return result;
+	}
+
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
+
+	private static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
+	{
+		@Override
+		public int compare(final Feature f1, final Feature f2)
+		{
+			if(f1==f2)
+				return 0;
+
+			final int o1 = f1.instantiationOrder;
+			final int o2 = f2.instantiationOrder;
+
+			if(o1<o2)
+				return -1;
+			else
+			{
+				assert o1>o2 : f1.toString() + '/' + f2;
+				return 1;
+			}
+		}
+	};
 
 	private static final String id(final AnnotatedElement annotatedElement, final String fallback)
 	{
-		final CopeID featureAnnotation =
+		final CopeID annotation =
 			annotatedElement.getAnnotation(CopeID.class);
 		return
-			featureAnnotation!=null
-			? featureAnnotation.value()
+			annotation!=null
+			? annotation.value()
 			: fallback;
 	}
 

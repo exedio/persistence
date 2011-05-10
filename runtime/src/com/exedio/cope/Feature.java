@@ -28,12 +28,16 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.CharSet;
 
 public abstract class Feature implements Serializable
 {
+	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
+	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
+
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mountIfMounted = null;
 

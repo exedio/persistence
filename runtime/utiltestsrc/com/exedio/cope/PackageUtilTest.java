@@ -50,6 +50,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TypeCompareTest.class);
 		suite.addTestSuite(TypeSetTest.class);
 		suite.addTestSuite(TypeCollisionTest.class);
+		suite.addTestSuite(TypesBoundFeaturesTest.class);
 		suite.addTestSuite(TypesBoundTest.class);
 		suite.addTestSuite(TypesBoundErrorTest.class);
 		suite.addTestSuite(TypesBoundComplexTest.class);
