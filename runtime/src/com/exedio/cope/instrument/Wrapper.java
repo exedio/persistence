@@ -377,7 +377,10 @@ public final class Wrapper
 		return new ExtendsType(rawType, actualTypeArguments);
 	}
 
-	public static <F extends Feature> List<Wrapper> makeByReflection(final Class<F> clazz, final F feature, final List<Wrapper> superResult)
+	public static <F extends Feature> List<Wrapper> makeByReflection(
+			final Class<F> clazz,
+			final F feature,
+			final List<Wrapper> superResult)
 	{
 		final WrapperByReflection factory = new WrapperByReflection(clazz, feature);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
