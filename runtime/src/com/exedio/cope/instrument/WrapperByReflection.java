@@ -122,43 +122,6 @@ public final class WrapperByReflection
 		}
 	};
 
-	public Wrapper makeItem(final String name, final Class<?>... parameterTypes)
-	{
-		return make(name, prepend(Item.class, parameterTypes));
-	}
-
-	public Wrapper makeClass(final String name, final Class<?>... parameterTypes)
-	{
-		return make(name, prepend(Class.class, parameterTypes));
-	}
-
-	private static Class[] prepend(final Class head, final Class[] tail)
-	{
-		final Class[] result = new Class[tail.length + 1];
-		result[0] = head;
-		System.arraycopy(tail, 0, result, 1, tail.length);
-		return result;
-	}
-
-	private Wrapper make(final String name, final Class<?>... parameterTypes)
-	{
-		final Method method;
-		try
-		{
-			method = clazz.getDeclaredMethod(name, parameterTypes);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw new RuntimeException(e);
-		}
-
-		final Wrapped annotation = method.getAnnotation(Wrapped.class);
-		if(annotation==null)
-			throw new IllegalArgumentException(method.toString());
-
-		return make(name, parameterTypes, method, annotation);
-	}
-
 	private Wrapper make(final String name, final Class<?>[] parameterTypes, final Method method, final Wrapped annotation)
 	{
 		{
