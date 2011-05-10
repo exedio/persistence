@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +25,6 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 
 public abstract class MediaFilter extends CachedMedia
 {
@@ -52,14 +49,7 @@ public abstract class MediaFilter extends CachedMedia
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(MediaFilter.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			factory.makeItem("getURLWithFallbackToSource"));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(MediaFilter.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -68,7 +58,7 @@ public abstract class MediaFilter extends CachedMedia
 		return source.getLastModified(item);
 	}
 
-	@Wrapped(comment = "Returns a URL the content of {0} is available under.") // TODO better text
+	@Wrapped(pos=10, comment = "Returns a URL the content of {0} is available under.") // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);
