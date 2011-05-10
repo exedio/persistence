@@ -474,7 +474,7 @@ public abstract class MediaPath extends Pattern
 
 	private static final class ContentTypeSuppressor implements WrapperSuppressor<MediaPath>
 	{
-		@Override public boolean isSuppressed(final MediaPath feature)
+		public boolean isSuppressed(final MediaPath feature)
 		{
 			return !feature.isContentTypeWrapped();
 		}

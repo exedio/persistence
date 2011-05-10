@@ -304,7 +304,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	private static final class MandatorySuppressor implements WrapperSuppressor<Media>
 	{
-		@Override public boolean isSuppressed(final Media feature)
+		public boolean isSuppressed(final Media feature)
 		{
 			return feature.isMandatory();
 		}
@@ -502,7 +502,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	private static final class FinalSuppressor implements WrapperSuppressor<Media>
 	{
-		@Override public boolean isSuppressed(final Media feature)
+		public boolean isSuppressed(final Media feature)
 		{
 			return feature.isFinal();
 		}

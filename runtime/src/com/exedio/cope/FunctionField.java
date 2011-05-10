@@ -204,7 +204,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	private static final class PrimitiveSuppressor implements WrapperSuppressor<FunctionField>
 	{
-		@Override public boolean isSuppressed(final FunctionField feature)
+		public boolean isSuppressed(final FunctionField feature)
 		{
 			return feature.getInitialType().isPrimitive();
 		}
@@ -223,7 +223,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	static final class OptionalSuppressor implements WrapperSuppressor<FunctionField>
 	{
-		@Override public boolean isSuppressed(final FunctionField feature)
+		public boolean isSuppressed(final FunctionField feature)
 		{
 			return !feature.isMandatory();
 		}
