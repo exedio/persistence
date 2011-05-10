@@ -171,10 +171,8 @@ public final class WrapperByReflection
 		{
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
 			if(suppressorClass!=WrapperSuppressorDefault.class)
-			{
 				if(instantiate(suppressorClass, feature).isSuppressed())
 					return null;
-			}
 		}
 
 		final Wrapper result = new Wrapper(name);
