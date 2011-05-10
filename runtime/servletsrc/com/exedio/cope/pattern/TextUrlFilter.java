@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +39,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.misc.Computed;
 
 public class TextUrlFilter extends MediaFilter
@@ -111,6 +109,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrapped(
+		pos=10,
 		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
@@ -120,7 +119,7 @@ public class TextUrlFilter extends MediaFilter
 		this.raw.set( item, raw );
 	}
 
-	@Wrapped()
+	@Wrapped(pos=20)
 	public final void addPaste(
 			final Item item,
 			@WrappedParam("key") final String key,
@@ -133,6 +132,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrapped(
+		pos=30,
 		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
@@ -156,20 +156,7 @@ public class TextUrlFilter extends MediaFilter
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(TextUrlFilter.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			factory.makeItem("setRaw", Media.Value.class));
-
-		result.add(
-			factory.makeItem("addPaste", String.class, Media.Value.class));
-
-		result.add(
-			factory.makeItem("modifyPaste", String.class, Media.Value.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(TextUrlFilter.class, this, super.getWrappers());
 	}
 
 	@Override
