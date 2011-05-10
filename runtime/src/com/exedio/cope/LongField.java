@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class LongField extends NumberField<Long>
 {
@@ -97,12 +96,18 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(LongField.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		if(isMandatory())
-			result.add(0, factory.makeItem("getMandatory"));
-		return Collections.unmodifiableList(result);
+		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(
+				Wrapper.makeByReflection(LongField.class, this, super.getWrappers()));
+		for(final Wrapper wrapper : result)
+		{
+			if(wrapper!=null && "getMandatory".equals(wrapper.getName()))
+			{
+				result.remove(wrapper);
+				result.add(0, wrapper);
+				break;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -126,10 +131,18 @@ public final class LongField extends NumberField<Long>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=WrapperSuppressorOptional.class)
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
+	}
+
+	private final class WrapperSuppressorOptional implements WrapperSuppressor
+	{
+		@Override public boolean isSuppressed()
+		{
+			return !LongField.this.isMandatory();
+		}
 	}
 
 	public final void set(final Item item, final long value)
