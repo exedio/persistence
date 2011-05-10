@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -488,15 +487,11 @@ public abstract class MediaPath extends Pattern
 	@Wrapped(comment = "Returns the content type of the media {0}.", suppressor=WrapperSuppressorContentType.class)
 	public abstract String getContentType(Item item);
 
-	private static final class WrapperSuppressorContentType implements WrapperSuppressor
+	private static final class WrapperSuppressorContentType implements WrapperSuppressor<MediaPath>
 	{
-		@Override public boolean isSuppressed(final Feature feature)
+		@Override public boolean isSuppressed(final MediaPath feature)
 		{
-			// avoid findbugs warning
-			if(!(feature instanceof MediaPath))
-				throw new ClassCastException(feature.getClass().getName());
-
-			return !((MediaPath)feature).isContentTypeWrapped();
+			return !feature.isContentTypeWrapped();
 		}
 	}
 
