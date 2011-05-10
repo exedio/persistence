@@ -21,8 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +35,6 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -122,19 +119,7 @@ public abstract class MediaPath extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(MediaPath.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			factory.makeItem("getURL"));
-		result.add(
-			factory.makeItem("getLocator"));
-
-		result.add(
-			factory.makeItem("getContentType"));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(MediaPath.class, this, super.getWrappers());
 	}
 
 	public boolean isContentTypeWrapped()
@@ -216,7 +201,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped(comment = "Returns a Locator the content of {0} is available under.")
+	@Wrapped(pos=20, comment = "Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -236,7 +221,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrapped(comment = "Returns a URL the content of {0} is available under.")
+	@Wrapped(pos=10, comment = "Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -484,7 +469,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped(comment = "Returns the content type of the media {0}.", suppressor=WrapperSuppressorContentType.class)
+	@Wrapped(pos=30, comment = "Returns the content type of the media {0}.", suppressor=WrapperSuppressorContentType.class)
 	public abstract String getContentType(Item item);
 
 	private final class WrapperSuppressorContentType implements WrapperSuppressor
