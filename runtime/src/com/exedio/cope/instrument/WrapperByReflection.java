@@ -66,7 +66,7 @@ public final class WrapperByReflection
 			if(!Modifier.isPublic(method.getModifiers()))
 				continue;
 
-			final Wrapped annotation = getAnnotation(method);
+			final Wrapped annotation = method.getAnnotation(Wrapped.class);
 			if(annotation==null)
 				continue;
 
@@ -155,7 +155,7 @@ public final class WrapperByReflection
 			throw new RuntimeException(e);
 		}
 
-		final Wrapped annotation = getAnnotation(method);
+		final Wrapped annotation = method.getAnnotation(Wrapped.class);
 		if(annotation==null)
 			throw new IllegalArgumentException(method.toString());
 
@@ -353,29 +353,6 @@ public final class WrapperByReflection
 		}
 
 		return result;
-	}
-
-	private Wrapped getAnnotation(Method method)
-	{
-		while(true)
-		{
-			final Wrapped result = method.getAnnotation(Wrapped.class);
-			if(result!=null)
-				return result;
-
-			final Class<?> superClass = method.getDeclaringClass().getSuperclass();
-			if(superClass==null)
-				return null;
-
-			try
-			{
-				method = superClass.getMethod(method.getName(), method.getParameterTypes());
-			}
-			catch(final NoSuchMethodException e)
-			{
-				return null;
-			}
-		}
 	}
 
 	private Type replace(final Type type, final Method method)
