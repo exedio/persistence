@@ -78,12 +78,7 @@ public final class WrapperByReflection
 		}
 
 		for(final Map.Entry<Wrapped, Method> entry : methods.entrySet())
-		{
-			final Wrapped annotation = entry.getKey();
-			final Method method = entry.getValue();
-			final Wrapper wrapper = make(method, annotation);
-			list.add(wrapper);
-		}
+			list.add(make(entry.getValue(), entry.getKey()));
 	}
 
 	private static String toString(final Method method)
