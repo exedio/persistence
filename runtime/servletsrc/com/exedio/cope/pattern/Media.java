@@ -302,11 +302,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return optional ? (lastModified.get(item)==null) : false;
 	}
 
-	private final class MandatorySuppressor implements WrapperSuppressor
+	private static final class MandatorySuppressor implements WrapperSuppressor<Media>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final Media feature)
 		{
-			return Media.this.isMandatory();
+			return feature.isMandatory();
 		}
 	}
 
@@ -500,11 +500,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		set(item, DataField.toValue(body), contentType);
 	}
 
-	private final class FinalSuppressor implements WrapperSuppressor
+	private static final class FinalSuppressor implements WrapperSuppressor<Media>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final Media feature)
 		{
-			return Media.this.isFinal();
+			return feature.isFinal();
 		}
 	}
 

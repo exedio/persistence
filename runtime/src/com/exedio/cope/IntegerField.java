@@ -253,11 +253,11 @@ public final class IntegerField extends NumberField<Integer>
 		return getMandatoryObject(item).intValue();
 	}
 
-	private final class OptionalSuppressor implements WrapperSuppressor
+	private static final class OptionalSuppressor implements WrapperSuppressor<IntegerField>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final IntegerField feature)
 		{
-			return !IntegerField.this.isMandatory();
+			return !feature.isMandatory();
 		}
 	}
 

@@ -144,11 +144,11 @@ public final class BooleanField extends FunctionField<Boolean>
 		return getMandatoryObject(item).booleanValue();
 	}
 
-	private final class OptionalSuppressor implements WrapperSuppressor
+	private static final class OptionalSuppressor implements WrapperSuppressor<BooleanField>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final BooleanField feature)
 		{
-			return !BooleanField.this.isMandatory();
+			return !feature.isMandatory();
 		}
 	}
 

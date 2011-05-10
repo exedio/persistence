@@ -472,11 +472,11 @@ public abstract class MediaPath extends Pattern
 	@Wrapped(pos=30, comment = "Returns the content type of the media {0}.", suppressor=ContentTypeSuppressor.class)
 	public abstract String getContentType(Item item);
 
-	private final class ContentTypeSuppressor implements WrapperSuppressor
+	private static final class ContentTypeSuppressor implements WrapperSuppressor<MediaPath>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final MediaPath feature)
 		{
-			return !MediaPath.this.isContentTypeWrapped();
+			return !feature.isContentTypeWrapped();
 		}
 	}
 

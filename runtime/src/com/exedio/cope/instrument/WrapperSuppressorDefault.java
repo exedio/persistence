@@ -18,9 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Feature;
+
 final class WrapperSuppressorDefault implements WrapperSuppressor
 {
-	public boolean isSuppressed()
+	public boolean isSuppressed(final Feature feature)
 	{
 		throw new RuntimeException();
 	}

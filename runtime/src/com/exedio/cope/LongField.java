@@ -125,11 +125,11 @@ public final class LongField extends NumberField<Long>
 		return getMandatoryObject(item).longValue();
 	}
 
-	private final class OptionalSuppressor implements WrapperSuppressor
+	private static final class OptionalSuppressor implements WrapperSuppressor<LongField>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final LongField feature)
 		{
-			return !LongField.this.isMandatory();
+			return !feature.isMandatory();
 		}
 	}
 

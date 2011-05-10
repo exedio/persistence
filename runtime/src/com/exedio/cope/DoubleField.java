@@ -202,11 +202,11 @@ public final class DoubleField extends NumberField<Double>
 		return getMandatoryObject(item).doubleValue();
 	}
 
-	private final class OptionalSuppressor implements WrapperSuppressor
+	private static final class OptionalSuppressor implements WrapperSuppressor<DoubleField>
 	{
-		@Override public boolean isSuppressed()
+		@Override public boolean isSuppressed(final DoubleField feature)
 		{
-			return !DoubleField.this.isMandatory();
+			return !feature.isMandatory();
 		}
 	}
 
