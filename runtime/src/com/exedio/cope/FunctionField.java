@@ -30,6 +30,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -151,12 +152,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		final WrapperByReflection factory = new WrapperByReflection(FunctionField.class, this);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
+		factory.makeAll(result);
 
 		final Class initialType = getInitialType();
 		final boolean initialTypePrimitive = initialType.isPrimitive();
-
-		if(!initialTypePrimitive)
-			result.add(factory.makeItem("get"));
 
 		if(!isfinal)
 		{
@@ -194,13 +193,21 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Collections.unmodifiableList(result);
 	}
 
-	@Wrapped(pos=10, comment = "Returns the value of {0}.")
+	@Wrapped(pos=10, comment = "Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
 	@Override
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);
 
 		return Cast.verboseCast(valueClass, item.getEntity().get(this));
+	}
+
+	private static final class PrimitiveSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		@Override public boolean isSuppressed(final FunctionField feature)
+		{
+			return feature.getInitialType().isPrimitive();
+		}
 	}
 
 	final E getMandatoryObject(final Item item)
