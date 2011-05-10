@@ -22,11 +22,11 @@ final class WrapperSuppressorDefault implements WrapperSuppressor
 {
 	public boolean isSuppressed()
 	{
-		return false;
+		throw new RuntimeException();
 	}
 
 	private WrapperSuppressorDefault()
 	{
-		// prevent instantiation
+		throw new RuntimeException();
 	}
 }

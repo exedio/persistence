@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Collections;
 import java.util.Set;
 
 import com.exedio.cope.Feature;
@@ -27,11 +26,11 @@ final class WrapperThrownDefault implements WrapperThrown
 {
 	public Set<Class<? extends Throwable>> get(final Feature feature)
 	{
-		return Collections.<Class<? extends Throwable>>emptySet();
+		throw new RuntimeException();
 	}
 
 	private WrapperThrownDefault()
 	{
-		// prevent instantiation
+		throw new RuntimeException();
 	}
 }
