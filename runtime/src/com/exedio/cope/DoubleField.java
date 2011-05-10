@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -157,12 +155,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(DoubleField.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		if(isMandatory())
-			result.add(0, factory.makeItem("getMandatory"));
-		return Collections.unmodifiableList(result);
+		return moveGetMandatoryFirst(Wrapper.makeByReflection(DoubleField.class, this, super.getWrappers()));
 	}
 
 	@Override
@@ -203,10 +196,18 @@ public final class DoubleField extends NumberField<Double>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=OptionalSuppressor.class)
 	public final double getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).doubleValue();
+	}
+
+	private final class OptionalSuppressor implements WrapperSuppressor
+	{
+		@Override public boolean isSuppressed()
+		{
+			return !DoubleField.this.isMandatory();
+		}
 	}
 
 	public final void set(final Item item, final double value)

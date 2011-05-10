@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -99,12 +97,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(BooleanField.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		if(isMandatory())
-			result.add(0, factory.makeItem("getMandatory"));
-		return Collections.unmodifiableList(result);
+		return moveGetMandatoryFirst(Wrapper.makeByReflection(BooleanField.class, this, super.getWrappers()));
 	}
 
 	@Override
@@ -145,10 +138,18 @@ public final class BooleanField extends FunctionField<Boolean>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(comment="Returns the value of {0}.", name="get{0}")
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=OptionalSuppressor.class)
 	public final boolean getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).booleanValue();
+	}
+
+	private final class OptionalSuppressor implements WrapperSuppressor
+	{
+		@Override public boolean isSuppressed()
+		{
+			return !BooleanField.this.isMandatory();
+		}
 	}
 
 	public final void set(final Item item, final boolean value)
