@@ -81,7 +81,7 @@ public final class WrapperByReflection
 		{
 			final Wrapped annotation = entry.getKey();
 			final Method method = entry.getValue();
-			final Wrapper wrapper = make(method.getName(), method.getParameterTypes(), method, annotation);
+			final Wrapper wrapper = make(method, annotation);
 			list.add(wrapper);
 		}
 	}
@@ -122,7 +122,7 @@ public final class WrapperByReflection
 		}
 	};
 
-	private Wrapper make(final String name, final Class<?>[] parameterTypes, final Method method, final Wrapped annotation)
+	private Wrapper make(final Method method, final Wrapped annotation)
 	{
 		{
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
@@ -136,8 +136,9 @@ public final class WrapperByReflection
 			}
 		}
 
-		final Wrapper result = new Wrapper(name);
+		final Wrapper result = new Wrapper(method.getName());
 
+		final Class<?>[] parameterTypes = method.getParameterTypes();
 		final Type[] genericParameterTypes = method.getGenericParameterTypes();
 		final int parameterOffset;
 		if(parameterTypes[0]==Class.class)
