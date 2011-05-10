@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
@@ -96,18 +95,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(
-				Wrapper.makeByReflection(LongField.class, this, super.getWrappers()));
-		for(final Wrapper wrapper : result)
-		{
-			if(wrapper!=null && "getMandatory".equals(wrapper.getName()))
-			{
-				result.remove(wrapper);
-				result.add(0, wrapper);
-				break;
-			}
-		}
-		return result;
+		return moveGetMandatoryFirst(Wrapper.makeByReflection(LongField.class, this, super.getWrappers()));
 	}
 
 	@Override

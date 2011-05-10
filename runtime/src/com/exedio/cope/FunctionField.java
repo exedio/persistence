@@ -22,6 +22,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -333,6 +334,21 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().as(typeClass).searchSingleton(equal(value));
+	}
+
+	static List<Wrapper> moveGetMandatoryFirst(final List<Wrapper> in)
+	{
+		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
+		for(final Wrapper wrapper : result)
+		{
+			if(wrapper!=null && "getMandatory".equals(wrapper.getName()))
+			{
+				result.remove(wrapper);
+				result.add(0, wrapper);
+				break;
+			}
+		}
+		return result;
 	}
 
 	// convenience methods for conditions and views ---------------------------------
