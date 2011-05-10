@@ -150,10 +150,6 @@ public final class WrapperByReflection
 		{
 			method = clazz.getDeclaredMethod(name, parameterTypes);
 		}
-		catch(final SecurityException e)
-		{
-			throw new RuntimeException(e);
-		}
 		catch(final NoSuchMethodException e)
 		{
 			throw new RuntimeException(e);
@@ -374,10 +370,6 @@ public final class WrapperByReflection
 			try
 			{
 				method = superClass.getMethod(method.getName(), method.getParameterTypes());
-			}
-			catch(final SecurityException e)
-			{
-				throw new RuntimeException(e);
 			}
 			catch(final NoSuchMethodException e)
 			{
