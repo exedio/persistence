@@ -29,6 +29,7 @@ import java.lang.reflect.TypeVariable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import com.exedio.cope.Feature;
@@ -282,8 +283,13 @@ public final class WrapperByReflection
 		{
 			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
 			if(thrownClass!=WrapperThrownDefault.class)
-				for(final Class<? extends Throwable> throwable : instantiate(thrownClass).get(feature))
+			{
+				final WrapperThrown thrown = instantiate(thrownClass);
+				@SuppressWarnings("unchecked")
+				final Set<Class<? extends Throwable>> throwables = thrown.get(feature);
+				for(final Class<? extends Throwable> throwable : throwables)
 					result.addThrows(throwable);
+			}
 		}
 		return result;
 	}

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -274,16 +273,12 @@ public final class ListField<E> extends AbstractListField<E>
 		}
 	}
 
-	private static final class WrapperThrownElement implements WrapperThrown
+	private static final class WrapperThrownElement implements WrapperThrown<ListField<?>>
 	{
-		public Set<Class<? extends Throwable>> get(final Feature feature)
+		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
 		{
-			// avoid findbugs warning
-			if(!(feature instanceof ListField))
-				throw new ClassCastException(feature.getClass().getName());
-
 			final Set<Class<? extends Throwable>> exceptions =
-				((ListField<?>)feature).getElement().getInitialExceptions();
+				feature.getElement().getInitialExceptions();
 			exceptions.add(ClassCastException.class);
 			return exceptions;
 		}
