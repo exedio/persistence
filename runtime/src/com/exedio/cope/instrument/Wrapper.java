@@ -348,7 +348,7 @@ public final class Wrapper
 			ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
 	}
 
-	public static class ExtendsType implements java.lang.reflect.Type
+	static final class ExtendsType implements java.lang.reflect.Type
 	{
 		private final Class rawType;
 		private final Class[] actualTypeArguments;
