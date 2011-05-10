@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -50,7 +49,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
+import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 
@@ -273,45 +272,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(Media.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		if(optional)
-			result.add(
-				factory.makeItem("isNull"));
-
-		result.add(
-			factory.makeItem("getLastModified"));
-
-		result.add(
-			factory.makeItem("getLength"));
-
-		result.add(
-			factory.makeItem("getBody"));
-
-		result.add(
-			factory.makeItem("getBody", OutputStream.class));
-
-		result.add(
-			factory.makeItem("getBody", File.class));
-
-		if(!isfinal)
-		{
-			result.add(
-				factory.makeItem("set", Value.class));
-
-			result.add(
-				factory.makeItem("set", byte[].class, String.class));
-
-			result.add(
-				factory.makeItem("set", InputStream.class, String.class));
-
-			result.add(
-				factory.makeItem("set", File.class, String.class));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(Media.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -335,10 +296,18 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
-	@Wrapped(comment = "Returns whether media {0} is null.")
+	@Wrapped(pos=10, comment = "Returns whether media {0} is null.", suppressor=WrapperSuppressorMandatory.class)
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
+	}
+
+	private final class WrapperSuppressorMandatory implements WrapperSuppressor
+	{
+		@Override public boolean isSuppressed()
+		{
+			return Media.this.isMandatory();
+		}
 	}
 
 	/**
@@ -356,7 +325,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrapped(comment = "Returns the last modification date of media {0}.")
+	@Wrapped(pos=20, comment = "Returns the last modification date of media {0}.")
 	@Override
 	public long getLastModified(final Item item)
 	{
@@ -368,7 +337,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrapped(comment = "Returns the body length of the media {0}.")
+	@Wrapped(pos=30, comment = "Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		// do check before, because this check is supported by the item cache
@@ -387,7 +356,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
-	@Wrapped(comment = "Sets the content of media {0}.",
+	@Wrapped(pos=110, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -404,7 +373,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrapped(comment = "Returns the body of the media {0}.")
+	@Wrapped(pos=40, comment = "Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return this.body.getArray(item);
@@ -418,7 +387,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrapped(comment = "Sets the content of media {0}.")
+	@Wrapped(pos=120, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class)
 	public void set(
 			final Item item,
 			@WrappedParam("body") final byte[] body,
@@ -445,7 +414,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(comment = {
+	@Wrapped(pos=50, comment = {
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."},
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
@@ -467,7 +436,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(comment = "Sets the content of media {0}.",
+	@Wrapped(pos=130, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -496,7 +465,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(comment = {
+	@Wrapped(pos=60, comment = {
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."},
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
@@ -517,7 +486,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrapped(comment = "Sets the content of media {0}.",
+	@Wrapped(pos=140, comment = "Sets the content of media {0}.", suppressor=WrapperSuppressorFinal.class,
 		thrown={@Wrapped.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
@@ -529,6 +498,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			throw new MandatoryViolationException(this, this, item);
 
 		set(item, DataField.toValue(body), contentType);
+	}
+
+	private final class WrapperSuppressorFinal implements WrapperSuppressor
+	{
+		@Override public boolean isSuppressed()
+		{
+			return Media.this.isFinal();
+		}
 	}
 
 	/**
