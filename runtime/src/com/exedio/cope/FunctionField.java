@@ -194,7 +194,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Collections.unmodifiableList(result);
 	}
 
-	@Wrapped(comment = "Returns the value of {0}.")
+	@Wrapped(pos=10, comment = "Returns the value of {0}.")
 	@Override
 	public final E get(final Item item)
 	{

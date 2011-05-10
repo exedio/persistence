@@ -70,9 +70,6 @@ public final class WrapperByReflection
 			if(annotation==null)
 				continue;
 
-			if(annotation.pos()==-1)
-				throw new IllegalArgumentException("must define @Wrapped(pos=n)" + ": " + toString(method));
-
 			final Method collision = methods.put(annotation, method);
 			if(collision!=null)
 				throw new IllegalArgumentException(
