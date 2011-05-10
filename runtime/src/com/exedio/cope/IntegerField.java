@@ -23,7 +23,6 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
 
 /**
  * Represents a field within a {@link Type type},
@@ -251,14 +250,6 @@ public final class IntegerField extends NumberField<Integer>
 	public int getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).intValue();
-	}
-
-	private static final class OptionalSuppressor implements WrapperSuppressor<IntegerField>
-	{
-		@Override public boolean isSuppressed(final IntegerField feature)
-		{
-			return !feature.isMandatory();
-		}
 	}
 
 	public void set(final Item item, final int value)

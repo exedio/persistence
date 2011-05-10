@@ -22,7 +22,6 @@ import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class LongField extends NumberField<Long>
 {
@@ -123,14 +122,6 @@ public final class LongField extends NumberField<Long>
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
-	}
-
-	private static final class OptionalSuppressor implements WrapperSuppressor<LongField>
-	{
-		@Override public boolean isSuppressed(final LongField feature)
-		{
-			return !feature.isMandatory();
-		}
 	}
 
 	public final void set(final Item item, final long value)

@@ -22,7 +22,6 @@ import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -142,14 +141,6 @@ public final class BooleanField extends FunctionField<Boolean>
 	public final boolean getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).booleanValue();
-	}
-
-	private static final class OptionalSuppressor implements WrapperSuppressor<BooleanField>
-	{
-		@Override public boolean isSuppressed(final BooleanField feature)
-		{
-			return !feature.isMandatory();
-		}
 	}
 
 	public final void set(final Item item, final boolean value)

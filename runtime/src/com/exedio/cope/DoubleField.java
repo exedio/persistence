@@ -23,7 +23,6 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -200,14 +199,6 @@ public final class DoubleField extends NumberField<Double>
 	public final double getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).doubleValue();
-	}
-
-	private static final class OptionalSuppressor implements WrapperSuppressor<DoubleField>
-	{
-		@Override public boolean isSuppressed(final DoubleField feature)
-		{
-			return !feature.isMandatory();
-		}
 	}
 
 	public final void set(final Item item, final double value)

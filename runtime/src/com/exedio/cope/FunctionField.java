@@ -221,6 +221,14 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return result;
 	}
 
+	static final class OptionalSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		@Override public boolean isSuppressed(final FunctionField feature)
+		{
+			return !feature.isMandatory();
+		}
+	}
+
 	@Override
 	public final void set(final Item item, final E value)
 	{
