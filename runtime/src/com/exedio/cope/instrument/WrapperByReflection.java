@@ -172,9 +172,8 @@ public final class WrapperByReflection
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
 			if(suppressorClass!=WrapperSuppressorDefault.class)
 			{
-				final WrapperSuppressor suppressor = instantiate(suppressorClass);
-				@SuppressWarnings("unchecked")
-				final boolean suppressed = suppressor.isSuppressed(feature);
+				final WrapperSuppressor suppressor = instantiate(suppressorClass, feature);
+				final boolean suppressed = suppressor.isSuppressed();
 				if(suppressed)
 					return null;
 			}
@@ -312,6 +311,41 @@ public final class WrapperByReflection
 		try
 		{
 			result = constructor.newInstance();
+		}
+		catch(final InstantiationException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InvocationTargetException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		return result;
+	}
+
+	private <E> E instantiate(final Class<E> clazz, final Feature feature)
+	{
+		final Constructor<E> constructor;
+		try
+		{
+			constructor = clazz.getDeclaredConstructor(this.clazz);
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		constructor.setAccessible(true);
+
+		final E result;
+		try
+		{
+			result = constructor.newInstance(feature);
 		}
 		catch(final InstantiationException e)
 		{

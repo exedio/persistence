@@ -18,9 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
-
-public interface WrapperSuppressor<F extends Feature>
+public interface WrapperSuppressor
 {
-	boolean isSuppressed(F feature);
+	boolean isSuppressed();
 }
