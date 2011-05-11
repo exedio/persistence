@@ -319,7 +319,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	public final <P extends Item> P searchUnique(final Class<P> typeClass, final E value)
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
