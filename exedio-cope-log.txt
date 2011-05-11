@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* do not support Wrapper#deprecate and related method anymore
 * instrumentor supports verify mode:
 		<instrument verify="true" ...
 	for Continuous Integration systems.

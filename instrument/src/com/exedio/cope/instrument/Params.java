@@ -26,6 +26,5 @@ final class Params
 	boolean finalArgs = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
-	boolean createDeprecated = false;
 	boolean verbose = true;
 }

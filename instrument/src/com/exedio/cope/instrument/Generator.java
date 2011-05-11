@@ -105,7 +105,6 @@ final class Generator
 	private final String finalArgPrefix;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
-	private final boolean skipDeprecated;
 
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
@@ -126,7 +125,6 @@ final class Generator
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
-		this.skipDeprecated = !params.createDeprecated;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -368,14 +366,6 @@ final class Generator
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
-			// may happen if method is suppressed by WrapperSuppressor
-			if(wrapper==null)
-				continue;
-
-			final boolean deprecated = wrapper.isDeprecated();
-			if(deprecated && skipDeprecated)
-				continue;
-
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
@@ -445,12 +435,6 @@ final class Generator
 						write(lineSeparator);
 					}
 				}
-				if(deprecated)
-				{
-					write("\t * @deprecated ");
-					write(format(wrapper.getDeprecationComment(), arguments));
-					write(lineSeparator);
-				}
 				writeCommentFooter(
 					modifierTag!=null
 					?  "It can be customized with the tag " +
@@ -464,13 +448,6 @@ final class Generator
 						(useIs ? '|' + Option.TEXT_BOOLEAN_AS_IS : "") + "</tt> " +
 						"in the comment of the field."
 					: null);
-			}
-
-			if(deprecated)
-			{
-				write('\t');
-				write("@Deprecated");
-				write(lineSeparator);
 			}
 
 			write('\t');
@@ -785,7 +762,7 @@ final class Generator
 			throw new RuntimeException(t.toString());
 	}
 
-	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
+	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
 		final Option option = new Option(
@@ -800,13 +777,6 @@ final class Generator
 		write("\t * ");
 		write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		write(lineSeparator);
-		if(deprecated)
-		{
-			write("\t * @deprecated use for");
-			write(toCamelCase(constraint.name));
-			write(" instead.");
-			write(lineSeparator);
-		}
 		for(final CopeAttribute attribute : attributes)
 		{
 			write("\t * @param ");
@@ -821,17 +791,10 @@ final class Generator
 
 		writeCommentFooter();
 
-		if(deprecated)
-		{
-			write('\t');
-			write("@Deprecated");
-			write(lineSeparator);
-		}
-
 		write('\t');
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
 		write(className);
-		write(deprecated ? " findBy" : " for");
+		write(" for");
 		write(toCamelCase(constraint.name));
 
 		write('(');
@@ -948,11 +911,7 @@ final class Generator
 			{
 				writeFeature(feature);
 				if(feature instanceof CopeUniqueConstraint)
-				{
-					writeUniqueFinder((CopeUniqueConstraint)feature, false);
-					if(!skipDeprecated)
-						writeUniqueFinder((CopeUniqueConstraint)feature, true);
-				}
+					writeUniqueFinder((CopeUniqueConstraint)feature);
 			}
 
 			writeSerialVersionUID();

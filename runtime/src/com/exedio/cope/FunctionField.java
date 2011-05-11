@@ -165,15 +165,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 				setStatic().
 				addParameter(initialType, "{1}", "shall be equal to field {0}.").
 				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
-
-			result.add(
-				new Wrapper("searchUnique").
-				addComment("Finds a {2} by it''s {0}.").
-				setReturn(Wrapper.ClassVariable.class).
-				setMethodWrapperPattern("findBy{0}").
-				setStatic().
-				deprecate("use for{0} instead.").
-				addParameter(initialType));
 		}
 
 		return Collections.unmodifiableList(result);

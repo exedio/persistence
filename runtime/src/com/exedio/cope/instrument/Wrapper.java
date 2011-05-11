@@ -313,25 +313,32 @@ public final class Wrapper
 	}
 
 
-	private String deprecationComment = null;
-
+	/**
+	 * @deprecated not supported anymore, does nothing
+	 */
+	@Deprecated
+	@SuppressWarnings("unused")
 	public Wrapper deprecate(final String comment)
 	{
-		assertComment(comment);
-
-		deprecationComment = comment;
-
 		return this;
 	}
 
+	/**
+	 * @deprecated not supported anymore, always returns false
+	 */
+	@Deprecated
 	public boolean isDeprecated()
 	{
-		return deprecationComment!=null;
+		return false;
 	}
 
+	/**
+	 * @deprecated not supported anymore, always returns null
+	 */
+	@Deprecated
 	public String getDeprecationComment()
 	{
-		return deprecationComment;
+		return null;
 	}
 
 

@@ -74,11 +74,6 @@ public final class AntTask extends Task
 		params.serialVersionUID = value;
 	}
 
-	public void setCreateDeprecated(final boolean value)
-	{
-		params.createDeprecated = value;
-	}
-
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;
