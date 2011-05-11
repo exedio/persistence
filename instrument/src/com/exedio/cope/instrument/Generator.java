@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -729,6 +730,25 @@ final class Generator
 				featureClass);
 	}
 
+	private static final String toString(final WildcardType t, final Context ctx)
+	{
+		final java.lang.reflect.Type[] upper = t.getUpperBounds();
+		if(upper.length==1)
+		{
+			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
+			return "? extends " + toString(upper[0], ctx);
+		}
+
+		final java.lang.reflect.Type[] lower = t.getLowerBounds();
+		if(lower.length==1)
+		{
+			assert upper.length==0 : Arrays.asList(upper).toString();
+			return "? super " + toString(lower[0], ctx);
+		}
+
+		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
+	}
+
 	private static final String toString(final Wrapper.ExtendsType t, final Context ctx)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
@@ -757,6 +777,8 @@ final class Generator
 			return toString((ParameterizedType)t, ctx);
 		else if(t instanceof TypeVariable)
 			return toString((TypeVariable)t, ctx);
+		else if(t instanceof WildcardType)
+			return toString((WildcardType)t, ctx);
 		else if(t instanceof Wrapper.ExtendsType)
 			return toString((Wrapper.ExtendsType)t, ctx);
 		else

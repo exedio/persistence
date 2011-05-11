@@ -18,9 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +35,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.instrument.WrapperThrown;
 
 public final class ListField<E> extends AbstractListField<E>
@@ -149,23 +146,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		final WrapperByReflection r = new WrapperByReflection(ListField.class, this);
-		r.makeAll(result);
-
-		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
-		exceptions.add(ClassCastException.class);
-
-		result.add(
-			result.size()-1,
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(ListField.class, this, super.getWrappers());
 	}
 
 	/**
@@ -230,6 +211,10 @@ public final class ListField<E> extends AbstractListField<E>
 				this.element.map(value));
 	}
 
+	@Wrapped(
+			pos=50,
+			comment="Sets a new value for {0}.",
+			thrownx=ElementThrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
