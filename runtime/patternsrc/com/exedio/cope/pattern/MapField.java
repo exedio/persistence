@@ -156,7 +156,9 @@ public final class MapField<K,V> extends Pattern
 	@Wrapped(
 			pos=10,
 			comment="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
-	public V get(final Item item, @WrappedParam(KEY) final K key)
+	public V get(
+			final Item item,
+			@WrappedParam(KEY) final K key)
 	{
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
@@ -170,7 +172,10 @@ public final class MapField<K,V> extends Pattern
 	@Wrapped(
 			pos=20,
 			comment="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
-	public void set(final Item item, @WrappedParam(KEY) final K key, final V value)
+	public void set(
+			final Item item,
+			@WrappedParam(KEY) final K key,
+			final V value)
 	{
 		final Mount mount = mount();
 
