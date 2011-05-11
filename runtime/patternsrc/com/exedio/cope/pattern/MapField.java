@@ -20,8 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Cast.verboseCast;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +34,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class MapField<K,V> extends Pattern
@@ -111,6 +111,10 @@ public final class MapField<K,V> extends Pattern
 		return mount;
 	}
 
+	@Wrapped(
+			pos=200,
+			name="{1}Parent",
+			comment="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -141,44 +145,18 @@ public final class MapField<K,V> extends Pattern
 		return mount().relationType;
 	}
 
+	private static final String KEY = "k";
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final char KEY = 'k';
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
-			setReturn(Wrapper.TypeVariable1.class).
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
-			addParameter(Wrapper.TypeVariable1.class));
-
-		result.add(
-			new Wrapper("getMap").
-			setReturn(Wrapper.generic(Map.class, Wrapper.TypeVariable0.class, Wrapper.TypeVariable1.class)));
-
-		result.add(
-			new Wrapper("setMap").
-			addParameter(Wrapper.genericExtends(Map.class, Wrapper.TypeVariable0.class, Wrapper.TypeVariable1.class)));
-
-		result.add(
-			new Wrapper("getParent").
-			addComment("Returns the parent field of the type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}Parent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(MapField.class, this, super.getWrappers());
 	}
 
-	public V get(final Item item, final K key)
+	@Wrapped(
+			pos=10,
+			comment="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	public V get(final Item item, @WrappedParam(KEY) final K key)
 	{
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
@@ -189,7 +167,10 @@ public final class MapField<K,V> extends Pattern
 			return null;
 	}
 
-	public void set(final Item item, final K key, final V value)
+	@Wrapped(
+			pos=20,
+			comment="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
+	public void set(final Item item, @WrappedParam(KEY) final K key, final V value)
 	{
 		final Mount mount = mount();
 
@@ -214,6 +195,7 @@ public final class MapField<K,V> extends Pattern
 		}
 	}
 
+	@Wrapped(pos=110)
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
@@ -223,6 +205,7 @@ public final class MapField<K,V> extends Pattern
 		return result;
 	}
 
+	@Wrapped(pos=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
 		final Mount mount = mount();
