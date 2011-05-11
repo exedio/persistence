@@ -36,18 +36,18 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Compare;
 
-public final class WrapperByReflection
+final class WrapperByReflection
 {
 	private final Class<? extends Feature> clazz;
 	private final Feature feature;
 
-	public WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
+	WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;
 	}
 
-	public void makeAll(final List<Wrapper> list)
+	void makeAll(final List<Wrapper> list)
 	{
 		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(WRAPPED_COMPARATOR);
 

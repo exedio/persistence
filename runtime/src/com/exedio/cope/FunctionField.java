@@ -28,8 +28,8 @@ import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.search.ExtremumAggregate;
@@ -150,24 +150,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final WrapperByReflection factory = new WrapperByReflection(FunctionField.class, this);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		factory.makeAll(result);
-
-		final Class initialType = getInitialType();
-		if(unique)
-		{
-			result.add(
-				new Wrapper("searchUnique").
-				addComment("Finds a {2} by it''s {0}.").
-				setMethodWrapperPattern("for{0}").
-				setStatic().
-				addParameter(initialType, "{1}", "shall be equal to field {0}.").
-				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(FunctionField.class, this, super.getWrappers());
 	}
 
 	@Wrapped(pos=10, comment = "Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
@@ -203,6 +186,16 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		public boolean isSuppressed(final FunctionField feature)
 		{
 			return !feature.isMandatory();
+		}
+	}
+
+	static final class NonUniqueOptionalSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		public boolean isSuppressed(final FunctionField feature)
+		{
+			return
+				(feature.getImplicitUniqueConstraint()==null) ||
+				(!feature.isMandatory());
 		}
 	}
 
@@ -352,12 +345,28 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	public final <P extends Item> P searchUnique(final Class<P> typeClass, final E value)
+	@Wrapped(
+			pos=100,
+			comment="Finds a {2} by it''s {0}.",
+			name="for{0}",
+			returns="null if there is no matching item.",
+			suppressor=NonUniquePrimitiveSuppressor.class)
+	public final <P extends Item> P searchUnique(final Class<P> typeClass, @WrappedParam(value="{1}", comment="shall be equal to field {0}.") final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().as(typeClass).searchSingleton(equal(value));
+	}
+
+	private static final class NonUniquePrimitiveSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		public boolean isSuppressed(final FunctionField feature)
+		{
+			return
+				(feature.getImplicitUniqueConstraint()==null) ||
+				(feature.getInitialType().isPrimitive());
+		}
 	}
 
 	static List<Wrapper> adjustOrderForPrimitiveOperations(final List<Wrapper> in)

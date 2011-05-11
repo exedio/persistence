@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class LongField extends NumberField<Long>
@@ -131,5 +132,23 @@ public final class LongField extends NumberField<Long>
 			FinalViolationException
 	{
 		set(item, Long.valueOf(value));
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrapped(
+			pos=100,
+			comment="Finds a {2} by it''s {0}.",
+			name="for{0}",
+			returns="null if there is no matching item.",
+			suppressor=NonUniqueOptionalSuppressor.class)
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@WrappedParam(value="{1}", comment="shall be equal to field {0}.") final long value)
+	{
+		return super.searchUnique(typeClass, Long.valueOf(value));
 	}
 }

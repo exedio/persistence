@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DoubleField extends NumberField<Double>
@@ -215,6 +216,24 @@ public final class DoubleField extends NumberField<Double>
 		{
 			throw new RuntimeException(toString(), e);
 		}
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrapped(
+			pos=100,
+			comment="Finds a {2} by it''s {0}.",
+			name="for{0}",
+			returns="null if there is no matching item.",
+			suppressor=NonUniqueOptionalSuppressor.class)
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@WrappedParam(value="{1}", comment="shall be equal to field {0}.") final double value)
+	{
+		return super.searchUnique(typeClass, Double.valueOf(value));
 	}
 
 	@Override
