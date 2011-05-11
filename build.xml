@@ -359,7 +359,6 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				createDeprecated="true"
 				verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
@@ -764,7 +763,6 @@
 				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				createDeprecated="true"
 				verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
