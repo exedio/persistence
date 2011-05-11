@@ -181,7 +181,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return result;
 	}
 
-	static final class OptionalSuppressor implements WrapperSuppressor<FunctionField>
+	static final class PrimitiveGetSuppressor implements WrapperSuppressor<FunctionField>
 	{
 		public boolean isSuppressed(final FunctionField feature)
 		{
@@ -189,7 +189,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class NonUniqueOptionalSuppressor implements WrapperSuppressor<FunctionField>
+	static final class PrimitiveUniqueSuppressor implements WrapperSuppressor<FunctionField>
 	{
 		public boolean isSuppressed(final FunctionField feature)
 		{
@@ -218,7 +218,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class FinalOptionalSuppressor implements WrapperSuppressor<FunctionField>
+	static final class PrimitiveSetSuppressor implements WrapperSuppressor<FunctionField>
 	{
 		public boolean isSuppressed(final FunctionField feature)
 		{

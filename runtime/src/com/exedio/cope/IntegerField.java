@@ -247,13 +247,13 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=OptionalSuppressor.class)
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
 	public int getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).intValue();
 	}
 
-	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=FinalOptionalSuppressor.class, thrownx=ElementThrown.class)
+	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
 	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
@@ -273,7 +273,7 @@ public final class IntegerField extends NumberField<Integer>
 			comment="Finds a {2} by it''s {0}.",
 			name="for{0}",
 			returns="null if there is no matching item.",
-			suppressor=NonUniqueOptionalSuppressor.class)
+			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@WrappedParam(comment="shall be equal to field {0}.") final int value)

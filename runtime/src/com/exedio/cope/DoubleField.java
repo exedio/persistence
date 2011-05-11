@@ -196,13 +196,13 @@ public final class DoubleField extends NumberField<Double>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=OptionalSuppressor.class)
+	@Wrapped(pos=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
 	public final double getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).doubleValue();
 	}
 
-	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=FinalOptionalSuppressor.class, thrownx=ElementThrown.class)
+	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
@@ -228,7 +228,7 @@ public final class DoubleField extends NumberField<Double>
 			comment="Finds a {2} by it''s {0}.",
 			name="for{0}",
 			returns="null if there is no matching item.",
-			suppressor=NonUniqueOptionalSuppressor.class)
+			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@WrappedParam(comment="shall be equal to field {0}.") final double value)
