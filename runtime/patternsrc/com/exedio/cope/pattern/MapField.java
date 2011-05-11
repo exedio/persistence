@@ -178,7 +178,9 @@ public final class MapField<K,V> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
-	public V get(final Item item, final K key)
+	public V get(
+			final Item item,
+			final K key)
 	{
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
@@ -189,7 +191,10 @@ public final class MapField<K,V> extends Pattern
 			return null;
 	}
 
-	public void set(final Item item, final K key, final V value)
+	public void set(
+			final Item item,
+			final K key,
+			final V value)
 	{
 		final Mount mount = mount();
 
