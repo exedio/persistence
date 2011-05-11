@@ -201,7 +201,6 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "get", DOUBLE, FINAL);
 		assertMethod(STANDARD, "set", new Class[]{DOUBLE}, FINAL, new Class[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
 		assertMethod(STANDARD, "forDefaultFeature", new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
-		assertMethod(STANDARD, "findBy"           , new Class[]{DOUBLE}, STANDARD, STATIC|FINAL);
 
 		assertNoMethod(STANDARD, "getDefaultFeature");
 		assertNoMethod(STANDARD, "setDefaultFeature"   , new Class[]{DOUBLE});
