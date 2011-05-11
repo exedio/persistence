@@ -196,10 +196,7 @@ public final class WrapperByReflection
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
-				WrappedParam c = null;
-				for(final Annotation a : annotations[i])
-					if(a.annotationType().equals(WrappedParam.class))
-						c = (WrappedParam)a;
+				final WrappedParam c = get(WrappedParam.class, annotations[i]);
 				if(c==null)
 					result.addParameter(genericParameterType);
 				else
@@ -269,5 +266,17 @@ public final class WrapperByReflection
 		}
 
 		return result;
+	}
+
+	private static <A extends Annotation> A get(final Class<A> annotationClass, final Annotation[] annotations)
+	{
+		for(final Annotation a : annotations)
+			if(a.annotationType().equals(annotationClass))
+			{
+				@SuppressWarnings("unchecked")
+				final A result = (A)a;
+				return result;
+			}
+		return null;
 	}
 }
