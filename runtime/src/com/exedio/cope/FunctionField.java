@@ -376,7 +376,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
 		for(final Wrapper wrapper : result)
 		{
-			if(wrapper!=null && "getMandatory".equals(wrapper.getName()))
+			if(wrapper!=null && wrapper.matchesMethod("getMandatory", Item.class))
 			{
 				result.remove(wrapper);
 				result.add(0, wrapper);
