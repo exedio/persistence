@@ -353,7 +353,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			suppressor=NonUniquePrimitiveSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(value="{1}", comment="shall be equal to field {0}.") final E value)
+			@WrappedParam(comment="shall be equal to field {0}.") final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
