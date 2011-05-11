@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -342,6 +343,14 @@ public final class Wrapper
 			throw new IllegalArgumentException("comment must not start with space, but was '" + comment + '\'');
 		if(comment.startsWith("@"))
 			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
+	}
+
+
+	public boolean matchesMethod(final String name, final Class<?>... parameterTypes)
+	{
+		return
+			this.name.equals(name) &&
+			Arrays.equals(this.method.getParameterTypes(), parameterTypes);
 	}
 
 

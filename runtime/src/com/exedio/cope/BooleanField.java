@@ -143,6 +143,7 @@ public final class BooleanField extends FunctionField<Boolean>
 		return getMandatoryObject(item).booleanValue();
 	}
 
+	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=FinalOptionalSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,

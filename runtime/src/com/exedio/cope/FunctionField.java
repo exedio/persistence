@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.Wrapped;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperByReflection;
 import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -155,21 +156,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		factory.makeAll(result);
 
 		final Class initialType = getInitialType();
-		final boolean initialTypePrimitive = initialType.isPrimitive();
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			if(initialTypePrimitive)
-				exceptions.remove(MandatoryViolationException.class);
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(exceptions).
-				addParameter(initialType));
-		}
-
 		if(unique)
 		{
 			result.add(
@@ -229,10 +215,42 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
+	@Wrapped(
+			pos=20,
+			comment="Sets a new value for {0}.",
+			suppressor=FinalPrimitiveSuppressor.class,
+			thrownx=ElementThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
+	}
+
+	private static final class FinalPrimitiveSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		public boolean isSuppressed(final FunctionField feature)
+		{
+			return feature.isFinal() || feature.getInitialType().isPrimitive();
+		}
+	}
+
+	static final class FinalOptionalSuppressor implements WrapperSuppressor<FunctionField>
+	{
+		public boolean isSuppressed(final FunctionField feature)
+		{
+			return feature.isFinal() || !feature.isMandatory();
+		}
+	}
+
+	static final class ElementThrown implements WrapperThrown<FunctionField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			if(feature.getInitialType().isPrimitive())
+				result.remove(MandatoryViolationException.class);
+			return result;
+		}
 	}
 
 	/**
@@ -353,6 +371,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	static List<Wrapper> moveGetMandatoryFirst(final List<Wrapper> in)
 	{
+		// TODO
+
 		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
 		for(final Wrapper wrapper : result)
 		{
@@ -360,6 +380,19 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			{
 				result.remove(wrapper);
 				result.add(0, wrapper);
+				break;
+			}
+		}
+		for(final Wrapper wrapper : result)
+		{
+			if(wrapper!=null && (
+					wrapper.matchesMethod("set", Item.class, int    .class) ||
+					wrapper.matchesMethod("set", Item.class, long   .class) ||
+					wrapper.matchesMethod("set", Item.class, double .class) ||
+					wrapper.matchesMethod("set", Item.class, boolean.class) ))
+			{
+				result.remove(wrapper);
+				result.add(1, wrapper);
 				break;
 			}
 		}

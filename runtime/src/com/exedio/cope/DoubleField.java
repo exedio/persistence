@@ -201,6 +201,7 @@ public final class DoubleField extends NumberField<Double>
 		return getMandatoryObject(item).doubleValue();
 	}
 
+	@Wrapped(pos=20, comment="Sets a new value for {0}.", suppressor=FinalOptionalSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
