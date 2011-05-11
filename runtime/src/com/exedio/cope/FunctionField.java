@@ -369,7 +369,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return getType().as(typeClass).searchSingleton(equal(value));
 	}
 
-	static List<Wrapper> moveGetMandatoryFirst(final List<Wrapper> in)
+	static List<Wrapper> adjustOrderForPrimitiveOperations(final List<Wrapper> in)
 	{
 		// TODO
 

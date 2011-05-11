@@ -94,7 +94,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return moveGetMandatoryFirst(Wrapper.makeByReflection(LongField.class, this, super.getWrappers()));
+		return adjustOrderForPrimitiveOperations(Wrapper.makeByReflection(LongField.class, this, super.getWrappers()));
 	}
 
 	@Override

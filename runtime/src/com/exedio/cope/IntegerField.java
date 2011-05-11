@@ -207,7 +207,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return moveGetMandatoryFirst(Wrapper.makeByReflection(IntegerField.class, this, super.getWrappers()));
+		return adjustOrderForPrimitiveOperations(Wrapper.makeByReflection(IntegerField.class, this, super.getWrappers()));
 	}
 
 	@Override
