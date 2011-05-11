@@ -376,7 +376,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
 		for(final Wrapper wrapper : result)
 		{
-			if(wrapper!=null && wrapper.matchesMethod("getMandatory", Item.class))
+			if(wrapper.matchesMethod("getMandatory", Item.class))
 			{
 				result.remove(wrapper);
 				result.add(0, wrapper);
@@ -385,11 +385,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 		for(final Wrapper wrapper : result)
 		{
-			if(wrapper!=null && (
+			if(
 					wrapper.matchesMethod("set", Item.class, int    .class) ||
 					wrapper.matchesMethod("set", Item.class, long   .class) ||
 					wrapper.matchesMethod("set", Item.class, double .class) ||
-					wrapper.matchesMethod("set", Item.class, boolean.class) ))
+					wrapper.matchesMethod("set", Item.class, boolean.class) )
 			{
 				result.remove(wrapper);
 				result.add(1, wrapper);
