@@ -206,10 +206,12 @@ final class WrapperByReflection
 				else
 				{
 					final String comment = paramAnn.comment();
+					final String paramAnnValue = paramAnn.value();
+					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
 					if(comment.isEmpty())
-						result.addParameter(genericParameterType, paramAnn.value());
+						result.addParameter(genericParameterType, paramAnnValueFixed);
 					else
-						result.addParameter(genericParameterType, paramAnn.value(), comment);
+						result.addParameter(genericParameterType, paramAnnValueFixed, comment);
 				}
 			}
 		}
