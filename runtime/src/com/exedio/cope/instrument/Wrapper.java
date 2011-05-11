@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,10 +32,12 @@ import com.exedio.cope.Feature;
 public final class Wrapper
 {
 	private final String name;
+	private final Method method;
 
 	public Wrapper(final String name)
 	{
 		this.name = name;
+		this.method = null;
 
 		if(name==null)
 			throw new NullPointerException("name");
@@ -43,6 +46,17 @@ public final class Wrapper
 	public String getName()
 	{
 		return name;
+	}
+
+	Wrapper(final Method method)
+	{
+		this.name = method.getName();
+		this.method = method;
+	}
+
+	Method getMethod()
+	{
+		return method;
 	}
 
 

@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 
 import com.exedio.cope.Feature;
@@ -37,6 +38,11 @@ final class Context
 	boolean matchesStaticToken(final TypeVariable tv)
 	{
 		return wrapper.matchesStaticToken(tv);
+	}
+
+	Method getMethod()
+	{
+		return wrapper.getMethod();
 	}
 
 	String getClassToken()

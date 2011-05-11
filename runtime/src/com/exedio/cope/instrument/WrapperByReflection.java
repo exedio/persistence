@@ -33,7 +33,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Compare;
 
@@ -41,20 +40,11 @@ public final class WrapperByReflection
 {
 	private final Class<? extends Feature> clazz;
 	private final Feature feature;
-	private final FunctionField instance; // TODO remove
 
 	public WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;
-		this.instance = null;
-	}
-
-	public WrapperByReflection(final Class<? extends FunctionField> clazz, final FunctionField instance)
-	{
-		this.clazz = clazz;
-		this.feature = instance;
-		this.instance = instance;
 	}
 
 	public void makeAll(final List<Wrapper> list)
@@ -131,7 +121,7 @@ public final class WrapperByReflection
 			}
 		}
 
-		final Wrapper result = new Wrapper(method.getName());
+		final Wrapper result = new Wrapper(method);
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
 		final Type[] genericParameterTypes = method.getGenericParameterTypes();
@@ -180,9 +170,9 @@ public final class WrapperByReflection
 			if(returnType!=void.class)
 			{
 				if(!comment.isEmpty())
-					result.setReturn(replace(returnType, method), comment);
+					result.setReturn(returnType, comment);
 				else
-					result.setReturn(replace(returnType, method));
+					result.setReturn(returnType);
 			}
 			else
 			{
@@ -279,32 +269,5 @@ public final class WrapperByReflection
 		}
 
 		return result;
-	}
-
-	private Type replace(final Type type, final Method method)
-	{
-		if(type instanceof TypeVariable)
-		{
-			final TypeVariable arg0Var = (TypeVariable)type;
-			if("E".equals(arg0Var.getName())) // TODO make more explicit
-			{
-				final Class methodClass = method.getDeclaringClass();
-				if(FunctionField.class.isAssignableFrom(methodClass)) // TODO do not rely on FunctionField
-				{
-					final Class valueClass = instance.getValueClass();
-
-					// TODO seems to be weird
-					if("com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass".equals(valueClass.getName()))
-						return Wrapper.TypeVariable0.class;
-
-					return valueClass;
-				}
-			}
-			return type;
-		}
-		else
-		{
-			return type;
-		}
 	}
 }

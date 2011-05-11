@@ -25,11 +25,13 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -654,12 +656,70 @@ final class Generator
 			return ctx.getClassToken();
 
 		final Class<? extends Feature> featureClass = ctx.getFeatureClass();
-		int number = 0;
-		for(final TypeVariable<?> var : featureClass.getTypeParameters())
+		final Method method = ctx.getMethod();
+		final Class methodClass = method.getDeclaringClass();
+		int typeParameterPosition = 0;
+		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
-			if(var==t)
-				return ctx.getGenericFieldParameter(number);
-			number++;
+			if(methodClassVar==t)
+			{
+				//System.out.println("---"+methodClassVar);
+				final LinkedList<Class> classes = new LinkedList<Class>();
+				for(Class c = featureClass; c!=methodClass; c = c.getSuperclass())
+					classes.add(0, c);
+				//System.out.println("--- "+classes);
+				Class superClass = methodClass;
+				int typeParameterPosition2 = typeParameterPosition;
+				for(final Class clazz : classes)
+				{
+					assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
+
+					final java.lang.reflect.Type superType = clazz.getGenericSuperclass();
+					//System.out.println("---t "+superType);
+
+					final ParameterizedType superTypeP = (ParameterizedType)superType;
+					assert superTypeP.getRawType()==superClass : superTypeP.getRawType().toString()+'/'+superClass;
+					assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
+
+					final java.lang.reflect.Type[] superTypeArguments = superTypeP.getActualTypeArguments();
+					assert superTypeArguments.length==methodClass.getTypeParameters().length;
+
+					final java.lang.reflect.Type superTypeArgument = superTypeArguments[typeParameterPosition2];
+					if(superTypeArgument instanceof Class)
+					{
+						final Class superTypeArgumentClass = (Class)superTypeArgument;
+						//System.out.println("---cls " + superClass.getSimpleName() + "<" + superTypeArgumentClass.getSimpleName() + "> = " + clazz.getSimpleName());
+						return superTypeArgumentClass.getName();
+					}
+					else if(superTypeArgument instanceof TypeVariable)
+					{
+						final TypeVariable<?> superTypeArgumentVar = (TypeVariable)superTypeArgument;
+						//System.out.println("---ytv "+superTypeArgumentVar.getName());
+						int pos = 0;
+						boolean done = false;
+						for(final TypeVariable<?> tv : clazz.getTypeParameters())
+						{
+							if(superTypeArgumentVar==tv)
+							{
+								//System.out.println("---itr " + clazz.getSimpleName() + "<" + pos + "> = " + superClass.getSimpleName() + "<" + typeParameterPosition2 + ">");
+								typeParameterPosition2 = pos;
+								done = true;
+								break;
+							}
+							pos++;
+						}
+						assert done : "" + clazz.getTypeParameters() + '/' + superTypeArgumentVar;
+					}
+					else
+					{
+						throw new RuntimeException(superTypeArgument.toString());
+					}
+
+					superClass = clazz;
+				}
+				return ctx.getGenericFieldParameter(typeParameterPosition2);
+			}
+			typeParameterPosition++;
 		}
 
 		throw new RuntimeException(
