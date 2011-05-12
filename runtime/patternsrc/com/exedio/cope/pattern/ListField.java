@@ -108,9 +108,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return mount;
 	}
 
-	@Wrap(
-			order=1000,
-			name="{1}Parent",
+	@Wrap(order=1000, name="{1}Parent",
 			doc="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
@@ -177,9 +175,7 @@ public final class ListField<E> extends AbstractListField<E>
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	@Wrap(
-			order=30,
-			name="getDistinctParentsOf{0}",
+	@Wrap(order=30, name="getDistinctParentsOf{0}",
 			doc="Returns the items, for which field list {0} contains the given element.")
 	public <P extends Item> List<P> getDistinctParents(
 			final Class<P> parentClass,
@@ -192,9 +188,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return q.search();
 	}
 
-	@Wrap(
-			order=40,
-			name="addTo{0}",
+	@Wrap(order=40, name="addTo{0}",
 			doc="Adds a new value for {0}.",
 			thrownx=ElementThrown.class)
 	public void add(final Item item, final E value)
@@ -211,8 +205,7 @@ public final class ListField<E> extends AbstractListField<E>
 				this.element.map(value));
 	}
 
-	@Wrap(
-			order=50,
+	@Wrap(order=50,
 			doc="Sets a new value for {0}.",
 			thrownx=ElementThrown.class)
 	@Override

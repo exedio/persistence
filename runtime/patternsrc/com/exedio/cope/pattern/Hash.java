@@ -266,8 +266,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	@Wrap(
-			order=10,
+	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
 	public final boolean check(final Item item, final String actualPlainText)
 	{
@@ -284,11 +283,9 @@ public class Hash extends Pattern implements Settable<String>
 	 * Needed to prevent Timing Attacks.
 	 * See http://en.wikipedia.org/wiki/Timing_attack
 	 */
-	@Wrap(
-			order=20,
-			doc={
-				"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
-				"Needed to prevent Timing Attacks."})
+	@Wrap(order=20,
+			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
+					"Needed to prevent Timing Attacks."})
 	public final void blind(final String actualPlainText)
 	{
 		if(actualPlainText!=null)
@@ -323,8 +320,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	@Wrap(
-			order=50,
+	@Wrap(order=50,
 			namex=SetHashName.class,
 			doc="Sets the encoded hash value for hash {0}.",
 			suppressor=FinalSuppressor.class,

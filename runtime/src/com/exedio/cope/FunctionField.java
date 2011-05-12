@@ -153,7 +153,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Wrapper.makeByReflection(FunctionField.class, this, super.getWrappers());
 	}
 
-	@Wrap(order=10, doc = "Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
+	@Wrap(order=10, doc="Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
 	@Override
 	public final E get(final Item item)
 	{
@@ -199,8 +199,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	@Wrap(
-			order=20,
+	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			suppressor=FinalPrimitiveSuppressor.class,
 			thrownx=ElementThrown.class)
@@ -345,10 +344,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	@Wrap(
-			order=100,
+	@Wrap(order=100, name="for{0}",
 			doc="Finds a {2} by it''s {0}.",
-			name="for{0}",
 			docReturn="null if there is no matching item.",
 			suppressor=NonUniquePrimitiveSuppressor.class)
 	public final <P extends Item> P searchUnique(
