@@ -52,6 +52,7 @@ final class WrapperByReflection
 		return Collections.unmodifiableList(result);
 	}
 
+
 	private final Class<? extends Feature> clazz;
 	private final Feature feature;
 
