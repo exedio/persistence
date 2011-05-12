@@ -121,7 +121,7 @@ public final class PasswordRecovery extends Pattern
 	/**
 	 * @return a valid token for password recovery
 	 */
-	@Wrapped(pos=10)
+	@Wrapped(order=10)
 	public Token issue(
 			final Item item,
 			@WrappedParam(value="expiryMillis", comment="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
@@ -143,7 +143,7 @@ public final class PasswordRecovery extends Pattern
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
-	@Wrapped(pos=20, returns="a new password, if the token was valid, otherwise null")
+	@Wrapped(order=20, returns="a new password, if the token was valid, otherwise null")
 	public String redeem(
 			final Item item,
 			@WrappedParam(value="secret", comment="a token secret for password recovery") final long secret)
@@ -169,7 +169,7 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
-	@Wrapped(pos=100, returns="the number of tokens purged")
+	@Wrapped(order=100, returns="the number of tokens purged")
 	public int purge(
 			@WrappedParam("interrupter") final Interrupter interrupter)
 	{
@@ -182,7 +182,7 @@ public final class PasswordRecovery extends Pattern
 		);
 	}
 
-	@Wrapped(pos=110)
+	@Wrapped(order=110)
 	public void purge(
 			@WrappedParam("ctx") final JobContext ctx)
 	{

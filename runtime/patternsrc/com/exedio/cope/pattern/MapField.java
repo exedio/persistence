@@ -112,7 +112,7 @@ public final class MapField<K,V> extends Pattern
 	}
 
 	@Wrapped(
-			pos=200,
+			order=200,
 			name="{1}Parent",
 			comment="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
@@ -154,7 +154,7 @@ public final class MapField<K,V> extends Pattern
 	}
 
 	@Wrapped(
-			pos=10,
+			order=10,
 			comment="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
 			final Item item,
@@ -170,7 +170,7 @@ public final class MapField<K,V> extends Pattern
 	}
 
 	@Wrapped(
-			pos=20,
+			order=20,
 			comment="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
 			final Item item,
@@ -200,7 +200,7 @@ public final class MapField<K,V> extends Pattern
 		}
 	}
 
-	@Wrapped(pos=110)
+	@Wrapped(order=110)
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
@@ -210,7 +210,7 @@ public final class MapField<K,V> extends Pattern
 		return result;
 	}
 
-	@Wrapped(pos=120)
+	@Wrapped(order=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
 		final Mount mount = mount();

@@ -58,7 +58,7 @@ public abstract class MediaFilter extends CachedMedia
 		return source.getLastModified(item);
 	}
 
-	@Wrapped(pos=10, comment = "Returns a URL the content of {0} is available under.") // TODO better text
+	@Wrapped(order=10, comment = "Returns a URL the content of {0} is available under.") // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);

@@ -109,7 +109,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrapped(
-		pos=10,
+		order=10,
 		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
@@ -119,7 +119,7 @@ public class TextUrlFilter extends MediaFilter
 		this.raw.set( item, raw );
 	}
 
-	@Wrapped(pos=20)
+	@Wrapped(order=20)
 	public final void addPaste(
 			final Item item,
 			@WrappedParam("key") final String key,
@@ -132,7 +132,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrapped(
-		pos=30,
+		order=30,
 		thrown={@Wrapped.Thrown(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
