@@ -192,7 +192,20 @@ final class WrapperByReflection
 
 				final String methodWrapperPattern = annotation.name();
 				if(!methodWrapperPattern.isEmpty())
+				{
 					result.setMethodWrapperPattern(methodWrapperPattern);
+				}
+				else
+				{
+					final Class<? extends WrapperName> nameClass = annotation.namex();
+					if(nameClass!=WrapperNameDefault.class)
+					{
+						final WrapperName name = instantiate(nameClass);
+						@SuppressWarnings("unchecked")
+						final String pattern = name.get(feature);
+						result.setMethodWrapperPattern(pattern);
+					}
+				}
 			}
 		}
 		{

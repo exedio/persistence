@@ -18,28 +18,9 @@
 
 package com.exedio.cope.instrument;
 
-import static java.lang.annotation.ElementType.METHOD;
+import com.exedio.cope.Feature;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Target(METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Wrapped
+public interface WrapperName<F extends Feature>
 {
-	int pos();
-	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
-	String[] comment() default "";
-	String returns() default "";
-	String name() default "";
-	Class<? extends WrapperName> namex() default WrapperNameDefault.class;
-	Thrown[] thrown() default {};
-	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
-
-	public @interface Thrown
-	{
-		Class<? extends Throwable> clazz();
-		String comment() default "";
-	}
+	String get(F feature);
 }
