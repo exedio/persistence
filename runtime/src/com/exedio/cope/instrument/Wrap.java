@@ -29,17 +29,20 @@ import java.lang.annotation.Target;
 public @interface Wrap
 {
 	int order();
+
 	String name() default "";
 	Class<? extends WrapperName> namex() default WrapperNameDefault.class;
-	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
-	String[] doc() default "";
-	String docReturn() default "";
-	Thrown[] thrown() default {};
-	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
 
 	public @interface Thrown
 	{
 		Class<? extends Throwable> clazz();
 		String doc() default "";
 	}
+	Thrown[] thrown() default {};
+	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
+
+	String[] doc() default "";
+	String docReturn() default "";
+
+	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
 }
