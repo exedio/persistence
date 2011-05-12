@@ -28,7 +28,7 @@ import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.instrument.WrapperThrown;
@@ -353,7 +353,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			suppressor=NonUniquePrimitiveSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(doc="shall be equal to field {0}.") final E value)
+			@WrapParam(doc="shall be equal to field {0}.") final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());

@@ -35,7 +35,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class MapField<K,V> extends Pattern
@@ -158,7 +158,7 @@ public final class MapField<K,V> extends Pattern
 			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
 			final Item item,
-			@WrappedParam(KEY) final K key)
+			@WrapParam(KEY) final K key)
 	{
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
@@ -174,7 +174,7 @@ public final class MapField<K,V> extends Pattern
 			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
 			final Item item,
-			@WrappedParam(KEY) final K key,
+			@WrapParam(KEY) final K key,
 			final V value)
 	{
 		final Mount mount = mount();

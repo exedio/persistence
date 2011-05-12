@@ -46,7 +46,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
@@ -191,8 +191,8 @@ public final class Dispatcher extends Pattern
 		docReturn="the number of successfully dispatched items")
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
-			@WrappedParam("config") final Config config,
-			@WrappedParam("interrupter") final Interrupter interrupter)
+			@WrapParam("config") final Config config,
+			@WrapParam("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -206,8 +206,8 @@ public final class Dispatcher extends Pattern
 	@Wrap(order=20, doc = "Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
-			@WrappedParam("config") final Config config,
-			@WrappedParam("ctx") final JobContext ctx)
+			@WrapParam("config") final Config config,
+			@WrapParam("ctx") final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
@@ -317,7 +317,7 @@ public final class Dispatcher extends Pattern
 	@Wrap(order=40, doc = "Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
 			final Item item,
-			@WrappedParam("pending") final boolean pending)
+			@WrapParam("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}

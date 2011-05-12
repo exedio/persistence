@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class BooleanField extends FunctionField<Boolean>
@@ -166,7 +166,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(doc="shall be equal to field {0}.") final boolean value)
+			@WrapParam(doc="shall be equal to field {0}.") final boolean value)
 	{
 		return super.searchUnique(typeClass, Boolean.valueOf(value));
 	}

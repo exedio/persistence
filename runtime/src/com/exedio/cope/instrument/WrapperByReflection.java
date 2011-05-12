@@ -228,7 +228,7 @@ final class WrapperByReflection
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
-				final WrappedParam paramAnn = get(WrappedParam.class, annotations[i]);
+				final WrapParam paramAnn = get(WrapParam.class, annotations[i]);
 				if(paramAnn==null)
 					result.addParameter(genericParameterType);
 				else

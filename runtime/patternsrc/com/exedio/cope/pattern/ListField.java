@@ -33,7 +33,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperThrown;
 
@@ -183,7 +183,7 @@ public final class ListField<E> extends AbstractListField<E>
 			doc="Returns the items, for which field list {0} contains the given element.")
 	public <P extends Item> List<P> getDistinctParents(
 			final Class<P> parentClass,
-			@WrappedParam("element") final E element)
+			@WrapParam("element") final E element)
 	{
 		final Query<P> q = new Query<P>(
 				mount().parent.as(parentClass),

@@ -34,7 +34,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrappedParam;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
@@ -124,7 +124,7 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=10)
 	public Token issue(
 			final Item item,
-			@WrappedParam(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+			@WrapParam(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
@@ -146,7 +146,7 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
 	public String redeem(
 			final Item item,
-			@WrappedParam(value="secret", doc="a token secret for password recovery") final long secret)
+			@WrapParam(value="secret", doc="a token secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
@@ -171,7 +171,7 @@ public final class PasswordRecovery extends Pattern
 
 	@Wrap(order=100, docReturn="the number of tokens purged")
 	public int purge(
-			@WrappedParam("interrupter") final Interrupter interrupter)
+			@WrapParam("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -184,7 +184,7 @@ public final class PasswordRecovery extends Pattern
 
 	@Wrap(order=110)
 	public void purge(
-			@WrappedParam("ctx") final JobContext ctx)
+			@WrapParam("ctx") final JobContext ctx)
 	{
 		Delete.delete(
 				tokenType.newQuery(this.expires.less(new Date())),
