@@ -49,7 +49,7 @@ final class WrapperByReflection
 
 	void makeAll(final List<Wrapper> list)
 	{
-		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(WRAPPED_COMPARATOR);
+		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(ORDER_COMPARATOR);
 
 		for(final Method method : clazz.getDeclaredMethods())
 		{
@@ -63,7 +63,7 @@ final class WrapperByReflection
 			final Method collision = methods.put(annotation, method);
 			if(collision!=null)
 				throw new IllegalArgumentException(
-						"duplicate @Wrapped(pos=" + annotation.order() + ") " +
+						"duplicate @Wrapped(order=" + annotation.order() + ") " +
 						"on " + toString(collision) + " and " + toString(method));
 		}
 
@@ -99,7 +99,7 @@ final class WrapperByReflection
 		return bf.toString();
 	}
 
-	private static final Comparator<Wrapped> WRAPPED_COMPARATOR = new Comparator<Wrapped>()
+	private static final Comparator<Wrapped> ORDER_COMPARATOR = new Comparator<Wrapped>()
 	{
 		@Override
 		public int compare(final Wrapped o1, final Wrapped o2)
