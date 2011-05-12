@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
@@ -119,13 +119,13 @@ public final class LongField extends NumberField<Long>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(order=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
+	@Wrap(order=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
 	}
 
-	@Wrapped(order=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
+	@Wrap(order=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,
@@ -139,7 +139,7 @@ public final class LongField extends NumberField<Long>
 	 * @return null if there is no matching item.
 	 * @see FunctionField#searchUnique(Class, Object)
 	 */
-	@Wrapped(
+	@Wrap(
 			order=100,
 			comment="Finds a {2} by it''s {0}.",
 			name="for{0}",

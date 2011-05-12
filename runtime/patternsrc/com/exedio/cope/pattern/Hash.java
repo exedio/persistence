@@ -35,7 +35,7 @@ import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperName;
 import com.exedio.cope.instrument.WrapperSuppressor;
@@ -239,7 +239,7 @@ public class Hash extends Pattern implements Settable<String>
 		return Wrapper.makeByReflection(Hash.class, this, super.getWrappers());
 	}
 
-	@Wrapped(order=30, comment="Sets a new value for {0}.", suppressor=FinalSuppressor.class, thrownx=Thrown.class)
+	@Wrap(order=30, comment="Sets a new value for {0}.", suppressor=FinalSuppressor.class, thrownx=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -266,7 +266,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=10,
 			comment="Returns whether the given value corresponds to the hash in {0}.")
 	public final boolean check(final Item item, final String actualPlainText)
@@ -284,7 +284,7 @@ public class Hash extends Pattern implements Settable<String>
 	 * Needed to prevent Timing Attacks.
 	 * See http://en.wikipedia.org/wiki/Timing_attack
 	 */
-	@Wrapped(
+	@Wrap(
 			order=20,
 			comment={
 				"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
@@ -309,7 +309,7 @@ public class Hash extends Pattern implements Settable<String>
 		return new SetValue[]{ storage.map(hash(value)) };
 	}
 
-	@Wrapped(order=40, namex=GetHashName.class, comment="Returns the encoded hash value for hash {0}.")
+	@Wrap(order=40, namex=GetHashName.class, comment="Returns the encoded hash value for hash {0}.")
 	public final String getHash(final Item item)
 	{
 		return storage.get(item);
@@ -323,7 +323,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=50,
 			namex=SetHashName.class,
 			comment="Sets the encoded hash value for hash {0}.",

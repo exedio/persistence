@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperSuppressor;
@@ -153,7 +153,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Wrapper.makeByReflection(FunctionField.class, this, super.getWrappers());
 	}
 
-	@Wrapped(order=10, comment = "Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
+	@Wrap(order=10, comment = "Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)
 	@Override
 	public final E get(final Item item)
 	{
@@ -199,7 +199,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=20,
 			comment="Sets a new value for {0}.",
 			suppressor=FinalPrimitiveSuppressor.class,
@@ -345,7 +345,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	@Wrapped(
+	@Wrap(
 			order=100,
 			comment="Finds a {2} by it''s {0}.",
 			name="for{0}",

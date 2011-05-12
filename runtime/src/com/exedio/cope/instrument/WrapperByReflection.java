@@ -64,25 +64,25 @@ final class WrapperByReflection
 
 	private void makeAll(final List<Wrapper> list)
 	{
-		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(ORDER_COMPARATOR);
+		final TreeMap<Wrap, Method> methods = new TreeMap<Wrap, Method>(ORDER_COMPARATOR);
 
 		for(final Method method : clazz.getDeclaredMethods())
 		{
 			if(!Modifier.isPublic(method.getModifiers()))
 				continue;
 
-			final Wrapped annotation = method.getAnnotation(Wrapped.class);
+			final Wrap annotation = method.getAnnotation(Wrap.class);
 			if(annotation==null)
 				continue;
 
 			final Method collision = methods.put(annotation, method);
 			if(collision!=null)
 				throw new IllegalArgumentException(
-						"duplicate @" + Wrapped.class.getSimpleName() + "(order=" + annotation.order() + ") " +
+						"duplicate @" + Wrap.class.getSimpleName() + "(order=" + annotation.order() + ") " +
 						"on " + toString(collision) + " and " + toString(method));
 		}
 
-		for(final Map.Entry<Wrapped, Method> entry : methods.entrySet())
+		for(final Map.Entry<Wrap, Method> entry : methods.entrySet())
 		{
 			final Wrapper wrapper = make(entry.getValue(), entry.getKey());
 			if(wrapper!=null)
@@ -114,10 +114,10 @@ final class WrapperByReflection
 		return bf.toString();
 	}
 
-	private static final Comparator<Wrapped> ORDER_COMPARATOR = new Comparator<Wrapped>()
+	private static final Comparator<Wrap> ORDER_COMPARATOR = new Comparator<Wrap>()
 	{
 		@Override
-		public int compare(final Wrapped o1, final Wrapped o2)
+		public int compare(final Wrap o1, final Wrap o2)
 		{
 			if(o1==o2)
 				return 0;
@@ -126,7 +126,7 @@ final class WrapperByReflection
 		}
 	};
 
-	private Wrapper make(final Method method, final Wrapped annotation)
+	private Wrapper make(final Method method, final Wrap annotation)
 	{
 		{
 			final Class<? extends WrapperSuppressor> suppressorClass = annotation.suppressor();
@@ -244,7 +244,7 @@ final class WrapperByReflection
 			}
 		}
 		{
-			for(final Wrapped.Thrown c : annotation.thrown())
+			for(final Wrap.Thrown c : annotation.thrown())
 			{
 				final String v = c.comment();
 				if(v.isEmpty())

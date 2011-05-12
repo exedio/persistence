@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
@@ -138,13 +138,13 @@ public final class BooleanField extends FunctionField<Boolean>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrapped(order=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
+	@Wrap(order=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
 	public final boolean getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).booleanValue();
 	}
 
-	@Wrapped(order=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
+	@Wrap(order=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,
@@ -158,7 +158,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	 * @return null if there is no matching item.
 	 * @see FunctionField#searchUnique(Class, Object)
 	 */
-	@Wrapped(
+	@Wrap(
 			order=100,
 			comment="Finds a {2} by it''s {0}.",
 			name="for{0}",

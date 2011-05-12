@@ -36,7 +36,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
@@ -108,9 +108,9 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	@Wrapped(
+	@Wrap(
 		order=10,
-		thrown={@Wrapped.Thrown(clazz=IOException.class)})
+		thrown={@Wrap.Thrown(clazz=IOException.class)})
 	public final void setRaw(
 			final Item item,
 			@WrappedParam("raw") final Media.Value raw )
@@ -119,7 +119,7 @@ public class TextUrlFilter extends MediaFilter
 		this.raw.set( item, raw );
 	}
 
-	@Wrapped(order=20)
+	@Wrap(order=20)
 	public final void addPaste(
 			final Item item,
 			@WrappedParam("key") final String key,
@@ -131,9 +131,9 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	@Wrapped(
+	@Wrap(
 		order=30,
-		thrown={@Wrapped.Thrown(clazz=IOException.class)})
+		thrown={@Wrap.Thrown(clazz=IOException.class)})
 	public final void modifyPaste(
 			final Item item,
 			@WrappedParam("key") final String key,

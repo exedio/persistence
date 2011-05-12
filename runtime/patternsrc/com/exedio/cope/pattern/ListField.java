@@ -32,7 +32,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperThrown;
@@ -108,7 +108,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return mount;
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=1000,
 			name="{1}Parent",
 			comment="Returns the parent field of the type of {0}.")
@@ -152,7 +152,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * @see #getQuery(Item)
 	 */
-	@Wrapped(order=10, comment="Returns the value of {0}.")
+	@Wrap(order=10, comment="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -162,7 +162,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
-	@Wrapped(order=20, comment="Returns a query for the value of {0}.")
+	@Wrap(order=20, comment="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
@@ -177,7 +177,7 @@ public final class ListField<E> extends AbstractListField<E>
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	@Wrapped(
+	@Wrap(
 			order=30,
 			name="getDistinctParentsOf{0}",
 			comment="Returns the items, for which field list {0} contains the given element.")
@@ -192,7 +192,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return q.search();
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=40,
 			name="addTo{0}",
 			comment="Adds a new value for {0}.",
@@ -211,7 +211,7 @@ public final class ListField<E> extends AbstractListField<E>
 				this.element.map(value));
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=50,
 			comment="Sets a new value for {0}.",
 			thrownx=ElementThrown.class)

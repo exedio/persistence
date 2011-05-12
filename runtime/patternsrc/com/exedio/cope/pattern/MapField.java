@@ -34,7 +34,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrappedParam;
 import com.exedio.cope.instrument.Wrapper;
 
@@ -111,7 +111,7 @@ public final class MapField<K,V> extends Pattern
 		return mount;
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=200,
 			name="{1}Parent",
 			comment="Returns the parent field of the type of {0}.")
@@ -153,7 +153,7 @@ public final class MapField<K,V> extends Pattern
 		return Wrapper.makeByReflection(MapField.class, this, super.getWrappers());
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=10,
 			comment="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
@@ -169,7 +169,7 @@ public final class MapField<K,V> extends Pattern
 			return null;
 	}
 
-	@Wrapped(
+	@Wrap(
 			order=20,
 			comment="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
@@ -200,7 +200,7 @@ public final class MapField<K,V> extends Pattern
 		}
 	}
 
-	@Wrapped(order=110)
+	@Wrap(order=110)
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
@@ -210,7 +210,7 @@ public final class MapField<K,V> extends Pattern
 		return result;
 	}
 
-	@Wrapped(order=120)
+	@Wrap(order=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
 		final Mount mount = mount();

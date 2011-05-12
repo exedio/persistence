@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Wrapped
+public @interface Wrap
 {
 	int order();
 	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;

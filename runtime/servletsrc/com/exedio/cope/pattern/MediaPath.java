@@ -33,7 +33,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.instrument.Wrapped;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.util.Hex;
@@ -201,7 +201,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped(order=20, comment = "Returns a Locator the content of {0} is available under.")
+	@Wrap(order=20, comment = "Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -221,7 +221,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrapped(order=10, comment = "Returns a URL the content of {0} is available under.")
+	@Wrap(order=10, comment = "Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -469,7 +469,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrapped(order=30, comment = "Returns the content type of the media {0}.", suppressor=ContentTypeSuppressor.class)
+	@Wrap(order=30, comment = "Returns the content type of the media {0}.", suppressor=ContentTypeSuppressor.class)
 	public abstract String getContentType(Item item);
 
 	private static final class ContentTypeSuppressor implements WrapperSuppressor<MediaPath>
