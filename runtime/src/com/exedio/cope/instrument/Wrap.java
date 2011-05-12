@@ -29,13 +29,13 @@ import java.lang.annotation.Target;
 public @interface Wrap
 {
 	int order();
-	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
-	String[] doc() default "";
-	String docReturn() default "";
 	String name() default "";
 	Class<? extends WrapperName> namex() default WrapperNameDefault.class;
-	Thrown[] thrown() default {};
 	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
+	String[] doc() default "";
+	String docReturn() default "";
+	Thrown[] thrown() default {};
+	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
 
 	public @interface Thrown
 	{
