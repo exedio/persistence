@@ -166,7 +166,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(comment="shall be equal to field {0}.") final boolean value)
+			@WrappedParam(doc="shall be equal to field {0}.") final boolean value)
 	{
 		return super.searchUnique(typeClass, Boolean.valueOf(value));
 	}

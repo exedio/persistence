@@ -124,7 +124,7 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=10)
 	public Token issue(
 			final Item item,
-			@WrappedParam(value="expiryMillis", comment="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+			@WrappedParam(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
@@ -146,7 +146,7 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
 	public String redeem(
 			final Item item,
-			@WrappedParam(value="secret", comment="a token secret for password recovery") final long secret)
+			@WrappedParam(value="secret", doc="a token secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);

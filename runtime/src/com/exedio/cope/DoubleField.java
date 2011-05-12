@@ -231,7 +231,7 @@ public final class DoubleField extends NumberField<Double>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(comment="shall be equal to field {0}.") final double value)
+			@WrappedParam(doc="shall be equal to field {0}.") final double value)
 	{
 		return super.searchUnique(typeClass, Double.valueOf(value));
 	}

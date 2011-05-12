@@ -147,7 +147,7 @@ public final class LongField extends NumberField<Long>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(comment="shall be equal to field {0}.") final long value)
+			@WrappedParam(doc="shall be equal to field {0}.") final long value)
 	{
 		return super.searchUnique(typeClass, Long.valueOf(value));
 	}

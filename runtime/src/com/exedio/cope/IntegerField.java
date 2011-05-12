@@ -276,7 +276,7 @@ public final class IntegerField extends NumberField<Integer>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrappedParam(comment="shall be equal to field {0}.") final int value)
+			@WrappedParam(doc="shall be equal to field {0}.") final int value)
 	{
 		return super.searchUnique(typeClass, Integer.valueOf(value));
 	}
