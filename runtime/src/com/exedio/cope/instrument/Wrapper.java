@@ -412,10 +412,6 @@ public final class Wrapper
 			final F feature,
 			final List<Wrapper> superResult)
 	{
-		final WrapperByReflection factory = new WrapperByReflection(clazz, feature);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(superResult);
-		factory.makeAll(result);
-		return Collections.unmodifiableList(result);
+		return WrapperByReflection.make(clazz, feature, superResult);
 	}
 }

@@ -26,6 +26,8 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -38,16 +40,28 @@ import com.exedio.cope.misc.Compare;
 
 final class WrapperByReflection
 {
+	static <F extends Feature> List<Wrapper> make(
+			final Class<F> clazz,
+			final F feature,
+			final List<Wrapper> superResult)
+	{
+		final WrapperByReflection factory = new WrapperByReflection(clazz, feature);
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(superResult);
+		factory.makeAll(result);
+		return Collections.unmodifiableList(result);
+	}
+
 	private final Class<? extends Feature> clazz;
 	private final Feature feature;
 
-	WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
+	private WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;
 	}
 
-	void makeAll(final List<Wrapper> list)
+	private void makeAll(final List<Wrapper> list)
 	{
 		final TreeMap<Wrapped, Method> methods = new TreeMap<Wrapped, Method>(ORDER_COMPARATOR);
 
