@@ -30,8 +30,8 @@ public @interface Wrap
 {
 	int order();
 	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
-	String[] comment() default "";
-	String returns() default "";
+	String[] doc() default "";
+	String docReturn() default "";
 	String name() default "";
 	Class<? extends WrapperName> namex() default WrapperNameDefault.class;
 	Thrown[] thrown() default {};
@@ -40,6 +40,6 @@ public @interface Wrap
 	public @interface Thrown
 	{
 		Class<? extends Throwable> clazz();
-		String comment() default "";
+		String doc() default "";
 	}
 }

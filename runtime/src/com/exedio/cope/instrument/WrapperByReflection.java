@@ -185,7 +185,7 @@ final class WrapperByReflection
 
 		{
 			final Type returnType = method.getGenericReturnType();
-			final String comment = annotation.returns();
+			final String comment = annotation.docReturn();
 			if(returnType!=void.class)
 			{
 				if(!comment.isEmpty())
@@ -201,7 +201,7 @@ final class WrapperByReflection
 		}
 		{
 			{
-				for(final String s : annotation.comment())
+				for(final String s : annotation.doc())
 					if(!s.isEmpty())
 						result.addComment(s);
 
@@ -246,7 +246,7 @@ final class WrapperByReflection
 		{
 			for(final Wrap.Thrown c : annotation.thrown())
 			{
-				final String v = c.comment();
+				final String v = c.doc();
 				if(v.isEmpty())
 					result.addThrows(c.clazz());
 				else

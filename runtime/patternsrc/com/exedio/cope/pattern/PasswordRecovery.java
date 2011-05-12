@@ -143,7 +143,7 @@ public final class PasswordRecovery extends Pattern
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
-	@Wrap(order=20, returns="a new password, if the token was valid, otherwise null")
+	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
 	public String redeem(
 			final Item item,
 			@WrappedParam(value="secret", comment="a token secret for password recovery") final long secret)
@@ -169,7 +169,7 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
-	@Wrap(order=100, returns="the number of tokens purged")
+	@Wrap(order=100, docReturn="the number of tokens purged")
 	public int purge(
 			@WrappedParam("interrupter") final Interrupter interrupter)
 	{

@@ -119,13 +119,13 @@ public final class LongField extends NumberField<Long>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrap(order=10, comment="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
+	@Wrap(order=10, doc="Returns the value of {0}.", name="get{0}", suppressor=PrimitiveGetSuppressor.class)
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
 	}
 
-	@Wrap(order=20, comment="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
+	@Wrap(order=20, doc="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,
@@ -141,9 +141,9 @@ public final class LongField extends NumberField<Long>
 	 */
 	@Wrap(
 			order=100,
-			comment="Finds a {2} by it''s {0}.",
+			doc="Finds a {2} by it''s {0}.",
 			name="for{0}",
-			returns="null if there is no matching item.",
+			docReturn="null if there is no matching item.",
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,

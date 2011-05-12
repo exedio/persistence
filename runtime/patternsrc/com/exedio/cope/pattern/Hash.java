@@ -239,7 +239,7 @@ public class Hash extends Pattern implements Settable<String>
 		return Wrapper.makeByReflection(Hash.class, this, super.getWrappers());
 	}
 
-	@Wrap(order=30, comment="Sets a new value for {0}.", suppressor=FinalSuppressor.class, thrownx=Thrown.class)
+	@Wrap(order=30, doc="Sets a new value for {0}.", suppressor=FinalSuppressor.class, thrownx=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -268,7 +268,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	@Wrap(
 			order=10,
-			comment="Returns whether the given value corresponds to the hash in {0}.")
+			doc="Returns whether the given value corresponds to the hash in {0}.")
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
@@ -286,7 +286,7 @@ public class Hash extends Pattern implements Settable<String>
 	 */
 	@Wrap(
 			order=20,
-			comment={
+			doc={
 				"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 				"Needed to prevent Timing Attacks."})
 	public final void blind(final String actualPlainText)
@@ -309,7 +309,7 @@ public class Hash extends Pattern implements Settable<String>
 		return new SetValue[]{ storage.map(hash(value)) };
 	}
 
-	@Wrap(order=40, namex=GetHashName.class, comment="Returns the encoded hash value for hash {0}.")
+	@Wrap(order=40, namex=GetHashName.class, doc="Returns the encoded hash value for hash {0}.")
 	public final String getHash(final Item item)
 	{
 		return storage.get(item);
@@ -326,7 +326,7 @@ public class Hash extends Pattern implements Settable<String>
 	@Wrap(
 			order=50,
 			namex=SetHashName.class,
-			comment="Sets the encoded hash value for hash {0}.",
+			doc="Sets the encoded hash value for hash {0}.",
 			suppressor=FinalSuppressor.class,
 			thrownx=Thrown.class)
 	public final void setHash(final Item item, final String hash)

@@ -111,7 +111,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Wrap(
 			order=1000,
 			name="{1}Parent",
-			comment="Returns the parent field of the type of {0}.")
+			doc="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -152,7 +152,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * @see #getQuery(Item)
 	 */
-	@Wrap(order=10, comment="Returns the value of {0}.")
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -162,7 +162,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
-	@Wrap(order=20, comment="Returns a query for the value of {0}.")
+	@Wrap(order=20, doc="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
@@ -180,7 +180,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Wrap(
 			order=30,
 			name="getDistinctParentsOf{0}",
-			comment="Returns the items, for which field list {0} contains the given element.")
+			doc="Returns the items, for which field list {0} contains the given element.")
 	public <P extends Item> List<P> getDistinctParents(
 			final Class<P> parentClass,
 			@WrappedParam("element") final E element)
@@ -195,7 +195,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Wrap(
 			order=40,
 			name="addTo{0}",
-			comment="Adds a new value for {0}.",
+			doc="Adds a new value for {0}.",
 			thrownx=ElementThrown.class)
 	public void add(final Item item, final E value)
 	{
@@ -213,7 +213,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	@Wrap(
 			order=50,
-			comment="Sets a new value for {0}.",
+			doc="Sets a new value for {0}.",
 			thrownx=ElementThrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)

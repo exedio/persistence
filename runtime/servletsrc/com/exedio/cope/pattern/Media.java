@@ -296,7 +296,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
-	@Wrap(order=10, comment = "Returns whether media {0} is null.", suppressor=MandatorySuppressor.class)
+	@Wrap(order=10, doc = "Returns whether media {0} is null.", suppressor=MandatorySuppressor.class)
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
@@ -325,7 +325,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrap(order=20, comment = "Returns the last modification date of media {0}.")
+	@Wrap(order=20, doc = "Returns the last modification date of media {0}.")
 	@Override
 	public long getLastModified(final Item item)
 	{
@@ -337,7 +337,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrap(order=30, comment = "Returns the body length of the media {0}.")
+	@Wrap(order=30, doc = "Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		// do check before, because this check is supported by the item cache
@@ -356,8 +356,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
-	@Wrap(order=110, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
-		thrown={@Wrap.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
+	@Wrap(order=110, doc = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
+		thrown={@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			final Media.Value value)
@@ -373,7 +373,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrap(order=40, comment = "Returns the body of the media {0}.")
+	@Wrap(order=40, doc = "Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return this.body.getArray(item);
@@ -387,7 +387,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrap(order=120, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class)
+	@Wrap(order=120, doc = "Sets the content of media {0}.", suppressor=FinalSuppressor.class)
 	public void set(
 			final Item item,
 			@WrappedParam("body") final byte[] body,
@@ -414,10 +414,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrap(order=50, comment = {
+	@Wrap(order=50, doc = {
 		"Writes the body of media {0} into the given stream.",
 		"Does nothing, if the media is null."},
-		thrown={@Wrap.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@WrappedParam("body") final OutputStream body)
@@ -436,8 +436,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrap(order=130, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
-		thrown={@Wrap.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
+	@Wrap(order=130, doc = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
+		thrown={@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@WrappedParam("body") final InputStream body,
@@ -465,10 +465,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	@Wrap(order=60, comment = {
+	@Wrap(order=60, doc = {
 		"Writes the body of media {0} into the given file.",
 		"Does nothing, if the media is null."},
-		thrown={@Wrap.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
+		thrown={@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException.")})
 	public void getBody(
 			final Item item,
 			@WrappedParam("body") final File body)
@@ -486,8 +486,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	@Wrap(order=140, comment = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
-		thrown={@Wrap.Thrown(clazz=IOException.class, comment="if accessing <tt>body</tt> throws an IOException.")})
+	@Wrap(order=140, doc = "Sets the content of media {0}.", suppressor=FinalSuppressor.class,
+		thrown={@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException.")})
 	public void set(
 			final Item item,
 			@WrappedParam("body") final File body,
