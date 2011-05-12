@@ -63,7 +63,7 @@ final class WrapperByReflection
 			final Method collision = methods.put(annotation, method);
 			if(collision!=null)
 				throw new IllegalArgumentException(
-						"duplicate @Wrapped(order=" + annotation.order() + ") " +
+						"duplicate @" + Wrapped.class.getSimpleName() + "(order=" + annotation.order() + ") " +
 						"on " + toString(collision) + " and " + toString(method));
 		}
 
