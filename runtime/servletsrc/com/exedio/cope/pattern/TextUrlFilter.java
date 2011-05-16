@@ -109,7 +109,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrap(order=10,
-			thrown=@Wrap.Thrown(clazz=IOException.class))
+			thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
 			final Item item,
 			@WrapParam("raw") final Media.Value raw )
@@ -131,7 +131,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrap(order=30,
-			thrown=@Wrap.Thrown(clazz=IOException.class))
+			thrown=@Wrap.Thrown(IOException.class))
 	public final void modifyPaste(
 			final Item item,
 			@WrapParam("key") final String key,

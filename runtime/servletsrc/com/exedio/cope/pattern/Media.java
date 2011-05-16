@@ -359,7 +359,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrap(order=110,
 			doc = "Sets the content of media {0}.",
 			suppressor=FinalSuppressor.class,
-			thrown=@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
 			final Media.Value value)
@@ -419,7 +419,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrap(order=50,
 			doc={"Writes the body of media {0} into the given stream.",
 					"Does nothing, if the media is null."},
-			thrown=@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
 			final Item item,
 			@WrapParam("body") final OutputStream body)
@@ -441,7 +441,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrap(order=130,
 			doc="Sets the content of media {0}.",
 			suppressor=FinalSuppressor.class,
-			thrown=@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
 			@WrapParam("body") final InputStream body,
@@ -472,7 +472,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrap(order=60,
 			doc={"Writes the body of media {0} into the given file.",
 					"Does nothing, if the media is null."},
-			thrown=@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
 			final Item item,
 			@WrapParam("body") final File body)
@@ -493,7 +493,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",
 			suppressor=FinalSuppressor.class,
-			thrown=@Wrap.Thrown(clazz=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
 			@WrapParam("body") final File body,

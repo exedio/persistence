@@ -183,7 +183,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=40,
 			doc="Writes the data of this persistent data field into the given stream.",
-			thrown=@Wrap.Thrown(clazz=IOException.class))
+			thrown=@Wrap.Thrown(IOException.class))
 	public void get(final Item item, final OutputStream data) throws IOException
 	{
 		if(data==null)
@@ -203,7 +203,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=50,
 			doc="Writes the data of this persistent data field into the given file.",
-			thrown=@Wrap.Thrown(clazz=IOException.class))
+			thrown=@Wrap.Thrown(IOException.class))
 	public void get(final Item item, final File data) throws IOException
 	{
 		if(data==null)

@@ -248,9 +248,9 @@ final class WrapperByReflection
 			{
 				final String v = c.doc();
 				if(v.isEmpty())
-					result.addThrows(c.clazz());
+					result.addThrows(c.value());
 				else
-					result.addThrows(c.clazz(), v);
+					result.addThrows(c.value(), v);
 			}
 		}
 		{

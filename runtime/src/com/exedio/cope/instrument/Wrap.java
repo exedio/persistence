@@ -35,7 +35,7 @@ public @interface Wrap
 
 	public @interface Thrown
 	{
-		Class<? extends Throwable> clazz();
+		Class<? extends Throwable> value();
 		String doc() default "";
 	}
 	Thrown[] thrown() default {};
