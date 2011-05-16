@@ -23,8 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +37,10 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
 
@@ -119,28 +120,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		final Class initialType = getInitialType();
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(initialType));
-
-		if(!isFinal())
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(initialType));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(Serializer.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	public E get(final Item item)
 	{
 		final byte[] buf = source.getArray(item);
@@ -184,6 +167,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return result;
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownx=Thrown.class,
+			suppressor=FinalSuppressor.class)
 	public void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
@@ -193,6 +180,22 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			ClassCastException
 	{
 		source.set(item, serialize(value));
+	}
+
+	private static final class FinalSuppressor implements WrapperSuppressor<Serializer<?>>
+	{
+		public boolean isSuppressed(final Serializer feature)
+		{
+			return feature.isFinal();
+		}
+	}
+
+	private static final class Thrown implements WrapperThrown<Serializer<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final Serializer<?> feature)
+		{
+			return feature.getInitialExceptions();
+		}
 	}
 
 	public SetValue<E> map(final E value)
