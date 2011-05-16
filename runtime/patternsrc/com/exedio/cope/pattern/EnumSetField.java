@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.List;
@@ -29,6 +27,8 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern
@@ -78,33 +78,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final char KEY = 'k';
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("contains").
-			setReturn(boolean.class).
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-
-		result.add(
-			new Wrapper("add").
-			addParameter(Wrapper.TypeVariable0.class));
-
-		result.add(
-			new Wrapper("remove").
-			addParameter(Wrapper.TypeVariable0.class));
-
-		final java.lang.reflect.Type valueType =
-			Wrapper.generic(EnumSet.class, Wrapper.TypeVariable0.class);
-		result.add(
-			new Wrapper("get").
-			setReturn(valueType));
-		result.add(
-			new Wrapper("set").
-			addParameter(valueType));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(EnumSetField.class, this, super.getWrappers());
 	}
 
 	private void assertElement(final E element)
@@ -115,24 +89,28 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}
 
-	public boolean contains(final Item item, final E element)
+	@Wrap(order=10)
+	public boolean contains(final Item item, @WrapParam("k") final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);
 	}
 
+	@Wrap(order=20)
 	public void add(final Item item, final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, true);
 	}
 
+	@Wrap(order=30)
 	public void remove(final Item item, final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, false);
 	}
 
+	@Wrap(order=40)
 	public EnumSet<E> get(final Item item)
 	{
 		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
@@ -144,6 +122,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return result;
 	}
 
+	@Wrap(order=50)
 	public void set(final Item item, final EnumSet<E> value)
 	{
 		final SetValue[] setValues = new SetValue[fields.size()];
