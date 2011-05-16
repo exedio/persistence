@@ -22,7 +22,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,6 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaImageioFilter extends MediaFilter
@@ -103,16 +103,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the body of {0}.").
-			setReturn(byte[].class).
-			addThrows(IOException.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(MediaImageioFilter.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -168,6 +159,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 	}
 
+	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);
