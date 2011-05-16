@@ -39,7 +39,10 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.InstrumentContext;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
@@ -182,26 +185,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(valueClass));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(valueClass));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(CompositeField.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	@SuppressWarnings("unchecked")
 	public E get(final Item item)
 	{
@@ -222,6 +209,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueType.newValue(setValues);
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownx=Thrown.class,
+			suppressor=FinalSuppressor.class)
 	@SuppressWarnings("unchecked")
 	public void set(final Item item, final E value)
 	{
@@ -230,6 +221,22 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
 			setValues[i++] = e.getValue().map(value!=null ? value.get(e.getKey()) : null);
 		item.set(setValues);
+	}
+
+	private static final class FinalSuppressor implements WrapperSuppressor<CompositeField<?>>
+	{
+		public boolean isSuppressed(final CompositeField feature)
+		{
+			return feature.isFinal();
+		}
+	}
+
+	private static final class Thrown implements WrapperThrown<CompositeField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final CompositeField<?> feature)
+		{
+			return feature.getInitialExceptions();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
