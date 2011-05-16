@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +27,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperSuppressor;
 
 public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
@@ -67,46 +67,16 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		final boolean isfinal = from.isFinal();
-
-		result.add(
-			new Wrapper("get").
-			setReturn(Wrapper.generic(Range.class, from.getValueClass())));
-
-		if(!isfinal)
-			result.add(
-				new Wrapper("set").
-				addParameter(Wrapper.genericExtends(Range.class, from.getValueClass())));
-
-		result.add(
-			new Wrapper("getFrom").
-			setReturn(Wrapper.TypeVariable0.class));
-
-		result.add(
-			new Wrapper("getTo").
-			setReturn(Wrapper.TypeVariable0.class));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("setFrom").
-				addParameter(Wrapper.TypeVariable0.class));
-
-			result.add(
-				new Wrapper("setTo").
-				addParameter(Wrapper.TypeVariable0.class));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(RangeField.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10)
 	public Range<E> get(final Item item)
 	{
 		return new Range<E>(from.get(item), to.get(item));
 	}
 
+	@Wrap(order=20, suppressor=FinalSuppressor.class)
 	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
@@ -114,24 +84,36 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 				this.to  .map(value.to  ));
 	}
 
+	@Wrap(order=30)
 	public E getFrom(final Item item)
 	{
 		return from.get(item);
 	}
 
+	@Wrap(order=40)
 	public E getTo(final Item item)
 	{
 		return to.get(item);
 	}
 
+	@Wrap(order=50, suppressor=FinalSuppressor.class)
 	public void setFrom(final Item item, final E from)
 	{
 		this.from.set(item, from);
 	}
 
+	@Wrap(order=60, suppressor=FinalSuppressor.class)
 	public void setTo(final Item item, final E to)
 	{
 		this.to.set(item, to);
+	}
+
+	private static final class FinalSuppressor implements WrapperSuppressor<RangeField<?>>
+	{
+		public boolean isSuppressed(final RangeField feature)
+		{
+			return feature.isFinal();
+		}
 	}
 
 	public Condition contains(final E value)
