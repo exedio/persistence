@@ -32,7 +32,6 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.util.Hex;
 
@@ -327,14 +326,6 @@ public final class DataField extends Field<DataField.Value>
 			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
 			result.add(IOException.class);
 			return result;
-		}
-	}
-
-	private static final class FinalSuppressor implements WrapperSuppressor<DataField>
-	{
-		public boolean isSuppressed(final DataField feature)
-		{
-			return feature.isFinal();
 		}
 	}
 

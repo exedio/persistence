@@ -19,14 +19,13 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.exedio.cope.Field.FinalSuppressor;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Day;
 
@@ -118,21 +117,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			exceptions.remove(MandatoryViolationException.class); // cannot set null
-
-			result.add(
-				new Wrapper("touch").
-				addComment("Sets today for the date field {0}.").
-				addThrows(exceptions));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(DayField.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -182,6 +167,9 @@ public final class DayField extends FunctionField<Day>
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.
 	 */
+	@Wrap(order=10,
+			doc="Sets today for the date field {0}.", // TODO better text
+			suppressor=FinalSuppressor.class)
 	public void touch(final Item item)
 		throws
 			UniqueViolationException,
