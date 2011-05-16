@@ -32,7 +32,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
@@ -109,26 +112,10 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.TypeVariable0.class));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(Wrapper.TypeVariable0.class));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(FeatureField.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	public E get(final Item item)
 	{
 		final String id = idField.get(item);
@@ -147,6 +134,10 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.get(item);
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownx=Thrown.class,
+			suppressor=FinalSuppressor.class)
 	public void set(final Item item, final E value)
 	{
 		if(isfinal)
@@ -155,6 +146,22 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			throw new MandatoryViolationException(this, this, item);
 
 		idField.set(item, value!=null ? value.getID() : null);
+	}
+
+	private static final class FinalSuppressor implements WrapperSuppressor<FeatureField<?>>
+	{
+		public boolean isSuppressed(final FeatureField feature)
+		{
+			return feature.isFinal();
+		}
+	}
+
+	private static final class Thrown implements WrapperThrown<FeatureField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final FeatureField<?> feature)
+		{
+			return feature.getInitialExceptions();
+		}
 	}
 
 	public SetValue<E> map(final E value)
