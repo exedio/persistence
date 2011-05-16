@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern
@@ -88,26 +88,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		return getField(key);
 	}
 
+	private static final String KEY = "k";
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final char KEY = 'k';
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
-			setReturn(Wrapper.TypeVariable1.class).
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
-			addParameter(Wrapper.TypeVariable1.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(EnumMapField.class, this, super.getWrappers());
 	}
 
 	private void assertKey(final K key)
@@ -118,13 +104,15 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}
 
-	public V get(final Item item, final K key)
+	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	public V get(final Item item, @WrapParam(KEY) final K key)
 	{
 		assertKey(key);
 		return fields.get(key).get(item);
 	}
 
-	public void set(final Item item, final K key, final V value)
+	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
+	public void set(final Item item, @WrapParam(KEY) final K key, final V value)
 	{
 		assertKey(key);
 		fields.get(key).set(item, value);
