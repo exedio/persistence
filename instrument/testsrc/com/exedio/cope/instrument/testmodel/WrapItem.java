@@ -112,7 +112,10 @@ class WrapItem extends Item
 	 * method documentation line 2
 	 * 
 	 * method documentation line 3
-	 * @param feature parameter documentation
+	 * @param feature parameter documentation line 1
+	 *        parameter documentation line 2
+	 *        
+	 *        parameter documentation line 3
 	 * @return return documentation line 1
 	 *         return documentation line 2
 	 *         

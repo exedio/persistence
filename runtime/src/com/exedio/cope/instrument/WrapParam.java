@@ -29,5 +29,5 @@ import java.lang.annotation.Target;
 public @interface WrapParam
 {
 	String value() default "";
-	String doc() default "";
+	String[] doc() default {};
 }

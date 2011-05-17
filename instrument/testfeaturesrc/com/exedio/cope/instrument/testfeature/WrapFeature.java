@@ -79,7 +79,12 @@ public class WrapFeature extends Pattern
 				"",
 				"return documentation line 3"})
 	public int documentedMulti(
-			@SuppressWarnings("unused") @WrapParam(doc="parameter documentation") final int n)
+			@SuppressWarnings("unused") @WrapParam(doc={
+					"parameter documentation line 1",
+					"parameter documentation line 2",
+					"",
+					"parameter documentation line 3"
+					}) final int n)
 	{
 		throw new RuntimeException();
 	}

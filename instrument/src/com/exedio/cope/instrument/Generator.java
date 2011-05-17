@@ -405,13 +405,19 @@ final class Generator
 				}
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
-					final String comment = parameter.getComment();
-					if(comment!=null)
+					final String[] comment = parameter.getComment();
+					if(comment.length>0)
 					{
 						write("\t * @param ");
 						write(format(parameter.getName(), arguments));
 						write(' ');
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *        ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}

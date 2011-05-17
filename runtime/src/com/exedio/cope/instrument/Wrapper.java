@@ -154,21 +154,21 @@ public final class Wrapper
 	{
 		private final java.lang.reflect.Type type;
 		private final String name;
-		private final String comment;
+		private final String[] comment;
 		private final boolean vararg;
 
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
-				final String comment,
+				final String[] comment,
 				final boolean vararg)
 		{
 			if(type==null)
 				throw new NullPointerException("type");
 			if(name==null)
 				throw new NullPointerException("name");
-			if(comment!=null)
-				assertComment(comment);
+			for(final String c : comment)
+				assertComment(c);
 			if(vararg && !((Class)type).isArray())
 				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
 
@@ -188,9 +188,9 @@ public final class Wrapper
 			return name;
 		}
 
-		public String getComment()
+		public String[] getComment()
 		{
-			return comment;
+			return com.exedio.cope.misc.Arrays.copyOf(comment);
 		}
 
 		public boolean isVararg()
@@ -209,15 +209,20 @@ public final class Wrapper
 
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
-		return addParameter(type, "{1}", null);
+		return addParameter(type, "{1}", EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
 	{
-		return addParameter(type, name, null);
+		return addParameter(type, name, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
+	{
+		return addParameter(type, name, new String[]{comment});
+	}
+
+	Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
 	{
 		return addParameter(type, name, comment, false);
 	}
@@ -227,7 +232,7 @@ public final class Wrapper
 		return addParameter(type, name, null, true);
 	}
 
-	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
+	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
 	{
 		final Parameter p = new Parameter(type, name, comment, vararg);
 		if(parameters==null)
