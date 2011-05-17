@@ -41,7 +41,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 
@@ -223,7 +223,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		item.set(setValues);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<CompositeField>
+	private static final class FinalSuppressor implements BooleanGetter<CompositeField>
 	{
 		public boolean get(final CompositeField feature)
 		{

@@ -25,7 +25,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 
 public class WrapFeature extends Pattern
 {
@@ -110,7 +110,7 @@ public class WrapFeature extends Pattern
 		throw new RuntimeException();
 	}
 
-	private static final class TrueSupressor implements WrapperSuppressor<WrapFeature>
+	private static final class TrueSupressor implements BooleanGetter<WrapFeature>
 	{
 		public boolean get(final WrapFeature feature)
 		{
@@ -124,7 +124,7 @@ public class WrapFeature extends Pattern
 		throw new RuntimeException();
 	}
 
-	private static final class FalseSupressor implements WrapperSuppressor<WrapFeature>
+	private static final class FalseSupressor implements BooleanGetter<WrapFeature>
 	{
 		public boolean get(final WrapFeature feature)
 		{

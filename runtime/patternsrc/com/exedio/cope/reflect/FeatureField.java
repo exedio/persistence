@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.util.Cast;
 
@@ -148,7 +148,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<FeatureField>
+	private static final class FinalSuppressor implements BooleanGetter<FeatureField>
 	{
 		public boolean get(final FeatureField feature)
 		{

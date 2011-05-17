@@ -29,7 +29,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 
 public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
@@ -108,7 +108,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		this.to.set(item, to);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<RangeField>
+	private static final class FinalSuppressor implements BooleanGetter<RangeField>
 	{
 		public boolean get(final RangeField feature)
 		{

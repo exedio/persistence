@@ -49,7 +49,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 
@@ -302,7 +302,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return optional ? (lastModified.get(item)==null) : false;
 	}
 
-	private static final class MandatorySuppressor implements WrapperSuppressor<Media>
+	private static final class MandatorySuppressor implements BooleanGetter<Media>
 	{
 		public boolean get(final Media feature)
 		{
@@ -506,7 +506,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		set(item, DataField.toValue(body), contentType);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<Media>
+	private static final class FinalSuppressor implements BooleanGetter<Media>
 	{
 		public boolean get(final Media feature)
 		{

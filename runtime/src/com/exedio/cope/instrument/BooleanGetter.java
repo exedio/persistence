@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Feature;
 
-public interface WrapperSuppressor<F extends Feature>
+public interface BooleanGetter<F extends Feature>
 {
 	boolean get(F feature);
 }

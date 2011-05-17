@@ -30,7 +30,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
@@ -317,7 +317,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 
-	private static final class PrimitiveSuppressor implements WrapperSuppressor<FunctionField>
+	private static final class PrimitiveSuppressor implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{
@@ -325,7 +325,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class OptionalSuppressor implements WrapperSuppressor<FunctionField>
+	static final class OptionalSuppressor implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{
@@ -333,7 +333,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class NonUniqueSuppressor implements WrapperSuppressor<FunctionField>
+	static final class NonUniqueSuppressor implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{

@@ -38,7 +38,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperName;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
@@ -250,7 +250,7 @@ public class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash(plainText));
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<Hash>
+	private static final class FinalSuppressor implements BooleanGetter<Hash>
 	{
 		public boolean get(final Hash feature)
 		{

@@ -30,7 +30,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 
@@ -121,7 +121,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		integer.set(item, value!=null ? value.store : null);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<PriceField>
+	private static final class FinalSuppressor implements BooleanGetter<PriceField>
 	{
 		public boolean get(final PriceField feature)
 		{

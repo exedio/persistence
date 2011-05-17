@@ -39,7 +39,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
@@ -182,7 +182,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<Serializer>
+	private static final class FinalSuppressor implements BooleanGetter<Serializer>
 	{
 		public boolean get(final Serializer feature)
 		{

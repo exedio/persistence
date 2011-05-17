@@ -35,7 +35,7 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperSuppressor;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
@@ -472,7 +472,7 @@ public abstract class MediaPath extends Pattern
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeSuppressor.class)
 	public abstract String getContentType(Item item);
 
-	private static final class ContentTypeSuppressor implements WrapperSuppressor<MediaPath>
+	private static final class ContentTypeSuppressor implements BooleanGetter<MediaPath>
 	{
 		public boolean get(final MediaPath feature)
 		{
