@@ -81,7 +81,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal;
 	}
 
-	static final class FinalSuppressor implements BooleanGetter<Field>
+	static final class FinalGetter implements BooleanGetter<Field>
 	{
 		public boolean get(final Field feature)
 		{

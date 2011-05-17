@@ -239,7 +239,7 @@ public class Hash extends Pattern implements Settable<String>
 		return Wrapper.getByAnnotations(Hash.class, this, super.getWrappers());
 	}
 
-	@Wrap(order=30, doc="Sets a new value for {0}.", hide=FinalSuppressor.class, thrownx=Thrown.class)
+	@Wrap(order=30, doc="Sets a new value for {0}.", hide=FinalGetter.class, thrownx=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -250,7 +250,7 @@ public class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash(plainText));
 	}
 
-	private static final class FinalSuppressor implements BooleanGetter<Hash>
+	private static final class FinalGetter implements BooleanGetter<Hash>
 	{
 		public boolean get(final Hash feature)
 		{
@@ -323,7 +323,7 @@ public class Hash extends Pattern implements Settable<String>
 	@Wrap(order=50,
 			namex=SetHashName.class,
 			doc="Sets the encoded hash value for hash {0}.",
-			hide=FinalSuppressor.class,
+			hide=FinalGetter.class,
 			thrownx=Thrown.class)
 	public final void setHash(final Item item, final String hash)
 	{

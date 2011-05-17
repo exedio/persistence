@@ -168,7 +168,7 @@ public final class DayField extends FunctionField<Day>
 	 */
 	@Wrap(order=10,
 			doc="Sets today for the date field {0}.", // TODO better text
-			hide=FinalSuppressor.class)
+			hide=FinalGetter.class)
 	public void touch(final Item item)
 		throws
 			UniqueViolationException,

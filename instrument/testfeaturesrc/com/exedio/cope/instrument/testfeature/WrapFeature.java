@@ -104,13 +104,13 @@ public class WrapFeature extends Pattern
 
 	// suppressor
 
-	@Wrap(order=200, hide=TrueSupressor.class)
+	@Wrap(order=200, hide=TrueGetter.class)
 	public int hidden()
 	{
 		throw new RuntimeException();
 	}
 
-	private static final class TrueSupressor implements BooleanGetter<WrapFeature>
+	private static final class TrueGetter implements BooleanGetter<WrapFeature>
 	{
 		public boolean get(final WrapFeature feature)
 		{
@@ -118,13 +118,13 @@ public class WrapFeature extends Pattern
 		}
 	}
 
-	@Wrap(order=210, hide=FalseSupressor.class)
+	@Wrap(order=210, hide=FalseGetter.class)
 	public int notHidden()
 	{
 		throw new RuntimeException();
 	}
 
-	private static final class FalseSupressor implements BooleanGetter<WrapFeature>
+	private static final class FalseGetter implements BooleanGetter<WrapFeature>
 	{
 		public boolean get(final WrapFeature feature)
 		{
@@ -132,7 +132,7 @@ public class WrapFeature extends Pattern
 		}
 	}
 
-	@Wrap(order=220, hide={FalseSupressor.class, TrueSupressor.class})
+	@Wrap(order=220, hide={FalseGetter.class, TrueGetter.class})
 	public int hiddenPartially()
 	{
 		throw new RuntimeException();

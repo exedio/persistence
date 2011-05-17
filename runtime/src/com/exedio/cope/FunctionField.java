@@ -153,7 +153,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Wrapper.getByAnnotations(FunctionField.class, this, super.getWrappers());
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveSuppressor.class)
+	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class)
 	@Override
 	public final E get(final Item item)
 	{
@@ -175,7 +175,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalSuppressor.class, PrimitiveSuppressor.class},
+			hide={FinalGetter.class, PrimitiveGetter.class},
 			thrownx=ElementThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
@@ -305,7 +305,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Wrap(order=100, name="for{0}",
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
-			hide={NonUniqueSuppressor.class, PrimitiveSuppressor.class})
+			hide={NonUniqueGetter.class, PrimitiveGetter.class})
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final E value)
@@ -317,7 +317,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 
-	private static final class PrimitiveSuppressor implements BooleanGetter<FunctionField>
+	private static final class PrimitiveGetter implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{
@@ -325,7 +325,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class OptionalSuppressor implements BooleanGetter<FunctionField>
+	static final class OptionalGetter implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{
@@ -333,7 +333,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class NonUniqueSuppressor implements BooleanGetter<FunctionField>
+	static final class NonUniqueGetter implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{

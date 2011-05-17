@@ -76,7 +76,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		return new Range<E>(from.get(item), to.get(item));
 	}
 
-	@Wrap(order=20, hide=FinalSuppressor.class)
+	@Wrap(order=20, hide=FinalGetter.class)
 	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
@@ -96,19 +96,19 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		return to.get(item);
 	}
 
-	@Wrap(order=50, hide=FinalSuppressor.class)
+	@Wrap(order=50, hide=FinalGetter.class)
 	public void setFrom(final Item item, final E from)
 	{
 		this.from.set(item, from);
 	}
 
-	@Wrap(order=60, hide=FinalSuppressor.class)
+	@Wrap(order=60, hide=FinalGetter.class)
 	public void setTo(final Item item, final E to)
 	{
 		this.to.set(item, to);
 	}
 
-	private static final class FinalSuppressor implements BooleanGetter<RangeField>
+	private static final class FinalGetter implements BooleanGetter<RangeField>
 	{
 		public boolean get(final RangeField feature)
 		{

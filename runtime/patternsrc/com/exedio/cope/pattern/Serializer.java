@@ -170,7 +170,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			thrownx=Thrown.class,
-			hide=FinalSuppressor.class)
+			hide=FinalGetter.class)
 	public void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
@@ -182,7 +182,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 
-	private static final class FinalSuppressor implements BooleanGetter<Serializer>
+	private static final class FinalGetter implements BooleanGetter<Serializer>
 	{
 		public boolean get(final Serializer feature)
 		{

@@ -110,7 +110,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			thrownx=Thrown.class,
-			hide=FinalSuppressor.class)
+			hide=FinalGetter.class)
 	public void set(final Item item, final Price value)
 	{
 		if(isfinal)
@@ -121,7 +121,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		integer.set(item, value!=null ? value.store : null);
 	}
 
-	private static final class FinalSuppressor implements BooleanGetter<PriceField>
+	private static final class FinalGetter implements BooleanGetter<PriceField>
 	{
 		public boolean get(final PriceField feature)
 		{

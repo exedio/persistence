@@ -469,10 +469,10 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeSuppressor.class)
+	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
 	public abstract String getContentType(Item item);
 
-	private static final class ContentTypeSuppressor implements BooleanGetter<MediaPath>
+	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
 	{
 		public boolean get(final MediaPath feature)
 		{

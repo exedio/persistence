@@ -137,7 +137,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			thrownx=Thrown.class,
-			hide=FinalSuppressor.class)
+			hide=FinalGetter.class)
 	public void set(final Item item, final E value)
 	{
 		if(isfinal)
@@ -148,7 +148,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	private static final class FinalSuppressor implements BooleanGetter<FeatureField>
+	private static final class FinalGetter implements BooleanGetter<FeatureField>
 	{
 		public boolean get(final FeatureField feature)
 		{
