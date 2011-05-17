@@ -69,21 +69,21 @@ public class WrapFeature extends Pattern
 
 	@Wrap(order=60,
 			doc={
-				"method documentation line 1",
-				"method documentation line 2",
+				"method documentation line 1 {0} {1} {2} {3} {4}",
+				"method documentation line 2 {0} {1} {2} {3} {4}",
 				"",
-				"method documentation line 3"},
+				"method documentation line 3 {0} {1} {2} {3} {4}"},
 			docReturn={
-				"return documentation line 1",
-				"return documentation line 2",
+				"return documentation line 1 {0} {1} {2} {3} {4}",
+				"return documentation line 2 {0} {1} {2} {3} {4}",
 				"",
-				"return documentation line 3"})
+				"return documentation line 3 {0} {1} {2} {3} {4}"})
 	public int documentedMulti(
 			@SuppressWarnings("unused") @Parameter(doc={
-					"parameter documentation line 1",
-					"parameter documentation line 2",
+					"parameter documentation line 1 {0} {1} {2} {3} {4}",
+					"parameter documentation line 2 {0} {1} {2} {3} {4}",
 					"",
-					"parameter documentation line 3"
+					"parameter documentation line 3 {0} {1} {2} {3} {4}"
 					}) final int n)
 	{
 		throw new RuntimeException();
