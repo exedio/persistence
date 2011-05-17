@@ -66,4 +66,16 @@ public class WrapFeature extends Pattern
 	{
 		throw new RuntimeException();
 	}
+
+	@Wrap(order=60,
+			doc={
+				"method documentation line 1",
+				"method documentation line 1"},
+			docReturn=
+				"return documentation")
+	public int documentedMulti(
+			@SuppressWarnings("unused") @WrapParam(doc="parameter documentation") final int n)
+	{
+		throw new RuntimeException();
+	}
 }
