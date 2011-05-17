@@ -239,7 +239,10 @@ public class Hash extends Pattern implements Settable<String>
 		return Wrapper.getByAnnotations(Hash.class, this, super.getWrappers());
 	}
 
-	@Wrap(order=30, doc="Sets a new value for {0}.", hide=FinalGetter.class, thrownGetter=Thrown.class)
+	@Wrap(order=30,
+			doc="Sets a new value for {0}.",
+			hide=FinalGetter.class,
+			thrownGetter=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
