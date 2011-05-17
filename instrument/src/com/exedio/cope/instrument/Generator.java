@@ -662,8 +662,9 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
+		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
 		final Option option = new Option(
-				Tags.getLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
+				Tags.getLine(constraint.docComment, optionTagname), true);
 		if(!option.exists)
 			return;
 
@@ -686,7 +687,17 @@ final class Generator
 		write(FINDER_UNIQUE_RETURN);
 		write(lineSeparator);
 
-		writeCommentFooter();
+		writeCommentFooter(
+				"It can be customized with the tag " +
+				"<tt>@" + optionTagname + ' ' +
+				Option.TEXT_VISIBILITY_PUBLIC + '|' +
+				Option.TEXT_VISIBILITY_PACKAGE + '|' +
+				Option.TEXT_VISIBILITY_PROTECTED + '|' +
+				Option.TEXT_VISIBILITY_PRIVATE + '|' +
+				Option.TEXT_NONE + '|' +
+				Option.TEXT_NON_FINAL + "</tt> " +
+				"in the comment of the field."
+		);
 
 		write('\t');
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
