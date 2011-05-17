@@ -104,7 +104,7 @@ public class WrapFeature extends Pattern
 
 	// suppressor
 
-	@Wrap(order=200, suppressor=TrueSupressor.class)
+	@Wrap(order=200, hide=TrueSupressor.class)
 	public int hidden()
 	{
 		throw new RuntimeException();
@@ -118,7 +118,7 @@ public class WrapFeature extends Pattern
 		}
 	}
 
-	@Wrap(order=210, suppressor=FalseSupressor.class)
+	@Wrap(order=210, hide=FalseSupressor.class)
 	public int notHidden()
 	{
 		throw new RuntimeException();
@@ -132,7 +132,7 @@ public class WrapFeature extends Pattern
 		}
 	}
 
-	@Wrap(order=220, suppressor={FalseSupressor.class, TrueSupressor.class})
+	@Wrap(order=220, hide={FalseSupressor.class, TrueSupressor.class})
 	public int hiddenPartially()
 	{
 		throw new RuntimeException();

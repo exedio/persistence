@@ -296,7 +296,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
-	@Wrap(order=10, doc="Returns whether media {0} is null.", suppressor=MandatorySuppressor.class)
+	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatorySuppressor.class)
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
@@ -358,7 +358,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@Wrap(order=110,
 			doc = "Sets the content of media {0}.",
-			suppressor=FinalSuppressor.class,
+			hide=FinalSuppressor.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
@@ -389,7 +389,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrap(order=120, doc="Sets the content of media {0}.", suppressor=FinalSuppressor.class)
+	@Wrap(order=120, doc="Sets the content of media {0}.", hide=FinalSuppressor.class)
 	public void set(
 			final Item item,
 			@Parameter("body") final byte[] body,
@@ -440,7 +440,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@Wrap(order=130,
 			doc="Sets the content of media {0}.",
-			suppressor=FinalSuppressor.class,
+			hide=FinalSuppressor.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
@@ -492,7 +492,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",
-			suppressor=FinalSuppressor.class,
+			hide=FinalSuppressor.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,

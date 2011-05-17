@@ -110,7 +110,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			thrownx=Thrown.class,
-			suppressor=FinalSuppressor.class)
+			hide=FinalSuppressor.class)
 	public void set(final Item item, final Price value)
 	{
 		if(isfinal)
