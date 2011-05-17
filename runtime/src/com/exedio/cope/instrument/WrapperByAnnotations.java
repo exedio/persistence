@@ -129,8 +129,7 @@ final class WrapperByAnnotations
 	private Wrapper make(final Method method, final Wrap annotation)
 	{
 		{
-			final Class<? extends WrapperSuppressor>[] suppressorClasses = annotation.suppressor();
-			for(final Class<? extends WrapperSuppressor> suppressorClass : suppressorClasses)
+			for(final Class<? extends WrapperSuppressor> suppressorClass : annotation.suppressor())
 			{
 				final WrapperSuppressor suppressor = instantiate(suppressorClass);
 				@SuppressWarnings("unchecked")
