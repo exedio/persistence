@@ -247,7 +247,7 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", suppressor=PrimitiveGetSuppressor.class)
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", suppressor=OptionalSuppressor.class)
 	public int getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).intValue();
@@ -271,7 +271,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Wrap(order=100, name="for{0}",
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
-			suppressor=PrimitiveUniqueSuppressor.class)
+			suppressor={OptionalSuppressor.class, NonUniqueSuppressor.class})
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final int value)
