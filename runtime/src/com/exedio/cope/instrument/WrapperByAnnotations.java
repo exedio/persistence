@@ -128,12 +128,12 @@ final class WrapperByAnnotations
 
 	private Wrapper make(final Method method, final Wrap annotation)
 	{
-		for(final Class<? extends BooleanGetter> suppressorClass : annotation.hide())
+		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
 		{
-			final BooleanGetter suppressor = instantiate(suppressorClass);
+			final BooleanGetter hideGetter = instantiate(hideGetterClass);
 			@SuppressWarnings("unchecked")
-			final boolean suppressed = suppressor.get(feature);
-			if(suppressed)
+			final boolean hide = hideGetter.get(feature);
+			if(hide)
 				return null;
 		}
 
