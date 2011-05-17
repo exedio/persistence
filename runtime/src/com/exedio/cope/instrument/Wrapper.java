@@ -251,42 +251,47 @@ public final class Wrapper
 	}
 
 
-	private LinkedHashMap<Class<? extends Throwable>, String> throwsClause;
+	private LinkedHashMap<Class<? extends Throwable>, String[]> throwsClause;
 
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
 		for(final Class<? extends Throwable> throwable : throwables)
-			addThrows(throwable, null);
+			addThrows(throwable, EMPTY_STRING_ARRAY);
 
 		return this;
 	}
 
 	public Wrapper addThrows(final Class<? extends Throwable> throwable)
 	{
-		return addThrows(throwable, null);
+		return addThrows(throwable, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
 	{
+		return addThrows(throwable, new String[]{comment});
+	}
+
+	Wrapper addThrows(final Class<? extends Throwable> throwable, final String[] comment)
+	{
 		if(throwable==null)
 			throw new NullPointerException("throwable");
-		if(comment!=null)
-			assertComment(comment);
+		for(final String c : comment)
+			assertComment(c);
 
 		if(throwsClause==null)
-			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
+			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String[]>();
 
 		throwsClause.put(throwable, comment);
 
 		return this;
 	}
 
-	public Map<Class<? extends Throwable>, String> getThrowsClause()
+	public Map<Class<? extends Throwable>, String[]> getThrowsClause()
 	{
 		return
 			throwsClause!=null
 			? Collections.unmodifiableMap(throwsClause)
-			: Collections.<Class<? extends Throwable>, String>emptyMap();
+			: Collections.<Class<? extends Throwable>, String[]>emptyMap();
 	}
 
 

@@ -36,7 +36,7 @@ public @interface Wrap
 	public @interface Thrown
 	{
 		Class<? extends Throwable> value();
-		String doc() default "";
+		String[] doc() default {};
 	}
 	Thrown[] thrown() default {};
 	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;

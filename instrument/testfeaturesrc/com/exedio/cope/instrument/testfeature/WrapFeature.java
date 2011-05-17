@@ -83,8 +83,11 @@ public class WrapFeature extends Pattern
 				"return documentation line 3 {0} {1} {2} {3} {4}"},
 			thrown={
 				@Wrap.Thrown(value=RuntimeException.class, doc="throws documentation RuntimeException {0} {1} {2} {3} {4}"),
-				@Wrap.Thrown(value=IllegalArgumentException.class, doc=
-					"throws documentation IllegalArgumentException {0} {1} {2} {3} {4}")})
+				@Wrap.Thrown(value=IllegalArgumentException.class, doc={
+					"throws documentation IllegalArgumentException line 1 {0} {1} {2} {3} {4}",
+					"throws documentation IllegalArgumentException line 2 {0} {1} {2} {3} {4}",
+					"",
+					"throws documentation IllegalArgumentException line 3 {0} {1} {2} {3} {4}"})})
 	public int documentedMulti(
 			@SuppressWarnings("unused") @Parameter(doc={
 					"parameter documentation line 1 {0} {1} {2} {3} {4}",

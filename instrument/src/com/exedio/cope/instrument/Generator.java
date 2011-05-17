@@ -384,7 +384,7 @@ final class Generator
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
-			final Map<Class<? extends Throwable>, String> throwsClause = wrapper.getThrowsClause();
+			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
@@ -436,15 +436,21 @@ final class Generator
 						write(lineSeparator);
 					}
 				}
-				for(final Map.Entry<Class<? extends Throwable>, String> e : throwsClause.entrySet())
+				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
-					final String comment = e.getValue();
-					if(comment!=null)
+					final String[] comment = e.getValue();
+					if(comment.length>0)
 					{
 						write("\t * @throws ");
 						write(e.getKey().getCanonicalName());
 						write(' ');
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *         ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}

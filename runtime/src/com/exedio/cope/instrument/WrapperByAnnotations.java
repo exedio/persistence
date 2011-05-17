@@ -239,13 +239,7 @@ final class WrapperByAnnotations
 		}
 		{
 			for(final Wrap.Thrown c : annotation.thrown())
-			{
-				final String v = c.doc();
-				if(v.isEmpty())
-					result.addThrows(c.value());
-				else
-					result.addThrows(c.value(), v);
-			}
+				result.addThrows(c.value(), c.doc());
 		}
 		{
 			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
