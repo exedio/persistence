@@ -20,14 +20,14 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Feature;
 
-final class WrapperNameDefault implements StringGetter
+final class StringGetterDefault implements StringGetter
 {
 	public String get(final Feature feature)
 	{
 		throw new RuntimeException();
 	}
 
-	private WrapperNameDefault()
+	private StringGetterDefault()
 	{
 		throw new RuntimeException();
 	}

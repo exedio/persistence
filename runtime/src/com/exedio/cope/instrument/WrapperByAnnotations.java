@@ -257,7 +257,7 @@ final class WrapperByAnnotations
 
 	private String get(final Class<? extends StringGetter> clazz)
 	{
-		if(clazz==WrapperNameDefault.class)
+		if(clazz==StringGetterDefault.class)
 			return null;
 
 		final StringGetter getter = instantiate(clazz);
