@@ -115,7 +115,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}
 
-	public boolean contains(final Item item, final E element)
+	public boolean contains(
+			final Item item,
+			final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);

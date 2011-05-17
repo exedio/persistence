@@ -108,12 +108,17 @@ public final class PartOf<C extends Item> extends Pattern
 		return container.get(part);
 	}
 
-	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container)
+	public <P extends Item> List<P> getParts(
+			final Class<P> partClass,
+			final C container)
 	{
 		return getParts(partClass, container, null);
 	}
 
-	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container, final Condition condition)
+	public <P extends Item> List<P> getParts(
+			final Class<P> partClass,
+			final C container,
+			final Condition condition)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Condition parentCondition = this.container.equal(container);

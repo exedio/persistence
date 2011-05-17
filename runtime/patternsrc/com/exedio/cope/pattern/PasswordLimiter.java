@@ -178,7 +178,9 @@ public final class PasswordLimiter extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
-	public boolean check(final Item item, final String password)
+	public boolean check(
+			final Item item,
+			final String password)
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -191,7 +193,10 @@ public final class PasswordLimiter extends Pattern
 		return checkInternally(item, password, now);
 	}
 
-	public boolean checkVerbosely(final Item item, final String password) throws ExceededException
+	public boolean checkVerbosely(
+			final Item item,
+			final String password)
+	throws ExceededException
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -275,7 +280,8 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
-	public int purge(final Interrupter interrupter)
+	public int purge(
+			final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -286,7 +292,8 @@ public final class PasswordLimiter extends Pattern
 		);
 	}
 
-	public void purge(final JobContext ctx)
+	public void purge(
+			final JobContext ctx)
 	{
 		final long now = clock.currentTimeMillis();
 		Delete.delete(

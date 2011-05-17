@@ -118,13 +118,18 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}
 
-	public V get(final Item item, final K key)
+	public V get(
+			final Item item,
+			final K key)
 	{
 		assertKey(key);
 		return fields.get(key).get(item);
 	}
 
-	public void set(final Item item, final K key, final V value)
+	public void set(
+			final Item item,
+			final K key,
+			final V value)
 	{
 		assertKey(key);
 		fields.get(key).set(item, value);

@@ -208,7 +208,9 @@ public final class SetField<E> extends Pattern
 	 * Returns the items, for which this field set contains the given element.
 	 * The order of the result is unspecified.
 	 */
-	public <P extends Item> List<P> getParents(final Class<P> parentClass, final E element)
+	public <P extends Item> List<P> getParents(
+			final Class<P> parentClass,
+			final E element)
 	{
 		return new Query<P>(
 				mount().parent.as(parentClass),
@@ -219,7 +221,9 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	public boolean add(final Item item, final E element)
+	public boolean add(
+			final Item item,
+			final E element)
 	{
 		final Mount mount = mount();
 		try
@@ -240,7 +244,9 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	public boolean remove(final Item item, final E element)
+	public boolean remove(
+			final Item item,
+			final E element)
 	{
 		final Item row =
 			mount().uniqueConstraint.search(item, element);

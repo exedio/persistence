@@ -349,7 +349,9 @@ public final class DynamicModel<L> extends Pattern
 		return mount().type;
 	}
 
-	public void setType(final Item item, final Type<L> type)
+	public void setType(
+			final Item item,
+			final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -418,13 +420,18 @@ public final class DynamicModel<L> extends Pattern
 		return enums[pos];
 	}
 
-	public Object get(final Item item, final Field<L> field)
+	public Object get(
+			final Item item,
+			final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
 	}
 
-	public void set(final Item item, final Field<L> field, final Object value)
+	public void set(
+			final Item item,
+			final Field<L> field,
+			final Object value)
 	{
 		assertType(item, field);
 

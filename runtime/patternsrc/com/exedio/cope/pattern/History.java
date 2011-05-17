@@ -226,7 +226,10 @@ public final class History extends Pattern
 		return q.search();
 	}
 
-	public Event createEvent(final Item item, final String author, final boolean isNew)
+	public Event createEvent(
+			final Item item,
+			final String author,
+			final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
