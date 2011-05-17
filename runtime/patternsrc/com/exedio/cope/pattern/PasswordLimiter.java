@@ -20,8 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +32,8 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
@@ -153,32 +153,11 @@ public final class PasswordLimiter extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("check").
-			addParameter(String.class, "password").
-			setReturn(boolean.class));
-		result.add(
-			new Wrapper("checkVerbosely").
-			addParameter(String.class, "password").
-			setReturn(boolean.class).
-			addThrows(ExceededException.class));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(Interrupter.class, "interrupter").
-			setReturn(int.class, "the number of refusals purged"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(JobContext.class, "ctx"));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(PasswordLimiter.class, this, super.getWrappers());
 	}
 
-	public boolean check(final Item item, final String password)
+	@Wrap(order=10)
+	public boolean check(final Item item, @WrapParam("password") final String password)
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -191,7 +170,8 @@ public final class PasswordLimiter extends Pattern
 		return checkInternally(item, password, now);
 	}
 
-	public boolean checkVerbosely(final Item item, final String password) throws ExceededException
+	@Wrap(order=20, thrown=@Wrap.Thrown(ExceededException.class))
+	public boolean checkVerbosely(final Item item, @WrapParam("password") final String password) throws ExceededException
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -275,7 +255,8 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
-	public int purge(final Interrupter interrupter)
+	@Wrap(order=30, docReturn="the number of refusals purged")
+	public int purge(@WrapParam("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -286,7 +267,8 @@ public final class PasswordLimiter extends Pattern
 		);
 	}
 
-	public void purge(final JobContext ctx)
+	@Wrap(order=40)
+	public void purge(@WrapParam("ctx") final JobContext ctx)
 	{
 		final long now = clock.currentTimeMillis();
 		Delete.delete(
