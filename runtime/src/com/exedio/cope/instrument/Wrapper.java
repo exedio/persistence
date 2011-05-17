@@ -35,6 +35,10 @@ public final class Wrapper
 	private final String name;
 	private final Method method;
 
+	/**
+	 * @deprecated Use {@link #makeByReflection(Class, Feature, List)} and {@link Wrap} annotations instead.
+	 */
+	@Deprecated
 	public Wrapper(final String name)
 	{
 		this.name = name;
