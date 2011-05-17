@@ -313,7 +313,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
-		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);
+		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC|FINAL);
 	}
 
 	public void testHierarchy()
