@@ -175,7 +175,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			suppressor=FinalPrimitiveSuppressor.class,
+			suppressor={FinalSuppressor.class, PrimitiveSuppressor.class},
 			thrownx=ElementThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
@@ -348,14 +348,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		public boolean isSuppressed(final FunctionField feature)
 		{
 			return feature.getImplicitUniqueConstraint()==null;
-		}
-	}
-
-	private static final class FinalPrimitiveSuppressor implements WrapperSuppressor<FunctionField>
-	{
-		public boolean isSuppressed(final FunctionField feature)
-		{
-			return feature.isFinal() || feature.getInitialType().isPrimitive();
 		}
 	}
 
