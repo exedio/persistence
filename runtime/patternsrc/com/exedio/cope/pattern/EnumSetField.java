@@ -90,7 +90,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	}
 
 	@Wrap(order=10)
-	public boolean contains(final Item item, @WrapParam("k") final E element)
+	public boolean contains(
+			final Item item,
+			@WrapParam("k") final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);

@@ -88,13 +88,18 @@ public final class PartOf<C extends Item> extends Pattern
 	}
 
 	@Wrap(order=20, doc="Returns the parts of the given container.")
-	public <P extends Item> List<P> getParts(final Class<P> partClass, @WrapParam("container") final C container)
+	public <P extends Item> List<P> getParts(
+			final Class<P> partClass,
+			@WrapParam("container") final C container)
 	{
 		return getParts(partClass, container, null);
 	}
 
 	@Wrap(order=30, doc="Returns the parts of the given container matching the given condition.")
-	public <P extends Item> List<P> getParts(final Class<P> partClass, @WrapParam("container") final C container, @WrapParam("condition") final Condition condition)
+	public <P extends Item> List<P> getParts(
+			final Class<P> partClass,
+			@WrapParam("container") final C container,
+			@WrapParam("condition") final Condition condition)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Condition parentCondition = this.container.equal(container);

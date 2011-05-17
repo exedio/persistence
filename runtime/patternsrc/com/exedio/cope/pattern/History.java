@@ -209,7 +209,10 @@ public final class History extends Pattern
 	}
 
 	@Wrap(order=20, doc="Creates a new event for the history {0}.")
-	public Event createEvent(final Item item, @WrapParam("author") final String author, @WrapParam("isNew") final boolean isNew)
+	public Event createEvent(
+			final Item item,
+			@WrapParam("author") final String author,
+			@WrapParam("isNew") final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),

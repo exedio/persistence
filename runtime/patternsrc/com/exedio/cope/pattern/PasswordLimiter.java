@@ -157,7 +157,9 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	@Wrap(order=10)
-	public boolean check(final Item item, @WrapParam("password") final String password)
+	public boolean check(
+			final Item item, @
+			WrapParam("password") final String password)
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -171,7 +173,10 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	@Wrap(order=20, thrown=@Wrap.Thrown(ExceededException.class))
-	public boolean checkVerbosely(final Item item, @WrapParam("password") final String password) throws ExceededException
+	public boolean checkVerbosely(
+			final Item item,
+			@WrapParam("password") final String password)
+	throws ExceededException
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -256,7 +261,8 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	@Wrap(order=30, docReturn="the number of refusals purged")
-	public int purge(@WrapParam("interrupter") final Interrupter interrupter)
+	public int purge(
+			@WrapParam("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -268,7 +274,8 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	@Wrap(order=40)
-	public void purge(@WrapParam("ctx") final JobContext ctx)
+	public void purge(
+			@WrapParam("ctx") final JobContext ctx)
 	{
 		final long now = clock.currentTimeMillis();
 		Delete.delete(

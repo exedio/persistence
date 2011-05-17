@@ -105,14 +105,19 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	}
 
 	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
-	public V get(final Item item, @WrapParam(KEY) final K key)
+	public V get(
+			final Item item,
+			@WrapParam(KEY) final K key)
 	{
 		assertKey(key);
 		return fields.get(key).get(item);
 	}
 
 	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
-	public void set(final Item item, @WrapParam(KEY) final K key, final V value)
+	public void set(
+			final Item item,
+			@WrapParam(KEY) final K key,
+			final V value)
 	{
 		assertKey(key);
 		fields.get(key).set(item, value);
