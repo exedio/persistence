@@ -84,9 +84,8 @@ final class WrapperByAnnotations
 
 		for(final Map.Entry<Wrap, Method> entry : methods.entrySet())
 		{
-			final Wrapper wrapper = make(entry.getValue(), entry.getKey());
-			if(wrapper!=null)
-				list.add(wrapper);
+			if(isNotHidden(entry.getKey()))
+				list.add(make(entry.getValue(), entry.getKey()));
 		}
 	}
 
@@ -126,7 +125,7 @@ final class WrapperByAnnotations
 		}
 	};
 
-	private Wrapper make(final Method method, final Wrap annotation)
+	private boolean isNotHidden(final Wrap annotation)
 	{
 		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
 		{
@@ -134,9 +133,13 @@ final class WrapperByAnnotations
 			@SuppressWarnings("unchecked")
 			final boolean hide = hideGetter.get(feature);
 			if(hide)
-				return null;
+				return false;
 		}
+		return true;
+	};
 
+	private Wrapper make(final Method method, final Wrap annotation)
+	{
 		final Wrapper result = new Wrapper(method);
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
