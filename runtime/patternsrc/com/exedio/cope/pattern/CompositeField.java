@@ -225,7 +225,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	private static final class FinalSuppressor implements WrapperSuppressor<CompositeField>
 	{
-		public boolean isSuppressed(final CompositeField feature)
+		public boolean get(final CompositeField feature)
 		{
 			return feature.isFinal();
 		}

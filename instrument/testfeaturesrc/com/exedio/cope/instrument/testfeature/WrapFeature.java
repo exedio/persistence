@@ -112,7 +112,7 @@ public class WrapFeature extends Pattern
 
 	private static final class TrueSupressor implements WrapperSuppressor<WrapFeature>
 	{
-		public boolean isSuppressed(final WrapFeature feature)
+		public boolean get(final WrapFeature feature)
 		{
 			return true;
 		}
@@ -126,7 +126,7 @@ public class WrapFeature extends Pattern
 
 	private static final class FalseSupressor implements WrapperSuppressor<WrapFeature>
 	{
-		public boolean isSuppressed(final WrapFeature feature)
+		public boolean get(final WrapFeature feature)
 		{
 			return false;
 		}

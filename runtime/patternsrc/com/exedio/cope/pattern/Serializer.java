@@ -184,7 +184,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 
 	private static final class FinalSuppressor implements WrapperSuppressor<Serializer>
 	{
-		public boolean isSuppressed(final Serializer feature)
+		public boolean get(final Serializer feature)
 		{
 			return feature.isFinal();
 		}

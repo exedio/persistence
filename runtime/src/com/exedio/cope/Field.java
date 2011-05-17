@@ -83,7 +83,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	static final class FinalSuppressor implements WrapperSuppressor<Field>
 	{
-		public boolean isSuppressed(final Field feature)
+		public boolean get(final Field feature)
 		{
 			return feature.isFinal();
 		}

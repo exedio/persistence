@@ -123,7 +123,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	private static final class FinalSuppressor implements WrapperSuppressor<PriceField>
 	{
-		public boolean isSuppressed(final PriceField feature)
+		public boolean get(final PriceField feature)
 		{
 			return feature.isFinal();
 		}

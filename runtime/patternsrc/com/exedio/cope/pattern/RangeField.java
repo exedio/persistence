@@ -110,7 +110,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 
 	private static final class FinalSuppressor implements WrapperSuppressor<RangeField>
 	{
-		public boolean isSuppressed(final RangeField feature)
+		public boolean get(final RangeField feature)
 		{
 			return feature.isFinal();
 		}

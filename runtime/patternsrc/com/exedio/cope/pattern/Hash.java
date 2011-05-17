@@ -252,7 +252,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	private static final class FinalSuppressor implements WrapperSuppressor<Hash>
 	{
-		public boolean isSuppressed(final Hash feature)
+		public boolean get(final Hash feature)
 		{
 			return feature.isFinal();
 		}

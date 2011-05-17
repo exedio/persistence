@@ -150,7 +150,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	private static final class FinalSuppressor implements WrapperSuppressor<FeatureField>
 	{
-		public boolean isSuppressed(final FeatureField feature)
+		public boolean get(final FeatureField feature)
 		{
 			return feature.isFinal();
 		}

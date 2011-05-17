@@ -22,5 +22,5 @@ import com.exedio.cope.Feature;
 
 public interface WrapperSuppressor<F extends Feature>
 {
-	boolean isSuppressed(F feature);
+	boolean get(F feature);
 }

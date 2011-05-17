@@ -132,7 +132,7 @@ final class WrapperByAnnotations
 		{
 			final WrapperSuppressor suppressor = instantiate(suppressorClass);
 			@SuppressWarnings("unchecked")
-			final boolean suppressed = suppressor.isSuppressed(feature);
+			final boolean suppressed = suppressor.get(feature);
 			if(suppressed)
 				return null;
 		}
