@@ -129,10 +129,7 @@ final class WrapperByAnnotations
 	{
 		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
 		{
-			final BooleanGetter hideGetter = instantiate(hideGetterClass);
-			@SuppressWarnings("unchecked")
-			final boolean hide = hideGetter.get(feature);
-			if(hide)
+			if(get(hideGetterClass))
 				return false;
 		}
 		return true;
@@ -209,14 +206,9 @@ final class WrapperByAnnotations
 				}
 				else
 				{
-					final Class<? extends StringGetter> nameClass = annotation.nameGetter();
-					if(nameClass!=WrapperNameDefault.class)
-					{
-						final StringGetter name = instantiate(nameClass);
-						@SuppressWarnings("unchecked")
-						final String pattern = name.get(feature);
+					final String pattern = get(annotation.nameGetter());
+					if(pattern!=null)
 						result.setMethodWrapperPattern(pattern);
-					}
 				}
 			}
 		}
@@ -254,6 +246,25 @@ final class WrapperByAnnotations
 		}
 		return result;
 	}
+
+	private boolean get(final Class<? extends BooleanGetter> clazz)
+	{
+		final BooleanGetter getter = instantiate(clazz);
+		@SuppressWarnings("unchecked")
+		final boolean result = getter.get(feature);
+		return result;
+	};
+
+	private String get(final Class<? extends StringGetter> clazz)
+	{
+		if(clazz==WrapperNameDefault.class)
+			return null;
+
+		final StringGetter getter = instantiate(clazz);
+		@SuppressWarnings("unchecked")
+		final String result = getter.get(feature);
+		return result;
+	};
 
 	private static <E> E instantiate(final Class<E> clazz)
 	{
