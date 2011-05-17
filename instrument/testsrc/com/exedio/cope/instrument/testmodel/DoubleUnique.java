@@ -34,8 +34,13 @@ public class DoubleUnique extends Item
 	 */
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 
+	void useFeaturesToAvoidWarning()
+	{
+		forUnique(null, null);
+	}
 
-/**
+
+	/**
 
 	 **
 	 * Creates a new DoubleUnique with all the fields initially needed.
