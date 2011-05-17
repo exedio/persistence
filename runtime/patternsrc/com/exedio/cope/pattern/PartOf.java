@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.Condition;
@@ -32,6 +31,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
@@ -77,43 +78,23 @@ public final class PartOf<C extends Item> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getContainer").
-			addComment("Returns the container this item is part of by {0}.").
-			setReturn(container.getValueClass()));
-
-		result.add(
-			new Wrapper("getParts").
-			addComment("Returns the parts of the given container.").
-			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
-			addParameter(Wrapper.TypeVariable0.class, "container").
-			setStatic());
-
-		result.add(
-			new Wrapper("getParts").
-			addComment("Returns the parts of the given container matching the given condition.").
-			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
-			addParameter(Wrapper.TypeVariable0.class, "container").
-			addParameter(Condition.class, "condition").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(PartOf.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the container this item is part of by {0}.")
 	public C getContainer(final Item part)
 	{
 		return container.get(part);
 	}
 
-	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container)
+	@Wrap(order=20, doc="Returns the parts of the given container.")
+	public <P extends Item> List<P> getParts(final Class<P> partClass, @WrapParam("container") final C container)
 	{
 		return getParts(partClass, container, null);
 	}
 
-	public <P extends Item> List<P> getParts(final Class<P> partClass, final C container, final Condition condition)
+	@Wrap(order=30, doc="Returns the parts of the given container matching the given condition.")
+	public <P extends Item> List<P> getParts(final Class<P> partClass, @WrapParam("container") final C container, @WrapParam("condition") final Condition condition)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Condition parentCondition = this.container.equal(container);
