@@ -25,6 +25,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperSuppressor;
 
 public class WrapFeature extends Pattern
 {
@@ -59,6 +60,8 @@ public class WrapFeature extends Pattern
 	{
 		throw new RuntimeException();
 	}
+
+	// documentation
 
 	@Wrap(order=50,
 			doc="method documentation",
@@ -97,6 +100,36 @@ public class WrapFeature extends Pattern
 					}) final int n)
 	{
 		throw new RuntimeException();
+	}
+
+	// suppressor
+
+	@Wrap(order=200, suppressor=TrueSupressor.class)
+	public int hidden()
+	{
+		throw new RuntimeException();
+	}
+
+	private static final class TrueSupressor implements WrapperSuppressor<WrapFeature>
+	{
+		public boolean isSuppressed(final WrapFeature feature)
+		{
+			return true;
+		}
+	}
+
+	@Wrap(order=210, suppressor=FalseSupressor.class)
+	public int notHidden()
+	{
+		throw new RuntimeException();
+	}
+
+	private static final class FalseSupressor implements WrapperSuppressor<WrapFeature>
+	{
+		public boolean isSuppressed(final WrapFeature feature)
+		{
+			return false;
+		}
 	}
 
 
