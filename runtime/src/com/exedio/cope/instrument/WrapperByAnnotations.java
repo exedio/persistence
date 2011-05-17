@@ -203,8 +203,7 @@ final class WrapperByAnnotations
 		{
 			{
 				for(final String s : annotation.doc())
-					if(!s.isEmpty())
-						result.addComment(s);
+					result.addComment(s);
 
 				final String methodWrapperPattern = annotation.name();
 				if(!methodWrapperPattern.isEmpty())
