@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.FunctionField;
@@ -28,6 +26,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
@@ -66,41 +66,23 @@ public final class Importer<K extends Object> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("doImport").
-			setMethodWrapperPattern("import{0}").
-			addComment("Import {0}.").
-			setReturn(Wrapper.ClassVariable.class, "the imported item").
-			addParameter(key.getInitialType(), "keyValue").
-			addParameterVararg(SetValue[].class, "setValues").
-			setStatic());
-		result.add(
-			new Wrapper("doImport").
-			setMethodWrapperPattern("import{0}").
-			addComment("Import {0}.").
-			setReturn(Wrapper.ClassVariable.class, "the imported item").
-			addParameter(key.getInitialType(), "keyValue").
-			addParameter(Wrapper.genericExtends(List.class, SetValue.class), "setValues").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(Importer.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final K keyValue,
-			final List<? extends SetValue> setValues)
+			@WrapParam("keyValue") final K keyValue,
+			@WrapParam("setValues") final List<? extends SetValue> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
 
+	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final K keyValue,
-			final SetValue... setValues)
+			@WrapParam("keyValue") final K keyValue,
+			@WrapParam("setValues") final SetValue... setValues)
 	{
 		if(keyValue==null)
 			throw new NullPointerException("keyValue");

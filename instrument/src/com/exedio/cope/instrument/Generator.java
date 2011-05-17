@@ -25,6 +25,7 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -726,6 +727,11 @@ final class Generator
 		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
 	}
 
+	private static final String toString(final GenericArrayType t, final Context ctx)
+	{
+		return toString(t.getGenericComponentType(), ctx) + "...";
+	}
+
 	private static final String toString(final Wrapper.ExtendsType t, final Context ctx)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
@@ -756,6 +762,8 @@ final class Generator
 			return toString((TypeVariable)t, ctx);
 		else if(t instanceof WildcardType)
 			return toString((WildcardType)t, ctx);
+		else if(t instanceof GenericArrayType)
+			return toString((GenericArrayType)t, ctx);
 		else if(t instanceof Wrapper.ExtendsType)
 			return toString((Wrapper.ExtendsType)t, ctx);
 		else
