@@ -190,7 +190,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	@Wrap(order=40, name="addTo{0}",
 			doc="Adds a new value for {0}.",
-			thrownGetter=ElementThrown.class)
+			thrownGetter=Thrown.class)
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
@@ -207,7 +207,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	@Wrap(order=50,
 			doc="Sets a new value for {0}.",
-			thrownGetter=ElementThrown.class)
+			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
@@ -251,7 +251,7 @@ public final class ListField<E> extends AbstractListField<E>
 		}
 	}
 
-	private static final class ElementThrown implements WrapperThrown<ListField<?>>
+	private static final class Thrown implements WrapperThrown<ListField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
 		{

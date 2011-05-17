@@ -176,14 +176,14 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			hide={FinalGetter.class, PrimitiveGetter.class},
-			thrownGetter=ElementThrown.class)
+			thrownGetter=InitialThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
 	}
 
-	static final class ElementThrown implements WrapperThrown<FunctionField<?>>
+	static final class InitialThrown implements WrapperThrown<FunctionField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
 		{
