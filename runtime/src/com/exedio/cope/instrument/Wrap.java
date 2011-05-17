@@ -31,7 +31,7 @@ public @interface Wrap
 	int order();
 
 	String name() default "";
-	Class<? extends WrapperName> namex() default WrapperNameDefault.class;
+	Class<? extends StringGetter> nameGetter() default WrapperNameDefault.class;
 
 	public @interface Thrown
 	{

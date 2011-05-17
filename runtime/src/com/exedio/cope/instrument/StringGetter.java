@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Feature;
 
-public interface WrapperName<F extends Feature>
+public interface StringGetter<F extends Feature>
 {
 	String get(F feature);
 }

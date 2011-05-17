@@ -37,7 +37,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperName;
+import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.misc.ComputedElement;
@@ -306,13 +306,13 @@ public class Hash extends Pattern implements Settable<String>
 		return new SetValue[]{ storage.map(hash(value)) };
 	}
 
-	@Wrap(order=40, namex=GetHashName.class, doc="Returns the encoded hash value for hash {0}.")
+	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
 	public final String getHash(final Item item)
 	{
 		return storage.get(item);
 	}
 
-	private static final class GetHashName implements WrapperName<Hash>
+	private static final class GetNameGetter implements StringGetter<Hash>
 	{
 		public String get(final Hash feature)
 		{
@@ -321,7 +321,7 @@ public class Hash extends Pattern implements Settable<String>
 	}
 
 	@Wrap(order=50,
-			namex=SetHashName.class,
+			nameGetter=SetNameGetter.class,
 			doc="Sets the encoded hash value for hash {0}.",
 			hide=FinalGetter.class,
 			thrownx=Thrown.class)
@@ -330,7 +330,7 @@ public class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash);
 	}
 
-	private static final class SetHashName implements WrapperName<Hash>
+	private static final class SetNameGetter implements StringGetter<Hash>
 	{
 		public String get(final Hash feature)
 		{

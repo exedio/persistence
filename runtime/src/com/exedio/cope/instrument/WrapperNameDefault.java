@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Feature;
 
-final class WrapperNameDefault implements WrapperName
+final class WrapperNameDefault implements StringGetter
 {
 	public String get(final Feature feature)
 	{

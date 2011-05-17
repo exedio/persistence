@@ -209,10 +209,10 @@ final class WrapperByAnnotations
 				}
 				else
 				{
-					final Class<? extends WrapperName> nameClass = annotation.namex();
+					final Class<? extends StringGetter> nameClass = annotation.nameGetter();
 					if(nameClass!=WrapperNameDefault.class)
 					{
-						final WrapperName name = instantiate(nameClass);
+						final StringGetter name = instantiate(nameClass);
 						@SuppressWarnings("unchecked")
 						final String pattern = name.get(feature);
 						result.setMethodWrapperPattern(pattern);
