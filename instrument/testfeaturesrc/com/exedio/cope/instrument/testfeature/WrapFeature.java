@@ -70,7 +70,9 @@ public class WrapFeature extends Pattern
 	@Wrap(order=60,
 			doc={
 				"method documentation line 1",
-				"method documentation line 2"},
+				"method documentation line 2",
+				"",
+				"method documentation line 3"},
 			docReturn=
 				"return documentation")
 	public int documentedMulti(
