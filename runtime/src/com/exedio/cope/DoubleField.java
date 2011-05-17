@@ -202,7 +202,7 @@ public final class DoubleField extends NumberField<Double>
 		return getMandatoryObject(item).doubleValue();
 	}
 
-	@Wrap(order=20, doc="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
+	@Wrap(order=20, doc="Sets a new value for {0}.", suppressor={FinalSuppressor.class, OptionalSuppressor.class}, thrownx=ElementThrown.class)
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,

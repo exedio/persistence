@@ -253,7 +253,7 @@ public final class IntegerField extends NumberField<Integer>
 		return getMandatoryObject(item).intValue();
 	}
 
-	@Wrap(order=20, doc="Sets a new value for {0}.", suppressor=PrimitiveSetSuppressor.class, thrownx=ElementThrown.class)
+	@Wrap(order=20, doc="Sets a new value for {0}.", suppressor={FinalSuppressor.class, OptionalSuppressor.class}, thrownx=ElementThrown.class)
 	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,

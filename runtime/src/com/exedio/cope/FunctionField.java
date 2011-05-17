@@ -341,14 +341,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 	}
 
-	static final class PrimitiveSetSuppressor implements WrapperSuppressor<FunctionField>
-	{
-		public boolean isSuppressed(final FunctionField feature)
-		{
-			return feature.isFinal() || !feature.isMandatory();
-		}
-	}
-
 	static List<Wrapper> adjustOrderForPrimitiveOperations(final List<Wrapper> in)
 	{
 		// TODO
