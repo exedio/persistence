@@ -143,9 +143,10 @@ final class WrapperByReflection
 		final Wrapper result = new Wrapper(method);
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
+		final Class<?> parameterType0 = parameterTypes.length>0 ? parameterTypes[0] : null;
 		final Type[] genericParameterTypes = method.getGenericParameterTypes();
 		final int parameterOffset;
-		if(parameterTypes[0]==Class.class)
+		if(parameterType0==Class.class)
 		{
 			final Type t = genericParameterTypes[0];
 			if(t instanceof ParameterizedType)
@@ -173,7 +174,7 @@ final class WrapperByReflection
 				parameterOffset = 0;
 			}
 		}
-		else if(parameterTypes[0]==Item.class)
+		else if(parameterType0==Item.class)
 		{
 			parameterOffset = 1;
 		}

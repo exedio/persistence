@@ -738,7 +738,25 @@
 		</ljar>
 	</target>
 	
-	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, runtime.test.feature.compile">
+	<target name="instrument.testfeature.compile" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
+		<compile srcdir="instrument/testfeaturesrc">
+			<classpath>
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/src" />
+				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+		</compile>
+		<copy todir="build/classes/instrument/testsrc">
+			<fileset dir="instrument/examplesrc">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -746,6 +764,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />

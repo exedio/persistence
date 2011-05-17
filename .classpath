@@ -14,6 +14,7 @@
 	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
 	<classpathentry kind="src" path="instrument/antsrc"/>
 	<classpathentry kind="src" path="instrument/src"/>
+	<classpathentry kind="src" path="instrument/testfeaturesrc"/>
 	<classpathentry kind="src" path="instrument/testsrc"/>
 	<classpathentry kind="src" path="copernica/testsrc"/>
 	<classpathentry kind="src" path="copernica/webtestsrc"/>
