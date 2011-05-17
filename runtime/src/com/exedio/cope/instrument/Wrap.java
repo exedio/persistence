@@ -41,7 +41,7 @@ public @interface Wrap
 	Thrown[] thrown() default {};
 	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
 
-	String[] doc() default "";
+	String[] doc() default {};
 	String docReturn() default "";
 
 	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
