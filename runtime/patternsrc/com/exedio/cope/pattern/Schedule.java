@@ -30,8 +30,6 @@ import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.WEEK_OF_MONTH;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -51,6 +49,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
@@ -202,66 +202,47 @@ public final class Schedule extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("isEnabled").
-			setReturn(boolean.class));
-		result.add(
-			new Wrapper("setEnabled").
-			addParameter(boolean.class, "enabled"));
-		result.add(
-			new Wrapper("getInterval").
-			setReturn(Interval.class));
-		result.add(
-			new Wrapper("setInterval").
-			addParameter(Interval.class, "interval"));
-		result.add(
-			new Wrapper("run").
-			setReturn(int.class).
-			addParameter(Interrupter.class, "interrupter").
-			setStatic(false));
-		result.add(
-			new Wrapper("run").
-			addParameter(JobContext.class, "ctx").
-			setStatic(false));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(Schedule.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10)
 	public boolean isEnabled(final Item item)
 	{
 		return this.enabled.getMandatory(item);
 	}
 
+	@Wrap(order=20)
 	public void setEnabled(
 			final Item item,
-			final boolean enabled)
+			@WrapParam("enabled") final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
 
+	@Wrap(order=30)
 	public Interval getInterval(final Item item)
 	{
 		return this.interval.get(item);
 	}
 
+	@Wrap(order=40)
 	public void setInterval(
 			final Item item,
-			final Interval interval)
+			@WrapParam("interval") final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
 
+	@Wrap(order=50)
 	public int run(
-			final Interrupter interrupter)
+			@WrapParam("interrupter") final Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
 	}
 
+	@Wrap(order=60)
 	public void run(
-			final JobContext ctx)
+			@WrapParam("ctx") final JobContext ctx)
 	{
 		run(ctx, new Date());
 	}
