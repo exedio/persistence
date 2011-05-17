@@ -305,7 +305,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Wrap(order=100, name="for{0}",
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
-			suppressor=NonUniquePrimitiveSuppressor.class)
+			suppressor={NonUniqueSuppressor.class, PrimitiveSuppressor.class})
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final E value)
@@ -322,16 +322,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		public boolean isSuppressed(final FunctionField feature)
 		{
 			return feature.getInitialType().isPrimitive();
-		}
-	}
-
-	private static final class NonUniquePrimitiveSuppressor implements WrapperSuppressor<FunctionField>
-	{
-		public boolean isSuppressed(final FunctionField feature)
-		{
-			return
-				(feature.getImplicitUniqueConstraint()==null) ||
-				(feature.getInitialType().isPrimitive());
 		}
 	}
 
