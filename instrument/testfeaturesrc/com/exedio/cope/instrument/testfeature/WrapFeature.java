@@ -132,6 +132,12 @@ public class WrapFeature extends Pattern
 		}
 	}
 
+	@Wrap(order=220, suppressor={FalseSupressor.class, TrueSupressor.class})
+	public int hiddenPartially()
+	{
+		throw new RuntimeException();
+	}
+
 
 	private static final long serialVersionUID = 1l;
 }

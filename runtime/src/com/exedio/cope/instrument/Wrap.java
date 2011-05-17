@@ -44,5 +44,5 @@ public @interface Wrap
 	String[] doc() default {};
 	String[] docReturn() default {};
 
-	Class<? extends WrapperSuppressor> suppressor() default WrapperSuppressorDefault.class;
+	Class<? extends WrapperSuppressor>[] suppressor() default {};
 }
