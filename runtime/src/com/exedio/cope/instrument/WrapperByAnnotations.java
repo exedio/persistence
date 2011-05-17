@@ -235,7 +235,7 @@ final class WrapperByAnnotations
 		}
 		{
 			final Class<? extends ThrownGetter> thrownClass = annotation.thrownGetter();
-			if(thrownClass!=WrapperThrownDefault.class)
+			if(thrownClass!=ThrownGetterDefault.class)
 			{
 				final ThrownGetter thrown = instantiate(thrownClass);
 				@SuppressWarnings("unchecked")

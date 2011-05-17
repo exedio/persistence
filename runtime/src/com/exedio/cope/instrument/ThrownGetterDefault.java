@@ -22,14 +22,14 @@ import java.util.Set;
 
 import com.exedio.cope.Feature;
 
-final class WrapperThrownDefault implements ThrownGetter
+final class ThrownGetterDefault implements ThrownGetter
 {
 	public Set<Class<? extends Throwable>> get(final Feature feature)
 	{
 		throw new RuntimeException();
 	}
 
-	private WrapperThrownDefault()
+	private ThrownGetterDefault()
 	{
 		throw new RuntimeException();
 	}
