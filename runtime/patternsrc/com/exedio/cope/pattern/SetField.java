@@ -40,7 +40,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.util.Cast;
 
 public final class SetField<E> extends Pattern
@@ -270,7 +270,7 @@ public final class SetField<E> extends Pattern
 		set(item, Cast.castElements(element.getValueClass(), value));
 	}
 
-	private static final class Thrown implements WrapperThrown<SetField<?>>
+	private static final class Thrown implements ThrownGetter<SetField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final SetField<?> feature)
 		{

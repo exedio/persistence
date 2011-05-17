@@ -35,7 +35,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
@@ -156,7 +156,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		}
 	}
 
-	private static final class Thrown implements WrapperThrown<FeatureField<?>>
+	private static final class Thrown implements ThrownGetter<FeatureField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final FeatureField<?> feature)
 		{

@@ -234,10 +234,10 @@ final class WrapperByAnnotations
 				result.addThrows(c.value(), c.doc());
 		}
 		{
-			final Class<? extends WrapperThrown> thrownClass = annotation.thrownGetter();
+			final Class<? extends ThrownGetter> thrownClass = annotation.thrownGetter();
 			if(thrownClass!=WrapperThrownDefault.class)
 			{
-				final WrapperThrown thrown = instantiate(thrownClass);
+				final ThrownGetter thrown = instantiate(thrownClass);
 				@SuppressWarnings("unchecked")
 				final Set<Class<? extends Throwable>> throwables = thrown.get(feature);
 				for(final Class<? extends Throwable> throwable : throwables)

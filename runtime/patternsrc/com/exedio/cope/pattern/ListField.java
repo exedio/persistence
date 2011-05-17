@@ -35,7 +35,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -251,7 +251,7 @@ public final class ListField<E> extends AbstractListField<E>
 		}
 	}
 
-	private static final class Thrown implements WrapperThrown<ListField<?>>
+	private static final class Thrown implements ThrownGetter<ListField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
 		{

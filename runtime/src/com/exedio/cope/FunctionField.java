@@ -31,7 +31,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -183,7 +183,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		item.set(this, value);
 	}
 
-	static final class InitialThrown implements WrapperThrown<FunctionField<?>>
+	static final class InitialThrown implements ThrownGetter<FunctionField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
 		{

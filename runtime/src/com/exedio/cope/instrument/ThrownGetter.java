@@ -22,7 +22,7 @@ import java.util.Set;
 
 import com.exedio.cope.Feature;
 
-public interface WrapperThrown<F extends Feature>
+public interface ThrownGetter<F extends Feature>
 {
 	Set<Class<? extends Throwable>> get(F feature);
 }

@@ -42,7 +42,7 @@ import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
@@ -231,7 +231,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 	}
 
-	private static final class Thrown implements WrapperThrown<CompositeField<?>>
+	private static final class Thrown implements ThrownGetter<CompositeField<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final CompositeField<?> feature)
 		{

@@ -32,7 +32,7 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.util.Hex;
 
 public final class DataField extends Field<DataField.Value>
@@ -311,7 +311,7 @@ public final class DataField extends Field<DataField.Value>
 		set(item, toValue(data));
 	}
 
-	private static final class InitialThrown implements WrapperThrown<Field<?>>
+	private static final class InitialThrown implements ThrownGetter<Field<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final Field<?> feature)
 		{
@@ -319,7 +319,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	private static final class InitialAndIOThrown implements WrapperThrown<Field<?>>
+	private static final class InitialAndIOThrown implements ThrownGetter<Field<?>>
 	{
 		public Set<Class<? extends Throwable>> get(final Field<?> feature)
 		{

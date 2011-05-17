@@ -39,7 +39,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.WrapperThrown;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -258,7 +258,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	private static final class Thrown implements WrapperThrown<Hash>
+	private static final class Thrown implements ThrownGetter<Hash>
 	{
 		public Set<Class<? extends Throwable>> get(final Hash feature)
 		{
