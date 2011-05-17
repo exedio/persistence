@@ -23,6 +23,7 @@ import java.util.List;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public class WrapFeature extends Pattern
@@ -55,6 +56,13 @@ public class WrapFeature extends Pattern
 
 	@Wrap(order=40)
 	public void simpleStaticVoid()
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=50, doc="method documentation", docReturn="return documentation")
+	public int documented(
+			@SuppressWarnings("unused") @WrapParam(doc="parameter documentation") final int n)
 	{
 		throw new RuntimeException();
 	}
