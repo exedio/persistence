@@ -31,8 +31,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 

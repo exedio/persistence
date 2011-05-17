@@ -34,8 +34,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class MapField<K,V> extends Pattern

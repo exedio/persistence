@@ -21,8 +21,8 @@ package com.exedio.cope;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DoubleField extends NumberField<Double>

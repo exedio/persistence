@@ -27,8 +27,8 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern

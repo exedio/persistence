@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class BooleanField extends FunctionField<Boolean>
