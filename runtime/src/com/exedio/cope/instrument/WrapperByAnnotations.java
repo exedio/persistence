@@ -234,15 +234,8 @@ final class WrapperByAnnotations
 				result.addThrows(c.value(), c.doc());
 		}
 		{
-			final Class<? extends ThrownGetter> thrownClass = annotation.thrownGetter();
-			if(thrownClass!=ThrownGetterDefault.class)
-			{
-				final ThrownGetter thrown = instantiate(thrownClass);
-				@SuppressWarnings("unchecked")
-				final Set<Class<? extends Throwable>> throwables = thrown.get(feature);
-				for(final Class<? extends Throwable> throwable : throwables)
-					result.addThrows(throwable);
-			}
+			for(final Class<? extends Throwable> throwable : get(annotation.thrownGetter()))
+				result.addThrows(throwable);
 		}
 		return result;
 	}
@@ -263,6 +256,17 @@ final class WrapperByAnnotations
 		final StringGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final String result = getter.get(feature);
+		return result;
+	};
+
+	private Set<Class<? extends Throwable>> get(final Class<? extends ThrownGetter> clazz)
+	{
+		if(clazz==ThrownGetterDefault.class)
+			return Collections.emptySet();
+
+		final ThrownGetter getter = instantiate(clazz);
+		@SuppressWarnings("unchecked")
+		final Set<Class<? extends Throwable>> result = getter.get(feature);
 		return result;
 	};
 
