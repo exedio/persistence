@@ -185,7 +185,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(CompositeField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(CompositeField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

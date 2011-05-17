@@ -116,7 +116,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(DayField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(DayField.class, this, super.getWrappers());
 	}
 
 	@Override

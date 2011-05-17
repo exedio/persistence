@@ -31,7 +31,7 @@ public class WrapFeature extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(WrapFeature.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(WrapFeature.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

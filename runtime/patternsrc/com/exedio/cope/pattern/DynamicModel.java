@@ -281,7 +281,7 @@ public final class DynamicModel<L> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(DynamicModel.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(DynamicModel.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")

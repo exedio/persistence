@@ -93,7 +93,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(EnumMapField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(EnumMapField.class, this, super.getWrappers());
 	}
 
 	private void assertKey(final K key)

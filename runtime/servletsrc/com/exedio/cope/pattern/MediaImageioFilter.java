@@ -103,7 +103,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(MediaImageioFilter.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(MediaImageioFilter.class, this, super.getWrappers());
 	}
 
 	@Override

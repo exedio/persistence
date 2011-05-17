@@ -112,7 +112,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(FeatureField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(FeatureField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

@@ -115,7 +115,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(DateField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(DateField.class, this, super.getWrappers());
 	}
 
 	/**

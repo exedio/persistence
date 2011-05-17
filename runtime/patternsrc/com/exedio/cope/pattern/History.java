@@ -195,7 +195,7 @@ public final class History extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(History.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(History.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the events of the history {0}.")

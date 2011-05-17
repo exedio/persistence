@@ -181,7 +181,7 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Dispatcher.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
 	/**

@@ -36,7 +36,7 @@ public final class Wrapper
 	private final Method method;
 
 	/**
-	 * @deprecated Use {@link #makeByReflection(Class, Feature, List)} and {@link Wrap} annotations instead.
+	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
 	 */
 	@Deprecated
 	public Wrapper(final String name)
@@ -411,7 +411,7 @@ public final class Wrapper
 		return new ExtendsType(rawType, actualTypeArguments);
 	}
 
-	public static <F extends Feature> List<Wrapper> makeByReflection(
+	public static <F extends Feature> List<Wrapper> getByAnnotations(
 			final Class<F> clazz,
 			final F feature,
 			final List<Wrapper> superResult)

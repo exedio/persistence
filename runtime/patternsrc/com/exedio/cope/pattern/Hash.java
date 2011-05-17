@@ -236,7 +236,7 @@ public class Hash extends Pattern implements Settable<String>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Hash.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Hash.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=30, doc="Sets a new value for {0}.", suppressor=FinalSuppressor.class, thrownx=Thrown.class)

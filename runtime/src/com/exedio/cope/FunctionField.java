@@ -150,7 +150,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(FunctionField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(FunctionField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.", suppressor=PrimitiveSuppressor.class)

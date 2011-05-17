@@ -97,7 +97,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return adjustOrderForPrimitiveOperations(Wrapper.makeByReflection(BooleanField.class, this, super.getWrappers()));
+		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(BooleanField.class, this, super.getWrappers()));
 	}
 
 	@Override

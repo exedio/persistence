@@ -78,7 +78,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(EnumSetField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(EnumSetField.class, this, super.getWrappers());
 	}
 
 	private void assertElement(final E element)

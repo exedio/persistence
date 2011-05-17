@@ -155,7 +155,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return adjustOrderForPrimitiveOperations(Wrapper.makeByReflection(DoubleField.class, this, super.getWrappers()));
+		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(DoubleField.class, this, super.getWrappers()));
 	}
 
 	@Override

@@ -78,7 +78,7 @@ public final class PartOf<C extends Item> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(PartOf.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(PartOf.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the container this item is part of by {0}.")

@@ -202,7 +202,7 @@ public final class Schedule extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Schedule.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Schedule.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

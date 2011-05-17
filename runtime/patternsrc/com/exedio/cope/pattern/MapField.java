@@ -148,7 +148,7 @@ public final class MapField<K,V> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(MapField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(MapField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10,

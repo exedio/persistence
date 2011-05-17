@@ -272,7 +272,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Media.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Media.class, this, super.getWrappers());
 	}
 
 	@Override

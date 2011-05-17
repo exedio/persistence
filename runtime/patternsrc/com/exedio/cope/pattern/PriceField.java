@@ -98,7 +98,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(PriceField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(PriceField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

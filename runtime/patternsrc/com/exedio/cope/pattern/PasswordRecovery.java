@@ -115,7 +115,7 @@ public final class PasswordRecovery extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(PasswordRecovery.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
 
 	/**

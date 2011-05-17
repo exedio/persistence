@@ -94,7 +94,7 @@ public abstract class View<E> extends Feature
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(View.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(View.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives

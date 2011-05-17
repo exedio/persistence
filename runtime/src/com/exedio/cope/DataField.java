@@ -126,7 +126,7 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(DataField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(DataField.class, this, super.getWrappers());
 	}
 
 	/**

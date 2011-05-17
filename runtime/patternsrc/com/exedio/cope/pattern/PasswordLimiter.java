@@ -153,7 +153,7 @@ public final class PasswordLimiter extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(PasswordLimiter.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(PasswordLimiter.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

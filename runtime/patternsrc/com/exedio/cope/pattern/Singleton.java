@@ -52,7 +52,7 @@ public final class Singleton extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Singleton.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Singleton.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10,

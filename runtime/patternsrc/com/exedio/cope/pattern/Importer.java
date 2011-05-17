@@ -66,7 +66,7 @@ public final class Importer<K extends Object> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(Importer.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(Importer.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")

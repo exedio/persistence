@@ -49,7 +49,7 @@ public abstract class MediaFilter extends CachedMedia
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(MediaFilter.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(MediaFilter.class, this, super.getWrappers());
 	}
 
 	@Override

@@ -119,7 +119,7 @@ public abstract class MediaPath extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(MediaPath.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(MediaPath.class, this, super.getWrappers());
 	}
 
 	public boolean isContentTypeWrapped()

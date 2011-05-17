@@ -144,7 +144,7 @@ public final class ListField<E> extends AbstractListField<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(ListField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(ListField.class, this, super.getWrappers());
 	}
 
 	/**

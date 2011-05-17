@@ -136,7 +136,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(LimitedListField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(LimitedListField.class, this, super.getWrappers());
 	}
 
 	public boolean isInitial()

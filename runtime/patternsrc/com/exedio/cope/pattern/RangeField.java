@@ -67,7 +67,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(RangeField.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(RangeField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

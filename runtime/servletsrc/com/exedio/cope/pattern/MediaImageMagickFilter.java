@@ -124,7 +124,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return Wrapper.makeByReflection(MediaImageMagickFilter.class, this, super.getWrappers());
+		return Wrapper.getByAnnotations(MediaImageMagickFilter.class, this, super.getWrappers());
 	}
 
 	@Override
