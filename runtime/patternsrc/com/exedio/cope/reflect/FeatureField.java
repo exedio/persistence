@@ -136,7 +136,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownx=Thrown.class,
+			thrownGetter=Thrown.class,
 			hide=FinalGetter.class)
 	public void set(final Item item, final E value)
 	{

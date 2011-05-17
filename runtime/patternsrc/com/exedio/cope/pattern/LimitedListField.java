@@ -185,7 +185,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownx=Thrown.class)
+			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 		throws

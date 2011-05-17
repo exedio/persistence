@@ -177,7 +177,7 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownx=Thrown.class)
+	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean add(
 			final Item item,
 			@Parameter("element") final E element)
@@ -201,7 +201,7 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownx=Thrown.class)
+	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean remove(
 			final Item item,
 			@Parameter("element") final E element)
@@ -220,7 +220,7 @@ public final class SetField<E> extends Pattern
 		}
 	}
 
-	@Wrap(order=40, doc="Sets a new value for {0}.", thrownx=Thrown.class)
+	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=Thrown.class)
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Mount mount = mount();

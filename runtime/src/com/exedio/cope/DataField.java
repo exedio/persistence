@@ -233,7 +233,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=100,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownx=InitialThrown.class,
+			thrownGetter=InitialThrown.class,
 			hide=FinalGetter.class)
 	@Override
 	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
@@ -265,7 +265,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=110,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownx=InitialThrown.class,
+			thrownGetter=InitialThrown.class,
 			hide=FinalGetter.class)
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
@@ -284,7 +284,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=120,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownx=InitialAndIOThrown.class,
+			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalGetter.class)
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
@@ -303,7 +303,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=130,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownx=InitialAndIOThrown.class,
+			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalGetter.class)
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException

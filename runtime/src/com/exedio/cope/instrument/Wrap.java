@@ -39,7 +39,7 @@ public @interface Wrap
 		String[] doc() default {};
 	}
 	Thrown[] thrown() default {};
-	Class<? extends WrapperThrown> thrownx() default WrapperThrownDefault.class;
+	Class<? extends WrapperThrown> thrownGetter() default WrapperThrownDefault.class;
 
 	String[] doc() default {};
 	String[] docReturn() default {};

@@ -176,7 +176,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			hide={FinalGetter.class, PrimitiveGetter.class},
-			thrownx=ElementThrown.class)
+			thrownGetter=ElementThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
 	{

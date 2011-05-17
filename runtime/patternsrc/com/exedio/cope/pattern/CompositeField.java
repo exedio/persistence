@@ -211,7 +211,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownx=Thrown.class,
+			thrownGetter=Thrown.class,
 			hide=FinalGetter.class)
 	@SuppressWarnings("unchecked")
 	public void set(final Item item, final E value)

@@ -125,7 +125,7 @@ public final class LongField extends NumberField<Long>
 		return getMandatoryObject(item).longValue();
 	}
 
-	@Wrap(order=20, doc="Sets a new value for {0}.", hide={FinalGetter.class, OptionalGetter.class}, thrownx=ElementThrown.class)
+	@Wrap(order=20, doc="Sets a new value for {0}.", hide={FinalGetter.class, OptionalGetter.class}, thrownGetter=ElementThrown.class)
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,

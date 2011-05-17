@@ -190,7 +190,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	@Wrap(order=40, name="addTo{0}",
 			doc="Adds a new value for {0}.",
-			thrownx=ElementThrown.class)
+			thrownGetter=ElementThrown.class)
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
@@ -207,7 +207,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	@Wrap(order=50,
 			doc="Sets a new value for {0}.",
-			thrownx=ElementThrown.class)
+			thrownGetter=ElementThrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{

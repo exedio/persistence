@@ -234,7 +234,7 @@ final class WrapperByAnnotations
 				result.addThrows(c.value(), c.doc());
 		}
 		{
-			final Class<? extends WrapperThrown> thrownClass = annotation.thrownx();
+			final Class<? extends WrapperThrown> thrownClass = annotation.thrownGetter();
 			if(thrownClass!=WrapperThrownDefault.class)
 			{
 				final WrapperThrown thrown = instantiate(thrownClass);
