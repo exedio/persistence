@@ -80,4 +80,7 @@ public class WrapFeature extends Pattern
 	{
 		throw new RuntimeException();
 	}
+
+
+	private static final long serialVersionUID = 1l;
 }
