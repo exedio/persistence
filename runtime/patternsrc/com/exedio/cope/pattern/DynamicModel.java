@@ -22,8 +22,6 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static java.lang.Math.max;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
@@ -40,6 +38,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapParam;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DynamicModel<L> extends Pattern
@@ -281,34 +281,10 @@ public final class DynamicModel<L> extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getType").
-			addComment("Returns the dynamic type of this item in the model {0}.").
-			setReturn(Wrapper.generic(Type.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("setType").
-			addComment("Sets the dynamic type of this item in the model {0}.").
-			addParameter(Wrapper.generic(Type.class, Wrapper.TypeVariable0.class), "type"));
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of <tt>field</tt> for this item in the model {0}.").
-			setReturn(Object.class).
-			addParameter(Wrapper.generic(Field.class, Wrapper.TypeVariable0.class), "field"));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the value of <tt>field</tt> for this item in the model {0}.").
-			addParameter(Wrapper.generic(Field.class, Wrapper.TypeVariable0.class), "field").
-			addParameter(Object.class, "value"));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.makeByReflection(DynamicModel.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")
 	public Type<L> getType(final Item item)
 	{
 		return mount().type.get(item);
@@ -349,7 +325,8 @@ public final class DynamicModel<L> extends Pattern
 		return mount().type;
 	}
 
-	public void setType(final Item item, final Type<L> type)
+	@Wrap(order=20, doc="Sets the dynamic type of this item in the model {0}.")
+	public void setType(final Item item, @WrapParam("type") final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -418,13 +395,15 @@ public final class DynamicModel<L> extends Pattern
 		return enums[pos];
 	}
 
-	public Object get(final Item item, final Field<L> field)
+	@Wrap(order=30, doc="Returns the value of <tt>field</tt> for this item in the model {0}.")
+	public Object get(final Item item, @WrapParam("field") final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
 	}
 
-	public void set(final Item item, final Field<L> field, final Object value)
+	@Wrap(order=40, doc="Sets the value of <tt>field</tt> for this item in the model {0}.")
+	public void set(final Item item, @WrapParam("field") final Field<L> field, @WrapParam("value") final Object value)
 	{
 		assertType(item, field);
 
