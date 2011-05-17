@@ -27,7 +27,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
@@ -72,8 +72,8 @@ public final class Importer<K extends Object> extends Pattern
 	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			@WrapParam("keyValue") final K keyValue,
-			@WrapParam("setValues") final List<? extends SetValue> setValues)
+			@Parameter("keyValue") final K keyValue,
+			@Parameter("setValues") final List<? extends SetValue> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
@@ -81,8 +81,8 @@ public final class Importer<K extends Object> extends Pattern
 	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			@WrapParam("keyValue") final K keyValue,
-			@WrapParam("setValues") final SetValue... setValues)
+			@Parameter("keyValue") final K keyValue,
+			@Parameter("setValues") final SetValue... setValues)
 	{
 		if(keyValue==null)
 			throw new NullPointerException("keyValue");

@@ -38,7 +38,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
@@ -211,8 +211,8 @@ public final class History extends Pattern
 	@Wrap(order=20, doc="Creates a new event for the history {0}.")
 	public Event createEvent(
 			final Item item,
-			@WrapParam("author") final String author,
-			@WrapParam("isNew") final boolean isNew)
+			@Parameter("author") final String author,
+			@Parameter("isNew") final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),

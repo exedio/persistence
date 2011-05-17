@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 
 @Target(PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WrapParam
+public @interface Parameter
 {
 	String value() default "";
 	String[] doc() default {};

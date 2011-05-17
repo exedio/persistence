@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DoubleField extends NumberField<Double>
@@ -229,7 +229,7 @@ public final class DoubleField extends NumberField<Double>
 			suppressor=PrimitiveUniqueSuppressor.class)
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@WrapParam(doc="shall be equal to field {0}.") final double value)
+			@Parameter(doc="shall be equal to field {0}.") final double value)
 	{
 		return super.searchUnique(typeClass, Double.valueOf(value));
 	}

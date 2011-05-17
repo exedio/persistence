@@ -33,7 +33,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
@@ -158,8 +158,8 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=10)
 	public boolean check(
-			final Item item, @
-			WrapParam("password") final String password)
+			final Item item,
+			@Parameter("password") final String password)
 	{
 		final long now = clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -175,7 +175,7 @@ public final class PasswordLimiter extends Pattern
 	@Wrap(order=20, thrown=@Wrap.Thrown(ExceededException.class))
 	public boolean checkVerbosely(
 			final Item item,
-			@WrapParam("password") final String password)
+			@Parameter("password") final String password)
 	throws ExceededException
 	{
 		final long now = clock.currentTimeMillis();
@@ -262,7 +262,7 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=30, docReturn="the number of refusals purged")
 	public int purge(
-			@WrapParam("interrupter") final Interrupter interrupter)
+			@Parameter("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -275,7 +275,7 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=40)
 	public void purge(
-			@WrapParam("ctx") final JobContext ctx)
+			@Parameter("ctx") final JobContext ctx)
 	{
 		final long now = clock.currentTimeMillis();
 		Delete.delete(

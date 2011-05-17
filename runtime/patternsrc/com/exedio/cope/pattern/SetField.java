@@ -38,7 +38,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperThrown;
 import com.exedio.cope.util.Cast;
@@ -166,7 +166,7 @@ public final class SetField<E> extends Pattern
 			doc="Returns the items, for which field set {0} contains the given element.")
 	public <P extends Item> List<P> getParents(
 			final Class<P> parentClass,
-			@WrapParam("element") final E element)
+			@Parameter("element") final E element)
 	{
 		return new Query<P>(
 				mount().parent.as(parentClass),
@@ -180,7 +180,7 @@ public final class SetField<E> extends Pattern
 	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownx=Thrown.class)
 	public boolean add(
 			final Item item,
-			@WrapParam("element") final E element)
+			@Parameter("element") final E element)
 	{
 		final Mount mount = mount();
 		try
@@ -204,7 +204,7 @@ public final class SetField<E> extends Pattern
 	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownx=Thrown.class)
 	public boolean remove(
 			final Item item,
-			@WrapParam("element") final E element)
+			@Parameter("element") final E element)
 	{
 		final Item row =
 			mount().uniqueConstraint.search(item, element);

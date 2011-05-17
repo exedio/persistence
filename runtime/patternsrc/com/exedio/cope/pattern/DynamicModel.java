@@ -39,7 +39,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DynamicModel<L> extends Pattern
@@ -328,7 +328,7 @@ public final class DynamicModel<L> extends Pattern
 	@Wrap(order=20, doc="Sets the dynamic type of this item in the model {0}.")
 	public void setType(
 			final Item item,
-			@WrapParam("type") final Type<L> type)
+			@Parameter("type") final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -400,7 +400,7 @@ public final class DynamicModel<L> extends Pattern
 	@Wrap(order=30, doc="Returns the value of <tt>field</tt> for this item in the model {0}.")
 	public Object get(
 			final Item item,
-			@WrapParam("field") final Field<L> field)
+			@Parameter("field") final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
@@ -408,9 +408,9 @@ public final class DynamicModel<L> extends Pattern
 
 	@Wrap(order=40, doc="Sets the value of <tt>field</tt> for this item in the model {0}.")
 	public void set(
-			final Item item, @WrapParam("field")
-			final Field<L> field,
-			@WrapParam("value") final Object value)
+			final Item item,
+			@Parameter("field") final Field<L> field,
+			@Parameter("value") final Object value)
 	{
 		assertType(item, field);
 

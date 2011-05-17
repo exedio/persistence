@@ -28,7 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern
@@ -92,7 +92,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	@Wrap(order=10)
 	public boolean contains(
 			final Item item,
-			@WrapParam("k") final E element)
+			@Parameter("k") final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);

@@ -50,7 +50,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
@@ -214,7 +214,7 @@ public final class Schedule extends Pattern
 	@Wrap(order=20)
 	public void setEnabled(
 			final Item item,
-			@WrapParam("enabled") final boolean enabled)
+			@Parameter("enabled") final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
@@ -228,21 +228,21 @@ public final class Schedule extends Pattern
 	@Wrap(order=40)
 	public void setInterval(
 			final Item item,
-			@WrapParam("interval") final Interval interval)
+			@Parameter("interval") final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
 
 	@Wrap(order=50)
 	public int run(
-			@WrapParam("interrupter") final Interrupter interrupter)
+			@Parameter("interrupter") final Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
 	}
 
 	@Wrap(order=60)
 	public void run(
-			@WrapParam("ctx") final JobContext ctx)
+			@Parameter("ctx") final JobContext ctx)
 	{
 		run(ctx, new Date());
 	}

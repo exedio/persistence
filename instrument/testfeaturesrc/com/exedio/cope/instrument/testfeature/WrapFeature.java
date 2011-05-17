@@ -23,7 +23,7 @@ import java.util.List;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapParam;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrapper;
 
 public class WrapFeature extends Pattern
@@ -62,7 +62,7 @@ public class WrapFeature extends Pattern
 
 	@Wrap(order=50, doc="method documentation", docReturn="return documentation")
 	public int documented(
-			@SuppressWarnings("unused") @WrapParam(doc="parameter documentation") final int n)
+			@SuppressWarnings("unused") @Parameter(doc="parameter documentation") final int n)
 	{
 		throw new RuntimeException();
 	}
@@ -79,7 +79,7 @@ public class WrapFeature extends Pattern
 				"",
 				"return documentation line 3"})
 	public int documentedMulti(
-			@SuppressWarnings("unused") @WrapParam(doc={
+			@SuppressWarnings("unused") @Parameter(doc={
 					"parameter documentation line 1",
 					"parameter documentation line 2",
 					"",
