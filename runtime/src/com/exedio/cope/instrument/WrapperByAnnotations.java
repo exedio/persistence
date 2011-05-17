@@ -194,22 +194,21 @@ final class WrapperByAnnotations
 					throw new IllegalArgumentException('@' + "returns");
 			}
 		}
-		{
-			{
-				for(final String s : annotation.doc())
-					result.addComment(s);
 
-				final String methodWrapperPattern = annotation.name();
-				if(!methodWrapperPattern.isEmpty())
-				{
-					result.setMethodWrapperPattern(methodWrapperPattern);
-				}
-				else
-				{
-					final String pattern = get(annotation.nameGetter());
-					if(pattern!=null)
-						result.setMethodWrapperPattern(pattern);
-				}
+		for(final String s : annotation.doc())
+			result.addComment(s);
+
+		{
+			final String methodWrapperPattern = annotation.name();
+			if(!methodWrapperPattern.isEmpty())
+			{
+				result.setMethodWrapperPattern(methodWrapperPattern);
+			}
+			else
+			{
+				final String pattern = get(annotation.nameGetter());
+				if(pattern!=null)
+					result.setMethodWrapperPattern(pattern);
 			}
 		}
 		{
@@ -229,14 +228,12 @@ final class WrapperByAnnotations
 				}
 			}
 		}
-		{
-			for(final Wrap.Thrown c : annotation.thrown())
-				result.addThrows(c.value(), c.doc());
-		}
-		{
-			for(final Class<? extends Throwable> throwable : get(annotation.thrownGetter()))
-				result.addThrows(throwable);
-		}
+
+		for(final Wrap.Thrown c : annotation.thrown())
+			result.addThrows(c.value(), c.doc());
+		for(final Class<? extends Throwable> throwable : get(annotation.thrownGetter()))
+			result.addThrows(throwable);
+
 		return result;
 	}
 
