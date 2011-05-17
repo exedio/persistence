@@ -38,14 +38,14 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Compare;
 
-final class WrapperByReflection
+final class WrapperByAnnotations
 {
 	static <F extends Feature> List<Wrapper> make(
 			final Class<F> clazz,
 			final F feature,
 			final List<Wrapper> superResult)
 	{
-		final WrapperByReflection factory = new WrapperByReflection(clazz, feature);
+		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(superResult);
 		factory.makeAll(result);
@@ -56,7 +56,7 @@ final class WrapperByReflection
 	private final Class<? extends Feature> clazz;
 	private final Feature feature;
 
-	private WrapperByReflection(final Class<? extends Feature> clazz, final Feature instance)
+	private WrapperByAnnotations(final Class<? extends Feature> clazz, final Feature instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;

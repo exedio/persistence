@@ -416,6 +416,6 @@ public final class Wrapper
 			final F feature,
 			final List<Wrapper> superResult)
 	{
-		return WrapperByReflection.make(clazz, feature, superResult);
+		return WrapperByAnnotations.make(clazz, feature, superResult);
 	}
 }
