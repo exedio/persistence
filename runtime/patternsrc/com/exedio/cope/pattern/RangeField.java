@@ -108,7 +108,7 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		this.to.set(item, to);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<RangeField<?>>
+	private static final class FinalSuppressor implements WrapperSuppressor<RangeField>
 	{
 		public boolean isSuppressed(final RangeField feature)
 		{

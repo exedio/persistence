@@ -223,7 +223,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		item.set(setValues);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<CompositeField<?>>
+	private static final class FinalSuppressor implements WrapperSuppressor<CompositeField>
 	{
 		public boolean isSuppressed(final CompositeField feature)
 		{

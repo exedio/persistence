@@ -148,7 +148,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	private static final class FinalSuppressor implements WrapperSuppressor<FeatureField<?>>
+	private static final class FinalSuppressor implements WrapperSuppressor<FeatureField>
 	{
 		public boolean isSuppressed(final FeatureField feature)
 		{
