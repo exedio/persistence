@@ -73,8 +73,11 @@ public class WrapFeature extends Pattern
 				"method documentation line 2",
 				"",
 				"method documentation line 3"},
-			docReturn=
-				"return documentation")
+			docReturn={
+				"return documentation line 1",
+				"return documentation line 2",
+				"",
+				"return documentation line 3"})
 	public int documentedMulti(
 			@SuppressWarnings("unused") @WrapParam(doc="parameter documentation") final int n)
 	{

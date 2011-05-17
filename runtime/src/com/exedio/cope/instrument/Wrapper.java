@@ -110,14 +110,19 @@ public final class Wrapper
 
 
 	private java.lang.reflect.Type returnType = null;
-	private String returnComment = null;
+	private String[] returnComment = EMPTY_STRING_ARRAY;
 
 	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
-		return setReturn(type, null);
+		return setReturn(type, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
+	{
+		return setReturn(type, new String[]{comment});
+	}
+
+	Wrapper setReturn(final java.lang.reflect.Type type, final String[] comment)
 	{
 		if(type==null)
 			throw new NullPointerException("type");
@@ -125,8 +130,8 @@ public final class Wrapper
 			throw new IllegalArgumentException("type must not be void");
 		if(this.returnType!=null)
 			throw new IllegalStateException("type must not be set twice");
-		if(comment!=null)
-			assertComment(comment);
+		for(final String c : comment)
+			assertComment(c);
 
 		this.returnType = type;
 		this.returnComment = comment;
@@ -139,9 +144,9 @@ public final class Wrapper
 		return returnType!=null ? returnType : void.class;
 	}
 
-	public String getReturnComment()
+	public String[] getReturnComment()
 	{
-		return returnComment;
+		return com.exedio.cope.misc.Arrays.copyOf(returnComment);
 	}
 
 
@@ -410,6 +415,8 @@ public final class Wrapper
 	{
 		return new ExtendsType(rawType, actualTypeArguments);
 	}
+
+	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
 
 	public static <F extends Feature> List<Wrapper> getByAnnotations(
 			final Class<F> clazz,

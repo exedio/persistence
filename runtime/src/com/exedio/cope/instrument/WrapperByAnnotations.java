@@ -186,17 +186,14 @@ final class WrapperByAnnotations
 
 		{
 			final Type returnType = method.getGenericReturnType();
-			final String comment = annotation.docReturn();
+			final String[] comment = annotation.docReturn();
 			if(returnType!=void.class)
 			{
-				if(!comment.isEmpty())
-					result.setReturn(returnType, comment);
-				else
-					result.setReturn(returnType);
+				result.setReturn(returnType, comment);
 			}
 			else
 			{
-				if(!comment.isEmpty())
+				if(comment.length>0)
 					throw new IllegalArgumentException('@' + "returns");
 			}
 		}

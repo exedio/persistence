@@ -416,11 +416,17 @@ final class Generator
 					}
 				}
 				{
-					final String comment = wrapper.getReturnComment();
-					if(comment!=null)
+					final String[] comment = wrapper.getReturnComment();
+					if(comment.length>0)
 					{
 						write("\t * @return ");
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *         ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}
