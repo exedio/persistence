@@ -789,13 +789,14 @@
 		</instrument>
 	</target>
 	
-	<target name="instrument.test.compile" depends="instrument.test.instrument, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
+	<target name="instrument.test.compile" depends="instrument.test.instrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/src" />
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
