@@ -111,7 +111,7 @@ final class Context
 				featureClass);
 	}
 
-	String dig(
+	private String dig(
 			final Class instanceClass,
 			final Class declarationClass,
 			final int typeParameterPosition)
