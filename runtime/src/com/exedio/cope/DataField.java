@@ -30,9 +30,9 @@ import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.util.Hex;
 
 public final class DataField extends Field<DataField.Value>

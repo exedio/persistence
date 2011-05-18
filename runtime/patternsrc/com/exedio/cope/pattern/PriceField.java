@@ -28,10 +28,10 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class PriceField extends Pattern implements Settable<Price>

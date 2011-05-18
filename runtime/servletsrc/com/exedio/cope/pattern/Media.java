@@ -46,10 +46,10 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 

@@ -37,10 +37,10 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
 

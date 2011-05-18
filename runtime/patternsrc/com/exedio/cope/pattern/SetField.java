@@ -38,9 +38,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.util.Cast;
 
 public final class SetField<E> extends Pattern

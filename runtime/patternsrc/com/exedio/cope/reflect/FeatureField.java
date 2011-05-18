@@ -32,10 +32,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>

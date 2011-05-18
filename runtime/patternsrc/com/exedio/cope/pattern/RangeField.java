@@ -27,9 +27,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.BooleanGetter;
 
 public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 {
