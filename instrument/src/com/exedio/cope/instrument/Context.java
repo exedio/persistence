@@ -41,11 +41,6 @@ final class Context
 		this.wrapper = wrapper;
 	}
 
-	private Method getMethod()
-	{
-		return wrapper.getMethod();
-	}
-
 	private String getClassToken()
 	{
 		return feature.parent.name;
@@ -98,7 +93,7 @@ final class Context
 			return getClassToken();
 
 		final Class<? extends Feature> featureClass = getFeatureClass();
-		final Method method = getMethod();
+		final Method method = wrapper.getMethod();
 		final Class methodClass = method.getDeclaringClass();
 		int typeParameterPosition = 0;
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
