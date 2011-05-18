@@ -114,13 +114,14 @@ final class Context
 	private String dig(
 			final Class instanceClass,
 			final Class declarationClass,
-			int typeParameterPosition)
+			final int declarationTypeParameterPosition)
 	{
 		final LinkedList<Class> classes = new LinkedList<Class>();
 		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 
 		Class superClass = declarationClass;
+		int typeParameterPosition = declarationTypeParameterPosition;
 		for(final Class clazz : classes)
 		{
 			assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
