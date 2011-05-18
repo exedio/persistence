@@ -20,7 +20,6 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -93,8 +92,7 @@ final class Context
 			return getClassToken();
 
 		final Class<? extends Feature> featureClass = getFeatureClass();
-		final Method method = wrapper.getMethod();
-		final Class methodClass = method.getDeclaringClass();
+		final Class methodClass = wrapper.getMethod().getDeclaringClass();
 		int typeParameterPosition = 0;
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
