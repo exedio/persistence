@@ -142,12 +142,11 @@ final class Context
 			}
 			else if(superTypeArgument instanceof TypeVariable)
 			{
-				final TypeVariable<?> superTypeArgumentVar = (TypeVariable)superTypeArgument;
 				int pos = 0;
 				boolean done = false;
 				for(final TypeVariable<?> tv : clazz.getTypeParameters())
 				{
-					if(superTypeArgumentVar==tv)
+					if(superTypeArgument==tv)
 					{
 						superClass = clazz;
 						superTypeParameterPosition = pos;
@@ -156,7 +155,7 @@ final class Context
 					}
 					pos++;
 				}
-				assert done : "" + Arrays.asList(clazz.getTypeParameters()) + '/' + superTypeArgumentVar;
+				assert done : "" + Arrays.asList(clazz.getTypeParameters()) + '/' + superTypeArgument;
 			}
 			else
 			{
