@@ -126,9 +126,7 @@ final class Context
 		{
 			assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
 
-			final Type superType = clazz.getGenericSuperclass();
-
-			final ParameterizedType superTypeP = (ParameterizedType)superType;
+			final ParameterizedType superTypeP = (ParameterizedType)clazz.getGenericSuperclass();
 			assert superTypeP.getRawType()==superClass : superTypeP.getRawType().toString()+'/'+superClass;
 			assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
 
