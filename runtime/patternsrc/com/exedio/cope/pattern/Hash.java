@@ -19,9 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +35,10 @@ import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.StringGetter;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
@@ -234,49 +236,13 @@ public class Hash extends Pattern implements Settable<String>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("check").
-			addComment("Returns whether the given value corresponds to the hash in {0}.").
-			setReturn(boolean.class).
-			addParameter(String.class));
-
-		result.add(
-			new Wrapper("blind").
-			addComment("Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.").
-			addComment("Needed to prevent Timing Attacks.").
-			setStatic(false).
-			addParameter(String.class));
-
-		final boolean isNotFinal = !isFinal();
-		final Set<Class<? extends Throwable>> exceptions = isNotFinal ? getInitialExceptions() : null;
-		if(isNotFinal)
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(exceptions).
-				addParameter(String.class));
-
-		final String algorithmName = algorithm.name();
-		result.add(
-			new Wrapper("getHash").
-			setMethodWrapperPattern("get{0}" + algorithmName).
-			addComment("Returns the encoded hash value for hash {0}.").
-			setReturn(String.class));
-
-		if(isNotFinal)
-			result.add(
-				new Wrapper("setHash").
-				setMethodWrapperPattern("set{0}" + algorithmName).
-				addComment("Sets the encoded hash value for hash {0}.").
-				addThrows(exceptions).
-				addParameter(String.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(Hash.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=30,
+			doc="Sets a new value for {0}.",
+			hide=FinalGetter.class,
+			thrownGetter=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -287,6 +253,24 @@ public class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash(plainText));
 	}
 
+	private static final class FinalGetter implements BooleanGetter<Hash>
+	{
+		public boolean get(final Hash feature)
+		{
+			return feature.isFinal();
+		}
+	}
+
+	private static final class Thrown implements ThrownGetter<Hash>
+	{
+		public Set<Class<? extends Throwable>> get(final Hash feature)
+		{
+			return feature.getInitialExceptions();
+		}
+	}
+
+	@Wrap(order=10,
+			doc="Returns whether the given value corresponds to the hash in {0}.")
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
@@ -302,6 +286,9 @@ public class Hash extends Pattern implements Settable<String>
 	 * Needed to prevent Timing Attacks.
 	 * See http://en.wikipedia.org/wiki/Timing_attack
 	 */
+	@Wrap(order=20,
+			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
+					"Needed to prevent Timing Attacks."})
 	public final void blind(final String actualPlainText)
 	{
 		if(actualPlainText!=null)
@@ -322,14 +309,36 @@ public class Hash extends Pattern implements Settable<String>
 		return new SetValue[]{ storage.map(hash(value)) };
 	}
 
+	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
 	public final String getHash(final Item item)
 	{
 		return storage.get(item);
 	}
 
+	private static final class GetNameGetter implements StringGetter<Hash>
+	{
+		public String get(final Hash feature)
+		{
+			return "get{0}" + feature.getAlgorithmName();
+		}
+	}
+
+	@Wrap(order=50,
+			nameGetter=SetNameGetter.class,
+			doc="Sets the encoded hash value for hash {0}.",
+			hide=FinalGetter.class,
+			thrownGetter=Thrown.class)
 	public final void setHash(final Item item, final String hash)
 	{
 		storage.set(item, hash);
+	}
+
+	private static final class SetNameGetter implements StringGetter<Hash>
+	{
+		public String get(final Hash feature)
+		{
+			return "set{0}" + feature.getAlgorithmName();
+		}
 	}
 
 	public final String hash(final String plainText)

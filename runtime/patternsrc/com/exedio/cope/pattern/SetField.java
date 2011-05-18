@@ -37,6 +37,9 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
@@ -108,6 +111,7 @@ public final class SetField<E> extends Pattern
 		return mount;
 	}
 
+	@Wrap(order=100, name="{1}Parent", doc="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -133,72 +137,21 @@ public final class SetField<E> extends Pattern
 		return mount().relationType;
 	}
 
+	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
+
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.generic(Set.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getQuery").
-			addComment("Returns a query for the value of {0}.").
-			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getParents").
-			addComment("Returns the items, for which field set {0} contains the given element.").
-			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
-			setStatic().
-			setMethodWrapperPattern("getParentsOf{0}").
-			addParameter(Wrapper.TypeVariable0.class, "element"));
-
-		final String MODIFICATION_RETURN =
-			"<tt>true</tt> if the field set changed as a result of the call.";
-		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
-		exceptions.add(ClassCastException.class);
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("add").
-			addComment("Adds a new element to {0}.").
-			addThrows(exceptions).
-			setMethodWrapperPattern("addTo{0}").
-			addParameter(Wrapper.TypeVariable0.class, "element").
-			setReturn(boolean.class, MODIFICATION_RETURN));
-
-		result.add(
-			new Wrapper("remove").
-			addComment("Removes an element from {0}.").
-			addThrows(exceptions).
-			setMethodWrapperPattern("removeFrom{0}").
-			addParameter(Wrapper.TypeVariable0.class, "element").
-			setReturn(boolean.class, MODIFICATION_RETURN));
-
-		result.add(
-			new Wrapper("getParent").
-			addComment("Returns the parent field of the type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}Parent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(SetField.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Set<E> get(final Item item)
 	{
 		return Collections.unmodifiableSet(new HashSet<E>(getQuery(item).search()));
 	}
 
+	@Wrap(order=20, doc="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		return new Query<E>(element, Cope.equalAndCast(mount().parent, item));
@@ -208,9 +161,12 @@ public final class SetField<E> extends Pattern
 	 * Returns the items, for which this field set contains the given element.
 	 * The order of the result is unspecified.
 	 */
+	@Wrap(order=30,
+			name="getParentsOf{0}",
+			doc="Returns the items, for which field set {0} contains the given element.")
 	public <P extends Item> List<P> getParents(
 			final Class<P> parentClass,
-			final E element)
+			@Parameter("element") final E element)
 	{
 		return new Query<P>(
 				mount().parent.as(parentClass),
@@ -221,9 +177,10 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
+	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean add(
 			final Item item,
-			final E element)
+			@Parameter("element") final E element)
 	{
 		final Mount mount = mount();
 		try
@@ -244,9 +201,10 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
+	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean remove(
 			final Item item,
-			final E element)
+			@Parameter("element") final E element)
 	{
 		final Item row =
 			mount().uniqueConstraint.search(item, element);
@@ -262,6 +220,7 @@ public final class SetField<E> extends Pattern
 		}
 	}
 
+	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=Thrown.class)
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Mount mount = mount();
@@ -309,5 +268,15 @@ public final class SetField<E> extends Pattern
 	public void setAndCast(final Item item, final Collection<?> value)
 	{
 		set(item, Cast.castElements(element.getValueClass(), value));
+	}
+
+	private static final class Thrown implements ThrownGetter<SetField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final SetField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getElement().getInitialExceptions();
+			result.add(ClassCastException.class);
+			return result;
+		}
 	}
 }

@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +36,8 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 
@@ -107,18 +108,21 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
+	@Wrap(order=10,
+			thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
 			final Item item,
-			final Media.Value raw )
+			@Parameter("raw") final Media.Value raw )
 	throws IOException
 	{
 		this.raw.set( item, raw );
 	}
 
+	@Wrap(order=20)
 	public final void addPaste(
 			final Item item,
-			final String key,
-			final Media.Value value)
+			@Parameter("key") final String key,
+			@Parameter("value") final Media.Value value)
 	{
 		pasteType.newItem(
 				this.pasteKey.map(key),
@@ -126,10 +130,12 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
+	@Wrap(order=30,
+			thrown=@Wrap.Thrown(IOException.class))
 	public final void modifyPaste(
 			final Item item,
-			final String key,
-			final Media.Value value )
+			@Parameter("key") final String key,
+			@Parameter("value") final Media.Value value )
 	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
@@ -148,24 +154,7 @@ public class TextUrlFilter extends MediaFilter
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper( "setRaw" ).addParameter( Media.Value.class, "raw" ).
-			addThrows( IOException.class ) );
-
-		result.add(
-				new Wrapper("addPaste").
-				addParameter(String.class, "key").
-				addParameter(Media.Value.class, "value"));
-
-		result.add(
-			new Wrapper( "modifyPaste" ).addParameter( String.class, "key" ).
-			addParameter( Media.Value.class, "value" ).
-			addThrows( IOException.class ) );
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(TextUrlFilter.class, this, super.getWrappers());
 	}
 
 	@Override

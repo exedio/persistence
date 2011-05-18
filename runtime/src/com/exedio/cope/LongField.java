@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import java.util.List;
+
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.Wrapper;
+
 public final class LongField extends NumberField<Long>
 {
 	private static final long serialVersionUID = 1l;
@@ -87,6 +93,12 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(LongField.class, this, super.getWrappers()));
+	}
+
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
@@ -107,16 +119,37 @@ public final class LongField extends NumberField<Long>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public final long getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).longValue();
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalGetter.class, OptionalGetter.class},
+			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,
 			FinalViolationException
 	{
 		set(item, Long.valueOf(value));
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={OptionalGetter.class, NonUniqueGetter.class})
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final long value)
+	{
+		return super.searchUnique(typeClass, Long.valueOf(value));
 	}
 }

@@ -21,8 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +33,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -119,25 +119,7 @@ public abstract class MediaPath extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getURL").
-			addComment("Returns a URL the content of {0} is available under.").
-			setReturn(String.class));
-		result.add(
-			new Wrapper("getLocator").
-			addComment("Returns a Locator the content of {0} is available under.").
-			setReturn(Locator.class));
-
-		if(isContentTypeWrapped())
-			result.add(
-				new Wrapper("getContentType").
-				addComment("Returns the content type of the media {0}.").
-				setReturn(String.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(MediaPath.class, this, super.getWrappers());
 	}
 
 	public boolean isContentTypeWrapped()
@@ -219,6 +201,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -238,6 +221,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -485,7 +469,16 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
 	public abstract String getContentType(Item item);
+
+	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
+	{
+		public boolean get(final MediaPath feature)
+		{
+			return !feature.isContentTypeWrapped();
+		}
+	}
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
 		throws IOException;

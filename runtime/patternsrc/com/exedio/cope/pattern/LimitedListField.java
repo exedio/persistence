@@ -36,6 +36,8 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
@@ -134,25 +136,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
-
-		final Set<Class<? extends Throwable>> exceptions = sources[0].getInitialExceptions();
-		exceptions.add(ClassCastException.class);
-		exceptions.add(ListSizeViolationException.class);
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(LimitedListField.class, this, super.getWrappers());
 	}
 
 	public boolean isInitial()
@@ -178,6 +162,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -198,6 +183,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 		throws
@@ -218,6 +206,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			setValues[i] = sources[i].map(null);
 
 		item.set(setValues);
+	}
+
+	private static final class Thrown implements ThrownGetter<LimitedListField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final LimitedListField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			result.add(ClassCastException.class);
+			result.add(ListSizeViolationException.class);
+			return result;
+		}
 	}
 
 	public SetValue<Collection<E>> map(final Collection<E> value)

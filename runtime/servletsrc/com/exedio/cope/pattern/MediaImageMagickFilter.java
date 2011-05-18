@@ -25,7 +25,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public class MediaImageMagickFilter extends MediaFilter
@@ -124,16 +124,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the body of {0}.").
-			setReturn(byte[].class).
-			addThrows(IOException.class));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(MediaImageMagickFilter.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -213,6 +204,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 	}
 
+	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{
 		if(!isEnabled())

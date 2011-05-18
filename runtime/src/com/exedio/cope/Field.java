@@ -24,6 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.util.Cast;
 
 /**
@@ -78,6 +79,14 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public final boolean isFinal()
 	{
 		return isfinal;
+	}
+
+	static final class FinalGetter implements BooleanGetter<Field>
+	{
+		public boolean get(final Field feature)
+		{
+			return feature.isFinal();
+		}
 	}
 
 	public final boolean isMandatory()

@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -47,6 +46,9 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
@@ -270,76 +272,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final String IO_EXCEPTION_COMMENT = "if accessing <tt>body</tt> throws an IOException.";
-
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		if(optional)
-			result.add(
-				new Wrapper("isNull").
-				addComment("Returns whether media {0} is null."). // TODO better text
-				setReturn(boolean.class));
-
-		result.add(
-			new Wrapper("getLastModified").
-			addComment("Returns the last modification date of media {0}.").
-			setReturn(long.class));
-
-		result.add(
-			new Wrapper("getLength").
-			addComment("Returns the body length of the media {0}.").
-			setReturn(long.class));
-
-		result.add(
-			new Wrapper("getBody").
-			addComment("Returns the body of the media {0}.").
-			setReturn(byte[].class));
-
-		result.add(
-			new Wrapper("getBody").
-			addComment("Writes the body of media {0} into the given stream.").
-			addComment("Does nothing, if the media is null.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(OutputStream.class, "body"));
-
-		result.add(
-			new Wrapper("getBody").
-			addComment("Writes the body of media {0} into the given file.").
-			addComment("Does nothing, if the media is null.").
-			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-			addParameter(File.class, "body"));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(Value.class));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addParameter(byte[].class, "body").
-				addParameter(String.class, "contentType"));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(InputStream.class, "body").
-				addParameter(String.class, "contentType"));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets the content of media {0}.").
-				addThrows(IOException.class, IO_EXCEPTION_COMMENT).
-				addParameter(File.class, "body").
-				addParameter(String.class, "contentType"));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(Media.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -363,9 +296,18 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new SetValue<Value>(this, value);
 	}
 
+	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
 	public boolean isNull(final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
+	}
+
+	private static final class MandatoryGetter implements BooleanGetter<Media>
+	{
+		public boolean get(final Media feature)
+		{
+			return feature.isMandatory();
+		}
 	}
 
 	/**
@@ -383,6 +325,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
+	@Wrap(order=20, doc="Returns the last modification date of media {0}.")
 	@Override
 	public long getLastModified(final Item item)
 	{
@@ -394,6 +337,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
+	@Wrap(order=30, doc="Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		// do check before, because this check is supported by the item cache
@@ -412,6 +356,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading value throws an IOException.
 	 */
+	@Wrap(order=110,
+			doc = "Sets the content of media {0}.",
+			hide=FinalGetter.class,
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
 			final Media.Value value)
@@ -427,6 +375,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
+	@Wrap(order=40, doc="Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return this.body.getArray(item);
@@ -440,10 +389,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
+	@Wrap(order=120, doc="Sets the content of media {0}.", hide=FinalGetter.class)
 	public void set(
 			final Item item,
-			final byte[] body,
-			final String contentType)
+			@Parameter("body") final byte[] body,
+			@Parameter("contentType") final String contentType)
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -466,9 +416,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
+	@Wrap(order=50,
+			doc={"Writes the body of media {0} into the given stream.",
+					"Does nothing, if the media is null."},
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
 			final Item item,
-			final OutputStream body)
+			@Parameter("body") final OutputStream body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -484,10 +438,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
+	@Wrap(order=130,
+			doc="Sets the content of media {0}.",
+			hide=FinalGetter.class,
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
-			final InputStream body,
-			final String contentType)
+			@Parameter("body") final InputStream body,
+			@Parameter("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -511,9 +469,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is null.
 	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
+	@Wrap(order=60,
+			doc={"Writes the body of media {0} into the given file.",
+					"Does nothing, if the media is null."},
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
 			final Item item,
-			final File body)
+			@Parameter("body") final File body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -528,16 +490,28 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
+	@Wrap(order=140,
+			doc="Sets the content of media {0}.",
+			hide=FinalGetter.class,
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
-			final File body,
-			final String contentType)
+			@Parameter("body") final File body,
+			@Parameter("contentType") final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
 			throw new MandatoryViolationException(this, this, item);
 
 		set(item, DataField.toValue(body), contentType);
+	}
+
+	private static final class FinalGetter implements BooleanGetter<Media>
+	{
+		public boolean get(final Media feature)
+		{
+			return feature.isFinal();
+		}
 	}
 
 	/**

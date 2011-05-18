@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* introduce instrumentation by @Wrap annotation:
+	- Wrapper constructor is now deprecated
+	- Wrapper#getReturnComment(), Wrapper.Parameter#getComment() and Wrapper#getThrowsClause()
+		do return String array instead of just String,
+		this breaks backwards API compatibility.
 * instrumentor writes customizer hint for unique constraints across multiple fields,
 	affects instrumented code
 * do not support Wrapper#deprecate and related method anymore

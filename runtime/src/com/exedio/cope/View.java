@@ -19,13 +19,13 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 
@@ -94,15 +94,10 @@ public abstract class View<E> extends Feature
 	@Override
 	public final List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(valueClass)); // TODO box into primitives
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(View.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
 	public final E get(final Item item)
 	{
 		final Object[] values = new Object[sources.length];

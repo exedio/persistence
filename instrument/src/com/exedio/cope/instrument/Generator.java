@@ -25,9 +25,15 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -263,7 +269,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
+			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), new Context(feature, null)));
 			write(' ');
 			write(feature.name);
 		}
@@ -374,10 +380,11 @@ final class Generator
 			if(option!=null && !option.exists)
 				continue;
 
+			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
-			final Map<Class<? extends Throwable>, String> throwsClause = wrapper.getThrowsClause();
+			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
@@ -398,34 +405,52 @@ final class Generator
 				}
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
-					final String comment = parameter.getComment();
-					if(comment!=null)
+					final String[] comment = parameter.getComment();
+					if(comment.length>0)
 					{
 						write("\t * @param ");
 						write(format(parameter.getName(), arguments));
 						write(' ');
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *        ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}
 				{
-					final String comment = wrapper.getReturnComment();
-					if(comment!=null)
+					final String[] comment = wrapper.getReturnComment();
+					if(comment.length>0)
 					{
 						write("\t * @return ");
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *         ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}
-				for(final Map.Entry<Class<? extends Throwable>, String> e : throwsClause.entrySet())
+				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
-					final String comment = e.getValue();
-					if(comment!=null)
+					final String[] comment = e.getValue();
+					if(comment.length>0)
 					{
 						write("\t * @throws ");
 						write(e.getKey().getCanonicalName());
 						write(' ');
-						write(format(comment, arguments));
+						write(format(comment[0], arguments));
+						write(lineSeparator);
+					}
+					for(int i = 1; i<comment.length; i++)
+					{
+						write("\t *         ");
+						write(format(comment[i], arguments));
 						write(lineSeparator);
 					}
 				}
@@ -454,7 +479,7 @@ final class Generator
 				|
 				(isStatic ? STATIC : 0)
 			);
-			write(toString(methodReturnType, feature));
+			write(toString(methodReturnType, ctx));
 			if(option!=null && useIs && option.booleanAsIs)
 			{
 				write(" is");
@@ -504,7 +529,7 @@ final class Generator
 					}
 					else
 					{
-						write(toString(parameter.getType(), feature));
+						write(toString(parameter.getType(), ctx));
 					}
 					write(' ');
 					write(format(parameter.getName(), arguments));
@@ -591,26 +616,21 @@ final class Generator
 		write(featureName);
 	}
 
-	private static final String toString(final Class c, final CopeFeature feature)
+	private static final String toString(final Class c, final Context ctx)
 	{
 		if(Wrapper.ClassVariable.class.equals(c))
-			return feature.parent.name;
+			return ctx.getClassToken();
 		else if(Wrapper.TypeVariable0.class.equals(c))
-			return toStringType(feature, 0);
+			return ctx.getGenericFieldParameter(0);
 		else if(Wrapper.TypeVariable1.class.equals(c))
-			return toStringType(feature, 1);
+			return ctx.getGenericFieldParameter(1);
 		else
 			return c.getCanonicalName();
 	}
 
-	private static final String toStringType(final CopeFeature feature, final int number)
+	private static final String toString(final ParameterizedType t, final Context ctx)
 	{
-		return Generics.get(feature.javaField.type).get(number);
-	}
-
-	private static final String toString(final ParameterizedType t, final CopeFeature feature)
-	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -620,16 +640,119 @@ final class Generator
 			else
 				bf.append(',');
 
-			bf.append(toString(a, feature));
+			bf.append(toString(a, ctx));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
+	private static final String toString(final TypeVariable t, final Context ctx)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
+		if(ctx.matchesStaticToken(t))
+			return ctx.getClassToken();
+
+		final Class<? extends Feature> featureClass = ctx.getFeatureClass();
+		final Method method = ctx.getMethod();
+		final Class methodClass = method.getDeclaringClass();
+		int typeParameterPosition = 0;
+		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
+		{
+			if(methodClassVar==t)
+			{
+				//System.out.println("---"+methodClassVar);
+				final LinkedList<Class> classes = new LinkedList<Class>();
+				for(Class c = featureClass; c!=methodClass; c = c.getSuperclass())
+					classes.add(0, c);
+				//System.out.println("--- "+classes);
+				Class superClass = methodClass;
+				int typeParameterPosition2 = typeParameterPosition;
+				for(final Class clazz : classes)
+				{
+					assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
+
+					final java.lang.reflect.Type superType = clazz.getGenericSuperclass();
+					//System.out.println("---t "+superType);
+
+					final ParameterizedType superTypeP = (ParameterizedType)superType;
+					assert superTypeP.getRawType()==superClass : superTypeP.getRawType().toString()+'/'+superClass;
+					assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
+
+					final java.lang.reflect.Type[] superTypeArguments = superTypeP.getActualTypeArguments();
+					assert superTypeArguments.length==methodClass.getTypeParameters().length;
+
+					final java.lang.reflect.Type superTypeArgument = superTypeArguments[typeParameterPosition2];
+					if(superTypeArgument instanceof Class)
+					{
+						final Class superTypeArgumentClass = (Class)superTypeArgument;
+						//System.out.println("---cls " + superClass.getSimpleName() + "<" + superTypeArgumentClass.getSimpleName() + "> = " + clazz.getSimpleName());
+						return superTypeArgumentClass.getName();
+					}
+					else if(superTypeArgument instanceof TypeVariable)
+					{
+						final TypeVariable<?> superTypeArgumentVar = (TypeVariable)superTypeArgument;
+						//System.out.println("---ytv "+superTypeArgumentVar.getName());
+						int pos = 0;
+						boolean done = false;
+						for(final TypeVariable<?> tv : clazz.getTypeParameters())
+						{
+							if(superTypeArgumentVar==tv)
+							{
+								//System.out.println("---itr " + clazz.getSimpleName() + "<" + pos + "> = " + superClass.getSimpleName() + "<" + typeParameterPosition2 + ">");
+								typeParameterPosition2 = pos;
+								done = true;
+								break;
+							}
+							pos++;
+						}
+						assert done : "" + clazz.getTypeParameters() + '/' + superTypeArgumentVar;
+					}
+					else
+					{
+						throw new RuntimeException(superTypeArgument.toString());
+					}
+
+					superClass = clazz;
+				}
+				return ctx.getGenericFieldParameter(typeParameterPosition2);
+			}
+			typeParameterPosition++;
+		}
+
+		throw new RuntimeException(
+				t.getName() + '-' +
+				Arrays.asList(t.getBounds()) + '-' +
+				t.getGenericDeclaration() + '-' +
+				featureClass);
+	}
+
+	private static final String toString(final WildcardType t, final Context ctx)
+	{
+		final java.lang.reflect.Type[] upper = t.getUpperBounds();
+		if(upper.length==1)
+		{
+			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
+			return "? extends " + toString(upper[0], ctx);
+		}
+
+		final java.lang.reflect.Type[] lower = t.getLowerBounds();
+		if(lower.length==1)
+		{
+			assert upper.length==0 : Arrays.asList(upper).toString();
+			return "? super " + toString(lower[0], ctx);
+		}
+
+		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
+	}
+
+	private static final String toString(final GenericArrayType t, final Context ctx)
+	{
+		return toString(t.getGenericComponentType(), ctx) + "...";
+	}
+
+	private static final String toString(final Wrapper.ExtendsType t, final Context ctx)
+	{
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), ctx));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -640,21 +763,27 @@ final class Generator
 				bf.append(',');
 
 			bf.append("? extends ");
-			bf.append(toString(a, feature));
+			bf.append(toString(a, ctx));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
+	private static final String toString(final java.lang.reflect.Type t, final Context ctx)
 	{
 		if(t instanceof Class)
-			return toString((Class)t, feature);
+			return toString((Class)t, ctx);
 		else if(t instanceof ParameterizedType)
-			return toString((ParameterizedType)t, feature);
+			return toString((ParameterizedType)t, ctx);
+		else if(t instanceof TypeVariable)
+			return toString((TypeVariable)t, ctx);
+		else if(t instanceof WildcardType)
+			return toString((WildcardType)t, ctx);
+		else if(t instanceof GenericArrayType)
+			return toString((GenericArrayType)t, ctx);
 		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t, feature);
+			return toString((Wrapper.ExtendsType)t, ctx);
 		else
 			throw new RuntimeException(t.toString());
 	}

@@ -18,20 +18,31 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Feature;
+
 public final class Wrapper
 {
 	private final String name;
+	private final Method method;
 
+	/**
+	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
+	 */
+	@Deprecated
 	public Wrapper(final String name)
 	{
 		this.name = name;
+		this.method = null;
 
 		if(name==null)
 			throw new NullPointerException("name");
@@ -42,9 +53,21 @@ public final class Wrapper
 		return name;
 	}
 
+	Wrapper(final Method method)
+	{
+		this.name = method.getName();
+		this.method = method;
+	}
+
+	Method getMethod()
+	{
+		return method;
+	}
+
 
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
+	private TypeVariable staticToken = null;
 
 	public Wrapper setStatic()
 	{
@@ -55,6 +78,7 @@ public final class Wrapper
 	{
 		isStatic = true;
 		hasStaticClassToken = classToken;
+		staticToken = null;
 
 		return this;
 	}
@@ -69,16 +93,36 @@ public final class Wrapper
 		return hasStaticClassToken;
 	}
 
+	Wrapper setStatic(final TypeVariable token)
+	{
+		setStatic(true);
+		staticToken = token;
+		return this;
+	}
+
+	boolean matchesStaticToken(final TypeVariable token)
+	{
+		if(token==null)
+			throw new NullPointerException();
+
+		return token==staticToken;
+	}
+
 
 	private java.lang.reflect.Type returnType = null;
-	private String returnComment = null;
+	private String[] returnComment = EMPTY_STRING_ARRAY;
 
 	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
-		return setReturn(type, null);
+		return setReturn(type, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
+	{
+		return setReturn(type, new String[]{comment});
+	}
+
+	Wrapper setReturn(final java.lang.reflect.Type type, final String[] comment)
 	{
 		if(type==null)
 			throw new NullPointerException("type");
@@ -86,8 +130,8 @@ public final class Wrapper
 			throw new IllegalArgumentException("type must not be void");
 		if(this.returnType!=null)
 			throw new IllegalStateException("type must not be set twice");
-		if(comment!=null)
-			assertComment(comment);
+		for(final String c : comment)
+			assertComment(c);
 
 		this.returnType = type;
 		this.returnComment = comment;
@@ -100,9 +144,9 @@ public final class Wrapper
 		return returnType!=null ? returnType : void.class;
 	}
 
-	public String getReturnComment()
+	public String[] getReturnComment()
 	{
-		return returnComment;
+		return com.exedio.cope.misc.Arrays.copyOf(returnComment);
 	}
 
 
@@ -110,21 +154,21 @@ public final class Wrapper
 	{
 		private final java.lang.reflect.Type type;
 		private final String name;
-		private final String comment;
+		private final String[] comment;
 		private final boolean vararg;
 
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
-				final String comment,
+				final String[] comment,
 				final boolean vararg)
 		{
 			if(type==null)
 				throw new NullPointerException("type");
 			if(name==null)
 				throw new NullPointerException("name");
-			if(comment!=null)
-				assertComment(comment);
+			for(final String c : comment)
+				assertComment(c);
 			if(vararg && !((Class)type).isArray())
 				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
 
@@ -144,14 +188,20 @@ public final class Wrapper
 			return name;
 		}
 
-		public String getComment()
+		public String[] getComment()
 		{
-			return comment;
+			return com.exedio.cope.misc.Arrays.copyOf(comment);
 		}
 
 		public boolean isVararg()
 		{
 			return vararg;
+		}
+
+		@Override
+		public String toString()
+		{
+			return type.toString();
 		}
 	}
 
@@ -159,15 +209,20 @@ public final class Wrapper
 
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
-		return addParameter(type, "{1}", null);
+		return addParameter(type, "{1}", EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
 	{
-		return addParameter(type, name, null);
+		return addParameter(type, name, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
+	{
+		return addParameter(type, name, new String[]{comment});
+	}
+
+	Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
 	{
 		return addParameter(type, name, comment, false);
 	}
@@ -177,7 +232,7 @@ public final class Wrapper
 		return addParameter(type, name, null, true);
 	}
 
-	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment, final boolean vararg)
+	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
 	{
 		final Parameter p = new Parameter(type, name, comment, vararg);
 		if(parameters==null)
@@ -196,42 +251,47 @@ public final class Wrapper
 	}
 
 
-	private LinkedHashMap<Class<? extends Throwable>, String> throwsClause;
+	private LinkedHashMap<Class<? extends Throwable>, String[]> throwsClause;
 
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
 		for(final Class<? extends Throwable> throwable : throwables)
-			addThrows(throwable, null);
+			addThrows(throwable, EMPTY_STRING_ARRAY);
 
 		return this;
 	}
 
 	public Wrapper addThrows(final Class<? extends Throwable> throwable)
 	{
-		return addThrows(throwable, null);
+		return addThrows(throwable, EMPTY_STRING_ARRAY);
 	}
 
 	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
 	{
+		return addThrows(throwable, new String[]{comment});
+	}
+
+	Wrapper addThrows(final Class<? extends Throwable> throwable, final String[] comment)
+	{
 		if(throwable==null)
 			throw new NullPointerException("throwable");
-		if(comment!=null)
-			assertComment(comment);
+		for(final String c : comment)
+			assertComment(c);
 
 		if(throwsClause==null)
-			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
+			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String[]>();
 
 		throwsClause.put(throwable, comment);
 
 		return this;
 	}
 
-	public Map<Class<? extends Throwable>, String> getThrowsClause()
+	public Map<Class<? extends Throwable>, String[]> getThrowsClause()
 	{
 		return
 			throwsClause!=null
 			? Collections.unmodifiableMap(throwsClause)
-			: Collections.<Class<? extends Throwable>, String>emptyMap();
+			: Collections.<Class<? extends Throwable>, String[]>emptyMap();
 	}
 
 
@@ -312,6 +372,21 @@ public final class Wrapper
 	}
 
 
+	public boolean matchesMethod(final String name, final Class<?>... parameterTypes)
+	{
+		return
+			this.name.equals(name) &&
+			Arrays.equals(this.method.getParameterTypes(), parameterTypes);
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return name + parameters;
+	}
+
+
 	public class ClassVariable { /* OK, just a placeholder */ }
 	public class TypeVariable0 { /* OK, just a placeholder */ }
 	public class TypeVariable1 { /* OK, just a placeholder */ }
@@ -349,5 +424,15 @@ public final class Wrapper
 	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
 	{
 		return new ExtendsType(rawType, actualTypeArguments);
+	}
+
+	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
+
+	public static <F extends Feature> List<Wrapper> getByAnnotations(
+			final Class<F> clazz,
+			final F feature,
+			final List<Wrapper> superResult)
+	{
+		return WrapperByAnnotations.make(clazz, feature, superResult);
 	}
 }

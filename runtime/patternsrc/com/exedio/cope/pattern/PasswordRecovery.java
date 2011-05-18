@@ -21,8 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +33,8 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
@@ -115,36 +115,16 @@ public final class PasswordRecovery extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("issue").
-			addParameter(int.class, "expiryMillis", "the time span, after which this token will not be valid anymore, in milliseconds").
-			setReturn(Token.class));
-		result.add(
-			new Wrapper("redeem").
-			addParameter(long.class, "secret", "a token secret for password recovery").
-			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(Interrupter.class, "interrupter").
-			setReturn(int.class, "the number of tokens purged"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(JobContext.class, "ctx"));
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
 
 	/**
 	 * @return a valid token for password recovery
 	 */
+	@Wrap(order=10)
 	public Token issue(
 			final Item item,
-			final int expiryMillis)
+			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
@@ -163,9 +143,10 @@ public final class PasswordRecovery extends Pattern
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
+	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
 	public String redeem(
 			final Item item,
-			final long secret)
+			@Parameter(value="secret", doc="a token secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
@@ -188,8 +169,9 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
+	@Wrap(order=100, docReturn="the number of tokens purged")
 	public int purge(
-			final Interrupter interrupter)
+			@Parameter("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -200,8 +182,9 @@ public final class PasswordRecovery extends Pattern
 		);
 	}
 
+	@Wrap(order=110)
 	public void purge(
-			final JobContext ctx)
+			@Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
 				tokenType.newQuery(this.expires.less(new Date())),

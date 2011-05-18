@@ -26,8 +26,6 @@ import static java.lang.System.nanoTime;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +45,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Interrupter;
@@ -142,6 +142,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
+	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
@@ -180,71 +181,19 @@ public final class Dispatcher extends Pattern
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			setReturn(int.class, "the number of successfully dispatched items").
-			addParameter(Config.class, "config").
-			addParameter(Interrupter.class, "interrupter").
-			setStatic());
-
-		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			addParameter(Config.class, "config").
-			addParameter(JobContext.class, "ctx").
-			setStatic());
-
-		result.add(
-			new Wrapper("isPending").
-			addComment("Returns, whether this item is yet to be dispatched by {0}.").
-			setReturn(boolean.class));
-
-		result.add(
-			new Wrapper("setPending").
-			addComment("Sets whether this item is yet to be dispatched by {0}.").
-			addParameter(boolean.class, "pending"));
-
-		result.add(
-			new Wrapper("getLastSuccessDate").
-			addComment("Returns the date, this item was last successfully dispatched by {0}.").
-			setReturn(Date.class));
-
-		result.add(
-			new Wrapper("getLastSuccessElapsed").
-			addComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.").
-			setReturn(Long.class));
-
-		result.add(
-			new Wrapper("getRuns").
-			addComment("Returns the attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
-
-		result.add(
-			new Wrapper("getFailures").
-			addComment("Returns the failed attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
-
-		result.add(
-			new Wrapper("getRunParent").
-			addComment("Returns the parent field of the run type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}RunParent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
 	/**
 	 * @return the number of successfully dispatched items
 	 */
+	@Wrap(order=10,
+			doc="Dispatch by {0}.",
+			docReturn="the number of successfully dispatched items")
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
-			final Config config,
-			final Interrupter interrupter)
+			@Parameter("config") final Config config,
+			@Parameter("interrupter") final Interrupter interrupter)
 	{
 		return run(
 			interrupter,
@@ -255,10 +204,11 @@ public final class Dispatcher extends Pattern
 		);
 	}
 
+	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
-			final Config config,
-			final JobContext ctx)
+			@Parameter("config") final Config config,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
@@ -359,24 +309,28 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
+	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
+	@Wrap(order=40, doc="Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
 			final Item item,
-			final boolean pending)
+			@Parameter("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
 
+	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
 
+	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
@@ -395,6 +349,7 @@ public final class Dispatcher extends Pattern
 		return q.searchSingleton();
 	}
 
+	@Wrap(order=70, doc="Returns the attempts to dispatch this item by {0}.")
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();
@@ -405,6 +360,7 @@ public final class Dispatcher extends Pattern
 					true);
 	}
 
+	@Wrap(order=80, doc="Returns the failed attempts to dispatch this item by {0}.")
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();

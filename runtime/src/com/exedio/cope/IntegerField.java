@@ -18,7 +18,12 @@
 
 package com.exedio.cope;
 
+import java.util.List;
 import java.util.Set;
+
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.Wrapper;
 
 /**
  * Represents a field within a {@link Type type},
@@ -201,6 +206,12 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(IntegerField.class, this, super.getWrappers()));
+	}
+
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final IntegerColumn result = new IntegerColumn(table, this, name, false, optional, minimum, maximum, false);
@@ -236,11 +247,16 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public int getMandatory(final Item item)
 	{
 		return getMandatoryObject(item).intValue();
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalGetter.class, OptionalGetter.class},
+			thrownGetter=InitialThrown.class)
 	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
@@ -248,6 +264,22 @@ public final class IntegerField extends NumberField<Integer>
 			IntegerRangeViolationException
 	{
 		set(item, Integer.valueOf(value));
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={OptionalGetter.class, NonUniqueGetter.class})
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final int value)
+	{
+		return super.searchUnique(typeClass, Integer.valueOf(value));
 	}
 
 	@Override

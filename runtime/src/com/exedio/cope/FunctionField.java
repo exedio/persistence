@@ -22,10 +22,15 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
@@ -145,47 +150,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		final Class initialType = getInitialType();
-		final boolean initialTypePrimitive = initialType.isPrimitive();
-
-		final Wrapper get =
-			new Wrapper(initialTypePrimitive ? "getMandatory" : "get").
-			addComment("Returns the value of {0}.").
-			setReturn(initialType);
-		if(initialTypePrimitive)
-			get.setMethodWrapperPattern("get{0}");
-		result.add(get);
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			if(initialTypePrimitive)
-				exceptions.remove(MandatoryViolationException.class);
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(exceptions).
-				addParameter(initialType));
-		}
-
-		if(unique)
-		{
-			result.add(
-				new Wrapper("searchUnique").
-				addComment("Finds a {2} by it''s {0}.").
-				setMethodWrapperPattern("for{0}").
-				setStatic().
-				addParameter(initialType, "{1}", "shall be equal to field {0}.").
-				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
-		}
-
-		return Collections.unmodifiableList(result);
+		return Wrapper.getByAnnotations(FunctionField.class, this, super.getWrappers());
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class)
 	@Override
 	public final E get(final Item item)
 	{
@@ -205,10 +173,25 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return result;
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalGetter.class, PrimitiveGetter.class},
+			thrownGetter=InitialThrown.class)
 	@Override
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
+	}
+
+	static final class InitialThrown implements ThrownGetter<FunctionField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			if(feature.getInitialType().isPrimitive())
+				result.remove(MandatoryViolationException.class);
+			return result;
+		}
 	}
 
 	/**
@@ -319,14 +302,73 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={NonUniqueGetter.class, PrimitiveGetter.class})
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			final E value)
+			@Parameter(doc="shall be equal to field {0}.") final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().as(typeClass).searchSingleton(equal(value));
+	}
+
+
+	private static final class PrimitiveGetter implements BooleanGetter<FunctionField>
+	{
+		public boolean get(final FunctionField feature)
+		{
+			return feature.getInitialType().isPrimitive();
+		}
+	}
+
+	static final class OptionalGetter implements BooleanGetter<FunctionField>
+	{
+		public boolean get(final FunctionField feature)
+		{
+			return !feature.isMandatory();
+		}
+	}
+
+	static final class NonUniqueGetter implements BooleanGetter<FunctionField>
+	{
+		public boolean get(final FunctionField feature)
+		{
+			return feature.getImplicitUniqueConstraint()==null;
+		}
+	}
+
+	static List<Wrapper> adjustOrderForPrimitiveOperations(final List<Wrapper> in)
+	{
+		// TODO
+
+		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
+		for(final Wrapper wrapper : result)
+		{
+			if(wrapper.matchesMethod("getMandatory", Item.class))
+			{
+				result.remove(wrapper);
+				result.add(0, wrapper);
+				break;
+			}
+		}
+		for(final Wrapper wrapper : result)
+		{
+			if(
+					wrapper.matchesMethod("set", Item.class, int    .class) ||
+					wrapper.matchesMethod("set", Item.class, long   .class) ||
+					wrapper.matchesMethod("set", Item.class, double .class) ||
+					wrapper.matchesMethod("set", Item.class, boolean.class) )
+			{
+				result.remove(wrapper);
+				result.add(1, wrapper);
+				break;
+			}
+		}
+		return result;
 	}
 
 	// convenience methods for conditions and views ---------------------------------
