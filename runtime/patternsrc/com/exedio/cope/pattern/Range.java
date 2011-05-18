@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-public final class Range<E>
+public final class Range<E extends Comparable<E>>
 {
-	public static <E> Range<E> newRange(final E from, final E to)
+	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
 	{
 		return new Range<E>(from, to);
 	}
@@ -34,6 +34,8 @@ public final class Range<E>
 			throw new NullPointerException("optional from not yet implemented");
 		if(to==null)
 			throw new NullPointerException("optional to not yet implemented");
+		if(from.compareTo(to)>0)
+			throw new IllegalArgumentException("from " + from + " greater than to " + to);
 
 		this.from = from;
 		this.to = to;

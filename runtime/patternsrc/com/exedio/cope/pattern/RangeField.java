@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -31,20 +32,22 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
-public final class RangeField<E> extends Pattern implements Settable<Range<E>>
+public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
+	private final CheckConstraint unison;
 
 	private RangeField(final FunctionField<E> borderTemplate)
 	{
 		addSource(from = borderTemplate.copy(), "from");
 		addSource(to   = borderTemplate.copy(), "to");
+		addSource(unison = new CheckConstraint(from.lessOrEqual(to)), "unison");
 	}
 
-	public static final <E> RangeField<E> newRange(final FunctionField<E> borderTemplate)
+	public static final <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)
 	{
 		if(!borderTemplate.isMandatory())
 			throw new IllegalArgumentException("optional borderTemplate not yet implemented");
@@ -62,6 +65,11 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 	public FunctionField<E> getTo()
 	{
 		return to;
+	}
+
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 
 	@Override

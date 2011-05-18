@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.Range.newRange;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
@@ -55,18 +56,22 @@ public class RangeFieldTest extends AbstractRuntimeTest
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.valid.getUnison(),
 				item.text,
 				item.text.getFrom(),
 				item.text.getTo(),
+				item.text.getUnison(),
 			}), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
 				item.valid,
 				item.valid.getFrom(),
 				item.valid.getTo(),
+				item.valid.getUnison(),
 				item.text,
 				item.text.getFrom(),
 				item.text.getTo(),
+				item.text.getUnison(),
 			}), item.TYPE.getDeclaredFeatures());
 
 		assertEquals(item.TYPE, item.valid.getFrom().getType());
@@ -100,12 +105,25 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
-		item.setValidFrom(8);
-		assertEquals(newRange(8, 5), item.getValid());
-		assertEquals(i8, item.getValidFrom());
+		try
+		{
+			item.setValidFrom(8);
+			fail();
+		}
+		catch(final CheckViolationException e)
+		{
+			assertEquals(item.valid.getUnison(), e.getFeature());
+		}
+		assertEquals(newRange(3, 5), item.getValid());
+		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidTo(9);
+		assertEquals(newRange(3, 9), item.getValid());
+		assertEquals(i3, item.getValidFrom());
+		assertEquals(i9, item.getValidTo());
+
+		item.setValidFrom(8);
 		assertEquals(newRange(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());

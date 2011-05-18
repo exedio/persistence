@@ -29,7 +29,15 @@ public class RangeTest extends CopeAssert
 		assertEquals(newRange(1, 3), newRange(1, 3));
 		assertNotEquals(newRange(1, 3), newRange(2, 3));
 		assertNotEquals(newRange(1, 3), newRange(1, 4));
-		assertNotEquals(newRange(1, 3), newRange(3, 1));
+		try
+		{
+			newRange(3, 2);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("from 3 greater than to 2", e.getMessage());
+		}
 
 		assertEquals(newRange(5, 5), newRange(5, 5));
 		assertNotEquals(newRange(5, 5), newRange(6, 6));
