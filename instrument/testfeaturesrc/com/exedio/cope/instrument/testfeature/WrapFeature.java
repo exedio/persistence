@@ -100,7 +100,8 @@ public class WrapFeature extends Pattern
 					"parameter documentation line 2 {0} {1} {2} {3} {4}",
 					"",
 					"parameter documentation line 3 {0} {1} {2} {3} {4}"
-					}) final int n)
+					})
+			final int n)
 	{
 		throw new RuntimeException();
 	}
