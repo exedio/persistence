@@ -22,6 +22,7 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
@@ -82,7 +83,7 @@ final class Context
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
 		bf.append('<');
 		boolean first = true;
-		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		for(final Type a : t.getActualTypeArguments())
 		{
 			if(first)
 				first = false;
@@ -120,17 +121,17 @@ final class Context
 				{
 					assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
 
-					final java.lang.reflect.Type superType = clazz.getGenericSuperclass();
+					final Type superType = clazz.getGenericSuperclass();
 					//System.out.println("---t "+superType);
 
 					final ParameterizedType superTypeP = (ParameterizedType)superType;
 					assert superTypeP.getRawType()==superClass : superTypeP.getRawType().toString()+'/'+superClass;
 					assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
 
-					final java.lang.reflect.Type[] superTypeArguments = superTypeP.getActualTypeArguments();
+					final Type[] superTypeArguments = superTypeP.getActualTypeArguments();
 					assert superTypeArguments.length==methodClass.getTypeParameters().length;
 
-					final java.lang.reflect.Type superTypeArgument = superTypeArguments[typeParameterPosition2];
+					final Type superTypeArgument = superTypeArguments[typeParameterPosition2];
 					if(superTypeArgument instanceof Class)
 					{
 						final Class superTypeArgumentClass = (Class)superTypeArgument;
@@ -177,14 +178,14 @@ final class Context
 
 	private final String toString(final WildcardType t)
 	{
-		final java.lang.reflect.Type[] upper = t.getUpperBounds();
+		final Type[] upper = t.getUpperBounds();
 		if(upper.length==1)
 		{
 			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
 			return "? extends " + toString(upper[0]);
 		}
 
-		final java.lang.reflect.Type[] lower = t.getLowerBounds();
+		final Type[] lower = t.getLowerBounds();
 		if(lower.length==1)
 		{
 			assert upper.length==0 : Arrays.asList(upper).toString();
@@ -204,7 +205,7 @@ final class Context
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
 		bf.append('<');
 		boolean first = true;
-		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		for(final Type a : t.getActualTypeArguments())
 		{
 			if(first)
 				first = false;
@@ -219,7 +220,7 @@ final class Context
 		return bf.toString();
 	}
 
-	final String toString(final java.lang.reflect.Type t)
+	final String toString(final Type t)
 	{
 		if(t instanceof Class)
 			return toString((Class)t);
