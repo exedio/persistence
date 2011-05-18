@@ -99,7 +99,23 @@ final class Context
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
 			if(methodClassVar==t)
-			{
+				return dig(featureClass, methodClass, typeParameterPosition);
+
+			typeParameterPosition++;
+		}
+
+		throw new RuntimeException(
+				t.getName() + '-' +
+				Arrays.asList(t.getBounds()) + '-' +
+				t.getGenericDeclaration() + '-' +
+				featureClass);
+	}
+
+	String dig(
+			final Class<? extends Feature> featureClass,
+			final Class methodClass,
+			final int typeParameterPosition)
+	{
 				//System.out.println("---"+methodClassVar);
 				final LinkedList<Class> classes = new LinkedList<Class>();
 				for(Class c = featureClass; c!=methodClass; c = c.getSuperclass())
@@ -155,15 +171,6 @@ final class Context
 					superClass = clazz;
 				}
 				return getGenericFieldParameter(typeParameterPosition2);
-			}
-			typeParameterPosition++;
-		}
-
-		throw new RuntimeException(
-				t.getName() + '-' +
-				Arrays.asList(t.getBounds()) + '-' +
-				t.getGenericDeclaration() + '-' +
-				featureClass);
 	}
 
 	private String write(final WildcardType t)
