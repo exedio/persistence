@@ -56,7 +56,7 @@ final class Context
 		return feature.getInstance().getClass();
 	}
 
-	private String toString(final Class c)
+	private String write(final Class c)
 	{
 		if(Wrapper.ClassVariable.class.equals(c))
 			return getClassToken();
@@ -68,9 +68,9 @@ final class Context
 			return c.getCanonicalName();
 	}
 
-	private String toString(final ParameterizedType t)
+	private String write(final ParameterizedType t)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
+		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
 		bf.append('<');
 		boolean first = true;
 		for(final Type a : t.getActualTypeArguments())
@@ -80,14 +80,14 @@ final class Context
 			else
 				bf.append(',');
 
-			bf.append(toString(a));
+			bf.append(write(a));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	private String toString(final TypeVariable t)
+	private String write(final TypeVariable t)
 	{
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
@@ -166,33 +166,33 @@ final class Context
 				featureClass);
 	}
 
-	private String toString(final WildcardType t)
+	private String write(final WildcardType t)
 	{
 		final Type[] upper = t.getUpperBounds();
 		if(upper.length==1)
 		{
 			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
-			return "? extends " + toString(upper[0]);
+			return "? extends " + write(upper[0]);
 		}
 
 		final Type[] lower = t.getLowerBounds();
 		if(lower.length==1)
 		{
 			assert upper.length==0 : Arrays.asList(upper).toString();
-			return "? super " + toString(lower[0]);
+			return "? super " + write(lower[0]);
 		}
 
 		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
 	}
 
-	private String toString(final GenericArrayType t)
+	private String write(final GenericArrayType t)
 	{
-		return toString(t.getGenericComponentType()) + "...";
+		return write(t.getGenericComponentType()) + "...";
 	}
 
-	private String toString(final Wrapper.ExtendsType t)
+	private String write(final Wrapper.ExtendsType t)
 	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
+		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
 		bf.append('<');
 		boolean first = true;
 		for(final Type a : t.getActualTypeArguments())
@@ -203,27 +203,27 @@ final class Context
 				bf.append(',');
 
 			bf.append("? extends ");
-			bf.append(toString(a));
+			bf.append(write(a));
 		}
 		bf.append('>');
 
 		return bf.toString();
 	}
 
-	String toString(final Type t)
+	String write(final Type t)
 	{
 		if(t instanceof Class)
-			return toString((Class)t);
+			return write((Class)t);
 		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t);
+			return write((Wrapper.ExtendsType)t);
 		else if(t instanceof GenericArrayType)
-			return toString((GenericArrayType)t);
+			return write((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)
-			return toString((ParameterizedType)t);
+			return write((ParameterizedType)t);
 		else if(t instanceof TypeVariable)
-			return toString((TypeVariable)t);
+			return write((TypeVariable)t);
 		else if(t instanceof WildcardType)
-			return toString((WildcardType)t);
+			return write((WildcardType)t);
 		else
 			throw new RuntimeException(t.toString());
 	}
