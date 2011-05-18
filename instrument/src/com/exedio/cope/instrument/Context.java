@@ -132,7 +132,7 @@ final class Context
 			assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
 
 			final Type[] superTypeArguments = superTypeP.getActualTypeArguments();
-			assert superTypeArguments.length==declarationClass.getTypeParameters().length;
+			assert superTypeArguments.length==superClass.getTypeParameters().length;
 
 			final Type superTypeArgument = superTypeArguments[typeParameterPosition];
 			if(superTypeArgument instanceof Class)
