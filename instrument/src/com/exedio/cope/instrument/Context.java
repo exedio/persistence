@@ -112,16 +112,16 @@ final class Context
 	}
 
 	String dig(
-			final Class<? extends Feature> featureClass,
-			final Class methodClass,
+			final Class instanceClass,
+			final Class declarationClass,
 			final int typeParameterPosition)
 	{
 		//System.out.println("---"+methodClassVar);
 		final LinkedList<Class> classes = new LinkedList<Class>();
-		for(Class c = featureClass; c!=methodClass; c = c.getSuperclass())
+		for(Class c = instanceClass; c!=declarationClass; c = c.getSuperclass())
 			classes.add(0, c);
 		//System.out.println("--- "+classes);
-		Class superClass = methodClass;
+		Class superClass = declarationClass;
 		int typeParameterPosition2 = typeParameterPosition;
 		for(final Class clazz : classes)
 		{
@@ -135,7 +135,7 @@ final class Context
 			assert superTypeP.getOwnerType()==null : superTypeP.getOwnerType();
 
 			final Type[] superTypeArguments = superTypeP.getActualTypeArguments();
-			assert superTypeArguments.length==methodClass.getTypeParameters().length;
+			assert superTypeArguments.length==declarationClass.getTypeParameters().length;
 
 			final Type superTypeArgument = superTypeArguments[typeParameterPosition2];
 			if(superTypeArgument instanceof Class)
