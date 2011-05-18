@@ -135,19 +135,7 @@ final class Context
 			}
 			else if(superTypeArgument instanceof TypeVariable)
 			{
-				int pos = 0;
-				boolean done = false;
-				for(final TypeVariable<?> tv : clazz.getTypeParameters())
-				{
-					if(superTypeArgument==tv)
-					{
-						parameterPosition = pos;
-						done = true;
-						break;
-					}
-					pos++;
-				}
-				assert done : "" + Arrays.asList(clazz.getTypeParameters()) + '/' + superTypeArgument;
+				parameterPosition = getPosition(clazz.getTypeParameters(), (TypeVariable)superTypeArgument);
 			}
 			else
 			{
@@ -155,6 +143,21 @@ final class Context
 			}
 		}
 		return getGenericFieldParameter(parameterPosition);
+	}
+
+	private static int getPosition(
+			final TypeVariable[] typeParameters,
+			final TypeVariable typeParameter)
+	{
+		int result = 0;
+		for(final TypeVariable<?> tv : typeParameters)
+		{
+			if(typeParameter==tv)
+				return result;
+
+			result++;
+		}
+		throw new RuntimeException("" + Arrays.asList(typeParameter) + '/' + typeParameter);
 	}
 
 	private String write(final WildcardType t)
