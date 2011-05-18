@@ -117,8 +117,8 @@ final class Context
 			final int typeParameterPosition)
 	{
 		final LinkedList<Class> classes = new LinkedList<Class>();
-		for(Class c = instanceClass; c!=declarationClass; c = c.getSuperclass())
-			classes.add(0, c);
+		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
+			classes.add(0, clazz);
 
 		Class superClass = declarationClass;
 		int typeParameterPosition2 = typeParameterPosition;
