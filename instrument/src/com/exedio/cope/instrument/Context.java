@@ -116,11 +116,10 @@ final class Context
 			final Class declarationClass,
 			final int typeParameterPosition)
 	{
-		//System.out.println("---"+methodClassVar);
 		final LinkedList<Class> classes = new LinkedList<Class>();
 		for(Class c = instanceClass; c!=declarationClass; c = c.getSuperclass())
 			classes.add(0, c);
-		//System.out.println("--- "+classes);
+
 		Class superClass = declarationClass;
 		int typeParameterPosition2 = typeParameterPosition;
 		for(final Class clazz : classes)
@@ -128,7 +127,6 @@ final class Context
 			assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
 
 			final Type superType = clazz.getGenericSuperclass();
-			//System.out.println("---t "+superType);
 
 			final ParameterizedType superTypeP = (ParameterizedType)superType;
 			assert superTypeP.getRawType()==superClass : superTypeP.getRawType().toString()+'/'+superClass;
@@ -140,21 +138,17 @@ final class Context
 			final Type superTypeArgument = superTypeArguments[typeParameterPosition2];
 			if(superTypeArgument instanceof Class)
 			{
-				final Class superTypeArgumentClass = (Class)superTypeArgument;
-				//System.out.println("---cls " + superClass.getSimpleName() + "<" + superTypeArgumentClass.getSimpleName() + "> = " + clazz.getSimpleName());
-				return superTypeArgumentClass.getName();
+				return ((Class)superTypeArgument).getName();
 			}
 			else if(superTypeArgument instanceof TypeVariable)
 			{
 				final TypeVariable<?> superTypeArgumentVar = (TypeVariable)superTypeArgument;
-				//System.out.println("---ytv "+superTypeArgumentVar.getName());
 				int pos = 0;
 				boolean done = false;
 				for(final TypeVariable<?> tv : clazz.getTypeParameters())
 				{
 					if(superTypeArgumentVar==tv)
 					{
-						//System.out.println("---itr " + clazz.getSimpleName() + "<" + pos + "> = " + superClass.getSimpleName() + "<" + typeParameterPosition2 + ">");
 						typeParameterPosition2 = pos;
 						done = true;
 						break;
