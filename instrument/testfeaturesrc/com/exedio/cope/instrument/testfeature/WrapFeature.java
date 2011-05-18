@@ -92,7 +92,10 @@ public class WrapFeature extends Pattern
 					"",
 					"throws documentation IllegalArgumentException line 3 {0} {1} {2} {3} {4}"})})
 	public int documentedMulti(
-			@SuppressWarnings("unused") @Parameter(doc={
+			@SuppressWarnings("unused")
+			@Parameter(
+				value="paramNameX{1}X{2}X{3}",
+				doc={
 					"parameter documentation line 1 {0} {1} {2} {3} {4}",
 					"parameter documentation line 2 {0} {1} {2} {3} {4}",
 					"",
