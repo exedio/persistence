@@ -149,6 +149,7 @@ final class Context
 				{
 					if(superTypeArgumentVar==tv)
 					{
+						superClass = clazz;
 						superTypeParameterPosition = pos;
 						done = true;
 						break;
@@ -161,8 +162,6 @@ final class Context
 			{
 				throw new RuntimeException(superTypeArgument.toString());
 			}
-
-			superClass = clazz;
 		}
 		return getGenericFieldParameter(superTypeParameterPosition);
 	}
