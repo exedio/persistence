@@ -118,7 +118,7 @@ final class Context
 		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 
-		int superTypeParameterPosition = declarationTypeParameterPosition;
+		int parameterPosition = declarationTypeParameterPosition;
 		for(final Class clazz : classes)
 		{
 			final ParameterizedType superType = (ParameterizedType)clazz.getGenericSuperclass();
@@ -128,7 +128,7 @@ final class Context
 			final Type[] superTypeArguments = superType.getActualTypeArguments();
 			assert superTypeArguments.length==clazz.getSuperclass().getTypeParameters().length;
 
-			final Type superTypeArgument = superTypeArguments[superTypeParameterPosition];
+			final Type superTypeArgument = superTypeArguments[parameterPosition];
 			if(superTypeArgument instanceof Class)
 			{
 				return ((Class)superTypeArgument).getName();
@@ -141,7 +141,7 @@ final class Context
 				{
 					if(superTypeArgument==tv)
 					{
-						superTypeParameterPosition = pos;
+						parameterPosition = pos;
 						done = true;
 						break;
 					}
@@ -154,7 +154,7 @@ final class Context
 				throw new RuntimeException(superTypeArgument.toString());
 			}
 		}
-		return getGenericFieldParameter(superTypeParameterPosition);
+		return getGenericFieldParameter(parameterPosition);
 	}
 
 	private String write(final WildcardType t)
