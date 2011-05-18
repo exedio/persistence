@@ -114,14 +114,13 @@ final class Context
 	private String dig(
 			final Class instanceClass,
 			final Class declarationClass,
-			final int typeParameterPosition)
+			int typeParameterPosition)
 	{
 		final LinkedList<Class> classes = new LinkedList<Class>();
 		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 
 		Class superClass = declarationClass;
-		int typeParameterPosition2 = typeParameterPosition;
 		for(final Class clazz : classes)
 		{
 			assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
@@ -135,7 +134,7 @@ final class Context
 			final Type[] superTypeArguments = superTypeP.getActualTypeArguments();
 			assert superTypeArguments.length==declarationClass.getTypeParameters().length;
 
-			final Type superTypeArgument = superTypeArguments[typeParameterPosition2];
+			final Type superTypeArgument = superTypeArguments[typeParameterPosition];
 			if(superTypeArgument instanceof Class)
 			{
 				return ((Class)superTypeArgument).getName();
@@ -149,7 +148,7 @@ final class Context
 				{
 					if(superTypeArgumentVar==tv)
 					{
-						typeParameterPosition2 = pos;
+						typeParameterPosition = pos;
 						done = true;
 						break;
 					}
@@ -164,7 +163,7 @@ final class Context
 
 			superClass = clazz;
 		}
-		return getGenericFieldParameter(typeParameterPosition2);
+		return getGenericFieldParameter(typeParameterPosition);
 	}
 
 	private String write(final WildcardType t)
