@@ -38,6 +38,7 @@ public class WrapGenericSuper<A, B, Z, F> extends Pattern
 	public void method(
 			@SuppressWarnings("unused") @Parameter("a") final A a,
 			@SuppressWarnings("unused") @Parameter("b") final B b,
+			@SuppressWarnings("unused") @Parameter("z") final Z z,
 			@SuppressWarnings("unused") @Parameter("f") final F f,
 			@SuppressWarnings("unused") @Parameter("x") final Reader x)
 	{
