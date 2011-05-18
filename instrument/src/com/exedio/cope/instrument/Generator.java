@@ -705,7 +705,7 @@ final class Generator
 							}
 							pos++;
 						}
-						assert done : "" + clazz.getTypeParameters() + '/' + superTypeArgumentVar;
+						assert done : "" + Arrays.asList(clazz.getTypeParameters()) + '/' + superTypeArgumentVar;
 					}
 					else
 					{
