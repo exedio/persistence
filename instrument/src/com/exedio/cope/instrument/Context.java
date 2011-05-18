@@ -214,16 +214,16 @@ final class Context
 	{
 		if(t instanceof Class)
 			return toString((Class)t);
+		else if(t instanceof Wrapper.ExtendsType)
+			return toString((Wrapper.ExtendsType)t);
+		else if(t instanceof GenericArrayType)
+			return toString((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)
 			return toString((ParameterizedType)t);
 		else if(t instanceof TypeVariable)
 			return toString((TypeVariable)t);
 		else if(t instanceof WildcardType)
 			return toString((WildcardType)t);
-		else if(t instanceof GenericArrayType)
-			return toString((GenericArrayType)t);
-		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t);
 		else
 			throw new RuntimeException(t.toString());
 	}
