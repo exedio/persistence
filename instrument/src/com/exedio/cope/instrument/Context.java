@@ -41,11 +41,6 @@ final class Context
 		this.wrapper = wrapper;
 	}
 
-	private boolean matchesStaticToken(final TypeVariable tv)
-	{
-		return wrapper.matchesStaticToken(tv);
-	}
-
 	private Method getMethod()
 	{
 		return wrapper.getMethod();
@@ -99,7 +94,7 @@ final class Context
 
 	private final String toString(final TypeVariable t)
 	{
-		if(matchesStaticToken(t))
+		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
 
 		final Class<? extends Feature> featureClass = getFeatureClass();
