@@ -262,7 +262,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(Context.toString(((Settable<?>)feature.getInstance()).getInitialType(), new Context(feature, null)));
+			write(new Context(feature, null).toString(((Settable<?>)feature.getInstance()).getInitialType()));
 			write(' ');
 			write(feature.name);
 		}
@@ -472,7 +472,7 @@ final class Generator
 				|
 				(isStatic ? STATIC : 0)
 			);
-			write(Context.toString(methodReturnType, ctx));
+			write(ctx.toString(methodReturnType));
 			if(option!=null && useIs && option.booleanAsIs)
 			{
 				write(" is");
@@ -522,7 +522,7 @@ final class Generator
 					}
 					else
 					{
-						write(Context.toString(parameter.getType(), ctx));
+						write(ctx.toString(parameter.getType()));
 					}
 					write(' ');
 					write(format(parameter.getName(), arguments));
