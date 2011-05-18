@@ -56,7 +56,7 @@ final class Context
 		return feature.getInstance().getClass();
 	}
 
-	private final String toString(final Class c)
+	private String toString(final Class c)
 	{
 		if(Wrapper.ClassVariable.class.equals(c))
 			return getClassToken();
@@ -68,7 +68,7 @@ final class Context
 			return c.getCanonicalName();
 	}
 
-	private final String toString(final ParameterizedType t)
+	private String toString(final ParameterizedType t)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
 		bf.append('<');
@@ -87,7 +87,7 @@ final class Context
 		return bf.toString();
 	}
 
-	private final String toString(final TypeVariable t)
+	private String toString(final TypeVariable t)
 	{
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
@@ -166,7 +166,7 @@ final class Context
 				featureClass);
 	}
 
-	private final String toString(final WildcardType t)
+	private String toString(final WildcardType t)
 	{
 		final Type[] upper = t.getUpperBounds();
 		if(upper.length==1)
@@ -185,12 +185,12 @@ final class Context
 		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
 	}
 
-	private final String toString(final GenericArrayType t)
+	private String toString(final GenericArrayType t)
 	{
 		return toString(t.getGenericComponentType()) + "...";
 	}
 
-	private final String toString(final Wrapper.ExtendsType t)
+	private String toString(final Wrapper.ExtendsType t)
 	{
 		final StringBuilder bf = new StringBuilder(toString(t.getRawType()));
 		bf.append('<');
@@ -210,7 +210,7 @@ final class Context
 		return bf.toString();
 	}
 
-	final String toString(final Type t)
+	String toString(final Type t)
 	{
 		if(t instanceof Class)
 			return toString((Class)t);
