@@ -118,18 +118,15 @@ final class Context
 		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 
-		Class superClass = declarationClass;
 		int superTypeParameterPosition = declarationTypeParameterPosition;
 		for(final Class clazz : classes)
 		{
-			assert clazz.getSuperclass()==superClass : clazz.getSuperclass().toString()+'/'+superClass;
-
 			final ParameterizedType superType = (ParameterizedType)clazz.getGenericSuperclass();
-			assert superType.getRawType()==superClass : superType.getRawType().toString()+'/'+superClass;
+			assert superType.getRawType()==clazz.getSuperclass() : superType.getRawType().toString()+'/'+clazz.getSuperclass();
 			assert superType.getOwnerType()==null : superType.getOwnerType();
 
 			final Type[] superTypeArguments = superType.getActualTypeArguments();
-			assert superTypeArguments.length==superClass.getTypeParameters().length;
+			assert superTypeArguments.length==clazz.getSuperclass().getTypeParameters().length;
 
 			final Type superTypeArgument = superTypeArguments[superTypeParameterPosition];
 			if(superTypeArgument instanceof Class)
@@ -144,7 +141,6 @@ final class Context
 				{
 					if(superTypeArgument==tv)
 					{
-						superClass = clazz;
 						superTypeParameterPosition = pos;
 						done = true;
 						break;
