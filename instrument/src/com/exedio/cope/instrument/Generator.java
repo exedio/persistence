@@ -224,18 +224,18 @@ final class Generator
 			write(' ');
 
 			final StringSeparator comma = new StringSeparator(", ");
-			final StringBuilder initialAttributesBuf = new StringBuilder();
+			final StringBuilder fields = new StringBuilder();
 			for(final CopeFeature feature : initialFeatures)
 			{
 				if(!feature.getInitialExceptions().contains(constructorException))
 					continue;
 
-				comma.appendTo(initialAttributesBuf);
-				initialAttributesBuf.append(feature.name);
+				comma.appendTo(fields);
+				fields.append(feature.name);
 			}
 
 			final String pattern = a.value();
-			write(format(pattern, initialAttributesBuf.toString()));
+			write(format(pattern, fields.toString()));
 			write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
