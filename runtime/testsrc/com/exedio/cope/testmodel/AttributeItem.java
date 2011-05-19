@@ -167,7 +167,7 @@ public class AttributeItem extends Item
 				final long someNotNullLong,
 				final double someNotNullDouble,
 				final boolean someNotNullBoolean,
-				final com.exedio.cope.testmodel.EmptyItem someNotNullItem,
+				final EmptyItem someNotNullItem,
 				final SomeEnum someNotNullEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException,

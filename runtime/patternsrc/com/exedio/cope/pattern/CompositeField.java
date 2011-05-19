@@ -261,6 +261,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
+	@Deprecated
 	public Class getInitialType()
 	{
 		return valueClass;

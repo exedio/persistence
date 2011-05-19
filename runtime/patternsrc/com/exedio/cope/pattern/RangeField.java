@@ -148,11 +148,17 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return from.isFinal();
 	}
 
+	public boolean isMandatory()
+	{
+		return from.isMandatory();
+	}
+
 	public boolean isInitial()
 	{
 		return from.isInitial();
 	}
 
+	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
 		return Wrapper.generic(Range.class, from.getValueClass());

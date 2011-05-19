@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataField.toValue;
+
 import java.io.IOException;
 
 public class DataFinalTest extends AbstractRuntimeTest
@@ -36,7 +38,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataFinalItem(data4));
+		item = deleteOnTearDown(new DataFinalItem(toValue(data4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException

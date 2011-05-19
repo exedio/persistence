@@ -105,6 +105,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal || !optional;
 	}
 
+	@Deprecated
 	public Class getInitialType()
 	{
 		return valueClass;

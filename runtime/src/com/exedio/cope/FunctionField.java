@@ -32,6 +32,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -141,6 +142,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
+	@Deprecated
 	@Override
 	public Class getInitialType()
 	{
@@ -188,7 +190,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
 		{
 			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			if(feature.getInitialType().isPrimitive())
+			if(feature.isPrimitive())
 				result.remove(MandatoryViolationException.class);
 			return result;
 		}
@@ -316,12 +318,17 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return getType().as(typeClass).searchSingleton(equal(value));
 	}
 
+	boolean isPrimitive()
+	{
+		return isMandatory() && (PrimitiveUtil.toPrimitive(getValueClass())!=null);
+	}
+
 
 	private static final class PrimitiveGetter implements BooleanGetter<FunctionField>
 	{
 		public boolean get(final FunctionField feature)
 		{
-			return feature.getInitialType().isPrimitive();
+			return feature.isPrimitive();
 		}
 	}
 

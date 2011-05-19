@@ -149,6 +149,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return isFinal;
 	}
 
+	public boolean isMandatory()
+	{
+		return true; // list can be empty but not null;
+	}
+
+	@Deprecated
 	public Class getInitialType()
 	{
 		return List.class;

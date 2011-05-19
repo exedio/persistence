@@ -99,6 +99,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return isfinal;
 	}
 
+	public boolean isMandatory()
+	{
+		return !optional;
+	}
+
+	@Deprecated
 	public Class getInitialType()
 	{
 		return valueClass;

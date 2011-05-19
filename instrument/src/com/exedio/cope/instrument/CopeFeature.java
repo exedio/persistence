@@ -40,6 +40,7 @@ class CopeFeature
 	final boolean initial;
 
 	private Feature value;
+	private String initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 
 	CopeFeature(final CopeType parent, final JavaField javaField)
@@ -78,23 +79,36 @@ class CopeFeature
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
+	final String getInitialType()
+	{
+		if(initialType==null)
+			makeInitialTypeAndExceptions();
+
+		return initialType;
+	}
+
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
 		if(initialExceptions==null)
-			makeInitialExceptions();
+			makeInitialTypeAndExceptions();
 
 		return initialExceptions;
 	}
 
-	private void makeInitialExceptions()
+	private void makeInitialTypeAndExceptions()
 	{
 		final Settable<?> instance = (Settable)getInstance();
+
+		final BooleanHolder primitive = new BooleanHolder(false);
+		final String initialType = new Context(this, null).write(instance, primitive);
+
 		final Set<Class<? extends Throwable>> resultList = instance.getInitialExceptions();
 		final SortedSet<Class<? extends Throwable>> initialExceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 		initialExceptions.addAll(resultList);
-		final java.lang.reflect.Type initialType = instance.getInitialType();
-		if((initialType instanceof Class) && ((Class)initialType).isPrimitive())
+		if(primitive.value)
 			initialExceptions.remove(MandatoryViolationException.class);
+
+		this.initialType = initialType;
 		this.initialExceptions = initialExceptions;
 	}
 

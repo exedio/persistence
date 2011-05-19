@@ -32,7 +32,7 @@ public class DeleteHierarchySource extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	DeleteHierarchySource(
-				final com.exedio.cope.DeleteHierarchyTargetSuper target)
+				final DeleteHierarchyTargetSuper target)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

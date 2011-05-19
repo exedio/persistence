@@ -83,12 +83,14 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(item.map, item.map.getSource().getPattern());
 
 		assertEquals(false, item.integer.isInitial());
+		assertEquals(false, item.integer.isMandatory());
 		assertEquals(false, item.integer.isFinal());
-		assertEquals(Integer.class, item.integer.getInitialType());
+		assertEquals(Integer.class, getInitialType(item.integer));
 		assertContains(item.integer.getInitialExceptions());
 		assertEquals(false, item.map.isInitial());
+		assertEquals(false, item.map.isMandatory());
 		assertEquals(false, item.map.isFinal());
-		assertEquals(Map.class, item.map.getInitialType());
+		assertEquals(Map.class, getInitialType(item.map));
 		assertContains(item.map.getInitialExceptions());
 
 		assertFalse(item.integer            .isAnnotationPresent(Computed.class));

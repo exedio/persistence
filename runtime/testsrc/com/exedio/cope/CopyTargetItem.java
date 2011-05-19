@@ -60,8 +60,8 @@ class CopyTargetItem extends Item
 				final java.lang.String code,
 				final java.lang.String templateString,
 				final java.lang.String otherString,
-				final com.exedio.cope.CopyValueItem templateItem,
-				final com.exedio.cope.CopyValueItem otherItem)
+				final CopyValueItem templateItem,
+				final CopyValueItem otherItem)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

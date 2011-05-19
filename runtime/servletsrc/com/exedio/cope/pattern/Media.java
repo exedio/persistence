@@ -254,6 +254,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return unison;
 	}
 
+	@Deprecated
 	public Class getInitialType()
 	{
 		return Value.class;

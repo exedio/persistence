@@ -45,12 +45,18 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
+		@Deprecated
 		public Type getInitialType()
 		{
 			throw new RuntimeException();
 		}
 
 		public boolean isFinal()
+		{
+			throw new RuntimeException();
+		}
+
+		public boolean isMandatory()
 		{
 			throw new RuntimeException();
 		}

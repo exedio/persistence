@@ -53,11 +53,11 @@ class CopySourceItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	CopySourceItem(
-				final com.exedio.cope.CopyTargetItem targetItem,
+				final CopyTargetItem targetItem,
 				final java.lang.String templateString,
-				final com.exedio.cope.CopyValueItem templateItem,
-				final com.exedio.cope.CopySourceItem selfTargetItem,
-				final com.exedio.cope.CopyValueItem selfTemplateItem)
+				final CopyValueItem templateItem,
+				final CopySourceItem selfTargetItem,
+				final CopyValueItem selfTemplateItem)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

@@ -81,6 +81,7 @@ public final class LongField extends NumberField<Long>
 		return new LongField(isfinal, optional, unique, defaultConstant);
 	}
 
+	@Deprecated
 	@Override
 	public Class getInitialType()
 	{

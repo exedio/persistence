@@ -58,10 +58,10 @@ public class NameSubItem extends NameLongItem
 				final java.lang.String code,
 				final int unique,
 				final int integer,
-				final com.exedio.cope.NameSubItem item,
+				final NameSubItem item,
 				final int uniqueX,
 				final int integerX,
-				final com.exedio.cope.NameSubItem itemX)
+				final NameSubItem itemX)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

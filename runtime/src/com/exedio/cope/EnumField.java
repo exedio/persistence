@@ -92,6 +92,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return valueType.values;
 	}
 
+	@Deprecated
 	@Override
 	public Class getInitialType()
 	{

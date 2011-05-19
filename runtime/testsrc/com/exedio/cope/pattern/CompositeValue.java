@@ -58,7 +58,7 @@ public final class CompositeValue extends Composite
 				final java.lang.String aString,
 				final int anInt,
 				final AnEnumClass anEnum,
-				final com.exedio.cope.pattern.CompositeOptionalItem anItem)
+				final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

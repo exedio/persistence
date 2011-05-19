@@ -194,6 +194,7 @@ public final class IntegerField extends NumberField<Integer>
 		return result;
 	}
 
+	@Deprecated
 	@Override
 	public Class getInitialType()
 	{

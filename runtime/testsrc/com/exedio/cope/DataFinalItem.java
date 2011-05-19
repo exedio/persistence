@@ -33,7 +33,7 @@ class DataFinalItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	DataFinalItem(
-				final byte[] data)
+				final com.exedio.cope.DataField.Value data)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			DataFinalItem.data.map(data),

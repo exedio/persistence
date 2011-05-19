@@ -107,6 +107,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.isFinal();
 	}
 
+	public boolean isMandatory()
+	{
+		return source.isMandatory();
+	}
+
+	@Deprecated
 	public Class getInitialType()
 	{
 		return valueClass;

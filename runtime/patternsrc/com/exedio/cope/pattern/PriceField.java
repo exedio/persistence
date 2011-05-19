@@ -85,6 +85,12 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return isfinal;
 	}
 
+	public boolean isMandatory()
+	{
+		return !optional;
+	}
+
+	@Deprecated
 	public Class getInitialType()
 	{
 		return Price.class;
