@@ -144,13 +144,10 @@ final class Generator
 		if(!exceptions.isEmpty())
 		{
 			write("\t\t\tthrows");
-			boolean first = true;
+			final CharSeparator comma = new CharSeparator(',');
 			for(final Class e : exceptions)
 			{
-				if(first)
-					first = false;
-				else
-					write(',');
+				comma.appendTo(output);
 				write(lineSeparator);
 				write("\t\t\t\t");
 				write(e.getCanonicalName());
@@ -226,17 +223,14 @@ final class Generator
 			write(constructorException.getCanonicalName());
 			write(' ');
 
-			boolean first = true;
+			final StringSeparator comma = new StringSeparator(", ");
 			final StringBuilder initialAttributesBuf = new StringBuilder();
 			for(final CopeFeature feature : initialFeatures)
 			{
 				if(!feature.getInitialExceptions().contains(constructorException))
 					continue;
 
-				if(first)
-					first = false;
-				else
-					initialAttributesBuf.append(", ");
+				comma.appendTo(initialAttributesBuf);
 				initialAttributesBuf.append(feature.name);
 			}
 
@@ -251,14 +245,10 @@ final class Generator
 		write(type.name);
 		write('(');
 
-		boolean first = true;
+		final CharSeparator comma = new CharSeparator(',');
 		for(final CopeFeature feature : initialFeatures)
 		{
-			if(first)
-				first = false;
-			else
-				write(',');
-
+			comma.appendTo(output);
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
@@ -506,14 +496,10 @@ final class Generator
 				write(option.suffix);
 			write('(');
 			{
-				boolean first = true;
+				final CharSeparator comma = new CharSeparator(',');
 				for(final Wrapper.Parameter parameter : parameters)
 				{
-					if(first)
-						first = false;
-					else
-						write(',');
-
+					comma.appendTo(output);
 					write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
@@ -561,28 +547,24 @@ final class Generator
 			write(methodName);
 			write('(');
 			{
-				boolean first = true;
+				final CharSeparator comma = new CharSeparator(',');
 				if(isStatic)
 				{
 					if(wrapper.hasStaticClassToken())
 					{
-						first = false;
+						comma.appendTo(output);
 						write(feature.parent.name);
 						write(".class");
 					}
 				}
 				else
 				{
-					first = false;
+					comma.appendTo(output);
 					write("this");
 				}
 				for(final Wrapper.Parameter parameter : parameters)
 				{
-					if(first)
-						first = false;
-					else
-						write(',');
-
+					comma.appendTo(output);
 					write(format(parameter.getName(), arguments));
 				}
 			}
