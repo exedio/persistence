@@ -78,11 +78,11 @@ class CopeFeature
 
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Feature instance = getInstance();
-		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getInitialExceptions();
+		final Settable<?> instance = (Settable)getInstance();
+		final Set<Class<? extends Throwable>> resultList = instance.getInitialExceptions();
 		final SortedSet<Class<? extends Throwable>> result = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 		result.addAll(resultList);
-		final java.lang.reflect.Type initialType = ((Settable<?>)instance).getInitialType();
+		final java.lang.reflect.Type initialType = instance.getInitialType();
 		if((initialType instanceof Class) && ((Class)initialType).isPrimitive())
 			result.remove(MandatoryViolationException.class);
 		return result;
