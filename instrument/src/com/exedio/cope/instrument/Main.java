@@ -76,6 +76,8 @@ public final class Main
 		if(files.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 
+		if(params.verify)
+			System.out.println("Instrumenting in verify mode.");
 		try
 		{
 			InstrumentContext.enter();
