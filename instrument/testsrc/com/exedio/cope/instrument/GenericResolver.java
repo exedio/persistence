@@ -95,19 +95,16 @@ class GenericResolver
 				final ParameterizedType parameterizedType = (ParameterizedType)type;
 				types[typeIndex] = new ParameterizedType()
 				{
-					@Override
 					public Type getRawType()
 					{
 						return parameterizedType.getRawType();
 					}
 
-					@Override
 					public Type getOwnerType()
 					{
 						return parameterizedType.getOwnerType();
 					}
 
-					@Override
 					public Type[] getActualTypeArguments()
 					{
 						final Type[] arguments = parameterizedType.getActualTypeArguments();
@@ -145,7 +142,6 @@ class GenericResolver
 							'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
 					}
 				};
-
 			}
 		}
 	}
