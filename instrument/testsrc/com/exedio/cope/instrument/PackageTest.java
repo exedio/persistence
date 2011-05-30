@@ -33,6 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ExampleAnnTest.class);
 		suite.addTestSuite(ResolveImportTest.class);
 		suite.addTestSuite(GeneratorTest.class);
+		suite.addTestSuite(GenericResolverTest.class);
 		return suite;
 	}
 
