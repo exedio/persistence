@@ -124,7 +124,7 @@ class GenericResolver
 						final ParameterizedType o = (ParameterizedType)other;
 						return
 							getRawType().equals(o.getRawType()) &&
-							o.getOwnerType()==null &&
+							getOwnerType().equals(o.getOwnerType()) &&
 							java.util.Arrays.equals(getActualTypeArguments(), o.getActualTypeArguments());
 					}
 
@@ -133,6 +133,7 @@ class GenericResolver
 					{
 						return
 							getRawType().hashCode() ^
+							getOwnerType().hashCode() ^
 							java.util.Arrays.hashCode(getActualTypeArguments());
 					}
 
