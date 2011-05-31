@@ -81,7 +81,7 @@ class GenericResolver
 			types[i] = filter(types[i]);
 	}
 
-	Type filter(final Type type)
+	private Type filter(final Type type)
 	{
 		if(type instanceof TypeVariable)
 			return filter((TypeVariable)type);
@@ -91,7 +91,7 @@ class GenericResolver
 			return type;
 	}
 
-	Type filter(final TypeVariable type)
+	private Type filter(final TypeVariable type)
 	{
 		final TypeVariable[] typeParameters = clazz.getTypeParameters();
 		for(int i = 0; i<typeParameters.length; i++)
@@ -102,7 +102,7 @@ class GenericResolver
 		return type;
 	}
 
-	Type filter(final ParameterizedType type)
+	private ParameterizedType filter(final ParameterizedType type)
 	{
 		return new ParameterizedType()
 		{
