@@ -104,54 +104,63 @@ class GenericResolver
 
 	private ParameterizedType filter(final ParameterizedType type)
 	{
-		return new ParameterizedType()
-		{
-			public Type getRawType()
-			{
-				return type.getRawType();
-			}
-
-			public Type getOwnerType()
-			{
-				return type.getOwnerType();
-			}
-
-			public Type[] getActualTypeArguments()
-			{
-				final Type[] arguments = type.getActualTypeArguments();
-				filter(arguments);
-				return arguments;
-			}
-
-			@Override
-			public boolean equals(final Object other)
-			{
-				if(!(other instanceof ParameterizedType))
-					return false;
-
-				final ParameterizedType o = (ParameterizedType)other;
-				return
-					getRawType().equals(o.getRawType()) &&
-					getOwnerType().equals(o.getOwnerType()) &&
-					java.util.Arrays.equals(getActualTypeArguments(), o.getActualTypeArguments());
-			}
-
-			@Override
-			public int hashCode()
-			{
-				return
-					getRawType().hashCode() ^
-					getOwnerType().hashCode() ^
-					java.util.Arrays.hashCode(getActualTypeArguments());
-			}
-
-			@Override
-			public String toString()
-			{
-				return
-					getRawType().toString() +
-					'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
-			}
-		};
+		return new FilteredParameterizedType(type);
 	}
+
+	private class FilteredParameterizedType implements ParameterizedType
+	{
+		private final ParameterizedType type;
+
+		FilteredParameterizedType(final ParameterizedType type)
+		{
+			this.type = type;
+		}
+
+		public Type getRawType()
+		{
+			return type.getRawType();
+		}
+
+		public Type getOwnerType()
+		{
+			return type.getOwnerType();
+		}
+
+		public Type[] getActualTypeArguments()
+		{
+			final Type[] arguments = type.getActualTypeArguments();
+			filter(arguments);
+			return arguments;
+		}
+
+		@Override
+		public boolean equals(final Object other)
+		{
+			if(!(other instanceof ParameterizedType))
+				return false;
+
+			final ParameterizedType o = (ParameterizedType)other;
+			return
+				getRawType().equals(o.getRawType()) &&
+				getOwnerType().equals(o.getOwnerType()) &&
+				java.util.Arrays.equals(getActualTypeArguments(), o.getActualTypeArguments());
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return
+				getRawType().hashCode() ^
+				getOwnerType().hashCode() ^
+				java.util.Arrays.hashCode(getActualTypeArguments());
+		}
+
+		@Override
+		public String toString()
+		{
+			return
+				getRawType().toString() +
+				'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
+		}
+	};
 }
