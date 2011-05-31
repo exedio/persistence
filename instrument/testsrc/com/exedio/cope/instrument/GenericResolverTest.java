@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -80,7 +81,7 @@ public class GenericResolverTest extends CopeAssert
 		// empty
 	}
 
-	static class AllImplementation implements Interface<Reader, Writer>
+	static class AllImplementation implements Serializable, Interface<Reader, Writer>, Cloneable
 	{
 		// empty
 	}

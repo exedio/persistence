@@ -84,9 +84,13 @@ class GenericResolver
 	{
 		for(final Type t : clazz.getGenericInterfaces())
 		{
-			final ParameterizedType tpt = (ParameterizedType)t;
-			if(tpt.getRawType()==interfaze)
-				return tpt;
+			// could be a simple class as well
+			if(t instanceof ParameterizedType)
+			{
+				final ParameterizedType tpt = (ParameterizedType)t;
+				if(tpt.getRawType()==interfaze)
+					return tpt;
+			}
 		}
 		return null;
 	}
