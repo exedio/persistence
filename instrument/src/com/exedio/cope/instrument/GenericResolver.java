@@ -115,13 +115,13 @@ final class GenericResolver<T>
 		return null;
 	}
 
-	void filter(final Class clazz, final Type[] parameters, final Type[] types)
+	static void filter(final Class clazz, final Type[] parameters, final Type[] types)
 	{
 		for(int i = 0; i<types.length; i++)
 			types[i] = filter(clazz, parameters, types[i]);
 	}
 
-	private Type filter(final Class clazz, final Type[] parameters, final Type type)
+	private static Type filter(final Class clazz, final Type[] parameters, final Type type)
 	{
 		if(type instanceof TypeVariable)
 			return filter(clazz, parameters, (TypeVariable)type);
@@ -131,7 +131,7 @@ final class GenericResolver<T>
 			return type;
 	}
 
-	private Type filter(final Class clazz, final Type[] parameters, final TypeVariable type)
+	private static Type filter(final Class clazz, final Type[] parameters, final TypeVariable type)
 	{
 		final TypeVariable[] typeParameters = clazz.getTypeParameters();
 		for(int i = 0; i<typeParameters.length; i++)
@@ -142,12 +142,12 @@ final class GenericResolver<T>
 		return type;
 	}
 
-	private ParameterizedType filter(final Class clazz, final Type[] parameters, final ParameterizedType type)
+	private static ParameterizedType filter(final Class clazz, final Type[] parameters, final ParameterizedType type)
 	{
 		return new FilteredParameterizedType(clazz, parameters, type);
 	}
 
-	private class FilteredParameterizedType implements ParameterizedType
+	private static class FilteredParameterizedType implements ParameterizedType
 	{
 		private final Class clazz;
 		private final Type[] parameters;
