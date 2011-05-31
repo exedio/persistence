@@ -78,10 +78,7 @@ class GenericResolver
 	void filter(final Type[] types)
 	{
 		for(int i = 0; i<types.length; i++)
-		{
-			final Type type = types[i];
-			types[i] = filter(type);
-		}
+			types[i] = filter(types[i]);
 	}
 
 	Type filter(final Type type)
