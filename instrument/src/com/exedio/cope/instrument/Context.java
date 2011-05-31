@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
 
 final class Context
@@ -162,65 +161,6 @@ final class Context
 			result++;
 		}
 		throw new RuntimeException("" + Arrays.asList(typeParameter) + '/' + typeParameter);
-	}
-
-	String write(final Settable settable, final BooleanHolder primitive)
-	{
-		final Class<? extends Settable> settableClass = settable.getClass();
-
-		final Class superClassDeclaringImplements =
-			getSuperClassDeclaringImplements(settableClass, Settable.class);
-
-		final ParameterizedType genericInterface = getGenericInterface(superClassDeclaringImplements, Settable.class);
-		final Type[] genericInterfaceArgs = genericInterface.getActualTypeArguments();
-		assert genericInterfaceArgs.length==1 : Arrays.asList(genericInterfaceArgs); // because Settable has one type arg
-
-		final Type genericInterfaceArg = genericInterfaceArgs[0];
-		if(genericInterfaceArg instanceof Class)
-		{
-			return asPrimitive((Class)genericInterfaceArg, settable.isMandatory(), primitive).getCanonicalName();
-		}
-		else if(genericInterfaceArg instanceof TypeVariable)
-		{
-			return dig(
-					settableClass,
-					settable.isMandatory(),
-					primitive,
-					superClassDeclaringImplements,
-					getPosition(superClassDeclaringImplements.getTypeParameters(), (TypeVariable)genericInterfaceArg));
-		}
-		else
-			throw new RuntimeException(
-					settableClass.toString() + ' ' +
-					superClassDeclaringImplements.toString());
-	}
-
-	private static <E> Class getSuperClassDeclaringImplements(
-			final Class<? extends E> settableClass,
-			final Class<E> interfaceClass)
-	{
-		for(Class c = settableClass; c!=null; c = c.getSuperclass())
-			for(final Class ifc : c.getInterfaces())
-				if(ifc==interfaceClass)
-					return c;
-
-		throw new RuntimeException(settableClass.toString());
-	}
-
-	private static ParameterizedType getGenericInterface(
-			final Class clazz,
-			final Class interfaceClass)
-	{
-		for(final Type genericInterface : clazz.getGenericInterfaces())
-		{
-			final ParameterizedType genericInterfacePT = (ParameterizedType)genericInterface;
-			if(genericInterfacePT.getRawType()==interfaceClass)
-			{
-				assert genericInterfacePT.getOwnerType()==null : genericInterfacePT.getOwnerType();
-				return genericInterfacePT;
-			}
-		}
-		throw new RuntimeException(clazz.toString() + '/' + interfaceClass);
 	}
 
 	private static Class asPrimitive(

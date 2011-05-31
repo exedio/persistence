@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +69,23 @@ final class Generics
 		}
 		else
 			return Collections.emptyList();
+	}
+
+	static Type[] getTypes(final String s)
+	{
+		final List<String> x = get(s);
+		final Type[] result = new Type[x.size()];
+		for(int i = 0; i<result.length; i++)
+		{
+			final String t = x.get(i);
+			result[i] = new Type(){
+				@Override public String toString()
+				{
+					return t;
+				}
+			};
+		}
+		return result;
 	}
 
 	private Generics()
