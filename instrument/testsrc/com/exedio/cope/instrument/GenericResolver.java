@@ -75,6 +75,17 @@ class GenericResolver
 		throw new RuntimeException(clazz.toString() + '/' + interfaze);
 	}
 
+	Type filter(final TypeVariable type)
+	{
+		final TypeVariable[] typeParameters = clazz.getTypeParameters();
+		for(int typeParameterIndex = 0; typeParameterIndex<typeParameters.length; typeParameterIndex++)
+		{
+			if(typeParameters[typeParameterIndex]==type)
+				return parameters[typeParameterIndex];
+		}
+		return type;
+	}
+
 	void filter(final Type[] types)
 	{
 		for(int typeIndex = 0; typeIndex<types.length; typeIndex++)
@@ -83,12 +94,7 @@ class GenericResolver
 
 			if(type instanceof TypeVariable)
 			{
-				final TypeVariable[] typeParameters = clazz.getTypeParameters();
-				for(int typeParameterIndex = 0; typeParameterIndex<typeParameters.length; typeParameterIndex++)
-				{
-					if(typeParameters[typeParameterIndex]==type)
-						types[typeIndex] = parameters[typeParameterIndex];
-				}
+				types[typeIndex] = filter((TypeVariable)type);
 			}
 			else if(type instanceof ParameterizedType)
 			{
