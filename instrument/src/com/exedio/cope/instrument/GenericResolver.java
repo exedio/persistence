@@ -24,11 +24,17 @@ import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.List;
 
-class GenericResolver<T>
+final class GenericResolver<T>
 {
+	static <T> GenericResolver<T> neW(final Class<T> interfaze)
+	{
+		return new GenericResolver<T>(interfaze);
+	}
+
+
 	private final Class<T> interfaze;
 
-	GenericResolver(final Class<T> interfaze)
+	private GenericResolver(final Class<T> interfaze)
 	{
 		if(!interfaze.isInterface())
 			throw new IllegalArgumentException("not an interface: " + interfaze);

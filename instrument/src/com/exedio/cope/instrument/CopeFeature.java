@@ -97,7 +97,7 @@ class CopeFeature
 		return initialExceptions;
 	}
 
-	private static final GenericResolver<Settable> settableResolver = new GenericResolver<Settable>(Settable.class);
+	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
 
 	private void makeInitialTypeAndExceptions()
 	{
