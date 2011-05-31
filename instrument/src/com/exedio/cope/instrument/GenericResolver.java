@@ -22,7 +22,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
-import java.util.List;
 
 final class GenericResolver<T>
 {
@@ -42,7 +41,7 @@ final class GenericResolver<T>
 		this.interfaze = interfaze;
 	}
 
-	List<Type> get(final Class<? extends T> clazz, final Type... parameters)
+	Type[] get(final Class<? extends T> clazz, final Type... parameters)
 	{
 		if(clazz.isInterface())
 			throw new IllegalArgumentException("not an class: " + clazz);
@@ -52,7 +51,7 @@ final class GenericResolver<T>
 					Arrays.toString(clazz.getTypeParameters()) + ' ' +
 					Arrays.toString(parameters));
 
-		return Arrays.asList(getX(clazz, parameters));
+		return getX(clazz, parameters);
 	}
 
 	private Type[] getX(final Class clazz, final Type[] parameters)

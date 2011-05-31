@@ -39,46 +39,46 @@ public class GenericResolverTest extends CopeAssert
 
 		assertEquals(
 				list(Reader.class, Writer.class),
-				neW(Interface.class).get(AllImplementation.class));
+				list(neW(Interface.class).get(AllImplementation.class)));
 		assertEquals(
 				list(type1, type2),
-				neW(Interface.class).get(NoneImplementation.class, type1, type2));
+				list(neW(Interface.class).get(NoneImplementation.class, type1, type2)));
 		assertEquals(
 				list(type2, type1),
-				neW(Interface.class).get(NoneReverseImplementation.class, type1, type2));
+				list(neW(Interface.class).get(NoneReverseImplementation.class, type1, type2)));
 		assertEquals(
 				list(Reader.class, type2),
-				neW(Interface.class).get(HalfImplementation.class, type2));
+				list(neW(Interface.class).get(HalfImplementation.class, type2)));
 		assertEquals(
 				list(Reader.class, generic(List.class, Integer.class)),
-				neW(Interface.class).get(NestedImplementation.class));
+				list(neW(Interface.class).get(NestedImplementation.class)));
 		assertEquals(
 				list(Reader.class, generic(List.class, type2)),
-				neW(Interface.class).get(NestedParamImplementation.class, type2));
+				list(neW(Interface.class).get(NestedParamImplementation.class, type2)));
 		assertEquals(
 				list(Reader.class, Writer.class),
-				neW(Interface.class).get(IndirectAllImplementation.class));
+				list(neW(Interface.class).get(IndirectAllImplementation.class)));
 		assertEquals(
 				list(Writer.class, Reader.class),
-				neW(Interface.class).get(IndirectAllReverseImplementation.class));
+				list(neW(Interface.class).get(IndirectAllReverseImplementation.class)));
 		assertEquals(
 				list(type1, type2),
-				neW(Interface.class).get(IndirectNoneImplementation.class, type1, type2));
+				list(neW(Interface.class).get(IndirectNoneImplementation.class, type1, type2)));
 		assertEquals(
 				list(type2, type1),
-				neW(Interface.class).get(IndirectNoneReverseImplementation.class, type1, type2));
+				list(neW(Interface.class).get(IndirectNoneReverseImplementation.class, type1, type2)));
 		assertEquals(
 				list(Reader.class, type2),
-				neW(Interface.class).get(IndirectHalfImplementation.class, type2));
+				list(neW(Interface.class).get(IndirectHalfImplementation.class, type2)));
 		assertEquals(
 				list(type2, Reader.class),
-				neW(Interface.class).get(IndirectHalfReverseImplementation.class, type2));
+				list(neW(Interface.class).get(IndirectHalfReverseImplementation.class, type2)));
 		assertEquals(
 				list(Reader.class, Writer.class),
-				neW(Interface.class).get(Indirect2AllImplementation.class));
+				list(neW(Interface.class).get(Indirect2AllImplementation.class)));
 		assertEquals(
 				list(Reader.class, Writer.class),
-				neW(Interface.class).get(Indirect2All2Implementation.class));
+				list(neW(Interface.class).get(Indirect2All2Implementation.class)));
 	}
 
 	interface Interface<K,V>
@@ -223,5 +223,10 @@ public class GenericResolverTest extends CopeAssert
 					'<' + java.util.Arrays.toString(actualTypeArguments) + '>';
 			}
 		};
+	}
+
+	private static final List<Type> list(final Type... o)
+	{
+		return java.util.Arrays.asList(o);
 	}
 }

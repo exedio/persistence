@@ -103,7 +103,7 @@ class CopeFeature
 	{
 		final Settable<?> instance = (Settable)getInstance();
 
-		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type)).get(0);
+		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
 		final String initialType;
 		final boolean primitive;
 		if(initialTypeX instanceof Class)
