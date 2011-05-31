@@ -80,15 +80,23 @@ class GenericResolver
 		for(int typeIndex = 0; typeIndex<types.length; typeIndex++)
 		{
 			final Type type = types[typeIndex];
+			types[typeIndex] = filter(type);
+		}
+	}
 
-			if(type instanceof TypeVariable)
-			{
-				types[typeIndex] = filter((TypeVariable)type);
-			}
-			else if(type instanceof ParameterizedType)
-			{
-				types[typeIndex] = filter((ParameterizedType)type);
-			}
+	Type filter(final Type type)
+	{
+		if(type instanceof TypeVariable)
+		{
+			return filter((TypeVariable)type);
+		}
+		else if(type instanceof ParameterizedType)
+		{
+			return filter((ParameterizedType)type);
+		}
+		else
+		{
+			return type;
 		}
 	}
 
