@@ -77,57 +77,51 @@ class GenericResolver
 
 	void filter(final Type[] types)
 	{
-		for(int typeIndex = 0; typeIndex<types.length; typeIndex++)
+		for(int i = 0; i<types.length; i++)
 		{
-			final Type type = types[typeIndex];
-			types[typeIndex] = filter(type);
+			final Type type = types[i];
+			types[i] = filter(type);
 		}
 	}
 
 	Type filter(final Type type)
 	{
 		if(type instanceof TypeVariable)
-		{
 			return filter((TypeVariable)type);
-		}
 		else if(type instanceof ParameterizedType)
-		{
 			return filter((ParameterizedType)type);
-		}
 		else
-		{
 			return type;
-		}
 	}
 
 	Type filter(final TypeVariable type)
 	{
 		final TypeVariable[] typeParameters = clazz.getTypeParameters();
-		for(int typeParameterIndex = 0; typeParameterIndex<typeParameters.length; typeParameterIndex++)
+		for(int i = 0; i<typeParameters.length; i++)
 		{
-			if(typeParameters[typeParameterIndex]==type)
-				return parameters[typeParameterIndex];
+			if(typeParameters[i]==type)
+				return parameters[i];
 		}
 		return type;
 	}
 
-	Type filter(final ParameterizedType parameterizedType)
+	Type filter(final ParameterizedType type)
 	{
 		return new ParameterizedType()
 		{
 			public Type getRawType()
 			{
-				return parameterizedType.getRawType();
+				return type.getRawType();
 			}
 
 			public Type getOwnerType()
 			{
-				return parameterizedType.getOwnerType();
+				return type.getOwnerType();
 			}
 
 			public Type[] getActualTypeArguments()
 			{
-				final Type[] arguments = parameterizedType.getActualTypeArguments();
+				final Type[] arguments = type.getActualTypeArguments();
 				filter(arguments);
 				return arguments;
 			}
