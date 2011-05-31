@@ -24,11 +24,11 @@ import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.List;
 
-class GenericResolver
+class GenericResolver<T>
 {
-	private final Class interfaze;
+	private final Class<T> interfaze;
 
-	GenericResolver(final Class interfaze)
+	GenericResolver(final Class<T> interfaze)
 	{
 		if(!interfaze.isInterface())
 			throw new IllegalArgumentException("not an interface: " + interfaze);
@@ -36,7 +36,7 @@ class GenericResolver
 		this.interfaze = interfaze;
 	}
 
-	List<Type> get(final Class clazz, final Type... parameters)
+	List<Type> get(final Class<? extends T> clazz, final Type... parameters)
 	{
 		if(clazz.isInterface())
 			throw new IllegalArgumentException("not an class: " + clazz);
