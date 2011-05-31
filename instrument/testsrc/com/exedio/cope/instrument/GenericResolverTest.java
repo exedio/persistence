@@ -83,7 +83,7 @@ public class GenericResolverTest extends CopeAssert
 
 	static class AllImplementation implements Serializable, Interface<Reader, Writer>, Cloneable
 	{
-		// empty
+		private static final long serialVersionUID = 1l;
 	}
 
 	static class NoneImplementation<A, B> implements Interface<A, B>
