@@ -98,7 +98,7 @@ final class Context
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
 			if(methodClassVar==t)
-				return dig(featureClass, false, null, methodClass, typeParameterPosition);
+				return dig(featureClass, false, methodClass, typeParameterPosition);
 
 			typeParameterPosition++;
 		}
@@ -113,7 +113,6 @@ final class Context
 	private String dig(
 			final Class instanceClass,
 			final boolean mandatory,
-			final BooleanHolder primitive,
 			final Class declarationClass,
 			final int declarationTypeParameterPosition)
 	{
@@ -134,7 +133,7 @@ final class Context
 			final Type superTypeArgument = superTypeArguments[parameterPosition];
 			if(superTypeArgument instanceof Class)
 			{
-				return asPrimitive((Class)superTypeArgument, mandatory, primitive).getCanonicalName();
+				return asPrimitive((Class)superTypeArgument, mandatory).getCanonicalName();
 			}
 			else if(superTypeArgument instanceof TypeVariable)
 			{
@@ -165,8 +164,7 @@ final class Context
 
 	private static Class asPrimitive(
 			final Class clazz,
-			final boolean enable,
-			final BooleanHolder primitive)
+			final boolean enable)
 	{
 		if(!enable)
 			return clazz;
@@ -174,9 +172,6 @@ final class Context
 		final Class result = PrimitiveUtil.toPrimitive(clazz);
 		if(result==null)
 			return clazz;
-
-		if(primitive!=null)
-			primitive.value = true;
 
 		return result;
 	}
