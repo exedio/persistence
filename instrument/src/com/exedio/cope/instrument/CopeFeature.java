@@ -42,7 +42,7 @@ class CopeFeature
 	final boolean initial;
 
 	private Feature value;
-	private String initialType;
+	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 
 	CopeFeature(final CopeType parent, final JavaField javaField)
@@ -81,7 +81,7 @@ class CopeFeature
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
-	final String getInitialType()
+	final Type getInitialType()
 	{
 		if(initialType==null)
 			makeInitialTypeAndExceptions();
@@ -104,7 +104,7 @@ class CopeFeature
 		final Settable<?> instance = (Settable)getInstance();
 
 		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
-		final String initialType;
+		final Type initialType;
 		final boolean primitive;
 		if(initialTypeX instanceof Class)
 		{
@@ -112,18 +112,18 @@ class CopeFeature
 			final Class initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
 			if(initialClassPrimitive!=null && instance.isMandatory())
 			{
-				initialType = initialClassPrimitive.getName();
+				initialType = initialClassPrimitive;
 				primitive = true;
 			}
 			else
 			{
-				initialType = initialClass.getCanonicalName();
+				initialType = initialClass;
 				primitive = false;
 			}
 		}
 		else
 		{
-			initialType = initialTypeX.toString();
+			initialType = initialTypeX;
 			primitive = false;
 		}
 

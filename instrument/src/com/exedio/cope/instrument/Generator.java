@@ -251,7 +251,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(feature.getInitialType());
+			write(new Context(feature, null).write(feature.getInitialType()));
 			write(' ');
 			write(feature.name);
 		}

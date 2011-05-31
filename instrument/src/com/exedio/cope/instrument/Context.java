@@ -239,6 +239,8 @@ final class Context
 			return write((TypeVariable)t);
 		else if(t instanceof WildcardType)
 			return write((WildcardType)t);
+		else if(t instanceof Generics.SourceType)
+			return ((Generics.SourceType)t).name;
 		else
 			throw new RuntimeException(t.toString());
 	}

@@ -76,16 +76,18 @@ final class Generics
 		final List<String> x = get(s);
 		final Type[] result = new Type[x.size()];
 		for(int i = 0; i<result.length; i++)
-		{
-			final String t = x.get(i);
-			result[i] = new Type(){
-				@Override public String toString()
-				{
-					return t;
-				}
-			};
-		}
+			result[i] = new SourceType(x.get(i));
 		return result;
+	}
+
+	static class SourceType implements Type
+	{
+		final String name;
+
+		SourceType(final String name)
+		{
+			this.name = name;
+		}
 	}
 
 	private Generics()

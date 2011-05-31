@@ -390,7 +390,6 @@
 				<exclude name="sampler/*.java" /><!-- TODO remove -->
 				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="pattern/RangeFieldItem.java" /><!-- TODO not yet implemented !!!!!!!!!!!!!!!!!!! -->
 			</fileset>
 		</instrument>
 	</target>
