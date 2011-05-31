@@ -74,6 +74,9 @@ public class GenericResolverTest extends CopeAssert
 		assertEquals(
 				list(Reader.class, Writer.class),
 				new GenericResolver(Interface.class).get(Indirect2AllImplementation.class));
+		assertEquals(
+				list(Reader.class, Writer.class),
+				new GenericResolver(Interface.class).get(Indirect2All2Implementation.class));
 	}
 
 	interface Interface<K,V>
@@ -142,6 +145,11 @@ public class GenericResolverTest extends CopeAssert
 	}
 
 	static class Indirect2AllImplementation extends IndirectHalfImplementation<Writer>
+	{
+		// empty
+	}
+
+	static class Indirect2All2Implementation extends IndirectAllImplementation
 	{
 		// empty
 	}

@@ -61,15 +61,30 @@ class GenericResolver
 			if(superclass==null)
 				throw new RuntimeException(clazz.toString() + '/' + interfaze);
 
-			final ParameterizedType supertype = (ParameterizedType)clazz.getGenericSuperclass();
-			assert supertype.getRawType()==superclass : supertype.getRawType().toString()+'/'+superclass;
+			final Type supertype = clazz.getGenericSuperclass();
+			if(supertype instanceof Class)
+			{
+				assert supertype==superclass;
+				final Type[] arguments = getX(superclass, new Type[]{});
+				filter(clazz, parameters, arguments);
+				return arguments;
+			}
+			else if(supertype instanceof ParameterizedType)
+			{
+				final ParameterizedType supertypeParameterized = (ParameterizedType)supertype;
+				assert supertypeParameterized.getRawType()==superclass : supertypeParameterized.getRawType().toString()+'/'+superclass;
 
-			final Type[] superTypeArguments = supertype.getActualTypeArguments();
-			assert superTypeArguments.length==superclass.getTypeParameters().length : Arrays.toString(superTypeArguments)+'/'+Arrays.toString(superclass.getTypeParameters());
+				final Type[] superTypeArguments = supertypeParameterized.getActualTypeArguments();
+				assert superTypeArguments.length==superclass.getTypeParameters().length : Arrays.toString(superTypeArguments)+'/'+Arrays.toString(superclass.getTypeParameters());
 
-			final Type[] arguments = getX(superclass, superTypeArguments);
-			filter(clazz, parameters, arguments);
-			return arguments;
+				final Type[] arguments = getX(superclass, superTypeArguments);
+				filter(clazz, parameters, arguments);
+				return arguments;
+			}
+			else
+			{
+				throw new RuntimeException(clazz.toString() + '/' + supertype + '/' + interfaze);
+			}
 		}
 
 		final Type[] arguments = gi.getActualTypeArguments();
