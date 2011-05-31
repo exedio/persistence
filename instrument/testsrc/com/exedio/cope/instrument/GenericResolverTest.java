@@ -36,22 +36,22 @@ public class GenericResolverTest extends CopeAssert
 
 		assertEquals(
 				list(Reader.class, Writer.class),
-				new GenericResolver(Interface.class, AllImplementation.class).get());
+				new GenericResolver(Interface.class).get(AllImplementation.class));
 		assertEquals(
 				list(type1, type2),
-				new GenericResolver(Interface.class, NoneImplementation.class, type1, type2).get());
+				new GenericResolver(Interface.class).get(NoneImplementation.class, type1, type2));
 		assertEquals(
 				list(type2, type1),
-				new GenericResolver(Interface.class, NoneReverseImplementation.class, type1, type2).get());
+				new GenericResolver(Interface.class).get(NoneReverseImplementation.class, type1, type2));
 		assertEquals(
 				list(Reader.class, type2),
-				new GenericResolver(Interface.class, HalfImplementation.class, type2).get());
+				new GenericResolver(Interface.class).get(HalfImplementation.class, type2));
 		assertEquals(
 				list(Reader.class, generic(List.class, Integer.class)),
-				new GenericResolver(Interface.class, NestedImplementation.class).get());
+				new GenericResolver(Interface.class).get(NestedImplementation.class));
 		assertEquals(
 				list(Reader.class, generic(List.class, type2)),
-				new GenericResolver(Interface.class, NestedParamImplementation.class, type2).get());
+				new GenericResolver(Interface.class).get(NestedParamImplementation.class, type2));
 
 		// TODO inheritance with more steps
 	}

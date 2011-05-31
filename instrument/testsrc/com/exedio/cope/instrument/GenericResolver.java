@@ -27,16 +27,17 @@ import java.util.List;
 class GenericResolver
 {
 	private final Class interfaze;
-	private final Class clazz;
-	private final Type[] parameters;
 
-	GenericResolver(
-			final Class interfaze,
-			final Class clazz,
-			final Type... parameters)
+	GenericResolver(final Class interfaze)
 	{
 		if(!interfaze.isInterface())
 			throw new IllegalArgumentException("not an interface: " + interfaze);
+
+		this.interfaze = interfaze;
+	}
+
+	List<Type> get(final Class clazz, final Type... parameters)
+	{
 		if(clazz.isInterface())
 			throw new IllegalArgumentException("not an class: " + clazz);
 		if(clazz.getTypeParameters().length!=parameters.length)
@@ -44,21 +45,13 @@ class GenericResolver
 					"mismatching parameter count " +
 					Arrays.toString(clazz.getTypeParameters()) + ' ' +
 					Arrays.toString(parameters));
-
-		this.interfaze = interfaze;
-		this.clazz = clazz;
-		this.parameters = parameters;
-
 		if(!Arrays.asList(clazz.getInterfaces()).contains(interfaze))
 			throw new RuntimeException(); // TODO remove
-	}
 
-	List<Type> get()
-	{
 		final ParameterizedType gi = getGenericInterface(clazz, interfaze);
 		final Type[] arguments = gi.getActualTypeArguments();
 		assert arguments.length==interfaze.getTypeParameters().length;
-		filter(arguments);
+		filter(clazz, parameters, arguments);
 		return Arrays.asList(arguments);
 	}
 
@@ -75,23 +68,23 @@ class GenericResolver
 		throw new RuntimeException(clazz.toString() + '/' + interfaze);
 	}
 
-	void filter(final Type[] types)
+	void filter(final Class clazz, final Type[] parameters, final Type[] types)
 	{
 		for(int i = 0; i<types.length; i++)
-			types[i] = filter(types[i]);
+			types[i] = filter(clazz, parameters, types[i]);
 	}
 
-	private Type filter(final Type type)
+	private Type filter(final Class clazz, final Type[] parameters, final Type type)
 	{
 		if(type instanceof TypeVariable)
-			return filter((TypeVariable)type);
+			return filter(clazz, parameters, (TypeVariable)type);
 		else if(type instanceof ParameterizedType)
-			return filter((ParameterizedType)type);
+			return filter(clazz, parameters, (ParameterizedType)type);
 		else
 			return type;
 	}
 
-	private Type filter(final TypeVariable type)
+	private Type filter(final Class clazz, final Type[] parameters, final TypeVariable type)
 	{
 		final TypeVariable[] typeParameters = clazz.getTypeParameters();
 		for(int i = 0; i<typeParameters.length; i++)
@@ -102,17 +95,24 @@ class GenericResolver
 		return type;
 	}
 
-	private ParameterizedType filter(final ParameterizedType type)
+	private ParameterizedType filter(final Class clazz, final Type[] parameters, final ParameterizedType type)
 	{
-		return new FilteredParameterizedType(type);
+		return new FilteredParameterizedType(clazz, parameters, type);
 	}
 
 	private class FilteredParameterizedType implements ParameterizedType
 	{
+		private final Class clazz;
+		private final Type[] parameters;
 		private final ParameterizedType type;
 
-		FilteredParameterizedType(final ParameterizedType type)
+		FilteredParameterizedType(
+				final Class clazz,
+				final Type[] parameters,
+				final ParameterizedType type)
 		{
+			this.clazz = clazz;
+			this.parameters = parameters;
 			this.type = type;
 		}
 
@@ -129,7 +129,7 @@ class GenericResolver
 		public Type[] getActualTypeArguments()
 		{
 			final Type[] arguments = type.getActualTypeArguments();
-			filter(arguments);
+			filter(clazz, parameters, arguments);
 			return arguments;
 		}
 
