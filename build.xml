@@ -715,7 +715,6 @@
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/bsh-core.jar" />
-				<pathelement location="lib/cojen.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -732,7 +731,7 @@
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar cojen.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar">
 			<fileset dir="build/classes/instrument/src" />
 			<fileset dir="build/classes/instrument/antsrc" />
 		</ljar>
@@ -770,7 +769,6 @@
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
-				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</taskdef>
@@ -901,7 +899,6 @@
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/bsh-core.jar" />
-				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -963,7 +960,6 @@
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cops.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
-				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />

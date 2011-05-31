@@ -23,13 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.cojen.classfile.ClassFile;
-import org.cojen.classfile.CodeBuilder;
-import org.cojen.classfile.MethodInfo;
-import org.cojen.classfile.Modifiers;
-import org.cojen.classfile.TypeDesc;
-import org.cojen.util.ClassInjector;
-
 import bsh.Interpreter;
 import bsh.UtilEvalError;
 
@@ -265,40 +258,15 @@ final class JavaRepository
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 				{
-					final ClassFile cf =
-						new ClassFile(javaClass.getFullName(), Item.class);
-					addDelegateConstructor(cf,
-							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
-					return define(cf);
+					return DummyItem.class;
 				}
 				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
-					final ClassFile cf =
-						new ClassFile(javaClass.getFullName(), Composite.class);
-					addDelegateConstructor(cf,
-							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
-					return define(cf);
+					return DummyComposite.class;
 				}
 			}
 
 			return null;
-		}
-
-		private final Class define(final ClassFile cf)
-		{
-			return ClassInjector.createExplicit(
-					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
-		}
-
-		private final void addDelegateConstructor(final ClassFile cf, final Modifiers modifiers, final TypeDesc... args)
-		{
-			final MethodInfo creator = cf.addConstructor(modifiers, args);
-			final CodeBuilder cb = new CodeBuilder(creator);
-			cb.loadThis();
-			for(int i = 0; i<args.length; i++)
-				cb.loadLocal(cb.getParameter(i));
-			cb.invokeSuperConstructor(args);
-			cb.returnVoid();
 		}
 	}
 
@@ -309,5 +277,20 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
+	}
+
+	static class DummyItem extends Item
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static class DummyComposite extends Composite
+	{
+		protected DummyComposite(final SetValue... setValues)
+		{
+			super(setValues);
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 }

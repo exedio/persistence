@@ -16,8 +16,6 @@
 		<copy overwrite="true" file="artifacts/junit-jar.jar" tofile="../lib/junit.jar" />
 		<copy overwrite="true" file="artifacts/trove-jar.jar" tofile="../lib/trove.jar" />
 		<copy overwrite="true" file="artifacts/trove-src.jar" tofile="../lib/trove-src.jar" />
-		<copy overwrite="true" file="artifacts/cojen-jar.jar" tofile="../lib/cojen.jar" />
-		<copy overwrite="true" file="artifacts/cojen-source.jar" tofile="../lib/cojen-sources.jar" />
 		<copy overwrite="true" file="artifacts/bsh-core.jar" tofile="../lib/bsh-core.jar" />
 		<copy overwrite="true" file="artifacts/bsh-src.jar" tofile="../lib/bsh-src.jar" />
 		<copy overwrite="true" file="artifacts/hsqldb-jar.jar" tofile="../lib/jdbc/hsqldb.jar" />
