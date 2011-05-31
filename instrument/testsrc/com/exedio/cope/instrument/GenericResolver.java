@@ -87,56 +87,7 @@ class GenericResolver
 			}
 			else if(type instanceof ParameterizedType)
 			{
-				final ParameterizedType parameterizedType = (ParameterizedType)type;
-				types[typeIndex] = new ParameterizedType()
-				{
-					public Type getRawType()
-					{
-						return parameterizedType.getRawType();
-					}
-
-					public Type getOwnerType()
-					{
-						return parameterizedType.getOwnerType();
-					}
-
-					public Type[] getActualTypeArguments()
-					{
-						final Type[] arguments = parameterizedType.getActualTypeArguments();
-						filter(arguments);
-						return arguments;
-					}
-
-					@Override
-					public boolean equals(final Object other)
-					{
-						if(!(other instanceof ParameterizedType))
-							return false;
-
-						final ParameterizedType o = (ParameterizedType)other;
-						return
-							getRawType().equals(o.getRawType()) &&
-							getOwnerType().equals(o.getOwnerType()) &&
-							java.util.Arrays.equals(getActualTypeArguments(), o.getActualTypeArguments());
-					}
-
-					@Override
-					public int hashCode()
-					{
-						return
-							getRawType().hashCode() ^
-							getOwnerType().hashCode() ^
-							java.util.Arrays.hashCode(getActualTypeArguments());
-					}
-
-					@Override
-					public String toString()
-					{
-						return
-							getRawType().toString() +
-							'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
-					}
-				};
+				types[typeIndex] = filter((ParameterizedType)type);
 			}
 		}
 	}
@@ -150,5 +101,58 @@ class GenericResolver
 				return parameters[typeParameterIndex];
 		}
 		return type;
+	}
+
+	Type filter(final ParameterizedType parameterizedType)
+	{
+		return new ParameterizedType()
+		{
+			public Type getRawType()
+			{
+				return parameterizedType.getRawType();
+			}
+
+			public Type getOwnerType()
+			{
+				return parameterizedType.getOwnerType();
+			}
+
+			public Type[] getActualTypeArguments()
+			{
+				final Type[] arguments = parameterizedType.getActualTypeArguments();
+				filter(arguments);
+				return arguments;
+			}
+
+			@Override
+			public boolean equals(final Object other)
+			{
+				if(!(other instanceof ParameterizedType))
+					return false;
+
+				final ParameterizedType o = (ParameterizedType)other;
+				return
+					getRawType().equals(o.getRawType()) &&
+					getOwnerType().equals(o.getOwnerType()) &&
+					java.util.Arrays.equals(getActualTypeArguments(), o.getActualTypeArguments());
+			}
+
+			@Override
+			public int hashCode()
+			{
+				return
+					getRawType().hashCode() ^
+					getOwnerType().hashCode() ^
+					java.util.Arrays.hashCode(getActualTypeArguments());
+			}
+
+			@Override
+			public String toString()
+			{
+				return
+					getRawType().toString() +
+					'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
+			}
+		};
 	}
 }
