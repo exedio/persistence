@@ -52,8 +52,27 @@ public class GenericResolverTest extends CopeAssert
 		assertEquals(
 				list(Reader.class, generic(List.class, type2)),
 				new GenericResolver(Interface.class).get(NestedParamImplementation.class, type2));
-
-		// TODO inheritance with more steps
+		assertEquals(
+				list(Reader.class, Writer.class),
+				new GenericResolver(Interface.class).get(IndirectAllImplementation.class));
+		assertEquals(
+				list(Writer.class, Reader.class),
+				new GenericResolver(Interface.class).get(IndirectAllReverseImplementation.class));
+		assertEquals(
+				list(type1, type2),
+				new GenericResolver(Interface.class).get(IndirectNoneImplementation.class, type1, type2));
+		assertEquals(
+				list(type2, type1),
+				new GenericResolver(Interface.class).get(IndirectNoneReverseImplementation.class, type1, type2));
+		assertEquals(
+				list(Reader.class, type2),
+				new GenericResolver(Interface.class).get(IndirectHalfImplementation.class, type2));
+		assertEquals(
+				list(type2, Reader.class),
+				new GenericResolver(Interface.class).get(IndirectHalfReverseImplementation.class, type2));
+		assertEquals(
+				list(Reader.class, Writer.class),
+				new GenericResolver(Interface.class).get(Indirect2AllImplementation.class));
 	}
 
 	interface Interface<K,V>
@@ -87,6 +106,41 @@ public class GenericResolverTest extends CopeAssert
 	}
 
 	static class NestedParamImplementation<B> implements Interface<Reader, List<B>>
+	{
+		// empty
+	}
+
+	static class IndirectAllImplementation extends NoneImplementation<Reader, Writer>
+	{
+		// empty
+	}
+
+	static class IndirectAllReverseImplementation extends NoneReverseImplementation<Reader, Writer>
+	{
+		// empty
+	}
+
+	static class IndirectNoneImplementation<AA,BB> extends NoneImplementation<AA,BB>
+	{
+		// empty
+	}
+
+	static class IndirectNoneReverseImplementation<AA,BB> extends NoneReverseImplementation<AA,BB>
+	{
+		// empty
+	}
+
+	static class IndirectHalfImplementation<BB> extends NoneImplementation<Reader,BB>
+	{
+		// empty
+	}
+
+	static class IndirectHalfReverseImplementation<BB> extends NoneReverseImplementation<Reader,BB>
+	{
+		// empty
+	}
+
+	static class Indirect2AllImplementation extends IndirectHalfImplementation<Writer>
 	{
 		// empty
 	}

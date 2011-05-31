@@ -45,14 +45,37 @@ class GenericResolver
 					"mismatching parameter count " +
 					Arrays.toString(clazz.getTypeParameters()) + ' ' +
 					Arrays.toString(parameters));
-		if(!Arrays.asList(clazz.getInterfaces()).contains(interfaze))
-			throw new RuntimeException(); // TODO remove
+
+		return Arrays.asList(getX(clazz, parameters));
+	}
+
+	private Type[] getX(final Class clazz, final Type[] parameters)
+	{
+		assert !clazz.isInterface() : clazz;
+		assert clazz.getTypeParameters().length==parameters.length : Arrays.toString(clazz.getTypeParameters()) + ' ' + Arrays.toString(parameters);
 
 		final ParameterizedType gi = getGenericInterface(clazz, interfaze);
+		if(gi==null)
+		{
+			final Class superclass = clazz.getSuperclass();
+			if(superclass==null)
+				throw new RuntimeException(clazz.toString() + '/' + interfaze);
+
+			final ParameterizedType supertype = (ParameterizedType)clazz.getGenericSuperclass();
+			assert supertype.getRawType()==superclass : supertype.getRawType().toString()+'/'+superclass;
+
+			final Type[] superTypeArguments = supertype.getActualTypeArguments();
+			assert superTypeArguments.length==superclass.getTypeParameters().length : Arrays.toString(superTypeArguments)+'/'+Arrays.toString(superclass.getTypeParameters());
+
+			final Type[] arguments = getX(superclass, superTypeArguments);
+			filter(clazz, parameters, arguments);
+			return arguments;
+		}
+
 		final Type[] arguments = gi.getActualTypeArguments();
 		assert arguments.length==interfaze.getTypeParameters().length;
 		filter(clazz, parameters, arguments);
-		return Arrays.asList(arguments);
+		return arguments;
 	}
 
 	private static ParameterizedType getGenericInterface(
@@ -65,7 +88,7 @@ class GenericResolver
 			if(tpt.getRawType()==interfaze)
 				return tpt;
 		}
-		throw new RuntimeException(clazz.toString() + '/' + interfaze);
+		return null;
 	}
 
 	void filter(final Class clazz, final Type[] parameters, final Type[] types)
