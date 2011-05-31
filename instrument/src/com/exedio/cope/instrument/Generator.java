@@ -36,7 +36,6 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 
@@ -252,7 +251,7 @@ final class Generator
 			write(lineSeparator);
 			write("\t\t\t\t");
 			write(finalArgPrefix);
-			write(new Context(feature, null).write(((Settable<?>)feature.getInstance()).getInitialType()));
+			write(new Context(feature, null).write(feature.getInitialType()));
 			write(' ');
 			write(feature.name);
 		}

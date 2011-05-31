@@ -56,7 +56,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(true, t.file.isInitial());
 		assertEquals(true, t.file.isFinal());
 		assertEquals(false, t.file.isMandatory());
-		assertEquals(Media.Value.class, t.file.getInitialType());
+		assertEquals(Media.Value.class, getInitialType(t.file));
 		assertContains(FinalViolationException.class, t.file.getInitialExceptions());
 		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
 		assertEquals("*/*", t.file.getContentTypeDescription());

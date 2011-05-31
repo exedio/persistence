@@ -52,7 +52,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(false, item.sheet.isInitial());
 		assertEquals(false, item.sheet.isFinal());
 		assertEquals(false, item.sheet.isMandatory());
-		assertEquals(Media.Value.class, item.sheet.getInitialType());
+		assertEquals(Media.Value.class, getInitialType(item.sheet));
 		assertContains(item.sheet.getInitialExceptions());
 		assertEquals(true, item.sheet.checkContentType("image/png"));
 		assertEquals(false, item.sheet.checkContentType("image/jpg"));

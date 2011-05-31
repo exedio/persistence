@@ -76,7 +76,7 @@ class SchemaItem extends Item
 				final double doub,
 				final boolean bool,
 				final SomeEnum anEnum,
-				final com.exedio.cope.SchemaTargetItem item)
+				final SchemaTargetItem item)
 			throws
 				com.exedio.cope.DoubleRangeViolationException,
 				com.exedio.cope.IntegerRangeViolationException,

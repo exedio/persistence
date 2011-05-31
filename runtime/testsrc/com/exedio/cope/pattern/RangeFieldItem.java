@@ -39,8 +39,8 @@ public class RangeFieldItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	RangeFieldItem(
-				final com.exedio.cope.pattern.Range<java.lang.Integer> valid,
-				final com.exedio.cope.pattern.Range<java.lang.String> text)
+				final com.exedio.cope.pattern.Range<Integer> valid,
+				final com.exedio.cope.pattern.Range<String> text)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

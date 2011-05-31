@@ -52,8 +52,8 @@ public class FeatureFieldItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	FeatureFieldItem(
-				final com.exedio.cope.Feature feature,
-				final com.exedio.cope.Feature featureFinal)
+				final Feature feature,
+				final Feature featureFinal)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

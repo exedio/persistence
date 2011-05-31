@@ -84,17 +84,19 @@ public class RangeFieldTest extends AbstractRuntimeTest
 
 		assertEquals(true, item.valid.isInitial());
 		assertEquals(false, item.valid.isFinal());
+		assertEquals(true,  item.valid.isMandatory());
 		assertEquals(false, item.valid.getFrom().isFinal());
 		assertEquals(false, item.valid.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
+		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(item.valid));
 		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
 		assertSerializedSame(item.valid, 383);
 
 		assertEquals(true, item.text.isInitial());
 		assertEquals(true, item.text.isFinal());
+		assertEquals(true, item.text.isMandatory());
 		assertEquals(true, item.text.getFrom().isFinal());
 		assertEquals(true, item.text.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, String.class), item.text.getInitialType());
+		assertEquals(Wrapper.generic(Range.class, String.class), getInitialType(item.text));
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, item.text.getInitialExceptions());
 		assertSerializedSame(item.text, 382);
 

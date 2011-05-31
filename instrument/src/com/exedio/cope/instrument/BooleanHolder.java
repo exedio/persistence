@@ -18,23 +18,12 @@
 
 package com.exedio.cope.instrument;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+final class BooleanHolder
 {
+	boolean value;
 
-	public static Test suite()
+	BooleanHolder(final boolean value)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ExampleTest.class);
-		suite.addTestSuite(Example15Test.class);
-		suite.addTestSuite(ExampleAnnTest.class);
-		suite.addTestSuite(ResolveImportTest.class);
-		suite.addTestSuite(GeneratorTest.class);
-		suite.addTestSuite(GenericResolverTest.class);
-		return suite;
+		this.value = value;
 	}
-
 }

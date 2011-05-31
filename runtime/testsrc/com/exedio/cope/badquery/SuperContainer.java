@@ -40,7 +40,7 @@ public class SuperContainer extends SuperItem
 	 */
 	SuperContainer(
 				final java.lang.String code,
-				final com.exedio.cope.badquery.QueryItem queryItem,
+				final QueryItem queryItem,
 				final boolean superflag)
 			throws
 				com.exedio.cope.MandatoryViolationException,

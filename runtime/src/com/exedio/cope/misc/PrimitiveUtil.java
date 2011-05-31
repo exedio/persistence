@@ -16,25 +16,26 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument;
+package com.exedio.cope.misc;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+public final class PrimitiveUtil
 {
-
-	public static Test suite()
+	public static Class toPrimitive(final Class clazz)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ExampleTest.class);
-		suite.addTestSuite(Example15Test.class);
-		suite.addTestSuite(ExampleAnnTest.class);
-		suite.addTestSuite(ResolveImportTest.class);
-		suite.addTestSuite(GeneratorTest.class);
-		suite.addTestSuite(GenericResolverTest.class);
-		return suite;
+		     if(clazz==Boolean  .class) return boolean.class;
+		else if(clazz==Character.class) return char   .class;
+		else if(clazz==Byte     .class) return byte   .class;
+		else if(clazz==Short    .class) return short  .class;
+		else if(clazz==Integer  .class) return int    .class;
+		else if(clazz==Long     .class) return long   .class;
+		else if(clazz==Float    .class) return float  .class;
+		else if(clazz==Double   .class) return double .class;
+		else
+			return null;
 	}
 
+	private PrimitiveUtil()
+	{
+		// prevent instantiation
+	}
 }

@@ -48,7 +48,7 @@ public class PointerItem extends Item
 	 */
 	public PointerItem(
 				final java.lang.String code,
-				final com.exedio.cope.testmodel.PointerTargetItem pointer)
+				final PointerTargetItem pointer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

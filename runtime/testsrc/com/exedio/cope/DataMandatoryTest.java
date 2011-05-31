@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataField.toValue;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +40,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataMandatoryItem(data4));
+		item = deleteOnTearDown(new DataMandatoryItem(toValue(data4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException
@@ -97,7 +99,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 
 		try
 		{
-			new DataMandatoryItem((byte[])null);
+			new DataMandatoryItem((DataField.Value)null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

@@ -129,6 +129,7 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.isMandatory();
 	}
 
+	@Deprecated
 	public final Class getInitialType()
 	{
 		return String.class;

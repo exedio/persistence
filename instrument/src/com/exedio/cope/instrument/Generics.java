@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +69,25 @@ final class Generics
 		}
 		else
 			return Collections.emptyList();
+	}
+
+	static Type[] getTypes(final String s)
+	{
+		final List<String> x = get(s);
+		final Type[] result = new Type[x.size()];
+		for(int i = 0; i<result.length; i++)
+			result[i] = new SourceType(x.get(i));
+		return result;
+	}
+
+	static class SourceType implements Type
+	{
+		final String name;
+
+		SourceType(final String name)
+		{
+			this.name = name;
+		}
 	}
 
 	private Generics()

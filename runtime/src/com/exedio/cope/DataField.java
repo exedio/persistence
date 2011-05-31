@@ -118,6 +118,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	@Override
+	@Deprecated
 	public Class getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)

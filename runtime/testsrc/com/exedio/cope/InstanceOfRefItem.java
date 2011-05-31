@@ -51,7 +51,7 @@ class InstanceOfRefItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	private InstanceOfRefItem(
-				final com.exedio.cope.InstanceOfAItem ref,
+				final InstanceOfAItem ref,
 				final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,

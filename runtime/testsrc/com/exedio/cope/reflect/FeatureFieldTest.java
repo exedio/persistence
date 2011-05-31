@@ -74,6 +74,9 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertEquals("feature", item.feature.getName());
 		assertTrue(item.feature.getIdField().isAnnotationPresent(Computed.class));
 
+		assertEquals(true, item.feature.isMandatory());
+		assertEquals(false, item.featureOptional.isMandatory());
+
 		assertSerializedSame(FeatureFieldItem.feature, 389);
 
 		assertEqualsUnmodifiable(item.TYPE.getFeatures(), item.feature.getValues());

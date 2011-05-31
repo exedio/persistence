@@ -54,7 +54,7 @@ public class DoubleUnique extends Item
 	 */
 	public DoubleUnique(
 				final java.lang.String string,
-				final com.exedio.cope.instrument.testmodel.sub.SubTarget item)
+				final SubTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

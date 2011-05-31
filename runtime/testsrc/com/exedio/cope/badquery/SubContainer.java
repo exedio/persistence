@@ -41,9 +41,9 @@ public class SubContainer extends SuperContainer
 	 */
 	SubContainer(
 				final java.lang.String code,
-				final com.exedio.cope.badquery.QueryItem queryItem,
+				final QueryItem queryItem,
 				final boolean superflag,
-				final com.exedio.cope.badquery.SuperContainer superContainer)
+				final SuperContainer superContainer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

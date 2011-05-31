@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -25,6 +26,7 @@ import java.util.TreeSet;
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
+import com.exedio.cope.misc.PrimitiveUtil;
 
 class CopeFeature
 {
@@ -40,6 +42,7 @@ class CopeFeature
 	final boolean initial;
 
 	private Feature value;
+	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 
 	CopeFeature(final CopeType parent, final JavaField javaField)
@@ -78,23 +81,59 @@ class CopeFeature
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
+	final Type getInitialType()
+	{
+		if(initialType==null)
+			makeInitialTypeAndExceptions();
+
+		return initialType;
+	}
+
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
 		if(initialExceptions==null)
-			makeInitialExceptions();
+			makeInitialTypeAndExceptions();
 
 		return initialExceptions;
 	}
 
-	private void makeInitialExceptions()
+	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
+
+	private void makeInitialTypeAndExceptions()
 	{
 		final Settable<?> instance = (Settable)getInstance();
+
+		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
+		final Type initialType;
+		final boolean primitive;
+		if(initialTypeX instanceof Class)
+		{
+			final Class initialClass = (Class)initialTypeX;
+			final Class initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
+			if(initialClassPrimitive!=null && instance.isMandatory())
+			{
+				initialType = initialClassPrimitive;
+				primitive = true;
+			}
+			else
+			{
+				initialType = initialClass;
+				primitive = false;
+			}
+		}
+		else
+		{
+			initialType = initialTypeX;
+			primitive = false;
+		}
+
 		final Set<Class<? extends Throwable>> resultList = instance.getInitialExceptions();
 		final SortedSet<Class<? extends Throwable>> initialExceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 		initialExceptions.addAll(resultList);
-		final java.lang.reflect.Type initialType = instance.getInitialType();
-		if((initialType instanceof Class) && ((Class)initialType).isPrimitive())
+		if(primitive)
 			initialExceptions.remove(MandatoryViolationException.class);
+
+		this.initialType = initialType;
 		this.initialExceptions = initialExceptions;
 	}
 

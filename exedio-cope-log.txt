@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* instrumentor uses type erasure for constructors,
+	breaks backwards API compatibility.
+	- Settable adds isMandatory() and deprecates getInitialType
+	- DataField requires DataField.Value instead of byte[]
+	- affects instrumented code, use simple names for item/enum classes
 * Range and RangeField do enforce that lower bound is not greater than upper bound.
 	This breaks backwards API compatibility,
 	and affects database schema where check constraints are supported.

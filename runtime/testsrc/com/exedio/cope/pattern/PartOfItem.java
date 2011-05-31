@@ -46,7 +46,7 @@ public class PartOfItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	PartOfItem(
-				final com.exedio.cope.pattern.PartOfContainerItem container,
+				final PartOfContainerItem container,
 				final java.lang.String partString,
 				final int partInteger)
 			throws

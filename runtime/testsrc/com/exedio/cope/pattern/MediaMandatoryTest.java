@@ -54,7 +54,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(true, t.file.isInitial());
 		assertEquals(false, t.file.isFinal());
 		assertEquals(true, t.file.isMandatory());
-		assertEquals(Media.Value.class, t.file.getInitialType());
+		assertEquals(Media.Value.class, getInitialType(t.file));
 		assertContains(MandatoryViolationException.class, t.file.getInitialExceptions());
 		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
 		assertEquals("*/*", t.file.getContentTypeDescription());

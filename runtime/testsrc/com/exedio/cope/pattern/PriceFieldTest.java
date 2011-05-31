@@ -95,18 +95,20 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(item.bigPrice, item.bigPrice.getInt().getPattern());
 
 		assertEquals(true, item.finalPrice.isInitial());
+		assertEquals(true, item.finalPrice.isMandatory());
 		assertEquals(true, item.finalPrice.isFinal());
-		assertEquals(Price.class, item.finalPrice.getInitialType());
+		assertEquals(Price.class, getInitialType(item.finalPrice));
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.finalPrice.getInitialExceptions());
 
 		assertEquals(false, item.optionalPrice.isInitial());
+		assertEquals(false, item.optionalPrice.isMandatory());
 		assertEquals(false, item.optionalPrice.isFinal());
-		assertEquals(Price.class, item.optionalPrice.getInitialType());
+		assertEquals(Price.class, getInitialType(item.optionalPrice));
 		assertContains(item.optionalPrice.getInitialExceptions());
 
 		assertEquals(true, item.bigPrice.isInitial());
 		assertEquals(false, item.bigPrice.isFinal());
-		assertEquals(Price.class, item.bigPrice.getInitialType());
+		assertEquals(Price.class, getInitialType(item.bigPrice));
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
 
 		assertTrue(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));

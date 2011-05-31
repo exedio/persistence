@@ -31,7 +31,7 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	public PolymorphicBoundSelectSuperItem(
-				final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
+				final PolymorphicBoundSelectSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			PolymorphicBoundSelectSuperItem.parent.map(parent),

@@ -37,8 +37,8 @@ class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	ConnectItem2(
-				final com.exedio.cope.ConnectItem2 itemField,
-				final com.exedio.cope.ConnectItem itemFieldSelf,
+				final ConnectItem2 itemField,
+				final ConnectItem itemFieldSelf,
 				final java.lang.String stringField)
 			throws
 				com.exedio.cope.MandatoryViolationException,

@@ -51,7 +51,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(false, item.photo.isInitial());
 		assertEquals(false, item.photo.isFinal());
 		assertEquals(false, item.photo.isMandatory());
-		assertEquals(Media.Value.class, item.photo.getInitialType());
+		assertEquals(Media.Value.class, getInitialType(item.photo));
 		assertContains(item.photo.getInitialExceptions());
 		assertEquals(true, item.photo.checkContentType("image/jpeg"));
 		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
