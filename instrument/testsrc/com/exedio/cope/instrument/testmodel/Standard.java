@@ -216,7 +216,7 @@ public class Standard extends Item
 
    /**
 
-	 ** test for failure
+	 **
 	 * Creates a new Standard with all the fields initially needed.
 	 * @param notNullString the initial value for field {@link #notNullString}.
 	 * @param finalString the initial value for field {@link #finalString}.
