@@ -24,7 +24,7 @@ public class EnumContainer extends Item
 {
 	public enum Enum3
 	{
-		ENUM1A, ENUM1B;
+		ENUM3A, ENUM3B;
 	}
 
 	public enum Enum4
