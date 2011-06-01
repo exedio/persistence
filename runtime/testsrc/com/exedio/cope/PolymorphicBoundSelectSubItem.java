@@ -29,7 +29,7 @@ public class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectSuperIt
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	public PolymorphicBoundSelectSubItem(
-				final PolymorphicBoundSelectSuperItem parent)
+				final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			com.exedio.cope.PolymorphicBoundSelectSuperItem.parent.map(parent),

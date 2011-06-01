@@ -32,11 +32,20 @@ import com.exedio.cope.Feature;
 final class Context
 {
 	private final CopeFeature feature;
+	private final boolean fullyQualified;
 	private final Wrapper wrapper;
+
+	Context(final CopeFeature feature, final boolean fullyQualified)
+	{
+		this.feature = feature;
+		this.fullyQualified = fullyQualified;
+		this.wrapper = null;
+	}
 
 	Context(final CopeFeature feature, final Wrapper wrapper)
 	{
 		this.feature = feature;
+		this.fullyQualified = false;
 		this.wrapper = wrapper;
 	}
 
@@ -184,6 +193,30 @@ final class Context
 		return write(t.getGenericComponentType()) + "...";
 	}
 
+	private String write(final Generics.SourceType t)
+	{
+		final String name = t.name;
+		if(fullyQualified)
+		{
+			final JavaFile file = feature.parent.javaClass.file;
+			{
+				final Class clazz = file.findTypeExternally(name);
+				if(clazz!=null)
+					return clazz.getCanonicalName();
+			}
+			{
+				final JavaClass javaClass = file.repository.getJavaClass(name);
+				if(javaClass!=null)
+					return javaClass.getFullName();
+			}
+			throw new RuntimeException(name);
+		}
+		else
+		{
+			return name;
+		}
+	}
+
 	private String write(final Wrapper.ExtendsType t)
 	{
 		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
@@ -219,7 +252,7 @@ final class Context
 		else if(t instanceof WildcardType)
 			return write((WildcardType)t);
 		else if(t instanceof Generics.SourceType)
-			return ((Generics.SourceType)t).name;
+			return write((Generics.SourceType)t);
 		else
 			throw new RuntimeException(t.toString());
 	}

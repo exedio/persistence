@@ -41,7 +41,7 @@ public class SubContainer extends SuperContainer
 	 */
 	SubContainer(
 				final java.lang.String code,
-				final QueryItem queryItem,
+				final com.exedio.cope.badquery.QueryItem queryItem,
 				final boolean superflag,
 				final SuperContainer superContainer)
 			throws

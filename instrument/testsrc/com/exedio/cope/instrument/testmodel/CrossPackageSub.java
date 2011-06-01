@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.instrument.testmodel.sub.SubTarget; // TODO remove when fixed
 
 class CrossPackageSub extends CrossPackageSuper
 {
@@ -37,7 +36,7 @@ class CrossPackageSub extends CrossPackageSuper
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	CrossPackageSub(
-				final SubTarget superField,
+				final com.exedio.cope.instrument.testmodel.sub.SubTarget superField,
 				final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
