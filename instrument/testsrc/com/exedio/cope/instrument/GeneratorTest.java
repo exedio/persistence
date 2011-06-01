@@ -94,7 +94,6 @@ public class GeneratorTest extends InstrumentorTest
 				double.class, // nativeDouble
 				boolean.class, // nativeBoolean
 				Date.class, // mandatoryDate
-				Standard.Enum1.class, // mandatoryEnum
 				String.class, // mandatoryHash
 				String.class, // privateSetterHash
 			}, PUBLIC,
