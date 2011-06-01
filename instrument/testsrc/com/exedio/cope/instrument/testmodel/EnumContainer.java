@@ -27,6 +27,11 @@ public class EnumContainer extends Item
 		ENUM1A, ENUM1B;
 	}
 
+	public enum Enum4
+	{
+		ENUM4A, ENUM4B;
+	}
+
 	/**
 
 	 **
