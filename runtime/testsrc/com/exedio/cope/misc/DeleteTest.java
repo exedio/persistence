@@ -20,6 +20,8 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 
+import java.util.ArrayList;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
@@ -104,8 +106,36 @@ public class DeleteTest extends AbstractRuntimeTest
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
 		assertEquals(true,  i2.existsCopeItem());
+		i2.deleteCopeItem();
 		model.commit();
 		ctx.assertProgress(1);
+	}
+
+	public void testTransactions()
+	{
+		assertPurge(  0, 1);
+		assertPurge(  1, 1);
+		assertPurge( 99, 1);
+		assertPurge(100, 2);
+		assertPurge(101, 2);
+	}
+
+	private void assertPurge(final int itemNumber, final int transactionNumber)
+	{
+		final ArrayList<CacheIsolationItem> items = new ArrayList<CacheIsolationItem>();
+		model.startTransaction("DeleteTest");
+		for(int n = 0; n<itemNumber; n++)
+			items.add(new CacheIsolationItem("item"+n));
+		model.commit();
+		final long transactionIdBefore = model.getNextTransactionId();
+		final CountJobContext ctx = new CountJobContext();
+		Delete.delete(CacheIsolationItem.TYPE.newQuery(), "DeleteTest", ctx);
+		assertEquals(itemNumber, ctx.progress);
+		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
+		model.startTransaction("DeleteTest");
+		for(final CacheIsolationItem token : items)
+			assertFalse(token.existsCopeItem());
+		model.commit();
 	}
 
 	private static final class Context extends AssertionErrorJobContext

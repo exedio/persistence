@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -29,7 +28,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.util.Interrupter;
-import com.exedio.cope.util.Interrupters;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
@@ -170,11 +168,6 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 
-		assertPurge(  0, 1);
-		assertPurge(  1, 1);
-		assertPurge(100, 2);
-		assertPurge(101, 2);
-
 		try
 		{
 			i.issuePasswordRecovery(0);
@@ -193,21 +186,5 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		{
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
-	}
-
-	public void assertPurge(final int tokenNumber, final int transactionNumber) throws Exception
-	{
-		final int EXPIRY_MILLIS = 1;
-		final ArrayList<Token> tokens = new ArrayList<Token>();
-		for(int n = 0; n<tokenNumber; n++)
-			tokens.add(i.issuePasswordRecovery(EXPIRY_MILLIS));
-		sleepLongerThan( EXPIRY_MILLIS );
-		model.commit();
-		final long t = model.getNextTransactionId();
-		assertEquals(tokenNumber, i.purgePasswordRecovery(Interrupters.VAIN_INTERRUPTER));
-		assertEquals(t+transactionNumber, model.getNextTransactionId());
-		model.startTransaction("PasswordRecoveryTest");
-		for(final Token token : tokens)
-			assertFalse(token.existsCopeItem());
 	}
 }
