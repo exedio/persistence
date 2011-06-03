@@ -30,7 +30,7 @@ import java.util.Locale;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.ScheduleTest.Log;
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.util.JobContext;
 
 public final class ScheduleItem extends Item implements Scheduleable
 {
@@ -39,10 +39,10 @@ public final class ScheduleItem extends Item implements Scheduleable
 
 	private static final ArrayList<Log> logs = new ArrayList<Log>();
 
-	public void run(final Schedule schedule, final Date from, final Date until, final Interrupter interrupter)
+	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 	{
 		assertSame(this.report, schedule);
-		assertTrue(interrupter!=null);
+		assertTrue(ctx!=null);
 		logs.add(new Log(this, from, until));
 		if(getFail())
 			throw new RuntimeException("schedule test failure");

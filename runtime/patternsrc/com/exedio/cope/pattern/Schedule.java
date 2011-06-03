@@ -316,14 +316,6 @@ public final class Schedule extends Pattern
 		if(toRun.isEmpty())
 			return;
 
-		final Interrupter interrupterForItem = new Interrupter()
-		{
-			public boolean isRequested()
-			{
-				return ctx.requestedToStop();
-			}
-		};
-
 		for(final P item : toRun)
 		{
 			if(ctx.requestedToStop())
@@ -353,7 +345,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, interrupterForItem);
+				itemCasted.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
 				mount.runType.newItem(
 					Cope.mapAndCast(mount.runParent, item),
