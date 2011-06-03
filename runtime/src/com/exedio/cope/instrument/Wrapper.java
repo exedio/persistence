@@ -360,6 +360,11 @@ public final class Wrapper
 		return null;
 	}
 
+	boolean isMethodDeprecated()
+	{
+		return method!=null && method.isAnnotationPresent(Deprecated.class);
+	}
+
 
 	static final void assertComment(final String comment)
 	{
