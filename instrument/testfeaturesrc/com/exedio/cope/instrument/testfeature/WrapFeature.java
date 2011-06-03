@@ -142,6 +142,16 @@ public class WrapFeature extends Pattern
 		throw new RuntimeException();
 	}
 
+	// various
+
+	@Wrap(order=300)
+	@Deprecated
+	public int deprecation(
+			@SuppressWarnings("unused") final Item item)
+	{
+		throw new RuntimeException();
+	}
+
 
 	private static final long serialVersionUID = 1l;
 }

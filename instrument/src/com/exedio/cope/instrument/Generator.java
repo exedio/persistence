@@ -451,6 +451,12 @@ final class Generator
 					: null);
 			}
 
+			if(wrapper.isMethodDeprecated())
+			{
+				write("\t@Deprecated");
+				write(lineSeparator);
+			}
+
 			write('\t');
 			writeModifier(
 				(
