@@ -27,7 +27,6 @@ import java.util.List;
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
-import com.exedio.cope.util.Interrupter;
 
 public class PasswordLimiterVerboseTest extends CopeTest
 {
@@ -223,9 +222,10 @@ public class PasswordLimiterVerboseTest extends CopeTest
 
 	private final int purge()
 	{
+		final CountJobContext ctx = new CountJobContext();
 		model.commit();
-		final int result = purgePasswordLimited((Interrupter)null);
+		purgePasswordLimited(ctx);
 		model.startTransaction("PasswordRecoveryTest");
-		return result;
+		return ctx.progress;
 	}
 }

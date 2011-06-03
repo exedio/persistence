@@ -260,7 +260,11 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #purge(JobContext)} instead.
+	 */
 	@Wrap(order=30, docReturn="the number of refusals purged")
+	@Deprecated
 	public int purge(
 			@Parameter("interrupter") final Interrupter interrupter)
 	{
