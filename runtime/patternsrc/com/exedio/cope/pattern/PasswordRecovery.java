@@ -169,23 +169,6 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
-	/**
-	 * @deprecated Use {@link #purge(JobContext)} instead.
-	 */
-	@Wrap(order=100, docReturn="the number of tokens purged")
-	@Deprecated
-	public int purge(
-			@Parameter("interrupter") final Interrupter interrupter)
-	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				purge(ctx);
-			}}
-		);
-	}
-
 	@Wrap(order=110)
 	public void purge(
 			@Parameter("ctx") final JobContext ctx)
@@ -236,5 +219,22 @@ public final class PasswordRecovery extends Pattern
 	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
 	{
 		return purge(interrupter);
+	}
+
+	/**
+	 * @deprecated Use {@link #purge(JobContext)} instead.
+	 */
+	@Wrap(order=100, docReturn="the number of tokens purged")
+	@Deprecated
+	public int purge(
+			@Parameter("interrupter") final Interrupter interrupter)
+	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				purge(ctx);
+			}}
+		);
 	}
 }

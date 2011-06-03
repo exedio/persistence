@@ -184,28 +184,6 @@ public final class Dispatcher extends Pattern
 		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
-	/**
-	 * @deprecated Use {@link #dispatch(Class,Config,JobContext)} instead.
-	 * @return the number of successfully dispatched items
-	 */
-	@Wrap(order=10,
-			doc="Dispatch by {0}.",
-			docReturn="the number of successfully dispatched items")
-	@Deprecated
-	public <P extends Item> int dispatch(
-			final Class<P> parentClass,
-			@Parameter("config") final Config config,
-			@Parameter("interrupter") final Interrupter interrupter)
-	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				dispatch(parentClass, config, ctx);
-			}}
-		);
-	}
-
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
@@ -453,5 +431,29 @@ public final class Dispatcher extends Pattern
 				throw new RuntimeException(ENCODING, e);
 			}
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #dispatch(Class,Config,JobContext)} instead.
+	 * @return the number of successfully dispatched items
+	 */
+	@Wrap(order=10,
+			doc="Dispatch by {0}.",
+			docReturn="the number of successfully dispatched items")
+	@Deprecated
+	public <P extends Item> int dispatch(
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("interrupter") final Interrupter interrupter)
+	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				dispatch(parentClass, config, ctx);
+			}}
+		);
 	}
 }

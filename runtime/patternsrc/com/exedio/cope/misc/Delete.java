@@ -31,24 +31,6 @@ import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Delete
 {
-	/**
-	 * @deprecated Use {@link #delete(Query,String,JobContext)} instead.
-	 */
-	@Deprecated
-	public static int delete(
-			final Query<? extends Item> query,
-			final String transactionName,
-			final Interrupter interrupter)
-	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				delete(query, transactionName, ctx);
-			}}
-		);
-	}
-
 	public static void delete(
 			final Query<? extends Item> query,
 			final String transactionName,
@@ -97,5 +79,25 @@ public final class Delete
 	private Delete()
 	{
 		// prevent instantiation
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #delete(Query,String,JobContext)} instead.
+	 */
+	@Deprecated
+	public static int delete(
+			final Query<? extends Item> query,
+			final String transactionName,
+			final Interrupter interrupter)
+	{
+		return run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				delete(query, transactionName, ctx);
+			}}
+		);
 	}
 }

@@ -233,35 +233,11 @@ public final class Schedule extends Pattern
 		this.interval.set(item, interval);
 	}
 
-	/**
-	 * @deprecated Use {@link #run(JobContext)} instead.
-	 */
-	@Wrap(order=50)
-	@Deprecated
-	public int run(
-			@Parameter("interrupter") final Interrupter interrupter)
-	{
-		return run(interrupter, new Date());
-	}
-
 	@Wrap(order=60)
 	public void run(
 			@Parameter("ctx") final JobContext ctx)
 	{
 		run(ctx, new Date());
-	}
-
-	@Deprecated
-	int run(final Interrupter interrupter, final Date now)
-	{
-		final Schedule s = this;
-		return InterrupterJobContextAdapter.run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				s.run(ctx, now);
-			}}
-		);
 	}
 
 	void run(final JobContext ctx, final Date now)
@@ -427,5 +403,29 @@ public final class Schedule extends Pattern
 	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final Interrupter interrupter)
 	{
 		return run(interrupter);
+	}
+
+	/**
+	 * @deprecated Use {@link #run(JobContext)} instead.
+	 */
+	@Wrap(order=50)
+	@Deprecated
+	public int run(
+			@Parameter("interrupter") final Interrupter interrupter)
+	{
+		return run(interrupter, new Date());
+	}
+
+	@Deprecated
+	int run(final Interrupter interrupter, final Date now)
+	{
+		final Schedule s = this;
+		return InterrupterJobContextAdapter.run(
+			interrupter,
+			new Body(){public void run(final JobContext ctx)
+			{
+				s.run(ctx, now);
+			}}
+		);
 	}
 }
