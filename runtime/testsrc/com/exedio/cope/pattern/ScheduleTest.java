@@ -34,7 +34,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
 
 public final class ScheduleTest extends AbstractRuntimeTest
@@ -321,26 +320,30 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 	private final int run(final Date now)
 	{
-		return run(now, null);
+		final CountJobContext ctx = new CountJobContext();
+		run(now, ctx);
+		return ctx.progress;
 	}
 
 	private final int run(final Date now, final int interruptRequests)
 	{
-		return run(now, new Interrupter(){
+		final CountJobContext ctx = new CountJobContext(){
 			int i = interruptRequests;
-			public boolean isRequested()
+			@Override public boolean requestedToStop()
 			{
 				return (i--)<=0;
 			}
-		});
+		};
+		run(now, ctx);
+		return ctx.progress;
 	}
 
-	private final int run(final Date now, final Interrupter interrupter)
+	private final void run(final Date now, final JobContext ctx)
 	{
 		try
 		{
 			model.commit();
-			return report.run(interrupter, now);
+			report.run(ctx, now);
 		}
 		finally
 		{

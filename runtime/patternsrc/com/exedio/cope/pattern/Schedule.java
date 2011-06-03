@@ -233,7 +233,11 @@ public final class Schedule extends Pattern
 		this.interval.set(item, interval);
 	}
 
+	/**
+	 * @deprecated Use {@link #run(JobContext)} instead.
+	 */
 	@Wrap(order=50)
+	@Deprecated
 	public int run(
 			@Parameter("interrupter") final Interrupter interrupter)
 	{
@@ -247,6 +251,7 @@ public final class Schedule extends Pattern
 		run(ctx, new Date());
 	}
 
+	@Deprecated
 	int run(final Interrupter interrupter, final Date now)
 	{
 		final Schedule s = this;

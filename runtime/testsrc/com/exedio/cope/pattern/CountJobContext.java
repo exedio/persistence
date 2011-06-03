@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.util.AssertionErrorJobContext;
 
-final class CountJobContext extends AssertionErrorJobContext
+class CountJobContext extends AssertionErrorJobContext
 {
 	@Override
 	public boolean requestedToStop()
