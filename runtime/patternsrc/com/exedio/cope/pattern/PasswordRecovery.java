@@ -169,7 +169,11 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
+	/**
+	 * @deprecated Use {@link #purge(JobContext)} instead.
+	 */
 	@Wrap(order=100, docReturn="the number of tokens purged")
+	@Deprecated
 	public int purge(
 			@Parameter("interrupter") final Interrupter interrupter)
 	{

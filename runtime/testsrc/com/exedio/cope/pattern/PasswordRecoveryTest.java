@@ -27,7 +27,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
-import com.exedio.cope.util.Interrupter;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
@@ -133,9 +132,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 
-		model.commit();
-		assertEquals(0, i.purgePasswordRecovery((Interrupter)null));
-		model.startTransaction("PasswordRecoveryTest");
+		assertEquals(0, purge());
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
@@ -161,9 +158,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(expires, token.getExpires());
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 
-		model.commit();
-		assertEquals(1, i.purgePasswordRecovery((Interrupter)null));
-		model.startTransaction("PasswordRecoveryTest");
+		assertEquals(1, purge());
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
@@ -186,5 +181,14 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		{
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
+	}
+
+	private final int purge()
+	{
+		final CountJobContext ctx = new CountJobContext();
+		model.commit();
+		i.purgePasswordRecovery(ctx);
+		model.startTransaction("PasswordRecoveryTest");
+		return ctx.progress;
 	}
 }
