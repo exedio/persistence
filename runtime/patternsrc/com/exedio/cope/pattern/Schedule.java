@@ -53,10 +53,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.Interrupter;
-import com.exedio.cope.util.InterrupterJobContextAdapter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Schedule extends Pattern
 {
@@ -397,10 +394,10 @@ public final class Schedule extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #run(Interrupter)} instead.
+	 * @deprecated Use {@link #run(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final Interrupter interrupter)
+	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return run(interrupter);
 	}
@@ -411,18 +408,18 @@ public final class Schedule extends Pattern
 	@Wrap(order=50)
 	@Deprecated
 	public int run(
-			@Parameter("interrupter") final Interrupter interrupter)
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return run(interrupter, new Date());
 	}
 
 	@Deprecated
-	private int run(final Interrupter interrupter, final Date now)
+	private int run(final com.exedio.cope.util.Interrupter interrupter, final Date now)
 	{
 		final Schedule s = this;
-		return InterrupterJobContextAdapter.run(
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new Body(){public void run(final JobContext ctx)
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
 				s.run(ctx, now);
 			}}

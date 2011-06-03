@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
 import static java.lang.System.nanoTime;
 
 import java.io.ByteArrayOutputStream;
@@ -49,9 +48,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Dispatcher extends Pattern
 {
@@ -446,11 +443,11 @@ public final class Dispatcher extends Pattern
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
-			@Parameter("interrupter") final Interrupter interrupter)
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return run(
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new Body(){public void run(final JobContext ctx)
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
 				dispatch(parentClass, config, ctx);
 			}}

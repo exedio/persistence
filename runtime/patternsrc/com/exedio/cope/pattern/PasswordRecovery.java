@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
-
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +36,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class PasswordRecovery extends Pattern
 {
@@ -213,10 +209,10 @@ public final class PasswordRecovery extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #purge(Interrupter)} instead.
+	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
 	}
@@ -227,11 +223,11 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=100, docReturn="the number of tokens purged")
 	@Deprecated
 	public int purge(
-			@Parameter("interrupter") final Interrupter interrupter)
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return run(
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new Body(){public void run(final JobContext ctx)
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
 				purge(ctx);
 			}}
