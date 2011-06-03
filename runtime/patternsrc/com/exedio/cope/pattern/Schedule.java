@@ -417,7 +417,7 @@ public final class Schedule extends Pattern
 	}
 
 	@Deprecated
-	int run(final Interrupter interrupter, final Date now)
+	private int run(final Interrupter interrupter, final Date now)
 	{
 		final Schedule s = this;
 		return InterrupterJobContextAdapter.run(
