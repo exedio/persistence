@@ -185,11 +185,13 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
+	 * @deprecated Use {@link #dispatch(Class,Config,JobContext)} instead.
 	 * @return the number of successfully dispatched items
 	 */
 	@Wrap(order=10,
 			doc="Dispatch by {0}.",
 			docReturn="the number of successfully dispatched items")
+	@Deprecated
 	public <P extends Item> int dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
