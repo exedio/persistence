@@ -31,6 +31,10 @@ import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
 public final class Delete
 {
+	/**
+	 * @deprecated Use {@link #delete(Query,String,JobContext)} instead.
+	 */
+	@Deprecated
 	public static int delete(
 			final Query<? extends Item> query,
 			final String transactionName,
