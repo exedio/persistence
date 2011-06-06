@@ -29,7 +29,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 	private final int expectedNumber;
 	private final int actualNumber;
 
-	RevisionInfoMutex(
+	public RevisionInfoMutex(
 			final Date date,
 			final Map<String, String> environment,
 			final int expectedNumber,
