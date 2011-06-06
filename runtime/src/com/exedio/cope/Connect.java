@@ -243,9 +243,9 @@ final class Connect
 		revised = true;
 	}
 
-	Map<Integer, byte[]> getRevisionLogs(final Revisions revisions)
+	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex, final Revisions revisions)
 	{
-		return revisions.getLogs(properties, connectionPool, executor);
+		return revisions.getLogs(withMutex, properties, connectionPool, executor);
 	}
 
 	List<ThreadController> getThreadControllers()

@@ -182,6 +182,7 @@ public final class Revisions
 	}
 
 	Map<Integer, byte[]> getLogs(
+			final boolean withMutex,
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor)
@@ -196,10 +197,12 @@ public final class Revisions
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
-			append(" where ").
-			append(revision).
-			append(">=0");
+			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue()));
+
+		if(!withMutex)
+			bf.append(" where ").
+				append(revision).
+				append(">=0");
 
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 

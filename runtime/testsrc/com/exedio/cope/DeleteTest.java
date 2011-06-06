@@ -311,6 +311,15 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
+		try
+		{
+			model.getRevisionLogsAndMutex();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("revisions are not enabled", e.getMessage());
+		}
 		model.reviseIfSupported();
 	}
 }

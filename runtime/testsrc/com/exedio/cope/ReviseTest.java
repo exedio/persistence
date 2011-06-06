@@ -26,11 +26,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -106,9 +108,10 @@ public class ReviseTest extends CopeAssert
 		assertSchema(model5.getVerifiedSchema(), false, false);
 		final Date createDate;
 		{
-			final Map<Integer, byte[]> logs = model5.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model5.getRevisionLogsAndMutex();
 			createDate = assertCreate(createBefore, createAfter, logs, 5);
 			assertEquals(1, logs.size());
+			assertEqualsLog(logs, model5.getRevisionLogs());
 		}
 		model5.disconnect();
 
@@ -117,9 +120,10 @@ public class ReviseTest extends CopeAssert
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertEquals(1, logs.size());
+			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
 
 		try
@@ -133,9 +137,10 @@ public class ReviseTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertEquals(1, logs.size());
+			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
 
 		final String blah =
@@ -168,11 +173,12 @@ public class ReviseTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		final Date reviseDate;
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			reviseDate = assertRevise(reviseBefore, reviseAfter, revisions7, 1, logs, 6);
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
+			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
 		log.assertInfo("revise 6/0:" + body60);
 
@@ -181,11 +187,12 @@ public class ReviseTest extends CopeAssert
 		model7.revise();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertRevise(reviseDate, revisions7, 1, logs, 6);
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
+			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
 		log.assertInfo("revise 6/1:" + body61);
 
@@ -196,11 +203,12 @@ public class ReviseTest extends CopeAssert
 		model7.revise();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertRevise(reviseDate, revisions7, 1, logs, 6);
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
 			assertEquals(3, logs.size());
+			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
 		log.assertInfo("revise 7/0:" + body70);
 
@@ -210,6 +218,7 @@ public class ReviseTest extends CopeAssert
 		setRevisions(revisions8);
 		assertSame(revisions8, model7.getRevisions());
 
+		final Date failBefore = new Date();
 		try
 		{
 			model7.reviseIfSupported();
@@ -218,13 +227,17 @@ public class ReviseTest extends CopeAssert
 		{
 			assertEquals("nonsense statement causing a test failure", e.getMessage());
 		}
+		final Date failAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
+		final Date failDate;
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertRevise(reviseDate, revisions7, 1, logs, 6);
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
-			assertEquals(3, logs.size());
+			failDate = assertMutex(failBefore, failAfter, 8, 7, logs);
+			assertEquals(4, logs.size());
+			assertEqualsLog(remove(-1, logs), model7.getRevisionLogs());
 		}
 		log.assertInfo("revise 8/0:nonsense statement causing a test failure");
 
@@ -238,11 +251,13 @@ public class ReviseTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
 			assertCreate(createDate, logs, 5);
 			assertRevise(reviseDate, revisions7, 1, logs, 6);
 			assertRevise(reviseDate, revisions7, 0, logs, 7);
-			assertEquals(3, logs.size());
+			assertMutex(failDate, 8, 7, logs);
+			assertEquals(4, logs.size());
+			assertEqualsLog(remove(-1, logs), model7.getRevisionLogs());
 		}
 		log.assertEmpty();
 
@@ -354,6 +369,34 @@ public class ReviseTest extends CopeAssert
 		assertEquals(date, assertRevise(date, date, revisions, revisionsIndex, logs, number));
 	}
 
+	private final Date assertMutex(
+			final Date before, final Date after,
+			final int expected, final int actual,
+			final Map<Integer, byte[]> logs) throws ParseException
+	{
+		final byte[] log = logs.get(-1);
+		assertNotNull(log);
+		final Properties logProps = parse(log);
+		assertEquals(null, logProps.getProperty("revision"));
+		final Date date = df.parse(logProps.getProperty("dateUTC"));
+		assertWithin(before, after, date);
+		assertEquals("true", logProps.getProperty("mutex"));
+		assertEquals(String.valueOf(expected), logProps.getProperty("mutex.expected"));
+		assertEquals(String.valueOf(actual  ), logProps.getProperty("mutex.actual"));
+		assertEquals(null, logProps.getProperty("create"));
+		assertRevisionEnvironment(logProps);
+		assertEquals(15, logProps.size());
+		return date;
+	}
+
+	private final void assertMutex(
+			final Date date,
+			final int expected, final int actual,
+			final Map<Integer, byte[]> logs) throws ParseException
+	{
+		assertEquals(date, assertMutex(date, date, expected, actual, logs));
+	}
+
 	private final void assertRevisionEnvironment(final Properties p)
 	{
 		assertNotNull(hostname);
@@ -401,5 +444,29 @@ public class ReviseTest extends CopeAssert
 			longSyntheticNames
 			? (name + global)
 			: name;
+	}
+
+	private static void assertEqualsLog(
+			final Map<Integer, byte[]> expected,
+			final Map<Integer, byte[]> actual)
+	{
+		assertEquals(convert(expected), convert(actual));
+	}
+
+	private static Map<Integer, String> convert(final Map<Integer, byte[]> map)
+	{
+		final Map<Integer, String> result = new LinkedHashMap<Integer, String>();
+		for(final Map.Entry<Integer, byte[]> e : map.entrySet())
+			result.put(e.getKey(), Hex.encodeLower(e.getValue()));
+		return result;
+	}
+
+	private static Map<Integer, byte[]> remove(final int key, final Map<Integer, byte[]> map)
+	{
+		final Map<Integer, byte[]> result = new LinkedHashMap<Integer, byte[]>();
+		for(final Map.Entry<Integer, byte[]> e : map.entrySet())
+			if(key!=e.getKey().intValue())
+				result.put(e.getKey(), e.getValue());
+		return result;
 	}
 }

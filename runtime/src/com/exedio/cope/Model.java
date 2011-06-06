@@ -173,10 +173,22 @@ public final class Model implements Serializable
 		revise();
 	}
 
+	/**
+	 * @see #getRevisionLogsAndMutex()
+	 */
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertRevisionEnabled();
-		return connect().getRevisionLogs(revisions);
+		return connect().getRevisionLogs(false, revisions);
+	}
+
+	/**
+	 * @see #getRevisionLogs()
+	 */
+	public Map<Integer, byte[]> getRevisionLogsAndMutex()
+	{
+		assertRevisionEnabled();
+		return connect().getRevisionLogs(true, revisions);
 	}
 
 	public boolean isConnected()
