@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-final class RevisionInfoMutex extends RevisionInfo
+public final class RevisionInfoMutex extends RevisionInfo
 {
 	static final int NUMBER = -1;
 	private final int expectedNumber;
@@ -46,12 +46,12 @@ final class RevisionInfoMutex extends RevisionInfo
 		this.actualNumber = actualNumber;
 	}
 
-	int getExpectedNumber()
+	public int getExpectedNumber()
 	{
 		return expectedNumber;
 	}
 
-	int getActualNumber()
+	public int getActualNumber()
 	{
 		return actualNumber;
 	}
