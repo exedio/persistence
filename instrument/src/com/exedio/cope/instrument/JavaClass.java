@@ -109,6 +109,25 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
+	public String getCanonicalName()
+	{
+		final StringBuilder buf=new StringBuilder();
+		final String packagename = file.getPackageName();
+		if(packagename!=null)
+		{
+			buf.append(packagename);
+			buf.append('.');
+		}
+		final int pos=buf.length();
+		for(JavaClass i=this; i!=null; i=i.parent)
+		{
+			if(i!=this)
+				buf.insert(pos, '.');
+			buf.insert(pos, i.name);
+		}
+		return buf.toString();
+	}
+
 	public final boolean isInterface()
 	{
 		return (modifier & Modifier.INTERFACE) > 0;
