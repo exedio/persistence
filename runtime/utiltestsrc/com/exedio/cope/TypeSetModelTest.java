@@ -28,7 +28,7 @@ public class TypeSetModelTest extends CopeAssert
 		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
 		new TypeSet(new Type<?>[]{type1});
 
-		final Model model = new Model((RevisionSource)null, new TypeSet[]{typeSet1});
+		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSet1});
 		assertEqualsUnmodifiable(list(type1), model.getTypes());
 		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
 

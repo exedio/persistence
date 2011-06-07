@@ -59,7 +59,7 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final RevisionSource revisionSource,
+			final RevisionsFuture revisionSource,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{

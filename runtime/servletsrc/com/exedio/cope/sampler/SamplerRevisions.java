@@ -19,10 +19,10 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.EnvironmentInfo;
-import com.exedio.cope.RevisionSource;
+import com.exedio.cope.RevisionsFuture;
 import com.exedio.cope.Revisions;
 
-final class SamplerRevisions implements RevisionSource
+final class SamplerRevisions implements RevisionsFuture
 {
 	public Revisions get(final EnvironmentInfo environment)
 	{

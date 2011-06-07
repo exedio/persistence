@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 /**
- * If you supply an instance of {@link RevisionSource} to a {@link Model}
- * via {@link Model#Model(RevisionSource, Type...)} etc.
+ * If you supply an instance of {@link RevisionsFuture} to a {@link Model}
+ * via {@link Model#Model(RevisionsFuture, Type...)} etc.
  * the model takes care, that {@link #get(EnvironmentInfo)}
  * is called only while the model is connected and only once for each connect.
  */
-public interface RevisionSource
+public interface RevisionsFuture
 {
 	Revisions get(EnvironmentInfo environment);
 }

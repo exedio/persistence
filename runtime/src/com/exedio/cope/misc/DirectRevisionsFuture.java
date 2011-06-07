@@ -19,23 +19,23 @@
 package com.exedio.cope.misc;
 
 import com.exedio.cope.EnvironmentInfo;
-import com.exedio.cope.RevisionSource;
+import com.exedio.cope.RevisionsFuture;
 import com.exedio.cope.Revisions;
 
-public final class ImmediateRevisionSource implements RevisionSource
+public final class DirectRevisionsFuture implements RevisionsFuture
 {
-	public static ImmediateRevisionSource wrap(final Revisions revisions)
+	public static DirectRevisionsFuture wrap(final Revisions revisions)
 	{
 		return
 			revisions!=null
-			? new ImmediateRevisionSource(revisions)
+			? new DirectRevisionsFuture(revisions)
 			: null;
 	}
 
 
 	private final Revisions revisions;
 
-	private ImmediateRevisionSource(final Revisions revisions)
+	private DirectRevisionsFuture(final Revisions revisions)
 	{
 		this.revisions = revisions;
 	}

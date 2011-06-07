@@ -32,7 +32,7 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.ImmediateRevisionSource;
+import com.exedio.cope.misc.DirectRevisionsFuture;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -45,14 +45,14 @@ public class ReviseTest extends CopeAssert
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 	);
 
-	private static final Model model5 = new Model(ImmediateRevisionSource.wrap(revisions5), ReviseItem1.TYPE);
+	private static final Model model5 = new Model(DirectRevisionsFuture.wrap(revisions5), ReviseItem1.TYPE);
 
 
 	private static final Revisions revisions7Missing = new Revisions(
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 		);
 
-	private static final class SettableRevisionSource implements RevisionSource
+	private static final class SettableRevisionSource implements RevisionsFuture
 	{
 		Revisions revisions;
 

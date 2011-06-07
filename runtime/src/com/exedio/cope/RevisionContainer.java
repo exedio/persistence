@@ -20,19 +20,19 @@ package com.exedio.cope;
 
 final class RevisionContainer
 {
-	static RevisionContainer wrap(final EnvironmentInfo environment, final RevisionSource source)
+	static RevisionContainer wrap(final EnvironmentInfo environment, final RevisionsFuture source)
 	{
 		return source!=null ? new RevisionContainer(environment, source) : null;
 	}
 
 
 	private final EnvironmentInfo environment;
-	private final RevisionSource source;
+	private final RevisionsFuture source;
 
 	private Revisions target = null;
 	private final Object targetLock = new Object();
 
-	private RevisionContainer(final EnvironmentInfo environment, final RevisionSource source)
+	private RevisionContainer(final EnvironmentInfo environment, final RevisionsFuture source)
 	{
 		this.environment = environment;
 		this.source = source;

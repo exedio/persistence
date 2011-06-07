@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.misc.ImmediateRevisionSource;
+import com.exedio.cope.misc.DirectRevisionsFuture;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -40,7 +40,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model implements Serializable
 {
-	private final RevisionSource revisions;
+	private final RevisionsFuture revisions;
 	private final Object reviseLock = new Object();
 
 	final Types types;
@@ -59,15 +59,15 @@ public final class Model implements Serializable
 
 	public Model(final Type... types)
 	{
-		this((RevisionSource)null, types);
+		this((RevisionsFuture)null, types);
 	}
 
-	public Model(final RevisionSource revisions, final Type... types)
+	public Model(final RevisionsFuture revisions, final Type... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
-	public Model(final RevisionSource revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type... types)
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
@@ -1020,20 +1020,20 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated use {@link #Model(RevisionSource, Type...)} instead.
+	 * @deprecated use {@link #Model(RevisionsFuture, Type...)} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
 	{
-		this(ImmediateRevisionSource.wrap(revisions), types);
+		this(DirectRevisionsFuture.wrap(revisions), types);
 	}
 
 	/**
-	 * @deprecated use {@link #Model(RevisionSource, TypeSet[], Type...)} instead.
+	 * @deprecated use {@link #Model(RevisionsFuture, TypeSet[], Type...)} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
 	{
-		this(ImmediateRevisionSource.wrap(revisions), typeSets, types);
+		this(DirectRevisionsFuture.wrap(revisions), typeSets, types);
 	}
 }
