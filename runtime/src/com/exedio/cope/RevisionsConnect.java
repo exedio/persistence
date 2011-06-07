@@ -24,7 +24,10 @@ final class RevisionsConnect
 			final EnvironmentInfo environment,
 			final RevisionsFuture source)
 	{
-		return source!=null ? new RevisionsConnect(environment, source) : null;
+		return
+			source!=null
+			? new RevisionsConnect(environment, source)
+			: null;
 	}
 
 
