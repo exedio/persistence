@@ -34,8 +34,8 @@ final class RevisionsConnect
 	private final EnvironmentInfo environment;
 	private final RevisionsFuture future;
 
-	private Revisions target = null;
-	private final Object targetLock = new Object();
+	private Revisions value = null;
+	private final Object valueLock = new Object();
 
 	private RevisionsConnect(
 			final EnvironmentInfo environment,
@@ -50,12 +50,12 @@ final class RevisionsConnect
 
 	Revisions get()
 	{
-		synchronized(targetLock)
+		synchronized(valueLock)
 		{
-			if(target==null)
-				target = future.get(environment);
+			if(value==null)
+				value = future.get(environment);
 
-			return target;
+			return value;
 		}
 	}
 }
