@@ -1020,7 +1020,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated use {@link #Model(RevisionsFuture, Type...)} instead.
+	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFuture} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
@@ -1029,7 +1029,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated use {@link #Model(RevisionsFuture, TypeSet[], Type...)} instead.
+	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFuture} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
