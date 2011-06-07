@@ -27,8 +27,6 @@ TODO for cope runtime
 	otherwise its forbidden.
 - Global History / Undo facility for backoffice, that can undo deletes as well.
 - MySQL: warning, if row could exceed 8000 bytes limit
-- implement Serializable
-	* Composite.Value (add tests)
 - feature reuse with copy() for Order.articleName
 	* copy() for all features
 - Connection Pool: throw exception, if transaction is not closed when putting back to pool
