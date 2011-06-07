@@ -44,7 +44,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private final Revisions revisions;
+	private final RevisionContainer revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
@@ -57,7 +57,7 @@ final class Database
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Revisions revisions)
+			final RevisionContainer revisions)
 	{
 		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
@@ -109,7 +109,7 @@ final class Database
 		makeSchema(true).create();
 
 		if(revisions!=null)
-			revisions.insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
+			revisions.get().insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -573,7 +573,7 @@ final class Database
 			t.makeSchema(result);
 
 		if(withRevisions && revisions!=null)
-			revisions.makeSchema(result, properties, dialect);
+			revisions.get().makeSchema(result, properties, dialect);
 		for(final Sequence sequence : sequences)
 			sequence.makeSchema(result);
 

@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.misc.ImmediateRevisionSource;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -39,7 +40,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model implements Serializable
 {
-	private Revisions revisions; // TODO make final
+	private RevisionSource revisions; // TODO make final
 	private final Object reviseLock = new Object();
 
 	final Types types;
@@ -58,15 +59,15 @@ public final class Model implements Serializable
 
 	public Model(final Type... types)
 	{
-		this((Revisions)null, types);
+		this((RevisionSource)null, types);
 	}
 
-	public Model(final Revisions revisions, final Type... types)
+	public Model(final RevisionSource revisions, final Type... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
-	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final RevisionSource revisions, final TypeSet[] typeSets, final Type... types)
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
@@ -105,7 +106,7 @@ public final class Model implements Serializable
 			if(this.connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
+			this.connectIfConnected = new Connect(toString(), types, RevisionContainer.wrap(revisions), properties, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
 	}
@@ -140,7 +141,7 @@ public final class Model implements Serializable
 
 	public Revisions getRevisions()
 	{
-		return revisions;
+		return connect().getRevisions();
 	}
 
 	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
@@ -150,7 +151,7 @@ public final class Model implements Serializable
 		assertRevisionEnabled();
 		if(connectIfConnected!=null)
 			throw new IllegalStateException();
-		this.revisions = revisions;
+		this.revisions = ImmediateRevisionSource.wrap(revisions);
 		if(connectIfConnected!=null)
 			throw new IllegalStateException();
 	}
@@ -161,7 +162,7 @@ public final class Model implements Serializable
 
 		synchronized(reviseLock)
 		{
-			connect().revise(revisions);
+			connect().revise();
 		}
 	}
 
@@ -179,7 +180,7 @@ public final class Model implements Serializable
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertRevisionEnabled();
-		return connect().getRevisionLogs(false, revisions);
+		return connect().getRevisionLogs(false);
 	}
 
 	/**
@@ -188,7 +189,7 @@ public final class Model implements Serializable
 	public Map<Integer, byte[]> getRevisionLogsAndMutex()
 	{
 		assertRevisionEnabled();
-		return connect().getRevisionLogs(true, revisions);
+		return connect().getRevisionLogs(true);
 	}
 
 	public boolean isConnected()
@@ -1028,5 +1029,23 @@ public final class Model implements Serializable
 	public int getChangeListenersCleared()
 	{
 		return changeListeners.getInfo().getCleared();
+	}
+
+	/**
+	 * @deprecated use {@link #Model(RevisionSource, Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final Revisions revisions, final Type... types)
+	{
+		this(ImmediateRevisionSource.wrap(revisions), types);
+	}
+
+	/**
+	 * @deprecated use {@link #Model(RevisionSource, TypeSet[], Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
+	{
+		this(ImmediateRevisionSource.wrap(revisions), typeSets, types);
 	}
 }

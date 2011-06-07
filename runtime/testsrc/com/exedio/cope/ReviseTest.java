@@ -93,9 +93,18 @@ public class ReviseTest extends CopeAssert
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUser();
 
-		assertSame(revisions5, model5.getRevisions());
+		try
+		{
+			model5.getRevisions();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+		}
 
 		model5.connect(props);
+		assertSame(revisions5, model5.getRevisions());
 		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
@@ -115,9 +124,18 @@ public class ReviseTest extends CopeAssert
 		}
 		model5.disconnect();
 
-		assertSame(revisions7Missing, model7.getRevisions());
+		try
+		{
+			model7.getRevisions();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+		}
 
 		model7.connect(props);
+		assertSame(revisions7Missing, model7.getRevisions());
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();

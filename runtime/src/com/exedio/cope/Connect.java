@@ -37,6 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class Connect
 {
 	final long date = System.currentTimeMillis();
+	private final RevisionContainer revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
@@ -58,10 +59,11 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final Revisions revisions,
+			final RevisionContainer revisions,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{
+		this.revisions = revisions;
 		this.properties = properties;
 
 		final String url = properties.getConnectionUrl();
@@ -233,19 +235,24 @@ final class Connect
 		queryCache.clear();
 	}
 
-	void revise(final Revisions revisions)
+	Revisions getRevisions()
+	{
+		return revisions!=null ? revisions.get() : null;
+	}
+
+	void revise()
 	{
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
+		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
 
 		revised = true;
 	}
 
-	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex, final Revisions revisions)
+	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex)
 	{
-		return revisions.getLogs(withMutex, properties, connectionPool, executor);
+		return revisions.get().getLogs(withMutex, properties, connectionPool, executor);
 	}
 
 	List<ThreadController> getThreadControllers()
