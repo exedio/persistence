@@ -26,7 +26,7 @@ import com.exedio.cope.misc.DirectRevisionsFuture;
 public class DeleteSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(
-			DirectRevisionsFuture.wrap(new Revisions(5)),
+			DirectRevisionsFuture.make(new Revisions(5)),
 			DeleteSchemaItem.TYPE);
 
 	public DeleteSchemaTest()

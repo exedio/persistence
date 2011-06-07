@@ -45,7 +45,7 @@ public class ReviseTest extends CopeAssert
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 	);
 
-	private static final Model model5 = new Model(DirectRevisionsFuture.wrap(revisions5), ReviseItem1.TYPE);
+	private static final Model model5 = new Model(DirectRevisionsFuture.make(revisions5), ReviseItem1.TYPE);
 
 
 	private static final Revisions revisions7Missing = new Revisions(

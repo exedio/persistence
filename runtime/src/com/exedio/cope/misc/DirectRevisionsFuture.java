@@ -24,7 +24,7 @@ import com.exedio.cope.RevisionsFuture;
 
 public final class DirectRevisionsFuture implements RevisionsFuture
 {
-	public static DirectRevisionsFuture wrap(final Revisions revisions)
+	public static DirectRevisionsFuture make(final Revisions revisions)
 	{
 		return
 			revisions!=null

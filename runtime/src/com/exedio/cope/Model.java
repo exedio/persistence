@@ -1025,7 +1025,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
 	{
-		this(DirectRevisionsFuture.wrap(revisions), types);
+		this(DirectRevisionsFuture.make(revisions), types);
 	}
 
 	/**
@@ -1034,6 +1034,6 @@ public final class Model implements Serializable
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
 	{
-		this(DirectRevisionsFuture.wrap(revisions), typeSets, types);
+		this(DirectRevisionsFuture.make(revisions), typeSets, types);
 	}
 }
