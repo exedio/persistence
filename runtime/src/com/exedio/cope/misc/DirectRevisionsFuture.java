@@ -16,28 +16,35 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.misc;
 
-import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.EnvironmentInfo;
+import com.exedio.cope.Revisions;
+import com.exedio.cope.RevisionsFuture;
 
-public class TypeSetModelTest extends CopeAssert
+public final class DirectRevisionsFuture implements RevisionsFuture
 {
-	public void testIt()
+	public static DirectRevisionsFuture make(final Revisions revisions)
 	{
-		final Type<Item1> type1 = TypesBound.newType(Item1.class);
-		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
-		new TypeSet(new Type<?>[]{type1});
-
-		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSet1});
-		assertEqualsUnmodifiable(list(type1), model.getTypes());
-		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
-
-		new TypeSet(new Type<?>[]{type1});
+		return
+			revisions!=null
+			? new DirectRevisionsFuture(revisions)
+			: null;
 	}
 
-	static class Item1 extends Item
+
+	private final Revisions revisions;
+
+	private DirectRevisionsFuture(final Revisions revisions)
 	{
-		private static final long serialVersionUID = 1l;
-		private Item1(final ActivationParameters ap) { super(ap); }
+		this.revisions = revisions;
+	}
+
+	public Revisions get(final EnvironmentInfo environment)
+	{
+		if(environment==null)
+			throw new NullPointerException();
+
+		return revisions;
 	}
 }

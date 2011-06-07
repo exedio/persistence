@@ -37,6 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class Connect
 {
 	final long date = System.currentTimeMillis();
+	private final RevisionsConnect revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
@@ -58,7 +59,7 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final Revisions revisions,
+			final RevisionsFuture revisionsFuture,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{
@@ -111,7 +112,7 @@ final class Connect
 				}
 			}
 		}
-
+		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFuture);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
@@ -127,7 +128,7 @@ final class Connect
 				dialect,
 				connectionPool,
 				executor,
-				revisions);
+				this.revisions);
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
@@ -233,19 +234,24 @@ final class Connect
 		queryCache.clear();
 	}
 
-	void revise(final Revisions revisions)
+	Revisions getRevisions()
+	{
+		return revisions!=null ? revisions.get() : null;
+	}
+
+	void revise()
 	{
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
+		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
 
 		revised = true;
 	}
 
-	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex, final Revisions revisions)
+	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex)
 	{
-		return revisions.getLogs(withMutex, properties, connectionPool, executor);
+		return revisions.get().getLogs(withMutex, properties, connectionPool, executor);
 	}
 
 	List<ThreadController> getThreadControllers()

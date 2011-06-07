@@ -18,26 +18,44 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
-
-public class TypeSetModelTest extends CopeAssert
+final class RevisionsConnect
 {
-	public void testIt()
+	static RevisionsConnect wrap(
+			final EnvironmentInfo environment,
+			final RevisionsFuture future)
 	{
-		final Type<Item1> type1 = TypesBound.newType(Item1.class);
-		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
-		new TypeSet(new Type<?>[]{type1});
-
-		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSet1});
-		assertEqualsUnmodifiable(list(type1), model.getTypes());
-		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
-
-		new TypeSet(new Type<?>[]{type1});
+		return
+			future!=null
+			? new RevisionsConnect(environment, future)
+			: null;
 	}
 
-	static class Item1 extends Item
+
+	private final EnvironmentInfo environment;
+	private final RevisionsFuture future;
+
+	private Revisions value = null;
+	private final Object valueLock = new Object();
+
+	private RevisionsConnect(
+			final EnvironmentInfo environment,
+			final RevisionsFuture future)
 	{
-		private static final long serialVersionUID = 1l;
-		private Item1(final ActivationParameters ap) { super(ap); }
+		this.environment = environment;
+		this.future = future;
+
+		assert environment!=null;
+		assert future!=null;
+	}
+
+	Revisions get()
+	{
+		synchronized(valueLock)
+		{
+			if(value==null)
+				value = future.get(environment);
+
+			return value;
+		}
 	}
 }

@@ -49,6 +49,7 @@
 		<!-- Non-serializable value stored into instance field of a serializable class -->
 		<Bug pattern="SE_BAD_FIELD_STORE" />
 		<Or>
+			<Class name="com.exedio.cope.Model" />
 			<Class name="com.exedio.cope.ItemField" />
 		</Or>
 	</Match>

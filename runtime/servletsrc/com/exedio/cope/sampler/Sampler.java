@@ -66,7 +66,7 @@ public final class Sampler
 
 		this.samplerModel =
 			new Model(
-				SamplerRevisions.REVISIONS,
+				new SamplerRevisions(),
 				SamplerModel.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,

@@ -18,20 +18,31 @@
 
 package com.exedio.cope.sampler;
 
+import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.Revisions;
+import com.exedio.cope.RevisionsFuture;
 
-/**
- * Currently works for MySQL only.
- */
-final class SamplerRevisions
+final class SamplerRevisions implements RevisionsFuture
 {
-	static final Revisions REVISIONS =
-		new Revisions(
+	public Revisions get(final EnvironmentInfo environment)
+	{
+		final String db = environment.getDatabaseProductName();
+
+		if("mysql".equalsIgnoreCase(db))
+			return getMysql();
+		else
+			return getOthers();
+	}
+
+	private Revisions getMysql()
+	{
+		return new Revisions(
 			0
 		);
+	}
 
-	private SamplerRevisions()
+	private Revisions getOthers()
 	{
-		// prevent instantiation
+		return new Revisions(0);
 	}
 }

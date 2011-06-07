@@ -18,26 +18,13 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
-
-public class TypeSetModelTest extends CopeAssert
+/**
+ * If you supply an instance of {@link RevisionsFuture} to a {@link Model}
+ * via {@link Model#Model(RevisionsFuture, Type...)} etc.
+ * the model takes care, that {@link #get(EnvironmentInfo)}
+ * is called only while the model is connected and only once for each connect.
+ */
+public interface RevisionsFuture
 {
-	public void testIt()
-	{
-		final Type<Item1> type1 = TypesBound.newType(Item1.class);
-		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
-		new TypeSet(new Type<?>[]{type1});
-
-		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSet1});
-		assertEqualsUnmodifiable(list(type1), model.getTypes());
-		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
-
-		new TypeSet(new Type<?>[]{type1});
-	}
-
-	static class Item1 extends Item
-	{
-		private static final long serialVersionUID = 1l;
-		private Item1(final ActivationParameters ap) { super(ap); }
-	}
+	Revisions get(EnvironmentInfo environment);
 }
