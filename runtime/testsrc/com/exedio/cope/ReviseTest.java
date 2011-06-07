@@ -55,6 +55,7 @@ public class ReviseTest extends CopeAssert
 	private static final class TestRevisionSource implements RevisionsFuture
 	{
 		Revisions revisions;
+		int calls = 0;
 
 		TestRevisionSource(final Revisions revisions)
 		{
@@ -64,6 +65,7 @@ public class ReviseTest extends CopeAssert
 		public Revisions get(final EnvironmentInfo environment)
 		{
 			assertNotNull(environment);
+			calls++;
 			return revisions;
 		}
 	}
@@ -111,6 +113,7 @@ public class ReviseTest extends CopeAssert
 	{
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUser();
+		assertEquals(0, revisions7Source.calls);
 
 		try
 		{
@@ -154,7 +157,9 @@ public class ReviseTest extends CopeAssert
 		}
 
 		model7.connect(props);
+		assertEquals(0, revisions7Source.calls);
 		assertSame(revisions7Missing, model7.getRevisions());
+		assertEquals(1, revisions7Source.calls);
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -201,7 +206,9 @@ public class ReviseTest extends CopeAssert
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4")
 			);
 		setRevisions(revisions7);
+		assertEquals(1, revisions7Source.calls);
 		assertSame(revisions7, model7.getRevisions());
+		assertEquals(2, revisions7Source.calls);
 
 		log.assertEmpty();
 		final Date reviseBefore = new Date();
@@ -237,7 +244,9 @@ public class ReviseTest extends CopeAssert
 		// even after reconnect
 		model7.disconnect();
 		model7.connect(props);
+		assertEquals(2, revisions7Source.calls);
 		model7.revise();
+		assertEquals(3, revisions7Source.calls);
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -253,7 +262,9 @@ public class ReviseTest extends CopeAssert
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
 		setRevisions(revisions8);
+		assertEquals(3, revisions7Source.calls);
 		assertSame(revisions8, model7.getRevisions());
+		assertEquals(4, revisions7Source.calls);
 
 		final Date failBefore = new Date();
 		try
@@ -300,6 +311,7 @@ public class ReviseTest extends CopeAssert
 
 		model7.tearDownSchema();
 		log.assertEmpty();
+		assertEquals(4, revisions7Source.calls);
 	}
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
