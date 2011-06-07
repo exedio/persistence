@@ -24,9 +24,7 @@ import com.exedio.cope.Revisions;
 
 final class SamplerRevisions implements RevisionSource
 {
-	private Model model = null;
-
-	public Revisions get()
+	public Revisions get(final Model model)
 	{
 		final String db = model.getEnvironmentInfo().getDatabaseProductName();
 
@@ -46,10 +44,5 @@ final class SamplerRevisions implements RevisionSource
 	private Revisions getOthers()
 	{
 		return new Revisions(0);
-	}
-
-	void setModel(final Model model)
-	{
-		this.model = model;
 	}
 }

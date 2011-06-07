@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Model;
 import com.exedio.cope.RevisionSource;
 import com.exedio.cope.Revisions;
 
@@ -39,7 +40,7 @@ public final class ImmediateRevisionSource implements RevisionSource
 		this.revisions = revisions;
 	}
 
-	public Revisions get()
+	public Revisions get(final Model model)
 	{
 		return revisions;
 	}
