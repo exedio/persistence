@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 final class RevisionsConnect
 {
-	static RevisionsConnect wrap(final EnvironmentInfo environment, final RevisionsFuture source)
+	static RevisionsConnect wrap(
+			final EnvironmentInfo environment,
+			final RevisionsFuture source)
 	{
 		return source!=null ? new RevisionsConnect(environment, source) : null;
 	}
@@ -32,7 +34,9 @@ final class RevisionsConnect
 	private Revisions target = null;
 	private final Object targetLock = new Object();
 
-	private RevisionsConnect(final EnvironmentInfo environment, final RevisionsFuture source)
+	private RevisionsConnect(
+			final EnvironmentInfo environment,
+			final RevisionsFuture source)
 	{
 		this.environment = environment;
 		this.source = source;
