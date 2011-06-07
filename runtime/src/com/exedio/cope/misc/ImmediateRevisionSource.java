@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import com.exedio.cope.Model;
+import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.RevisionSource;
 import com.exedio.cope.Revisions;
 
@@ -40,7 +40,7 @@ public final class ImmediateRevisionSource implements RevisionSource
 		this.revisions = revisions;
 	}
 
-	public Revisions get(final Model model)
+	public Revisions get(final EnvironmentInfo environment)
 	{
 		return revisions;
 	}

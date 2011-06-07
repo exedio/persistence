@@ -26,5 +26,5 @@ package com.exedio.cope;
  */
 public interface RevisionSource
 {
-	Revisions get(Model model);
+	Revisions get(EnvironmentInfo environment);
 }

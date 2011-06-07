@@ -59,11 +59,10 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final RevisionContainer revisions,
+			final RevisionSource revisions,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{
-		this.revisions = revisions;
 		this.properties = properties;
 
 		final String url = properties.getConnectionUrl();
@@ -113,7 +112,7 @@ final class Connect
 				}
 			}
 		}
-
+		this.revisions = RevisionContainer.wrap(dialectParameters.environmentInfo, revisions);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
@@ -129,7 +128,7 @@ final class Connect
 				dialect,
 				connectionPool,
 				executor,
-				revisions);
+				this.revisions);
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());

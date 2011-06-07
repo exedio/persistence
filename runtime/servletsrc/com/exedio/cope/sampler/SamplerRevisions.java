@@ -18,15 +18,15 @@
 
 package com.exedio.cope.sampler;
 
-import com.exedio.cope.Model;
+import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.RevisionSource;
 import com.exedio.cope.Revisions;
 
 final class SamplerRevisions implements RevisionSource
 {
-	public Revisions get(final Model model)
+	public Revisions get(final EnvironmentInfo environment)
 	{
-		final String db = model.getEnvironmentInfo().getDatabaseProductName();
+		final String db = environment.getDatabaseProductName();
 
 		if("mysql".equalsIgnoreCase(db))
 			return getMysql();

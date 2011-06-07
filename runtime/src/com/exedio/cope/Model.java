@@ -106,7 +106,7 @@ public final class Model implements Serializable
 			if(this.connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connectIfConnected = new Connect(toString(), types, RevisionContainer.wrap(this, revisions), properties, changeListeners);
+			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
 	}

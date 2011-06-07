@@ -20,24 +20,24 @@ package com.exedio.cope;
 
 final class RevisionContainer
 {
-	static RevisionContainer wrap(final Model model, final RevisionSource source)
+	static RevisionContainer wrap(final EnvironmentInfo environment, final RevisionSource source)
 	{
-		return source!=null ? new RevisionContainer(model, source) : null;
+		return source!=null ? new RevisionContainer(environment, source) : null;
 	}
 
 
-	private final Model model;
+	private final EnvironmentInfo environment;
 	private final RevisionSource source;
 
 	private Revisions target = null;
 	private final Object targetLock = new Object();
 
-	private RevisionContainer(final Model model, final RevisionSource source)
+	private RevisionContainer(final EnvironmentInfo environment, final RevisionSource source)
 	{
-		this.model = model;
+		this.environment = environment;
 		this.source = source;
 
-		assert model!=null;
+		assert environment!=null;
 		assert source!=null;
 	}
 
@@ -46,7 +46,7 @@ final class RevisionContainer
 		synchronized(targetLock)
 		{
 			if(target==null)
-				target = source.get(model);
+				target = source.get(environment);
 
 			return target;
 		}
