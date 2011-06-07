@@ -52,7 +52,25 @@ public class ReviseTest extends CopeAssert
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 		);
 
-	private static final Model model7 = new Model(ImmediateRevisionSource.wrap(revisions7Missing), ReviseItem2.TYPE);
+	private static final class SettableRevisionSource implements RevisionSource
+	{
+		Revisions revisions;
+
+		SettableRevisionSource(final Revisions revisions)
+		{
+			this.revisions = revisions;
+		}
+
+		public Revisions get(final EnvironmentInfo environment)
+		{
+			assertNotNull(environment);
+			return revisions;
+		}
+	}
+
+	private static final SettableRevisionSource revisions7Source = new SettableRevisionSource(revisions7Missing);
+
+	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
 
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
@@ -453,7 +471,7 @@ public class ReviseTest extends CopeAssert
 	{
 		final ConnectProperties c = model7.getConnectProperties();
 		model7.disconnect();
-		model7.setRevisions(revisions);
+		revisions7Source.revisions = revisions;
 		model7.connect(c);
 	}
 

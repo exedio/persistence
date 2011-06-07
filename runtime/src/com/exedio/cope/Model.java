@@ -40,7 +40,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model implements Serializable
 {
-	private RevisionSource revisions; // TODO make final
+	private final RevisionSource revisions;
 	private final Object reviseLock = new Object();
 
 	final Types types;
@@ -142,18 +142,6 @@ public final class Model implements Serializable
 	public Revisions getRevisions()
 	{
 		return connect().getRevisions();
-	}
-
-	void setRevisions(final Revisions revisions) // for test only, not for productive use !!!
-	{
-		if(revisions==null)
-			throw new NullPointerException();
-		assertRevisionEnabled();
-		if(connectIfConnected!=null)
-			throw new IllegalStateException();
-		this.revisions = ImmediateRevisionSource.wrap(revisions);
-		if(connectIfConnected!=null)
-			throw new IllegalStateException();
 	}
 
 	public void revise()
