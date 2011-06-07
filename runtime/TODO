@@ -7,16 +7,14 @@ TODO for cope runtime
 	- unique constraints over multiple fields:
 		strictly define what happens with null
 - search API
-	- oracle statistics / mysql execution plan
+	- oracle statistics
 	- group by
 	- allow accessing features of subtypes of bound types
 	- condition DataField.is[Not]Null
 		use this on Media for CheckConstraint
-	- function coalesce (replace null by other value)
 	- order by with customizable null low/high
 - application triggered Save Points for partial transaction rollback
 - EnumField:
-	* allow modification of integers in DB via annotation
 	* optionally put strings in DB
 - EnumSetField and EnumMapField should implement Settable
 - Media:
@@ -27,15 +25,10 @@ TODO for cope runtime
 	* store text/* gzipped and deliver as such to the browser
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
-- pattern Range:
-	restrict to Comparable and define check contraint that from<=to,
-	once arbitrary check contraints are implemented.
-- a pattern Replicator
 - Global History / Undo facility for backoffice, that can undo deletes as well.
 - MySQL: warning, if row could exceed 8000 bytes limit
 - implement Serializable
 	* Composite.Value (add tests)
-	* Price
 - feature reuse with copy() for Order.articleName
 	* copy() for all features
 - Connection Pool: throw exception, if transaction is not closed when putting back to pool
@@ -43,7 +36,7 @@ TODO for cope runtime
 	* make revisions cluster aware
 	* test configuration of tomcat
 - move DateField#touch into separate pattern Timestamp
-- FieldListLimited: allow length terminated instead of null terminated as well
+- LimitedListField: allow length terminated instead of null terminated as well
 - SetFieldOrdered: SetField with explicit order
 - patterns such as PriceField as function for select and orderBy
 - Copy Constraint for non-final fields
@@ -51,8 +44,6 @@ TODO for cope runtime
 - use getForeignKeyInfo() etc. from JDBC for verifying dsmf schema
 - allow (fulltext) indexes to be declared in java source code,
 	and generate useful finders for index.
-- migrate to Oracle 11 from Oracle 9
-	* revisit all oracle-specific code in framework and tests
 - test model:
 	* put classes for patterns into separate package
 	* make small test models for each lib test
