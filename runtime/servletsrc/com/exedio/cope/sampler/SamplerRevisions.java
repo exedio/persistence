@@ -18,20 +18,19 @@
 
 package com.exedio.cope.sampler;
 
+import com.exedio.cope.RevisionSource;
 import com.exedio.cope.Revisions;
 
 /**
  * Currently works for MySQL only.
  */
-final class SamplerRevisions
+final class SamplerRevisions implements RevisionSource
 {
-	static final Revisions REVISIONS =
+	public Revisions get()
+	{
+		return
 		new Revisions(
 			0
 		);
-
-	private SamplerRevisions()
-	{
-		// prevent instantiation
 	}
 }
