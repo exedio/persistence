@@ -7,8 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
-* Change Revisions
- - Model#getRevisions() works only, if model is connected, throws exception otherwise
+* Introduce RevisionsFuture,
+	allows late computation of Revisions, when model is already connected.
+	- Model#getRevisions() works only, if model is connected, throws exception otherwise.
 * add Model#getRevisionLogsAndMutex()
 * deprecate Schedule#run(Interrupter),
 	affects instrumented code
