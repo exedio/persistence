@@ -19,8 +19,8 @@
 package com.exedio.cope.misc;
 
 import com.exedio.cope.EnvironmentInfo;
-import com.exedio.cope.RevisionsFuture;
 import com.exedio.cope.Revisions;
+import com.exedio.cope.RevisionsFuture;
 
 public final class DirectRevisionsFuture implements RevisionsFuture
 {
