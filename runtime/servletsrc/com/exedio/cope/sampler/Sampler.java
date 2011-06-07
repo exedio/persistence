@@ -64,14 +64,16 @@ public final class Sampler
 
 		this.sampledModel = sampledModel;
 
+		final SamplerRevisions revisions = new SamplerRevisions();
 		this.samplerModel =
 			new Model(
-				new SamplerRevisions(),
+				revisions,
 				SamplerModel.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
 				SamplerPurge.TYPE);
+		revisions.setModel(this.samplerModel);
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : sampledModel.getTypes())

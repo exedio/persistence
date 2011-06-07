@@ -18,19 +18,41 @@
 
 package com.exedio.cope.sampler;
 
+import com.exedio.cope.Model;
 import com.exedio.cope.RevisionSource;
 import com.exedio.cope.Revisions;
 
-/**
- * Currently works for MySQL only.
- */
 final class SamplerRevisions implements RevisionSource
 {
+	private Model model = null;
+
 	public Revisions get()
+	{
+		final String db = model.getEnvironmentInfo().getDatabaseProductName();
+
+		if("mysql".equalsIgnoreCase(db))
+			return getMysql();
+		else
+			return getOthers();
+	}
+
+	private Revisions getMysql()
+	{
+		return new Revisions(
+			0
+		);
+	}
+
+	private Revisions getOthers()
 	{
 		return
 		new Revisions(
 			0
 		);
+	}
+
+	void setModel(final Model model)
+	{
+		this.model = model;
 	}
 }
