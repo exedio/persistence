@@ -52,11 +52,11 @@ public class ReviseTest extends CopeAssert
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 		);
 
-	private static final class SettableRevisionSource implements RevisionsFuture
+	private static final class TestRevisionSource implements RevisionsFuture
 	{
 		Revisions revisions;
 
-		SettableRevisionSource(final Revisions revisions)
+		TestRevisionSource(final Revisions revisions)
 		{
 			this.revisions = revisions;
 		}
@@ -68,7 +68,7 @@ public class ReviseTest extends CopeAssert
 		}
 	}
 
-	private static final SettableRevisionSource revisions7Source = new SettableRevisionSource(revisions7Missing);
+	private static final TestRevisionSource revisions7Source = new TestRevisionSource(revisions7Missing);
 
 	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
 
