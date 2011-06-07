@@ -34,7 +34,7 @@ public class TypeSetModelComplexTest extends CopeAssert
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);
 
-		final Model model = new Model((Revisions)null, new TypeSet[]{typeSetA, typeSetB}, type1, type2);
+		final Model model = new Model((RevisionSource)null, new TypeSet[]{typeSetA, typeSetB}, type1, type2);
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypes());
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypesSortedByHierarchy());
 
