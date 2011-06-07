@@ -45,10 +45,7 @@ final class SamplerRevisions implements RevisionSource
 
 	private Revisions getOthers()
 	{
-		return
-		new Revisions(
-			0
-		);
+		return new Revisions(0);
 	}
 
 	void setModel(final Model model)
