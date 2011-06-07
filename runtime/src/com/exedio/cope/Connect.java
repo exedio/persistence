@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 final class Connect
 {
 	final long date = System.currentTimeMillis();
-	private final RevisionContainer revisions;
+	private final RevisionsConnect revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
 	final ConnectionFactory connectionFactory;
@@ -112,7 +112,7 @@ final class Connect
 				}
 			}
 		}
-		this.revisions = RevisionContainer.wrap(dialectParameters.environmentInfo, revisionSource);
+		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionSource);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(

@@ -44,7 +44,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private final RevisionContainer revisions;
+	private final RevisionsConnect revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
@@ -57,7 +57,7 @@ final class Database
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final RevisionContainer revisions)
+			final RevisionsConnect revisions)
 	{
 		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
