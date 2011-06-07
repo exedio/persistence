@@ -42,6 +42,9 @@ public final class ImmediateRevisionSource implements RevisionSource
 
 	public Revisions get(final EnvironmentInfo environment)
 	{
+		if(environment!=null)
+			throw new NullPointerException();
+
 		return revisions;
 	}
 }
