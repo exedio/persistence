@@ -34,14 +34,12 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		super(CacheIsolationTest.MODEL);
 	}
 
-	boolean cache = false;
 	CacheIsolationItem item = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		cache = model.getConnectProperties().getItemCacheLimit()>0;
 		item = deleteOnTearDown(new CacheIsolationItem("name0"));
 	}
 
