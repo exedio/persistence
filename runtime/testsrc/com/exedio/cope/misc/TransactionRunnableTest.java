@@ -40,9 +40,6 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		item = null;
 	}
 
-	// no thread is spawned for the Runnable, thus asserts still can cause the test to fail.
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
-
 	public void testIt()
 	{
 		assertContains(TYPE.search());
@@ -51,6 +48,8 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		assertFalse(model.hasCurrentTransaction());
 		final TransactionRunnable tr1 =
 			new TransactionRunnable(model, new Runnable(){
+				// no thread is spawned, thus asserts still can cause the test to fail.
+				@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals("name1", model.currentTransaction().getName());
@@ -60,6 +59,8 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 			"name1");
 		final TransactionRunnable tr2 =
 			new TransactionRunnable(model, new Runnable(){
+				// no thread is spawned, thus asserts still can cause the test to fail.
+				@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals(null, model.currentTransaction().getName());
