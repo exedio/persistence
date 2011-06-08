@@ -387,6 +387,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			assertTrue(from.before(until));
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT")
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -446,6 +447,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			assertTrue(!run.before(until));
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT")
 		@Override
 		public boolean equals(final Object other)
 		{
