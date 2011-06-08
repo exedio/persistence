@@ -208,7 +208,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		{
 			final Collection<Item> items = event.getItems();
 
-			assertTrue(items!=null);
+			assertNotNull(items);
 			assertTrue(!items.isEmpty());
 			assertUnmodifiable(items);
 			assertEquals(items.toString(), event.toString());
