@@ -132,7 +132,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean nullsFirst;
 
 	private final ArrayList<File> files = new ArrayList<File>();
-	private TestByteArrayInputStream testStream;
+	private TestByteArrayInputStream testStream = null;
 	protected String mediaRootUrl = null;
 
 	static
