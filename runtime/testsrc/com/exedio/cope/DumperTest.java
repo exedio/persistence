@@ -81,6 +81,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testMandatory() throws IOException
 	{
 		try
@@ -98,6 +99,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testLength() throws IOException
 	{
 		try
