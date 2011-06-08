@@ -53,6 +53,9 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
+	// dead store is needed to assign nll for testing garbace collection
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
+
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
