@@ -268,7 +268,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailListener implements ChangeListener
+	private static final class FailListener implements ChangeListener
 	{
 		FailListener()
 		{
