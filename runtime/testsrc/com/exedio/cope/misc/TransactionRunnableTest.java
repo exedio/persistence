@@ -40,6 +40,9 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		item = null;
 	}
 
+	// no thread is spawned for the Runnable, thus asserts still can cause the test to fail.
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
+
 	public void testIt()
 	{
 		assertContains(TYPE.search());
