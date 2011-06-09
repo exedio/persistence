@@ -25,6 +25,7 @@ class CreateSuperItem extends Item
 {
 	static final StringField text = new StringField();
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused")
 	private static final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
 	{

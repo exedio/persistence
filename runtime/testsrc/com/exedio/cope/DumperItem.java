@@ -27,6 +27,7 @@ public class DumperItem extends Item
 
 	static int beforeNewCopeItemCount = 0;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused") // called by reflection
 	private static SetValue[] beforeNewCopeItem(final SetValue[] setValues)
 	{
