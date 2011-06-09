@@ -26,7 +26,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class ThumbnailTest extends AbstractRuntimeTest
+public final class ThumbnailTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailItem.TYPE);
 
@@ -52,7 +52,7 @@ public class ThumbnailTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailItem());
 		txt = deleteOnTearDown(new ThumbnailItem());
 		emp = deleteOnTearDown(new ThumbnailItem());
-		jpg.setFile(getClass().getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");

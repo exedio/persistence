@@ -26,7 +26,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class ThumbnailMagickTest extends AbstractRuntimeTest
+public final class ThumbnailMagickTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
 
@@ -52,7 +52,7 @@ public class ThumbnailMagickTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailMagickItem());
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
-		jpg.setFile(getClass().getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
+		jpg.setFile(ThumbnailMagickTest.class.getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");
