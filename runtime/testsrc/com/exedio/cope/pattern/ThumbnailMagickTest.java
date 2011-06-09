@@ -43,6 +43,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 	private ThumbnailMagickItem item, jpg, png, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
+	// Ok, because Media#set(Item,InputStream,String) closes the stream.
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("OBL_UNSATISFIED_OBLIGATION")
+
 	@Override
 	public void setUp() throws Exception
 	{
