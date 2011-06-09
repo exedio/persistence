@@ -27,6 +27,9 @@ import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
+import static java.lang.Double.valueOf;
+import static java.lang.Integer.valueOf;
+import static java.lang.Long.valueOf;
 
 import java.util.Date;
 
@@ -203,9 +206,9 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// min
 		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<String>(string.min()).toString());
 		assertEquals("string1", new Query<String>(string.min()).searchSingleton());
-		assertEquals(new Integer(1), new Query<Integer>(intx.min()).searchSingleton());
-		assertEquals(new Long(11l), new Query<Long>(longx.min()).searchSingleton());
-		assertEquals(new Double(2.1), new Query<Double>(doublex.min()).searchSingleton());
+		assertEquals(valueOf(1), new Query<Integer>(intx.min()).searchSingleton());
+		assertEquals(valueOf(11l), new Query<Long>(longx.min()).searchSingleton());
+		assertEquals(valueOf(2.1), new Query<Double>(doublex.min()).searchSingleton());
 		assertEquals(date(-2), new Query<Date>(date.min()).searchSingleton());
 		assertEquals(day(-2), new Query<Day>(day.min()).searchSingleton());
 		assertEquals(YEnum.V1, new Query<YEnum>(enumx.min()).searchSingleton());
@@ -255,51 +258,51 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		{
 			final Query<Integer> q = new Query<Integer>(intx.sum());
 			assertEquals("select sum(" + intx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Integer(1+2+3+4+5), q.searchSingleton());
+			assertEquals(valueOf(1+2+3+4+5), q.searchSingleton());
 			q.setCondition(intx.less(4));
 			assertEquals("select sum(" + intx.getName() + ") from " + TYPE + " where " + intx.getName() + "<'4'", q.toString());
-			assertEquals(new Integer(1+2+3), q.searchSingleton());
+			assertEquals(valueOf(1+2+3), q.searchSingleton());
 		}
 		{
 			final Query<Long> q = new Query<Long>(longx.sum());
 			assertEquals("select sum(" + longx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Long(11+12+13+14+15), q.searchSingleton());
+			assertEquals(valueOf(11l+12l+13l+14l+15l), q.searchSingleton());
 			q.setCondition(longx.less(14l));
 			assertEquals("select sum(" + longx.getName() + ") from " + TYPE + " where " + longx.getName() + "<'14'", q.toString());
-			assertEquals(new Long(11+12+13), q.searchSingleton());
+			assertEquals(valueOf(11l+12l+13l), q.searchSingleton());
 		}
 		{
 			final Query<Double> q = new Query<Double>(doublex.sum());
 			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Double(2.1+2.2+2.3+2.4+2.5).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals(2.1+2.2+2.3+2.4+2.5, q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));
 			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
-			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals(2.1+2.2+2.3, q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 		// average
 		{
 			final Query<Integer> q = new Query<Integer>(intx.average());
 			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Integer((1+2+3+4+5)/5), q.searchSingleton());
+			assertEquals(valueOf((1+2+3+4+5)/5), q.searchSingleton());
 			q.setCondition(intx.less(4));
 			assertEquals("select avg(" + intx.getName() + ") from " + TYPE + " where " + intx.getName() + "<'4'", q.toString());
-			assertEquals(new Integer((1+2+3)/3), q.searchSingleton());
+			assertEquals(valueOf((1+2+3)/3), q.searchSingleton());
 		}
 		{
 			final Query<Long> q = new Query<Long>(longx.average());
 			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Long((11+12+13+14+15)/5l), q.searchSingleton());
+			assertEquals(valueOf((11l+12l+13l+14l+15l)/5l), q.searchSingleton());
 			q.setCondition(longx.less(14l));
 			assertEquals("select avg(" + longx.getName() + ") from " + TYPE + " where " + longx.getName() + "<'14'", q.toString());
-			assertEquals(new Long((11+12+13)/3l), q.searchSingleton());
+			assertEquals(valueOf((11+12+13)/3l), q.searchSingleton());
 		}
 		{
 			final Query<Double> q = new Query<Double>(doublex.average());
 			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE, q.toString());
-			assertEquals(new Double((2.1+2.2+2.3+2.4+2.5)/5.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals((2.1+2.2+2.3+2.4+2.5)/5.0, q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));
 			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
-			assertEquals(new Double((2.1+2.2+2.3)/3.0).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals((2.1+2.2+2.3)/3.0, q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 
 		model.checkUnsupportedConstraints();
