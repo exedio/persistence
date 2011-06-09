@@ -290,6 +290,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		dontDeleteOnTearDown(item);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		Connection connection = null;

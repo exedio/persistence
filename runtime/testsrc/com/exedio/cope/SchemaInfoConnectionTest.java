@@ -48,6 +48,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -75,6 +76,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
