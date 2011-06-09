@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
+import static java.lang.Integer.valueOf;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -81,7 +82,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(5), item.getNameLength(DE));
+		assertEquals(valueOf(5), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
@@ -90,7 +91,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
@@ -99,7 +100,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
@@ -108,7 +109,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
