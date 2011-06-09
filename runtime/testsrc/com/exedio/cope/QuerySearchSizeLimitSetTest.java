@@ -37,10 +37,11 @@ public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
 		q.setSearchSizeLimit(5);
 		assertEquals(5, q.getSearchSizeLimit());
 
-		// limit 4
-		q.setSearchSizeLimit(4);
-		assertEquals(4, q.getSearchSizeLimit());
+		// limit 1
+		q.setSearchSizeLimit(1);
+		assertEquals(1, q.getSearchSizeLimit());
 
+		// failures
 		try
 		{
 			q.setSearchSizeLimit(0);
@@ -50,6 +51,6 @@ public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
 		{
 			assertEquals("searchSizeLimit must be greater zero, but was 0", e.getMessage());
 		}
-		assertEquals(4, q.getSearchSizeLimit());
+		assertEquals(1, q.getSearchSizeLimit());
 	}
 }
