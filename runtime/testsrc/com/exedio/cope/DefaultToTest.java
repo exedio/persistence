@@ -325,7 +325,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 
 	private static final Integer integer(final int i)
 	{
-		return new Integer(i);
+		return Integer.valueOf(i);
 	}
 
 	private static final Date date(final long l)

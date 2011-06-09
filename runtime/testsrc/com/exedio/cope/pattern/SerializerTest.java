@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.Integer.valueOf;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -115,7 +117,7 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMap());
 
 		item.setInteger(11);
-		assertEquals(new Integer(11), item.getInteger());
+		assertEquals(valueOf(11), item.getInteger());
 
 		item.setMap(map1);
 		assertEquals(map1, item.getMap());
@@ -125,7 +127,7 @@ public class SerializerTest extends AbstractRuntimeTest
 				item.integer.map(22),
 				item.map.map(map2)
 		);
-		assertEquals(new Integer(22), item.getInteger());
+		assertEquals(valueOf(22), item.getInteger());
 		assertEquals(map2, item.getMap());
 		assertNotSame(map2, item.getMap());
 
@@ -141,7 +143,7 @@ public class SerializerTest extends AbstractRuntimeTest
 				item.integer.map(33),
 				item.map.map(map1),
 		}));
-		assertEquals(new Integer(33), item2.getInteger());
+		assertEquals(valueOf(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
 
@@ -149,7 +151,7 @@ public class SerializerTest extends AbstractRuntimeTest
 				item.integer.map(44),
 				item.map.map(map2)
 		));
-		assertEquals(new Integer(44), item3.getInteger());
+		assertEquals(valueOf(44), item3.getInteger());
 		assertEquals(map2, item3.getMap());
 		assertNotSame(map2, item3.getMap());
 	}

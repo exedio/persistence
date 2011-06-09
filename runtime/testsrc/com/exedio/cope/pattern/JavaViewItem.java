@@ -32,7 +32,7 @@ public class JavaViewItem extends Item
 	Double getNumber()
 	{
 		final String s = getNumberString();
-		return s!=null ? new Double(Double.parseDouble(s)) : null;
+		return s!=null ? Double.valueOf(Double.parseDouble(s)) : null;
 	}
 
 	double getNumberPrimitive()

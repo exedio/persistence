@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.Integer.valueOf;
+
 import java.util.Date;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
@@ -307,9 +309,9 @@ public class IntegerTest extends AbstractRuntimeTest
 
 		// any
 		item.setAny(1234);
-		assertEquals(new Integer(1234), item.getAny());
+		assertEquals(valueOf(1234), item.getAny());
 		item.setAny(123);
-		assertEquals(new Integer(123), item.getAny());
+		assertEquals(valueOf(123), item.getAny());
 
 		// mandatory
 		assertEquals(2201, item.getMandatory());
@@ -385,11 +387,11 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4());
 
 		item.setMin4(4);
-		assertEquals(new Integer(4), item.getMin4());
+		assertEquals(valueOf(4), item.getMin4());
 
 		// max4
 		item.setMax4(4);
-		assertEquals(new Integer(4), item.getMax4());
+		assertEquals(valueOf(4), item.getMax4());
 		try
 		{
 			item.setMax4(5);
@@ -408,9 +410,9 @@ public class IntegerTest extends AbstractRuntimeTest
 					"must be at most 4.",
 					e.getMessage());
 		}
-		assertEquals(new Integer(4), item.getMax4());
+		assertEquals(valueOf(4), item.getMax4());
 		restartTransaction();
-		assertEquals(new Integer(4), item.getMax4());
+		assertEquals(valueOf(4), item.getMax4());
 
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
@@ -477,13 +479,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4Max8());
 
 		item.setMin4Max8(4);
-		assertEquals(new Integer(4), item.getMin4Max8());
+		assertEquals(valueOf(4), item.getMin4Max8());
 
 		item.setMin4Max8(8);
-		assertEquals(new Integer(8), item.getMin4Max8());
+		assertEquals(valueOf(8), item.getMin4Max8());
 
 		restartTransaction();
-		assertEquals(new Integer(8), item.getMin4Max8());
+		assertEquals(valueOf(8), item.getMin4Max8());
 
 		try
 		{
@@ -503,9 +505,9 @@ public class IntegerTest extends AbstractRuntimeTest
 					"must be at most 8.",
 					e.getMessage());
 		}
-		assertEquals(new Integer(8), item.getMin4Max8());
+		assertEquals(valueOf(8), item.getMin4Max8());
 		restartTransaction();
-		assertEquals(new Integer(8), item.getMin4Max8());
+		assertEquals(valueOf(8), item.getMin4Max8());
 
 
 		model.checkUnsupportedConstraints();

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.Long.valueOf;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,9 +49,9 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 		assertEquals(l7, item1.getPlusAB());
 		assertEquals(l3, item2.getPlusAB());
 		assertEquals(l8, item3.getPlusAB());
-		assertEquals(new Long(-6000l), item1.getMultiplyBC());
-		assertEquals(new Long(-1000l), item2.getMultiplyBC());
-		assertEquals(new Long(-2000l), item3.getMultiplyBC());
+		assertEquals(valueOf(-6000l), item1.getMultiplyBC());
+		assertEquals(valueOf(-1000l), item2.getMultiplyBC());
+		assertEquals(valueOf(-2000l), item3.getMultiplyBC());
 
 		assertOrder(list(item1, item2, item3), item1.numA);
 		assertOrder(list(item2, item3, item1), item1.numB);

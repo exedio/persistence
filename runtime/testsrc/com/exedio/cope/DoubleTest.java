@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.Double.valueOf;
+
 import java.util.Date;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
@@ -282,9 +284,9 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		// any
 		item.setAny(1234.56);
-		assertEquals(new Double(1234.56), item.getAny());
+		assertEquals(valueOf(1234.56), item.getAny());
 		item.setAny(123.45);
-		assertEquals(new Double(123.45), item.getAny());
+		assertEquals(valueOf(123.45), item.getAny());
 
 		// mandatory
 		assertEquals(2201.01, item.getMandatory());
@@ -360,11 +362,11 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4());
 
 		item.setMin4(4.0);
-		assertEquals(new Double(4.0), item.getMin4());
+		assertEquals(valueOf(4.0), item.getMin4());
 
 		// max4
 		item.setMax4(4.0);
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 		try
 		{
 			item.setMax4(4.1);
@@ -383,9 +385,9 @@ public class DoubleTest extends AbstractRuntimeTest
 					"must be at most 4.0.",
 					e.getMessage());
 		}
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 		restartTransaction();
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
@@ -452,13 +454,13 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4Max8());
 
 		item.setMin4Max8(4.0);
-		assertEquals(new Double(4.0), item.getMin4Max8());
+		assertEquals(valueOf(4.0), item.getMin4Max8());
 
 		item.setMin4Max8(8.0);
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
 		restartTransaction();
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
 		try
 		{
@@ -478,9 +480,9 @@ public class DoubleTest extends AbstractRuntimeTest
 					"must be at most 8.0.",
 					e.getMessage());
 		}
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 		restartTransaction();
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
 
 		model.checkUnsupportedConstraints();

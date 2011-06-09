@@ -50,9 +50,9 @@ public final class PriceTest extends CopeAssert
 
 	public void testStoreOfInteger()
 	{
-		assertEquals( 5, storeOf(new Integer( 5)).store());
-		assertEquals(-5, storeOf(new Integer(-5)).store());
-		assertSame(ZERO, storeOf(new Integer(0)));
+		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
+		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
+		assertSame(ZERO, storeOf(Integer.valueOf( 0)));
 		assertEquals(null, storeOf((Integer)null));
 	}
 
@@ -246,8 +246,8 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).equals(storeOf( 124)));
 		assertFalse(storeOf(123).equals(storeOf(-123)));
 		assertNotSame(storeOf(123), storeOf(123));
-		assertFalse(storeOf(123).equals(new Integer(123)));
-		assertFalse(storeOf(123).equals(new Double(1.23)));
+		assertFalse(storeOf(123).equals(Integer.valueOf(123)));
+		assertFalse(storeOf(123).equals(Double.valueOf(1.23)));
 		assertFalse(storeOf(123).equals(null));
 	}
 

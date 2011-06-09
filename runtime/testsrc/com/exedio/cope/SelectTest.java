@@ -102,7 +102,7 @@ public class SelectTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(
 				someString, someStringUppercase, Integer.valueOf(someStringLength),
 				someNotNullString, Integer.valueOf(someNotNullInteger), Long.valueOf(someNotNullLong),
-				new Double(someNotNullDouble), new Boolean(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
+				Double.valueOf(someNotNullDouble), Boolean.valueOf(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
 			(List<?>)i.next());
 	}
 

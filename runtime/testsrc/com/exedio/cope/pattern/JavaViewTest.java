@@ -34,7 +34,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		MODEL.enableSerialization(JavaViewTest.class, "MODEL");
 	}
 
-	private static final Double d2 = new Double(2.25d);
+	private static final Double d2 = Double.valueOf(2.25d);
 
 	public JavaViewTest()
 	{

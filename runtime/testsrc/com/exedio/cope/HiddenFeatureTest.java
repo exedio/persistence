@@ -128,7 +128,7 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		assertEquals("hiddenSameSuperSub", sb.getHiddenSame());
 		assertEquals("hiddenOtherSuperSub", sb.getHiddenOther());
 		assertEquals("hiddenSameSub", sb.hiddenSame.get(sb));
-		assertEquals(new Integer(55), sb.hiddenOther.get(sb));
+		assertEquals(Integer.valueOf(55), sb.hiddenOther.get(sb));
 
 		assertContains(sp, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
 		assertContains(sp, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));

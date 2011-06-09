@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.Double.valueOf;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,9 +51,9 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);
 		assertEquals(d3.doubleValue(), item2.getPlusAB(), EPS);
 		assertEquals(d8, item3.getPlusAB());
-		assertEquals(new Double(6.6 * -1000.99), item1.getMultiplyBC());
-		assertEquals(new Double(1.1 * -1000.99), item2.getMultiplyBC());
-		assertEquals(new Double(2.2 * -1000.99), item3.getMultiplyBC());
+		assertEquals(valueOf(6.6 * -1000.99), item1.getMultiplyBC());
+		assertEquals(valueOf(1.1 * -1000.99), item2.getMultiplyBC());
+		assertEquals(valueOf(2.2 * -1000.99), item3.getMultiplyBC());
 
 		assertOrder(list(item1, item2, item3), item1.numA);
 		assertOrder(list(item2, item3, item1), item1.numB);

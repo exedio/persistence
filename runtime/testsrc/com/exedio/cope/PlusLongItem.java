@@ -27,7 +27,7 @@ public class PlusLongItem extends Item
 
 	public static final LongField numC = new LongField().optional();
 
-	public static final PlusLiteralView<Long> plusA9 = PlusLiteralView.plus(numA, new Long(9l));
+	public static final PlusLiteralView<Long> plusA9 = PlusLiteralView.plus(numA, Long.valueOf(9l));
 
 	public static final PlusView<Long> plusAB = numA.plus(numB);
 
@@ -39,7 +39,7 @@ public class PlusLongItem extends Item
 
 	public static final PlusView<Long> plusABaC = plusAB.plus(numC);
 
-	public static final MultiplyLiteralView<Long> multiplyB9 = MultiplyLiteralView.multiply(numB, new Long(9l));
+	public static final MultiplyLiteralView<Long> multiplyB9 = MultiplyLiteralView.multiply(numB, Long.valueOf(9l));
 
 	public static final MultiplyView<Long> multiplyBC = numB.multiply(numC);
 

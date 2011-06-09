@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.Double.valueOf;
+
 public class FieldDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;
@@ -34,15 +36,15 @@ public class FieldDoubleTest extends FieldTest
 		assertContains(item.TYPE.search(item.someDouble.notEqual((Double)null)));
 		assertContains(item.TYPE.search(item.someDouble.isNotNull()));
 
-		item.someDouble.set(item, new Double(44.44));
-		assertEquals(new Double(44.44), item.getSomeDouble());
+		item.someDouble.set(item, valueOf(44.44));
+		assertEquals(valueOf(44.44), item.getSomeDouble());
 
 		item.someDouble.set(item, 33.33);
-		assertEquals(new Double(33.33), item.getSomeDouble());
+		assertEquals(valueOf(33.33), item.getSomeDouble());
 
-		item.setSomeDouble(new Double(22.22));
-		assertEquals(new Double(22.22), item.getSomeDouble());
-		assertEquals(new Double(22.22), item.someDouble.get(item));
+		item.setSomeDouble(valueOf(22.22));
+		assertEquals(valueOf(22.22), item.getSomeDouble());
+		assertEquals(valueOf(22.22), item.someDouble.get(item));
 		try
 		{
 			item.someDouble.getMandatory(item);
@@ -54,7 +56,7 @@ public class FieldDoubleTest extends FieldTest
 		}
 
 		restartTransaction();
-		assertEquals(new Double(22.22), item.getSomeDouble());
+		assertEquals(valueOf(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
 			item.TYPE.search(item.someDouble.equal(22.22)));
@@ -66,8 +68,8 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(list(item), item.TYPE.search(item.someDouble.notEqual((Double)null)));
 		assertEquals(list(item), item.TYPE.search(item.someDouble.isNotNull()));
 
-		assertContains(new Double(22.22), null, search(item.someDouble));
-		assertContains(new Double(22.22), search(item.someDouble, item.someDouble.equal(new Double(22.22))));
+		assertContains(valueOf(22.22), null, search(item.someDouble));
+		assertContains(valueOf(22.22), search(item.someDouble, item.someDouble.equal(valueOf(22.22))));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
@@ -97,13 +99,13 @@ public class FieldDoubleTest extends FieldTest
 
 		item.setSomeNotNullDouble(2.5);
 		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
-		assertEquals(new Double(2.5), item.someNotNullDouble.get(item));
+		assertEquals(valueOf(2.5), item.someNotNullDouble.get(item));
 		assertEquals(2.5, item.someNotNullDouble.getMandatory(item), 0.0);
 
 		item.someNotNullDouble.set(item, 2.9);
 		assertEquals(2.9, item.getSomeNotNullDouble(), 0.0);
 
-		item.someNotNullDouble.set(item, new Double(3.1));
+		item.someNotNullDouble.set(item, valueOf(3.1));
 		assertEquals(3.1, item.getSomeNotNullDouble(), 0.0);
 
 		item.setSomeNotNullDouble(0.0);

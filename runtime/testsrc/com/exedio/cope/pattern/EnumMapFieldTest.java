@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
+import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
@@ -111,28 +112,28 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(5), item.getNameLength(DE));
+		assertEquals(valueOf(5), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
 
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
 
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
 
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));

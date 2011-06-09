@@ -494,7 +494,7 @@ public class DataTest extends AbstractRuntimeTest
 		try
 		{
 			DataItem.TYPE.newItem(
-					new SetValue(DataItem.data, new Integer(1))
+					new SetValue(DataItem.data, Integer.valueOf(1))
 			);
 			fail();
 		}

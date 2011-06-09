@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.lang.Double.valueOf;
+
 import java.util.Date;
 import java.util.List;
 
@@ -200,7 +202,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(list(), event1.getFeatures());
 		assertEqualsUnmodifiable(list(event1), item.getAuditEvents());
 
-		final Feature feature11 = event1.createFeature(item.amount, "Amount", new Double(1.1), new Double(2.2));
+		final Feature feature11 = event1.createFeature(item.amount, "Amount", valueOf(1.1), valueOf(2.2));
 		assertSame(item.audit, feature11.getPattern());
 		assertEquals(event1, feature11.getEvent());
 		assertSame(item.amount, feature11.getFeature());
