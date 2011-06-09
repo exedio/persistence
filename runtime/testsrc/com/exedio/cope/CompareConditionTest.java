@@ -237,9 +237,9 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// max
 		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<String>(string.max()).toString());
 		assertEquals("string5", new Query<String>(string.max()).searchSingleton());
-		assertEquals(new Integer(5), new Query<Integer>(intx.max()).searchSingleton());
-		assertEquals(new Long(15l), new Query<Long>(longx.max()).searchSingleton());
-		assertEquals(new Double(2.5), new Query<Double>(doublex.max()).searchSingleton());
+		assertEquals(valueOf(5),   new Query<Integer>(intx.max()   ).searchSingleton());
+		assertEquals(valueOf(15l), new Query<Long>   (longx.max()  ).searchSingleton());
+		assertEquals(valueOf(2.5), new Query<Double> (doublex.max()).searchSingleton());
 		assertEquals(date(+2), new Query<Date>(date.max()).searchSingleton());
 		assertEquals(day(+2), new Query<Day>(day.max()).searchSingleton());
 		assertEquals(YEnum.V5, new Query<YEnum>(enumx.max()).searchSingleton());
