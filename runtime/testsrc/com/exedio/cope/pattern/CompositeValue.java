@@ -37,6 +37,7 @@ public final class CompositeValue extends Composite
 	public static final ItemField<CompositeOptionalItem> anItem = newItemField(CompositeOptionalItem.class);
 
 	// test, that these fields do not become fields of the composite value
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	final transient BooleanField notStatic = new BooleanField();
 	static BooleanField notFinal = new BooleanField();
 	static final Object noFeature = new BooleanField();
