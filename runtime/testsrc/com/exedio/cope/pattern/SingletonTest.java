@@ -18,6 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.SingletonItem.TYPE;
+import static com.exedio.cope.pattern.SingletonItem.booleanField;
+import static com.exedio.cope.pattern.SingletonItem.einzigartig;
+import static com.exedio.cope.pattern.SingletonItem.integer;
+import static com.exedio.cope.pattern.SingletonItem.integer55;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -43,45 +49,44 @@ public final class SingletonTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		final SingletonItem item = null;
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.integer,
-				item.integer55,
-				item.booleanField,
-				item.einzigartig,
-				item.einzigartig.getSource(),
-				item.einzigartig.getSource().getImplicitUniqueConstraint(),
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				integer,
+				integer55,
+				booleanField,
+				einzigartig,
+				einzigartig.getSource(),
+				einzigartig.getSource().getImplicitUniqueConstraint(),
+			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.integer,
-				item.integer55,
-				item.booleanField,
-				item.einzigartig,
-				item.einzigartig.getSource(),
-				item.einzigartig.getSource().getImplicitUniqueConstraint(),
-			}), item.TYPE.getDeclaredFeatures());
+				TYPE.getThis(),
+				integer,
+				integer55,
+				booleanField,
+				einzigartig,
+				einzigartig.getSource(),
+				einzigartig.getSource().getImplicitUniqueConstraint(),
+			}), TYPE.getDeclaredFeatures());
 
-		assertEquals(item.TYPE, item.einzigartig.getSource().getType());
-		assertEquals(item.TYPE, item.einzigartig.getType());
-		assertEquals("einzigartig-once",item.einzigartig.getSource().getName());
-		assertEquals("einzigartig",     item.einzigartig.getName());
+		assertEquals(TYPE, einzigartig.getSource().getType());
+		assertEquals(TYPE, einzigartig.getType());
+		assertEquals("einzigartig-once",einzigartig.getSource().getName());
+		assertEquals("einzigartig",     einzigartig.getName());
 
-		assertEquals(item.einzigartig, item.einzigartig.getSource().getPattern());
+		assertEquals(einzigartig, einzigartig.getSource().getPattern());
 
-		assertFalse(item.einzigartig.            isAnnotationPresent(Computed.class));
-		assertTrue (item.einzigartig.getSource().isAnnotationPresent(Computed.class));
+		assertFalse(einzigartig.            isAnnotationPresent(Computed.class));
+		assertTrue (einzigartig.getSource().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.einzigartig, 387);
+		assertSerializedSame(einzigartig, 387);
 
 		// test persistence
-		assertEquals("einzigartig_once", SchemaInfo.getColumnName(item.einzigartig.getSource()));
+		assertEquals("einzigartig_once", SchemaInfo.getColumnName(einzigartig.getSource()));
 
-		assertEquals(list(), item.TYPE.search());
+		assertEquals(list(), TYPE.search());
 
 		final SingletonItem theOne = deleteOnTearDown(SingletonItem.instance());
-		assertEquals(list(theOne), item.TYPE.search());
+		assertEquals(list(theOne), TYPE.search());
 		assertEquals(null, theOne.getInteger());
 		assertEquals(55, theOne.getInteger55());
 		assertEquals(true, theOne.getBooleanField());

@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.someInteger;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
+import static com.exedio.cope.testmodel.AttributeItem.someString;
+
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -26,22 +30,21 @@ public class SearchTest extends TestmodelTest
 	public void testSearch()
 	{
 		// test conditions
-		final AttributeItem x = null;
 		assertEquals(
-				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")),
-				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
+				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
 		assertNotEquals(
-				Cope.and(x.someString.equal("aX"),x.someNotNullString.equal("b")),
-				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+				Cope.and(someString.equal("aX"),someNotNullString.equal("b")),
+				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
 		assertNotEquals(
-				Cope.and(x.someString.equal("a"),x.someNotNullString.like("b")),
-				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+				Cope.and(someString.equal("a"),someNotNullString.like("b")),
+				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
 		assertNotEquals( // not commutative
-				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")),
-				Cope.and(x.someNotNullString.equal("b"),x.someString.equal("a")));
+				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
+				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
 
 		// test illegal searches
-		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(x.someInteger.equal(0));
+		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
 		try
 		{
 			illegalQuery.search();

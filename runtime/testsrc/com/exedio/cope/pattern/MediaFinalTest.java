@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaFinalItem.TYPE;
+import static com.exedio.cope.pattern.MediaFinalItem.file;
 import static com.exedio.cope.util.SafeFile.delete;
 
 import java.io.File;
@@ -36,7 +38,7 @@ import com.exedio.cope.StringField;
 
 public class MediaFinalTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(MediaFinalItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	public MediaFinalTest()
 	{
@@ -52,55 +54,54 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(20, data20.length);
 
 		// test model
-		final MediaFinalItem t = null;
-		assertEquals(true, t.file.isInitial());
-		assertEquals(true, t.file.isFinal());
-		assertEquals(false, t.file.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(t.file));
-		assertContains(FinalViolationException.class, t.file.getInitialExceptions());
-		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
-		assertEquals("*/*", t.file.getContentTypeDescription());
-		assertEquals(null, t.file.getContentTypesAllowed());
-		assertEquals(20, t.file.getMaximumLength());
+		assertEquals(true, file.isInitial());
+		assertEquals(true, file.isFinal());
+		assertEquals(false, file.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(file));
+		assertContains(FinalViolationException.class, file.getInitialExceptions());
+		assertEquals(true, file.checkContentType("irgendwas/anderswas"));
+		assertEquals("*/*", file.getContentTypeDescription());
+		assertEquals(null, file.getContentTypesAllowed());
+		assertEquals(20, file.getMaximumLength());
 
-		final DataField body = t.file.getBody();
-		assertSame(t.TYPE, body.getType());
+		final DataField body = file.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("file-body", body.getName());
 		assertEquals(true, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
-		assertEquals(t.file, body.getPattern());
-		assertSame(t.file, Media.get(body));
+		assertEquals(file, body.getPattern());
+		assertSame(file, Media.get(body));
 
-		final StringField contentType = (StringField)t.file.getContentType();
-		assertSame(t.TYPE, contentType.getType());
+		final StringField contentType = (StringField)file.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
 		assertEquals(true, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
-		assertEquals(t.file, contentType.getPattern());
+		assertEquals(file, contentType.getPattern());
 
-		final DateField lastModified = t.file.getLastModified();
-		assertSame(t.TYPE, lastModified.getType());
+		final DateField lastModified = file.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
 		assertEquals(true, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertEquals(t.file, lastModified.getPattern());
+		assertEquals(file, lastModified.getPattern());
 
-		final CheckConstraint unison = t.file.getUnison();
-		assertSame(t.TYPE, unison.getType());
+		final CheckConstraint unison = file.getUnison();
+		assertSame(TYPE, unison.getType());
 		assertEquals("file-unison", unison.getName());
-		assertEquals(t.file, unison.getPattern());
+		assertEquals(file, unison.getPattern());
 		assertEquals(Cope.or(
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
 
 		// test persistence
-		assertEquals(list(), t.TYPE.search());
+		assertEquals(list(), TYPE.search());
 
 		final Date before = new Date();
 		final MediaFinalItem item = deleteOnTearDown(new MediaFinalItem(data20, "major/minor"));

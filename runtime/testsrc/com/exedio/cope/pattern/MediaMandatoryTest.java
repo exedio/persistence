@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaMandatoryItem.TYPE;
+import static com.exedio.cope.pattern.MediaMandatoryItem.file;
 import static com.exedio.cope.util.SafeFile.delete;
 
 import java.io.File;
@@ -34,7 +36,7 @@ import com.exedio.cope.StringField;
 
 public class MediaMandatoryTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(MediaMandatoryItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	public MediaMandatoryTest()
 	{
@@ -50,48 +52,47 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(20, data20.length);
 
 		// test model
-		final MediaMandatoryItem t = null;
-		assertEquals(true, t.file.isInitial());
-		assertEquals(false, t.file.isFinal());
-		assertEquals(true, t.file.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(t.file));
-		assertContains(MandatoryViolationException.class, t.file.getInitialExceptions());
-		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
-		assertEquals("*/*", t.file.getContentTypeDescription());
-		assertEquals(null, t.file.getContentTypesAllowed());
-		assertEquals(20, t.file.getMaximumLength());
+		assertEquals(true, file.isInitial());
+		assertEquals(false, file.isFinal());
+		assertEquals(true, file.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(file));
+		assertContains(MandatoryViolationException.class, file.getInitialExceptions());
+		assertEquals(true, file.checkContentType("irgendwas/anderswas"));
+		assertEquals("*/*", file.getContentTypeDescription());
+		assertEquals(null, file.getContentTypesAllowed());
+		assertEquals(20, file.getMaximumLength());
 
-		final DataField body = t.file.getBody();
-		assertSame(t.TYPE, body.getType());
+		final DataField body = file.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("file-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(true, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
-		assertEquals(t.file, body.getPattern());
-		assertSame(t.file, Media.get(body));
+		assertEquals(file, body.getPattern());
+		assertSame(file, Media.get(body));
 
-		final StringField contentType = (StringField)t.file.getContentType();
-		assertSame(t.TYPE, contentType.getType());
+		final StringField contentType = (StringField)file.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(true, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
-		assertEquals(t.file, contentType.getPattern());
+		assertEquals(file, contentType.getPattern());
 
-		final DateField lastModified = t.file.getLastModified();
-		assertSame(t.TYPE, lastModified.getType());
+		final DateField lastModified = file.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(true, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertEquals(t.file, lastModified.getPattern());
+		assertEquals(file, lastModified.getPattern());
 
-		assertNull(t.file.getUnison());
+		assertNull(file.getUnison());
 
 		// test persistence
-		assertEquals(list(), t.TYPE.search());
+		assertEquals(list(), TYPE.search());
 
 		final Date before = new Date();
 		final MediaMandatoryItem item = deleteOnTearDown(new MediaMandatoryItem(data20, "major/minor"));
