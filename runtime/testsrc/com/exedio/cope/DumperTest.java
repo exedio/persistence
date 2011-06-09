@@ -37,6 +37,7 @@ public class DumperTest extends AbstractRuntimeTest
 
 	private Dumper dumper = null;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Override
 	protected void setUp() throws Exception
 	{
