@@ -89,8 +89,6 @@ public class QueryInfoTest extends AbstractRuntimeTest
 
 		switch(dialect)
 		{
-			case HSQLDB:
-				break;
 			case MYSQL:
 			{
 				final QueryInfo plan = rootChilds.next();
@@ -128,6 +126,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 				}
 				break;
 			}
+			case HSQLDB:
 			case POSTGRESQL:
 				break;
 			default:
