@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DayItem.TYPE;
+import static java.lang.Integer.MIN_VALUE;
 
 public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
 {
@@ -50,6 +51,16 @@ public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("searchSizeLimit must be greater zero, but was 0", e.getMessage());
+		}
+		assertEquals(1, q.getSearchSizeLimit());
+		try
+		{
+			q.setSearchSizeLimit(MIN_VALUE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("searchSizeLimit must be greater zero, but was " + MIN_VALUE, e.getMessage());
 		}
 		assertEquals(1, q.getSearchSizeLimit());
 	}
