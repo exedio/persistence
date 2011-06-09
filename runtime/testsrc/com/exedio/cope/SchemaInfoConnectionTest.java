@@ -64,7 +64,15 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getTableName(InstanceOfAItem.TYPE)));
 
 		c = newConnection(model);
-		c.createStatement().execute(bf.toString());
+		final java.sql.Statement statement = c.createStatement();
+		try
+		{
+			statement.execute(bf.toString());
+		}
+		finally
+		{
+			statement.close();
+		}
 	}
 
 	public void testTypeColumn() throws SQLException
@@ -83,7 +91,15 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getTableName(InstanceOfRefItem.TYPE)));
 
 		c = newConnection(model);
-		c.createStatement().execute(bf.toString());
+		final java.sql.Statement statement = c.createStatement();
+		try
+		{
+			statement.execute(bf.toString());
+		}
+		finally
+		{
+			statement.close();
+		}
 	}
 
 	private String q(final String name)

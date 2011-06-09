@@ -298,7 +298,14 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 			connection = SchemaInfo.newConnection(model);
 			connection.setAutoCommit(true);
 			final Statement statement = connection.createStatement();
-			assertEquals(1, statement.executeUpdate(sql));
+			try
+			{
+				assertEquals(1, statement.executeUpdate(sql));
+			}
+			finally
+			{
+				statement.close();
+			}
 		}
 		finally
 		{
