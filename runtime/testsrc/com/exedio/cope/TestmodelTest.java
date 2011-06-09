@@ -26,8 +26,6 @@ import com.exedio.cope.testmodel.Main;
 
 public abstract class TestmodelTest extends AbstractRuntimeTest
 {
-	public static final Type[] modelTypes = Main.modelTypes;
-
 	public TestmodelTest()
 	{
 		super(Main.model);

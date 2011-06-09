@@ -22,8 +22,14 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.CollisionItem1;
+import com.exedio.cope.testmodel.CollisionItem2;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.cope.testmodel.FinalItem;
+import com.exedio.cope.testmodel.PointerItem;
+import com.exedio.cope.testmodel.PointerTargetItem;
+import com.exedio.cope.testmodel.StringItem;
 import com.exedio.dsmf.Constraint;
 
 public class ItemTest extends TestmodelTest
@@ -37,6 +43,16 @@ public class ItemTest extends TestmodelTest
 	{
 		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
+		final Type[] modelTypes = new Type[]{
+				EmptyItem.TYPE,
+				EmptyItem2.TYPE,
+				AttributeItem.TYPE,
+				StringItem.TYPE,
+				PointerTargetItem.TYPE,
+				PointerItem.TYPE,
+				FinalItem.TYPE,
+				CollisionItem1.TYPE,
+				CollisionItem2.TYPE};
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
 
