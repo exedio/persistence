@@ -43,7 +43,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
-	protected MediaItem item;
+	private MediaItem item;
 
 	@Override
 	public void setUp() throws Exception

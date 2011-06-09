@@ -49,7 +49,7 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	protected MediaUrlItem named, anond;
+	private MediaUrlItem named, anond;
 
 	@Override
 	public void setUp() throws Exception
