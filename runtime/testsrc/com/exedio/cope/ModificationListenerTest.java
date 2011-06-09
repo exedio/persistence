@@ -241,7 +241,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailListener implements ModificationListener
+	private static final class FailListener implements ModificationListener
 	{
 		FailListener()
 		{

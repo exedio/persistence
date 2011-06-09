@@ -109,7 +109,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		return new SC(query, totalOnly);
 	}
 
-	private class SC
+	private static final class SC
 	{
 		final Query query;
 		final boolean totalOnly;
