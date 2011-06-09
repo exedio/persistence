@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -184,10 +185,11 @@ public class PackageTest extends TestCase
 	public static void main(final String[] args)
 	{
 		final HashMap<Model, ConnectProperties> models = getModels(PackageTest.suite());
-		for(final Model m : models.keySet())
+		for(final Map.Entry<Model, ConnectProperties> e : models.entrySet())
 		{
+			final Model m = e.getKey();
 			//System.out.println("teardown " + m.getTypes());
-			m.connect(models.get(m));
+			m.connect(e.getValue());
 			m.tearDownSchema();
 			m.disconnect();
 		}
