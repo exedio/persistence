@@ -97,18 +97,5 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
 		{
 			assertEquals("exceeded hard limit of 4: select this from DayItem", e.getMessage());
 		}
-
-
-
-		try
-		{
-			q.setSearchSizeLimit(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("searchSizeLimit must be greater zero, but was 0", e.getMessage());
-		}
-		assertEquals(4, q.getSearchSizeLimit());
 	}
 }
