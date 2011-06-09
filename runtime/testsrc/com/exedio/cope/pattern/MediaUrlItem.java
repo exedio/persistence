@@ -53,7 +53,7 @@ public class MediaUrlItem extends Item implements MediaUrlCatchphraseProvider
 
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
-		return (path.getName().indexOf("Name")>0) ? getName() : null;
+		return (path.getName().indexOf("Name")>=0) ? getName() : null;
 	}
 
 
