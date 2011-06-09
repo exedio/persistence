@@ -109,5 +109,6 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
 		{
 			assertEquals("searchSizeLimit must be greater zero, but was 0", e.getMessage());
 		}
+		assertEquals(4, q.getSearchSizeLimit());
 	}
 }
