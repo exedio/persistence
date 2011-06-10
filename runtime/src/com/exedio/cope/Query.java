@@ -52,6 +52,9 @@ public final class Query<R>
 	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
 
+	private static final int SEARCH_SIZE_CACHE_LIMIT_DEFAULT = Integer.MIN_VALUE;
+	private int searchSizeCacheLimit = SEARCH_SIZE_CACHE_LIMIT_DEFAULT;
+
 	public Query(final Selectable<? extends R> select)
 	{
 		this(select, (Condition)null);
@@ -423,6 +426,42 @@ public final class Query<R>
 					"searchSizeLimit must be greater zero, but was " + searchSizeLimit);
 
 		this.searchSizeLimit = searchSizeLimit;
+	}
+
+	/**
+	 * @see #setSearchSizeCacheLimit(int)
+	 */
+	public int getSearchSizeCacheLimit()
+	{
+		return
+			(searchSizeCacheLimit==SEARCH_SIZE_CACHE_LIMIT_DEFAULT)
+			? model.getConnectProperties().getQueryCacheSizeLimit()
+			: searchSizeCacheLimit;
+	}
+
+	/**
+	 * Sets the search size cache limit for this query.
+	 * <p>
+	 * Results of method {@link #search()} will not be considered for inclusion
+	 * into query cache as soon as the size of the result set exceeds the
+	 * search size cache limit.
+	 * Method {@link #total()} is not affected by this limit.
+	 * <p>
+	 * Setting the search size cache limit does not guarantee,
+	 * that {@link #search()} is not satisfied from the cache.
+	 * <p>
+	 * If search size cache limit is not set, it defaults to
+	 * {@link ConnectProperties#getQueryCacheSizeLimit()}.
+	 *
+	 * @see #getSearchSizeCacheLimit()
+	 */
+	public void setSearchSizeCacheLimit(final int searchSizeCacheLimit)
+	{
+		if(searchSizeCacheLimit<1)
+			throw new IllegalArgumentException(
+					"searchSizeCacheLimit must be greater zero, but was " + searchSizeCacheLimit);
+
+		this.searchSizeCacheLimit = searchSizeCacheLimit;
 	}
 
 	/**

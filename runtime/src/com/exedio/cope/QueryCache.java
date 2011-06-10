@@ -56,12 +56,18 @@ final class QueryCache
 		}
 		if ( result==null )
 		{
-			result = new Value(query, query.searchUncached(transaction, totalOnly));
+			final ArrayList<Object> resultList =
+				query.searchUncached(transaction, totalOnly);
+		if(totalOnly || resultList.size()<=query.getSearchSizeCacheLimit())
+		{
+			result = new Value(query, resultList);
 			synchronized(map)
 			{
 				map.put(key, result);
 			}
+		}
 			misses++;
+			return resultList;
 		}
 		else
 		{
@@ -71,9 +77,9 @@ final class QueryCache
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
 				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
-		}
 
-		return result.list;
+			return result.list;
+		}
 	}
 
 	boolean isEnabled()

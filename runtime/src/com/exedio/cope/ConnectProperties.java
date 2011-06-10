@@ -79,6 +79,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
+	private final IntField queryCacheSizeLimit = new IntField("cache.query.sizeLimit", 10000, 0);
 	final BooleanField itemCacheInvalidateLast       = new BooleanField("cache.item.invalidateLast", true);
 	final     IntField itemCacheInvalidateLastMargin = new     IntField("cache.item.invalidateLast.margin", 0, 0);
 
@@ -319,6 +320,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getQueryCacheLimit()
 	{
 		return queryCacheLimit.intValue();
+	}
+
+	int getQueryCacheSizeLimit()
+	{
+		return queryCacheSizeLimit.intValue();
 	}
 
 	public String getMediaRootUrl()
