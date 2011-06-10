@@ -340,6 +340,16 @@ public final class MysqlDialect extends Dialect
 	@Override
 	public String createSequence(final String sequenceName, final int startWith)
 	{
+		// TODO
+		// From the MySQL documentation:
+		//
+		//    InnoDB supports the AUTO_INCREMENT = N table option in CREATE TABLE
+		//    and ALTER TABLE statements, to set the initial counter value or alter
+		//    the current counter value. The effect of this option is canceled by
+		//    a server restart, for reasons discussed earlier in this section.
+		//
+		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
+
 		final StringBuilder bf = new StringBuilder();
 		bf.append("create table ").
 			append(sequenceName).
