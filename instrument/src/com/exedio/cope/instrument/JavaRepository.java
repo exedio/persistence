@@ -212,7 +212,24 @@ final class JavaRepository
 
 	final JavaClass getJavaClass(final String name)
 	{
-		return (name.indexOf('.')<0) ? javaClassBySimpleName.get(name) : javaClassByFullName.get(name);
+		if(name.indexOf('.')<0)
+		{
+			return javaClassBySimpleName.get(name);
+		}
+		else
+		{
+			final JavaClass byFullName = javaClassByFullName.get(name);
+			if(byFullName!=null)
+				return byFullName;
+
+			// for inner classes
+			final int dot = name.indexOf('.'); // cannot be negative in else branch
+			final JavaClass outer = javaClassBySimpleName.get(name.substring(0, dot));
+			if(outer!=null)
+				return javaClassByFullName.get(outer.file.getPackageName() + '.' + name.replace('.', '$'));
+
+			return null;
+		}
 	}
 
 	void add(final CopeType copeType)
