@@ -38,7 +38,7 @@ final class Database
 {
 	private final Trimmer nameTrimmer = new Trimmer(25);
 	private final ArrayList<Table> tables = new ArrayList<Table>();
-	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
+	private final ArrayList<SequenceX> sequences = new ArrayList<SequenceX>();
 	private boolean buildStage = true;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
@@ -87,7 +87,7 @@ final class Database
 		tables.add(table);
 	}
 
-	void addSequence(final Sequence sequence)
+	void addSequence(final SequenceX sequence)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -97,7 +97,7 @@ final class Database
 	List<SequenceInfo> getSequenceInfo()
 	{
 		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
-		for(final Sequence sequence : sequences)
+		for(final SequenceX sequence : sequences)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
 	}
@@ -574,7 +574,7 @@ final class Database
 
 		if(withRevisions && revisions!=null)
 			revisions.get().makeSchema(result, properties, dialect);
-		for(final Sequence sequence : sequences)
+		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
 
 		dialect.completeSchema(result);
@@ -590,7 +590,7 @@ final class Database
 
 	void flushSequences()
 	{
-		for(final Sequence sequence : sequences)
+		for(final SequenceX sequence : sequences)
 			sequence.flush();
 	}
 }

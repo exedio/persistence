@@ -22,7 +22,7 @@ import java.sql.Connection;
 
 import com.exedio.dsmf.Schema;
 
-final class Sequence
+final class SequenceX
 {
 	private final Feature feature;
 	private final int start;
@@ -35,7 +35,7 @@ final class Sequence
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
 
-	Sequence(final Feature feature, final int start, final int minimum, final int maximum)
+	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
 	{
 		if(feature==null)
 			throw new NullPointerException();

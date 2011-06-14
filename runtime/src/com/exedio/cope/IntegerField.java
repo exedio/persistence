@@ -36,7 +36,7 @@ public final class IntegerField extends NumberField<Integer>
 	private static final long serialVersionUID = 1l;
 
 	private final Integer defaultNextStart;
-	final Sequence defaultToNextSequence;
+	final SequenceX defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -75,7 +75,7 @@ public final class IntegerField extends NumberField<Integer>
 						": " + e.getMessageWithoutFeature() +
 						" Start value was '" + defaultNextStart + "'.");
 			}
-			this.defaultToNextSequence = new Sequence(this, defaultNextStart.intValue(), minimum, maximum);
+			this.defaultToNextSequence = new SequenceX(this, defaultNextStart.intValue(), minimum, maximum);
 		}
 		else
 		{

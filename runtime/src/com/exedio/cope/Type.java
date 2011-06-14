@@ -83,7 +83,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private final Constructor<T> activationConstructor;
 	private final Method[] beforeNewItemMethods;
-	private final Sequence primaryKeySequence;
+	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
 	private Mount<T> mount = null;
@@ -245,7 +245,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.primaryKeySequence =
 			supertype!=null
 			? supertype.primaryKeySequence
-			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
+			: new SequenceX(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.isEmpty());
 	}
@@ -917,7 +917,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					}
 					else if(ff instanceof IntegerField)
 					{
-						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
+						final SequenceX sequence = ((IntegerField)ff).defaultToNextSequence;
 						if(sequence!=null)
 							defaultValue = sequence.next();
 					}
