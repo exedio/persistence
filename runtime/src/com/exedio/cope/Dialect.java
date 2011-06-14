@@ -288,21 +288,6 @@ abstract class Dialect
 		// empty default implementation
 	}
 
-	/**
-	 * @param executor used in subclasses
-	 * @param connection used in subclasses
-	 */
-	protected abstract Integer nextSequence(
-			final Executor executor,
-			final Connection connection,
-			final String name);
-
-	/**
-	 * @param executor used in subclasses
-	 * @param connection used in subclasses
-	 */
-	protected abstract Integer getNextSequence(
-			final Executor executor,
-			final Connection connection,
-			final String name);
+	protected abstract Integer    nextSequence(Executor executor, Connection connection, String name);
+	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 }
