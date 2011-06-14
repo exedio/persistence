@@ -83,16 +83,6 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @deprecated Always returns true, because all databases are required to support sequences.
-	 * @param model is ignored
-	 */
-	@Deprecated
-	public static boolean supportsSequences(final Model model)
-	{
-		return true;
-	}
-
-	/**
 	 * Returns the name of database table for the type.
 	 * If not configured otherwise
 	 * or trimmed to fit into name length restrictions,
@@ -231,5 +221,15 @@ public final class SchemaInfo
 	public static String getModificationCounterColumnName(final Type type)
 	{
 		return getUpdateCounterColumnName(type);
+	}
+
+	/**
+	 * @deprecated Always returns true, because all databases are required to support sequences.
+	 * @param model is ignored
+	 */
+	@Deprecated
+	public static boolean supportsSequences(final Model model)
+	{
+		return true;
 	}
 }
