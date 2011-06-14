@@ -292,23 +292,17 @@ abstract class Dialect
 	 * @param executor used in subclasses
 	 * @param connection used in subclasses
 	 */
-	protected Integer nextSequence(
+	protected abstract Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String name)
-	{
-		throw new RuntimeException("sequences not implemented: " + name);
-	}
+			final String name);
 
 	/**
 	 * @param executor used in subclasses
 	 * @param connection used in subclasses
 	 */
-	protected Integer getNextSequence(
+	protected abstract Integer getNextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String name)
-	{
-		throw new RuntimeException("sequences not implemented: " + name);
-	}
+			final String name);
 }

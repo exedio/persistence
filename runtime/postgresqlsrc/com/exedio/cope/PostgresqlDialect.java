@@ -21,11 +21,13 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 
 final class PostgresqlDialect extends Dialect
@@ -190,5 +192,54 @@ final class PostgresqlDialect extends Dialect
 	boolean subqueryRequiresAlias()
 	{
 		return true;
+	}
+
+	@Override
+	protected Integer nextSequence(
+			final Executor executor,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT nextval('").
+			append(dsmfDialect.quoteName(name)).
+			append("')");
+
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return ((Long)o).intValue();
+			}
+		});
+	}
+
+	@Override
+	protected Integer getNextSequence(
+			final Executor executor,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT last_value FROM ").
+			append(dsmfDialect.quoteName(name));
+
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return ((Long)o).intValue() + 1;
+			}
+		});
 	}
 }

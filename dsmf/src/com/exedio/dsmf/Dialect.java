@@ -49,7 +49,7 @@ public abstract class Dialect
 		return true;
 	}
 
-	public boolean supportsSequences()
+	public final boolean supportsSequences()
 	{
 		return true;
 	}

@@ -61,12 +61,6 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	public boolean supportsSequences()
-	{
-		return false; // TODO implement support
-	}
-
-	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -187,6 +181,21 @@ public final class PostgresqlDialect extends Dialect
 			append(columnName).
 			append(' ').
 			append(newColumnType);
+		return bf.toString();
+	}
+
+	@Override
+	public String createSequence(final String sequenceName, final int startWith)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("create sequence ").
+			append(sequenceName).
+			append(
+					" increment by 1" +
+					" start with " + startWith +
+					" maxvalue " + Integer.MAX_VALUE +
+					" minvalue " + startWith +
+					" no cycle");
 		return bf.toString();
 	}
 }
