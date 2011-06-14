@@ -82,9 +82,14 @@ public final class SchemaInfo
 		return model.connect().executor.supportsUniqueViolation;
 	}
 
+	/**
+	 * @deprecated Always returns true, because all databases are required to support sequences.
+	 * @param model is ignored
+	 */
+	@Deprecated
 	public static boolean supportsSequences(final Model model)
 	{
-		return model.connect().dialect.dsmfDialect.supportsSequences();
+		return true;
 	}
 
 	/**

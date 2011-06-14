@@ -36,8 +36,6 @@ public final class Sequence extends Node
 
 		if(name==null)
 			throw new RuntimeException();
-		if(!schema.dialect.supportsSequences())
-			throw new RuntimeException("database does not support sequences");
 
 		this.name = name;
 		this.startWith = startWith;
