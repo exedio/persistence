@@ -73,17 +73,17 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 
 		deleteOnTearDown(new PrimaryKeyItem("first", 5));
 		restartTransaction();
-		assertInfo(TYPE, 1, c?(hsqldb?1:3):0, c?(hsqldb?1:3):0, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
-		assertInfo(next, next.getDefaultToNextInfo(), c?4:0);
+		assertInfo(TYPE, 1, c?(hsqldb?1:3):0, c?(hsqldb?1:3):0, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, next.getDefaultToNextInfo(), (c&&!oracle)?4:0);
 
 		deleteOnTearDown(new PrimaryKeyItem("second"));
 		restartTransaction();
-		assertInfo(TYPE, 2, c?(hsqldb?1:3):0, c?(hsqldb?2:4):1, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
-		assertInfo(next, 1, c?(hsqldb?0:2):6, c?(hsqldb?0:2):6, next.getDefaultToNextInfo(), c?3:0);
+		assertInfo(TYPE, 2, c?(hsqldb?1:3):0, c?(hsqldb?2:4):1, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, 1, c?(hsqldb?0:2):6, c?(hsqldb?0:2):6, next.getDefaultToNextInfo(), (c&&!oracle)?3:0);
 
 		deleteOnTearDown(new PrimaryKeyItem("third"));
 		restartTransaction();
-		assertInfo(TYPE, 3, c?(hsqldb?1:3):0, c?(hsqldb?3:5):2, TYPE.getPrimaryKeyInfo(), (c&&oracle)?1:0);
-		assertInfo(next, 2, c?(hsqldb?0:2):6, c?(hsqldb?1:3):7, next.getDefaultToNextInfo(), c?2:0);
+		assertInfo(TYPE, 3, c?(hsqldb?1:3):0, c?(hsqldb?3:5):2, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, 2, c?(hsqldb?0:2):6, c?(hsqldb?1:3):7, next.getDefaultToNextInfo(), (c&&!oracle)?2:0);
 	}
 }

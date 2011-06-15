@@ -440,10 +440,15 @@ final class OracleDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
+		// NOTE:
+		// Do not use "SELECT name.currval FROM DUAL" because this may cause
+		// ORA-08002: sequence NAME.CURRVAL is not yet defined in this session
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT ").
-			append(dsmfDialect.quoteName(name)).
-			append(".currval FROM DUAL");
+		bf.append(
+				"SELECT last_number " +
+				"FROM user_sequences " +
+				"WHERE sequence_name=").
+			appendParameter(name);
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
