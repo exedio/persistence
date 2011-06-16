@@ -40,7 +40,7 @@ public final class MediaType
 		this.magic = magic;
 		this.name = name;
 		this.aliases = aliases;
-		assert magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+		assert magic==null || magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
 	}
 
 	public String getName()
@@ -70,7 +70,7 @@ public final class MediaType
 
 	private boolean matches(final byte[] m)
 	{
-		if(m.length<magic.length)
+		if(magic==null || m.length<magic.length)
 			return false;
 
 		for(int i = 0; i<magic.length; i++)
@@ -82,6 +82,9 @@ public final class MediaType
 
 	private Condition mismatchesInstance(final Media media)
 	{
+		if(magic==null)
+			return Condition.FALSE;
+
 		final Condition[] nameConditions = new Condition[1 + aliases.length];
 		nameConditions[0] = media.contentTypeEqual(name);
 		for(int i = 0; i<aliases.length; i++)
@@ -109,9 +112,14 @@ public final class MediaType
 	public static final String ICON = "image/vnd.microsoft.icon";
 	public static final String ZIP  = "application/zip";
 	public static final String PDF  = "application/pdf";
+	public static final String JAVASCRIPT = "application/javascript";
 
 	private static final MediaType[] types = new MediaType[]{
 
+			new MediaType(
+					null,
+					// RFC 4329 section 7. JavaScript Media Types
+					JAVASCRIPT, "text/javascript"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},

@@ -127,12 +127,15 @@ public class MediaTypeTest extends CopeAssert
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
+		final MediaType js  = forName("application/javascript");
 
 		assertNotNull(jpg);
 		assertNotNull(png);
 		assertSame(jpg, forName("image/jpeg"));
 		assertSame(png, forName("image/png"));
+		assertSame(js,  forName("application/javascript"));
 		assertSame(null, forName("image/pjpeg"));
+		assertSame(null, forName("text/javascript"));
 		assertSame(null, forName("zack"));
 
 		try
@@ -159,10 +162,13 @@ public class MediaTypeTest extends CopeAssert
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
+		final MediaType js  = forName("application/javascript");
 
 		assertSame(jpg, forNameAndAliases("image/jpeg"));
 		assertSame(png, forNameAndAliases("image/png"));
 		assertSame(jpg, forNameAndAliases("image/pjpeg"));
+		assertSame(js,  forNameAndAliases("application/javascript"));
+		assertSame(js,  forNameAndAliases("text/javascript"));
 		assertSame(null, forNameAndAliases("zack"));
 
 		try
