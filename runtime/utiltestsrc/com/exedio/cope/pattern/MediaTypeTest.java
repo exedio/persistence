@@ -22,12 +22,18 @@ import static com.exedio.cope.pattern.MediaType.forMagic;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.SafeFile;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -186,7 +192,7 @@ public class MediaTypeTest extends CopeAssert
 
 		try
 		{
-			forMagic(null);
+			forMagic((byte[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -207,6 +213,76 @@ public class MediaTypeTest extends CopeAssert
 	private static String stealTail(final String s)
 	{
 		return s.substring(0, s.length()-2);
+	}
+
+	public void testForMagicFile() throws IOException
+	{
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType png = forName("image/png");
+
+		assertSame(jpg, forMagic(file(Hex.decodeLower(JPEG))));
+		assertSame(jpg, forMagic(file(Hex.decodeLower(JPEG + "aa"))));
+		assertSame(png, forMagic(file(Hex.decodeLower(PNG))));
+		assertSame(png, forMagic(file(Hex.decodeLower(PNG + "bb"))));
+		assertSame(null,  forMagic(file(Hex.decodeLower(stealTail(JPEG)))));
+		assertSame(null,  forMagic(file(Hex.decodeLower(stealTail(PNG)))));
+
+		try
+		{
+			forMagic((File)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("file", e.getMessage());
+		}
+		try
+		{
+			forMagic(file(new byte[]{}));
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("empty", e.getMessage());
+		}
+
+		final File file = File.createTempFile("MediaTypeTest-", ".dat");
+		SafeFile.delete(file);
+		try
+		{
+			forMagic(file);
+			fail();
+		}
+		catch(final FileNotFoundException e)
+		{
+			// ok
+		}
+
+		file.mkdir();
+		try
+		{
+			forMagic(file);
+			fail();
+		}
+		catch(final FileNotFoundException e)
+		{
+			// ok
+		}
+	}
+
+	private static File file(final byte[] bytes) throws IOException
+	{
+		final File result = File.createTempFile("MediaTypeTest-", ".dat");
+		final FileOutputStream stream = new FileOutputStream(result);
+		try
+		{
+			stream.write(bytes);
+		}
+		finally
+		{
+			stream.close();
+		}
+		return result;
 	}
 
 	public void testAllowed()

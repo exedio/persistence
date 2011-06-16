@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -184,5 +187,25 @@ public final class MediaType
 				return type;
 
 		return null;
+	}
+
+	public static MediaType forMagic(final File file) throws IOException
+	{
+		if(file==null)
+			throw new NullPointerException("file");
+
+		final byte[] bytes = new byte[(int)Math.min(file.length(), MAGIC_MAX_LENGTH)];
+		final FileInputStream stream = new FileInputStream(file);
+		try
+		{
+			final int bytesRead = stream.read(bytes);
+			if(bytesRead!=bytes.length)
+				throw new IOException("expected " + bytes.length + " bytes, but read " + bytesRead);
+		}
+		finally
+		{
+			stream.close();
+		}
+		return forMagic(bytes);
 	}
 }
