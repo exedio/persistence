@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +71,7 @@ public final class MediaType
 
 	private boolean matches(final byte[] m)
 	{
-		if(magic==null || m.length<magic.length)
+		if(m.length<magic.length)
 			return false;
 
 		for(int i = 0; i<magic.length; i++)
@@ -82,9 +83,6 @@ public final class MediaType
 
 	private Condition mismatchesInstance(final Media media)
 	{
-		if(magic==null)
-			return Condition.FALSE;
-
 		final Condition[] nameConditions = new Condition[1 + aliases.length];
 		nameConditions[0] = media.contentTypeEqual(name);
 		for(int i = 0; i<aliases.length; i++)
@@ -146,11 +144,22 @@ public final class MediaType
 					PDF),
 	};
 
+	private static final MediaType[] typesWithMagic = retainMagic(types);
+
+	private static MediaType[] retainMagic(final MediaType[] source)
+	{
+		final ArrayList<MediaType> result = new ArrayList<MediaType>(source.length);
+		for(final MediaType t : source)
+			if(t.magic!=null)
+				result.add(t);
+		return result.toArray(new MediaType[result.size()]);
+	}
+
 	static Condition mismatches(final Media media)
 	{
-		final Condition[] conditions = new Condition[types.length];
+		final Condition[] conditions = new Condition[typesWithMagic.length];
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i] = types[i].mismatchesInstance(media);
+			conditions[i] = typesWithMagic[i].mismatchesInstance(media);
 		return Cope.or(conditions);
 	}
 
@@ -196,7 +205,7 @@ public final class MediaType
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		for(final MediaType type : types)
+		for(final MediaType type : typesWithMagic)
 			if(type.matches(magic))
 				return type;
 
