@@ -175,6 +175,12 @@ public final class MediaType
 		return null;
 	}
 
+	/**
+	 * @param magic
+	 *        must contain at least the first
+	 *        {@link #magicMaxLength()} bytes of the file
+	 *        and must not be empty.
+	 */
 	public static MediaType forMagic(final byte[] magic)
 	{
 		if(magic==null)
