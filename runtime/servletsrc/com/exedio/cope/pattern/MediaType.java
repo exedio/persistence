@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Condition;
@@ -145,6 +146,30 @@ public final class MediaType
 					PDF),
 	};
 
+	private static final HashMap<String, MediaType> typesByName         = new HashMap<String, MediaType>();
+	private static final HashMap<String, MediaType> typesByNameAndAlias = new HashMap<String, MediaType>();
+
+	static
+	{
+		for(final MediaType type : types)
+		{
+			put(typesByName, type.name, type);
+			put(typesByNameAndAlias, type.name, type);
+			for(final String alias : type.aliases)
+				put(typesByNameAndAlias, alias, type);
+		}
+	}
+
+	private static void put(
+			final HashMap<String, MediaType> map,
+			final String key,
+			final MediaType value)
+	{
+		if(map.put(key, value)!=null)
+			throw new RuntimeException(key);
+	}
+
+
 	static Condition mismatches(final Media media)
 	{
 		final Condition[] conditions = new Condition[typesWithMagic.length];
@@ -158,11 +183,7 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType type : types)
-			if(name.equals(type.name))
-				return type;
-
-		return null;
+		return typesByName.get(name);
 	}
 
 	public static MediaType forNameAndAliases(final String name)
@@ -170,16 +191,7 @@ public final class MediaType
 		if(name==null)
 			throw new NullPointerException("name");
 
-		for(final MediaType type : types)
-		{
-			if(name.equals(type.name))
-				return type;
-			for(final String alias : type.aliases)
-				if(name.equals(alias))
-					return type;
-		}
-
-		return null;
+		return typesByNameAndAlias.get(name);
 	}
 
 	// magic
