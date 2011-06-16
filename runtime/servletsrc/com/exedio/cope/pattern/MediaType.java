@@ -71,10 +71,11 @@ public final class MediaType
 
 	private boolean matches(final byte[] m)
 	{
-		if(m.length<magic.length)
+		final int l = magic.length;
+		if(m.length<l)
 			return false;
 
-		for(int i = 0; i<magic.length; i++)
+		for(int i = 0; i<l; i++)
 			if(magic[i]!=m[i])
 				return false;
 
