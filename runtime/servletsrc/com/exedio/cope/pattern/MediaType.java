@@ -145,17 +145,6 @@ public final class MediaType
 					PDF),
 	};
 
-	private static final MediaType[] typesWithMagic = retainMagic(types);
-
-	private static MediaType[] retainMagic(final MediaType[] source)
-	{
-		final ArrayList<MediaType> result = new ArrayList<MediaType>(source.length);
-		for(final MediaType t : source)
-			if(t.magic!=null)
-				result.add(t);
-		return result.toArray(new MediaType[result.size()]);
-	}
-
 	static Condition mismatches(final Media media)
 	{
 		final Condition[] conditions = new Condition[typesWithMagic.length];
@@ -192,6 +181,8 @@ public final class MediaType
 
 		return null;
 	}
+
+	// magic
 
 	/**
 	 * @param magic
@@ -231,5 +222,16 @@ public final class MediaType
 			stream.close();
 		}
 		return forMagic(bytes);
+	}
+
+	private static final MediaType[] typesWithMagic = retainMagic(types);
+
+	private static MediaType[] retainMagic(final MediaType[] source)
+	{
+		final ArrayList<MediaType> result = new ArrayList<MediaType>(source.length);
+		for(final MediaType t : source)
+			if(t.magic!=null)
+				result.add(t);
+		return result.toArray(new MediaType[result.size()]);
 	}
 }
