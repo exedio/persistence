@@ -11,6 +11,7 @@
 			<Class name="com.exedio.cope.ItemField" />
 			<Class name="com.exedio.cope.EnumField" />
 			<Class name="com.exedio.cope.StringField" />
+			<Class name="com.exedio.cope.Sequence" />
 			<Class name="com.exedio.cope.PlusView" />
 			<Class name="com.exedio.cope.PlusLiteralView" />
 			<Class name="com.exedio.cope.MultiplyView" />
