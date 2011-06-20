@@ -87,6 +87,8 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DoubleTest.class );
 		suite.addTestSuite( EnumTest.class );
 		suite.addTestSuite( DefaultToTest.class );
+		suite.addTestSuite( SequenceModelTest.class );
+		suite.addTestSuite( SequenceTest.class );
 		suite.addTestSuite( MatchTest.class );
 		suite.addTestSuite( DataTest.class );
 		suite.addTestSuite( DataFinalTest.class );

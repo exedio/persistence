@@ -544,6 +544,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(check, feature.checkDefaultToNext());
 	}
 
+	protected void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
+	{
+		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
+	}
+
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame(feature, info.getFeature());
@@ -573,6 +578,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 		if(!hsqldb)
 			assertEquals(check, feature.checkDefaultToNext());
+	}
+
+	protected void assertInfo(final Sequence feature, final SequenceInfo info)
+	{
+		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
 
 	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)

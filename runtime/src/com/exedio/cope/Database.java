@@ -80,6 +80,12 @@ final class Database
 			: new SequenceImplMax(column, start, connectionPool);
 	}
 
+	SequenceImpl newSequenceImplCluster(final int start, final String name)
+	{
+		return
+			new SequenceImplSequence(name, start, connectionPool, executor);
+	}
+
 	void addTable(final Table table)
 	{
 		if(!buildStage)

@@ -56,6 +56,13 @@ final class SequenceX
 		this.column = column;
 	}
 
+	void connectCluster(final Database database, final String name)
+	{
+		if(impl!=null)
+			throw new IllegalStateException("already connected " + feature);
+		impl = database.newSequenceImplCluster(start, name);
+	}
+
 	void disconnect()
 	{
 		if(impl==null)
@@ -82,7 +89,7 @@ final class SequenceX
 		final int result = impl().next();
 
 		if(result<minimum || result>maximum)
-			throw new RuntimeException("sequence overflow to " + result + " in " + feature);
+			throw new IllegalStateException("sequence overflow to " + result + " in " + feature + " limited to " + minimum + ',' + maximum);
 		if((count++)==0)
 			first = result;
 		last = result;

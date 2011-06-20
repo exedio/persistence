@@ -38,6 +38,18 @@ final class SequenceImplSequence implements SequenceImpl
 		this.name = column.makeGlobalID("Seq");
 	}
 
+	SequenceImplSequence(
+			final String name,
+			final int start,
+			final ConnectionPool connectionPool,
+			final Executor executor)
+	{
+		this.start = start;
+		this.executor = executor;
+		this.connectionPool = connectionPool;
+		this.name = name;
+	}
+
 	public void makeSchema(final Schema schema)
 	{
 		new Sequence(schema, name, start);

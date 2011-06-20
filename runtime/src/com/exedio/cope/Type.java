@@ -546,6 +546,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.setCheckConstraints (this.declaredCheckConstraints);
 		this.table.finish();
+		for(final Feature f : declaredFeatures)
+			if(f instanceof Sequence)
+				((Sequence)f).connect(database);
 	}
 
 	private boolean hasFinalTable()
@@ -574,6 +577,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			a.disconnect();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.disconnect();
+		for(final Feature f : declaredFeatures)
+			if(f instanceof Sequence)
+				((Sequence)f).disconnect();
 	}
 
 	public Class<T> getJavaClass()
