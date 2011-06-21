@@ -369,8 +369,8 @@ public final class MysqlDialect extends Dialect
 	@Override
 	public void deleteSchema(final Schema schema)
 	{
-		Connection connection = null;
 		final StringBuilder bf = new StringBuilder();
+		Connection connection = null;
 		try
 		{
 			connection = schema.connectionProvider.getConnection();
