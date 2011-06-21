@@ -116,6 +116,12 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		this.to.set(item, to);
 	}
 
+	@Wrap(order=70)
+	public boolean doesContain(final Item item, final E check)
+	{
+		return check.compareTo(getFrom(item))>=0 && check.compareTo(getTo(item))<=0;
+	}
+
 	private static final class FinalGetter implements BooleanGetter<RangeField>
 	{
 		public boolean get(final RangeField feature)
