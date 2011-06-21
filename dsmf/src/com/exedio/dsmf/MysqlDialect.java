@@ -370,39 +370,39 @@ public final class MysqlDialect extends Dialect
 	public void deleteSchema(final Schema schema)
 	{
 		final StringBuilder bf = new StringBuilder();
+
+		bf.append("set FOREIGN_KEY_CHECKS=0;");
+
+		for(final Table table : schema.getTables())
+		{
+			bf.append("truncate ").
+				append(quoteName(table.name)).
+				append(';');
+		}
+
+		bf.append("set FOREIGN_KEY_CHECKS=1;");
+
+		for(final Sequence sequence : schema.getSequences())
+		{
+			bf.append("truncate ").
+				append(quoteName(sequence.name)).
+				append(';');
+
+			final int startWith = sequence.startWith;
+			if(startWith!=0)
+			{
+				bf.append("insert into ").
+					append(sequence.name).
+					append(" values(").
+					append(startWith).
+					append(");");
+			}
+		}
+
 		Connection connection = null;
 		try
 		{
 			connection = schema.connectionProvider.getConnection();
-
-			bf.append("set FOREIGN_KEY_CHECKS=0;");
-
-			for(final Table table : schema.getTables())
-			{
-				bf.append("truncate ").
-					append(quoteName(table.name)).
-					append(';');
-			}
-
-			bf.append("set FOREIGN_KEY_CHECKS=1;");
-
-			for(final Sequence sequence : schema.getSequences())
-			{
-				bf.append("truncate ").
-					append(quoteName(sequence.name)).
-					append(';');
-
-				final int startWith = sequence.startWith;
-				if(startWith!=0)
-				{
-					bf.append("insert into ").
-						append(sequence.name).
-						append(" values(").
-						append(startWith).
-						append(");");
-				}
-			}
-
 			execute(connection, bf.toString());
 		}
 		catch(final SQLException e)
