@@ -398,18 +398,22 @@ public final class MysqlDialect extends Dialect
 					append(");");
 			}
 		}
+		execute(schema.connectionProvider, bf.toString());
+	}
 
+	private static void execute(final ConnectionProvider connectionProvider, final String sql)
+	{
 		Connection connection = null;
 		try
 		{
-			connection = schema.connectionProvider.getConnection();
-			execute(connection, bf.toString());
-			schema.connectionProvider.putConnection(connection);
+			connection = connectionProvider.getConnection();
+			execute(connection, sql);
+			connectionProvider.putConnection(connection);
 			connection = null;
 		}
 		catch(final SQLException e)
 		{
-			throw new SQLRuntimeException(e, bf.toString());
+			throw new SQLRuntimeException(e, sql);
 		}
 		finally
 		{
