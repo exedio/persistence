@@ -404,6 +404,8 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = schema.connectionProvider.getConnection();
 			execute(connection, bf.toString());
+			schema.connectionProvider.putConnection(connection);
+			connection = null;
 		}
 		catch(final SQLException e)
 		{
@@ -416,7 +418,7 @@ public final class MysqlDialect extends Dialect
 				try
 				{
 					// do not put it into connection pool again
-					// because foreign key constraints are disabled
+					// because foreign key constraints could be disabled
 					connection.close();
 				}
 				catch(final SQLException e)
