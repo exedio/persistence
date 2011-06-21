@@ -70,8 +70,9 @@ public abstract class CopeModelTest extends CopeAssert
 	@Override
 	protected void tearDown() throws Exception
 	{
-		if(manageTransactions)
-			model.rollbackIfNotCommitted();
+		// do this even if manageTransactions is false
+		// because test could have started a transaction
+		model.rollbackIfNotCommitted();
 
 		model.deleteSchema();
 		model.setDatabaseListener(null);
