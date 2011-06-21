@@ -370,48 +370,45 @@ public final class MysqlDialect extends Dialect
 	public void deleteSchema(final Schema schema)
 	{
 		Connection connection = null;
-		java.sql.Statement sqlStatement = null;
 		final StringBuilder bf = new StringBuilder();
 		try
 		{
 			connection = schema.connectionProvider.getConnection();
-			sqlStatement = connection.createStatement();
 
-			bf.setLength(0);
-			bf.append("set FOREIGN_KEY_CHECKS=0");
-			sqlStatement.executeUpdate(bf.toString());
+
+			bf.append("set FOREIGN_KEY_CHECKS=0;");
+
 
 			for(final Table table : schema.getTables())
 			{
-				bf.setLength(0);
 				bf.append("truncate ").
-					append(quoteName(table.name));
-				sqlStatement.executeUpdate(bf.toString());
+					append(quoteName(table.name)).
+					append(';');
 			}
 
-			bf.setLength(0);
-			bf.append("set FOREIGN_KEY_CHECKS=1");
-			sqlStatement.executeUpdate(bf.toString());
+
+			bf.append("set FOREIGN_KEY_CHECKS=1;");
+
 
 			for(final Sequence sequence : schema.getSequences())
 			{
-				bf.setLength(0);
 				bf.append("truncate ").
-					append(quoteName(sequence.name));
-				sqlStatement.executeUpdate(bf.toString());
+					append(quoteName(sequence.name)).
+					append(';');
 
 				final int startWith = sequence.startWith;
 				if(startWith!=0)
 				{
-					bf.setLength(0);
 					bf.append("insert into ").
 						append(sequence.name).
 						append(" values(").
 						append(startWith).
-						append(')');
-					sqlStatement.executeUpdate(bf.toString());
+						append(");");
+
 				}
 			}
+
+			execute(connection, bf.toString());
 		}
 		catch(final SQLException e)
 		{
@@ -419,17 +416,6 @@ public final class MysqlDialect extends Dialect
 		}
 		finally
 		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 			if(connection!=null)
 			{
 				try
@@ -443,6 +429,20 @@ public final class MysqlDialect extends Dialect
 					// exception is already thrown
 				}
 			}
+		}
+	}
+
+	private static void execute(final Connection connection, final String sql) throws SQLException
+	{
+		final java.sql.Statement sqlStatement =
+			connection.createStatement();
+		try
+		{
+			sqlStatement.executeUpdate(sql);
+		}
+		finally
+		{
+			sqlStatement.close();
 		}
 	}
 }

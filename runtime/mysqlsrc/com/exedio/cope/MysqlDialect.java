@@ -77,6 +77,7 @@ final class MysqlDialect extends Dialect
 		info.setProperty("characterSetResults", CHARSET);
 		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
 		info.setProperty("useLocalSessionState", TRUE);
+		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		//info.setProperty("profileSQL", TRUE);
 	}
 
