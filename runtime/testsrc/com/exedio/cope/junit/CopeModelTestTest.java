@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static com.exedio.cope.junit.JUnitTestItem.sequence;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -56,6 +58,11 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals(1001, i2.getNext());
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
+
+		assertEquals(2000, sequence.next());
+		assertEquals(2001, sequence.next());
+		assertEquals(2002, sequence.next());
+		assertEquals(2003, sequence.next());
 	}
 
 	public void testFlushSequences()
@@ -65,6 +72,7 @@ public class CopeModelTestTest extends CopeModelTest
 		final JUnitTestItem i1 = new JUnitTestItem(200);
 		assertEquals("JUnitTestItem-0", i1.getCopeID());
 		assertEquals(1000, i1.getNext());
+		assertEquals(2000, sequence.next());
 	}
 
 	public void testNoTransaction()

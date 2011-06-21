@@ -20,11 +20,13 @@ package com.exedio.cope.junit;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Sequence;
 
 class JUnitTestItem extends Item
 {
 	static final IntegerField code = new IntegerField();
 	static final IntegerField next = new IntegerField().defaultToNext(1000);
+	static final Sequence sequence = new Sequence(2000);
 
 
 	/**
