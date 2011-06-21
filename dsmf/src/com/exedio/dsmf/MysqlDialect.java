@@ -375,9 +375,7 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = schema.connectionProvider.getConnection();
 
-
 			bf.append("set FOREIGN_KEY_CHECKS=0;");
-
 
 			for(final Table table : schema.getTables())
 			{
@@ -386,9 +384,7 @@ public final class MysqlDialect extends Dialect
 					append(';');
 			}
 
-
 			bf.append("set FOREIGN_KEY_CHECKS=1;");
-
 
 			for(final Sequence sequence : schema.getSequences())
 			{
@@ -404,7 +400,6 @@ public final class MysqlDialect extends Dialect
 						append(" values(").
 						append(startWith).
 						append(");");
-
 				}
 			}
 
