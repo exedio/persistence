@@ -135,8 +135,6 @@ public final class Schema extends Node
 		}
 	}
 
-	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
-
 	public final void create()
 	{
 		create(null);
@@ -144,7 +142,6 @@ public final class Schema extends Node
 
 	public final void create(final StatementListener listener)
 	{
-		//final long time = System.currentTimeMillis();
 		for(final Sequence s : sequenceList)
 			s.create(listener);
 
@@ -153,10 +150,6 @@ public final class Schema extends Node
 
 		for(final Table t : tableList)
 			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
-
-		//final long amount = (System.currentTimeMillis()-time);
-		//createTableTime += amount;
-		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
 	public final void drop()
@@ -166,7 +159,6 @@ public final class Schema extends Node
 
 	public final void drop(final StatementListener listener)
 	{
-		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
@@ -174,9 +166,6 @@ public final class Schema extends Node
 			i.previous().drop(listener);
 		for(final ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
 			i.previous().drop(listener);
-		//final long amount = (System.currentTimeMillis()-time);
-		//dropTableTime += amount;
-		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
 
 	public final void tearDown()
@@ -229,7 +218,6 @@ public final class Schema extends Node
 		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
 
 		boolean deleted;
-		//int run = 1;
 		do
 		{
 			deleted = false;
@@ -253,7 +241,6 @@ public final class Schema extends Node
 					//System.err.println("failed:"+e2.getMessage());
 				}
 			}
-			//System.err.println("FINISH STAGE "+(run++));
 		}
 		while(deleted);
 	}
