@@ -408,8 +408,6 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = connectionProvider.getConnection();
 			execute(connection, sql);
-			connectionProvider.putConnection(connection);
-			connection = null;
 		}
 		catch(final SQLException e)
 		{
@@ -423,6 +421,8 @@ public final class MysqlDialect extends Dialect
 				{
 					// do not put it into connection pool again
 					// because foreign key constraints could be disabled
+					// and because of nasty exception afterwards:
+					// java.sql.SQLException: ResultSet is from UPDATE. No Data.
 					connection.close();
 				}
 				catch(final SQLException e)
