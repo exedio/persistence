@@ -20,6 +20,7 @@ package com.exedio.cope.junit;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.TimeUtil;
 
 final class ModelConnector implements Runnable
 {
@@ -32,15 +33,24 @@ final class ModelConnector implements Runnable
 		// prevent instantiation
 	}
 
-	static void connectAndCreate(final Model model, final ConnectProperties properties)
+	static void connectAndCreate(final Model model, final ConnectProperties properties, final boolean writeTiming)
 	{
 		synchronized(lock)
 		{
 			if(createdSchema!=model)
 			{
-				dropAndDisconnectIfNeeded();
+				dropAndDisconnectIfNeeded(writeTiming);
+
+				final long beforeConnect = writeTiming ? System.nanoTime() : 0;
 				model.connect(properties);
+				if(writeTiming)
+					System.out.println("" + TimeUtil.toMillies(System.nanoTime(), beforeConnect) + " connect");
+
+				final long beforeCreateSchema = writeTiming ? System.nanoTime() : 0;
 				model.createSchema();
+				if(writeTiming)
+					System.out.println("" + TimeUtil.toMillies(System.nanoTime(), beforeCreateSchema) + " createSchema");
+
 				createdSchema = model;
 			}
 			else
@@ -60,14 +70,21 @@ final class ModelConnector implements Runnable
 		}
 	}
 
-	private static void dropAndDisconnectIfNeeded()
+	private static void dropAndDisconnectIfNeeded(final boolean writeTiming)
 	{
 		synchronized(lock)
 		{
 			if(createdSchema!=null)
 			{
+				final long beforeDropSchema = writeTiming ? System.nanoTime() : 0;
 				createdSchema.dropSchema();
+				if(writeTiming)
+					System.out.println("" + TimeUtil.toMillies(System.nanoTime(), beforeDropSchema) + " dropSchema");
+
+				final long beforeDisconnect = writeTiming ? System.nanoTime() : 0;
 				createdSchema.disconnect();
+				if(writeTiming)
+					System.out.println("" + TimeUtil.toMillies(System.nanoTime(), beforeDisconnect) + " disconnect");
 				createdSchema = null;
 			}
 		}
@@ -75,6 +92,6 @@ final class ModelConnector implements Runnable
 
 	public void run()
 	{
-		dropAndDisconnectIfNeeded();
+		dropAndDisconnectIfNeeded(false);
 	}
 }
