@@ -432,7 +432,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("there are 4 items left for table HierarchySuper", e.getMessage());
+			assertEquals(
+					"schema not empty: HierarchySuper:4, HierarchyFirstSub:2, HierarchySecondSub:2, HierarchySingleSuper:2, HierarchySingleSub:2",
+					e.getMessage());
 		}
 		assertTrue(firstA.existsCopeItem());
 		assertTrue(firstB.existsCopeItem());

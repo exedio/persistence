@@ -264,12 +264,25 @@ final class Database
 		buildStage = false;
 
 		//final long start = System.nanoTime();
+		StringBuilder message = null;
 		for(final Table table : tables)
 		{
 			final int count = table.count(connection, executor);
 			if(count>0)
-				throw new IllegalStateException("there are " + count + " items left for table " + table.id);
+			{
+				if(message==null)
+					message = new StringBuilder("schema not empty: ");
+				else
+					message.append(", ");
+
+				message.
+					append(table.id).
+					append(':').
+					append(count);
+			}
 		}
+		if(message!=null)
+			throw new IllegalStateException(message.toString());
 		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 
 		// NOTICE
