@@ -263,23 +263,20 @@ final class Database
 	{
 		buildStage = false;
 
-		//final long time = System.currentTimeMillis();
+		//final long start = System.nanoTime();
 		for(final Table table : tables)
 		{
 			final int count = table.count(connection, executor);
 			if(count>0)
 				throw new RuntimeException("there are "+count+" items left for table "+table.id);
 		}
+		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 
 		// NOTICE
 		// The following flushSequences() makes CopeTest work again, so that sequences do start
 		// from their initial value for each test. This is rather a hack, so we should deprecate
 		// CopeTest in favor of CopeModelTest in the future.
 		flushSequences();
-
-		//final long amount = (System.currentTimeMillis()-time);
-		//checkEmptyTableTime += amount;
-		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 
 	WrittenState load(final Connection connection, final Item item)
