@@ -268,7 +268,7 @@ final class Database
 		{
 			final int count = table.count(connection, executor);
 			if(count>0)
-				throw new RuntimeException("there are "+count+" items left for table "+table.id);
+				throw new IllegalStateException("there are " + count + " items left for table " + table.id);
 		}
 		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 

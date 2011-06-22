@@ -430,7 +430,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			model.checkEmptySchema();
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("there are 4 items left for table HierarchySuper", e.getMessage());
 		}
