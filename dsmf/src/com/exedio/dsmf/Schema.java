@@ -144,10 +144,8 @@ public final class Schema extends Node
 	{
 		for(final Sequence s : sequenceList)
 			s.create(listener);
-
 		for(final Table t : tableList)
 			t.create(listener);
-
 		for(final Table t : tableList)
 			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 	}
