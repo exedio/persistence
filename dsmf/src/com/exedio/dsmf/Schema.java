@@ -160,11 +160,11 @@ public final class Schema extends Node
 	public void drop(final StatementListener listener)
 	{
 		// must delete in reverse order, to obey integrity constraints
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().drop(listener);
-		for(final ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
+		for(final ListIterator<Sequence> i = reverse(sequenceList); i.hasPrevious(); )
 			i.previous().drop(listener);
 	}
 
@@ -265,9 +265,9 @@ public final class Schema extends Node
 
 	public void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().dropConstraints(types, true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().dropConstraints(types, false, listener);
 	}
 
@@ -279,9 +279,9 @@ public final class Schema extends Node
 	public void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().tearDownConstraints(types, true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+		for(final ListIterator<Table> i = reverse(tableList); i.hasPrevious(); )
 			i.previous().tearDownConstraints(types, false, listener);
 	}
 
@@ -289,5 +289,10 @@ public final class Schema extends Node
 	{
 		for(final Table t : getTables())
 			t.checkUnsupportedConstraints();
+	}
+
+	private static <E> ListIterator<E> reverse(final ArrayList<E> l)
+	{
+		return l.listIterator(l.size());
 	}
 }
