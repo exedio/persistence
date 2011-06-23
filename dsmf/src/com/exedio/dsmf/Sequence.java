@@ -106,7 +106,9 @@ public final class Sequence extends Node
 
 	public void create(final StatementListener listener)
 	{
-		executeSQL(dialect.createSequence(quoteName(name), startWith), listener);
+		final StringBuilder bf = new StringBuilder();
+		dialect.createSequence(bf, quoteName(name), startWith);
+		executeSQL(bf.toString(), listener);
 	}
 
 	public void drop()
@@ -116,7 +118,9 @@ public final class Sequence extends Node
 
 	public void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropSequence(quoteName(name)), listener);
+		final StringBuilder bf = new StringBuilder();
+		dialect.dropSequence(bf, quoteName(name));
+		executeSQL(bf.toString(), listener);
 	}
 
 	@Override

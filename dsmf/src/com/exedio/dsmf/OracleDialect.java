@@ -252,9 +252,8 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	public String createSequence(final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
@@ -264,6 +263,5 @@ public final class OracleDialect extends Dialect
 					" minvalue " + startWith +
 					" nocycle" +
 					" noorder");
-		return bf.toString();
 	}
 }

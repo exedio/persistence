@@ -187,15 +187,13 @@ public final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	public String createSequence(final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
 					" as integer" +
 					" start with " + startWith +
 					" increment by 1");
-		return bf.toString();
 	}
 }

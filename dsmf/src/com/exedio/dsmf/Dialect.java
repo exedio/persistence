@@ -157,14 +157,12 @@ public abstract class Dialect
 		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public abstract String createSequence(String sequenceName, int startWith);
+	abstract void createSequence(StringBuilder bf, String sequenceName, int startWith);
 
-	public String dropSequence(final String sequenceName)
+	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("drop sequence ").
 			append(sequenceName);
-		return bf.toString();
 	}
 
 	/**
