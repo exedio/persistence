@@ -146,8 +146,9 @@ public final class Schema extends Node
 			s.create(listener);
 		for(final Table t : tableList)
 			t.create(listener);
+		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
 		for(final Table t : tableList)
-			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
+			t.createConstraints(all, true, listener);
 	}
 
 	public void drop()
@@ -158,8 +159,9 @@ public final class Schema extends Node
 	public void drop(final StatementListener listener)
 	{
 		// must delete in reverse order, to obey integrity constraints
+		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
 		for(final Table t : reverse(tableList))
-			t.dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
+			t.dropConstraints(all, true, listener);
 		for(final Table t : reverse(tableList))
 			t.drop(listener);
 		for(final Sequence s : reverse(sequenceList))
