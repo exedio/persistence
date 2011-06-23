@@ -67,29 +67,29 @@ public final class Table extends Node
 		schema.register(this);
 	}
 
-	public final void makeDefensive()
+	public void makeDefensive()
 	{
 		defensive = true;
 	}
 
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
 
-	public final String getOptions()
+	public String getOptions()
 	{
 		return options;
 	}
 
-	final void register(final Column column)
+	void register(final Column column)
 	{
 		if(columnMap.put(column.name, column)!=null)
 			throw new RuntimeException("duplicate column name in table " + name + ": " + column.name);
 		columnList.add(column);
 	}
 
-	final void register(final Constraint constraint)
+	void register(final Constraint constraint)
 	{
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
@@ -97,12 +97,12 @@ public final class Table extends Node
 		schema.register(constraint);
 	}
 
-	final void notifyExists()
+	void notifyExists()
 	{
 		exists = true;
 	}
 
-	final Column notifyExistentColumn(final String columnName, final String existingType)
+	Column notifyExistentColumn(final String columnName, final String existingType)
 	{
 		Column result = columnMap.get(columnName);
 		if(result==null)
@@ -113,7 +113,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -125,7 +125,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -137,7 +137,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentForeignKeyConstraint(final String constraintName)
+	Constraint notifyExistentForeignKeyConstraint(final String constraintName)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -149,7 +149,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -161,32 +161,32 @@ public final class Table extends Node
 		return result;
 	}
 
-	public final boolean required()
+	public boolean required()
 	{
 		return required;
 	}
 
-	public final boolean exists()
+	public boolean exists()
 	{
 		return exists;
 	}
 
-	public final Collection<Column> getColumns()
+	public Collection<Column> getColumns()
 	{
 		return columnList;
 	}
 
-	public final Column getColumn(final String columnName)
+	public Column getColumn(final String columnName)
 	{
 		return columnMap.get(columnName);
 	}
 
-	public final Collection<Constraint> getConstraints()
+	public Collection<Constraint> getConstraints()
 	{
 		return constraintList;
 	}
 
-	public final Constraint getConstraint(final String constraintName)
+	public Constraint getConstraint(final String constraintName)
 	{
 		return constraintMap.get(constraintName);
 	}
@@ -232,12 +232,12 @@ public final class Table extends Node
 		}
 	}
 
-	public final void create()
+	public void create()
 	{
 		create((StatementListener)null);
 	}
 
-	final void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("create table ").
 			append(quoteName(name)).
@@ -274,7 +274,7 @@ public final class Table extends Node
 		}
 	}
 
-	public final void create(final StatementListener listener)
+	public void create(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
 		create(bf);
@@ -294,12 +294,12 @@ public final class Table extends Node
 
 	}
 
-	public final void drop()
+	public void drop()
 	{
 		drop(null);
 	}
 
-	public final void drop(final StatementListener listener)
+	public void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("drop table ").
@@ -321,7 +321,7 @@ public final class Table extends Node
 
 	}
 
-	final void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -330,7 +330,7 @@ public final class Table extends Node
 		}
 	}
 
-	final void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -339,7 +339,7 @@ public final class Table extends Node
 		}
 	}
 
-	final void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -358,17 +358,17 @@ public final class Table extends Node
 		}
 	}
 
-	public final void renameTo(final String newName)
+	public void renameTo(final String newName)
 	{
 		renameTo(newName, null);
 	}
 
-	public final void renameTo(final String newName, final StatementListener listener)
+	public void renameTo(final String newName, final StatementListener listener)
 	{
 		executeSQL(dialect.renameTable(quoteName(name), quoteName(newName)), listener);
 	}
 
-	public final void checkUnsupportedConstraints()
+	public void checkUnsupportedConstraints()
 	{
 		for(final Constraint c : getConstraints())
 			if(!c.isSupported())
@@ -380,7 +380,7 @@ public final class Table extends Node
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return name;
 	}

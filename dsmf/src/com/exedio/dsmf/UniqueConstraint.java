@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class UniqueConstraint extends Constraint
+public final class UniqueConstraint extends Constraint
 {
 	final String clause;
 
@@ -45,13 +45,13 @@ public class UniqueConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+clause);
 	}
 
-	public final String getClause()
+	public String getClause()
 	{
 		return clause;
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -60,7 +60,7 @@ public class UniqueConstraint extends Constraint
 	}
 
 	@Override
-	final void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).
@@ -71,7 +71,7 @@ public class UniqueConstraint extends Constraint
 	}
 
 	@Override
-	final void drop(final StringBuilder bf)
+	void drop(final StringBuilder bf)
 	{
 		dialect.dropUniqueConstraint(bf, quoteName(table.name), quoteName(name));
 	}

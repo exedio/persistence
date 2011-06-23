@@ -102,7 +102,7 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	final String unQuoteName(final String quotedName)
+	String unQuoteName(final String quotedName)
 	{
 		final int length = quotedName.length();
 		if(length<3)

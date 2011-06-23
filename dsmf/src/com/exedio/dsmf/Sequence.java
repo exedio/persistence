@@ -55,7 +55,7 @@ public final class Sequence extends Node
 		return startWith;
 	}
 
-	final void notifyExists()
+	void notifyExists()
 	{
 		exists = true;
 	}

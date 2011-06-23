@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class PrimaryKeyConstraint extends Constraint
+public final class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
 
@@ -45,13 +45,13 @@ public class PrimaryKeyConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+primaryKeyColumn);
 	}
 
-	public final String getPrimaryKeyColumn()
+	public String getPrimaryKeyColumn()
 	{
 		return primaryKeyColumn;
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -61,7 +61,7 @@ public class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	final void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).
@@ -73,7 +73,7 @@ public class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	final void drop(final StringBuilder bf)
+	void drop(final StringBuilder bf)
 	{
 		dialect.dropPrimaryKeyConstraint(bf, quoteName(table.name), quoteName(name));
 	}

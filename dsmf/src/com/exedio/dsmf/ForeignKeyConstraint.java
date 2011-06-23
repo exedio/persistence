@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class ForeignKeyConstraint extends Constraint
+public final class ForeignKeyConstraint extends Constraint
 {
 	final String foreignKeyColumn;
 	final String targetTable;
@@ -57,23 +57,23 @@ public class ForeignKeyConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
 
-	public final String getForeignKeyColumn()
+	public String getForeignKeyColumn()
 	{
 		return foreignKeyColumn;
 	}
 
-	public final String getTargetTable()
+	public String getTargetTable()
 	{
 		return targetTable;
 	}
 
-	public final String getTargetColumn()
+	public String getTargetColumn()
 	{
 		return targetColumn;
 	}
 
 	@Override
-	final void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).
@@ -93,13 +93,13 @@ public class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	final void drop(final StringBuilder bf)
+	void drop(final StringBuilder bf)
 	{
 		dialect.dropForeignKeyConstraint(bf, quoteName(table.name), quoteName(name));
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).

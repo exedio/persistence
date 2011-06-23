@@ -21,7 +21,7 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CheckConstraint extends Constraint
+public final class CheckConstraint extends Constraint
 {
 	public CheckConstraint(
 			final Table table,
@@ -85,7 +85,7 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -95,7 +95,7 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	final void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).
@@ -107,7 +107,7 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	final void drop(final StringBuilder bf)
+	void drop(final StringBuilder bf)
 	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).

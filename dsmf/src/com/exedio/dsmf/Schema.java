@@ -39,14 +39,14 @@ public final class Schema extends Node
 		super(dialect, connectionProvider);
 	}
 
-	final void register(final Table table)
+	void register(final Table table)
 	{
 		if(tableMap.put(table.name, table)!=null)
 			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
 
-	final Table notifyExistentTable(final String tableName)
+	Table notifyExistentTable(final String tableName)
 	{
 		Table result = tableMap.get(tableName);
 		if(result==null)
@@ -67,14 +67,14 @@ public final class Schema extends Node
 		return tableList;
 	}
 
-	final void register(final Sequence sequence)
+	void register(final Sequence sequence)
 	{
 		if(sequenceMap.put(sequence.name, sequence)!=null)
 			throw new RuntimeException("duplicate sequence name in schema: " + sequence.name);
 		sequenceList.add(sequence);
 	}
 
-	final Sequence notifyExistentSequence(final String sequenceName)
+	Sequence notifyExistentSequence(final String sequenceName)
 	{
 		Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
@@ -95,7 +95,7 @@ public final class Schema extends Node
 		return sequenceList;
 	}
 
-	final void register(final Constraint constraint)
+	void register(final Constraint constraint)
 	{
 		if(!constraint.required())
 			return;
@@ -135,12 +135,12 @@ public final class Schema extends Node
 		}
 	}
 
-	public final void create()
+	public void create()
 	{
 		create(null);
 	}
 
-	public final void create(final StatementListener listener)
+	public void create(final StatementListener listener)
 	{
 		for(final Sequence s : sequenceList)
 			s.create(listener);
@@ -152,12 +152,12 @@ public final class Schema extends Node
 			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 	}
 
-	public final void drop()
+	public void drop()
 	{
 		drop(null);
 	}
 
-	public final void drop(final StatementListener listener)
+	public void drop(final StatementListener listener)
 	{
 		// must delete in reverse order, to obey integrity constraints
 		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
@@ -168,12 +168,12 @@ public final class Schema extends Node
 			i.previous().drop(listener);
 	}
 
-	public final void tearDown()
+	public void tearDown()
 	{
 		tearDown(null);
 	}
 
-	public final void tearDown(final StatementListener listener)
+	public void tearDown(final StatementListener listener)
 	{
 		for(final Sequence sequence : sequenceList)
 		{
@@ -197,7 +197,7 @@ public final class Schema extends Node
 		tearDownTables(listener);
 	}
 
-	private final void tearDownForeignKeys(final StatementListener listener)
+	private void tearDownForeignKeys(final StatementListener listener)
 	{
 		for(final Table table : tableList)
 		{
@@ -213,7 +213,7 @@ public final class Schema extends Node
 		}
 	}
 
-	private final void tearDownTables(final StatementListener listener)
+	private void tearDownTables(final StatementListener listener)
 	{
 		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
 
@@ -245,12 +245,12 @@ public final class Schema extends Node
 		while(deleted);
 	}
 
-	public final void createConstraints(final EnumSet<Constraint.Type> types)
+	public void createConstraints(final EnumSet<Constraint.Type> types)
 	{
 		createConstraints(types, null);
 	}
 
-	public final void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(final Table t : tableList)
 			t.createConstraints(types, false, listener);
@@ -258,12 +258,12 @@ public final class Schema extends Node
 			t.createConstraints(types, true, listener);
 	}
 
-	public final void dropConstraints(final EnumSet<Constraint.Type> types)
+	public void dropConstraints(final EnumSet<Constraint.Type> types)
 	{
 		dropConstraints(types, null);
 	}
 
-	public final void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(types, true, listener);
@@ -271,12 +271,12 @@ public final class Schema extends Node
 			i.previous().dropConstraints(types, false, listener);
 	}
 
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> types)
+	public void tearDownConstraints(final EnumSet<Constraint.Type> types)
 	{
 		tearDownConstraints(types, null);
 	}
 
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
@@ -285,7 +285,7 @@ public final class Schema extends Node
 			i.previous().tearDownConstraints(types, false, listener);
 	}
 
-	public final void checkUnsupportedConstraints()
+	public void checkUnsupportedConstraints()
 	{
 		for(final Table t : getTables())
 			t.checkUnsupportedConstraints();

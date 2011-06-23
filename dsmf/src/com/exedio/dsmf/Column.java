@@ -54,12 +54,12 @@ public final class Column extends Node
 		table.register(this);
 	}
 
-	public final Table getTable()
+	public Table getTable()
 	{
 		return table;
 	}
 
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
@@ -111,17 +111,17 @@ public final class Column extends Node
 		cumulativeColor = particularColor;
 	}
 
-	public final boolean required()
+	public boolean required()
 	{
 		return requiredType!=null;
 	}
 
-	public final boolean exists()
+	public boolean exists()
 	{
 		return existingType!=null;
 	}
 
-	public final String getType()
+	public String getType()
 	{
 		if(requiredType!=null)
 			return requiredType;
@@ -129,12 +129,12 @@ public final class Column extends Node
 			return existingType;
 	}
 
-	public final void create()
+	public void create()
 	{
 		create(null);
 	}
 
-	public final void create(final StatementListener listener)
+	public void create(final StatementListener listener)
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
@@ -144,12 +144,12 @@ public final class Column extends Node
 				getType()), listener);
 	}
 
-	public final void renameTo(final String newName)
+	public void renameTo(final String newName)
 	{
 		renameTo(newName, null);
 	}
 
-	public final void renameTo(final String newName, final StatementListener listener)
+	public void renameTo(final String newName, final StatementListener listener)
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
@@ -160,12 +160,12 @@ public final class Column extends Node
 				existingType), listener);
 	}
 
-	public final void modify(final String newType)
+	public void modify(final String newType)
 	{
 		modify(newType, null);
 	}
 
-	public final void modify(final String newType, final StatementListener listener)
+	public void modify(final String newType, final StatementListener listener)
 	{
 		executeSQL(
 			dialect.modifyColumn(
@@ -174,12 +174,12 @@ public final class Column extends Node
 				newType), listener);
 	}
 
-	public final void drop()
+	public void drop()
 	{
 		drop(null);
 	}
 
-	public final void drop(final StatementListener listener)
+	public void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
@@ -191,7 +191,7 @@ public final class Column extends Node
 		executeSQL(bf.toString(), listener);
 	}
 
-	public final void update(final String value, final StatementListener listener)
+	public void update(final String value, final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("update ").
@@ -205,7 +205,7 @@ public final class Column extends Node
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return name;
 	}
