@@ -296,15 +296,19 @@ public final class Table extends Node
 
 	public void drop()
 	{
-		drop(null);
+		drop((StatementListener)null);
+	}
+
+	void drop(final StringBuilder bf)
+	{
+		bf.append("drop table ").
+			append(quoteName(name));
 	}
 
 	public void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("drop table ").
-			append(quoteName(name));
-
+		drop(bf);
 		if(defensive)
 		{
 			try
