@@ -75,5 +75,4 @@ public class UniqueConstraint extends Constraint
 	{
 		dialect.dropUniqueConstraint(bf, quoteName(table.name), quoteName(name));
 	}
-
 }

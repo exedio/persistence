@@ -33,5 +33,4 @@ public final class SQLRuntimeException extends RuntimeException
 	{
 		super(statement, cause);
 	}
-
 }

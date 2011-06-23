@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-
 public final class Column extends Node
 {
 	final Table table;
@@ -210,6 +209,5 @@ public final class Column extends Node
 	{
 		return name;
 	}
-
 }
 

@@ -384,5 +384,4 @@ public final class Table extends Node
 	{
 		return name;
 	}
-
 }

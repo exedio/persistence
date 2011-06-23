@@ -115,5 +115,4 @@ public class ForeignKeyConstraint extends Constraint
 				append(')');
 		}
 	}
-
 }

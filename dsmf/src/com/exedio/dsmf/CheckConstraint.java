@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class CheckConstraint extends Constraint
 {
 	public CheckConstraint(
@@ -115,5 +114,4 @@ public class CheckConstraint extends Constraint
 			append(" drop constraint ").
 			append(quoteName(name));
 	}
-
 }

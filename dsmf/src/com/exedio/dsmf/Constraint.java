@@ -218,5 +218,4 @@ public abstract class Constraint extends Node
 	abstract void createInTable(StringBuilder bf);
 	abstract void create(StringBuilder bf);
 	abstract void drop(StringBuilder bf);
-
 }
