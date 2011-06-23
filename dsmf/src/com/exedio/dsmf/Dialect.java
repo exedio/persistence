@@ -159,10 +159,7 @@ public abstract class Dialect
 		return dropConstraint(tableName, constraintName);
 	}
 
-	public String createSequence(final String sequenceName, final int startWith)
-	{
-		throw new RuntimeException("sequences not implemented: " + sequenceName + '(' + startWith + ')');
-	}
+	public abstract String createSequence(String sequenceName, int startWith);
 
 	public String dropSequence(final String sequenceName)
 	{
