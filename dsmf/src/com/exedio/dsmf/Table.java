@@ -234,13 +234,11 @@ public final class Table extends Node
 
 	public final void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
-	public final void create(final StatementListener listener)
+	final void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
-
 		bf.append("create table ").
 			append(quoteName(name)).
 			append('(');
@@ -274,8 +272,12 @@ public final class Table extends Node
 			bf.append(' ').
 				append(options);
 		}
+	}
 
-		//System.out.println("createTable:"+bf.toString());
+	public final void create(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		create(bf);
 		if(defensive)
 		{
 			try

@@ -305,35 +305,29 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop primary key");
-		return bf.toString();
 	}
 
 	@Override
-	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
+	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop foreign key ").
 			append(constraintName);
-		return bf.toString();
 	}
 
 	@Override
-	public String dropUniqueConstraint(final String tableName, final String constraintName)
+	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop index ").
 			append(constraintName);
-		return bf.toString();
 	}
 
 	public static final String SEQUENCE_COLUMN = "x";

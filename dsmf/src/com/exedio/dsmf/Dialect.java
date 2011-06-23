@@ -134,29 +134,27 @@ public abstract class Dialect
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private final String dropConstraint(final String tableName, final String constraintName)
+	private final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop constraint ").
 			append(constraintName);
-		return bf.toString();
 	}
 
-	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
+	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public String dropUniqueConstraint(final String tableName, final String constraintName)
+	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
 	public abstract String createSequence(String sequenceName, int startWith);

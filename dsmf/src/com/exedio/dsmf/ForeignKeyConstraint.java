@@ -73,9 +73,8 @@ public class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	public final void create(final StatementListener listener)
+	final void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" add constraint ").
@@ -91,15 +90,12 @@ public class ForeignKeyConstraint extends Constraint
 				append(quoteName(targetColumn)).
 				append(')');
 		}
-
-		//System.out.println("createForeignKeyConstraints:"+bf);
-		executeSQL(bf.toString(), listener);
 	}
 
 	@Override
-	public final void drop(final StatementListener listener)
+	final void drop(final StringBuilder bf)
 	{
-		executeSQL(dialect.dropForeignKeyConstraint(quoteName(table.name), quoteName(name)), listener);
+		dialect.dropForeignKeyConstraint(bf, quoteName(table.name), quoteName(name));
 	}
 
 	@Override

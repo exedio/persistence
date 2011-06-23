@@ -193,16 +193,30 @@ public abstract class Constraint extends Node
 
 	public final void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
 	public final void drop()
 	{
-		drop(null);
+		drop((StatementListener)null);
+	}
+
+	public final void create(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		create(bf);
+		executeSQL(bf.toString(), listener);
+	}
+
+	public final void drop(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		drop(bf);
+		executeSQL(bf.toString(), listener);
 	}
 
 	abstract void createInTable(StringBuilder bf);
-	public abstract void create(StatementListener listener);
-	public abstract void drop(StatementListener listener);
+	abstract void create(StringBuilder bf);
+	abstract void drop(StringBuilder bf);
 
 }
