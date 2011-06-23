@@ -30,7 +30,7 @@
 		<dependency org="org.cojen" name="cojen" rev="2.0" />
 		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
 		<dependency org="org.hsqldb" name="hsqldb" rev="2.1.0" conf="hsqldb->default" />
-		<dependency org="mysql" name="mysql-connector-java" rev="5.0.3" conf="mysql->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.0.8" conf="mysql->default" />
 		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->*" />
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />

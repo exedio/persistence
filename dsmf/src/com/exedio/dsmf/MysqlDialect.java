@@ -92,7 +92,8 @@ public final class MysqlDialect extends Dialect
 				switch(columnSize)
 				{
 					case 65535:      return "BLOB";
-					case 16277215:   return "MEDIUMBLOB";
+					case 16277215:   // needed until mysql connector 5.0.4, probably a bug
+					case 16777215:   return "MEDIUMBLOB";
 					case 2147483647: return "LONGBLOB";
 					default:         return "LONGVARBINARY("+columnSize+')';
 				}
@@ -408,6 +409,13 @@ public final class MysqlDialect extends Dialect
 		{
 			connection = connectionProvider.getConnection();
 			execute(connection, sql);
+
+			// NOTE:
+			// until mysql connector 5.0.4 putting connection back into the pool
+			// causes exception later:
+			// java.sql.SQLException: ResultSet is from UPDATE. No Data.
+			connectionProvider.putConnection(connection);
+			connection = null;
 		}
 		catch(final SQLException e)
 		{
@@ -421,8 +429,6 @@ public final class MysqlDialect extends Dialect
 				{
 					// do not put it into connection pool again
 					// because foreign key constraints could be disabled
-					// and because of nasty exception afterwards:
-					// java.sql.SQLException: ResultSet is from UPDATE. No Data.
 					connection.close();
 				}
 				catch(final SQLException e)
