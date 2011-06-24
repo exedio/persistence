@@ -58,8 +58,9 @@ public final class Dumper
 		final Row row = new Row();
 		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
 		{
-			final FunctionField field = (FunctionField)e.getKey();
-			set(row, field, e.getValue());
+			final Field field = e.getKey();
+			if(field instanceof FunctionField)
+				set(row, (FunctionField)field, e.getValue());
 		}
 		final int pk = nextPk(type);
 		final E result = type.activate(pk);

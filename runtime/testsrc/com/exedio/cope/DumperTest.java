@@ -18,10 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.DumperItem.TYPE;
+import static com.exedio.cope.DumperItem.data;
 import static com.exedio.cope.DumperItem.string;
 import static com.exedio.cope.DumperItem.unique;
 import static com.exedio.cope.DumperSubItem.subString;
+import static com.exedio.cope.util.Hex.decodeLower;
 
 import java.io.IOException;
 
@@ -36,6 +39,7 @@ public class DumperTest extends AbstractRuntimeTest
 	}
 
 	private Dumper dumper = null;
+	private String dataL = null;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Override
@@ -44,6 +48,12 @@ public class DumperTest extends AbstractRuntimeTest
 		super.setUp();
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();
+		if(hsqldb)
+			dataL = "X'aabbcc'";
+		else if(mysql)
+			dataL = "x'aabbcc'";
+		else
+			dataL = "'aabbcc'";
 	}
 
 	public void testOk() throws IOException
@@ -53,11 +63,12 @@ public class DumperTest extends AbstractRuntimeTest
 		final StringBuilder out = new StringBuilder();
 		dumper.newItem(out, TYPE,
 				string.map("string0"),
-				unique.map("unique0"));
+				unique.map("unique0"),
+				data.map(toValue(decodeLower("aabbcc"))));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + ")values" +
-				"(0,'DumperItem'" + ifupd(",0") + ",'string0','unique0');",
+				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
+				"(0,'DumperItem'" + ifupd(",0") + ",'string0','unique0'," + dataL + ");",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
@@ -70,11 +81,12 @@ public class DumperTest extends AbstractRuntimeTest
 		dumper.newItem(out, DumperSubItem.TYPE,
 				string.map("string0"),
 				unique.map("unique0"),
+				data.map(toValue(decodeLower("aabbcc"))),
 				subString.map("subString0"));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + ")values" +
-				"(0,'DumperSubItem'" + ifupd(",0") + ",'string0','unique0');" +
+				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
+				"(0,'DumperSubItem'" + ifupd(",0") + ",'string0','unique0'," + dataL + ");" +
 				"insert into " + tab(DumperSubItem.TYPE) +
 				"(" + pk(DumperSubItem.TYPE) + ifupd("," + upd(DumperSubItem.TYPE)) + "," + col(subString) + ")values" +
 				"(0" + ifupd(",0") + ",'subString0');",
@@ -95,6 +107,24 @@ public class DumperTest extends AbstractRuntimeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(string, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		assertEquals(1, DumperItem.beforeNewCopeItemCount);
+	}
+
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	public void testMandatoryData() throws IOException
+	{
+		try
+		{
+			dumper.newItem(null, TYPE,
+					string.map("string"),
+					unique.map("unique"));
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(data, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
