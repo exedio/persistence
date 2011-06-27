@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.IntegerItem.TYPE;
 import static java.lang.Integer.valueOf;
 
 import java.util.Date;
@@ -26,7 +27,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 
 public class IntegerTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(IntegerItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
 	public IntegerTest()
 	{
@@ -435,7 +436,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			IntegerItem.TYPE.newItem(
+			TYPE.newItem(
 					item.mandatory.map(1234567),
 					item.max4.map(5)
 			);
