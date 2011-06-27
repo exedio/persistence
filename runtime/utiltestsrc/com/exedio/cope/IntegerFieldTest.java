@@ -28,14 +28,14 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class IntegerFieldTest extends CopeAssert
 {
-	private final IntegerField any = new IntegerField().optional();
-	private final IntegerField mandatory = new IntegerField();
-	private final IntegerField min4 = new IntegerField().optional().min(4);
-	private final IntegerField max4 = new IntegerField().optional().max(4);
-	private final IntegerField min4Max8 = new IntegerField().optional().range(4, 8);
-
 	public void testQueryCanonize()
 	{
+		final IntegerField any = new IntegerField().optional();
+		final IntegerField mandatory = new IntegerField();
+		final IntegerField min4 = new IntegerField().optional().min(4);
+		final IntegerField max4 = new IntegerField().optional().max(4);
+		final IntegerField min4Max8 = new IntegerField().optional().range(4, 8);
+
 		assertEquals(in(any), any.isNull());
 		assertEquals(nn(any), any.isNotNull());
 		assertEquals(in(any), any.equal((Integer)null));
