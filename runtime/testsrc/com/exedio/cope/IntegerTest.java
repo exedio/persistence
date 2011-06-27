@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.IntegerItem.TYPE;
+import static com.exedio.cope.IntegerItem.any;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Integer.valueOf;
@@ -55,13 +56,13 @@ public class IntegerTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(item.TYPE, item.any.getType());
-		assertEquals("any", item.any.getName());
-		assertEquals(false, item.any.isMandatory());
-		assertEquals(null, item.any.getPattern());
-		assertEquals(MIN_VALUE, item.any.getMinimum());
-		assertEquals(MAX_VALUE, item.any.getMaximum());
-		assertContains(item.any.getInitialExceptions());
+		assertEquals(item.TYPE, any.getType());
+		assertEquals("any", any.getName());
+		assertEquals(false, any.isMandatory());
+		assertEquals(null, any.getPattern());
+		assertEquals(MIN_VALUE, any.getMinimum());
+		assertEquals(MAX_VALUE, any.getMaximum());
+		assertContains(any.getInitialExceptions());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
@@ -87,28 +88,28 @@ public class IntegerTest extends AbstractRuntimeTest
 
 		// test condition canonization
 		{
-			assertEquals(in(item.any), item.any.isNull());
-			assertEquals(nn(item.any), item.any.isNotNull());
-			assertEquals(in(item.any), item.any.equal((Integer)null));
-			assertEquals(nn(item.any), item.any.notEqual((Integer)null));
-			assertEquals(cc(Operator.Equal, item.any, 0), item.any.equal(0));
-			assertEquals(cc(Operator.Equal, item.any, MIN_VALUE), item.any.equal(MIN_VALUE));
-			assertEquals(cc(Operator.Equal, item.any, MAX_VALUE), item.any.equal(MAX_VALUE));
-			assertEquals(cc(Operator.NotEqual, item.any, 0), item.any.notEqual(0));
-			assertEquals(cc(Operator.NotEqual, item.any, MIN_VALUE), item.any.notEqual(MIN_VALUE));
-			assertEquals(cc(Operator.NotEqual, item.any, MAX_VALUE), item.any.notEqual(MAX_VALUE));
-			assertEquals(cc(Operator.Less, item.any, 0), item.any.less(0));
-			assertEquals(cc(Operator.Less, item.any, MIN_VALUE), item.any.less(MIN_VALUE));
-			assertEquals(cc(Operator.Less, item.any, MAX_VALUE), item.any.less(MAX_VALUE));
-			assertEquals(cc(Operator.LessEqual, item.any, 0), item.any.lessOrEqual(0));
-			assertEquals(cc(Operator.LessEqual, item.any, MIN_VALUE), item.any.lessOrEqual(MIN_VALUE));
-			assertEquals(cc(Operator.LessEqual, item.any, MAX_VALUE), item.any.lessOrEqual(MAX_VALUE));
-			assertEquals(cc(Operator.Greater, item.any, 0), item.any.greater(0));
-			assertEquals(cc(Operator.Greater, item.any, MIN_VALUE), item.any.greater(MIN_VALUE));
-			assertEquals(cc(Operator.Greater, item.any, MAX_VALUE), item.any.greater(MAX_VALUE));
-			assertEquals(cc(Operator.GreaterEqual, item.any, 0), item.any.greaterOrEqual(0));
-			assertEquals(cc(Operator.GreaterEqual, item.any, MIN_VALUE), item.any.greaterOrEqual(MIN_VALUE));
-			assertEquals(cc(Operator.GreaterEqual, item.any, MAX_VALUE), item.any.greaterOrEqual(MAX_VALUE));
+			assertEquals(in(any), any.isNull());
+			assertEquals(nn(any), any.isNotNull());
+			assertEquals(in(any), any.equal((Integer)null));
+			assertEquals(nn(any), any.notEqual((Integer)null));
+			assertEquals(cc(Operator.Equal, any, 0), any.equal(0));
+			assertEquals(cc(Operator.Equal, any, MIN_VALUE), any.equal(MIN_VALUE));
+			assertEquals(cc(Operator.Equal, any, MAX_VALUE), any.equal(MAX_VALUE));
+			assertEquals(cc(Operator.NotEqual, any, 0), any.notEqual(0));
+			assertEquals(cc(Operator.NotEqual, any, MIN_VALUE), any.notEqual(MIN_VALUE));
+			assertEquals(cc(Operator.NotEqual, any, MAX_VALUE), any.notEqual(MAX_VALUE));
+			assertEquals(cc(Operator.Less, any, 0), any.less(0));
+			assertEquals(cc(Operator.Less, any, MIN_VALUE), any.less(MIN_VALUE));
+			assertEquals(cc(Operator.Less, any, MAX_VALUE), any.less(MAX_VALUE));
+			assertEquals(cc(Operator.LessEqual, any, 0), any.lessOrEqual(0));
+			assertEquals(cc(Operator.LessEqual, any, MIN_VALUE), any.lessOrEqual(MIN_VALUE));
+			assertEquals(cc(Operator.LessEqual, any, MAX_VALUE), any.lessOrEqual(MAX_VALUE));
+			assertEquals(cc(Operator.Greater, any, 0), any.greater(0));
+			assertEquals(cc(Operator.Greater, any, MIN_VALUE), any.greater(MIN_VALUE));
+			assertEquals(cc(Operator.Greater, any, MAX_VALUE), any.greater(MAX_VALUE));
+			assertEquals(cc(Operator.GreaterEqual, any, 0), any.greaterOrEqual(0));
+			assertEquals(cc(Operator.GreaterEqual, any, MIN_VALUE), any.greaterOrEqual(MIN_VALUE));
+			assertEquals(cc(Operator.GreaterEqual, any, MAX_VALUE), any.greaterOrEqual(MAX_VALUE));
 
 			assertEquals(in(item.mandatory), item.mandatory.isNull());
 			assertEquals(nn(item.mandatory), item.mandatory.isNotNull());
@@ -299,12 +300,12 @@ public class IntegerTest extends AbstractRuntimeTest
 		item.min4.check(4);
 
 		// test conditions
-		assertEquals(item.any.equal(1), item.any.equal(1));
-		assertNotEquals(item.any.equal(1), item.any.equal(2));
-		assertNotEquals(item.any.equal(1), item.any.equal((Integer)null));
-		assertNotEquals(item.any.equal(1), item.any.greater(1));
-		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
-		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
+		assertEquals(any.equal(1), any.equal(1));
+		assertNotEquals(any.equal(1), any.equal(2));
+		assertNotEquals(any.equal(1), any.equal((Integer)null));
+		assertNotEquals(any.equal(1), any.greater(1));
+		assertEquals(any.equal(item.mandatory), any.equal(item.mandatory));
+		assertNotEquals(any.equal(item.mandatory), any.equal(any));
 
 		// any
 		item.setAny(1234);
@@ -517,12 +518,12 @@ public class IntegerTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			item.set((FunctionField)item.any, "hallo");
+			item.set((FunctionField)any, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
+			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName() + " for " + any + '.', e.getMessage());
 		}
 	}
 
