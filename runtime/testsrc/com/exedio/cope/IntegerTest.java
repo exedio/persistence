@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.IntegerItem.TYPE;
 import static java.lang.Integer.valueOf;
 
@@ -36,9 +38,6 @@ public class IntegerTest extends AbstractRuntimeTest
 
 	private static final int MIN = Integer.MIN_VALUE;
 	private static final int MAX = Integer.MAX_VALUE;
-
-	private static final Condition TRUE  = Condition.TRUE;
-	private static final Condition FALSE = Condition.FALSE;
 
 	private IntegerItem item;
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
