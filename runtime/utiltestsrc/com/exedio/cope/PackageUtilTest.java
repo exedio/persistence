@@ -35,6 +35,7 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(IntegerFieldTest.class);
 		suite.addTestSuite(StringCopyTest.class);
 		suite.addTestSuite(StringEscapeTest.class);
 		suite.addTestSuite(SetValueTest.class);
