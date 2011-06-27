@@ -23,6 +23,8 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.IntegerItem.TYPE;
 import static com.exedio.cope.IntegerItem.any;
 import static com.exedio.cope.IntegerItem.mandatory;
+import static com.exedio.cope.IntegerItem.min4;
+import static com.exedio.cope.IntegerItem.min4Max8;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Integer.valueOf;
@@ -72,20 +74,20 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(MAX_VALUE, mandatory.getMaximum());
 		assertContains(MandatoryViolationException.class, mandatory.getInitialExceptions());
 
-		assertEquals(false, item.min4.isMandatory());
-		assertEquals(4, item.min4.getMinimum());
-		assertEquals(MAX_VALUE, item.min4.getMaximum());
-		assertContains(IntegerRangeViolationException.class, item.min4.getInitialExceptions());
+		assertEquals(false, min4.isMandatory());
+		assertEquals(4, min4.getMinimum());
+		assertEquals(MAX_VALUE, min4.getMaximum());
+		assertContains(IntegerRangeViolationException.class, min4.getInitialExceptions());
 
 		assertEquals(false, item.max4.isMandatory());
 		assertEquals(MIN_VALUE, item.max4.getMinimum());
 		assertEquals(4, item.max4.getMaximum());
 		assertContains(IntegerRangeViolationException.class, item.max4.getInitialExceptions());
 
-		assertEquals(false, item.min4Max8.isMandatory());
-		assertEquals(4, item.min4Max8.getMinimum());
-		assertEquals(8, item.min4Max8.getMaximum());
-		assertContains(IntegerRangeViolationException.class, item.min4Max8.getInitialExceptions());
+		assertEquals(false, min4Max8.isMandatory());
+		assertEquals(4, min4Max8.getMinimum());
+		assertEquals(8, min4Max8.getMaximum());
+		assertContains(IntegerRangeViolationException.class, min4Max8.getInitialExceptions());
 
 		// test condition canonization
 		{
@@ -120,12 +122,12 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(cc(Operator.Equal, mandatory, MIN_VALUE), mandatory.equal(MIN_VALUE));
 			assertEquals(cc(Operator.Equal, mandatory, MAX_VALUE), mandatory.equal(MAX_VALUE));
 
-			assertEquals(in(item.min4), item.min4.equal((Integer)null));
-			assertEquals(FALSE,                            item.min4.equal(0));
-			assertEquals(FALSE,                            item.min4.equal(3));
-			assertEquals(cc(Operator.Equal, item.min4, 4), item.min4.equal(4));
-			assertEquals(FALSE,                              item.min4.equal(MIN_VALUE));
-			assertEquals(cc(Operator.Equal, item.min4, MAX_VALUE), item.min4.equal(MAX_VALUE));
+			assertEquals(in(min4), min4.equal((Integer)null));
+			assertEquals(FALSE,                            min4.equal(0));
+			assertEquals(FALSE,                            min4.equal(3));
+			assertEquals(cc(Operator.Equal, min4, 4), min4.equal(4));
+			assertEquals(FALSE,                              min4.equal(MIN_VALUE));
+			assertEquals(cc(Operator.Equal, min4, MAX_VALUE), min4.equal(MAX_VALUE));
 
 			assertEquals(in(item.max4), item.max4.equal((Integer)null));
 			assertEquals(cc(Operator.Equal, item.max4, 0), item.max4.equal(0));
@@ -135,59 +137,59 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(cc(Operator.Equal, item.max4, MIN_VALUE), item.max4.equal(MIN_VALUE));
 			assertEquals(FALSE,                              item.max4.equal(MAX_VALUE));
 
-			assertEquals(in(item.min4Max8), item.min4Max8.isNull());
-			assertEquals(nn(item.min4Max8), item.min4Max8.isNotNull());
-			assertEquals(in(item.min4Max8), item.min4Max8.equal((Integer)null));
-			assertEquals(nn(item.min4Max8), item.min4Max8.notEqual((Integer)null));
-			assertEquals(FALSE,                                item.min4Max8.equal(0));
-			assertEquals(FALSE,                                item.min4Max8.equal(3));
-			assertEquals(cc(Operator.Equal, item.min4Max8, 4), item.min4Max8.equal(4));
-			assertEquals(cc(Operator.Equal, item.min4Max8, 8), item.min4Max8.equal(8));
-			assertEquals(FALSE,                                item.min4Max8.equal(9));
-			assertEquals(FALSE,                                item.min4Max8.equal(MIN_VALUE));
-			assertEquals(FALSE,                                item.min4Max8.equal(MAX_VALUE));
-			assertEquals(TRUE,                                    item.min4Max8.notEqual(0));
-			assertEquals(TRUE,                                    item.min4Max8.notEqual(3));
-			assertEquals(cc(Operator.NotEqual, item.min4Max8, 4), item.min4Max8.notEqual(4));
-			assertEquals(cc(Operator.NotEqual, item.min4Max8, 8), item.min4Max8.notEqual(8));
-			assertEquals(TRUE,                                    item.min4Max8.notEqual(9));
-			assertEquals(TRUE,                                    item.min4Max8.notEqual(MIN_VALUE));
-			assertEquals(TRUE,                                    item.min4Max8.notEqual(MAX_VALUE));
-			assertEquals(cc(Operator.Less, item.min4Max8, 0), item.min4Max8.less(0));
-			assertEquals(cc(Operator.Less, item.min4Max8, 3), item.min4Max8.less(3));
-			assertEquals(cc(Operator.Less, item.min4Max8, 4), item.min4Max8.less(4));
-			assertEquals(cc(Operator.Less, item.min4Max8, 5), item.min4Max8.less(5));
-			assertEquals(cc(Operator.Less, item.min4Max8, MIN_VALUE), item.min4Max8.less(MIN_VALUE));
-			assertEquals(cc(Operator.Less, item.min4Max8, MAX_VALUE), item.min4Max8.less(MAX_VALUE));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  0), item.min4Max8.lessOrEqual( 0));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  3), item.min4Max8.lessOrEqual( 3));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  4), item.min4Max8.lessOrEqual( 4));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  5), item.min4Max8.lessOrEqual( 5));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  8), item.min4Max8.lessOrEqual( 8));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,  9), item.min4Max8.lessOrEqual( 9));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 10), item.min4Max8.lessOrEqual(10));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, MIN_VALUE), item.min4Max8.lessOrEqual(MIN_VALUE));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, MAX_VALUE), item.min4Max8.lessOrEqual(MAX_VALUE));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 0), item.min4Max8.greater(0));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 2), item.min4Max8.greater(2));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 3), item.min4Max8.greater(3));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 4), item.min4Max8.greater(4));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 6), item.min4Max8.greater(6));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 7), item.min4Max8.greater(7));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 8), item.min4Max8.greater(8));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 9), item.min4Max8.greater(9));
-			assertEquals(cc(Operator.Greater, item.min4Max8, MIN_VALUE), item.min4Max8.greater(MIN_VALUE));
-			assertEquals(cc(Operator.Greater, item.min4Max8, MAX_VALUE), item.min4Max8.greater(MAX_VALUE));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 0), item.min4Max8.greaterOrEqual(0));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 2), item.min4Max8.greaterOrEqual(2));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 3), item.min4Max8.greaterOrEqual(3));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 4), item.min4Max8.greaterOrEqual(4));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 6), item.min4Max8.greaterOrEqual(6));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 7), item.min4Max8.greaterOrEqual(7));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 8), item.min4Max8.greaterOrEqual(8));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 9), item.min4Max8.greaterOrEqual(9));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, MIN_VALUE), item.min4Max8.greaterOrEqual(MIN_VALUE));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, MAX_VALUE), item.min4Max8.greaterOrEqual(MAX_VALUE));
+			assertEquals(in(min4Max8), min4Max8.isNull());
+			assertEquals(nn(min4Max8), min4Max8.isNotNull());
+			assertEquals(in(min4Max8), min4Max8.equal((Integer)null));
+			assertEquals(nn(min4Max8), min4Max8.notEqual((Integer)null));
+			assertEquals(FALSE,                                min4Max8.equal(0));
+			assertEquals(FALSE,                                min4Max8.equal(3));
+			assertEquals(cc(Operator.Equal, min4Max8, 4), min4Max8.equal(4));
+			assertEquals(cc(Operator.Equal, min4Max8, 8), min4Max8.equal(8));
+			assertEquals(FALSE,                                min4Max8.equal(9));
+			assertEquals(FALSE,                                min4Max8.equal(MIN_VALUE));
+			assertEquals(FALSE,                                min4Max8.equal(MAX_VALUE));
+			assertEquals(TRUE,                                    min4Max8.notEqual(0));
+			assertEquals(TRUE,                                    min4Max8.notEqual(3));
+			assertEquals(cc(Operator.NotEqual, min4Max8, 4), min4Max8.notEqual(4));
+			assertEquals(cc(Operator.NotEqual, min4Max8, 8), min4Max8.notEqual(8));
+			assertEquals(TRUE,                                    min4Max8.notEqual(9));
+			assertEquals(TRUE,                                    min4Max8.notEqual(MIN_VALUE));
+			assertEquals(TRUE,                                    min4Max8.notEqual(MAX_VALUE));
+			assertEquals(cc(Operator.Less, min4Max8, 0), min4Max8.less(0));
+			assertEquals(cc(Operator.Less, min4Max8, 3), min4Max8.less(3));
+			assertEquals(cc(Operator.Less, min4Max8, 4), min4Max8.less(4));
+			assertEquals(cc(Operator.Less, min4Max8, 5), min4Max8.less(5));
+			assertEquals(cc(Operator.Less, min4Max8, MIN_VALUE), min4Max8.less(MIN_VALUE));
+			assertEquals(cc(Operator.Less, min4Max8, MAX_VALUE), min4Max8.less(MAX_VALUE));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  0), min4Max8.lessOrEqual( 0));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  3), min4Max8.lessOrEqual( 3));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  4), min4Max8.lessOrEqual( 4));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  5), min4Max8.lessOrEqual( 5));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  8), min4Max8.lessOrEqual( 8));
+			assertEquals(cc(Operator.LessEqual, min4Max8,  9), min4Max8.lessOrEqual( 9));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 10), min4Max8.lessOrEqual(10));
+			assertEquals(cc(Operator.LessEqual, min4Max8, MIN_VALUE), min4Max8.lessOrEqual(MIN_VALUE));
+			assertEquals(cc(Operator.LessEqual, min4Max8, MAX_VALUE), min4Max8.lessOrEqual(MAX_VALUE));
+			assertEquals(cc(Operator.Greater, min4Max8, 0), min4Max8.greater(0));
+			assertEquals(cc(Operator.Greater, min4Max8, 2), min4Max8.greater(2));
+			assertEquals(cc(Operator.Greater, min4Max8, 3), min4Max8.greater(3));
+			assertEquals(cc(Operator.Greater, min4Max8, 4), min4Max8.greater(4));
+			assertEquals(cc(Operator.Greater, min4Max8, 6), min4Max8.greater(6));
+			assertEquals(cc(Operator.Greater, min4Max8, 7), min4Max8.greater(7));
+			assertEquals(cc(Operator.Greater, min4Max8, 8), min4Max8.greater(8));
+			assertEquals(cc(Operator.Greater, min4Max8, 9), min4Max8.greater(9));
+			assertEquals(cc(Operator.Greater, min4Max8, MIN_VALUE), min4Max8.greater(MIN_VALUE));
+			assertEquals(cc(Operator.Greater, min4Max8, MAX_VALUE), min4Max8.greater(MAX_VALUE));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 0), min4Max8.greaterOrEqual(0));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 2), min4Max8.greaterOrEqual(2));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 3), min4Max8.greaterOrEqual(3));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 4), min4Max8.greaterOrEqual(4));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 6), min4Max8.greaterOrEqual(6));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 7), min4Max8.greaterOrEqual(7));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 8), min4Max8.greaterOrEqual(8));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 9), min4Max8.greaterOrEqual(9));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, MIN_VALUE), min4Max8.greaterOrEqual(MIN_VALUE));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX_VALUE), min4Max8.greaterOrEqual(MAX_VALUE));
 		}
 
 		{
@@ -283,22 +285,22 @@ public class IntegerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.min4.check(3);
+			min4.check(3);
 			fail();
 		}
 		catch(final IntegerRangeViolationException e)
 		{
-			assertEquals(item.min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation, " +
-					"3 is too small for " + item.min4 + ", " +
+					"3 is too small for " + min4 + ", " +
 					"must be at least 4.",
 					e.getMessage());
 		}
-		item.min4.check(4);
+		min4.check(4);
 
 		// test conditions
 		assertEquals(any.equal(1), any.equal(1));
@@ -373,13 +375,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4, e.getFeature());
-			assertEquals(item.min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"3 is too small for " + item.min4 + ", " +
+					"3 is too small for " + min4 + ", " +
 					"must be at least 4.",
 					e.getMessage());
 		}
@@ -465,13 +467,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"3 is too small for " + item.min4Max8 + ", " +
+					"3 is too small for " + min4Max8 + ", " +
 					"must be at least 4.",
 					e.getMessage());
 		}
@@ -496,13 +498,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals(9, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"9 is too big for " + item.min4Max8 + ", " +
+					"9 is too big for " + min4Max8 + ", " +
 					"must be at most 8.",
 					e.getMessage());
 		}
