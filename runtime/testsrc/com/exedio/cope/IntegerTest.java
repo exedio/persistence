@@ -531,7 +531,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		}
 	}
 
-	void assertIllegalRange(final int minimum, final int maximum, final String message)
+	private void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		try
 		{
