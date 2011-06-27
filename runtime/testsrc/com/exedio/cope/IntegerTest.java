@@ -22,6 +22,7 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.IntegerItem.TYPE;
 import static com.exedio.cope.IntegerItem.any;
+import static com.exedio.cope.IntegerItem.mandatory;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Integer.valueOf;
@@ -64,12 +65,12 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(MAX_VALUE, any.getMaximum());
 		assertContains(any.getInitialExceptions());
 
-		assertEquals(item.TYPE, item.mandatory.getType());
-		assertEquals("mandatory", item.mandatory.getName());
-		assertEquals(true, item.mandatory.isMandatory());
-		assertEquals(MIN_VALUE, item.mandatory.getMinimum());
-		assertEquals(MAX_VALUE, item.mandatory.getMaximum());
-		assertContains(MandatoryViolationException.class, item.mandatory.getInitialExceptions());
+		assertEquals(item.TYPE, mandatory.getType());
+		assertEquals("mandatory", mandatory.getName());
+		assertEquals(true, mandatory.isMandatory());
+		assertEquals(MIN_VALUE, mandatory.getMinimum());
+		assertEquals(MAX_VALUE, mandatory.getMaximum());
+		assertContains(MandatoryViolationException.class, mandatory.getInitialExceptions());
 
 		assertEquals(false, item.min4.isMandatory());
 		assertEquals(4, item.min4.getMinimum());
@@ -111,13 +112,13 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(cc(Operator.GreaterEqual, any, MIN_VALUE), any.greaterOrEqual(MIN_VALUE));
 			assertEquals(cc(Operator.GreaterEqual, any, MAX_VALUE), any.greaterOrEqual(MAX_VALUE));
 
-			assertEquals(in(item.mandatory), item.mandatory.isNull());
-			assertEquals(nn(item.mandatory), item.mandatory.isNotNull());
-			assertEquals(in(item.mandatory), item.mandatory.equal((Integer)null));
-			assertEquals(nn(item.mandatory), item.mandatory.notEqual((Integer)null));
-			assertEquals(cc(Operator.Equal, item.mandatory, 0), item.mandatory.equal(0));
-			assertEquals(cc(Operator.Equal, item.mandatory, MIN_VALUE), item.mandatory.equal(MIN_VALUE));
-			assertEquals(cc(Operator.Equal, item.mandatory, MAX_VALUE), item.mandatory.equal(MAX_VALUE));
+			assertEquals(in(mandatory), mandatory.isNull());
+			assertEquals(nn(mandatory), mandatory.isNotNull());
+			assertEquals(in(mandatory), mandatory.equal((Integer)null));
+			assertEquals(nn(mandatory), mandatory.notEqual((Integer)null));
+			assertEquals(cc(Operator.Equal, mandatory, 0), mandatory.equal(0));
+			assertEquals(cc(Operator.Equal, mandatory, MIN_VALUE), mandatory.equal(MIN_VALUE));
+			assertEquals(cc(Operator.Equal, mandatory, MAX_VALUE), mandatory.equal(MAX_VALUE));
 
 			assertEquals(in(item.min4), item.min4.equal((Integer)null));
 			assertEquals(FALSE,                            item.min4.equal(0));
@@ -271,14 +272,14 @@ public class IntegerTest extends AbstractRuntimeTest
 		// test check method
 		try
 		{
-			item.mandatory.check(null);
+			mandatory.check(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
 		try
 		{
@@ -304,8 +305,8 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertNotEquals(any.equal(1), any.equal(2));
 		assertNotEquals(any.equal(1), any.equal((Integer)null));
 		assertNotEquals(any.equal(1), any.greater(1));
-		assertEquals(any.equal(item.mandatory), any.equal(item.mandatory));
-		assertNotEquals(any.equal(item.mandatory), any.equal(any));
+		assertEquals(any.equal(mandatory), any.equal(mandatory));
+		assertNotEquals(any.equal(mandatory), any.equal(any));
 
 		// any
 		item.setAny(1234);
@@ -321,15 +322,15 @@ public class IntegerTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.mandatory.set(item, null);
+			mandatory.set(item, null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
 		}
 		assertEquals(52201, item.getMandatory());
 
@@ -342,9 +343,9 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 
@@ -357,9 +358,9 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 
@@ -436,7 +437,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		try
 		{
 			TYPE.newItem(
-					item.mandatory.map(1234567),
+					mandatory.map(1234567),
 					item.max4.map(5)
 			);
 			fail();
