@@ -23,6 +23,7 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.IntegerItem.TYPE;
 import static com.exedio.cope.IntegerItem.any;
 import static com.exedio.cope.IntegerItem.mandatory;
+import static com.exedio.cope.IntegerItem.max4;
 import static com.exedio.cope.IntegerItem.min4;
 import static com.exedio.cope.IntegerItem.min4Max8;
 import static java.lang.Integer.MAX_VALUE;
@@ -79,10 +80,10 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(MAX_VALUE, min4.getMaximum());
 		assertContains(IntegerRangeViolationException.class, min4.getInitialExceptions());
 
-		assertEquals(false, item.max4.isMandatory());
-		assertEquals(MIN_VALUE, item.max4.getMinimum());
-		assertEquals(4, item.max4.getMaximum());
-		assertContains(IntegerRangeViolationException.class, item.max4.getInitialExceptions());
+		assertEquals(false, max4.isMandatory());
+		assertEquals(MIN_VALUE, max4.getMinimum());
+		assertEquals(4, max4.getMaximum());
+		assertContains(IntegerRangeViolationException.class, max4.getInitialExceptions());
 
 		assertEquals(false, min4Max8.isMandatory());
 		assertEquals(4, min4Max8.getMinimum());
@@ -129,13 +130,13 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(FALSE,                              min4.equal(MIN_VALUE));
 			assertEquals(cc(Operator.Equal, min4, MAX_VALUE), min4.equal(MAX_VALUE));
 
-			assertEquals(in(item.max4), item.max4.equal((Integer)null));
-			assertEquals(cc(Operator.Equal, item.max4, 0), item.max4.equal(0));
-			assertEquals(cc(Operator.Equal, item.max4, 3), item.max4.equal(3));
-			assertEquals(cc(Operator.Equal, item.max4, 4), item.max4.equal(4));
-			assertEquals(FALSE,                            item.max4.equal(5));
-			assertEquals(cc(Operator.Equal, item.max4, MIN_VALUE), item.max4.equal(MIN_VALUE));
-			assertEquals(FALSE,                              item.max4.equal(MAX_VALUE));
+			assertEquals(in(max4), max4.equal((Integer)null));
+			assertEquals(cc(Operator.Equal, max4, 0), max4.equal(0));
+			assertEquals(cc(Operator.Equal, max4, 3), max4.equal(3));
+			assertEquals(cc(Operator.Equal, max4, 4), max4.equal(4));
+			assertEquals(FALSE,                            max4.equal(5));
+			assertEquals(cc(Operator.Equal, max4, MIN_VALUE), max4.equal(MIN_VALUE));
+			assertEquals(FALSE,                              max4.equal(MAX_VALUE));
 
 			assertEquals(in(min4Max8), min4Max8.isNull());
 			assertEquals(nn(min4Max8), min4Max8.isNotNull());
@@ -403,13 +404,13 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"5 is too big for " + item.max4 + ", " +
+					"5 is too big for " + max4 + ", " +
 					"must be at most 4.",
 					e.getMessage());
 		}
@@ -426,12 +427,12 @@ public class IntegerTest extends AbstractRuntimeTest
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
 					"range violation, " +
-					"5 is too big for " + item.max4 + ", " +
+					"5 is too big for " + max4 + ", " +
 					"must be at most 4.",
 					e.getMessage());
 		}
@@ -440,19 +441,19 @@ public class IntegerTest extends AbstractRuntimeTest
 		{
 			TYPE.newItem(
 					mandatory.map(1234567),
-					item.max4.map(5)
+					max4.map(5)
 			);
 			fail();
 		}
 		catch(final IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
 					"range violation, " +
-					"5 is too big for " + item.max4 + ", " +
+					"5 is too big for " + max4 + ", " +
 					"must be at most 4.",
 					e.getMessage());
 		}
