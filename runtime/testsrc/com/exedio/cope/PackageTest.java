@@ -83,6 +83,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DeleteSchemaTest.class );
 		suite.addTestSuite( NameTest.class );
 		suite.addTestSuite( StringTest.class );
+		suite.addTestSuite( IntegerModelTest.class );
 		suite.addTestSuite( IntegerTest.class );
 		suite.addTestSuite( DoubleTest.class );
 		suite.addTestSuite( EnumTest.class );
