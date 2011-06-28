@@ -35,7 +35,6 @@ public class IntegerModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		// test model
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
 		assertEquals(false, any.isMandatory());
@@ -65,8 +64,10 @@ public class IntegerModelTest extends CopeAssert
 		assertEquals(4, min4Max8.getMinimum());
 		assertEquals(8, min4Max8.getMaximum());
 		assertContains(IntegerRangeViolationException.class, min4Max8.getInitialExceptions());
+	}
 
-		// test check method
+	public void testCheck()
+	{
 		try
 		{
 			mandatory.check(null);
@@ -96,8 +97,10 @@ public class IntegerModelTest extends CopeAssert
 					e.getMessage());
 		}
 		min4.check(4);
+	}
 
-		// test conditions
+	public void testConditions()
+	{
 		assertEquals(any.equal(1), any.equal(1));
 		assertNotEquals(any.equal(1), any.equal(2));
 		assertNotEquals(any.equal(1), any.equal((Integer)null));
