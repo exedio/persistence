@@ -108,19 +108,4 @@ public class IntegerModelTest extends CopeAssert
 		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
 		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
 	}
-
-	protected static void assertEqualsStrict(final Object expected, final Object actual)
-	{
-		assertEquals(expected, actual);
-		assertEquals(actual, expected);
-		if(expected!=null)
-			assertEquals(expected.hashCode(), actual.hashCode());
-	}
-
-	protected static void assertNotEqualsStrict(final Object expected, final Object actual)
-	{
-		assertTrue(!expected.equals(actual));
-		assertTrue(!actual.equals(expected));
-		assertTrue(expected.hashCode()!=actual.hashCode());
-	}
 }
