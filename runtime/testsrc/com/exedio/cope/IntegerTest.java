@@ -56,7 +56,7 @@ public class IntegerTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(item.TYPE, any.getType());
+		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
 		assertEquals(false, any.isMandatory());
 		assertEquals(null, any.getPattern());
@@ -64,7 +64,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(MAX_VALUE, any.getMaximum());
 		assertContains(any.getInitialExceptions());
 
-		assertEquals(item.TYPE, mandatory.getType());
+		assertEquals(TYPE, mandatory.getType());
 		assertEquals("mandatory", mandatory.getName());
 		assertEquals(true, mandatory.isMandatory());
 		assertEquals(MIN_VALUE, mandatory.getMinimum());
@@ -151,7 +151,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		}
 		assertEquals(52201, item.getMandatory());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new IntegerItem((Integer)null);
@@ -164,9 +164,9 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(mandatory, e.getFeature());
 			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new IntegerItem(new SetValue[]{});
@@ -179,7 +179,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals(mandatory, e.getFeature());
 			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4
 		try
@@ -232,7 +232,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(valueOf(4), item.getMax4());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new IntegerItem(5, (Date)null);
@@ -250,7 +250,7 @@ public class IntegerTest extends AbstractRuntimeTest
 					"must be at most 4.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			TYPE.newItem(
@@ -271,7 +271,7 @@ public class IntegerTest extends AbstractRuntimeTest
 					"must be at most 4.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4max8
 		try
