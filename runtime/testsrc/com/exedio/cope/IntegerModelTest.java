@@ -101,26 +101,26 @@ public class IntegerModelTest extends CopeAssert
 
 	public void testConditions()
 	{
-		assertEquals(any.equal(1), any.equal(1));
-		assertNotEquals(any.equal(1), any.equal(2));
-		assertNotEquals(any.equal(1), any.equal((Integer)null));
-		assertNotEquals(any.equal(1), any.greater(1));
-		assertEquals(any.equal(mandatory), any.equal(mandatory));
-		assertNotEquals(any.equal(mandatory), any.equal(any));
+		assertEqualsStrict(any.equal(1), any.equal(1));
+		assertNotEqualsStrict(any.equal(1), any.equal(2));
+		assertNotEqualsStrict(any.equal(1), any.equal((Integer)null));
+		assertNotEqualsStrict(any.equal(1), any.greater(1));
+		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
+		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
 	}
 
-	protected static void assertEquals(final Condition c1, final Condition c2)
+	protected static void assertEqualsStrict(final Object expected, final Object actual)
 	{
-		assertEquals((Object)c1, (Object)c2);
-		assertEquals((Object)c2, (Object)c1);
-		if(c1!=null)
-			assertEquals(c1.hashCode(), c2.hashCode());
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
+		if(expected!=null)
+			assertEquals(expected.hashCode(), actual.hashCode());
 	}
 
-	protected static void assertNotEquals(final Condition c1, final Condition c2)
+	protected static void assertNotEqualsStrict(final Object expected, final Object actual)
 	{
-		assertTrue(!c1.equals(c2));
-		assertTrue(!c2.equals(c1));
-		assertTrue(c1.hashCode()!=c2.hashCode());
+		assertTrue(!expected.equals(actual));
+		assertTrue(!actual.equals(expected));
+		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 }
