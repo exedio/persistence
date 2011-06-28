@@ -30,11 +30,9 @@ import java.util.Date;
 
 public class IntegerTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
-
 	public IntegerTest()
 	{
-		super(MODEL);
+		super(IntegerModelTest.MODEL);
 	}
 
 	private IntegerItem item;
