@@ -24,6 +24,14 @@ public class CacheIsolationItem extends Item
 
 	public static final StringField name = new StringField();
 
+	CacheIsolationItem(final String name, final double dummy)
+	{
+		this(new com.exedio.cope.SetValue[]{
+				CacheIsolationItem.uniqueString.map(name),
+				CacheIsolationItem.name.map(name),
+		});
+	}
+
 	/**
 
 	 **
