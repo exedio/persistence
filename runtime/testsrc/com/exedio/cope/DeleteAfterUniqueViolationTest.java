@@ -24,9 +24,11 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 {
+	private static final Model MODEL = new Model(DeleteAfterUniqueViolationItem.TYPE);
+
 	public DeleteAfterUniqueViolationTest()
 	{
-		super(CacheIsolationTest.MODEL);
+		super(MODEL);
 		skipTransactionManagement();
 	}
 
@@ -45,20 +47,20 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 	{
 		model.startTransaction(getClass().getName());
 
-		deleteOnTearDown(new CacheIsolationItem("commit", 1.0));
+		deleteOnTearDown(new DeleteAfterUniqueViolationItem("commit", 1.0));
 
 		try
 		{
-			new CacheIsolationItem("commit", 1.0);
+			new DeleteAfterUniqueViolationItem("commit", 1.0);
 			fail();
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertSame(CacheIsolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
 				assertEquals(
-						"Duplicate entry 'commit' for key 'CacheIsolItem_uniStri_Unq'", // TODO MySQL specific
+						"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
 						e.getCause().getMessage());
 				assertTrue(e.getCause() instanceof SQLException);
 			}
@@ -78,7 +80,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 		catch(final SQLRuntimeException e)
 		{
 			assertEquals(
-					"set FOREIGN_KEY_CHECKS=0;truncate `CacheIsolationItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
+					"set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
 					e.getMessage());
 			assertEquals(
 					"Can't execute the given command because you have active locked tables or an active transaction", // TODO MySQL specific
@@ -92,20 +94,20 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 	{
 		model.startTransaction(getClass().getName());
 
-		deleteOnTearDown(new CacheIsolationItem("rollback", 1.0));
+		deleteOnTearDown(new DeleteAfterUniqueViolationItem("rollback", 1.0));
 
 		try
 		{
-			new CacheIsolationItem("rollback", 1.0);
+			new DeleteAfterUniqueViolationItem("rollback", 1.0);
 			fail();
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertSame(CacheIsolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
 				assertEquals(
-						"Duplicate entry 'rollback' for key 'CacheIsolItem_uniStri_Unq'", // TODO MySQL specific
+						"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
 						e.getCause().getMessage());
 				assertTrue(e.getCause() instanceof SQLException);
 			}
@@ -126,8 +128,8 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					cluster
-					? "set FOREIGN_KEY_CHECKS=0;truncate `CacheIsolationItem`;set FOREIGN_KEY_CHECKS=1;truncate `CacheIsolatiItem_this_Seq`;" // TODO MySQL specific
-					: "set FOREIGN_KEY_CHECKS=0;truncate `CacheIsolationItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
+					? "set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;truncate `DeleAfteUniqVioIte_th_Seq`;" // TODO MySQL specific
+					: "set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
 					e.getMessage());
 			assertEquals(
 					"Can't execute the given command because you have active locked tables or an active transaction", // TODO MySQL specific
