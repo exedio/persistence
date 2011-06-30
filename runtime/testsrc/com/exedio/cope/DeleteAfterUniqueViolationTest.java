@@ -28,7 +28,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 
 	public DeleteAfterUniqueViolationTest()
 	{
-		super(MODEL);
+		super(MODEL, true);
 		skipTransactionManagement();
 	}
 
@@ -87,6 +87,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 					e.getCause().getMessage());
 			assertTrue(e.getCause() instanceof SQLException);
 			assertTrue(unq);
+			assertTrue(!cluster);
 		}
 	}
 
@@ -122,20 +123,19 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 		try
 		{
 			model.deleteSchema();
-			assertFalse(unq);
+			assertTrue(!unq || cluster);
 		}
 		catch(final SQLRuntimeException e)
 		{
 			assertEquals(
-					cluster
-					? "set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;truncate `DeleAfteUniqVioIte_th_Seq`;" // TODO MySQL specific
-					: "set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
+					"set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
 					e.getMessage());
 			assertEquals(
 					"Can't execute the given command because you have active locked tables or an active transaction", // TODO MySQL specific
 					e.getCause().getMessage());
 			assertTrue(e.getCause() instanceof SQLException);
 			assertTrue(unq);
+			assertTrue(!cluster);
 		}
 	}
 }
