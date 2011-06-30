@@ -279,7 +279,7 @@ final class Executor
 		}
 	}
 
-	<R> R insert(
+	<R> R insertAndGetGeneratedKeys(
 			final Connection connection,
 			final Statement statement,
 			final ResultSetHandler<R> generatedKeysHandler)

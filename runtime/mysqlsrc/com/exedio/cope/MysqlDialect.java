@@ -346,7 +346,7 @@ final class MysqlDialect extends Dialect
 			append(dsmfDialect.quoteName(name)).
 			append(" () VALUES ()");
 
-		return (int)(executor.insert(connection, bf, new ResultSetHandler<Long>()
+		return (int)(executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
