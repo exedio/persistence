@@ -299,7 +299,7 @@ final class Executor
 			{
 				sqlStatement = connection.createStatement();
 				nanoPrepared = listener!=null ? nanoTime() : 0;
-				sqlStatement.executeUpdate(sqlText);
+				sqlStatement.executeUpdate(sqlText, RETURN_GENERATED_KEYS);
 			}
 			else
 			{
