@@ -29,7 +29,6 @@ import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.mysql.jdbc.Driver;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * This MySQL driver requires the InnoDB engine.
@@ -411,7 +410,9 @@ final class MysqlDialect extends Dialect
 	@Override
 	String extractUniqueViolation(final SQLException exception)
 	{
-		if(!(exception instanceof MySQLIntegrityConstraintViolationException))
+		if(!(
+				exception instanceof com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException ||
+				exception instanceof com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException))
 			return null;
 
 		final String message = exception.getMessage();

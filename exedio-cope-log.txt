@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* require mysql connector 5.1.15
 * require mysql connector 5.0.8
 * improve speed of Model#deleteSchema() on MySQL, typically needed for tests
 * add RangeField<E>#doesContain(E)

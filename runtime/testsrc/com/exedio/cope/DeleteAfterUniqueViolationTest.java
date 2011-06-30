@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import java.sql.SQLException;
 
-import com.exedio.dsmf.SQLRuntimeException;
-
 public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(DeleteAfterUniqueViolationItem.TYPE);
@@ -33,14 +31,12 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 	}
 
 	private boolean unq;
-	private boolean cluster;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		unq = model.connect().executor.supportsUniqueViolation;
-		cluster = model.connect().properties.cluster.booleanValue();
 	}
 
 	public void testCommit()
@@ -72,23 +68,11 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 
 		model.commit();
 
-		try
-		{
-			model.deleteSchema();
-			assertTrue(!unq || cluster);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			assertEquals(
-					"set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
-					e.getMessage());
-			assertEquals(
-					"Can't execute the given command because you have active locked tables or an active transaction", // TODO MySQL specific
-					e.getCause().getMessage());
-			assertTrue(e.getCause() instanceof SQLException);
-			assertTrue(unq);
-			assertTrue(!cluster);
-		}
+		model.deleteSchema();
+
+		model.startTransaction(getClass().getName()+"#checkEmptySchema");
+		model.checkEmptySchema();
+		model.commit();
 	}
 
 	public void testRollback()
@@ -120,22 +104,10 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 
 		model.rollback();
 
-		try
-		{
-			model.deleteSchema();
-			assertTrue(!unq || cluster);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			assertEquals(
-					"set FOREIGN_KEY_CHECKS=0;truncate `DeleteAfterUniquViolaItem`;set FOREIGN_KEY_CHECKS=1;", // TODO MySQL specific
-					e.getMessage());
-			assertEquals(
-					"Can't execute the given command because you have active locked tables or an active transaction", // TODO MySQL specific
-					e.getCause().getMessage());
-			assertTrue(e.getCause() instanceof SQLException);
-			assertTrue(unq);
-			assertTrue(!cluster);
-		}
+		model.deleteSchema();
+
+		model.startTransaction(getClass().getName()+"#checkEmptySchema");
+		model.checkEmptySchema();
+		model.commit();
 	}
 }

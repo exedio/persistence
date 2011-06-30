@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -302,7 +303,7 @@ final class Executor
 			}
 			else
 			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				final PreparedStatement prepared = connection.prepareStatement(sqlText, RETURN_GENERATED_KEYS);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
