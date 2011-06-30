@@ -32,8 +32,8 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 		skipTransactionManagement();
 	}
 
-	boolean unq;
-	boolean cluster;
+	private boolean unq;
+	private boolean cluster;
 
 	@Override
 	protected void setUp() throws Exception
