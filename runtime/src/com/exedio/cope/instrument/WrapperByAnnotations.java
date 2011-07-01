@@ -129,7 +129,7 @@ final class WrapperByAnnotations
 	{
 		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
 		{
-			if(get(hideGetterClass))
+			if(getBoolean(hideGetterClass))
 				return false;
 		}
 		return true;
@@ -206,7 +206,7 @@ final class WrapperByAnnotations
 			}
 			else
 			{
-				final String pattern = get(annotation.nameGetter());
+				final String pattern = getString(annotation.nameGetter());
 				if(pattern!=null)
 					result.setMethodWrapperPattern(pattern);
 			}
@@ -231,13 +231,13 @@ final class WrapperByAnnotations
 
 		for(final Wrap.Thrown c : annotation.thrown())
 			result.addThrows(c.value(), c.doc());
-		for(final Class<? extends Throwable> throwable : get(annotation.thrownGetter()))
+		for(final Class<? extends Throwable> throwable : getThrows(annotation.thrownGetter()))
 			result.addThrows(throwable);
 
 		return result;
 	}
 
-	private boolean get(final Class<? extends BooleanGetter> clazz)
+	private boolean getBoolean(final Class<? extends BooleanGetter> clazz)
 	{
 		final BooleanGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
@@ -245,7 +245,7 @@ final class WrapperByAnnotations
 		return result;
 	};
 
-	private String get(final Class<? extends StringGetter> clazz)
+	private String getString(final Class<? extends StringGetter> clazz)
 	{
 		if(clazz==StringGetterDefault.class)
 			return null;
@@ -256,7 +256,7 @@ final class WrapperByAnnotations
 		return result;
 	};
 
-	private Set<Class<? extends Throwable>> get(final Class<? extends ThrownGetter> clazz)
+	private Set<Class<? extends Throwable>> getThrows(final Class<? extends ThrownGetter> clazz)
 	{
 		if(clazz==ThrownGetterDefault.class)
 			return Collections.emptySet();
