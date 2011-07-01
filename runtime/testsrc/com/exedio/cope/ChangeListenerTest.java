@@ -22,7 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
@@ -33,27 +34,28 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	TestLogHandler log = null;
+	TestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
-		ChangeListeners.logger.addHandler(log);
-		ChangeListeners.logger.setUseParentHandlers(false);
+		log = new TestLogAppender();
+		ChangeListeners.logger.addAppender(log);
+		ChangeListeners.logger.setAdditivity(false);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ChangeListeners.logger.removeHandler(log);
+		ChangeListeners.logger.removeAppender(log);
 		log = null;
-		ChangeListeners.logger.setUseParentHandlers(true);
+		ChangeListeners.logger.setAdditivity(true);
 		super.tearDown();
 	}
 
-	// dead store is needed to assign nll for testing garbace collection
+
+	// dead store is needed to assign null for testing garbage collection
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt() throws ChangeEvent.NotAvailableException
@@ -158,7 +160,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.SEVERE, "change listener [" + item1.toString() + "] " + l.toString());
+		log.assertMessage(Level.ERROR, "change listener [" + item1.toString() + "] " + l.toString());
 
 		assertInfo(0, 0, 1);
 		model.removeChangeListener(l);
@@ -204,6 +206,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
@@ -275,6 +278,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();

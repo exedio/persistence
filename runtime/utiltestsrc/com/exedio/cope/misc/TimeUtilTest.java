@@ -20,30 +20,30 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
-import java.util.logging.Level;
+import org.apache.log4j.Level;
 
-import com.exedio.cope.TestLogUtilHandler;
+import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
 
 public class TimeUtilTest extends CopeAssert
 {
-	TestLogUtilHandler log = null;
+	UtilTestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogUtilHandler();
-		TimeUtil.logger.addHandler(log);
-		TimeUtil.logger.setUseParentHandlers(false);
+		log = new UtilTestLogAppender();
+		TimeUtil.logger.addAppender(log);
+		TimeUtil.logger.setAdditivity(false);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		TimeUtil.logger.removeHandler(log);
+		TimeUtil.logger.removeAppender(log);
 		log = null;
-		TimeUtil.logger.setUseParentHandlers(true);
+		TimeUtil.logger.setAdditivity(true);
 		super.tearDown();
 	}
 
@@ -64,6 +64,6 @@ public class TimeUtilTest extends CopeAssert
 	public void testIllegal()
 	{
 		assertEquals(0, toMillies(-1, 0));
-		log.assertMessage(Level.SEVERE, "backwards nanos 0 -1");
+		log.assertMessage(Level.ERROR, "backwards nanos 0 -1");
 	}
 }

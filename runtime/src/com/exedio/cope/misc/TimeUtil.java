@@ -18,9 +18,10 @@
 
 package com.exedio.cope.misc;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.text.MessageFormat;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public final class TimeUtil
 {
@@ -31,14 +32,8 @@ public final class TimeUtil
 	 */
 	public static long toMillies(final long endNanos, final long startNanos)
 	{
-		if(endNanos<startNanos && logger.isLoggable(Level.SEVERE))
-		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "backwards nanos {0} {1}");
-			record.setParameters(new Object[]{Long.valueOf(startNanos), Long.valueOf(endNanos)});
-			record.setSourceClassName(TimeUtil.class.getName());
-			record.setSourceMethodName("toMillies");
-			logger.log(record);
-		}
+		if ( logger.isEnabledFor(Level.ERROR) && endNanos<startNanos )
+			logger.error(MessageFormat.format( "backwards nanos {0} {1}" , startNanos, endNanos ));
 
 		final long diff = endNanos - startNanos;
 		if(diff<500000)

@@ -28,14 +28,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
-	static final Logger logger = Logger.getLogger(ModificationListeners.class.getName());
+	static final Logger logger = Logger.getLogger(ModificationListeners.class);
 
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
@@ -136,13 +137,13 @@ final class ModificationListeners
 			}
 			catch(final RuntimeException e)
 			{
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
+				if(logger.isEnabledFor(Level.ERROR))
+					logger.error("Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 			catch(final AssertionError e)
 			{
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
+				if(logger.isEnabledFor(Level.ERROR))
+					logger.error( "Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 		}
 	}

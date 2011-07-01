@@ -20,15 +20,16 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -307,19 +308,13 @@ public class MediaServlet extends HttpServlet
 			final HttpServletRequest request,
 			final Exception exception)
 	{
-		if(logger.isLoggable(Level.SEVERE))
-		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}");
-			record.setSourceClassName(MediaServlet.class.getName());
-			record.setSourceMethodName("onException");
-			record.setParameters(new String[]{
+		if(logger.isEnabledFor(Level.ERROR))
+			logger.error( MessageFormat.format( "Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}",
 					request.getPathInfo(),
 					request.getQueryString(),
 					request.getHeader("Host"),
 					request.getHeader("Referer"),
-					request.getHeader("User-Agent")});
-			record.setThrown(exception);
-			logger.log(record);
-		}
+					request.getHeader("User-Agent") ),
+				exception );
 	}
 }

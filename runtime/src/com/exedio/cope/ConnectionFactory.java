@@ -23,9 +23,9 @@ import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -100,14 +100,8 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			if(logger.isLoggable(Level.WARNING))
-			{
-				final LogRecord record = new LogRecord(Level.WARNING, "invalid on get");
-				record.setSourceClassName(ConnectionFactory.class.getName());
-				record.setSourceMethodName("isValidOnGet");
-				record.setThrown(ex);
-				logger.log(record);
-			}
+			if(logger.isEnabledFor(Level.WARN))
+				logger.warn( "invalid on get", ex );
 			return false;
 		}
 	}

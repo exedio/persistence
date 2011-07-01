@@ -24,15 +24,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.Interrupter;
 
 final class ChangeListeners
 {
-	static final Logger logger = Logger.getLogger(ChangeListeners.class.getName());
+	static final Logger logger = Logger.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
@@ -161,16 +161,7 @@ final class ChangeListeners
 			final Throwable throwable)
 	{
 		failed++;
-		if(logger.isLoggable(Level.SEVERE))
-		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "change listener {0} {1}");
-			record.setSourceClassName(ChangeListeners.class.getName());
-			record.setSourceMethodName("onDispatchFailure");
-			record.setParameters(new Object[]{
-					event,
-					listener});
-			record.setThrown(throwable);
-			logger.log(record);
-		}
+		if(logger.isEnabledFor(Level.ERROR))
+			logger.error( "change listener "+event+" "+listener, throwable );
 	}
 }

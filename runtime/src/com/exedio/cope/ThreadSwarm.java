@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 final class ThreadSwarm
 {
-	static final Logger logger = Logger.getLogger(ThreadSwarm.class.getName());
+	static final Logger logger = Logger.getLogger(ThreadSwarm.class);
 
 	private final ThreadController[] threads;
 
@@ -59,11 +59,8 @@ final class ThreadSwarm
 				continue;
 
 			thread.start();
-			if(logger.isLoggable(Level.INFO))
-				logger.log(
-						Level.INFO,
-						"{1} ({0}) started.",
-						new Object[]{thread.getId(), thread.getName()});
+			if(logger.isInfoEnabled())
+				logger.info( thread.getName() + "  (" + thread.getId() + ") started." );
 		}
 	}
 

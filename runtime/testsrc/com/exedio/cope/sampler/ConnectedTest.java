@@ -39,7 +39,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		final ConnectProperties props = model.getConnectProperties();
-		ConnectToken.logger.setUseParentHandlers(false);
+		ConnectToken.logger.setAdditivity(false);
 		c = props.getItemCacheLimit()>0;
 		sampler.getModel().connect(new ConnectProperties(
 				Sampler.maskConnectSource(props.getSourceObject()),
@@ -51,7 +51,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	{
 		sampler.getModel().dropSchema();
 		sampler.getModel().disconnect();
-		ConnectToken.logger.setUseParentHandlers(true);
+		ConnectToken.logger.setAdditivity(true);
 		super.tearDown();
 	}
 }

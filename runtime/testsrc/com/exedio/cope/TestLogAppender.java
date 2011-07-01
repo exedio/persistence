@@ -21,21 +21,27 @@ package com.exedio.cope;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
+import java.util.List;
 
-public final class TestLogUtilHandler extends Handler
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.LoggingEvent;
+
+public final class TestLogAppender extends AppenderSkeleton
 {
-	private final ArrayList<LogRecord> records = new ArrayList<LogRecord>();
+	private final List<LoggingEvent> events = new ArrayList<LoggingEvent>();
 
 	@Override
-	public void publish(final LogRecord record)
+	protected void append(final LoggingEvent event)
 	{
-		records.add(record);
+		events.add( event );
+	}
+
+	public boolean requiresLayout()
+	{
+		return false;
 	}
 
 	public void assertInfo(final String msg)
@@ -45,27 +51,18 @@ public final class TestLogUtilHandler extends Handler
 
 	public void assertMessage(final Level level, final String msg)
 	{
-		assertTrue("empty", !records.isEmpty());
-		final LogRecord record = records.remove(0);
-		assertEquals(level, record.getLevel());
-		final String m = record.getMessage();
-		final Object[] p = record.getParameters();
-		assertEquals(msg, p!=null ? MessageFormat.format(m, p) : m);
+		assertTrue("empty", !events.isEmpty());
+		final LoggingEvent event = events.remove(0);
+		assertEquals(level, event.getLevel());
+		assertEquals(msg, event.getRenderedMessage());
 	}
 
 	public void assertEmpty()
 	{
-		assertEquals(Collections.EMPTY_LIST, records);
+		assertEquals(Collections.EMPTY_LIST, events);
 	}
 
-	@Override
 	public void close() throws SecurityException
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public void flush()
 	{
 		throw new RuntimeException();
 	}

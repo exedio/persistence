@@ -30,7 +30,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
@@ -103,13 +104,13 @@ public final class Revision
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 			{
 				final String sql = body[bodyIndex];
-				if(logger.isLoggable(Level.INFO))
-					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
+				if(logger.isInfoEnabled())
+					logger.info("revise "+number+"/"+bodyIndex+":"+sql);
 				final long start = nanoTime();
 				final int rows = executeUpdate(connection, sql);
 				final long elapsed = toMillies(nanoTime(), start);
-				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
-					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
+				if(logger.isEnabledFor(Level.WARN) && elapsed>1000)
+					logger.warn( "revise "+number+"/"+bodyIndex+":"+sql+" is slow, takes "+elapsed+"ms");
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 		}
@@ -121,8 +122,7 @@ public final class Revision
 			}
 			catch(final SQLException e)
 			{
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "close", e);
+				logger.error( "close", e);
 			}
 		}
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
@@ -152,8 +152,7 @@ public final class Revision
 				}
 				catch(final SQLException e)
 				{
-					if(logger.isLoggable(Level.SEVERE))
-						logger.log(Level.SEVERE, "close", e);
+					logger.error( "close", e);
 				}
 			}
 		}

@@ -25,11 +25,12 @@ import static java.lang.System.nanoTime;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -217,11 +218,10 @@ public final class Dispatcher extends Pattern
 
 				if(!isPending(item))
 				{
-					if(logger.isLoggable(Level.INFO))
-						logger.log(
-								Level.INFO,
+					if(logger.isEnabledFor(Level.INFO))
+						logger.info( MessageFormat.format(
 								"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
-								new Object[]{id, itemID});
+								id, itemID ) );
 					continue;
 				}
 

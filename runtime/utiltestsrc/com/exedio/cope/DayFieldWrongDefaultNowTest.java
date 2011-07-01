@@ -20,30 +20,30 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
-import java.util.logging.Level;
+import org.apache.log4j.Level;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 
 public class DayFieldWrongDefaultNowTest extends CopeAssert
 {
-	TestUtilLogHandler log = null;
+	UtilTestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestUtilLogHandler();
-		DayField.logger.addHandler(log);
-		DayField.logger.setUseParentHandlers(false);
+		log = new UtilTestLogAppender();
+		DayField.logger.addAppender(log);
+		DayField.logger.setAdditivity(false);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		DayField.logger.removeHandler(log);
+		DayField.logger.removeAppender(log);
 		log = null;
-		DayField.logger.setUseParentHandlers(true);
+		DayField.logger.setAdditivity(true);
 		super.tearDown();
 	}
 
@@ -51,7 +51,7 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 	{
 		newType(AnItem.class);
 		log.assertMessage(
-				Level.WARNING,
+				Level.WARN,
 				"Very probably you called \"DayField.defaultTo(new Day())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();

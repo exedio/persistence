@@ -21,29 +21,29 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.newType;
 
 import java.util.Date;
-import java.util.logging.Level;
+import org.apache.log4j.Level;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
 {
-	TestUtilLogHandler log = null;
+	UtilTestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestUtilLogHandler();
-		DateField.logger.addHandler(log);
-		DateField.logger.setUseParentHandlers(false);
+		log = new UtilTestLogAppender();
+		DateField.logger.addAppender(log);
+		DateField.logger.setAdditivity(false);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		DateField.logger.removeHandler(log);
+		DateField.logger.removeAppender(log);
 		log = null;
-		DateField.logger.setUseParentHandlers(true);
+		DateField.logger.setAdditivity(true);
 		super.tearDown();
 	}
 
@@ -51,7 +51,7 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 	{
 		newType(AnItem.class);
 		log.assertMessage(
-				Level.WARNING,
+				Level.WARN,
 				"Very probably you called \"DateField.defaultTo(new Date())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();

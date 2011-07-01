@@ -37,7 +37,7 @@ public class ConnectTokenTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(false);
+		com.exedio.cope.misc.ConnectToken.logger.setAdditivity(false);
 		setProperties(model, props);
 	}
 
@@ -45,7 +45,7 @@ public class ConnectTokenTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		removeProperties(model);
-		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(true);
+		com.exedio.cope.misc.ConnectToken.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

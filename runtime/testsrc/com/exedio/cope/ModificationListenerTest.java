@@ -20,7 +20,8 @@ package com.exedio.cope;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
 
 import com.exedio.cope.util.ModificationListener;
 
@@ -33,25 +34,26 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	TestLogHandler log = null;
+	TestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
-		ModificationListeners.logger.addHandler(log);
-		ModificationListeners.logger.setUseParentHandlers(false);
+		log = new TestLogAppender();
+		ModificationListeners.logger.addAppender(log);
+		ModificationListeners.logger.setAdditivity(false);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ModificationListeners.logger.removeHandler(log);
+		ModificationListeners.logger.removeAppender(log);
 		log = null;
-		ModificationListeners.logger.setUseParentHandlers(true);
+		ModificationListeners.logger.setAdditivity(true);
 		super.tearDown();
 	}
+
 
 	// dead store is needed to assign nll for testing garbace collection
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
@@ -149,7 +151,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.commit();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.SEVERE, "Suppressing exception from modification listener " + MockListener.class.getName());
+		log.assertMessage(Level.ERROR, "Suppressing exception from modification listener " + MockListener.class.getName());
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());

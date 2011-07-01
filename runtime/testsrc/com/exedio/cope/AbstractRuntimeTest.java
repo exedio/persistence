@@ -137,7 +137,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	static
 	{
-		ThreadSwarm.logger.setUseParentHandlers(false);
+		ThreadSwarm.logger.setAdditivity(false);
 	}
 
 	@Override

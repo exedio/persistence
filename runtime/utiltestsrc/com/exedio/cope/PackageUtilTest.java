@@ -28,8 +28,8 @@ public class PackageUtilTest extends TestCase
 {
 	static
 	{
-		ThreadSwarm.logger.setUseParentHandlers(false);
-		ConnectToken.logger.setUseParentHandlers(false);
+		ThreadSwarm.logger.setAdditivity(false);
+		ConnectToken.logger.setAdditivity(false);
 	}
 
 	public static Test suite()

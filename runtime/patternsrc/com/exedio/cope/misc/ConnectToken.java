@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,8 +26,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -64,14 +65,12 @@ public final class ConnectToken
 		this.conditional = conditional;
 		this.didConnect = didConnect;
 
-		if(logger.isLoggable(Level.INFO))
-			logger.log(
-					Level.INFO,
+		if(logger.isEnabledFor(Level.INFO))
+			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
-					new Object[]{
 						model, id,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
-						name});
+						name ) );
 	}
 
 	void onReturn(final boolean disconnect)
@@ -79,14 +78,12 @@ public final class ConnectToken
 		if(disconnect)
 			model.disconnect();
 
-		if(logger.isLoggable(Level.INFO))
-			logger.log(
-					Level.INFO,
+		if(logger.isEnabledFor(Level.INFO))
+			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
-					new Object[]{
 							model, id,
 							disconnect ? "disconnected" : "returned",
-							name});
+							name ) );
 	}
 
 	public Model getModel()

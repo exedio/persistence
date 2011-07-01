@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="lib/jdbc/postgresql-8.1-404.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="ivy/artifacts/log4j-source.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
