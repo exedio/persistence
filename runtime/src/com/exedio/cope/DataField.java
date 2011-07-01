@@ -421,6 +421,11 @@ public final class DataField extends Field<DataField.Value>
 			// TODO
 			// method InputStream.read(byte[]) may read less than result.length bytes
 			// even is the stream is not yet at its end
+			// Probably we could use
+			//    new BufferedInputStream(in).read(result);
+			// to rely on complete reading guaranteed by
+			// BufferedInputStream#read(byte[]) which extends contract of
+			// InputStream#read(byte[])
 			if(readBytes!=length)
 				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes + ", TODO not yet fully implemented");
 
