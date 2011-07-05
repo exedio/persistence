@@ -16,7 +16,6 @@
 	<classpathentry kind="src" path="instrument/src"/>
 	<classpathentry kind="src" path="instrument/testfeaturesrc"/>
 	<classpathentry kind="src" path="instrument/testsrc"/>
-	<classpathentry kind="src" path="copernica/testsrc"/>
 	<classpathentry kind="src" path="copernica/webtestsrc"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
