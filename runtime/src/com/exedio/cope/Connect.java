@@ -71,7 +71,7 @@ final class Connect
 		// NOTICE
 		// Without calling DriverManager.getDrivers() here
 		// the following DriverManager.getDriver(url) fails
-		// for copernica.webtest but not in copedemo
+		// for webtest but not in copedemo
 		// Don't know why. Probably a bug in the DriverManager
 		DriverManager.getDrivers();
 
