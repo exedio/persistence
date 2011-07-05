@@ -26,8 +26,20 @@ import java.util.List;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.util.CharSet;
 
-public class StringTest extends TestmodelTest
+public class StringTest extends AbstractRuntimeTest
 {
+	static final Model MODEL = new Model(StringItem.TYPE);
+
+	static
+	{
+		MODEL.enableSerialization(StringTest.class, "MODEL");
+	}
+
+	public StringTest()
+	{
+		super(MODEL);
+	}
+
 	boolean supports;
 	String emptyString;
 	StringItem item, item2;

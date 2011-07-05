@@ -47,7 +47,6 @@ public class ItemTest extends TestmodelTest
 				EmptyItem.TYPE,
 				EmptyItem2.TYPE,
 				AttributeItem.TYPE,
-				StringItem.TYPE,
 				PointerTargetItem.TYPE,
 				PointerItem.TYPE,
 				FinalItem.TYPE,
