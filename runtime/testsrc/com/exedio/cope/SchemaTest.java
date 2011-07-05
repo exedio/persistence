@@ -24,7 +24,6 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
-import static com.exedio.cope.SchemaItem.stringLong;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.data;
 import static com.exedio.cope.SchemaItem.doub;
@@ -36,6 +35,7 @@ import static com.exedio.cope.SchemaItem.item;
 import static com.exedio.cope.SchemaItem.itemOpt;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.stringExact6;
+import static com.exedio.cope.SchemaItem.stringLong;
 import static com.exedio.cope.SchemaItem.stringMax4;
 import static com.exedio.cope.SchemaItem.stringMin4;
 import static com.exedio.cope.SchemaItem.stringMin4Max8;
@@ -45,6 +45,7 @@ import static com.exedio.cope.SchemaItem.uniqueString;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 
 public class SchemaTest extends AbstractRuntimeTest
@@ -114,6 +115,17 @@ public class SchemaTest extends AbstractRuntimeTest
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());
 		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
+
+		final Sequence sequence = schema.getSequence("SchemaItem_this_Seq");
+		if(model.getConnectProperties().cluster.booleanValue())
+		{
+			assertEquals(null, sequence.getError());
+			assertEquals(Schema.Color.OK, sequence.getParticularColor());
+		}
+		else
+		{
+			assertNull(sequence);
+		}
 
 		assertEquals(Schema.Color.OK, table.getCumulativeColor());
 	}
