@@ -602,7 +602,7 @@
 				file="runtime/servlet-context.xml" />
 	</target>
 	
-	<target name="copernica.webtest.compile">
+	<target name="runtime.servlet.webtest.compile">
 		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
 				<pathelement location="lib/junit.jar" />
@@ -610,11 +610,11 @@
 		</compile>
 	</target>
 	
-	<target name="copernica.webtest"
+	<target name="runtime.servlet.webtest"
 				depends="catalina,
 							runtime.servlet.test.tomcat,
-							copernica.webtest.compile">
-		<runInTomcat name="copernica.webtest">
+							runtime.servlet.webtest.compile">
+		<runInTomcat name="runtime.servlet.webtest">
 			<body>
 				<ljunit test="com.exedio.cope.pattern.webtest.PackageTest">
 					<classpath>
@@ -786,7 +786,7 @@
 	
 	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat" />
 	
-	<target name="webtest" depends="copernica.webtest" />
+	<target name="webtest" depends="runtime.servlet.webtest" />
 	
 	<target name="index">
 		<foreachEnvironment skipSwitch="index">
