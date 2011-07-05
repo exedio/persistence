@@ -603,7 +603,7 @@
 	</target>
 	
 	<target name="copernica.webtest.compile">
-		<compile srcdir="copernica/webtestsrc">
+		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
 				<pathelement location="lib/junit.jar" />
 			</classpath>
@@ -616,9 +616,9 @@
 							copernica.webtest.compile">
 		<runInTomcat name="copernica.webtest">
 			<body>
-				<ljunit test="com.exedio.copernica.PackageTest">
+				<ljunit test="com.exedio.cope.pattern.webtest.PackageTest">
 					<classpath>
-						<pathelement location="build/classes/copernica/webtestsrc" />
+						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/junit.jar" />
 					</classpath>
 				</ljunit>
