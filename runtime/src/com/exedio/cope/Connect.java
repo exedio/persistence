@@ -68,13 +68,6 @@ final class Connect
 		final String url = properties.getConnectionUrl();
 		final Driver driver;
 
-		// NOTICE
-		// Without calling DriverManager.getDrivers() here
-		// the following DriverManager.getDriver(url) fails
-		// for webtest but not in copedemo
-		// Don't know why. Probably a bug in the DriverManager
-		DriverManager.getDrivers();
-
 		try
 		{
 			driver = DriverManager.getDriver(url);
