@@ -504,4 +504,9 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		assertData(data8, item.getDataArray());
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }

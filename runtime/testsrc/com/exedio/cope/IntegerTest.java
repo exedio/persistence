@@ -270,4 +270,9 @@ public class IntegerTest extends AbstractRuntimeTest
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName() + " for " + any + '.', e.getMessage());
 		}
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }

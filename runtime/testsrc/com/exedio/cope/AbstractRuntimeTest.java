@@ -723,6 +723,49 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
+	protected void assertSchema()
+	{
+		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
+
+		if(hsqldb||postgresql)
+			return;
+
+		for(final com.exedio.dsmf.Table table : schema.getTables())
+		{
+			for(final com.exedio.dsmf.Column column : table.getColumns())
+				assertOk(table.getName() + '#' + column.getName(), column);
+			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
+			{
+				final String message = table.getName() + '#' + constraint.getName();
+				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
+					!SchemaInfo.supportsCheckConstraints(model))
+				{
+					assertEquals(message, "not supported", constraint.getError());
+					assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
+					assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
+				}
+				else
+				{
+					assertOk(message, constraint);
+				}
+			}
+
+			assertOk(table.getName(), table);
+		}
+
+		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
+			assertOk(sequence.getName(), sequence);
+
+		assertOk("schema", schema);
+	}
+
+	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)
+	{
+		assertEquals(message, null, node.getError());
+		assertEquals(message, Schema.Color.OK, node.getParticularColor());
+		assertEquals(message, Schema.Color.OK, node.getCumulativeColor());
+	}
+
 	@SuppressWarnings("deprecation")
 	protected static java.lang.reflect.Type getInitialType(final Settable settable)
 	{

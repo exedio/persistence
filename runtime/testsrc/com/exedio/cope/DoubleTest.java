@@ -534,4 +534,9 @@ public class DoubleTest extends AbstractRuntimeTest
 	{
 		return new CompareCondition<Double>(operator, field, value);
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }

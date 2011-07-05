@@ -709,4 +709,9 @@ public class StringTest extends AbstractRuntimeTest
 	{
 		return !oracle || field.getMaximumLength()<=com.exedio.cope.Dialect.ORACLE_VARCHAR_MAX_CHARS;
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }
