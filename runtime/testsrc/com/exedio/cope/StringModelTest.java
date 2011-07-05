@@ -41,9 +41,8 @@ public class StringModelTest extends CopeAssert
 		MODEL.enableSerialization(StringModelTest.class, "MODEL");
 	}
 
-	public void testStrings()
+	public void testModel()
 	{
-		// test model
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
 		assertEquals(false, any.isMandatory());
@@ -77,16 +76,20 @@ public class StringModelTest extends CopeAssert
 
 		assertEquals(TYPE, min4Upper.getType());
 		assertEquals("min4Upper", min4Upper.getName());
+	}
 
-		// test conditions
+	public void testConditions()
+	{
 		assertEqualsStrict(any.equal("hallo"), any.equal("hallo"));
 		assertNotEqualsStrict(any.equal("hallo"), any.equal("bello"));
 		assertNotEqualsStrict(any.equal("hallo"), any.equal((String)null));
 		assertNotEqualsStrict(any.equal("hallo"), any.like("hallo"));
 		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
 		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
+	}
 
-		// test convenience for conditions
+	public void testConditionsConvenience()
+	{
 		assertEquals(any.startsWith("hallo"), any.like("hallo%"));
 		assertEquals(any.endsWith("hallo"), any.like("%hallo"));
 		assertEquals(any.contains("hallo"), any.like("%hallo%"));
