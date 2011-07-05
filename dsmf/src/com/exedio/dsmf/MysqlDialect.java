@@ -78,7 +78,8 @@ public final class MysqlDialect extends Dialect
 				switch(columnSize)
 				{
 					case 65535:      return "text character set utf8 binary";
-					case 16277215:   return "mediumtext character set utf8 binary";
+					case 16277215:   // needed until mysql connector 5.0.4, probably a bug
+					case 16777215:   return "mediumtext character set utf8 binary";
 					case 2147483647: return "longtext character set utf8 binary";
 					default:         return "LONGVARCHAR("+columnSize+')';
 				}

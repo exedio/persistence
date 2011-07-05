@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
+import static com.exedio.cope.SchemaItem.stringLong;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.data;
 import static com.exedio.cope.SchemaItem.doub;
@@ -109,6 +110,10 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", "(("+q(stringExact6)  +" IS NOT NULL) AND (" +l(stringExact6)+"=6)) OR ("+q(stringExact6)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH)+")) OR ("+q(data)+" IS NULL)");
+
+		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
+		assertEquals(null, stringLongColumn.getError());
+		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
 
 		assertEquals(Schema.Color.OK, table.getCumulativeColor());
 	}
