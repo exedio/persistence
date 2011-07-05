@@ -29,7 +29,6 @@ import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
-import com.exedio.cope.testmodel.StringItem;
 import com.exedio.dsmf.Constraint;
 
 public class ItemTest extends TestmodelTest
