@@ -116,7 +116,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, stringLongColumn.getError());
 		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
 
-		final Sequence sequence = schema.getSequence("SchemaItem_this_Seq");
+		final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
 		if(model.getConnectProperties().cluster.booleanValue())
 		{
 			assertEquals(null, sequence.getError());

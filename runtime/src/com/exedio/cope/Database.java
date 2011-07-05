@@ -83,7 +83,7 @@ final class Database
 	SequenceImpl newSequenceImplCluster(final int start, final String name)
 	{
 		return
-			new SequenceImplSequence(name, start, connectionPool, executor);
+			new SequenceImplSequence(name, start, properties, connectionPool, executor);
 	}
 
 	void addTable(final Table table)
