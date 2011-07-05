@@ -14,10 +14,6 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar" />
 
-	<taskdef
-			resource="com/exedio/jspm/ant.properties"
-			classpath="lib/exedio-jspm.jar" />
-	
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
@@ -120,7 +116,7 @@
 							maxwait="40" maxwaitunit="second"
 							checkevery="5" checkeveryunit="second"
 							timeoutproperty="server.app.init.failed">
-						<http url="http://127.0.0.1:${tomcat.port.http}/copetest/console" />
+						<http url="http://127.0.0.1:${tomcat.port.http}/cope-runtime-servlet/mediaConsole" />
 					</waitfor>
 					<echo message="tomcat (@{name}): ready ..." />
 					<fail if="server.app.init.failed" message="tomcat could not be started." />
@@ -302,7 +298,7 @@
 			<zipfileset dir="${basedir}/dsmf/src"          ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/patternsrc"><include name="**/*.java"/></zipfileset>
-			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/><exclude name="**/*_Jspm.java" /></zipfileset>
+			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/junitsrc"  ><include name="**/*.java"/></zipfileset>
 		</zip>
 	</target>
@@ -606,60 +602,6 @@
 				file="runtime/servlet-context.xml" />
 	</target>
 	
-	<target name="copernica.test.jspm">
-		<jspm method="print">
-			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
-		</jspm>
-	</target>
-	
-	<target name="copernica.test.compile"
-				depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.compile, copernica.test.jspm">
-		<compile srcdir="copernica/testsrc">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/testsrc" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</compile>
-		<copy todir="build/classes/copernica/testsrc/com/exedio/copernica/test">
-			<fileset dir="copernica/testresources" /><!-- TODO use copy of macro compile -->
-		</copy>
-	</target>
-	
-	<target name="copernica.web" depends="copernica.test.compile, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.test.compile">
-		<mkdir dir="build/copernica/web" />
-		<copy todir="build/copernica/web/WEB-INF/classes">
-			<fileset dir="build/classes/dsmf/src" />
-			<fileset dir="build/classes/runtime/src" />
-			<fileset dir="build/classes/runtime/dialects" />
-			<fileset dir="build/classes/runtime/patternsrc" />
-			<fileset dir="build/classes/runtime/servletsrc" />
-			<fileset dir="build/classes/runtime/testsrc" />
-			<fileset dir="build/classes/copernica/testsrc" />
-		</copy>
-		<copy todir="build/copernica/web/WEB-INF/lib">
-			<fileset file="lib/trove.jar" />
-			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/exedio-cope-console.jar" />
-			<fileset file="lib/jdbc/hsqldb.jar" />
-		</copy>
-		<copy tofile="build/copernica/web/WEB-INF/cope.properties" file="test-properties/hsqldb.properties" />
-		<copy todir="build/copernica/web/WEB-INF/"
-				file="copernica/web.xml" />
-		<touch file="build/copernica/web/WEB-INF/web.xml" />
-	</target>
-	
-	<target name="copernica.tomcat" depends="copernica.web, catalina">
-		<copy tofile="tomcat/conf/Catalina/localhost/copetest.xml"
-				file="copernica/context.xml" />
-	</target>
-	
 	<target name="copernica.webtest.compile">
 		<compile srcdir="copernica/webtestsrc">
 			<classpath>
@@ -671,7 +613,7 @@
 	<target name="copernica.webtest"
 				depends="catalina,
 							runtime.servlet.test.tomcat,
-							copernica.tomcat, copernica.webtest.compile">
+							copernica.webtest.compile">
 		<runInTomcat name="copernica.webtest">
 			<body>
 				<ljunit test="com.exedio.copernica.PackageTest">
@@ -682,15 +624,6 @@
 				</ljunit>
 			</body>
 		</runInTomcat>
-	</target>
-
-	<target name="copernica.clean">
-		<delete dir="build/copernica" />
-		<delete>
-			<fileset dir="copernica/testsrc">
-				<include name="**/*_Jspm.java" />
-			</fileset>
-		</delete>
 	</target>
 	
 	<target name="runtime.clean">
@@ -834,17 +767,14 @@
 	
 	<!-- common -->
 	
-	<target name="jspm" depends="copernica.test.jspm" />
-	
-	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
+	<target name="src" depends="index" description="creates all sources, so the IDE does not complain" />
 	
 	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
-			  instrument.compile,
-			  copernica.test.compile" />
+			  instrument.compile" />
 	
 	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar" />
 	
@@ -852,9 +782,9 @@
 	
 	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test" />
 	
-	<target name="web" depends="runtime.web, copernica.web" />
+	<target name="web" depends="runtime.web" />
 	
-	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, copernica.tomcat" />
+	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat" />
 	
 	<target name="webtest" depends="copernica.webtest" />
 	
@@ -872,7 +802,7 @@
 		</foreachEnvironment>
 	</target>
 	
-	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, copernica.clean">
+	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean">
 		<delete dir="build" />
 		<delete dir="tomcat" />
 	</target>
