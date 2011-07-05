@@ -24,20 +24,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.util.CharSet;
 
 public class StringTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(StringItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(StringTest.class, "MODEL");
-	}
-
 	public StringTest()
 	{
-		super(MODEL);
+		super(StringModelTest.MODEL);
 	}
 
 	boolean supports;
@@ -58,59 +50,6 @@ public class StringTest extends AbstractRuntimeTest
 
 	public void testStrings()
 	{
-		// test model
-		assertEquals(item.TYPE, item.any.getType());
-		assertEquals("any", item.any.getName());
-		assertEquals(false, item.any.isMandatory());
-		assertEquals(null, item.any.getPattern());
-		assertEquals(0, item.any.getMinimumLength());
-		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, item.any.getMaximumLength());
-		assertEquals(null, item.any.getCharSet());
-
-		assertEquals(item.TYPE, item.mandatory.getType());
-		assertEquals("mandatory", item.mandatory.getName());
-		assertEquals(true, item.mandatory.isMandatory());
-
-		assertEquals(4, item.min4.getMinimumLength());
-		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, item.min4.getMaximumLength());
-
-		assertEquals(0, item.max4.getMinimumLength());
-		assertEquals(4, item.max4.getMaximumLength());
-		assertEquals(null, item.max4.getCharSet());
-
-		assertEquals(4, item.min4Max8.getMinimumLength());
-		assertEquals(8, item.min4Max8.getMaximumLength());
-		assertEquals(null, item.min4Max8.getCharSet());
-
-		assertEquals(6, item.exact6.getMinimumLength());
-		assertEquals(6, item.exact6.getMaximumLength());
-		assertEquals(null, item.exact6.getCharSet());
-
-		assertEquals(0, item.lowercase.getMinimumLength());
-		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, item.lowercase.getMaximumLength());
-		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharSet());
-
-		assertEquals(item.TYPE, item.min4Upper.getType());
-		assertEquals("min4Upper", item.min4Upper.getName());
-
-		// test conditions
-		assertEquals(item.any.equal("hallo"), item.any.equal("hallo"));
-		assertNotEquals(item.any.equal("hallo"), item.any.equal("bello"));
-		assertNotEquals(item.any.equal("hallo"), item.any.equal((String)null));
-		assertNotEquals(item.any.equal("hallo"), item.any.like("hallo"));
-		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
-		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
-
-		// test convenience for conditions
-		assertEquals(item.any.startsWith("hallo"), item.any.like("hallo%"));
-		assertEquals(item.any.endsWith("hallo"), item.any.like("%hallo"));
-		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
-		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.toUpperCase().equal("HALLO"));
-		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.toUpperCase().like("HALLO%"));
-		assertEquals(item.any.startsWithIgnoreCase("hallo"), item.any.toUpperCase().like("HALLO%"));
-		assertEquals(item.any.endsWithIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO"));
-		assertEquals(item.any.containsIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO%"));
-
 		// test check method
 		try
 		{

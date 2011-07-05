@@ -26,7 +26,7 @@ public class FunctionTest extends AbstractRuntimeTest
 {
 	public FunctionTest()
 	{
-		super(StringTest.MODEL);
+		super(StringModelTest.MODEL);
 	}
 
 	StringItem item1;
@@ -50,11 +50,11 @@ public class FunctionTest extends AbstractRuntimeTest
 
 	public void testFunctions()
 	{
-		assertSerializedSame(item1.min4Upper, 371);
-		assertSerializedSame(item1.max4Upper, 371);
-		assertSerializedSame(item1.min4UpperLength, 377);
-		assertSerializedSame(item1.max4UpperLength, 377);
-		assertSerializedSame(item1.min4AndMax4UpperLength, 384);
+		assertSerializedSame(item1.min4Upper, 376);
+		assertSerializedSame(item1.max4Upper, 376);
+		assertSerializedSame(item1.min4UpperLength, 382);
+		assertSerializedSame(item1.max4UpperLength, 382);
+		assertSerializedSame(item1.min4AndMax4UpperLength, 389);
 
 		assertEquals("5ffff", item1.getMin4());
 		assertEquals("5FFFF", item1.getMin4Upper());
