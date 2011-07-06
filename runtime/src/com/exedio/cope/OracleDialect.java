@@ -33,10 +33,7 @@ import java.util.Random;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
 
 final class OracleDialect extends Dialect
 {
@@ -217,33 +214,6 @@ final class OracleDialect extends Dialect
 		return DataField.copy(blob.getBinaryStream(), blob.length());
 	}
 
-	@Override
-	protected void completeSchema(final Schema schema)
-	{
-		final Table planTable = new Table(schema, "PLAN_TABLE");
-		planTable.makeDefensive();
-		new Column(planTable, STATEMENT_ID, "VARCHAR2(30 BYTE)");
-		new Column(planTable, "TIMESTAMP", "DATE");
-		new Column(planTable, "REMARKS", "VARCHAR2(80 BYTE)");
-		new Column(planTable, OPERATION, "VARCHAR2(30 BYTE)");
-		new Column(planTable, OPTIONS, "VARCHAR2(30 BYTE)");
-		new Column(planTable, "OBJECT_NODE", "VARCHAR2(128 BYTE)");
-		new Column(planTable, "OBJECT_OWNER", "VARCHAR2(30 BYTE)");
-		new Column(planTable, OBJECT_NAME, "VARCHAR2(30 BYTE)");
-		new Column(planTable, OBJECT_INSTANCE, "NUMBER(22)");
-		new Column(planTable, OBJECT_TYPE, "VARCHAR2(30 BYTE)");
-		new Column(planTable, "OPTIMIZER", "VARCHAR2(255 BYTE)");
-		new Column(planTable, "SEARCH_COLUMNS", "NUMBER(22)");
-		new Column(planTable, ID, "NUMBER(22)");
-		new Column(planTable, PARENT_ID, "NUMBER(22)");
-		new Column(planTable, "POSITION", "NUMBER(22)");
-		new Column(planTable, "COST", "NUMBER(22)");
-		new Column(planTable, "CARDINALITY", "NUMBER(22)");
-		new Column(planTable, "BYTES", "NUMBER(22)");
-		new Column(planTable, "OTHER_TAG", "VARCHAR2(255 BYTE)");
-		new Column(planTable, "OTHER", "LONG");
-	}
-
 	private static final Random statementIDCounter = new Random();
 
 	private static final String PLAN_TABLE = "PLAN_TABLE";
@@ -278,6 +248,29 @@ final class OracleDialect extends Dialect
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;
+
+		Executor.update(connection,
+			"create global temporary table \"" + PLAN_TABLE + "\"(" +
+				"\"" + STATEMENT_ID + "\" VARCHAR2(30 BYTE)," +
+				"\"TIMESTAMP\" DATE," +
+				"\"REMARKS\" VARCHAR2(80 BYTE)," +
+				"\"" + OPERATION + "\" VARCHAR2(30 BYTE)," +
+				"\"" + OPTIONS + "\" VARCHAR2(30 BYTE)," +
+				"\"OBJECT_NODE\" VARCHAR2(128 BYTE)," +
+				"\"OBJECT_OWNER\" VARCHAR2(30 BYTE)," +
+				"\"" + OBJECT_NAME + "\" VARCHAR2(30 BYTE)," +
+				"\"" + OBJECT_INSTANCE + "\" NUMBER(22)," +
+				"\"" + OBJECT_TYPE + "\" VARCHAR2(30 BYTE)," +
+				"\"OPTIMIZER\" VARCHAR2(255 BYTE)," +
+				"\"SEARCH_COLUMNS\" NUMBER(22)," +
+				"\"" + ID + "\" NUMBER(22)," +
+				"\"" + PARENT_ID + "\" NUMBER(22)," +
+				"\"POSITION\" NUMBER(22)," +
+				"\"COST\" NUMBER(22)," +
+				"\"CARDINALITY\" NUMBER(22)," +
+				"\"BYTES\" NUMBER(22)," +
+				"\"OTHER_TAG\" VARCHAR2(255 BYTE)," +
+				"\"OTHER\" LONG)");
 
 		final int statementIDNumber;
 		synchronized(statementIDCounter)
@@ -396,6 +389,7 @@ final class OracleDialect extends Dialect
 				}
 			});
 		}
+		Executor.update(connection, "drop table \"" + PLAN_TABLE + "\"");
 		if(root==null)
 			throw new RuntimeException();
 

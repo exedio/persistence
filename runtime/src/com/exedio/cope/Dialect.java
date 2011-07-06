@@ -29,7 +29,6 @@ import java.util.Properties;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.Schema;
 
 /**
  * Adapts COPE to different RDBMS.
@@ -278,14 +277,6 @@ abstract class Dialect
 			throw new NullPointerException();
 
 		return null;
-	}
-
-	/**
-	 * @param schema used in subclasses
-	 */
-	protected void completeSchema(final Schema schema)
-	{
-		// empty default implementation
 	}
 
 	protected abstract Integer    nextSequence(Executor executor, Connection connection, String name);

@@ -33,8 +33,6 @@ public final class Table extends Node
 	private final boolean required;
 	private boolean exists;
 
-	private boolean defensive = false;
-
 	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
 	private final ArrayList<Column> columnList = new ArrayList<Column>();
 
@@ -67,9 +65,13 @@ public final class Table extends Node
 		schema.register(this);
 	}
 
+	/**
+	 * @deprecated Is not supported anymore, does nothing.
+	 */
+	@Deprecated
 	public void makeDefensive()
 	{
-		defensive = true;
+		// do nothing
 	}
 
 	public String getName()
@@ -278,19 +280,7 @@ public final class Table extends Node
 	{
 		final StringBuilder bf = new StringBuilder();
 		create(bf);
-		if(defensive)
-		{
-			try
-			{
-				executeSQL(bf.toString(), listener);
-			}
-			catch(final SQLRuntimeException e)
-			{
-				// ignore it in defensive mode
-			}
-		}
-		else
-			executeSQL(bf.toString(), listener);
+		executeSQL(bf.toString(), listener);
 
 	}
 
@@ -309,19 +299,7 @@ public final class Table extends Node
 	{
 		final StringBuilder bf = new StringBuilder();
 		drop(bf);
-		if(defensive)
-		{
-			try
-			{
-				executeSQL(bf.toString(), listener);
-			}
-			catch(final SQLRuntimeException e)
-			{
-				// ignore it in defensive mode
-			}
-		}
-		else
-			executeSQL(bf.toString(), listener);
+		executeSQL(bf.toString(), listener);
 
 	}
 

@@ -615,7 +615,6 @@ final class Database
 		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
 
-		dialect.completeSchema(result);
 		return result;
 	}
 

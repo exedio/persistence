@@ -311,6 +311,28 @@ final class Executor
 		}
 	}
 
+	static int update(
+			final Connection connection,
+			final String sql)
+	{
+		try
+		{
+			final java.sql.Statement sqlStatement = connection.createStatement();
+			try
+			{
+				return sqlStatement.executeUpdate(sql);
+			}
+			finally
+			{
+				sqlStatement.close();
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+	}
+
 	<R> R insertAndGetGeneratedKeys(
 			final Connection connection,
 			final Statement statement,
