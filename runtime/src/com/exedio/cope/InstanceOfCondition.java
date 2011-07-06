@@ -129,6 +129,9 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	public boolean get(final Item item)
 	{
 		final Item value = function.get(item);
+		if(value==null)
+			return false;
+
 		final Type valueType = value.getCopeType();
 		for(final Type<?> t : types)
 			if(t.isAssignableFrom(valueType))

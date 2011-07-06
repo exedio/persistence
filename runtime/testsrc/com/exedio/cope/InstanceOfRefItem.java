@@ -23,7 +23,7 @@ package com.exedio.cope;
  */
 class InstanceOfRefItem extends Item
 {
-	static final ItemField<InstanceOfAItem> ref = newItemField(InstanceOfAItem.class).toFinal();
+	static final ItemField<InstanceOfAItem> ref = newItemField(InstanceOfAItem.class).toFinal().optional();
 	static final StringField code = new StringField().toFinal().unique();
 	static final ItemField<InstanceOfB2Item> refb2 = newItemField(InstanceOfB2Item.class).optional();
 
@@ -35,7 +35,7 @@ class InstanceOfRefItem extends Item
 
 	InstanceOfRefItem(final InstanceOfAItem ref)
 	{
-		this(ref, "->"+ref.getCode());
+		this(ref, "->"+(ref!=null ? ref.getCode() : "NULL"));
 	}
 
 	/**

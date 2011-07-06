@@ -41,6 +41,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	InstanceOfRefItem reffb1;
 	InstanceOfRefItem reffb2;
 	InstanceOfRefItem reffc1;
+	InstanceOfRefItem reffN;
 
 	@Override
 	public void setUp() throws Exception
@@ -56,6 +57,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		reffb1 = deleteOnTearDown(new InstanceOfRefItem(itemb1));
 		reffb2 = deleteOnTearDown(new InstanceOfRefItem(itemb2));
 		reffc1 = deleteOnTearDown(new InstanceOfRefItem(itemc1));
+		reffN = deleteOnTearDown(new InstanceOfRefItem(null));
 	}
 
 	public void testIt()
@@ -117,8 +119,8 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
 
 
-		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
-		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
+		assertContains(itema, itemb1, itemb2, itemc1,        itema.TYPE.search(null));
+		assertContains(reffa, reffb1, reffb2, reffc1, reffN, reffa.TYPE.search(null));
 
 		assertCondition(itema, itemb1, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
 		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE));
