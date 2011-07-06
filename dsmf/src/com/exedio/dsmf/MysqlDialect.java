@@ -336,6 +336,10 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
+		bf.append("create table ").
+			append(sequenceName).
+			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB");
+
 		// TODO
 		// From the MySQL documentation:
 		//
@@ -345,11 +349,7 @@ public final class MysqlDialect extends Dialect
 		//    a server restart, for reasons discussed earlier in this section.
 		//
 		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
-
-		bf.append("create table ").
-			append(sequenceName).
-			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB").
-			append(" AUTO_INCREMENT=").
+		bf.append(" AUTO_INCREMENT=").
 			append(startWith+1);
 	}
 
