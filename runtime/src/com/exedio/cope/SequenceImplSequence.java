@@ -26,7 +26,6 @@ import com.exedio.dsmf.Sequence;
 final class SequenceImplSequence implements SequenceImpl
 {
 	private final int start;
-	private final ConnectProperties properties;
 	private final Executor executor;
 	private final ConnectionPool connectionPool;
 	private final String name;
@@ -34,10 +33,9 @@ final class SequenceImplSequence implements SequenceImpl
 	SequenceImplSequence(final IntegerColumn column, final int start, final ConnectionPool connectionPool, final Database database)
 	{
 		this.start = start;
-		this.properties = database.properties;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalID("Seq");
+		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"));
 	}
 
 	SequenceImplSequence(
@@ -48,15 +46,14 @@ final class SequenceImplSequence implements SequenceImpl
 			final Executor executor)
 	{
 		this.start = start;
-		this.properties = properties;
 		this.executor = executor;
 		this.connectionPool = connectionPool;
-		this.name = name;
+		this.name = properties.filterTableName(name);
 	}
 
 	public void makeSchema(final Schema schema)
 	{
-		new Sequence(schema, properties.filterTableName(name), start);
+		new Sequence(schema, name, start);
 	}
 
 	public int next()
