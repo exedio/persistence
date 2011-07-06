@@ -340,7 +340,6 @@ public final class MysqlDialect extends Dialect
 			append(sequenceName).
 			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB");
 
-		// TODO
 		// From the MySQL documentation:
 		//
 		//    InnoDB supports the AUTO_INCREMENT = N table option in CREATE TABLE
@@ -349,8 +348,14 @@ public final class MysqlDialect extends Dialect
 		//    a server restart, for reasons discussed earlier in this section.
 		//
 		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
-		bf.append(" AUTO_INCREMENT=").
-			append(startWith+1);
+		if(startWith!=0)
+		{
+			bf.append(";insert into ").
+				append(sequenceName).
+				append(" values(").
+				append(startWith).
+				append(')');
+		}
 	}
 
 	private void deleteSequence(final StringBuilder bf, final Sequence sequence)
