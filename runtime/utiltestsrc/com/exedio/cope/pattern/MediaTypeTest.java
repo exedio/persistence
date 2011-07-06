@@ -56,7 +56,7 @@ public class MediaTypeTest extends CopeAssert
 				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='image/vnd.microsoft.icon' OR "+c+"='image/icon' OR "+c+"='image/x-icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
 				"(("+c+"='application/zip' OR "+c+"='application/java-archive') AND !("+b+" startsWith '"+ZIP+"')) OR " +
-				"("+c+"='application/pdf' AND !("+b+" startsWith '"+PDF+"'))" +
+				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"'))" +
 				")",
 				m.bodyMismatchesContentType().toString());
 	}

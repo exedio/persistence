@@ -143,7 +143,10 @@ public final class MediaType
 			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
-					PDF),
+					// http://tools.ietf.org/html/rfc3778
+					PDF,
+					"text/pdf" // seen on Firefox 5.0
+			),
 	};
 
 	private static final HashMap<String, MediaType> typesByName         = new HashMap<String, MediaType>();
