@@ -101,14 +101,19 @@ public final class Sequence extends Node
 
 	public void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
 	public void create(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		dialect.createSequence(bf, quoteName(name), startWith);
+		create(bf);
 		executeSQL(bf.toString(), listener);
+	}
+
+	private void create(final StringBuilder bf)
+	{
+		dialect.createSequence(bf, quoteName(name), startWith);
 	}
 
 	public void drop()
