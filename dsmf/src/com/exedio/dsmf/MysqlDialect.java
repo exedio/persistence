@@ -353,6 +353,23 @@ public final class MysqlDialect extends Dialect
 			append(startWith+1);
 	}
 
+	private void deleteSequence(final StringBuilder bf, final Sequence sequence)
+	{
+		bf.append("truncate ").
+			append(quoteName(sequence.name)).
+			append(';');
+
+		final int startWith = sequence.startWith;
+		if(startWith!=0)
+		{
+			bf.append("insert into ").
+				append(sequence.name).
+				append(" values(").
+				append(startWith).
+				append(");");
+		}
+	}
+
 	@Override
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
@@ -377,21 +394,8 @@ public final class MysqlDialect extends Dialect
 		bf.append("set FOREIGN_KEY_CHECKS=1;");
 
 		for(final Sequence sequence : schema.getSequences())
-		{
-			bf.append("truncate ").
-				append(quoteName(sequence.name)).
-				append(';');
+			deleteSequence(bf, sequence);
 
-			final int startWith = sequence.startWith;
-			if(startWith!=0)
-			{
-				bf.append("insert into ").
-					append(sequence.name).
-					append(" values(").
-					append(startWith).
-					append(");");
-			}
-		}
 		execute(schema.connectionProvider, bf.toString());
 	}
 
