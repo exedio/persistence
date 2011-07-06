@@ -18,18 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Executor.NO_SUCH_ROW;
-import static com.exedio.cope.Executor.convertSQLResult;
 import static com.exedio.cope.Intern.intern;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Schema;
 
 final class Table
@@ -231,23 +225,5 @@ final class Table
 
 		for(final CheckConstraint cc : getCheckConstraints())
 			cc.makeSchema(this, result);
-	}
-
-	int count(final Connection connection, final Executor executor)
-	{
-		final Statement bf = executor.newStatement();
-		bf.append("select count(*) from ").
-			append(quotedID);
-
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
-		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
-			{
-				if(!resultSet.next())
-					throw new SQLException(NO_SUCH_ROW);
-
-				return convertSQLResult(resultSet.getObject(1));
-			}
-		});
 	}
 }

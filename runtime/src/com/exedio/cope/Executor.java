@@ -203,6 +203,37 @@ final class Executor
 		}
 	}
 
+	static <R> R query(
+			final Connection connection,
+			final String sql,
+			final ResultSetHandler<R> resultSetHandler)
+	{
+		try
+		{
+			final java.sql.Statement sqlStatement = connection.createStatement();
+			try
+			{
+				final ResultSet resultSet = sqlStatement.executeQuery(sql);
+				try
+				{
+					return resultSetHandler.handle(resultSet);
+				}
+				finally
+				{
+					resultSet.close();
+				}
+			}
+			finally
+			{
+				sqlStatement.close();
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+	}
+
 	void updateStrict(
 			final Connection connection,
 			final Item exceptionItem,

@@ -264,23 +264,45 @@ final class Database
 		buildStage = false;
 
 		//final long start = System.nanoTime();
-		StringBuilder message = null;
+		final StringBuilder bf = new StringBuilder();
+		bf.append("select t,c from(");
+		int n = 0;
 		for(final Table table : tables)
 		{
-			final int count = table.count(connection, executor);
-			if(count>0)
-			{
-				if(message==null)
-					message = new StringBuilder("schema not empty: ");
-				else
-					message.append(", ");
+			if(n>0)
+				bf.append("union");
 
-				message.
-					append(table.id).
-					append(':').
-					append(count);
-			}
+			bf.append("(select '").
+				append(table.id).
+				append("' t, count(*) c, ").
+				append(n++).
+				append(" n from ").
+				append(table.quotedID).
+				append(')');
 		}
+		bf.append(") b where c>0 order by n");
+
+		final String message = Executor.query(connection, bf.toString(), new ResultSetHandler<String>()
+		{
+			public String handle(final ResultSet resultSet) throws SQLException
+			{
+				StringBuilder message = null;
+				while(resultSet.next())
+				{
+					if(message==null)
+						message = new StringBuilder("schema not empty: ");
+					else
+						message.append(", ");
+
+					message.
+						append(resultSet.getString(1).trim()). // trim needed for hsqldb
+						append(':').
+						append(resultSet.getInt(2));
+				}
+				return message!=null ? message.toString() : null;
+			}
+
+		});
 		if(message!=null)
 			throw new IllegalStateException(message.toString());
 		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
