@@ -304,7 +304,7 @@ final class Database
 
 		});
 		if(message!=null)
-			throw new IllegalStateException(message.toString());
+			throw new IllegalStateException(message);
 		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 
 		// NOTICE
