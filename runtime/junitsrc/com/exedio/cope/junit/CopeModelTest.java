@@ -38,11 +38,16 @@ public abstract class CopeModelTest extends CopeAssert
 		this.model = model;
 	}
 
+	public final Model getModel()
+	{
+		return model;
+	}
+
 	/**
 	 * Override this method to provide your own connect properties
 	 * to method {@link #setUp()} for connecting.
 	 */
-	protected ConnectProperties getConnectProperties()
+	public ConnectProperties getConnectProperties()
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
