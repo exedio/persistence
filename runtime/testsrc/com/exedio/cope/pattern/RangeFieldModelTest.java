@@ -20,6 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
+import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
+import static com.exedio.cope.pattern.RangeFieldItem.text;
+import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
 import java.util.Arrays;
 
@@ -34,66 +37,64 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RangeFieldModelTest extends CopeAssert
 {
-	static final Model MODEL = new Model(RangeFieldItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(RangeFieldModelTest.class, "MODEL");
 	}
 
-	RangeFieldItem item;
-
 	public void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.valid,
-				item.valid.getFrom(),
-				item.valid.getTo(),
-				item.valid.getUnison(),
-				item.text,
-				item.text.getFrom(),
-				item.text.getTo(),
-				item.text.getUnison(),
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				valid,
+				valid.getFrom(),
+				valid.getTo(),
+				valid.getUnison(),
+				text,
+				text.getFrom(),
+				text.getTo(),
+				text.getUnison(),
+			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.valid,
-				item.valid.getFrom(),
-				item.valid.getTo(),
-				item.valid.getUnison(),
-				item.text,
-				item.text.getFrom(),
-				item.text.getTo(),
-				item.text.getUnison(),
-			}), item.TYPE.getDeclaredFeatures());
+				TYPE.getThis(),
+				valid,
+				valid.getFrom(),
+				valid.getTo(),
+				valid.getUnison(),
+				text,
+				text.getFrom(),
+				text.getTo(),
+				text.getUnison(),
+			}), TYPE.getDeclaredFeatures());
 
-		assertEquals(item.TYPE, item.valid.getFrom().getType());
-		assertEquals(item.TYPE, item.valid.getTo().getType());
-		assertEquals(item.TYPE, item.valid.getType());
-		assertEquals("valid-from", item.valid.getFrom().getName());
-		assertEquals("valid-to",   item.valid.getTo().getName());
-		assertEquals("valid",     item.valid.getName());
-		assertEquals(item.valid, item.valid.getFrom().getPattern());
+		assertEquals(TYPE, valid.getFrom().getType());
+		assertEquals(TYPE, valid.getTo().getType());
+		assertEquals(TYPE, valid.getType());
+		assertEquals("valid-from", valid.getFrom().getName());
+		assertEquals("valid-to",   valid.getTo().getName());
+		assertEquals("valid",     valid.getName());
+		assertEquals(valid, valid.getFrom().getPattern());
 
-		assertEquals(true, item.valid.isInitial());
-		assertEquals(false, item.valid.isFinal());
-		assertEquals(true,  item.valid.isMandatory());
-		assertEquals(false, item.valid.getFrom().isFinal());
-		assertEquals(false, item.valid.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(item.valid));
-		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
-		assertSerializedSame(item.valid, 388);
+		assertEquals(true, valid.isInitial());
+		assertEquals(false, valid.isFinal());
+		assertEquals(true,  valid.isMandatory());
+		assertEquals(false, valid.getFrom().isFinal());
+		assertEquals(false, valid.getTo().isFinal());
+		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
+		assertContains(MandatoryViolationException.class, valid.getInitialExceptions());
+		assertSerializedSame(valid, 388);
 
-		assertEquals(true, item.text.isInitial());
-		assertEquals(true, item.text.isFinal());
-		assertEquals(true, item.text.isMandatory());
-		assertEquals(true, item.text.getFrom().isFinal());
-		assertEquals(true, item.text.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, String.class), getInitialType(item.text));
-		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, item.text.getInitialExceptions());
-		assertSerializedSame(item.text, 387);
+		assertEquals(true, text.isInitial());
+		assertEquals(true, text.isFinal());
+		assertEquals(true, text.isMandatory());
+		assertEquals(true, text.getFrom().isFinal());
+		assertEquals(true, text.getTo().isFinal());
+		assertEquals(Wrapper.generic(Range.class, String.class), getInitialType(text));
+		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
+		assertSerializedSame(text, 387);
 
 
 		try
@@ -117,7 +118,7 @@ public class RangeFieldModelTest extends CopeAssert
 
 		try
 		{
-			item.valid.contains(null);
+			valid.contains(null);
 			fail();
 		}
 		catch(final NullPointerException e)
