@@ -258,7 +258,7 @@ public final class Table extends Node
 
 		for(final Constraint c : constraintList)
 		{
-			if(!c.type.secondPhase)
+			if(c.isSupported() && !c.type.secondPhase)
 				c.createInTable(bf);
 		}
 
