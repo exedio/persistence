@@ -33,46 +33,31 @@ public class RangeTest extends CopeAssert
 
 	public void testNA()
 	{
-		try
-		{
-			newRange(null, 3);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("optional from not yet implemented", e.getMessage());
-		}
+		final Range<Integer> r = newRange(null, 3);
+		assertEquals(null, r.getFrom());
+		assertEquals(3, r.getTo().intValue());
 	}
 
 	public void testAN()
 	{
-		try
-		{
-			newRange(1, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("optional to not yet implemented", e.getMessage());
-		}
+		final Range<Integer> r = newRange(1, null);
+		assertEquals(1, r.getFrom().intValue());
+		assertEquals(null, r.getTo());
 	}
 
 	public void testNN()
 	{
-		try
-		{
-			newRange((Integer)null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("optional from not yet implemented", e.getMessage());
-		}
+		final Range<Integer> r = newRange((Integer)null, null);
+		assertEquals(null, r.getFrom());
+		assertEquals(null, r.getTo());
 	}
 
 	public void testEquals()
 	{
 		assertEqualsStrict(newRange(1, 3), newRange(1, 3));
+		assertEqualsStrict(newRange(null, 3), newRange(null, 3));
+		assertEqualsStrict(newRange(1, null), newRange(1, null));
+		assertEqualsStrict(newRange((Integer)null, null), newRange((Integer)null, null));
 		assertNotEqualsStrict(newRange(1, 3), newRange(2, 3));
 		assertNotEqualsStrict(newRange(1, 3), newRange(1, 4));
 		try

@@ -73,6 +73,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(RangeTest.class);
 		suite.addTestSuite(RangeFieldModelTest.class);
 		suite.addTestSuite(RangeFieldTest.class);
+		suite.addTestSuite(RangeFieldNullTest.class);
 		suite.addTestSuite(PatternTest.class);
 		suite.addTestSuite(RecursiveTest.class);
 		return suite;

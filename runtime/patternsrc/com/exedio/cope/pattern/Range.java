@@ -18,6 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+/**
+ * If the value for {@link #getFrom() from} is null this means, that the range contains all values less    or equal to <code>to</code>.
+ * If the value for {@link #getTo  () to  } is null this means, that the range contains all values greater or equal to <code>from</code>.
+ * If both the value for {@link #getFrom() from} and {@link #getTo() to} is null this means,
+ * that the range contains all values.
+ */
 public final class Range<E extends Comparable<E>>
 {
 	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
@@ -30,11 +36,7 @@ public final class Range<E extends Comparable<E>>
 
 	public Range(final E from, final E to)
 	{
-		if(from==null)
-			throw new NullPointerException("optional from not yet implemented");
-		if(to==null)
-			throw new NullPointerException("optional to not yet implemented");
-		if(from.compareTo(to)>0)
+		if(from!=null && to!=null && from.compareTo(to)>0)
 			throw new IllegalArgumentException("from " + from + " greater than to " + to);
 
 		this.from = from;
@@ -58,12 +60,22 @@ public final class Range<E extends Comparable<E>>
 			return false;
 
 		final Range o = (Range)other;
-		return from.equals(o.from) && to.equals(o.to);
+		return equals(from, o.from) && equals(to, o.to);
+	}
+
+	private static boolean equals(final Object e1, final Object e2)
+	{
+		return e1!=null ? e1.equals(e2) : (e2==null);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return from.hashCode() ^ (to.hashCode() << 2);
+		return hashCode(from) ^ (hashCode(to) << 2);
+	}
+
+	private static int hashCode(final Object e1)
+	{
+		return e1!=null ? e1.hashCode() : 0;
 	}
 }

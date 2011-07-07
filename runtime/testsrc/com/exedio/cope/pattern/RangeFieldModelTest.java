@@ -78,13 +78,13 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals("valid",     valid.getName());
 		assertEquals(valid, valid.getFrom().getPattern());
 
-		assertEquals(true, valid.isInitial());
+		assertEquals(false, valid.isInitial());
 		assertEquals(false, valid.isFinal());
-		assertEquals(true,  valid.isMandatory());
+		assertEquals(false, valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
 		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
-		assertContains(MandatoryViolationException.class, valid.getInitialExceptions());
+		assertContains(valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
 		assertEquals(true, text.isInitial());
@@ -96,16 +96,18 @@ public class RangeFieldModelTest extends CopeAssert
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
 		assertSerializedSame(text, 387);
 
+		assertEquals(
+				"(" +
+					"RangeFieldItem.valid-from is null OR " +
+					"RangeFieldItem.valid-to is null OR " +
+					"RangeFieldItem.valid-from<=RangeFieldItem.valid-to" +
+				")",
+				valid.getUnison().getCondition().toString());
+		assertEquals(
+				"RangeFieldItem.text-from<=RangeFieldItem.text-to",
+				text.getUnison().getCondition().toString());
 
-		try
-		{
-			RangeField.newRange(new IntegerField().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("optional borderTemplate not yet implemented", e.getMessage());
-		}
+
 		try
 		{
 			RangeField.newRange(new IntegerField().unique());
