@@ -24,7 +24,51 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RangeTest extends CopeAssert
 {
-	public void testIt()
+	public void testAB()
+	{
+		newRange(1, 3);
+	}
+
+	public void testNA()
+	{
+		try
+		{
+			newRange(null, 3);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("optional from not yet implemented", e.getMessage());
+		}
+	}
+
+	public void testAN()
+	{
+		try
+		{
+			newRange(1, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("optional to not yet implemented", e.getMessage());
+		}
+	}
+
+	public void testNN()
+	{
+		try
+		{
+			newRange((Integer)null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("optional from not yet implemented", e.getMessage());
+		}
+	}
+
+	public void testEquals()
 	{
 		assertEqualsStrict(newRange(1, 3), newRange(1, 3));
 		assertNotEqualsStrict(newRange(1, 3), newRange(2, 3));
