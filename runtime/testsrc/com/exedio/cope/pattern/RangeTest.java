@@ -132,5 +132,10 @@ public class RangeTest extends CopeAssert
 
 		assertEqualsStrict(newRange(5, 5), newRange(5, 5));
 		assertNotEqualsStrict(newRange(5, 5), newRange(6, 6));
+
+		assertNotSame(newRange(1, 3), newRange(1, 3));
+		assertNotSame(newRange(null, 3), newRange(null, 3));
+		assertNotSame(newRange(1, null), newRange(1, null));
+		assertSame(newRange((Integer)null, null), newRange((Integer)null, null));
 	}
 }

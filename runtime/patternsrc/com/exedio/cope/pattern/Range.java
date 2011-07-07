@@ -28,8 +28,21 @@ public final class Range<E extends Comparable<E>>
 {
 	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
 	{
+		if(from==null && to==null)
+			return all();
+
 		return new Range<E>(from, to);
 	}
+
+	@SuppressWarnings("unchecked") // OK
+	private static <E extends Comparable<E>> Range<E> all()
+	{
+		return all;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static final Range all = new Range(null, null);
+
 
 	private final E from;
 	private final E to;
