@@ -29,6 +29,21 @@ public class RangeTest extends CopeAssert
 		final Range<Integer> r = newRange(1, 3);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(3, r.getTo().intValue());
+
+		assertEquals(false, r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(false, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
 	public void testNA()
@@ -36,6 +51,21 @@ public class RangeTest extends CopeAssert
 		final Range<Integer> r = newRange(null, 3);
 		assertEquals(null, r.getFrom());
 		assertEquals(3, r.getTo().intValue());
+
+		assertEquals(true,  r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(false, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
 	public void testAN()
@@ -43,6 +73,21 @@ public class RangeTest extends CopeAssert
 		final Range<Integer> r = newRange(1, null);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(null, r.getTo());
+
+		assertEquals(false, r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(true,  r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
 	public void testNN()
@@ -50,6 +95,21 @@ public class RangeTest extends CopeAssert
 		final Range<Integer> r = newRange((Integer)null, null);
 		assertEquals(null, r.getFrom());
 		assertEquals(null, r.getTo());
+
+		assertEquals(true, r.contains(0));
+		assertEquals(true, r.contains(1));
+		assertEquals(true, r.contains(3));
+		assertEquals(true, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
 	public void testEquals()

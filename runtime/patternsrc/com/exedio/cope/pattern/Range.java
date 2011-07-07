@@ -53,6 +53,16 @@ public final class Range<E extends Comparable<E>>
 		return to;
 	}
 
+	public boolean contains(final E value)
+	{
+		if(value==null)
+			throw new NullPointerException("value");
+
+		return
+			(from==null || from.compareTo(value)<=0) &&
+			(to  ==null || to  .compareTo(value)>=0) ;
+	}
+
 	@Override
 	public boolean equals(final Object other)
 	{
