@@ -83,5 +83,15 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.valid.contains(8)));
 		assertContains(item, item.TYPE.search(item.valid.contains(9)));
 		assertContains(      item.TYPE.search(item.valid.contains(10)));
+
+		try
+		{
+			item.doesValidContain(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }
