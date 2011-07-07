@@ -26,9 +26,9 @@ public class RangeTest extends CopeAssert
 {
 	public void testIt()
 	{
-		assertEquals(newRange(1, 3), newRange(1, 3));
-		assertNotEquals(newRange(1, 3), newRange(2, 3));
-		assertNotEquals(newRange(1, 3), newRange(1, 4));
+		assertEqualsStrict(newRange(1, 3), newRange(1, 3));
+		assertNotEqualsStrict(newRange(1, 3), newRange(2, 3));
+		assertNotEqualsStrict(newRange(1, 3), newRange(1, 4));
 		try
 		{
 			newRange(3, 2);
@@ -39,21 +39,9 @@ public class RangeTest extends CopeAssert
 			assertEquals("from 3 greater than to 2", e.getMessage());
 		}
 
-		assertEquals(newRange(5, 5), newRange(5, 5));
-		assertNotEquals(newRange(5, 5), newRange(6, 6));
+		assertEqualsStrict(newRange(5, 5), newRange(5, 5));
+		assertNotEqualsStrict(newRange(5, 5), newRange(6, 6));
 	}
 
-	private static void assertEquals(final Range c1, final Range c2)
-	{
-		assertEquals((Object)c1, (Object)c2);
-		assertEquals((Object)c2, (Object)c1);
-		assertEquals(c1.hashCode(), c2.hashCode());
-	}
 
-	private static void assertNotEquals(final Range c1, final Range c2)
-	{
-		assertTrue(!c1.equals(c2));
-		assertTrue(!c2.equals(c1));
-		assertTrue(c1.hashCode()!=c2.hashCode());
-	}
 }
