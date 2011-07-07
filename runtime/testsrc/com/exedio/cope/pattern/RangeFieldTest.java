@@ -63,8 +63,8 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 		assertEquals(false, item.doesValidContain(i7));
-		assertEquals(true, item.doesValidContain(i8));
-		assertEquals(true, item.doesValidContain(i9));
+		assertEquals(true,  item.doesValidContain(i8));
+		assertEquals(true,  item.doesValidContain(i9));
 		assertEquals(false, item.doesValidContain(i10));
 
 		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
@@ -72,7 +72,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
 		assertEquals(false, item2.doesValidContain(i3));
-		assertEquals(true, item2.doesValidContain(i4));
+		assertEquals(true,  item2.doesValidContain(i4));
 		assertEquals(false, item2.doesValidContain(i5));
 
 		assertContains(       item.TYPE.search(item.valid.contains(3)));
