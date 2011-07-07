@@ -42,6 +42,4 @@ public class RangeTest extends CopeAssert
 		assertEqualsStrict(newRange(5, 5), newRange(5, 5));
 		assertNotEqualsStrict(newRange(5, 5), newRange(6, 6));
 	}
-
-
 }
