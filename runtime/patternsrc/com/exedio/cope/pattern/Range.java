@@ -25,8 +25,8 @@ public final class Range<E extends Comparable<E>>
 		return new Range<E>(from, to);
 	}
 
-	final E from;
-	final E to;
+	private final E from;
+	private final E to;
 
 	public Range(final E from, final E to)
 	{
@@ -39,6 +39,16 @@ public final class Range<E extends Comparable<E>>
 
 		this.from = from;
 		this.to = to;
+	}
+
+	public E getFrom()
+	{
+		return from;
+	}
+
+	public E getTo()
+	{
+		return to;
 	}
 
 	@Override

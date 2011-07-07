@@ -26,7 +26,9 @@ public class RangeTest extends CopeAssert
 {
 	public void testAB()
 	{
-		newRange(1, 3);
+		final Range<Integer> r = newRange(1, 3);
+		assertEquals(1, r.getFrom().intValue());
+		assertEquals(3, r.getTo().intValue());
 	}
 
 	public void testNA()
