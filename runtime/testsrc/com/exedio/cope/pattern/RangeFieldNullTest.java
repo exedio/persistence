@@ -53,12 +53,28 @@ public class RangeFieldNullTest extends AbstractRuntimeTest
 		assertContainsCondition(19, ab, nb, an, nn);
 		assertContainsCondition(20, ab, nb, an, nn);
 		assertContainsCondition(21,         an, nn);
+
+		for(final RangeFieldItem item : TYPE.search())
+		{
+			try
+			{
+				item.doesValidContain(null);
+				fail();
+			}
+			catch(final NullPointerException e)
+			{
+				assertEquals("value", e.getMessage());
+			}
+		}
 	}
 
 	private void assertContainsCondition(final int value, final RangeFieldItem... actual)
 	{
 		assertEquals(Arrays.asList(actual), TYPE.search(valid.contains(value), TYPE.getThis(), true));
 		for(final RangeFieldItem item : TYPE.search())
+		{
 			assertEquals(item.getValid().contains(value), Arrays.asList(actual).contains(item));
+			assertEquals(item.doesValidContain(value), Arrays.asList(actual).contains(item));
+		}
 	}
 }
