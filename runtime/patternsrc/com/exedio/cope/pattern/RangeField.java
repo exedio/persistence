@@ -127,10 +127,14 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			throw new NullPointerException("value");
 
 		final E from = getFrom(item);
+		if(!(from==null || from.compareTo(value)<=0))
+			return false;
+
 		final E to   = getTo  (item);
-		return
-			(from==null || from.compareTo(value)<=0) &&
-			(to  ==null || to  .compareTo(value)>=0) ;
+		if(!(to  ==null || to  .compareTo(value)>=0))
+			return false;
+
+		return true;
 	}
 
 	private static final class FinalGetter implements BooleanGetter<RangeField>
