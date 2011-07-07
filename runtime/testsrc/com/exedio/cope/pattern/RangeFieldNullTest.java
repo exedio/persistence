@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.exedio.cope.AbstractRuntimeTest;
 
@@ -70,11 +71,12 @@ public class RangeFieldNullTest extends AbstractRuntimeTest
 
 	private void assertContainsCondition(final int value, final RangeFieldItem... actual)
 	{
-		assertEquals(Arrays.asList(actual), TYPE.search(valid.contains(value), TYPE.getThis(), true));
+		final List<RangeFieldItem> actualList = Arrays.asList(actual);
+		assertEquals(actualList, TYPE.search(valid.contains(value), TYPE.getThis(), true));
 		for(final RangeFieldItem item : TYPE.search())
 		{
-			assertEquals(item.getValid().contains(value), Arrays.asList(actual).contains(item));
-			assertEquals(item.doesValidContain(value), Arrays.asList(actual).contains(item));
+			assertEquals(item.getValid().contains(value), actualList.contains(item));
+			assertEquals(item.doesValidContain(value), actualList.contains(item));
 		}
 	}
 }
