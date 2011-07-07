@@ -31,7 +31,7 @@ public final class Range<E extends Comparable<E>>
 		if(from==null && to==null)
 			return all();
 
-		return new Range<E>(from, to);
+		return new Range<E>(from, to, true);
 	}
 
 	@SuppressWarnings("unchecked") // OK
@@ -41,13 +41,22 @@ public final class Range<E extends Comparable<E>>
 	}
 
 	@SuppressWarnings("unchecked")
-	private static final Range all = new Range(null, null);
+	private static final Range all = new Range(null, null, true);
 
 
 	private final E from;
 	private final E to;
 
+	/**
+	 * @deprecated Use {@link #newRange(Comparable, Comparable)} instead.
+	 */
+	@Deprecated
 	public Range(final E from, final E to)
+	{
+		this(from, to, true);
+	}
+
+	private Range(final E from, final E to, @SuppressWarnings("unused") final boolean dummy)
 	{
 		if(from!=null && to!=null && from.compareTo(to)>0)
 			throw new IllegalArgumentException("from " + from + " greater than to " + to);
