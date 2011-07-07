@@ -121,9 +121,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=70)
-	public boolean doesContain(final Item item, final E check)
+	public boolean doesContain(final Item item, final E value)
 	{
-		return check.compareTo(getFrom(item))>=0 && check.compareTo(getTo(item))<=0;
+		return value.compareTo(getFrom(item))>=0 && value.compareTo(getTo(item))<=0;
 	}
 
 	private static final class FinalGetter implements BooleanGetter<RangeField>
