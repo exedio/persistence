@@ -222,10 +222,10 @@ public final class Schema extends Node
 		}
 		else
 		{
-		for(final Table t : reverse(tableList))
-			t.drop(listener);
-		for(final Sequence s : reverse(sequenceList))
-			s.drop(listener);
+			for(final Table t : reverse(tableList))
+				t.drop(listener);
+			for(final Sequence s : reverse(sequenceList))
+				s.drop(listener);
 		}
 	}
 
