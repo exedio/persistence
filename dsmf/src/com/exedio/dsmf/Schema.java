@@ -171,10 +171,10 @@ public final class Schema extends Node
 		}
 		else
 		{
-		for(final Sequence s : sequenceList)
-			s.create(listener);
-		for(final Table t : tableList)
-			t.create(listener);
+			for(final Sequence s : sequenceList)
+				s.create(listener);
+			for(final Table t : tableList)
+				t.create(listener);
 		}
 		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
 		for(final Table t : tableList)
