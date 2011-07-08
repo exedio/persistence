@@ -42,7 +42,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", false);
 	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
 	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
-	private final BooleanField disableSemicolon          = new BooleanField("disableSupport.semicolon", false);
+	private final BooleanField disableSemicolon          = new BooleanField("disableSupport.semicolon", true); // TODO
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	// schema
