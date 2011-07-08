@@ -192,10 +192,41 @@ public final class Schema extends Node
 		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
 		for(final Table t : reverse(tableList))
 			t.dropConstraints(all, true, listener);
+
+		if(connectionProvider.isSemicolonEnabled())
+		{
+			final StringBuilder bf = new StringBuilder();
+			boolean first = true;
+
+			for(final Sequence s : sequenceList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				s.drop(bf);
+			}
+
+			for(final Table t : tableList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				t.drop(bf);
+			}
+
+			executeSQL(bf.toString(), listener);
+		}
+		else
+		{
 		for(final Table t : reverse(tableList))
 			t.drop(listener);
 		for(final Sequence s : reverse(sequenceList))
 			s.drop(listener);
+		}
 	}
 
 	public void tearDown()

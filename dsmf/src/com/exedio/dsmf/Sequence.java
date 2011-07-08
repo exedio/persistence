@@ -118,14 +118,19 @@ public final class Sequence extends Node
 
 	public void drop()
 	{
-		drop(null);
+		drop((StatementListener)null);
 	}
 
 	public void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		dialect.dropSequence(bf, quoteName(name));
+		drop(bf);
 		executeSQL(bf.toString(), listener);
+	}
+
+	void drop(final StringBuilder bf)
+	{
+		dialect.dropSequence(bf, quoteName(name));
 	}
 
 	@Override
