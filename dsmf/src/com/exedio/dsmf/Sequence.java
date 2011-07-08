@@ -111,7 +111,7 @@ public final class Sequence extends Node
 		executeSQL(bf.toString(), listener);
 	}
 
-	private void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		dialect.createSequence(bf, quoteName(name), startWith);
 	}

@@ -25,4 +25,5 @@ public interface ConnectionProvider
 {
 	Connection getConnection() throws SQLException;
 	void putConnection(Connection connection) throws SQLException;
+	boolean isSemicolonEnabled();
 }

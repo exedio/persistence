@@ -154,6 +154,11 @@ public abstract class SchemaTest extends TestCase
 			assert connection.getAutoCommit()==true;
 			connections.add(connection);
 		}
+
+		public boolean isSemicolonEnabled()
+		{
+			return false;
+		}
 	}
 
 	protected final Schema newSchema()

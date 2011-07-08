@@ -595,6 +595,7 @@ final class Database
 	Schema makeSchema(final boolean withRevisions)
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
+		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
 			public Connection getConnection()
@@ -605,6 +606,11 @@ final class Database
 			public void putConnection(final Connection connection)
 			{
 				connectionPool.put(connection);
+			}
+
+			public boolean isSemicolonEnabled()
+			{
+				return semicolonEnabled;
 			}
 		});
 		for(final Table t : tables)

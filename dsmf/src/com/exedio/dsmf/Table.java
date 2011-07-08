@@ -239,7 +239,7 @@ public final class Table extends Node
 		create((StatementListener)null);
 	}
 
-	private void create(final StringBuilder bf)
+	void create(final StringBuilder bf)
 	{
 		bf.append("create table ").
 			append(quoteName(name)).

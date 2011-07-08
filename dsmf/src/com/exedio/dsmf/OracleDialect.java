@@ -35,6 +35,12 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
+	public boolean supportsSemicolon()
+	{
+		return false;
+	}
+
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");

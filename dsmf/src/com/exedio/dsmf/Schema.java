@@ -142,10 +142,40 @@ public final class Schema extends Node
 
 	public void create(final StatementListener listener)
 	{
+		if(connectionProvider.isSemicolonEnabled())
+		{
+			final StringBuilder bf = new StringBuilder();
+			boolean first = true;
+
+			for(final Sequence s : sequenceList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				s.create(bf);
+			}
+
+			for(final Table t : tableList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				t.create(bf);
+			}
+
+			executeSQL(bf.toString(), listener);
+		}
+		else
+		{
 		for(final Sequence s : sequenceList)
 			s.create(listener);
 		for(final Table t : tableList)
 			t.create(listener);
+		}
 		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
 		for(final Table t : tableList)
 			t.createConstraints(all, true, listener);
