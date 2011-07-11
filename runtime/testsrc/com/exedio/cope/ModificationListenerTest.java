@@ -52,7 +52,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
-	// dead store is needed to assign nll for testing garbace collection
+	// dead store is needed to assign null for testing garbage collection
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt()
