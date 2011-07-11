@@ -54,7 +54,6 @@
 				<classpath />
 				<test name="@{test}" todir="build/testresults" outfile="@{test}-@{env}" />
 				<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
-				<sysproperty key="log4j.configuratorClass" value="org.apache.log4j.BasicConfigurator" />
 				<assertions><enable/></assertions>
 			</junit>
 		</sequential>
@@ -278,6 +277,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/log4j.jar" />
 			</classpath>
 		</compile>
 	</target>

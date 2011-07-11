@@ -50,7 +50,6 @@ public class ConnectTokenTest extends CopeAssert
 		super.setUp();
 		log = new UtilTestLogAppender();
 		ConnectToken.logger.addAppender(log);
-		ConnectToken.logger.setAdditivity(false);
 		setProperties(model, props);
 	}
 
@@ -60,7 +59,6 @@ public class ConnectTokenTest extends CopeAssert
 		removeProperties(model);
 		ConnectToken.logger.removeAppender(log);
 		log = null;
-		ConnectToken.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

@@ -35,7 +35,6 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 		super.setUp();
 		log = new UtilTestLogAppender();
 		DateField.logger.addAppender(log);
-		DateField.logger.setAdditivity(false);
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 	{
 		DateField.logger.removeAppender(log);
 		log = null;
-		DateField.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

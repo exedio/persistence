@@ -35,7 +35,6 @@ public class TimeUtilTest extends CopeAssert
 		super.setUp();
 		log = new UtilTestLogAppender();
 		TimeUtil.logger.addAppender(log);
-		TimeUtil.logger.setAdditivity(false);
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class TimeUtilTest extends CopeAssert
 	{
 		TimeUtil.logger.removeAppender(log);
 		log = null;
-		TimeUtil.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

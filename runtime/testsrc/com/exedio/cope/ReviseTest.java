@@ -92,7 +92,6 @@ public class ReviseTest extends CopeAssert
 		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
 		log = new TestLogAppender();
 		Revisions.logger.addAppender(log);
-		Revisions.logger.setAdditivity(false);
 	}
 
 	@Override
@@ -100,7 +99,6 @@ public class ReviseTest extends CopeAssert
 	{
 		Revisions.logger.removeAppender(log);
 		log = null;
-		Revisions.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

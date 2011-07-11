@@ -42,7 +42,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		super.setUp();
 		log = new TestLogAppender();
 		ChangeListeners.logger.addAppender(log);
-		ChangeListeners.logger.setAdditivity(false);
 	}
 
 	@Override
@@ -50,7 +49,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	{
 		ChangeListeners.logger.removeAppender(log);
 		log = null;
-		ChangeListeners.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

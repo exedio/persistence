@@ -135,11 +135,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	private TestByteArrayInputStream testStream = null;
 	protected String mediaRootUrl = null;
 
-	static
-	{
-		ThreadSwarm.logger.setAdditivity(false);
-	}
-
 	@Override
 	protected void setUp() throws Exception
 	{

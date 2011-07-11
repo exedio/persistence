@@ -35,7 +35,6 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 		super.setUp();
 		log = new UtilTestLogAppender();
 		DayField.logger.addAppender(log);
-		DayField.logger.setAdditivity(false);
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 	{
 		DayField.logger.removeAppender(log);
 		log = null;
-		DayField.logger.setAdditivity(true);
 		super.tearDown();
 	}
 

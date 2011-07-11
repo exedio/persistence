@@ -26,12 +26,6 @@ import com.exedio.cope.misc.ConnectToken;
 
 public class PackageUtilTest extends TestCase
 {
-	static
-	{
-		ThreadSwarm.logger.setAdditivity(false);
-		ConnectToken.logger.setAdditivity(false);
-	}
-
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
