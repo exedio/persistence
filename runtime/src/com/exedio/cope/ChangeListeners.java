@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -162,6 +163,6 @@ final class ChangeListeners
 	{
 		failed++;
 		if(logger.isEnabledFor(Level.ERROR))
-			logger.error( "change listener "+event+" "+listener, throwable );
+			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
 }

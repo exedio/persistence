@@ -24,6 +24,7 @@ import static java.lang.System.nanoTime;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -105,12 +106,12 @@ public final class Revision
 			{
 				final String sql = body[bodyIndex];
 				if(logger.isInfoEnabled())
-					logger.info("revise "+number+"/"+bodyIndex+":"+sql);
+					logger.info(MessageFormat.format("revise {0}/{1}:{2}", number, bodyIndex, sql));
 				final long start = nanoTime();
 				final int rows = executeUpdate(connection, sql);
 				final long elapsed = toMillies(nanoTime(), start);
 				if(logger.isEnabledFor(Level.WARN) && elapsed>1000)
-					logger.warn( "revise "+number+"/"+bodyIndex+":"+sql+" is slow, takes "+elapsed+"ms");
+					logger.warn(MessageFormat.format("revise {0}/{1}:{2} is slow, takes {3}ms", number, bodyIndex, sql, elapsed));
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 		}

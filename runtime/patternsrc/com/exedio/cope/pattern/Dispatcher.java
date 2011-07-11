@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.log4j.Level;
+
 import org.apache.log4j.Logger;
 
 import com.exedio.cope.ActivationParameters;
@@ -218,7 +218,7 @@ public final class Dispatcher extends Pattern
 
 				if(!isPending(item))
 				{
-					if(logger.isEnabledFor(Level.INFO))
+					if(logger.isInfoEnabled())
 						logger.info( MessageFormat.format(
 								"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
 								id, itemID ) );

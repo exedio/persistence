@@ -22,6 +22,7 @@ import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
 import java.lang.Thread.State;
+import java.text.MessageFormat;
 
 public final class ThreadController
 {
@@ -140,7 +141,7 @@ public final class ThreadController
 		{
 			thread.join();
 			if(ThreadSwarm.logger.isInfoEnabled())
-				ThreadSwarm.logger.info( thread.getName() + " (" + thread.getId() + ") done." );
+				ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) done.", thread.getName(), thread.getId()));
 		}
 	}
 

@@ -52,7 +52,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
-
 	// dead store is needed to assign null for testing garbage collection
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
@@ -204,7 +203,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
@@ -276,7 +274,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
 		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();

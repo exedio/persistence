@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.log4j.Level;
+
 import org.apache.log4j.Logger;
 
 import com.exedio.cope.ConnectProperties;
@@ -65,7 +65,7 @@ public final class ConnectToken
 		this.conditional = conditional;
 		this.didConnect = didConnect;
 
-		if(logger.isEnabledFor(Level.INFO))
+		if(logger.isInfoEnabled())
 			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
 						model, id,
@@ -78,7 +78,7 @@ public final class ConnectToken
 		if(disconnect)
 			model.disconnect();
 
-		if(logger.isEnabledFor(Level.INFO))
+		if(logger.isInfoEnabled())
 			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
 							model, id,

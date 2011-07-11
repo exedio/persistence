@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -60,7 +61,7 @@ final class ThreadSwarm
 
 			thread.start();
 			if(logger.isInfoEnabled())
-				logger.info( thread.getName() + "  (" + thread.getId() + ") started." );
+				logger.info(MessageFormat.format("{0} ({1}) started.", thread.getName(), thread.getId()));
 		}
 	}
 

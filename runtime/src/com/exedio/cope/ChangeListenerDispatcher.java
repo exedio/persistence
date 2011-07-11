@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.apache.log4j.Level;
@@ -133,10 +134,10 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 	private void logTerminate()
 	{
-		if(ThreadSwarm.logger.isEnabledFor(Level.INFO))
+		if(ThreadSwarm.logger.isInfoEnabled())
 		{
 			final Thread t = Thread.currentThread();
-			ThreadSwarm.logger.info( t.getName() + " (" + t.getId() + ") terminates." );
+			ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) terminates.", t.getName(), t.getId()));
 		}
 	}
 
