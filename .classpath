@@ -10,7 +10,7 @@
 	<classpathentry kind="src" path="runtime/servlettestwebsrc"/>
 	<classpathentry kind="src" path="runtime/utiltestsrc"/>
 	<classpathentry kind="src" path="runtime/testfeaturesrc"/>
-	<classpathentry kind="src" path="runtime/testsrc"/>
+	<classpathentry excluding="log4j.properties" kind="src" path="runtime/testsrc"/>
 	<classpathentry kind="src" path="runtime/mysqlsrc"/>
 	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
 	<classpathentry kind="src" path="instrument/antsrc"/>
@@ -30,6 +30,6 @@
 	<classpathentry kind="lib" path="lib/jdbc/postgresql-8.1-404.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
-	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="ivy/artifacts/log4j-source.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="lib/log4j-source.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
