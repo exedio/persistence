@@ -29,7 +29,7 @@ import java.util.Date;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.TestLogUtilHandler;
+import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenTest extends CopeAssert
@@ -42,15 +42,14 @@ public class ConnectTokenTest extends CopeAssert
 		model.enableSerialization(ConnectTokenTest.class, "model");
 	}
 
-	TestLogUtilHandler log = null;
+	UtilTestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogUtilHandler();
-		ConnectToken.logger.addHandler(log);
-		ConnectToken.logger.setUseParentHandlers(false);
+		log = new UtilTestLogAppender();
+		ConnectToken.logger.addAppender(log);
 		setProperties(model, props);
 	}
 
@@ -58,9 +57,8 @@ public class ConnectTokenTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		removeProperties(model);
-		ConnectToken.logger.removeHandler(log);
+		ConnectToken.logger.removeAppender(log);
 		log = null;
-		ConnectToken.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
 

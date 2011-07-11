@@ -22,7 +22,6 @@ import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
 import java.lang.Thread.State;
-import java.util.logging.Level;
 
 public final class ThreadController
 {
@@ -140,11 +139,8 @@ public final class ThreadController
 		if(thread!=null)
 		{
 			thread.join();
-			if(ThreadSwarm.logger.isLoggable(Level.INFO))
-				ThreadSwarm.logger.log(
-						Level.INFO,
-						"{1} ({0}) done.",
-						new Object[]{thread.getId(), thread.getName()});
+			if(ThreadSwarm.logger.isInfoEnabled())
+				ThreadSwarm.logger.info( thread.getName() + " (" + thread.getId() + ") done." );
 		}
 	}
 

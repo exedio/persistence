@@ -24,10 +24,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.Hex;
 
@@ -129,16 +129,9 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
 		exception++;
-		if(logger.isLoggable(Level.SEVERE))
-		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "ClusterListenerMulticast {0}");
-			record.setSourceClassName(ClusterListenerMulticast.class.getName());
-			record.setSourceMethodName("onListenFailure");
-			record.setParameters(new Object[]{
-					Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength())});
-			record.setThrown(throwable);
-			logger.log(record);
-		}
+		if(logger.isEnabledFor(Level.ERROR))
+			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
+					throwable );
 	}
 
 	private void logTerminate()

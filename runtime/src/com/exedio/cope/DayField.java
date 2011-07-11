@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
@@ -130,12 +131,11 @@ public final class DayField extends FunctionField<Day>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow() && logger.isLoggable(Level.WARNING))
-			logger.log(
-					Level.WARNING,
+		if(suspiciousForWrongDefaultNow() && logger.isEnabledFor(Level.WARN))
+			logger.warn( MessageFormat.format(
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
-					new Object[]{getID()});
+					getID() ) );
 	}
 
 	private boolean suspiciousForWrongDefaultNow()

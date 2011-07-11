@@ -29,7 +29,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
@@ -59,7 +60,7 @@ import com.exedio.dsmf.UniqueConstraint;
  */
 public final class Revisions
 {
-	static final Logger logger = Logger.getLogger(Revisions.class.getName());
+	static final Logger logger = Logger.getLogger(Revisions.class);
 
 	private final int number;
 	private final Revision[] revisions;

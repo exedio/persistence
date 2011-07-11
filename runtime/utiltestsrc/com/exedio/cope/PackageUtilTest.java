@@ -26,12 +26,6 @@ import com.exedio.cope.misc.ConnectToken;
 
 public class PackageUtilTest extends TestCase
 {
-	static
-	{
-		ThreadSwarm.logger.setUseParentHandlers(false);
-		ConnectToken.logger.setUseParentHandlers(false);
-	}
-
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();

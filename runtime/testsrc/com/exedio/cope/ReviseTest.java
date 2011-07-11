@@ -82,7 +82,7 @@ public class ReviseTest extends CopeAssert
 
 	private String hostname;
 	private ConnectProperties props;
-	private TestLogHandler log = null;
+	private TestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
@@ -90,17 +90,15 @@ public class ReviseTest extends CopeAssert
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
 		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
-		log = new TestLogHandler();
-		Revisions.logger.addHandler(log);
-		Revisions.logger.setUseParentHandlers(false);
+		log = new TestLogAppender();
+		Revisions.logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Revisions.logger.removeHandler(log);
+		Revisions.logger.removeAppender(log);
 		log = null;
-		Revisions.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
 

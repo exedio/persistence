@@ -356,7 +356,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Replaced by java.util.logging. Always returns true.
+	 * @deprecated Replaced by org.apache.log4j. Always returns true.
 	 */
 	@Deprecated
 	public boolean isLoggingEnabled()

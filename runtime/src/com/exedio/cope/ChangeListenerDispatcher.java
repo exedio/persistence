@@ -21,8 +21,8 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
+
+import org.apache.log4j.Level;
 
 import com.exedio.cope.util.Interrupter;
 
@@ -73,8 +73,8 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		if(!queue.offer(event))
 		{
 			overflow++;
-			if(ChangeListeners.logger.isLoggable(Level.SEVERE))
-				ChangeListeners.logger.log(Level.SEVERE, "COPE Change Listener Dispatcher overflows");
+			if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
+				ChangeListeners.logger.log(Level.ERROR, "COPE Change Listener Dispatcher overflows");
 		}
 	}
 
@@ -127,25 +127,16 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 	private void handleException(final Throwable e)
 	{
 		exception++;
-		if(ChangeListeners.logger.isLoggable(Level.SEVERE))
-		{
-			final LogRecord record = new LogRecord(Level.SEVERE, "ChangeListenerDispatcher");
-			record.setSourceClassName(ChangeListenerDispatcher.class.getName());
-			record.setSourceMethodName("handleException");
-			record.setThrown(e);
-			ChangeListeners.logger.log(record);
-		}
+		if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
+			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 
 	private void logTerminate()
 	{
-		if(ThreadSwarm.logger.isLoggable(Level.INFO))
+		if(ThreadSwarm.logger.isEnabledFor(Level.INFO))
 		{
 			final Thread t = Thread.currentThread();
-			ThreadSwarm.logger.log(
-					Level.INFO,
-					"{1} ({0}) terminates.",
-					new Object[]{t.getId(), t.getName()});
+			ThreadSwarm.logger.info( t.getName() + " (" + t.getId() + ") terminates." );
 		}
 	}
 
