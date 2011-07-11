@@ -221,4 +221,8 @@ public class FieldDateTest extends FieldTest
 		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
 	}
 
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }
