@@ -116,7 +116,7 @@ final class MysqlDialect extends Dialect
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
+		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "int" : "bigint";
 	}
 
 	@Override
@@ -161,7 +161,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getDayType()
 	{
-		return "DATE";
+		return "date";
 	}
 
 	@Override
@@ -180,13 +180,13 @@ final class MysqlDialect extends Dialect
 	String getBlobType(final long maximumLength)
 	{
 		if(maximumLength<TWOPOW8)
-			return "TINYBLOB";
+			return "tinyblob";
 		else if(maximumLength<TWOPOW16)
-			return "BLOB";
+			return "blob";
 		else if(maximumLength<TWOPOW24)
-			return "MEDIUMBLOB";
+			return "mediumblob";
 		else
-			return "LONGBLOB";
+			return "longblob";
 	}
 
 	@Override

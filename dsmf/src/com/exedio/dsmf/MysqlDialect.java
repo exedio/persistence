@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.StringTokenizer;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
@@ -57,50 +56,9 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet)
 	{
-		final int columnSize = resultSet.getInt("COLUMN_SIZE");
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.DATE:
-				return "DATE";
-			case Types.VARCHAR:
-				return "varchar("+columnSize+") character set utf8 binary";
-			case Types.LONGVARCHAR:
-				switch(columnSize)
-				{
-					case 65535:      return "text character set utf8 binary";
-					case 16277215:   // needed until mysql connector 5.0.4, probably a bug
-					case 16777215:   return "mediumtext character set utf8 binary";
-					case 2147483647: return "longtext character set utf8 binary";
-					default:         return "LONGVARCHAR("+columnSize+')';
-				}
-			case Types.BINARY:
-				switch(columnSize)
-				{
-					case 255:        return "TINYBLOB";
-					default:         return "BINARY("+columnSize+')';
-				}
-			case Types.LONGVARBINARY:
-				switch(columnSize)
-				{
-					case 65535:      return "BLOB";
-					case 16277215:   // needed until mysql connector 5.0.4, probably a bug
-					case 16777215:   return "MEDIUMBLOB";
-					case 2147483647: return "LONGBLOB";
-					default:         return "LONGVARBINARY("+columnSize+')';
-				}
-			default:
-				return null;
-		}
+		throw new RuntimeException();
 	}
 
 	String unQuoteName(final String quotedName)
@@ -119,7 +77,51 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void verify(final Schema schema)
 	{
-		super.verify(schema);
+		final String catalog = schema.getCatalog();
+		schema.querySQL(
+			"select TABLE_NAME " +
+				"from information_schema.TABLES " +
+				"where TABLE_SCHEMA='" + catalog + '\'',
+			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					final String tableName = resultSet.getString(1);
+					//printRow(resultSet);
+
+					if(ignoreTable(schema, tableName))
+						continue;
+
+					schema.notifyExistentTable(tableName);
+				}
+			}
+		});
+		schema.querySQL(
+			"select TABLE_NAME,COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME " +
+			"from information_schema.COLUMNS " +
+			"where TABLE_SCHEMA='" + catalog + '\'',
+			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					//printRow(resultSet);
+					final String tableName = resultSet.getString(1);
+					final String columnName = resultSet.getString(2);
+					final String dataType = resultSet.getString(3);
+					final String characterSet = resultSet.getString(5);
+
+					final StringBuilder type = new StringBuilder(dataType);
+					if("varchar".equals(dataType))
+						type.append('(').append(resultSet.getInt(4)).append(')');
+					if(characterSet!=null)
+						type.append(" character set ").append(characterSet).append(" binary");
+
+					schema.getTable(tableName).notifyExistentColumn(columnName, type.toString());
+				}
+			}
+		});
 		{
 			for(final Table table : schema.getTables())
 			{
@@ -236,7 +238,6 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	@Override
 	boolean ignoreTable(final Schema schema, final String name)
 	{
 		final boolean result = isSequence(schema, name);

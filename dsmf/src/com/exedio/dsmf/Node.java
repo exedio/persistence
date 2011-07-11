@@ -201,6 +201,26 @@ public abstract class Node
 		}
 	}
 
+	final String getCatalog()
+	{
+		try
+		{
+			final Connection connection = connectionProvider.getConnection();
+			try
+			{
+				return connection.getCatalog();
+			}
+			finally
+			{
+				connectionProvider.putConnection(connection);
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getCatalog");
+		}
+	}
+
 	abstract void finish();
 
 	public final String getError()
