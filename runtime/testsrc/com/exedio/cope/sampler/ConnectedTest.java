@@ -23,7 +23,6 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.misc.ConnectToken;
 
 public class ConnectedTest extends AbstractRuntimeTest
 {
