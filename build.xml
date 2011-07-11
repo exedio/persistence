@@ -603,6 +603,7 @@
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
+			<fileset file="lib/log4j.jar" />
 		</copy>
 	</target>
 	
@@ -629,6 +630,7 @@
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/log4j.jar" />
 					</classpath>
 				</ljunit>
 			</body>
@@ -847,6 +849,7 @@
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/log4j.jar" />
 			</classpath>
 		</javadoc>
 	</target>
@@ -909,6 +912,7 @@
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
+				<pathelement location="${basedir}/lib/log4j.jar" />
 				<pathelement location="${ant.core.lib}" />
 			</auxclasspath>
 		</findbugs>
