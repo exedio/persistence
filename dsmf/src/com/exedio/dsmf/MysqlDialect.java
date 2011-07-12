@@ -139,6 +139,7 @@ public final class MysqlDialect extends Dialect
 			"right join information_schema.KEY_COLUMN_USAGE kcu " +
 				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
 				"and tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+				"and kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 			"where tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"and tc.TABLE_SCHEMA='" + catalog + "' " +
 				"and tc.CONSTRAINT_TYPE in ('FOREIGN KEY')",
