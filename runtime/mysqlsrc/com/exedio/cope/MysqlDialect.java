@@ -149,13 +149,13 @@ final class MysqlDialect extends Dialect
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
 		if(maxBytes<TWOPOW8)
-			return "varchar("+maxChars+") character set utf8 binary";
+			return "varchar("+maxChars+") character set utf8 collate utf8_bin";
 		else if(maxBytes<TWOPOW16)
-			return "text character set utf8 binary";
+			return "text character set utf8 collate utf8_bin";
 		else if(maxBytes<TWOPOW24)
-			return "mediumtext character set utf8 binary";
+			return "mediumtext character set utf8 collate utf8_bin";
 		else
-			return "longtext character set utf8 binary";
+			return "longtext character set utf8 collate utf8_bin";
 	}
 
 	@Override

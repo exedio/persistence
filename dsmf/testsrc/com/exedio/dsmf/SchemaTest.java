@@ -86,7 +86,7 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			dialect = new MysqlDialect("this");
-			stringType = "varchar(8) character set utf8 binary";
+			stringType = "varchar(8) character set utf8 collate utf8_bin";
 			intType = "int";
 			intType2 = "bigint";
 			hsqldb = false;

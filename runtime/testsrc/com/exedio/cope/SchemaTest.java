@@ -98,7 +98,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		if(hsqldb)
 			string8 = "varchar(8)";
 		else if(mysql)
-			string8 = "varchar(8) character set utf8 binary";
+			string8 = "varchar(8) character set utf8 collate utf8_bin";
 		else
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8Column.getType());
