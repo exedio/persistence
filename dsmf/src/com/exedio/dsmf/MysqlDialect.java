@@ -118,7 +118,15 @@ public final class MysqlDialect extends Dialect
 					if(characterSet!=null)
 						type.append(" character set ").append(characterSet).append(" binary");
 
-					schema.getTable(tableName).notifyExistentColumn(columnName, type.toString());
+					final Table table = schema.getTable(tableName);
+					if(table!=null)
+						table.notifyExistentColumn(columnName, type.toString());
+					else
+					{
+						final Sequence sequence = schema.getSequence(tableName);
+						if(sequence!=null)
+							sequence.notifyExists();
+					}
 				}
 			}
 		});
