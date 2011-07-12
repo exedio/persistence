@@ -728,7 +728,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		for(final com.exedio.dsmf.Table table : schema.getTables())
 		{
 			for(final com.exedio.dsmf.Column column : table.getColumns())
-				assertOk(table.getName() + '#' + column.getName(), column);
+				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
 			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
 			{
 				final String message = table.getName() + '#' + constraint.getName();
