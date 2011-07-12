@@ -311,4 +311,9 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			assertEquals("type InstanceOfB1Item is not assignable from type InstanceOfAItem", e.getMessage());
 		}
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }
