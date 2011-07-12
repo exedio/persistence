@@ -133,6 +133,30 @@ public final class MysqlDialect extends Dialect
 				}
 			}
 		});
+		schema.querySQL(
+			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME " +
+			"from information_schema.TABLE_CONSTRAINTS tc " +
+			"right join information_schema.KEY_COLUMN_USAGE kcu " +
+				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"and tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+			"where tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"and tc.TABLE_SCHEMA='" + catalog + "' " +
+				"and tc.CONSTRAINT_TYPE in ('FOREIGN KEY')",
+			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					//printRow(resultSet);
+					final String constraintName = resultSet.getString(1);
+					final String tableName = resultSet.getString(2);
+
+					final Table table = schema.getTable(tableName);
+					if(table!=null)
+						table.notifyExistentForeignKeyConstraint(constraintName);
+				}
+			}
+		});
 		{
 			for(final Table table : schema.getTables())
 			{
@@ -193,35 +217,6 @@ public final class MysqlDialect extends Dialect
 									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
 									{
 										//System.out.println("----------"+tableName+"---------------"+s);
-										if("CONSTRAINT".equals(s))
-										{
-											if(!t.hasMoreTokens())
-												continue;
-											final String quotedName = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------quotedName:"+quotedName);
-											final String name = unQuoteName(quotedName);
-											//System.out.println("----------"+tableName+"--------------------name:"+name);
-											if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
-												!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
-												!t.hasMoreTokens())
-												continue;
-											//final String source =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------source:"+source);
-											if(!t.hasMoreTokens() || !"REFERENCES".equals(t.nextToken()) ||
-												!t.hasMoreTokens())
-												continue;
-											//final String targetTable =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------targetTable:"+targetTable);
-											if(!t.hasMoreTokens())
-												continue;
-											//final String targetAttribute =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
-
-											table.notifyExistentForeignKeyConstraint(name);
-										}
 										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
 										if("UNIQUE".equals(s))
 										{
