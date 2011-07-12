@@ -150,4 +150,9 @@ public class DayFieldTest extends AbstractRuntimeTest
 	{
 		return new Query<Day>(selectField, condition).search();
 	}
+
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }
