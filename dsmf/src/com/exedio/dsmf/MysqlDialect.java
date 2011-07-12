@@ -136,7 +136,7 @@ public final class MysqlDialect extends Dialect
 		schema.querySQL(
 			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME " +
 			"from information_schema.TABLE_CONSTRAINTS tc " +
-			"right join information_schema.KEY_COLUMN_USAGE kcu " +
+			"left join information_schema.KEY_COLUMN_USAGE kcu " +
 				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
 				"and tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 				"and kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
