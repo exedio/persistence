@@ -63,7 +63,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), filterTableName(getTableName(RenamedSchemaTargetItem.TYPE)), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
 
