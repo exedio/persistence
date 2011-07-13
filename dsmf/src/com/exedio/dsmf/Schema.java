@@ -50,7 +50,7 @@ public final class Schema extends Node
 	{
 		Table result = tableMap.get(tableName);
 		if(result==null)
-			result = new Table(this, tableName, null, false);
+			result = new Table(this, tableName, false);
 		else
 			result.notifyExists();
 

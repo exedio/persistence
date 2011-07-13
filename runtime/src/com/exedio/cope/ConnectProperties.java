@@ -70,7 +70,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
-	private final MapField databaseTableOptions = new MapField("schema.tableOption");
 
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
@@ -287,11 +286,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			mysqlLowerCaseTableNames.booleanValue()
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
-	}
-
-	String getTableOption(final Table table)
-	{
-		return databaseTableOptions.getValue(table.id);
 	}
 
 	public boolean getFulltextIndex()

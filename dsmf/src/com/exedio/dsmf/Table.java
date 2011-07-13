@@ -29,7 +29,6 @@ public final class Table extends Node
 {
 	final Schema schema;
 	final String name;
-	final String options;
 	private final boolean required;
 	private boolean exists;
 
@@ -39,17 +38,22 @@ public final class Table extends Node
 	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
 	private final ArrayList<Constraint> constraintList = new ArrayList<Constraint>();
 
+	/**
+	 * @deprecated Use {@link #Table(Schema, String) instead
+	 * @param options is ignored
+	 */
+	@Deprecated
 	public Table(final Schema schema, final String name, final String options)
 	{
-		this(schema, name, options, true);
+		this(schema, name, true);
 	}
 
 	public Table(final Schema schema, final String name)
 	{
-		this(schema, name, null, true);
+		this(schema, name, true);
 	}
 
-	Table(final Schema schema, final String name, final String options, final boolean required)
+	Table(final Schema schema, final String name, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider);
 
@@ -58,7 +62,6 @@ public final class Table extends Node
 
 		this.schema = schema;
 		this.name = name;
-		this.options = options;
 		this.required = required;
 		this.exists = !required;
 
@@ -79,9 +82,13 @@ public final class Table extends Node
 		return name;
 	}
 
+	/**
+	 * @deprecated Not supported anymore, always returns null.
+	 */
+	@Deprecated
 	public String getOptions()
 	{
-		return options;
+		return null;
 	}
 
 	void register(final Column column)
@@ -270,14 +277,7 @@ public final class Table extends Node
 
 		bf.append(')');
 
-		// TODO: may be this should be done using this.options
 		dialect.appendTableCreateStatement(bf);
-
-		if(options!=null)
-		{
-			bf.append(' ').
-				append(options);
-		}
 	}
 
 	public void create(final StatementListener listener)
