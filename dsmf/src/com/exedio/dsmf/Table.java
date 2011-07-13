@@ -38,16 +38,6 @@ public final class Table extends Node
 	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
 	private final ArrayList<Constraint> constraintList = new ArrayList<Constraint>();
 
-	/**
-	 * @deprecated Use {@link #Table(Schema, String) instead
-	 * @param options is ignored
-	 */
-	@Deprecated
-	public Table(final Schema schema, final String name, final String options)
-	{
-		this(schema, name, true);
-	}
-
 	public Table(final Schema schema, final String name)
 	{
 		this(schema, name, true);
@@ -68,27 +58,9 @@ public final class Table extends Node
 		schema.register(this);
 	}
 
-	/**
-	 * @deprecated Is not supported anymore, does nothing.
-	 */
-	@Deprecated
-	public void makeDefensive()
-	{
-		// do nothing
-	}
-
 	public String getName()
 	{
 		return name;
-	}
-
-	/**
-	 * @deprecated Not supported anymore, always returns null.
-	 */
-	@Deprecated
-	public String getOptions()
-	{
-		return null;
 	}
 
 	void register(final Column column)
@@ -369,5 +341,35 @@ public final class Table extends Node
 	public String toString()
 	{
 		return name;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #Table(Schema, String) instead
+	 * @param options is ignored
+	 */
+	@Deprecated
+	public Table(final Schema schema, final String name, final String options)
+	{
+		this(schema, name, true);
+	}
+
+	/**
+	 * @deprecated Is not supported anymore, does nothing.
+	 */
+	@Deprecated
+	public void makeDefensive()
+	{
+		// do nothing
+	}
+
+	/**
+	 * @deprecated Not supported anymore, always returns null.
+	 */
+	@Deprecated
+	public String getOptions()
+	{
+		return null;
 	}
 }
