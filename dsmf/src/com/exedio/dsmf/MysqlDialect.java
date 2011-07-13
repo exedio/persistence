@@ -90,10 +90,11 @@ public final class MysqlDialect extends Dialect
 					final String tableName = resultSet.getString(1);
 					//printRow(resultSet);
 
-					if(ignoreTable(schema, tableName))
-						continue;
-
-					schema.notifyExistentTable(tableName);
+					final Sequence sequence = schema.getSequence(tableName);
+					if(sequence!=null && sequence.required())
+						sequence.notifyExists();
+					else
+						schema.notifyExistentTable(tableName);
 				}
 			}
 		});
@@ -231,20 +232,6 @@ public final class MysqlDialect extends Dialect
 				}
 			}
 		}
-	}
-
-	boolean ignoreTable(final Schema schema, final String name)
-	{
-		final boolean result = isSequence(schema, name);
-		if(result)
-			schema.notifyExistentSequence(name);
-		return result;
-	}
-
-	private boolean isSequence(final Schema schema, final String tableName)
-	{
-		final Sequence sequence = schema.getSequence(tableName);
-		return sequence!=null && sequence.required();
 	}
 
 	@Override
