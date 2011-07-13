@@ -60,10 +60,10 @@ public final class HsqldbDialect extends Dialect
 		super.verify(schema);
 
 		schema.querySQL(
-				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
-				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS stc " +
-				"left outer join INFORMATION_SCHEMA.CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME " +
-				"where stc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
+				"select tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"left outer join INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc on tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
+				"where tc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -131,12 +131,12 @@ public final class HsqldbDialect extends Dialect
 			});
 
 		verifyForeignKeyConstraints(
-				"select stc.CONSTRAINT_NAME, stc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
-				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS stc " +
-				"left outer join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'" +
-				"where stc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				"select tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"left outer join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu on tc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc on tc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY'" +
+				"where tc.CONSTRAINT_TYPE='FOREIGN KEY'",
 				schema);
 
 		schema.querySQL(
