@@ -133,7 +133,8 @@ public final class MysqlDialect extends Dialect
 				}
 			}
 		});
-		schema.querySQL(
+
+		verifyForeignKeyConstraints(
 			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
 			"from information_schema.TABLE_CONSTRAINTS tc " +
 			"left join information_schema.KEY_COLUMN_USAGE kcu " +
@@ -143,26 +144,8 @@ public final class MysqlDialect extends Dialect
 			"where tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"and tc.TABLE_SCHEMA='" + catalog + "' " +
 				"and tc.CONSTRAINT_TYPE in ('FOREIGN KEY')",
-			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
-			{
-				//printMeta(resultSet);
-				while(resultSet.next())
-				{
-					//printRow(resultSet);
-					final String constraintName = resultSet.getString(1);
-					final String tableName = resultSet.getString(2);
+			schema);
 
-					final Table table = schema.getTable(tableName);
-					if(table!=null)
-						table.notifyExistentForeignKeyConstraint(
-								constraintName,
-								resultSet.getString(3),
-								resultSet.getString(4),
-								resultSet.getString(5)
-						);
-				}
-			}
-		});
 		{
 			for(final Table table : schema.getTables())
 			{
