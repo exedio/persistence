@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Model#getVerifiedSchema checks strictly for foreign key constraints
 * switched from java.util.logging to Log4j
 	log4j.jar needs to be on class path for instrumenting or running any code depending on cope
 	- log4j is part of ivy dependencies

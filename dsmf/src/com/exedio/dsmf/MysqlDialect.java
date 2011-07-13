@@ -134,7 +134,7 @@ public final class MysqlDialect extends Dialect
 			}
 		});
 		schema.querySQL(
-			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME " +
+			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
 			"from information_schema.TABLE_CONSTRAINTS tc " +
 			"left join information_schema.KEY_COLUMN_USAGE kcu " +
 				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
@@ -154,7 +154,12 @@ public final class MysqlDialect extends Dialect
 
 					final Table table = schema.getTable(tableName);
 					if(table!=null)
-						table.notifyExistentForeignKeyConstraint(constraintName);
+						table.notifyExistentForeignKeyConstraint(
+								constraintName,
+								resultSet.getString(3),
+								resultSet.getString(4),
+								resultSet.getString(5)
+						);
 				}
 			}
 		});

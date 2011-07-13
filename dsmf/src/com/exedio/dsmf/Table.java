@@ -139,14 +139,18 @@ public final class Table extends Node
 		return result;
 	}
 
-	Constraint notifyExistentForeignKeyConstraint(final String constraintName)
+	Constraint notifyExistentForeignKeyConstraint(
+			final String constraintName,
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
 	{
-		Constraint result = constraintMap.get(constraintName);
+		ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
+			result = new ForeignKeyConstraint(this, constraintName, false, foreignKeyColumn, targetTable, targetColumn);
 		else
-			result.notifyExists();
+			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 
 		return result;
 	}

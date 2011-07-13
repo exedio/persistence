@@ -139,7 +139,7 @@ public class ConstraintTest extends SchemaReadyTest
 	private void assertFkConstraint(final Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
+			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, foreignKeyColumn + "->" + targetTable + '.' + targetColumn);
 
 		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());

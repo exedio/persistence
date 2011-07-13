@@ -73,7 +73,7 @@ public final class PostgresqlDialect extends Dialect
 				"uc.consrc " +
 				"from pg_constraint uc " +
 				"inner join pg_class ut on uc.conrelid=ut.oid " +
-				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%'",
+				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%' and uc.contype in ('c','p','u')",
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -97,8 +97,6 @@ public final class PostgresqlDialect extends Dialect
 						}
 						else if("p".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("f".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("u".equals(constraintType))
 							table.notifyExistentUniqueConstraint(constraintName, "postgresql unique constraint dummy clause"); // TODO, still don't know where to get this information
 						else
@@ -108,32 +106,34 @@ public final class PostgresqlDialect extends Dialect
 					}
 				}
 			});
-		/*schema.querySQL(
-				"select uit.relname,uic.relname,ui.indisunique,ui.indisprimary,ui.* from pg_index ui " +
-				"inner join pg_class uit on ui.indrelid=uit.oid " +
-				"inner join pg_class uic on ui.indexrelid=uic.oid " +
-				"where uic.relname not like 'pg_%' and uic.relname not like 'pga_%'",
-			new ResultSetHandler()
+
+		final String catalog = schema.getCatalog();
+		schema.querySQL(
+				"select rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
+				"from information_schema.referential_constraints rc " +
+				"join information_schema.key_column_usage src on rc.constraint_name=src.constraint_name " +
+				"join information_schema.key_column_usage tgt on rc.unique_constraint_name=tgt.constraint_name " +
+				"where rc.constraint_catalog='" + catalog + '\'',
+		new ResultSetHandler()
+		{
+			public void run(final ResultSet resultSet) throws SQLException
 			{
-				public void run(final ResultSet resultSet) throws SQLException
+				//printMeta(resultSet);
+				while(resultSet.next())
 				{
-					//printMeta(resultSet);
-					while(resultSet.next())
-					{
-						//printRow(resultSet);
-						final String tableName = resultSet.getString(1);
-						final String constraintName = resultSet.getString(2);
-						final boolean isUnique = resultSet.getBoolean(3);
-						final boolean isPrimary = resultSet.getBoolean(4);
-						final Table table = schema.notifyExistentTable(tableName);
-						if(isUnique&&!isPrimary)
-						{
-							System.out.println("---------------unique"+constraintName);
-							table.notifyExistentUniqueConstraint(constraintName, null);
-						}
-					}
+					//printRow(resultSet);
+					final String tableName = resultSet.getString(2);
+					final Table table = schema.getTable(tableName);
+					if(table!=null)
+						table.notifyExistentForeignKeyConstraint(
+								resultSet.getString(1), // constraintName
+								resultSet.getString(3), // foreignKeyColumn
+								resultSet.getString(4), // targetTable
+								resultSet.getString(5)  // targetColumn
+						);
 				}
-			});*/
+			}
+		});
 	}
 
 	@Override

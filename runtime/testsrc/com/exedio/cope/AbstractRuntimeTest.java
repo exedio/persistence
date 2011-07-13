@@ -458,7 +458,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String targetTable,
 			final String targetColumn)
 	{
-		final ForeignKeyConstraint constraint = assertConstraint(table, ForeignKeyConstraint.class, name, null);
+		final ForeignKeyConstraint constraint = assertConstraint(table, ForeignKeyConstraint.class, name, column + "->" + targetTable + '.' + targetColumn);
 
 		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());

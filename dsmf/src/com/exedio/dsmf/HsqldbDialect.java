@@ -56,6 +56,9 @@ public final class HsqldbDialect extends Dialect
 
 	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.TABLE_CONSTRAINTS";
 	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.CHECK_CONSTRAINTS";
+	private static final String SYSTEM_REFERENTIAL_CONSTRAINTS = "INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS";
+	private static final String SYSTEM_CONSTRAINT_COLUMN_USAGE = "INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE";
+	private static final String SYSTEM_KEY_COLUMN_USAGE = "INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
 	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
 
 	@Override
@@ -64,9 +67,12 @@ public final class HsqldbDialect extends Dialect
 		super.verify(schema);
 
 		schema.querySQL(
-				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
+				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
 				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
-				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
+				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME " +
+				"left outer join " + SYSTEM_CONSTRAINT_COLUMN_USAGE + " ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join " + SYSTEM_REFERENTIAL_CONSTRAINTS + " rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join " + SYSTEM_KEY_COLUMN_USAGE + " kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -95,7 +101,13 @@ public final class HsqldbDialect extends Dialect
 						else if("PRIMARY KEY".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
 						else if("FOREIGN KEY".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
+						{
+							table.notifyExistentForeignKeyConstraint(
+									constraintName,
+									resultSet.getString(5),
+									resultSet.getString(6),
+									resultSet.getString(7));
+						}
 						else if("UNIQUE".equals(constraintType))
 						{
 							//printRow(resultSet);

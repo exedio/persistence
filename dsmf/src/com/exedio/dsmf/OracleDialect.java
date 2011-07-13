@@ -132,6 +132,7 @@ public final class OracleDialect extends Dialect
 				"left outer join user_cons_columns ucc " +
 					"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 					"and uc.TABLE_NAME=ucc.TABLE_NAME " +
+				"where uc.CONSTRAINT_TYPE in ('C','P','U')" +
 				"order by uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 			new ResultSetHandler()
 			{
@@ -168,8 +169,6 @@ public final class OracleDialect extends Dialect
 						}
 						else if("P".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("R".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("U".equals(constraintType))
 						{
 							final String columnName = resultSet.getString(5);
@@ -199,6 +198,35 @@ public final class OracleDialect extends Dialect
 						makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
 				}
 			});
+
+		// foreign key constraints
+		schema.querySQL(
+				"select uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
+				"from USER_CONSTRAINTS uc " +
+				"join USER_cons_columns ucc on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+				"join USER_IND_COLUMNS uic on uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
+				"where uc.CONSTRAINT_TYPE='R'",
+		new ResultSetHandler()
+		{
+			public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					//printRow(resultSet);
+					final String tableName = resultSet.getString(2);
+					final Table table = schema.getTable(tableName);
+					if(table!=null)
+						table.notifyExistentForeignKeyConstraint(
+								resultSet.getString(1), // constraintName
+								resultSet.getString(3), // foreignKeyColumn
+								resultSet.getString(4), // targetTable
+								resultSet.getString(5)  // targetColumn
+						);
+				}
+			}
+		});
+
 		schema.querySQL(
 				"select SEQUENCE_NAME " +
 				"from USER_SEQUENCES",

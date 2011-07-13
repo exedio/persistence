@@ -42,19 +42,27 @@ public final class ForeignKeyConstraint extends Constraint
 			final String targetTable,
 			final String targetColumn)
 	{
-		super(table, name, Type.ForeignKey, required, null);
+		super(table, name, Type.ForeignKey, required, makeClause(foreignKeyColumn, targetTable, targetColumn));
 
-		if(required && foreignKeyColumn==null)
-			throw new RuntimeException(name);
-		if(required && targetTable==null)
-			throw new RuntimeException(name);
-		if(required && targetColumn==null)
-			throw new RuntimeException(name);
+		if(foreignKeyColumn==null)
+			throw new NullPointerException(name);
+		if(targetTable==null)
+			throw new NullPointerException(name);
+		if(targetColumn==null)
+			throw new NullPointerException(name);
 
 		this.foreignKeyColumn = foreignKeyColumn;
 		this.targetTable = targetTable;
 		this.targetColumn = targetColumn;
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
+	}
+
+	private static String makeClause(
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
+	{
+		return foreignKeyColumn + "->" + targetTable + '.' + targetColumn;
 	}
 
 	public String getForeignKeyColumn()
@@ -70,6 +78,14 @@ public final class ForeignKeyConstraint extends Constraint
 	public String getTargetColumn()
 	{
 		return targetColumn;
+	}
+
+	void notifyExists(
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
+	{
+		notifyExistsCondition(makeClause(foreignKeyColumn, targetTable, targetColumn));
 	}
 
 	@Override
