@@ -67,12 +67,10 @@ public final class HsqldbDialect extends Dialect
 		super.verify(schema);
 
 		schema.querySQL(
-				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
 				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
 				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME " +
-				"left outer join " + SYSTEM_CONSTRAINT_COLUMN_USAGE + " ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join " + SYSTEM_REFERENTIAL_CONSTRAINTS + " rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join " + SYSTEM_KEY_COLUMN_USAGE + " kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				"where stc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -100,14 +98,6 @@ public final class HsqldbDialect extends Dialect
 						}
 						else if("PRIMARY KEY".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("FOREIGN KEY".equals(constraintType))
-						{
-							table.notifyExistentForeignKeyConstraint(
-									constraintName,
-									resultSet.getString(5),
-									resultSet.getString(6),
-									resultSet.getString(7));
-						}
 						else if("UNIQUE".equals(constraintType))
 						{
 							//printRow(resultSet);
@@ -146,6 +136,16 @@ public final class HsqldbDialect extends Dialect
 					}
 				}
 			});
+
+		verifyForeignKeyConstraints(
+				"select stc.CONSTRAINT_NAME, stc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
+				"left outer join " + SYSTEM_CONSTRAINT_COLUMN_USAGE + " ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join " + SYSTEM_REFERENTIAL_CONSTRAINTS + " rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join " + SYSTEM_KEY_COLUMN_USAGE + " kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'" +
+				"where stc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				schema);
+
 		schema.querySQL(
 				"select SEQUENCE_NAME " +
 				"from INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
