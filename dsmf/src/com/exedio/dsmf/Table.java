@@ -346,7 +346,7 @@ public final class Table extends Node
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #Table(Schema, String) instead
+	 * @deprecated Use {@link #Table(Schema, String)} instead
 	 * @param options is ignored
 	 */
 	@Deprecated
