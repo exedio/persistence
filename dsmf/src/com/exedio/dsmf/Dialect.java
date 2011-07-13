@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
+
 public abstract class Dialect
 {
 	final String schema;
@@ -96,6 +98,32 @@ public abstract class Dialect
 							table.notifyExistentColumn(columnName, columnType);
 						}
 						//System.out.println("EXISTS:"+tableName);
+					}
+				}
+			});
+	}
+
+	protected final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	{
+		schema.querySQL(
+			sql,
+			new ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String tableName = resultSet.getString(2);
+						final Table table = schema.getTable(tableName);
+						if(table!=null)
+							table.notifyExistentForeignKeyConstraint(
+									resultSet.getString(1), // constraintName
+									resultSet.getString(3), // foreignKeyColumn
+									resultSet.getString(4), // targetTable
+									resultSet.getString(5)  // targetColumn
+							);
 					}
 				}
 			});

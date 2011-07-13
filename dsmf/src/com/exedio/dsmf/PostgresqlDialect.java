@@ -108,32 +108,14 @@ public final class PostgresqlDialect extends Dialect
 			});
 
 		final String catalog = schema.getCatalog();
-		schema.querySQL(
+
+		verifyForeignKeyConstraints(
 				"select rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
 				"from information_schema.referential_constraints rc " +
 				"join information_schema.key_column_usage src on rc.constraint_name=src.constraint_name " +
 				"join information_schema.key_column_usage tgt on rc.unique_constraint_name=tgt.constraint_name " +
 				"where rc.constraint_catalog='" + catalog + '\'',
-		new ResultSetHandler()
-		{
-			public void run(final ResultSet resultSet) throws SQLException
-			{
-				//printMeta(resultSet);
-				while(resultSet.next())
-				{
-					//printRow(resultSet);
-					final String tableName = resultSet.getString(2);
-					final Table table = schema.getTable(tableName);
-					if(table!=null)
-						table.notifyExistentForeignKeyConstraint(
-								resultSet.getString(1), // constraintName
-								resultSet.getString(3), // foreignKeyColumn
-								resultSet.getString(4), // targetTable
-								resultSet.getString(5)  // targetColumn
-						);
-				}
-			}
-		});
+				schema);
 	}
 
 	@Override
