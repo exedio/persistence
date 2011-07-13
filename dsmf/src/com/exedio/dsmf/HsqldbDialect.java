@@ -54,13 +54,6 @@ public final class HsqldbDialect extends Dialect
 		}
 	}
 
-	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.TABLE_CONSTRAINTS";
-	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.CHECK_CONSTRAINTS";
-	private static final String SYSTEM_REFERENTIAL_CONSTRAINTS = "INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS";
-	private static final String SYSTEM_CONSTRAINT_COLUMN_USAGE = "INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE";
-	private static final String SYSTEM_KEY_COLUMN_USAGE = "INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
-	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
-
 	@Override
 	void verify(final Schema schema)
 	{
@@ -68,8 +61,8 @@ public final class HsqldbDialect extends Dialect
 
 		schema.querySQL(
 				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
-				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
-				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME " +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS stc " +
+				"left outer join INFORMATION_SCHEMA.CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME " +
 				"where stc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
@@ -103,7 +96,7 @@ public final class HsqldbDialect extends Dialect
 							//printRow(resultSet);
 							final StringBuilder clause = new StringBuilder();
 							final StringBuilder bf = new StringBuilder();
-							bf.append("select COLUMN_NAME from " + SYSTEM_INDEXINFO + " where INDEX_NAME like 'SYS_IDX_").
+							bf.append("select COLUMN_NAME from INFORMATION_SCHEMA.SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
 
@@ -139,10 +132,10 @@ public final class HsqldbDialect extends Dialect
 
 		verifyForeignKeyConstraints(
 				"select stc.CONSTRAINT_NAME, stc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
-				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
-				"left outer join " + SYSTEM_CONSTRAINT_COLUMN_USAGE + " ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join " + SYSTEM_REFERENTIAL_CONSTRAINTS + " rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join " + SYSTEM_KEY_COLUMN_USAGE + " kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'" +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS stc " +
+				"left outer join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu on stc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc on stc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and stc.CONSTRAINT_TYPE='FOREIGN KEY'" +
 				"where stc.CONSTRAINT_TYPE='FOREIGN KEY'",
 				schema);
 
