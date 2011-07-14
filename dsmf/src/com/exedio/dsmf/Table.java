@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Set;
 
 import com.exedio.dsmf.Constraint.Type;
 
@@ -224,6 +225,11 @@ public final class Table extends Node
 
 	void create(final StringBuilder bf)
 	{
+		create(bf, null);
+	}
+
+	void create(final StringBuilder bf, final Set<ForeignKeyConstraint> constraintsBroken)
+	{
 		bf.append("create table ").
 			append(quoteName(name)).
 			append('(');
@@ -243,7 +249,7 @@ public final class Table extends Node
 
 		for(final Constraint c : constraintList)
 		{
-			if(c.isSupported() && !c.type.secondPhase)
+			if(c.isSupported() && constraintsBroken!=null ? !constraintsBroken.contains(c) : !c.type.secondPhase)
 				c.createInTable(bf);
 		}
 
@@ -254,8 +260,13 @@ public final class Table extends Node
 
 	public void create(final StatementListener listener)
 	{
+		create(listener, null);
+	}
+
+	void create(final StatementListener listener, final Set<ForeignKeyConstraint> constraintsBroken)
+	{
 		final StringBuilder bf = new StringBuilder();
-		create(bf);
+		create(bf, constraintsBroken);
 		executeSQL(bf.toString(), listener);
 
 	}

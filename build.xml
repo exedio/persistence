@@ -170,7 +170,11 @@
 	<!-- dsmf -->
 	
 	<target name="dsmf.compile">
-		<compile srcdir="dsmf/src" />
+		<compile srcdir="dsmf/src">
+			<classpath>
+				<pathelement location="lib/log4j.jar" />
+			</classpath>
+		</compile>
 	</target>
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile">
@@ -191,6 +195,7 @@
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/dsmf/testsrc" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/log4j.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>

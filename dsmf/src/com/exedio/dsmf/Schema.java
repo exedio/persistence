@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 public final class Schema extends Node
 {
@@ -142,6 +143,9 @@ public final class Schema extends Node
 
 	public void create(final StatementListener listener)
 	{
+		final Graph graph = new Graph(this);
+		final Set<ForeignKeyConstraint> constraintsBroken = graph.getConstraintsBroken();
+
 		if(connectionProvider.isSemicolonEnabled())
 		{
 			final StringBuilder bf = new StringBuilder();
@@ -157,14 +161,14 @@ public final class Schema extends Node
 				s.create(bf);
 			}
 
-			for(final Table t : tableList)
+			for(final Table t : graph.getTablesOrdered())
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(';');
 
-				t.create(bf);
+				t.create(bf, constraintsBroken);
 			}
 
 			executeSQL(bf.toString(), listener);
@@ -173,12 +177,12 @@ public final class Schema extends Node
 		{
 			for(final Sequence s : sequenceList)
 				s.create(listener);
-			for(final Table t : tableList)
-				t.create(listener);
+			for(final Table t : graph.getTablesOrdered())
+				t.create(listener, constraintsBroken);
 		}
-		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
-		for(final Table t : tableList)
-			t.createConstraints(all, true, listener);
+
+		for(final ForeignKeyConstraint c : constraintsBroken)
+			c.create(listener);
 	}
 
 	public void drop()
@@ -188,10 +192,12 @@ public final class Schema extends Node
 
 	public void drop(final StatementListener listener)
 	{
+		final Graph graph = new Graph(this);
+
 		// must delete in reverse order, to obey integrity constraints
-		final EnumSet<Constraint.Type> all = EnumSet.allOf(Constraint.Type.class);
-		for(final Table t : reverse(tableList))
-			t.dropConstraints(all, true, listener);
+
+		for(final ForeignKeyConstraint c : graph.getConstraintsBroken())
+			c.drop(listener);
 
 		if(connectionProvider.isSemicolonEnabled())
 		{
@@ -208,7 +214,7 @@ public final class Schema extends Node
 				s.drop(bf);
 			}
 
-			for(final Table t : tableList)
+			for(final Table t : reverse(graph.getTablesOrdered()))
 			{
 				if(first)
 					first = false;
@@ -222,7 +228,7 @@ public final class Schema extends Node
 		}
 		else
 		{
-			for(final Table t : reverse(tableList))
+			for(final Table t : reverse(graph.getTablesOrdered()))
 				t.drop(listener);
 			for(final Sequence s : reverse(sequenceList))
 				s.drop(listener);
@@ -352,7 +358,7 @@ public final class Schema extends Node
 			t.checkUnsupportedConstraints();
 	}
 
-	private static <E> Iterable<E> reverse(final ArrayList<E> l)
+	private static <E> Iterable<E> reverse(final List<E> l)
 	{
 		return new Iterable<E>(){
 			public Iterator<E> iterator()
