@@ -96,6 +96,9 @@ public abstract class Constraint extends Node
 
 	final void notifyExistsCondition(final String condition)
 	{
+		if(condition==null)
+			throw new NullPointerException();
+
 		assert !exists;
 		assert existingCondition==null;
 
