@@ -423,7 +423,9 @@
 	
 	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.feature.compile, runtime.test.compile">
 		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
-			<fileset dir="build/classes/dsmf/testsrc" />
+			<fileset dir="build/classes/dsmf/testsrc">
+				<exclude name="log4j.properties" /><!-- there is a duplicate in runtime/testsrc -->
+			</fileset>
 			<fileset dir="build/classes/runtime/testfeaturesrc" />
 			<fileset dir="build/classes/runtime/testsrc" />
 		</ljar>
