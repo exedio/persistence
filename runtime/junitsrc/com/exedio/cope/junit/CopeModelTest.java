@@ -22,7 +22,6 @@ import com.exedio.cope.ChangeListener;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 
 /**
@@ -52,20 +51,13 @@ public abstract class CopeModelTest extends CopeAssert
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
+	/**
+	 * @deprecated Is not used anymore, has been replaced by log4j
+	 */
+	@Deprecated
 	protected boolean doesWriteTiming()
 	{
 		return false;
-	}
-
-	private long nanoTime()
-	{
-		return doesWriteTiming() ? System.nanoTime() : 0;
-	}
-
-	private void writeTime(final String message, final long before)
-	{
-		if(doesWriteTiming())
-			System.out.println("" + TimeUtil.toMillies(System.nanoTime(), before) + ' ' + message);
 	}
 
 
@@ -80,18 +72,13 @@ public abstract class CopeModelTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		ModelConnector.connectAndCreate(model, getConnectProperties(), doesWriteTiming());
+		ModelConnector.connectAndCreate(model, getConnectProperties());
 
 		manageTransactions = doesManageTransactions();
 		if(manageTransactions)
 		{
-			final long beforeStartTransaction = nanoTime();
 			model.startTransaction("tx:" + getClass().getName());
-			writeTime("startTransaction", beforeStartTransaction);
-
-			final long beforeCheckEmptySchema = nanoTime();
 			model.checkEmptySchema();
-			writeTime("checkEmptySchema", beforeCheckEmptySchema);
 		}
 	}
 
@@ -100,14 +87,8 @@ public abstract class CopeModelTest extends CopeAssert
 	{
 		// do this even if manageTransactions is false
 		// because test could have started a transaction
-		final long beforeRollbackIfNotCommitted = nanoTime();
 		model.rollbackIfNotCommitted();
-		writeTime("rollbackIfNotCommitted", beforeRollbackIfNotCommitted);
-
-		final long beforeDeleteSchema = nanoTime();
 		model.deleteSchema();
-		writeTime("deleteSchema", beforeDeleteSchema);
-
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);

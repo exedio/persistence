@@ -149,7 +149,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 		else
 		{
-			ModelConnector.connectAndCreate(model, getConnectProperties(), false);
+			ModelConnector.connectAndCreate(model, getConnectProperties());
 		}
 
 		if(manageTransactions)

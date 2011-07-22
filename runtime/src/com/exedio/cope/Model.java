@@ -30,8 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -40,6 +43,8 @@ import com.exedio.dsmf.Schema;
 
 public final class Model implements Serializable
 {
+	private static final Logger logger = Logger.getLogger(Model.class);
+
 	private final RevisionsFuture revisions;
 	private final Object reviseLock = new Object();
 
@@ -98,6 +103,8 @@ public final class Model implements Serializable
 	 */
 	public void connect(final ConnectProperties properties)
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		if(properties==null)
 			throw new NullPointerException("properties");
 
@@ -109,10 +116,15 @@ public final class Model implements Serializable
 			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
+
+		if(logger.isInfoEnabled())
+			logger.info("connect " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void disconnect()
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		synchronized(connectLock)
 		{
 			if(this.connectIfConnected==null)
@@ -123,6 +135,9 @@ public final class Model implements Serializable
 			types.disconnect();
 			connect.close();
 		}
+
+		if(logger.isInfoEnabled())
+			logger.info("disconnect " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	Connect connect()
@@ -285,7 +300,12 @@ public final class Model implements Serializable
 
 	public void createSchema()
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		connect().createSchema();
+
+		if(logger.isInfoEnabled())
+			logger.info("createSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -312,8 +332,13 @@ public final class Model implements Serializable
 
 	public void checkEmptySchema()
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		final Transaction tx = currentTransaction();
 		tx.connect.database.checkEmptySchema(tx.getConnection());
+
+		if(logger.isInfoEnabled())
+			logger.info("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	/**
@@ -321,16 +346,26 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		final Transaction tx = transactions.currentIfBound();
 		if(tx!=null)
 			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 
 		connect().deleteSchema();
+
+		if(logger.isInfoEnabled())
+			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void dropSchema()
 	{
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+
 		connect().dropSchema();
+
+		if(logger.isInfoEnabled())
+			logger.info("dropSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -516,6 +551,10 @@ public final class Model implements Serializable
 		final Transaction result =
 			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		transactions.add(result);
+
+		if(logger.isDebugEnabled())
+			logger.debug("startTransaction " + id + ' ' + name);
+
 		return result;
 	}
 
@@ -587,6 +626,9 @@ public final class Model implements Serializable
 			final long oldestNanos = transactions.getOldestConnectionNanos();
 			connect().itemCache.purgeInvalidateLast(oldestNanos);
 		}
+
+		if(logger.isDebugEnabled())
+			logger.debug(rollback ? "rollback" : "commit");
 	}
 
 	/**
