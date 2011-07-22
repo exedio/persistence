@@ -51,16 +51,6 @@ public abstract class CopeModelTest extends CopeAssert
 		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 
-	/**
-	 * @deprecated Is not used anymore, has been replaced by log4j
-	 */
-	@Deprecated
-	protected boolean doesWriteTiming()
-	{
-		return false;
-	}
-
-
 	private boolean manageTransactions;
 
 	protected boolean doesManageTransactions()
@@ -110,5 +100,14 @@ public abstract class CopeModelTest extends CopeAssert
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
 		return item;
+	}
+
+	/**
+	 * @deprecated Is not used anymore, has been replaced by log4j
+	 */
+	@Deprecated
+	protected boolean doesWriteTiming()
+	{
+		return false;
 	}
 }
