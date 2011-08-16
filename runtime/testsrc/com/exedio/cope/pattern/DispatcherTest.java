@@ -32,6 +32,7 @@ import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.JobStop;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {
@@ -310,7 +311,14 @@ public class DispatcherTest extends AbstractRuntimeTest
 	{
 		model.commit();
 		final Date before = new Date();
-		item.dispatchToTarget(config, ctx);
+		try
+		{
+			item.dispatchToTarget(config, ctx);
+		}
+		catch(final JobStop js)
+		{
+			assertEquals(null, js.getMessage());
+		}
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
 		return new DateRange(before, after);
@@ -327,9 +335,9 @@ public class DispatcherTest extends AbstractRuntimeTest
 			this.requestsBeforeStop = requestsBeforeStop;
 		}
 
-		@Override public boolean requestedToStop()
+		@Override public void stopIfRequested()
 		{
-			return (requestsToStop++)>=requestsBeforeStop;
+			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop();
 		}
 
 		@Override

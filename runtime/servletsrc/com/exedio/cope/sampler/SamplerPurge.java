@@ -62,9 +62,7 @@ final class SamplerPurge extends Item
 			final String samplerString)
 	throws SQLException
 	{
-		if(ctx.requestedToStop())
-			return;
-
+		ctx.stopIfRequested();
 		final DateField field = (DateField)type.getFeature("date");
 		if(field==null)
 			throw new RuntimeException(type.getID());

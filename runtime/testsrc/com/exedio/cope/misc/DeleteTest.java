@@ -28,6 +28,7 @@ import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.JobStop;
 
 public class DeleteTest extends AbstractRuntimeTest
 {
@@ -60,7 +61,7 @@ public class DeleteTest extends AbstractRuntimeTest
 	public void testEmpty()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
-		final Context ctx = new Context(0);
+		final Context ctx = new Context(1);
 
 		Delete.delete(q, "tx", ctx);
 		ctx.assertProgress(0);
@@ -102,7 +103,15 @@ public class DeleteTest extends AbstractRuntimeTest
 		model.commit();
 
 		final Context ctx = new Context(1);
-		Delete.delete(q, "tx", ctx);
+		try
+		{
+			Delete.delete(q, "tx", ctx);
+			fail();
+		}
+		catch(final JobStop js)
+		{
+			assertEquals(null, js.getMessage());
+		}
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
 		assertEquals(true,  i2.existsCopeItem());
@@ -149,9 +158,9 @@ public class DeleteTest extends AbstractRuntimeTest
 		}
 
 		@Override
-		public boolean requestedToStop()
+		public void stopIfRequested()
 		{
-			return progress>=maximumProgress;
+			if(progress>=maximumProgress) throw new JobStop();
 		}
 
 		@Override

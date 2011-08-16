@@ -35,6 +35,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.JobStop;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
@@ -329,9 +330,9 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		final CountJobContext ctx = new CountJobContext(){
 			int i = interruptRequests;
-			@Override public boolean requestedToStop()
+			@Override public void stopIfRequested()
 			{
-				return (i--)<=0;
+				if((i--)<=0) throw new JobStop();
 			}
 		};
 		run(now, ctx);
@@ -344,6 +345,10 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		{
 			model.commit();
 			report.run(ctx, now);
+		}
+		catch(final JobStop js)
+		{
+			assertEquals(null, js.getMessage());
 		}
 		finally
 		{

@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.JobStop;
 
 public final class Delete
 {
@@ -38,8 +39,9 @@ public final class Delete
 		final int LIMIT = 100;
 		query.setLimit(0, LIMIT);
 		final Model model = query.getType().getModel();
-		for(int transaction = 0; !ctx.requestedToStop(); transaction++)
+		for(int transaction = 0; ; transaction++)
 		{
+			ctx.stopIfRequested();
 			try
 			{
 				model.startTransaction(transactionName + '#' + transaction);
@@ -50,12 +52,7 @@ public final class Delete
 					return;
 				for(final Item item : items)
 				{
-					if(ctx.requestedToStop())
-					{
-						model.commit();
-						return;
-					}
-
+					ctx.stopIfRequested();
 					item.deleteCopeItem();
 					ctx.incrementProgress();
 				}
@@ -64,6 +61,10 @@ public final class Delete
 
 				if(itemsSize<LIMIT)
 					return;
+			}
+			catch(final JobStop js)
+			{
+				model.commit();
 			}
 			finally
 			{

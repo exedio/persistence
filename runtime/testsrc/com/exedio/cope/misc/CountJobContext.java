@@ -23,9 +23,9 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 final class CountJobContext extends AssertionErrorJobContext
 {
 	@Override
-	public boolean requestedToStop()
+	public void stopIfRequested()
 	{
-		return false;
+		// do nothing
 	}
 
 	int progress = 0;

@@ -296,9 +296,7 @@ public final class Schedule extends Pattern
 
 		for(final P item : toRun)
 		{
-			if(ctx.requestedToStop())
-				return;
-
+			ctx.stopIfRequested();
 			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
 			try

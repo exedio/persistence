@@ -206,9 +206,7 @@ public final class Dispatcher extends Pattern
 					config.getSearchSize());
 				iterator.hasNext(); )
 		{
-			if(ctx.requestedToStop())
-				return;
-
+			ctx.stopIfRequested();
 			final P item = iterator.next();
 			final Dispatchable itemCasted = (Dispatchable)item;
 			final String itemID = item.getCopeID();
