@@ -4,9 +4,15 @@ CHANGELOG for cope util
 This file lists all changes relevant for the user - especially all
 API changes and new features recommended for most users. The log may
 omit bug fixes.
-The items are sorted inversely, i.e. lastest items are on top
+The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* add JobContext#stopIfRequested()
+* deprecate Interrupter in favour of JobContext
+* add JobContexts
+* add ProxyJobContext
+* add Properties.EMPTY_SOURCE
+* rename SafeFile to StrictFile
 * add AssertionErrorJobContext
 * add JobContext&Co
 * add Interrupters#iterator

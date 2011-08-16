@@ -89,7 +89,7 @@ public class ReviseTest extends CopeAssert
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		props = new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 		log = new TestLogAppender();
 		Revisions.logger.addAppender(log);
 	}

@@ -33,7 +33,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.SafeFile;
+import com.exedio.cope.util.StrictFile;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -253,7 +253,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 
 		final File file = File.createTempFile("MediaTypeTest-", ".dat");
-		SafeFile.delete(file);
+		StrictFile.delete(file);
 		try
 		{
 			forMagic(file);

@@ -134,7 +134,7 @@ public abstract class CopeTest extends CopeAssert
 	 */
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		return new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 	}
 
 	@Override

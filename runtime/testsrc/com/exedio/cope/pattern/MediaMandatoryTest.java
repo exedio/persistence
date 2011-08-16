@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.MediaMandatoryItem.file;
-import static com.exedio.cope.util.SafeFile.delete;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.IOException;

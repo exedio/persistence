@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
-import static com.exedio.cope.util.Properties.getSystemPropertySource;
+import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 
 import java.util.Date;
 
@@ -31,7 +31,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
-	private static final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+	private static final ConnectProperties props = new ConnectProperties(SYSTEM_PROPERTY_SOURCE);
 
 	@Override
 	protected void setUp() throws Exception

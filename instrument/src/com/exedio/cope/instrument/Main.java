@@ -19,7 +19,7 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.util.SafeFile.delete;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.FileOutputStream;

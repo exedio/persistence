@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
-import static com.exedio.cope.util.SafeFile.delete;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.FileInputStream;

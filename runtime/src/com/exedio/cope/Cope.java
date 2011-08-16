@@ -292,7 +292,7 @@ public abstract class Cope
 			throw new RuntimeException("must have two arguments, model and action");
 
 		final Model model = getModel(args[0]);
-		model.connect(new ConnectProperties(ConnectProperties.getSystemPropertySource()));
+		model.connect(new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE));
 		final String action = args[1];
 		if("create".equals(action))
 			model.createSchema();

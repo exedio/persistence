@@ -48,7 +48,7 @@ public abstract class CopeModelTest extends CopeAssert
 	 */
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		return new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 	}
 
 	private boolean manageTransactions;

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.SafeFile.delete;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.IOException;

@@ -58,7 +58,7 @@ public abstract class SchemaTest extends TestCase
 
 		Properties()
 		{
-			super(getSource(getDefaultPropertyFile()), getSystemPropertySource());
+			super(getSource(getDefaultPropertyFile()), SYSTEM_PROPERTY_SOURCE);
 		}
 	}
 

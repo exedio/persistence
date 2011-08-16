@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.SafeFile.delete;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
