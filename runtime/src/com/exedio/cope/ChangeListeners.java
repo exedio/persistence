@@ -29,8 +29,6 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.exedio.cope.util.Interrupter;
-
 final class ChangeListeners
 {
 	static final Logger logger = Logger.getLogger(ChangeListeners.class);
@@ -132,13 +130,13 @@ final class ChangeListeners
 		}
 	}
 
-	void dispatch(final ChangeEvent event, final Interrupter interrupter)
+	void dispatch(final ChangeEvent event, final ChangeListenerDispatcher interrupter)
 	{
 		final List<ChangeListener> listeners = get();
 
 		for(final ChangeListener listener : listeners)
 		{
-			if(interrupter.isRequested())
+			if(interrupter.requestedToStop())
 				return;
 
 			try

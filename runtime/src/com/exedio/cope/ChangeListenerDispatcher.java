@@ -25,9 +25,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Level;
 
-import com.exedio.cope.util.Interrupter;
-
-final class ChangeListenerDispatcher implements Runnable, Interrupter
+final class ChangeListenerDispatcher implements Runnable
 {
 	private final Types types;
 	private final ChangeListeners manager;
@@ -79,7 +77,7 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 		}
 	}
 
-	public boolean isRequested()
+	boolean requestedToStop()
 	{
 		return !threadRun;
 	}
