@@ -67,9 +67,25 @@ public class PrefixSourceTest extends CopeAssert
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
-		assertEquals("prefix./val", ps.get(""));
+		try
+		{
+			ps.get("");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("key must not be empty", e.getMessage());
+		}
 		assertEquals(null, ps.get("none"));
-		assertEquals(null, ps.get(null));
+		try
+		{
+			ps.get(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("key", e.getMessage());
+		}
 		assertEqualsUnmodifiable(list("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 	}
@@ -81,9 +97,25 @@ public class PrefixSourceTest extends CopeAssert
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
-		assertEquals("prefix./val", ps.get(""));
+		try
+		{
+			ps.get("");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("key must not be empty", e.getMessage());
+		}
 		assertEquals(null, ps.get("none"));
-		assertEquals(null, ps.get(null));
+		try
+		{
+			ps.get(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("key", e.getMessage());
+		}
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 	}
