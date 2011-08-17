@@ -332,7 +332,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			int i = interruptRequests;
 			@Override public void stopIfRequested()
 			{
-				if((i--)<=0) throw new JobStop();
+				if((i--)<=0) throw new JobStop("requestLimit");
 			}
 		};
 		run(now, ctx);
@@ -348,7 +348,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 		catch(final JobStop js)
 		{
-			assertEquals(null, js.getMessage());
+			assertEquals("requestLimit", js.getMessage());
 		}
 		finally
 		{

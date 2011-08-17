@@ -42,7 +42,7 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
-		<dependency org="com.exedio" name="copeutil" rev="199" />
+		<dependency org="com.exedio" name="copeutil" rev="201" />
 		<dependency org="com.exedio" name="copeconsole" rev="6294" conf="build->runtime" />
 	</dependencies>
 </ivy-module>

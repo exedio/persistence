@@ -110,7 +110,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		}
 		catch(final JobStop js)
 		{
-			assertEquals(null, js.getMessage());
+			assertEquals("progress 1 excessed with 1", js.getMessage());
 		}
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
@@ -160,7 +160,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		@Override
 		public void stopIfRequested()
 		{
-			if(progress>=maximumProgress) throw new JobStop();
+			if(progress>=maximumProgress) throw new JobStop("progress " + maximumProgress + " excessed with " + progress);
 		}
 
 		@Override

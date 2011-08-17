@@ -317,7 +317,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		catch(final JobStop js)
 		{
-			assertEquals(null, js.getMessage());
+			assertEquals("JC", js.getMessage());
 		}
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
@@ -337,7 +337,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 		@Override public void stopIfRequested()
 		{
-			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop();
+			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
 		}
 
 		@Override
