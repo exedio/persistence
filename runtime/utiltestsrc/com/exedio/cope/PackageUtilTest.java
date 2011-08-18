@@ -35,7 +35,6 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ChangeListenersTest.class);
 		suite.addTestSuite(LRUMapTest.class);
 		suite.addTestSuite(TrimmerTest.class);
-		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(IsInitialTest.class);
 		suite.addTestSuite(GetModelTest.class);
 		suite.addTestSuite(TypeMountTest.class);
