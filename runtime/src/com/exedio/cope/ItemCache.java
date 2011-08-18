@@ -250,7 +250,8 @@ final class ItemCache
 				if(map.put(state.pk, state)!=null)
 					concurrentLoads++;
 
-				// TODO use a LRU map instead
+				// TODO use LRU with guava ComputingMap
+				// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 				final int mapSize = map.size();
 				if(mapSize>=limit)
 				{

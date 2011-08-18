@@ -31,6 +31,8 @@ import java.util.Map;
 
 final class QueryCache
 {
+	// TODO use guava ComputingMap
+	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap map;
 	private volatile long hits = 0, misses = 0, invalidations = 0;
 
