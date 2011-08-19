@@ -927,7 +927,7 @@
 	
 	<target name="all" depends="build, runtime.jar.src, api, findbugs" />
 	
-	<target name="hudson" depends="all">
+	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.zip" />
