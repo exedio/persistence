@@ -303,6 +303,46 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().connect().connectionPool) : 0;
 	}
 
+	// digits
+
+	public IntegerField rangeDigits(final int digits)
+	{
+		check(1, 9, digits, "digits");
+
+		final int pow = pow(digits);
+		return range(pow/10, pow-1);
+	}
+
+	public IntegerField rangeDigits(final int minimumDigits, final int maximumDigits)
+	{
+		check(0, 9, minimumDigits, "minimumDigits");
+		check(1, 9, maximumDigits, "maximumDigits");
+		if(minimumDigits>maximumDigits)
+			throw new IllegalArgumentException("maximumDigits must be greater or equal than minimumDigits, but was " + maximumDigits + " and " + minimumDigits + '.');
+
+		return range(
+				pow(minimumDigits-1),
+				pow(maximumDigits  )-1);
+	}
+
+	private static final void check(
+			final int minimum,
+			final int maximum,
+			final int actual,
+			final String name)
+	{
+		if(!(minimum<=actual && actual<=maximum))
+			throw new IllegalArgumentException(
+					name + " must be between " + minimum + " and " + maximum +
+					", but was " + actual);
+	}
+
+	private static final int pow(final int exponent)
+	{
+		return (int)Math.round(Math.pow(10, exponent));
+	}
+
+
 	@Override
 	public Condition equal(final Integer value)
 	{

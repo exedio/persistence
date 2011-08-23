@@ -28,6 +28,7 @@ public class PackageUtilTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(IntegerFieldTest.class);
+		suite.addTestSuite(IntegerRangeDigitsTest.class);
 		suite.addTestSuite(StringCopyTest.class);
 		suite.addTestSuite(StringEscapeTest.class);
 		suite.addTestSuite(SetValueTest.class);
