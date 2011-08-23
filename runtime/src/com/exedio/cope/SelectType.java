@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public interface SelectType<E>
+interface SelectType<E>
 {
 	Class<E> getJavaClass();
 }
