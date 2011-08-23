@@ -65,7 +65,7 @@ public final class IntegerField extends NumberField<Integer>
 			catch(final ConstraintViolationException e)
 			{
 				// BEWARE
-				// Must not make exception e available to public,
+				// Must not make exception available to public,
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new IllegalArgumentException(
