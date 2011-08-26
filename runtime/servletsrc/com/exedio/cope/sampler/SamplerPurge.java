@@ -46,7 +46,7 @@ final class SamplerPurge extends Item
 	private static final DateField limit = new DateField().toFinal();
 	private static final DateField finished = new DateField().toFinal().defaultToNow();
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
-	private static final LongField elapsed  = new LongField().toFinal(); // TODO min(0)
+	private static final LongField elapsed  = new LongField().toFinal().min(0);
 
 	static Query<SamplerPurge> newQuery()
 	{
