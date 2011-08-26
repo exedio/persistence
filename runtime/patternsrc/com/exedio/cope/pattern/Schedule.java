@@ -74,7 +74,7 @@ public final class Schedule extends Pattern
 	final DateField runFrom = new DateField().toFinal();
 	final DateField runUntil = new DateField().toFinal();
 	final DateField runRun = new DateField().toFinal();
-	final LongField runElapsed = new LongField().toFinal();
+	final LongField runElapsed = new LongField().toFinal().min(0);
 
 	private Mount mount = null;
 

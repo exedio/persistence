@@ -66,14 +66,14 @@ final class SamplerModel extends Item
 	}
 
 
-	static final LongField nextTransactionId = new LongField().toFinal();
+	static final LongField nextTransactionId = new LongField().toFinal().min(0);
 
 	@CopeSchemaName("commitOutConnection")
-	private static final LongField commitWithoutConnection = new LongField().toFinal();
-	private static final LongField commitWithConnection = new LongField().toFinal();
+	private static final LongField commitWithoutConnection = new LongField().toFinal().min(0);
+	private static final LongField commitWithConnection    = new LongField().toFinal().min(0);
 	@CopeSchemaName("rollbackOutConnection")
-	private static final LongField rollbackWithoutConnection = new LongField().toFinal();
-	private static final LongField rollbackWithConnection = new LongField().toFinal();
+	private static final LongField rollbackWithoutConnection = new LongField().toFinal().min(0);
+	private static final LongField rollbackWithConnection    = new LongField().toFinal().min(0);
 
 	static List<SetValue> map(final TransactionCounters info)
 	{
@@ -85,16 +85,16 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField itemCacheHits = new LongField().toFinal();
-	private static final LongField itemCacheMisses = new LongField().toFinal();
-	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal();
+	private static final LongField itemCacheHits = new LongField().toFinal().min(0);
+	private static final LongField itemCacheMisses = new LongField().toFinal().min(0);
+	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal().min(0);
 	private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
-	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal();
-	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal();
+	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal().min(0);
+	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal().min(0);
 	private static final IntegerField itemCacheInvalidateLastSize = new IntegerField().toFinal().min(0);
-	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal();
-	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal();
+	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal().min(0);
+	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal().min(0);
 
 	static List<SetValue> map(final ItemCacheSummary info)
 	{
@@ -117,10 +117,10 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField queryCacheHits = new LongField().toFinal();
-	private static final LongField queryCacheMisses = new LongField().toFinal();
-	private static final LongField queryCacheReplacements = new LongField().toFinal();
-	private static final LongField queryCacheInvalidations = new LongField().toFinal();
+	private static final LongField queryCacheHits = new LongField().toFinal().min(0);
+	private static final LongField queryCacheMisses = new LongField().toFinal().min(0);
+	private static final LongField queryCacheReplacements = new LongField().toFinal().min(0);
+	private static final LongField queryCacheInvalidations = new LongField().toFinal().min(0);
 
 	static List<SetValue> map(final QueryCacheInfo info)
 	{
@@ -145,8 +145,8 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal();
-	private static final    LongField changeListenerException = new LongField   ().toFinal();
+	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal().min(0);
+	private static final    LongField changeListenerException = new LongField   ().toFinal().min(0);
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
 	static List<SetValue> map(final ChangeListenerDispatcherInfo info)
@@ -187,7 +187,7 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal();
+	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal().min(0);
 
 	static List<SetValue> map(final ClusterSenderInfo info)
 	{
@@ -196,10 +196,10 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField clusterListenerException    = new LongField().toFinal();
-	private static final LongField clusterListenerMissingMagic = new LongField().toFinal();
-	private static final LongField clusterListenerWrongSecret  = new LongField().toFinal();
-	private static final LongField clusterListenerFromMyself   = new LongField().toFinal();
+	private static final LongField clusterListenerException    = new LongField().toFinal().min(0);
+	private static final LongField clusterListenerMissingMagic = new LongField().toFinal().min(0);
+	private static final LongField clusterListenerWrongSecret  = new LongField().toFinal().min(0);
+	private static final LongField clusterListenerFromMyself   = new LongField().toFinal().min(0);
 
 	static List<SetValue> map(final ClusterListenerInfo info)
 	{

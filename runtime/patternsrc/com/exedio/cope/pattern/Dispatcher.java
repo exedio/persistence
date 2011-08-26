@@ -62,7 +62,7 @@ public final class Dispatcher extends Pattern
 	private final BooleanField pending;
 
 	final DateField runDate = new DateField().toFinal();
-	final LongField runElapsed = new LongField().toFinal();
+	final LongField runElapsed = new LongField().toFinal().min(0);
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
 	private Mount mount = null;
