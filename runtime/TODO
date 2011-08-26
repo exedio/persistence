@@ -22,6 +22,10 @@ TODO for cope runtime
 	* optionally maintain filename param in Content-Disposition header
 	* implement MediaAlias
 	* redundantly maintain width/height for images
+- Hash: allow migration between algorithms
+	- nested algorithms for increasing security instantly
+	- migration whenever plain text is known
+	- increase iterations
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
 - Global History / Undo facility for backoffice, that can undo deletes as well.
