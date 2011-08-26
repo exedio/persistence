@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.ConstructorComment;
 
 /**
- * Signals, that an attempt to write an {@link IntegerField} has been failed,
+ * Signals, that an attempt to write an {@link FunctionField} has been failed,
  * because the value to be written violated the range constraint on that field.
  *
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
@@ -30,45 +30,57 @@ import com.exedio.cope.instrument.ConstructorComment;
  * @author Ralf Wiebicke
  */
 @ConstructorComment("if {0} violates its range constraint.")
-public final class IntegerRangeViolationException extends RangeViolationException
+public abstract class RangeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 
-	private final IntegerField feature;
-	private final int value;
+	private final FunctionField feature;
+	private final Number value;
+	private final boolean isTooSmall;
+	private final Number border;
 
 	/**
-	 * Creates a new IntegerRangeViolationException with the neccessary information about the violation.
+	 * Creates a new RangeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
-	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public IntegerRangeViolationException(
-			final IntegerField feature,
+	protected RangeViolationException(
+			final FunctionField<? extends Number> feature,
 			final Item item,
-			final int value,
+			final Number value,
 			final boolean isTooSmall,
-			final int border)
+			final Number border)
 	{
-		super(feature, item, value, isTooSmall, border);
+		super(item, null);
 		this.feature = feature;
 		this.value = value;
+		this.isTooSmall = isTooSmall;
+		this.border = border;
 	}
 
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
-	public IntegerField getFeature()
+	public FunctionField getFeature()
 	{
 		return feature;
 	}
 
-	/**
-	 * Returns the value, that was attempted to be written.
-	 */
-	public int getValue()
+	public final boolean isTooSmall()
 	{
-		return value;
+		return isTooSmall;
+	}
+
+	@Override
+	public final String getMessage(final boolean withFeature)
+	{
+		return
+			"range violation" + getItemPhrase() +
+			", " + value + " is too " +
+			(isTooSmall?"small":"big") +
+			(withFeature ? (" for " + feature) : "") +
+			", must be at " + (isTooSmall?"least":"most") +
+			' ' + border + '.';
 	}
 }
