@@ -28,7 +28,9 @@ public final class LongField extends NumberField<Long>
 {
 	private static final long serialVersionUID = 1l;
 
-	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
+	private LongField(
+			final boolean isfinal, final boolean optional, final boolean unique,
+			final Long defaultConstant)
 	{
 		super(isfinal, optional, unique, Long.class, defaultConstant);
 		checkDefaultConstant();
