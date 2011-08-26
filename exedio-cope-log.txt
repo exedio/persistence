@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* add DefaultStatementListener in dsmf
 * add IntegerField#rangeDigits
 * Model#getVerifiedSchema checks strictly for foreign key constraints
 * switched from java.util.logging to Log4j
