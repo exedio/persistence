@@ -2,7 +2,6 @@
 TODO for cope runtime
 
 - constraints
-	- range (minimum/maximum) for LongField
 	- precision (number of fractional digits) for doubles (see PriceField)
 	- unique constraints over multiple fields:
 		strictly define what happens with null
