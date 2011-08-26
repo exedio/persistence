@@ -40,7 +40,7 @@ public final class IntegerRangeViolationException extends ConstraintViolationExc
 	private final int border;
 
 	/**
-	 * Creates a new RangeViolationException with the neccessary information about the violation.
+	 * Creates a new IntegerRangeViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
