@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.List;
+import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -28,59 +29,99 @@ public final class LongField extends NumberField<Long>
 {
 	private static final long serialVersionUID = 1l;
 
+	private final long minimum;
+	private final long maximum;
+
 	private LongField(
 			final boolean isfinal, final boolean optional, final boolean unique,
-			final Long defaultConstant)
+			final Long defaultConstant,
+			final long minimum, final long maximum)
 	{
 		super(isfinal, optional, unique, Long.class, defaultConstant);
+		this.minimum = minimum;
+		this.maximum = maximum;
 		checkDefaultConstant();
 	}
 
 	public LongField()
 	{
-		this(false, false, false, null);
+		this(false, false, false, null, Long.MIN_VALUE, Long.MAX_VALUE);
 	}
 
 	@Override
 	public LongField copy()
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant);
+		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField toFinal()
 	{
-		return new LongField(true, optional, unique, defaultConstant);
+		return new LongField(true, optional, unique, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField optional()
 	{
-		return new LongField(isfinal, true, unique, defaultConstant);
+		return new LongField(isfinal, true, unique, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField unique()
 	{
-		return new LongField(isfinal, optional, true, defaultConstant);
+		return new LongField(isfinal, optional, true, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField nonUnique()
 	{
-		return new LongField(isfinal, optional, false, defaultConstant);
+		return new LongField(isfinal, optional, false, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField noDefault()
 	{
-		return new LongField(isfinal, optional, unique, null);
+		return new LongField(isfinal, optional, unique, null, minimum, maximum);
 	}
 
 	@Override
 	public LongField defaultTo(final Long defaultConstant)
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant);
+		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+
+	public LongField range(final int minimum, final int maximum)
+	{
+		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+
+	public LongField min(final int minimum)
+	{
+		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+
+	public LongField max(final int maximum)
+	{
+		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+
+	public long getMinimum()
+	{
+		return minimum;
+	}
+
+	public long getMaximum()
+	{
+		return maximum;
+	}
+
+	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
+		if(minimum!=Long.MIN_VALUE || maximum!=Long.MAX_VALUE)
+			result.add(LongRangeViolationException.class);
+		return result;
 	}
 
 	@Deprecated
@@ -104,7 +145,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+		return new IntegerColumn(table, this, name, false, optional, minimum, maximum, true);
 	}
 
 	@Override
@@ -154,5 +195,15 @@ public final class LongField extends NumberField<Long>
 			@Parameter(doc="shall be equal to field {0}.") final long value)
 	{
 		return super.searchUnique(typeClass, Long.valueOf(value));
+	}
+
+	@Override
+	void checkNotNull(final Long value, final Item exceptionItem) throws LongRangeViolationException
+	{
+		final long valuePrimitive = value.longValue();
+		if(valuePrimitive<minimum)
+			throw new LongRangeViolationException(this, exceptionItem, value, true, minimum);
+		if(valuePrimitive>maximum)
+			throw new LongRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 }
