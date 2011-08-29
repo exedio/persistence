@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaType.forMagic;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
+import static com.exedio.cope.util.Hex.decodeLower;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +29,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.StrictFile;
 
 public class MediaTypeTest extends CopeAssert
@@ -102,12 +102,12 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 
-		assertSame(jpg, forMagic(Hex.decodeLower(JPEG)));
-		assertSame(jpg, forMagic(Hex.decodeLower(JPEG + "aa")));
-		assertSame(png, forMagic(Hex.decodeLower(PNG)));
-		assertSame(png, forMagic(Hex.decodeLower(PNG + "bb")));
-		assertSame(null,  forMagic(Hex.decodeLower(stealTail(JPEG))));
-		assertSame(null,  forMagic(Hex.decodeLower(stealTail(PNG))));
+		assertSame(jpg, forMagic(decodeLower(JPEG)));
+		assertSame(jpg, forMagic(decodeLower(JPEG + "aa")));
+		assertSame(png, forMagic(decodeLower(PNG)));
+		assertSame(png, forMagic(decodeLower(PNG + "bb")));
+		assertSame(null,  forMagic(decodeLower(stealTail(JPEG))));
+		assertSame(null,  forMagic(decodeLower(stealTail(PNG))));
 
 		try
 		{
@@ -139,12 +139,12 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 
-		assertSame(jpg, forMagic(file(Hex.decodeLower(JPEG))));
-		assertSame(jpg, forMagic(file(Hex.decodeLower(JPEG + "aa"))));
-		assertSame(png, forMagic(file(Hex.decodeLower(PNG))));
-		assertSame(png, forMagic(file(Hex.decodeLower(PNG + "bb"))));
-		assertSame(null,  forMagic(file(Hex.decodeLower(stealTail(JPEG)))));
-		assertSame(null,  forMagic(file(Hex.decodeLower(stealTail(PNG)))));
+		assertSame(jpg, forMagic(file(decodeLower(JPEG))));
+		assertSame(jpg, forMagic(file(decodeLower(JPEG + "aa"))));
+		assertSame(png, forMagic(file(decodeLower(PNG))));
+		assertSame(png, forMagic(file(decodeLower(PNG + "bb"))));
+		assertSame(null,  forMagic(file(decodeLower(stealTail(JPEG)))));
+		assertSame(null,  forMagic(file(decodeLower(stealTail(PNG)))));
 
 		try
 		{
