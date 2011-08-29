@@ -114,6 +114,11 @@ public class MediaTypeTest extends CopeAssert
 		assertMagic(null, stealTail(PNG));
 		assertMagic(null, stealTail(ZIP));
 
+	}
+
+	public void testForMagicFails() throws IOException
+	{
+		// byte
 		try
 		{
 			forMagic((byte[])null);
@@ -132,10 +137,7 @@ public class MediaTypeTest extends CopeAssert
 		{
 			assertEquals("empty", e.getMessage());
 		}
-	}
-
-	public void testForMagicFile() throws IOException
-	{
+		// file
 		try
 		{
 			forMagic((File)null);
