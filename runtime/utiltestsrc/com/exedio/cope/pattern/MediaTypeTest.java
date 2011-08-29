@@ -96,7 +96,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 	}
 
-	public void testForMagic()
+	public void testForMagic() throws IOException
 	{
 		assertEquals(8, MediaType.magicMaxLength());
 
@@ -104,15 +104,15 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType png = forName("image/png");
 		final MediaType zip = forName("application/zip");
 
-		assertSame(jpg, forMagic(decodeLower(JPEG)));
-		assertSame(jpg, forMagic(decodeLower(JPEG + "aa")));
-		assertSame(png, forMagic(decodeLower(PNG)));
-		assertSame(png, forMagic(decodeLower(PNG + "bb")));
-		assertSame(zip, forMagic(decodeLower(ZIP)));
-		assertSame(zip, forMagic(decodeLower(ZIP + "cc")));
-		assertSame(null,  forMagic(decodeLower(stealTail(JPEG))));
-		assertSame(null,  forMagic(decodeLower(stealTail(PNG))));
-		assertSame(null,  forMagic(decodeLower(stealTail(ZIP))));
+		assertMagic(jpg, JPEG);
+		assertMagic(jpg, JPEG + "aa");
+		assertMagic(png, PNG);
+		assertMagic(png, PNG + "bb");
+		assertMagic(zip, ZIP);
+		assertMagic(zip, ZIP + "cc");
+		assertMagic(null, stealTail(JPEG));
+		assertMagic(null, stealTail(PNG));
+		assertMagic(null, stealTail(ZIP));
 
 		try
 		{
@@ -141,20 +141,6 @@ public class MediaTypeTest extends CopeAssert
 
 	public void testForMagicFile() throws IOException
 	{
-		final MediaType jpg = forName("image/jpeg");
-		final MediaType png = forName("image/png");
-		final MediaType zip = forName("application/zip");
-
-		assertSame(jpg, forMagic(file(decodeLower(JPEG))));
-		assertSame(jpg, forMagic(file(decodeLower(JPEG + "aa"))));
-		assertSame(png, forMagic(file(decodeLower(PNG))));
-		assertSame(png, forMagic(file(decodeLower(PNG + "bb"))));
-		assertSame(zip, forMagic(file(decodeLower(ZIP))));
-		assertSame(zip, forMagic(file(decodeLower(ZIP + "cc"))));
-		assertSame(null,  forMagic(file(decodeLower(stealTail(JPEG)))));
-		assertSame(null,  forMagic(file(decodeLower(stealTail(PNG)))));
-		assertSame(null,  forMagic(file(decodeLower(stealTail(ZIP)))));
-
 		try
 		{
 			forMagic((File)null);
@@ -196,6 +182,12 @@ public class MediaTypeTest extends CopeAssert
 		{
 			// ok
 		}
+	}
+
+	private static void assertMagic(final MediaType type, final String magic) throws IOException
+	{
+		assertSame(type, forMagic(decodeLower(magic)));
+		assertSame(type, forMagic(file(decodeLower(magic))));
 	}
 
 	private static File file(final byte[] bytes) throws IOException
