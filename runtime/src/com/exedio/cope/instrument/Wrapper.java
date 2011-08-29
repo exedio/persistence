@@ -377,6 +377,10 @@ public final class Wrapper
 	}
 
 
+	/**
+	 * @deprecated Not needed anymore by framework.
+	 */
+	@Deprecated
 	public boolean matchesMethod(final String name, final Class<?>... parameterTypes)
 	{
 		return

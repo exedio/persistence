@@ -209,7 +209,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(IntegerField.class, this, super.getWrappers()));
+		return Wrapper.getByAnnotations(IntegerField.class, this, super.getWrappers());
 	}
 
 	@Override

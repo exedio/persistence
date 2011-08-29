@@ -22,7 +22,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -346,36 +345,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		{
 			return feature.getImplicitUniqueConstraint()==null;
 		}
-	}
-
-	static List<Wrapper> adjustOrderForPrimitiveOperations(final List<Wrapper> in)
-	{
-		// TODO
-
-		final LinkedList<Wrapper> result = new LinkedList<Wrapper>(in);
-		for(final Wrapper wrapper : result)
-		{
-			if(wrapper.matchesMethod("getMandatory", Item.class))
-			{
-				result.remove(wrapper);
-				result.add(0, wrapper);
-				break;
-			}
-		}
-		for(final Wrapper wrapper : result)
-		{
-			if(
-					wrapper.matchesMethod("set", Item.class, int    .class) ||
-					wrapper.matchesMethod("set", Item.class, long   .class) ||
-					wrapper.matchesMethod("set", Item.class, double .class) ||
-					wrapper.matchesMethod("set", Item.class, boolean.class) )
-			{
-				result.remove(wrapper);
-				result.add(1, wrapper);
-				break;
-			}
-		}
-		return result;
 	}
 
 	// convenience methods for conditions and views ---------------------------------

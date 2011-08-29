@@ -139,7 +139,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public List<Wrapper> getWrappers()
 	{
-		return adjustOrderForPrimitiveOperations(Wrapper.getByAnnotations(LongField.class, this, super.getWrappers()));
+		return Wrapper.getByAnnotations(LongField.class, this, super.getWrappers());
 	}
 
 	@Override
