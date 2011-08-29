@@ -114,6 +114,7 @@ public abstract class MediaPath extends Pattern
 		contentTypeToExtension.put("text/css", ".css");
 		contentTypeToExtension.put("application/java-archive", ".jar");
 		contentTypeToExtension.put("application/pdf", ".pdf"); // http://en.wikipedia.org/wiki/PDF
+		contentTypeToExtension.put(MediaType.JAVASCRIPT, ".js");
 	}
 
 	@Override
