@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaType.forMagic;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
@@ -199,6 +198,18 @@ public class MediaTypeTest extends CopeAssert
 		assertSame(forMagic(file(magicBytes)), types.length>0 ? types[0] : null);
 		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
 		assertEqualsUnmodifiable(set(types), forMagics(file(magicBytes)));
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated code
+	private static MediaType forMagic(final byte[] magic)
+	{
+		return MediaType.forMagic(magic);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated code
+	private static MediaType forMagic(final File magic) throws IOException
+	{
+		return MediaType.forMagic(magic);
 	}
 
 	private static final Set<Object> set(final Object... o)
