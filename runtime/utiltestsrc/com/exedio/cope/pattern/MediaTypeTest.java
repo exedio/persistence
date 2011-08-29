@@ -213,7 +213,7 @@ public class MediaTypeTest extends CopeAssert
 		return MediaType.forMagic(magic);
 	}
 
-	private static final Set<Object> set(final Object... o)
+	private static final Set<Object> set(final MediaType... o)
 	{
 		return new LinkedHashSet<Object>(Arrays.asList(o));
 	}
