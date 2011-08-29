@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Level;
-
 import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Revision
@@ -110,8 +108,6 @@ public final class Revision
 				final long start = nanoTime();
 				final int rows = executeUpdate(connection, sql);
 				final long elapsed = toMillies(nanoTime(), start);
-				if(logger.isEnabledFor(Level.WARN) && elapsed>1000)
-					logger.warn(MessageFormat.format("revise {0}/{1}:{2} is slow, takes {3}ms", number, bodyIndex, sql, elapsed));
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 		}
