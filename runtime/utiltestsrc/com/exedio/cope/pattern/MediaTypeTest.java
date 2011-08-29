@@ -127,7 +127,7 @@ public class MediaTypeTest extends CopeAssert
 		// byte
 		try
 		{
-			forMagic((byte[])null);
+			forMagics((byte[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -136,7 +136,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 		try
 		{
-			forMagic(new byte[0]);
+			forMagics(new byte[0]);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -146,7 +146,7 @@ public class MediaTypeTest extends CopeAssert
 		// file
 		try
 		{
-			forMagic((File)null);
+			forMagics((File)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -155,7 +155,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 		try
 		{
-			forMagic(file(new byte[]{}));
+			forMagics(file(new byte[]{}));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -167,7 +167,7 @@ public class MediaTypeTest extends CopeAssert
 		StrictFile.delete(file);
 		try
 		{
-			forMagic(file);
+			forMagics(file);
 			fail();
 		}
 		catch(final FileNotFoundException e)
@@ -178,7 +178,7 @@ public class MediaTypeTest extends CopeAssert
 		file.mkdir();
 		try
 		{
-			forMagic(file);
+			forMagics(file);
 			fail();
 		}
 		catch(final FileNotFoundException e)
