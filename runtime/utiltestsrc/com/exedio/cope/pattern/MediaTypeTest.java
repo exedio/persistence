@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaType.forMagic;
+import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.util.Hex.decodeLower;
@@ -27,6 +28,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.StrictFile;
@@ -103,16 +108,17 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 		final MediaType zip = forName("application/zip");
+		final MediaType js  = forName("application/java-archive");
 
 		assertMagic(jpg, JPEG);
 		assertMagic(jpg, JPEG + "aa");
 		assertMagic(png, PNG);
 		assertMagic(png, PNG + "bb");
-		assertMagic(zip, ZIP);
-		assertMagic(zip, ZIP + "cc");
-		assertMagic(null, stealTail(JPEG));
-		assertMagic(null, stealTail(PNG));
-		assertMagic(null, stealTail(ZIP));
+		assertMagic(zip, js, ZIP);
+		assertMagic(zip, js, ZIP + "cc");
+		assertMagic(stealTail(JPEG));
+		assertMagic(stealTail(PNG));
+		assertMagic(stealTail(ZIP));
 
 	}
 
@@ -186,10 +192,39 @@ public class MediaTypeTest extends CopeAssert
 		return s.substring(0, s.length()-2);
 	}
 
+	private static void assertMagic(final String magic) throws IOException
+	{
+		assertSame(null, forMagic(decodeLower(magic)));
+		assertSame(null, forMagic(file(decodeLower(magic))));
+		assertEqualsUnmodifiable(set(), forMagics(decodeLower(magic)));
+		assertEqualsUnmodifiable(set(), forMagics(file(decodeLower(magic))));
+	}
+
 	private static void assertMagic(final MediaType type, final String magic) throws IOException
 	{
 		assertSame(type, forMagic(decodeLower(magic)));
 		assertSame(type, forMagic(file(decodeLower(magic))));
+		assertEqualsUnmodifiable(set(type), forMagics(decodeLower(magic)));
+		assertEqualsUnmodifiable(set(type), forMagics(file(decodeLower(magic))));
+	}
+
+	private static void assertMagic(final MediaType type1, final MediaType type2, final String magic) throws IOException
+	{
+		assertSame(type1, forMagic(decodeLower(magic)));
+		assertSame(type1, forMagic(file(decodeLower(magic))));
+		assertEqualsUnmodifiable(set(type1, type2), forMagics(decodeLower(magic)));
+		assertEqualsUnmodifiable(set(type1, type2), forMagics(file(decodeLower(magic))));
+	}
+
+	private static final Set<Object> set(final Object... o)
+	{
+		return new LinkedHashSet<Object>(Arrays.asList(o));
+	}
+
+	private static final void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
+	{
+		assertUnmodifiable(actual);
+		assertEquals(expected, actual);
 	}
 
 	private static File file(final byte[] bytes) throws IOException

@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -139,7 +141,10 @@ public final class MediaType
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
-					ZIP, "application/java-archive"),
+					ZIP),
+			new MediaType(
+					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04}, // same as ZIP
+					"application/java-archive"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
@@ -205,23 +210,24 @@ public final class MediaType
 	 *        {@link #magicMaxLength()} bytes of the file
 	 *        and must not be empty.
 	 */
-	public static MediaType forMagic(final byte[] magic)
+	public static Set<MediaType> forMagics(final byte[] magic)
 	{
 		if(magic==null)
 			throw new NullPointerException("magic");
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
+		final LinkedHashSet<MediaType> result = new LinkedHashSet<MediaType>(); // TODO optimize
 		for(final MediaType type : typesWithMagic)
 			if(type.matches(magic))
-				return type;
+				result.add(type);
 
-		return null;
+		return Collections.unmodifiableSet(result);
 	}
 
-	public static MediaType forMagic(final File file) throws IOException
+	public static Set<MediaType> forMagics(final File file) throws IOException
 	{
-		return forMagic(readMagic(file));
+		return forMagics(readMagic(file));
 	}
 
 	private static byte[] readMagic(final File file) throws IOException
@@ -253,5 +259,31 @@ public final class MediaType
 			if(t.magic!=null)
 				result.add(t);
 		return result.toArray(new MediaType[result.size()]);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link MediaType#forMagics(byte[])} instead.
+	 */
+	@Deprecated
+	public static MediaType forMagic(final byte[] magic)
+	{
+		return first(forMagics(magic));
+	}
+
+	/**
+	 * @deprecated Use {@link MediaType#forMagics(File)} instead.
+	 */
+	@Deprecated
+	public static MediaType forMagic(final File file) throws IOException
+	{
+		return first(forMagics(file));
+	}
+
+	@Deprecated
+	private static MediaType first(final Set<MediaType> set)
+	{
+		return set.isEmpty() ? null : set.iterator().next();
 	}
 }
