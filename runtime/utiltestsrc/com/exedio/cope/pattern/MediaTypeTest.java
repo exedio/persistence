@@ -149,11 +149,11 @@ public class MediaTypeTest extends CopeAssert
 		assertSame(jpg, forMagic(file(decodeLower(JPEG + "aa"))));
 		assertSame(png, forMagic(file(decodeLower(PNG))));
 		assertSame(png, forMagic(file(decodeLower(PNG + "bb"))));
-		assertSame(zip, forMagic(decodeLower(ZIP)));
-		assertSame(zip, forMagic(decodeLower(ZIP + "cc")));
+		assertSame(zip, forMagic(file(decodeLower(ZIP))));
+		assertSame(zip, forMagic(file(decodeLower(ZIP + "cc"))));
 		assertSame(null,  forMagic(file(decodeLower(stealTail(JPEG)))));
 		assertSame(null,  forMagic(file(decodeLower(stealTail(PNG)))));
-		assertSame(null,  forMagic(decodeLower(stealTail(ZIP))));
+		assertSame(null,  forMagic(file(decodeLower(stealTail(ZIP)))));
 
 		try
 		{
