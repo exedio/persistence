@@ -134,11 +134,6 @@ public class MediaTypeTest extends CopeAssert
 		}
 	}
 
-	private static String stealTail(final String s)
-	{
-		return s.substring(0, s.length()-2);
-	}
-
 	public void testForMagicFile() throws IOException
 	{
 		try
@@ -182,6 +177,11 @@ public class MediaTypeTest extends CopeAssert
 		{
 			// ok
 		}
+	}
+
+	private static String stealTail(final String s)
+	{
+		return s.substring(0, s.length()-2);
 	}
 
 	private static void assertMagic(final MediaType type, final String magic) throws IOException
