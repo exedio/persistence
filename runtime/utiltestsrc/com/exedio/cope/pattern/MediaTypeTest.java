@@ -110,12 +110,12 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType zip = forName("application/zip");
 		final MediaType js  = forName("application/java-archive");
 
-		assertMagic(jpg, JPEG);
-		assertMagic(jpg, JPEG + "aa");
-		assertMagic(png, PNG);
-		assertMagic(png, PNG + "bb");
-		assertMagic(zip, js, ZIP);
-		assertMagic(zip, js, ZIP + "cc");
+		assertMagic(JPEG,        jpg);
+		assertMagic(JPEG + "aa", jpg);
+		assertMagic(PNG,         png);
+		assertMagic(PNG  + "bb", png);
+		assertMagic(ZIP,         zip, js);
+		assertMagic(ZIP  + "cc", zip, js);
 		assertMagic(stealTail(JPEG));
 		assertMagic(stealTail(PNG));
 		assertMagic(stealTail(ZIP));
@@ -191,29 +191,12 @@ public class MediaTypeTest extends CopeAssert
 	{
 		return s.substring(0, s.length()-2);
 	}
-
-	private static void assertMagic(final String magic) throws IOException
+	private static void assertMagic(final String magic, final MediaType... types) throws IOException
 	{
-		assertSame(null, forMagic(decodeLower(magic)));
-		assertSame(null, forMagic(file(decodeLower(magic))));
-		assertEqualsUnmodifiable(set(), forMagics(decodeLower(magic)));
-		assertEqualsUnmodifiable(set(), forMagics(file(decodeLower(magic))));
-	}
-
-	private static void assertMagic(final MediaType type, final String magic) throws IOException
-	{
-		assertSame(type, forMagic(decodeLower(magic)));
-		assertSame(type, forMagic(file(decodeLower(magic))));
-		assertEqualsUnmodifiable(set(type), forMagics(decodeLower(magic)));
-		assertEqualsUnmodifiable(set(type), forMagics(file(decodeLower(magic))));
-	}
-
-	private static void assertMagic(final MediaType type1, final MediaType type2, final String magic) throws IOException
-	{
-		assertSame(type1, forMagic(decodeLower(magic)));
-		assertSame(type1, forMagic(file(decodeLower(magic))));
-		assertEqualsUnmodifiable(set(type1, type2), forMagics(decodeLower(magic)));
-		assertEqualsUnmodifiable(set(type1, type2), forMagics(file(decodeLower(magic))));
+		assertSame(forMagic(decodeLower(magic)), types.length>0 ? types[0] : null);
+		assertSame(forMagic(file(decodeLower(magic))), types.length>0 ? types[0] : null);
+		assertEqualsUnmodifiable(set(types), forMagics(decodeLower(magic)));
+		assertEqualsUnmodifiable(set(types), forMagics(file(decodeLower(magic))));
 	}
 
 	private static final Set<Object> set(final Object... o)
