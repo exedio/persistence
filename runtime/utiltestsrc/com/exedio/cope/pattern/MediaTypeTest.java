@@ -35,6 +35,7 @@ public class MediaTypeTest extends CopeAssert
 {
 	private static final String JPEG = "ffd8ff";
 	private static final String PNG = "89504e470d0a1a0a";
+	private static final String ZIP = "504b0304";
 
 	public void testForName()
 	{
@@ -101,13 +102,17 @@ public class MediaTypeTest extends CopeAssert
 
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
+		final MediaType zip = forName("application/zip");
 
 		assertSame(jpg, forMagic(decodeLower(JPEG)));
 		assertSame(jpg, forMagic(decodeLower(JPEG + "aa")));
 		assertSame(png, forMagic(decodeLower(PNG)));
 		assertSame(png, forMagic(decodeLower(PNG + "bb")));
+		assertSame(zip, forMagic(decodeLower(ZIP)));
+		assertSame(zip, forMagic(decodeLower(ZIP + "cc")));
 		assertSame(null,  forMagic(decodeLower(stealTail(JPEG))));
 		assertSame(null,  forMagic(decodeLower(stealTail(PNG))));
+		assertSame(null,  forMagic(decodeLower(stealTail(ZIP))));
 
 		try
 		{
@@ -138,13 +143,17 @@ public class MediaTypeTest extends CopeAssert
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
+		final MediaType zip = forName("application/zip");
 
 		assertSame(jpg, forMagic(file(decodeLower(JPEG))));
 		assertSame(jpg, forMagic(file(decodeLower(JPEG + "aa"))));
 		assertSame(png, forMagic(file(decodeLower(PNG))));
 		assertSame(png, forMagic(file(decodeLower(PNG + "bb"))));
+		assertSame(zip, forMagic(decodeLower(ZIP)));
+		assertSame(zip, forMagic(decodeLower(ZIP + "cc")));
 		assertSame(null,  forMagic(file(decodeLower(stealTail(JPEG)))));
 		assertSame(null,  forMagic(file(decodeLower(stealTail(PNG)))));
+		assertSame(null,  forMagic(decodeLower(stealTail(ZIP))));
 
 		try
 		{
