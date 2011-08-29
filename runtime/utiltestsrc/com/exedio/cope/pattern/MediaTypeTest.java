@@ -194,11 +194,11 @@ public class MediaTypeTest extends CopeAssert
 
 	private static void assertMagic(final String magic, final MediaType... types) throws IOException
 	{
-
-		assertSame(forMagic(decodeLower(magic)), types.length>0 ? types[0] : null);
-		assertSame(forMagic(file(decodeLower(magic))), types.length>0 ? types[0] : null);
-		assertEqualsUnmodifiable(set(types), forMagics(decodeLower(magic)));
-		assertEqualsUnmodifiable(set(types), forMagics(file(decodeLower(magic))));
+		final byte[] magicBytes = decodeLower(magic);
+		assertSame(forMagic(magicBytes), types.length>0 ? types[0] : null);
+		assertSame(forMagic(file(magicBytes)), types.length>0 ? types[0] : null);
+		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
+		assertEqualsUnmodifiable(set(types), forMagics(file(magicBytes)));
 	}
 
 	private static final Set<Object> set(final Object... o)
