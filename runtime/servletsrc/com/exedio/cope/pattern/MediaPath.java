@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,25 +95,6 @@ public abstract class MediaPath extends Pattern
 			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
 
 		return mediaRootUrl;
-	}
-
-	private static final HashMap<String, String> contentTypeToExtension = new HashMap<String, String>();
-
-	static
-	{
-		contentTypeToExtension.put("image/jpeg", ".jpg");
-		contentTypeToExtension.put("image/pjpeg", ".jpg");
-		contentTypeToExtension.put("image/gif", ".gif");
-		contentTypeToExtension.put("image/png", ".png");
-		contentTypeToExtension.put("image/x-icon", ".ico");
-		contentTypeToExtension.put("image/icon", ".ico");
-		contentTypeToExtension.put("image/vnd.microsoft.icon", ".ico"); // http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
-		contentTypeToExtension.put("text/html", ".html");
-		contentTypeToExtension.put("text/plain", ".txt");
-		contentTypeToExtension.put("text/css", ".css");
-		contentTypeToExtension.put("application/java-archive", ".jar");
-		contentTypeToExtension.put("application/pdf", ".pdf"); // http://en.wikipedia.org/wiki/PDF
-		contentTypeToExtension.put(MediaType.JAVASCRIPT, ".js");
 	}
 
 	@Override
@@ -210,10 +190,12 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
+		final MediaType mediaType =
+			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
 				makeUrlCatchphrase(item),
-				contentTypeToExtension.get(contentType),
+				mediaType!=null ? mediaType.extension : null,
 				makeUrlToken(item));
 	}
 
@@ -239,9 +221,9 @@ public abstract class MediaPath extends Pattern
 		if(catchphrase!=null)
 			bf.append('/').append(catchphrase);
 
-		final String extension = contentTypeToExtension.get(contentType);
-		if(extension!=null)
-			bf.append(extension);
+		final MediaType type = MediaType.forNameAndAliases(contentType);
+		if(type!=null)
+			bf.append(type.extension);
 
 		final String secret = makeUrlToken(item);
 		if(secret!=null)

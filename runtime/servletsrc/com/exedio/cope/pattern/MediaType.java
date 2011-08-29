@@ -36,15 +36,18 @@ import com.exedio.cope.util.Hex;
 public final class MediaType
 {
 	private final byte[] magic;
+	final String extension;
 	private final String name;
 	private final String[] aliases;
 
-	private MediaType(final byte[] magic, final String name, final String... aliases)
+	private MediaType(final byte[] magic, final String extension, final String name, final String... aliases)
 	{
 		this.magic = magic;
+		this.extension = extension;
 		this.name = name;
 		this.aliases = aliases;
 		assert magic==null || magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+		assert extension!=null;
 	}
 
 	public String getName()
@@ -118,36 +121,46 @@ public final class MediaType
 
 	private static final MediaType[] types = new MediaType[]{
 
+			new MediaType(null, ".html", "text/html"),
+			new MediaType(null, ".txt",  "text/plain"),
+			new MediaType(null, ".css",  "text/css"),
 			new MediaType(
-					null,
+					null, ".js",
 					// RFC 4329 section 7. JavaScript Media Types
 					JAVASCRIPT, "text/javascript"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
+					".jpg",
 					JPEG, "image/pjpeg"),
 			new MediaType(
 					// RFC 2083 section 3.1. PNG file signature
 					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
+					".png",
 					PNG),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
+					".gif",
 					GIF),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
+					".ico",
 					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
+					".zip",
 					ZIP),
 			new MediaType(
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04}, // same as ZIP
+					".jar",
 					"application/java-archive"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
+					".pdf",
 					// http://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
