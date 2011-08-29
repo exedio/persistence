@@ -303,7 +303,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		// out of the queue.
 		try
 		{
-			sleepLongerThan(10);
+			sleepLongerThan(50);
 		}
 		catch (final InterruptedException e)
 		{
