@@ -221,6 +221,11 @@ public final class MediaType
 
 	public static MediaType forMagic(final File file) throws IOException
 	{
+		return forMagic(readMagic(file));
+	}
+
+	private static byte[] readMagic(final File file) throws IOException
+	{
 		if(file==null)
 			throw new NullPointerException("file");
 
@@ -236,7 +241,7 @@ public final class MediaType
 		{
 			stream.close();
 		}
-		return forMagic(bytes);
+		return bytes;
 	}
 
 	private static final MediaType[] typesWithMagic = retainMagic(types);
