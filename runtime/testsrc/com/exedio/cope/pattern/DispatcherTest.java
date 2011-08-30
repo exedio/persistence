@@ -36,7 +36,7 @@ import com.exedio.cope.util.JobStop;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
+	public static final Model MODEL = new Model(DispatcherItem.TYPE);
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
 	static

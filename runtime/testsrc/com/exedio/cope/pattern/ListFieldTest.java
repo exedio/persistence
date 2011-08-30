@@ -36,7 +36,7 @@ import com.exedio.cope.misc.Computed;
 
 public class ListFieldTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(ListFieldItem.TYPE);
+	public static final Model MODEL = new Model(ListFieldItem.TYPE);
 
 	static
 	{

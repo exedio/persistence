@@ -25,7 +25,7 @@ import com.exedio.cope.util.Day;
 
 public class DefaultToTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DefaultToItem.TYPE);
+	public static final Model MODEL = new Model(DefaultToItem.TYPE);
 
 	public DefaultToTest()
 	{

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class InstanceOfTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(
+	public static final Model MODEL = new Model(
 			InstanceOfAItem.TYPE,
 			InstanceOfB1Item.TYPE,
 			InstanceOfB2Item.TYPE,

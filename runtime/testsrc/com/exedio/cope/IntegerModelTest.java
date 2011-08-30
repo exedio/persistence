@@ -31,7 +31,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class IntegerModelTest extends CopeAssert
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	public void testIt()
 	{

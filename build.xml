@@ -541,10 +541,12 @@
 					<fileset dir="build/classes/runtime/patternsrc" />
 					<fileset dir="build/classes/runtime/servletsrc" />
 					<fileset dir="build/classes/runtime/junitsrc" />
+					<fileset dir="build/classes/runtime/testfeaturesrc" />
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
+					<fileset file="lib/log4j.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />

@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class HiddenFeatureTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
+	public static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
 
 	public HiddenFeatureTest()
 	{

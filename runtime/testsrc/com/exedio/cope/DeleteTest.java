@@ -23,7 +23,7 @@ import java.util.List;
 
 public class DeleteTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
+	public static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
 
 	public DeleteTest()
 	{

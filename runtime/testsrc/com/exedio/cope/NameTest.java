@@ -27,7 +27,7 @@ import com.exedio.dsmf.Schema;
 
 public class NameTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(
+	public static final Model MODEL = new Model(
 			NameLongItem.TYPE,
 			NameSubItem.TYPE,
 			NameCollisionlongaItem.TYPE,

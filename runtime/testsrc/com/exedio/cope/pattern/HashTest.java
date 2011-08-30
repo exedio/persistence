@@ -28,7 +28,7 @@ import com.exedio.cope.misc.Computed;
 
 public class HashTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(HashItem.TYPE);
+	public static final Model MODEL = new Model(HashItem.TYPE);
 
 	public HashTest()
 	{

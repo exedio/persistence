@@ -5,12 +5,16 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
+	<listener>
+		<listener-class>com.exedio.cope.web.PropertiesInitializer</listener-class>
+	</listener>
+	
 	<servlet>
 		<servlet-name>integerConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.IntegerTest#MODEL</param-value>
+			<param-value>com.exedio.cope.IntegerModelTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -88,7 +92,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.pattern.FieldListTest#MODEL</param-value>
+			<param-value>com.exedio.cope.pattern.ListFieldTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -101,7 +105,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.pattern.FieldListLimitedTest#MODEL</param-value>
+			<param-value>com.exedio.cope.pattern.LimitedListFieldTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

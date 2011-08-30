@@ -26,7 +26,7 @@ import com.exedio.dsmf.Constraint;
 
 public class HierarchyTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(
+	public static final Model MODEL = new Model(
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
 			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality

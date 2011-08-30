@@ -26,7 +26,7 @@ import com.exedio.cope.Model;
 
 public class MD5Test extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(MD5Item.TYPE);
+	public static final Model MODEL = new Model(MD5Item.TYPE);
 
 	static
 	{

@@ -24,7 +24,7 @@ import com.exedio.cope.util.Day;
 
 public class DayFieldTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
+	public static final Model MODEL = new Model(DayItem.TYPE);
 
 	static
 	{
