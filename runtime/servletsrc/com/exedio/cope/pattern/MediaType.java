@@ -110,7 +110,10 @@ public final class MediaType
 			new MediaType(null, ".csv",  "text/csv",
 					"text/comma-separated-values",
 					"application/csv"),
-			new MediaType(null, ".xml",  "text/xml",
+			new MediaType(
+					null,
+					".xml",
+					"text/xml",
 					"text/xml-external-parsed-entity",
 					"application/xml",
 					"application/xhtml+xml",
