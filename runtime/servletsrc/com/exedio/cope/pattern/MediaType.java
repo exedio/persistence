@@ -25,8 +25,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -63,6 +65,12 @@ public final class MediaType
 		return Collections.<String>emptyList();
 	}
 
+	void addNameAndAliases(final ArrayList<String> list)
+	{
+		list.add(name);
+		list.addAll(getAliases());
+	}
+
 	public String getAllowed(final Media media)
 	{
 		if(media.checkContentType(name))
@@ -73,28 +81,6 @@ public final class MediaType
 				return alias;
 
 		return null;
-	}
-
-	private boolean matches(final byte[] m)
-	{
-		final int l = magic.length;
-		if(m.length<l)
-			return false;
-
-		for(int i = 0; i<l; i++)
-			if(magic[i]!=m[i])
-				return false;
-
-		return true;
-	}
-
-	private Condition mismatchesInstance(final Media media)
-	{
-		final Condition[] nameConditions = new Condition[1 + aliases.length];
-		nameConditions[0] = media.contentTypeEqual(name);
-		for(int i = 0; i<aliases.length; i++)
-			nameConditions[i+1] = media.contentTypeEqual(aliases[i]);
-		return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
 	}
 
 	@Override
@@ -230,10 +216,10 @@ public final class MediaType
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		final LinkedHashSet<MediaType> result = new LinkedHashSet<MediaType>(); // TODO optimize
-		for(final MediaType type : typesWithMagic)
+		final LinkedHashSet<MediaType> result = new LinkedHashSet<MediaType>();
+		for(final Magic type : typesWithMagic)
 			if(type.matches(magic))
-				result.add(type);
+				type.addAllTypes(result);
 
 		return Collections.unmodifiableSet(result);
 	}
@@ -263,15 +249,78 @@ public final class MediaType
 		return bytes;
 	}
 
-	private static final MediaType[] typesWithMagic = retainMagic(types);
-
-	private static MediaType[] retainMagic(final MediaType[] source)
+	private static final class Magic
 	{
-		final ArrayList<MediaType> result = new ArrayList<MediaType>(source.length);
+		private final byte[] magic;
+		private final MediaType[] types;
+		private final String[] typeNames;
+
+		Magic(final byte[] magic, final ArrayList<MediaType> types)
+		{
+			this.magic = magic;
+			this.types = types.toArray(new MediaType[types.size()]);
+			this.typeNames = names(this.types);
+			assert magic!=null && magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+		}
+
+		private static final String[] names(final MediaType[] types)
+		{
+			final ArrayList<String> result = new ArrayList<String>();
+			for(final MediaType type : types)
+				type.addNameAndAliases(result);
+			return result.toArray(new String[result.size()]);
+		}
+
+		void addAllTypes(final LinkedHashSet<MediaType> set)
+		{
+			set.addAll(Arrays.asList(types));
+		}
+
+		boolean matches(final byte[] m)
+		{
+			final int l = magic.length;
+			if(m.length<l)
+				return false;
+
+			for(int i = 0; i<l; i++)
+				if(magic[i]!=m[i])
+					return false;
+
+			return true;
+		}
+
+		Condition mismatchesInstance(final Media media)
+		{
+			final Condition[] nameConditions = new Condition[typeNames.length];
+			for(int i = 0; i<typeNames.length; i++)
+				nameConditions[i] = media.contentTypeEqual(typeNames[i]);
+			return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
+		}
+	}
+
+	private static final Magic[] typesWithMagic = retainMagic(types);
+
+	private static Magic[] retainMagic(final MediaType[] source)
+	{
+		final LinkedHashMap<String, ArrayList<MediaType>> map =
+			new LinkedHashMap<String, ArrayList<MediaType>>();
 		for(final MediaType t : source)
 			if(t.magic!=null)
-				result.add(t);
-		return result.toArray(new MediaType[result.size()]);
+			{
+				final String magicString = Hex.encodeLower(t.magic);
+				ArrayList<MediaType> list = map.get(magicString);
+				if(list==null)
+				{
+					list = new ArrayList<MediaType>();
+					map.put(magicString, list);
+				}
+				list.add(t);
+			}
+		final Magic[] result = new Magic[map.size()];
+		int i = 0;
+		for(final Map.Entry<String, ArrayList<MediaType>> e : map.entrySet())
+			result[i++] = new Magic(Hex.decodeLower(e.getKey()), e.getValue());
+		return result;
 	}
 
 	// ------------------- deprecated stuff -------------------
