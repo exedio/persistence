@@ -34,14 +34,13 @@ class StringColumn extends Column
 
 	StringColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final int minimumLength,
 			final int maximumLength,
 			final CharSet charSet)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -52,13 +51,12 @@ class StringColumn extends Column
 
 	StringColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean synthetic,
 			final boolean optional,
 			final String[] allowedValues)
 	{
-		super(table, field, id, synthetic, false, optional);
+		super(table, id, synthetic, false, optional);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
 		this.charSet  = null;

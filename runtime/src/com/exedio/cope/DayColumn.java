@@ -32,11 +32,10 @@ final class DayColumn extends Column
 {
 	DayColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 	}
 
 	@Override

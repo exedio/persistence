@@ -33,12 +33,11 @@ final class BlobColumn extends Column
 
 	BlobColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.maximumLength = maximumLength;
 
 		if(table.database.dialect.getBlobType(maximumLength)==null)

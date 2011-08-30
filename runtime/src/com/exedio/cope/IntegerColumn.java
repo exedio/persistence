@@ -35,7 +35,6 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean synthetic,
 			final boolean optional,
@@ -43,7 +42,7 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		super(table, field, id, synthetic, false, optional);
+		super(table, id, synthetic, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -54,12 +53,11 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.minimum = 0;
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
@@ -96,7 +94,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table)
 	{
-		super(table, null, Table.PK_COLUMN_NAME, true, true, true);
+		super(table, Table.PK_COLUMN_NAME, true, true, true);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;

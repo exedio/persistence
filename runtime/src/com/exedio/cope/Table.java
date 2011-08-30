@@ -53,11 +53,11 @@ final class Table
 			: new IntegerColumn(this);
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
-			? new StringColumn(this, null, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
+			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
 			: null;
 		this.updateCounter =
 			updateCounter
-			? new IntegerColumn(this, null, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
+			? new IntegerColumn(this, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
 			: null;
 		database.addTable(this);
 	}

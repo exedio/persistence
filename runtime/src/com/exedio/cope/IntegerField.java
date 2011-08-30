@@ -215,7 +215,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final IntegerColumn result = new IntegerColumn(table, this, name, false, optional, minimum, maximum, false);
+		final IntegerColumn result = new IntegerColumn(table, name, false, optional, minimum, maximum, false);
 		if(defaultToNextSequence!=null)
 		{
 			final Database database = table.database;

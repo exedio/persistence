@@ -29,12 +29,11 @@ final class ItemColumn extends IntegerColumn
 
 	ItemColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, field, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
+		super(table, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
 		assert targetType!=null;
 		this.targetType = targetType;
 		this.integrityConstraintName = intern(makeGlobalID("Fk"));

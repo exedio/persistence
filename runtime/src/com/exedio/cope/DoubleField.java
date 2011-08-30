@@ -162,7 +162,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DoubleColumn(table, this, name, optional, minimum, maximum);
+		return new DoubleColumn(table, name, optional, minimum, maximum);
 	}
 
 	@Override

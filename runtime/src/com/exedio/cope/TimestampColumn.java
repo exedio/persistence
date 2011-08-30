@@ -28,11 +28,10 @@ final class TimestampColumn extends Column
 {
 	TimestampColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
 	}
 

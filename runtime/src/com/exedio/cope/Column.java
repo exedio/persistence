@@ -29,7 +29,6 @@ import com.exedio.dsmf.PrimaryKeyConstraint;
 abstract class Column
 {
 	final Table table;
-	private final Field field;
 	final String id;
 	final String quotedID;
 	final String idForGlobal;
@@ -39,7 +38,6 @@ abstract class Column
 
 	Column(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean synthetic,
 			final boolean primaryKey,
@@ -47,7 +45,6 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.field = field;
 		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames.booleanValue()) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
@@ -93,25 +90,7 @@ abstract class Column
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
-		final String databaseType;
-		if(field!=null)
-		{
-			final CopeSchemaType annotation = field.getAnnotation(CopeSchemaType.class);
-			if(annotation!=null)
-			{
-				final String dialectName = table.database.dialect.getClass().getSimpleName();
-				assert dialectName.endsWith("Dialect");
-				final String dialectCode = dialectName.substring(0, dialectName.length()-"Dialect".length());
-				databaseType =
-					dialectCode.equals(annotation.dialect())
-					? annotation.type()
-					: getDatabaseType();
-			}
-			else
-				databaseType = getDatabaseType();
-		}
-		else
-			databaseType = getDatabaseType();
+		final String databaseType = getDatabaseType();
 
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseType);
 

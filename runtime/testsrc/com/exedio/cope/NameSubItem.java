@@ -21,14 +21,12 @@ package com.exedio.cope;
 @CopeID("NameSubItemX")
 public class NameSubItem extends NameLongItem
 {
-	@CopeSchemaType(dialect="hsqldbx", type="zack")
 	static final IntegerField unique = new IntegerField().unique();
 	static final IntegerField integer = new IntegerField();
 	static final ItemField<NameSubItem> item = newItemField(NameSubItem.class);
 	static final UniqueConstraint integers = new UniqueConstraint(integer, item);
 
 	@CopeSchemaName("uniqueY")
-	@CopeSchemaType(dialect="hsqldb", type="int") // instead of integer
 	static final IntegerField uniqueX = new IntegerField().unique();
 	@CopeSchemaName("integerY")
 	static final IntegerField integerX = new IntegerField();

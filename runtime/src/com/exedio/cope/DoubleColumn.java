@@ -28,13 +28,12 @@ final class DoubleColumn extends Column
 
 	DoubleColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final double minimum,
 			final double maximum)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 

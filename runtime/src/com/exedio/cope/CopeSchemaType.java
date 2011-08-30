@@ -27,7 +27,9 @@ import java.lang.annotation.Target;
 /**
  * This annotation specifies the database column type
  * for fields different from the default types.
+ * @deprecated Is not supported anymore and does not cause anything in cope.
  */
+@Deprecated
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CopeSchemaType

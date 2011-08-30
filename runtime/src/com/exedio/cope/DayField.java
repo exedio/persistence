@@ -146,7 +146,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DayColumn(table, this, name, optional);
+		return new DayColumn(table, name, optional);
 	}
 
 	@Override

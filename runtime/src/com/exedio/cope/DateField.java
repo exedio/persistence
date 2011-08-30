@@ -154,8 +154,8 @@ public final class DateField extends FunctionField<Date>
 	{
 		return
 				getType().getModel().connect().supportsNativeDate()
-				? (Column)new TimestampColumn(table, this, name, optional)
-				: (Column)new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+				? (Column)new TimestampColumn(table, name, optional)
+				: (Column)new IntegerColumn(table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 
 	@Override
