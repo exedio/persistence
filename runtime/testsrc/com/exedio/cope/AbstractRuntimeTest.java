@@ -432,6 +432,13 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(expected.contains(item), actual.get(item));
 	}
 
+	protected final String notNull(final String field, final String condition)
+	{
+		return
+			"(" + field + " IS NOT NULL) AND " +
+			"(" + condition + ")";
+	}
+
 	protected final CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,

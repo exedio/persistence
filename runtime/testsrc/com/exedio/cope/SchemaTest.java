@@ -67,12 +67,12 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		assertCheckConstraint(table, "SchemaItem_string_Ck", "(" +q(string)+" IS NOT NULL) AND (" +l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_integ_Ck" , "(" +q(integ )+" IS NOT NULL) AND (("+q(integ )+">=-10) AND ("+q(integ)+"<=10))");
-		assertCheckConstraint(table, "SchemaItem_doub_Ck"  , !oracle ? "(" +q(doub  )+" IS NOT NULL) AND (("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1))" : q(doub)+" IS NOT NULL"); // TODO
-		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , "(" +q(bool  )+" IS NOT NULL) AND ("+hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+"))");
-		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", "(" +q(anEnum)+" IS NOT NULL) AND ("+hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+"))");
-		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "(" +q(item  )+" IS NOT NULL) AND (("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+"))");
+		assertCheckConstraint(table, "SchemaItem_string_Ck", notNull(q(string), l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH));
+		assertCheckConstraint(table, "SchemaItem_integ_Ck" , notNull(q(integ ), "("+q(integ )+">=-10) AND ("+q(integ)+"<=10)"));
+		assertCheckConstraint(table, "SchemaItem_doub_Ck"  , !oracle ? notNull(q(doub), "("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1)") : q(doub)+" IS NOT NULL"); // TODO
+		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , notNull(q(bool  ), hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")"));
+		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", notNull(q(anEnum), hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")"));
+		assertCheckConstraint(table, "SchemaItem_item_Ck"  , notNull(q(item  ), "("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+")"));
 
 		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (" +l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+"))"                +" OR ("+q(stringOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"(("+q(integOpt )+" IS NOT NULL) AND (("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)))"                 +" OR ("+q(integOpt )+" IS NULL)");
