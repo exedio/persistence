@@ -25,7 +25,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -34,15 +38,18 @@ import com.exedio.cope.util.Hex;
 public final class MediaType
 {
 	private final byte[] magic;
+	final String extension;
 	private final String name;
 	private final String[] aliases;
 
-	private MediaType(final byte[] magic, final String name, final String... aliases)
+	private MediaType(final byte[] magic, final String extension, final String name, final String... aliases)
 	{
 		this.magic = magic;
+		this.extension = extension;
 		this.name = name;
 		this.aliases = aliases;
 		assert magic==null || magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+		assert extension!=null;
 	}
 
 	public String getName()
@@ -58,6 +65,12 @@ public final class MediaType
 		return Collections.<String>emptyList();
 	}
 
+	void addNameAndAliases(final ArrayList<String> list)
+	{
+		list.add(name);
+		list.addAll(getAliases());
+	}
+
 	public String getAllowed(final Media media)
 	{
 		if(media.checkContentType(name))
@@ -68,28 +81,6 @@ public final class MediaType
 				return alias;
 
 		return null;
-	}
-
-	private boolean matches(final byte[] m)
-	{
-		final int l = magic.length;
-		if(m.length<l)
-			return false;
-
-		for(int i = 0; i<l; i++)
-			if(magic[i]!=m[i])
-				return false;
-
-		return true;
-	}
-
-	private Condition mismatchesInstance(final Media media)
-	{
-		final Condition[] nameConditions = new Condition[1 + aliases.length];
-		nameConditions[0] = media.contentTypeEqual(name);
-		for(int i = 0; i<aliases.length; i++)
-			nameConditions[i+1] = media.contentTypeEqual(aliases[i]);
-		return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
 	}
 
 	@Override
@@ -116,33 +107,46 @@ public final class MediaType
 
 	private static final MediaType[] types = new MediaType[]{
 
+			new MediaType(null, ".html", "text/html"),
+			new MediaType(null, ".txt",  "text/plain"),
+			new MediaType(null, ".css",  "text/css"),
 			new MediaType(
-					null,
+					null, ".js",
 					// RFC 4329 section 7. JavaScript Media Types
 					JAVASCRIPT, "text/javascript"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
+					".jpg",
 					JPEG, "image/pjpeg"),
 			new MediaType(
 					// RFC 2083 section 3.1. PNG file signature
 					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
+					".png",
 					PNG),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
+					".gif",
 					GIF),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
+					".ico",
 					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
-					ZIP, "application/java-archive"),
+					".zip",
+					ZIP),
+			new MediaType(
+					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04}, // same as ZIP
+					".jar",
+					"application/java-archive"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
+					".pdf",
 					// http://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
@@ -205,23 +209,24 @@ public final class MediaType
 	 *        {@link #magicMaxLength()} bytes of the file
 	 *        and must not be empty.
 	 */
-	public static MediaType forMagic(final byte[] magic)
+	public static Set<MediaType> forMagics(final byte[] magic)
 	{
 		if(magic==null)
 			throw new NullPointerException("magic");
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		for(final MediaType type : typesWithMagic)
+		final LinkedHashSet<MediaType> result = new LinkedHashSet<MediaType>();
+		for(final Magic type : typesWithMagic)
 			if(type.matches(magic))
-				return type;
+				type.addAllTypes(result);
 
-		return null;
+		return Collections.unmodifiableSet(result);
 	}
 
-	public static MediaType forMagic(final File file) throws IOException
+	public static Set<MediaType> forMagics(final File file) throws IOException
 	{
-		return forMagic(readMagic(file));
+		return forMagics(readMagic(file));
 	}
 
 	private static byte[] readMagic(final File file) throws IOException
@@ -244,14 +249,103 @@ public final class MediaType
 		return bytes;
 	}
 
-	private static final MediaType[] typesWithMagic = retainMagic(types);
-
-	private static MediaType[] retainMagic(final MediaType[] source)
+	private static final class Magic
 	{
-		final ArrayList<MediaType> result = new ArrayList<MediaType>(source.length);
+		private final byte[] magic;
+		private final MediaType[] types;
+		private final String[] typeNames;
+
+		Magic(final byte[] magic, final ArrayList<MediaType> types)
+		{
+			this.magic = magic;
+			this.types = types.toArray(new MediaType[types.size()]);
+			this.typeNames = names(this.types);
+			assert magic!=null && magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+		}
+
+		private static final String[] names(final MediaType[] types)
+		{
+			final ArrayList<String> result = new ArrayList<String>();
+			for(final MediaType type : types)
+				type.addNameAndAliases(result);
+			return result.toArray(new String[result.size()]);
+		}
+
+		void addAllTypes(final LinkedHashSet<MediaType> set)
+		{
+			set.addAll(Arrays.asList(types));
+		}
+
+		boolean matches(final byte[] m)
+		{
+			final int l = magic.length;
+			if(m.length<l)
+				return false;
+
+			for(int i = 0; i<l; i++)
+				if(magic[i]!=m[i])
+					return false;
+
+			return true;
+		}
+
+		Condition mismatchesInstance(final Media media)
+		{
+			final Condition[] nameConditions = new Condition[typeNames.length];
+			for(int i = 0; i<typeNames.length; i++)
+				nameConditions[i] = media.contentTypeEqual(typeNames[i]);
+			return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
+		}
+	}
+
+	private static final Magic[] typesWithMagic = retainMagic(types);
+
+	private static Magic[] retainMagic(final MediaType[] source)
+	{
+		final LinkedHashMap<String, ArrayList<MediaType>> map =
+			new LinkedHashMap<String, ArrayList<MediaType>>();
 		for(final MediaType t : source)
 			if(t.magic!=null)
-				result.add(t);
-		return result.toArray(new MediaType[result.size()]);
+			{
+				final String magicString = Hex.encodeLower(t.magic);
+				ArrayList<MediaType> list = map.get(magicString);
+				if(list==null)
+				{
+					list = new ArrayList<MediaType>();
+					map.put(magicString, list);
+				}
+				list.add(t);
+			}
+		final Magic[] result = new Magic[map.size()];
+		int i = 0;
+		for(final Map.Entry<String, ArrayList<MediaType>> e : map.entrySet())
+			result[i++] = new Magic(Hex.decodeLower(e.getKey()), e.getValue());
+		return result;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link MediaType#forMagics(byte[])} instead.
+	 */
+	@Deprecated
+	public static MediaType forMagic(final byte[] magic)
+	{
+		return first(forMagics(magic));
+	}
+
+	/**
+	 * @deprecated Use {@link MediaType#forMagics(File)} instead.
+	 */
+	@Deprecated
+	public static MediaType forMagic(final File file) throws IOException
+	{
+		return first(forMagics(file));
+	}
+
+	@Deprecated
+	private static MediaType first(final Set<MediaType> set)
+	{
+		return set.isEmpty() ? null : set.iterator().next();
 	}
 }

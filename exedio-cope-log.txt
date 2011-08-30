@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaType may have multiple types for one magic number,
+	replace MediaType#forMagic by #forMagics
 * add LongField#rangeDigits
 * use range constraint of LongField in 
 	* Dispatcher#runElapsed, 

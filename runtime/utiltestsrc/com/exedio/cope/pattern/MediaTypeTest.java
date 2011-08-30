@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaType.forMagic;
+import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.util.Hex.decodeLower;
@@ -27,6 +27,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.StrictFile;
@@ -103,16 +107,17 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 		final MediaType zip = forName("application/zip");
+		final MediaType js  = forName("application/java-archive");
 
-		assertMagic(jpg, JPEG);
-		assertMagic(jpg, JPEG + "aa");
-		assertMagic(png, PNG);
-		assertMagic(png, PNG + "bb");
-		assertMagic(zip, ZIP);
-		assertMagic(zip, ZIP + "cc");
-		assertMagic(null, stealTail(JPEG));
-		assertMagic(null, stealTail(PNG));
-		assertMagic(null, stealTail(ZIP));
+		assertMagic(JPEG,        jpg);
+		assertMagic(JPEG + "aa", jpg);
+		assertMagic(PNG,         png);
+		assertMagic(PNG  + "bb", png);
+		assertMagic(ZIP,         zip, js);
+		assertMagic(ZIP  + "cc", zip, js);
+		assertMagic(stealTail(JPEG));
+		assertMagic(stealTail(PNG));
+		assertMagic(stealTail(ZIP));
 
 	}
 
@@ -121,7 +126,7 @@ public class MediaTypeTest extends CopeAssert
 		// byte
 		try
 		{
-			forMagic((byte[])null);
+			forMagics((byte[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -130,7 +135,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 		try
 		{
-			forMagic(new byte[0]);
+			forMagics(new byte[0]);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -140,7 +145,7 @@ public class MediaTypeTest extends CopeAssert
 		// file
 		try
 		{
-			forMagic((File)null);
+			forMagics((File)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -149,7 +154,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 		try
 		{
-			forMagic(file(new byte[]{}));
+			forMagics(file(new byte[]{}));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -161,7 +166,7 @@ public class MediaTypeTest extends CopeAssert
 		StrictFile.delete(file);
 		try
 		{
-			forMagic(file);
+			forMagics(file);
 			fail();
 		}
 		catch(final FileNotFoundException e)
@@ -172,7 +177,7 @@ public class MediaTypeTest extends CopeAssert
 		file.mkdir();
 		try
 		{
-			forMagic(file);
+			forMagics(file);
 			fail();
 		}
 		catch(final FileNotFoundException e)
@@ -186,10 +191,37 @@ public class MediaTypeTest extends CopeAssert
 		return s.substring(0, s.length()-2);
 	}
 
-	private static void assertMagic(final MediaType type, final String magic) throws IOException
+	private static void assertMagic(final String magic, final MediaType... types) throws IOException
 	{
-		assertSame(type, forMagic(decodeLower(magic)));
-		assertSame(type, forMagic(file(decodeLower(magic))));
+		final byte[] magicBytes = decodeLower(magic);
+		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
+		assertEqualsUnmodifiable(set(types), forMagics(file(magicBytes)));
+		final MediaType first = types.length>0 ? types[0] : null;
+		assertSame(forMagic(magicBytes), first);
+		assertSame(forMagic(file(magicBytes)), first);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated code
+	private static MediaType forMagic(final byte[] magic)
+	{
+		return MediaType.forMagic(magic);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated code
+	private static MediaType forMagic(final File magic) throws IOException
+	{
+		return MediaType.forMagic(magic);
+	}
+
+	private static final Set<Object> set(final MediaType... o)
+	{
+		return new LinkedHashSet<Object>(Arrays.asList(o));
+	}
+
+	private static final void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
+	{
+		assertUnmodifiable(actual);
+		assertEquals(expected, actual);
 	}
 
 	private static File file(final byte[] bytes) throws IOException
