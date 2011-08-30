@@ -42,6 +42,11 @@ public final class MediaType
 	private final String name;
 	private final String[] aliases;
 
+	private MediaType(final String extension, final String name, final String... aliases)
+	{
+		this(null, extension, name, aliases);
+	}
+
 	private MediaType(final byte[] magic, final String extension, final String name, final String... aliases)
 	{
 		this.magic = magic;
@@ -107,21 +112,21 @@ public final class MediaType
 
 	private static final MediaType[] types = new MediaType[]{
 
-			new MediaType(null, ".csv",  "text/csv",
+			new MediaType(".csv",  "text/csv",
 					"text/comma-separated-values",
 					"application/csv"),
-			new MediaType(null, ".xml",  "text/xml",
+			new MediaType(".xml",  "text/xml",
 					"text/xml-external-parsed-entity",
 					"application/xml",
 					"application/xhtml+xml",
 					"application/xml-external-parsed-entity",
 					"application/xml-dtd"),
-			new MediaType(null, ".html", "text/html"),
-			new MediaType(null, ".txt",  "text/plain"),
-			new MediaType(null, ".css",  "text/css",
+			new MediaType(".html", "text/html"),
+			new MediaType(".txt",  "text/plain"),
+			new MediaType(".css",  "text/css",
 					"application/x-pointplus"), // deprecated mime-type for files with extension .css
 			new MediaType(
-					null, ".js",
+					".js",
 					// RFC 4329 section 7. JavaScript Media Types
 					JAVASCRIPT, "text/javascript", "application/x-javascript"),
 			new MediaType(
