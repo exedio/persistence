@@ -107,13 +107,23 @@ public final class MediaType
 
 	private static final MediaType[] types = new MediaType[]{
 
+			new MediaType(null, ".csv",  "text/csv",
+					"text/comma-separated-values",
+					"application/csv"),
+			new MediaType(null, ".xml",  "text/xml",
+					"text/xml-external-parsed-entity",
+					"application/xml",
+					"application/xhtml+xml",
+					"application/xml-external-parsed-entity",
+					"application/xml-dtd"),
 			new MediaType(null, ".html", "text/html"),
 			new MediaType(null, ".txt",  "text/plain"),
-			new MediaType(null, ".css",  "text/css"),
+			new MediaType(null, ".css",  "text/css",
+					"application/x-pointplus"), // deprecated mime-type for files with extension .css
 			new MediaType(
 					null, ".js",
 					// RFC 4329 section 7. JavaScript Media Types
-					JAVASCRIPT, "text/javascript"),
+					JAVASCRIPT, "text/javascript", "application/x-javascript"),
 			new MediaType(
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
