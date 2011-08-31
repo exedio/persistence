@@ -99,7 +99,7 @@ public final class MysqlDialect extends Dialect
 			}
 		});
 		schema.querySQL(
-			"select TABLE_NAME,COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,IS_NULLABLE,COLUMN_KEY " +
+			"select TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
 			"from information_schema.COLUMNS " +
 			"where TABLE_SCHEMA='" + catalog + '\'',
 			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
@@ -110,14 +110,14 @@ public final class MysqlDialect extends Dialect
 					//printRow(resultSet);
 					final String tableName = resultSet.getString(1);
 					final String columnName = resultSet.getString(2);
-					final String isNullable = resultSet.getString(7); // TODO
-					final String dataType = resultSet.getString(3);
-					final String characterSet = resultSet.getString(5);
-					final String collation = resultSet.getString(6);
+					final String isNullable = resultSet.getString(3);
+					final String dataType = resultSet.getString(4);
+					final String characterSet = resultSet.getString(6);
+					final String collation = resultSet.getString(7);
 
 					final StringBuilder type = new StringBuilder(dataType);
 					if("varchar".equals(dataType))
-						type.append('(').append(resultSet.getInt(4)).append(')');
+						type.append('(').append(resultSet.getInt(5)).append(')');
 					if(characterSet!=null)
 						type.append(" character set ").append(characterSet);
 					if(collation!=null)

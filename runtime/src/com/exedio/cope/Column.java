@@ -134,14 +134,14 @@ abstract class Column
 					if(supportsNotNull)
 						checkConstraint = checkNotNull;
 					else
-					checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
+						checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
 				}
 				else
 				{
 					if(supportsNotNull)
 						checkConstraint = null;
 					else
-					checkConstraint = quotedID + " IS NOT NULL";
+						checkConstraint = quotedID + " IS NOT NULL";
 				}
 			}
 
