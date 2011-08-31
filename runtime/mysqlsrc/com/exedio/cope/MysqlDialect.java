@@ -28,7 +28,6 @@ import java.util.Properties;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.mysql.jdbc.Driver;
 
 /**
  * This MySQL driver requires the InnoDB engine.
@@ -39,18 +38,6 @@ import com.mysql.jdbc.Driver;
  */
 final class MysqlDialect extends Dialect
 {
-	static
-	{
-		try
-		{
-			Class.forName(Driver.class.getName());
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	/**
 	 * mysql supports placeholders in version 5.0.7 and higher
 	 */
