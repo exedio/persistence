@@ -228,7 +228,7 @@ final class ClusterProperties extends Properties
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(String.valueOf(port), e);
 		}
 	}
 
