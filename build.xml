@@ -116,7 +116,7 @@
 							maxwait="40" maxwaitunit="second"
 							checkevery="5" checkeveryunit="second"
 							timeoutproperty="server.app.init.failed">
-						<http url="http://127.0.0.1:${tomcat.port.http}/cope-runtime-servlet/mediaConsole" />
+						<http url="http://127.0.0.1:${tomcat.port.http}/cope-runtime-servlet/mediaConsole/" />
 					</waitfor>
 					<echo message="tomcat (@{name}): ready ..." />
 					<fail if="server.app.init.failed" message="tomcat could not be started." />
