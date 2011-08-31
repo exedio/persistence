@@ -372,6 +372,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	boolean supportsNotNull()
+	{
+		return true;
+	}
+
+	@Override
 	boolean supportsRandom()
 	{
 		return true;

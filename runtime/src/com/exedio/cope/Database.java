@@ -72,6 +72,11 @@ final class Database
 		//System.out.println("using database "+getClass());
 	}
 
+	boolean supportsNotNull()
+	{
+		return !properties.isSupportDisabledForNotNull() && dialect.supportsNotNull();
+	}
+
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
 	{
 		return
@@ -614,7 +619,7 @@ final class Database
 			}
 		});
 		for(final Table t : tables)
-			t.makeSchema(result);
+			t.makeSchema(result, supportsNotNull());
 
 		if(withRevisions && revisions!=null)
 			revisions.get().makeSchema(result, properties, dialect);

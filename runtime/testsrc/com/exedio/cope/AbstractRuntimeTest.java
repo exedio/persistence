@@ -434,6 +434,9 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected final String notNull(final String field, final String condition)
 	{
+		if(SchemaInfo.supportsNotNull(model))
+			return condition;
+
 		return
 			"(" + field + " IS NOT NULL) AND " +
 			"(" + condition + ")";

@@ -213,12 +213,12 @@ final class Table
 		return id;
 	}
 
-	void makeSchema(final Schema schema)
+	void makeSchema(final Schema schema, final boolean supportsNotNull)
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower);
 
 		for(final Column c : getAllColumns())
-			c.makeSchema(result);
+			c.makeSchema(result, supportsNotNull);
 
 		for(final UniqueConstraint uc : getUniqueConstraints())
 			uc.makeSchema(result);

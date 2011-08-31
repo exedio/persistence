@@ -88,11 +88,15 @@ abstract class Column
 	abstract Object cacheToDatabasePrepared(Object cache);
 	abstract Object getCheckValue();
 
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable, final boolean supportsNotNull)
 	{
 		final String databaseType = getDatabaseType();
+		final String databaseTypeClause =
+			!optional && supportsNotNull
+			? databaseType + " not null"
+			: databaseType;
 
-		new com.exedio.dsmf.Column(dsmfTable, id, databaseType);
+		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
 		final String checkNotNull = getCheckConstraintIfNotNull();
 		if(primaryKey)
@@ -126,9 +130,19 @@ abstract class Column
 			else
 			{
 				if(checkNotNull!=null)
+				{
+					if(supportsNotNull)
+						checkConstraint = checkNotNull;
+					else
 					checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
+				}
 				else
+				{
+					if(supportsNotNull)
+						checkConstraint = null;
+					else
 					checkConstraint = quotedID + " IS NOT NULL";
+				}
 			}
 
 			if(checkConstraint!=null)

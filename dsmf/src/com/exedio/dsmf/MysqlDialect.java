@@ -99,7 +99,7 @@ public final class MysqlDialect extends Dialect
 			}
 		});
 		schema.querySQL(
-			"select TABLE_NAME,COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME " +
+			"select TABLE_NAME,COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,IS_NULLABLE,COLUMN_KEY " +
 			"from information_schema.COLUMNS " +
 			"where TABLE_SCHEMA='" + catalog + '\'',
 			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
@@ -110,6 +110,7 @@ public final class MysqlDialect extends Dialect
 					//printRow(resultSet);
 					final String tableName = resultSet.getString(1);
 					final String columnName = resultSet.getString(2);
+					final String isNullable = resultSet.getString(7); // TODO
 					final String dataType = resultSet.getString(3);
 					final String characterSet = resultSet.getString(5);
 					final String collation = resultSet.getString(6);
@@ -121,6 +122,14 @@ public final class MysqlDialect extends Dialect
 						type.append(" character set ").append(characterSet);
 					if(collation!=null)
 						type.append(" collate ").append(collation);
+
+					if("NO".equals(isNullable))
+					{
+						if(!"PRI".equals(resultSet.getString(8)))
+							type.append(" not null");
+					}
+					else if(!"YES".equals(isNullable))
+						throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);
 
 					final Table table = schema.getTable(tableName);
 					if(table!=null)
