@@ -70,6 +70,11 @@ public final class SchemaInfo
 		return model.connect().supportsNativeDate();
 	}
 
+	public static boolean supportsNotNull(final Model model)
+	{
+		return model.connect().database.supportsNotNull();
+	}
+
 	/**
 	 * Returns whether detecting
 	 * {@link UniqueViolationException}s from
