@@ -31,6 +31,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 
 		suite.addTestSuite(GraphTest.class);
+		suite.addTestSuite(NodeTest.class);
 		suite.addTestSuite(TableTest.class);
 		suite.addTestSuite(ColumnTest.class);
 		suite.addTestSuite(ConstraintTest.class);
