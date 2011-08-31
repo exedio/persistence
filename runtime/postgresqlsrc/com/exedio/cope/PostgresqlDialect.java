@@ -25,25 +25,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.postgresql.Driver;
-
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 
 final class PostgresqlDialect extends Dialect
 {
-	static
-	{
-		try
-		{
-			Class.forName(Driver.class.getName());
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
