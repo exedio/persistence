@@ -41,6 +41,8 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getType());
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
+		assertEquals(false, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
 
 		table.notifyExistentColumn("tabName", "requiredType");
 		assertSame(table, c.getTable());
@@ -48,6 +50,8 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getType());
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
+		assertEquals(false, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
 	}
 
 	public void testColumnWrongType()
@@ -61,6 +65,8 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getType());
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
+		assertEquals(false, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
 
 		table.notifyExistentColumn("colName", "existingType");
 		assertSame(table, c.getTable());
@@ -68,6 +74,8 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getType());
 		assertEquals(true, c.required());
 		assertEquals(true, c.exists());
+		assertEquals(true, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
 	}
 
 	public void testColumnNonRequires()
@@ -81,6 +89,16 @@ public class NodeTest extends TestCase
 		assertEquals("existingType", c.getType());
 		assertEquals(false, c.required());
 		assertEquals(true, c.exists());
+		assertEquals(false, c.mismatchesType());
+		try
+		{
+			c.getRequiredType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not required", e.getMessage());
+		}
 	}
 
 

@@ -129,6 +129,22 @@ public final class Column extends Node
 			return existingType;
 	}
 
+	public boolean mismatchesType()
+	{
+		return
+			requiredType!=null &&
+			existingType!=null &&
+			!requiredType.equals(existingType);
+	}
+
+	public String getRequiredType()
+	{
+		if(requiredType==null)
+			throw new IllegalStateException("not required");
+
+		return requiredType;
+	}
+
 	public void create()
 	{
 		create(null);
