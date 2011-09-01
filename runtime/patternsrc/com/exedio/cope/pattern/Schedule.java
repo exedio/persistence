@@ -354,7 +354,6 @@ public final class Schedule extends Pattern
 		}
 	}
 
-
 	@Computed
 	public static final class Run extends Item
 	{
