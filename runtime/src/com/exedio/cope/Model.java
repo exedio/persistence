@@ -45,21 +45,28 @@ public final class Model implements Serializable
 {
 	private static final Logger logger = Logger.getLogger(Model.class);
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final RevisionsFuture revisions;
 	private final Object reviseLock = new Object();
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	final Types types;
 	private final long initializeDate;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	final ChangeListeners changeListeners;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final Transactions transactions = new Transactions();
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type... types)

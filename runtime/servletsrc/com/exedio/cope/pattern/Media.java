@@ -60,6 +60,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private final boolean isfinal;
 	private final boolean optional;
 	private final DataField body;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
 	private final CheckConstraint unison;

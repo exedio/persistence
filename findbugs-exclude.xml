@@ -1,43 +1,5 @@
 <FindBugsFilter>
 	<Match>
-		<!-- Non-transient non-serializable instance field in serializable class -->
-		<Bug pattern="SE_BAD_FIELD" />
-		<Or>
-			<Class name="com.exedio.cope.Model" />
-			<Class name="com.exedio.cope.Type" />
-			<And><Class name="com.exedio.cope.CheckConstraint" /><Field name="condition" /></And>
-			<Class name="com.exedio.cope.DataField" />
-			<Class name="com.exedio.cope.IntegerField" />
-			<Class name="com.exedio.cope.ItemField" />
-			<Class name="com.exedio.cope.EnumField" />
-			<Class name="com.exedio.cope.StringField" />
-			<Class name="com.exedio.cope.Sequence" />
-			<Class name="com.exedio.cope.PlusView" />
-			<Class name="com.exedio.cope.PlusLiteralView" />
-			<Class name="com.exedio.cope.MultiplyView" />
-			<Class name="com.exedio.cope.MultiplyLiteralView" />
-			<Class name="com.exedio.cope.DivideView" />
-			<Class name="com.exedio.cope.UppercaseView" />
-			<Class name="com.exedio.cope.LengthView" />
-			<Class name="com.exedio.cope.AsStringView" />
-			<Class name="com.exedio.cope.CoalesceView" />
-			<Class name="com.exedio.cope.CompositeCondition$Operator" />
-			<And><Class name="com.exedio.cope.pattern.SetField" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.ListField" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.MapField" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.CompositeField" /><Field name="valueType" /></And>
-			<And><Class name="com.exedio.cope.pattern.JavaView" /><Field name="mountIfMounted" /></And>
-			<And><Class name="com.exedio.cope.pattern.Media" /><Field name="contentType" /></And>
-			<And><Class name="com.exedio.cope.pattern.Hash" /><Field name="algorithm" /></And>
-			<And><Class name="com.exedio.cope.pattern.Dispatcher" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.Schedule" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.PasswordLimiter" /><Field name="mount" /></And>
-			<And><Class name="com.exedio.cope.pattern.DynamicModel" /><Field name="mount" /></And>
-			
-			<Class name="com.exedio.cope.pattern.MediaServlet" />
-		</Or>
-	</Match>
-	<Match>
 		<!-- Non-serializable class has a serializable inner class -->
 		<Bug pattern="SE_BAD_FIELD_INNER_CLASS" />
 		<Or>

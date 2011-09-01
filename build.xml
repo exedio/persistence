@@ -218,6 +218,7 @@
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -254,6 +255,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -268,6 +270,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>

@@ -43,6 +43,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mount = null;
 
 	private ListField(final FunctionField<E> element)

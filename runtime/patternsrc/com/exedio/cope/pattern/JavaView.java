@@ -29,6 +29,7 @@ public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mountIfMounted;
 
 	private static final class Mount

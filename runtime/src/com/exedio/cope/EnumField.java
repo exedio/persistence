@@ -27,6 +27,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	final EnumFieldType<E> valueType;
 
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)

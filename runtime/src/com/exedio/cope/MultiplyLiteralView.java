@@ -28,6 +28,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final Function<E> left;
 	private final E right;
 

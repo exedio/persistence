@@ -28,6 +28,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 
@@ -170,6 +171,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private StringColumn typeColumn = null;
 
 	@Override

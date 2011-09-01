@@ -68,6 +68,7 @@ public class MediaServlet extends HttpServlet
 
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();

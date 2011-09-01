@@ -68,6 +68,7 @@ public final class DynamicModel<L> extends Pattern
 	private final DoubleField [] doubles;
 	private final ItemField<Enum<L>>[] enums;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount<L> mount = null;
 
 	private DynamicModel(

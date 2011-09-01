@@ -22,6 +22,7 @@ public final class LengthView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final Function<String> source;
 
 	/**

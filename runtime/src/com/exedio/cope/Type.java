@@ -52,6 +52,7 @@ import com.exedio.cope.util.Day;
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type>, Serializable
 {
 	private final Class<T> javaClass;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final AnnotatedElement annotationSource;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
@@ -81,11 +82,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final List<CopyConstraint> declaredCopyConstraints;
 	private final List<CopyConstraint> copyConstraints;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final Constructor<T> activationConstructor;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final Method[] beforeNewItemMethods;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount<T> mount = null;
 
 	/**
@@ -99,6 +104,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	int cacheIdTransiently = Integer.MIN_VALUE;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	Table table;
 
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information

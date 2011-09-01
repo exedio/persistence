@@ -47,6 +47,7 @@ public final class PasswordLimiter extends Pattern
 	private final int limit;
 
 	final DateField date = new DateField().toFinal();
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mount = null;
 
 	public PasswordLimiter(
