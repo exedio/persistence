@@ -494,6 +494,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return l;
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 		int compareTo(final Mount o)
 		{
 			if(model!=o.model)
@@ -899,6 +900,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	LinkedHashMap<Field, Object> executeCreate(SetValue[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
@@ -1077,6 +1079,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 	public int compareTo(final Type o)
 	{
 		return mount().compareTo(o.mount());
@@ -1345,6 +1348,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypes()} instead
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypes()
 	{
@@ -1354,6 +1358,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypesTransitively()} instead
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypesTransitively()
 	{

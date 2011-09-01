@@ -5,37 +5,6 @@
 		<!-- Used often for ResultSethandler -->
 	</Match>
 	<Match>
-		<!-- Class defines compareTo(...) and uses Object.equals() -->
-		<Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS" />
-		<Or>
-			<Class name="com.exedio.cope.Type" />
-			<Class name="com.exedio.cope.Type$Mount" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Confusing method names -->
-		<Bug pattern="NM_CONFUSING" />
-		<Or>
-			<Class name="com.exedio.cope.Type" />
-			<Class name="com.exedio.cope.Feature" />
-			<Class name="com.exedio.cope.ThreadController" />
-			<Class name="com.exedio.cope.Transaction" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Method with Boolean return type returns explicit null -->
-		<Bug pattern="NP_BOOLEAN_RETURN_NULL" />
-		<Or>
-			<Class name="com.exedio.cope.BooleanField" />
-			<Class name="com.exedio.cope.Marshallers$2" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Comparison of String parameter using == or != -->
-		<Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
-		<Class name="com.exedio.dsmf.Node" />
-	</Match>
-	<Match>
 		<Or>
 			<!-- Nonconstant string passed to execute method on an SQL statement -->
 			<Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
@@ -88,32 +57,6 @@
 		</Or>
 	</Match>
 	<Match>
-		<!-- Field only ever set to null -->
-		<Bug pattern="UWF_NULL_FIELD" />
-		<Class name="com.exedio.cope.ClusterListener" />
-	</Match>
-	<Match>
-		<Or>
-			<!-- Class extends Servlet class and uses instance variables -->
-			<Bug pattern="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD" />
-			<!-- Mutable servlet field -->
-			<Bug pattern="MSF_MUTABLE_SERVLET_FIELD" />
-		</Or>
-		<Or>
-			<Class name="com.exedio.cope.pattern.MediaServlet" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Redundant nullcheck of value known to be null -->
-		<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE" />
-		<Class name="com.exedio.cope.Model" />
-	</Match>
-	<Match>
-		<!-- Exception is caught when Exception is not thrown -->
-		<Bug pattern="REC_CATCH_EXCEPTION" />
-		<Class name="com.exedio.cope.pattern.Dispatcher" />
-	</Match>
-	<Match>
 		<!-- Useless control flow -->
 		<!-- TODO -->
 		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
@@ -123,13 +66,5 @@
 		<!-- Method uses the same code for two switch clauses -->
 		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
 		<And><Class classname="com.exedio.cope.instrument.Parser" /><Method name="parseClass" /></And>
-	</Match>
-	<Match>
-		<!-- Inefficient use of keySet iterator instead of entrySet iterator -->
-		<Bug pattern="WMI_WRONG_MAP_ITERATOR" />
-		<Or>
-			<Class name="com.exedio.cope.Type" />
-			<Class name="com.exedio.cope.Item" />
-		</Or>
 	</Match>
 </FindBugsFilter>

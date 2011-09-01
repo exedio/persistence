@@ -105,12 +105,12 @@ public class PatternTest extends AbstractRuntimeTest
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
 
 		// superType
-		final Type<PatternTestTypeItem> superType = PatternTestItem.testPattern.getSuperType();
+		final Type<PatternTestTypeItem> superType = PatternTestItem.testPattern.getPatternSuperType();
 		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
 		assertSame(PatternTestItem.testPattern.superTypeBoolean, superType.getFeature(PatternTestPattern.SUPER_TYPE_BOOLEAN));
 
 		// subType
-		final Type<PatternTestTypeItem> subType = PatternTestItem.testPattern.getSubType();
+		final Type<PatternTestTypeItem> subType = PatternTestItem.testPattern.getPatternSubType();
 		assertSame(PatternTestItem.testPattern.subTypeInteger, subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER));
 
 		assertSame(PatternTestTypeItem.class, superType.getJavaClass());
@@ -175,8 +175,8 @@ public class PatternTest extends AbstractRuntimeTest
 		assertTrue(superType.isAssignableFrom(superType));
 		assertFalse(subType.isAssignableFrom(superType));
 
-		final Type<?> superType2 = PatternTestItem.testPattern2.getSuperType();
-		final Type<?> subType2 = PatternTestItem.testPattern2.getSubType();
+		final Type<?> superType2 = PatternTestItem.testPattern2.getPatternSuperType();
+		final Type<?> subType2 = PatternTestItem.testPattern2.getPatternSubType();
 		assertFalse(superType.isAssignableFrom(subType2));
 		assertFalse(superType2.isAssignableFrom(subType));
 		assertFalse(superType.isAssignableFrom(superType2));

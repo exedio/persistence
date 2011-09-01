@@ -103,6 +103,7 @@ public final class ThreadController
 		thread.start();
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public long getId()
 	{
 		final Thread thread = this.thread;

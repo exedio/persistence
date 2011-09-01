@@ -173,6 +173,7 @@
 		<compile srcdir="dsmf/src">
 			<classpath>
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>

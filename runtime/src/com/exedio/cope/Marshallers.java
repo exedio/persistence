@@ -54,6 +54,7 @@ final class Marshallers
 			}
 		});
 		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>() {
+			@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
 			public Boolean unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
 			{

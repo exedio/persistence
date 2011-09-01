@@ -107,6 +107,7 @@ public final class BooleanField extends FunctionField<Boolean>
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 	@Override
 	Boolean get(final Row row)
 	{

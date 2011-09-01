@@ -87,12 +87,12 @@ class PatternTestPattern extends Pattern
 		return ownItem;
 	}
 
-	public Type<PatternTestTypeItem> getSuperType()
+	public Type<PatternTestTypeItem> getPatternSuperType()
 	{
 		return superType;
 	}
 
-	public Type<PatternTestTypeItem> getSubType()
+	public Type<PatternTestTypeItem> getPatternSubType()
 	{
 		return subType;
 	}

@@ -193,6 +193,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * @see Model#getFeature(String)
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public final String getID()
 	{
 		return mountType().id;

@@ -85,6 +85,7 @@ public abstract class Node
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ES_COMPARING_PARAMETER_STRING_WITH_EQ") // Comparison of String parameter using == or !=
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;

@@ -183,6 +183,7 @@ public final class Dispatcher extends Pattern
 		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
