@@ -231,8 +231,8 @@ public final class Schedule extends Pattern
 					Cope.and(
 						mount.parent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
-							interval.equal(Interval.DAILY ).and(runs.until.greaterOrEqual(untilDaily)),
-							interval.equal(Interval.WEEKLY).and(runs.until.greaterOrEqual(untilWeekly)),
+							interval.equal(Interval.DAILY  ).and(runs.until.greaterOrEqual(untilDaily  )),
+							interval.equal(Interval.WEEKLY ).and(runs.until.greaterOrEqual(untilWeekly )),
 							interval.equal(Interval.MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
 						)
 					)
