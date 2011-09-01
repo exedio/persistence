@@ -440,6 +440,7 @@ final class Lexer
 		return new ParseException(message, input, inputPosition);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	final class ParseException extends ParserException
 	{
 		private static final long serialVersionUID = 1l;

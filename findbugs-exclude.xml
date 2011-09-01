@@ -1,14 +1,5 @@
 <FindBugsFilter>
 	<Match>
-		<!-- Non-serializable class has a serializable inner class -->
-		<Bug pattern="SE_BAD_FIELD_INNER_CLASS" />
-		<Or>
-			<Class name="com.exedio.cope.instrument.Lexer$ParseException" />
-			<Class name="com.exedio.cope.instrument.JavaClass$NS" />
-			<Class name="com.exedio.cope.instrument.JavaRepository$NS" />
-		</Or>
-	</Match>
-	<Match>
 		<!-- Non-serializable value stored into instance field of a serializable class -->
 		<Bug pattern="SE_BAD_FIELD_STORE" />
 		<Or>

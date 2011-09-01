@@ -674,6 +674,7 @@
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>

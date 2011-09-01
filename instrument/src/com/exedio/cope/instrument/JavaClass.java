@@ -190,6 +190,7 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
