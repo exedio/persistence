@@ -1,32 +1,5 @@
 <FindBugsFilter>
 	<Match>
-		<Or>
-			<!-- Equals method for class assumes the argument is of that type -->
-			<Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
-			<!-- equals() method does not check for null argument -->
-			<Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
-		</Or>
-		<Or>
-			<Class name="com.exedio.cope.QueryCache$Key" />
-			<Class name="com.exedio.cope.Statement$JoinTable" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Random object created and used only once -->
-		<Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
-		<Class name="com.exedio.cope.ClusterProperties" />
-	</Match>
-	<Match>
-		<!-- May expose internal representation by returning reference to mutable object -->
-		<Bug pattern="EI_EXPOSE_REP" />
-		<Class name="com.exedio.cope.DataField$ArrayValue" />
-	</Match>
-	<Match>
-		<!-- May expose internal representation by incorporating reference to mutable object -->
-		<Bug pattern="EI_EXPOSE_REP2" />
-		<Class name="com.exedio.cope.StartsWithCondition" />
-	</Match>
-	<Match>
 		<!-- Could be refactored into a named static inner class -->
 		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
 		<!-- Used often for ResultSethandler -->

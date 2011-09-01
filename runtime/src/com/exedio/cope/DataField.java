@@ -511,6 +511,7 @@ public final class DataField extends Field<DataField.Value>
 			return array;
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
 		public byte[] asArray()
 		{
 			return array;

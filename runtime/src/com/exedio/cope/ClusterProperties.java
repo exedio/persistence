@@ -78,6 +78,7 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
 		super(source, null);
