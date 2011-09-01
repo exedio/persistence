@@ -278,12 +278,7 @@ public final class Schedule extends Pattern
 				final long elapsedStart = nanoTime();
 				itemCasted.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
-				mount.type.newItem(
-					Cope.mapAndCast(mount.parent, item),
-					runs.from.map(from),
-					runs.until.map(until),
-					runs.run.map(now),
-					runs.elapsed.map(toMillies(elapsedEnd, elapsedStart)));
+				runs.newItem(item, from, until, now, toMillies(elapsedEnd, elapsedStart));
 				model.commit();
 				ctx.incrementProgress();
 			}
@@ -351,6 +346,23 @@ public final class Schedule extends Pattern
 			if(mount==null)
 				throw new IllegalStateException("feature not mounted");
 			return mount;
+		}
+
+		Run newItem(
+				final Item item,
+				final Date from,
+				final Date until,
+				final Date now,
+				final long elapsed)
+		{
+			final Mount mount = mount();
+			return
+				mount.type.newItem(
+					Cope.mapAndCast(mount.parent, item),
+					this.from.map(from),
+					this.until.map(until),
+					this.run.map(now),
+					this.elapsed.map(elapsed));
 		}
 	}
 
