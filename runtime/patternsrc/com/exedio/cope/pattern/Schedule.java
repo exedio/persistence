@@ -70,13 +70,7 @@ public final class Schedule extends Pattern
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
-
-	final DateField runFrom = new DateField().toFinal();
-	final DateField runUntil = new DateField().toFinal();
-	final DateField runRun = new DateField().toFinal();
-	final LongField runElapsed = new LongField().toFinal().min(0);
-
-	private Mount mount = null;
+	final Runs runs = new Runs();
 
 	/**
 	 * @param locale
@@ -109,46 +103,7 @@ public final class Schedule extends Pattern
 					"type of " + getID() + " must implement " + Scheduleable.class +
 					", but was " + type.getJavaClass().getName());
 
-		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runFrom);
-		final Features features = new Features();
-		features.put("parent", runParent);
-		features.put("from",  runFrom);
-		features.put("runs",  runRuns);
-		features.put("until", runUntil);
-		features.put("run",   runRun);
-		features.put("elapsed", runElapsed);
-		final Type<Run> runType = newSourceType(Run.class, features, "Run");
-		this.mount = new Mount(runParent, runRuns, runType);
-	}
-
-	private static final class Mount
-	{
-		final ItemField<?> runParent;
-		final PartOf<?> runRuns;
-		final Type<Run> runType;
-
-		Mount(
-				final ItemField<?> runParent,
-				final PartOf<?> runRuns,
-				final Type<Run> runType)
-		{
-			assert runParent!=null;
-			assert runRuns!=null;
-			assert runType!=null;
-
-			this.runParent = runParent;
-			this.runRuns = runRuns;
-			this.runType = runType;
-		}
-	}
-
-	final Mount mount()
-	{
-		final Mount mount = this.mount;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		runs.onMount(this, type);
 	}
 
 	public BooleanField getEnabled()
@@ -163,37 +118,37 @@ public final class Schedule extends Pattern
 
 	public ItemField<?> getRunParent()
 	{
-		return mount().runParent;
+		return runs.mount().parent;
 	}
 
 	public PartOf<?> getRunRuns()
 	{
-		return mount().runRuns;
+		return runs.mount().parentPartOf;
 	}
 
 	public DateField getRunFrom()
 	{
-		return runFrom;
+		return runs.from;
 	}
 
 	public DateField getRunUntil()
 	{
-		return runUntil;
+		return runs.until;
 	}
 
 	public DateField getRunRun()
 	{
-		return runRun;
+		return runs.run;
 	}
 
 	public LongField getRunElapsed()
 	{
-		return runElapsed;
+		return runs.elapsed;
 	}
 
 	public Type<Run> getRunType()
 	{
-		return mount().runType;
+		return runs.mount().type;
 	}
 
 	@Override
@@ -247,7 +202,7 @@ public final class Schedule extends Pattern
 		if(ctx==null)
 			throw new NullPointerException("ctx");
 
-		final Mount mount = mount();
+		final Runs.Mount mount = runs.mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
@@ -271,14 +226,14 @@ public final class Schedule extends Pattern
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
-					mount.runType.getThis().isNull()));
-			q.joinOuterLeft(mount.runType,
+					mount.type.getThis().isNull()));
+			q.joinOuterLeft(mount.type,
 					Cope.and(
-						mount.runParent.as(type.getJavaClass()).equal(typeThis),
+						mount.parent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
-							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
-							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
-							interval.equal(Interval.MONTHLY).and(runUntil.greaterOrEqual(untilMonthly))
+							interval.equal(Interval.DAILY ).and(runs.until.greaterOrEqual(untilDaily)),
+							interval.equal(Interval.WEEKLY).and(runs.until.greaterOrEqual(untilWeekly)),
+							interval.equal(Interval.MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
 						)
 					)
 			);
@@ -323,12 +278,12 @@ public final class Schedule extends Pattern
 				final long elapsedStart = nanoTime();
 				itemCasted.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
-				mount.runType.newItem(
-					Cope.mapAndCast(mount.runParent, item),
-					this.runFrom.map(from),
-					this.runUntil.map(until),
-					this.runRun.map(now),
-					this.runElapsed.map(toMillies(elapsedEnd, elapsedStart)));
+				mount.type.newItem(
+					Cope.mapAndCast(mount.parent, item),
+					runs.from.map(from),
+					runs.until.map(until),
+					runs.run.map(now),
+					runs.elapsed.map(toMillies(elapsedEnd, elapsedStart)));
 				model.commit();
 				ctx.incrementProgress();
 			}
@@ -338,6 +293,67 @@ public final class Schedule extends Pattern
 			}
 		}
 	}
+
+	private static final class Runs
+	{
+		final DateField from = new DateField().toFinal();
+		final DateField until = new DateField().toFinal();
+		final DateField run = new DateField().toFinal();
+		final LongField elapsed = new LongField().toFinal().min(0);
+
+		private Mount mount = null;
+
+		Runs()
+		{
+			// make non-private
+		}
+
+		void onMount(final Schedule pattern, final Type<?> type)
+		{
+			final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+			final PartOf<?> runs = PartOf.newPartOf(parent, from);
+			final Features features = new Features();
+			features.put("parent", parent);
+			features.put("from",  from);
+			features.put("runs",  runs);
+			features.put("until", until);
+			features.put("run",   run);
+			features.put("elapsed", elapsed);
+			@SuppressWarnings("synthetic-access")
+			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
+			this.mount = new Mount(parent, runs, runType);
+		}
+
+		private static final class Mount
+		{
+			final ItemField<?> parent;
+			final PartOf<?> parentPartOf;
+			final Type<Run> type;
+
+			Mount(
+					final ItemField<?> parent,
+					final PartOf<?> parentPartOf,
+					final Type<Run> type)
+			{
+				assert parent!=null;
+				assert parentPartOf!=null;
+				assert type!=null;
+
+				this.parent = parent;
+				this.parentPartOf = parentPartOf;
+				this.type = type;
+			}
+		}
+
+		final Mount mount()
+		{
+			final Mount mount = this.mount;
+			if(mount==null)
+				throw new IllegalStateException("feature not mounted");
+			return mount;
+		}
+	}
+
 
 	@Computed
 	public static final class Run extends Item
@@ -356,27 +372,27 @@ public final class Schedule extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().mount().runParent.get(this);
+			return getPattern().runs.mount().parent.get(this);
 		}
 
 		public Date getFrom()
 		{
-			return getPattern().runFrom.get(this);
+			return getPattern().runs.from.get(this);
 		}
 
 		public Date getUntil()
 		{
-			return getPattern().runUntil.get(this);
+			return getPattern().runs.until.get(this);
 		}
 
 		public Date getRun()
 		{
-			return getPattern().runRun.get(this);
+			return getPattern().runs.run.get(this);
 		}
 
 		public long getElapsed()
 		{
-			return getPattern().runElapsed.getMandatory(this);
+			return getPattern().runs.elapsed.getMandatory(this);
 		}
 	}
 
