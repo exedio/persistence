@@ -1,13 +1,5 @@
 <FindBugsFilter>
 	<Match>
-		<!-- Non-serializable value stored into instance field of a serializable class -->
-		<Bug pattern="SE_BAD_FIELD_STORE" />
-		<Or>
-			<Class name="com.exedio.cope.Model" />
-			<Class name="com.exedio.cope.ItemField" />
-		</Or>
-	</Match>
-	<Match>
 		<Or>
 			<!-- Equals method for class assumes the argument is of that type -->
 			<Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
