@@ -60,9 +60,6 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 
 	public void test() throws SQLException
 	{
-		if(hsqldb) // TODO
-			return;
-
 		restartTransaction();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
@@ -70,10 +67,10 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 
 			assertEquals(
 					"SchemaNamePolymorphicSubItem", // TODO
-					fetch("select " + column + " from " + table));
+					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					notNull(column, q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItem')"), // TODO
+					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItem')"), // TODO
 					model.getSchema().getTable(table).getConstraint("ScheNamePolySupeIte_cl_Ck").getRequiredCondition());
 		}
 		{
@@ -81,11 +78,11 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
 
 			assertEquals(
-					notNull(column, "SchemaNamePolymorphicSubItem"), // TODO
-					fetch("select " + column + " from " + table));
+					"SchemaNamePolymorphicSubItem", // TODO
+					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItem')", // TODO
+					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItem')"), // TODO
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
 	}
