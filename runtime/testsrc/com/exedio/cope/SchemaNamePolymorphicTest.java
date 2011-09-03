@@ -38,16 +38,12 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	SchemaNamePolymorphicSuperItem item;
-	SchemaNamePolymorphicRefItem refItem;
 	Connection connection;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new SchemaNamePolymorphicSubItem());
-		refItem = deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
 		connection = SchemaInfo.newConnection(model);
 	}
 
@@ -60,6 +56,8 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 
 	public void test() throws SQLException
 	{
+		final SchemaNamePolymorphicSuperItem item = deleteOnTearDown(new SchemaNamePolymorphicSubItem());
+		deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
 		restartTransaction();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
