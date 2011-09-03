@@ -57,7 +57,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 	public void test() throws SQLException
 	{
 		final SchemaNamePolymorphicSuperItem item = deleteOnTearDown(new SchemaNamePolymorphicSubItem());
-		deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
+		final SchemaNamePolymorphicRefItem refItem = deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
 		restartTransaction();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
@@ -83,6 +83,23 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItem')"), // TODO
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
+
+		// test update
+		final SchemaNamePolymorphicSuperItem item2 = new SchemaNamePolymorphicSubItem();
+		refItem.setRef(item2);
+		restartTransaction();
+		{
+			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
+			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
+
+			assertEquals(
+					"SchemaNamePolymorphicSubItem", // TODO
+					fetch("select " + q(column) + " from " + q(table)));
+		}
+
+		// test delete
+		refItem.setRef(item);
+		item2.deleteCopeItem();
 	}
 
 	private String fetch(final String sql) throws SQLException
