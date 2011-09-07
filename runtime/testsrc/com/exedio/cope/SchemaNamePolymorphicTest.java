@@ -102,14 +102,29 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		item2.deleteCopeItem();
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
 	private String fetch(final String sql) throws SQLException
 	{
 		final Statement stmt = connection.createStatement();
-		final ResultSet rs = stmt.executeQuery(sql);
-		assertTrue(rs.next());
-		final String result = rs.getString(1);
-		assertFalse(rs.next());
-		return result;
+		try
+		{
+			final ResultSet rs = stmt.executeQuery(sql);
+			try
+			{
+				assertTrue(rs.next());
+				final String result = rs.getString(1);
+				assertFalse(rs.next());
+				return result;
+			}
+			finally
+			{
+				rs.close();
+			}
+		}
+		finally
+		{
+			stmt.close();
+		}
 	}
 
 	private final String q(final String s)
