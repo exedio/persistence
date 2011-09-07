@@ -801,6 +801,7 @@
 	<target name="compile"
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
+			  runtime.test.compile,
 			  instrument.compile" />
 	
 	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar" />
