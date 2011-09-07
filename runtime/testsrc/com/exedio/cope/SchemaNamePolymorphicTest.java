@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,6 +57,13 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 
 	public void test() throws SQLException
 	{
+		assertEquals(
+				"SchemaNamePolymorphicSuperItem",
+				getTypeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
+		assertEquals(
+				"SchemaNamePolymorphicSubItemRenamed",
+				getTypeColumnValue(SchemaNamePolymorphicSubItem.TYPE));
+
 		final SchemaNamePolymorphicSuperItem item = deleteOnTearDown(new SchemaNamePolymorphicSubItem());
 		final SchemaNamePolymorphicRefItem refItem = deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
 

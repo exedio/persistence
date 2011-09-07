@@ -112,6 +112,7 @@ public final class SchemaInfo
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "class".
+	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
@@ -124,6 +125,16 @@ public final class SchemaInfo
 			throw new IllegalArgumentException("no type column for " + type);
 
 		return column.id;
+	}
+
+	/**
+	 * Returns the value to be put into a type column for the type.
+	 * @see #getTypeColumnName(Type)
+	 * @see #getTypeColumnName(ItemField)
+	 */
+	public static String getTypeColumnValue(final Type type)
+	{
+		return type.schemaId;
 	}
 
 	/**
@@ -171,6 +182,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field
 	 * plus the appendix "Type".
+	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
