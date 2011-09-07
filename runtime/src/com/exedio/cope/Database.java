@@ -560,7 +560,7 @@ final class Database
 			if(typeColumn!=null)
 			{
 				bf.append(',').
-					appendParameter(state.type.id);
+					appendParameter(state.type.schemaId);
 			}
 
 			if(updateCounter!=null)

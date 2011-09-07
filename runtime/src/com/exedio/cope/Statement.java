@@ -208,7 +208,7 @@ final class Statement
 			append(" and ").
 			append(column).
 			append('=').
-			appendParameter(type.id);
+			appendParameter(type.schemaId);
 		}
 
 		return this;

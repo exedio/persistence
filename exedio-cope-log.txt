@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @CopeSchemaName is obeyed by type columns as well.
+	Affects persistent schema when @CopeSchemaName is used on types with subtypes.
+	In that case the *contents* of type columns must be adjusted.
 * add com.exedio.dsmf.Column#mismatchesType and #getRequiredType
 * support "not null"-clause on MySQL columns.
 

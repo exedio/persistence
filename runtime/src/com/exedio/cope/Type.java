@@ -436,9 +436,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					int i = 0;
 					for(final Type t : typesOfInstances)
 					{
-						if(typesOfInstancesMap.put(t.id, t)!=null)
-							throw new RuntimeException(t.id);
-						typesOfInstancesColumnValues[i++] = t.id;
+						if(typesOfInstancesMap.put(t.schemaId, t)!=null)
+							throw new RuntimeException(t.schemaId);
+						typesOfInstancesColumnValues[i++] = t.schemaId;
 					}
 					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
 					this.marshaller = new PolymorphicItemMarshaller<C>(this.typesOfInstancesMap);

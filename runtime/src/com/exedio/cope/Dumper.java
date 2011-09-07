@@ -146,7 +146,7 @@ public final class Dumper
 		if(typeColumn!=null)
 		{
 			bf.append(',').
-				appendParameter(type.id);
+				appendParameter(type.schemaId);
 		}
 
 		if(updateCounter!=null)
