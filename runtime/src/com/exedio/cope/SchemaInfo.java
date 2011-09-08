@@ -129,6 +129,8 @@ public final class SchemaInfo
 
 	/**
 	 * Returns the value to be put into a type column for the type.
+	 * Defaults to {@link Type#getID()},
+	 * but can be overridden by {@link CopeSchemaName}.
 	 * @see #getTypeColumnName(Type)
 	 * @see #getTypeColumnName(ItemField)
 	 */
@@ -200,6 +202,8 @@ public final class SchemaInfo
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.
+	 * Defaults to 10 * ( {@link Enum#ordinal()} + 1 ),
+	 * but can be overridden by {@link CopeSchemaValue}.
 	 */
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
