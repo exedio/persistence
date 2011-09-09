@@ -27,6 +27,8 @@ import com.exedio.cope.search.SumAggregate;
 
 public class Random implements NumberFunction<Double>
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Type<?> type;
 	private final int seed;
 

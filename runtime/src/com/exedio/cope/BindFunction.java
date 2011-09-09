@@ -25,6 +25,8 @@ import com.exedio.cope.search.ExtremumAggregate;
 
 public class BindFunction<E> implements Function<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	final Function<E> function;
 	final Join join;
 

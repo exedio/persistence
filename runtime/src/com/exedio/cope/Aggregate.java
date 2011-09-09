@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public abstract class Aggregate<E> implements Selectable<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * I'm not yet sure, whether the type of the aggregate
 	 * always equals the type of the source, but it does for

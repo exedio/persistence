@@ -21,6 +21,8 @@ package com.exedio.cope;
 public final class BindStringFunction extends BindFunction<String>
 	implements StringFunction
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.

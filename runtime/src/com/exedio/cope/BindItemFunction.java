@@ -21,6 +21,8 @@ package com.exedio.cope;
 public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	implements ItemFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	final ItemFunction<E> itemFunction;
 
 	/**

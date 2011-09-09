@@ -24,6 +24,8 @@ import com.exedio.cope.search.SumAggregate;
 public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	implements NumberFunction<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.

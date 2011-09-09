@@ -23,6 +23,8 @@ import com.exedio.cope.Function;
 
 public final class AverageAggregate<E extends Number> extends Aggregate<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * Creates a new AverageAggregate.
 	 * Instead of using this constructor directly,

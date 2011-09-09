@@ -23,6 +23,8 @@ import com.exedio.cope.Function;
 
 public final class ExtremumAggregate<E> extends Aggregate<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	final boolean minimum;
 
 	/**
