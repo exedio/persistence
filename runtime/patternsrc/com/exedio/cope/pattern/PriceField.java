@@ -65,6 +65,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return new PriceField(integer.optional());
 	}
 
+	public PriceField range(final Price minimum, final Price maximum)
+	{
+		return new PriceField(integer.range(minimum.store, maximum.store));
+	}
+
 	public PriceField min(final Price minimum)
 	{
 		return new PriceField(integer.min(minimum.store));

@@ -170,4 +170,41 @@ public class PriceFieldModelTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 	}
+
+	public void testRange()
+	{
+		final PriceField f = new PriceField().range(Price.storeOf(2000), Price.storeOf(4000));
+		assertEquals(Price.storeOf(2000), f.getMinimum());
+		assertEquals(Price.storeOf(4000), f.getMaximum());
+		assertEquals(2000, f.getInt().getMinimum());
+		assertEquals(4000, f.getInt().getMaximum());
+
+		try
+		{
+			f.range(null, Price.ZERO);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			f.range(Price.ZERO, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			f.range(Price.ZERO, Price.ZERO);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("maximum must be greater than mimimum, but was 0 and 0.", e.getMessage());
+		}
+	}
 }
