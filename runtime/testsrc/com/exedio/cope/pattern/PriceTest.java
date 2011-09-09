@@ -46,6 +46,8 @@ public final class PriceTest extends CopeAssert
 		assertNotSame(storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertSame(ZERO, storeOf(0));
+		assertNotSame(storeOf(Integer.MIN_VALUE), storeOf(Integer.MIN_VALUE));
+		assertNotSame(storeOf(Integer.MAX_VALUE), storeOf(Integer.MAX_VALUE));
 	}
 
 	public void testStoreOfInteger()
