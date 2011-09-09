@@ -37,6 +37,8 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
 
 	public static final Price ZERO = new Price(0);
+	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
+	public static final Price MAX_VALUE = new Price(Integer.MAX_VALUE);
 
 	final int store;
 
@@ -48,8 +50,12 @@ public final class Price implements Serializable, Comparable<Price>
 	public static Price storeOf(final int store)
 	{
 		// TODO reuse common small values
-		if(store==0)
-			return ZERO;
+		switch(store)
+		{
+			case 0: return ZERO;
+			case Integer.MIN_VALUE: return MIN_VALUE;
+			case Integer.MAX_VALUE: return MAX_VALUE;
+		}
 
 		return new Price(store);
 	}

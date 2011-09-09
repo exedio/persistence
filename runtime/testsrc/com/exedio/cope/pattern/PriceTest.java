@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.MAX_VALUE;
+import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
@@ -46,8 +48,8 @@ public final class PriceTest extends CopeAssert
 		assertNotSame(storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertSame(ZERO, storeOf(0));
-		assertNotSame(storeOf(Integer.MIN_VALUE), storeOf(Integer.MIN_VALUE));
-		assertNotSame(storeOf(Integer.MAX_VALUE), storeOf(Integer.MAX_VALUE));
+		assertSame(MIN_VALUE, storeOf(Integer.MIN_VALUE));
+		assertSame(MAX_VALUE, storeOf(Integer.MAX_VALUE));
 	}
 
 	public void testStoreOfInteger()
