@@ -18,30 +18,26 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
-public class PasswordLimiterModelTest extends AbstractRuntimeTest
+public class PasswordLimiterModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(PasswordLimiterItem.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(PasswordLimiterModelTest.class, "MODEL");
-	}
-
-	public PasswordLimiterModelTest()
-	{
-		super(MODEL);
 	}
 
 	public void testIt()
