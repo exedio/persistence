@@ -106,5 +106,13 @@ public class PriceFieldModelTest extends CopeAssert
 		assertSerializedSame(   finalPrice, 393);
 		assertSerializedSame(optionalPrice, 396);
 		assertSerializedSame(     bigPrice, 391);
+
+		assertEquals(Integer.MIN_VALUE,    finalPrice.getInt().getMinimum());
+		assertEquals(Integer.MIN_VALUE, optionalPrice.getInt().getMinimum());
+		assertEquals(5000,                   bigPrice.getInt().getMinimum());
+
+		assertEquals(Integer.MAX_VALUE,    finalPrice.getInt().getMaximum());
+		assertEquals(Integer.MAX_VALUE, optionalPrice.getInt().getMaximum());
+		assertEquals(Integer.MAX_VALUE,      bigPrice.getInt().getMaximum());
 	}
 }
