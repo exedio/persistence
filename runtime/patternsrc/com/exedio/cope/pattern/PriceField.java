@@ -90,6 +90,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return !optional;
 	}
 
+	public Price getMinimum()
+	{
+		return Price.storeOf(integer.getMinimum());
+	}
+
 	@Deprecated
 	public Class getInitialType()
 	{

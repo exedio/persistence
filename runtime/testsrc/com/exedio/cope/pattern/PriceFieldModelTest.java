@@ -107,6 +107,10 @@ public class PriceFieldModelTest extends CopeAssert
 		assertSerializedSame(optionalPrice, 396);
 		assertSerializedSame(     bigPrice, 391);
 
+		assertEquals(Price.storeOf(Integer.MIN_VALUE),    finalPrice.getMinimum());
+		assertEquals(Price.storeOf(Integer.MIN_VALUE), optionalPrice.getMinimum());
+		assertEquals(Price.storeOf(5000),                   bigPrice.getMinimum());
+
 		assertEquals(Integer.MIN_VALUE,    finalPrice.getInt().getMinimum());
 		assertEquals(Integer.MIN_VALUE, optionalPrice.getInt().getMinimum());
 		assertEquals(5000,                   bigPrice.getInt().getMinimum());
@@ -119,6 +123,7 @@ public class PriceFieldModelTest extends CopeAssert
 	public void testDefault()
 	{
 		final PriceField f = new PriceField();
+		assertEquals(Price.storeOf(Integer.MIN_VALUE), f.getMinimum());
 		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
 		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
 	}
@@ -126,6 +131,7 @@ public class PriceFieldModelTest extends CopeAssert
 	public void testMin()
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
+		assertEquals(Price.storeOf(2000), f.getMinimum());
 		assertEquals(2000,              f.getInt().getMinimum());
 		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
 
