@@ -65,9 +65,9 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return new PriceField(integer.optional());
 	}
 
-	public PriceField min(final int minimum)
+	public PriceField min(final Price minimum)
 	{
-		return new PriceField(integer.min(minimum));
+		return new PriceField(integer.min(minimum.store));
 	}
 
 	public IntegerField getInt()
@@ -154,5 +154,16 @@ public final class PriceField extends Pattern implements Settable<Price>
 			throw new MandatoryViolationException(this, this, exceptionItem);
 
 		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #min(Price)} instead.
+	 */
+	@Deprecated
+	public PriceField min(final int minimum)
+	{
+		return new PriceField(integer.min(minimum));
 	}
 }

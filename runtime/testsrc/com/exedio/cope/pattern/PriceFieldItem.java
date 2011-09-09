@@ -27,7 +27,7 @@ public class PriceFieldItem extends Item
 {
 	static final PriceField finalPrice = new PriceField().toFinal();
 	static final PriceField optionalPrice = new PriceField().optional();
-	static final PriceField bigPrice = new PriceField().min(5000);
+	static final PriceField bigPrice = new PriceField().min(Price.storeOf(5000));
 
 
 	/**
