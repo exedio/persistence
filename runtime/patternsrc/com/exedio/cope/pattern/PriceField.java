@@ -65,6 +65,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return new PriceField(integer.optional());
 	}
 
+	public PriceField defaultTo(final Price defaultConstant)
+	{
+		return new PriceField(integer.defaultTo(defaultConstant.store));
+	}
+
 	public PriceField range(final Price minimum, final Price maximum)
 	{
 		return new PriceField(integer.range(minimum.store, maximum.store));
@@ -98,6 +103,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public boolean isMandatory()
 	{
 		return !optional;
+	}
+
+	public Price getDefaultConstant()
+	{
+		return Price.storeOf(integer.getDefaultConstant());
 	}
 
 	public Price getMinimum()

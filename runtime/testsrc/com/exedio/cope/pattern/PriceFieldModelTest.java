@@ -107,6 +107,10 @@ public class PriceFieldModelTest extends CopeAssert
 		assertSerializedSame(optionalPrice, 396);
 		assertSerializedSame(     bigPrice, 391);
 
+		assertEquals(null,    finalPrice.getDefaultConstant());
+		assertEquals(null, optionalPrice.getDefaultConstant());
+		assertEquals(null,      bigPrice.getDefaultConstant());
+
 		assertEquals(Price.MIN_VALUE,    finalPrice.getMinimum());
 		assertEquals(Price.MIN_VALUE, optionalPrice.getMinimum());
 		assertEquals(Price.storeOf(5000),  bigPrice.getMinimum());
@@ -205,6 +209,27 @@ public class PriceFieldModelTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("maximum must be greater than mimimum, but was 0 and 0.", e.getMessage());
+		}
+	}
+
+	public void testDefaultConstant()
+	{
+		final PriceField f = new PriceField();
+		assertEquals(null, f.getDefaultConstant());
+		assertEquals(true, f.isInitial());
+
+		final PriceField df = f.defaultTo(Price.storeOf(2000));
+		assertEquals(Price.storeOf(2000), df.getDefaultConstant());
+		assertEquals(false, df.isInitial());
+
+		try
+		{
+			f.defaultTo(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 	}
 }
