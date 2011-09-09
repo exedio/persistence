@@ -70,6 +70,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return new PriceField(integer.min(minimum.store));
 	}
 
+	public PriceField max(final Price maximum)
+	{
+		return new PriceField(integer.max(maximum.store));
+	}
+
 	public IntegerField getInt()
 	{
 		return integer;
@@ -93,6 +98,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public Price getMinimum()
 	{
 		return Price.storeOf(integer.getMinimum());
+	}
+
+	public Price getMaximum()
+	{
+		return Price.storeOf(integer.getMaximum());
 	}
 
 	@Deprecated

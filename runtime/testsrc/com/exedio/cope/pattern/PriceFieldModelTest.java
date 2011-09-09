@@ -111,6 +111,10 @@ public class PriceFieldModelTest extends CopeAssert
 		assertEquals(Price.storeOf(Integer.MIN_VALUE), optionalPrice.getMinimum());
 		assertEquals(Price.storeOf(5000),                   bigPrice.getMinimum());
 
+		assertEquals(Price.storeOf(Integer.MAX_VALUE),    finalPrice.getMaximum());
+		assertEquals(Price.storeOf(Integer.MAX_VALUE), optionalPrice.getMaximum());
+		assertEquals(Price.storeOf(Integer.MAX_VALUE),      bigPrice.getMaximum());
+
 		assertEquals(Integer.MIN_VALUE,    finalPrice.getInt().getMinimum());
 		assertEquals(Integer.MIN_VALUE, optionalPrice.getInt().getMinimum());
 		assertEquals(5000,                   bigPrice.getInt().getMinimum());
@@ -124,6 +128,7 @@ public class PriceFieldModelTest extends CopeAssert
 	{
 		final PriceField f = new PriceField();
 		assertEquals(Price.storeOf(Integer.MIN_VALUE), f.getMinimum());
+		assertEquals(Price.storeOf(Integer.MAX_VALUE), f.getMaximum());
 		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
 		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
 	}
@@ -132,12 +137,32 @@ public class PriceFieldModelTest extends CopeAssert
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
 		assertEquals(Price.storeOf(2000), f.getMinimum());
+		assertEquals(Price.storeOf(Integer.MAX_VALUE), f.getMaximum());
 		assertEquals(2000,              f.getInt().getMinimum());
 		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
 
 		try
 		{
 			f.min(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	public void testMax()
+	{
+		final PriceField f = new PriceField().max(Price.storeOf(4000));
+		assertEquals(Price.storeOf(Integer.MIN_VALUE), f.getMinimum());
+		assertEquals(Price.storeOf(4000),              f.getMaximum());
+		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
+		assertEquals(4000,              f.getInt().getMaximum());
+
+		try
+		{
+			f.max(null);
 			fail();
 		}
 		catch(final NullPointerException e)
