@@ -19,6 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.storeOf;
+import static com.exedio.cope.pattern.PriceFieldItem.TYPE;
+import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
+import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
+import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
 
 import java.util.Arrays;
 
@@ -34,7 +38,7 @@ import com.exedio.cope.misc.Computed;
 
 public class PriceFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(PriceFieldItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -59,68 +63,68 @@ public class PriceFieldTest extends AbstractRuntimeTest
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.finalPrice,
-				item.finalPrice.getInt(),
-				item.optionalPrice,
-				item.optionalPrice.getInt(),
-				item.bigPrice,
-				item.bigPrice.getInt(),
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				finalPrice,
+				finalPrice.getInt(),
+				optionalPrice,
+				optionalPrice.getInt(),
+				bigPrice,
+				bigPrice.getInt(),
+			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.finalPrice,
-				item.finalPrice.getInt(),
-				item.optionalPrice,
-				item.optionalPrice.getInt(),
-				item.bigPrice,
-				item.bigPrice.getInt(),
-			}), item.TYPE.getDeclaredFeatures());
+				TYPE.getThis(),
+				finalPrice,
+				finalPrice.getInt(),
+				optionalPrice,
+				optionalPrice.getInt(),
+				bigPrice,
+				bigPrice.getInt(),
+			}), TYPE.getDeclaredFeatures());
 
-		assertEquals(item.TYPE, item.finalPrice.getInt().getType());
-		assertEquals(item.TYPE, item.finalPrice.getType());
-		assertEquals(item.TYPE, item.optionalPrice.getInt().getType());
-		assertEquals(item.TYPE, item.optionalPrice.getType());
-		assertEquals(item.TYPE, item.bigPrice.getInt().getType());
-		assertEquals(item.TYPE, item.bigPrice.getType());
-		assertEquals("finalPrice-int",item.finalPrice.getInt().getName());
-		assertEquals("finalPrice",    item.finalPrice.getName());
-		assertEquals("optionalPrice-int",item.optionalPrice.getInt().getName());
-		assertEquals("optionalPrice",    item.optionalPrice.getName());
-		assertEquals("bigPrice-int",item.bigPrice.getInt().getName());
-		assertEquals("bigPrice",    item.bigPrice.getName());
+		assertEquals(TYPE, finalPrice.getInt().getType());
+		assertEquals(TYPE, finalPrice.getType());
+		assertEquals(TYPE, optionalPrice.getInt().getType());
+		assertEquals(TYPE, optionalPrice.getType());
+		assertEquals(TYPE, bigPrice.getInt().getType());
+		assertEquals(TYPE, bigPrice.getType());
+		assertEquals("finalPrice-int",finalPrice.getInt().getName());
+		assertEquals("finalPrice",    finalPrice.getName());
+		assertEquals("optionalPrice-int",optionalPrice.getInt().getName());
+		assertEquals("optionalPrice",    optionalPrice.getName());
+		assertEquals("bigPrice-int",bigPrice.getInt().getName());
+		assertEquals("bigPrice",    bigPrice.getName());
 
-		assertEquals(item.finalPrice, item.finalPrice.getInt().getPattern());
-		assertEquals(item.optionalPrice, item.optionalPrice.getInt().getPattern());
-		assertEquals(item.bigPrice, item.bigPrice.getInt().getPattern());
+		assertEquals(finalPrice, finalPrice.getInt().getPattern());
+		assertEquals(optionalPrice, optionalPrice.getInt().getPattern());
+		assertEquals(bigPrice, bigPrice.getInt().getPattern());
 
-		assertEquals(true, item.finalPrice.isInitial());
-		assertEquals(true, item.finalPrice.isMandatory());
-		assertEquals(true, item.finalPrice.isFinal());
-		assertEquals(Price.class, getInitialType(item.finalPrice));
-		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.finalPrice.getInitialExceptions());
+		assertEquals(true, finalPrice.isInitial());
+		assertEquals(true, finalPrice.isMandatory());
+		assertEquals(true, finalPrice.isFinal());
+		assertEquals(Price.class, getInitialType(finalPrice));
+		assertContains(MandatoryViolationException.class, FinalViolationException.class, finalPrice.getInitialExceptions());
 
-		assertEquals(false, item.optionalPrice.isInitial());
-		assertEquals(false, item.optionalPrice.isMandatory());
-		assertEquals(false, item.optionalPrice.isFinal());
-		assertEquals(Price.class, getInitialType(item.optionalPrice));
-		assertContains(item.optionalPrice.getInitialExceptions());
+		assertEquals(false, optionalPrice.isInitial());
+		assertEquals(false, optionalPrice.isMandatory());
+		assertEquals(false, optionalPrice.isFinal());
+		assertEquals(Price.class, getInitialType(optionalPrice));
+		assertContains(optionalPrice.getInitialExceptions());
 
-		assertEquals(true, item.bigPrice.isInitial());
-		assertEquals(false, item.bigPrice.isFinal());
-		assertEquals(Price.class, getInitialType(item.bigPrice));
-		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
+		assertEquals(true, bigPrice.isInitial());
+		assertEquals(false, bigPrice.isFinal());
+		assertEquals(Price.class, getInitialType(bigPrice));
+		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, bigPrice.getInitialExceptions());
 
-		assertTrue(item.   finalPrice.getInt().isAnnotationPresent(Computed.class));
-		assertTrue(item.optionalPrice.getInt().isAnnotationPresent(Computed.class));
-		assertTrue(item.     bigPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(   finalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(optionalPrice.getInt().isAnnotationPresent(Computed.class));
+		assertTrue(     bigPrice.getInt().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.   finalPrice, 388);
-		assertSerializedSame(item.optionalPrice, 391);
-		assertSerializedSame(item.     bigPrice, 386);
+		assertSerializedSame(   finalPrice, 388);
+		assertSerializedSame(optionalPrice, 391);
+		assertSerializedSame(     bigPrice, 386);
 
 		// test persistence
-		assertEquals("finalPrice_int", SchemaInfo.getColumnName(item.finalPrice.getInt()));
+		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));
 
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
@@ -153,7 +157,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		catch(final IntegerRangeViolationException e)
 		{
-			assertEquals(item.bigPrice.getInt(), e.getFeature());
+			assertEquals(bigPrice.getInt(), e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(4999, e.getValue());
 			assertTrue(e.isTooSmall());
@@ -169,7 +173,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.bigPrice, e.getFeature());
+			assertEquals(bigPrice, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertEquals(storeOf(555), item.getFinalPrice());
@@ -178,32 +182,32 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		try
 		{
 			new PriceFieldItem(new SetValue[]{
-					item.finalPrice.map(storeOf(567)),
-					item.bigPrice.map(null),
+					finalPrice.map(storeOf(567)),
+					bigPrice.map(null),
 			});
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.bigPrice, e.getFeature());
+			assertEquals(bigPrice, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		try
 		{
 			new PriceFieldItem(new SetValue[]{
-					item.finalPrice.map(storeOf(567)),
+					finalPrice.map(storeOf(567)),
 			});
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.bigPrice.getInt(), e.getFeature()); // TODO should be price itself, not the int
+			assertEquals(bigPrice.getInt(), e.getFeature()); // TODO should be price itself, not the int
 			assertEquals(null, e.getItem());
 		}
 
 		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue[]{
-				item.finalPrice.map(storeOf(567)),
-				item.bigPrice.map(storeOf(5001)),
+				finalPrice.map(storeOf(567)),
+				bigPrice.map(storeOf(5001)),
 		}));
 		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());
