@@ -115,4 +115,28 @@ public class PriceFieldModelTest extends CopeAssert
 		assertEquals(Integer.MAX_VALUE, optionalPrice.getInt().getMaximum());
 		assertEquals(Integer.MAX_VALUE,      bigPrice.getInt().getMaximum());
 	}
+
+	public void testDefault()
+	{
+		final PriceField f = new PriceField();
+		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
+		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
+	}
+
+	public void testMin()
+	{
+		final PriceField f = new PriceField().min(Price.storeOf(2000));
+		assertEquals(2000,              f.getInt().getMinimum());
+		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
+
+		try
+		{
+			f.min(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
 }
