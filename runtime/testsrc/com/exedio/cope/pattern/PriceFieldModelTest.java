@@ -106,7 +106,5 @@ public class PriceFieldModelTest extends CopeAssert
 		assertSerializedSame(   finalPrice, 393);
 		assertSerializedSame(optionalPrice, 396);
 		assertSerializedSame(     bigPrice, 391);
-
-		// test persistence
 	}
 }
