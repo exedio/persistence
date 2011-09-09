@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +30,10 @@ import java.util.List;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 
-public final class Query<R>
+public final class Query<R> implements Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	final static int UNLIMITED = -66;
 
 	final Model model;

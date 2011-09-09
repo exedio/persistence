@@ -23,6 +23,8 @@ import java.util.TreeSet;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final ItemFunction<E> function;
 	private final boolean not;
 	private Type<E>[] types;

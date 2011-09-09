@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class LikeCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	public final StringFunction function;
 	public final String value;
 

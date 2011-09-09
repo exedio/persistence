@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
-public abstract class Condition
+public abstract class Condition implements java.io.Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	abstract void append(Statement statment);
 
 	public abstract boolean get(Item item);
@@ -117,8 +119,10 @@ public abstract class Condition
 
 	static class Literal extends Condition
 	{
+		private static final long serialVersionUID = 1l;
+
 		final boolean value;
-		private final String name;
+		private final transient String name; // restored by readResolve
 
 		Literal(final boolean value, final String name)
 		{
@@ -167,6 +171,16 @@ public abstract class Condition
 		void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 		{
 			bf.append(name);
+		}
+
+		/**
+		 * Enforces singleton on deserialization,
+		 * otherwise {@link #equals(Object)} would be wrong.
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return Condition.valueOf(value);
 		}
 	}
 

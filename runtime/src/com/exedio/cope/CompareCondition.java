@@ -23,6 +23,8 @@ import java.util.Date;
 
 public final class CompareCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final CompareFunctionCondition.Operator operator;
 	private final Function<E> left;
 	private final E right;

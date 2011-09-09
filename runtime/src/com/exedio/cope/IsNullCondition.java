@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class IsNullCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Function<E> function;
 	private final boolean not;
 

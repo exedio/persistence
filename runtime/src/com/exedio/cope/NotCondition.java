@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class NotCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	final Condition argument;
 
 	/**

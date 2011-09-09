@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class CompareFunctionCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Operator operator;
 	private final Function<E> left;
 	private final Function<? extends E> right;

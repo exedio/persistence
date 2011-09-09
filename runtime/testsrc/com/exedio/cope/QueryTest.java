@@ -181,6 +181,8 @@ public class QueryTest extends AbstractRuntimeTest
 			q.narrow(TRUE);
 			assertSame(null, q.getCondition());
 		}
+		assertSerializedSame(TRUE, 103);
+		assertSerializedSame(FALSE, 103);
 	}
 
 	public void testResult()

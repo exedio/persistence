@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
-public final class Join
+public final class Join implements java.io.Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	static enum Kind
 	{
 		INNER("join "),

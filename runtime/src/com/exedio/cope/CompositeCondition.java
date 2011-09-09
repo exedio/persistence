@@ -23,6 +23,8 @@ import java.util.List;
 
 public final class CompositeCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	public final Operator operator;
 	final Condition[] conditions;
 

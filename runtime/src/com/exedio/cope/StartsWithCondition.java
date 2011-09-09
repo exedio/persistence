@@ -24,6 +24,8 @@ import com.exedio.cope.util.Hex;
 
 public final class StartsWithCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	public final DataField field;
 	public final byte[] value;
 
