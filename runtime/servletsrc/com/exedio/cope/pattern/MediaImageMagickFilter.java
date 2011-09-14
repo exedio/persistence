@@ -259,13 +259,13 @@ public class MediaImageMagickFilter extends MediaFilter
 		command[command.length-1] = outFile.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
 
-		final byte[] b = new byte[1580]; // size of the file
+		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
 		{
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
 			try
 			{
 				final int inLength = inStream.read(b);
-				if(inLength!=1578)
+				if(inLength!=1578) // size of the file
 					throw new RuntimeException(String.valueOf(inLength));
 			}
 			finally
