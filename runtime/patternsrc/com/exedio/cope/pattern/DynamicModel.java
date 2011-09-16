@@ -107,7 +107,7 @@ public final class DynamicModel<L> extends Pattern
 
 	private MapField<L, String> newLocalization()
 	{
-		return MapField.newMap(localeTemplate.copy(), new StringField());
+		return MapField.create(localeTemplate.copy(), new StringField());
 	}
 
 	@SuppressWarnings("unchecked")

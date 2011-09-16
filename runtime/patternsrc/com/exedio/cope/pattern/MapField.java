@@ -61,7 +61,7 @@ public final class MapField<K,V> extends Pattern
 			throw new IllegalArgumentException("value must not be unique");
 	}
 
-	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new MapField<K,V>(key, value);
 	}
@@ -250,5 +250,16 @@ public final class MapField<K,V> extends Pattern
 				getRelationType(),
 				mount().parent.equalTarget().
 					and(this.key.equal(key)));
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<K>,FunctionField<V>)} instead
+	 */
+	@Deprecated
+	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	{
+		return create(key, value);
 	}
 }

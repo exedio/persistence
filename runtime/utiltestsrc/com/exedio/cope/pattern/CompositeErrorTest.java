@@ -148,7 +148,7 @@ public class CompositeErrorTest extends CopeAssert
 			super(setValues);
 		}
 
-		static final Feature patternField = MapField.newMap(new StringField(), new StringField());
+		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
 	static class FinalField extends Composite

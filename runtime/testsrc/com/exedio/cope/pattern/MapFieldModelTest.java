@@ -114,7 +114,7 @@ public class MapFieldModelTest extends CopeAssert
 
 		try
 		{
-			MapField.newMap(null, null);
+			MapField.create(null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -123,7 +123,7 @@ public class MapFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			MapField.newMap(new StringField().unique(), null);
+			MapField.create(new StringField().unique(), null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -132,7 +132,7 @@ public class MapFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			MapField.newMap(new StringField(), null);
+			MapField.create(new StringField(), null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -141,14 +141,14 @@ public class MapFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			MapField.newMap(new StringField(), new StringField().unique());
+			MapField.create(new StringField(), new StringField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("value must not be unique", e.getMessage());
 		}
-		MapField.newMap(new StringField(), new StringField());
+		MapField.create(new StringField(), new StringField());
 
 		try
 		{

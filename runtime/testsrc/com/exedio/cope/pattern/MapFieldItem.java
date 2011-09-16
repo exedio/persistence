@@ -29,13 +29,13 @@ public class MapFieldItem extends Item
 		DE, EN, PL;
 	}
 
-	static final MapField<Language, String> name = MapField.newMap(newEnumField(Language.class).toFinal(), new StringField());
+	static final MapField<Language, String> name = MapField.create(newEnumField(Language.class).toFinal(), new StringField());
 
-	static final MapField<Language, Integer> nameLength = MapField.newMap(newEnumField(Language.class).toFinal(), new IntegerField());
+	static final MapField<Language, Integer> nameLength = MapField.create(newEnumField(Language.class).toFinal(), new IntegerField());
 
-	static final MapField<String, String> string = MapField.newMap(new StringField().toFinal().lengthRange(4, 8), new StringField());
+	static final MapField<String, String> string = MapField.create(new StringField().toFinal().lengthRange(4, 8), new StringField());
 
-	static final MapField<String, Integer> integer = MapField.newMap(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
+	static final MapField<String, Integer> integer = MapField.create(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
 
 
 	/**
