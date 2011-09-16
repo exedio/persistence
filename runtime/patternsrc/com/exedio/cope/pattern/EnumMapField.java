@@ -55,7 +55,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		}
 	}
 
-	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(
+	public static final <K extends Enum<K>,V> EnumMapField<K,V> create(
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{
@@ -121,5 +121,18 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	{
 		assertKey(key);
 		fields.get(key).set(item, value);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(Class<K>,FunctionField<V>)} instead
+	 */
+	@Deprecated
+	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(
+			final Class<K> keyClass,
+			final FunctionField<V> value)
+	{
+		return create(keyClass, value);
 	}
 }

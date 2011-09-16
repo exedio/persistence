@@ -29,12 +29,12 @@ public class EnumMapFieldItem extends Item
 		DE, EN, PL;
 	}
 
-	static final EnumMapField<Language, String> name = EnumMapField.newMap(Language.class, new StringField().optional());
+	static final EnumMapField<Language, String> name = EnumMapField.create(Language.class, new StringField().optional());
 
-	static final EnumMapField<Language, Integer> nameLength = EnumMapField.newMap(Language.class, new IntegerField().optional());
+	static final EnumMapField<Language, Integer> nameLength = EnumMapField.create(Language.class, new IntegerField().optional());
 
 	static final EnumMapField<Language, String> defaults =
-		EnumMapField.newMap(Language.class, new StringField().optional()).
+		EnumMapField.create(Language.class, new StringField().optional()).
 			defaultTo(Language.DE, "defaultDExxx").
 			defaultTo(Language.DE, "defaultDE").
 			defaultTo(Language.EN, null);
