@@ -28,7 +28,7 @@ class ModelSerializationItem extends Item
 	 * @cope.initial
 	 */
 	static final StringField name = new StringField().optional();
-	static final ListField<String> list = ListField.newList(new StringField());
+	static final ListField<String> list = ListField.create(new StringField());
 
 
 	/**

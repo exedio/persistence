@@ -25,7 +25,7 @@ import com.exedio.cope.pattern.ListField;
 class ItemSerializationItem2 extends Item
 {
 	static final StringField name2 = new StringField().optional();
-	static final ListField<String> list = ListField.newList(new StringField());
+	static final ListField<String> list = ListField.create(new StringField());
 
 	/**
 

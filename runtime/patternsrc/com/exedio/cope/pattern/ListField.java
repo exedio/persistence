@@ -58,7 +58,7 @@ public final class ListField<E> extends AbstractListField<E>
 			throw new IllegalArgumentException("element must not be unique");
 	}
 
-	public static final <E> ListField<E> newList(final FunctionField<E> element)
+	public static final <E> ListField<E> create(final FunctionField<E> element)
 	{
 		return new ListField<E>(element);
 	}
@@ -261,5 +261,16 @@ public final class ListField<E> extends AbstractListField<E>
 			exceptions.add(ClassCastException.class);
 			return exceptions;
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<E>)} instead
+	 */
+	@Deprecated
+	public static final <E> ListField<E> newList(final FunctionField<E> element)
+	{
+		return create(element);
 	}
 }

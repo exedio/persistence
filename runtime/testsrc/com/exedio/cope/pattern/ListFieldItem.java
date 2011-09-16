@@ -26,9 +26,9 @@ import com.exedio.cope.StringField;
 
 public class ListFieldItem extends Item
 {
-	static final ListField<String> strings = ListField.newList(new StringField().optional().lengthRange(4, 8));
-	static final ListField<Date> dates = ListField.newList(new DateField());
-	static final ListField<ListFieldItem> items = ListField.newList(newItemField(ListFieldItem.class, CASCADE));
+	static final ListField<String> strings = ListField.create(new StringField().optional().lengthRange(4, 8));
+	static final ListField<Date> dates = ListField.create(new DateField());
+	static final ListField<ListFieldItem> items = ListField.create(newItemField(ListFieldItem.class, CASCADE));
 
 	/**
 

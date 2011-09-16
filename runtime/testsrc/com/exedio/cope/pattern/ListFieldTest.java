@@ -208,7 +208,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			ListField.newList(null);
+			ListField.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -217,7 +217,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			ListField.newList(new StringField().toFinal());
+			ListField.create(new StringField().toFinal());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -226,7 +226,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			ListField.newList(new StringField().unique());
+			ListField.create(new StringField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

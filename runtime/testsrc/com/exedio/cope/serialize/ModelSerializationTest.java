@@ -60,7 +60,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertNotNull(model.toString());
 
 		try
@@ -159,7 +159,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertEquals(ModelSerializationTest.class.getName() + "#model", model.toString());
 
 		try
@@ -180,7 +180,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
 
 	private static final void assertNotSerializable(final Serializable value, final Class exceptionMessage) throws IOException
@@ -213,7 +213,7 @@ public class ModelSerializationTest extends CopeAssert
 		}
 
 		static final StringField field = new StringField();
-		static final ListField<String> pattern = ListField.newList(new StringField());
+		static final ListField<String> pattern = ListField.create(new StringField());
 
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 	}
