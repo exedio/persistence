@@ -51,7 +51,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		}
 	}
 
-	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)
+	public static final <K extends Enum<K>> EnumSetField<K> create(final Class<K> keyClass)
 	{
 		return new EnumSetField<K>(keyClass);
 	}
@@ -138,5 +138,16 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	{
 		assertElement(element);
 		return getField(element).equal(true);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(Class<K>)} instead
+	 */
+	@Deprecated
+	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)
+	{
+		return create(keyClass);
 	}
 }
