@@ -339,7 +339,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			LimitedListField.newList(new StringField(), 1);
+			LimitedListField.create(new StringField(), 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

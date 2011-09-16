@@ -38,15 +38,15 @@ public class LimitedListFieldItem extends Item
 
 	static final IntegerField num3 = new IntegerField().optional();
 
-	static final LimitedListField<Integer> nums = LimitedListField.newList(num1, num2, num3);
+	static final LimitedListField<Integer> nums = LimitedListField.create(num1, num2, num3);
 
 	// implicit external source
 
-	static final LimitedListField<Date> dates = LimitedListField.newList(new DateField().optional(), new DateField().optional());
+	static final LimitedListField<Date> dates = LimitedListField.create(new DateField().optional(), new DateField().optional());
 
 	// internal source
 
-	static final LimitedListField<String> strings = LimitedListField.newList(new StringField().optional().lengthRange(1, 11), 4);
+	static final LimitedListField<String> strings = LimitedListField.create(new StringField().optional().lengthRange(1, 11), 4);
 
 	LimitedListFieldItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

@@ -81,17 +81,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		this(template2Sources(template, maximumSize));
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new LimitedListField<E>(source1, source2);
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new LimitedListField<E>(source1, source2, source3);
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
 	{
 		return new LimitedListField<E>(template, maximumSize);
 	}
@@ -284,5 +284,34 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			conditions[i] = sources[i].equal(value);
 
 		return Cope.or(conditions);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<E>,FunctionField<E>)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	{
+		return create(source1, source2);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<E>,FunctionField<E>,FunctionField<E>)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	{
+		return create(source1, source2, source3);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<E>,int)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
+	{
+		return create(template, maximumSize);
 	}
 }
