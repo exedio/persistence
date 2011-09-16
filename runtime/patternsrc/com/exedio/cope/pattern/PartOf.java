@@ -52,12 +52,12 @@ public final class PartOf<C extends Item> extends Pattern
 			addSource(order, "Order");
 	}
 
-	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
+	public static final <C extends Item> PartOf<C> create(final ItemField<C> container)
 	{
 		return new PartOf<C>(container, null);
 	}
 
-	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)
+	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField order)
 	{
 		if(order==null)
 			throw new NullPointerException("order");
@@ -168,5 +168,23 @@ public final class PartOf<C extends Item> extends Pattern
 	public List<? extends Item> getPartsAndCast(final Item container)
 	{
 		return getParts(container);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(ItemField<C>)} instead
+	 */
+	@Deprecated
+	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
+	{
+		return create(container);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(ItemField<C>,FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)
+	{
+		return create(container, order);
 	}
 }

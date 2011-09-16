@@ -89,7 +89,7 @@ public final class PasswordLimiter extends Pattern
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final PartOf<?>refusals = PartOf.newPartOf(parent, date);
+		final PartOf<?>refusals = PartOf.create(parent, date);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("date", date);

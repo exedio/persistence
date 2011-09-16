@@ -27,7 +27,7 @@ public class PartOfItem extends Item
 {
 	static final ItemField<PartOfContainerItem> container = newItemField(PartOfContainerItem.class, CASCADE).toFinal();
 
-	static final PartOf<PartOfContainerItem> parts = PartOf.newPartOf(container);
+	static final PartOf<PartOfContainerItem> parts = PartOf.create(container);
 
 	static final StringField partString = new StringField();
 	static final IntegerField partInteger = new IntegerField();

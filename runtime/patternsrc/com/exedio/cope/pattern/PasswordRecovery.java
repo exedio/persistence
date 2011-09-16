@@ -68,7 +68,7 @@ public final class PasswordRecovery extends Pattern
 		final Type<?> type = getType();
 
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		tokens = PartOf.newPartOf(parent, expires);
+		tokens = PartOf.create(parent, expires);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("secret", secret);

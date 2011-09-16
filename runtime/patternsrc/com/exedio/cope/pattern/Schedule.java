@@ -308,7 +308,7 @@ public final class Schedule extends Pattern
 		void onMount(final Schedule pattern, final Type<?> type)
 		{
 			final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-			final PartOf<?> runs = PartOf.newPartOf(parent, from);
+			final PartOf<?> runs = PartOf.create(parent, from);
 			final Features features = new Features();
 			features.put("parent", parent);
 			features.put("from",  from);

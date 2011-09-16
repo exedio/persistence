@@ -70,7 +70,7 @@ public final class History extends Pattern
 		final Type<?> type = getType();
 
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		eventEvents = PartOf.newPartOf(eventParent, eventDate);
+		eventEvents = PartOf.create(eventParent, eventDate);
 		final Features features = new Features();
 		features.put("parent", eventParent);
 		features.put("date", eventDate);
@@ -81,7 +81,7 @@ public final class History extends Pattern
 
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		featureFeatures = PartOf.newPartOf(featureEvent);
+		featureFeatures = PartOf.create(featureEvent);
 		featureUnique = new UniqueConstraint(featureEvent, featureId.getIdField());
 		features.put("event", featureEvent);
 		features.put("features", featureFeatures);

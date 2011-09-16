@@ -86,7 +86,7 @@ public class PartOfModelTest extends CopeAssert
 
 		try
 		{
-			PartOf.newPartOf(null);
+			PartOf.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -95,7 +95,7 @@ public class PartOfModelTest extends CopeAssert
 		}
 		try
 		{
-			PartOf.newPartOf(null, new IntegerField());
+			PartOf.create(null, new IntegerField());
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -104,7 +104,7 @@ public class PartOfModelTest extends CopeAssert
 		}
 		try
 		{
-			PartOf.newPartOf(null, null);
+			PartOf.create(null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
