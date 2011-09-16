@@ -167,9 +167,13 @@ public abstract class Composite implements Serializable
 
 	// convenience for subclasses --------------------------------------------------
 
+	/**
+	 * @deprecated Use {@link EnumField#create(FunctionField)} instead
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
-		return Item.newEnumField(valueClass);
+		return EnumField.create(valueClass);
 	}
 
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)

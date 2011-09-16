@@ -40,9 +40,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		checkDefaultConstant();
 	}
 
-	EnumField(final Class<E> valueClass)
+	public static final <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
 	{
-		this(false, false, false, valueClass, null);
+		return new EnumField<E>(false, false, false, valueClass, null);
 	}
 
 	@Override

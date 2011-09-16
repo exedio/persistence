@@ -533,9 +533,13 @@ public abstract class Item implements Serializable, Comparable<Item>
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 
+	/**
+	 * @deprecated Use {@link EnumField#create(FunctionField)} instead
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
-		return new EnumField<E>(valueClass);
+		return EnumField.create(valueClass);
 	}
 
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
