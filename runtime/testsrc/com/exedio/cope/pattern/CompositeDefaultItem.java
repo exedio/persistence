@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 final class CompositeDefaultItem extends Item
 {
-	static final CompositeField<CompositeDefaultValue> field = CompositeField.newComposite(CompositeDefaultValue.class).optional();
+	static final CompositeField<CompositeDefaultValue> field = CompositeField.create(CompositeDefaultValue.class).optional();
 
 	CompositeDefaultItem(final CompositeDefaultValue field)
 	{

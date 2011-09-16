@@ -32,7 +32,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			CompositeField.newComposite(null);
+			CompositeField.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -41,7 +41,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(NoConstructor.class);
+			CompositeField.create(NoConstructor.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -53,7 +53,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(NoFields.class);
+			CompositeField.create(NoFields.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -62,7 +62,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(NullField.class);
+			CompositeField.create(NullField.class);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -71,7 +71,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(PatternField.class);
+			CompositeField.create(PatternField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -80,7 +80,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(Composite.class);
+			CompositeField.create(Composite.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -89,7 +89,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.newComposite(FinalField.class);
+			CompositeField.create(FinalField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -103,7 +103,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			CompositeField.newComposite((Class)CompositeErrorTest.class);
+			CompositeField.create((Class)CompositeErrorTest.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

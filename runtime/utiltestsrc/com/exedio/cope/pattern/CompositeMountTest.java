@@ -213,5 +213,5 @@ public class CompositeMountTest extends CopeAssert
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField field = CompositeField.newComposite(Value.class);
+	static final CompositeField field = CompositeField.create(Value.class);
 }

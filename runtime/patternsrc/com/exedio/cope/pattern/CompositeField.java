@@ -125,7 +125,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 	}
 
-	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)
+	public static <E extends Composite> CompositeField<E> create(final Class<E> valueClass)
 	{
 		return new CompositeField<E>(false, false, valueClass);
 	}
@@ -314,5 +314,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public <X extends FunctionField> X getComponent(final X template)
 	{
 		return of(template);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Class<E>)} instead
+	 */
+	@Deprecated
+	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)
+	{
+		return create(valueClass);
 	}
 }
