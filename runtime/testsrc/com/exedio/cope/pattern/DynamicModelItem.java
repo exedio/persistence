@@ -25,8 +25,8 @@ public class DynamicModelItem extends Item
 {
 	static final StringField name = new StringField().toFinal();
 
-	static final DynamicModel<DynamicModelLocalizationItem> features = DynamicModel.newModel(newItemField(DynamicModelLocalizationItem.class), 1, 1, 1, 1, 2);
-	static final DynamicModel<DynamicModelLocalizationItem> small = DynamicModel.newModel(newItemField(DynamicModelLocalizationItem.class), 1, 0, 0, 0, 0);
+	static final DynamicModel<DynamicModelLocalizationItem> features = DynamicModel.create(newItemField(DynamicModelLocalizationItem.class), 1, 1, 1, 1, 2);
+	static final DynamicModel<DynamicModelLocalizationItem> small = DynamicModel.create(newItemField(DynamicModelLocalizationItem.class), 1, 0, 0, 0, 0);
 
 
 	/**
