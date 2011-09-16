@@ -110,7 +110,7 @@ public class RangeFieldModelTest extends CopeAssert
 
 		try
 		{
-			RangeField.newRange(new IntegerField().unique());
+			RangeField.create(new IntegerField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

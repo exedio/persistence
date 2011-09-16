@@ -24,8 +24,8 @@ import com.exedio.cope.StringField;
 
 public class RangeFieldItem extends Item
 {
-	/** @cope.initial */ static final RangeField<Integer> valid = RangeField.newRange(new IntegerField().optional());
-	static final RangeField<String> text = RangeField.newRange(new StringField().toFinal());
+	/** @cope.initial */ static final RangeField<Integer> valid = RangeField.create(new IntegerField().optional());
+	static final RangeField<String> text = RangeField.create(new StringField().toFinal());
 
 	/**
 
