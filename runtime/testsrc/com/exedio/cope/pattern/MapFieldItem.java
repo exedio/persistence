@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -29,9 +30,9 @@ public class MapFieldItem extends Item
 		DE, EN, PL;
 	}
 
-	static final MapField<Language, String> name = MapField.create(newEnumField(Language.class).toFinal(), new StringField());
+	static final MapField<Language, String> name = MapField.create(EnumField.create(Language.class).toFinal(), new StringField());
 
-	static final MapField<Language, Integer> nameLength = MapField.create(newEnumField(Language.class).toFinal(), new IntegerField());
+	static final MapField<Language, Integer> nameLength = MapField.create(EnumField.create(Language.class).toFinal(), new IntegerField());
 
 	static final MapField<String, String> string = MapField.create(new StringField().toFinal().lengthRange(4, 8), new StringField());
 

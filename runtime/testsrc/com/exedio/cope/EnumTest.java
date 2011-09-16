@@ -72,7 +72,7 @@ public class EnumTest extends AbstractRuntimeTest
 		assertEquals(null, item.getSingle());
 
 		{
-			final EnumField<Single> wrong = item.newEnumField(Single.class);
+			final EnumField<Single> wrong = EnumField.create(Single.class);
 			final Features features = new Features();
 			features.put("wrong", wrong);
 			try

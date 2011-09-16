@@ -27,9 +27,9 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 class CrossPackageSuper extends Item
 {
 	static final ItemField<SubTarget> superField = newItemField(SubTarget.class).toFinal();
-	static final EnumField<SuperEnum> superField2 = newEnumField(SuperEnum.class).toFinal();
-	static final EnumField<EnumContainer.Enum3> externalEnum = newEnumField(EnumContainer.Enum3.class).toFinal();
-	static final EnumField<Enum4> shortExternalEnum = newEnumField(Enum4.class).toFinal();
+	static final EnumField<SuperEnum> superField2 = EnumField.create(SuperEnum.class).toFinal();
+	static final EnumField<EnumContainer.Enum3> externalEnum = EnumField.create(EnumContainer.Enum3.class).toFinal();
+	static final EnumField<Enum4> shortExternalEnum = EnumField.create(Enum4.class).toFinal();
 
 	enum SuperEnum
 	{

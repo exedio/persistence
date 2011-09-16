@@ -18,15 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Item.newEnumField;
-
 import com.exedio.cope.junit.CopeAssert;
 
 public class EnumClassTest extends CopeAssert
 {
 	public void testNormal()
 	{
-		final EnumField<Normal> f = newEnumField(Normal.class);
+		final EnumField<Normal> f = EnumField.create(Normal.class);
 		assertSame(Normal.class, f.getValueClass());
 		assertSame(Normal.class, f.getValueType().getJavaClass());
 		assertEquals(list(Normal.Eins, Normal.Zwei, Normal.Drei), f.getValues());
@@ -42,7 +40,7 @@ public class EnumClassTest extends CopeAssert
 	{
 		try
 		{
-			newEnumField((Class<Normal>)null);
+			EnumField.create((Class<Normal>)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -57,7 +55,7 @@ public class EnumClassTest extends CopeAssert
 	{
 		try
 		{
-			newEnumField((Class)SomeClass.class);
+			EnumField.create((Class)SomeClass.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -74,7 +72,7 @@ public class EnumClassTest extends CopeAssert
 
 	public void testSubclass()
 	{
-		final EnumField<Subclass> f = newEnumField(Subclass.class);
+		final EnumField<Subclass> f = EnumField.create(Subclass.class);
 		assertSame(Subclass.class, f.getValueClass());
 		assertSame(Subclass.class, f.getValueType().getJavaClass());
 		assertEquals(list(Subclass.Eins, Subclass.Zwei), f.getValues());
@@ -85,7 +83,7 @@ public class EnumClassTest extends CopeAssert
 	{
 		try
 		{
-			newEnumField((Class)Subclass.Eins.getClass());
+			EnumField.create((Class)Subclass.Eins.getClass());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

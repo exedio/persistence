@@ -42,8 +42,8 @@ class CompareFunctionConditionItem extends Item
 	/** @cope.initial */ static final DayField leftDay = new DayField().optional();
 	/** @cope.initial */ static final DayField rightDay = new DayField().optional();
 
-	/** @cope.initial */ static final EnumField<XEnum> leftEnum = newEnumField(XEnum.class).optional();
-	/** @cope.initial */ static final EnumField<XEnum> rightEnum = newEnumField(XEnum.class).optional();
+	/** @cope.initial */ static final EnumField<XEnum> leftEnum = EnumField.create(XEnum.class).optional();
+	/** @cope.initial */ static final EnumField<XEnum> rightEnum = EnumField.create(XEnum.class).optional();
 
 	static enum XEnum
 	{

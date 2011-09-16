@@ -27,14 +27,14 @@ class EnumItem extends Item
 		status3;
 	}
 
-	static final EnumField<Status> status = newEnumField(Status.class);
+	static final EnumField<Status> status = EnumField.create(Status.class);
 
 	static enum Single
 	{
 		single;
 	}
 
-	static final EnumField<Single> single = newEnumField(Single.class).optional();
+	static final EnumField<Single> single = EnumField.create(Single.class).optional();
 
 	/**
 

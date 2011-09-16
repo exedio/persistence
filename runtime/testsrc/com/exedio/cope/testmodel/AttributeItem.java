@@ -120,12 +120,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumField<SomeEnum> someEnum = newEnumField(SomeEnum.class).optional();
+	public static final EnumField<SomeEnum> someEnum = EnumField.create(SomeEnum.class).optional();
 
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumField<SomeEnum> someNotNullEnum = newEnumField(SomeEnum.class);
+	public static final EnumField<SomeEnum> someNotNullEnum = EnumField.create(SomeEnum.class);
 
 	/**
 	 * A data attribute.

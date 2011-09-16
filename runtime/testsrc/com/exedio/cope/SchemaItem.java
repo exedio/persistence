@@ -29,14 +29,14 @@ class SchemaItem extends Item
 	static final IntegerField integ = new IntegerField().range(-10, 10);
 	static final DoubleField doub = new DoubleField().range(-11.1, 11.1);
 	static final BooleanField bool = new BooleanField();
-	static final EnumField<SomeEnum> anEnum = newEnumField(SomeEnum.class);
+	static final EnumField<SomeEnum> anEnum = EnumField.create(SomeEnum.class);
 	static final ItemField<SchemaTargetItem> item = newItemField(SchemaTargetItem.class);
 
 	static final StringField stringOpt = new StringField(StringField.EMPTY).optional();
 	static final IntegerField integOpt = new IntegerField().range(-10, 10).optional();
 	static final DoubleField doubOpt = new DoubleField().range(-11.1, 11.1).optional();
 	static final BooleanField boolOpt = new BooleanField().optional();
-	static final EnumField<SomeEnum> enumOpt = newEnumField(SomeEnum.class).optional();
+	static final EnumField<SomeEnum> enumOpt = EnumField.create(SomeEnum.class).optional();
 	static final ItemField<SchemaTargetItem> itemOpt = newItemField(SchemaTargetItem.class).optional();
 
 	static final StringField uniqueString = new StringField().optional().unique();

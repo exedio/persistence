@@ -61,7 +61,7 @@ public class EnumSchemaTest extends CopeAssert
 	@Deprecated // OK: test deprecated api
 	public void testUnchecked()
 	{
-		final EnumField<Normal2> normal = Item.newEnumField(Normal2.class);
+		final EnumField<Normal2> normal = EnumField.create(Normal2.class);
 		try
 		{
 			getColumnValue(((EnumField)normal), (Enum)Normal.Eins);
@@ -133,7 +133,7 @@ public class EnumSchemaTest extends CopeAssert
 	{
 		try
 		{
-			Item.newEnumField(CollisionBefore.class);
+			EnumField.create(CollisionBefore.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -142,7 +142,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(CollisionAfter.class);
+			EnumField.create(CollisionAfter.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -151,7 +151,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(CollisionStart.class);
+			EnumField.create(CollisionStart.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -160,7 +160,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(CollisionEnd.class);
+			EnumField.create(CollisionEnd.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -169,7 +169,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(OrderBefore.class);
+			EnumField.create(OrderBefore.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -178,7 +178,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(OrderAfter.class);
+			EnumField.create(OrderAfter.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -187,7 +187,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(OrderStart.class);
+			EnumField.create(OrderStart.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -196,7 +196,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 		try
 		{
-			Item.newEnumField(OrderEnd.class);
+			EnumField.create(OrderEnd.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

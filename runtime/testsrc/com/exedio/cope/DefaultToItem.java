@@ -50,9 +50,9 @@ class DefaultToItem extends Item
 		ONE, TWO, THREE;
 	}
 
-	static final EnumField<DefaultToEnum> enumOne = newEnumField(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
-	static final EnumField<DefaultToEnum> enumTwo = newEnumField(DefaultToEnum.class).optional().defaultTo(DefaultToEnum.TWO);
-	static final EnumField<DefaultToEnum> enumNone = newEnumField(DefaultToEnum.class).optional();
+	static final EnumField<DefaultToEnum> enumOne = EnumField.create(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
+	static final EnumField<DefaultToEnum> enumTwo = EnumField.create(DefaultToEnum.class).optional().defaultTo(DefaultToEnum.TWO);
+	static final EnumField<DefaultToEnum> enumNone = EnumField.create(DefaultToEnum.class).optional();
 
 	/**
 

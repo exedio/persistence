@@ -28,7 +28,7 @@ class CompareConditionItem extends Item
 	/** @cope.initial */ static final DoubleField doublex = new DoubleField().optional();
 	/** @cope.initial */ static final DateField date = new DateField().optional();
 	/** @cope.initial */ static final DayField day = new DayField().optional();
-	/** @cope.initial */ static final EnumField<YEnum> enumx = newEnumField(YEnum.class).optional();
+	/** @cope.initial */ static final EnumField<YEnum> enumx = EnumField.create(YEnum.class).optional();
 
 	static enum YEnum
 	{
