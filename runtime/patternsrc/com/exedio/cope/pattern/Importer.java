@@ -53,7 +53,7 @@ public final class Importer<K extends Object> extends Pattern
 		this.key = key;
 	}
 
-	public static final <K> Importer<K> newImporter(final FunctionField<K> key)
+	public static final <K> Importer<K> create(final FunctionField<K> key)
 	{
 		return new Importer<K>(key);
 	}
@@ -141,5 +141,16 @@ public final class Importer<K extends Object> extends Pattern
 		result[0] = head;
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField<K>)} instead
+	 */
+	@Deprecated
+	public static final <K> Importer<K> newImporter(final FunctionField<K> key)
+	{
+		return create(key);
 	}
 }

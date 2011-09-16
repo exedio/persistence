@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 class ImporterItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();
-	static final Importer<String> byCode = Importer.newImporter(code);
+	static final Importer<String> byCode = Importer.create(code);
 	static final StringField description = new StringField();
 	static final StringField description2 = new StringField();
 

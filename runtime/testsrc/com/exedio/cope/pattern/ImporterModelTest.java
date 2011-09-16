@@ -64,7 +64,7 @@ public class ImporterModelTest extends CopeAssert
 
 		try
 		{
-			Importer.newImporter(null);
+			Importer.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -73,7 +73,7 @@ public class ImporterModelTest extends CopeAssert
 		}
 		try
 		{
-			Importer.newImporter(new StringField());
+			Importer.create(new StringField());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -82,7 +82,7 @@ public class ImporterModelTest extends CopeAssert
 		}
 		try
 		{
-			Importer.newImporter(new StringField().toFinal().optional());
+			Importer.create(new StringField().toFinal().optional());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -91,7 +91,7 @@ public class ImporterModelTest extends CopeAssert
 		}
 		try
 		{
-			Importer.newImporter(new StringField().toFinal());
+			Importer.create(new StringField().toFinal());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
