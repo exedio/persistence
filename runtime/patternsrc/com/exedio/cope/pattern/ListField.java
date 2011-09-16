@@ -266,7 +266,7 @@ public final class ListField<E> extends AbstractListField<E>
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>)} instead
+	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <E> ListField<E> newList(final FunctionField<E> element)

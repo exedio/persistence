@@ -126,7 +126,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(Class<K>,FunctionField<V>)} instead
+	 * @deprecated Use {@link #create(Class,FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(

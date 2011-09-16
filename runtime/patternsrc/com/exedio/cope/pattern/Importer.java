@@ -146,7 +146,7 @@ public final class Importer<K extends Object> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<K>)} instead
+	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <K> Importer<K> newImporter(final FunctionField<K> key)

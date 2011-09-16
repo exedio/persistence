@@ -801,7 +801,7 @@ public final class DynamicModel<L> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<L>,int,int,int,int,int)} instead
+	 * @deprecated Use {@link #create(FunctionField,int,int,int,int,int)} instead
 	 */
 	@Deprecated
 	public static final <L> DynamicModel<L> newModel(
@@ -817,7 +817,7 @@ public final class DynamicModel<L> extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<L>)} instead
+	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)

@@ -253,7 +253,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(Class<E>,DataField)} instead
+	 * @deprecated Use {@link #create(Class,DataField)} instead
 	 */
 	@Deprecated
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
@@ -262,7 +262,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 
 	/**
-	 * @deprecated Use {@link #create(Class<E>)} instead
+	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)

@@ -143,7 +143,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(Class<K>)} instead
+	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
 	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)

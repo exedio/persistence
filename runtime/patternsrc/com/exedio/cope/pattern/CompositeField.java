@@ -317,7 +317,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	/**
-	 * @deprecated Use {@link #create(Class<E>)} instead
+	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
 	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)

@@ -284,7 +284,7 @@ public final class SetField<E> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>)} instead
+	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <E> SetField<E> newSet(final FunctionField<E> element)

@@ -193,7 +193,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>)} instead
+	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)

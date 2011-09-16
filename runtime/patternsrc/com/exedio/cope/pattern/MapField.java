@@ -255,7 +255,7 @@ public final class MapField<K,V> extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<K>,FunctionField<V>)} instead
+	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)

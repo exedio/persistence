@@ -171,7 +171,7 @@ public final class PartOf<C extends Item> extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #create(ItemField<C>)} instead
+	 * @deprecated Use {@link #create(ItemField)} instead
 	 */
 	@Deprecated
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
@@ -180,7 +180,7 @@ public final class PartOf<C extends Item> extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #create(ItemField<C>,FunctionField)} instead
+	 * @deprecated Use {@link #create(ItemField,FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)

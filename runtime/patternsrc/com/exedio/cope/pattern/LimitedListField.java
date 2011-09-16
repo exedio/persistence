@@ -289,7 +289,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>,FunctionField<E>)} instead
+	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
@@ -298,7 +298,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>,FunctionField<E>,FunctionField<E>)} instead
+	 * @deprecated Use {@link #create(FunctionField,FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
@@ -307,7 +307,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	/**
-	 * @deprecated Use {@link #create(FunctionField<E>,int)} instead
+	 * @deprecated Use {@link #create(FunctionField,int)} instead
 	 */
 	@Deprecated
 	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
