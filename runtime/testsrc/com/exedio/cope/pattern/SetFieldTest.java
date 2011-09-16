@@ -159,7 +159,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			SetField.newSet(null);
+			SetField.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -168,7 +168,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			SetField.newSet(new StringField().toFinal());
+			SetField.create(new StringField().toFinal());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -177,7 +177,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			SetField.newSet(new StringField().unique());
+			SetField.create(new StringField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

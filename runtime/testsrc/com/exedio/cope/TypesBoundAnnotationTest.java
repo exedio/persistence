@@ -109,6 +109,6 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		static final BooleanField boolField = new BooleanField();
 
 		@TestAnnotation("setFieldAnnVal")
-		static final SetField<String> setField = SetField.newSet(new StringField());
+		static final SetField<String> setField = SetField.create(new StringField());
 	}
 }
