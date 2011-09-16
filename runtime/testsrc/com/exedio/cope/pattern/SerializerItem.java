@@ -27,9 +27,9 @@ import com.exedio.cope.Item;
  */
 public class SerializerItem extends Item
 {
-	static final Serializer<Integer> integer = Serializer.newSerializer(Integer.class).optional();
+	static final Serializer<Integer> integer = Serializer.create(Integer.class).optional();
 
-	static final Serializer<Map> map = Serializer.newSerializer(Map.class).optional();
+	static final Serializer<Map> map = Serializer.create(Map.class).optional();
 
 
 	/**
