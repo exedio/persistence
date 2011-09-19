@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
+import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -40,8 +44,8 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
 
-		assertSame(Item.FORBID, item.selfForbid.getDeletePolicy());
-		assertSame(Item.FORBID, item.otherForbid.getDeletePolicy());
+		assertSame(FORBID, item.selfForbid.getDeletePolicy());
+		assertSame(FORBID, item.otherForbid.getDeletePolicy());
 
 		// other type
 		other = new DeleteOtherItem("other");
@@ -79,8 +83,8 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	public void testNullify()
 	{
-		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
-		assertSame(Item.NULLIFY, item.otherNullify.getDeletePolicy());
+		assertSame(NULLIFY, item.selfNullify.getDeletePolicy());
+		assertSame(NULLIFY, item.otherNullify.getDeletePolicy());
 		assertFalse(item.selfNullify.isMandatory());
 		assertFalse(item.otherNullify.isMandatory());
 
@@ -102,10 +106,10 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("policy", e.getMessage());
 		}
-		assertEquals(false, ItemField.create(DeleteItem.class, Item.NULLIFY).isMandatory());
+		assertEquals(false, ItemField.create(DeleteItem.class, NULLIFY).isMandatory());
 		try
 		{
-			ItemField.create(DeleteItem.class, Item.NULLIFY).toFinal();
+			ItemField.create(DeleteItem.class, NULLIFY).toFinal();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -148,8 +152,8 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	public void testCascade()
 	{
-		assertSame(Item.CASCADE, item.selfCascade.getDeletePolicy());
-		assertSame(Item.CASCADE, item.otherCascade.getDeletePolicy());
+		assertSame(CASCADE, item.selfCascade.getDeletePolicy());
+		assertSame(CASCADE, item.otherCascade.getDeletePolicy());
 
 		DeleteItem item2;
 		DeleteItem item3;
