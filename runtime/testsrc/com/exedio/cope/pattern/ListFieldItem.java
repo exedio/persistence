@@ -29,7 +29,7 @@ public class ListFieldItem extends Item
 {
 	static final ListField<String> strings = ListField.create(new StringField().optional().lengthRange(4, 8));
 	static final ListField<Date> dates = ListField.create(new DateField());
-	static final ListField<ListFieldItem> items = ListField.create(ItemField.create(ListFieldItem.class, CASCADE));
+	static final ListField<ListFieldItem> items = ListField.create(ItemField.create(ListFieldItem.class).cascade());
 
 	/**
 

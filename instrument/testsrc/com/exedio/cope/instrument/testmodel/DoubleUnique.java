@@ -27,7 +27,7 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 public class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField().toFinal();
-	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class, CASCADE).toFinal();
+	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();
 
 	/**
 	 * @cope.finder private

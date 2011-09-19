@@ -25,14 +25,14 @@ class DeleteItem extends Item
 
 	static final ItemField<DeleteItem> selfNullify = ItemField.create(DeleteItem.class, NULLIFY);
 
-	static final ItemField<DeleteItem> selfCascade = ItemField.create(DeleteItem.class, CASCADE).optional();
-	static final ItemField<DeleteItem> selfCascade2 = ItemField.create(DeleteItem.class, CASCADE).optional();
+	static final ItemField<DeleteItem> selfCascade = ItemField.create(DeleteItem.class).cascade().optional();
+	static final ItemField<DeleteItem> selfCascade2 = ItemField.create(DeleteItem.class).cascade().optional();
 
 	static final ItemField<DeleteOtherItem> otherForbid = ItemField.create(DeleteOtherItem.class).optional();
 
 	static final ItemField<DeleteOtherItem> otherNullify = ItemField.create(DeleteOtherItem.class, NULLIFY);
 
-	static final ItemField<DeleteOtherItem> otherCascade = ItemField.create(DeleteOtherItem.class, CASCADE).optional();
+	static final ItemField<DeleteOtherItem> otherCascade = ItemField.create(DeleteOtherItem.class).cascade().optional();
 
 
 	String name = null;
