@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
@@ -32,7 +33,7 @@ public class FieldItemTest extends FieldTest
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
 		assertEquals(EmptyItem.class, item.someItem.getValueClass());
-		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
+		assertEquals(DeletePolicy.FORBID, item.someItem.getDeletePolicy());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getReferences());
 		assertSerializedSame(item.someItem, 377);
@@ -91,7 +92,7 @@ public class FieldItemTest extends FieldTest
 		assertEquals(
 			EmptyItem.TYPE,
 			item.someNotNullItem.getValueType());
-		assertEquals(Item.FORBID, item.someNotNullItem.getDeletePolicy());
+		assertEquals(DeletePolicy.FORBID, item.someNotNullItem.getDeletePolicy());
 		assertEquals(someItem, item.getSomeNotNullItem());
 
 		item.setSomeNotNullItem(someItem2);
