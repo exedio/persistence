@@ -179,14 +179,19 @@ public final class TypesBound
 
 	// ItemField
 
+	private static final <E extends Item> Future<E> future(final Class<E> javaClass)
+	{
+		return new Future<E>(javaClass);
+	}
+
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return new ItemField<E>(new Future<E>(valueClass));
+		return new ItemField<E>(future(valueClass));
 	}
 
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<E>(new Future<E>(valueClass), policy);
+		return new ItemField<E>(future(valueClass), policy);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>
