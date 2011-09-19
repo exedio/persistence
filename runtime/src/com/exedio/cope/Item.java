@@ -547,8 +547,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 	@Deprecated
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 
-	// ------------------- deprecated stuff -------------------
-
 	/**
 	 * @deprecated Use {@link EnumField#create(Class)} instead
 	 */
