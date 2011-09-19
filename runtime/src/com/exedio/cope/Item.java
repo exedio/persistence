@@ -542,14 +542,22 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return EnumField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return TypesBound.newItemField(valueClass);
+		return ItemField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return TypesBound.newItemField(valueClass, policy);
+		return ItemField.create(valueClass, policy);
 	}
 
 	// ------------------- deprecated stuff -------------------

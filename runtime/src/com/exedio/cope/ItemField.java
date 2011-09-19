@@ -67,6 +67,16 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		this(false, policy==DeletePolicy.NULLIFY, false, valueTypeFuture, policy);
 	}
 
+	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
+	{
+		return TypesBound.newItemField(valueClass);
+	}
+
+	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return TypesBound.newItemField(valueClass, policy);
+	}
+
 	@Override
 	public ItemField<E> copy()
 	{

@@ -176,13 +176,21 @@ public abstract class Composite implements Serializable
 		return EnumField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return Item.newItemField(valueClass);
+		return ItemField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return Item.newItemField(valueClass, policy);
+		return ItemField.create(valueClass, policy);
 	}
 }
