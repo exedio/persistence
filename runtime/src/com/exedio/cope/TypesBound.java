@@ -177,29 +177,9 @@ public final class TypesBound
 	}
 
 
-	// ItemField
-
 	static final <E extends Item> Future<E> future(final Class<E> javaClass)
 	{
 		return new Future<E>(javaClass);
-	}
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class)} instead
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
-	{
-		return ItemField.create(valueClass);
-	}
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return ItemField.create(valueClass, policy);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>
@@ -220,5 +200,25 @@ public final class TypesBound
 		{
 			return javaClass.getName();
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	{
+		return ItemField.create(valueClass);
+	}
+
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return ItemField.create(valueClass, policy);
 	}
 }
