@@ -109,9 +109,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return copy(); // no defaults for item fields
 	}
 
+	/**
+	 * Additionally makes the field {@link #optional() optional}.
+	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
