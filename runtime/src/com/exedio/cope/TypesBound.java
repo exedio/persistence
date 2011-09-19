@@ -179,19 +179,27 @@ public final class TypesBound
 
 	// ItemField
 
-	private static final <E extends Item> Future<E> future(final Class<E> javaClass)
+	static final <E extends Item> Future<E> future(final Class<E> javaClass)
 	{
 		return new Future<E>(javaClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return new ItemField<E>(future(valueClass));
+		return ItemField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<E>(future(valueClass), policy);
+		return ItemField.create(valueClass, policy);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>

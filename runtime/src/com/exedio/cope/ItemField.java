@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.TypesBound.future;
 
 import java.sql.Connection;
 import java.util.Set;
@@ -57,7 +58,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		checkDefaultConstant();
 	}
 
-	ItemField(final TypeFuture<E> valueTypeFuture)
+	private ItemField(final TypeFuture<E> valueTypeFuture)
 	{
 		this(false, false, false, valueTypeFuture, Item.FORBID);
 	}
@@ -69,12 +70,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
 	{
-		return TypesBound.newItemField(valueClass);
+		return new ItemField<E>(future(valueClass));
 	}
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return TypesBound.newItemField(valueClass, policy);
+		return new ItemField<E>(future(valueClass), policy);
 	}
 
 	@Override
