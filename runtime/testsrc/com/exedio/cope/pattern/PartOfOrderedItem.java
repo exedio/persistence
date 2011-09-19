@@ -25,7 +25,7 @@ import com.exedio.cope.StringField;
 
 public class PartOfOrderedItem extends Item
 {
-	static final ItemField<PartOfContainerItem> container = newItemField(PartOfContainerItem.class, CASCADE).toFinal();
+	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class, CASCADE).toFinal();
 	static final IntegerField order = new IntegerField();
 
 	static final PartOf<PartOfContainerItem> partsOrdered = PartOf.create(container, order);

@@ -19,14 +19,15 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
 public class DynamicModelItem extends Item
 {
 	static final StringField name = new StringField().toFinal();
 
-	static final DynamicModel<DynamicModelLocalizationItem> features = DynamicModel.create(newItemField(DynamicModelLocalizationItem.class), 1, 1, 1, 1, 2);
-	static final DynamicModel<DynamicModelLocalizationItem> small = DynamicModel.create(newItemField(DynamicModelLocalizationItem.class), 1, 0, 0, 0, 0);
+	static final DynamicModel<DynamicModelLocalizationItem> features = DynamicModel.create(ItemField.create(DynamicModelLocalizationItem.class), 1, 1, 1, 1, 2);
+	static final DynamicModel<DynamicModelLocalizationItem> small = DynamicModel.create(ItemField.create(DynamicModelLocalizationItem.class), 1, 0, 0, 0, 0);
 
 
 	/**

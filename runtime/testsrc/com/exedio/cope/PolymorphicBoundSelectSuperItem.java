@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class PolymorphicBoundSelectSuperItem extends Item
 {
-	public static final ItemField<PolymorphicBoundSelectSuperItem> parent = newItemField(PolymorphicBoundSelectSuperItem.class).optional().toFinal();
+	public static final ItemField<PolymorphicBoundSelectSuperItem> parent = ItemField.create(PolymorphicBoundSelectSuperItem.class).optional().toFinal();
 
 	/**
 

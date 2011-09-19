@@ -20,16 +20,16 @@ package com.exedio.cope;
 
 class CopySourceItem extends Item
 {
-	static final ItemField<CopyTargetItem> targetItem = newItemField(CopyTargetItem.class).toFinal().optional();
+	static final ItemField<CopyTargetItem> targetItem = ItemField.create(CopyTargetItem.class).toFinal().optional();
 
 	static final StringField templateString = new StringField().toFinal().optional();
-	static final ItemField<CopyValueItem> templateItem = newItemField(CopyValueItem.class).toFinal().optional();
+	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
 
 	static final CopyConstraint templateStringCopyFromTarget = new CopyConstraint(targetItem, templateString);
 	static final CopyConstraint templateItemCopyFromTarget = new CopyConstraint(targetItem, templateItem);
 
-	static final ItemField<CopySourceItem> selfTargetItem = newItemField(CopySourceItem.class).toFinal().optional();
-	static final ItemField<CopyValueItem> selfTemplateItem = newItemField(CopyValueItem.class).toFinal().optional();
+	static final ItemField<CopySourceItem> selfTargetItem = ItemField.create(CopySourceItem.class).toFinal().optional();
+	static final ItemField<CopyValueItem> selfTemplateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
 	static final CopyConstraint selfTemplateItemCopyFromTarget = new CopyConstraint(selfTargetItem, selfTemplateItem);
 
 	@Override

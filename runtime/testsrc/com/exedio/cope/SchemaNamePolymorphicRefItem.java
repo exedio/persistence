@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 final class SchemaNamePolymorphicRefItem extends Item
 {
-	static final ItemField<SchemaNamePolymorphicSuperItem> ref = newItemField(SchemaNamePolymorphicSuperItem.class);
+	static final ItemField<SchemaNamePolymorphicSuperItem> ref = ItemField.create(SchemaNamePolymorphicSuperItem.class);
 /**
 
 	 **

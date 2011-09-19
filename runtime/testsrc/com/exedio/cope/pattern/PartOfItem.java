@@ -25,7 +25,7 @@ import com.exedio.cope.StringField;
 
 public class PartOfItem extends Item
 {
-	static final ItemField<PartOfContainerItem> container = newItemField(PartOfContainerItem.class, CASCADE).toFinal();
+	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class, CASCADE).toFinal();
 
 	static final PartOf<PartOfContainerItem> parts = PartOf.create(container);
 

@@ -133,7 +133,7 @@ public class TypeMountWrongTest extends CopeAssert
 
 	static class Item2 extends Item
 	{
-		static final ItemField f = newItemField(Item1.class);
+		static final ItemField f = ItemField.create(Item1.class);
 
 		Item2(final ActivationParameters ap)
 		{

@@ -185,7 +185,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		static final ItemField itemField = Item.newItemField(NullFeature.class);
+		static final ItemField itemField = ItemField.create(NullFeature.class);
 
 		NonResolvingItemField(final ActivationParameters ap)
 		{

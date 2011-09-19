@@ -37,7 +37,7 @@ import com.exedio.cope.pattern.CompositeField;
 
 final class SamplerClusterNode extends Item
 {
-	private static final ItemField<SamplerModel> model = newItemField(SamplerModel.class).toFinal();
+	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	private static final IntegerField id = new IntegerField().toFinal();
 
 	private static final DateField date = new DateField().toFinal();

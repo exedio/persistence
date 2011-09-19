@@ -312,6 +312,6 @@ public class TypesBoundComplexTest extends CopeAssert
 		}
 
 		static final DoubleField doubleField = new DoubleField();
-		static final ItemField itemField = newItemField(AnItem.class);
+		static final ItemField itemField = ItemField.create(AnItem.class);
 	}
 }

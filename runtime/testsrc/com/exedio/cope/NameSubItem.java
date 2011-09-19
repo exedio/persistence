@@ -23,7 +23,7 @@ public class NameSubItem extends NameLongItem
 {
 	static final IntegerField unique = new IntegerField().unique();
 	static final IntegerField integer = new IntegerField();
-	static final ItemField<NameSubItem> item = newItemField(NameSubItem.class);
+	static final ItemField<NameSubItem> item = ItemField.create(NameSubItem.class);
 	static final UniqueConstraint integers = new UniqueConstraint(integer, item);
 
 	@CopeSchemaName("uniqueY")
@@ -31,7 +31,7 @@ public class NameSubItem extends NameLongItem
 	@CopeSchemaName("integerY")
 	static final IntegerField integerX = new IntegerField();
 	@CopeSchemaName("itemY")
-	static final ItemField<NameSubItem> itemX = newItemField(NameSubItem.class);
+	static final ItemField<NameSubItem> itemX = ItemField.create(NameSubItem.class);
 	@CopeSchemaName("integersY")
 	static final UniqueConstraint integersX = new UniqueConstraint(integerX, itemX);
 

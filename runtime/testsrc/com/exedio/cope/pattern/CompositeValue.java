@@ -34,7 +34,7 @@ public final class CompositeValue extends Composite
 	public static final StringField aString = new StringField();
 	public static final IntegerField anInt = new IntegerField();
 	public static final EnumField<AnEnumClass> anEnum = EnumField.create(AnEnumClass.class);
-	public static final ItemField<CompositeOptionalItem> anItem = newItemField(CompositeOptionalItem.class);
+	public static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
 	// test, that these fields do not become fields of the composite value
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")

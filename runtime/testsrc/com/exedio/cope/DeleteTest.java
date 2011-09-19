@@ -86,7 +86,7 @@ public class DeleteTest extends AbstractRuntimeTest
 
 		try
 		{
-			Item.newItemField(Item.class, null);
+			ItemField.create(Item.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -95,17 +95,17 @@ public class DeleteTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			Item.newItemField(DeleteItem.class, null);
+			ItemField.create(DeleteItem.class, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("policy", e.getMessage());
 		}
-		assertEquals(false, Item.newItemField(DeleteItem.class, Item.NULLIFY).isMandatory());
+		assertEquals(false, ItemField.create(DeleteItem.class, Item.NULLIFY).isMandatory());
 		try
 		{
-			Item.newItemField(DeleteItem.class, Item.NULLIFY).toFinal();
+			ItemField.create(DeleteItem.class, Item.NULLIFY).toFinal();
 			fail();
 		}
 		catch(final IllegalArgumentException e)

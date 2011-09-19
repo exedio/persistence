@@ -38,7 +38,7 @@ import com.exedio.cope.UniqueConstraint;
 
 final class SamplerItemCache extends Item
 {
-	private static final ItemField<SamplerModel> model = newItemField(SamplerModel.class).toFinal();
+	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	private static final StringField type = new StringField().toFinal();
 
 	private static final DateField date = new DateField().toFinal();

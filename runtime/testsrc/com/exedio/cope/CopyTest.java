@@ -145,7 +145,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new CopyConstraint(Item.newItemField(CopyValueItem.class), null);
+			new CopyConstraint(ItemField.create(CopyValueItem.class), null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -154,7 +154,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new CopyConstraint(Item.newItemField(CopyValueItem.class), new StringField());
+			new CopyConstraint(ItemField.create(CopyValueItem.class), new StringField());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -163,7 +163,7 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new CopyConstraint(Item.newItemField(CopyValueItem.class).toFinal(), new StringField());
+			new CopyConstraint(ItemField.create(CopyValueItem.class).toFinal(), new StringField());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

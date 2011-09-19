@@ -31,8 +31,8 @@ class CopyTargetItem extends Item
 	/**
 	 * @cope.initial
 	 */
-	static final ItemField<CopyValueItem> templateItem = newItemField(CopyValueItem.class).toFinal().optional();
-	static final ItemField<CopyValueItem> otherItem = newItemField(CopyValueItem.class);
+	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
+	static final ItemField<CopyValueItem> otherItem = ItemField.create(CopyValueItem.class);
 
 	@Override
 	public String toString()
