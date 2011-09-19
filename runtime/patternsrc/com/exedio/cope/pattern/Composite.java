@@ -165,7 +165,7 @@ public abstract class Composite implements Serializable
 		return getClass().hashCode() ^ Arrays.hashCode(values);
 	}
 
-	// convenience for subclasses --------------------------------------------------
+	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Use {@link EnumField#create(Class)} instead

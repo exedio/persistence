@@ -533,6 +533,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 
+	// ------------------- deprecated stuff -------------------
+
 	/**
 	 * @deprecated Use {@link EnumField#create(Class)} instead
 	 */
@@ -559,8 +561,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		return ItemField.create(valueClass, policy);
 	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Renamed to {@link #newEnumField(Class)}.
