@@ -29,7 +29,7 @@ class NameLongItem extends Item
 		new StringField().optional().unique();
 
 	static final ItemField<NameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		ItemField.create(NameLongItem.class, NULLIFY);
+		ItemField.create(NameLongItem.class).nullify();
 
 	/**
 

@@ -50,8 +50,8 @@ class CompareFunctionConditionItem extends Item
 		V1, V2, V3, V4, V5;
 	}
 
-	static final ItemField<CompareFunctionConditionItem> leftItem = ItemField.create(CompareFunctionConditionItem.class, NULLIFY);
-	static final ItemField<CompareFunctionConditionItem> rightItem = ItemField.create(CompareFunctionConditionItem.class, NULLIFY);
+	static final ItemField<CompareFunctionConditionItem> leftItem = ItemField.create(CompareFunctionConditionItem.class).nullify();
+	static final ItemField<CompareFunctionConditionItem> rightItem = ItemField.create(CompareFunctionConditionItem.class).nullify();
 
 	static final Date date = new Date(1087365298214l);
 	static final Day day = new Day(2007, 4, 28);

@@ -35,7 +35,7 @@ class CompareConditionItem extends Item
 		V1, V2, V3, V4, V5, VX;
 	}
 
-	static final ItemField<CompareConditionItem> item = ItemField.create(CompareConditionItem.class, NULLIFY);
+	static final ItemField<CompareConditionItem> item = ItemField.create(CompareConditionItem.class).nullify();
 
 	/**
 

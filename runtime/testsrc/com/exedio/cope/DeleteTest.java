@@ -106,10 +106,10 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("policy", e.getMessage());
 		}
-		assertEquals(false, ItemField.create(DeleteItem.class, NULLIFY).isMandatory());
+		assertEquals(false, ItemField.create(DeleteItem.class).nullify().isMandatory());
 		try
 		{
-			ItemField.create(DeleteItem.class, NULLIFY).toFinal();
+			ItemField.create(DeleteItem.class).nullify().toFinal();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
