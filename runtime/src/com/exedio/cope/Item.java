@@ -527,10 +527,24 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return result;
 	}
 
-	// convenience for subclasses --------------------------------------------------
+	// ------------------- deprecated stuff -------------------
 
+	/**
+	 * @deprecated Is default delete policy anyway.
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
+
+	/**
+	 * @deprecated Use {@link ItemField#nullify()} instead
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
+
+	/**
+	 * @deprecated Use {@link ItemField#cascade()} instead
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 
 	// ------------------- deprecated stuff -------------------

@@ -109,6 +109,16 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return copy(); // no defaults for item fields
 	}
 
+	public ItemField<E> nullify()
+	{
+		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, DeletePolicy.NULLIFY);
+	}
+
+	public ItemField<E> cascade()
+	{
+		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, DeletePolicy.CASCADE);
+	}
+
 	/**
 	 * @deprecated defaults make no sense for ItemField
 	 */
