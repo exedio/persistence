@@ -179,15 +179,6 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 
 		try
 		{
-			i.issuePasswordRecovery(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
-		}
-		try
-		{
 			i.redeemPasswordRecovery(0);
 			fail();
 		}
@@ -232,5 +223,19 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		i.purgePasswordRecovery(ctx);
 		model.startTransaction("PasswordRecoveryTest");
 		return ctx.progress;
+	}
+
+	@Deprecated
+	public void testDeprecated()
+	{
+		try
+		{
+			i.issuePasswordRecovery(0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
+		}
 	}
 }
