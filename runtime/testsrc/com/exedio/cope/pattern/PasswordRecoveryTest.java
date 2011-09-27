@@ -198,7 +198,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	
 	public void testOverflow()
 	{
-		final int EXPIRY_MILLIS = 20;
+		final int EXPIRY_MILLIS = 15*60*1000;
 
 		final long issueTime1 = clock.addNow();
 		final Token token1 = i.issuePasswordRecovery(EXPIRY_MILLIS);
