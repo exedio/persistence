@@ -101,16 +101,6 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 
 		assertSerializedSame(i.passwordRecovery, 406);
 
-		try
-		{
-			new PasswordRecovery(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("password", e.getMessage());
-		}
-
 		// test persistence
 		final Config config = new Config(60*1000);
 

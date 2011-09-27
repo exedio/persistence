@@ -90,4 +90,17 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(0, c2.getReuseMillis());
 	}
+
+	public void testPasswordRecovery()
+	{
+		try
+		{
+			new PasswordRecovery(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("password", e.getMessage());
+		}
+	}
 }
