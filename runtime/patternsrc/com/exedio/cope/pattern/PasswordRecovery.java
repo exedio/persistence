@@ -43,6 +43,7 @@ public final class PasswordRecovery extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private static final long NOT_A_SECRET = 0l;
+	static final Clock clock = new Clock();
 
 	private final Hash password;
 
@@ -132,7 +133,7 @@ public final class PasswordRecovery extends Pattern
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
-			this.expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
+			this.expires.map(new Date(clock.currentTimeMillis() + expiryMillis)));
 	}
 
 	/**
@@ -151,7 +152,7 @@ public final class PasswordRecovery extends Pattern
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
-				this.expires.greaterOrEqual(new Date())));
+				this.expires.greaterOrEqual(new Date(clock.currentTimeMillis()))));
 
 		if(!tokens.isEmpty())
 		{
@@ -170,7 +171,7 @@ public final class PasswordRecovery extends Pattern
 			@Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
-				tokenType.newQuery(this.expires.less(new Date())),
+				tokenType.newQuery(this.expires.less(new Date(clock.currentTimeMillis()))),
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}
