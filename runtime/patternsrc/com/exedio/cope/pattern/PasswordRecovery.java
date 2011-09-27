@@ -124,6 +124,8 @@ public final class PasswordRecovery extends Pattern
 			final Item item,
 			@Parameter("config") final Config config)
 	{
+		final int expiry = config.getExpiryMillis();
+		final int reuse = config.getReuseMillis();
 		final long now = clock.currentTimeMillis();
 		
 		// NOTICE
@@ -135,7 +137,7 @@ public final class PasswordRecovery extends Pattern
 			final Query<Token> tokens =
 				tokenType.newQuery(Cope.and(
 					Cope.equalAndCast(this.parent, item),
-					this.expires.greaterOrEqual(new Date(now + config.getExpiryMillis() - config.getReuseMillis()))));
+					this.expires.greaterOrEqual(new Date(now + expiry - reuse))));
 			tokens.setOrderBy(this.expires, false);
 			tokens.setLimit(0, 1);
 			Token token = tokens.searchSingleton();
@@ -150,7 +152,7 @@ public final class PasswordRecovery extends Pattern
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
-			this.expires.map(new Date(now + config.getExpiryMillis())));
+			this.expires.map(new Date(now + expiry)));
 	}
 
 	/**
