@@ -380,11 +380,8 @@ final class Generator
 			{
 				writeCommentHeader();
 				for(final String comment : wrapper.getComments())
-				{
-					write("\t * ");
-					write(format(comment, arguments));
-					write(lineSeparator);
-				}
+					writeCommentLine(" ", format(comment, arguments));
+
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
 					final String[] comment = parameter.getComment();
@@ -397,11 +394,7 @@ final class Generator
 						write(lineSeparator);
 					}
 					for(int i = 1; i<comment.length; i++)
-					{
-						write("\t *        ");
-						write(format(comment[i], arguments));
-						write(lineSeparator);
-					}
+						writeCommentLine("        ", format(comment[i], arguments));
 				}
 				{
 					final String[] comment = wrapper.getReturnComment();
@@ -412,11 +405,7 @@ final class Generator
 						write(lineSeparator);
 					}
 					for(int i = 1; i<comment.length; i++)
-					{
-						write("\t *         ");
-						write(format(comment[i], arguments));
-						write(lineSeparator);
-					}
+						writeCommentLine("         ", format(comment[i], arguments));
 				}
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
@@ -430,11 +419,7 @@ final class Generator
 						write(lineSeparator);
 					}
 					for(int i = 1; i<comment.length; i++)
-					{
-						write("\t *         ");
-						write(format(comment[i], arguments));
-						write(lineSeparator);
-					}
+						writeCommentLine("         ", format(comment[i], arguments));
 				}
 				writeCommentFooter(
 					modifierTag!=null
@@ -594,6 +579,17 @@ final class Generator
 
 		write(methodName);
 		write(featureName);
+	}
+
+	private void writeCommentLine(final String prefix, final String comment)
+	{
+		write("\t *");
+		if(!comment.isEmpty())
+		{
+			write(prefix);
+			write(comment);
+		}
+		write(lineSeparator);
 	}
 
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
