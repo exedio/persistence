@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* replace PasswordRecovery#issue(int) by #issue(Config),
+	deprecated version is provided,
+	affects instrumented code.
 * rename static factory methods of many features,
 	deprecated version is provided.
 * add PriceField#defaultTo

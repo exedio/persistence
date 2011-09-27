@@ -18,26 +18,24 @@
 
 package com.exedio.cope.pattern;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.PasswordRecovery.Config;
 
-public class PackageUtilTest extends TestCase
+public class PasswordRecoveryConfigTest extends CopeAssert
 {
-	public static Test suite()
+	public void testConfig()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ClockTest.class);
-		suite.addTestSuite(CompositeTest.class);
-		suite.addTestSuite(CompositeErrorTest.class);
-		suite.addTestSuite(CompositeMountTest.class);
-		suite.addTestSuite(JavaViewGetterMissingTest.class);
-		suite.addTestSuite(JavaViewInPatternTest.class);
-		suite.addTestSuite(MediaTypeTest.class);
-		suite.addTestSuite(MediaTypeMediaTest.class);
-		suite.addTestSuite(MediaSummaryTest.class);
-		suite.addTestSuite(MessageDigestAlgorithmTest.class);
-		suite.addTestSuite(PasswordRecoveryConfigTest.class);
-		return suite;
+		try
+		{
+			new Config(0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
+		}
+		
+		final Config c = new Config(1);
+		assertEquals(1, c.getExpiryMillis());
 	}
 }

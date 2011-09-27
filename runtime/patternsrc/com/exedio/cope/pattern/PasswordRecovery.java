@@ -117,16 +117,26 @@ public final class PasswordRecovery extends Pattern
 	}
 
 	/**
+	 * @deprecated Use {@link #issue(Item, Config)} instead.
+	 * @return a valid token for password recovery
+	 */
+	@Deprecated
+	@Wrap(order=11)
+	public Token issue(
+			final Item item,
+			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+	{
+		return issue(item, new Config(expiryMillis));
+	}
+	
+	/**
 	 * @return a valid token for password recovery
 	 */
 	@Wrap(order=10)
 	public Token issue(
 			final Item item,
-			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+			@Parameter("config") final Config config)
 	{
-		if(expiryMillis<=0)
-			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
-		
 		// NOTICE
 		// The following code limits the number of tokens created within
 		// a certain time span. This is against Denial-Of-service attacks
@@ -135,7 +145,7 @@ public final class PasswordRecovery extends Pattern
 		final Query<Token> tokens =
 			tokenType.newQuery(Cope.and(
 				Cope.equalAndCast(this.parent, item),
-				this.expires.greaterOrEqual(new Date(now + Math.min(10*1000, expiryMillis)))));
+				this.expires.greaterOrEqual(new Date(now + Math.min(10*1000, config.getExpiryMillis())))));
 		tokens.setOrderBy(this.expires, false);
 		tokens.setLimit(0, 1);
 		Token token = tokens.searchSingleton();
@@ -149,7 +159,7 @@ public final class PasswordRecovery extends Pattern
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
-			this.expires.map(new Date(now + expiryMillis)));
+			this.expires.map(new Date(now + config.getExpiryMillis())));
 	}
 
 	/**
@@ -180,6 +190,27 @@ public final class PasswordRecovery extends Pattern
 		}
 
 		return null;
+	}
+
+	public static final class Config
+	{
+		private final int expiryMillis;
+
+		/**
+		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
+		 */
+		public Config(final int expiryMillis)
+		{
+			if(expiryMillis<=0)
+				throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+			
+			this.expiryMillis = expiryMillis;
+		}
+
+		public int getExpiryMillis()
+		{
+			return expiryMillis;
+		}
 	}
 
 	@Wrap(order=110)
