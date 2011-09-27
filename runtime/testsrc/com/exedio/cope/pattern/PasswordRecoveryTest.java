@@ -112,20 +112,20 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 
 		// test persistence
-		final int EXPIRY_MILLIS = 60*1000;
+		final Config config = new Config(60*1000);
 
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 
 		final long issueTime = clock.addNow();
-		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
+		final Token token = i.issuePasswordRecovery(config);
 		final long tokenSecret = token.getSecret();
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
-		assertEquals(new Date(issueTime + EXPIRY_MILLIS), expires);
+		assertEquals(new Date(issueTime + config.getExpiryMillis()), expires);
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 
-		clock.addOffset(EXPIRY_MILLIS);
+		clock.addOffset(config.getExpiryMillis());
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret+1));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
@@ -154,17 +154,17 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 
 	public void testExpired()
 	{
-		final int EXPIRY_MILLIS = 20;
+		final Config config = new Config(20);
 
 		final long issueTime = clock.addNow();
-		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
+		final Token token = i.issuePasswordRecovery(config);
 		final long tokenSecret = token.getSecret();
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
-		assertEquals(new Date(issueTime + EXPIRY_MILLIS), expires);
+		assertEquals(new Date(issueTime + config.getExpiryMillis()), expires);
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 
-		clock.addOffset(EXPIRY_MILLIS + 1);
+		clock.addOffset(config.getExpiryMillis() + 1);
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
