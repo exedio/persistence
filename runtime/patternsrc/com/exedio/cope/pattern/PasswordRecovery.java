@@ -145,7 +145,7 @@ public final class PasswordRecovery extends Pattern
 		final Query<Token> tokens =
 			tokenType.newQuery(Cope.and(
 				Cope.equalAndCast(this.parent, item),
-				this.expires.greaterOrEqual(new Date(now + config.getReuseMillis()))));
+				this.expires.greaterOrEqual(new Date(now + config.getExpiryMillis() - config.getReuseMillis()))));
 		tokens.setOrderBy(this.expires, false);
 		tokens.setLimit(0, 1);
 		Token token = tokens.searchSingleton();
