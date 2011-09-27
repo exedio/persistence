@@ -187,7 +187,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
 	}
-	
+
 	public void testReuse()
 	{
 		final Config config = new Config(15*60*1000, 10*1000);
@@ -196,17 +196,17 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final Token token1 = i.issuePasswordRecovery(config);
 		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
-		
+
 		clock.addNow();
 		assertEquals(token1, i.issuePasswordRecovery(config));
 		clock.assertEmpty();
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
-		
+
 		clock.addOffset(config.getReuseMillis());
 		assertEquals(token1, i.issuePasswordRecovery(config));
 		clock.assertEmpty();
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
-		
+
 		final long issueTime3 = clock.addOffset(1);
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
@@ -215,7 +215,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertContains(token1, token3, i.passwordRecovery.getTokenType().search());
 		assertFalse(token3.equals(token1));
 	}
-	
+
 	public void testNoReuse()
 	{
 		final Config config = new Config(15*60*1000, 0);
@@ -224,7 +224,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final Token token1 = i.issuePasswordRecovery(config);
 		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
-		
+
 		clock.addNow();
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();

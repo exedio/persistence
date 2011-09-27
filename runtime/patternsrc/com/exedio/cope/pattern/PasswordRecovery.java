@@ -115,7 +115,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
-	
+
 	/**
 	 * @return a valid token for password recovery
 	 */
@@ -127,7 +127,7 @@ public final class PasswordRecovery extends Pattern
 		final int expiry = config.getExpiryMillis();
 		final int reuse = config.getReuseMillis();
 		final long now = clock.currentTimeMillis();
-		
+
 		// NOTICE
 		// The following code limits the number of tokens created within
 		// a certain time span. This is against Denial-Of-service attacks
@@ -140,7 +140,7 @@ public final class PasswordRecovery extends Pattern
 					this.expires.greaterOrEqual(new Date(now + expiry - reuse))));
 			tokens.setOrderBy(this.expires, false);
 			tokens.setLimit(0, 1);
-			Token token = tokens.searchSingleton();
+			final Token token = tokens.searchSingleton();
 			if(token!=null)
 				return token;
 		}
@@ -209,7 +209,7 @@ public final class PasswordRecovery extends Pattern
 				throw new IllegalArgumentException("reuseMillis must be greater or equal zero, but was " + reuseMillis);
 			if(reuseMillis>expiryMillis)
 				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
-			
+
 			this.expiryMillis = expiryMillis;
 			this.reuseMillis = reuseMillis;
 		}
