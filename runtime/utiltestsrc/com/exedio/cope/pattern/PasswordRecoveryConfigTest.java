@@ -23,7 +23,7 @@ import com.exedio.cope.pattern.PasswordRecovery.Config;
 
 public class PasswordRecoveryConfigTest extends CopeAssert
 {
-	public void testConfig()
+	public void testConfigFailure()
 	{
 		try
 		{
@@ -34,8 +34,53 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
-		
+		try
+		{
+			new Config(0, 0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
+		}
+		try
+		{
+			new Config(1, 0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("reuseMillis must be greater zero, but was 0", e.getMessage());
+		}
+		try
+		{
+			new Config(1, 2);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("reuseMillis must not be be greater expiryMillis, but was 2 and 1", e.getMessage());
+		}
+	}
+	
+	public void testConfigNoReuse()
+	{
 		final Config c = new Config(1);
 		assertEquals(1, c.getExpiryMillis());
+		assertEquals(1, c.getReuseMillis());
+	}
+	
+	public void testConfigNoReuseBig()
+	{
+		final Config c = new Config(10001);
+		assertEquals(10001, c.getExpiryMillis());
+		assertEquals(10000, c.getReuseMillis());
+	}
+	
+	public void testConfigMinimal()
+	{
+		final Config c2 = new Config(20, 10);
+		assertEquals(20, c2.getExpiryMillis());
+		assertEquals(10, c2.getReuseMillis());
 	}
 }

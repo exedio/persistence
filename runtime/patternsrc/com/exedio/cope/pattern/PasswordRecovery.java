@@ -145,7 +145,7 @@ public final class PasswordRecovery extends Pattern
 		final Query<Token> tokens =
 			tokenType.newQuery(Cope.and(
 				Cope.equalAndCast(this.parent, item),
-				this.expires.greaterOrEqual(new Date(now + Math.min(10*1000, config.getExpiryMillis())))));
+				this.expires.greaterOrEqual(new Date(now + config.getReuseMillis()))));
 		tokens.setOrderBy(this.expires, false);
 		tokens.setLimit(0, 1);
 		Token token = tokens.searchSingleton();
@@ -195,21 +195,40 @@ public final class PasswordRecovery extends Pattern
 	public static final class Config
 	{
 		private final int expiryMillis;
+		private final int reuseMillis;
 
 		/**
 		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
 		 */
 		public Config(final int expiryMillis)
 		{
+			this(expiryMillis, Math.min(10*1000, expiryMillis));
+		}
+
+		/**
+		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
+		 */
+		public Config(final int expiryMillis, final int reuseMillis)
+		{
 			if(expiryMillis<=0)
 				throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+			if(reuseMillis<=0)
+				throw new IllegalArgumentException("reuseMillis must be greater zero, but was " + reuseMillis);
+			if(reuseMillis>expiryMillis)
+				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
 			
 			this.expiryMillis = expiryMillis;
+			this.reuseMillis = reuseMillis;
 		}
 
 		public int getExpiryMillis()
 		{
 			return expiryMillis;
+		}
+
+		public int getReuseMillis()
+		{
+			return reuseMillis;
 		}
 	}
 
