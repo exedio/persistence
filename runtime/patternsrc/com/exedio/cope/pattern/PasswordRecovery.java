@@ -124,11 +124,12 @@ public final class PasswordRecovery extends Pattern
 			final Item item,
 			@Parameter("config") final Config config)
 	{
+		final long now = clock.currentTimeMillis();
+		
 		// NOTICE
 		// The following code limits the number of tokens created within
 		// a certain time span. This is against Denial-Of-service attacks
 		// filling up the database.
-		final long now = clock.currentTimeMillis();
 		if(config.getReuseMillis()>0)
 		{
 			final Query<Token> tokens =
