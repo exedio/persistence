@@ -202,25 +202,25 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 
 		final Token token1;
 		{
-			final long issueTime = clock.addNow();
+			final long issueTime1 = clock.addNow();
 			token1 = i.issuePasswordRecovery(EXPIRY_MILLIS);
-			assertEquals(new Date(issueTime + EXPIRY_MILLIS), token1.getExpires());
+			assertEquals(new Date(issueTime1 + EXPIRY_MILLIS), token1.getExpires());
 			assertContains(token1, i.passwordRecovery.getTokenType().search());
 		}
 		final Token token2;
 		{
-			final long issueTime = clock.addNow();
+			final long issueTime2 = clock.addNow();
 			token2 = i.issuePasswordRecovery(EXPIRY_MILLIS);
-			assertEquals(new Date(issueTime + EXPIRY_MILLIS), token2.getExpires());
+			assertEquals(new Date(issueTime2 + EXPIRY_MILLIS), token2.getExpires());
 			assertContains(token1, token2, i.passwordRecovery.getTokenType().search());
 			assertFalse(token2.equals(token1));
 		}
 		
 		final Token token3;
 		{
-			final long issueTime = clock.addOffset(EXPIRY_MILLIS);
+			final long issueTime3 = clock.addOffset(EXPIRY_MILLIS);
 			token3 = i.issuePasswordRecovery(EXPIRY_MILLIS);
-			assertEquals(new Date(issueTime + EXPIRY_MILLIS), token3.getExpires());
+			assertEquals(new Date(issueTime3 + EXPIRY_MILLIS), token3.getExpires());
 			assertContains(token1, token2, token3, i.passwordRecovery.getTokenType().search());
 			assertFalse(token3.equals(token1));
 			assertFalse(token3.equals(token2));
