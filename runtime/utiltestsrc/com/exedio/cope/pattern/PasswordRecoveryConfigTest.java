@@ -36,7 +36,7 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		}
 		try
 		{
-			new Config(0, 0);
+			new Config(0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -45,12 +45,12 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		}
 		try
 		{
-			new Config(1, 0);
+			new Config(1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("reuseMillis must be greater zero, but was 0", e.getMessage());
+			assertEquals("reuseMillis must be greater or equal zero, but was -1", e.getMessage());
 		}
 		try
 		{
@@ -82,5 +82,12 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		final Config c2 = new Config(20, 10);
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(10, c2.getReuseMillis());
+	}
+	
+	public void testConfigNoreuse()
+	{
+		final Config c2 = new Config(20, 0);
+		assertEquals(20, c2.getExpiryMillis());
+		assertEquals(0, c2.getReuseMillis());
 	}
 }

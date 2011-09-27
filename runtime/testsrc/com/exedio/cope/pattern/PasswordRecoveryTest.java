@@ -215,6 +215,24 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertContains(token1, token3, i.passwordRecovery.getTokenType().search());
 		assertFalse(token3.equals(token1));
 	}
+	
+	public void testNoReuse()
+	{
+		final Config config = new Config(15*60*1000, 0);
+
+		final long issueTime1 = clock.addNow();
+		final Token token1 = i.issuePasswordRecovery(config);
+		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
+		assertContains(token1, i.passwordRecovery.getTokenType().search());
+		
+		clock.addNow();
+		final Token token3 = i.issuePasswordRecovery(config);
+		clock.assertEmpty();
+		assertFalse(token3.equals(token1));
+		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token3.getExpires());
+		assertContains(token1, token3, i.passwordRecovery.getTokenType().search());
+		assertFalse(token3.equals(token1));
+	}
 
 	private final int purge()
 	{

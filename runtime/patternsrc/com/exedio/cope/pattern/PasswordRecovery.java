@@ -129,15 +129,18 @@ public final class PasswordRecovery extends Pattern
 		// a certain time span. This is against Denial-Of-service attacks
 		// filling up the database.
 		final long now = clock.currentTimeMillis();
-		final Query<Token> tokens =
-			tokenType.newQuery(Cope.and(
-				Cope.equalAndCast(this.parent, item),
-				this.expires.greaterOrEqual(new Date(now + config.getExpiryMillis() - config.getReuseMillis()))));
-		tokens.setOrderBy(this.expires, false);
-		tokens.setLimit(0, 1);
-		Token token = tokens.searchSingleton();
-		if(token!=null)
-			return token;
+		if(config.getReuseMillis()>0)
+		{
+			final Query<Token> tokens =
+				tokenType.newQuery(Cope.and(
+					Cope.equalAndCast(this.parent, item),
+					this.expires.greaterOrEqual(new Date(now + config.getExpiryMillis() - config.getReuseMillis()))));
+			tokens.setOrderBy(this.expires, false);
+			tokens.setLimit(0, 1);
+			Token token = tokens.searchSingleton();
+			if(token!=null)
+				return token;
+		}
 
 		long secret = NOT_A_SECRET;
 		while(secret==NOT_A_SECRET)
@@ -199,8 +202,8 @@ public final class PasswordRecovery extends Pattern
 		{
 			if(expiryMillis<=0)
 				throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
-			if(reuseMillis<=0)
-				throw new IllegalArgumentException("reuseMillis must be greater zero, but was " + reuseMillis);
+			if(reuseMillis<0)
+				throw new IllegalArgumentException("reuseMillis must be greater or equal zero, but was " + reuseMillis);
 			if(reuseMillis>expiryMillis)
 				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
 			
