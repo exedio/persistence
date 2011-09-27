@@ -151,14 +151,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 	}
 
-	public void testExpired() throws Exception
+	public void testExpired()
 	{
 		final int EXPIRY_MILLIS = 20;
 
 		final long issueTime = clock.addNow();
 		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final long tokenSecret = token.getSecret();
-		sleepLongerThan( EXPIRY_MILLIS );
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
 		assertEquals(new Date(issueTime + EXPIRY_MILLIS), expires);
@@ -197,7 +196,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 	}
 	
-	public void testOverflow() throws InterruptedException
+	public void testOverflow()
 	{
 		final int EXPIRY_MILLIS = 20;
 
@@ -217,7 +216,6 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			assertFalse(token2.equals(token1));
 		}
 		
-		sleepLongerThan(EXPIRY_MILLIS);
 		final Token token3;
 		{
 			final long issueTime = clock.addOffset(EXPIRY_MILLIS);
