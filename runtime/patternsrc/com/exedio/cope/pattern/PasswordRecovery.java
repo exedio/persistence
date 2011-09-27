@@ -115,19 +115,6 @@ public final class PasswordRecovery extends Pattern
 	{
 		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
-
-	/**
-	 * @deprecated Use {@link #issue(Item, Config)} instead.
-	 * @return a valid token for password recovery
-	 */
-	@Deprecated
-	@Wrap(order=11)
-	public Token issue(
-			final Item item,
-			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
-	{
-		return issue(item, new Config(expiryMillis));
-	}
 	
 	/**
 	 * @return a valid token for password recovery
@@ -299,5 +286,18 @@ public final class PasswordRecovery extends Pattern
 				purge(ctx);
 			}}
 		);
+	}
+
+	/**
+	 * @deprecated Use {@link #issue(Item, Config)} instead.
+	 * @return a valid token for password recovery
+	 */
+	@Deprecated
+	@Wrap(order=11)
+	public Token issue(
+			final Item item,
+			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+	{
+		return issue(item, new Config(expiryMillis));
 	}
 }
