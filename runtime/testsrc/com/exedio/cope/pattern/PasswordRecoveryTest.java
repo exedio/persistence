@@ -26,6 +26,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
@@ -196,22 +197,22 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 	}
 	
-	public void testOverflow()
+	public void testReuse()
 	{
-		final int EXPIRY_MILLIS = 15*60*1000;
+		final Config config = new Config(15*60*1000, 10*1000);
 
 		final long issueTime1 = clock.addNow();
-		final Token token1 = i.issuePasswordRecovery(EXPIRY_MILLIS);
-		assertEquals(new Date(issueTime1 + EXPIRY_MILLIS), token1.getExpires());
+		final Token token1 = i.issuePasswordRecovery(config);
+		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
 		
 		clock.addNow();
-		assertEquals(token1, i.issuePasswordRecovery(EXPIRY_MILLIS));
+		assertEquals(token1, i.issuePasswordRecovery(config));
 		assertContains(token1, i.passwordRecovery.getTokenType().search());
 		
-		final long issueTime3 = clock.addOffset(EXPIRY_MILLIS);
-		final Token token3 = i.issuePasswordRecovery(EXPIRY_MILLIS);
-		assertEquals(new Date(issueTime3 + EXPIRY_MILLIS), token3.getExpires());
+		final long issueTime3 = clock.addOffset(config.getExpiryMillis());
+		final Token token3 = i.issuePasswordRecovery(config);
+		assertEquals(new Date(issueTime3 + config.getExpiryMillis()), token3.getExpires());
 		assertContains(token1, token3, i.passwordRecovery.getTokenType().search());
 		assertFalse(token3.equals(token1));
 	}
