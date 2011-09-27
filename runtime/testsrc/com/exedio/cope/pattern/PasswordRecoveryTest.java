@@ -182,6 +182,41 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
 	}
+	
+	public void testOverflow() throws InterruptedException
+	{
+		final int EXPIRY_MILLIS = 20;
+
+		final Token token1;
+		{
+			final Date before = new Date();
+			token1 = i.issuePasswordRecovery(EXPIRY_MILLIS);
+			final Date after = new Date();
+			assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), token1.getExpires());
+			assertContains(token1, i.passwordRecovery.getTokenType().search());
+		}
+		final Token token2;
+		{
+			final Date before = new Date();
+			token2 = i.issuePasswordRecovery(EXPIRY_MILLIS);
+			final Date after = new Date();
+			assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), token2.getExpires());
+			assertContains(token1, token2, i.passwordRecovery.getTokenType().search());
+			assertFalse(token2.equals(token1));
+		}
+		
+		sleepLongerThan(EXPIRY_MILLIS);
+		final Token token3;
+		{
+			final Date before = new Date();
+			token3 = i.issuePasswordRecovery(EXPIRY_MILLIS);
+			final Date after = new Date();
+			assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), token3.getExpires());
+			assertContains(token1, token2, token3, i.passwordRecovery.getTokenType().search());
+			assertFalse(token3.equals(token1));
+			assertFalse(token3.equals(token2));
+		}
+	}
 
 	private final int purge()
 	{
