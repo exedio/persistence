@@ -30,6 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -125,6 +126,21 @@ public final class PasswordRecovery extends Pattern
 	{
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+		
+		// NOTICE
+		// The following code limits the number of tokens created within
+		// a certain time span. This is against Denial-Of-service attacks
+		// filling up the database.
+		final long now = clock.currentTimeMillis();
+		final Query<Token> tokens =
+			tokenType.newQuery(Cope.and(
+				Cope.equalAndCast(this.parent, item),
+				this.expires.greaterOrEqual(new Date(now + Math.min(10*1000, expiryMillis)))));
+		tokens.setOrderBy(this.expires, false);
+		tokens.setLimit(0, 1);
+		Token token = tokens.searchSingleton();
+		if(token!=null)
+			return token;
 
 		long secret = NOT_A_SECRET;
 		while(secret==NOT_A_SECRET)
@@ -133,7 +149,7 @@ public final class PasswordRecovery extends Pattern
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
-			this.expires.map(new Date(clock.currentTimeMillis() + expiryMillis)));
+			this.expires.map(new Date(now + expiryMillis)));
 	}
 
 	/**
