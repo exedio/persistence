@@ -63,14 +63,14 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		}
 	}
 	
-	public void testConfigNoReuse()
+	public void testConfigDefaultReuse()
 	{
 		final Config c = new Config(1);
 		assertEquals(1, c.getExpiryMillis());
 		assertEquals(1, c.getReuseMillis());
 	}
 	
-	public void testConfigNoReuseBig()
+	public void testConfigDefaultReuseBig()
 	{
 		final Config c = new Config(10001);
 		assertEquals(10001, c.getExpiryMillis());
@@ -84,7 +84,7 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		assertEquals(10, c2.getReuseMillis());
 	}
 	
-	public void testConfigNoreuse()
+	public void testConfigNoReuse()
 	{
 		final Config c2 = new Config(20, 0);
 		assertEquals(20, c2.getExpiryMillis());
