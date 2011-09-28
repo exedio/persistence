@@ -128,10 +128,6 @@ public final class PasswordRecovery extends Pattern
 		final int reuse = config.getReuseMillis();
 		final long now = clock.currentTimeMillis();
 
-		// NOTICE
-		// The following code limits the number of tokens created within
-		// a certain time span. This is against Denial-Of-service attacks
-		// filling up the database.
 		if(config.getReuseMillis()>0)
 		{
 			final Query<Token> tokens =
@@ -200,6 +196,8 @@ public final class PasswordRecovery extends Pattern
 
 		/**
 		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
+		 * @param reuseMillis limits the number of tokens created within that time span.
+		 *        This is against Denial-Of-service attacks filling up the database.
 		 */
 		public Config(final int expiryMillis, final int reuseMillis)
 		{
