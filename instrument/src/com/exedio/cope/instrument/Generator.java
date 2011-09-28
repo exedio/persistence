@@ -567,13 +567,18 @@ final class Generator
 	{
 		if(lines.length>0)
 		{
-			write("\t * ");
+			final String line = lines[0];
+			write("\t *");
 			if(!prefix1.isEmpty())
 			{
-				write(prefix1);
 				write(' ');
+				write(prefix1);
 			}
-			write(format(lines[0], arguments));
+			if(!line.isEmpty())
+			{
+				write(' ');
+				write(format(line, arguments));
+			}
 			write(lineSeparator);
 		}
 		for(int i = 1; i<lines.length; i++)
