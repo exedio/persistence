@@ -379,47 +379,30 @@ final class Generator
 					featureNameCamelCase};
 			{
 				writeCommentHeader();
-				for(final String comment : wrapper.getComments())
-					writeCommentLine(" ", format(comment, arguments));
+				writeCommentParagraph("", " ", wrapper.getComments().toArray(new String[0]), arguments);
 
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
 					final String[] comment = parameter.getComment();
-					if(comment.length>0)
-					{
-						write("\t * @param ");
-						write(format(parameter.getName(), arguments));
-						write(' ');
-						write(format(comment[0], arguments));
-						write(lineSeparator);
-					}
-					for(int i = 1; i<comment.length; i++)
-						writeCommentLine("        ", format(comment[i], arguments));
+					writeCommentParagraph(
+							"@param " + format(parameter.getName(), arguments),
+							"        ",
+							comment, arguments);
 				}
 				{
 					final String[] comment = wrapper.getReturnComment();
-					if(comment.length>0)
-					{
-						write("\t * @return ");
-						write(format(comment[0], arguments));
-						write(lineSeparator);
-					}
-					for(int i = 1; i<comment.length; i++)
-						writeCommentLine("         ", format(comment[i], arguments));
+					writeCommentParagraph(
+							"@return",
+							"         ",
+							comment, arguments);
 				}
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
 					final String[] comment = e.getValue();
-					if(comment.length>0)
-					{
-						write("\t * @throws ");
-						write(e.getKey().getCanonicalName());
-						write(' ');
-						write(format(comment[0], arguments));
-						write(lineSeparator);
-					}
-					for(int i = 1; i<comment.length; i++)
-						writeCommentLine("         ", format(comment[i], arguments));
+					writeCommentParagraph(
+							"@throws " + e.getKey().getCanonicalName(),
+							"         ",
+							comment, arguments);
 				}
 				writeCommentFooter(
 					modifierTag!=null
@@ -581,15 +564,33 @@ final class Generator
 		write(featureName);
 	}
 
-	private void writeCommentLine(final String prefix, final String line)
+	private void writeCommentParagraph(
+			final String prefix1, final String prefixN,
+			final String[] lines,
+			final Object[] arguments)
 	{
-		write("\t *");
-		if(!line.isEmpty())
+		if(lines.length>0)
 		{
-			write(prefix);
-			write(line);
+			write("\t * ");
+			if(!prefix1.isEmpty())
+			{
+				write(prefix1);
+				write(' ');
+			}
+			write(format(lines[0], arguments));
+			write(lineSeparator);
 		}
-		write(lineSeparator);
+		for(int i = 1; i<lines.length; i++)
+		{
+			final String line = lines[i];
+			write("\t *");
+			if(!line.isEmpty())
+			{
+				write(prefixN);
+				write(format(line, arguments));
+			}
+			write(lineSeparator);
+		}
 	}
 
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
