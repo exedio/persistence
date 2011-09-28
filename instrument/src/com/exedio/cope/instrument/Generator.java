@@ -383,26 +383,23 @@ final class Generator
 
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
-					final String[] comment = parameter.getComment();
 					writeCommentParagraph(
 							"@param " + format(parameter.getName(), arguments),
 							"        ",
-							comment, arguments);
+							parameter.getComment(), arguments);
 				}
 				{
-					final String[] comment = wrapper.getReturnComment();
 					writeCommentParagraph(
 							"@return",
 							"         ",
-							comment, arguments);
+							wrapper.getReturnComment(), arguments);
 				}
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
-					final String[] comment = e.getValue();
 					writeCommentParagraph(
 							"@throws " + e.getKey().getCanonicalName(),
 							"         ",
-							comment, arguments);
+							e.getValue(), arguments);
 				}
 				writeCommentFooter(
 					modifierTag!=null
