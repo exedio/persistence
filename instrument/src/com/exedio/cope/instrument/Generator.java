@@ -388,12 +388,11 @@ final class Generator
 							"        ",
 							parameter.getComment(), arguments);
 				}
-				{
-					writeCommentParagraph(
-							"@return",
-							"         ",
-							wrapper.getReturnComment(), arguments);
-				}
+				writeCommentParagraph(
+						"@return",
+						"         ",
+						wrapper.getReturnComment(), arguments);
+
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
 					writeCommentParagraph(
