@@ -380,6 +380,7 @@ final class Generator
 			{
 				writeCommentHeader();
 				{
+					// TODO use String[] from the beginning
 					final List<String> comments = wrapper.getComments();
 					writeCommentParagraph("", " ", comments.toArray(new String[comments.size()]), arguments);
 				}
