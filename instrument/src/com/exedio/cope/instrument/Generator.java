@@ -581,13 +581,13 @@ final class Generator
 		write(featureName);
 	}
 
-	private void writeCommentLine(final String prefix, final String comment)
+	private void writeCommentLine(final String prefix, final String line)
 	{
 		write("\t *");
-		if(!comment.isEmpty())
+		if(!line.isEmpty())
 		{
 			write(prefix);
-			write(comment);
+			write(line);
 		}
 		write(lineSeparator);
 	}
