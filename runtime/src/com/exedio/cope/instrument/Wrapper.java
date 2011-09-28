@@ -331,6 +331,15 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 
+	String[] getCommentArray()
+	{
+		// TODO use String[] from the beginning
+		return
+			comments!=null
+			? comments.toArray(new String[comments.size()])
+			: new String[0];
+	}
+
 
 	/**
 	 * @deprecated not supported anymore, does nothing
