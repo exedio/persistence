@@ -106,6 +106,28 @@ public class WrapFeature extends Pattern
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=70,
+			doc={
+				"",
+				"method documentation line 2 {0} {1} {2} {3} {4}"},
+			docReturn={
+				"",
+				"return documentation line 2 {0} {1} {2} {3} {4}"},
+			thrown={
+				@Wrap.Thrown(value=IllegalArgumentException.class, doc={
+					"",
+					"throws documentation IllegalArgumentException line 2 {0} {1} {2} {3} {4}"})})
+	public int documentedFirstLineEmpty(
+			@SuppressWarnings("unused")
+			@Parameter(
+				doc={
+					"",
+					"parameter documentation line 2 {0} {1} {2} {3} {4}"})
+			final int n)
+	{
+		throw new RuntimeException();
+	}
+
 	// suppressor
 
 	@Wrap(order=200, hide=TrueGetter.class)
