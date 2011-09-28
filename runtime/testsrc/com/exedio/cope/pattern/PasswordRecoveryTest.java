@@ -176,6 +176,15 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		{
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
+		try
+		{
+			i.issuePasswordRecovery(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	public void testReuse()
