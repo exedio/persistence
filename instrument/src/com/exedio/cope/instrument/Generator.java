@@ -379,7 +379,10 @@ final class Generator
 					featureNameCamelCase};
 			{
 				writeCommentHeader();
-				writeCommentParagraph("", " ", wrapper.getComments().toArray(new String[0]), arguments);
+				{
+					final List<String> comments = wrapper.getComments();
+					writeCommentParagraph("", " ", comments.toArray(new String[comments.size()]), arguments);
+				}
 
 				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
