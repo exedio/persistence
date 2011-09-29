@@ -81,7 +81,7 @@ public final class MysqlDialect extends Dialect
 		schema.querySQL(
 			"select TABLE_NAME " +
 				"from information_schema.TABLES " +
-				"where TABLE_SCHEMA='" + catalog + '\'',
+				"where TABLE_SCHEMA='" + catalog + "' and TABLE_TYPE='BASE TABLE'",
 			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
 			{
 				//printMeta(resultSet);
