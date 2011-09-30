@@ -176,6 +176,36 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
+	public void testToRunSingle()
+	{
+		final Revision r3 = new Revision(3, "revision2", "nonsensesql2");
+		final Revisions rs = new Revisions(r3);
+		assertEquals(3, rs.getNumber());
+		assertEqualsUnmodifiable(list(r3), rs.getList());
+		assertEquals("Revisions(3-3)", rs.toString());
+
+		try
+		{
+			rs.getListToRun(1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("attempt to revise from 1 to 3, but declared revisions allow from 2 only", e.getMessage());
+		}
+		assertEqualsUnmodifiable(list(r3), rs.getListToRun(2));
+		assertEqualsUnmodifiable(list(  ), rs.getListToRun(3));
+		try
+		{
+			rs.getListToRun(4);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("cannot revise backwards, expected 3, but was 4", e.getMessage());
+		}
+	}
+
 	public void testToRunNumber()
 	{
 		final Revisions rs = new Revisions(5);
