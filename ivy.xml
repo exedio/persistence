@@ -16,10 +16,10 @@
 		<conf name="build" extends="runtime" visibility="private" />
 		
 		<!-- dialects -->
-		<conf extends="runtime" name="hsqldb" />
-		<conf extends="runtime" name="mysql" />
-		<conf extends="runtime" name="oracle" />
-		<conf extends="runtime" name="postgresql" />
+		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
+		<conf extends="runtime" name="mysql"      description="dialect for MySQL" />
+		<conf extends="runtime" name="oracle"     description="dialect for Oracle Database" />
+		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
 	</configurations>
 	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
