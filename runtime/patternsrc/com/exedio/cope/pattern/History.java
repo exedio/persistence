@@ -56,7 +56,7 @@ public final class History extends Pattern
 
 	ItemField<Event> featureEvent = null;
 	PartOf<Event> featureFeatures = null;
-	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.newField().toFinal();
+	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.create().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
 	final StringField featureOld = new StringField().toFinal().optional();

@@ -90,7 +90,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			FeatureField.newField(null);
+			FeatureField.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)

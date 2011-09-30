@@ -47,12 +47,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private final boolean isfinal;
 	private final boolean optional;
 
-	public static FeatureField<Feature> newField()
+	public static FeatureField<Feature> create()
 	{
-		return newField(Feature.class);
+		return create(Feature.class);
 	}
 
-	public static <E extends Feature> FeatureField<E> newField(final Class<E> valueClass)
+	public static <E extends Feature> FeatureField<E> create(final Class<E> valueClass)
 	{
 		return new FeatureField<E>(valueClass, new StringField());
 	}
@@ -193,5 +193,25 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 					result.add(valueClass.cast(feature));
 
 		return Collections.unmodifiableList(result);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create()} instead
+	 */
+	@Deprecated
+	public static FeatureField<Feature> newField()
+	{
+		return create();
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Class)} instead
+	 */
+	@Deprecated
+	public static <E extends Feature> FeatureField<E> newField(final Class<E> valueClass)
+	{
+		return create(valueClass);
 	}
 }
