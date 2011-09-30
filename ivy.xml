@@ -16,10 +16,10 @@
 		<conf name="build" extends="runtime" visibility="private" />
 		
 		<!-- dialects -->
-		<conf name="hsqldb" extends="runtime" />
-		<conf name="mysql" extends="runtime" />
-		<conf name="oracle" extends="runtime" />
-		<conf name="postgresql" extends="runtime" />
+		<conf extends="runtime" name="hsqldb" />
+		<conf extends="runtime" name="mysql" />
+		<conf extends="runtime" name="oracle" />
+		<conf extends="runtime" name="postgresql" />
 	</configurations>
 	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
@@ -50,9 +50,9 @@
 		<dependency org="com.exedio" name="copeconsole" rev="6294" conf="build->runtime" />
 		
 		<!-- dialects -->
-		<dependency org="org.hsqldb" name="hsqldb" rev="2.1.0" conf="hsqldb->default" />
-		<dependency org="mysql" name="mysql-connector-java" rev="5.1.15" conf="mysql->default" />
-		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
-		<dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgresql->default" />
+		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.1.0" />
+		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="5.1.15" />
+		<dependency conf="oracle->default" org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" />
+		<dependency conf="postgresql->default" org="postgresql" name="postgresql" rev="9.0-801.jdbc4" />
 	</dependencies>
 </ivy-module>
