@@ -82,6 +82,7 @@ public class RevisionsTest extends CopeAssert
 		final Revisions rs = new Revisions(r8, r7, r6);
 		assertEquals(8, rs.getNumber());
 		assertEqualsUnmodifiable(list(r8, r7, r6), rs.getList());
+		assertEquals("Revisions(8-6)", rs.toString());
 
 		try
 		{
@@ -150,6 +151,7 @@ public class RevisionsTest extends CopeAssert
 		final Revisions rs = new Revisions(r2, r1);
 		assertEquals(2, rs.getNumber());
 		assertEqualsUnmodifiable(list(r2, r1), rs.getList());
+		assertEquals("Revisions(2-1)", rs.toString());
 
 		assertEqualsUnmodifiable(list(r1, r2), rs.getListToRun(0));
 		assertEqualsUnmodifiable(list(    r2), rs.getListToRun(1));
@@ -179,6 +181,7 @@ public class RevisionsTest extends CopeAssert
 		final Revisions rs = new Revisions(5);
 		assertEquals(5, rs.getNumber());
 		assertEqualsUnmodifiable(list(), rs.getList());
+		assertEquals("Revisions(5)", rs.toString());
 
 		try
 		{
@@ -242,6 +245,7 @@ public class RevisionsTest extends CopeAssert
 		final Revisions rs = new Revisions(0);
 		assertEquals(0, rs.getNumber());
 		assertEqualsUnmodifiable(list(), rs.getList());
+		assertEquals("Revisions(0)", rs.toString());
 
 		assertEqualsUnmodifiable(list(), rs.getListToRun(0));
 		try

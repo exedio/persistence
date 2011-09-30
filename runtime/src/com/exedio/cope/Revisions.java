@@ -278,4 +278,18 @@ public final class Revisions
 			mutex.delete(properties, connectionPool, executor);
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		final int length = revisions.length;
+		return
+			"Revisions(" +
+			(
+				length>0
+				? (String.valueOf(number) + '-' + revisions[length-1].number)
+				: String.valueOf(number)
+			) +
+			')';
+	}
 }
