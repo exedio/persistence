@@ -7,6 +7,14 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* use separate ivy configuration for exedio-cope-test.jar.
+	If you use this file, you need to add the test configuration to your cope dependency
+	in the ivy.xml:
+
+	<dependency org="com.exedio" name="cope" rev="nnn" conf="default->hsqldb,mysql,test" />
+
+	Otherwise exedio-cope-test.jar will not be updated with new versions of cope anymore.
+
 * replace PasswordRecovery#issue(int) by #issue(Config),
 	deprecated version is provided,
 	affects instrumented code.

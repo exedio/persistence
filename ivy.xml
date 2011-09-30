@@ -16,16 +16,17 @@
 		<conf name="mysql" extends="runtime" />
 		<conf name="oracle" extends="runtime" />
 		<conf name="postgresql" extends="runtime" />
+		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
-	<publications>
+	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
 		<artifact name="exedio-cope" type="src" ext="zip" />
 		<artifact name="exedio-cope" type="log" ext="txt" />
 		<artifact name="exedio-cope-instrument" />
-		<artifact name="exedio-cope-test" />
+		<artifact name="exedio-cope-test" conf="test" />
 	</publications>
-	<dependencies>
+	<dependencies defaultconf="runtime->*">
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
 		<dependency org="net.sf.trove4j-x" name="trove4j" rev="2.0.2" />
 		<dependency org="org.cojen" name="cojen" rev="2.0">
@@ -37,7 +38,10 @@
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.15" conf="mysql->default" />
 		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
 		<dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgresql->default" />
-		<dependency org="junit" name="junit" rev="4.4" conf="build->*" />
+		<dependency org="junit" name="junit" rev="4.4">
+			<conf name="test" mapped="default" />
+			<conf name="build" mapped="*" />
+		</dependency>
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="1.3.9" conf="build->default" />
 		<dependency org="log4j" name="log4j" rev="1.2.16">
