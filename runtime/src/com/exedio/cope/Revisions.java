@@ -122,7 +122,9 @@ public final class Revisions
 		if(departureNumber==number)
 			return Collections.emptyList();
 		if(departureNumber>number)
-			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + departureNumber);
+			throw new IllegalArgumentException(
+					"cannot revise backwards, expected " + number +
+					", but was " + departureNumber);
 
 		final int startIndex = number - departureNumber - 1;
 		if(startIndex>=revisions.length)
