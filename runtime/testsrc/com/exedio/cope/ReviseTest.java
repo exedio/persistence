@@ -54,24 +54,33 @@ public class ReviseTest extends CopeAssert
 
 	private static final class TestRevisionSource implements RevisionsFuture
 	{
-		Revisions revisions;
+		private Revisions revisions = null;
 		int calls = 0;
 
-		TestRevisionSource(final Revisions revisions)
+		TestRevisionSource()
 		{
-			this.revisions = revisions;
+			// make non-private
+		}
+
+		void put(final Revisions revisions)
+		{
 			assertNotNull(revisions);
+			assertNull(this.revisions);
+			this.revisions = revisions;
 		}
 
 		public Revisions get(final EnvironmentInfo environment)
 		{
 			assertNotNull(environment);
+			assertNotNull(this.revisions);
 			calls++;
+			final Revisions revisions = this.revisions;
+			this.revisions = null;
 			return revisions;
 		}
 	}
 
-	private static final TestRevisionSource revisions7Source = new TestRevisionSource(revisions7Missing);
+	private static final TestRevisionSource revisions7Source = new TestRevisionSource();
 
 	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
 
@@ -157,6 +166,7 @@ public class ReviseTest extends CopeAssert
 
 		model7.connect(props);
 		assertEquals(0, revisions7Source.calls);
+		revisions7Source.put(revisions7Missing);
 		assertSame(revisions7Missing, model7.getRevisions());
 		assertEquals(1, revisions7Source.calls);
 		assertSchema(model7.getVerifiedSchema(), true, false);
@@ -204,8 +214,13 @@ public class ReviseTest extends CopeAssert
 				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4")
 			);
-		setRevisions(revisions7);
+		revisions7Source.put(revisions7);
 		assertEquals(1, revisions7Source.calls);
+
+		assertSame(revisions7Missing, model7.getRevisions());
+		assertEquals(1, revisions7Source.calls);
+
+		reconnect();
 		assertSame(revisions7, model7.getRevisions());
 		assertEquals(2, revisions7Source.calls);
 
@@ -244,6 +259,8 @@ public class ReviseTest extends CopeAssert
 		model7.disconnect();
 		model7.connect(props);
 		assertEquals(2, revisions7Source.calls);
+
+		revisions7Source.put(revisions7Missing);
 		model7.revise();
 		assertEquals(3, revisions7Source.calls);
 		assertSchema(model7.getVerifiedSchema(), true, true);
@@ -260,8 +277,13 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions8 = new Revisions(
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure")
 			);
-		setRevisions(revisions8);
+		revisions7Source.put(revisions8);
 		assertEquals(3, revisions7Source.calls);
+		assertSame(revisions7Missing, model7.getRevisions());
+
+		reconnect();
+		assertEquals(3, revisions7Source.calls);
+
 		assertSame(revisions8, model7.getRevisions());
 		assertEquals(4, revisions7Source.calls);
 
@@ -478,11 +500,10 @@ public class ReviseTest extends CopeAssert
 		return props.filterTableName(name);
 	}
 
-	private void setRevisions(final Revisions revisions)
+	private void reconnect()
 	{
 		final ConnectProperties c = model7.getConnectProperties();
 		model7.disconnect();
-		revisions7Source.revisions = revisions;
 		model7.connect(c);
 	}
 
