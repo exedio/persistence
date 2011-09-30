@@ -12,12 +12,14 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
+		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
+		<conf name="build" extends="runtime" visibility="private" />
+		
+		<!-- dialects -->
 		<conf name="hsqldb" extends="runtime" />
 		<conf name="mysql" extends="runtime" />
 		<conf name="oracle" extends="runtime" />
 		<conf name="postgresql" extends="runtime" />
-		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
-		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
@@ -34,10 +36,6 @@
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
-		<dependency org="org.hsqldb" name="hsqldb" rev="2.1.0" conf="hsqldb->default" />
-		<dependency org="mysql" name="mysql-connector-java" rev="5.1.15" conf="mysql->default" />
-		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
-		<dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgresql->default" />
 		<dependency org="junit" name="junit" rev="4.4">
 			<conf name="test" mapped="default" />
 			<conf name="build" mapped="*" />
@@ -50,5 +48,11 @@
 		</dependency>
 		<dependency org="com.exedio" name="copeutil" rev="201" />
 		<dependency org="com.exedio" name="copeconsole" rev="6294" conf="build->runtime" />
+		
+		<!-- dialects -->
+		<dependency org="org.hsqldb" name="hsqldb" rev="2.1.0" conf="hsqldb->default" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.15" conf="mysql->default" />
+		<dependency org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" conf="oracle->default" />
+		<dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgresql->default" />
 	</dependencies>
 </ivy-module>
