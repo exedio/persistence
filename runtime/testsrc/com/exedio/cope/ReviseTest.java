@@ -52,37 +52,6 @@ public class ReviseTest extends CopeAssert
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 		);
 
-	private static final class TestRevisionSource implements RevisionsFuture
-	{
-		private Revisions revisions = null;
-
-		TestRevisionSource()
-		{
-			// make non-private
-		}
-
-		void put(final Revisions revisions)
-		{
-			assertNotNull(revisions);
-			assertNull(this.revisions);
-			this.revisions = revisions;
-		}
-
-		void assertEmpty()
-		{
-			assertNull(revisions);
-		}
-
-		public Revisions get(final EnvironmentInfo environment)
-		{
-			assertNotNull(environment);
-			assertNotNull(this.revisions);
-			final Revisions revisions = this.revisions;
-			this.revisions = null;
-			return revisions;
-		}
-	}
-
 	private static final TestRevisionSource revisions7Source = new TestRevisionSource();
 
 	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
@@ -529,5 +498,36 @@ public class ReviseTest extends CopeAssert
 			if(key!=e.getKey().intValue())
 				result.put(e.getKey(), e.getValue());
 		return result;
+	}
+
+	private static final class TestRevisionSource implements RevisionsFuture
+	{
+		private Revisions revisions = null;
+
+		TestRevisionSource()
+		{
+			// make non-private
+		}
+
+		void put(final Revisions revisions)
+		{
+			assertNotNull(revisions);
+			assertNull(this.revisions);
+			this.revisions = revisions;
+		}
+
+		void assertEmpty()
+		{
+			assertNull(revisions);
+		}
+
+		public Revisions get(final EnvironmentInfo environment)
+		{
+			assertNotNull(environment);
+			assertNotNull(this.revisions);
+			final Revisions revisions = this.revisions;
+			this.revisions = null;
+			return revisions;
+		}
 	}
 }
