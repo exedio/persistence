@@ -60,6 +60,7 @@ public class ReviseTest extends CopeAssert
 		TestRevisionSource(final Revisions revisions)
 		{
 			this.revisions = revisions;
+			assertNotNull(revisions);
 		}
 
 		public Revisions get(final EnvironmentInfo environment)
