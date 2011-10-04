@@ -41,11 +41,9 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final Revisions revisions5 = new Revisions(
-		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
-	);
+	private static final TestRevisionSource revisions5Source = new TestRevisionSource();
 
-	private static final Model model5 = new Model(DirectRevisionsFuture.make(revisions5), ReviseItem1.TYPE);
+	private static final Model model5 = new Model(revisions5Source, ReviseItem1.TYPE);
 
 
 	private static final TestRevisionSource revisions7Source = new TestRevisionSource();
@@ -102,7 +100,12 @@ public class ReviseTest extends CopeAssert
 		}
 
 		model5.connect(props);
+		final Revisions revisions5 = new Revisions(
+				new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
+			);
+		revisions5Source.put(revisions5);
 		assertSame(revisions5, model5.getRevisions());
+		revisions5Source.assertEmpty();
 		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
