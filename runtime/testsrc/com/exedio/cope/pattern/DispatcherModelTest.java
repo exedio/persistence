@@ -31,7 +31,6 @@ import com.exedio.cope.misc.Computed;
 public class DispatcherModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(DispatcherItem.TYPE);
-	private static final Model model = MODEL;
 
 	static
 	{
@@ -47,11 +46,11 @@ public class DispatcherModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
 				runType
-			), model.getTypes());
+			), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
 				runType
-			), model.getTypesSortedByHierarchy());
+			), MODEL.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.isBound());
 		assertEquals(null, item.TYPE.getPattern());
@@ -98,7 +97,7 @@ public class DispatcherModelTest extends CopeAssert
 		assertEquals(false, runType.isAbstract());
 		assertEquals(Item.class, runType.getThis().getValueClass().getSuperclass());
 		assertEquals(runType, runType.getThis().getValueType());
-		assertEquals(model, runType.getModel());
+		assertEquals(MODEL, runType.getModel());
 
 		assertEquals(runType, item.toTargetRunParent().getType());
 		assertEquals(runType, item.toTarget.getRunDate().getType());
