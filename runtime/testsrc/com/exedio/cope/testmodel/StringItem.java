@@ -122,7 +122,7 @@ public class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			StringItem.mandatory.map(mandatory),
+			com.exedio.cope.SetValue.map(StringItem.mandatory,mandatory),
 		});
 	}/**
 

@@ -51,7 +51,7 @@ public class MediaFinalItem extends Item
 				final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			MediaFinalItem.file.map(file),
+			com.exedio.cope.SetValue.map(MediaFinalItem.file,file),
 		});
 	}/**
 

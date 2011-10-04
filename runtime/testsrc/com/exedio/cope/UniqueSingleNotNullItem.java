@@ -48,7 +48,7 @@ public class UniqueSingleNotNullItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			UniqueSingleNotNullItem.uniqueNotNullString.map(uniqueNotNullString),
+			com.exedio.cope.SetValue.map(UniqueSingleNotNullItem.uniqueNotNullString,uniqueNotNullString),
 		});
 	}/**
 

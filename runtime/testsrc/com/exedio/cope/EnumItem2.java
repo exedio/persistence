@@ -44,7 +44,7 @@ public class EnumItem2 extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			EnumItem2.status.map(status),
+			com.exedio.cope.SetValue.map(EnumItem2.status,status),
 		});
 	}/**
 

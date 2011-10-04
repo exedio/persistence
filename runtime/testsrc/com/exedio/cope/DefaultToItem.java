@@ -66,7 +66,7 @@ class DefaultToItem extends Item
 				final boolean booleanNone)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			DefaultToItem.booleanNone.map(booleanNone),
+			com.exedio.cope.SetValue.map(DefaultToItem.booleanNone,booleanNone),
 		});
 	}/**
 

@@ -44,7 +44,7 @@ class NameCollisionlongbItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			NameCollisionlongbItem.code.map(code),
+			com.exedio.cope.SetValue.map(NameCollisionlongbItem.code,code),
 		});
 	}/**
 

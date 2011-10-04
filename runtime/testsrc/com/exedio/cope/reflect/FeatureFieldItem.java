@@ -59,8 +59,8 @@ public class FeatureFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			FeatureFieldItem.feature.map(feature),
-			FeatureFieldItem.featureFinal.map(featureFinal),
+			com.exedio.cope.SetValue.map(FeatureFieldItem.feature,feature),
+			com.exedio.cope.SetValue.map(FeatureFieldItem.featureFinal,featureFinal),
 		});
 	}/**
 

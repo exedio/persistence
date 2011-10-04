@@ -47,7 +47,7 @@ public class DynamicModelItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			DynamicModelItem.name.map(name),
+			com.exedio.cope.SetValue.map(DynamicModelItem.name,name),
 		});
 	}/**
 

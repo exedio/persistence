@@ -46,7 +46,7 @@ public final class CompositeOptionalItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			CompositeOptionalItem.code.map(code),
+			com.exedio.cope.SetValue.map(CompositeOptionalItem.code,code),
 		});
 	}/**
 

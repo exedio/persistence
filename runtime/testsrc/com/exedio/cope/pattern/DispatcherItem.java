@@ -104,7 +104,7 @@ public class DispatcherItem extends Item implements Dispatchable
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			DispatcherItem.body.map(body),
+			com.exedio.cope.SetValue.map(DispatcherItem.body,body),
 		});
 	}/**
 

@@ -11,6 +11,7 @@ The items are sorted inversely, i.e. latest items are on top
 	* add SetValue#map,
 		which is more type-safe than SetValue constructor and Settable#map
 	* deprecate SetValue constructor
+	* instrumentor uses SetValue#map instead of Settable#map, affects instrumented code.
 * SetValue constructor will throw NullPointerException if settable==null.
 	This breaks backwards API compatibility.
 * Dispatcher supports probing, use new dispatch method.

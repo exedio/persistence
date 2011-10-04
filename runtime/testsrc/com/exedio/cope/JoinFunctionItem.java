@@ -49,8 +49,8 @@ class JoinFunctionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			JoinFunctionItem.string.map(string),
-			JoinFunctionItem.integer.map(integer),
+			com.exedio.cope.SetValue.map(JoinFunctionItem.string,string),
+			com.exedio.cope.SetValue.map(JoinFunctionItem.integer,integer),
 		});
 	}/**
 

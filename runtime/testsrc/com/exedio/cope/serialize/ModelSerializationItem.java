@@ -46,7 +46,7 @@ class ModelSerializationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			ModelSerializationItem.name.map(name),
+			com.exedio.cope.SetValue.map(ModelSerializationItem.name,name),
 		});
 	}/**
 

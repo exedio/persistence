@@ -54,9 +54,9 @@ public class PartOfItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			PartOfItem.container.map(container),
-			PartOfItem.partString.map(partString),
-			PartOfItem.partInteger.map(partInteger),
+			com.exedio.cope.SetValue.map(PartOfItem.container,container),
+			com.exedio.cope.SetValue.map(PartOfItem.partString,partString),
+			com.exedio.cope.SetValue.map(PartOfItem.partInteger,partInteger),
 		});
 	}/**
 

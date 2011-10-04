@@ -46,8 +46,8 @@ public class RangeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			RangeFieldItem.valid.map(valid),
-			RangeFieldItem.text.map(text),
+			com.exedio.cope.SetValue.map(RangeFieldItem.valid,valid),
+			com.exedio.cope.SetValue.map(RangeFieldItem.text,text),
 		});
 	}/**
 

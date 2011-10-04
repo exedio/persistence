@@ -48,7 +48,7 @@ class CopyValueItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			CopyValueItem.code.map(code),
+			com.exedio.cope.SetValue.map(CopyValueItem.code,code),
 		});
 	}/**
 

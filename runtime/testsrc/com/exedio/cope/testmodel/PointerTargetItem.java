@@ -46,7 +46,7 @@ public class PointerTargetItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			PointerTargetItem.code.map(code),
+			com.exedio.cope.SetValue.map(PointerTargetItem.code,code),
 		});
 	}/**
 

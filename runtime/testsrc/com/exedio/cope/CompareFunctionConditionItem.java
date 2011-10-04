@@ -113,20 +113,20 @@ class CompareFunctionConditionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			CompareFunctionConditionItem.leftString.map(leftString),
-			CompareFunctionConditionItem.rightString.map(rightString),
-			CompareFunctionConditionItem.leftInt.map(leftInt),
-			CompareFunctionConditionItem.rightInt.map(rightInt),
-			CompareFunctionConditionItem.leftLong.map(leftLong),
-			CompareFunctionConditionItem.rightLong.map(rightLong),
-			CompareFunctionConditionItem.leftDouble.map(leftDouble),
-			CompareFunctionConditionItem.rightDouble.map(rightDouble),
-			CompareFunctionConditionItem.leftDate.map(leftDate),
-			CompareFunctionConditionItem.rightDate.map(rightDate),
-			CompareFunctionConditionItem.leftDay.map(leftDay),
-			CompareFunctionConditionItem.rightDay.map(rightDay),
-			CompareFunctionConditionItem.leftEnum.map(leftEnum),
-			CompareFunctionConditionItem.rightEnum.map(rightEnum),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftString,leftString),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightString,rightString),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftInt,leftInt),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightInt,rightInt),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftLong,leftLong),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightLong,rightLong),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftDouble,leftDouble),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightDouble,rightDouble),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftDate,leftDate),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightDate,rightDate),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftDay,leftDay),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightDay,rightDay),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.leftEnum,leftEnum),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.rightEnum,rightEnum),
 		});
 	}/**
 

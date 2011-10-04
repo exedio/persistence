@@ -37,7 +37,7 @@ public class DeleteHierarchySource extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			DeleteHierarchySource.target.map(target),
+			com.exedio.cope.SetValue.map(DeleteHierarchySource.target,target),
 		});
 	}/**
 
