@@ -29,6 +29,16 @@ public final class SetValue<E>
 	 * you may want to use the convenience functions.
 	 * @see Settable#map(Object)
 	 */
+	@SuppressWarnings("deprecation") // OK
+	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
+	{
+		return new SetValue<E>(settable, value);
+	}
+
+	/**
+	 * @deprecated Use {@link #map(Feature, Item)} instead.
+	 */
+	@Deprecated
 	public SetValue(final Settable<E> settable, final E value)
 	{
 		if(settable==null)

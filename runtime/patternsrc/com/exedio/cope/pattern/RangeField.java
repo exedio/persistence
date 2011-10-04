@@ -154,7 +154,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 
 	public SetValue<Range<E>> map(final Range<E> value)
 	{
-		return new SetValue<Range<E>>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public SetValue[] execute(final Range<E> value, final Item exceptionItem)

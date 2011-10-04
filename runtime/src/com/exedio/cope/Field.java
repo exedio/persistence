@@ -137,12 +137,12 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	public final SetValue<E> map(final E value)
 	{
-		return new SetValue<E>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public final SetValue<E> mapNull()
 	{
-		return new SetValue<E>(this, null);
+		return SetValue.map(this, null);
 	}
 
 	public final SetValue[] execute(final E value, final Item exceptionItem)

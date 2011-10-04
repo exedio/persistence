@@ -26,13 +26,11 @@ import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
 {
-	private static final class MockSettable implements Settable<String>
+	private static final class MockSettable extends Feature implements Settable<String>
 	{
-		private final String toString;
-
-		MockSettable(final String toString)
+		MockSettable()
 		{
-			this.toString = toString;
+			// make non-private
 		}
 
 		public SetValue[] execute(final String value, final Item exceptionItem)
@@ -70,30 +68,24 @@ public class SetValueTest extends TestCase
 		{
 			throw new RuntimeException();
 		}
-
-		@Override
-		public String toString()
-		{
-			return toString;
-		}
 	}
 
 	public void testIt()
 	{
-		final Settable<String> alpha = new MockSettable("alpha");
-		final SetValue alphaValue = new SetValue<String>(alpha, "alphaValue");
-		assertEquals("alpha=alphaValue", alphaValue.toString());
+		final MockSettable alpha = new MockSettable();
+		final SetValue alphaValue = SetValue.map(alpha, "alphaValue");
+		assertEquals(alpha.toString()+"=alphaValue", alphaValue.toString());
 
-		final Settable<String> beta = new MockSettable("beta");
-		final SetValue betaValue = new SetValue<String>(beta, "betaValue");
-		assertEquals("beta=betaValue", betaValue.toString());
+		final MockSettable beta = new MockSettable();
+		final SetValue betaValue = SetValue.map(beta, "betaValue");
+		assertEquals(beta.toString()+"=betaValue", betaValue.toString());
 
-		final Settable<String> nulla = new MockSettable(null);
-		final SetValue nullValue = new SetValue<String>(nulla, null);
-		assertEquals("null=null", nullValue.toString());
+		final MockSettable nulla = new MockSettable();
+		final SetValue nullValue = SetValue.map(nulla, null);
+		assertEquals(nulla.toString()+"=null", nullValue.toString());
 
 		assertEquals(
-				"[alpha=alphaValue, beta=betaValue, null=null]",
+				"["+alpha.toString()+"=alphaValue, "+beta.toString()+"=betaValue, "+nulla.toString()+"=null]",
 				Arrays.asList(alphaValue, betaValue, nullValue).toString());
 	}
 }

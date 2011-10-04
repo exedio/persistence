@@ -290,7 +290,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public SetValue map(final E value)
 	{
-		return new SetValue<E>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

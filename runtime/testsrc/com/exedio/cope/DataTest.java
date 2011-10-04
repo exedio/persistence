@@ -481,7 +481,7 @@ public class DataTest extends AbstractRuntimeTest
 		try
 		{
 			item.set(
-					new SetValue(DataItem.data, "zack")
+					SetValue.map((Field)DataItem.data, "zack")
 			);
 			fail();
 		}
@@ -494,7 +494,7 @@ public class DataTest extends AbstractRuntimeTest
 		try
 		{
 			DataItem.TYPE.newItem(
-					new SetValue(DataItem.data, Integer.valueOf(1))
+					SetValue.map((Field)DataItem.data, Integer.valueOf(1))
 			);
 			fail();
 		}

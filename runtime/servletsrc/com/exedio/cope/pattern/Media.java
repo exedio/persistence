@@ -295,7 +295,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 	public SetValue map(final Value value)
 	{
-		return new SetValue<Value>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
