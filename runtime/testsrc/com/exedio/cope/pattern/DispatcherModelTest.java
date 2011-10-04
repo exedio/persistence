@@ -44,7 +44,6 @@ public class DispatcherModelTest extends CopeAssert
 	{
 		final Type<?> runType = item.toTarget.getRunType();
 
-		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
 				runType
