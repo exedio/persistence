@@ -28,6 +28,8 @@ public class SetValueTest extends TestCase
 {
 	private static final class MockSettable extends Feature implements Settable<String>
 	{
+		private static final long serialVersionUID = 1l;
+
 		MockSettable()
 		{
 			// make non-private
