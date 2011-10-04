@@ -24,6 +24,8 @@ public interface Settable<E>
 {
 	/**
 	 * @deprecated Is not needed anymore by any part of the framework.
+	 *    All implementations of this method should return
+	 *    <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
 	 */
 	@Deprecated
 	SetValue map(E value);
