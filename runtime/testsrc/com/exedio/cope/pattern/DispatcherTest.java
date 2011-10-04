@@ -193,10 +193,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item4, 0, list(d[3]));
 	}
 
-	private static class DateRange
-	{
-	}
-
 	private Date[] dispatch(final int expectedDates, final int expectedProgress)
 	{
 		final JC ci = new JC(Integer.MAX_VALUE);
