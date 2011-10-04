@@ -284,7 +284,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		type.assertBelongs(field);
 
 		if(field.isfinal)
-			throw new FinalViolationException(field, field, this);
+			throw FinalViolationException.create(field, this);
 
 		field.check(value, this);
 
@@ -325,7 +325,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			type.assertBelongs(field);
 
 			if(field.isfinal)
-				throw new FinalViolationException(field, field, this);
+				throw FinalViolationException.create(field, this);
 
 			field.check(e.getValue(), this);
 		}

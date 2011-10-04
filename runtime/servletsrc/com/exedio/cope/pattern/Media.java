@@ -368,7 +368,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		throws DataLengthViolationException, IOException
 	{
 		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		item.set(execute(value, item));
 	}
@@ -399,7 +399,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		try
 		{
@@ -451,7 +451,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		try
 		{
@@ -503,7 +503,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		throws DataLengthViolationException, IOException
 	{
 		if((body==null||contentType==null) && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		set(item, DataField.toValue(body), contentType);
 	}
@@ -584,7 +584,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		else
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, this, exceptionItem);
+				throw MandatoryViolationException.create(this, exceptionItem);
 
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;

@@ -45,6 +45,15 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
+	public static <F extends Feature & Settable<?>> MandatoryViolationException create(final F feature, final Item item)
+	{
+		return new MandatoryViolationException(feature, feature, item);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Feature, Item)} instead.
+	 */
+	@Deprecated
 	public MandatoryViolationException(final Feature feature, final Settable settable, final Item item)
 	{
 		super(item, null);

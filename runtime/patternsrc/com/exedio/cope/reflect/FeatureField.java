@@ -147,9 +147,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public void set(final Item item, final E value)
 	{
 		if(isfinal)
-			throw new FinalViolationException(this, this, item);
+			throw FinalViolationException.create(this, item);
 		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		idField.set(item, value!=null ? value.getID() : null);
 	}
@@ -178,7 +178,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, exceptionItem);
+			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue[]{ idField.map(value!=null ? value.getID() : null) };
 	}

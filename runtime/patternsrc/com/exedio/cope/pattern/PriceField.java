@@ -150,9 +150,9 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public void set(final Item item, final Price value)
 	{
 		if(isfinal)
-			throw new FinalViolationException(this, this, item);
+			throw FinalViolationException.create(this, item);
 		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw MandatoryViolationException.create(this, item);
 
 		integer.set(item, value!=null ? value.store : null);
 	}
@@ -181,7 +181,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public SetValue[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, exceptionItem);
+			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
 	}

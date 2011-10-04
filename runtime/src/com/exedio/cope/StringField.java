@@ -210,7 +210,7 @@ public final class StringField extends FunctionField<String>
 			StringLengthViolationException, StringCharSetViolationException
 	{
 		if(convertEmptyStrings && value.isEmpty() && !optional)
-			throw new MandatoryViolationException(this, this, exceptionItem);
+			throw MandatoryViolationException.create(this, exceptionItem);
 
 		final int length = value.length();
 		if(length<minimumLength||length>maximumLength)

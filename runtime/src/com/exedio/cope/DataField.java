@@ -241,12 +241,12 @@ public final class DataField extends Field<DataField.Value>
 	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		if(isfinal)
-			throw new FinalViolationException(this, this, item);
+			throw FinalViolationException.create(this, item);
 
 		if(data==null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, this, item);
+				throw MandatoryViolationException.create(this, item);
 		}
 		else
 		{

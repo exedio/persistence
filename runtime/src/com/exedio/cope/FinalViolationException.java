@@ -38,6 +38,15 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
+	public static <F extends Feature & Settable<?>> FinalViolationException create(final F feature, final Item item)
+	{
+		return new FinalViolationException(feature, feature, item);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Feature, Item)} instead.
+	 */
+	@Deprecated
 	public FinalViolationException(final Feature feature, final Settable settable, final Item item)
 	{
 		super(item, null);
