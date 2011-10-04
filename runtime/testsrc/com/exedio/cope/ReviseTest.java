@@ -48,10 +48,6 @@ public class ReviseTest extends CopeAssert
 	private static final Model model5 = new Model(DirectRevisionsFuture.make(revisions5), ReviseItem1.TYPE);
 
 
-	private static final Revisions revisions7Missing = new Revisions(
-			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
-		);
-
 	private static final TestRevisionSource revisions7Source = new TestRevisionSource();
 
 	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
@@ -137,6 +133,9 @@ public class ReviseTest extends CopeAssert
 		}
 
 		model7.connect(props);
+		final Revisions revisions7Missing = new Revisions(
+				new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
+			);
 		revisions7Source.put(revisions7Missing);
 		assertSame(revisions7Missing, model7.getRevisions());
 		revisions7Source.assertEmpty();
