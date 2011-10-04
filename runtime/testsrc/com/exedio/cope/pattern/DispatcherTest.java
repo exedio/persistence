@@ -39,7 +39,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 		super(DispatcherModelTest.MODEL);
 	}
 
-	DispatcherItem item;
 	DispatcherItem item1;
 	DispatcherItem item2;
 	DispatcherItem item3;
@@ -209,7 +208,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			dates[i] = new Date(clock.addOffset(10));
 		try
 		{
-			item.dispatchToTarget(config, ctx);
+			DispatcherItem.dispatchToTarget(config, ctx);
 		}
 		catch(final JobStop js)
 		{
