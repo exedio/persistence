@@ -340,7 +340,7 @@ public final class DynamicModel<L> extends Pattern
 		final SetValue[] values = new SetValue[1+fields.length];
 		values[0] = map(mount().type, type);
 		for(int i = 0; i<fields.length; i++)
-			values[1+i] = map(fields[i], null);
+			values[1+i] = fields[i].map(null);
 		item.set(values);
 	}
 
