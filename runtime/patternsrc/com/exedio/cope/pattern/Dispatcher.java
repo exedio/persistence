@@ -59,6 +59,8 @@ public final class Dispatcher extends Pattern
 
 	private static final String ENCODING = "utf8";
 
+	private static final Clock clock = new Clock();
+
 	private final BooleanField pending;
 
 	final DateField runDate = new DateField().toFinal();
@@ -225,7 +227,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				final long start = System.currentTimeMillis();
+				final long start = clock.currentTimeMillis();
 				final long nanoStart = nanoTime();
 				try
 				{
