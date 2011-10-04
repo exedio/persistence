@@ -31,6 +31,9 @@ public final class SetValue<E>
 	 */
 	public SetValue(final Settable<E> settable, final E value)
 	{
+		if(settable==null)
+			throw new NullPointerException("settable");
+
 		this.settable = settable;
 		this.value = value;
 	}
