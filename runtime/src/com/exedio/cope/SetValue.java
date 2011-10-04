@@ -34,7 +34,7 @@ public final class SetValue<E>
 	}
 
 	/**
-	 * @deprecated Use {@link #map(Feature, Item)} instead.
+	 * @deprecated Use {@link #map(Feature, Object)} instead.
 	 */
 	@Deprecated
 	public SetValue(final Settable<E> settable, final E value)
