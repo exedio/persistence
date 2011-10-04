@@ -22,7 +22,12 @@ import java.util.Set;
 
 public interface Settable<E>
 {
+	/**
+	 * @deprecated Is not needed anymore by any part of the framework.
+	 */
+	@Deprecated
 	SetValue map(E value);
+
 	SetValue[] execute(E value, Item exceptionItem);
 
 	/**
