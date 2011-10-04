@@ -59,7 +59,7 @@ public final class Dispatcher extends Pattern
 
 	private static final String ENCODING = "utf8";
 
-	private static final Clock clock = new Clock();
+	static final Clock clock = new Clock();
 
 	private final BooleanField pending;
 
