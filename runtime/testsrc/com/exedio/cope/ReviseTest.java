@@ -32,7 +32,6 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.DirectRevisionsFuture;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -41,14 +40,14 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final TestRevisionSource revisions5Source = new TestRevisionSource();
+	private static final TestRevisionsFuture revisionsFuture5 = new TestRevisionsFuture();
 
-	private static final Model model5 = new Model(revisions5Source, ReviseItem1.TYPE);
+	private static final Model model5 = new Model(revisionsFuture5, ReviseItem1.TYPE);
 
 
-	private static final TestRevisionSource revisions7Source = new TestRevisionSource();
+	private static final TestRevisionsFuture revisionsFuture7 = new TestRevisionsFuture();
 
-	private static final Model model7 = new Model(revisions7Source, ReviseItem2.TYPE);
+	private static final Model model7 = new Model(revisionsFuture7, ReviseItem2.TYPE);
 
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
@@ -87,7 +86,7 @@ public class ReviseTest extends CopeAssert
 	{
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUser();
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 
 		try
 		{
@@ -103,9 +102,9 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions5 = new Revisions(
 				new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 			);
-		revisions5Source.put(revisions5);
+		revisionsFuture5.put(revisions5);
 		assertSame(revisions5, model5.getRevisions());
-		revisions5Source.assertEmpty();
+		revisionsFuture5.assertEmpty();
 		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
@@ -139,9 +138,9 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions7Missing = new Revisions(
 				new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 			);
-		revisions7Source.put(revisions7Missing);
+		revisionsFuture7.put(revisions7Missing);
 		assertSame(revisions7Missing, model7.getRevisions());
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -189,9 +188,9 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisions7Source.put(revisions7);
+		revisionsFuture7.put(revisions7);
 		assertSame(revisions7, model7.getRevisions());
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 
 		log.assertEmpty();
 		final Date reviseBefore = new Date();
@@ -227,9 +226,9 @@ public class ReviseTest extends CopeAssert
 		// even after reconnect
 		model7.disconnect();
 		model7.connect(props);
-		revisions7Source.put(revisions7Missing);
+		revisionsFuture7.put(revisions7Missing);
 		model7.revise();
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -246,9 +245,9 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisions7Source.put(revisions8);
+		revisionsFuture7.put(revisions8);
 		assertSame(revisions8, model7.getRevisions());
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 
 		final Date failBefore = new Date();
 		try
@@ -295,7 +294,7 @@ public class ReviseTest extends CopeAssert
 
 		model7.tearDownSchema();
 		log.assertEmpty();
-		revisions7Source.assertEmpty();
+		revisionsFuture7.assertEmpty();
 	}
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
@@ -502,11 +501,11 @@ public class ReviseTest extends CopeAssert
 		return result;
 	}
 
-	private static final class TestRevisionSource implements RevisionsFuture
+	private static final class TestRevisionsFuture implements RevisionsFuture
 	{
 		private Revisions revisions = null;
 
-		TestRevisionSource()
+		TestRevisionsFuture()
 		{
 			// make non-private
 		}
