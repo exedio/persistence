@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
+import static com.exedio.cope.pattern.DispatcherModelTest.MODEL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class DispatcherItem extends Item implements Dispatchable
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
 		Assert.assertSame(toTarget, dispatcher);
-		Assert.assertTrue(DispatcherTest.MODEL.hasCurrentTransaction());
-		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), DispatcherTest.MODEL.currentTransaction().getName());
+		Assert.assertTrue(MODEL.hasCurrentTransaction());
+		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		final Log log = logs.get(this);
 		final long start = nanoTime();
@@ -74,7 +75,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
 		Assert.assertSame(toTarget, dispatcher);
-		Assert.assertTrue(!DispatcherTest.MODEL.hasCurrentTransaction());
+		Assert.assertTrue(!MODEL.hasCurrentTransaction());
 		Assert.assertEquals(IOException.class, cause.getClass());
 		logs.get(this).notifyFinalFailureCount++;
 	}

@@ -24,10 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Item;
-import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
@@ -36,17 +32,11 @@ import com.exedio.cope.util.JobStop;
 
 public class DispatcherTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(DispatcherItem.TYPE);
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
-
-	static
-	{
-		MODEL.enableSerialization(DispatcherTest.class, "MODEL");
-	}
 
 	public DispatcherTest()
 	{
-		super(MODEL);
+		super(DispatcherModelTest.MODEL);
 	}
 
 	DispatcherItem item;
@@ -67,99 +57,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Type<?> runType = item.toTarget.getRunType();
-
-		// test model
-		assertEqualsUnmodifiable(list(
-				item.TYPE,
-				runType
-			), model.getTypes());
-		assertEqualsUnmodifiable(list(
-				item.TYPE,
-				runType
-			), model.getTypesSortedByHierarchy());
-		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
-
-		final List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
-		assertEquals(1, partOfs.size());
-		final PartOf partOf = partOfs.get(0);
-		assertSame(runType, partOf.getType());
-		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
-		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());
-		assertEquals(list(partOf), PartOf.getPartOfs(DispatcherItem.toTarget));
-
-		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				item.body,
-				item.dispatchCountCommitted,
-				item.toTarget,
-				item.toTarget.getPending()
-			), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(
-				runType.getThis(),
-				item.toTargetRunParent(),
-				item.toTarget.getRunDate(),
-				item.toTarget.getRunRuns(),
-				item.toTarget.getRunElapsed(),
-				item.toTarget.getRunSuccess(),
-				item.toTarget.getRunFailure()
-			), runType.getFeatures());
-
-		assertEquals(item.TYPE, item.toTarget.getType());
-		assertEquals("toTarget", item.toTarget.getName());
-
-		assertSame(item.TYPE, item.toTarget.getPending().getType());
-		assertSame("toTarget-pending", item.toTarget.getPending().getName());
-		assertSame(item.toTarget, item.toTarget.getPending().getPattern());
-		assertSame(Boolean.TRUE, item.toTarget.getPending().getDefaultConstant());
-
-		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
-		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
-		assertEquals(false, runType.isBound());
-		assertSame(DispatcherItem.toTarget, runType.getPattern());
-		assertEquals(null, runType.getSupertype());
-		assertEqualsUnmodifiable(list(), runType.getSubtypes());
-		assertEquals(false, runType.isAbstract());
-		assertEquals(Item.class, runType.getThis().getValueClass().getSuperclass());
-		assertEquals(runType, runType.getThis().getValueType());
-		assertEquals(model, runType.getModel());
-
-		assertEquals(runType, item.toTargetRunParent().getType());
-		assertEquals(runType, item.toTarget.getRunDate().getType());
-		assertEquals(runType, item.toTarget.getRunFailure().getType());
-
-		assertEquals("parent", item.toTargetRunParent().getName());
-		assertEquals("date", item.toTarget.getRunDate().getName());
-		assertEquals("failure", item.toTarget.getRunFailure().getName());
-
-		assertSame(DispatcherItem.class, item.toTargetRunParent().getValueClass());
-		assertSame(DispatcherItem.TYPE, item.toTargetRunParent().getValueType());
-
-		assertSame(item.toTargetRunParent(), item.toTarget.getRunRuns().getContainer());
-		assertSame(item.toTarget.getRunDate(), item.toTarget.getRunRuns().getOrder());
-
-		assertFalse(item.toTarget.getPending().isAnnotationPresent(Computed.class));
-		assertTrue (item.toTarget.getRunType().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(item.toTarget, 386);
-
-		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
-		try
-		{
-			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"type of DispatcherNoneItem.wrong must implement " + Dispatchable.class +
-					", but was " + DispatcherNoneItem.class.getName(),
-					e.getMessage());
-		}
-
-		// test persistence
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
