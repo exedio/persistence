@@ -301,6 +301,7 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
+	@Deprecated
 	public final SetValue<String> map(final String value)
 	{
 		return SetValue.map(this, value);

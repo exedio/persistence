@@ -170,6 +170,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		}
 	}
 
+	@Deprecated
 	public SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);

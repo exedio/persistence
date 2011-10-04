@@ -173,6 +173,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		}
 	}
 
+	@Deprecated
 	public SetValue<Price> map(final Price value)
 	{
 		return SetValue.map(this, value);

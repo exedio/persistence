@@ -225,6 +225,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 	}
 
+	@Deprecated
 	public SetValue<Collection<E>> map(final Collection<E> value)
 	{
 		return SetValue.map(this, value);

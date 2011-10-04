@@ -293,6 +293,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return isfinal || !optional;
 	}
 
+	@Deprecated
 	public SetValue map(final Value value)
 	{
 		return SetValue.map(this, value);

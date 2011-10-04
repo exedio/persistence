@@ -288,6 +288,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
+	@Deprecated
 	public SetValue map(final E value)
 	{
 		return SetValue.map(this, value);

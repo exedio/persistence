@@ -66,6 +66,7 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
+		@Deprecated
 		public SetValue map(final String value)
 		{
 			throw new RuntimeException();
