@@ -240,6 +240,7 @@
 						<pathelement location="build/classes/runtime/src" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/findbugs-annotations.jar" />
 						<pathelement location="lib/jdbc/${@{dialect.file}.jar}" />
 					</classpath>
 				</compile>
@@ -283,6 +284,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -329,6 +331,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
