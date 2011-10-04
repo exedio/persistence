@@ -319,6 +319,14 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
+	/**
+	 * For junit tests only
+	 */
+	void setProbeRequired(final boolean probeRequired)
+	{
+		this.probeRequired = probeRequired;
+	}
+
 	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{

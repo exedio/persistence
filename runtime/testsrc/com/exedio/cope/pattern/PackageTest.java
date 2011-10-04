@@ -60,6 +60,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherModelTest.class);
 		suite.addTestSuite(DispatcherTest.class);
+		suite.addTestSuite(DispatcherProbeTest.class);
 		suite.addTestSuite(ImporterModelTest.class);
 		suite.addTestSuite(ImporterTest.class);
 		suite.addTestSuite(SingletonTest.class);
