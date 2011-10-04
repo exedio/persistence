@@ -70,6 +70,8 @@ public final class Dispatcher extends Pattern
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mount = null;
 
+	private volatile boolean probeRequired = true;
+
 	public Dispatcher()
 	{
 		this(new BooleanField().defaultTo(true));
@@ -185,15 +187,37 @@ public final class Dispatcher extends Pattern
 		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
 			@Parameter("ctx") final JobContext ctx)
 	{
+		dispatch(parentClass, config, EMPTY_PROBE, ctx);
+	}
+
+	private static final EmptyProbe EMPTY_PROBE = new EmptyProbe();
+
+	private static final class EmptyProbe implements Runnable
+	{
+		EmptyProbe() { // make constructor non-private
+		}
+		public void run() { // do nothing
+		}
+	}
+
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
+	@Wrap(order=21, doc="Dispatch by {0}.")
+	public <P extends Item> void dispatch(
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("probe") final Runnable probe,
+			@Parameter("ctx") final JobContext ctx)
+	{
 		if(config==null)
 			throw new NullPointerException("config");
+		if(probe==null)
+			throw new NullPointerException("probe");
 		if(ctx==null)
 			throw new NullPointerException("ctx");
 
@@ -211,6 +235,12 @@ public final class Dispatcher extends Pattern
 				iterator.hasNext(); )
 		{
 			ctx.stopIfRequested();
+			if(probeRequired)
+			{
+				probe.run();
+				probeRequired = false;
+			}
+
 			final P item = iterator.next();
 			final Dispatchable itemCasted = (Dispatchable)item;
 			final String itemID = item.getCopeID();
@@ -247,6 +277,7 @@ public final class Dispatcher extends Pattern
 				catch(final Exception cause)
 				{
 					final long elapsed = toMillies(nanoTime(), nanoStart);
+					probeRequired = true;
 					model.rollbackIfNotCommitted();
 
 					model.startTransaction(id + " register failure " + itemID);
