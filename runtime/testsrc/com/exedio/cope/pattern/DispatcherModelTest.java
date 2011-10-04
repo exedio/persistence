@@ -19,6 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.pattern.DispatcherItem.TYPE;
+import static com.exedio.cope.pattern.DispatcherItem.body;
+import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
+import static com.exedio.cope.pattern.DispatcherItem.toTarget;
+import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 
 import java.util.List;
 
@@ -37,23 +42,21 @@ public class DispatcherModelTest extends CopeAssert
 		MODEL.enableSerialization(DispatcherModelTest.class, "MODEL");
 	}
 
-	DispatcherItem item;
-
 	public void testIt()
 	{
-		final Type<?> runType = item.toTarget.getRunType();
+		final Type<?> runType = toTarget.getRunType();
 
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				runType
 			), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				runType
 			), MODEL.getTypesSortedByHierarchy());
-		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
+		assertEquals(DispatcherItem.class, TYPE.getJavaClass());
+		assertEquals(true, TYPE.isBound());
+		assertEquals(null, TYPE.getPattern());
 
 		final List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
 		assertEquals(1, partOfs.size());
@@ -64,29 +67,29 @@ public class DispatcherModelTest extends CopeAssert
 		assertEquals(list(partOf), PartOf.getPartOfs(DispatcherItem.toTarget));
 
 		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				item.body,
-				item.dispatchCountCommitted,
-				item.toTarget,
-				item.toTarget.getPending()
-			), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				body,
+				dispatchCountCommitted,
+				toTarget,
+				toTarget.getPending()
+			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				runType.getThis(),
-				item.toTargetRunParent(),
-				item.toTarget.getRunDate(),
-				item.toTarget.getRunRuns(),
-				item.toTarget.getRunElapsed(),
-				item.toTarget.getRunSuccess(),
-				item.toTarget.getRunFailure()
+				toTargetRunParent(),
+				toTarget.getRunDate(),
+				toTarget.getRunRuns(),
+				toTarget.getRunElapsed(),
+				toTarget.getRunSuccess(),
+				toTarget.getRunFailure()
 			), runType.getFeatures());
 
-		assertEquals(item.TYPE, item.toTarget.getType());
-		assertEquals("toTarget", item.toTarget.getName());
+		assertEquals(TYPE, toTarget.getType());
+		assertEquals("toTarget", toTarget.getName());
 
-		assertSame(item.TYPE, item.toTarget.getPending().getType());
-		assertSame("toTarget-pending", item.toTarget.getPending().getName());
-		assertSame(item.toTarget, item.toTarget.getPending().getPattern());
-		assertSame(Boolean.TRUE, item.toTarget.getPending().getDefaultConstant());
+		assertSame(TYPE, toTarget.getPending().getType());
+		assertSame("toTarget-pending", toTarget.getPending().getName());
+		assertSame(toTarget, toTarget.getPending().getPattern());
+		assertSame(Boolean.TRUE, toTarget.getPending().getDefaultConstant());
 
 		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
 		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
@@ -99,24 +102,24 @@ public class DispatcherModelTest extends CopeAssert
 		assertEquals(runType, runType.getThis().getValueType());
 		assertEquals(MODEL, runType.getModel());
 
-		assertEquals(runType, item.toTargetRunParent().getType());
-		assertEquals(runType, item.toTarget.getRunDate().getType());
-		assertEquals(runType, item.toTarget.getRunFailure().getType());
+		assertEquals(runType, toTargetRunParent().getType());
+		assertEquals(runType, toTarget.getRunDate().getType());
+		assertEquals(runType, toTarget.getRunFailure().getType());
 
-		assertEquals("parent", item.toTargetRunParent().getName());
-		assertEquals("date", item.toTarget.getRunDate().getName());
-		assertEquals("failure", item.toTarget.getRunFailure().getName());
+		assertEquals("parent", toTargetRunParent().getName());
+		assertEquals("date", toTarget.getRunDate().getName());
+		assertEquals("failure", toTarget.getRunFailure().getName());
 
-		assertSame(DispatcherItem.class, item.toTargetRunParent().getValueClass());
-		assertSame(DispatcherItem.TYPE, item.toTargetRunParent().getValueType());
+		assertSame(DispatcherItem.class, toTargetRunParent().getValueClass());
+		assertSame(DispatcherItem.TYPE, toTargetRunParent().getValueType());
 
-		assertSame(item.toTargetRunParent(), item.toTarget.getRunRuns().getContainer());
-		assertSame(item.toTarget.getRunDate(), item.toTarget.getRunRuns().getOrder());
+		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
+		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
 
-		assertFalse(item.toTarget.getPending().isAnnotationPresent(Computed.class));
-		assertTrue (item.toTarget.getRunType().isAnnotationPresent(Computed.class));
+		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.toTarget, 391);
+		assertSerializedSame(toTarget, 391);
 
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
 		try
