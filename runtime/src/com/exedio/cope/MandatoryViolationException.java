@@ -45,6 +45,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
 	public static <F extends Feature & Settable<?>> MandatoryViolationException create(final F feature, final Item item)
 	{
 		return new MandatoryViolationException(feature, feature, item);

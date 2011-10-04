@@ -38,6 +38,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
 	public static <F extends Feature & Settable<?>> FinalViolationException create(final F feature, final Item item)
 	{
 		return new FinalViolationException(feature, feature, item);
