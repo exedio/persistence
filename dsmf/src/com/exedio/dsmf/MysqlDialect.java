@@ -431,6 +431,7 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final Connection connection, final String sql) throws SQLException
 	{
 		final java.sql.Statement sqlStatement =

@@ -5,34 +5,6 @@
 		<!-- Used often for ResultSethandler -->
 	</Match>
 	<Match>
-		<Or>
-			<!-- Nonconstant string passed to execute method on an SQL statement -->
-			<Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
-			<!-- A prepared statement is generated from a nonconstant String -->
-			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
-		</Or>
-		<Class name="com.exedio.cope.Executor" />
-	</Match>
-	<Match>
-		<!-- Nonconstant string passed to execute method on an SQL statement -->
-		<Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
-		<Or>
-			<Class name="com.exedio.dsmf.Node" />
-			<Class name="com.exedio.dsmf.MysqlDialect" />
-			<Class name="com.exedio.cope.OracleDialect" />
-			<Class name="com.exedio.cope.Revision" />
-		</Or>
-	</Match>
-	<Match>
-		<Or>
-			<!-- A prepared statement is generated from a nonconstant String -->
-			<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
-		</Or>
-		<Or>
-			<Class name="com.exedio.cope.sampler.SamplerPurge" />
-		</Or>
-	</Match>
-	<Match>
 		<!-- Consider returning a zero length array rather than null -->
 		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
 		<Or>

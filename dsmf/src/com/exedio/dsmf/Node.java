@@ -85,7 +85,7 @@ public abstract class Node
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ES_COMPARING_PARAMETER_STRING_WITH_EQ") // Comparison of String parameter using == or !=
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;
@@ -153,6 +153,7 @@ public abstract class Node
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
 		Connection connection = null;

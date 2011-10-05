@@ -125,6 +125,7 @@ public final class Revision
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static final int executeUpdate(
 			final Connection connection,
 			final String sql)

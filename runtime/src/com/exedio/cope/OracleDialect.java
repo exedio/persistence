@@ -242,6 +242,7 @@ final class OracleDialect extends Dialect
 			"POSITION",
 		}));
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Override
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
