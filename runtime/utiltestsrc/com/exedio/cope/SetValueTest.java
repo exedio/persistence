@@ -30,9 +30,11 @@ public class SetValueTest extends TestCase
 	{
 		private static final long serialVersionUID = 1l;
 
-		MockSettable()
+		private final String toString;
+
+		MockSettable(final String toString)
 		{
-			// make non-private
+			this.toString = toString;
 		}
 
 		public SetValue[] execute(final String value, final Item exceptionItem)
@@ -70,24 +72,30 @@ public class SetValueTest extends TestCase
 		{
 			throw new RuntimeException();
 		}
+
+		@Override
+		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type defaultType)
+		{
+			bf.append(toString);
+		}
 	}
 
 	public void testIt()
 	{
-		final MockSettable alpha = new MockSettable();
+		final MockSettable alpha = new MockSettable("alpha");
 		final SetValue alphaValue = SetValue.map(alpha, "alphaValue");
-		assertEquals(alpha.toString()+"=alphaValue", alphaValue.toString());
+		assertEquals("alpha=alphaValue", alphaValue.toString());
 
-		final MockSettable beta = new MockSettable();
+		final MockSettable beta = new MockSettable("beta");
 		final SetValue betaValue = SetValue.map(beta, "betaValue");
-		assertEquals(beta.toString()+"=betaValue", betaValue.toString());
+		assertEquals("beta=betaValue", betaValue.toString());
 
-		final MockSettable nulla = new MockSettable();
+		final MockSettable nulla = new MockSettable(null);
 		final SetValue nullValue = SetValue.map(nulla, null);
-		assertEquals(nulla.toString()+"=null", nullValue.toString());
+		assertEquals("null=null", nullValue.toString());
 
 		assertEquals(
-				"["+alpha.toString()+"=alphaValue, "+beta.toString()+"=betaValue, "+nulla.toString()+"=null]",
+				"[alpha=alphaValue, beta=betaValue, null=null]",
 				Arrays.asList(alphaValue, betaValue, nullValue).toString());
 	}
 }
