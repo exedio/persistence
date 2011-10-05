@@ -206,7 +206,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final SetValue[] setValues = new SetValue[sources.length];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
-			setValues[i] = sources[i].map(it.next());
+			setValues[i] = SetValue.map(sources[i], (E)it.next());
 
 		for(; i<sources.length; i++)
 			setValues[i] = sources[i].map(null);
