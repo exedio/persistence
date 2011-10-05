@@ -66,7 +66,7 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
-		public SetValue map(final String value)
+		public SetValue<String> map(final String value)
 		{
 			throw new RuntimeException();
 		}

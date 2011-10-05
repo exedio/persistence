@@ -26,7 +26,7 @@ public interface Settable<E>
 	  * All implementations of this method should return
 	  * <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
 	  */
-	SetValue map(E value);
+	SetValue<E> map(E value);
 	SetValue[] execute(E value, Item exceptionItem);
 
 	/**

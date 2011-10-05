@@ -293,7 +293,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return isfinal || !optional;
 	}
 
-	public SetValue map(final Value value)
+	public SetValue<Media.Value> map(final Value value)
 	{
 		return SetValue.map(this, value);
 	}
