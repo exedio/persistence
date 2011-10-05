@@ -209,7 +209,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			setValues[i] = SetValue.map(sources[i], (E)it.next());
 
 		for(; i<sources.length; i++)
-			setValues[i] = sources[i].map(null);
+			setValues[i] = SetValue.map(sources[i], null);
 
 		item.set(setValues);
 	}
