@@ -28,7 +28,7 @@ public final class SetValue<E>
 	 */
 	@SuppressWarnings("deprecation") // OK
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
-	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
+	public static <F extends Feature & Settable<E>, E> SetValue<E> map(final F settable, final E value)
 	{
 		return new SetValue<E>(settable, value);
 	}
