@@ -250,7 +250,7 @@ public final class SetField<E> extends Pattern
 				{
 					mount.relationType.newItem(
 							Cope.mapAndCast(mount.parent, item),
-							this.element.map(toCreate.next())
+							map(this.element, (E)toCreate.next())
 					);
 				}
 				return;
