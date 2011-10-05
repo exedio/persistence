@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
@@ -361,10 +362,10 @@ public final class Schedule extends Pattern
 			return
 				mount.type.newItem(
 					Cope.mapAndCast(mount.parent, item),
-					this.from.map(from),
-					this.until.map(until),
-					this.run.map(now),
-					this.elapsed.map(elapsed));
+					map(this.from, from),
+					map(this.until, until),
+					map(this.run, now),
+					map(this.elapsed, elapsed));
 		}
 	}
 
