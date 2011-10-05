@@ -50,8 +50,8 @@ public class FinalItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(FinalItem.finalString,finalString),
-			com.exedio.cope.SetValue.map(FinalItem.nonFinalInteger,nonFinalInteger),
+			FinalItem.finalString.map(finalString),
+			FinalItem.nonFinalInteger.map(nonFinalInteger),
 		});
 	}/**
 

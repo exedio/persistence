@@ -50,7 +50,7 @@ public class DeleteAfterUniqueViolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(DeleteAfterUniqueViolationItem.name,name),
+			DeleteAfterUniqueViolationItem.name.map(name),
 		});
 	}/**
 

@@ -51,8 +51,8 @@ public class UniqueDoubleItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(UniqueDoubleItem.string,string),
-			com.exedio.cope.SetValue.map(UniqueDoubleItem.integer,integer),
+			UniqueDoubleItem.string.map(string),
+			UniqueDoubleItem.integer.map(integer),
 		});
 	}/**
 

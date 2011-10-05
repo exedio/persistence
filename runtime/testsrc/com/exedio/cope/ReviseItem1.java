@@ -40,7 +40,7 @@ class ReviseItem1 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(ReviseItem1.field5,field5),
+			ReviseItem1.field5.map(field5),
 		});
 	}/**
 

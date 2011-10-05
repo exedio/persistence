@@ -42,7 +42,7 @@ class ConnectTokenItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(ConnectTokenItem.name,name),
+			ConnectTokenItem.name.map(name),
 		});
 	}/**
 

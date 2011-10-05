@@ -41,7 +41,7 @@ class JUnitTestItem extends Item
 				final int code)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(JUnitTestItem.code,code),
+			JUnitTestItem.code.map(code),
 		});
 	}/**
 

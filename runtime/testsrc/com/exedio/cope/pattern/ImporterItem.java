@@ -51,9 +51,9 @@ class ImporterItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(ImporterItem.code,code),
-			com.exedio.cope.SetValue.map(ImporterItem.description,description),
-			com.exedio.cope.SetValue.map(ImporterItem.description2,description2),
+			ImporterItem.code.map(code),
+			ImporterItem.description.map(description),
+			ImporterItem.description2.map(description2),
 		});
 	}/**
 

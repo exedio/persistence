@@ -41,9 +41,9 @@ class AsStringItem extends Item
 				final java.lang.Double doublex)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(AsStringItem.intx,intx),
-			com.exedio.cope.SetValue.map(AsStringItem.longx,longx),
-			com.exedio.cope.SetValue.map(AsStringItem.doublex,doublex),
+			AsStringItem.intx.map(intx),
+			AsStringItem.longx.map(longx),
+			AsStringItem.doublex.map(doublex),
 		});
 	}/**
 

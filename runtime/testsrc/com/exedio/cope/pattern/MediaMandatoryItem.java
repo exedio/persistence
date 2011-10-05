@@ -61,7 +61,7 @@ public class MediaMandatoryItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(MediaMandatoryItem.file,file),
+			MediaMandatoryItem.file.map(file),
 		});
 	}/**
 

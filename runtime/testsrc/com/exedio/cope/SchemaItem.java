@@ -88,14 +88,14 @@ class SchemaItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(SchemaItem.nonFinalInteger,nonFinalInteger),
-			com.exedio.cope.SetValue.map(SchemaItem.string,string),
-			com.exedio.cope.SetValue.map(SchemaItem.integ,integ),
-			com.exedio.cope.SetValue.map(SchemaItem.doub,doub),
-			com.exedio.cope.SetValue.map(SchemaItem.bool,bool),
-			com.exedio.cope.SetValue.map(SchemaItem.anEnum,anEnum),
-			com.exedio.cope.SetValue.map(SchemaItem.item,item),
-			com.exedio.cope.SetValue.map(SchemaItem.stringLong,stringLong),
+			SchemaItem.nonFinalInteger.map(nonFinalInteger),
+			SchemaItem.string.map(string),
+			SchemaItem.integ.map(integ),
+			SchemaItem.doub.map(doub),
+			SchemaItem.bool.map(bool),
+			SchemaItem.anEnum.map(anEnum),
+			SchemaItem.item.map(item),
+			SchemaItem.stringLong.map(stringLong),
 		});
 	}/**
 

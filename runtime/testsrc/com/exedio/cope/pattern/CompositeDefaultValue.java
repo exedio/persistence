@@ -43,7 +43,7 @@ final class CompositeDefaultValue extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CompositeDefaultValue.normal,normal),
+			CompositeDefaultValue.normal.map(normal),
 		});
 	}/**
 

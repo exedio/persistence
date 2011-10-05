@@ -39,7 +39,7 @@ class DeleteSchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(DeleteSchemaItem.field,field),
+			DeleteSchemaItem.field.map(field),
 		});
 	}/**
 

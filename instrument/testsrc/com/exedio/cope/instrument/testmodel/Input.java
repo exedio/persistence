@@ -52,8 +52,8 @@ public class Input extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(Input.string,string),
-			com.exedio.cope.SetValue.map(Input.integer,integer),
+			Input.string.map(string),
+			Input.integer.map(integer),
 		});
 	}/**
 

@@ -62,9 +62,9 @@ public class CheckConstraintSuperItem extends Item
 				final java.lang.Integer drei)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.eins,eins),
-			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.zwei,zwei),
-			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.drei,drei),
+			CheckConstraintSuperItem.eins.map(eins),
+			CheckConstraintSuperItem.zwei.map(zwei),
+			CheckConstraintSuperItem.drei.map(drei),
 		});
 	}/**
 

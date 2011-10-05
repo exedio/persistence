@@ -266,7 +266,6 @@ final class Generator
 		for(final CopeFeature feature : initialFeatures)
 		{
 			write("\t\t\t");
-			write(SET_VALUE + ".map(");
 			final CopeType parent = feature.parent;
 			if(parent==type)
 				write(type.name);
@@ -274,7 +273,7 @@ final class Generator
 				write(parent.javaClass.getFullName());
 			write('.');
 			write(feature.name);
-			write(',');
+			write(".map(");
 			write(feature.name);
 			write("),");
 			write(lineSeparator);

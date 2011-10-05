@@ -66,13 +66,13 @@ public class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(com.exedio.cope.NameLongItem.code,code),
-			com.exedio.cope.SetValue.map(NameSubItem.unique,unique),
-			com.exedio.cope.SetValue.map(NameSubItem.integer,integer),
-			com.exedio.cope.SetValue.map(NameSubItem.item,item),
-			com.exedio.cope.SetValue.map(NameSubItem.uniqueX,uniqueX),
-			com.exedio.cope.SetValue.map(NameSubItem.integerX,integerX),
-			com.exedio.cope.SetValue.map(NameSubItem.itemX,itemX),
+			com.exedio.cope.NameLongItem.code.map(code),
+			NameSubItem.unique.map(unique),
+			NameSubItem.integer.map(integer),
+			NameSubItem.item.map(item),
+			NameSubItem.uniqueX.map(uniqueX),
+			NameSubItem.integerX.map(integerX),
+			NameSubItem.itemX.map(itemX),
 		});
 	}/**
 

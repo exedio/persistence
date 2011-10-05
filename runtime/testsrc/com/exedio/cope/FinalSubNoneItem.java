@@ -36,8 +36,8 @@ public class FinalSubNoneItem extends FinalSuperItem
 				final int subIntNone)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(com.exedio.cope.FinalSuperItem.superInt,superInt),
-			com.exedio.cope.SetValue.map(FinalSubNoneItem.subIntNone,subIntNone),
+			com.exedio.cope.FinalSuperItem.superInt.map(superInt),
+			FinalSubNoneItem.subIntNone.map(subIntNone),
 		});
 	}/**
 

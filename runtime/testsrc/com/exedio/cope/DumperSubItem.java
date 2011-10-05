@@ -55,10 +55,10 @@ public class DumperSubItem extends DumperItem
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(com.exedio.cope.DumperItem.string,string),
-			com.exedio.cope.SetValue.map(com.exedio.cope.DumperItem.unique,unique),
-			com.exedio.cope.SetValue.map(com.exedio.cope.DumperItem.data,data),
-			com.exedio.cope.SetValue.map(DumperSubItem.subString,subString),
+			com.exedio.cope.DumperItem.string.map(string),
+			com.exedio.cope.DumperItem.unique.map(unique),
+			com.exedio.cope.DumperItem.data.map(data),
+			DumperSubItem.subString.map(subString),
 		});
 	}/**
 

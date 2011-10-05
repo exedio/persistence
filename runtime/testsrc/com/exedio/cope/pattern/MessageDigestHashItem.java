@@ -69,8 +69,8 @@ public class MessageDigestHashItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(MessageDigestHashItem.passwordFinal,passwordFinal),
-			com.exedio.cope.SetValue.map(MessageDigestHashItem.passwordMandatory,passwordMandatory),
+			MessageDigestHashItem.passwordFinal.map(passwordFinal),
+			MessageDigestHashItem.passwordMandatory.map(passwordMandatory),
 		});
 	}/**
 

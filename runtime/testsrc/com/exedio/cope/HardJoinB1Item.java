@@ -49,8 +49,8 @@ class HardJoinB1Item extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(HardJoinB1Item.code,code),
-			com.exedio.cope.SetValue.map(HardJoinB1Item.b1,b1),
+			HardJoinB1Item.code.map(code),
+			HardJoinB1Item.b1.map(b1),
 		});
 	}/**
 

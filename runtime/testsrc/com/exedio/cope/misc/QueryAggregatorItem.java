@@ -37,7 +37,7 @@ class QueryAggregatorItem extends Item
 				final int intx)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(QueryAggregatorItem.intx,intx),
+			QueryAggregatorItem.intx.map(intx),
 		});
 	}/**
 

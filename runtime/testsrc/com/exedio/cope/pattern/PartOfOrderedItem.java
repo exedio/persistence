@@ -57,10 +57,10 @@ public class PartOfOrderedItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(PartOfOrderedItem.container,container),
-			com.exedio.cope.SetValue.map(PartOfOrderedItem.order,order),
-			com.exedio.cope.SetValue.map(PartOfOrderedItem.partString,partString),
-			com.exedio.cope.SetValue.map(PartOfOrderedItem.partInteger,partInteger),
+			PartOfOrderedItem.container.map(container),
+			PartOfOrderedItem.order.map(order),
+			PartOfOrderedItem.partString.map(partString),
+			PartOfOrderedItem.partInteger.map(partInteger),
 		});
 	}/**
 

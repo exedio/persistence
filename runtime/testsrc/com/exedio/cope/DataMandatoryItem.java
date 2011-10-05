@@ -41,7 +41,7 @@ class DataMandatoryItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(DataMandatoryItem.data,data),
+			DataMandatoryItem.data.map(data),
 		});
 	}/**
 

@@ -50,9 +50,9 @@ public final class CompositeItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CompositeItem.code,code),
-			com.exedio.cope.SetValue.map(CompositeItem.eins,eins),
-			com.exedio.cope.SetValue.map(CompositeItem.zwei,zwei),
+			CompositeItem.code.map(code),
+			CompositeItem.eins.map(eins),
+			CompositeItem.zwei.map(zwei),
 		});
 	}/**
 

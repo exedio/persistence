@@ -44,7 +44,7 @@ public class SubTarget extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(SubTarget.string,string),
+			SubTarget.string.map(string),
 		});
 	}/**
 

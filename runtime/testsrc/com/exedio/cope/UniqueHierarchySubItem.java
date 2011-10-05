@@ -49,8 +49,8 @@ class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(com.exedio.cope.UniqueHierarchySuperItem.superField,superField),
-			com.exedio.cope.SetValue.map(UniqueHierarchySubItem.subField,subField),
+			com.exedio.cope.UniqueHierarchySuperItem.superField.map(superField),
+			UniqueHierarchySubItem.subField.map(subField),
 		});
 	}/**
 

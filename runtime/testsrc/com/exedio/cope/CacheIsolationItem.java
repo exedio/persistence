@@ -41,7 +41,7 @@ public class CacheIsolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CacheIsolationItem.name,name),
+			CacheIsolationItem.name.map(name),
 		});
 	}/**
 

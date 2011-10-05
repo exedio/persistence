@@ -49,7 +49,7 @@ public class CollisionItem1 extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CollisionItem1.collisionAttribute,collisionAttribute),
+			CollisionItem1.collisionAttribute.map(collisionAttribute),
 		});
 	}/**
 

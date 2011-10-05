@@ -68,11 +68,11 @@ class CopyTargetItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(CopyTargetItem.code,code),
-			com.exedio.cope.SetValue.map(CopyTargetItem.templateString,templateString),
-			com.exedio.cope.SetValue.map(CopyTargetItem.otherString,otherString),
-			com.exedio.cope.SetValue.map(CopyTargetItem.templateItem,templateItem),
-			com.exedio.cope.SetValue.map(CopyTargetItem.otherItem,otherItem),
+			CopyTargetItem.code.map(code),
+			CopyTargetItem.templateString.map(templateString),
+			CopyTargetItem.otherString.map(otherString),
+			CopyTargetItem.templateItem.map(templateItem),
+			CopyTargetItem.otherItem.map(otherItem),
 		});
 	}/**
 

@@ -61,8 +61,8 @@ public class DoubleUnique extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(DoubleUnique.string,string),
-			com.exedio.cope.SetValue.map(DoubleUnique.item,item),
+			DoubleUnique.string.map(string),
+			DoubleUnique.item.map(item),
 		});
 	}/**
 

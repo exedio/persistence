@@ -63,7 +63,7 @@ public class LongItem extends Item
 				final long mandatory)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			com.exedio.cope.SetValue.map(LongItem.mandatory,mandatory),
+			LongItem.mandatory.map(mandatory),
 		});
 	}/**
 
