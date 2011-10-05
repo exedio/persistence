@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.HashMap;
@@ -184,8 +185,8 @@ public final class MapField<K,V> extends Pattern
 			if(value!=null)
 				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
-						this.key.map(key),
-						this.value.map(value)
+						map(this.key, key),
+						map(this.value, value)
 				);
 		}
 		else
@@ -229,8 +230,8 @@ public final class MapField<K,V> extends Pattern
 			if(!done.containsKey(key))
 				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
-						this.key.map(key),
-						this.value.map(entry.getValue()));
+						map(this.key, key),
+						map(this.value, (V)entry.getValue()));
 		}
 	}
 
