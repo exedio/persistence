@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
+
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
@@ -147,8 +149,8 @@ public final class PasswordRecovery extends Pattern
 
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
-			this.secret.map(secret),
-			this.expires.map(new Date(now + expiry)));
+			map(this.secret, secret),
+			map(this.expires, new Date(now + expiry)));
 	}
 
 	/**
@@ -172,7 +174,7 @@ public final class PasswordRecovery extends Pattern
 		if(!tokens.isEmpty())
 		{
 			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
-			item.set(this.password.map(newPassword));
+			item.set(map(this.password, newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();
 			return newPassword;
