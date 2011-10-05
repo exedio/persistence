@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static java.lang.System.nanoTime;
@@ -266,10 +267,10 @@ public final class Dispatcher extends Pattern
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					pending.set(item, false);
 					mount.runType.newItem(
-							runParent.map(item),
-							runDate.map(new Date(start)),
-							runElapsed.map(elapsed),
-							runSuccess.map(true));
+							map(runParent, item),
+							map(runDate, new Date(start)),
+							map(runElapsed, elapsed),
+							map(runSuccess, true));
 
 					model.commit();
 					ctx.incrementProgress();
@@ -295,10 +296,10 @@ public final class Dispatcher extends Pattern
 					out.close();
 
 					mount.runType.newItem(
-						runParent.map(item),
-						runDate.map(new Date(start)),
-						runElapsed.map(elapsed),
-						runSuccess.map(false),
+						map(runParent, item),
+						map(runDate, new Date(start)),
+						map(runElapsed, elapsed),
+						map(runSuccess, false),
 						runFailure.map(baos.toByteArray()));
 
 					final boolean finalFailure =
