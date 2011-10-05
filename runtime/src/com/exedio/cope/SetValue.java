@@ -25,6 +25,9 @@ public final class SetValue<E>
 
 	/**
 	 * Creates a new SetValue.
+	 * Instead of using this method directly,
+	 * you may want to use convenience functions.
+	 * @see Settable#map(Object)
 	 */
 	@SuppressWarnings("deprecation") // OK
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
