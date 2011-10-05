@@ -34,15 +34,15 @@ public class SetValueUtilTest extends CopeAssert
 		final StringField f2 = new StringField();
 		final ArrayList<SetValue> l = new ArrayList<SetValue>();
 
-		l.add(f1.map("value1a"));
+		l.add(SetValue.map(f1, "value1a"));
 		assertEquals("value1a", getFirst(l, f1));
 		assertEquals(null, getFirst(l, f2));
 
-		l.add(f1.map("value1b"));
+		l.add(SetValue.map(f1, "value1b"));
 		assertEquals("value1a", getFirst(l, f1));
 		assertEquals(null, getFirst(l, f2));
 
-		l.add(f2.map("value2"));
+		l.add(SetValue.map(f2, "value2"));
 		assertEquals("value1a", getFirst(l, f1));
 		assertEquals("value2", getFirst(l, f2));
 	}
