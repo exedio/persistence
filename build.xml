@@ -604,6 +604,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
