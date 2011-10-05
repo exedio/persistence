@@ -4,39 +4,4 @@
 		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
 		<!-- Used often for ResultSethandler -->
 	</Match>
-	<Match>
-		<!-- Consider returning a zero length array rather than null -->
-		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
-		<Or>
-			<Class name="com.exedio.cope.Type" />
-			<Class name="com.exedio.cope.Types" />
-			<Class name="com.exedio.cope.ThreadController" />
-			<Class name="com.exedio.cope.OracleDialect" />
-			<Class name="com.exedio.cope.HsqldbDialect" />
-			<Class name="com.exedio.cope.misc.SetValueUtil" />
-			<Class name="com.exedio.cope.pattern.Serializer" />
-			<Class name="com.exedio.cope.pattern.MediaImageioFilter" />
-			<Class name="com.exedio.cope.pattern.MediaImageMagickFilter" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Method invoked that should be only be invoked inside a doPrivileged block -->
-		<Bug pattern="DP_DO_INSIDE_DO_PRIVILEGED" />
-		<Or>
-			<Class name="com.exedio.cope.Model$Serialized" />
-			<Class name="com.exedio.cope.TypesBound" />
-			<Class name="com.exedio.cope.pattern.CompositeType" />
-		</Or>
-	</Match>
-	<Match>
-		<!-- Useless control flow -->
-		<!-- TODO -->
-		<Bug pattern="UCF_USELESS_CONTROL_FLOW" />
-		<And><Class name="com.exedio.cope.instrument.Lexer" /><Method name="readComment" /></And>
-	</Match>
-	<Match>
-		<!-- Method uses the same code for two switch clauses -->
-		<Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
-		<And><Class classname="com.exedio.cope.instrument.Parser" /><Method name="parseClass" /></And>
-	</Match>
 </FindBugsFilter>

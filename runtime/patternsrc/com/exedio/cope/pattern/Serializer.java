@@ -214,6 +214,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new SetValue[]{ source.map(serialize(value)) };
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private byte[] serialize(final E value)
 	{
 		if(value==null)

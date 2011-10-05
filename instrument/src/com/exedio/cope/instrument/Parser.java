@@ -325,6 +325,7 @@ final class Parser
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DB_DUPLICATE_SWITCH_CLAUSES") // is a bug in findbugs
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, ParserException
 	{

@@ -80,6 +80,7 @@ final class HsqldbDialect extends Dialect
 		return "timestamp";
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{

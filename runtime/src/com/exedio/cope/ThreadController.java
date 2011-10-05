@@ -122,6 +122,7 @@ public final class ThreadController
 		return thread!=null ? thread.getState() : null;
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public StackTraceElement[] getStackTrace()
 	{
 		final Thread thread = this.thread;

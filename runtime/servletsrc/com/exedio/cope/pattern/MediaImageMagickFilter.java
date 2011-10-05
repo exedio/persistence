@@ -204,6 +204,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{

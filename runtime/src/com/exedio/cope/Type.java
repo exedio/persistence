@@ -646,6 +646,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().marshaller;
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	String[] getTypesOfInstancesColumnValues()
 	{
 		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;

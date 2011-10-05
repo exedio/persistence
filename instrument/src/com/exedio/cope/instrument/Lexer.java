@@ -177,6 +177,7 @@ final class Lexer
 	 * If not, there is no comment,
 	 * and this next character is returned, casted to int.
 	 */
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
 	private int readComment() throws EndException
 	{
 		char x;

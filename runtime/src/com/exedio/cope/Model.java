@@ -770,6 +770,7 @@ public final class Model implements Serializable
 			return type.getName() + '#' + name;
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Object resolveModel()
 		{
 			final java.lang.reflect.Field field;
