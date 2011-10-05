@@ -57,12 +57,12 @@ final class SamplerItemCache extends Item
 	static List<SetValue> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)),
-			initializeDate.map(SamplerModel.initializeDate.get(m)),
-			connectDate   .map(SamplerModel.connectDate.get(m)),
-			thread        .map(SamplerModel.thread.get(m)),
-			running       .map(SamplerModel.running.get(m)));
+			SetValue.map(model, m),
+			SetValue.map(date,           SamplerModel.date.get(m)),
+			SetValue.map(initializeDate, SamplerModel.initializeDate.get(m)),
+			SetValue.map(connectDate,    SamplerModel.connectDate.get(m)),
+			SetValue.map(thread,         SamplerModel.thread.get(m)),
+			SetValue.map(running,        SamplerModel.running.get(m)));
 	}
 
 
@@ -86,28 +86,28 @@ final class SamplerItemCache extends Item
 	static List<SetValue> map(final ItemCacheInfo info)
 	{
 		return Arrays.asList((SetValue)
-			type  .map(info.getType().getID()),
-			limit .map(info.getLimit()),
-			level .map(info.getLevel()),
-			hits  .map(info.getHits()),
-			misses.map(info.getMisses()),
+			SetValue.map(type,   info.getType().getID()),
+			SetValue.map(limit,  info.getLimit()),
+			SetValue.map(level,  info.getLevel()),
+			SetValue.map(hits,   info.getHits()),
+			SetValue.map(misses, info.getMisses()),
 
-			concurrentLoads.map(info.getConcurrentLoads()),
+			SetValue.map(concurrentLoads, info.getConcurrentLoads()),
 
-			replacementRuns   .map(info.getReplacementRuns()),
-			replacements      .map(info.getReplacements()),
-			lastReplacementRun.map(info.getLastReplacementRun()),
+			SetValue.map(replacementRuns,    info.getReplacementRuns()),
+			SetValue.map(replacements,       info.getReplacements()),
+			SetValue.map(lastReplacementRun, info.getLastReplacementRun()),
 
-			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinimumMillis.map(info.getAgeMinimumMillis()),
-			ageMaximumMillis.map(info.getAgeMaximumMillis()),
+			SetValue.map(ageAverageMillis, info.getAgeAverageMillis()),
+			SetValue.map(ageMinimumMillis, info.getAgeMinimumMillis()),
+			SetValue.map(ageMaximumMillis, info.getAgeMaximumMillis()),
 
-			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()),
+			SetValue.map(invalidationsOrdered, info.getInvalidationsOrdered()),
+			SetValue.map(invalidationsDone,    info.getInvalidationsDone()),
 
-			invalidateLastSize.map(info.getInvalidateLastSize()),
-			invalidateLastHits.map(info.getInvalidateLastHits()),
-			invalidateLastPurged.map(info.getInvalidateLastPurged())
+			SetValue.map(invalidateLastSize,   info.getInvalidateLastSize()),
+			SetValue.map(invalidateLastHits,   info.getInvalidateLastHits()),
+			SetValue.map(invalidateLastPurged, info.getInvalidateLastPurged())
 
 			);
 	}
