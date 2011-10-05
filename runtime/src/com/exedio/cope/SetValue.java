@@ -25,10 +25,21 @@ public final class SetValue<E>
 
 	/**
 	 * Creates a new SetValue.
-	 * Instead of using this constructor directly,
+	 * Instead of using this method directly,
 	 * you may want to use the convenience functions.
 	 * @see Settable#map(Object)
 	 */
+	@SuppressWarnings("deprecation") // OK
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
+	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
+	{
+		return new SetValue<E>(settable, value);
+	}
+
+	/**
+	 * @deprecated Use {@link #map(Feature, Object)} instead.
+	 */
+	@Deprecated
 	public SetValue(final Settable<E> settable, final E value)
 	{
 		if(settable==null)

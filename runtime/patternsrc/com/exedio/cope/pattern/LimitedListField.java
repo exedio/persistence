@@ -227,7 +227,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public SetValue<Collection<E>> map(final Collection<E> value)
 	{
-		return new SetValue<Collection<E>>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public SetValue[] execute(final Collection value, final Item exceptionItem)

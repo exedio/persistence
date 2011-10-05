@@ -152,7 +152,7 @@ public abstract class Cope
 
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
-		return new SetValue<X>(a, Cast.verboseCast(a.getValueClass(), o));
+		return SetValue.map(a, Cast.verboseCast(a.getValueClass(), o));
 	}
 
 	/**

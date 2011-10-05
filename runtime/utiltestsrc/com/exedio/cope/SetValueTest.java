@@ -26,8 +26,10 @@ import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
 {
-	private static final class MockSettable implements Settable<String>
+	private static final class MockSettable extends Feature implements Settable<String>
 	{
+		private static final long serialVersionUID = 1l;
+
 		private final String toString;
 
 		MockSettable(final String toString)
@@ -66,30 +68,30 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
-		public SetValue map(final String value)
+		public SetValue<String> map(final String value)
 		{
 			throw new RuntimeException();
 		}
 
 		@Override
-		public String toString()
+		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type defaultType)
 		{
-			return toString;
+			bf.append(toString);
 		}
 	}
 
 	public void testIt()
 	{
-		final Settable<String> alpha = new MockSettable("alpha");
-		final SetValue alphaValue = new SetValue<String>(alpha, "alphaValue");
+		final MockSettable alpha = new MockSettable("alpha");
+		final SetValue alphaValue = SetValue.map(alpha, "alphaValue");
 		assertEquals("alpha=alphaValue", alphaValue.toString());
 
-		final Settable<String> beta = new MockSettable("beta");
-		final SetValue betaValue = new SetValue<String>(beta, "betaValue");
+		final MockSettable beta = new MockSettable("beta");
+		final SetValue betaValue = SetValue.map(beta, "betaValue");
 		assertEquals("beta=betaValue", betaValue.toString());
 
-		final Settable<String> nulla = new MockSettable(null);
-		final SetValue nullValue = new SetValue<String>(nulla, null);
+		final MockSettable nulla = new MockSettable(null);
+		final SetValue nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
 
 		assertEquals(

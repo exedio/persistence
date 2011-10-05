@@ -175,7 +175,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	public SetValue<Price> map(final Price value)
 	{
-		return new SetValue<Price>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public SetValue[] execute(final Price value, final Item exceptionItem)

@@ -22,7 +22,12 @@ import java.util.Set;
 
 public interface Settable<E>
 {
-	SetValue map(E value);
+	/**
+	  * All implementations of this method should return
+	  * <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
+	  */
+	SetValue<E> map(E value);
+
 	SetValue[] execute(E value, Item exceptionItem);
 
 	/**

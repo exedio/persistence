@@ -303,7 +303,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue<String> map(final String value)
 	{
-		return new SetValue<String>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public final SetValue[] execute(final String value, final Item exceptionItem)

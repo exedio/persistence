@@ -74,7 +74,7 @@ final class SamplerClusterNode extends Item
 
 	static List<SetValue> map(final ClusterListenerInfo.Node node)
 	{
-		return Arrays.asList(
+		return Arrays.asList((SetValue)
 				id            .map(node.getID()),
 				firstEncounter.map(node.getFirstEncounter()),
 				fromAddress   .map(node.getAddress().toString()),
