@@ -309,7 +309,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(hash(value)) };
+		return new SetValue[]{ SetValue.map(storage, hash(value)) };
 	}
 
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")

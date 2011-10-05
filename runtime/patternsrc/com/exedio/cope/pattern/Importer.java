@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
+
 import java.util.List;
 
 import com.exedio.cope.FunctionField;
@@ -100,7 +102,7 @@ public final class Importer<K extends Object> extends Pattern
 		}
 		else
 		{
-			return getType().as(parentClass).newItem(prepend(key.map(keyValue), setValues));
+			return getType().as(parentClass).newItem(prepend(map(key, keyValue), setValues));
 		}
 	}
 
@@ -109,7 +111,7 @@ public final class Importer<K extends Object> extends Pattern
 			final K keyValue,
 			final SetValue... setValues)
 	{
-		final SetValue[] setValuesNew = prepend(key.map(keyValue), setValues);
+		final SetValue[] setValuesNew = prepend(map(key, keyValue), setValues);
 		final Type<P> type = getType().as(parentClass);
 
 		try
