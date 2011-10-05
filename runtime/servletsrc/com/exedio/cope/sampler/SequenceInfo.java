@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
+
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
@@ -37,12 +39,12 @@ final class SequenceInfo extends Composite
 	public SequenceInfo(final SequenceChecker.Info info)
 	{
 		this(new com.exedio.cope.SetValue[]{
-				SequenceInfo.inOrder   .map(info.getInOrder()),
-				SequenceInfo.outOfOrder.map(info.getOutOfOrder()),
-				SequenceInfo.duplicate .map(info.getDuplicate()),
-				SequenceInfo.lost      .map(info.getLost()),
-				SequenceInfo.late      .map(info.getLate()),
-				SequenceInfo.pending   .map(info.getPending()),
+				map(SequenceInfo.inOrder,    info.getInOrder()),
+				map(SequenceInfo.outOfOrder, info.getOutOfOrder()),
+				map(SequenceInfo.duplicate,  info.getDuplicate()),
+				map(SequenceInfo.lost,       info.getLost()),
+				map(SequenceInfo.late,       info.getLate()),
+				map(SequenceInfo.pending,    info.getPending()),
 			});
 	}
 
