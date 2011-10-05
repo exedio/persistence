@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SetValue.map;
-
 import java.util.Date;
 import java.util.List;
 
@@ -210,7 +208,7 @@ public final class PasswordLimiter extends Pattern
 			final Mount mount = mount();
 			mount.refusalType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				map(this.date, new Date(now)));
+				this.date.map(new Date(now)));
 		}
 
 		return result;

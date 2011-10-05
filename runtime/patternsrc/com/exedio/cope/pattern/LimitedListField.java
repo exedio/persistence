@@ -206,10 +206,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final SetValue[] setValues = new SetValue[sources.length];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
-			setValues[i] = SetValue.map(sources[i], (E)it.next());
+			setValues[i] = sources[i].map(it.next());
 
 		for(; i<sources.length; i++)
-			setValues[i] = SetValue.map(sources[i], null);
+			setValues[i] = sources[i].map(null);
 
 		item.set(setValues);
 	}
@@ -225,7 +225,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 	}
 
-	@Deprecated
 	public SetValue<Collection<E>> map(final Collection<E> value)
 	{
 		return SetValue.map(this, value);

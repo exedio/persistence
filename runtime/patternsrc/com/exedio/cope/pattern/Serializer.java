@@ -204,7 +204,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		}
 	}
 
-	@Deprecated
 	public SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);

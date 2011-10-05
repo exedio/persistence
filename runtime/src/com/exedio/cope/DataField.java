@@ -357,17 +357,17 @@ public final class DataField extends Field<DataField.Value>
 
 	public SetValue map(final byte[] array)
 	{
-		return SetValue.map(this, toValue(array));
+		return map(toValue(array));
 	}
 
 	public SetValue map(final InputStream stream)
 	{
-		return SetValue.map(this, toValue(stream));
+		return map(toValue(stream));
 	}
 
 	public SetValue map(final File file)
 	{
-		return SetValue.map(this, toValue(file));
+		return map(toValue(file));
 	}
 
 	@Override

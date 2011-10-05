@@ -170,7 +170,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		}
 	}
 
-	@Deprecated
 	public SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);
@@ -181,7 +180,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ SetValue.map(idField, value!=null ? value.getID() : null) };
+		return new SetValue[]{ idField.map(value!=null ? value.getID() : null) };
 	}
 
 	public List<E> getValues()

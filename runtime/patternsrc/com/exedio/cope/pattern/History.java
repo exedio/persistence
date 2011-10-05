@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SetValue.map;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -218,8 +216,8 @@ public final class History extends Pattern
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
-				map(eventAuthor, author),
-				map(eventNew, isNew)
+				eventAuthor.map(author),
+				eventNew.map(isNew)
 			);
 	}
 
@@ -297,7 +295,7 @@ public final class History extends Pattern
 				result = null;
 			}
 
-			return map(f, result);
+			return f.map(result);
 		}
 
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
@@ -305,8 +303,8 @@ public final class History extends Pattern
 			final History pattern = getPattern();
 			return pattern.featureType.newItem(
 					Cope.mapAndCast(pattern.featureEvent, this),
-					map(pattern.featureId, f),
-					map(pattern.featureName, name),
+					pattern.featureId.map(f),
+					pattern.featureName.map(name),
 					cut(pattern.featureOld, oldValue),
 					cut(pattern.featureNew, newValue)
 				);

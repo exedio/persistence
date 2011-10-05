@@ -23,13 +23,10 @@ import java.util.Set;
 public interface Settable<E>
 {
 	/**
-	 * @deprecated Is not needed anymore by any part of the framework.
-	 *    All implementations of this method should return
-	 *    <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
-	 */
-	@Deprecated
+	  * All implementations of this method should return
+	  * <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
+	  */
 	SetValue map(E value);
-
 	SetValue[] execute(E value, Item exceptionItem);
 
 	/**

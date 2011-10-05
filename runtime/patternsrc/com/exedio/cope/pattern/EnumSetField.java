@@ -130,7 +130,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		final SetValue[] setValues = new SetValue[fields.size()];
 		int i = 0;
 		for(final E key : fields.keySet())
-			setValues[i++] = SetValue.map(fields.get(key), value.contains(key));
+			setValues[i++] = fields.get(key).map(value.contains(key));
 		item.set(setValues);
 	}
 

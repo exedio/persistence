@@ -173,7 +173,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 		}
 	}
 
-	@Deprecated
 	public SetValue<Price> map(final Price value)
 	{
 		return SetValue.map(this, value);
@@ -184,7 +183,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ SetValue.map(integer, value!=null ? value.store : null) };
+		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
 	}
 
 	// ------------------- deprecated stuff -------------------

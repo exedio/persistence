@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SetValue.map;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
@@ -127,8 +125,8 @@ public class TextUrlFilter extends MediaFilter
 			@Parameter("value") final Media.Value value)
 	{
 		pasteType.newItem(
-				map(this.pasteKey, key),
-				map(this.pasteValue, value),
+				this.pasteKey.map(key),
+				this.pasteValue.map(value),
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 

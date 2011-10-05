@@ -135,7 +135,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return Cast.castElements(valueClass, c);
 	}
 
-	@Deprecated
 	public final SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);
@@ -148,7 +147,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	public final SetValue[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue[]{ SetValue.map(this, value) };
+		return new SetValue[]{ map(value) };
 	}
 
 	public final void check(final E value) throws ConstraintViolationException

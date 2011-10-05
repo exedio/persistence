@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SetValue.map;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -190,7 +188,7 @@ public final class SetField<E> extends Pattern
 		{
 			mount.relationType.newItem(
 					Cope.mapAndCast(mount.parent, item),
-					map(this.element, element)
+					this.element.map(element)
 			);
 			return true;
 		}
@@ -250,7 +248,7 @@ public final class SetField<E> extends Pattern
 				{
 					mount.relationType.newItem(
 							Cope.mapAndCast(mount.parent, item),
-							map(this.element, (E)toCreate.next())
+							this.element.map(toCreate.next())
 					);
 				}
 				return;

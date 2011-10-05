@@ -301,7 +301,6 @@ public class Hash extends Pattern implements Settable<String>
 		}
 	}
 
-	@Deprecated
 	public final SetValue<String> map(final String value)
 	{
 		return SetValue.map(this, value);
@@ -309,7 +308,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ SetValue.map(storage, hash(value)) };
+		return new SetValue[]{ storage.map(hash(value)) };
 	}
 
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")

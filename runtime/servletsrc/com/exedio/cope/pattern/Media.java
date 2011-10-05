@@ -293,7 +293,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return isfinal || !optional;
 	}
 
-	@Deprecated
 	public SetValue map(final Value value)
 	{
 		return SetValue.map(this, value);
@@ -577,8 +576,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			final FunctionField contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
-			values.add(SetValue.map(this.lastModified, new Date()));
-			values.add(SetValue.map(this.body, body));
+			values.add(this.lastModified.map(new Date()));
+			values.add(this.body.map(body));
 
 			return SetValueUtil.toArray(values);
 		}
@@ -590,8 +589,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
-				values.add(SetValue.map(contentTypeField, null));
-			values.add(SetValue.map(this.lastModified, null));
+				values.add(contentTypeField.map(null));
+			values.add(this.lastModified.map(null));
 			values.add(this.body.mapNull());
 
 			return SetValueUtil.toArray(values);

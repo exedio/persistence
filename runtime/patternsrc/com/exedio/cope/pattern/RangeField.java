@@ -92,8 +92,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
-				SetValue.map(this.from, (E)value.getFrom()),
-				SetValue.map(this.to  , (E)value.getTo  ()));
+				this.from.map(value.getFrom()),
+				this.to  .map(value.getTo  ()));
 	}
 
 	@Wrap(order=30)
@@ -152,7 +152,6 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
 	}
 
-	@Deprecated
 	public SetValue<Range<E>> map(final Range<E> value)
 	{
 		return SetValue.map(this, value);
@@ -161,8 +160,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		return new SetValue[]{
-				SetValue.map(from, value.getFrom()),
-				SetValue.map(to  , value.getTo  ())};
+				from.map(value.getFrom()),
+				to  .map(value.getTo  ())};
 	}
 
 	public boolean isFinal()
