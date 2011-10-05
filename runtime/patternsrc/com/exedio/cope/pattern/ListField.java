@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -202,8 +204,8 @@ public final class ListField<E> extends AbstractListField<E>
 		final int newOrder = max!=null ? (max.intValue()+1) : 0;
 		mount.relationType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				this.order.map(newOrder),
-				this.element.map(value));
+				map(this.order, newOrder),
+				map(this.element, value));
 	}
 
 	@Wrap(order=50,
@@ -229,8 +231,8 @@ public final class ListField<E> extends AbstractListField<E>
 				{
 					mount.relationType.newItem(
 							Cope.mapAndCast(mount.parent, item),
-							this.element.map(expected.next()),
-							this.order.map(order++)
+							map(this.element, (E)expected.next()),
+							map(this.order, order++)
 					);
 				}
 				return;
