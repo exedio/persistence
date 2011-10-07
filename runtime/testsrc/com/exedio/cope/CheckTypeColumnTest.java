@@ -84,6 +84,13 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(3, getPrimaryKeyColumnValue(reffc1));
 		assertEquals(4, getPrimaryKeyColumnValue(reffN));
 
+		assertEquals(false, InstanceOfAItem.TYPE.getThis().needsCheckTypeColumn());
+		assertEquals(true, InstanceOfB1Item.TYPE.getThis().needsCheckTypeColumn());
+		assertEquals(true, InstanceOfB2Item.TYPE.getThis().needsCheckTypeColumn());
+		assertEquals(true, InstanceOfC1Item.TYPE.getThis().needsCheckTypeColumn());
+		assertEquals(true, InstanceOfRefItem.ref.needsCheckTypeColumn());
+		assertEquals(false, InstanceOfRefItem.refb2.needsCheckTypeColumn());
+
 		try
 		{
 			InstanceOfAItem.TYPE.getThis().checkTypeColumn();
