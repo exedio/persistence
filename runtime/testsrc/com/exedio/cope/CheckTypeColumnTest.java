@@ -192,6 +192,8 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
+	// TODO refs
+
 
 	private <T extends Item> void update(
 			final Type<T> type,
