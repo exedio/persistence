@@ -123,16 +123,21 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	{
 		// TODO should fail earlier
 		restartTransaction();
-		execute(
-			"update " + q(getTableName(InstanceOfAItem.TYPE)) + " " +
-			"set " + q(getTypeColumnName(InstanceOfAItem.TYPE)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-			"where " + q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE)) + "=" + pka);
+		set(InstanceOfAItem.TYPE, pka, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
+
+	private void set(final Type type, final int pk, final Type newType) throws SQLException
+	{
+		execute(
+			"update " + q(getTableName(type)) + " " +
+			"set " + q(getTypeColumnName(type)) + "='" + getTypeColumnValue(newType) + "' " +
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + pk);
+	}
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
