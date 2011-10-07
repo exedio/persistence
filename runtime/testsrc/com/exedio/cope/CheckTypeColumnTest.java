@@ -72,27 +72,17 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
-	private static final int pka = 0;
-	private static final int pkb1 = 1;
-	private static final int pkb2 = 2;
-	private static final int pkc1 = 3;
-	private static final int pkrefa = 0;
-	private static final int pkrefb1 = 1;
-	private static final int pkrefb2 = 2;
-	private static final int pkrefc1 = 3;
-	private static final int pkrefn = 4;
-
 	public void testOk()
 	{
-		assertEquals(pka, getPrimaryKeyColumnValue(itema));
-		assertEquals(pkb1, getPrimaryKeyColumnValue(itemb1));
-		assertEquals(pkb2, getPrimaryKeyColumnValue(itemb2));
-		assertEquals(pkc1, getPrimaryKeyColumnValue(itemc1));
-		assertEquals(pkrefa, getPrimaryKeyColumnValue(reffa));
-		assertEquals(pkrefb1, getPrimaryKeyColumnValue(reffb1));
-		assertEquals(pkrefb2, getPrimaryKeyColumnValue(reffb2));
-		assertEquals(pkrefc1, getPrimaryKeyColumnValue(reffc1));
-		assertEquals(pkrefn, getPrimaryKeyColumnValue(reffN));
+		assertEquals(0, getPrimaryKeyColumnValue(itema));
+		assertEquals(1, getPrimaryKeyColumnValue(itemb1));
+		assertEquals(2, getPrimaryKeyColumnValue(itemb2));
+		assertEquals(3, getPrimaryKeyColumnValue(itemc1));
+		assertEquals(0, getPrimaryKeyColumnValue(reffa));
+		assertEquals(1, getPrimaryKeyColumnValue(reffb1));
+		assertEquals(2, getPrimaryKeyColumnValue(reffb2));
+		assertEquals(3, getPrimaryKeyColumnValue(reffc1));
+		assertEquals(4, getPrimaryKeyColumnValue(reffN));
 
 		try
 		{
@@ -124,7 +114,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	{
 		// TODO should fail earlier
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, pka, InstanceOfB1Item.TYPE);
+		set(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -134,7 +124,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB1inA() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, pkb1, InstanceOfB2Item.TYPE);
+		set(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -144,7 +134,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB1inB1() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfB1Item.TYPE, pkb1, InstanceOfC1Item.TYPE);
+		set(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -154,7 +144,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB2inA() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, pkb2, InstanceOfB1Item.TYPE);
+		set(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -162,12 +152,12 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	}
 
 
-	private void set(final Type type, final int pk, final Type newType) throws SQLException
+	private void set(final Type type, final Item item, final Type newType) throws SQLException
 	{
 		execute(
 			"update " + q(getTableName(type)) + " " +
 			"set " + q(getTypeColumnName(type)) + "='" + getTypeColumnValue(newType) + "' " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + pk);
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
