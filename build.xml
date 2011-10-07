@@ -398,6 +398,7 @@
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation2.java" /><!-- TODO remove -->
 				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
+				<exclude name="CheckTypeColumnTest.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
