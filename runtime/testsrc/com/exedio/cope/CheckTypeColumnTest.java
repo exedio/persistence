@@ -53,8 +53,28 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		reffN = deleteOnTearDown(new InstanceOfRefItem(null));
 	}
 
+	private static final int pka = 0;
+	private static final int pkb1 = 1;
+	private static final int pkb2 = 2;
+	private static final int pkc1 = 3;
+	private static final int pkrefa = 0;
+	private static final int pkrefb1 = 1;
+	private static final int pkrefb2 = 2;
+	private static final int pkrefc1 = 3;
+	private static final int pkrefn = 4;
+
 	public void testOk()
 	{
+		assertEquals("InstanceOfAItem-" + pka, itema.getCopeID());
+		assertEquals("InstanceOfB1Item-" + pkb1, itemb1.getCopeID());
+		assertEquals("InstanceOfB2Item-" + pkb2, itemb2.getCopeID());
+		assertEquals("InstanceOfC1Item-" + pkc1, itemc1.getCopeID());
+		assertEquals("InstanceOfRefItem-" + pkrefa, reffa.getCopeID());
+		assertEquals("InstanceOfRefItem-" + pkrefb1, reffb1.getCopeID());
+		assertEquals("InstanceOfRefItem-" + pkrefb2, reffb2.getCopeID());
+		assertEquals("InstanceOfRefItem-" + pkrefc1, reffc1.getCopeID());
+		assertEquals("InstanceOfRefItem-" + pkrefn, reffN.getCopeID());
+
 		try
 		{
 			InstanceOfAItem.TYPE.getThis().checkTypeColumn();
