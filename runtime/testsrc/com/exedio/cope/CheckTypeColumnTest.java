@@ -113,7 +113,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongA() throws SQLException
 	{
 		// TODO should fail earlier
-		restartTransaction();
 		update(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -123,7 +122,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB1inA() throws SQLException
 	{
-		restartTransaction();
 		update(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -133,7 +131,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB1inB1() throws SQLException
 	{
-		restartTransaction();
 		update(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -143,7 +140,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB2inA() throws SQLException
 	{
-		restartTransaction();
 		update(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -153,7 +149,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongC1inA() throws SQLException
 	{
-		restartTransaction();
 		update(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -163,7 +158,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongC1inB1() throws SQLException
 	{
-		restartTransaction();
 		update(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -174,7 +168,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testMissingB1() throws SQLException
 	{
 		// TODO should fail
-		restartTransaction();
 		delete(InstanceOfB1Item.TYPE, itemb1);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -185,7 +178,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testMissingC1() throws SQLException
 	{
 		// TODO should fail
-		restartTransaction();
 		delete(InstanceOfC1Item.TYPE, itemc1);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -193,7 +185,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 
 		// TODO should fail
-		restartTransaction();
 		delete(InstanceOfB1Item.TYPE, itemc1);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -227,6 +218,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
+		restartTransaction();
 		Connection connection = null;
 		try
 		{
