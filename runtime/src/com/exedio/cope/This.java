@@ -111,9 +111,7 @@ public final class This<E extends Item> extends Feature
 	public int checkTypeColumn()
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
-
-		final Transaction tx = type.getModel().currentTransaction();
-		return type.checkTypeColumn(tx.getConnection(), tx.connect.executor);
+		return type.checkTypeColumn();
 	}
 
 	// convenience methods for conditions and views ---------------------------------

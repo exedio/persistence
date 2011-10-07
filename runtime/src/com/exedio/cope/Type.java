@@ -1152,8 +1152,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 	}
 
-	int checkTypeColumn(final Connection connection, final Executor executor)
+	int checkTypeColumn()
 	{
+		final Transaction tx = getModel().currentTransaction();
+		final Executor executor = tx.connect.executor;
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
@@ -1173,7 +1175,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKT:"+bf.toString());
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
 	}
 
 	public boolean needsCheckUpdateCounter()
