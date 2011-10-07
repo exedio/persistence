@@ -151,6 +151,26 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
+	public void testWrongC1inA() throws SQLException
+	{
+		restartTransaction();
+		set(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
+		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
+	public void testWrongC1inB1() throws SQLException
+	{
+		restartTransaction();
+		set(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
+		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
 
 	private <T extends Item> void set(
 			final Type<T> type,
