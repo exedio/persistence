@@ -150,6 +150,16 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
+	public void testWrongB2inA() throws SQLException
+	{
+		restartTransaction();
+		set(InstanceOfAItem.TYPE, pkb2, InstanceOfB1Item.TYPE);
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
 
 	private void set(final Type type, final int pk, final Type newType) throws SQLException
 	{
