@@ -152,7 +152,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	}
 
 
-	private void set(final Type type, final Item item, final Type newType) throws SQLException
+	private <T extends Item> void set(final Type<T> type, final T item, final Type<? extends T> newType) throws SQLException
 	{
 		execute(
 			"update " + q(getTableName(type)) + " " +
