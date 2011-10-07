@@ -84,16 +84,6 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testOk()
 	{
-		assertEquals("InstanceOfAItem-" + pka, itema.getCopeID());
-		assertEquals("InstanceOfB1Item-" + pkb1, itemb1.getCopeID());
-		assertEquals("InstanceOfB2Item-" + pkb2, itemb2.getCopeID());
-		assertEquals("InstanceOfC1Item-" + pkc1, itemc1.getCopeID());
-		assertEquals("InstanceOfRefItem-" + pkrefa, reffa.getCopeID());
-		assertEquals("InstanceOfRefItem-" + pkrefb1, reffb1.getCopeID());
-		assertEquals("InstanceOfRefItem-" + pkrefb2, reffb2.getCopeID());
-		assertEquals("InstanceOfRefItem-" + pkrefc1, reffc1.getCopeID());
-		assertEquals("InstanceOfRefItem-" + pkrefn, reffN.getCopeID());
-
 		assertEquals(pka, getPrimaryKeyColumnValue(itema));
 		assertEquals(pkb1, getPrimaryKeyColumnValue(itemb1));
 		assertEquals(pkb2, getPrimaryKeyColumnValue(itemb2));
