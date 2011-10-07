@@ -171,6 +171,36 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
+	public void testMissingB1() throws SQLException
+	{
+		// TODO should fail
+		restartTransaction();
+		delete(InstanceOfB1Item.TYPE, itemb1);
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
+	public void testMissingC1() throws SQLException
+	{
+		// TODO should fail
+		restartTransaction();
+		delete(InstanceOfC1Item.TYPE, itemc1);
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
+
+		// TODO should fail
+		restartTransaction();
+		delete(InstanceOfB1Item.TYPE, itemc1);
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
 
 	private <T extends Item> void set(
 			final Type<T> type,
@@ -181,6 +211,16 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		execute(
 			"update " + q(getTableName(type)) + " " +
 			"set " + q(getTypeColumnName(type)) + "='" + getTypeColumnValue(newType) + "' " +
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
+	}
+
+	private <T extends Item> void delete(
+			final Type<T> type,
+			final T item)
+	throws SQLException
+	{
+		execute(
+			"delete from " + q(getTableName(type)) + " " +
 			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
