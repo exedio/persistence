@@ -109,6 +109,14 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * Returns the value of primary key column in the database for the item.
+	 */
+	public static int getPrimaryKeyColumnValue(final Item item)
+	{
+		return item.pk;
+	}
+
+	/**
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "class".

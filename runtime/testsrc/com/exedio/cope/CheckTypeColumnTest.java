@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
@@ -92,6 +93,16 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals("InstanceOfRefItem-" + pkrefb2, reffb2.getCopeID());
 		assertEquals("InstanceOfRefItem-" + pkrefc1, reffc1.getCopeID());
 		assertEquals("InstanceOfRefItem-" + pkrefn, reffN.getCopeID());
+
+		assertEquals(pka, getPrimaryKeyColumnValue(itema));
+		assertEquals(pkb1, getPrimaryKeyColumnValue(itemb1));
+		assertEquals(pkb2, getPrimaryKeyColumnValue(itemb2));
+		assertEquals(pkc1, getPrimaryKeyColumnValue(itemc1));
+		assertEquals(pkrefa, getPrimaryKeyColumnValue(reffa));
+		assertEquals(pkrefb1, getPrimaryKeyColumnValue(reffb1));
+		assertEquals(pkrefb2, getPrimaryKeyColumnValue(reffb2));
+		assertEquals(pkrefc1, getPrimaryKeyColumnValue(reffc1));
+		assertEquals(pkrefn, getPrimaryKeyColumnValue(reffN));
 
 		try
 		{

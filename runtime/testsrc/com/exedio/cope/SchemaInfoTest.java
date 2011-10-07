@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
@@ -74,6 +75,15 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
+		}
+		try
+		{
+			getPrimaryKeyColumnValue(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 
 		// with sub types
