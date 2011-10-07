@@ -18,6 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class CheckTypeColumnTest extends AbstractRuntimeTest
 {
 	public CheckTypeColumnTest()
@@ -41,16 +50,25 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 
-		itema = deleteOnTearDown(new InstanceOfAItem("itema"));
-		itemb1 = deleteOnTearDown(new InstanceOfB1Item("itemb1"));
-		itemb2 = deleteOnTearDown(new InstanceOfB2Item("itemb2"));
-		itemc1 = deleteOnTearDown(new InstanceOfC1Item("itemc1"));
+		itema = new InstanceOfAItem("itema");
+		itemb1 = new InstanceOfB1Item("itemb1");
+		itemb2 = new InstanceOfB2Item("itemb2");
+		itemc1 = new InstanceOfC1Item("itemc1");
 
-		reffa = deleteOnTearDown(new InstanceOfRefItem(itema));
-		reffb1 = deleteOnTearDown(new InstanceOfRefItem(itemb1));
-		reffb2 = deleteOnTearDown(new InstanceOfRefItem(itemb2));
-		reffc1 = deleteOnTearDown(new InstanceOfRefItem(itemc1));
-		reffN = deleteOnTearDown(new InstanceOfRefItem(null));
+		reffa = new InstanceOfRefItem(itema);
+		reffb1 = new InstanceOfRefItem(itemb1);
+		reffb2 = new InstanceOfRefItem(itemb2);
+		reffc1 = new InstanceOfRefItem(itemc1);
+		reffN = new InstanceOfRefItem(null);
+	}
+
+	@Override
+	public void tearDown() throws Exception
+	{
+		model.commit();
+		model.deleteSchema();
+		model.startTransaction("CheckTypeColumnTest");
+		super.tearDown();
 	}
 
 	private static final int pka = 0;
@@ -99,5 +117,50 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		{
 			assertEquals("no check for type column needed for InstanceOfRefItem.refb2", e.getMessage());
 		}
+	}
+
+	public void testWrongA() throws SQLException
+	{
+		// TODO should fail earlier
+		restartTransaction();
+		execute(
+			"update " + q(getTableName(InstanceOfAItem.TYPE)) + " " +
+			"set " + q(getTypeColumnName(InstanceOfAItem.TYPE)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
+			"where " + q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE)) + "=" + pka);
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
+	}
+
+
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	private void execute(final String sql) throws SQLException
+	{
+		Connection connection = null;
+		try
+		{
+			connection = SchemaInfo.newConnection(model);
+			connection.setAutoCommit(true);
+			final Statement statement = connection.createStatement();
+			try
+			{
+				assertEquals(1, statement.executeUpdate(sql));
+			}
+			finally
+			{
+				statement.close();
+			}
+		}
+		finally
+		{
+			if(connection!=null)
+				connection.close();
+		}
+	}
+
+	private String q(final String s)
+	{
+		return SchemaInfo.quoteName(model, s);
 	}
 }
