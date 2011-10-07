@@ -105,7 +105,7 @@ public final class This<E extends Item> extends Feature
 
 	public boolean needsCheckTypeColumn()
 	{
-		return type.supertype!=null && type.supertype.getTable().typeColumn!=null;
+		return type.needsCheckTypeColumn();
 	}
 
 	public int checkTypeColumn()

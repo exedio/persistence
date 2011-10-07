@@ -1152,6 +1152,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 	}
 
+	boolean needsCheckTypeColumn()
+	{
+		return supertype!=null && supertype.getTable().typeColumn!=null;
+	}
+
 	int checkTypeColumn()
 	{
 		final Transaction tx = getModel().currentTransaction();
