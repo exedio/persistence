@@ -336,8 +336,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public int checkTypeColumn()
 	{
-		if(!needsCheckTypeColumn())
-			throw new RuntimeException("no check for type column needed for " + this);
+		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
 		final Type type = getType();
 		final Transaction tx = type.getModel().currentTransaction();
