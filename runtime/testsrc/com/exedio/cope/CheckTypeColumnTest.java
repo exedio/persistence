@@ -114,7 +114,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	{
 		// TODO should fail earlier
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
+		update(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -124,7 +124,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB1inA() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
+		update(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -134,7 +134,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB1inB1() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
+		update(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -144,7 +144,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongB2inA() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
+		update(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -154,7 +154,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongC1inA() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
+		update(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -164,7 +164,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	public void testWrongC1inB1() throws SQLException
 	{
 		restartTransaction();
-		set(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
+		update(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
@@ -202,7 +202,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	}
 
 
-	private <T extends Item> void set(
+	private <T extends Item> void update(
 			final Type<T> type,
 			final T item,
 			final Type<? extends T> newType)
