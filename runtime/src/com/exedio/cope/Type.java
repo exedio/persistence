@@ -30,7 +30,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1194,11 +1193,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new RuntimeException("no check for update counter needed for " + this);
 
 		final Transaction tx = getModel().currentTransaction();
-		return checkUpdateCounter(tx.getConnection(), tx.connect.executor);
-	}
-
-	private int checkUpdateCounter(final Connection connection, final Executor executor)
-	{
+		final Executor executor = tx.connect.executor;
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
@@ -1212,7 +1207,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKM:"+bf.toString());
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
 	}
 
 	public Random random(final int seed)
