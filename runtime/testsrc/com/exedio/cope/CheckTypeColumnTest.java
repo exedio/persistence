@@ -199,7 +199,17 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	// TODO refs
+	public void testWrongRef() throws SQLException
+	{
+		execute(
+				"update " + q(getTableName(InstanceOfRefItem.TYPE)) + " " +
+				"set " + q(getTypeColumnName(InstanceOfRefItem.ref)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
+				"where " + q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)) + "=" + getPrimaryKeyColumnValue(reffa));
+		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
+	}
 
 
 	private <T extends Item> void update(
