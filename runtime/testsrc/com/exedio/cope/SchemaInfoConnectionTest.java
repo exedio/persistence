@@ -34,7 +34,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 {
 	public SchemaInfoConnectionTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	private Connection c;

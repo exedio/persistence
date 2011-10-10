@@ -22,7 +22,7 @@ public class QueryKeyTest extends AbstractRuntimeTest
 {
 	public QueryKeyTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	public void testIt()

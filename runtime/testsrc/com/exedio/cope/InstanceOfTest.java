@@ -20,16 +20,9 @@ package com.exedio.cope;
 
 public class InstanceOfTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(
-			InstanceOfAItem.TYPE,
-			InstanceOfB1Item.TYPE,
-			InstanceOfB2Item.TYPE,
-			InstanceOfC1Item.TYPE,
-			InstanceOfRefItem.TYPE);
-
 	public InstanceOfTest()
 	{
-		super(MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	InstanceOfAItem itema;
@@ -62,63 +55,6 @@ public class InstanceOfTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test ItemField#as
-		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
-		try
-		{
-			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + '>',
-				e.getMessage());
-		}
-		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
-		try
-		{
-			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
-				e.getMessage());
-		}
-		try
-		{
-			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
-				e.getMessage());
-		}
-
-		// test Type.getSubtypes()
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypes());
-		assertEqualsUnmodifiable(list(), InstanceOfB2Item.TYPE.getSubtypes());
-		assertEqualsUnmodifiable(list(), InstanceOfC1Item.TYPE.getSubtypes());
-		// test Type.getSubtypesTransitively()
-		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
-		// test Type.getTypesOfInstances()
-		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getTypesOfInstances());
-		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
-		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
-
-
 		assertContains(itema, itemb1, itemb2, itemc1,        itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffN, reffa.TYPE.search(null));
 

@@ -23,7 +23,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
 {
 	public PolymorphQueryCacheInvalidationTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	InstanceOfAItem itema;

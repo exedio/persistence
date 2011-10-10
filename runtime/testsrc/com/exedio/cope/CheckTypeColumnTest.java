@@ -32,7 +32,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 {
 	public CheckTypeColumnTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	InstanceOfAItem itema;

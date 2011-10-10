@@ -31,7 +31,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 {
 	public SchemaInfoTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	public void testSchemaInfo()
