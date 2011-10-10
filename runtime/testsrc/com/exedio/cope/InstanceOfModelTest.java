@@ -114,4 +114,25 @@ public class InstanceOfModelTest extends CopeAssert
 				list(InstanceOfC1Item.TYPE),
 				InstanceOfC1Item.TYPE.getTypesOfInstances());
 	}
+
+	public void testAsSubtype()
+	{
+		final Type<? extends InstanceOfAItem> t = InstanceOfAItem.TYPE.asSubtype(InstanceOfB1Item.TYPE);
+		assertSame(InstanceOfB1Item.TYPE, t);
+
+		final Type<? extends InstanceOfAItem> ts = InstanceOfAItem.TYPE.asSubtype(InstanceOfAItem.TYPE);
+		assertSame(InstanceOfAItem.TYPE, ts);
+
+		try
+		{
+			InstanceOfB1Item.TYPE.asSubtype(InstanceOfAItem.TYPE);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected a InstanceOfB1Item, but was a InstanceOfAItem", e.getMessage());
+		}
+
+		assertEquals(null, InstanceOfB1Item.TYPE.asSubtype(null));
+	}
 }

@@ -718,6 +718,21 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return typeSupertypes.contains(this);
 	}
 
+	/**
+	 * @see Class#asSubclass(Class)
+	 */
+	public Type<? extends T> asSubtype(final Type subtype)
+	{
+		if(subtype==null)
+			return null;
+		if(!isAssignableFrom(subtype))
+			throw new ClassCastException("expected a " + toString() + ", but was a " + subtype);
+
+		@SuppressWarnings("unchecked") // OK: checked at runtime
+		final Type<T> result = subtype;
+		return result;
+	}
+
 	void assertBelongs(final Field f)
 	{
 		if(!f.getType().isAssignableFrom(this))
