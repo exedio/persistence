@@ -106,12 +106,12 @@ public class InstanceOfModelTest extends CopeAssert
 				InstanceOfAItem.TYPE.getTypesOfInstances());
 		assertEqualsUnmodifiable(
 				list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE),
-				InstanceOfB1Item.TYPE.getSubtypesTransitively());
+				InstanceOfB1Item.TYPE.getTypesOfInstances());
 		assertEqualsUnmodifiable(
 				list(InstanceOfB2Item.TYPE),
-				InstanceOfB2Item.TYPE.getSubtypesTransitively());
+				InstanceOfB2Item.TYPE.getTypesOfInstances());
 		assertEqualsUnmodifiable(
 				list(InstanceOfC1Item.TYPE),
-				InstanceOfC1Item.TYPE.getSubtypesTransitively());
+				InstanceOfC1Item.TYPE.getTypesOfInstances());
 	}
 }
