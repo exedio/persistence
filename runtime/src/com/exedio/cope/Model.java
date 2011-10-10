@@ -238,7 +238,7 @@ public final class Model implements Serializable
 	/**
 	 * @see Type#getID()
 	 */
-	public Type getType(final String id)
+	public Type<?> getType(final String id)
 	{
 		return types.getType(id);
 	}
