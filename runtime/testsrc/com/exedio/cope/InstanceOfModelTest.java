@@ -29,9 +29,8 @@ public class InstanceOfModelTest extends CopeAssert
 			InstanceOfC1Item.TYPE,
 			InstanceOfRefItem.TYPE);
 
-	public void testIt()
+	public void testAs()
 	{
-		// test ItemField#as
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
 		try
 		{
@@ -70,18 +69,26 @@ public class InstanceOfModelTest extends CopeAssert
 					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
 				e.getMessage());
 		}
+	}
 
-		// test Type.getSubtypes()
+	public void testGetSubTypes()
+	{
 		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
 		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypes());
 		assertEqualsUnmodifiable(list(), InstanceOfB2Item.TYPE.getSubtypes());
 		assertEqualsUnmodifiable(list(), InstanceOfC1Item.TYPE.getSubtypes());
-		// test Type.getSubtypesTransitively()
+	}
+
+	public void testGetSubTypesTransitively()
+	{
 		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfC1Item.TYPE), InstanceOfC1Item.TYPE.getSubtypesTransitively());
-		// test Type.getTypesOfInstances()
+	}
+
+	public void testTypesOfInstances()
+	{
 		assertEqualsUnmodifiable(list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getTypesOfInstances());
 		assertEqualsUnmodifiable(list(InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE), InstanceOfB1Item.TYPE.getSubtypesTransitively());
 		assertEqualsUnmodifiable(list(InstanceOfB2Item.TYPE), InstanceOfB2Item.TYPE.getSubtypesTransitively());
