@@ -101,6 +101,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
 
 		// test update
@@ -116,6 +117,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					fetch("select " + q(column) + " from " + q(table)));
 		}
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
 
 		// test delete

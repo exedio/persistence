@@ -100,10 +100,32 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		{
 			assertEquals("no check for type column needed for InstanceOfAItem.this", e.getMessage());
 		}
-
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		try
+		{
+			InstanceOfAItem.TYPE.checkCompleteness(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("subType", e.getMessage());
+		}
+		try
+		{
+			InstanceOfAItem.TYPE.checkCompleteness(InstanceOfAItem.TYPE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expected instantiable subtype of InstanceOfAItem, but was InstanceOfAItem", e.getMessage());
+		}
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 		try
@@ -117,85 +139,168 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressWarnings("unchecked") // OK: testing unchecked usage of api
+	public void testUnchecked()
+	{
+		try
+		{
+			InstanceOfB1Item.TYPE.checkCompleteness((Type)InstanceOfAItem.TYPE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expected instantiable subtype of InstanceOfB1Item, but was InstanceOfAItem", e.getMessage());
+		}
+		try
+		{
+			InstanceOfB1Item.TYPE.checkCompleteness((Type)InstanceOfB2Item.TYPE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expected instantiable subtype of InstanceOfB1Item, but was InstanceOfB2Item", e.getMessage());
+		}
+	}
+
 	public void testWrongA() throws SQLException
 	{
-		// TODO should fail earlier
 		update(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testWrongB1inA() throws SQLException
 	{
 		update(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
+
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testWrongB1inB1() throws SQLException
 	{
 		update(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
+
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testWrongB2inA() throws SQLException
 	{
 		update(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testWrongC1inA() throws SQLException
 	{
 		update(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
+
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testWrongC1inB1() throws SQLException
 	{
 		update(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
+
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testMissingB1() throws SQLException
 	{
-		// TODO should fail
 		delete(InstanceOfB1Item.TYPE, itemb1);
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
 	public void testMissingC1() throws SQLException
 	{
-		// TODO should fail
 		delete(InstanceOfC1Item.TYPE, itemc1);
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 
-		// TODO should fail
+
 		delete(InstanceOfB1Item.TYPE, itemc1);
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
@@ -205,9 +310,16 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 				"update " + q(getTableName(InstanceOfRefItem.TYPE)) + " " +
 				"set " + q(getTypeColumnName(InstanceOfRefItem.ref)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
 				"where " + q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)) + "=" + getPrimaryKeyColumnValue(reffa));
+
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
+
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 

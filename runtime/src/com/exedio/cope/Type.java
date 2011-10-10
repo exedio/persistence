@@ -1182,6 +1182,31 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
 	}
 
+	/**
+	 * @param subType is allowed any type from {@link #getTypesOfInstances()}, but not itself.
+	 */
+	public int checkCompleteness(final Type<? extends T> subType)
+	{
+		if(subType==null)
+			throw new NullPointerException("subType");
+		if(equals(subType) || !getTypesOfInstances().contains(subType))
+			throw new IllegalArgumentException("expected instantiable subtype of " + this + ", but was " + subType);
+
+		final Transaction tx = getModel().currentTransaction();
+		final Executor executor = tx.connect.executor;
+		final Table table = getTable();
+		final Table subTable = subType.getTable();
+
+		final Statement bf = executor.newStatement(true);
+		bf.append("select count(*) from ").append(table).
+			append(" left join ").append(subTable).
+			append(" on ").append(table.primaryKey).append('=').append(subTable.primaryKey).
+			append(" where ").append(table.typeColumn).append('=').appendParameter(subType.schemaId).
+			append(" and ").append(subTable.primaryKey).append(" is null");
+
+		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
+	}
+
 	public boolean needsCheckUpdateCounter()
 	{
 		return supertype!=null && getTable().updateCounter!=null;
