@@ -164,7 +164,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongA() throws SQLException
 	{
-		update(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
+		updateTypeColumn(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -180,7 +180,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB1inA() throws SQLException
 	{
-		update(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
+		updateTypeColumn(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -196,7 +196,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB1inB1() throws SQLException
 	{
-		update(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
+		updateTypeColumn(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -212,7 +212,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongB2inA() throws SQLException
 	{
-		update(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
+		updateTypeColumn(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -228,7 +228,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongC1inA() throws SQLException
 	{
-		update(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
+		updateTypeColumn(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
 
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -244,7 +244,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testWrongC1inB1() throws SQLException
 	{
-		update(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
+		updateTypeColumn(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
 
 		assertEquals(1, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -260,7 +260,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testMissingB1() throws SQLException
 	{
-		delete(InstanceOfB1Item.TYPE, itemb1);
+		deleteRow(InstanceOfB1Item.TYPE, itemb1);
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -276,7 +276,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 
 	public void testMissingC1() throws SQLException
 	{
-		delete(InstanceOfC1Item.TYPE, itemc1);
+		deleteRow(InstanceOfC1Item.TYPE, itemc1);
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -290,7 +290,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 
 
-		delete(InstanceOfB1Item.TYPE, itemc1);
+		deleteRow(InstanceOfB1Item.TYPE, itemc1);
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -324,7 +324,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	}
 
 
-	private <T extends Item> void update(
+	private <T extends Item> void updateTypeColumn(
 			final Type<T> type,
 			final T item,
 			final Type<? extends T> newType)
@@ -336,7 +336,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
-	private <T extends Item> void delete(
+	private <T extends Item> void deleteRow(
 			final Type<T> type,
 			final T item)
 	throws SQLException
