@@ -1216,8 +1216,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		bf.append("select count(*) from ").append(table).
 			append(" left join ").append(subTable).
 			append(" on ").append(table.primaryKey).append('=').append(subTable.primaryKey).
-			append(" where ").append(table.typeColumn).append('=').appendParameter(subType.schemaId).
-			append(" and ").append(subTable.primaryKey).append(" is null");
+			append(" where ").append(subTable.primaryKey).append(" is null");
+		if(table.typeColumn!=null)
+			bf.append(" and ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
 
 		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
 	}
