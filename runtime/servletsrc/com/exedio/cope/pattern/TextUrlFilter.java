@@ -90,8 +90,6 @@ public class TextUrlFilter extends MediaFilter
 			throw new NullPointerException("pasteStop");
 		if(pasteStop.isEmpty())
 			throw new IllegalArgumentException("pasteStop");
-		if(pasteStop.length()>1)
-			throw new RuntimeException("not yet implemented, is buggy " + pasteStop);
 
 		if(pasteKey==null)
 			throw new NullPointerException("pasteKey");
