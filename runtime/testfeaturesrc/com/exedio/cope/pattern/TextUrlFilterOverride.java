@@ -24,6 +24,8 @@ import com.exedio.cope.StringField;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
 {
+	private static final long serialVersionUID = 1l;
+
 	public TextUrlFilterOverride(
 			final Media raw,
 			final String supportedContentType,
