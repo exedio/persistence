@@ -54,7 +54,7 @@ public class TextUrlFilter extends MediaFilter
 	private ItemField<? extends Item> pasteParent = null;
 	private final StringField pasteKey;
 	private UniqueConstraint pasteParentAndKey = null;
-	private final Media pasteValue;
+	final Media pasteValue;
 	private Type<Paste> pasteType = null;
 
 	public TextUrlFilter(
@@ -265,6 +265,21 @@ public class TextUrlFilter extends MediaFilter
 		private Paste(final ActivationParameters ap)
 		{
 			super(ap);
+		}
+
+		public MediaPath.Locator getLocator()
+		{
+			return getPattern().pasteValue.getLocator(this);
+		}
+
+		public String getURL()
+		{
+			return getPattern().pasteValue.getURL(this);
+		}
+
+		private TextUrlFilter getPattern()
+		{
+			return (TextUrlFilter)getCopeType().getPattern();
 		}
 	}
 

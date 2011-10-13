@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern.sub;
 
+import static junit.framework.Assert.assertNotNull;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.StringField;
@@ -46,6 +48,8 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 			final Paste paste,
 			final HttpServletRequest request)
 	{
+		assertNotNull(paste.getLocator());
+		assertNotNull(paste.getURL());
 		bf.append("<override>");
 		super.appendURL(bf, paste, request);
 		bf.append("</override>");
