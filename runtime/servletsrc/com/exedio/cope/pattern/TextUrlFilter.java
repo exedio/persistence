@@ -51,11 +51,10 @@ public class TextUrlFilter extends MediaFilter
 	private final String pasteStart;
 	private final String pasteStop;
 
-	private ItemField<? extends Item> pasteParent = null;
 	private final StringField pasteKey;
-	private UniqueConstraint pasteParentAndKey = null;
 	final Media pasteValue;
-	private Type<Paste> pasteType = null;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
+	private Mount mount = null;
 
 	public TextUrlFilter(
 			final Media raw,
@@ -121,10 +120,11 @@ public class TextUrlFilter extends MediaFilter
 			@Parameter("key") final String key,
 			@Parameter("value") final Media.Value value)
 	{
-		pasteType.newItem(
+		final Mount mount = mount();
+		mount.pasteType.newItem(
 				this.pasteKey.map(key),
 				this.pasteValue.map(value),
-				Cope.mapAndCast(this.pasteParent, item));
+				Cope.mapAndCast(mount.pasteParent, item));
 	}
 
 	@Wrap(order=30, thrown=@Wrap.Thrown(IOException.class))
@@ -159,15 +159,41 @@ public class TextUrlFilter extends MediaFilter
 		super.onMount();
 		final Type<?> type = getType();
 
-		pasteParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
+		final ItemField<? extends Item> pasteParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final UniqueConstraint pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
 		final Features features = new Features();
 		features.put("parent", pasteParent);
 		features.put("key", pasteKey);
 		features.put("parentAndKey", pasteParentAndKey);
 		features.put("value", pasteValue);
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
-		this.pasteType = newSourceType(Paste.class, features);
+		final Type<Paste> pasteType = newSourceType(Paste.class, features);
+		this.mount = new Mount(pasteParent, pasteType);
+	}
+
+	private static final class Mount
+	{
+		final ItemField<? extends Item> pasteParent;
+		final Type<Paste> pasteType;
+
+		Mount(
+				final ItemField<? extends Item> pasteParent,
+				final Type<Paste> pasteType)
+		{
+			assert pasteParent!=null;
+			assert pasteType!=null;
+
+			this.pasteParent = pasteParent;
+			this.pasteType = pasteType;
+		}
+	}
+
+	private final Mount mount()
+	{
+		final Mount mount = this.mount;
+		if(mount==null)
+			throw new IllegalStateException("feature not mounted");
+		return mount;
 	}
 
 	@Override
@@ -242,8 +268,9 @@ public class TextUrlFilter extends MediaFilter
 
 	private final Paste getPaste(final Item item, final String key)
 	{
-		return pasteType.searchSingletonStrict(Cope.and(
-				Cope.equalAndCast(pasteParent, item),
+		final Mount mount = mount();
+		return mount.pasteType.searchSingletonStrict(Cope.and(
+				Cope.equalAndCast(mount.pasteParent, item),
 				pasteKey.equal(key)
 		));
 	}
