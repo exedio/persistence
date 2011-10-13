@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.StringField;
 
-final class TextUrlFilterOverride extends TextUrlFilter
+public final class TextUrlFilterOverride extends TextUrlFilter
 {
 	public TextUrlFilterOverride(
 			final Media raw,
