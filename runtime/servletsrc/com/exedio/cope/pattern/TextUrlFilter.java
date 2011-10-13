@@ -216,10 +216,9 @@ public class TextUrlFilter extends MediaFilter
 		}
 		bf.append(srcString.substring(nextStart));
 
-		response.setContentType(supportedContentType);
-
 		final byte[] body = bf.toString().getBytes(encoding);
 		response.setContentLength(body.length);
+		response.setContentType(supportedContentType);
 
 		final ServletOutputStream out = response.getOutputStream();
 		try
