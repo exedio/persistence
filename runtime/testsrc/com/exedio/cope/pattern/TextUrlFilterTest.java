@@ -89,6 +89,17 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 		item.setFertigRaw("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 		assertGet("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
+
+		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
+		try
+		{
+			fertig.doGetIfModified(new Request(), null, item);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("<paste>:6/</paste>:-1", e.getMessage());
+		}
 	}
 
 	private void assertGet(final String body) throws IOException
