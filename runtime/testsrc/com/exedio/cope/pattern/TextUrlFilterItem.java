@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 
 public class TextUrlFilterItem extends Item
 {

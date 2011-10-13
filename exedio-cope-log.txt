@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* TextUrlFilter#appendURL may be overridden for customizing pasted urls.
 * Type#asSubtype added.
 * Type#checkCompleteness added.
 * SchemaInfo#getPrimaryKeyColumnValue added

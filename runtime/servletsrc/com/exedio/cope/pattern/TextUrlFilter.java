@@ -240,7 +240,7 @@ public class TextUrlFilter extends MediaFilter
 		));
 	}
 
-	void appendURL( // TODO make protected
+	protected void appendURL(
 			final StringBuilder bf,
 			final Paste paste,
 			final HttpServletRequest request)
@@ -258,7 +258,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Computed
-	static final class Paste extends Item
+	protected static final class Paste extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

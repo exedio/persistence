@@ -16,11 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.pattern.sub;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.TextUrlFilter;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
 {
@@ -39,7 +41,7 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 	}
 
 	@Override
-	void appendURL(
+	protected void appendURL(
 			final StringBuilder sb,
 			final Paste paste,
 			final HttpServletRequest request)
