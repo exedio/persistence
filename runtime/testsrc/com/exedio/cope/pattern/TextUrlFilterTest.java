@@ -54,8 +54,6 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 	public void testIt() throws IOException
 	{
 		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
-		final String URL1 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
-		final String URL2 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-2.png";
 
 		assertEquals(null, item.getFertigContentType());
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
@@ -72,7 +70,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='TextUrlFilterItem-0' AND key='uno')", e.getMessage());
 		}
 
-		item.addFertigPaste("uno");
+		final String URL1 = "/contextPath/servletPath/" + item.addFertigPaste("uno").getLocator().getPath();
 		assertLocator(
 				(MediaPath)fertig.getSourceTypes().get(0).getFeature("value"),
 				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
@@ -92,7 +90,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		item2.addFertigPaste("uno");
 
-		item.addFertigPaste("duo");
+		final String URL2 = "/contextPath/servletPath/" + item.addFertigPaste("duo").getLocator().getPath();
 		assertGet("<eins><override>" + URL1 + "</override><zwei>");
 
 		item.setFertigRaw("<paste>uno</paste><eins><paste>duo</paste>");

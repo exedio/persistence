@@ -115,13 +115,13 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Wrap(order=20)
-	public final void addPaste(
+	public final Paste addPaste(
 			final Item item,
 			@Parameter("key") final String key,
 			@Parameter("value") final Media.Value value)
 	{
 		final Mount mount = mount();
-		mount.pasteType.newItem(
+		return mount.pasteType.newItem(
 				this.pasteKey.map(key),
 				this.pasteValue.map(value),
 				Cope.mapAndCast(mount.pasteParent, item));
