@@ -207,8 +207,7 @@ public class TextUrlFilter extends MediaFilter
 			final int startPos = tempString.indexOf(pasteStart);
 			final StringBuilder sb = new StringBuilder();
 			sb.append(tempString.substring(0, startPos));
-			String image = tempString.substring(startPos + pasteStart.length());
-			image = image.substring(0, image.indexOf(pasteStop));
+			final String image = tempString.substring(startPos + pasteStart.length(), tempString.indexOf(pasteStop, startPos + pasteStart.length()));
 			appendURL(sb, getPaste(item, image), request);
 			final String rest = tempString.substring(startPos);
 			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
