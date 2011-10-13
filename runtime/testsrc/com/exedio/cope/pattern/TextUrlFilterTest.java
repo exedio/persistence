@@ -70,13 +70,13 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='TextUrlFilterItem-0' AND key='uno')", e.getMessage());
 		}
 
-		final String URL1 = "/contextPath/servletPath/" + item.addFertigPaste("uno").getLocator().getPath();
+		final String url1 = "/contextPath/servletPath/" + item.addFertigPaste("uno").getLocator().getPath();
 		assertLocator(
 				(MediaPath)fertig.getSourceTypes().get(0).getFeature("value"),
 				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
 				fertig.getPasteLocator(item, "uno"));
 		assertEquals(rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
-		assertGet("<eins><override>" + URL1 + "</override><zwei>");
+		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
 
 		try
@@ -90,14 +90,14 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		item2.addFertigPaste("uno");
 
-		final String URL2 = "/contextPath/servletPath/" + item.addFertigPaste("duo").getLocator().getPath();
-		assertGet("<eins><override>" + URL1 + "</override><zwei>");
+		final String url2 = "/contextPath/servletPath/" + item.addFertigPaste("duo").getLocator().getPath();
+		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
 		item.setFertigRaw("<paste>uno</paste><eins><paste>duo</paste>");
-		assertGet("<override>" + URL1 + "</override><eins><override>" + URL2 + "</override>");
+		assertGet("<override>" + url1 + "</override><eins><override>" + url2 + "</override>");
 
 		item.setFertigRaw("<eins><paste>uno</paste><zwei><paste>duo</paste><drei>");
-		assertGet("<eins><override>" + URL1 + "</override><zwei><override>" + URL2 + "</override><drei>");
+		assertGet("<eins><override>" + url1 + "</override><zwei><override>" + url2 + "</override><drei>");
 
 		item.setFertigRaw("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 		assertGet("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
