@@ -106,8 +106,7 @@ public class TextUrlFilter extends MediaFilter
 		addSource( raw, "Raw" );
 	}
 
-	@Wrap(order=10,
-			thrown=@Wrap.Thrown(IOException.class))
+	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
 			final Item item,
 			@Parameter("raw") final Media.Value raw )
@@ -128,8 +127,7 @@ public class TextUrlFilter extends MediaFilter
 				Cope.mapAndCast(this.pasteParent, item));
 	}
 
-	@Wrap(order=30,
-			thrown=@Wrap.Thrown(IOException.class))
+	@Wrap(order=30, thrown=@Wrap.Thrown(IOException.class))
 	public final void modifyPaste(
 			final Item item,
 			@Parameter("key") final String key,
