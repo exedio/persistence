@@ -29,7 +29,7 @@ public class TextUrlFilterItem extends Item
 
 	static final Media roh = new Media().optional();
 
-	static final TextUrlFilter fertig = new TextUrlFilter(
+	static final TextUrlFilter fertig = new TextUrlFilterOverride(
 			roh,
 			"text/plain", "utf-8",
 			"paste(", ")",

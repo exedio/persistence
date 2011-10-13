@@ -76,13 +76,13 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
 				fertig.getPasteLocator(item, "uno"));
 		assertEquals(rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
-		assertGet("<eins>" + URL1 + "<zwei>");
+		assertGet("<eins><override>" + URL1 + "</override><zwei>");
 
 		item.addFertigPaste("duo");
-		assertGet("<eins>" + URL1 + "<zwei>");
+		assertGet("<eins><override>" + URL1 + "</override><zwei>");
 
 		item.setFertigRaw("paste(uno)<eins>paste(duo)");
-		assertGet(URL1 + "<eins>" + URL2);
+		assertGet("<override>" + URL1 + "</override><eins><override>" + URL2 + "</override>");
 	}
 
 	private void assertGet(final String body) throws IOException
