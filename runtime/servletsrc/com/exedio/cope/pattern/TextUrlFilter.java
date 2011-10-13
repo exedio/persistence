@@ -241,14 +241,14 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	void appendURL( // TODO make protected
-			final StringBuilder sb,
+			final StringBuilder bf,
 			final Paste paste,
 			final HttpServletRequest request)
 	{
-		sb.append(request.getContextPath());
-		sb.append(request.getServletPath());
-		sb.append('/');
-		pasteValue.getLocator(paste).appendPath(sb);
+		bf.append(request.getContextPath());
+		bf.append(request.getServletPath());
+		bf.append('/');
+		pasteValue.getLocator(paste).appendPath(bf);
 	}
 
 	@Override
