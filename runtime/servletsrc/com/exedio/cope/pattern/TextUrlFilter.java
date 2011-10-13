@@ -214,9 +214,19 @@ public class TextUrlFilter extends MediaFilter
 
 			nextStart = stop + pasteStopLen;
 		}
-		bf.append(srcString.substring(nextStart));
 
-		final byte[] body = bf.toString().getBytes(encoding);
+		final byte[] body;
+		if(nextStart>0)
+		{
+			bf.append(srcString.substring(nextStart));
+			body = bf.toString().getBytes(encoding);
+		}
+		else
+		{
+			// short cut if there are no pastes at all
+			body = sourceByte;
+		}
+
 		response.setContentLength(body.length);
 		response.setContentType(supportedContentType);
 
