@@ -42,12 +42,12 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 
 	@Override
 	protected void appendURL(
-			final StringBuilder sb,
+			final StringBuilder bf,
 			final Paste paste,
 			final HttpServletRequest request)
 	{
-		sb.append("<override>");
-		super.appendURL(sb, paste, request);
-		sb.append("</override>");
+		bf.append("<override>");
+		super.appendURL(bf, paste, request);
+		bf.append("</override>");
 	}
 }
