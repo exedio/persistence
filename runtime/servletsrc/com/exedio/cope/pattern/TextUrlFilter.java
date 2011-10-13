@@ -199,6 +199,8 @@ public class TextUrlFilter extends MediaFilter
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, encoding);
 
+		final int pasteStartLen = pasteStart.length();
+		final int pasteStopLen  = pasteStop .length();
 		final StringBuilder bf = new StringBuilder(srcString.length());
 		int nextStart = 0;
 		for(int start = srcString.indexOf(pasteStart); start>=0; start = srcString.indexOf(pasteStart, nextStart))
@@ -208,9 +210,9 @@ public class TextUrlFilter extends MediaFilter
 				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop + ':' + stop);
 
 			bf.append(srcString.substring(nextStart, start));
-			appendURL(bf, getPaste(item, srcString.substring(start + pasteStart.length(), stop)), request);
+			appendURL(bf, getPaste(item, srcString.substring(start + pasteStartLen, stop)), request);
 
-			nextStart = stop + pasteStop.length();
+			nextStart = stop + pasteStopLen;
 		}
 		bf.append(srcString.substring(nextStart));
 
