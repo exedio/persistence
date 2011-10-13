@@ -201,22 +201,27 @@ public class TextUrlFilter extends MediaFilter
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, encoding);
 
-		String tempString = srcString;
-		while(tempString.indexOf(pasteStart) > -1)
+		final StringBuilder bf = new StringBuilder(srcString.length());
+		int lastStop = 0 - pasteStop.length();
+		for(
+				int start = srcString.indexOf(pasteStart);
+				start>=0;
+				start = srcString.indexOf(pasteStart, lastStop + pasteStop.length()))
 		{
-			final int startPos = tempString.indexOf(pasteStart);
-			final StringBuilder sb = new StringBuilder();
-			sb.append(tempString.substring(0, startPos));
-			final String image = tempString.substring(startPos + pasteStart.length(), tempString.indexOf(pasteStop, startPos + pasteStart.length()));
-			appendURL(sb, getPaste(item, image), request);
-			final String rest = tempString.substring(startPos);
-			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
-			tempString = sb.toString();
+			final int stop = srcString.indexOf(pasteStop, start);
+			if(stop<0)
+				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop + ':' + stop);
+
+			bf.append(srcString.substring(lastStop + pasteStop.length(), start));
+			appendURL(bf, getPaste(item, srcString.substring(start + pasteStart.length(), stop)), request);
+
+			lastStop = stop;
 		}
+		bf.append(srcString.substring(lastStop + pasteStop.length()));
 
 		response.setContentType(supportedContentType);
 
-		final byte[] body = tempString.getBytes(encoding);
+		final byte[] body = bf.toString().getBytes(encoding);
 		response.setContentLength(body.length);
 
 		final ServletOutputStream out = response.getOutputStream();
