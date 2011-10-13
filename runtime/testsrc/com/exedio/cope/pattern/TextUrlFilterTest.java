@@ -70,7 +70,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='TextUrlFilterItem-0' AND key='uno')", e.getMessage());
 		}
 
-		final String url1 = "/contextPath/servletPath/" + item.addFertigPaste("uno").getLocator().getPath();
+		final String url1 = item.addFertigPaste("uno");
 		assertLocator(
 				(MediaPath)fertig.getSourceTypes().get(0).getFeature("value"),
 				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
@@ -90,7 +90,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		item2.addFertigPaste("uno");
 
-		final String url2 = "/contextPath/servletPath/" + item.addFertigPaste("duo").getLocator().getPath();
+		final String url2 = item.addFertigPaste("duo");
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
 		item.setFertigRaw("<paste>uno</paste><eins><paste>duo</paste>");
