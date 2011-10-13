@@ -207,7 +207,7 @@ public class TextUrlFilter extends MediaFilter
 		{
 			final int stop = srcString.indexOf(pasteStop, start);
 			if(stop<0)
-				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop + ':' + stop);
+				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop);
 
 			bf.append(srcString.substring(nextStart, start));
 			appendURL(bf, getPaste(item, srcString.substring(start + pasteStartLen, stop)), request);

@@ -98,7 +98,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("<paste>:6/</paste>:-1", e.getMessage());
+			assertEquals("<paste>:6/</paste>", e.getMessage());
 		}
 
 		item.setFertigRaw("<eins><paste>");
@@ -109,7 +109,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("<paste>:6/</paste>:-1", e.getMessage());
+			assertEquals("<paste>:6/</paste>", e.getMessage());
 		}
 	}
 
