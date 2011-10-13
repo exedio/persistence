@@ -201,10 +201,7 @@ public class TextUrlFilter extends MediaFilter
 
 		final StringBuilder bf = new StringBuilder(srcString.length());
 		int nextStart = 0;
-		for(
-				int start = srcString.indexOf(pasteStart);
-				start>=0;
-				start = srcString.indexOf(pasteStart, nextStart))
+		for(int start = srcString.indexOf(pasteStart); start>=0; start = srcString.indexOf(pasteStart, nextStart))
 		{
 			final int stop = srcString.indexOf(pasteStop, start);
 			if(stop<0)
