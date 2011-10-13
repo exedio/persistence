@@ -34,12 +34,10 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 			final Media raw,
 			final String supportedContentType,
 			final String encoding,
-			final String pasteStart,
-			final String pasteStop,
 			final StringField pasteKey,
 			final Media pasteValue)
 	{
-		super(raw, supportedContentType, encoding, pasteStart, pasteStop, pasteKey, pasteValue);
+		super(raw, supportedContentType, encoding, "<paste>", "</paste>", pasteKey, pasteValue);
 	}
 
 	@Override
