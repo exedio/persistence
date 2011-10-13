@@ -209,10 +209,7 @@ public class TextUrlFilter extends MediaFilter
 			sb.append(tempString.substring(0, startPos));
 			String image = tempString.substring(startPos + pasteStart.length());
 			image = image.substring(0, image.indexOf(pasteStop));
-			sb.append(request.getContextPath());
-			sb.append(request.getServletPath());
-			sb.append('/');
-			pasteValue.getLocator(getPaste(item, image)).appendPath(sb);
+			appendURL(sb, getPaste(item, image), request);
 			final String rest = tempString.substring(startPos);
 			sb.append(rest.substring(rest.indexOf(pasteStop) + 1));
 			tempString = sb.toString();
@@ -241,6 +238,17 @@ public class TextUrlFilter extends MediaFilter
 				Cope.equalAndCast(pasteParent, item),
 				pasteKey.equal(key)
 		));
+	}
+
+	private final void appendURL( // TODO allow overriding by subclasses
+			final StringBuilder sb,
+			final Paste paste,
+			final HttpServletRequest request)
+	{
+		sb.append(request.getContextPath());
+		sb.append(request.getServletPath());
+		sb.append('/');
+		pasteValue.getLocator(paste).appendPath(sb);
 	}
 
 	@Override
