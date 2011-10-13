@@ -30,6 +30,7 @@ import javax.servlet.ServletOutputStream;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.UniqueViolationException;
 
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {
@@ -40,20 +41,21 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	TextUrlFilterItem item;
+	TextUrlFilterItem item, item2;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new TextUrlFilterItem());
+		item2 = deleteOnTearDown(new TextUrlFilterItem());
 	}
 
 	public void testIt() throws IOException
 	{
 		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
 		final String URL1 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png";
-		final String URL2 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-1.png";
+		final String URL2 = "/contextPath/servletPath/TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-2.png";
 
 		assertEquals(null, item.getFertigContentType());
 		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
@@ -77,6 +79,18 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 				fertig.getPasteLocator(item, "uno"));
 		assertEquals(rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
 		assertGet("<eins><override>" + URL1 + "</override><zwei>");
+
+
+		try
+		{
+			item.addFertigPaste("uno");
+			fail();
+		}
+		catch(final UniqueViolationException e)
+		{
+			assertEquals("unique violation for TextUrlFilterItem-fertig.parentAndKey", e.getMessage());
+		}
+		item2.addFertigPaste("uno");
 
 		item.addFertigPaste("duo");
 		assertGet("<eins><override>" + URL1 + "</override><zwei>");
