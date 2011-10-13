@@ -86,6 +86,9 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 		item.setFertigRaw("<eins><paste>uno</paste><zwei><paste>duo</paste><drei>");
 		assertGet("<eins><override>" + URL1 + "</override><zwei><override>" + URL2 + "</override><drei>");
+
+		item.setFertigRaw("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
+		assertGet("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 	}
 
 	private void assertGet(final String body) throws IOException
