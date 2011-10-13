@@ -200,22 +200,22 @@ public class TextUrlFilter extends MediaFilter
 		final String srcString = new String(sourceByte, encoding);
 
 		final StringBuilder bf = new StringBuilder(srcString.length());
-		int lastStop = 0 - pasteStop.length();
+		int nextStart = 0;
 		for(
 				int start = srcString.indexOf(pasteStart);
 				start>=0;
-				start = srcString.indexOf(pasteStart, lastStop + pasteStop.length()))
+				start = srcString.indexOf(pasteStart, nextStart))
 		{
 			final int stop = srcString.indexOf(pasteStop, start);
 			if(stop<0)
 				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop + ':' + stop);
 
-			bf.append(srcString.substring(lastStop + pasteStop.length(), start));
+			bf.append(srcString.substring(nextStart, start));
 			appendURL(bf, getPaste(item, srcString.substring(start + pasteStart.length(), stop)), request);
 
-			lastStop = stop;
+			nextStart = stop + pasteStop.length();
 		}
-		bf.append(srcString.substring(lastStop + pasteStop.length()));
+		bf.append(srcString.substring(nextStart));
 
 		response.setContentType(supportedContentType);
 
