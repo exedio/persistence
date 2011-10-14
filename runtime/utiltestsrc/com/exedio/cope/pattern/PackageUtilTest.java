@@ -39,6 +39,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MediaSummaryTest.class);
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(PasswordRecoveryConfigTest.class);
+		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
 		return suite;
 	}
 }
