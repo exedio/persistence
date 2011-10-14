@@ -36,6 +36,11 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		assertFalse(AnItem.simple.getSource().isAnnotationPresent(PreventUrlGuessing.class));
 		assertTrue (pasteValue(AnItem.secret).isAnnotationPresent(PreventUrlGuessing.class));
 		assertTrue (AnItem.secret.getSource().isAnnotationPresent(PreventUrlGuessing.class));
+
+		assertNull   (pasteValue(AnItem.simple).getAnnotation(PreventUrlGuessing.class));
+		assertNull   (AnItem.simple.getSource().getAnnotation(PreventUrlGuessing.class));
+		assertNotNull(pasteValue(AnItem.secret).getAnnotation(PreventUrlGuessing.class));
+		assertNotNull(AnItem.secret.getSource().getAnnotation(PreventUrlGuessing.class));
 	}
 
 	static final class AnItem extends Item
