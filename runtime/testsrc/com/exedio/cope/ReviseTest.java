@@ -167,6 +167,17 @@ public class ReviseTest extends CopeAssert
 		}
 
 		final String blah =
+			" " +
+			"Auml \u00c4; Ouml \u00d6; Uuml \u00dc; " +
+			"auml \u00e4; ouml \u00f6; uuml \u00fc; " +
+			"szlig \u00df; paragraph \u00a7; kringel \u00b0; " +
+			"abreve \u0102; hebrew \u05d8 euro \u20ac" +
+			"Aringabove \u00c5;" +     // ISO-8859-1/4/9/10 (Latin1/4/5/6)
+			"Lacute \u0139;" +         // ISO-8859-2 (Latin2)
+			"Cdotabove \u010a;" +      // ISO-8859-3 (Latin3)
+			"ha \u0425;" +             // ISO-8859-5 (Cyrillic)
+			"AlefHamzaBelow \u0625;" + // ISO-8859-6 (Arabic)
+			"Epsilon \u0395;" +        // ISO-8859-7 (Greek)
 			" blub blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
