@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -53,6 +55,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private final StringField pasteKey;
 	final Media pasteValue;
+	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mount = null;
 
@@ -102,7 +105,7 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteStop = pasteStop;
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
-		addSource( raw, "Raw" );
+		addSource(raw, "Raw", preventUrlGuessingProxy);
 	}
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
@@ -165,7 +168,7 @@ public class TextUrlFilter extends MediaFilter
 		features.put("parent", pasteParent);
 		features.put("key", pasteKey);
 		features.put("parentAndKey", pasteParentAndKey);
-		features.put("value", pasteValue);
+		features.put("value", pasteValue, preventUrlGuessingProxy);
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
 		final Type<Paste> pasteType = newSourceType(Paste.class, features);
 		this.mount = new Mount(pasteParent, pasteType);
@@ -315,6 +318,46 @@ public class TextUrlFilter extends MediaFilter
 		private TextUrlFilter getPattern()
 		{
 			return (TextUrlFilter)getCopeType().getPattern();
+		}
+	}
+
+	private final class PreventUrlGuessingProxy implements AnnotatedElement
+	{
+		PreventUrlGuessingProxy()
+		{
+			// just to make non-private
+		}
+
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			return
+				(PreventUrlGuessing.class==annotationClass)
+				? TextUrlFilter.this.isAnnotationPresent(annotationClass)
+				: false;
+		}
+
+		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+		{
+			return
+				(PreventUrlGuessing.class==annotationClass)
+				? TextUrlFilter.this.getAnnotation(annotationClass)
+				: null;
+		}
+
+		public Annotation[] getAnnotations()
+		{
+			throw new RuntimeException(TextUrlFilter.this.toString());
+		}
+
+		public Annotation[] getDeclaredAnnotations()
+		{
+			throw new RuntimeException(TextUrlFilter.this.toString());
+		}
+
+		@Override
+		public String toString()
+		{
+			return TextUrlFilter.this.toString() + "-preventUrlGuessingAnnotations";
 		}
 	}
 
