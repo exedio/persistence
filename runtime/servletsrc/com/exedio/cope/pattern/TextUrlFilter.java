@@ -55,6 +55,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private final StringField pasteKey;
 	final Media pasteValue;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
 	private Mount mount = null;
