@@ -67,7 +67,7 @@ public final class Dispatcher extends Pattern
 	final LongField runElapsed = new LongField().toFinal().min(0);
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
 	private Mount mount = null;
 
 	private volatile boolean probeRequired = true;

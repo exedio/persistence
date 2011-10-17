@@ -49,7 +49,7 @@ public class Hash extends Pattern implements Settable<String>
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
 	private final Algorithm algorithm;
 	private final String encoding;
 

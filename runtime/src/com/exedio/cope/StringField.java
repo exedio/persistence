@@ -39,7 +39,7 @@ public final class StringField extends FunctionField<String>
 
 	private final int minimumLength;
 	private final int maximumLength;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // Non-transient non-serializable instance field in serializable class
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
 	private final CharSet charSet;
 
 	private StringField(
