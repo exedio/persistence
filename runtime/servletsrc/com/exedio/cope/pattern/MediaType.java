@@ -57,6 +57,11 @@ public final class MediaType
 		assert extension!=null;
 	}
 
+	public boolean hasMagic()
+	{
+		return magic!=null;
+	}
+
 	public String getName()
 	{
 		return name;

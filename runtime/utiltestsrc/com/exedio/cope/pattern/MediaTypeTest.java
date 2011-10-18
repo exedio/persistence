@@ -66,6 +66,9 @@ public class MediaTypeTest extends CopeAssert
 			assertEquals("name", e.getMessage());
 		}
 
+		assertTrue(jpg.hasMagic());
+		assertFalse(js.hasMagic());
+
 		assertEquals("image/jpeg", jpg.getName());
 		assertEquals("image/png", png.getName());
 
