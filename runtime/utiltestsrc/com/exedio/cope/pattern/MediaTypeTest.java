@@ -110,14 +110,14 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
 		final MediaType zip = forName("application/zip");
-		final MediaType js  = forName("application/java-archive");
+		final MediaType jar = forName("application/java-archive");
 
 		assertMagic(JPEG,        jpg);
 		assertMagic(JPEG + "aa", jpg);
 		assertMagic(PNG,         png);
 		assertMagic(PNG  + "bb", png);
-		assertMagic(ZIP,         zip, js);
-		assertMagic(ZIP  + "cc", zip, js);
+		assertMagic(ZIP,         zip, jar);
+		assertMagic(ZIP  + "cc", zip, jar);
 		assertMagic(stealTail(JPEG));
 		assertMagic(stealTail(PNG));
 		assertMagic(stealTail(ZIP));
