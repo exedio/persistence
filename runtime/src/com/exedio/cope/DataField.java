@@ -82,7 +82,7 @@ public final class DataField extends Field<DataField.Value>
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private BlobColumn column;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;

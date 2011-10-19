@@ -43,7 +43,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mount = null;
 
 	private ListField(final FunctionField<E> element)

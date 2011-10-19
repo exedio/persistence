@@ -53,7 +53,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final boolean optional;
 	private final Class<E> valueClass;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CompositeType<E> valueType;
 	private final LinkedHashMap<String, FunctionField> templates;
 	private final int componentSize;

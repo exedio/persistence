@@ -35,7 +35,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E>[] multipliers;
 
 	private MultiplyView(final Function<E>[] multipliers)

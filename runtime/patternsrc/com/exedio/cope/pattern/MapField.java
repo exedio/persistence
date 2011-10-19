@@ -44,7 +44,7 @@ public final class MapField<K,V> extends Pattern
 
 	private final FunctionField<K> key;
 	private final FunctionField<V> value;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mount = null;
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
