@@ -297,7 +297,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Computed
-	protected static final class Paste extends Item
+	public static final class Paste extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
