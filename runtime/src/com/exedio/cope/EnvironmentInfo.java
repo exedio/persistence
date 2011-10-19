@@ -30,11 +30,13 @@ public final class EnvironmentInfo
 
 	EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
-		database = new Product(dmd.getDatabaseProductName(),
+		database = new Product(
+				dmd.getDatabaseProductName(),
 				dmd.getDatabaseProductVersion(),
 				dmd.getDatabaseMajorVersion(),
 				dmd.getDatabaseMinorVersion());
-		driver = new Product(dmd.getDriverName(),
+		driver = new Product(
+				dmd.getDriverName(),
 				dmd.getDriverVersion(),
 				dmd.getDriverMajorVersion(),
 				dmd.getDriverMinorVersion());
