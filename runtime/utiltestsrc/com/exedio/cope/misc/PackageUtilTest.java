@@ -37,6 +37,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TimeUtilTest.class);
 		suite.addTestSuite(CompareTest.class);
 		suite.addTestSuite(SetValueUtilTest.class);
+		suite.addTestSuite(SerializationCheckTest.class);
 		return suite;
 	}
 }
