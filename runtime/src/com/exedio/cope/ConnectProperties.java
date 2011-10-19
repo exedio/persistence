@@ -46,6 +46,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField disableSemicolon          = new BooleanField("disableSupport.semicolon", true); // TODO
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
+	final BooleanField hsqldbNullsAreSortedLow = new BooleanField("hsqldb.nullsAreSortedLow", false);
+
 	// schema
 
 	final BooleanField updateCounter = new BooleanField("schema.updateCounter", true);

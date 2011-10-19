@@ -29,6 +29,8 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class HsqldbDialect extends Dialect
 {
+	private final boolean nullsAreSortedLow;
+
 	/**
 	 * @param parameters must be there to be called by reflection
 	 */
@@ -37,6 +39,8 @@ final class HsqldbDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.HsqldbDialect());
+
+		this.nullsAreSortedLow = parameters.properties.hsqldbNullsAreSortedLow.booleanValue();
 	}
 
 	@Override
@@ -105,11 +109,27 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	boolean nullsAreSortedLow()
+	{
+		if(super.nullsAreSortedLow()==true)
+			System.out.println(getClass().getName() + ": nullsAreSortedLow is unexpectedly correct");
+		return nullsAreSortedLow;
+	}
+
+	@Override
 	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
 	{
 		super.appendOrderBy(bf, function, ascending);
 		if(ascending)
-			bf.append(" nulls last");
+		{
+			if(!nullsAreSortedLow)
+				bf.append(" nulls last");
+		}
+		else
+		{
+			if(nullsAreSortedLow)
+				bf.append(" nulls last");
+		}
 	}
 
 	@Override
