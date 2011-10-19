@@ -153,15 +153,15 @@ public final class EnvironmentInfo
 		}
 
 		boolean isVersionAtLeast(
-				final int expectedMajor,
-				final int expectedMinor)
+				final int major,
+				final int minor)
 		{
-			if(expectedMajor<majorVersion)
+			if(major<majorVersion)
 				return true;
-			else if(expectedMajor>majorVersion)
+			else if(major>majorVersion)
 				return false;
 			else
-				return expectedMinor<=minorVersion;
+				return minor<=minorVersion;
 		}
 	}
 }
