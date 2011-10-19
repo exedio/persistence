@@ -28,9 +28,9 @@ final class TransactionInfoLocal extends TransactionInfo
 
 	TransactionInfoLocal(final Transaction transaction)
 	{
-		this.id = transaction.getID();
-		this.name = transaction.getName();
-		this.startDate = transaction.getStartDate().getTime();
+		this.id = transaction.id;
+		this.name = transaction.name;
+		this.startDate = transaction.startDate;
 	}
 
 	@Override
