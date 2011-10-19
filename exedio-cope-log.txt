@@ -12,7 +12,7 @@ The items are sorted inversely, i.e. latest items are on top
 	if you want hsqldb behave like MySQL, otherwise do nothing.
 * SerializationCheck added
 * MediaType#hasMagic() added
-* TextUrlFilter#addPaste returns rceated Paste,
+* TextUrlFilter#addPaste returns created Paste,
 	affects instrumented code.
 * TextUrlFilter allows pasteStop longer than one character
 * TextUrlFilter#appendURL may be overridden for customizing pasted urls.
