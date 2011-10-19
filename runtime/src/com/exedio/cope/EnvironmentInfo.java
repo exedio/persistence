@@ -25,120 +25,143 @@ import java.util.Properties;
 
 public final class EnvironmentInfo
 {
-	private final String databaseProductName;
-	private final String databaseProductVersion;
-	private final int databaseMajorVersion;
-	private final int databaseMinorVersion;
-	private final String driverName;
-	private final String driverVersion;
-	private final int driverMajorVersion;
-	private final int driverMinorVersion;
+	private final Product database;
+	private final Product driver;
 
 	EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
 	{
-		databaseProductName = dmd.getDatabaseProductName();
-		databaseProductVersion = dmd.getDatabaseProductVersion();
-		databaseMajorVersion = dmd.getDatabaseMajorVersion();
-		databaseMinorVersion = dmd.getDatabaseMinorVersion();
-		driverName = dmd.getDriverName();
-		driverVersion = dmd.getDriverVersion();
-		driverMajorVersion = dmd.getDriverMajorVersion();
-		driverMinorVersion = dmd.getDriverMinorVersion();
+		database = new Product(dmd.getDatabaseProductName(),
+				dmd.getDatabaseProductVersion(),
+				dmd.getDatabaseMajorVersion(),
+				dmd.getDatabaseMinorVersion());
+		driver = new Product(dmd.getDriverName(),
+				dmd.getDriverVersion(),
+				dmd.getDriverMajorVersion(),
+				dmd.getDriverMinorVersion());
 	}
 
 	public String getDatabaseProductName()
 	{
-		return databaseProductName;
+		return database.name;
 	}
 
 	public String getDatabaseProductVersion()
 	{
-		return databaseProductVersion;
+		return database.version;
 	}
 
 	public int getDatabaseMajorVersion()
 	{
-		return databaseMajorVersion;
+		return database.majorVersion;
 	}
 
 	public int getDatabaseMinorVersion()
 	{
-		return databaseMinorVersion;
+		return database.minorVersion;
 	}
 
 	public String getDriverName()
 	{
-		return driverName;
+		return driver.name;
 	}
 
 	public String getDriverVersion()
 	{
-		return driverVersion;
+		return driver.version;
 	}
 
 	public int getDriverMajorVersion()
 	{
-		return driverMajorVersion;
+		return driver.majorVersion;
 	}
 
 	public int getDriverMinorVersion()
 	{
-		return driverMinorVersion;
+		return driver.minorVersion;
 	}
 
 	public String getDatabaseVersionDescription()
 	{
-		return databaseProductVersion + ' ' + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')';
+		return database.getVersionDescription();
 	}
 
 	public String getDriverVersionDescription()
 	{
-		return driverVersion + ' ' + '(' + driverMajorVersion + '.' + driverMinorVersion + ')';
+		return driver.getVersionDescription();
 	}
 
 	public Properties asProperties()
 	{
 		final Properties result = new Properties();
-		result.setProperty("database.name", databaseProductName);
-		result.setProperty("database.version", getDatabaseVersionDescription());
-		result.setProperty("driver.name", driverName);
-		result.setProperty("driver.version", getDriverVersionDescription());
+		database.asProperties("database.", result);
+		driver.asProperties("driver.", result);
 		return result;
 	}
 
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
-		e.put("database.name",    databaseProductName);
-		e.put("database.version", databaseProductVersion);
-		e.put("database.version.major", String.valueOf(databaseMajorVersion));
-		e.put("database.version.minor", String.valueOf(databaseMinorVersion));
-		e.put("driver.name",    driverName);
-		e.put("driver.version", driverVersion);
-		e.put("driver.version.major", String.valueOf(driverMajorVersion));
-		e.put("driver.version.minor", String.valueOf(driverMinorVersion));
+		database.putRevisionEnvironment("database.", e);
+		driver.putRevisionEnvironment("driver.", e);
 	}
 
 	public boolean isDatabaseVersionAtLeast(final int major, final int minor)
 	{
-		return isVersionAtLeast(major, minor, databaseMajorVersion, databaseMinorVersion);
+		return database.isVersionAtLeast(major, minor);
 	}
 
 	public boolean isDriverVersionAtLeast(final int major, final int minor)
 	{
-		return isVersionAtLeast(major, minor, driverMajorVersion, driverMinorVersion);
+		return driver.isVersionAtLeast(major, minor);
 	}
 
-	private static boolean isVersionAtLeast(
-			final int expectedMajor,
-			final int expectedMinor,
-			final int actualMajor,
-			final int actualMinor)
+	private static final class Product
 	{
-		if(expectedMajor<actualMajor)
-			return true;
-		else if(expectedMajor>actualMajor)
-			return false;
-		else
-			return expectedMinor<=actualMinor;
+		final String name;
+		final String version;
+		final int majorVersion;
+		final int minorVersion;
+
+		Product(
+				final String name,
+				final String version,
+				final int majorVersion,
+				final int minorVersion)
+		{
+			this.name = name;
+			this.version = version;
+			this.majorVersion = majorVersion;
+			this.minorVersion = minorVersion;
+		}
+
+		String getVersionDescription()
+		{
+			return version + ' ' + '(' + majorVersion + '.' + minorVersion + ')';
+		}
+
+		void asProperties(final String prefix, final Properties result)
+		{
+			result.setProperty(prefix + "name", name);
+			result.setProperty(prefix + "version", getVersionDescription());
+		}
+
+		void putRevisionEnvironment(final String prefix, final HashMap<String, String> e)
+		{
+			e.put(prefix + "name", name);
+			e.put(prefix + "version", version);
+			e.put(prefix + "version.major", String.valueOf(majorVersion));
+			e.put(prefix + "version.minor", String.valueOf(minorVersion));
+		}
+
+		boolean isVersionAtLeast(
+				final int expectedMajor,
+				final int expectedMinor)
+		{
+			if(expectedMajor<majorVersion)
+				return true;
+			else if(expectedMajor>majorVersion)
+				return false;
+			else
+				return expectedMinor<=minorVersion;
+		}
 	}
 }
