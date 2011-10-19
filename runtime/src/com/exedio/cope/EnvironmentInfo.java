@@ -152,9 +152,7 @@ public final class EnvironmentInfo
 			e.put(prefix + "version.minor", String.valueOf(minorVersion));
 		}
 
-		boolean isVersionAtLeast(
-				final int major,
-				final int minor)
+		boolean isVersionAtLeast(final int major, final int minor)
 		{
 			if(major<majorVersion)
 				return true;
