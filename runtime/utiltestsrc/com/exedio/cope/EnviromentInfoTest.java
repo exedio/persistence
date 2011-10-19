@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Properties;
 
 import junit.framework.TestCase;
 
@@ -37,6 +39,32 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals( 3, i.getDatabaseMinorVersion());
 		assertEquals(14, i.getDriverMajorVersion());
 		assertEquals(18, i.getDriverMinorVersion());
+
+		assertEquals("getDatabaseProductVersion (5.3)", i.getDatabaseVersionDescription());
+		assertEquals("getDriverVersion (14.18)", i.getDriverVersionDescription());
+
+		{
+			final Properties expected = new Properties();
+			expected.setProperty("database.name", "getDatabaseProductName");
+			expected.setProperty("database.version", "getDatabaseProductVersion (5.3)");
+			expected.setProperty("driver.name", "getDriverName");
+			expected.setProperty("driver.version", "getDriverVersion (14.18)");
+			assertEquals(expected, i.asProperties());
+		}
+		{
+			final HashMap<String, String> expected = new HashMap<String, String>();;
+			expected.put("database.name", "getDatabaseProductName");
+			expected.put("database.version", "getDatabaseProductVersion");
+			expected.put("database.version.major", "5");
+			expected.put("database.version.minor", "3");
+			expected.put("driver.name", "getDriverName");
+			expected.put("driver.version", "getDriverVersion");
+			expected.put("driver.version.major", "14");
+			expected.put("driver.version.minor", "18");
+			final HashMap<String, String> actual = new HashMap<String, String>();
+			i.putRevisionEnvironment(actual);
+			assertEquals(expected, actual);
+		}
 
 		assertEquals(true,  i.isDatabaseVersionAtLeast(4, 2));
 		assertEquals(true,  i.isDatabaseVersionAtLeast(4, 3));
