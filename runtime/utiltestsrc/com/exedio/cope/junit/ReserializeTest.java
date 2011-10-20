@@ -29,5 +29,10 @@ public class ReserializeTest extends CopeAssert
 		final String[] copy = reserialize(original, 57);
 		assertEquals(copy[0], copy[1]);
 		assertSame(copy[0], copy[1]);
+
+		assertEquals(original[0], copy[0]);
+		assertEquals(original[1], copy[1]);
+		assertNotSame(original[0], copy[0]);
+		assertNotSame(original[1], copy[1]);
 	}
 }
