@@ -24,7 +24,7 @@ package com.exedio.cope;
  * the model takes care, that {@link #get(EnvironmentInfo)}
  * is called only while the model is connected and only once for each connect.
  */
-public interface RevisionsFuture
+public interface RevisionsFuture // TODO rename to RevisionsFactory or Revisions.Factory
 {
 	Revisions get(EnvironmentInfo environment);
 }
