@@ -274,7 +274,7 @@ public abstract class CopeAssert extends TestCase
 		try
 		{
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
+			final ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos);
 			oos.writeObject(value);
 			oos.close();
 
@@ -292,6 +292,41 @@ public abstract class CopeAssert extends TestCase
 		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
+		}
+	}
+
+	private static final class DeduplicateStringsObjectOutputStream extends ObjectOutputStream
+	{
+		private HashMap<String, String> strings = null;
+
+		DeduplicateStringsObjectOutputStream(final ByteArrayOutputStream out) throws IOException
+		{
+			super(out);
+			enableReplaceObject(true);
+		}
+
+		@Override
+		protected Object replaceObject(final Object obj)
+		{
+			if(obj instanceof String)
+			{
+				final String string = (String)obj;
+				if(strings==null)
+					strings = new HashMap<String, String>();
+
+				final String replacement = strings.get(string);
+				if(replacement==null)
+				{
+					strings.put(string, string);
+					return string;
+				}
+				else
+				{
+					return replacement;
+				}
+			}
+			else
+				return obj;
 		}
 	}
 
