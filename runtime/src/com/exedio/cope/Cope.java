@@ -157,80 +157,94 @@ public abstract class Cope
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Field#set(Item, Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
-		field.set(item, verboseCast(field.getValueClass(), value));
+		field.set(item, Cast.verboseCast(field.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#equal(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
-		return function.equal(verboseCast(function.getValueClass(), value));
+		return function.equal(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#notEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.notEqual(verboseCast(function.getValueClass(), value));
+		return function.notEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#less(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
-		return function.less(verboseCast(function.getValueClass(), value));
+		return function.less(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#lessOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.lessOrEqual(verboseCast(function.getValueClass(), value));
+		return function.lessOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greater(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
-		return function.greater(verboseCast(function.getValueClass(), value));
+		return function.greater(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greaterOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
+		return function.greaterOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
+
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>values</tt> to <tt>X</tt> before calling
+	 * {@link Function#between(Object, Object)}
+	 * @throws ClassCastException if one of the <tt>values</tt> is not assignable to <tt>X</tt>
+	 */
+	public static <X> Condition betweenAndCast(final Function<X> function, Object lowerBound, Object upperBound)
+	{
+		return function.between(
+				  Cast.verboseCast(function.getValueClass(), lowerBound),
+				  Cast.verboseCast(function.getValueClass(), upperBound));
+	}
+
 
 	@SuppressWarnings("deprecation") // OK: Selectable.check is for internal use within COPE only
 	static void check(final Selectable select, final TC tc, final Join join)
