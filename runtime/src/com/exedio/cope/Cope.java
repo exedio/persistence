@@ -156,7 +156,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -167,7 +167,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#equal(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -178,7 +178,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#notEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -189,7 +189,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#less(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -200,7 +200,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#lessOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -211,7 +211,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greater(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -222,7 +222,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greaterOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
@@ -233,12 +233,12 @@ public abstract class Cope
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
+	 * {@link Cast#verboseCast(Class, Object) Casts}
 	 * <tt>values</tt> to <tt>X</tt> before calling
 	 * {@link Function#between(Object, Object)}
 	 * @throws ClassCastException if one of the <tt>values</tt> is not assignable to <tt>X</tt>
 	 */
-	public static <X> Condition betweenAndCast(final Function<X> function, Object lowerBound, Object upperBound)
+	public static <X> Condition betweenAndCast(final Function<X> function, final Object lowerBound, final Object upperBound)
 	{
 		return function.between(
 				  Cast.verboseCast(function.getValueClass(), lowerBound),
