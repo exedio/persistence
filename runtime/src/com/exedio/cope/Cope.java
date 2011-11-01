@@ -240,9 +240,10 @@ public abstract class Cope
 	 */
 	public static <X> Condition betweenAndCast(final Function<X> function, final Object lowerBound, final Object upperBound)
 	{
+		final Class<X> valueClass = function.getValueClass();
 		return function.between(
-				  Cast.verboseCast(function.getValueClass(), lowerBound),
-				  Cast.verboseCast(function.getValueClass(), upperBound));
+				  Cast.verboseCast(valueClass, lowerBound),
+				  Cast.verboseCast(valueClass, upperBound));
 	}
 
 
