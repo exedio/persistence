@@ -30,13 +30,9 @@ final class Cluster
 			final ClusterProperties clusterProperties,
 			final Connect connect)
 	{
-		{
-			this.properties = clusterProperties;
-			{
-				this.sender   = new ClusterSenderMulticast(clusterProperties);
-				this.listener = new ClusterListenerMulticast(clusterProperties, name, sender, types.concreteTypeCount, connect);
-			}
-		}
+		this.properties = clusterProperties;
+		this.sender   = new ClusterSenderMulticast(clusterProperties);
+		this.listener = new ClusterListenerMulticast(clusterProperties, name, sender, types.concreteTypeCount, connect);
 	}
 
 	void close()
