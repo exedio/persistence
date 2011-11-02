@@ -126,7 +126,9 @@ final class Connect
 
 		if(properties.cluster.booleanValue())
 		{
-			final ClusterProperties clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+			final ClusterProperties clusterProperties =
+				ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+
 			if(clusterProperties!=null)
 				this.cluster = new Cluster(name, types, clusterProperties, this);
 			else
