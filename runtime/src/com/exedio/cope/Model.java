@@ -494,20 +494,20 @@ public final class Model implements Serializable
 
 	public Properties getClusterProperties()
 	{
-		final Cluster c = connect().cluster;
-		return c!=null ? c.properties : null;
+		final Cluster cluster = connect().cluster;
+		return cluster!=null ? cluster.properties : null;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
-		final Cluster c = connect().cluster;
-		return c!=null ? c.sender.getInfo() : null;
+		final Cluster cluster = connect().cluster;
+		return cluster!=null ? cluster.sender.getInfo() : null;
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final Cluster c = connect().cluster;
-		return c!=null ? c.listener.getInfo() : null;
+		final Cluster cluster = connect().cluster;
+		return cluster!=null ? cluster.listener.getInfo() : null;
 	}
 
 	// ----------------------- transaction
