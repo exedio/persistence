@@ -20,9 +20,9 @@ package com.exedio.cope;
 
 final class Cluster
 {
-	final ClusterProperties clusterProperties;
-	final ClusterSenderMulticast clusterSender;
-	final ClusterListenerMulticast clusterListener;
+	final ClusterProperties properties;
+	final ClusterSenderMulticast sender;
+	final ClusterListenerMulticast listener;
 
 	Cluster(
 			final String name,
@@ -31,23 +31,23 @@ final class Cluster
 			final Connect connect)
 	{
 		{
-			this.clusterProperties = clusterProperties;
+			this.properties = clusterProperties;
 			{
-				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
-				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, connect);
+				this.sender   = new ClusterSenderMulticast(clusterProperties);
+				this.listener = new ClusterListenerMulticast(clusterProperties, name, sender, types.concreteTypeCount, connect);
 			}
 		}
 	}
 
 	void close()
 	{
-		clusterSender.close();
-		clusterListener.startClose();
+		sender.close();
+		listener.startClose();
 	}
 
 	void joinClose()
 	{
-		if(clusterListener!=null)
-			clusterListener.joinClose();
+		if(listener!=null)
+			listener.joinClose();
 	}
 }

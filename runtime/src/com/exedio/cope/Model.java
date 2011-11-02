@@ -495,19 +495,19 @@ public final class Model implements Serializable
 	public Properties getClusterProperties()
 	{
 		final Cluster c = connect().cluster;
-		return c!=null ? c.clusterProperties : null;
+		return c!=null ? c.properties : null;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
 		final Cluster c = connect().cluster;
-		return c!=null ? c.clusterSender.getInfo() : null;
+		return c!=null ? c.sender.getInfo() : null;
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
 		final Cluster c = connect().cluster;
-		return c!=null ? c.clusterListener.getInfo() : null;
+		return c!=null ? c.listener.getInfo() : null;
 	}
 
 	// ----------------------- transaction
@@ -694,7 +694,7 @@ public final class Model implements Serializable
 		final Cluster cluster = connect().cluster;
 		if(cluster==null)
 			throw new IllegalStateException("cluster network not enabled");
-		cluster.clusterSender.ping(count);
+		cluster.sender.ping(count);
 	}
 
 	// serialization -------------
