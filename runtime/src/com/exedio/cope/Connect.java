@@ -128,13 +128,9 @@ final class Connect
 		{
 			final ClusterProperties clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
 			if(clusterProperties!=null)
-			{
 				this.cluster = new Cluster(name, types, clusterProperties, this);
-			}
 			else
-			{
 				this.cluster = null;
-			}
 		}
 		else
 		{
