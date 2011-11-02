@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 final class Cluster
 {
 	final ClusterProperties clusterProperties;
