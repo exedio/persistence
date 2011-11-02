@@ -177,7 +177,7 @@ final class Connect
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
 		if(propagateToCluster && cluster!=null)
-			cluster.sender.invalidate(invalidations);
+			cluster.sendInvalidate(invalidations);
 	}
 
 	void createSchema()
@@ -240,7 +240,7 @@ final class Connect
 		final ArrayList<ThreadController> result = new ArrayList<ThreadController>(2);
 		changeListenerDispatcher.addThreadControllers(result);
 		if(cluster!=null)
-			cluster.listener.addThreadControllers(result);
+			cluster.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
 }

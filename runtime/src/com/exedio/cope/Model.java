@@ -501,13 +501,13 @@ public final class Model implements Serializable
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
 		final Cluster cluster = connect().cluster;
-		return cluster!=null ? cluster.sender.getInfo() : null;
+		return cluster!=null ? cluster.getSenderInfo() : null;
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
 		final Cluster cluster = connect().cluster;
-		return cluster!=null ? cluster.listener.getInfo() : null;
+		return cluster!=null ? cluster.getListenerInfo() : null;
 	}
 
 	// ----------------------- transaction
@@ -694,7 +694,7 @@ public final class Model implements Serializable
 		final Cluster cluster = connect().cluster;
 		if(cluster==null)
 			throw new IllegalStateException("cluster network not enabled");
-		cluster.sender.ping(count);
+		cluster.sendPing(count);
 	}
 
 	// serialization -------------

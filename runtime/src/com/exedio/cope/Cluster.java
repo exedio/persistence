@@ -18,11 +18,15 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+
+import gnu.trove.TIntHashSet;
+
 final class Cluster
 {
 	final ClusterProperties properties;
-	final ClusterSenderMulticast sender;
-	final ClusterListenerMulticast listener;
+	private final ClusterSenderMulticast sender;
+	private final ClusterListenerMulticast listener;
 
 	Cluster(
 			final String name,
@@ -35,6 +39,16 @@ final class Cluster
 		this.listener = new ClusterListenerMulticast(properties, name, sender, types.concreteTypeCount, connect);
 	}
 
+	void sendInvalidate(final TIntHashSet[] invalidations)
+	{
+		sender.invalidate(invalidations);
+	}
+
+	void sendPing(final int count)
+	{
+		sender.ping(count);
+	}
+
 	void close()
 	{
 		sender.close();
@@ -45,5 +59,20 @@ final class Cluster
 	{
 		if(listener!=null)
 			listener.joinClose();
+	}
+
+	void addThreadControllers(final ArrayList<ThreadController> list)
+	{
+		listener.addThreadControllers(list);
+	}
+
+	ClusterSenderInfo getSenderInfo()
+	{
+		return sender.getInfo();
+	}
+
+	ClusterListenerInfo getListenerInfo()
+	{
+		return listener.getInfo();
 	}
 }
