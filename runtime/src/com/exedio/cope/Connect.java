@@ -47,9 +47,7 @@ final class Connect
 	final Database database;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
-	final ClusterProperties clusterProperties;
-	final ClusterSenderMulticast clusterSender;
-	final ClusterListenerMulticast clusterListener;
+	final Cluster cluster;
 	final ChangeListenerDispatcher changeListenerDispatcher;
 
 	final boolean supportsTransactionIsolationReadCommitted;
@@ -128,23 +126,19 @@ final class Connect
 
 		if(properties.cluster.booleanValue())
 		{
-			this.clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+			final ClusterProperties clusterProperties = ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
 			if(clusterProperties!=null)
 			{
-				this.clusterSender   = new ClusterSenderMulticast(clusterProperties);
-				this.clusterListener = new ClusterListenerMulticast(clusterProperties, name, clusterSender, types.concreteTypeCount, this);
+				this.cluster = new Cluster(name, types, clusterProperties, this);
 			}
 			else
 			{
-				this.clusterSender   = null;
-				this.clusterListener = null;
+				this.cluster = null;
 			}
 		}
 		else
 		{
-			this.clusterProperties = null;
-			this.clusterSender   = null;
-			this.clusterListener = null;
+			this.cluster = null;
 		}
 
 		this.changeListenerDispatcher =
@@ -160,18 +154,16 @@ final class Connect
 	{
 		changeListenerDispatcher.startClose();
 
-		if(clusterSender!=null)
-			clusterSender.close();
-		if(clusterListener!=null)
-			clusterListener.startClose();
+		if(cluster!=null)
+			cluster.close();
 
 		connectionPool.flush();
 
 		// let threads have some time to terminate,
 		// doing other thing in the mean time
 		changeListenerDispatcher.joinClose();
-		if(clusterListener!=null)
-			clusterListener.joinClose();
+		if(cluster!=null)
+			cluster.joinClose();
 	}
 
 	boolean supportsEmptyStrings()
@@ -188,8 +180,8 @@ final class Connect
 	{
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
-		if(propagateToCluster && clusterSender!=null)
-			clusterSender.invalidate(invalidations);
+		if(propagateToCluster && cluster!=null)
+			cluster.clusterSender.invalidate(invalidations);
 	}
 
 	void createSchema()
@@ -251,8 +243,8 @@ final class Connect
 	{
 		final ArrayList<ThreadController> result = new ArrayList<ThreadController>(2);
 		changeListenerDispatcher.addThreadControllers(result);
-		if(clusterListener!=null)
-			clusterListener.addThreadControllers(result);
+		if(cluster!=null)
+			cluster.clusterListener.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
 }
