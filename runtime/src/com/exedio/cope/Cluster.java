@@ -27,12 +27,12 @@ final class Cluster
 	Cluster(
 			final String name,
 			final Types types,
-			final ClusterProperties clusterProperties,
+			final ClusterProperties properties,
 			final Connect connect)
 	{
-		this.properties = clusterProperties;
-		this.sender   = new ClusterSenderMulticast(clusterProperties);
-		this.listener = new ClusterListenerMulticast(clusterProperties, name, sender, types.concreteTypeCount, connect);
+		this.properties = properties;
+		this.sender   = new ClusterSenderMulticast(properties);
+		this.listener = new ClusterListenerMulticast(properties, name, sender, types.concreteTypeCount, connect);
 	}
 
 	void close()
