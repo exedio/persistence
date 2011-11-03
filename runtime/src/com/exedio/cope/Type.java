@@ -375,10 +375,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private Mount<T> mount()
 	{
-		if(mountIfMounted==null)
+		final Mount<T> mount = this.mountIfMounted;
+		if(mount==null)
 			throw new IllegalStateException("type " + id + " (" + javaClass.getName() + ") does not belong to any model");
-
-		return mountIfMounted;
+		return mount;
 	}
 
 	private static final class Mount<C extends Item>
