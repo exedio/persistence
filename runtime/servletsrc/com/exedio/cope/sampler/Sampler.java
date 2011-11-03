@@ -188,7 +188,7 @@ public final class Sampler
 				sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
 				sv.addAll(SamplerModel.map(mediaSummary));
 				sv.addAll(SamplerModel.map(clusterSenderInfo));
-				sv.addAll(SamplerModel.map(clusterListenerInfo));
+				sv.add(SamplerModel.map(clusterListenerInfo));
 				model = SamplerModel.TYPE.newItem(sv);
 			}
 			{

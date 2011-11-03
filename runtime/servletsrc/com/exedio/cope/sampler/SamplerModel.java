@@ -38,6 +38,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
+import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
 
 final class SamplerModel extends Item
@@ -194,18 +195,13 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField clusterListenerException    = new LongField().toFinal().min(0);
-	private static final LongField clusterListenerMissingMagic = new LongField().toFinal().min(0);
-	private static final LongField clusterListenerWrongSecret  = new LongField().toFinal().min(0);
-	private static final LongField clusterListenerFromMyself   = new LongField().toFinal().min(0);
+	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
 
-	static List<SetValue> map(final ClusterListenerInfo info)
+	static SetValue map(final ClusterListenerInfo info)
 	{
-		return Arrays.asList((SetValue)
-			clusterListenerException   .map(info!=null ? info.getException()    : 0),
-			clusterListenerMissingMagic.map(info!=null ? info.getMissingMagic() : 0),
-			clusterListenerWrongSecret .map(info!=null ? info.getWrongSecret()  : 0),
-			clusterListenerFromMyself  .map(info!=null ? info.getFromMyself()   : 0));
+		return clusterListener.map(
+			info!=null ? new SamplerClusterListener(info) : null
+		);
 	}
 
 

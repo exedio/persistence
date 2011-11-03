@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.EnvironmentInfo;
+import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 import com.exedio.cope.RevisionsFuture;
 
@@ -37,7 +38,13 @@ final class SamplerRevisions implements RevisionsFuture
 	private Revisions getMysql()
 	{
 		return new Revisions(
-			0
+			new Revision(1, "use composite SamplerClusterListener",
+				"alter table `SamplerModel` " +
+					"change `clusterListenerException`  `clusterListener_exception` bigint, " +
+					"change `clusterListeneWrongSecret` `clusterListen_wrongSecret` bigint, " +
+					"change `clusterListeneMissinMagic` `clusterListene_missiMagic` bigint, " +
+					"change `clusterListenerFromMyself` `clusterListene_fromMyself` bigint"
+			)
 		);
 	}
 
