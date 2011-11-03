@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.MODEL;
-import static com.exedio.cope.sampler.Stuff.sampler;
+import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
@@ -39,7 +39,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 		super.setUp();
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;
-		sampler.getModel().connect(new ConnectProperties(
+		samplerModel.connect(new ConnectProperties(
 				Sampler.maskConnectSource(props.getSourceObject()),
 				props.getContext()));
 	}
@@ -47,8 +47,8 @@ public class ConnectedTest extends AbstractRuntimeTest
 	@Override
 	protected void tearDown() throws Exception
 	{
-		sampler.getModel().dropSchema();
-		sampler.getModel().disconnect();
+		samplerModel.dropSchema();
+		samplerModel.disconnect();
 		super.tearDown();
 	}
 }

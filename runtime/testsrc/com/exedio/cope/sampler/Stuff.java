@@ -20,7 +20,7 @@ package com.exedio.cope.sampler;
 
 import com.exedio.cope.Model;
 
-final class Stuff
+public final class Stuff
 {
 	static final Model MODEL = new Model(SampledModelItem.TYPE);
 
@@ -30,4 +30,5 @@ final class Stuff
 	}
 
 	static final Sampler sampler = new Sampler(MODEL);
+	public static final Model samplerModel = sampler.getModel();
 }

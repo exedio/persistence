@@ -231,6 +231,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>samplerConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.sampler.Stuff#samplerModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>samplerConsole</servlet-name>
+		<url-pattern>/sampler/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>badQueryConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>

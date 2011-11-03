@@ -49,6 +49,7 @@ import com.exedio.cope.pattern.HashTest;
 import com.exedio.cope.pattern.LimitedListFieldTest;
 import com.exedio.cope.pattern.ListFieldTest;
 import com.exedio.cope.pattern.MD5Test;
+import com.exedio.cope.sampler.Stuff;
 
 /**
  * Initializes connect properties for all models in runtime/web.xml.
@@ -75,6 +76,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				DispatcherModelTest.MODEL,
 				CopyTest.MODEL,
 				DefaultToTest.MODEL,
+				Stuff.samplerModel,
 				BadQueryTest.MODEL,
 		};
 	}

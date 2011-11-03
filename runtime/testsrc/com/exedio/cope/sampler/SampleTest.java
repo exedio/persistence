@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
+import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static java.util.Arrays.asList;
 
 import java.util.Date;
@@ -34,13 +35,13 @@ public class SampleTest extends ConnectedTest
 {
 	public void testIt()
 	{
-		sampler.getModel().createSchema();
+		samplerModel.createSchema();
 		sampler.check();
-		sampler.getModel().startTransaction("HistoryTest");
+		samplerModel.startTransaction("HistoryTest");
 		assertEquals(0, SamplerModel.TYPE.search().size());
 		assertEquals(0, SamplerItemCache.TYPE.search().size());
 		assertEquals(0, SamplerMedia.TYPE.search().size());
-		sampler.getModel().commit();
+		samplerModel.commit();
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
@@ -53,7 +54,7 @@ public class SampleTest extends ConnectedTest
 		final Date before55 = new Date();
 		sampler.sample();
 		final Date after55 = new Date();
-		sampler.getModel().startTransaction("HistoryTest2");
+		samplerModel.startTransaction("HistoryTest2");
 		final SamplerModel model55;
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
@@ -73,7 +74,7 @@ public class SampleTest extends ConnectedTest
 			media55 = assertIt(model55, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		sampler.getModel().commit();
+		samplerModel.commit();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
@@ -87,7 +88,7 @@ public class SampleTest extends ConnectedTest
 		final Date before66 = new Date();
 		sampler.sample();
 		final Date after66 = new Date();
-		sampler.getModel().startTransaction("HistoryTest2");
+		samplerModel.startTransaction("HistoryTest2");
 		final SamplerModel model66;
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
@@ -111,7 +112,7 @@ public class SampleTest extends ConnectedTest
 			assertIt(model66, sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		sampler.getModel().commit();
+		samplerModel.commit();
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
