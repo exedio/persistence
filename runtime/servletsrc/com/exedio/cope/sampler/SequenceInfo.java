@@ -37,12 +37,12 @@ final class SequenceInfo extends Composite
 	public SequenceInfo(final SequenceChecker.Info info)
 	{
 		this(new com.exedio.cope.SetValue[]{
-				SequenceInfo.inOrder   .map(info.getInOrder()),
-				SequenceInfo.outOfOrder.map(info.getOutOfOrder()),
-				SequenceInfo.duplicate .map(info.getDuplicate()),
-				SequenceInfo.lost      .map(info.getLost()),
-				SequenceInfo.late      .map(info.getLate()),
-				SequenceInfo.pending   .map(info.getPending()),
+				inOrder   .map(info.getInOrder()),
+				outOfOrder.map(info.getOutOfOrder()),
+				duplicate .map(info.getDuplicate()),
+				lost      .map(info.getLost()),
+				late      .map(info.getLate()),
+				pending   .map(info.getPending()),
 			});
 	}
 
