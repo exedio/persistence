@@ -111,9 +111,7 @@ final class SamplerModel extends Item
 
 			itemCacheInvalidateLastSize.map(info.getInvalidateLastSize()),
 			itemCacheInvalidateLastHits.map(info.getInvalidateLastHits()),
-			itemCacheInvalidateLastPurged.map(info.getInvalidateLastPurged())
-
-			);
+			itemCacheInvalidateLastPurged.map(info.getInvalidateLastPurged()));
 	}
 
 
