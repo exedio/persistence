@@ -298,7 +298,7 @@ public final class Schedule extends Pattern
 		final DateField run = new DateField().toFinal();
 		final LongField elapsed = new LongField().toFinal().min(0);
 
-		private Mount mount = null;
+		private Mount mountIfMounted = null;
 
 		Runs()
 		{
@@ -318,7 +318,7 @@ public final class Schedule extends Pattern
 			features.put("elapsed", elapsed);
 			@SuppressWarnings("synthetic-access")
 			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
-			this.mount = new Mount(parent, runs, runType);
+			this.mountIfMounted = new Mount(parent, runs, runType);
 		}
 
 		private static final class Mount
@@ -344,7 +344,7 @@ public final class Schedule extends Pattern
 
 		final Mount mount()
 		{
-			final Mount mount = this.mount;
+			final Mount mount = this.mountIfMounted;
 			if(mount==null)
 				throw new IllegalStateException("feature not mounted");
 			return mount;

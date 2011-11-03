@@ -69,7 +69,7 @@ public final class DynamicModel<L> extends Pattern
 	private final ItemField<Enum<L>>[] enums;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount<L> mount = null;
+	private Mount<L> mountIfMounted = null;
 
 	private DynamicModel(
 			final FunctionField<L> locale,
@@ -210,7 +210,7 @@ public final class DynamicModel<L> extends Pattern
 		ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
 
-		this.mount = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
+		this.mountIfMounted = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}
 
 	private static final class Mount<L>
@@ -240,7 +240,7 @@ public final class DynamicModel<L> extends Pattern
 
 	Mount<L> mount()
 	{
-		final Mount<L> mount = this.mount;
+		final Mount<L> mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;

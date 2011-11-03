@@ -58,7 +58,7 @@ public class TextUrlFilter extends MediaFilter
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	public TextUrlFilter(
 			final Media raw,
@@ -172,7 +172,7 @@ public class TextUrlFilter extends MediaFilter
 		features.put("value", pasteValue, preventUrlGuessingProxy);
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
 		final Type<Paste> pasteType = newSourceType(Paste.class, features);
-		this.mount = new Mount(pasteParent, pasteType);
+		this.mountIfMounted = new Mount(pasteParent, pasteType);
 	}
 
 	private static final class Mount
@@ -194,7 +194,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;

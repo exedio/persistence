@@ -44,7 +44,7 @@ public final class ListField<E> extends AbstractListField<E>
 	private final IntegerField order;
 	private final FunctionField<E> element;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	private ListField(final FunctionField<E> element)
 	{
@@ -77,7 +77,7 @@ public final class ListField<E> extends AbstractListField<E>
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mount = new Mount(parent, uniqueConstraint, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 
 	private static final class Mount
@@ -103,7 +103,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;

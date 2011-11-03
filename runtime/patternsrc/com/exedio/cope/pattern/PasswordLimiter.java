@@ -48,7 +48,7 @@ public final class PasswordLimiter extends Pattern
 
 	final DateField date = new DateField().toFinal();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	public PasswordLimiter(
 			final Hash password,
@@ -95,7 +95,7 @@ public final class PasswordLimiter extends Pattern
 		features.put("date", date);
 		features.put("refusals", refusals);
 		final Type<Refusal> refusalType = newSourceType(Refusal.class, features, "Refusal");
-		this.mount = new Mount(parent, refusals, refusalType);
+		this.mountIfMounted = new Mount(parent, refusals, refusalType);
 	}
 
 	private static final class Mount
@@ -121,7 +121,7 @@ public final class PasswordLimiter extends Pattern
 
 	Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;

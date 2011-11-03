@@ -68,7 +68,7 @@ public final class Dispatcher extends Pattern
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	private volatile boolean probeRequired = true;
 
@@ -108,7 +108,7 @@ public final class Dispatcher extends Pattern
 		features.put("success", runSuccess);
 		features.put("failure", runFailure);
 		final Type<Run> runType = newSourceType(Run.class, features, "Run");
-		this.mount = new Mount(runParent, runRuns, runType);
+		this.mountIfMounted = new Mount(runParent, runRuns, runType);
 	}
 
 	private static final class Mount
@@ -134,7 +134,7 @@ public final class Dispatcher extends Pattern
 
 	final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;

@@ -90,7 +90,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final boolean uniqueConstraintsProblem;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount<T> mount = null;
+	private Mount<T> mountIfMounted = null;
 
 	/**
 	 * This id uniquely identifies a type within its model.
@@ -356,29 +356,29 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new RuntimeException();
 		assert this==parameters.type;
 
-		if(this.mount!=null)
+		if(this.mountIfMounted!=null)
 			throw new RuntimeException(id);
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.cacheIdTransiently>=0)
 			throw new RuntimeException();
 
-		this.mount = new Mount<T>(model, id, parameters);
+		this.mountIfMounted = new Mount<T>(model, id, parameters);
 		this.cacheIdTransiently = parameters.cacheIdTransiently;
 	}
 
 	void assertNotMounted()
 	{
-		if(mount!=null)
+		if(mountIfMounted!=null)
 			throw new IllegalStateException("type " + id + " already mounted");
 	}
 
 	private Mount<T> mount()
 	{
-		if(mount==null)
+		if(mountIfMounted==null)
 			throw new IllegalStateException("type " + id + " (" + javaClass.getName() + ") does not belong to any model");
 
-		return mount;
+		return mountIfMounted;
 	}
 
 	private static final class Mount<C extends Item>
@@ -528,7 +528,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(database==null)
 			throw new RuntimeException();
 
-		if(this.mount==null)
+		if(this.mountIfMounted==null)
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
@@ -570,7 +570,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	void disconnect()
 	{
-		if(this.mount==null)
+		if(this.mountIfMounted==null)
 			throw new RuntimeException();
 		if(this.table==null)
 			throw new RuntimeException();
@@ -1265,7 +1265,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	private Object writeReplace() throws ObjectStreamException
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(Type.class.getName());
 

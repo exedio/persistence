@@ -49,7 +49,7 @@ public final class SetField<E> extends Pattern
 
 	private final FunctionField<E> element;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mount = null;
+	private Mount mountIfMounted = null;
 
 	private SetField(final FunctionField<E> element)
 	{
@@ -80,7 +80,7 @@ public final class SetField<E> extends Pattern
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueConstraint);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mount = new Mount(parent, uniqueConstraint, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 
 	private static final class Mount
@@ -106,7 +106,7 @@ public final class SetField<E> extends Pattern
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
