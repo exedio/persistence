@@ -105,8 +105,8 @@ final class SamplerItemCache extends Item
 			invalidationsOrdered.map(info.getInvalidationsOrdered()),
 			invalidationsDone   .map(info.getInvalidationsDone()),
 
-			invalidateLastSize.map(info.getInvalidateLastSize()),
-			invalidateLastHits.map(info.getInvalidateLastHits()),
+			invalidateLastSize  .map(info.getInvalidateLastSize()),
+			invalidateLastHits  .map(info.getInvalidateLastHits()),
 			invalidateLastPurged.map(info.getInvalidateLastPurged())
 
 			);
