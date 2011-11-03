@@ -41,6 +41,7 @@ import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
+import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
@@ -118,7 +119,36 @@ public final class Sampler
 		};
 	}
 
+	public ConnectToken connect(final String tokenName)
+	{
+		final ConnectToken result = ConnectToken.issue(samplerModel, tokenName);
+
+		boolean mustReturn = true;
+		try
+		{
+			checkInternal();
+			mustReturn = false;
+		}
+		finally
+		{
+			if(mustReturn)
+				result.returnIt();
+		}
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
+		return result;
+	}
+
+	/**
+	 * @deprecated Use {@link #connect(String)} for connecting AND checking instead
+	 */
+	@Deprecated
 	public void check()
+	{
+		checkInternal();
+	}
+
+	void checkInternal()
 	{
 		samplerModel.reviseIfSupported();
 		try

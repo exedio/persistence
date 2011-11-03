@@ -36,7 +36,7 @@ public class SampleTest extends ConnectedTest
 	public void testIt()
 	{
 		samplerModel.createSchema();
-		sampler.check();
+		sampler.checkInternal();
 		samplerModel.startTransaction("HistoryTest");
 		assertEquals(0, SamplerModel.TYPE.search().size());
 		assertEquals(0, SamplerItemCache.TYPE.search().size());

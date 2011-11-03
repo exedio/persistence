@@ -31,7 +31,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, samplerModel.getConnectProperties().getItemCacheLimit());
 		assertEquals(0, samplerModel.getConnectProperties().getQueryCacheLimit());
 		samplerModel.createSchema();
-		sampler.check();
+		sampler.checkInternal();
 
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
