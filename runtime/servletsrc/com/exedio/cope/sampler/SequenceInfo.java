@@ -27,12 +27,12 @@ final class SequenceInfo extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
-	static final IntegerField inOrder    = new IntegerField().min(0);
-	static final IntegerField outOfOrder = new IntegerField().min(0);
-	static final IntegerField duplicate  = new IntegerField().min(0);
-	static final IntegerField lost       = new IntegerField().min(0);
-	static final IntegerField late       = new IntegerField().min(0);
-	static final IntegerField pending    = new IntegerField().min(0);
+	private static final IntegerField inOrder    = new IntegerField().min(0);
+	private static final IntegerField outOfOrder = new IntegerField().min(0);
+	private static final IntegerField duplicate  = new IntegerField().min(0);
+	private static final IntegerField lost       = new IntegerField().min(0);
+	private static final IntegerField late       = new IntegerField().min(0);
+	private static final IntegerField pending    = new IntegerField().min(0);
 
 	public SequenceInfo(final SequenceChecker.Info info)
 	{
