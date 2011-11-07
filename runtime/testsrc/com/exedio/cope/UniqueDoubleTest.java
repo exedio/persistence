@@ -18,13 +18,16 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
+import static com.exedio.cope.UniqueDoubleItem.integer;
+import static com.exedio.cope.UniqueDoubleItem.string;
 
 import java.sql.SQLException;
 
 public class UniqueDoubleTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(UniqueDoubleItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -40,31 +43,31 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 	{
 		assertEqualsUnmodifiable(
 			list(
-				UniqueDoubleItem.TYPE.getThis(),
-				UniqueDoubleItem.string,
-				UniqueDoubleItem.integer,
+				TYPE.getThis(),
+				string,
+				integer,
 				constraint
 			),
-			UniqueDoubleItem.TYPE.getDeclaredFeatures());
+			TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
-				UniqueDoubleItem.TYPE.getThis(),
-				UniqueDoubleItem.string,
-				UniqueDoubleItem.integer,
+				TYPE.getThis(),
+				string,
+				integer,
 				constraint
 			),
-			UniqueDoubleItem.TYPE.getFeatures());
+			TYPE.getFeatures());
 		assertEquals("constraint", constraint.getName());
-		assertEquals(UniqueDoubleItem.TYPE, constraint.getType());
+		assertEquals(TYPE, constraint.getType());
 		assertEqualsUnmodifiable(
-			list(UniqueDoubleItem.string, UniqueDoubleItem.integer),
+			list(string, integer),
 			constraint.getFields());
 		assertEqualsUnmodifiable(
 			list(constraint),
-			UniqueDoubleItem.string.getUniqueConstraints());
+			string.getUniqueConstraints());
 		assertEqualsUnmodifiable(
 			list(constraint),
-			UniqueDoubleItem.integer.getUniqueConstraints());
+			integer.getUniqueConstraints());
 
 		assertSerializedSame(constraint, 384);
 
@@ -98,9 +101,9 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 		try
 		{
-			UniqueDoubleItem.TYPE.newItem(
-					UniqueDoubleItem.string.map("b"),
-					UniqueDoubleItem.integer.map(1)
+			TYPE.newItem(
+					string.map("b"),
+					integer.map(1)
 				);
 			fail();
 		}
