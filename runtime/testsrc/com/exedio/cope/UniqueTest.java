@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
-
 public class UniqueTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
@@ -401,19 +399,5 @@ public class UniqueTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(null));
 
 		assertDelete(item);
-	}
-
-	private void assertCause(final UniqueViolationException e)
-	{
-		final Throwable cause = e.getCause();
-		if(model.connect().executor.supportsUniqueViolation)
-		{
-			assertNotNull(e.getCause());
-			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
-		}
-		else
-		{
-			assertEquals(null, cause);
-		}
 	}
 }

@@ -23,8 +23,6 @@ import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 
-import java.sql.SQLException;
-
 public class UniqueDoubleTest extends AbstractRuntimeTest
 {
 	public UniqueDoubleTest()
@@ -117,19 +115,5 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		assertDelete(a2);
 		assertDelete(a1);
 		assertDelete(b1X);
-	}
-
-	private void assertCause(final UniqueViolationException e)
-	{
-		final Throwable cause = e.getCause();
-		if(model.connect().executor.supportsUniqueViolation)
-		{
-			assertNotNull(e.getCause());
-			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
-		}
-		else
-		{
-			assertEquals(null, cause);
-		}
 	}
 }

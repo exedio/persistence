@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -359,6 +360,20 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	final String filterTableName(final String name)
 	{
 		return model.getConnectProperties().filterTableName(name);
+	}
+
+	protected final void assertCause(final UniqueViolationException e)
+	{
+		final Throwable cause = e.getCause();
+		if(model.connect().executor.supportsUniqueViolation)
+		{
+			assertNotNull(e.getCause());
+			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
+		}
+		else
+		{
+			assertEquals(null, cause);
+		}
 	}
 
 	protected final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
