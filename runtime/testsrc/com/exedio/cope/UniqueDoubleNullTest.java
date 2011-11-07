@@ -41,7 +41,7 @@ public class UniqueDoubleNullTest extends AbstractRuntimeTest
 
 	public void test()
 	{
-		if(oracle)
+		if(oracle) // Oracle violates SQL standard about this
 			return;
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
