@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.UniqueDoubleItem.doubleUnique;
+import static com.exedio.cope.UniqueDoubleItem.constraint;
 
 import java.sql.SQLException;
 
@@ -43,7 +43,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 				UniqueDoubleItem.TYPE.getThis(),
 				UniqueDoubleItem.string,
 				UniqueDoubleItem.integer,
-				doubleUnique
+				constraint
 			),
 			UniqueDoubleItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
@@ -51,38 +51,38 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 				UniqueDoubleItem.TYPE.getThis(),
 				UniqueDoubleItem.string,
 				UniqueDoubleItem.integer,
-				doubleUnique
+				constraint
 			),
 			UniqueDoubleItem.TYPE.getFeatures());
-		assertEquals("doubleUnique", doubleUnique.getName());
-		assertEquals(UniqueDoubleItem.TYPE, doubleUnique.getType());
+		assertEquals("doubleUnique", constraint.getName());
+		assertEquals(UniqueDoubleItem.TYPE, constraint.getType());
 		assertEqualsUnmodifiable(
 			list(UniqueDoubleItem.string, UniqueDoubleItem.integer),
-			doubleUnique.getFields());
+			constraint.getFields());
 		assertEqualsUnmodifiable(
-			list(doubleUnique),
+			list(constraint),
 			UniqueDoubleItem.string.getUniqueConstraints());
 		assertEqualsUnmodifiable(
-			list(doubleUnique),
+			list(constraint),
 			UniqueDoubleItem.integer.getUniqueConstraints());
 
-		assertSerializedSame(doubleUnique, 386);
+		assertSerializedSame(constraint, 386);
 
-		assertEquals(null, UniqueDoubleItem.forDoubleUnique("a", 1));
+		assertEquals(null, UniqueDoubleItem.forConstraint("a", 1));
 
 		final UniqueDoubleItem a1 = new UniqueDoubleItem("a", 1);
-		assertEquals(a1, UniqueDoubleItem.forDoubleUnique("a", 1));
+		assertEquals(a1, UniqueDoubleItem.forConstraint("a", 1));
 
 		final UniqueDoubleItem a2 = new UniqueDoubleItem("a", 2);
-		assertEquals(a2, UniqueDoubleItem.forDoubleUnique("a", 2));
+		assertEquals(a2, UniqueDoubleItem.forConstraint("a", 2));
 
 		final UniqueDoubleItem b1 = new UniqueDoubleItem("b", 1);
-		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 
 		final UniqueDoubleItem b2 = new UniqueDoubleItem("b", 2);
-		assertEquals(b2, UniqueDoubleItem.forDoubleUnique("b", 2));
+		assertEquals(b2, UniqueDoubleItem.forConstraint("b", 2));
 
-		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 		try
 		{
 			new UniqueDoubleItem("b", 1);
@@ -90,12 +90,12 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(doubleUnique, e.getFeature());
+			assertEquals(constraint, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + doubleUnique, e.getMessage());
+			assertEquals("unique violation for " + constraint, e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 		try
 		{
 			UniqueDoubleItem.TYPE.newItem(
@@ -106,12 +106,12 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(doubleUnique, e.getFeature());
+			assertEquals(constraint, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + doubleUnique, e.getMessage());
+			assertEquals("unique violation for " + constraint, e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(b1, UniqueDoubleItem.forDoubleUnique("b", 1));
+		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 
 		try
 		{
@@ -120,9 +120,9 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(doubleUnique, e.getFeature());
+			assertEquals(constraint, e.getFeature());
 			assertEquals(b2, e.getItem());
-			assertEquals("unique violation on " + b2 + " for " + doubleUnique, e.getMessage());
+			assertEquals("unique violation on " + b2 + " for " + constraint, e.getMessage());
 			assertCause(e);
 		}
 		assertEquals(2, b2.getInteger());
@@ -134,9 +134,9 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(doubleUnique, e.getFeature());
+			assertEquals(constraint, e.getFeature());
 			assertEquals(b2, e.getItem());
-			assertEquals("unique violation on " + b2 + " for " + doubleUnique, e.getMessage());
+			assertEquals("unique violation on " + b2 + " for " + constraint, e.getMessage());
 			assertCause(e);
 		}
 		assertEquals(2, b2.getInteger());
@@ -149,7 +149,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		assertDelete(b1);
 
 		final UniqueDoubleItem b1X = new UniqueDoubleItem("b", 1);
-		assertEquals(b1X, UniqueDoubleItem.forDoubleUnique("b", 1));
+		assertEquals(b1X, UniqueDoubleItem.forConstraint("b", 1));
 
 		assertDelete(a2);
 		assertDelete(a1);
