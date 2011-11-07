@@ -54,13 +54,13 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 			UniqueDoubleItem.TYPE.getFeatures());
 		assertEquals("doubleUnique", UniqueDoubleItem.doubleUnique.getName());
 		assertEquals(UniqueDoubleItem.TYPE, UniqueDoubleItem.doubleUnique.getType());
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(UniqueDoubleItem.string, UniqueDoubleItem.integer),
 			UniqueDoubleItem.doubleUnique.getFields());
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(UniqueDoubleItem.doubleUnique),
 			UniqueDoubleItem.string.getUniqueConstraints());
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(UniqueDoubleItem.doubleUnique),
 			UniqueDoubleItem.integer.getUniqueConstraints());
 
