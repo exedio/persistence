@@ -22,6 +22,9 @@ import static com.exedio.cope.UniqueDoubleNullItem.TYPE;
 
 import java.util.Arrays;
 
+/**
+ * See http://bugs.mysql.com/bug.php?id=8173 as well.
+ */
 public class UniqueDoubleNullTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
