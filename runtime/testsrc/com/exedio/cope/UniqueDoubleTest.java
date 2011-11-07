@@ -27,30 +27,13 @@ import java.sql.SQLException;
 
 public class UniqueDoubleTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(UniqueDoubleTest.class, "MODEL");
-	}
-
 	public UniqueDoubleTest()
 	{
-		super(MODEL);
+		super(UniqueDoubleModelTest.MODEL);
 	}
 
 	public void test()
 	{
-		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getFeatures());
-		assertEquals("constraint", constraint.getName());
-		assertEquals(TYPE, constraint.getType());
-		assertEqualsUnmodifiable(list(string, integer), constraint.getFields());
-		assertEqualsUnmodifiable(list(constraint), string.getUniqueConstraints());
-		assertEqualsUnmodifiable(list(constraint), integer.getUniqueConstraints());
-
-		assertSerializedSame(constraint, 384);
-
 		assertEquals(null, UniqueDoubleItem.forConstraint("a", 1));
 
 		final UniqueDoubleItem a1 = new UniqueDoubleItem("a", 1);
