@@ -41,33 +41,13 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 
 	public void test()
 	{
-		assertEqualsUnmodifiable(
-			list(
-				TYPE.getThis(),
-				string,
-				integer,
-				constraint
-			),
-			TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(
-			list(
-				TYPE.getThis(),
-				string,
-				integer,
-				constraint
-			),
-			TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getFeatures());
 		assertEquals("constraint", constraint.getName());
 		assertEquals(TYPE, constraint.getType());
-		assertEqualsUnmodifiable(
-			list(string, integer),
-			constraint.getFields());
-		assertEqualsUnmodifiable(
-			list(constraint),
-			string.getUniqueConstraints());
-		assertEqualsUnmodifiable(
-			list(constraint),
-			integer.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(string, integer), constraint.getFields());
+		assertEqualsUnmodifiable(list(constraint), string.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(constraint), integer.getUniqueConstraints());
 
 		assertSerializedSame(constraint, 384);
 
@@ -101,10 +81,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
 		try
 		{
-			TYPE.newItem(
-					string.map("b"),
-					integer.map(1)
-				);
+			TYPE.newItem(string.map("b"), integer.map(1));
 			fail();
 		}
 		catch(final UniqueViolationException e)
