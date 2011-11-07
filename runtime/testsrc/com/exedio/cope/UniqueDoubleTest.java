@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
+import static com.exedio.cope.UniqueDoubleItem.forConstraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 
@@ -32,21 +33,21 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 
 	public void test()
 	{
-		assertEquals(null, UniqueDoubleItem.forConstraint("a", 1));
+		assertEquals(null, forConstraint("a", 1));
 
 		final UniqueDoubleItem a1 = new UniqueDoubleItem("a", 1);
-		assertEquals(a1, UniqueDoubleItem.forConstraint("a", 1));
+		assertEquals(a1, forConstraint("a", 1));
 
 		final UniqueDoubleItem a2 = new UniqueDoubleItem("a", 2);
-		assertEquals(a2, UniqueDoubleItem.forConstraint("a", 2));
+		assertEquals(a2, forConstraint("a", 2));
 
 		final UniqueDoubleItem b1 = new UniqueDoubleItem("b", 1);
-		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
+		assertEquals(b1, forConstraint("b", 1));
 
 		final UniqueDoubleItem b2 = new UniqueDoubleItem("b", 2);
-		assertEquals(b2, UniqueDoubleItem.forConstraint("b", 2));
+		assertEquals(b2, forConstraint("b", 2));
 
-		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
+		assertEquals(b1, forConstraint("b", 1));
 		try
 		{
 			new UniqueDoubleItem("b", 1);
@@ -59,7 +60,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 			assertEquals("unique violation for " + constraint, e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
+		assertEquals(b1, forConstraint("b", 1));
 		try
 		{
 			TYPE.newItem(string.map("b"), integer.map(1));
@@ -72,7 +73,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 			assertEquals("unique violation for " + constraint, e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(b1, UniqueDoubleItem.forConstraint("b", 1));
+		assertEquals(b1, forConstraint("b", 1));
 
 		try
 		{
@@ -110,7 +111,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 		assertDelete(b1);
 
 		final UniqueDoubleItem b1X = new UniqueDoubleItem("b", 1);
-		assertEquals(b1X, UniqueDoubleItem.forConstraint("b", 1));
+		assertEquals(b1X, forConstraint("b", 1));
 
 		assertDelete(a2);
 		assertDelete(a1);
