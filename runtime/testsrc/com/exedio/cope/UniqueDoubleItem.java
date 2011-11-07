@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 /**
- * An item having two attributes and a unique constraint over these attributes.
+ * An item having two fields and a unique constraint over these fields.
  * @author Ralf Wiebicke
  */
 public class UniqueDoubleItem extends Item
@@ -30,7 +30,7 @@ public class UniqueDoubleItem extends Item
 
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 
-/**
+	/**
 
 	 **
 	 * Creates a new UniqueDoubleItem with all the fields initially needed.
