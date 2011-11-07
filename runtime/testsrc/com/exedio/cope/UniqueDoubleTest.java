@@ -54,7 +54,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 				constraint
 			),
 			UniqueDoubleItem.TYPE.getFeatures());
-		assertEquals("doubleUnique", constraint.getName());
+		assertEquals("constraint", constraint.getName());
 		assertEquals(UniqueDoubleItem.TYPE, constraint.getType());
 		assertEqualsUnmodifiable(
 			list(UniqueDoubleItem.string, UniqueDoubleItem.integer),
@@ -66,7 +66,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 			list(constraint),
 			UniqueDoubleItem.integer.getUniqueConstraints());
 
-		assertSerializedSame(constraint, 386);
+		assertSerializedSame(constraint, 384);
 
 		assertEquals(null, UniqueDoubleItem.forConstraint("a", 1));
 
