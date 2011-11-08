@@ -86,8 +86,8 @@ final class SamplerConsolidate
 			{
 				if(feature.isAnnotationPresent(JoinField.class))
 				{
-						final FunctionField<?> field = (FunctionField)feature;
-						conditions.add(equal(join, field));
+					final FunctionField<?> field = (FunctionField)feature;
+					conditions.add(equal(join, field));
 				}
 			}
 
