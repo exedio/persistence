@@ -44,9 +44,7 @@ final class SamplerMedia extends Item
 	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();
-	@JoinField()
 	private static final DateField connectDate = new DateField().toFinal();
-	@JoinField()
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
 	private static final IntegerField running = new IntegerField().toFinal().min(0);
 
