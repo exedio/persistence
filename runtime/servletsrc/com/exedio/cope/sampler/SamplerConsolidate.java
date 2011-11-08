@@ -48,6 +48,7 @@ final class SamplerConsolidate
 
 		final ArrayList<FunctionField> byDateUnique = new ArrayList<FunctionField>();
 		final IntegerField sampler = replaceByCopy(SamplerModel.sampler, type);
+		final IntegerField running = replaceByCopy(SamplerModel.running, type);
 		{
 			final ArrayList<Function> selects = new ArrayList<Function>();
 			final DateField dateField = replaceByCopy(SamplerModel.date, type);
@@ -76,7 +77,7 @@ final class SamplerConsolidate
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField &&
-					feature!=sampler && feature!=SamplerModel.duration)
+					feature!=sampler && feature!=SamplerModel.duration && feature!=running)
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
 				}
@@ -94,7 +95,6 @@ final class SamplerConsolidate
 			conditions.add(equal(join, sampler));
 
 			{
-				final IntegerField running = replaceByCopy(SamplerModel.running, type);
 				conditions.add(running.bind(join).equal(running.plus(1)));
 			}
 

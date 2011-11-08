@@ -49,7 +49,6 @@ public class ConsolidateTest extends ConnectedTest
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
-					"plus(s1.running,running)," +
 					"plus(s1.connectionPoolIdle,connectionPoolIdle)," +
 					"plus(s1.connectionPoolGet,connectionPoolGet)," +
 					"plus(s1.connectionPoolPut,connectionPoolPut)," +
@@ -102,7 +101,6 @@ public class ConsolidateTest extends ConnectedTest
 				"order by this", modelQuery.toString());
 		assertEquals(
 				"select media,date,s1.date," +
-					"plus(s1.running,running)," +
 					"plus(s1.redirectFrom,redirectFrom)," +
 					"plus(s1.exception,exception)," +
 					"plus(s1.guessedUrl,guessedUrl)," +
