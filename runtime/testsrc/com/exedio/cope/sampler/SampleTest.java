@@ -67,17 +67,19 @@ public class SampleTest extends ConnectedTest
 			itemCache55 = c ? assertIt(model55, sampler, iter.next()) : null;
 			assertFalse(iter.hasNext());
 		}
-		final SamplerMedia media55;
+		final SamplerMedia media55a;
+		final SamplerMedia media55b;
 		{
 			final Iterator<SamplerMedia> iter = SamplerMedia.TYPE.search().iterator();
-			media55 = assertIt(model55, sampler, iter.next());
+			media55a = assertIt(model55, "SampledModelItem.mediaA", sampler, iter.next());
+			media55b = assertIt(model55, "SampledModelItem.mediaB", sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(1, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
 		assertEquals(c?asList(date55, date55):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
@@ -106,15 +108,17 @@ public class SampleTest extends ConnectedTest
 		}
 		{
 			final Iterator<SamplerMedia> iter = iter(SamplerMedia.TYPE);
-			assertEquals(media55, iter.next());
-			assertIt(model66, sampler, iter.next());
+			assertEquals(media55a, iter.next());
+			assertEquals(media55b, iter.next());
+			assertIt(model66, "SampledModelItem.mediaA", sampler, iter.next());
+			assertIt(model66, "SampledModelItem.mediaB", sampler, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
 		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
 		assertEquals(c?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
@@ -171,11 +175,12 @@ public class SampleTest extends ConnectedTest
 
 	private static final SamplerMedia assertIt(
 			final SamplerModel model,
+			final String id,
 			final Sampler sampler,
 			final SamplerMedia media)
 	{
 		assertEquals(model, media.getModel());
-		assertEquals("SampledModelItem.media", media.getMedia());
+		assertEquals(id, media.getMedia());
 		assertEquals(SamplerModel.date.get(model), media.getDate());
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());

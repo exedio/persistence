@@ -69,6 +69,14 @@ public class ConsolidateTest extends ConnectedTest
 					SamplerModel.date.get(model2)),
 				medias.next().subList(0, 2));
 			assertEquals(list(
+					SamplerModel.date.get(model1),
+					SamplerModel.date.get(model2)),
+				medias.next().subList(0, 2));
+			assertEquals(list(
+					SamplerModel.date.get(model2),
+					SamplerModel.date.get(model3)),
+				medias.next().subList(0, 2));
+			assertEquals(list(
 					SamplerModel.date.get(model2),
 					SamplerModel.date.get(model3)),
 				medias.next().subList(0, 2));
