@@ -78,8 +78,8 @@ final class SamplerConsolidate
 			{
 				if(feature instanceof NumberField &&
 					!feature.isAnnotationPresent(NoDifferentiate.class) &&
-					!byDateUnique.contains(feature) &&
-					feature!=sampler && feature!=running)
+					feature!=sampler && feature!=running &&
+					!byDateUnique.contains(feature))
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
 				}
