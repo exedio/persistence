@@ -87,7 +87,7 @@ final class SamplerConsolidate
 				throw new IllegalArgumentException(type.toString());
 			query.setCondition(Cope.and(conditions));
 		}
-		query.setOrderBy(SamplerModel.running, true);
+		query.setOrderByThis(true);
 		return query;
 	}
 
