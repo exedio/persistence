@@ -43,7 +43,6 @@ final class SamplerMedia extends Item
 	@SelectFieldAnno
 	private static final StringField media = new StringField().toFinal();
 
-	@DateFieldAnno
 	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();

@@ -43,7 +43,6 @@ import com.exedio.cope.util.Pool;
 
 final class SamplerModel extends Item
 {
-	@DateFieldAnno
 	static final DateField date = new DateField().toFinal().unique();
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();

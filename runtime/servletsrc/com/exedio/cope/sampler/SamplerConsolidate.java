@@ -54,9 +54,9 @@ final class SamplerConsolidate
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
 				}
-				else if(feature.isAnnotationPresent(DateFieldAnno.class))
+				else if(feature instanceof DateField && (feature==replaceByCopy(SamplerModel.date, type)))
 				{
-					final DateField field = (DateField)feature;
+					final DateField field = replaceByCopy(SamplerModel.date, type);
 					selects.add(field);
 					selects.add(field.bind(join));
 				}
@@ -107,7 +107,7 @@ final class SamplerConsolidate
 		return field.bind(j).equal(field);
 	}
 
-	private static IntegerField replaceByCopy(final IntegerField field, final Type<?> type)
+	private static <F extends FunctionField> F replaceByCopy(final F field, final Type<?> type)
 	{
 		if(field.getType()==type)
 			return field;
@@ -115,7 +115,7 @@ final class SamplerConsolidate
 		for(final CopyConstraint cc : type.getCopyConstraints())
 		{
 			if(cc.getTemplate()==field)
-				return (IntegerField)cc.getCopy();
+				return (F)cc.getCopy();
 		}
 		throw new RuntimeException(field.getID());
 	}
