@@ -164,7 +164,7 @@ public class DifferentiateTest extends ConnectedTest
 				"order by this",
 			mediaQuery.toString());
 
-		samplerModel.startTransaction("SampleTest#consolidate");
+		samplerModel.startTransaction("SampleTest#differentiate");
 		{
 			final Iterator<List<Object>> models = modelQuery.search().iterator();
 			assertEquals(list(
