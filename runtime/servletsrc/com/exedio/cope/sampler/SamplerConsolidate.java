@@ -46,6 +46,7 @@ final class SamplerConsolidate
 			Query.newQuery(new Selectable[]{type.getThis(), type.getThis()}, type, null);
 		final Join join = query.join(type);
 
+		final ArrayList<FunctionField> byDateUnique = new ArrayList<FunctionField>();
 		{
 			final ArrayList<Function> selects = new ArrayList<Function>();
 			final DateField dateField = replaceByCopy(SamplerModel.date, type);
@@ -59,7 +60,10 @@ final class SamplerConsolidate
 						final UniqueConstraint constraint = constraints.get(0);
 						for(final FunctionField field : constraint.getFields())
 							if(field!=dateField)
+							{
 								selects.add(field);
+								byDateUnique.add(field);
+							}
 						break;
 					default:
 						throw new RuntimeException(constraints.toString());
@@ -82,6 +86,9 @@ final class SamplerConsolidate
 		}
 		{
 			final ArrayList<Condition> conditions = new ArrayList<Condition>();
+			for(final FunctionField<?> field : byDateUnique)
+				conditions.add(equal(join, field));
+
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature.isAnnotationPresent(JoinField.class))
