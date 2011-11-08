@@ -46,6 +46,7 @@ public class ConsolidateTest extends ConnectedTest
 		final SamplerModel model3 = sampler.sampleInternal();
 
 		final Query<List<Object>> modelQuery = SamplerConsolidate.makeQuery(SamplerModel.TYPE);
+		final Query<List<Object>> itemQuery = SamplerConsolidate.makeQuery(SamplerItemCache.TYPE);
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
@@ -98,6 +99,24 @@ public class ConsolidateTest extends ConnectedTest
 					"AND s1.running=(running+1)) " +
 				"order by this", modelQuery.toString());
 		assertEquals(
+				"select type,date,s1.date," +
+					"plus(s1.hits,hits)," +
+					"plus(s1.misses,misses)," +
+					"plus(s1.concurrentLoads,concurrentLoads)," +
+					"plus(s1.replacementRuns,replacementRuns)," +
+					"plus(s1.replacements,replacements)," +
+					"plus(s1.invalidationsOrdered,invalidationsOrdered)," +
+					"plus(s1.invalidationsDone,invalidationsDone)," +
+					"plus(s1.invalidateLastHits,invalidateLastHits)," +
+					"plus(s1.invalidateLastPurged,invalidateLastPurged) " +
+				"from SamplerItemCache join SamplerItemCache s1 " +
+				"where (s1.type=type " +
+					"AND s1.connectDate=connectDate " +
+					"AND s1.sampler=sampler " +
+					"AND s1.running=(running+1)) " +
+				"order by this",
+			itemQuery.toString());
+		assertEquals(
 				"select media,date,s1.date," +
 					"plus(s1.redirectFrom,redirectFrom)," +
 					"plus(s1.exception,exception)," +
@@ -130,7 +149,20 @@ public class ConsolidateTest extends ConnectedTest
 				models.next().subList(0, 2));
 			assertFalse(models.hasNext());
 		}
-
+		{
+			final Iterator<List<Object>> items = itemQuery.search().iterator();
+			assertEquals(list(
+					"SampledModelItem",
+					SamplerModel.date.get(model1),
+					SamplerModel.date.get(model2)),
+				items.next().subList(0, 3));
+			assertEquals(list(
+					"SampledModelItem",
+					SamplerModel.date.get(model2),
+					SamplerModel.date.get(model3)),
+				items.next().subList(0, 3));
+			assertFalse(items.hasNext());
+		}
 		{
 			final Iterator<List<Object>> medias = mediaQuery.search().iterator();
 			assertEquals(list(
