@@ -104,15 +104,15 @@ public class ConsolidateTest extends ConnectedTest
 		assertEquals(
 				"select media,date,s1.date," +
 					"plus(s1.running,running)," +
-					 "plus(s1.redirectFrom,redirectFrom)," +
-					 "plus(s1.exception,exception)," +
-					 "plus(s1.guessedUrl,guessedUrl)," +
-					 "plus(s1.notAnItem,notAnItem)," +
-					 "plus(s1.noSuchItem,noSuchItem)," +
-					 "plus(s1.moved,moved),plus(s1.isNull,isNull)," +
-					 "plus(s1.notComputable,notComputable)," +
-					 "plus(s1.notModified,notModified)," +
-					 "plus(s1.delivered,delivered) " +
+					"plus(s1.redirectFrom,redirectFrom)," +
+					"plus(s1.exception,exception)," +
+					"plus(s1.guessedUrl,guessedUrl)," +
+					"plus(s1.notAnItem,notAnItem)," +
+					"plus(s1.noSuchItem,noSuchItem)," +
+					"plus(s1.moved,moved),plus(s1.isNull,isNull)," +
+					"plus(s1.notComputable,notComputable)," +
+					"plus(s1.notModified,notModified)," +
+					"plus(s1.delivered,delivered) " +
 				"from SamplerMedia join SamplerMedia s1 " +
 				"where (s1.media=media " +
 					"AND s1.connectDate=connectDate " +
