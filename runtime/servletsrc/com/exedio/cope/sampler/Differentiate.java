@@ -102,14 +102,16 @@ final class Differentiate
 		}
 		{
 			final ArrayList<Condition> conditions = new ArrayList<Condition>();
-			for(final FunctionField<?> field : byDateUnique)
-				conditions.add(equal(join, field));
 
-			conditions.add(equal(join, replaceByCopy(SamplerModel.connectDate, type)));
 			if(from!=null)
 				conditions.add(dateField.greaterOrEqual(from));
 			if(until!=null)
 				conditions.add(dateField.lessOrEqual(until));
+
+			for(final FunctionField<?> field : byDateUnique)
+				conditions.add(equal(join, field));
+
+			conditions.add(equal(join, replaceByCopy(SamplerModel.connectDate, type)));
 			conditions.add(equal(join, sampler));
 			conditions.add(running.bind(join).equal(running.plus(1)));
 

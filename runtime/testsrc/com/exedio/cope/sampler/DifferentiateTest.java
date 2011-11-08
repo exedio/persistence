@@ -106,9 +106,8 @@ public class DifferentiateTest extends ConnectedTest
 					"minus(s1.clusterListener-wrongSecret,clusterListener-wrongSecret)," +
 					"minus(s1.clusterListener-fromMyself,clusterListener-fromMyself) " +
 				"from SamplerModel join SamplerModel s1 " +
-				"where (s1.connectDate=connectDate " +
-					"AND date>='" + fromString + "' " +
-					"AND date<='" + untilString + "' " +
+				"where (date>='" + fromString + "' AND date<='" + untilString + "' " +
+					"AND s1.connectDate=connectDate " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this", modelQuery.toString());
@@ -124,10 +123,9 @@ public class DifferentiateTest extends ConnectedTest
 					"minus(s1.invalidateLastHits,invalidateLastHits)," +
 					"minus(s1.invalidateLastPurged,invalidateLastPurged) " +
 				"from SamplerItemCache join SamplerItemCache s1 " +
-				"where (s1.type=type " +
+				"where (date>='" + fromString + "' AND date<='" + untilString + "' " +
+					"AND s1.type=type " +
 					"AND s1.connectDate=connectDate " +
-					"AND date>='" + fromString + "' " +
-					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",
@@ -153,10 +151,9 @@ public class DifferentiateTest extends ConnectedTest
 					"minus(s1.pong-late,pong-late)," +
 					"minus(s1.pong-pending,pong-pending) " +
 				"from SamplerClusterNode join SamplerClusterNode s1 " +
-				"where (s1.id=id " +
+				"where (date>='" + fromString + "' AND date<='" + untilString + "' " +
+					"AND s1.id=id " +
 					"AND s1.connectDate=connectDate " +
-					"AND date>='" + fromString + "' " +
-					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",
@@ -174,10 +171,9 @@ public class DifferentiateTest extends ConnectedTest
 					"minus(s1.notModified,notModified)," +
 					"minus(s1.delivered,delivered) " +
 				"from SamplerMedia join SamplerMedia s1 " +
-				"where (s1.media=media " +
+				"where (date>='" + fromString + "' AND date<='" + untilString + "' " +
+					"AND s1.media=media " +
 					"AND s1.connectDate=connectDate " +
-					"AND date>='" + fromString + "' " +
-					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",
