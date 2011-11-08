@@ -52,13 +52,12 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		final Date before55 = new Date();
-		sampler.sample();
+		final SamplerModel model55 = sampler.sampleInternal();
 		final Date after55 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		final SamplerModel model55;
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
-			model55 = assertIt(sampler, before55, after55, 0, iter.next());
+			assertIt(model55, sampler, before55, after55, 0, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = SamplerModel.date.get(model55);
@@ -86,14 +85,13 @@ public class SampleTest extends ConnectedTest
 
 		waitForSystemTimeChange();
 		final Date before66 = new Date();
-		sampler.sample();
+		final SamplerModel model66 = sampler.sampleInternal();
 		final Date after66 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		final SamplerModel model66;
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
-			model66 = assertIt(sampler, before66, after66, 1, iter.next());
+			assertIt(model66, sampler, before66, after66, 1, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = SamplerModel.date.get(model66);
@@ -141,11 +139,13 @@ public class SampleTest extends ConnectedTest
 	}
 
 	private static final SamplerModel assertIt(
+			final SamplerModel expected,
 			final Sampler sampler,
 			final Date before, final Date after,
 			final int running,
 			final SamplerModel model)
 	{
+		assertEquals(expected, model);
 		assertWithin(before, after, SamplerModel.date.get(model));
 		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
 		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));

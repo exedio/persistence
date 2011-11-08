@@ -165,6 +165,11 @@ public final class Sampler
 
 	public void sample()
 	{
+		sampleInternal();
+	}
+
+	SamplerModel sampleInternal()
+	{
 		// prepare
 		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
 
@@ -249,6 +254,7 @@ public final class Sampler
 				}
 			}
 			samplerModel.commit();
+			return model;
 		}
 		finally
 		{
