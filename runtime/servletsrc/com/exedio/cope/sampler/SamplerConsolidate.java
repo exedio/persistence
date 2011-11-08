@@ -78,7 +78,7 @@ final class SamplerConsolidate
 			{
 				if(feature instanceof NumberField &&
 					!feature.isAnnotationPresent(NoConsolidate.class) &&
-					feature!=sampler && feature!=SamplerModel.duration && feature!=running)
+					feature!=sampler && feature!=running)
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
 				}

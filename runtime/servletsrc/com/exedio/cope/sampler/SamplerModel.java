@@ -44,6 +44,7 @@ import com.exedio.cope.util.Pool;
 final class SamplerModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
+	@NoConsolidate
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
