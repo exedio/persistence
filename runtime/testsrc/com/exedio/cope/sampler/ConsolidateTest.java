@@ -59,7 +59,8 @@ public class ConsolidateTest extends ConnectedTest
 					"plus(s1.commitWithConnection,commitWithConnection)," +
 					"plus(s1.rollbackWithoutConnection,rollbackWithoutConnection)," +
 					"plus(s1.rollbackWithConnection,rollbackWithConnection)," +
-					"plus(s1.itemCacheHits,itemCacheHits),plus(s1.itemCacheMisses,itemCacheMisses)," +
+					"plus(s1.itemCacheHits,itemCacheHits)," +
+					"plus(s1.itemCacheMisses,itemCacheMisses)," +
 					"plus(s1.itemCacheConcurrentLoads,itemCacheConcurrentLoads)," +
 					"plus(s1.itemCacheReplacementRuns,itemCacheReplacementRuns)," +
 					"plus(s1.itemCacheReplacements,itemCacheReplacements)," +
@@ -106,7 +107,8 @@ public class ConsolidateTest extends ConnectedTest
 					"plus(s1.guessedUrl,guessedUrl)," +
 					"plus(s1.notAnItem,notAnItem)," +
 					"plus(s1.noSuchItem,noSuchItem)," +
-					"plus(s1.moved,moved),plus(s1.isNull,isNull)," +
+					"plus(s1.moved,moved)," +
+					"plus(s1.isNull,isNull)," +
 					"plus(s1.notComputable,notComputable)," +
 					"plus(s1.notModified,notModified)," +
 					"plus(s1.delivered,delivered) " +
