@@ -20,30 +20,30 @@ package com.exedio.cope;
 
 public final class MinusView<E extends Number> extends NumberView<E>
 {
-	public static final <E extends Number> MinusView<E> minus(final Function<E> dividend, final Function<E> divisor)
+	public static final <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
 	{
-		return new MinusView<E>(dividend, divisor);
+		return new MinusView<E>(minuend, subtrahend);
 	}
 
 
 	private static final long serialVersionUID = 1l;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Function<E> dividend;
+	private final Function<E> minuend;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Function<E> divisor;
+	private final Function<E> subtrahend;
 
-	private MinusView(final Function<E> dividend, final Function<E> divisor)
+	private MinusView(final Function<E> minuend, final Function<E> subtrahend)
 	{
-		super(new Function[]{dividend, divisor}, "minus", PlusView.checkClass(Number.class, dividend.getValueClass()));
+		super(new Function[]{minuend, subtrahend}, "minus", PlusView.checkClass(Number.class, minuend.getValueClass()));
 
-		this.dividend = dividend;
-		this.divisor = divisor;
+		this.minuend = minuend;
+		this.subtrahend = subtrahend;
 	}
 
 	public SelectType<E> getValueType()
 	{
-		return dividend.getValueType();
+		return minuend.getValueType();
 	}
 
 	@Override
@@ -51,24 +51,24 @@ public final class MinusView<E extends Number> extends NumberView<E>
 	public final E mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==2;
-		final Number dividend = (Number)sourceValues[0];
-		if(dividend==null)
+		final Number minuend = (Number)sourceValues[0];
+		if(minuend==null)
 			return null;
-		final Number divisor = (Number)sourceValues[1];
-		if(divisor==null)
+		final Number subtrahend = (Number)sourceValues[1];
+		if(subtrahend==null)
 			return null;
 		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
 		{
-			return (E)Integer.valueOf(((Integer)dividend).intValue() - ((Integer)divisor).intValue());
+			return (E)Integer.valueOf(((Integer)minuend).intValue() - ((Integer)subtrahend).intValue());
 		}
 		else if(valueClass==Long.class)
 		{
-			return (E)Long.valueOf(((Long)dividend).longValue() - ((Long)divisor).longValue());
+			return (E)Long.valueOf(((Long)minuend).longValue() - ((Long)subtrahend).longValue());
 		}
 		else if(valueClass==Double.class)
 		{
-			return (E)Double.valueOf(((Double)dividend).doubleValue() - ((Double)divisor).doubleValue());
+			return (E)Double.valueOf(((Double)minuend).doubleValue() - ((Double)subtrahend).doubleValue());
 		}
 		else
 			throw new RuntimeException(vc.getName());
@@ -78,9 +78,9 @@ public final class MinusView<E extends Number> extends NumberView<E>
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append('(').
-			append(dividend, join).
+			append(minuend, join).
 			append('-').
-			append(divisor, join).
+			append(subtrahend, join).
 			append(')');
 	}
 }
