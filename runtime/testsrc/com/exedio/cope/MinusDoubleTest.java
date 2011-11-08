@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MinusDoubleItem.TYPE;
-import static com.exedio.cope.MinusDoubleItem.divideAB;
-import static com.exedio.cope.MinusDoubleItem.divideAC;
-import static com.exedio.cope.MinusDoubleItem.divideBC;
+import static com.exedio.cope.MinusDoubleItem.viewAB;
+import static com.exedio.cope.MinusDoubleItem.viewAC;
+import static com.exedio.cope.MinusDoubleItem.viewBC;
 import static com.exedio.cope.MinusDoubleItem.numA;
 import static com.exedio.cope.MinusDoubleItem.numB;
 import static com.exedio.cope.MinusDoubleItem.numC;
@@ -62,27 +62,27 @@ public class MinusDoubleTest extends AbstractRuntimeTest
 	public void testSum()
 	{
 		// test model
-		assertEquals(TYPE, divideAB.getType());
-		assertEquals(TYPE, divideAC.getType());
-		assertEquals(TYPE, divideBC.getType());
-		assertEquals("divideAB", divideAB.getName());
-		assertEquals("divideAC", divideAC.getName());
-		assertEquals("divideBC", divideBC.getName());
-		assertEqualsUnmodifiable(list(numA, numB), divideAB.getSources());
-		assertEqualsUnmodifiable(list(numA, numC), divideAC.getSources());
-		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
+		assertEquals(TYPE, viewAB.getType());
+		assertEquals(TYPE, viewAC.getType());
+		assertEquals(TYPE, viewBC.getType());
+		assertEquals("viewAB", viewAB.getName());
+		assertEquals("viewAC", viewAC.getName());
+		assertEquals("viewBC", viewBC.getName());
+		assertEqualsUnmodifiable(list(numA, numB), viewAB.getSources());
+		assertEqualsUnmodifiable(list(numA, numC), viewAC.getSources());
+		assertEqualsUnmodifiable(list(numB, numC), viewBC.getSources());
 
 		// test equals/hashCode
-		assertEquals(divideAB, divideAB);
-		assertEquals(divideAB, numA.minus(numB));
-		assertNotEquals(divideAB, numA.plus(numB));
-		assertNotEquals(divideAB, numA.multiply(numB));
-		assertNotEquals(divideAB, numB.minus(numA));
+		assertEquals(viewAB, viewAB);
+		assertEquals(viewAB, numA.minus(numB));
+		assertNotEquals(viewAB, numA.plus(numB));
+		assertNotEquals(viewAB, numA.multiply(numB));
+		assertNotEquals(viewAB, numB.minus(numA));
 
 		// serialization
-		assertSerializedSame(divideAB, 380);
-		assertSerializedSame(divideAC, 380);
-		assertSerializedSame(divideBC, 380);
+		assertSerializedSame(viewAB, 378);
+		assertSerializedSame(viewAC, 378);
+		assertSerializedSame(viewBC, 378);
 
 		// exceptions
 		try
@@ -111,12 +111,12 @@ public class MinusDoubleTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(nB)));
 		assertContains(item, TYPE.search(numC.equal(nC)));
 
-		assertEquals(dAB, item.getDivideAB());
-		assertEquals(dAC, item.getDivideAC());
-		assertEquals(dBC, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal(dAB)));
-		assertContains(item, TYPE.search(divideAC.equal(dAC)));
-		assertContains(item, TYPE.search(divideBC.between(dBC-EPS,dBC+EPS)));
+		assertEquals(dAB, item.getViewAB());
+		assertEquals(dAC, item.getViewAC());
+		assertEquals(dBC, item.getViewBC());
+		assertContains(item, TYPE.search(viewAB.equal(dAB)));
+		assertContains(item, TYPE.search(viewAC.equal(dAC)));
+		assertContains(item, TYPE.search(viewBC.between(dBC-EPS,dBC+EPS)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -128,12 +128,12 @@ public class MinusDoubleTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(nB)));
 		assertContains(item, TYPE.search(numC.equal(nC)));
 
-		assertEquals(null, item.getDivideAB());
-		assertEquals(null, item.getDivideAC());
-		assertEquals(dBC, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal((Double)null)));
-		assertContains(item, TYPE.search(divideAC.equal((Double)null)));
-		assertContains(item, TYPE.search(divideBC.between(dBC-EPS,dBC+EPS)));
+		assertEquals(null, item.getViewAB());
+		assertEquals(null, item.getViewAC());
+		assertEquals(dBC, item.getViewBC());
+		assertContains(item, TYPE.search(viewAB.equal((Double)null)));
+		assertContains(item, TYPE.search(viewAC.equal((Double)null)));
+		assertContains(item, TYPE.search(viewBC.between(dBC-EPS,dBC+EPS)));
 		assertContains(item, TYPE.search(numA.divide(numB).equal((Double)null)));
 	}
 }

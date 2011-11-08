@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MinusLongItem.TYPE;
-import static com.exedio.cope.MinusLongItem.divideAB;
-import static com.exedio.cope.MinusLongItem.divideAC;
-import static com.exedio.cope.MinusLongItem.divideBC;
+import static com.exedio.cope.MinusLongItem.viewAB;
+import static com.exedio.cope.MinusLongItem.viewAC;
+import static com.exedio.cope.MinusLongItem.viewBC;
 import static com.exedio.cope.MinusLongItem.numA;
 import static com.exedio.cope.MinusLongItem.numB;
 import static com.exedio.cope.MinusLongItem.numC;
@@ -49,22 +49,22 @@ public class MinusLongTest extends AbstractRuntimeTest
 	public void testSum()
 	{
 		// test model
-		assertEquals(TYPE, divideAB.getType());
-		assertEquals(TYPE, divideAC.getType());
-		assertEquals(TYPE, divideBC.getType());
-		assertEquals("divideAB", divideAB.getName());
-		assertEquals("divideAC", divideAC.getName());
-		assertEquals("divideBC", divideBC.getName());
-		assertEqualsUnmodifiable(list(numA, numB), divideAB.getSources());
-		assertEqualsUnmodifiable(list(numA, numC), divideAC.getSources());
-		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
+		assertEquals(TYPE, viewAB.getType());
+		assertEquals(TYPE, viewAC.getType());
+		assertEquals(TYPE, viewBC.getType());
+		assertEquals("viewAB", viewAB.getName());
+		assertEquals("viewAC", viewAC.getName());
+		assertEquals("viewBC", viewBC.getName());
+		assertEqualsUnmodifiable(list(numA, numB), viewAB.getSources());
+		assertEqualsUnmodifiable(list(numA, numC), viewAC.getSources());
+		assertEqualsUnmodifiable(list(numB, numC), viewBC.getSources());
 
 		// test equals/hashCode
-		assertEquals(divideAB, divideAB);
-		assertEquals(divideAB, numA.minus(numB));
-		assertNotEquals(divideAB, numA.plus(numB));
-		assertNotEquals(divideAB, numA.multiply(numB));
-		assertNotEquals(divideAB, numB.minus(numA));
+		assertEquals(viewAB, viewAB);
+		assertEquals(viewAB, numA.minus(numB));
+		assertNotEquals(viewAB, numA.plus(numB));
+		assertNotEquals(viewAB, numA.multiply(numB));
+		assertNotEquals(viewAB, numB.minus(numA));
 
 		// test normal operation
 		assertEquals(l7, item.getNumA());
@@ -74,12 +74,12 @@ public class MinusLongTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(9l)));
 		assertContains(item, TYPE.search(numC.equal(3l)));
 
-		assertEquals(new Long(-2), item.getDivideAB());
-		assertEquals(new Long( 4), item.getDivideAC());
-		assertEquals(new Long( 6), item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal(-2l)));
-		assertContains(item, TYPE.search(divideAC.equal( 4l)));
-		assertContains(item, TYPE.search(divideBC.equal( 6l)));
+		assertEquals(new Long(-2), item.getViewAB());
+		assertEquals(new Long( 4), item.getViewAC());
+		assertEquals(new Long( 6), item.getViewBC());
+		assertContains(item, TYPE.search(viewAB.equal(-2l)));
+		assertContains(item, TYPE.search(viewAC.equal( 4l)));
+		assertContains(item, TYPE.search(viewBC.equal( 6l)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -91,12 +91,12 @@ public class MinusLongTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(9l)));
 		assertContains(item, TYPE.search(numC.equal(3l)));
 
-		assertEquals(null, item.getDivideAB());
-		assertEquals(null, item.getDivideAC());
-		assertEquals(new Long(6), item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal((Long)null)));
-		assertContains(item, TYPE.search(divideAC.equal((Long)null)));
-		assertContains(item, TYPE.search(divideBC.equal(6l)));
+		assertEquals(null, item.getViewAB());
+		assertEquals(null, item.getViewAC());
+		assertEquals(new Long(6), item.getViewBC());
+		assertContains(item, TYPE.search(viewAB.equal((Long)null)));
+		assertContains(item, TYPE.search(viewAC.equal((Long)null)));
+		assertContains(item, TYPE.search(viewBC.equal(6l)));
 		assertContains(item, TYPE.search(numA.divide(numB).equal((Long)null)));
 	}
 }
