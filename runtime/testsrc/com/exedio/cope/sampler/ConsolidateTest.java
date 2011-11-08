@@ -50,16 +50,16 @@ public class ConsolidateTest extends ConnectedTest
 
 		samplerModel.startTransaction("SampleTest#consolidate");
 		{
-			final Iterator<List<Object>> result = modelQuery.search().iterator();
+			final Iterator<List<Object>> models = modelQuery.search().iterator();
 			assertEquals(list(
 					SamplerModel.date.get(model1),
 					SamplerModel.date.get(model2)),
-				result.next().subList(0, 2));
+				models.next().subList(0, 2));
 			assertEquals(list(
 					SamplerModel.date.get(model2),
 					SamplerModel.date.get(model3)),
-				result.next().subList(0, 2));
-			assertFalse(result.hasNext());
+				models.next().subList(0, 2));
+			assertFalse(models.hasNext());
 		}
 
 		{
