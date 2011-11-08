@@ -107,16 +107,16 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertEquals(nA, item.getNumA());
 		assertEquals(nB, item.getNumB());
 		assertEquals(nC, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(8.5)));
-		assertContains(item, TYPE.search(numB.equal(2.5)));
-		assertContains(item, TYPE.search(numC.equal(4.0)));
+		assertContains(item, TYPE.search(numA.equal(nA)));
+		assertContains(item, TYPE.search(numB.equal(nB)));
+		assertContains(item, TYPE.search(numC.equal(nC)));
 
 		assertEquals(dAB, item.getDivideAB());
 		assertEquals(dAC, item.getDivideAC());
 		assertEquals(dBC, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal(3.4)));
-		assertContains(item, TYPE.search(divideAC.between(2.125-EPS, 2.125+EPS)));
-		assertContains(item, TYPE.search(divideBC.equal(0.625)));
+		assertContains(item, TYPE.search(divideAB.equal(dAB)));
+		assertContains(item, TYPE.search(divideAC.between(dAC-EPS, dAC+EPS)));
+		assertContains(item, TYPE.search(divideBC.equal(dBC)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -125,15 +125,15 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		assertEquals(nB, item.getNumB());
 		assertEquals(nC, item.getNumC());
 		assertContains(item, TYPE.search(numA.equal((Double)null)));
-		assertContains(item, TYPE.search(numB.equal(2.5)));
-		assertContains(item, TYPE.search(numC.equal(4.0)));
+		assertContains(item, TYPE.search(numB.equal(nB)));
+		assertContains(item, TYPE.search(numC.equal(nC)));
 
 		assertEquals(null, item.getDivideAB());
 		assertEquals(null, item.getDivideAC());
 		assertEquals(dBC, item.getDivideBC());
 		assertContains(item, TYPE.search(divideAB.equal((Double)null)));
 		assertContains(item, TYPE.search(divideAC.equal((Double)null)));
-		assertContains(item, TYPE.search(divideBC.equal(0.625)));
+		assertContains(item, TYPE.search(divideBC.equal(dBC)));
 		assertContains(item, TYPE.search(numA.divide(numB).equal((Double)null)));
 	}
 }
