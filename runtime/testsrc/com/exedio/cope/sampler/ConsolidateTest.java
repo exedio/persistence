@@ -119,7 +119,6 @@ public class ConsolidateTest extends ConnectedTest
 			itemQuery.toString());
 		assertEquals(
 				"select id,date,s1.date," +
-					"plus(s1.id,id)," + // TODO remove
 					"plus(s1.invalidate-inOrder,invalidate-inOrder)," +
 					"plus(s1.invalidate-outOfOrder,invalidate-outOfOrder)," +
 					"plus(s1.invalidate-duplicate,invalidate-duplicate)," +
