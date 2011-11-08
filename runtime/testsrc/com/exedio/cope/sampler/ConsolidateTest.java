@@ -47,6 +47,79 @@ public class ConsolidateTest extends ConnectedTest
 
 		final Query<List<Object>> modelQuery = SamplerConsolidate.makeQuery(SamplerModel.TYPE);
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
+		assertEquals(
+				"select date,s1.date," +
+					"plus(s1.duration,duration)," +
+					"plus(s1.running,running)," +
+					"plus(s1.connectionPoolIdle,connectionPoolIdle)," +
+					"plus(s1.connectionPoolGet,connectionPoolGet)," +
+					"plus(s1.connectionPoolPut,connectionPoolPut)," +
+					"plus(s1.connectionPoolInvalidOnGet,connectionPoolInvalidOnGet)," +
+					"plus(s1.connectionPoolInvalidOnPut,connectionPoolInvalidOnPut)," +
+					"plus(s1.nextTransactionId,nextTransactionId)," +
+					"plus(s1.commitWithoutConnection,commitWithoutConnection)," +
+					"plus(s1.commitWithConnection,commitWithConnection)," +
+					"plus(s1.rollbackWithoutConnection,rollbackWithoutConnection)," +
+					"plus(s1.rollbackWithConnection,rollbackWithConnection)," +
+					"plus(s1.itemCacheHits,itemCacheHits),plus(s1.itemCacheMisses,itemCacheMisses)," +
+					"plus(s1.itemCacheConcurrentLoads,itemCacheConcurrentLoads)," +
+					"plus(s1.itemCacheReplacementRuns,itemCacheReplacementRuns)," +
+					"plus(s1.itemCacheReplacements,itemCacheReplacements)," +
+					"plus(s1.itemCacheInvalidationsOrdered,itemCacheInvalidationsOrdered)," +
+					"plus(s1.itemCacheInvalidationsDone,itemCacheInvalidationsDone)," +
+					"plus(s1.itemCacheInvalidateLastSize,itemCacheInvalidateLastSize)," +
+					"plus(s1.itemCacheInvalidateLastHits,itemCacheInvalidateLastHits)," +
+					"plus(s1.itemCacheInvalidateLastPurged,itemCacheInvalidateLastPurged)," +
+					"plus(s1.queryCacheHits,queryCacheHits)," +
+					"plus(s1.queryCacheMisses,queryCacheMisses)," +
+					"plus(s1.queryCacheReplacements,queryCacheReplacements)," +
+					"plus(s1.queryCacheInvalidations,queryCacheInvalidations)," +
+					"plus(s1.changeListenerCleared,changeListenerCleared)," +
+					"plus(s1.changeListenerRemoved,changeListenerRemoved)," +
+					"plus(s1.changeListenerFailed,changeListenerFailed)," +
+					"plus(s1.changeListenerOverflow,changeListenerOverflow)," +
+					"plus(s1.changeListenerException,changeListenerException)," +
+					"plus(s1.changeListenerPending,changeListenerPending)," +
+					"plus(s1.mediasNoSuchPath,mediasNoSuchPath)," +
+					"plus(s1.mediasRedirectFrom,mediasRedirectFrom)," +
+					"plus(s1.mediasException,mediasException)," +
+					"plus(s1.mediasGuessedUrl,mediasGuessedUrl)," +
+					"plus(s1.mediasNotAnItem,mediasNotAnItem)," +
+					"plus(s1.mediasNoSuchItem,mediasNoSuchItem)," +
+					"plus(s1.mediasMoved,mediasMoved)," +
+					"plus(s1.mediasIsNull,mediasIsNull)," +
+					"plus(s1.mediasNotComputable,mediasNotComputable)," +
+					"plus(s1.mediasNotModified,mediasNotModified)," +
+					"plus(s1.mediasDelivered,mediasDelivered)," +
+					"plus(s1.clusterSenderInvalidationSplit,clusterSenderInvalidationSplit)," +
+					"plus(s1.clusterListener-exception,clusterListener-exception)," +
+					"plus(s1.clusterListener-missingMagic,clusterListener-missingMagic)," +
+					"plus(s1.clusterListener-wrongSecret,clusterListener-wrongSecret)," +
+					"plus(s1.clusterListener-fromMyself,clusterListener-fromMyself) " +
+				"from SamplerModel join SamplerModel s1 " +
+				"where (s1.connectDate=connectDate " +
+					"AND s1.sampler=sampler " +
+					"AND s1.running=(running+1)) " +
+				"order by this", modelQuery.toString());
+		assertEquals(
+				"select media,date,s1.date," +
+					"plus(s1.running,running)," +
+					 "plus(s1.redirectFrom,redirectFrom)," +
+					 "plus(s1.exception,exception)," +
+					 "plus(s1.guessedUrl,guessedUrl)," +
+					 "plus(s1.notAnItem,notAnItem)," +
+					 "plus(s1.noSuchItem,noSuchItem)," +
+					 "plus(s1.moved,moved),plus(s1.isNull,isNull)," +
+					 "plus(s1.notComputable,notComputable)," +
+					 "plus(s1.notModified,notModified)," +
+					 "plus(s1.delivered,delivered) " +
+				"from SamplerMedia join SamplerMedia s1 " +
+				"where (s1.media=media " +
+					"AND s1.connectDate=connectDate " +
+					"AND s1.sampler=sampler " +
+					"AND s1.running=(running+1)) " +
+				"order by this",
+			mediaQuery.toString());
 
 		samplerModel.startTransaction("SampleTest#consolidate");
 		{
