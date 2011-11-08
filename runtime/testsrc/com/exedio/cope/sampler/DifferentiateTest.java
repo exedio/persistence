@@ -45,10 +45,13 @@ public class DifferentiateTest extends ConnectedTest
 		waitForSystemTimeChange();
 		final SamplerModel model3 = sampler.sampleInternal();
 
-		final Query<List<Object>> modelQuery = Differentiate.makeQuery(SamplerModel.TYPE);
-		final Query<List<Object>> itemQuery = Differentiate.makeQuery(SamplerItemCache.TYPE);
-		final Query<List<Object>> clusterQuery = Differentiate.makeQuery(SamplerClusterNode.TYPE);
-		final Query<List<Object>> mediaQuery = Differentiate.makeQuery(SamplerMedia.TYPE);
+		final List<Query<List<Object>>> queries = sampler.differentiate();
+		final Query<List<Object>> modelQuery   = queries.get(0);
+		final Query<List<Object>> itemQuery    = queries.get(1);
+		final Query<List<Object>> clusterQuery = queries.get(2);
+		final Query<List<Object>> mediaQuery   = queries.get(3);
+		assertEquals(4, queries.size());
+		assertUnmodifiable(queries);
 		assertEquals(
 				"select date,s1.date," +
 					"minus(s1.connectionPoolGet,connectionPoolGet)," +

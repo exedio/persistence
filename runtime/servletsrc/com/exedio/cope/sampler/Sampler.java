@@ -36,6 +36,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
@@ -327,6 +328,11 @@ public final class Sampler
 		{
 			throw new RuntimeException(e);
 		}
+	}
+
+	public List<Query<List<Object>>> differentiate()
+	{
+		return Differentiate.differentiate();
 	}
 
 	@Override
