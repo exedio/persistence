@@ -48,6 +48,7 @@ final class SamplerConsolidate
 
 		{
 			final ArrayList<Function> selects = new ArrayList<Function>();
+			final DateField dateField = replaceByCopy(SamplerModel.date, type);
 			{
 				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
 				switch(constraints.size())
@@ -57,25 +58,22 @@ final class SamplerConsolidate
 					case 1:
 						final UniqueConstraint constraint = constraints.get(0);
 						for(final FunctionField field : constraint.getFields())
-							if(field!=replaceByCopy(SamplerModel.date, type))
+							if(field!=dateField)
 								selects.add(field);
 						break;
 					default:
 						throw new RuntimeException(constraints.toString());
 				}
 			}
+			selects.add(dateField);
+			selects.add(dateField.bind(join));
+
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField &&
 					!feature.isAnnotationPresent(JoinField.class))
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
-				}
-				else if(feature instanceof DateField && (feature==replaceByCopy(SamplerModel.date, type)))
-				{
-					final DateField field = replaceByCopy(SamplerModel.date, type);
-					selects.add(field);
-					selects.add(field.bind(join));
 				}
 			}
 			if(selects.isEmpty())
