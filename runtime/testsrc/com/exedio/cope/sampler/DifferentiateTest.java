@@ -27,7 +27,7 @@ import java.util.List;
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
 
-public class ConsolidateTest extends ConnectedTest
+public class DifferentiateTest extends ConnectedTest
 {
 	public void testIt()
 	{
@@ -45,10 +45,10 @@ public class ConsolidateTest extends ConnectedTest
 		waitForSystemTimeChange();
 		final SamplerModel model3 = sampler.sampleInternal();
 
-		final Query<List<Object>> modelQuery = SamplerConsolidate.makeQuery(SamplerModel.TYPE);
-		final Query<List<Object>> itemQuery = SamplerConsolidate.makeQuery(SamplerItemCache.TYPE);
-		final Query<List<Object>> clusterQuery = SamplerConsolidate.makeQuery(SamplerClusterNode.TYPE);
-		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
+		final Query<List<Object>> modelQuery = Differentiate.makeQuery(SamplerModel.TYPE);
+		final Query<List<Object>> itemQuery = Differentiate.makeQuery(SamplerItemCache.TYPE);
+		final Query<List<Object>> clusterQuery = Differentiate.makeQuery(SamplerClusterNode.TYPE);
+		final Query<List<Object>> mediaQuery = Differentiate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
 					"plus(s1.connectionPoolGet,connectionPoolGet)," +

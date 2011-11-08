@@ -30,7 +30,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(SampleTest.class);
 		suite.addTestSuite(SamplerTest.class);
 		suite.addTestSuite(PurgeTest.class);
-		suite.addTestSuite(ConsolidateTest.class);
+		suite.addTestSuite(DifferentiateTest.class);
 		return suite;
 	}
 }

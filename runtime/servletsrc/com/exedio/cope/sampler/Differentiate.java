@@ -38,7 +38,7 @@ import com.exedio.cope.Selectable;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-final class SamplerConsolidate
+final class Differentiate
 {
 	static Query<List<Object>> makeQuery(final Type<?> type)
 	{
@@ -137,7 +137,7 @@ final class SamplerConsolidate
 		throw new RuntimeException(field.getID());
 	}
 
-	private SamplerConsolidate()
+	private Differentiate()
 	{
 		// prevent instantiation
 	}
