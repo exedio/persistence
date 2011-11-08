@@ -153,6 +153,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(running, SamplerModel.running.getMandatory(model));
 		return model;
 	}
+
 	private static final SamplerItemCache assertIt(
 			final SamplerModel model,
 			final Sampler thread,
