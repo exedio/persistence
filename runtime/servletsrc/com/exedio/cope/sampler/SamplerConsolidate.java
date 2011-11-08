@@ -125,7 +125,12 @@ final class SamplerConsolidate
 		for(final CopyConstraint cc : type.getCopyConstraints())
 		{
 			if(cc.getTemplate()==field)
-				return (F)cc.getCopy();
+			{
+				final FunctionField<?> result = cc.getCopy();
+				@SuppressWarnings("unchecked")
+				final F resultCasted = (F)result;
+				return resultCasted;
+			}
 		}
 		throw new RuntimeException(field.getID());
 	}
