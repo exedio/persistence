@@ -47,11 +47,10 @@ final class SamplerModel extends Item
 	static final DateField date = new DateField().toFinal().unique();
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();
-	@JoinField(false)
+	@JoinField()
 	static final DateField connectDate = new DateField().toFinal();
-	@JoinField(false)
+	@JoinField()
 	@CopeSchemaName("thread") static final IntegerField sampler = new IntegerField().toFinal();
-	@JoinField(true)
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);

@@ -24,6 +24,7 @@ import java.util.List;
 import com.exedio.cope.CompareFunctionCondition;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
@@ -72,23 +73,18 @@ final class SamplerConsolidate
 			final ArrayList<Condition> conditions = new ArrayList<Condition>();
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				final JoinField c = feature.getAnnotation(JoinField.class);
-				if(c!=null)
+				if(feature.isAnnotationPresent(JoinField.class))
 				{
-					if(c.value())
-					{
-						final IntegerField field = (IntegerField)feature;
-						conditions.add(field.bind(join).equal(field.plus(1)));
-					}
-					else
-					{
 						final FunctionField<?> field = (FunctionField)feature;
 						conditions.add(equal(join, field));
-					}
 				}
 			}
-			if(conditions.isEmpty())
-				throw new IllegalArgumentException(type.toString());
+
+			{
+				final IntegerField running = replaceByCopy(SamplerModel.running, type);
+				conditions.add(running.bind(join).equal(running.plus(1)));
+			}
+
 			query.setCondition(Cope.and(conditions));
 		}
 		query.setOrderByThis(true);
@@ -109,6 +105,19 @@ final class SamplerConsolidate
 	private static <N> CompareFunctionCondition equal(final Join j, final FunctionField<N> field)
 	{
 		return field.bind(j).equal(field);
+	}
+
+	private static IntegerField replaceByCopy(final IntegerField field, final Type<?> type)
+	{
+		if(field.getType()==type)
+			return field;
+
+		for(final CopyConstraint cc : type.getCopyConstraints())
+		{
+			if(cc.getTemplate()==field)
+				return (IntegerField)cc.getCopy();
+		}
+		throw new RuntimeException(field.getID());
 	}
 
 	private SamplerConsolidate()

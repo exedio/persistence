@@ -28,5 +28,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @interface JoinField
 {
-	boolean value();
+	// empty
 }

@@ -39,7 +39,7 @@ import com.exedio.cope.pattern.MediaInfo;
 final class SamplerMedia extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
-	@JoinField(false)
+	@JoinField()
 	@SelectFieldAnno
 	private static final StringField media = new StringField().toFinal();
 
@@ -47,11 +47,10 @@ final class SamplerMedia extends Item
 	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();
-	@JoinField(false)
+	@JoinField()
 	private static final DateField connectDate = new DateField().toFinal();
-	@JoinField(false)
+	@JoinField()
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
-	@JoinField(true)
 	private static final IntegerField running = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
