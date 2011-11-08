@@ -76,7 +76,7 @@ final class SamplerConsolidate
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField &&
-					feature!=sampler)
+					feature!=sampler && feature!=SamplerModel.duration)
 				{
 					selects.add(minus(join, (NumberField<?>)feature));
 				}
