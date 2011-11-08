@@ -43,11 +43,15 @@ import com.exedio.cope.util.Pool;
 
 final class SamplerModel extends Item
 {
+	@DateFieldAnno
 	static final DateField date = new DateField().toFinal().unique();
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();
+	@JoinField(false)
 	static final DateField connectDate = new DateField().toFinal();
+	@JoinField(false)
 	@CopeSchemaName("thread") static final IntegerField sampler = new IntegerField().toFinal();
+	@JoinField(true)
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);

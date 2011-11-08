@@ -18,19 +18,15 @@
 
 package com.exedio.cope.sampler;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static java.lang.annotation.ElementType.FIELD;
 
-public class PackageTest extends TestCase
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface JoinField
 {
-	public static Test suite()
-	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(SampleTest.class);
-		suite.addTestSuite(SamplerTest.class);
-		suite.addTestSuite(PurgeTest.class);
-		suite.addTestSuite(ConsolidateTest.class);
-		return suite;
-	}
+	boolean value();
 }
