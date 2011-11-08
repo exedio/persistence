@@ -77,7 +77,7 @@ final class SamplerConsolidate
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField &&
-					!feature.isAnnotationPresent(NoConsolidate.class) &&
+					!feature.isAnnotationPresent(NoDifferentiate.class) &&
 					feature!=sampler && feature!=running)
 				{
 					selects.add(minus(join, (NumberField<?>)feature));

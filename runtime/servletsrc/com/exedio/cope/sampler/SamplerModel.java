@@ -44,14 +44,14 @@ import com.exedio.cope.util.Pool;
 final class SamplerModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
-	@NoConsolidate
+	@NoDifferentiate
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 	@CopeSchemaName("thread") static final IntegerField sampler = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 
-	@NoConsolidate
+	@NoDifferentiate
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
@@ -96,7 +96,7 @@ final class SamplerModel extends Item
 	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal().min(0);
 	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal().min(0);
 
-	@NoConsolidate
+	@NoDifferentiate
 	private static final IntegerField itemCacheInvalidateLastSize = new IntegerField().toFinal().min(0);
 	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal().min(0);
@@ -150,7 +150,7 @@ final class SamplerModel extends Item
 
 	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal().min(0);
 	private static final    LongField changeListenerException = new LongField   ().toFinal().min(0);
-	@NoConsolidate
+	@NoDifferentiate
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
 	static List<SetValue> map(final ChangeListenerDispatcherInfo info)
