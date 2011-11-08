@@ -79,7 +79,7 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	}
 
 	/**
-	 * You may want to use {@link MinusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MinusView<E> minus(final NumberFunction<E> other)
 	{
