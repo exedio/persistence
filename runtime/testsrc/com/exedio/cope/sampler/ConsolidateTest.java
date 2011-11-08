@@ -49,7 +49,6 @@ public class ConsolidateTest extends ConnectedTest
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
-					"plus(s1.connectionPoolIdle,connectionPoolIdle)," +
 					"plus(s1.connectionPoolGet,connectionPoolGet)," +
 					"plus(s1.connectionPoolPut,connectionPoolPut)," +
 					"plus(s1.connectionPoolInvalidOnGet,connectionPoolInvalidOnGet)," +
@@ -66,7 +65,6 @@ public class ConsolidateTest extends ConnectedTest
 					"plus(s1.itemCacheReplacements,itemCacheReplacements)," +
 					"plus(s1.itemCacheInvalidationsOrdered,itemCacheInvalidationsOrdered)," +
 					"plus(s1.itemCacheInvalidationsDone,itemCacheInvalidationsDone)," +
-					"plus(s1.itemCacheInvalidateLastSize,itemCacheInvalidateLastSize)," +
 					"plus(s1.itemCacheInvalidateLastHits,itemCacheInvalidateLastHits)," +
 					"plus(s1.itemCacheInvalidateLastPurged,itemCacheInvalidateLastPurged)," +
 					"plus(s1.queryCacheHits,queryCacheHits)," +
@@ -78,7 +76,6 @@ public class ConsolidateTest extends ConnectedTest
 					"plus(s1.changeListenerFailed,changeListenerFailed)," +
 					"plus(s1.changeListenerOverflow,changeListenerOverflow)," +
 					"plus(s1.changeListenerException,changeListenerException)," +
-					"plus(s1.changeListenerPending,changeListenerPending)," +
 					"plus(s1.mediasNoSuchPath,mediasNoSuchPath)," +
 					"plus(s1.mediasRedirectFrom,mediasRedirectFrom)," +
 					"plus(s1.mediasException,mediasException)," +
