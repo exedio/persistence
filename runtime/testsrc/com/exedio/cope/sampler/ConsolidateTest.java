@@ -49,16 +49,18 @@ public class ConsolidateTest extends ConnectedTest
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
 
 		samplerModel.startTransaction("SampleTest#consolidate");
-		final Iterator<List<Object>> result = modelQuery.search().iterator();
-		assertEquals(list(
-				SamplerModel.date.get(model1),
-				SamplerModel.date.get(model2)),
-			result.next().subList(0, 2));
-		assertEquals(list(
-				SamplerModel.date.get(model2),
-				SamplerModel.date.get(model3)),
-			result.next().subList(0, 2));
-		assertFalse(result.hasNext());
+		{
+			final Iterator<List<Object>> result = modelQuery.search().iterator();
+			assertEquals(list(
+					SamplerModel.date.get(model1),
+					SamplerModel.date.get(model2)),
+				result.next().subList(0, 2));
+			assertEquals(list(
+					SamplerModel.date.get(model2),
+					SamplerModel.date.get(model3)),
+				result.next().subList(0, 2));
+			assertFalse(result.hasNext());
+		}
 
 		{
 			final Iterator<List<Object>> medias = mediaQuery.search().iterator();
