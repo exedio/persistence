@@ -41,6 +41,16 @@ import com.exedio.cope.UniqueConstraint;
 
 final class Differentiate
 {
+	static List<Query<List<Object>>> differentiate()
+	{
+		final ArrayList<Query<List<Object>>> result = new ArrayList<Query<List<Object>>>(4);
+		result.add(makeQuery(SamplerModel.TYPE));
+		result.add(makeQuery(SamplerItemCache.TYPE));
+		result.add(makeQuery(SamplerClusterNode.TYPE));
+		result.add(makeQuery(SamplerMedia.TYPE));
+		return Collections.unmodifiableList(result);
+	}
+
 	private static Query<List<Object>> makeQuery(final Type<?> type)
 	{
 		final Query<List<Object>> query =
@@ -136,16 +146,6 @@ final class Differentiate
 			}
 		}
 		throw new RuntimeException(field.getID());
-	}
-
-	static List<Query<List<Object>>> differentiate()
-	{
-		final ArrayList<Query<List<Object>>> result = new ArrayList<Query<List<Object>>>(4);
-		result.add(makeQuery(SamplerModel.TYPE));
-		result.add(makeQuery(SamplerItemCache.TYPE));
-		result.add(makeQuery(SamplerClusterNode.TYPE));
-		result.add(makeQuery(SamplerMedia.TYPE));
-		return Collections.unmodifiableList(result);
 	}
 
 	private Differentiate()
