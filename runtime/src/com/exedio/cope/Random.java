@@ -256,6 +256,14 @@ public class Random implements NumberFunction<Double>
 	}
 
 	/**
+	 * You may want to use {@link MinusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
+	public final MinusView<Double> minus(final NumberFunction<Double> other)
+	{
+		return MinusView.minus(this, other);
+	}
+
+	/**
 	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)

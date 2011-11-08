@@ -69,6 +69,14 @@ public abstract class NumberView<E extends Number> extends View<E>
 	}
 
 	/**
+	 * You may want to use {@link MinusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
+	public final MinusView<E> minus(final NumberFunction<E> other)
+	{
+		return MinusView.minus(this, other);
+	}
+
+	/**
 	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
 	public final MultiplyView<E> multiply(final NumberFunction<E> other)

@@ -115,6 +115,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( PlusLongOrderTest.class );
 		suite.addTestSuite( PlusDoubleTest.class );
 		suite.addTestSuite( PlusDoubleOrderTest.class );
+		suite.addTestSuite( MinusIntegerTest.class );
+		suite.addTestSuite( MinusLongTest.class );
+		suite.addTestSuite( MinusDoubleTest.class );
 		suite.addTestSuite( DivideIntegerTest.class );
 		suite.addTestSuite( DivideLongTest.class );
 		suite.addTestSuite( DivideDoubleTest.class );

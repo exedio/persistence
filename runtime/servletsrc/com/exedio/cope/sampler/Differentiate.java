@@ -31,8 +31,8 @@ import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Join;
+import com.exedio.cope.MinusView;
 import com.exedio.cope.NumberField;
-import com.exedio.cope.PlusView;
 import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.Type;
@@ -106,9 +106,9 @@ final class Differentiate
 	/**
 	 * helper method for generics
 	 */
-	private static <N extends Number> PlusView<N> minus(final Join j, final NumberField<N> field)
+	private static <N extends Number> MinusView<N> minus(final Join j, final NumberField<N> field)
 	{
-		return field.bind(j).plus(field); // TODO has to be minus
+		return field.bind(j).minus(field);
 	}
 
 	/**

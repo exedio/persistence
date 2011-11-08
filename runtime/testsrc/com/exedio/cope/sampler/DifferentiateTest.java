@@ -51,49 +51,49 @@ public class DifferentiateTest extends ConnectedTest
 		final Query<List<Object>> mediaQuery = Differentiate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
-					"plus(s1.connectionPoolGet,connectionPoolGet)," +
-					"plus(s1.connectionPoolPut,connectionPoolPut)," +
-					"plus(s1.connectionPoolInvalidOnGet,connectionPoolInvalidOnGet)," +
-					"plus(s1.connectionPoolInvalidOnPut,connectionPoolInvalidOnPut)," +
-					"plus(s1.nextTransactionId,nextTransactionId)," +
-					"plus(s1.commitWithoutConnection,commitWithoutConnection)," +
-					"plus(s1.commitWithConnection,commitWithConnection)," +
-					"plus(s1.rollbackWithoutConnection,rollbackWithoutConnection)," +
-					"plus(s1.rollbackWithConnection,rollbackWithConnection)," +
-					"plus(s1.itemCacheHits,itemCacheHits)," +
-					"plus(s1.itemCacheMisses,itemCacheMisses)," +
-					"plus(s1.itemCacheConcurrentLoads,itemCacheConcurrentLoads)," +
-					"plus(s1.itemCacheReplacementRuns,itemCacheReplacementRuns)," +
-					"plus(s1.itemCacheReplacements,itemCacheReplacements)," +
-					"plus(s1.itemCacheInvalidationsOrdered,itemCacheInvalidationsOrdered)," +
-					"plus(s1.itemCacheInvalidationsDone,itemCacheInvalidationsDone)," +
-					"plus(s1.itemCacheInvalidateLastHits,itemCacheInvalidateLastHits)," +
-					"plus(s1.itemCacheInvalidateLastPurged,itemCacheInvalidateLastPurged)," +
-					"plus(s1.queryCacheHits,queryCacheHits)," +
-					"plus(s1.queryCacheMisses,queryCacheMisses)," +
-					"plus(s1.queryCacheReplacements,queryCacheReplacements)," +
-					"plus(s1.queryCacheInvalidations,queryCacheInvalidations)," +
-					"plus(s1.changeListenerCleared,changeListenerCleared)," +
-					"plus(s1.changeListenerRemoved,changeListenerRemoved)," +
-					"plus(s1.changeListenerFailed,changeListenerFailed)," +
-					"plus(s1.changeListenerOverflow,changeListenerOverflow)," +
-					"plus(s1.changeListenerException,changeListenerException)," +
-					"plus(s1.mediasNoSuchPath,mediasNoSuchPath)," +
-					"plus(s1.mediasRedirectFrom,mediasRedirectFrom)," +
-					"plus(s1.mediasException,mediasException)," +
-					"plus(s1.mediasGuessedUrl,mediasGuessedUrl)," +
-					"plus(s1.mediasNotAnItem,mediasNotAnItem)," +
-					"plus(s1.mediasNoSuchItem,mediasNoSuchItem)," +
-					"plus(s1.mediasMoved,mediasMoved)," +
-					"plus(s1.mediasIsNull,mediasIsNull)," +
-					"plus(s1.mediasNotComputable,mediasNotComputable)," +
-					"plus(s1.mediasNotModified,mediasNotModified)," +
-					"plus(s1.mediasDelivered,mediasDelivered)," +
-					"plus(s1.clusterSenderInvalidationSplit,clusterSenderInvalidationSplit)," +
-					"plus(s1.clusterListener-exception,clusterListener-exception)," +
-					"plus(s1.clusterListener-missingMagic,clusterListener-missingMagic)," +
-					"plus(s1.clusterListener-wrongSecret,clusterListener-wrongSecret)," +
-					"plus(s1.clusterListener-fromMyself,clusterListener-fromMyself) " +
+					"minus(s1.connectionPoolGet,connectionPoolGet)," +
+					"minus(s1.connectionPoolPut,connectionPoolPut)," +
+					"minus(s1.connectionPoolInvalidOnGet,connectionPoolInvalidOnGet)," +
+					"minus(s1.connectionPoolInvalidOnPut,connectionPoolInvalidOnPut)," +
+					"minus(s1.nextTransactionId,nextTransactionId)," +
+					"minus(s1.commitWithoutConnection,commitWithoutConnection)," +
+					"minus(s1.commitWithConnection,commitWithConnection)," +
+					"minus(s1.rollbackWithoutConnection,rollbackWithoutConnection)," +
+					"minus(s1.rollbackWithConnection,rollbackWithConnection)," +
+					"minus(s1.itemCacheHits,itemCacheHits)," +
+					"minus(s1.itemCacheMisses,itemCacheMisses)," +
+					"minus(s1.itemCacheConcurrentLoads,itemCacheConcurrentLoads)," +
+					"minus(s1.itemCacheReplacementRuns,itemCacheReplacementRuns)," +
+					"minus(s1.itemCacheReplacements,itemCacheReplacements)," +
+					"minus(s1.itemCacheInvalidationsOrdered,itemCacheInvalidationsOrdered)," +
+					"minus(s1.itemCacheInvalidationsDone,itemCacheInvalidationsDone)," +
+					"minus(s1.itemCacheInvalidateLastHits,itemCacheInvalidateLastHits)," +
+					"minus(s1.itemCacheInvalidateLastPurged,itemCacheInvalidateLastPurged)," +
+					"minus(s1.queryCacheHits,queryCacheHits)," +
+					"minus(s1.queryCacheMisses,queryCacheMisses)," +
+					"minus(s1.queryCacheReplacements,queryCacheReplacements)," +
+					"minus(s1.queryCacheInvalidations,queryCacheInvalidations)," +
+					"minus(s1.changeListenerCleared,changeListenerCleared)," +
+					"minus(s1.changeListenerRemoved,changeListenerRemoved)," +
+					"minus(s1.changeListenerFailed,changeListenerFailed)," +
+					"minus(s1.changeListenerOverflow,changeListenerOverflow)," +
+					"minus(s1.changeListenerException,changeListenerException)," +
+					"minus(s1.mediasNoSuchPath,mediasNoSuchPath)," +
+					"minus(s1.mediasRedirectFrom,mediasRedirectFrom)," +
+					"minus(s1.mediasException,mediasException)," +
+					"minus(s1.mediasGuessedUrl,mediasGuessedUrl)," +
+					"minus(s1.mediasNotAnItem,mediasNotAnItem)," +
+					"minus(s1.mediasNoSuchItem,mediasNoSuchItem)," +
+					"minus(s1.mediasMoved,mediasMoved)," +
+					"minus(s1.mediasIsNull,mediasIsNull)," +
+					"minus(s1.mediasNotComputable,mediasNotComputable)," +
+					"minus(s1.mediasNotModified,mediasNotModified)," +
+					"minus(s1.mediasDelivered,mediasDelivered)," +
+					"minus(s1.clusterSenderInvalidationSplit,clusterSenderInvalidationSplit)," +
+					"minus(s1.clusterListener-exception,clusterListener-exception)," +
+					"minus(s1.clusterListener-missingMagic,clusterListener-missingMagic)," +
+					"minus(s1.clusterListener-wrongSecret,clusterListener-wrongSecret)," +
+					"minus(s1.clusterListener-fromMyself,clusterListener-fromMyself) " +
 				"from SamplerModel join SamplerModel s1 " +
 				"where (s1.connectDate=connectDate " +
 					"AND s1.sampler=sampler " +
@@ -101,15 +101,15 @@ public class DifferentiateTest extends ConnectedTest
 				"order by this", modelQuery.toString());
 		assertEquals(
 				"select type,date,s1.date," +
-					"plus(s1.hits,hits)," +
-					"plus(s1.misses,misses)," +
-					"plus(s1.concurrentLoads,concurrentLoads)," +
-					"plus(s1.replacementRuns,replacementRuns)," +
-					"plus(s1.replacements,replacements)," +
-					"plus(s1.invalidationsOrdered,invalidationsOrdered)," +
-					"plus(s1.invalidationsDone,invalidationsDone)," +
-					"plus(s1.invalidateLastHits,invalidateLastHits)," +
-					"plus(s1.invalidateLastPurged,invalidateLastPurged) " +
+					"minus(s1.hits,hits)," +
+					"minus(s1.misses,misses)," +
+					"minus(s1.concurrentLoads,concurrentLoads)," +
+					"minus(s1.replacementRuns,replacementRuns)," +
+					"minus(s1.replacements,replacements)," +
+					"minus(s1.invalidationsOrdered,invalidationsOrdered)," +
+					"minus(s1.invalidationsDone,invalidationsDone)," +
+					"minus(s1.invalidateLastHits,invalidateLastHits)," +
+					"minus(s1.invalidateLastPurged,invalidateLastPurged) " +
 				"from SamplerItemCache join SamplerItemCache s1 " +
 				"where (s1.type=type " +
 					"AND s1.connectDate=connectDate " +
@@ -119,24 +119,24 @@ public class DifferentiateTest extends ConnectedTest
 			itemQuery.toString());
 		assertEquals(
 				"select id,date,s1.date," +
-					"plus(s1.invalidate-inOrder,invalidate-inOrder)," +
-					"plus(s1.invalidate-outOfOrder,invalidate-outOfOrder)," +
-					"plus(s1.invalidate-duplicate,invalidate-duplicate)," +
-					"plus(s1.invalidate-lost,invalidate-lost)," +
-					"plus(s1.invalidate-late,invalidate-late)," +
-					"plus(s1.invalidate-pending,invalidate-pending)," +
-					"plus(s1.ping-inOrder,ping-inOrder)," +
-					"plus(s1.ping-outOfOrder,ping-outOfOrder)," +
-					"plus(s1.ping-duplicate,ping-duplicate)," +
-					"plus(s1.ping-lost,ping-lost)," +
-					"plus(s1.ping-late,ping-late)," +
-					"plus(s1.ping-pending,ping-pending)," +
-					"plus(s1.pong-inOrder,pong-inOrder)," +
-					"plus(s1.pong-outOfOrder,pong-outOfOrder)," +
-					"plus(s1.pong-duplicate,pong-duplicate)," +
-					"plus(s1.pong-lost,pong-lost)," +
-					"plus(s1.pong-late,pong-late)," +
-					"plus(s1.pong-pending,pong-pending) " +
+					"minus(s1.invalidate-inOrder,invalidate-inOrder)," +
+					"minus(s1.invalidate-outOfOrder,invalidate-outOfOrder)," +
+					"minus(s1.invalidate-duplicate,invalidate-duplicate)," +
+					"minus(s1.invalidate-lost,invalidate-lost)," +
+					"minus(s1.invalidate-late,invalidate-late)," +
+					"minus(s1.invalidate-pending,invalidate-pending)," +
+					"minus(s1.ping-inOrder,ping-inOrder)," +
+					"minus(s1.ping-outOfOrder,ping-outOfOrder)," +
+					"minus(s1.ping-duplicate,ping-duplicate)," +
+					"minus(s1.ping-lost,ping-lost)," +
+					"minus(s1.ping-late,ping-late)," +
+					"minus(s1.ping-pending,ping-pending)," +
+					"minus(s1.pong-inOrder,pong-inOrder)," +
+					"minus(s1.pong-outOfOrder,pong-outOfOrder)," +
+					"minus(s1.pong-duplicate,pong-duplicate)," +
+					"minus(s1.pong-lost,pong-lost)," +
+					"minus(s1.pong-late,pong-late)," +
+					"minus(s1.pong-pending,pong-pending) " +
 				"from SamplerClusterNode join SamplerClusterNode s1 " +
 				"where (s1.id=id " +
 					"AND s1.connectDate=connectDate " +
@@ -146,16 +146,16 @@ public class DifferentiateTest extends ConnectedTest
 			clusterQuery.toString());
 		assertEquals(
 				"select media,date,s1.date," +
-					"plus(s1.redirectFrom,redirectFrom)," +
-					"plus(s1.exception,exception)," +
-					"plus(s1.guessedUrl,guessedUrl)," +
-					"plus(s1.notAnItem,notAnItem)," +
-					"plus(s1.noSuchItem,noSuchItem)," +
-					"plus(s1.moved,moved)," +
-					"plus(s1.isNull,isNull)," +
-					"plus(s1.notComputable,notComputable)," +
-					"plus(s1.notModified,notModified)," +
-					"plus(s1.delivered,delivered) " +
+					"minus(s1.redirectFrom,redirectFrom)," +
+					"minus(s1.exception,exception)," +
+					"minus(s1.guessedUrl,guessedUrl)," +
+					"minus(s1.notAnItem,notAnItem)," +
+					"minus(s1.noSuchItem,noSuchItem)," +
+					"minus(s1.moved,moved)," +
+					"minus(s1.isNull,isNull)," +
+					"minus(s1.notComputable,notComputable)," +
+					"minus(s1.notModified,notModified)," +
+					"minus(s1.delivered,delivered) " +
 				"from SamplerMedia join SamplerMedia s1 " +
 				"where (s1.media=media " +
 					"AND s1.connectDate=connectDate " +
