@@ -36,6 +36,7 @@ import com.exedio.cope.PlusView;
 import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 
 final class SamplerConsolidate
 {
@@ -47,6 +48,22 @@ final class SamplerConsolidate
 
 		{
 			final ArrayList<Function> selects = new ArrayList<Function>();
+			{
+				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
+				switch(constraints.size())
+				{
+					case 0:
+						break;
+					case 1:
+						final UniqueConstraint constraint = constraints.get(0);
+						for(final FunctionField field : constraint.getFields())
+							if(field!=replaceByCopy(SamplerModel.date, type))
+								selects.add(field);
+						break;
+					default:
+						throw new RuntimeException(constraints.toString());
+				}
+			}
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField &&
@@ -59,10 +76,6 @@ final class SamplerConsolidate
 					final DateField field = replaceByCopy(SamplerModel.date, type);
 					selects.add(field);
 					selects.add(field.bind(join));
-				}
-				else if(feature.isAnnotationPresent(SelectFieldAnno.class))
-				{
-					selects.add((FunctionField)feature);
 				}
 			}
 			if(selects.isEmpty())
