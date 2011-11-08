@@ -65,21 +65,25 @@ public class ConsolidateTest extends ConnectedTest
 		{
 			final Iterator<List<Object>> medias = mediaQuery.search().iterator();
 			assertEquals(list(
+					"SampledModelItem.mediaA",
 					SamplerModel.date.get(model1),
 					SamplerModel.date.get(model2)),
-				medias.next().subList(0, 2));
+				medias.next().subList(0, 3));
 			assertEquals(list(
+					"SampledModelItem.mediaB",
 					SamplerModel.date.get(model1),
 					SamplerModel.date.get(model2)),
-				medias.next().subList(0, 2));
+				medias.next().subList(0, 3));
 			assertEquals(list(
+					"SampledModelItem.mediaA",
 					SamplerModel.date.get(model2),
 					SamplerModel.date.get(model3)),
-				medias.next().subList(0, 2));
+				medias.next().subList(0, 3));
 			assertEquals(list(
+					"SampledModelItem.mediaB",
 					SamplerModel.date.get(model2),
 					SamplerModel.date.get(model3)),
-				medias.next().subList(0, 2));
+				medias.next().subList(0, 3));
 			assertFalse(medias.hasNext());
 		}
 

@@ -40,6 +40,7 @@ final class SamplerMedia extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	@JoinField(false)
+	@SelectFieldAnno
 	private static final StringField media = new StringField().toFinal();
 
 	@DateFieldAnno

@@ -59,6 +59,10 @@ final class SamplerConsolidate
 					selects.add(field);
 					selects.add(field.bind(join));
 				}
+				else if(feature.isAnnotationPresent(SelectFieldAnno.class))
+				{
+					selects.add((FunctionField)feature);
+				}
 			}
 			if(selects.isEmpty())
 				throw new IllegalArgumentException(type.toString());
