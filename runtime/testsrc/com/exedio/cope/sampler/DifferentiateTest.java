@@ -21,6 +21,8 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,6 +33,12 @@ public class DifferentiateTest extends ConnectedTest
 {
 	public void testIt()
 	{
+		final Date from  = new Date(System.currentTimeMillis()-1);
+		final Date until = new Date(System.currentTimeMillis()+50000);
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		final String fromString = dateFormat.format(from);
+		final String untilString = dateFormat.format(until);
+
 		samplerModel.createSchema();
 		sampler.checkInternal();
 		samplerModel.startTransaction("HistoryTest");
@@ -45,7 +53,7 @@ public class DifferentiateTest extends ConnectedTest
 		waitForSystemTimeChange();
 		final SamplerModel model3 = sampler.sampleInternal();
 
-		final List<Query<List<Object>>> queries = sampler.differentiate();
+		final List<Query<List<Object>>> queries = sampler.differentiate(from, until);
 		final Query<List<Object>> modelQuery   = queries.get(0);
 		final Query<List<Object>> itemQuery    = queries.get(1);
 		final Query<List<Object>> clusterQuery = queries.get(2);
@@ -99,6 +107,8 @@ public class DifferentiateTest extends ConnectedTest
 					"minus(s1.clusterListener-fromMyself,clusterListener-fromMyself) " +
 				"from SamplerModel join SamplerModel s1 " +
 				"where (s1.connectDate=connectDate " +
+					"AND date>='" + fromString + "' " +
+					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this", modelQuery.toString());
@@ -116,6 +126,8 @@ public class DifferentiateTest extends ConnectedTest
 				"from SamplerItemCache join SamplerItemCache s1 " +
 				"where (s1.type=type " +
 					"AND s1.connectDate=connectDate " +
+					"AND date>='" + fromString + "' " +
+					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",
@@ -143,6 +155,8 @@ public class DifferentiateTest extends ConnectedTest
 				"from SamplerClusterNode join SamplerClusterNode s1 " +
 				"where (s1.id=id " +
 					"AND s1.connectDate=connectDate " +
+					"AND date>='" + fromString + "' " +
+					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",
@@ -162,6 +176,8 @@ public class DifferentiateTest extends ConnectedTest
 				"from SamplerMedia join SamplerMedia s1 " +
 				"where (s1.media=media " +
 					"AND s1.connectDate=connectDate " +
+					"AND date>='" + fromString + "' " +
+					"AND date<='" + untilString + "' " +
 					"AND s1.sampler=sampler " +
 					"AND s1.running=(running+1)) " +
 				"order by this",

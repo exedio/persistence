@@ -332,7 +332,12 @@ public final class Sampler
 
 	public List<Query<List<Object>>> differentiate()
 	{
-		return Differentiate.differentiate();
+		return differentiate(null, null);
+	}
+
+	public List<Query<List<Object>>> differentiate(final Date from, final Date until)
+	{
+		return Differentiate.differentiate(from, until);
 	}
 
 	@Override

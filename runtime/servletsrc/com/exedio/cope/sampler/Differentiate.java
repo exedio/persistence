@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition;
@@ -41,28 +42,28 @@ import com.exedio.cope.UniqueConstraint;
 
 final class Differentiate
 {
-	static List<Query<List<Object>>> differentiate()
+	static List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		final ArrayList<Query<List<Object>>> result = new ArrayList<Query<List<Object>>>(4);
-		result.add(makeQuery(SamplerModel.TYPE));
-		result.add(makeQuery(SamplerItemCache.TYPE));
-		result.add(makeQuery(SamplerClusterNode.TYPE));
-		result.add(makeQuery(SamplerMedia.TYPE));
+		result.add(makeQuery(SamplerModel      .TYPE, from, until));
+		result.add(makeQuery(SamplerItemCache  .TYPE, from, until));
+		result.add(makeQuery(SamplerClusterNode.TYPE, from, until));
+		result.add(makeQuery(SamplerMedia      .TYPE, from, until));
 		return Collections.unmodifiableList(result);
 	}
 
-	private static Query<List<Object>> makeQuery(final Type<?> type)
+	private static Query<List<Object>> makeQuery(final Type<?> type, final Date from, final Date until)
 	{
 		final Query<List<Object>> query =
 			Query.newQuery(new Selectable[]{type.getThis(), type.getThis()}, type, null);
 		final Join join = query.join(type);
 
+		final DateField dateField = replaceByCopy(SamplerModel.date, type);
 		final ArrayList<FunctionField> byDateUnique = new ArrayList<FunctionField>();
 		final IntegerField sampler = replaceByCopy(SamplerModel.sampler, type);
 		final IntegerField running = replaceByCopy(SamplerModel.running, type);
 		{
 			final ArrayList<Function> selects = new ArrayList<Function>();
-			final DateField dateField = replaceByCopy(SamplerModel.date, type);
 			{
 				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
 				switch(constraints.size())
@@ -105,6 +106,10 @@ final class Differentiate
 				conditions.add(equal(join, field));
 
 			conditions.add(equal(join, replaceByCopy(SamplerModel.connectDate, type)));
+			if(from!=null)
+				conditions.add(dateField.greaterOrEqual(from));
+			if(until!=null)
+				conditions.add(dateField.lessOrEqual(until));
 			conditions.add(equal(join, sampler));
 			conditions.add(running.bind(join).equal(running.plus(1)));
 
