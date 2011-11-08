@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ClusterListenerInfo;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -44,13 +45,13 @@ final class SamplerClusterNode extends Item
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal();
 	private static final DateField connectDate = new DateField().toFinal();
-	private static final IntegerField thread = new IntegerField().toFinal();
+	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
 	private static final IntegerField running = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
 	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
 	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
+	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
 	static List<SetValue> map(final SamplerModel m)
@@ -60,7 +61,7 @@ final class SamplerClusterNode extends Item
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
 			connectDate   .map(SamplerModel.connectDate.get(m)),
-			thread        .map(SamplerModel.thread.get(m)),
+			sampler        .map(SamplerModel.sampler.get(m)),
 			running       .map(SamplerModel.running.get(m)));
 	}
 

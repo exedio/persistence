@@ -141,7 +141,7 @@ public class SampleTest extends ConnectedTest
 	}
 
 	private static final SamplerModel assertIt(
-			final Sampler thread,
+			final Sampler sampler,
 			final Date before, final Date after,
 			final int running,
 			final SamplerModel model)
@@ -149,14 +149,14 @@ public class SampleTest extends ConnectedTest
 		assertWithin(before, after, SamplerModel.date.get(model));
 		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
 		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));
-		assertEquals(System.identityHashCode(thread), SamplerModel.thread.getMandatory(model));
+		assertEquals(System.identityHashCode(sampler), SamplerModel.sampler.getMandatory(model));
 		assertEquals(running, SamplerModel.running.getMandatory(model));
 		return model;
 	}
 
 	private static final SamplerItemCache assertIt(
 			final SamplerModel model,
-			final Sampler thread,
+			final Sampler sampler,
 			final SamplerItemCache itemCache)
 	{
 		assertEquals(model, itemCache.getModel());
@@ -164,14 +164,14 @@ public class SampleTest extends ConnectedTest
 		assertEquals(SamplerModel.date.get(model), itemCache.getDate());
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
-		assertEquals(System.identityHashCode(thread), itemCache.getThread());
+		assertEquals(System.identityHashCode(sampler), itemCache.getSampler());
 		assertEquals(SamplerModel.running.getMandatory(model), itemCache.getRunning());
 		return itemCache;
 	}
 
 	private static final SamplerMedia assertIt(
 			final SamplerModel model,
-			final Sampler thread,
+			final Sampler sampler,
 			final SamplerMedia media)
 	{
 		assertEquals(model, media.getModel());
@@ -179,7 +179,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(SamplerModel.date.get(model), media.getDate());
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
-		assertEquals(System.identityHashCode(thread), media.getThread());
+		assertEquals(System.identityHashCode(sampler), media.getSampler());
 		assertEquals(SamplerModel.running.getMandatory(model), media.getRunning());
 		return media;
 	}

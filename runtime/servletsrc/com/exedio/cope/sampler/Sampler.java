@@ -166,7 +166,6 @@ public final class Sampler
 	public void sample()
 	{
 		// prepare
-		final int thread = System.identityHashCode(this);
 		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
 
 		// gather data
@@ -206,7 +205,7 @@ public final class Sampler
 				sv.add(SamplerModel.duration.map(duration));
 				sv.add(SamplerModel.initializeDate.map(initializeDate));
 				sv.add(SamplerModel.connectDate.map(connectDate));
-				sv.add(SamplerModel.thread.map(thread));
+				sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
 				sv.add(SamplerModel.running.map(running));
 				sv.addAll(SamplerModel.map(connectionPoolInfo));
 				sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
