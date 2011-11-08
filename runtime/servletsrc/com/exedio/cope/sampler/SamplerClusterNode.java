@@ -68,6 +68,7 @@ final class SamplerClusterNode extends Item
 
 	private static final DateField firstEncounter = new DateField().toFinal();
 	private static final StringField fromAddress = new StringField().toFinal();
+	@NoDifferentiate
 	private static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
 	private static final CompositeField<SequenceInfo> invalidate = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> ping = CompositeField.create(SequenceInfo.class).toFinal();

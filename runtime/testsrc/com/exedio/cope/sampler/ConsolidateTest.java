@@ -47,6 +47,7 @@ public class ConsolidateTest extends ConnectedTest
 
 		final Query<List<Object>> modelQuery = SamplerConsolidate.makeQuery(SamplerModel.TYPE);
 		final Query<List<Object>> itemQuery = SamplerConsolidate.makeQuery(SamplerItemCache.TYPE);
+		final Query<List<Object>> clusterQuery = SamplerConsolidate.makeQuery(SamplerClusterNode.TYPE);
 		final Query<List<Object>> mediaQuery = SamplerConsolidate.makeQuery(SamplerMedia.TYPE);
 		assertEquals(
 				"select date,s1.date," +
@@ -117,6 +118,34 @@ public class ConsolidateTest extends ConnectedTest
 				"order by this",
 			itemQuery.toString());
 		assertEquals(
+				"select id,date,s1.date," +
+					"plus(s1.id,id)," + // TODO remove
+					"plus(s1.invalidate-inOrder,invalidate-inOrder)," +
+					"plus(s1.invalidate-outOfOrder,invalidate-outOfOrder)," +
+					"plus(s1.invalidate-duplicate,invalidate-duplicate)," +
+					"plus(s1.invalidate-lost,invalidate-lost)," +
+					"plus(s1.invalidate-late,invalidate-late)," +
+					"plus(s1.invalidate-pending,invalidate-pending)," +
+					"plus(s1.ping-inOrder,ping-inOrder)," +
+					"plus(s1.ping-outOfOrder,ping-outOfOrder)," +
+					"plus(s1.ping-duplicate,ping-duplicate)," +
+					"plus(s1.ping-lost,ping-lost)," +
+					"plus(s1.ping-late,ping-late)," +
+					"plus(s1.ping-pending,ping-pending)," +
+					"plus(s1.pong-inOrder,pong-inOrder)," +
+					"plus(s1.pong-outOfOrder,pong-outOfOrder)," +
+					"plus(s1.pong-duplicate,pong-duplicate)," +
+					"plus(s1.pong-lost,pong-lost)," +
+					"plus(s1.pong-late,pong-late)," +
+					"plus(s1.pong-pending,pong-pending) " +
+				"from SamplerClusterNode join SamplerClusterNode s1 " +
+				"where (s1.id=id " +
+					"AND s1.connectDate=connectDate " +
+					"AND s1.sampler=sampler " +
+					"AND s1.running=(running+1)) " +
+				"order by this",
+			clusterQuery.toString());
+		assertEquals(
 				"select media,date,s1.date," +
 					"plus(s1.redirectFrom,redirectFrom)," +
 					"plus(s1.exception,exception)," +
@@ -162,6 +191,10 @@ public class ConsolidateTest extends ConnectedTest
 					SamplerModel.date.get(model3)),
 				items.next().subList(0, 3));
 			assertFalse(items.hasNext());
+		}
+		{
+			final Iterator<List<Object>> clusters = clusterQuery.search().iterator();
+			assertFalse(clusters.hasNext());
 		}
 		{
 			final Iterator<List<Object>> medias = mediaQuery.search().iterator();
