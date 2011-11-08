@@ -93,10 +93,7 @@ final class SamplerConsolidate
 
 			conditions.add(equal(join, replaceByCopy(SamplerModel.connectDate, type)));
 			conditions.add(equal(join, sampler));
-
-			{
 				conditions.add(running.bind(join).equal(running.plus(1)));
-			}
 
 			query.setCondition(Cope.and(conditions));
 		}
