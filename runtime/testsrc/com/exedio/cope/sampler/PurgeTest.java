@@ -41,12 +41,12 @@ public class PurgeTest extends ConnectedTest
 
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
-		assertEquals(c?1:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertPurge(new Date(), c?1:0, 0, 2, 1);
+		assertPurge(new Date(), c?2:0, 0, 2, 1);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));

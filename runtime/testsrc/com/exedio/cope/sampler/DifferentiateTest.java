@@ -207,7 +207,17 @@ public class DifferentiateTest extends ConnectedTest
 						SamplerModel.date.get(model2)),
 					items.next().subList(0, 3));
 				assertEquals(list(
+						"SampledModelItem2",
+						SamplerModel.date.get(model1),
+						SamplerModel.date.get(model2)),
+					items.next().subList(0, 3));
+				assertEquals(list(
 						"SampledModelItem",
+						SamplerModel.date.get(model2),
+						SamplerModel.date.get(model3)),
+					items.next().subList(0, 3));
+				assertEquals(list(
+						"SampledModelItem2",
 						SamplerModel.date.get(model2),
 						SamplerModel.date.get(model3)),
 					items.next().subList(0, 3));

@@ -18,17 +18,28 @@
 
 package com.exedio.cope.sampler;
 
-import com.exedio.cope.Model;
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 
-public final class Stuff
+public class SampledModelItem2 extends Item
 {
-	static final Model MODEL = new Model(SampledModelItem.TYPE, SampledModelItem2.TYPE);
+	static final StringField code = new StringField();
 
-	static
+	SampledModelItem2(final SetValue... values)
 	{
-		MODEL.enableSerialization(Stuff.class, "MODEL");
+		super(values);
 	}
 
-	static final Sampler sampler = new Sampler(MODEL);
-	public static final Model samplerModel = sampler.getModel();
+	SampledModelItem2(final ActivationParameters ap)
+	{
+		super(ap);
+	}
+
+	private static final long serialVersionUID = 1l;
+
+	static final Type<SampledModelItem2> TYPE = TypesBound.newType(SampledModelItem2.class);
 }
