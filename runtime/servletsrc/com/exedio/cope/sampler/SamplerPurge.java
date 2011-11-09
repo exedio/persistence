@@ -18,6 +18,11 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
 import java.sql.Connection;
@@ -34,7 +39,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
@@ -69,17 +73,17 @@ final class SamplerPurge extends Item
 			throw new RuntimeException(type.getID());
 		final Model model = type.getModel();
 		final String bf =
-			"delete from " + SchemaInfo.quoteName(model, SchemaInfo.getTableName (type )) +
-			" where "      + SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field)) + "<?";
+			"delete from " + quoteName(model, getTableName (type )) +
+			" where "      + quoteName(model, getColumnName(field)) + "<?";
 		final int rows;
 		final long start = System.nanoTime();
-		final Connection con = SchemaInfo.newConnection(model);
+		final Connection con = newConnection(model);
 		try
 		{
 			final PreparedStatement stat = con.prepareStatement(bf);
 			try
 			{
-				if(SchemaInfo.supportsNativeDate(model))
+				if(supportsNativeDate(model))
 					stat.setTimestamp(1, new Timestamp(limit.getTime())); else
 					stat.setLong     (1,               limit.getTime() );
 
