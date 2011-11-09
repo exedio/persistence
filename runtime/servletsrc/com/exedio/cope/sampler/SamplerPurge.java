@@ -68,9 +68,7 @@ final class SamplerPurge extends Item
 	throws SQLException
 	{
 		ctx.stopIfRequested();
-		final DateField field = (DateField)type.getFeature("date");
-		if(field==null)
-			throw new RuntimeException(type.getID());
+		final DateField field = SamplerModel.replaceByCopy(SamplerModel.date, type);
 		final Model model = type.getModel();
 		final String bf =
 			"delete from " + quoteName(model, getTableName (type )) +

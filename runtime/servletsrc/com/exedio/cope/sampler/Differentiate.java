@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.SamplerModel.replaceByCopy;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -26,7 +28,6 @@ import java.util.List;
 import com.exedio.cope.CompareFunctionCondition;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
@@ -135,24 +136,6 @@ final class Differentiate
 	private static <N> CompareFunctionCondition equal(final Join j, final FunctionField<N> field)
 	{
 		return field.bind(j).equal(field);
-	}
-
-	private static <F extends FunctionField> F replaceByCopy(final F field, final Type<?> type)
-	{
-		if(field.getType()==type)
-			return field;
-
-		for(final CopyConstraint cc : type.getCopyConstraints())
-		{
-			if(cc.getTemplate()==field)
-			{
-				final FunctionField<?> result = cc.getCopy();
-				@SuppressWarnings("unchecked")
-				final F resultCasted = (F)result;
-				return resultCasted;
-			}
-		}
-		throw new RuntimeException(field.getID());
 	}
 
 	private Differentiate()
