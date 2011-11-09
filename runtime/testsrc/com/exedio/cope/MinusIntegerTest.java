@@ -19,12 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MinusIntegerItem.TYPE;
-import static com.exedio.cope.MinusIntegerItem.viewAB;
-import static com.exedio.cope.MinusIntegerItem.viewAC;
-import static com.exedio.cope.MinusIntegerItem.viewBC;
 import static com.exedio.cope.MinusIntegerItem.numA;
 import static com.exedio.cope.MinusIntegerItem.numB;
 import static com.exedio.cope.MinusIntegerItem.numC;
+import static com.exedio.cope.MinusIntegerItem.viewAB;
+import static com.exedio.cope.MinusIntegerItem.viewAC;
+import static com.exedio.cope.MinusIntegerItem.viewBC;
+import static java.lang.Integer.valueOf;
 
 public class MinusIntegerTest extends AbstractRuntimeTest
 {
@@ -74,9 +75,9 @@ public class MinusIntegerTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(9)));
 		assertContains(item, TYPE.search(numC.equal(3)));
 
-		assertEquals(new Integer(-2), item.getViewAB());
-		assertEquals(new Integer( 4), item.getViewAC());
-		assertEquals(new Integer( 6), item.getViewBC());
+		assertEquals(valueOf(-2), item.getViewAB());
+		assertEquals(valueOf( 4), item.getViewAC());
+		assertEquals(valueOf( 6), item.getViewBC());
 		assertContains(item, TYPE.search(viewAB.equal(-2)));
 		assertContains(item, TYPE.search(viewAC.equal( 4)));
 		assertContains(item, TYPE.search(viewBC.equal( 6)));
@@ -93,7 +94,7 @@ public class MinusIntegerTest extends AbstractRuntimeTest
 
 		assertEquals(null, item.getViewAB());
 		assertEquals(null, item.getViewAC());
-		assertEquals(i6, item.getViewBC());
+		assertEquals(valueOf(6), item.getViewBC());
 		assertContains(item, TYPE.search(viewAB.equal((Integer)null)));
 		assertContains(item, TYPE.search(viewAC.equal((Integer)null)));
 		assertContains(item, TYPE.search(viewBC.equal(6)));

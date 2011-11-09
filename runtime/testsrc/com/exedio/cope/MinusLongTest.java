@@ -19,12 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MinusLongItem.TYPE;
-import static com.exedio.cope.MinusLongItem.viewAB;
-import static com.exedio.cope.MinusLongItem.viewAC;
-import static com.exedio.cope.MinusLongItem.viewBC;
 import static com.exedio.cope.MinusLongItem.numA;
 import static com.exedio.cope.MinusLongItem.numB;
 import static com.exedio.cope.MinusLongItem.numC;
+import static com.exedio.cope.MinusLongItem.viewAB;
+import static com.exedio.cope.MinusLongItem.viewAC;
+import static com.exedio.cope.MinusLongItem.viewBC;
+import static java.lang.Long.valueOf;
 
 public class MinusLongTest extends AbstractRuntimeTest
 {
@@ -74,9 +75,9 @@ public class MinusLongTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(numB.equal(9l)));
 		assertContains(item, TYPE.search(numC.equal(3l)));
 
-		assertEquals(new Long(-2), item.getViewAB());
-		assertEquals(new Long( 4), item.getViewAC());
-		assertEquals(new Long( 6), item.getViewBC());
+		assertEquals(valueOf(-2), item.getViewAB());
+		assertEquals(valueOf( 4), item.getViewAC());
+		assertEquals(valueOf( 6), item.getViewBC());
 		assertContains(item, TYPE.search(viewAB.equal(-2l)));
 		assertContains(item, TYPE.search(viewAC.equal( 4l)));
 		assertContains(item, TYPE.search(viewBC.equal( 6l)));
@@ -93,7 +94,7 @@ public class MinusLongTest extends AbstractRuntimeTest
 
 		assertEquals(null, item.getViewAB());
 		assertEquals(null, item.getViewAC());
-		assertEquals(new Long(6), item.getViewBC());
+		assertEquals(valueOf(6), item.getViewBC());
 		assertContains(item, TYPE.search(viewAB.equal((Long)null)));
 		assertContains(item, TYPE.search(viewAC.equal((Long)null)));
 		assertContains(item, TYPE.search(viewBC.equal(6l)));
